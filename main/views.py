@@ -20,11 +20,11 @@ now = datetime.now()
 
 # Create your views here.
 def excel(request):
-  df = pd.read_excel('C:\\OpenServer\\domains\\pandas\\new_base2.xlsx','sheet')
+  df = pd.read_excel('C:\\OpenServer\\domains\\new_base2.xlsx','sheet')
   print(df.shape)
   # print(df['SAP код материала'][0],df['Краткий текст материала'][0],df['SAP код ДЕЛ.Отход'][0])
   # print(df['SAP код материала'][19516],df['Краткий текст материала'][19516],df['SAP код ДЕЛ.Отход'][19516])
-  for i in range(0,19517):
+  for i in range(0,19526):
     sap_code_materials =df['SAP код материала'][i] 
     ktartkiy_tekst_materiala =df['Краткий текст материала'][i]
     sap_kod_del_otxod =df['SAP код ДЕЛ.Отход'][i]
@@ -224,7 +224,7 @@ def import_file(request,id):
   }
   
   return render(request,'result.html',context)
-  # return redirect('file_list')
+  
 
 def counter_exist_data(request):
   pr = [x['new_sap_kod_del_otxod'] for x in Product.objects.all().values('new_sap_kod_del_otxod').annotate(dcount=Count('new_sap_kod_del_otxod')).order_by('dcount')]

@@ -152,11 +152,11 @@ def counter_generated_data(datas):
   if len(excel_txt5) > 0:
     new_d=[[] for i in range(0,6)]
     for i in range(0,len(umumiy_without_duplicate[2])):
-      new_d[0]+=['001' for i in range(0,9)]
-      new_d[1]+=['KLAES_REST' for i in range(0,6)]
-      new_d[1]+=['KLAES_PP' for i in range(0,3)]
-      new_d[2]+=['MARA' for i in range(0,9)]
-      new_d[3]+=[ umumiy_without_duplicate[2][i] for i in range(0,9)]
+      new_d[0]+=['001' for j in range(0,9)]
+      new_d[1]+=['KLAES_REST' for j in range(0,6)]
+      new_d[1]+=['KLAES_PP' for j in range(0,3)]
+      new_d[2]+=['MARA' for j in range(0,9)]
+      new_d[3]+=[ umumiy_without_duplicate[2][i] for j in range(0,9)]
       new_d[4]+=['KLAES','KLS_LENGTH','CH_PROFILE_TYPE','KLS_INNER_ID','KLS_INNER_COL','KLS_COLOR','KLS_WAST','KLS_WAST_LENGTH','CH_KLAES_OPTM']
       new_d[5]+=[umumiy_without_duplicate[4][i],excel_txt5[i],umumiy_without_duplicate[5][i],umumiy_without_duplicate[9][i],umumiy_without_duplicate[10][i],umumiy_without_duplicate[11][i],umumiy_without_duplicate[6][i],umumiy_without_duplicate[7][i],umumiy_without_duplicate[8][i]]
   
@@ -166,9 +166,9 @@ def counter_generated_data(datas):
     dd2['Материал'] = new_d[3]
     dd2['Признак'] = new_d[4]
     dd2['Значение признака'] = new_d[5]
-
-  ddf2 = pd.DataFrame(dd2)
-  ddf2.to_excel(path2)
+  print(dd2)
+  # ddf2 = pd.DataFrame(dd2)
+  # ddf2.to_excel(path2)
 
   d1={}
   header1 ='MATNR BISMT MAKTX MEINS MTART MATKL WERKS BESKZ SPART BRGEW NTGEW GEWEI MTPOS_MARA'
@@ -265,7 +265,7 @@ def counter_generated_data(datas):
   new_ll =[[],[],[]]
   for i in range(0,2):
     new_ll[0]+=umumiy_without_duplicate[2]
-    new_ll[1]+=[ 1301 for i in range(0,len(umumiy_without_duplicate[0]))]
+    new_ll[1]+=[ 1301 for j in range(0,len(umumiy_without_duplicate[0]))]
     if i ==0:
       new_ll[2]+=['PSDA'  for x in umumiy_without_duplicate[5]]
     # elif i==1:
