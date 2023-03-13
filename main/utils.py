@@ -263,7 +263,7 @@ def counter_generated_data(datas):
   
 
   new_ll =[[],[],[]]
-  for i in range(0,2):
+  for i in range(0,3):
     new_ll[0]+=umumiy_without_duplicate[2]
     new_ll[1]+=[ 1301 for j in range(0,len(umumiy_without_duplicate[0]))]
     if i ==0:
@@ -272,6 +272,8 @@ def counter_generated_data(datas):
       # new_ll[2]+=['PS81' if x == 'ALU' else 'PS82' for x in umumiy_without_duplicate[5]]
     elif i ==1:
       new_ll[2]+=['PS01' if x == 'ALU' else 'PS02' for x in umumiy_without_duplicate[5]]
+    elif i==2:
+      new_ll[2]+=['B100' for x in umumiy_without_duplicate[5]]
     
     
 
