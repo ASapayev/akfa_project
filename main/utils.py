@@ -166,9 +166,9 @@ def counter_generated_data(datas):
     dd2['Материал'] = new_d[3]
     dd2['Признак'] = new_d[4]
     dd2['Значение признака'] = new_d[5]
-  print(dd2)
-  # ddf2 = pd.DataFrame(dd2)
-  # ddf2.to_excel(path2)
+  # print(dd2)
+  ddf2 = pd.DataFrame(dd2)
+  ddf2.to_excel(path2)
 
   d1={}
   header1 ='MATNR BISMT MAKTX MEINS MTART MATKL WERKS BESKZ SPART BRGEW NTGEW GEWEI MTPOS_MARA'
@@ -186,7 +186,7 @@ def counter_generated_data(datas):
   d1['GEWEI']=[ 'КГ' for i in range(0,len(umumiy_without_duplicate[0]))]
   d1['MTPOS_MARA']=[ 'NORM' for i in range(0,len(umumiy_without_duplicate[0]))]
   df1= pd.DataFrame(d1)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\otxod_baz-{s2}.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\1.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='utf-8')
   
 
   header2='MAKTX MEINS MTART MATNR WERKS EKGRP XCHPF DISGR DISMM DISPO DISLS WEBAZ BESKZ LGFSB PLIFZ PERKZ MTVFP SCM_STRA1 VRMOD PPSKZ SCM_WHATBOM SCM_HEUR_ID SCM_RRP_TYPE SCM_PROFID STRGR BWKEY MLAST BKLAS VPRSV PEINH STPRS PRCTR EKALR HKMAT LOSGR SFCPF UEETK LGPRO SBDKZ'
@@ -233,7 +233,7 @@ def counter_generated_data(datas):
   d2['SBDKZ']=[ 2 for i in range(0,len(umumiy_without_duplicate[0]))]
 
   df2= pd.DataFrame(d2)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\otxod_baz2-{s2}.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\2.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='utf-8')
   
 
   header3 ='MAKTX MEINS MTART SPART MATNR WERKS VKORG MTPOS VTWEG PRCTR MTVFP ALAND TATYP TAXKM VERSG KTGRM KONDM LADGR TRAGR'
@@ -259,7 +259,7 @@ def counter_generated_data(datas):
   d3['TRAGR']=[ '0001' for i in range(0,len(umumiy_without_duplicate[0]))]
   
   df3= pd.DataFrame(d3)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\otxod_baz3-{s2}.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\3.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='utf-8')
   
 
   new_ll =[[],[],[]]
@@ -283,7 +283,7 @@ def counter_generated_data(datas):
   d4['LGORT']=new_ll[2]
 
   df4= pd.DataFrame(d4)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\otxod_baz4-{s2}.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='utf-8')
   
   d5 ={}
   d5['del_otxod_sap_code']=umumiy_without_duplicate[2]
@@ -291,11 +291,11 @@ def counter_generated_data(datas):
   d5['ed_iz2']=excel_txt5
   d5['naz_ed_iz']=[ 'M' for i in range(0,len(umumiy_without_duplicate[0]))]
   df5= pd.DataFrame(d5)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\otxod_baz5-{s2}.txt', df5.values, fmt='%s', delimiter="\t")
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='utf-8')
 
   file_exist =ExcelFiles(file =f'uploads/new-data-{s2}.xlsx',generated=True)
   file_exist.save()
-  file_exist2 =ExcelFiles(file =f'uploads/characteristic-data-{s2}.xlsx',generated=True)
+  file_exist2 =ExcelFiles(file =f'uploads/Лист в С 3.xlsx',generated=True)
   file_exist2.save()
   return [file_exist.id,file_exist2.id]
 
