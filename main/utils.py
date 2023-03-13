@@ -264,7 +264,7 @@ def counter_generated_data(datas):
 
   new_ll =[[],[],[]]
   for i in range(0,3):
-    new_ll[0]+=umumiy_without_duplicate[2]
+        new_ll[0]+=umumiy_without_duplicate[2]
     new_ll[1]+=[ 1301 for j in range(0,len(umumiy_without_duplicate[0]))]
     if i ==0:
       new_ll[2]+=['PSDA'  for x in umumiy_without_duplicate[5]]
