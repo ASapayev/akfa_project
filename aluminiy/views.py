@@ -8,29 +8,35 @@ from .forms import FileForm
 
 
 def artikul_and_companent(request):
-  df = pd.read_excel('C:\\OpenServer\\domains\\pandas\\new_komponent.xlsx','Лист1')
-  for i in range(0,3750):
-    artikul =df['АРТИКУЛ'][i] 
-    component =df['КОМПОНЕНТ'][i]
-    seria =df['Серия'][i]
-    product_des_ru =df['Productdescription-RUS'][i]
-    product_des_ru2 =df['Productdescription-RUS2'][i]
-    proverka_artikul2 = df['ПроверкаАртикул2'][i]
-    proverkacom2 =df['ПроверкаКомпонент2'][i]
-    grupa_materialov= df['Группа материалов'][i]
-    grupa_materialov2= df['Группа материалов2'][i]
-    artiku_comp = ArtikulComponent(
-      artikul = artikul,
-      component = component,
-      seria =seria,
-      product_description_ru1=product_des_ru,
-      product_description_ru =product_des_ru2,
-      proverka_artikul2 =proverka_artikul2,
-      proverka_component2=proverkacom2,
-      gruppa_materialov =grupa_materialov,
-      gruppa_materialov2 =grupa_materialov2
-        )
-    artiku_comp.save()
+  df = pd.read_excel('C:\\OpenServer\\domains\\new_komponent.xlsx','Лист1')
+  print(df.shape)
+  # for i in range(0,3750):
+  #   artikul =df['АРТИКУЛ'][i] 
+  #   component =df['КОМПОНЕНТ'][i]
+  #   seria =df['Серия'][i]
+  #   product_des_ru =df['Productdescription-RUS'][i]
+  #   product_des_ru2 =df['Productdescription-RUS2'][i]
+  #   stariy_code_benkam=df['Stariy kod benkam'][i]
+  #   stariy_code_jomiy=df['Stariy kod jomiy'][i]
+  #   proverka_artikul2 = df['ПроверкаАртикул2'][i]
+  #   proverkacom2 =df['ПроверкаКомпонент2'][i]
+  #   grupa_materialov= df['Группа материалов ГП'][i]
+  #   grupa_materialov2= df['Группа материалов ПФ'][i]
+  #   artiku_comp = ArtikulComponent(
+  #     artikul = artikul,
+  #     component = component,
+  #     seria =seria,
+  #     product_description_ru1=product_des_ru,
+  #     product_description_ru =product_des_ru2,
+  #     stariy_code_benkam=stariy_code_benkam,
+  #     stariy_code_jomiy=stariy_code_jomiy,
+  #     proverka_artikul2 =proverka_artikul2,
+  #     proverka_component2=proverkacom2,
+  #     gruppa_materialov =grupa_materialov,
+  #     gruppa_materialov2 =grupa_materialov2
+  #       )
+  #   artiku_comp.save()
+  
   return JsonResponse({'converted':'a'})
 
 def alu_product_base(request):

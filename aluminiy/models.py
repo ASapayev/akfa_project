@@ -9,6 +9,8 @@ class ArtikulComponent(models.Model):
   seria =models.CharField(max_length=250,blank=True,null=True)
   product_description_ru1 =models.CharField(max_length=250,blank=True,null=True)
   product_description_ru =models.CharField(max_length=250,blank=True,null=True)
+  stariy_code_benkam =models.CharField(max_length=10)
+  stariy_code_jomiy =models.CharField(max_length=10)
   proverka_artikul2 =models.CharField(max_length=250,blank=True,null=True)
   proverka_component2=models.CharField(max_length=250,blank=True,null=True)
   gruppa_materialov =models.CharField(max_length=250,blank=True,null=True)
