@@ -25,6 +25,9 @@ class Product(models.Model):
   sena_za_metr =models.FloatField(blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
+  
+  class Meta:
+       ordering = ['-id']
 
 class ExcelFiles(models.Model):
   file =models.FileField(upload_to='uploads/')
