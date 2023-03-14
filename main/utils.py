@@ -4,6 +4,7 @@ from datetime import datetime
 from config.settings import MEDIA_ROOT
 import pandas as pd
 import numpy as np
+import os
 now = datetime.now()
 
 def counter_generated_data(datas):
@@ -124,8 +125,13 @@ def counter_generated_data(datas):
       counter[dat['sap_code_krat']]=counter_list
         
   s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
-  path =f'{MEDIA_ROOT}\\uploads\\new-data-{s2}.xlsx'
-  path2 =f'{MEDIA_ROOT}\\uploads\\characteristic-data-{s2}.xlsx'
+  parent_dir =f'{MEDIA_ROOT}\\uploads\\{s2}'
+  
+  if not os.path.isdir(parent_dir):
+        create_folder(f'{MEDIA_ROOT}\\uploads\\',s2)
+        
+  path =f'{MEDIA_ROOT}\\uploads\\{s2}\\new-data-{s2}.xlsx'
+  path2 =f'{MEDIA_ROOT}\\uploads\\{s2}\\Лист в С 3.xlsx'
   d={}
   d['SAP код материала']=umumiy[0]
   d['Краткий текст материала']=umumiy[1]
@@ -186,7 +192,7 @@ def counter_generated_data(datas):
   d1['GEWEI']=[ 'КГ' for i in range(0,len(umumiy_without_duplicate[0]))]
   d1['MTPOS_MARA']=[ 'NORM' for i in range(0,len(umumiy_without_duplicate[0]))]
   df1= pd.DataFrame(d1)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\1.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='utf-8')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\1.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='utf-8')
   
 
   header2='MAKTX MEINS MTART MATNR WERKS EKGRP XCHPF DISGR DISMM DISPO DISLS WEBAZ BESKZ LGFSB PLIFZ PERKZ MTVFP SCM_STRA1 VRMOD PPSKZ SCM_WHATBOM SCM_HEUR_ID SCM_RRP_TYPE SCM_PROFID STRGR BWKEY MLAST BKLAS VPRSV PEINH STPRS PRCTR EKALR HKMAT LOSGR SFCPF UEETK LGPRO SBDKZ'
@@ -233,7 +239,7 @@ def counter_generated_data(datas):
   d2['SBDKZ']=[ 2 for i in range(0,len(umumiy_without_duplicate[0]))]
 
   df2= pd.DataFrame(d2)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\2.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='utf-8')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\2.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='utf-8')
   
 
   header3 ='MAKTX MEINS MTART SPART MATNR WERKS VKORG MTPOS VTWEG PRCTR MTVFP ALAND TATYP TAXKM VERSG KTGRM KONDM LADGR TRAGR'
@@ -285,7 +291,7 @@ def counter_generated_data(datas):
   d4['LGORT']=new_ll[2]
 
   df4= pd.DataFrame(d4)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='utf-8')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='utf-8')
   
   d5 ={}
   d5['del_otxod_sap_code']=umumiy_without_duplicate[2]
@@ -293,11 +299,11 @@ def counter_generated_data(datas):
   d5['ed_iz2']=excel_txt5
   d5['naz_ed_iz']=[ 'M' for i in range(0,len(umumiy_without_duplicate[0]))]
   df5= pd.DataFrame(d5)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='utf-8')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='utf-8')
 
-  file_exist =ExcelFiles(file =f'uploads/new-data-{s2}.xlsx',generated=True)
+  file_exist =ExcelFiles(file =f'uploads//{s2}//new-data-{s2}.xlsx',generated=True)
   file_exist.save()
-  file_exist2 =ExcelFiles(file =f'uploads/Лист в С 3.xlsx',generated=True)
+  file_exist2 =ExcelFiles(file =f'uploads//{s2}//Лист в С 3.xlsx',generated=True)
   file_exist2.save()
   return [file_exist.id,file_exist2.id]
 
@@ -321,3 +327,10 @@ def umumiy_dict(product,text_materials_list,duplicate='No'):
   text_materials_list[15].append(product.ves_del_odxod)
   text_materials_list[16].append(duplicate)
   return text_materials_list
+
+
+
+def create_folder(parent_dir,directory):
+  path = os.path.join(parent_dir, directory)
+  os.mkdir(path)
+  
