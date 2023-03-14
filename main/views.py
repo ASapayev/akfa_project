@@ -426,6 +426,7 @@ group_three =['ALU']
 group_four =['PVC']
 
 def lenght_generate(request,id):
+  s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
   file = ExcelFiles.objects.get(id=id).file
   counter =0
   file_path =f'{MEDIA_ROOT}\\{file}'
@@ -461,7 +462,7 @@ def lenght_generate(request,id):
     pr={'sena':row['Цена'],'length':lenn,'ves_gp':row['Вес за ШТ'],'kls_color':row['KLS_COLOR'],'kls_inner_color':row['KLS_INNER_COL'],'kls_inner_id':row['KLS_INNER_ID'],'ch_profile_type':row['Гр.мат'][len(row['Гр.мат'])-3:],'id_claes':row['KLAES ID'],'sap_code':row['SAP код'],'sap_code_krat':row['SAP код'].split('-')[0],'text':row['Краткий текст материала'],'data':new_generated_data}
     new_liss.append(pr)
   # print(new_liss)
-  file_ids  =counter_generated_data(new_liss)
+  file_ids  =counter_generated_data(new_liss,s2)
   files =ExcelFiles.objects.filter(id__in=file_ids)
   context={
     'files':files

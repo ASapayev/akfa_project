@@ -5,9 +5,9 @@ from config.settings import MEDIA_ROOT
 import pandas as pd
 import numpy as np
 import os
-now = datetime.now()
 
-def counter_generated_data(datas):
+
+def counter_generated_data(datas,s2):
   pr = [x['new_sap_kod_del_otxod'] for x in Product.objects.all().values('new_sap_kod_del_otxod').annotate(dcount=Count('new_sap_kod_del_otxod')).order_by('dcount')]
   products = Product.objects.all().values('id','sap_kod_del_otxod','kratkiy_tekst_del_otxod')
 
@@ -124,7 +124,7 @@ def counter_generated_data(datas):
         umumiy_without_duplicate = umumiy_dict(product,umumiy_without_duplicate)
       counter[dat['sap_code_krat']]=counter_list
         
-  s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
+  
   parent_dir =f'{MEDIA_ROOT}\\uploads\\{s2}'
   
   if not os.path.isdir(parent_dir):
