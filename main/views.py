@@ -5,7 +5,7 @@ from .models import Product,ExcelFiles
 from django.core.paginator import Paginator
 from django.http import JsonResponse,HttpResponse,Http404
 import re
-from django.db.models import Count
+from django.db.models import Count,Q
 from .forms import FileForm
 import os
 from django.conf import settings  
@@ -70,7 +70,25 @@ def index(request):
   return render(request,'index.html')
 
 def show_list(request):
-  products =Product.objects.all()
+  search =request.GET.get('search',None)
+  if search:
+    products =Product.objects.filter(
+      Q(sap_code_materials=search)|Q(ktartkiy_tekst_materiala=search)
+      |Q(kratkiy_tekst_del_otxod=search)
+      |Q(sap_kod_del_otxod=search)
+      |Q(id_klaes=search)
+      |Q(ch_profile_type=search)
+      |Q(kls_wast=search)
+      |Q(kls_wast_length=search)
+      |Q(ch_kls_optom=search)
+      |Q(kls_inner_id=search)
+      |Q(kls_inner_color=search)
+      |Q(kls_color=search)
+      |Q(ves_gp=search)
+      )
+  else:
+    products =Product.objects.all()
+      
   paginator = Paginator(products, 25)
 
   if request.GET.get('page') != None:

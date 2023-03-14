@@ -9,102 +9,86 @@
 </head>
 <body>
   <div class="container">
-
-    
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Akfa</a>
+      <a class="navbar-brand" href="#">Navbar</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home </a>
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
+         
         </ul>
-        <!-- <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> -->
+        <form class="form-inline  " >
+          <div class="d-flex flex-row">
+            <div class="p-2"><input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name='search'></div>
+            <div class="p-2"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></div>
+          </div>
+          
+          
+        </form>
       </div>
     </nav>
+
+    
+
     <!-- <a href="{% url 'excel' %}" class="btn btn-primary ">Convert to Sql</a>
     <a href="{% url 'excel' %}" class="btn btn-success ">Show All Datas</a> -->
   </div>
   <div class="container">
-    <div style="overflow-x:auto;">
-    <table class="table table-striped w-auto small" >
-  <thead>
-    <tr >
-      <th scope="col">#ID</th>
-      <th scope="col">SAP код материала</th>
-      <th scope="col">Краткий текст материала</th>
-      <th scope="col">Длина</th>
-      <th scope="col">Название системы</th>
-      <th scope="col">Наименование материала SAP IMZO</th>
-      <th scope="col">SAP код ДЕЛ.Отход</th>
-      <th scope="col">new</th>
-      <th scope="col">Краткий текст ДЕЛ.Отход</th>
-      <th scope="col">Проверка Дубликат</th>
-      <th scope="col">Длина2</th>
-      <th scope="col">ID KLAES</th>
-      <th scope="col">Вид материала</th>
-      <th scope="col">Группа материалов</th>
-      <th scope="col">Базовая ЕИ</th>
-      <th scope="col">Сектор</th>
-      <th scope="col">Цена за шт</th>
-      <th scope="col">Цена за метр</th>
-      <th scope="col">KLS_INNER ID</th>
-      <th scope="col">KLS_INNER COLOR</th>
-      <th scope="col">KLAES Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for product in products %}
-    <tr>
+    <div class="table-responsive text-nowrap">
+    <table  class="table table-striped" >
+      <thead>
+        <tr >
+          <th   >#ID</th>
+          <th >SAP код материала</th>
+          <th >Краткий текст материала</th>
+          <th >SAP код ДЕЛ.Отход</th>
+          <th >Краткий текст ДЕЛ.Отход</th>
+          <th >ID KLAES</th>
+          <th >Ch Profile type</th>
+          <th >KLS_WAST</th>
+          <th >KLS_WAST_LENGTH</th>
+          <th >CH_KLS_OPTOM</th>
+          <th >KLS_ID</th>
+          <th >KLS_INNER COLOR</th>
+          <th >KLS COLOR</th>
+          <th >Вес ГП</th>
+          <th >Цена за шт</th>
+          <th >Цена за метр</th>
+          <th >Вес ДЕЛ.Отход</th>
 
-      <th scope="row" style="font-size: 16px; font-weight:350">{{ product.id }}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.sap_code_materials }}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.ktartkiy_tekst_materiala}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.dlina }}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.nazvaniye_sistemi }}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.naimenovaniye_materiala_sap_imzo}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.sap_kod_del_otxod}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.new_sap_kod_del_otxod}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.kratkiy_tekst_del_otxod}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.proverka_duplicat}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.dlina2}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.id_klaes}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.vid_materiala}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.gruppa_materiala}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.bazavoye_ei}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.sector}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.sena_za_shtuk}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.sena_za_metr}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.kls_inner_id}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.kls_inner_color}}</th>
-      <th scope="row" style="font-size: 16px; font-weight:350" >{{product.klaes_description}}</th>
-    </tr>
-    {% endfor %}
-  </tbody>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+          <td  style="font-size: 16px; font-weight:350" >{{ product.id }}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.sap_code_materials }}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.ktartkiy_tekst_materiala}}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.sap_kod_del_otxod}}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.kratkiy_tekst_del_otxod}}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.id_klaes}}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.ch_profile_type }}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.kls_wast }}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.kls_wast_lengtd}}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.ch_kls_optom}}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.kls_inner_id}}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.kls_inner_color}}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.kls_color}}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.ves_gp}}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.sena_za_shtuk}}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.sena_za_metr}}</td>
+          <td  style="font-size: 16px; font-weight:350" >{{product.ves_del_odxod}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
   </div>
 <div class="container">
