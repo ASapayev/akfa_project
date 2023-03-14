@@ -124,13 +124,14 @@ def counter_generated_data(datas,s2):
         umumiy_without_duplicate = umumiy_dict(product,umumiy_without_duplicate)
       counter[dat['sap_code_krat']]=counter_list
         
-  
-  parent_dir =f'{MEDIA_ROOT}\\uploads\\{s2}'
-  
-  if not os.path.isdir(parent_dir):
-        create_folder(f'{MEDIA_ROOT}\\uploads\\',s2)
+  for i in range(1,100): 
+    s2=s2+f'--{i}'
+    parent_dir =f'{MEDIA_ROOT}\\uploads\\{s2}'
+    if not os.path.isdir(parent_dir):
+          create_folder(f'{MEDIA_ROOT}\\uploads\\',s2)
+          break
         
-  path =f'{MEDIA_ROOT}\\uploads\\{s2}\\new-data-{s2}.xlsx'
+  path =f'{MEDIA_ROOT}\\uploads\\{s2}\\new-data.xlsx'
   path2 =f'{MEDIA_ROOT}\\uploads\\{s2}\\Лист в С 3.xlsx'
   d={}
   d['SAP код материала']=umumiy[0]
@@ -301,7 +302,7 @@ def counter_generated_data(datas,s2):
   df5= pd.DataFrame(d5)
   np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='utf-8')
 
-  file_exist =ExcelFiles(file =f'uploads//{s2}//new-data-{s2}.xlsx',generated=True)
+  file_exist =ExcelFiles(file =f'uploads//{s2}//new-data.xlsx',generated=True)
   file_exist.save()
   file_exist2 =ExcelFiles(file =f'uploads//{s2}//Лист в С 3.xlsx',generated=True)
   file_exist2.save()
