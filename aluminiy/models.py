@@ -7,6 +7,7 @@ class ArtikulComponent(models.Model):
   artikul = models.CharField(max_length=250,blank=True,null=True)
   component =models.CharField(max_length=250,blank=True,null=True)
   seria =models.CharField(max_length=250,blank=True,null=True)
+  product_description_ru1 =models.CharField(max_length=250,blank=True,null=True)
   product_description_ru =models.CharField(max_length=250,blank=True,null=True)
   proverka_artikul2 =models.CharField(max_length=250,blank=True,null=True)
   proverka_component2=models.CharField(max_length=250,blank=True,null=True)
