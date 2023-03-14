@@ -265,12 +265,12 @@ def counter_generated_data(datas):
   d3['TRAGR']=[ '0001' for i in range(0,len(umumiy_without_duplicate[0]))]
   
   df3= pd.DataFrame(d3)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\3.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='utf-8')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\3.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='utf-8')
   
 
   new_ll =[[],[],[]]
   for i in range(0,3):
-        new_ll[0]+=umumiy_without_duplicate[2]
+    new_ll[0]+=umumiy_without_duplicate[2]
     new_ll[1]+=[ 1301 for j in range(0,len(umumiy_without_duplicate[0]))]
     if i ==0:
       new_ll[2]+=['PSDA'  for x in umumiy_without_duplicate[5]]
