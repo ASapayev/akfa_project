@@ -8,6 +8,7 @@ urlpatterns = [
     path('accounts/',include('accounts.urls')),
     path('',include('main.urls')),
     path('',include('aluminiy.urls')),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
 # if settings.DEBUG:
