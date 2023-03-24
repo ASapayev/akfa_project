@@ -32,7 +32,6 @@ def counter_generated_data(datas,s2):
   kratkiy_text_odxod =[]
   duplicate =[]
 
-
   new_data = []
   excel_txt5 =[]
   new_excel_txt5 =[]
@@ -132,7 +131,7 @@ def counter_generated_data(datas,s2):
           break
         
   path =f'{MEDIA_ROOT}\\uploads\\{s2}\\new-data.xlsx'
-  path2 =f'{MEDIA_ROOT}\\uploads\\{s2}\\Лист в С 3.xlsx'
+  path2 =f'{MEDIA_ROOT}\\uploads\\{s2}\\Лист в C 3.xlsx'
   d={}
   d['SAP код материала']=umumiy[0]
   d['Краткий текст материала']=umumiy[1]
@@ -170,15 +169,15 @@ def counter_generated_data(datas,s2):
     dd2['Вид класса'] = new_d[0]
     dd2['Класс'] = new_d[1]
     dd2['Таблица'] = new_d[2]
-    dd2['Материал'] = new_d[3]
-    dd2['Признак'] = new_d[4]
+    dd2['Объект'] = new_d[3]
+    dd2['Имя признака'] = new_d[4]
     dd2['Значение признака'] = new_d[5]
   # print(dd2)
   ddf2 = pd.DataFrame(dd2)
   ddf2.to_excel(path2)
 
   d1={}
-  header1 ='MATNR BISMT MAKTX MEINS MTART MATKL WERKS BESKZ SPART BRGEW NTGEW GEWEI MTPOS_MARA'
+  header1 ='MATNR\tBISMT\tMAKTX\tMEINS\tMTART\tMATKL\tWERKS\tBESKZ\tSPART\tBRGEW\tNTGEW\tGEWEI\tMTPOS_MARA'
   d1['MATNR']=umumiy_without_duplicate[2]
   d1['BISMT']=umumiy_without_duplicate[2]
   d1['MAKTX']=umumiy_without_duplicate[3]
@@ -193,10 +192,10 @@ def counter_generated_data(datas,s2):
   d1['GEWEI']=[ 'КГ' for i in range(0,len(umumiy_without_duplicate[0]))]
   d1['MTPOS_MARA']=[ 'NORM' for i in range(0,len(umumiy_without_duplicate[0]))]
   df1= pd.DataFrame(d1)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\1.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='utf-8')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\1.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
   
 
-  header2='MAKTX MEINS MTART MATNR WERKS EKGRP XCHPF DISGR DISMM DISPO DISLS WEBAZ BESKZ LGFSB PLIFZ PERKZ MTVFP SCM_STRA1 VRMOD PPSKZ SCM_WHATBOM SCM_HEUR_ID SCM_RRP_TYPE SCM_PROFID STRGR BWKEY MLAST BKLAS VPRSV PEINH STPRS PRCTR EKALR HKMAT LOSGR SFCPF UEETK LGPRO SBDKZ'
+  header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tUEETK\tLGPRO\tSBDKZ'
 
   d2={}
   d2['MAKTX']= umumiy_without_duplicate[3]
@@ -240,10 +239,10 @@ def counter_generated_data(datas,s2):
   d2['SBDKZ']=[ 2 for i in range(0,len(umumiy_without_duplicate[0]))]
 
   df2= pd.DataFrame(d2)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\2.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='utf-8')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\2.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
   
 
-  header3 ='MAKTX MEINS MTART SPART MATNR WERKS VKORG MTPOS VTWEG PRCTR MTVFP ALAND TATYP TAXKM VERSG KTGRM KONDM LADGR TRAGR'
+  header3 ='MAKTX\tMEINS\tMTART\tSPART\tMATNR\tWERKS\tVKORG\tMTPOS\tVTWEG\tPRCTR\tMTVFP\tALAND\tTATYP\tTAXKM\tVERSG\tKTGRM\tKONDM\tLADGR\tTRAGR'
   d3={}
   d3['MAKTX']= umumiy_without_duplicate[3]
   d3['MEINS']= ['ШТ' for i in range(0,len(umumiy_without_duplicate[0]))]
@@ -254,7 +253,7 @@ def counter_generated_data(datas,s2):
   d3['VKORG']=[ 1300 for i in range(0,len(umumiy_without_duplicate[0]))]
   d3['MTPOS']=[ 'NORM' for i in range(0,len(umumiy_without_duplicate[0]))]
   d3['VTWEG']=[ 99 for i in range(0,len(umumiy_without_duplicate[0]))]
-  d3['PRCTR']=[ 1300 for i in range(0,len(umumiy_without_duplicate[0]))]
+  d3['PRCTR']=[ 1301 for i in range(0,len(umumiy_without_duplicate[0]))]
   d3['MTVFP']=[ '02' for i in range(0,len(umumiy_without_duplicate[0]))]
   d3['ALAND']=[ 'UZ' for i in range(0,len(umumiy_without_duplicate[0]))]
   d3['TATYP']=[ 'MWST' for i in range(0,len(umumiy_without_duplicate[0]))]
@@ -266,7 +265,7 @@ def counter_generated_data(datas,s2):
   d3['TRAGR']=[ '0001' for i in range(0,len(umumiy_without_duplicate[0]))]
   
   df3= pd.DataFrame(d3)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\3.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='utf-8')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\3.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
   
 
   new_ll =[[],[],[]]
@@ -275,8 +274,6 @@ def counter_generated_data(datas,s2):
     new_ll[1]+=[ 1301 for j in range(0,len(umumiy_without_duplicate[0]))]
     if i ==0:
       new_ll[2]+=['PSDA'  for x in umumiy_without_duplicate[5]]
-    # elif i==1:
-      # new_ll[2]+=['PS81' if x == 'ALU' else 'PS82' for x in umumiy_without_duplicate[5]]
     elif i ==1:
       new_ll[2]+=['PS01' if x == 'ALU' else 'PS02' for x in umumiy_without_duplicate[5]]
     elif i==2:
@@ -285,14 +282,14 @@ def counter_generated_data(datas,s2):
     
 
 
-  header4='MATNR WERKS LGORT'
+  header4='MATNR\tWERKS\tLGORT'
   d4={}
   d4['MATNR']=new_ll[0]
   d4['WERKS']=new_ll[1]
   d4['LGORT']=new_ll[2]
 
   df4= pd.DataFrame(d4)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='utf-8')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
   
   d5 ={}
   d5['del_otxod_sap_code']=umumiy_without_duplicate[2]
@@ -300,11 +297,11 @@ def counter_generated_data(datas,s2):
   d5['ed_iz2']=excel_txt5
   d5['naz_ed_iz']=[ 'M' for i in range(0,len(umumiy_without_duplicate[0]))]
   df5= pd.DataFrame(d5)
-  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='utf-8')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
 
   file_exist =ExcelFiles(file =f'uploads//{s2}//new-data.xlsx',generated=True)
   file_exist.save()
-  file_exist2 =ExcelFiles(file =f'uploads//{s2}//Лист в С 3.xlsx',generated=True)
+  file_exist2 =ExcelFiles(file =f'uploads//{s2}//Лист в C 3.xlsx',generated=True)
   file_exist2.save()
   return [file_exist.id,file_exist2.id]
 
