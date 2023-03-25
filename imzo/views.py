@@ -4,6 +4,8 @@ from .models import ExcelFilesImzo,ImzoBase
 from config.settings import MEDIA_ROOT
 import pandas as pd
 from .BAZA import BAZA
+import os
+from .utils import create_folder
     
 # Create your views here.
 
@@ -393,12 +395,20 @@ def lenght_generate_imzo(request,id):
 
     del df_new["counter"]
     print(df_new)
-    # from datetime import datetime
-    # now = datetime.now()
-    # s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
-    # path =f'{MEDIA_ROOT}\\uploads\\imzo\\{s2}\\duplicate.xlsx'
-    # path2 =f'{MEDIA_ROOT}\\uploads\\imzo\\{s2}\\generated_data.xlsx'
-    # df.to_excel(path)
-    # df_new.to_excel(path2)
+    print(df)
+    from datetime import datetime
+    now = datetime.now()
+    s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
+    
+    parent_dir = f'{MEDIA_ROOT}\\uploads\\imzo\\{s2}\\'
+    if not os.path.isdir(parent_dir):
+        create_folder(f'{MEDIA_ROOT}\\uploads\\imzo',s2)
+        
+    
+    path =f'{MEDIA_ROOT}\\uploads\\imzo\\{s2}\\duplicate.xlsx'
+    df.to_excel(path)
+    
+    path2 =f'{MEDIA_ROOT}\\uploads\\imzo\\{s2}\\generated_data.xlsx'
+    df_new.to_excel(path2)
     return redirect('abduvali')
 
