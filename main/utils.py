@@ -172,6 +172,7 @@ def counter_generated_data(datas,s2):
     dd2['Объект'] = new_d[3]
     dd2['Имя признака'] = new_d[4]
     dd2['Значение признака'] = new_d[5]
+    dd2['Статус загрузки'] = ''
   # print(dd2)
   ddf2 = pd.DataFrame(dd2)
   ddf2.to_excel(path2)

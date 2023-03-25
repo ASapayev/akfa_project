@@ -505,7 +505,6 @@ def lenght_generate(request,id):
 def delete_file(request,id):
   file =get_object_or_404(ExcelFiles,id=id)
   a=request.GET.get('generated',None)
-  print(a)
   if a:
     return redirect('index')
   # print(file.file)
