@@ -1,13 +1,13 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import pandas as pd
-from .models import ArtikulComponent,AluminiyProduct,AluFile,AluminiyProductTermo,AluminiyProductBasesimple,AluminiyProductBasetermo
+# from .models import ArtikulComponent,AluminiyProduct,AluFile,AluminiyProductTermo,AluminiyProductBasesimple,AluminiyProductBasetermo
 from main.models import ExcelFiles
-from .forms import FileForm
+from .forms import FileFormTermo
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
 import numpy as np
-from .utils import fabrikatsiya_sap_kod,do_exist
+from .utils import fabrikatsiya_sap_kod
 import datetime
 
 
@@ -159,7 +159,7 @@ def aluminiy_group(request):
       return JsonResponse({'data':umumiy})
 
 
-def product_add(request,id):
+def product_add_termo(request,id):
       file = AluFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
       df =df.astype(str)
@@ -170,7 +170,7 @@ def product_add(request,id):
       umumiy_counter={}
       for al in aluminiy_group:
             umumiy_counter[ al['artikul'] + '-' + al['section'] ] = al['total_max']
-      ############################ end grouby ######
+      ############################ end groupby ######
       
       
       a=datetime.datetime.now()
