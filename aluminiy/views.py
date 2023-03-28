@@ -11,6 +11,7 @@ from .utils import fabrikatsiya_sap_kod,create_folder
 import os
 from datetime import datetime
 now = datetime.now()
+import random
 
 
 # Create your views here.
@@ -464,7 +465,6 @@ def product_add(request,id):
       if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}.xlsx'):
             path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}.xlsx'
       else:
-            import random
             st =random.randint(0,1000)
             path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}{st}.xlsx'
             
