@@ -462,6 +462,7 @@ def product_add(request,id):
        
       if not os.path.isdir(parent_dir):
             create_folder(f'{MEDIA_ROOT}\\uploads\\','aluminiy')
+            
       if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}.xlsx'):
             path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}.xlsx'
       else:

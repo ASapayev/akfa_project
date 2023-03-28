@@ -13,6 +13,8 @@ def do_exist(artikules):
     return ArtikulComponent.objects.filter(artikul__in=artikules).count() == len(artikules)
 
 def create_folder(parent_dir,directory):
-    path = os.path.join(parent_dir, directory)
-    os.mkdir(path)
+    path =os.path.join(parent_dir,directory)
+    if not os.path.isdir(path):
+        path = os.path.join(parent_dir, directory)
+        os.mkdir(path)
             
