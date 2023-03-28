@@ -23,6 +23,7 @@ def artikul_and_companent(request):
             artikul =df['АРТИКУЛ'][i] 
             component =df['КОМПОНЕНТ'][i]
             seria =df['Серия'][i]
+            
             product_des_ru =df['Productdescription-RUS'][i]
             product_des_ru2 =df['Productdescription-RUS2'][i]
             stariy_code_benkam=df['Stariy kod benkam'][i]
