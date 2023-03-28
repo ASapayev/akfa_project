@@ -215,6 +215,7 @@ def product_add(request,id):
       for key,row in df.iterrows():
             row['Сплав'] =row['Сплав'].replace('.0','')
             row['Сплав'] =row['Сплав'].replace('.0','')
+            row['Длина (мм)'] =row['Длина (мм)'].replace('.0','')
             product_exists = ArtikulComponent.objects.filter(artikul=row['Артикул']).exists()
             if row['Код декор пленки снаружи'] !='nan' and '.0' in row['Код декор пленки снаружи']:
                   df['Код декор пленки снаружи'][key] =df['Код декор пленки снаружи'][key].replace('.0','')
@@ -277,7 +278,7 @@ def product_add(request,id):
                         df_new['nkrat'][key]=df_new['skrat'][key] + ' ' + row['Код наклейки'].replace('.0','')
 
             elif row['Тип покрытия'] =='Анодированный':
-                  df_new['akrat'][key]=row['Сплав'][len(row['Сплав'])-2:] +'T6'+' L'+dlina+' '+row['Код цвета анодировки снаружи'].replace('.0','')
+                  df_new['akrat'][key]=row['Сплав'][len(row['Сплав'])-2:] +row['тип закаленности']+' L'+dlina+' '+row['Код цвета анодировки снаружи'].replace('.0','')
                   if row['Код наклейки'] != 'NT1':
                         df_new['nkrat'][key]= df_new['akrat'][key] +' '+row['Контактность анодировки']+' ' + row['Код наклейки'].replace('.0','')
             else:
