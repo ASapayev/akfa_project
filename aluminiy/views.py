@@ -461,9 +461,14 @@ def product_add(request,id):
        
       if not os.path.isdir(parent_dir):
             create_folder(f'{MEDIA_ROOT}\\uploads\\','aluminiy')
+      if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}.xlsx'):
+            path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}.xlsx'
+      else:
+            import random
+            st =random.randint(0,1000)
+            path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}{st}.xlsx'
             
-      path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}.xlsx'
-      df_new.to_excel(path)
+            df_new.to_excel(path)
       return JsonResponse({'a':'s'})
                   
     
