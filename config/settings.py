@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'aluminiy',
     'aluminiytermo',
+    'imzo',
     # "debug_toolbar",
 ]
 

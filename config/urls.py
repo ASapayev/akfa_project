@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('accounts.urls')),
     path('',include('main.urls')),
+    path('',include('imzo.urls')),
     path('',include('aluminiy.urls')),
     path('termo/',include('aluminiytermo.urls')),
     

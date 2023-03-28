@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import pandas as pd
-# from .models import ArtikulComponent,AluminiyProduct,AluFile,AluminiyProductTermo,AluminiyProductBasesimple,AluminiyProductBasetermo
+from .models import AluminiyProductTermo,AluminiyProductBasetermo
 from main.models import ExcelFiles
 from .forms import FileFormTermo
 from django.db.models import Count,Max
@@ -12,42 +12,6 @@ import datetime
 
 
 # Create your views here.
-
-
-def artikul_and_companent(request):
-      df = pd.read_excel('c:\\OpenServer\\domains\\new_component.xlsx','Лист1')
-      print(df.shape)
-      # print(df['АРТИКУЛ'][0])
-      # print(df['АРТИКУЛ'][3749])
-      for i in range(0,3750):
-            artikul =df['АРТИКУЛ'][i] 
-            component =df['КОМПОНЕНТ'][i]
-            seria =df['Серия'][i]
-            
-            product_des_ru =df['Productdescription-RUS'][i]
-            product_des_ru2 =df['Productdescription-RUS2'][i]
-            stariy_code_benkam=df['Stariy kod benkam'][i]
-            stariy_code_jomiy=df['Stariy kod jomiy'][i]
-            proverka_artikul2 = df['ПроверкаАртикул2'][i]
-            proverkacom2 =df['ПроверкаКомпонент2'][i]
-            grupa_materialov= df['Группа материалов ГП'][i]
-            grupa_materialov2= df['Группа материалов ПФ'][i]
-            artiku_comp = ArtikulComponent(
-            artikul = artikul,
-            component = component,
-            seria =seria,
-            product_description_ru1=product_des_ru,
-            product_description_ru =product_des_ru2,
-            stariy_code_benkam=stariy_code_benkam,
-            stariy_code_jomiy=stariy_code_jomiy,
-            proverka_artikul2 =proverka_artikul2,
-            proverka_component2=proverkacom2,
-            gruppa_materialov =grupa_materialov,
-            gruppa_materialov2 =grupa_materialov2
-            )
-            artiku_comp.save()
-  
-      return JsonResponse({'converted':'a'})
 
 def aluminiy_productbases(request):
   df = pd.read_excel('c:\\OpenServer\\domains\\Новая база2.XLSX','без термо')
@@ -64,7 +28,7 @@ def aluminiy_productbases(request):
     kratkiy_tekst_materiala=df['Краткий текст материала'][i]
     kombinirovanniy=df['Комбинирования'][i]
     
-    artiku_comp = AluminiyProduct(
+    artiku_comp = AluminiyProductTermo(
       material =material,
       artikul =artikul,
       section =section,
@@ -129,12 +93,12 @@ def alu_product_base(request):
 
 def upload_product(request):
   if request.method == 'POST':
-    form = FileForm(request.POST, request.FILES)
+    form = FileFormTermo(request.POST, request.FILES)
     if form.is_valid():
         form.save()
         return redirect('aluminiy_files')
   else:
-      form =FileForm()
+      form =FileFormTermo()
       context ={
         'form':form
       }
@@ -146,7 +110,7 @@ def aluminiy_files(request):
   return render(request,'alu_file_list.html',context)
 
 def aluminiy_group(request):
-      aluminiy_group =AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
+      aluminiy_group =AluminiyProductTermo.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
       #   print(aluminiy_group)
       umumiy={}
       for al in aluminiy_group:    
@@ -166,7 +130,7 @@ def product_add_termo(request,id):
       
       
       ################### group by#########
-      aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
+      aluminiy_group = AluminiyProductTermo.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
       umumiy_counter={}
       for al in aluminiy_group:
             umumiy_counter[ al['artikul'] + '-' + al['section'] ] = al['total_max']
@@ -203,12 +167,7 @@ def product_add_termo(request,id):
       df_new['fkrat']=''
       df_new['ukrat2_counter']=''
       df_new['ukrat2']=''
-      
-      
-      
-      # exists =ArtikulComponent.objects.filter(artikul__in =df['Артикул'])
-      # print(df['Артикул'])
-      # print(type(df['Артикул']))
+
       
       for key,row in df.iterrows():
             
