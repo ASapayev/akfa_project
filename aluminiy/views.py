@@ -7,8 +7,10 @@ from .forms import FileForm
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
 import numpy as np
-from .utils import fabrikatsiya_sap_kod,do_exist
-import datetime
+from .utils import fabrikatsiya_sap_kod,create_folder
+import os
+from datetime import datetime
+now = datetime.now()
 
 
 # Create your views here.
@@ -173,7 +175,7 @@ def product_add(request,id):
       ############################ end grouby ######
       
       
-      a=datetime.datetime.now()
+      a=datetime.now()
       print('starts in ...',a)
       for key,row in df.iterrows():
             if row['Тип покрытия'] == 'nan':
@@ -449,10 +451,16 @@ def product_add(request,id):
                               df_new['ukrat1_counter'][key] = materiale
                               umumiy_counter[row['Артикул']+'-7'] = 1
                   
-      b = datetime.datetime.now()
+      b = datetime.now()
       print('ends in ...',b)
-      print('difference =',b-a)  
-      path =f'{MEDIA_ROOT}\\uploads\\alumin_new.xlsx'
+      print('difference =',b-a) 
+      s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
+      parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
+       
+      if not os.path.isdir(parent_dir):
+            create_folder(f'{MEDIA_ROOT}\\uploads\\','aluminiy')
+            
+      path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}.xlsx'
       df_new.to_excel(path)
       return JsonResponse({'a':'s'})
                   

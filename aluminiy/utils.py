@@ -1,5 +1,6 @@
 
 from .models import ArtikulComponent
+import os
 
 def fabrikatsiya_sap_kod(sap_kod,length):
     new =sap_kod.split(' ')
@@ -10,4 +11,8 @@ def fabrikatsiya_sap_kod(sap_kod,length):
 
 def do_exist(artikules):
     return ArtikulComponent.objects.filter(artikul__in=artikules).count() == len(artikules)
+
+def create_folder(parent_dir,directory):
+    path = os.path.join(parent_dir, directory)
+    os.mkdir(path)
             
