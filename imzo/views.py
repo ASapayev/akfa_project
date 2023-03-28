@@ -107,6 +107,10 @@ def lenght_generate_imzo(request,id):
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['7']['ACTTYPE_01'][0]
                         df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = row['UMREZ']
+                        df_new['UMREN'][counter_2] = row['UMREN']
+                        df_new['USR00'][counter_2] = row['USR00']
+                        df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-K' in row['МАТЕРИАЛ']:
                 for i7 in range(1,3):
@@ -134,6 +138,10 @@ def lenght_generate_imzo(request,id):
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['K']['ACTTYPE_01'][0]
                         df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = row['UMREZ']
+                        df_new['UMREN'][counter_2] = row['UMREN']
+                        df_new['USR00'][counter_2] = row['USR00']
+                        df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-N' in row['МАТЕРИАЛ']:
                 for i7 in range(1,3):
@@ -161,6 +169,10 @@ def lenght_generate_imzo(request,id):
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['N']['ACTTYPE_01'][0]
                         df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = row['UMREZ']
+                        df_new['UMREN'][counter_2] = row['UMREN']
+                        df_new['USR00'][counter_2] = row['USR00']
+                        df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-S' in row['МАТЕРИАЛ']:
                 for i7 in range(1,3):
@@ -188,6 +200,10 @@ def lenght_generate_imzo(request,id):
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['S']['ACTTYPE_01'][0]
                         df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = row['UMREZ']
+                        df_new['UMREN'][counter_2] = row['UMREN']
+                        df_new['USR00'][counter_2] = row['USR00']
+                        df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-E' in row['МАТЕРИАЛ']:
                 for i7 in range(1,4):
@@ -215,6 +231,10 @@ def lenght_generate_imzo(request,id):
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['E']['ACTTYPE_01'][0]
                         df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = row['UMREZ']
+                        df_new['UMREN'][counter_2] = row['UMREN']
+                        df_new['USR00'][counter_2] = row['USR00']
+                        df_new['USR01'][counter_2] = row['USR01']
                     elif i7 == 3:
                         df_new['ID'][counter_2]='2'
                         df_new['VORNR'][counter_2] =BAZA['E']['VORNR'][1]
@@ -228,6 +248,10 @@ def lenght_generate_imzo(request,id):
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['E']['ACTTYPE_01'][1]
                         df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = row['UMREZ']
+                        df_new['UMREN'][counter_2] = row['UMREN']
+                        df_new['USR00'][counter_2] = row['USR00']
+                        df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-Z' in row['МАТЕРИАЛ']:
                 for i7 in range(1,5):
@@ -255,6 +279,10 @@ def lenght_generate_imzo(request,id):
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['Z']['ACTTYPE_01'][0]
                         df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = row['UMREZ']
+                        df_new['UMREN'][counter_2] = row['UMREN']
+                        df_new['USR00'][counter_2] = row['USR00']
+                        df_new['USR01'][counter_2] = row['USR01']
                     elif i7 == 3:
                         df_new['ID'][counter_2]='2'
                         df_new['VORNR'][counter_2] =BAZA['Z']['VORNR'][1]
@@ -268,6 +296,10 @@ def lenght_generate_imzo(request,id):
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['Z']['ACTTYPE_01'][1]
                         df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = row['UMREZ']
+                        df_new['UMREN'][counter_2] = row['UMREN']
+                        df_new['USR00'][counter_2] = row['USR00']
+                        df_new['USR01'][counter_2] = row['USR01']
                     elif i7 == 4:
                         df_new['ID'][counter_2]='2'
                         df_new['VORNR'][counter_2] =BAZA['Z']['VORNR'][2]
@@ -281,6 +313,10 @@ def lenght_generate_imzo(request,id):
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['Z']['ACTTYPE_01'][2]
                         df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = row['UMREZ']
+                        df_new['UMREN'][counter_2] = row['UMREN']
+                        df_new['USR00'][counter_2] = row['USR00']
+                        df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-P' in row['МАТЕРИАЛ']:
                 for p in range(1,5):
@@ -310,6 +346,10 @@ def lenght_generate_imzo(request,id):
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P1']['ACTTYPE_01'][0]
                                 df_new['CKSELKZ'][counter_2] ='X'
+                                df_new['UMREZ'][counter_2] = row['UMREZ']
+                                df_new['UMREN'][counter_2] = row['UMREN']
+                                df_new['USR00'][counter_2] = row['USR00']
+                                df_new['USR01'][counter_2] = row['USR01']
                             counter_2 +=1
                     elif p == 2:
                         for i in range(1,3):
@@ -337,6 +377,10 @@ def lenght_generate_imzo(request,id):
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P2']['ACTTYPE_01'][0]
                                 df_new['CKSELKZ'][counter_2] ='X'
+                                df_new['UMREZ'][counter_2] = row['UMREZ']
+                                df_new['UMREN'][counter_2] = row['UMREN']
+                                df_new['USR00'][counter_2] = row['USR00']
+                                df_new['USR01'][counter_2] = row['USR01']
                             counter_2 +=1
                     elif p == 3:
                         for i in range(1,3):
@@ -364,6 +408,10 @@ def lenght_generate_imzo(request,id):
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P3']['ACTTYPE_01'][0]
                                 df_new['CKSELKZ'][counter_2] ='X'
+                                df_new['UMREZ'][counter_2] = row['UMREZ']
+                                df_new['UMREN'][counter_2] = row['UMREN']
+                                df_new['USR00'][counter_2] = row['USR00']
+                                df_new['USR01'][counter_2] = row['USR01']
                             counter_2 +=1
                     elif p == 4:
                         for i in range(1,3):
@@ -391,6 +439,10 @@ def lenght_generate_imzo(request,id):
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P4']['ACTTYPE_01'][0]
                                 df_new['CKSELKZ'][counter_2] ='X'
+                                df_new['UMREZ'][counter_2] = row['UMREZ']
+                                df_new['UMREN'][counter_2] = row['UMREN']
+                                df_new['USR00'][counter_2] = row['USR00']
+                                df_new['USR01'][counter_2] = row['USR01']
                             counter_2 +=1
 
     del df_new["counter"]
