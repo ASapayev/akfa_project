@@ -469,7 +469,7 @@ def product_add(request,id):
             st =random.randint(0,1000)
             path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}{st}.xlsx'
             
-            df_new.to_excel(path)
+      df_new.to_excel(path)
       return JsonResponse({'a':'s'})
                   
     
