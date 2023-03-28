@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  {% load static %}
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,11 +8,11 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="container" style="background-image: url({% static 'images.jpg'%});background-position: center; height:650px">
+  <div class="container">
 
     
-    <nav class="navbar navbar-expand-lg navbar-light ">
-      <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Akfa</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -21,7 +20,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Home </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -47,20 +46,23 @@
         </form> -->
       </div>
     </nav>
-    <!-- <a href="{% url 'excel' %}" class="btn btn-primary btn-sm">Convert to Sql</a> -->
-    <!-- <a href="{% url 'json' %}" class="btn btn-success btn-sm">Show Json experiment</a>
-    <a href="{% url 'new' %}" class="btn btn-danger btn-sm">Mix</a> -->
+    <!-- <a href="{% url 'excel' %}" class="btn btn-primary ">Convert to Sql</a>
+    <a href="{% url 'excel' %}" class="btn btn-success ">Show All Datas</a> -->
+  </div>
+  <div class="container">
+    {%for file in files%}
+    <br>
+    <a href="{{file.file.url}}" class="p-3">{{file.file}}</a>
+    <!-- <a href="{% url 'import_and_merge' file.id %}" class="btn btn-primary btn-sm">Show file</a> -->
+    <!-- <a href="{% url 'add_data' file.id %}" class="btn btn-info btn-sm">Import File</a> -->
+    <a href="{% url 'aluminiy_add' file.id %}" class="btn btn-success btn-sm">Generate aluminiy product</a>
+    <a href="{% url 'delete_file' file.id %}" class="btn btn-danger btn-sm">Delete</a>
 
-    <a href="{% url 'file-upload' %}" class="btn btn-success btn-sm p-2 m-2">File Upload PVC</a><br>
-    
-    <a href="{% url 'file_list' %}" class="btn btn-danger btn-sm p-2 m-2">File list</a><br>
-    <a href="{% url 'show_list' %}" class="btn btn-info btn-sm p-2 m-2">Show All Datas</a><br>
-    <a href="{% url 'sardorbek' %}" class="btn btn-info btn-sm p-2 m-2">Sardorbek</a>
-    <!-- <a href="{% url 'get_counter' %}" class="btn btn-danger btn-sm  ">Counter</a> -->
-    <a href="{% url 'abduvali' %}" class="btn btn-info btn-sm p-2 m-2">Abduvali</a>
-    <h1>Test Case...</h1>
+    {% endfor %}
   </div>
 
+<div class="p-3"></div>
+  </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </html>

@@ -12,7 +12,8 @@ import datetime
 
 
 # Create your views here.
-
+def index(request):
+      return render(request,'aluminiy/index.html')
 
 def artikul_and_companent(request):
       df = pd.read_excel('c:\\OpenServer\\domains\\new_component.xlsx','Лист1')
@@ -142,7 +143,7 @@ def upload_product(request):
 def aluminiy_files(request):
   files = AluFile.objects.filter(generated =False)
   context ={'files':files}
-  return render(request,'alu_file_list.html',context)
+  return render(request,'aluminiy/alu_file_list.html',context)
 
 def aluminiy_group(request):
       aluminiy_group =AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
