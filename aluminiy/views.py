@@ -213,7 +213,8 @@ def product_add(request,id):
       # print(type(df['Артикул']))
       
       for key,row in df.iterrows():
-            
+            row['Сплав'] =row['Сплав'].replace('.0','')
+            row['Сплав'] =row['Сплав'].replace('.0','')
             product_exists = ArtikulComponent.objects.filter(artikul=row['Артикул']).exists()
             if row['Код декор пленки снаружи'] !='nan' and '.0' in row['Код декор пленки снаружи']:
                   df['Код декор пленки снаружи'][key] =df['Код декор пленки снаружи'][key].replace('.0','')
@@ -231,12 +232,12 @@ def product_add(request,id):
                   if '.0' in row['Длина при выходе из пресса']:
                         dlina = row['Длина при выходе из пресса'].replace('.0','')
                   else:
-                        dlina = row['Длина при выходе из пресса']
+                        dlina = row['Длина при выходе из пресса'].replace('.0','')
                         
                   df_new['fkrat'][key]=fabrikatsiya_sap_kod(row['Краткий текст товара'],row['Длина (мм)'])
                   df_new['ukrat2'][key]=fabrikatsiya_sap_kod(row['Краткий текст товара'],row['Длина (мм)'])
             else:
-                  dlina = row['Длина (мм)']
+                  dlina = row['Длина (мм)'].replace('.0','')
                   df_new['ukrat1'][key]=row['Краткий текст товара']
                   
             df_new['ekrat'][key] = row['Сплав'][len(row['Сплав'])-2:] +'T4 '+'L'+dlina+' MF'
