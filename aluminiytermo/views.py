@@ -134,6 +134,7 @@ def product_add(request,id):
       file = AluFileTermo.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
       df =df.astype(str)
+      c =int(df.shape[0])-1
       
       for key,row in df.iterrows():
             if ((row['Артикул'] == 'nan') and (row['Компонент'] == 'nan')) :
@@ -420,7 +421,7 @@ def product_add(request,id):
                               AluminiyProductTermo(artikul =component,section ='N',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['nkrat'][key],material=materiale).save()
                               df_new['nkrat_counter'][key]=materiale
                               umumiy_counter[component+'-N'] = 1
-            c =int(df.shape[0])-1
+            
             print(f'key = {key}  shape = {c} indexx= {indexx}')
             if key == c:                
                   if df['Длина при выходе из пресса'][indexx] != 'nan':
