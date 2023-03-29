@@ -422,7 +422,7 @@ def product_add(request,id):
                               df_new['nkrat_counter'][key]=materiale
                               umumiy_counter[component+'-N'] = 1
             
-            print(f'key = {key}  shape = {c} indexx= {indexx}')
+            # print(f'key = {key}  shape = {c} indexx= {indexx}')
             if key == c:                
                   if df['Длина при выходе из пресса'][indexx] != 'nan':
                         dlina = df['Длина при выходе из пресса'][indexx].replace('.0','')
