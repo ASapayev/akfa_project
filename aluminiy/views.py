@@ -453,7 +453,7 @@ def product_add(request,id):
                               AluminiyProduct(artikul = row['Артикул'],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat1'][key],material=materiale).save()
                               df_new['ukrat1_counter'][key] = materiale
                               umumiy_counter[row['Артикул']+'-7'] = 1
-                  
+      # del df_new["artikul"]            
       b = datetime.now()
       print('ends in ...',b)
       print('difference =',b-a) 
@@ -469,7 +469,7 @@ def product_add(request,id):
             st =random.randint(0,1000)
             path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}{st}.xlsx'
             
-      df_new.to_excel(path)
+      df_new.to_excel(path,index=False)
       return JsonResponse({'a':'s'})
                   
     

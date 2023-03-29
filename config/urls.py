@@ -7,8 +7,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('accounts.urls')),
     path('',include('main.urls')),
-    path('',include('imzo.urls')),
-    path('',include('aluminiy.urls')),
+    path('imzo/',include('imzo.urls')),
+    path('alu/',include('aluminiy.urls')),
     path('termo/',include('aluminiytermo.urls')),
     
     # path('__debug__/', include('debug_toolbar.urls')),

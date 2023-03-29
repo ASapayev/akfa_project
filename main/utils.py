@@ -175,7 +175,7 @@ def counter_generated_data(datas,s2):
     dd2['Статус загрузки'] = ''
   # print(dd2)
   ddf2 = pd.DataFrame(dd2)
-  ddf2.to_excel(path2)
+  ddf2.to_excel(path2,,index=False)
 
   d1={}
   header1 ='MATNR\tBISMT\tMAKTX\tMEINS\tMTART\tMATKL\tWERKS\tBESKZ\tSPART\tBRGEW\tNTGEW\tGEWEI\tMTPOS_MARA'
