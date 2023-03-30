@@ -473,7 +473,6 @@ def lenght_generate(request,id):
         nn=new[i].replace('L','')
         if nn.isdigit():
           lenn=int(nn)
-          print(lenn)
           length =int(int(nn)/500)
           for j in range(chast,length):
             new[i] =f'WL{j*500}'

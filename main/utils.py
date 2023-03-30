@@ -5,6 +5,7 @@ from config.settings import MEDIA_ROOT
 import pandas as pd
 import numpy as np
 import os
+from .views import group_one 
 
 
 def counter_generated_data(datas,s2):
@@ -46,8 +47,11 @@ def counter_generated_data(datas,s2):
     lenn =float(dat['length'])
     sena =float(dat['sena'])
     if ch_profile_type =='ALU':
+      if sap_code_materials in group_one:
+        kls_wast_length = 500
+      else:
+        kls_wast_length=2000
       num_kls_wat =1900005948
-      kls_wast_length=2000
     elif ch_profile_type =='PVC':
       num_kls_wat =1900003344
       kls_wast_length=1500
