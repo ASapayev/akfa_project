@@ -5,7 +5,9 @@ from config.settings import MEDIA_ROOT
 import pandas as pd
 import numpy as np
 import os
-from .views import group_one 
+
+
+group_one =['WDC47','WDT65','WDT78']
 
 
 def counter_generated_data(datas,s2):
