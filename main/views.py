@@ -18,6 +18,9 @@ from .utils import counter_generated_data
 now = datetime.now()
 
 
+def work_wast(request):
+  return render(request,'delovoy_otxod/index.html')
+
 # Create your views here.
 def excel(request):
   df = pd.read_excel('C:\\OpenServer\\domains\\new_base2.xlsx','sheet')
@@ -438,7 +441,7 @@ def download(request, id):
           return response
   raise Http404
 
-group_one =['WDC47','SLT65','WDT78']
+group_one =['WDC47','WDT65','WDT78']
 group_two =['FST','FSC','PVF','PDF']
 group_three =['ALU']
 group_four =['PVC']
@@ -518,7 +521,7 @@ def delete_file(request,id):
 
 
 
-@login_required(login_url='/accounts/login/')
+# @login_required(login_url='/accounts/login/')
 def home(request):
   return render(request,'home.html')
 

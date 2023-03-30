@@ -21,12 +21,12 @@ def index(request):
 
 
 def aluminiy_productbases(request):
-  df = pd.read_excel('c:\\OpenServer\\domains\\Новая база2.XLSX','без термо')
+  df = pd.read_excel('c:\\OpenServer\\domains\\База термо.XLSX','Лист1')
   print(df.shape)
 #   print(df['Материал'][0])
 #   print(df['Материал'][39705])
   
-  for i in range(0,60696):
+  for i in range(0,df.shape[0]):
     material =df['Материал'][i] 
     artikul =df['Ариткул'][i]
     section =df['Передел'][i]

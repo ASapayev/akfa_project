@@ -18,5 +18,6 @@ urlpatterns = [
   path('download/<int:id>',views.download,name='download'),
   path('len-gen/<int:id>',views.lenght_generate,name='lenght_generate'),
   path('delete-file/<int:id>',views.delete_file,name='delete_file'),
+  path('work-wast',views.work_wast,name ='work_wast'),
   
 ]
