@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'aluminiy',
     'aluminiytermo',
     'imzo',
+    'norma',
     # "debug_toolbar",
 ]
 

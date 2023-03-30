@@ -10,6 +10,7 @@ urlpatterns = [
     path('imzo/',include('imzo.urls')),
     path('alu/',include('aluminiy.urls')),
     path('termo/',include('aluminiytermo.urls')),
+    path('norma/',include('norma.urls')),
     
     # path('__debug__/', include('debug_toolbar.urls')),
 ]
