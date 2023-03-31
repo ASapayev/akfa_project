@@ -49,7 +49,7 @@ def counter_generated_data(datas,s2):
     lenn =float(dat['length'])
     sena =float(dat['sena'])
     if ch_profile_type =='ALU':
-      if sap_code_materials in group_one:
+      if sap_code_materials[:5] in group_one:
         kls_wast_length = 500
       else:
         kls_wast_length=2000
