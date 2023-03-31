@@ -239,7 +239,7 @@ def product_add(request,id):
                                           if plenki1 and plenki2:
                                                 laminatsiya =df['Код лам пленки снаружи'][indexx].replace('.0','') +'/'+ df['Код лам пленки внутри'][indexx].replace('.0','')
                                                 
-                                          df_new['lkrat'][indexx] = row['Сплав'][len(row['Сплав'])-2:] + row['тип закаленности'] +' L'+dlina+' '+df['Бренд краски снаружи'][indexx].replace('.0','')+df['Код краски снаружи'][indexx].replace('.0','')+'/'+df['Код краски внутри'][indexx].replace('.0','')+'_'+laminatsiya +' ' +row['Код наклейки']
+                                          df_new['lkrat'][indexx] = df['Краткий текст товара'][indexx]
                                     
                               if df['Длина при выходе из пресса'][indexx] != 'nan':
                                     if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='F',kratkiy_tekst_materiala=df_new['fkrat'][indexx]).exists():
@@ -532,7 +532,7 @@ def product_add(request,id):
                               if plenki1 and plenki2:
                                     laminatsiya =row['Код лам пленки снаружи'].replace('.0','') +'/'+ df['Код лам пленки внутри'][indexx].replace('.0','')
                                     
-                              df_new['lkrat'][indexx] = df['']
+                              df_new['lkrat'][indexx] = df['Краткий текст товара'][indexx]
                         
                   if df['Длина при выходе из пресса'][indexx] != 'nan':
                         if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='F',kratkiy_tekst_materiala=df_new['fkrat'][indexx]).exists():
