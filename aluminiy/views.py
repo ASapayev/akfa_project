@@ -299,6 +299,7 @@ def product_add(request,id):
                         materiale = component+"-E{:03d}".format(1)
                         AluminiyProduct(artikul =component,section ='E',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ekrat'][key],material=materiale).save()
                         df_new['ekrat_counter'][key]=materiale
+                        umumiy_counter[ component +'-E'] = 1
                         
             if AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key]).exists():
                   df_new['zkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key])[:1].get().material
@@ -313,6 +314,7 @@ def product_add(request,id):
                         materiale = component+"-Z{:03d}".format(1)
                         AluminiyProduct(artikul =component,section ='Z',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['zkrat'][key],material=materiale).save()
                         df_new['zkrat_counter'][key]=materiale
+                        umumiy_counter[ component +'-Z'] = 1
                         
             
             
