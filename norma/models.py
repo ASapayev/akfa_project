@@ -106,3 +106,124 @@ class Norma(models.Model):
     ala7_oddiy_ala8_qora_алю_сплав_6064 = models.CharField(max_length = 255,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
+    
+class Nakleyka(models.Model):
+    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
+    название = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True)
+    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
+    код_наклейки = models.CharField(max_length=255,blank=True,null=True)
+    название_наклейки = models.CharField(max_length=255,blank=True,null=True)
+    ширина = models.CharField(max_length=255,blank=True,null=True)
+    еи_ширины = models.CharField(max_length=255,blank=True,null=True)
+    тип_клея = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Kraska(models.Model):
+    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
+    название = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True)
+    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
+    бренд_краски = models.CharField(max_length=255,blank=True,null=True)
+    код_краски = models.CharField(max_length=255,blank=True,null=True)
+    тип_краски = models.CharField(max_length=255,blank=True,null=True)
+    код_краски_в_профилях = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Ximikat(models.Model):
+    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
+    название = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True)
+    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+class SubDekorPlonka(models.Model):
+    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
+    название = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True)
+    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
+    код_декор_пленки = models.CharField(max_length=255,blank=True,null=True)
+    ширина_декор_пленки_мм = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+class Skotch(models.Model):
+    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
+    название = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True)
+    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+class Lamplonka(models.Model):
+    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
+    название = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True)
+    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
+    код_лам_пленки = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+class KleyDlyaLamp(models.Model):
+    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
+    название = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True)
+    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+class AlyuminniysilindrEkstruziya1(models.Model):
+    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
+    название = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True)
+    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
+    тип = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+class AlyuminniysilindrEkstruziya2(models.Model):
+    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
+    название = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True)
+    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+class TermomostDlyaTermo(models.Model):
+    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
+    название = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True)
+    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+class SiryoDlyaUpakovki(models.Model):
+    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
+    название = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True)
+    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+class ProchiyeSiryoNeno(models.Model):
+    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
+    название = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True)
+    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+class CheckNormaBase(models.Model):
+    artikul = models.CharField(max_length=255,blank=True,null=True)
+    kratkiytekst = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+class NormaExcelFiles(models.Model):
+    file =models.FileField(upload_to='uploads/norma/')
+    generated =models.BooleanField(default=False)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)

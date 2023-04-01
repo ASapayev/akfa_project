@@ -1,7 +1,10 @@
 from django.shortcuts import render,redirect
 import pandas as pd
-from .models import Norma 
-
+from django.http import JsonResponse
+from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles
+from .forms import NormaFileForm
+from django.db.models import Q
+from config.settings import MEDIA_ROOT
 # Create your views here.
 
 def index(request):
@@ -221,3 +224,714 @@ def norma_excel(request):
     
     return redirect('index')
 
+    
+def receipt_all(request):
+    ########## Nakleyka
+    df = pd.read_excel('C:\\OpenServer\\domains\\Норма для ИТ-1 (2).xlsx','Наклейка')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        sap_code_s4q100 = df['SAP code S4Q100'][i]
+        название = df['Название'][i]
+        еи = df['ЕИ'][i]
+        склад_закупа = df['Склад закупа'][i]
+        код_наклейки = df['Код наклейки'][i]
+        название_наклейки = df['название наклейки'][i]
+        ширина = df['Ширина'][i]
+        еи_ширины = df['ЕИ ширины'][i]
+        тип_клея = df['Тип клея '][i]
+        Nakleyka(
+            sap_code_s4q100 = sap_code_s4q100, 
+            название = название, 
+            еи = еи, 
+            склад_закупа = склад_закупа, 
+            код_наклейки = код_наклейки, 
+            название_наклейки = название_наклейки, 
+            ширина = ширина, 
+            еи_ширины = еи_ширины, 
+            тип_клея = тип_клея
+            ).save()
+    ######end Nakleyka
+    print('nakleyka tugadi')
+    ########## Краска
+    df = pd.read_excel('C:\\OpenServer\\domains\\Норма для ИТ-1 (2).xlsx','Краска')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        sap_code_s4q100 = df['SAP code S4Q100'][i]
+        название = df['Название'][i]
+        еи = df['ЕИ'][i]
+        склад_закупа = df['Склад закупа'][i]
+        бренд_краски = df['Бренд краски'][i]
+        код_краски = df['Код краски'][i]
+        тип_краски = df['тип краски'][i]
+        код_краски_в_профилях = df['Код краски в профилях'][i]
+        Kraska(
+        sap_code_s4q100 = sap_code_s4q100, 
+        название = название, 
+        еи = еи, 
+        склад_закупа = склад_закупа, 
+        бренд_краски = бренд_краски, 
+        код_краски = код_краски, 
+        тип_краски = тип_краски, 
+        код_краски_в_профилях = код_краски_в_профилях 
+            ).save()
+
+    ######end Nakleyka
+    print('kraska tugadi')
+    ########## химикаты
+    df = pd.read_excel('C:\\OpenServer\\domains\\Норма для ИТ-1 (2).xlsx','химикаты')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        sap_code_s4q100 = df['SAP code S4Q100'][i]
+        название = df['Название'][i]
+        еи = df['ЕИ'][i]
+        склад_закупа = df['Склад закупа'][i]
+        Ximikat(
+        sap_code_s4q100 =sap_code_s4q100, 
+        название =название, 
+        еи =еи, 
+        склад_закупа =склад_закупа 
+            ).save()
+
+    ######end химикаты
+    print('ximikat tugadi')
+    ########## Суб декор пленка
+    df = pd.read_excel('C:\\OpenServer\\domains\\Норма для ИТ-1 (2).xlsx','Суб декор пленка')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        sap_code_s4q100 = df['SAP code S4Q100'][i]
+        название = df['Название'][i]
+        еи = df['ЕИ'][i]
+        склад_закупа = df['Склад закупа'][i]
+        код_декор_пленки = df['Код декор пленки'][i]
+        ширина_декор_пленки_мм = df['ширина декор пленки/мм'][i]
+        SubDekorPlonka(
+        sap_code_s4q100 = sap_code_s4q100, 
+        название = название, 
+        еи = еи, 
+        склад_закупа = склад_закупа, 
+        код_декор_пленки = код_декор_пленки, 
+        ширина_декор_пленки_мм = ширина_декор_пленки_мм 
+            ).save()
+
+    ######end Nakleyka
+    print('subdekor tugadi')
+    ########## скотч
+    df = pd.read_excel('C:\\OpenServer\\domains\\Норма для ИТ-1 (2).xlsx','скотч')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        sap_code_s4q100 = df['SAP code S4Q100'][i]
+        название = df['Название'][i]
+        еи = df['ЕИ'][i]
+        склад_закупа = df['Склад закупа'][i]
+        Skotch(
+        sap_code_s4q100 = sap_code_s4q100, 
+        название = название, 
+        еи = еи, 
+        склад_закупа = склад_закупа 
+            ).save()
+
+    ######end скотч
+    print('skotch tugadi')
+    ########## Лам пленка
+    df = pd.read_excel('C:\\OpenServer\\domains\\Норма для ИТ-1 (2).xlsx','Лам пленка')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        sap_code_s4q100 = df['SAP code S4Q100'][i]
+        название = df['Название'][i]
+        еи = df['ЕИ'][i]
+        склад_закупа = df['Склад закупа'][i]
+        код_лам_пленки = df['Код лам пленки'][i]
+        Lamplonka(
+        sap_code_s4q100 = sap_code_s4q100, 
+        название = название, 
+        еи = еи, 
+        склад_закупа = склад_закупа, 
+        код_лам_пленки = код_лам_пленки 
+            ).save()
+
+    ######end Nakleyka
+    print('lam plyon tugadi')
+    ########## клей для лам
+    df = pd.read_excel('C:\\OpenServer\\domains\\Норма для ИТ-1 (2).xlsx','клей для лам')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        sap_code_s4q100 = df['SAP code S4Q100'][i]
+        название = df['Название'][i]
+        еи = df['ЕИ'][i]
+        склад_закупа = df['Склад закупа'][i]
+        KleyDlyaLamp(
+        sap_code_s4q100 = sap_code_s4q100, 
+        название = название, 
+        еи = еи, 
+        склад_закупа = склад_закупа 
+            ).save()
+
+    ######end Nakleyka
+    print('kley dlya lam tugadi')
+    ########## Алю цилиндр и для экструзии1
+    df = pd.read_excel('C:\\OpenServer\\domains\\Норма для ИТ-1 (2).xlsx','Алю цилиндр и для экструзии1')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        sap_code_s4q100 = df['SAP code S4Q100'][i]
+        название = df['Название'][i]
+        еи = df['ЕИ'][i]
+        склад_закупа = df['Склад закупа'][i]
+        тип = df['ТИП'][i]
+        AlyuminniysilindrEkstruziya1(
+        sap_code_s4q100 = sap_code_s4q100, 
+        название = название, 
+        еи = еи, 
+        склад_закупа = склад_закупа, 
+        тип = тип 
+            ).save()
+
+    ######end Nakleyka
+    print('alu silind dlya ekst1 tugadi')
+    ########## Алю цилиндр и для экструзии2
+    df = pd.read_excel('C:\\OpenServer\\domains\\Норма для ИТ-1 (2).xlsx','Алю цилиндр и для экструзии2')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        sap_code_s4q100 = df['SAP code S4Q100'][i]
+        название = df['Название'][i]
+        еи = df['ЕИ'][i]
+        склад_закупа = df['Склад закупа'][i]
+        AlyuminniysilindrEkstruziya2(
+        sap_code_s4q100 = sap_code_s4q100, 
+        название = название, 
+        еи = еи, 
+        склад_закупа = склад_закупа
+            ).save()
+
+    ######end Nakleyka
+    print('alu silind dlya ekst2 tugadi')
+    ########## Термомост для термо
+    df = pd.read_excel('C:\\OpenServer\\domains\\Норма для ИТ-1 (2).xlsx','Термомост для термо')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        sap_code_s4q100 = df['SAP code S4Q100'][i]
+        название = df['Название'][i]
+        еи = df['ЕИ'][i]
+        склад_закупа = df['Склад закупа'][i]
+        TermomostDlyaTermo(
+        sap_code_s4q100 = sap_code_s4q100,
+        название = название,
+        еи = еи,
+        склад_закупа = склад_закупа
+            ).save()
+
+    ######end Nakleyka
+    print('termomost dlya termo tugadi')
+    ########## Сырьё Упаковки
+    df = pd.read_excel('C:\\OpenServer\\domains\\Норма для ИТ-1 (2).xlsx','Сырьё Упаковки')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        sap_code_s4q100 = df['SAP code S4Q100'][i]
+        название = df['Название'][i]
+        еи = df['ЕИ'][i]
+        склад_закупа = df['Склад закупа'][i]
+        SiryoDlyaUpakovki(
+        sap_code_s4q100 = sap_code_s4q100, 
+        название = название, 
+        еи = еи, 
+        склад_закупа = склад_закупа
+            ).save()
+
+    ######end Nakleyka
+    print('siryo dlya upakovki tugadi')
+    ########## Прочие сырьё ненормированный
+    df = pd.read_excel('C:\\OpenServer\\domains\\Норма для ИТ-1 (2).xlsx','Прочие сырьё ненормированный')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        sap_code_s4q100 = df['SAP code S4Q100'][i]
+        название = df['Название'][i]
+        еи = df['ЕИ'][i]
+        склад_закупа = df['Склад закупа'][i]
+        ProchiyeSiryoNeno(
+        sap_code_s4q100 = sap_code_s4q100, 
+        название = название, 
+        еи = еи, 
+        склад_закупа = склад_закупа
+            ).save()
+
+    ######end Nakleyka
+    print('prochiye siryo tugadi')
+    
+    return JsonResponse({'Hammasi bo\'ldi':'ok'})
+
+
+def norma_add(request):
+    df = {}
+    
+    
+
+def file_upload(request): 
+  if request.method == 'POST':
+    form = NormaFileForm(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('norma_file_list')
+  else:
+      form =NormaFileForm()
+      context ={
+        'form':form
+      }
+  return render(request,'norma/excel_form.html',context)
+
+def file_list(request):
+    files = NormaExcelFiles.objects.filter(generated =False)
+    context ={'files':files}
+    return render(request,'norma/file_list.html',context)
+
+def process(request,id):
+    # file = NormaExcelFiles.objects.get(id=id).file
+    # file_path =f'{MEDIA_ROOT}\\{file}'
+    # df = pd.read_excel(file_path)
+    # df =df.astype(str)
+    df =[
+        ['WD450402-E001',	'63T4 L6020 MF'],
+        ['WD450402-E001',	'63T4 L6020 MF'],
+        ['WD450402-E001',	'63T4 L6020 MF'],
+        ['WD450403-E001',	'63T4 L6020 MF'],
+        ['WD450403-E001',	'63T4 L6020 MF'],
+        ['WD450403-E002',	'63T4 L5000 MF']
+        ]
+    
+    df_new ={
+        'ID':[],
+        'MATNR': [],
+        'WERKS':[],
+        'TEXT1':[],
+        'STLAL':[],
+        'STLAN':[],
+        'ZTEXT':[],
+        'STKTX':[],
+        'BMENG':[],
+        'BMEIN':[],
+        'STLST':[],
+        'POSNR':[],
+        'POSTP':[],
+        'MATNR1':[],
+        'TEXT2':[],
+        'MEINS':[],
+        'MENGE':[],
+        'DATUV':[],
+        'PUSTOY':[],
+        'LGORT':[]
+    }
+    
+    j=0
+    schotchi = True
+    for i in range(0,len(df)):
+        
+        df_new['ID'].append('1')
+        # df_new['MATNR'] = df['SAP код Экструзия холодная резка'][i].split('-')[0]
+        df_new['MATNR'].append(df[i][0].split('-')[0])
+        df_new['WERKS'].append(1101)
+        # df_new['TEXT1'].append(df['Экструзия холодная резка'][i])
+        df_new['TEXT1'].append(df[i][1])
+        df_new['STLAL'].append('1')
+        df_new['STLAN'].append('1')
+        if df[i][0].split('-')[1][:1]=='E':
+            ztekst ='Экструзия (пресс) + Пила'
+        df_new['ZTEXT'].append(ztekst)
+        df_new['STKTX'].append( 0)
+        df_new['BMENG'].append( '1000')
+        df_new['BMEIN'].append('ШТ')
+        df_new['STLST'].append('1')
+        df_new['POSNR'].append('')
+        df_new['POSTP'].append('')
+        df_new['MATNR1'].append('')
+        df_new['TEXT2'].append('')
+        df_new['MEINS'].append('')
+        df_new['MENGE'].append('')
+        df_new['DATUV'].append('01012021')
+        df_new['PUSTOY'].append('')
+        df_new['LGORT'].append('')
+        length = df[i][0].split('-')[0]
+        index1 =j
+        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+        for k in range(1,6):
+            j+=1
+            df_new['ID'].append('')
+            df_new['MATNR'].append('')
+            df_new['WERKS'].append('')
+            df_new['TEXT1'].append('')
+            df_new['STLAL'].append('')
+            df_new['STLAN'].append('')
+            df_new['ZTEXT'].append('')
+            df_new['STKTX'].append('')
+            df_new['BMENG'].append('')
+            df_new['BMEIN'].append('')
+            df_new['STLST'].append('')
+            df_new['POSNR'].append(k)
+            df_new['POSTP'].append('L')
+            
+            
+            if k == 1 :
+                
+                print(f'{index1}  qiymati = {df_new[index1]}')
+                
+                if df_new['STLAL'][index1] == '1':
+                    aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064)[:1].get()
+                    print('sikl1 ')
+                    
+                    df_new['MATNR1'].append(aliminisi.sap_code_s4q100)
+                    df_new['TEXT2'].append(aliminisi.название)
+                
+                df_new['MEINS'].append(alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг)
+                df_new['MENGE'].append('КГ')
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+              
+            if k==2:
+                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=1)
+                print('sikl2 ')
+                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                df_new['TEXT2'].append(alummm.название)
+                df_new['MENGE'].append(alummm.еи)
+                
+                df_new['MEINS'].append( alum_teks.смазка_для_пресса_кг_графитовая)
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+            if k==3:
+                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=2)
+                print('sikl3 ')
+                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                df_new['TEXT2'].append(alummm.название)
+                df_new['MENGE'].append(alummm.еи)
+                
+                df_new['MEINS'].append(float(alum_teks.смазка_для_пресса_кг_пилы_хл_резки_сол) + float(alum_teks.смазка_для_пресса_кг_горячей_резки_сол))
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+            if k == 4:
+                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=3)
+                print('sikl4 ')
+                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                df_new['TEXT2'].append(alummm.название)
+                df_new['MENGE'].append(alummm.еи)
+                
+                df_new['MEINS'].append( alum_teks.смазка_для_пресса_кг_графитовые_плиты)
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+            if k == 5:
+                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=4)
+                print('sikl5 ')
+                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                df_new['TEXT2'].append(alummm.название)
+                df_new['MENGE'].append(alummm.еи)
+                
+                df_new['MEINS'].append( (-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)+float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+                
+            df_new['LGORT'].append('PS01')
+        # df_new['STKTX'][j-5].append(df_new['TEXT2'][j-4])
+        
+        j+=1
+        df_new['ID'].append( 1)
+        df_new['MATNR'].append( df[i][0].split('-')[0])
+        df_new['WERKS'].append( 1101)
+        df_new['TEXT1'].append( df[i][1])
+        df_new['STLAL'].append('2')
+        df_new['STLAN'].append( 1)
+        if df[i][0].split('-')[1][:1]=='E':
+            ztekst='Экструзия (пресс) + Пила'
+        df_new['ZTEXT'].append( ztekst)
+        df_new['STKTX'].append( 0)
+        df_new['BMENG'].append( '1000')
+        df_new['BMEIN'].append('ШТ')
+        df_new['STLST'].append(1)
+        df_new['POSNR'].append('')
+        df_new['POSTP'].append('')
+        df_new['MATNR1'].append('')
+        df_new['TEXT2'].append('')
+        df_new['MEINS'].append('')
+        df_new['MENGE'].append('')
+        df_new['DATUV'].append('01012021')
+        df_new['PUSTOY'].append('')
+        df_new['LGORT'].append('')
+        length = df[i][0].split('-')[0]
+        index2 =j
+        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+        for k in range(1,6):
+            j+=1
+            df_new['ID'].append( '')
+            df_new['MATNR'].append( '')
+            df_new['WERKS'].append( '')
+            df_new['TEXT1'].append( '')
+            df_new['STLAL'].append( '')
+            df_new['STLAN'].append( '')
+            df_new['ZTEXT'].append( '')
+            df_new['STKTX'].append( '')
+            df_new['BMENG'].append( '')
+            df_new['BMEIN'].append('')
+            df_new['STLST'].append('')
+            df_new['POSNR'].append(k)
+            df_new['POSTP'].append('L')
+            
+            
+            if k == 1 :
+                print(f'{index2}  qiymati = {df_new[index2]}')
+                if df_new['STLAL'][j-k] =='2':
+                    print('sikl 1 2 ')
+                    print(alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064)
+                    aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064)[:1].get()
+                    df_new['MATNR1'].append(aliminisi.sap_code_s4q100)
+                    df_new['TEXT2'].append(aliminisi.название)
+                
+                df_new['MEINS'].append( alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг)
+                df_new['MENGE'].append( 'КГ')
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+              
+            if k==2:
+                alummm = AlyuminniysilindrEkstruziya2.objects.first()
+                print('sikl 2 2 ')
+                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                df_new['TEXT2'].append(alummm.название)
+                df_new['MENGE'].append(alummm.еи)
+                
+                df_new['MEINS'].append( alum_teks.смазка_для_пресса_кг_графитовая)
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+            if k==3:
+                print('sikl 2 3 ')
+                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=2)
+                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                df_new['TEXT2'].append(alummm.название)
+                df_new['MENGE'].append(alummm.еи)
+                
+                df_new['MEINS'].append( float(alum_teks.смазка_для_пресса_кг_пилы_хл_резки_сол) + float(alum_teks.смазка_для_пресса_кг_горячей_резки_сол))
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+            if k == 4:
+                print('sikl 2 4 ')
+                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=3)
+                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                df_new['TEXT2'].append(alummm.название)
+                df_new['MENGE'].append(alummm.еи)
+                
+                df_new['MEINS'].append( alum_teks.смазка_для_пресса_кг_графитовые_плиты)
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+            if k == 5:
+                print('sikl 2 5 ')
+                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=4)
+                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                df_new['TEXT2'].append(alummm.название)
+                df_new['MENGE'].append(alummm.еи)
+                
+                df_new['MEINS'].append( (-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)+float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+                
+            df_new['LGORT'].append('PS01')
+        # df_new['STKTX'][j-5] = df_new['TEXT2'][j-4]
+    for key,val in df_new.items():
+        print(key,len(val)) 
+    # print(df_new)
+    # dff =pd.DataFrame(df_new)
+    # dff.to_excel('C:\\Users\\Acer\\Desktop\\new_base.xlxs')
+    return JsonResponse({'a':'b'})
+    # j=0
+    # for i in range(0,len(df)):
+    #     df_new['ID'].append(1)
+    #     # df_new['MATNR'][j] = df['SAP код Экструзия холодная резка'][i].split('-')[0]
+    #     df_new['MATNR'][j] = df[i][0].split('-')[0]
+    #     df_new['WERKS'][j] = 1101
+    #     # df_new['TEXT1'][j] = df['Экструзия холодная резка'][i]
+    #     df_new['TEXT1'][j] = df[i][1]
+    #     df_new['STLAL'][j] = 1
+    #     df_new['STLAN'][j] = 1
+    #     if df[i][0].split('-')[1][:1]=='E':
+    #         ztekst ='Экструзия (пресс) + Пила'
+    #     df_new['ZTEXT'][j] = ztekst
+    #     df_new['STKTX'][j] = 0
+    #     df_new['BMENG'][j] = '1000'
+    #     df_new['BMEIN'][j] ='ШТ'
+    #     df_new['STLST'][j] =1
+    #     df_new['POSNR'][j] =''
+    #     df_new['POSTP'][j] =''
+    #     df_new['MATNR1'][j] =''
+    #     df_new['TEXT2'][j] =''
+    #     df_new['MEINS'][j] =''
+    #     df_new['MENGE'][j] =''
+    #     df_new['DATUV'][j] ='01012021'
+    #     df_new['PUSTOY'][j] =''
+    #     df_new['LGORT'][j] =''
+    #     length = df[i][0].split('-')[0]
+    #     alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+    #     for k in range(1,6):
+    #         j+=1
+    #         df_new['ID'][j] = ''
+    #         df_new['MATNR'][j] = ''
+    #         df_new['WERKS'][j] = ''
+    #         df_new['TEXT1'][j] = ''
+    #         df_new['STLAL'][j] = ''
+    #         df_new['STLAN'][j] = ''
+    #         df_new['ZTEXT'][j] = ''
+    #         df_new['STKTX'][j] = ''
+    #         df_new['BMENG'][j] = ''
+    #         df_new['BMEIN'][j] =''
+    #         df_new['STLST'][j] =''
+    #         df_new['POSNR'][j] =k+1
+    #         df_new['POSTP'][j] ='L'
+            
+            
+    #         if k == 1 :
+                
+    #             if df_new['STLAL'][j] =='1':
+    #                 aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064)[:1].get()
+    #                 df_new['MATNR1'][j] =aliminisi.sap_code_s4q100
+    #                 df_new['TEXT2'][j] =aliminisi.название
+                
+    #             df_new['MEINS'][j] = alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг
+    #             df_new['MENGE'][j] = 'КГ'
+    #             df_new['DATUV'][j] =''
+    #             df_new['PUSTOY'][j] =''
+              
+    #         if k==2:
+    #             alummm = AlyuminniysilindrEkstruziya2.objects.get(id=1)
+    #             df_new['MATNR1'][j] =alummm.sap_code_s4q100
+    #             df_new['TEXT2'][j] =alummm.название
+    #             df_new['MENGE'][j] =alummm.еи
+                
+    #             df_new['MEINS'][j] = alum_teks.смазка_для_пресса_кг_графитовая
+    #             df_new['DATUV'][j] =''
+    #             df_new['PUSTOY'][j] =''
+    #         if k==3:
+    #             alummm = AlyuminniysilindrEkstruziya2.objects.get(id=2)
+    #             df_new['MATNR1'][j] =alummm.sap_code_s4q100
+    #             df_new['TEXT2'][j] =alummm.название
+    #             df_new['MENGE'][j] =alummm.еи
+                
+    #             df_new['MEINS'][j] = float(alum_teks.смазка_для_пресса_кг_пилы_хл_резки_сол) + float(alum_teks.смазка_для_пресса_кг_горячей_резки_сол)
+    #             df_new['DATUV'][j] =''
+    #             df_new['PUSTOY'][j] =''
+    #         if k == 4:
+    #             alummm = AlyuminniysilindrEkstruziya2.objects.get(id=3)
+    #             df_new['MATNR1'][j] =alummm.sap_code_s4q100
+    #             df_new['TEXT2'][j] =alummm.название
+    #             df_new['MENGE'][j] =alummm.еи
+                
+    #             df_new['MEINS'][j] = alum_teks.смазка_для_пресса_кг_графитовые_плиты
+    #             df_new['DATUV'][j] =''
+    #             df_new['PUSTOY'][j] =''
+    #         if k == 5:
+    #             alummm = AlyuminniysilindrEkstruziya2.objects.get(id=4)
+    #             df_new['MATNR1'][j] =alummm.sap_code_s4q100
+    #             df_new['TEXT2'][j] =alummm.название
+    #             df_new['MENGE'][j] =alummm.еи
+                
+    #             df_new['MEINS'][j] = (-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)+float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2))
+    #             df_new['DATUV'][j] =''
+    #             df_new['PUSTOY'][j] =''
+                
+    #         df_new['LGORT'][j] ='PS01'
+    #     df_new['STKTX'][j-5] =df_new['TEXT2'][j-4]
+        
+    #     j+=1
+    #     df_new['ID'][j] = 1
+    #     df_new['MATNR'][j] = df[i][0].split('-')[0]
+    #     df_new['WERKS'][j] = 1101
+    #     df_new['TEXT1'][j] = df[i][1]
+    #     df_new['STLAL'][j] = 2
+    #     df_new['STLAN'][j] = 1
+    #     if df[i][0].split('-')[1][:1]=='E':
+    #         ztekst ='Экструзия (пресс) + Пила'
+    #     df_new['ZTEXT'][j] = ztekst
+    #     df_new['STKTX'][j] = 0
+    #     df_new['BMENG'][j] = '1000'
+    #     df_new['BMEIN'][j] ='ШТ'
+    #     df_new['STLST'][j] =1
+    #     df_new['POSNR'][j] =''
+    #     df_new['POSTP'][j] =''
+    #     df_new['MATNR1'][j] =''
+    #     df_new['TEXT2'][j] =''
+    #     df_new['MEINS'][j] =''
+    #     df_new['MENGE'][j] =''
+    #     df_new['DATUV'][j] ='01012021'
+    #     df_new['PUSTOY'][j] =''
+    #     df_new['LGORT'][j] =''
+    #     length = df[i][0].split('-')[0]
+    #     alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+    #     for k in range(1,6):
+    #         j+=1
+    #         df_new['ID'][j] = ''
+    #         df_new['MATNR'][j] = ''
+    #         df_new['WERKS'][j] = ''
+    #         df_new['TEXT1'][j] = ''
+    #         df_new['STLAL'][j] = ''
+    #         df_new['STLAN'][j] = ''
+    #         df_new['ZTEXT'][j] = ''
+    #         df_new['STKTX'][j] = ''
+    #         df_new['BMENG'][j] = ''
+    #         df_new['BMEIN'][j] =''
+    #         df_new['STLST'][j] =''
+    #         df_new['POSNR'][j] =k+1
+    #         df_new['POSTP'][j] ='L'
+            
+            
+    #         if k == 1 :
+                
+    #             if df_new['STLAL'][j] =='2':
+    #                 aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064)[2:3].get()
+    #                 df_new['MATNR1'][j] =aliminisi.sap_code_s4q100
+    #                 df_new['TEXT2'][j] =aliminisi.название
+                
+    #             df_new['MEINS'][j] = alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг
+    #             df_new['MENGE'][j] = 'КГ'
+    #             df_new['DATUV'][j] =''
+    #             df_new['PUSTOY'][j] =''
+              
+    #         if k==2:
+    #             alummm = AlyuminniysilindrEkstruziya2.objects.first()
+    #             df_new['MATNR1'][j] =alummm.sap_code_s4q100
+    #             df_new['TEXT2'][j] =alummm.название
+    #             df_new['MENGE'][j] =alummm.еи
+                
+    #             df_new['MEINS'][j] = alum_teks.смазка_для_пресса_кг_графитовая
+    #             df_new['DATUV'][j] =''
+    #             df_new['PUSTOY'][j] =''
+    #         if k==3:
+    #             alummm = AlyuminniysilindrEkstruziya2.objects.get(id=2)
+    #             df_new['MATNR1'][j] =alummm.sap_code_s4q100
+    #             df_new['TEXT2'][j] =alummm.название
+    #             df_new['MENGE'][j] =alummm.еи
+                
+    #             df_new['MEINS'][j] = float(alum_teks.смазка_для_пресса_кг_пилы_хл_резки_сол) + float(alum_teks.смазка_для_пресса_кг_горячей_резки_сол)
+    #             df_new['DATUV'][j] =''
+    #             df_new['PUSTOY'][j] =''
+    #         if k == 4:
+    #             alummm = AlyuminniysilindrEkstruziya2.objects.get(id=3)
+    #             df_new['MATNR1'][j] =alummm.sap_code_s4q100
+    #             df_new['TEXT2'][j] =alummm.название
+    #             df_new['MENGE'][j] =alummm.еи
+                
+    #             df_new['MEINS'][j] = alum_teks.смазка_для_пресса_кг_графитовые_плиты
+    #             df_new['DATUV'][j] =''
+    #             df_new['PUSTOY'][j] =''
+    #         if k == 5:
+    #             alummm = AlyuminniysilindrEkstruziya2.objects.get(id=4)
+    #             df_new['MATNR1'][j] =alummm.sap_code_s4q100
+    #             df_new['TEXT2'][j] =alummm.название
+    #             df_new['MENGE'][j] =alummm.еи
+                
+    #             df_new['MEINS'][j] = (-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)+float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2))
+    #             df_new['DATUV'][j] =''
+    #             df_new['PUSTOY'][j] =''
+                
+    #         df_new['LGORT'][j] ='PS01'
+    #     df_new['STKTX'][j-5] =df_new['TEXT2'][j-4]
