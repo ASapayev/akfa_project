@@ -49,10 +49,12 @@ class Norma(models.Model):
     термомост_2 = models.CharField(max_length = 255,blank=True,null=True)
     термомост_3 = models.CharField(max_length = 255,blank=True,null=True)
     термомост_4 = models.CharField(max_length = 255,blank=True,null=True)
+    
     ламинация_верх_a_ширина_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     лам_верх_a_рас_ленты_на_1000_пр_м2 = models.CharField(max_length = 255,blank=True,null=True)
     ламинация_низ_b_ширина_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     лам_низ_b_рас_ленты_на_1000_пр_м2 = models.CharField(max_length = 255,blank=True,null=True)
+    
     ламинация_низ_c_ширина_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     лам_низ_c_рас_ленты_на_1000_пр_м2 = models.CharField(max_length = 255,blank=True,null=True)
     лам_рас_праймера_на_1000_штук_пр_кг = models.CharField(max_length = 255,blank=True,null=True)
