@@ -58,46 +58,61 @@ class Norma(models.Model):
     лам_рас_праймера_на_1000_штук_пр_кг = models.CharField(max_length = 255,blank=True,null=True)
     лам_рас_клея_на_1000_штук_пр_кг = models.CharField(max_length = 255,blank=True,null=True)
     лам_рас_уп_материала_мешок_на_1000_пр = models.CharField(max_length = 255,blank=True,null=True)
+    
+    
+    
+    
+    
+    
+    
     заш_пл_кг_м_akfa_верх_ширина_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_akfa_бк_ст_ширина_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     кг_м_ak_вр_и_кг_м_ak_бк_ст_рас_лн = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_akfa_низ_ширина_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_ak_низ_рас_лн_на_1000_пр_м2 = models.CharField(max_length = 255,blank=True,null=True)
+  
     заш_пл_кг_м_retpen_верх_ширина_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_retpen_бк_ст_ширина_ленты = models.CharField(max_length = 255,blank=True,null=True)
     кг_м_retpen_вр_и_кг_м_retpen_бк_ст_рас = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_retpen_низ_ширина_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_retpen_низ_рас  = models.CharField(max_length = 255,blank=True,null=True)
+    
     заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм  = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_benkam_жл_бк_ст_ширина_лн = models.CharField(max_length = 255,blank=True,null=True)
     кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_bn_жл_низ_рас = models.CharField(max_length = 255,blank=True,null=True)
+    
     заш_пл_кг_м_ch_вр_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_ch_бк_ст_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     кг_м_ch_вр_и_кг_м_ch_бк_ст_рас = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_ch_низ_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2 = models.CharField(max_length = 255,blank=True,null=True)
+    
     заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_imzo_akfa_бк_ст_ширина_лн = models.CharField(max_length = 255,blank=True,null=True)
     кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_imzo_ak_низ_рас = models.CharField(max_length = 255,blank=True,null=True)
+    
     заш_пл_кг_м_без_бр_вр_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_без_бр_бк_ст_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     кг_м_без_бр_вр_и_кг_м_без_бр_бк_ст_рас = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_без_бр_низ_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_без_бр_низ_рас = models.CharField(max_length = 255,blank=True,null=True)
+    
     заш_пл_кг_м_eng_верх_ширина_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_eng_бк_ст_ширина_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     кг_м_eng_вр_и_кг_м_eng_бк_ст_рас = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_eng_низ_ширина_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_eng_низ_рас_лн_на_1000_пр = models.CharField(max_length = 255,blank=True,null=True)
+    
     заш_пл_кг_м_eng_qora_вр_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_eng_qora_бк_ст_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_eng_qora_низ_ширина_ленты = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_eng_qora_низ_рас = models.CharField(max_length = 255,blank=True,null=True)
+    
     уп_пол_лента_ширина_уп_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     уп_пол_лн_рас_уп_лн_на_1000_штук_кг = models.CharField(max_length = 255,blank=True,null=True)
     расход_скотча_ширина_скотча_мм = models.CharField(max_length = 255,blank=True,null=True)
