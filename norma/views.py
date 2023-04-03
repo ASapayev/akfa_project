@@ -592,13 +592,8 @@ def process(request,id):
                         ztekst ='Экструзия (пресс) + Пила'
                     df_new['ZTEXT'].append(ztekst)
                     length = df[i][0].split('-')[0]
-                    try:
-                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
-                        CheckNormaBase(artikul=df[i][0],kratkiytekst=df[i][1]).save()
-                    except:
-                        if not NormaDontExistInExcell.objects.filter(artikul =df[i][0],kratkiytekst=df[i][1]).exists():
-                            NormaDontExistInExcell(artikul =df[i][0],kratkiytekst=df[i][1]).save()
-                        continue
+                    alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+                    
                     aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064)[:1].get()
                     
                     mein_percent =((get_legth(df[i][1]))/float(alum_teks.длина_профиля_м))
@@ -782,13 +777,8 @@ def process(request,id):
                     df_new['ZTEXT'].append(ztekst)
                     length = df[i][2].split('-')[0]
                     
-                    try:
-                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
-                        CheckNormaBase(artikul=df[i][2],kratkiytekst=df[i][3]).save()
-                    except:
-                        if not NormaDontExistInExcell.objects.filter(artikul =df[i][2],kratkiytekst=df[i][3]).exists():
-                            NormaDontExistInExcell(artikul =df[i][2],kratkiytekst=df[i][3]).save()
-                        continue
+                    alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+                    
                     
                     aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064)[:1].get()
                     
@@ -1001,13 +991,8 @@ def process(request,id):
                             df_new['LGORT'].append('')
                             length = df[i][4].split('-')[0]
                             
-                            try:
-                                alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
-                                CheckNormaBase(artikul=df[i][4],kratkiytekst=df[i][5]).save()
-                            except:
-                                if not NormaDontExistInExcell.objects.filter(artikul =df[i][4],kratkiytekst=df[i][5]).exists():
-                                    NormaDontExistInExcell(artikul =df[i][4],kratkiytekst=df[i][5]).save()
-                                continue
+                            alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+                            
                             
                             mein_percent =((get_legth(df[i][5]))/float(alum_teks.длина_профиля_м))
                             
@@ -1121,13 +1106,8 @@ def process(request,id):
                         df_new['LGORT'].append('')
                         length = df[i][6].split('-')[0]
                         
-                        try:
-                            alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
-                            CheckNormaBase(artikul=df[i][6],kratkiytekst=df[i][7]).save()
-                        except:
-                            if not NormaDontExistInExcell.objects.filter(artikul =df[i][6],kratkiytekst=df[i][7]).exists():
-                                NormaDontExistInExcell(artikul =df[i][6],kratkiytekst=df[i][7]).save()
-                            continue
+                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+                        
                         mein_percent =((get_legth(df[i][7]))/float(alum_teks.длина_профиля_м))
                         
                         sublimatsiya_code = df[i][7].split('_')[1]
@@ -1217,13 +1197,8 @@ def process(request,id):
                     length = df[i][8].split('-')[0]
                     
                     
-                    try:
-                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
-                        CheckNormaBase(artikul=df[i][8],kratkiytekst=df[i][9]).save()
-                    except:
-                        if not NormaDontExistInExcell.objects.filter(artikul =df[i][8],kratkiytekst=df[i][9]).exists():
-                            NormaDontExistInExcell(artikul =df[i][8],kratkiytekst=df[i][9]).save()
-                        continue
+                    alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+                    
                     mein_percent =((get_legth(df[i][9]))/float(alum_teks.длина_профиля_м))
                     
                     its_lamination = not ((not '_' in df[i][9]) or (ddd.split('_')[1] in ['7777','8888','3701','3702']))
