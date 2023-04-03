@@ -580,7 +580,7 @@ def process(request,id):
         norma_existsE = CheckNormaBase.objects.filter(artikul=df[i][0],kratkiytekst=df[i][1]).exists()
         if not norma_existsE:
             if df[i][0] !="":
-                
+                CheckNormaBase(artikul=df[i][0],kratkiytekst=df[i][1]).save()
                 older_process['sapcode'] =df[i][0]
                 older_process['kratkiy'] =df[i][1]
                 if df[i][0].split('-')[1][:1]=='E':
@@ -763,7 +763,7 @@ def process(request,id):
         if not norma_existsZ:
             if df[i][2] !="":
                 print(df[i][2])
-                 
+                 CheckNormaBase(artikul=df[i][2],kratkiytekst=df[i][3]).save()
                 older_process['sapcode'] =df[i][2]
                 older_process['kratkiy'] =df[i][3]  
                 j+=1
@@ -963,7 +963,7 @@ def process(request,id):
         norma_existsP = CheckNormaBase.objects.filter(artikul=df[i][4],kratkiytekst=df[i][5]).exists()
         if not norma_existsP:
             if df[i][4] !="":
-                
+                CheckNormaBase(artikul=df[i][4],kratkiytekst=df[i][5]).save()
                 if (df[i][4].split('-')[1][:1]=='P'):
                     print(df[i][4])
                     for p in range(0,6):    
@@ -1188,7 +1188,7 @@ def process(request,id):
         norma_exists7 = CheckNormaBase.objects.filter(artikul=df[i][8],kratkiytekst=df[i][9]).exists()
         if not norma_exists7:
             if df[i][8] !="":
-                
+                CheckNormaBase(artikul=df[i][8],kratkiytekst=df[i][9]).save()
                 if (df[i][8].split('-')[1][:1]=='7'):
                     
                     
