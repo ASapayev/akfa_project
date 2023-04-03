@@ -1159,6 +1159,7 @@ def process(request,id):
                     
                     nakleyka_code = df[i][9].split()[-1]
                     length = df[i][8].split('-')[0]
+                    print(length)
                     alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                     mein_percent =((get_legth(df[i][9]))/float(alum_teks.длина_профиля_м))
                     
