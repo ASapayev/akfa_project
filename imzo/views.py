@@ -40,18 +40,18 @@ def lenght_generate_imzo(request,id):
     df =df.astype(str)
     counter = 0
     for key,row in df.iterrows():
-        if not ImzoBase.objects.filter(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).exists():
-            if '-7' in row['МАТЕРИАЛ'] or '-K' in row['МАТЕРИАЛ'] or '-N' in row['МАТЕРИАЛ'] or '-S' in row['МАТЕРИАЛ']:
-                counter +=2
-            elif '-P' in row['МАТЕРИАЛ']:
-                counter +=8
-            elif '-Z' in row['МАТЕРИАЛ']:
-                counter +=4
-            elif '-E' in row['МАТЕРИАЛ']:
+        # if not ImzoBase.objects.filter(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).exists():
+        if '-7' in row['МАТЕРИАЛ'] or '-K' in row['МАТЕРИАЛ'] or '-N' in row['МАТЕРИАЛ'] or '-S' in row['МАТЕРИАЛ']:
+            counter +=2
+        elif '-P' in row['МАТЕРИАЛ']:
+            counter +=15
+        elif '-Z' in row['МАТЕРИАЛ']:
+            counter +=4
+        elif '-E' in row['МАТЕРИАЛ']:
                 counter +=3
-            ImzoBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
-        else:
-            df['Дупликат'][key]='Yes'
+        #     ImzoBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
+        # else:
+        #     df['Дупликат'][key]='Yes'
 
     df_new = pd.DataFrame()
     df_new['counter'] =[ '' for i in range(0,counter)]
@@ -83,13 +83,17 @@ def lenght_generate_imzo(request,id):
     df_new['USR01']=''
 
     counter_2 = 0
+    jj=0
     for key,row in df.iterrows():
         if row['Дупликат'] == 'No':
+            jj+=1
+            print(jj)
             if '-7' in row['МАТЕРИАЛ']:
                 if '_' in row['КРАТКИЙ ТЕКСТ']:
                     ddd = row['КРАТКИЙ ТЕКСТ'].split()[2]
                 its_simple = ((not '_' in row['КРАТКИЙ ТЕКСТ']) or (ddd.split('_')[1] in ['7777','8888','3701','3702']))
-                its_combinirovanniy = ((not '_' in row['КРАТКИЙ ТЕКСТ']) and ('/' in row['КРАТКИЙ ТЕКСТ']))
+                its_combinirovanniy = (( '_' not in row['КРАТКИЙ ТЕКСТ']) and ('/' in row['КРАТКИЙ ТЕКСТ']))
+                
                 if its_simple:         
                     for i7 in range(1,3):
                         if i7 ==1:
