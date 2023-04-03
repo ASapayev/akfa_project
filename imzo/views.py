@@ -96,7 +96,7 @@ def lenght_generate_imzo(request,id):
                             df_new['ID'][counter_2] ='1'
                             df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                             df_new['WERKS'][counter_2] ='1101'
-                            df_new['STTAG'][counter_2] ='01012021'
+                            df_new['STTAG'][counter_2] ='01012023'
                             df_new['PLNAL'][counter_2] ='1'
                             df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                             df_new['VERWE'][counter_2] ='1'
@@ -129,7 +129,7 @@ def lenght_generate_imzo(request,id):
                             df_new['ID'][counter_2] ='1'
                             df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                             df_new['WERKS'][counter_2] ='1101'
-                            df_new['STTAG'][counter_2] ='01012021'
+                            df_new['STTAG'][counter_2] ='01012023'
                             df_new['PLNAL'][counter_2] ='1'
                             df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                             df_new['VERWE'][counter_2] ='1'
@@ -161,7 +161,7 @@ def lenght_generate_imzo(request,id):
                             df_new['ID'][counter_2] ='1'
                             df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                             df_new['WERKS'][counter_2] ='1101'
-                            df_new['STTAG'][counter_2] ='01012021'
+                            df_new['STTAG'][counter_2] ='01012023'
                             df_new['PLNAL'][counter_2] ='1'
                             df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                             df_new['VERWE'][counter_2] ='1'
@@ -193,7 +193,7 @@ def lenght_generate_imzo(request,id):
                         df_new['ID'][counter_2] ='1'
                         df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                         df_new['WERKS'][counter_2] ='1101'
-                        df_new['STTAG'][counter_2] ='01012021'
+                        df_new['STTAG'][counter_2] ='01012023'
                         df_new['PLNAL'][counter_2] ='1'
                         df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                         df_new['VERWE'][counter_2] ='1'
@@ -224,7 +224,7 @@ def lenght_generate_imzo(request,id):
                         df_new['ID'][counter_2] ='1'
                         df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                         df_new['WERKS'][counter_2] ='1101'
-                        df_new['STTAG'][counter_2] ='01012021'
+                        df_new['STTAG'][counter_2] ='01012023'
                         df_new['PLNAL'][counter_2] ='1'
                         df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                         df_new['VERWE'][counter_2] ='1'
@@ -255,7 +255,7 @@ def lenght_generate_imzo(request,id):
                         df_new['ID'][counter_2] ='1'
                         df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                         df_new['WERKS'][counter_2] ='1101'
-                        df_new['STTAG'][counter_2] ='01012021'
+                        df_new['STTAG'][counter_2] ='01012023'
                         df_new['PLNAL'][counter_2] ='1'
                         df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                         df_new['VERWE'][counter_2] ='1'
@@ -286,7 +286,7 @@ def lenght_generate_imzo(request,id):
                         df_new['ID'][counter_2] ='1'
                         df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                         df_new['WERKS'][counter_2] ='1101'
-                        df_new['STTAG'][counter_2] ='01012021'
+                        df_new['STTAG'][counter_2] ='01012023'
                         df_new['PLNAL'][counter_2] ='1'
                         df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                         df_new['VERWE'][counter_2] ='1'
@@ -334,7 +334,7 @@ def lenght_generate_imzo(request,id):
                         df_new['ID'][counter_2] ='1'
                         df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                         df_new['WERKS'][counter_2] ='1101'
-                        df_new['STTAG'][counter_2] ='01012021'
+                        df_new['STTAG'][counter_2] ='01012023'
                         df_new['PLNAL'][counter_2] ='1'
                         df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                         df_new['VERWE'][counter_2] ='1'
@@ -401,7 +401,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['ID'][counter_2] ='1'
                                 df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                                 df_new['WERKS'][counter_2] ='1101'
-                                df_new['STTAG'][counter_2] ='01012021'
+                                df_new['STTAG'][counter_2] ='01012023'
                                 df_new['PLNAL'][counter_2] ='1'
                                 df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                                 df_new['VERWE'][counter_2] ='1'
@@ -432,7 +432,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['ID'][counter_2] ='1'
                                 df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                                 df_new['WERKS'][counter_2] ='1101'
-                                df_new['STTAG'][counter_2] ='01012021'
+                                df_new['STTAG'][counter_2] ='01012023'
                                 df_new['PLNAL'][counter_2] ='1'
                                 df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                                 df_new['VERWE'][counter_2] ='1'
@@ -463,7 +463,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['ID'][counter_2] ='1'
                                 df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                                 df_new['WERKS'][counter_2] ='1101'
-                                df_new['STTAG'][counter_2] ='01012021'
+                                df_new['STTAG'][counter_2] ='01012023'
                                 df_new['PLNAL'][counter_2] ='1'
                                 df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                                 df_new['VERWE'][counter_2] ='1'
@@ -494,7 +494,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['ID'][counter_2] ='1'
                                 df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                                 df_new['WERKS'][counter_2] ='1101'
-                                df_new['STTAG'][counter_2] ='01012021'
+                                df_new['STTAG'][counter_2] ='01012023'
                                 df_new['PLNAL'][counter_2] ='1'
                                 df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                                 df_new['VERWE'][counter_2] ='1'
@@ -542,7 +542,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['ID'][counter_2] ='1'
                                 df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                                 df_new['WERKS'][counter_2] ='1101'
-                                df_new['STTAG'][counter_2] ='01012021'
+                                df_new['STTAG'][counter_2] ='01012023'
                                 df_new['PLNAL'][counter_2] ='1'
                                 df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                                 df_new['VERWE'][counter_2] ='1'
@@ -590,7 +590,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['ID'][counter_2] ='1'
                                 df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                                 df_new['WERKS'][counter_2] ='1101'
-                                df_new['STTAG'][counter_2] ='01012021'
+                                df_new['STTAG'][counter_2] ='01012023'
                                 df_new['PLNAL'][counter_2] ='1'
                                 df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                                 df_new['VERWE'][counter_2] ='1'
