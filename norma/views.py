@@ -562,15 +562,17 @@ def process(request,id):
     }
     
     j=0
+    
+    
     for i in range(0,len(df)):
         sap_dict = check_for_existing[i]['sapkom'].split('-')[0]
         sap_dictgp = check_for_existing[i]['sapgp'].split('-')[0]
         existskom = Norma.objects.filter(Q(компонент_1=sap_dict)|Q(компонент_2=sap_dict)|Q(компонент_3=sap_dict)|Q(артикул=sap_dict)).exists() 
         existsgp = Norma.objects.filter(Q(компонент_1=sap_dictgp)|Q(компонент_2=sap_dictgp)|Q(компонент_3=sap_dictgp)|Q(артикул=sap_dictgp)).exists() 
         if not (existskom and existsgp):
-            if existskom:
+            if not existskom:
                 NormaDontExistInExcell(artikul =sap_dict).save()
-            else:
+            if not existsgp:
                 NormaDontExistInExcell(artikul =sap_dictgp).save()
             continue
         older_process ={'sapcode':'','kratkiy':''}
