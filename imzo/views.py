@@ -89,6 +89,7 @@ def lenght_generate_imzo(request,id):
                 if '_' in row['КРАТКИЙ ТЕКСТ']:
                     ddd = row['КРАТКИЙ ТЕКСТ'].split()[2]
                 its_simple = ((not '_' in row['КРАТКИЙ ТЕКСТ']) or (ddd.split('_')[1] in ['7777','8888','3701','3702']))
+                its_combinirovanniy = ((not '_' in row['КРАТКИЙ ТЕКСТ']) and ('/' in row['КРАТКИЙ ТЕКСТ']))
                 if its_simple:         
                     for i7 in range(1,3):
                         if i7 ==1:
@@ -146,6 +147,38 @@ def lenght_generate_imzo(request,id):
                             df_new['VGW01'][counter_2] ='1'
                             df_new['VGE01'][counter_2] ='STD'
                             df_new['ACTTYPE_01'][counter_2] =BAZA['7L']['ACTTYPE_01'][0]
+                            df_new['CKSELKZ'][counter_2] ='X'
+                            df_new['UMREZ'][counter_2] = row['UMREZ']
+                            df_new['UMREN'][counter_2] = row['UMREN']
+                            df_new['USR00'][counter_2] = row['USR00']
+                            df_new['USR01'][counter_2] = row['USR01']
+                        counter_2 +=1
+                
+                if its_combinirovanniy:         
+                    for i7 in range(1,3):
+                        if i7 ==1:
+                            df_new['ID'][counter_2] ='1'
+                            df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                            df_new['WERKS'][counter_2] ='1101'
+                            df_new['STTAG'][counter_2] ='01012021'
+                            df_new['PLNAL'][counter_2] ='1'
+                            df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                            df_new['VERWE'][counter_2] ='1'
+                            df_new['STATU'][counter_2] ='4'
+                            df_new['LOSVN'][counter_2] ='1'
+                            df_new['LOSBS'][counter_2] ='99999999'
+                        elif i7 == 2:
+                            df_new['ID'][counter_2]='2'
+                            df_new['VORNR'][counter_2] =BAZA['7K']['VORNR'][0]
+                            df_new['ARBPL'][counter_2] =BAZA['7K']['ARBPL'][0]
+                            df_new['WERKS1'][counter_2] ='1101'
+                            df_new['STEUS'][counter_2] ='ZK01'
+                            df_new['LTXA1'][counter_2] =BAZA['7K']['LTXA1'][0]
+                            df_new['BMSCH'][counter_2] ='1000'
+                            df_new['MEINH'][counter_2] =BAZA['7K']['MEINH'][0]
+                            df_new['VGW01'][counter_2] ='1'
+                            df_new['VGE01'][counter_2] ='STD'
+                            df_new['ACTTYPE_01'][counter_2] =BAZA['7K']['ACTTYPE_01'][0]
                             df_new['CKSELKZ'][counter_2] ='X'
                             df_new['UMREZ'][counter_2] = row['UMREZ']
                             df_new['UMREN'][counter_2] = row['UMREN']
