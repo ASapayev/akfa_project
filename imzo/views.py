@@ -77,6 +77,10 @@ def lenght_generate_imzo(request,id):
     df_new['VGE01']=''
     df_new['ACTTYPE_01']=''
     df_new['CKSELKZ']=''
+    df_new['UMREZ']=""
+    df_new['UMREN']=''
+    df_new['USR00']=''
+    df_new['USR01']=''
 
     counter_2 = 0
     for key,row in df.iterrows():
