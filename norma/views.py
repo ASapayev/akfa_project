@@ -466,6 +466,8 @@ def receipt_all(request):
     #         ).save()
 
     ######end Nakleyka
+    
+    
     print('prochiye siryo tugadi')
     
     return JsonResponse({'Hammasi bo\'ldi':'ok'})
