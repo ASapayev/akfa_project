@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 import pandas as pd
 from django.http import JsonResponse
-from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase
+from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell
 from .forms import NormaFileForm
 from django.db.models import Q
 from config.settings import MEDIA_ROOT
@@ -513,6 +513,7 @@ def process(request,id):
     
     df = []
     
+    check_for_existing =[]
     for key,row in df_exell.iterrows():
         df.append([
             row['SAP код E'],row['Экструзия холодная резка'],
@@ -521,6 +522,18 @@ def process(request,id):
             row['SAP код S'],row['Сублимация'],
             row['SAP код 7'],row['U-Упаковка + Готовая Продукция']
         ])
+        if row['SAP код E'] !='':
+            check_for_existing.append({'sapkom':row['SAP код E'],'sapgp':row['SAP код 7']})
+            continue
+        if row['SAP код Z'] !='':
+            check_for_existing.append({'sapkom':row['SAP код Z'],'sapgp':row['SAP код 7']})
+            continue
+        if row['SAP код P'] !='':
+            check_for_existing.append({'sapkom':row['SAP код P'],'sapgp':row['SAP код 7']})
+            continue
+        if row['SAP код S'] !='':
+            check_for_existing.append({'sapkom':row['SAP код S'],'sapgp':row['SAP код 7']})
+            
     
     print(df)
     
@@ -550,6 +563,16 @@ def process(request,id):
     
     j=0
     for i in range(0,len(df)):
+        sap_dict = check_for_existing[i]['sapkom'].split('-')[0]
+        sap_dictgp = check_for_existing[i]['sapgp'].split('-')[0]
+        existskom = Norma.objects.filter(Q(компонент_1=sap_dict)|Q(компонент_2=sap_dict)|Q(компонент_3=sap_dict)|Q(артикул=sap_dict)).exists() 
+        existsgp = Norma.objects.filter(Q(компонент_1=sap_dictgp)|Q(компонент_2=sap_dictgp)|Q(компонент_3=sap_dictgp)|Q(артикул=sap_dictgp)).exists() 
+        if not (existskom and existsgp):
+            if existskom:
+                NormaDontExistInExcell(artikul =sap_dict).save()
+            else:
+                NormaDontExistInExcell(artikul =sap_dictgp).save()
+            continue
         older_process ={'sapcode':'','kratkiy':''}
         
         norma_existsE = CheckNormaBase.objects.filter(artikul=df[i][0],kratkiytekst=df[i][1]).exists()

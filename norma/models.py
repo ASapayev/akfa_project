@@ -248,6 +248,5 @@ class NormaExcelFiles(models.Model):
     
 class NormaDontExistInExcell(models.Model):
     artikul = models.CharField(max_length=255,blank=True,null=True)
-    kratkiytekst = models.CharField(max_length=255,blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
