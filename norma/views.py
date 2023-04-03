@@ -763,7 +763,7 @@ def process(request,id):
         if not norma_existsZ:
             if df[i][2] !="":
                 print(df[i][2])
-                 CheckNormaBase(artikul=df[i][2],kratkiytekst=df[i][3]).save()
+                CheckNormaBase(artikul=df[i][2],kratkiytekst=df[i][3]).save()
                 older_process['sapcode'] =df[i][2]
                 older_process['kratkiy'] =df[i][3]  
                 j+=1
