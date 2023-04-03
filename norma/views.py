@@ -1835,7 +1835,7 @@ def process(request,id):
                             laminatsiya_result1 = Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code1)[:1].get() 
                             laminatsiya_result2 = Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code2)[:1].get() 
                             meinsL1 = float(alum_teks.лам_верх_a_рас_ленты_на_1000_пр_м2)
-                            meinsL1 = float(alum_teks.лам_низ_b_рас_ленты_на_1000_пр_м2)
+                            meinsL2 = float(alum_teks.лам_низ_b_рас_ленты_на_1000_пр_м2)
                             
                         
                         if qatorlar_soni == 5:
