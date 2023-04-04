@@ -758,6 +758,10 @@ def process(request,id):
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                         df_new['LGORT'].append('PS01')
+        else:
+            normaexist = CheckNormaBase.objects.filter(artikul=df[i][0],kratkiytekst=df[i][1])[:1].get()
+            older_process['sapcode'] =normaexist.artikul
+            older_process['kratkiy'] =normaexist.kratkiyteksts
                     
                 
         norma_existsZ = CheckNormaBase.objects.filter(artikul=df[i][2],kratkiytekst=df[i][3]).exists()
@@ -947,7 +951,10 @@ def process(request,id):
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                         df_new['LGORT'].append('PS01')
-                    
+        else:
+            normaexist = CheckNormaBase.objects.filter(artikul=df[i][2],kratkiytekst=df[i][3])[:1].get()
+            older_process['sapcode'] =normaexist.artikul
+            older_process['kratkiy'] =normaexist.kratkiyteksts            
         
         sklad ={
             'sklad_pokraski':['SKM - SKM покраска','SAT - SAT покраска','ГР - ГР покраска','SKM - Ручная покраска','SAT - Ручная покраска','ГР - Ручная покраска'],
@@ -1077,7 +1084,11 @@ def process(request,id):
                             
                 older_process['sapcode'] =df[i][4]
                 older_process['kratkiy'] =df[i][5]
-        
+        else:
+            normaexist = CheckNormaBase.objects.filter(artikul=df[i][4],kratkiytekst=df[i][5])[:1].get()
+            older_process['sapcode'] =normaexist.artikul
+            older_process['kratkiy'] =normaexist.kratkiyteksts
+            
         norma_existsS = CheckNormaBase.objects.filter(artikul=df[i][6],kratkiytekst=df[i][7]).exists()
         if not norma_existsS:
             if df[i][6] !="":
@@ -1189,7 +1200,12 @@ def process(request,id):
                             
                 older_process['sapcode'] =df[i][6]
                 older_process['kratkiy'] =df[i][7]
-                        
+        else:
+            normaexist = CheckNormaBase.objects.filter(artikul=df[i][6],kratkiytekst=df[i][7])[:1].get()
+            older_process['sapcode'] =normaexist.artikul
+            older_process['kratkiy'] =normaexist.kratkiyteksts
+            
+                           
         norma_exists7 = CheckNormaBase.objects.filter(artikul=df[i][8],kratkiytekst=df[i][9]).exists()
         if not norma_exists7:
             if df[i][8] !="":
