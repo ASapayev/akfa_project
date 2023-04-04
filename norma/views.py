@@ -1118,12 +1118,15 @@ def process(request,id):
                             mein =alum_teks.сублимация_расход_на_1000_профиль_м21
                             
                         elif sublimatsiya_code =='8888':
+                            print('exceldagi qator ##### ',i,' #######')
                             code_ss = alum_teks.суб_ширина_декор_пленки_мм_дуб_мокко
                             mein =alum_teks.сублимация_расход_на_1000_профиль_м23
                         elif sublimatsiya_code =='3701':
+                            print('exceldagi qator ##### ',i,' #######')
                             code_ss = alum_teks.суб_ширина_декор_пленки_мм_3д_313701
                             mein =alum_teks.сублимация_расход_на_1000_профиль_м22
                         elif sublimatsiya_code =='3702':
+                            print('exceldagi qator ##### ',i,' #######')
                             code_ss = alum_teks.суб_ширина_декор_пленки_мм_3д_313702
                             mein =alum_teks.сублимация_расход_на_1000_профиль_м24
                         
