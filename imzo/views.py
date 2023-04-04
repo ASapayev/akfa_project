@@ -129,10 +129,43 @@ def lenght_generate_imzo(request,id):
     for key,row in df.iterrows():
         if row['Дупликат'] == 'No':
             sap_code = row['МАТЕРИАЛ'].split('-')[0]
-            texcartatime = TexCartaTime.objects.filter(Q(компонент_1=sap_code)|Q(компонент_2=sap_code)|Q(компонент_3=sap_code)|Q(артикул=sap_code))[:1].get()
-            
-            if '-7' in row['МАТЕРИАЛ']:
+            print('sapcode <<<<< ',sap_code,' >>>>>>')
+            try:
+                texcartatime = TexCartaTime.objects.filter(Q(компонент_1=sap_code)|Q(компонент_2=sap_code)|Q(компонент_3=sap_code)|Q(артикул=sap_code))[:1].get()
+                if texcartatime.пресс_1_линия_буй =='0':
+                    texcartatime.пресс_1_линия_буй ='1000'
+                if texcartatime.закалка_1_печь_буй =='0':
+                    texcartatime.закалка_1_печь_буй ='1000'
+                if texcartatime.покраска_9016_белый_про_во_в_сутки_буй =='0':
+                    texcartatime.покраска_9016_белый_про_во_в_сутки_буй ='1000'
+                if texcartatime.покраска_8001_базовый_про_во_в_сутки_буй =='0':
+                    texcartatime.покраска_8001_базовый_про_во_в_сутки_буй ='1000'
+                if texcartatime.покраска_цветной_про_во_в_сутки_буй =='0':
+                    texcartatime.покраска_цветной_про_во_в_сутки_буй ='1000'
+                if texcartatime.вакуум_1_печка_про_во_в_сутки_буй =='0':
+                    texcartatime.вакуум_1_печка_про_во_в_сутки_буй ='1000'
+                if texcartatime.термо_1_линия_про_во_в_сутки_буй =='0':
+                    texcartatime.термо_1_линия_про_во_в_сутки_буй ='1000'
+                if texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй =='0':
+                    texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй ='1000'
+                if texcartatime.ламинат_1_линия_про_во_в_сутки_буй =='0':
+                    texcartatime.ламинат_1_линия_про_во_в_сутки_буй ='1000'
+            except:
+                texcartatime = TexCartaTime()
+                texcartatime.пресс_1_линия_буй='1000'
+                texcartatime.пресс_1_линия_буй = '1000'
+                texcartatime.закалка_1_печь_буй = '1000'
+                texcartatime.покраска_9016_белый_про_во_в_сутки_буй = '1000'
+                texcartatime.покраска_8001_базовый_про_во_в_сутки_буй = '1000'
+                texcartatime.покраска_цветной_про_во_в_сутки_буй = '1000'
+                texcartatime.вакуум_1_печка_про_во_в_сутки_буй = '1000'
+                texcartatime.термо_1_линия_про_во_в_сутки_буй = '1000'
+                texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй = '1000'
+                texcartatime.ламинат_1_линия_про_во_в_сутки_буй = '1000'
                 
+            if '-7' in row['МАТЕРИАЛ']:
+                if texcartatime=='0':
+                    texcartatime ='1000'
                 kombiniroavniy = ('7777' in row['КРАТКИЙ ТЕКСТ']) or ('8888' in row['КРАТКИЙ ТЕКСТ']) or ('3701' in row['КРАТКИЙ ТЕКСТ']) or ('3702' in row['КРАТКИЙ ТЕКСТ'])
                 
                 length =len(row['КРАТКИЙ ТЕКСТ'])
@@ -234,6 +267,8 @@ def lenght_generate_imzo(request,id):
                         counter_2 +=1
                 
             elif '-K' in row['МАТЕРИАЛ']:
+                if texcartatime=='0':
+                    texcartatime ='1000'
                 for i7 in range(1,3):
                     if i7 ==1:
                         df_new['ID'][counter_2] ='1'
@@ -265,6 +300,8 @@ def lenght_generate_imzo(request,id):
                         df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-N' in row['МАТЕРИАЛ']:
+                if texcartatime=='0':
+                    texcartatime ='1000'
                 for i7 in range(1,3):
                     if i7 ==1:
                         df_new['ID'][counter_2] ='1'
@@ -296,6 +333,8 @@ def lenght_generate_imzo(request,id):
                         df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-S' in row['МАТЕРИАЛ']:
+                if texcartatime=='0':
+                    texcartatime ='1000'
                 for i7 in range(1,3):
                     if i7 ==1:
                         df_new['ID'][counter_2] ='1'
@@ -327,6 +366,8 @@ def lenght_generate_imzo(request,id):
                         df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-E' in row['МАТЕРИАЛ']:
+                if texcartatime=='0':
+                    texcartatime ='1000'
                 for i7 in range(1,4):
                     if i7 ==1:
                         df_new['ID'][counter_2] ='1'
@@ -375,6 +416,8 @@ def lenght_generate_imzo(request,id):
                         df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-Z' in row['МАТЕРИАЛ']:
+                if texcartatime=='0':
+                    texcartatime ='1000'
                 for i7 in range(1,5):
                     if i7 ==1:
                         df_new['ID'][counter_2] ='1'
@@ -440,6 +483,8 @@ def lenght_generate_imzo(request,id):
                         df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-P' in row['МАТЕРИАЛ']:
+                if texcartatime=='0':
+                    texcartatime ='1000'
                 if '9016' in row['КРАТКИЙ ТЕКСТ']:
                     ptime = texcartatime.покраска_9016_белый_про_во_в_сутки_буй
                 elif '8001' in row['КРАТКИЙ ТЕКСТ']:
