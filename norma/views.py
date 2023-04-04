@@ -2232,7 +2232,8 @@ def process(request,id):
     #     print(key,len(val)) 
     # print(df_new)
     dff =pd.DataFrame(df_new)
+    path =os.path.join(os.path.expanduser("~/Desktop"),'new_base.xlsx')
     
-    dff.to_excel('C:\\Users\\Acer\\Desktop\\new_base.xlsx')
+    dff.to_excel(path)
     return JsonResponse({'a':'b'})
     
