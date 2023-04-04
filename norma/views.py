@@ -761,7 +761,7 @@ def process(request,id):
         else:
             normaexist = CheckNormaBase.objects.filter(artikul=df[i][0],kratkiytekst=df[i][1])[:1].get()
             older_process['sapcode'] =normaexist.artikul
-            older_process['kratkiy'] =normaexist.kratkiyteksts
+            older_process['kratkiy'] =normaexist.kratkiytekst
                     
                 
         norma_existsZ = CheckNormaBase.objects.filter(artikul=df[i][2],kratkiytekst=df[i][3]).exists()
@@ -954,7 +954,7 @@ def process(request,id):
         else:
             normaexist = CheckNormaBase.objects.filter(artikul=df[i][2],kratkiytekst=df[i][3])[:1].get()
             older_process['sapcode'] =normaexist.artikul
-            older_process['kratkiy'] =normaexist.kratkiyteksts            
+            older_process['kratkiy'] =normaexist.kratkiytekst            
         
         sklad ={
             'sklad_pokraski':['SKM - SKM покраска','SAT - SAT покраска','ГР - ГР покраска','SKM - Ручная покраска','SAT - Ручная покраска','ГР - Ручная покраска'],
@@ -1087,7 +1087,7 @@ def process(request,id):
         else:
             normaexist = CheckNormaBase.objects.filter(artikul=df[i][4],kratkiytekst=df[i][5])[:1].get()
             older_process['sapcode'] =normaexist.artikul
-            older_process['kratkiy'] =normaexist.kratkiyteksts
+            older_process['kratkiy'] =normaexist.kratkiytekst
             
         norma_existsS = CheckNormaBase.objects.filter(artikul=df[i][6],kratkiytekst=df[i][7]).exists()
         if not norma_existsS:
@@ -1203,7 +1203,7 @@ def process(request,id):
         else:
             normaexist = CheckNormaBase.objects.filter(artikul=df[i][6],kratkiytekst=df[i][7])[:1].get()
             older_process['sapcode'] =normaexist.artikul
-            older_process['kratkiy'] =normaexist.kratkiyteksts
+            older_process['kratkiy'] =normaexist.kratkiytekst
             
                            
         norma_exists7 = CheckNormaBase.objects.filter(artikul=df[i][8],kratkiytekst=df[i][9]).exists()
