@@ -1154,6 +1154,7 @@ def process(request,id):
                                 df_new['PUSTOY'].append('')
                             
                             if k==1:
+                                print('sub decor ployka ****** ',sublimatsiya_code,'*****')
                                 subdecor = SubDekorPlonka.objects.get(код_декор_пленки = sublimatsiya_code, ширина_декор_пленки_мм = code_ss)
                                 df_new['MATNR1'].append(subdecor.sap_code_s4q100)
                                 df_new['TEXT2'].append(subdecor.название)
