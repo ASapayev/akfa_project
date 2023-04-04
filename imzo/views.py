@@ -40,18 +40,18 @@ def lenght_generate_imzo(request,id):
     df =df.astype(str)
     counter = 0
     for key,row in df.iterrows():
-        # if not ImzoBase.objects.filter(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).exists():
-        if '-7' in row['МАТЕРИАЛ'] or '-K' in row['МАТЕРИАЛ'] or '-N' in row['МАТЕРИАЛ'] or '-S' in row['МАТЕРИАЛ']:
-            counter +=2
-        elif '-P' in row['МАТЕРИАЛ']:
-            counter +=15
-        elif '-Z' in row['МАТЕРИАЛ']:
-            counter +=4
-        elif '-E' in row['МАТЕРИАЛ']:
+        if not ImzoBase.objects.filter(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).exists():
+            if '-7' in row['МАТЕРИАЛ'] or '-K' in row['МАТЕРИАЛ'] or '-N' in row['МАТЕРИАЛ'] or '-S' in row['МАТЕРИАЛ']:
+                counter +=2
+            elif '-P' in row['МАТЕРИАЛ']:
+                counter +=15
+            elif '-Z' in row['МАТЕРИАЛ']:
+                counter +=4
+            elif '-E' in row['МАТЕРИАЛ']:
                 counter +=3
-        #     ImzoBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
-        # else:
-        #     df['Дупликат'][key]='Yes'
+            ImzoBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
+        else:
+            df['Дупликат'][key]='Yes'
 
     df_new = pd.DataFrame()
     df_new['counter'] =[ '' for i in range(0,counter)]
