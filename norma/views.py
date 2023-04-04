@@ -6,6 +6,7 @@ from .forms import NormaFileForm
 from django.db.models import Q
 from config.settings import MEDIA_ROOT
 # Create your views here.
+import os
 
 def index(request):
     return render(request,'norma/index.html')
