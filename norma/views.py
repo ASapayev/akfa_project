@@ -1027,7 +1027,7 @@ def process(request,id):
                                 if k==1:
                                     alummm = AlyuminniysilindrEkstruziya2.objects.get(id=1)
                                     kraska_code = df[i][5].split()[-1]
-                                    
+                                    print('kraskaaa======= ',kraska_code)                                    
                                     kraska =Kraska.objects.filter(код_краски_в_профилях = kraska_code)[:1].get()
                                     df_new['MATNR1'].append(kraska.sap_code_s4q100)
                                     df_new['TEXT2'].append(kraska.название)
