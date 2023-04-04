@@ -1,11 +1,13 @@
 from django.shortcuts import render,redirect
 from .forms import FileFormImzo
-from .models import ExcelFilesImzo,ImzoBase
+from .models import ExcelFilesImzo,ImzoBase,TexCartaTime
 from config.settings import MEDIA_ROOT
 import pandas as pd
 from .BAZA import BAZA
 import os
 from .utils import create_folder
+from django.http import JsonResponse
+from django.db.models import Q
     
 # Create your views here.
 
@@ -31,6 +33,47 @@ def imzo_file(request):
     files = ExcelFilesImzo.objects.filter(generated =False)
     context ={'files':files}
     return render(request,'imzo/file_list.html',context)
+
+
+def texcartaupload(request):
+    
+    df = pd.read_excel('C:\\OpenServer\\domains\\БазаTexcarta.xlsx','Лист1')
+    df =df.astype(str)
+    
+    for i in range(0,df.shape[0]):
+        компонент_1 = df['компонент1'][i]
+        компонент_2 =df['компонент2'][i]
+        компонент_3 =df['компонент3'][i]
+        артикул = df['артикул'][i]
+        пресс_1_линия_буй = df['пресс___1_линия_буй'][i]
+        закалка_1_печь_буй = df['закалка_1_печь_буй'][i]
+        покраска_9016_белый_про_во_в_сутки_буй = df['покраска_9016_белый_про_во_в_сутки_буй'][i] 
+        покраска_8001_базовый_про_во_в_сутки_буй = df['покраска_8001_базовый_про_во_в_сутки_буй'][i] 
+        покраска_цветной_про_во_в_сутки_буй = df['покраска_цветной_про_во_в_сутки_буй'][i]
+        вакуум_1_печка_про_во_в_сутки_буй = df['вакуум_1_печка_про_во_в_сутки_буй'][i] 
+        термо_1_линия_про_во_в_сутки_буй = df['термо_1_линия_про_во_в_сутки_буй'][i] 
+        наклейка_упаковка_1_линия_про_во_в_сутки_буй = df['наклейка_упаковка_1_линия_про_во_в_сутки_буй'][i] 
+        ламинат_1_линия_про_во_в_сутки_буй = df['ламинат_1_линия_про_во_в_сутки_буй'][i]
+         
+        TexCartaTime(
+        компонент_1 = компонент_1 ,
+        компонент_2 = компонент_2 ,
+        компонент_3 = компонент_3 ,
+        артикул = артикул ,
+        пресс_1_линия_буй = пресс_1_линия_буй ,
+        закалка_1_печь_буй = закалка_1_печь_буй ,	
+        покраска_9016_белый_про_во_в_сутки_буй = покраска_9016_белый_про_во_в_сутки_буй ,
+        покраска_8001_базовый_про_во_в_сутки_буй = покраска_8001_базовый_про_во_в_сутки_буй ,
+        покраска_цветной_про_во_в_сутки_буй = покраска_цветной_про_во_в_сутки_буй ,
+        вакуум_1_печка_про_во_в_сутки_буй = вакуум_1_печка_про_во_в_сутки_буй ,
+        термо_1_линия_про_во_в_сутки_буй = термо_1_линия_про_во_в_сутки_буй ,
+        наклейка_упаковка_1_линия_про_во_в_сутки_буй = наклейка_упаковка_1_линия_про_во_в_сутки_буй ,
+        ламинат_1_линия_про_во_в_сутки_буй = ламинат_1_линия_про_во_в_сутки_буй ,
+     
+            ).save()
+    return JsonResponse({'a':'b'})
+
+
 
 def lenght_generate_imzo(request,id):
     file = ExcelFilesImzo.objects.get(id=id).file
@@ -85,6 +128,9 @@ def lenght_generate_imzo(request,id):
     counter_2 = 0
     for key,row in df.iterrows():
         if row['Дупликат'] == 'No':
+            sap_code = row['МАТЕРИАЛ'].split('-')[0]
+            texcartatime = TexCartaTime.objects.filter(Q(компонент_1=sap_code)|Q(компонент_2=sap_code)|Q(компонент_3=sap_code)|Q(артикул=sap_code))[:1].get()
+            
             if '-7' in row['МАТЕРИАЛ']:
                 
                 kombiniroavniy = ('7777' in row['КРАТКИЙ ТЕКСТ']) or ('8888' in row['КРАТКИЙ ТЕКСТ']) or ('3701' in row['КРАТКИЙ ТЕКСТ']) or ('3702' in row['КРАТКИЙ ТЕКСТ'])
@@ -110,9 +156,9 @@ def lenght_generate_imzo(request,id):
                             df_new['WERKS1'][counter_2] ='1101'
                             df_new['STEUS'][counter_2] ='ZK01'
                             df_new['LTXA1'][counter_2] =BAZA['7']['LTXA1'][0]
-                            df_new['BMSCH'][counter_2] ='1000'
+                            df_new['BMSCH'][counter_2] = 2 * int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)
                             df_new['MEINH'][counter_2] =BAZA['7']['MEINH'][0]
-                            df_new['VGW01'][counter_2] ='1'
+                            df_new['VGW01'][counter_2] ='24'
                             df_new['VGE01'][counter_2] ='STD'
                             df_new['ACTTYPE_01'][counter_2] =BAZA['7']['ACTTYPE_01'][0]
                             df_new['CKSELKZ'][counter_2] ='X'
@@ -143,9 +189,9 @@ def lenght_generate_imzo(request,id):
                             df_new['WERKS1'][counter_2] ='1101'
                             df_new['STEUS'][counter_2] ='ZK01'
                             df_new['LTXA1'][counter_2] =BAZA['7K']['LTXA1'][0]
-                            df_new['BMSCH'][counter_2] ='1000'
+                            df_new['BMSCH'][counter_2] = 2 * int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)
                             df_new['MEINH'][counter_2] =BAZA['7K']['MEINH'][0]
-                            df_new['VGW01'][counter_2] ='1'
+                            df_new['VGW01'][counter_2] ='24'
                             df_new['VGE01'][counter_2] ='STD'
                             df_new['ACTTYPE_01'][counter_2] =BAZA['7K']['ACTTYPE_01'][0]
                             df_new['CKSELKZ'][counter_2] ='X'
@@ -175,9 +221,9 @@ def lenght_generate_imzo(request,id):
                             df_new['WERKS1'][counter_2] ='1101'
                             df_new['STEUS'][counter_2] ='ZK01'
                             df_new['LTXA1'][counter_2] =BAZA['7L']['LTXA1'][0]
-                            df_new['BMSCH'][counter_2] ='1000'
+                            df_new['BMSCH'][counter_2] =texcartatime.ламинат_1_линия_про_во_в_сутки_буй
                             df_new['MEINH'][counter_2] =BAZA['7L']['MEINH'][0]
-                            df_new['VGW01'][counter_2] ='1'
+                            df_new['VGW01'][counter_2] ='24'
                             df_new['VGE01'][counter_2] ='STD'
                             df_new['ACTTYPE_01'][counter_2] =BAZA['7L']['ACTTYPE_01'][0]
                             df_new['CKSELKZ'][counter_2] ='X'
@@ -207,9 +253,9 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['K']['LTXA1'][0]
-                        df_new['BMSCH'][counter_2] ='1000'
+                        df_new['BMSCH'][counter_2] =texcartatime.термо_1_линия_про_во_в_сутки_буй
                         df_new['MEINH'][counter_2] =BAZA['K']['MEINH'][0]
-                        df_new['VGW01'][counter_2] ='1'
+                        df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['K']['ACTTYPE_01'][0]
                         df_new['CKSELKZ'][counter_2] ='X'
@@ -238,9 +284,9 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['N']['LTXA1'][0]
-                        df_new['BMSCH'][counter_2] ='1000'
+                        df_new['BMSCH'][counter_2] =texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй
                         df_new['MEINH'][counter_2] =BAZA['N']['MEINH'][0]
-                        df_new['VGW01'][counter_2] ='1'
+                        df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['N']['ACTTYPE_01'][0]
                         df_new['CKSELKZ'][counter_2] ='X'
@@ -269,9 +315,9 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['S']['LTXA1'][0]
-                        df_new['BMSCH'][counter_2] ='1000'
+                        df_new['BMSCH'][counter_2] = texcartatime.вакуум_1_печка_про_во_в_сутки_буй
                         df_new['MEINH'][counter_2] =BAZA['S']['MEINH'][0]
-                        df_new['VGW01'][counter_2] ='1'
+                        df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['S']['ACTTYPE_01'][0]
                         df_new['CKSELKZ'][counter_2] ='X'
@@ -300,9 +346,9 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['E']['LTXA1'][0]
-                        df_new['BMSCH'][counter_2] ='1000'
+                        df_new['BMSCH'][counter_2] = texcartatime.пресс_1_линия_буй
                         df_new['MEINH'][counter_2] =BAZA['E']['MEINH'][0]
-                        df_new['VGW01'][counter_2] ='1'
+                        df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['E']['ACTTYPE_01'][0]
                         df_new['CKSELKZ'][counter_2] ='X'
@@ -317,9 +363,9 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['E']['LTXA1'][1]
-                        df_new['BMSCH'][counter_2] ='1000'
+                        df_new['BMSCH'][counter_2] = texcartatime.пресс_1_линия_буй
                         df_new['MEINH'][counter_2] =BAZA['E']['MEINH'][1]
-                        df_new['VGW01'][counter_2] ='1'
+                        df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['E']['ACTTYPE_01'][1]
                         df_new['CKSELKZ'][counter_2] ='X'
@@ -348,9 +394,9 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['Z']['LTXA1'][0]
-                        df_new['BMSCH'][counter_2] ='1000'
+                        df_new['BMSCH'][counter_2] =texcartatime.пресс_1_линия_буй
                         df_new['MEINH'][counter_2] =BAZA['Z']['MEINH'][0]
-                        df_new['VGW01'][counter_2] ='1'
+                        df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['Z']['ACTTYPE_01'][0]
                         df_new['CKSELKZ'][counter_2] ='X'
@@ -365,9 +411,9 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['Z']['LTXA1'][1]
-                        df_new['BMSCH'][counter_2] ='1000'
+                        df_new['BMSCH'][counter_2] =texcartatime.пресс_1_линия_буй
                         df_new['MEINH'][counter_2] =BAZA['Z']['MEINH'][1]
-                        df_new['VGW01'][counter_2] ='1'
+                        df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['Z']['ACTTYPE_01'][1]
                         df_new['CKSELKZ'][counter_2] ='X'
@@ -382,9 +428,9 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['Z']['LTXA1'][2]
-                        df_new['BMSCH'][counter_2] ='1000'
+                        df_new['BMSCH'][counter_2] = texcartatime.закалка_1_печь_буй
                         df_new['MEINH'][counter_2] =BAZA['Z']['MEINH'][2]
-                        df_new['VGW01'][counter_2] ='1'
+                        df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] =BAZA['Z']['ACTTYPE_01'][2]
                         df_new['CKSELKZ'][counter_2] ='X'
@@ -394,6 +440,13 @@ def lenght_generate_imzo(request,id):
                         df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-P' in row['МАТЕРИАЛ']:
+                if '9016' in row['КРАТКИЙ ТЕКСТ']:
+                    ptime = texcartatime.покраска_9016_белый_про_во_в_сутки_буй
+                elif '8001' in row['КРАТКИЙ ТЕКСТ']:
+                    ptime = texcartatime.покраска_8001_базовый_про_во_в_сутки_буй
+                else:
+                    ptime = texcartatime.покраска_цветной_про_во_в_сутки_буй
+             
                 for p in range(1,7):
                     if p ==1:
                         for i in range(1,3):
@@ -415,9 +468,9 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P1']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] ='1000'
+                                df_new['BMSCH'][counter_2] =ptime
                                 df_new['MEINH'][counter_2] =BAZA['P1']['MEINH'][0]
-                                df_new['VGW01'][counter_2] ='1'
+                                df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P1']['ACTTYPE_01'][0]
                                 df_new['CKSELKZ'][counter_2] ='X'
@@ -446,9 +499,9 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P2']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] ='1000'
+                                df_new['BMSCH'][counter_2] =ptime
                                 df_new['MEINH'][counter_2] =BAZA['P2']['MEINH'][0]
-                                df_new['VGW01'][counter_2] ='1'
+                                df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P2']['ACTTYPE_01'][0]
                                 df_new['CKSELKZ'][counter_2] ='X'
@@ -477,9 +530,9 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P3']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] ='1000'
+                                df_new['BMSCH'][counter_2] =ptime
                                 df_new['MEINH'][counter_2] =BAZA['P3']['MEINH'][0]
-                                df_new['VGW01'][counter_2] ='1'
+                                df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P3']['ACTTYPE_01'][0]
                                 df_new['CKSELKZ'][counter_2] ='X'
@@ -508,9 +561,9 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P4']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] ='1000'
+                                df_new['BMSCH'][counter_2] =ptime
                                 df_new['MEINH'][counter_2] =BAZA['P4']['MEINH'][0]
-                                df_new['VGW01'][counter_2] ='1'
+                                df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P4']['ACTTYPE_01'][0]
                                 df_new['CKSELKZ'][counter_2] ='X'
@@ -525,9 +578,9 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P4']['LTXA1'][1]
-                                df_new['BMSCH'][counter_2] ='1000'
+                                df_new['BMSCH'][counter_2] =ptime
                                 df_new['MEINH'][counter_2] =BAZA['P4']['MEINH'][1]
-                                df_new['VGW01'][counter_2] ='1'
+                                df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P4']['ACTTYPE_01'][1]
                                 df_new['CKSELKZ'][counter_2] ='X'
@@ -556,9 +609,9 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P5']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] ='1000'
+                                df_new['BMSCH'][counter_2] =ptime
                                 df_new['MEINH'][counter_2] =BAZA['P5']['MEINH'][0]
-                                df_new['VGW01'][counter_2] ='1'
+                                df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P5']['ACTTYPE_01'][0]
                                 df_new['CKSELKZ'][counter_2] ='X'
@@ -573,9 +626,9 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P5']['LTXA1'][1]
-                                df_new['BMSCH'][counter_2] ='1000'
+                                df_new['BMSCH'][counter_2] =ptime
                                 df_new['MEINH'][counter_2] =BAZA['P5']['MEINH'][1]
-                                df_new['VGW01'][counter_2] ='1'
+                                df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P5']['ACTTYPE_01'][1]
                                 df_new['CKSELKZ'][counter_2] ='X'
@@ -604,9 +657,9 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P6']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] ='1000'
+                                df_new['BMSCH'][counter_2] =ptime
                                 df_new['MEINH'][counter_2] =BAZA['P6']['MEINH'][0]
-                                df_new['VGW01'][counter_2] ='1'
+                                df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P6']['ACTTYPE_01'][0]
                                 df_new['CKSELKZ'][counter_2] ='X'
@@ -621,9 +674,9 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P6']['LTXA1'][1]
-                                df_new['BMSCH'][counter_2] ='1000'
+                                df_new['BMSCH'][counter_2] =ptime
                                 df_new['MEINH'][counter_2] =BAZA['P6']['MEINH'][1]
-                                df_new['VGW01'][counter_2] ='1'
+                                df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
                                 df_new['ACTTYPE_01'][counter_2] =BAZA['P6']['ACTTYPE_01'][1]
                                 df_new['CKSELKZ'][counter_2] ='X'

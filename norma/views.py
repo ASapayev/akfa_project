@@ -962,9 +962,9 @@ def process(request,id):
                 ['PS04','PS04','PS04','PS04','PS04','PS04'],
                 ['PS05','PS05','PS05','PS05','PS05','PS05'],
                 ['PS06','PS06','PS06','PS06','PS06','PS06'],
-                ['PS07','PS07','PS04','PS04','PS04','PS07'],
-                ['PS07','PS07','PS05','PS05','PS05','PS07'],
-                ['PS07','PS07','PS06','PS06','PS06','PS07']
+                ['PS07','PS07','PS07','PS04','PS04','PS04'],
+                ['PS07','PS07','PS07','PS05','PS05','PS05'],
+                ['PS07','PS07','PS07','PS06','PS06','PS06']
                 ]
         }
         
@@ -2022,7 +2022,7 @@ def process(request,id):
                                         
                                         df_new['MATNR1'].append(nakleykaa.sap_code_s4q100)
                                         df_new['TEXT2'].append(nakleykaa.название)
-                                        df_new['MENGE'].append("M2")
+                                        df_new['MENGE'].append("М2")
                                         df_new['MEINS'].append("{:0f}".format((meinss*mein_percent)))
                                         df_new['DATUV'].append('')
                                         df_new['PUSTOY'].append('')
