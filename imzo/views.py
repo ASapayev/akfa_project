@@ -169,7 +169,7 @@ def lenght_generate_imzo(request,id):
                 kombiniroavniy = ('7777' in row['КРАТКИЙ ТЕКСТ']) or ('8888' in row['КРАТКИЙ ТЕКСТ']) or ('3701' in row['КРАТКИЙ ТЕКСТ']) or ('3702' in row['КРАТКИЙ ТЕКСТ'])
                 
                 length =len(row['КРАТКИЙ ТЕКСТ'])
-                if ((length ==20) or (length ==25)) :         
+                if ((length ==20) or (length ==25) or (length ==17)) :         
                     for i7 in range(1,3):
                         if i7 ==1:
                             df_new['ID'][counter_2] ='1'
