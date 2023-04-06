@@ -4021,3 +4021,15 @@ def generatenewexceldata(request):
     df.to_excel(path2)
     
     return JsonResponse({'File':'Genarated!!'})
+
+def remove_whitespace(request):
+    normas = Norma.objects.all()
+    
+    for norma in normas:
+        norma.компонент_1 = norma.компонент_1.strip()
+        norma.компонент_2 = norma.компонент_1.strip()
+        norma.компонент_3 = norma.компонент_1.strip()
+        norma.артикул = norma.артикул.strip()
+        norma.save()
+        
+    return JsonResponse({'a':'b'})
