@@ -4026,6 +4026,7 @@ def remove_whitespace(request):
     normas = Norma.objects.all()
     
     for norma in normas:
+        print(norma.id)
         norma.компонент_1 = norma.компонент_1.strip()
         norma.компонент_2 = norma.компонент_1.strip()
         norma.компонент_3 = norma.компонент_1.strip()

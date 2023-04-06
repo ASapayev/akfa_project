@@ -8,5 +8,6 @@ urlpatterns = [
  path('',views.index,name='norma_index'),
  path('file-upload',views.file_upload,name='norma_file_upload'),
  path('file-list',views.file_list,name='norma_file_list'),
- path('generate',views.generatenewexceldata,name ='excellgenerate')
+ path('generate',views.generatenewexceldata,name ='excellgenerate'),
+ path('remove-whitespace',views.remove_whitespace,name ='remove_whitespace'),
 ]
