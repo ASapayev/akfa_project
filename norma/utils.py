@@ -3,7 +3,7 @@ import pandas as pd
 def excelgenerate(data):
     new_data = pd.DataFrame()
     data_length = data.shape[0] 
-    new_data['id'] = [ i for i in range(data_length)]
+    new_data['id'] = [ i for i in range(120)]
     new_data['ID'] =''
     new_data['MATNR'] =''
     new_data['WERKS'] =''
@@ -24,7 +24,6 @@ def excelgenerate(data):
     new_data['DATUV'] =''
     new_data['PUSTOY'] =''
     new_data['LGORT'] =''
-
     j =0
     for key, row in data.iterrows():
         new_data['ID'][j] ='1'
@@ -53,7 +52,7 @@ def excelgenerate(data):
         new_data['ID'][j] = '2'
         new_data['MATNR1'][j] =row['C']
         new_data['TEXT2'][j] =row['C_K']
-        new_data['MEINS'][j] =row['C_K_И']
+        new_data['MEINS'][j] =row['C_EI']
         new_data['MENGE'][j] ='М2'
         new_data['POSNR'][j] ='2'
         new_data['POSTP'][j] ='L'
