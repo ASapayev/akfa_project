@@ -362,26 +362,6 @@ def read_and_write(request,id):
               kls_inner_color =kls_inner_color,
               klaes_description =klaes_description
               )
-            # product =Product(
-            #   sap_code_materials =sap_code_materials ,
-            #   ktartkiy_tekst_materiala =ktartkiy_tekst_materiala,
-            #   sap_kod_del_otxod = sap_kod_del_otxod,
-            #   new_sap_kod_del_otxod = new_sap_kod_del_otxod,
-            #   kratkiy_tekst_del_otxod =kratkiy_tekst_del_otxod,
-            #   id_klaes =id_klaes,
-            #   ch_profile_type =ch_profile_type,
-            #   kls_wast =kls_wast,
-            #   kls_wast_length =kls_wast_length,
-            #   ch_kls_optom = ch_kls_optom,
-            #   kls_inner_id =kls_inner_id,
-            #   kls_inner_color =kls_inner_color,
-            #   kls_color =kls_color,
-            #   ves_gp =ves_gp,
-            #   ves_del_odxod=ves_del_odxod,
-            #   sena_za_shtuk =sena_za_shtuk,
-            #   sena_za_metr =sena_za_metr
-            # )
-            # product.save()
             df['SAP код ДЕЛ.Отход'][key]=sap_kod_del_otxod+"-W{:04d}".format(i)
             n_list = counter[row['new']]
             n_list.append(i)
@@ -447,7 +427,7 @@ group_three =['ALU']
 group_four =['PVC']
 
 def lenght_generate(request,id):
-  s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
+  
   file = ExcelFiles.objects.get(id=id).file
   counter =0
   file_path =f'{MEDIA_ROOT}\\{file}'

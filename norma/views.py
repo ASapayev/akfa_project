@@ -505,6 +505,7 @@ def get_legth(lengg):
             break
     return (float(hh)/1000) 
 
+######### Integratsiya 1 ########
 def process(request,id):
     file = NormaExcelFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -2258,7 +2259,8 @@ def process(request,id):
     dff.to_excel(path)
     return JsonResponse({'a':'b'})
     
-def processkombinirovanniy(request,id):
+######### Integratsiya 2 ########
+def process2(request,id):
     file = NormaExcelFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
     df_exell = pd.read_excel(file_path)
@@ -2977,7 +2979,7 @@ def processkombinirovanniy(request,id):
                     
                     mein_percent =((get_legth(df[i][9]))/float(alum_teks.длина_профиля_м))
                     
-                    its_lamination = not ((not '_' in df[i][9]) or (ddd.split('_')[1] in ['7777','8888','3701','3702']))
+                    its_lamination = not ((not '_' in df[i][9]) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1]))
                     
                     if nakleyka_code =='A01':
                         aluminiy_norma_log = (alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм == alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм and alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм != '0') or ((alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм != alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм)and((alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм =='0')or(alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм=='0')))
@@ -3029,13 +3031,13 @@ def processkombinirovanniy(request,id):
                     elif nakleyka_code =='B01':
                         aluminiy_norma_log = (alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм=='0')))
                         if aluminiy_norma_log:
-                            qatorlar_soni =4
+                            qatorlar_soni =4        
                             if alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм=='0':
                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм)
                                 meinss =float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
                             elif alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм =='0':
                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм)
-                                meinss =float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
+                                meinss =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)
                             else:
                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм)
                                 meinss =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
@@ -3352,7 +3354,7 @@ def processkombinirovanniy(request,id):
                         
                         
                     
-                    if ((not '_' in df[i][9]) or (ddd.split('_')[1] in ['7777','8888','3701','3702'])):
+                    if ((not '_' in df[i][9]) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1])):
                         
                         if qatorlar_soni == 3:
                             j+=1
@@ -4010,7 +4012,7 @@ def processkombinirovanniy(request,id):
     
     dff.to_excel(path)
     return JsonResponse({'a':'b'})
-    
+  
 
 def generatenewexceldata(request):
     path1 =os.path.join(os.path.expanduser("~/Desktop/generate"),'data.xlsx')

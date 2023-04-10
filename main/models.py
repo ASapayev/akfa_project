@@ -30,7 +30,7 @@ class Product(models.Model):
        ordering = ['-id']
 
 class ExcelFiles(models.Model):
-  file =models.FileField(upload_to='uploads/')
+  file =models.FileField(upload_to='uploads/delovoyotxod/downloads/')
   generated =models.BooleanField(default=False)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
