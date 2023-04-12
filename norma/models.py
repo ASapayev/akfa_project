@@ -250,3 +250,21 @@ class NormaDontExistInExcell(models.Model):
     artikul = models.CharField(max_length=255,blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    
+class KombinirovaniyUtilsInformation(models.Model):
+    artikul = models.CharField(max_length=255,blank=True,null=True)
+    component1 = models.CharField(max_length=255,blank=True,null=True)
+    component2 = models.CharField(max_length=255,blank=True,null=True)
+    component3 = models.CharField(max_length=255,blank=True,null=True)
+    sap_code1 = models.CharField(max_length=255,blank=True,null=True)
+    termal_bridge1 = models.CharField(max_length=255,blank=True,null=True)
+    sap_code2 = models.CharField(max_length=255,blank=True,null=True)
+    termal_bridge2 = models.CharField(max_length=255,blank=True,null=True)
+    sap_code3 = models.CharField(max_length=255,blank=True,null=True)
+    termal_bridge3 = models.CharField(max_length=255,blank=True,null=True)
+    sap_code4 = models.CharField(max_length=255,blank=True,null=True)
+    termal_bridge4 = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    

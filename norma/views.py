@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 import pandas as pd
 from django.http import JsonResponse
-from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell
+from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell,KombinirovaniyUtilsInformation
 from .forms import NormaFileForm
 from django.db.models import Q
 from config.settings import MEDIA_ROOT
@@ -475,8 +475,39 @@ def receipt_all(request):
 
 
 def norma_add(request):
-    df = {}
+    df = pd.read_excel('c:\\Users\\Acer\\Desktop\\Копия Thermo profilesййй2.xlsx','Лист1')
+    df =df.astype(str)
+    print(df)
+    for key, row in df.iterrows():
+        artikul = row['Articale']
+        component1 = row['Component № 1']
+        component2 = row['Component № 2']
+        component3 = row['Component № 3']
+        sap_code1 = row['SAP код1']
+        termal_bridge1 =row['Thermal bridge № 1']
+        sap_code2 =row['SAP код2']
+        termal_bridge2 = row['Thermal bridge № 2']
+        sap_code3 = row['SAP код3']
+        termal_bridge3 = row['Thermal bridge № 3']
+        sap_code4 =row['SAP код4']
+        termal_bridge4 =row['Thermal bridge № 4']
+        
+        KombinirovaniyUtilsInformation(
+            artikul = artikul, 
+            component1 = component1, 
+            component2 = component2, 
+            component3 = component3, 
+            sap_code1 = sap_code1, 
+            termal_bridge1 = termal_bridge1, 
+            sap_code2 = sap_code2, 
+            termal_bridge2 = termal_bridge2, 
+            sap_code3 = sap_code3, 
+            termal_bridge3 = termal_bridge3, 
+            sap_code4 = sap_code4, 
+            termal_bridge4 = termal_bridge4, 
+            ).save()
     
+    return JsonResponse({'a':'b'})
     
 
 def file_upload(request): 
@@ -2260,7 +2291,7 @@ def process(request,id):
     return JsonResponse({'a':'b'})
     
 ######### Integratsiya 2 ########
-def process2(request,id):
+def kombinirovaniy_process(request,id):
     file = NormaExcelFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
     df_exell = pd.read_excel(file_path)
@@ -2276,23 +2307,12 @@ def process2(request,id):
             row['SAP код Z'],row['Печь старения'],
             row['SAP код P'],row['Покраска автомат'],
             row['SAP код S'],row['Сублимация'],
+            row['SAP код N'],row['Наклейка'],
+            row['SAP код K'],row['K-Комбинирования'],
             row['SAP код 7'],row['U-Упаковка + Готовая Продукция']
         ])
-        if row['SAP код E'] !='':
-            check_for_existing.append({'sapkom':row['SAP код E'],'sapgp':row['SAP код 7']})
-            continue
-        if row['SAP код Z'] !='':
-            check_for_existing.append({'sapkom':row['SAP код Z'],'sapgp':row['SAP код 7']})
-            continue
-        if row['SAP код P'] !='':
-            check_for_existing.append({'sapkom':row['SAP код P'],'sapgp':row['SAP код 7']})
-            continue
-        if row['SAP код S'] !='':
-            check_for_existing.append({'sapkom':row['SAP код S'],'sapgp':row['SAP код 7']})
-            
-    
-    print(df)
-    
+        
+        
     
     df_new ={
         'ID':[],
@@ -2321,18 +2341,7 @@ def process2(request,id):
     
     
     for i in range(0,len(df)):
-        sap_dict = check_for_existing[i]['sapkom'].split('-')[0]
-        sap_dictgp = check_for_existing[i]['sapgp'].split('-')[0]
-        existskom = Norma.objects.filter(Q(компонент_1=sap_dict)|Q(компонент_2=sap_dict)|Q(компонент_3=sap_dict)|Q(артикул=sap_dict)).exists() 
-        existsgp = Norma.objects.filter(Q(компонент_1=sap_dictgp)|Q(компонент_2=sap_dictgp)|Q(компонент_3=sap_dictgp)|Q(артикул=sap_dictgp)).exists() 
-        if not ((existskom and existsgp)):
-            if not existskom:
-                NormaDontExistInExcell(artikul =sap_dict).save()
-            if not existsgp:
-                NormaDontExistInExcell(artikul =sap_dictgp).save()
-            continue
         older_process ={'sapcode':'','kratkiy':''}
-        
         norma_existsE = CheckNormaBase.objects.filter(artikul=df[i][0],kratkiytekst=df[i][1]).exists()
         if not norma_existsE:
             if df[i][0] !="":
@@ -2779,6 +2788,7 @@ def process2(request,id):
                                 
                                 
                                 if k == 0 :
+                                    print('tip kleyaaa --->>>> ',alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064)
                                     aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064)[:1].get()
                                     df_new['MATNR1'].append(older_process['sapcode'])
                                     df_new['TEXT2'].append(older_process['kratkiy'])
@@ -2959,27 +2969,708 @@ def process2(request,id):
             normaexist = CheckNormaBase.objects.filter(artikul=df[i][6],kratkiytekst=df[i][7])[:1].get()
             older_process['sapcode'] =normaexist.artikul
             older_process['kratkiy'] =normaexist.kratkiytekst
+        
             
-                           
-        norma_exists7 = CheckNormaBase.objects.filter(artikul=df[i][8],kratkiytekst=df[i][9]).exists()
-        if not norma_exists7:
+        norma_existsN = CheckNormaBase.objects.filter(artikul=df[i][8],kratkiytekst=df[i][9]).exists()
+        if not norma_existsN:
             if df[i][8] !="":
                 CheckNormaBase(artikul=df[i][8],kratkiytekst=df[i][9]).save()
-                if (df[i][8].split('-')[1][:1]=='7'):
+                if (df[i][8].split('-')[1][:1]=='N'):
+                    
+                        length = df[i][8].split('-')[0]
+                        
+                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+                        
+                        mein_percent =((get_legth(df[i][9]))/float(alum_teks.длина_профиля_м))
+                        
+                        nakleyka_code = df[i][9].split()[-1]
+                        
+                        qatorlar_soni = 0
+                        
+                        if nakleyka_code =='A01':
+                            aluminiy_norma_log = (alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм == alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм and alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм != '0') or ((alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм != alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм)and((alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм =='0')or(alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм=='0')))
+                            if aluminiy_norma_log:
+                                qatorlar_soni = 4
+                                if alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм =='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм)
+                                    meinss = float(alum_teks.заш_пл_кг_м_ak_низ_рас_лн_на_1000_пр_м2)
+                                elif alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм =='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм)
+                                    meinss = float(alum_teks.кг_м_ak_вр_и_кг_м_ak_бк_ст_рас_лн)
+                                else:
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм)
+                                    meinss =float(alum_teks.кг_м_ak_вр_и_кг_м_ak_бк_ст_рас_лн)+float(alum_teks.заш_пл_кг_м_ak_низ_рас_лн_на_1000_пр_м2)
+                            elif ((alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм =='0') and (alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм == '0')):
+                                qatorlar_soni = 3
+                            else:
+                                qatorlar_soni = 5
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм)[:1].get()
+                                meinss1 =float(alum_teks.кг_м_ak_вр_и_кг_м_ak_бк_ст_рас_лн)
+                                meinss2 =float(alum_teks.заш_пл_кг_м_ak_низ_рас_лн_на_1000_пр_м2)
+                                
+                        elif nakleyka_code =='R05':
+                            aluminiy_norma_log = (alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм== alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм and alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм != '0') or ((alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм!= alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм)and((alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм=='0')or(alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм=='0'))) 
+                            log2 = ((alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм =='0') and (alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм == '0'))
+                            
+                            if aluminiy_norma_log:
+                                qatorlar_soni =4
+                                
+                                if alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм=='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм)
+                                    meinss = float(alum_teks.заш_пл_кг_м_retpen_низ_рас)
+                                elif alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм =='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм)
+                                    meinss =float(alum_teks.кг_м_retpen_вр_и_кг_м_retpen_бк_ст_рас)
+                                else:
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм)
+                                    meinss =float(alum_teks.кг_м_retpen_вр_и_кг_м_retpen_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_retpen_низ_рас)
+                            elif log2:
+                                qatorlar_soni = 3
+                            else:
+                                qatorlar_soni =5
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм)[:1].get()
+                                meinss1 = float(alum_teks.кг_м_retpen_вр_и_кг_м_retpen_бк_ст_рас)
+                                meinss2 = float(alum_teks.заш_пл_кг_м_retpen_низ_рас)
+                                
+                        elif nakleyka_code =='B01':
+                            aluminiy_norma_log = (alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм=='0')))
+                            if aluminiy_norma_log:
+                                qatorlar_soni =4        
+                                if alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм=='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм)
+                                    meinss =float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
+                                elif alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм =='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)
+                                else:
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
+                            elif ((alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм == '0')):
+                                qatorlar_soni = 3
+                            else:
+                                qatorlar_soni =5
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм)[:1].get()
+                                meinss1 =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)
+                                meinss2 =float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
+                                
+                        elif nakleyka_code =='I02':
+                            aluminiy_norma_log = (alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм=='0')))
+                            if aluminiy_norma_log:
+                                qatorlar_soni =4
+                                if alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)
+                                    meinss =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
+                                elif alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм =='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
+                                else:
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
+                            elif ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм == '0')):
+                                qatorlar_soni = 3
+                            else:
+                                qatorlar_soni =5
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)[:1].get()
+                                meinss1 =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
+                                meinss2 =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
+                                
+                        elif nakleyka_code =='I01':
+                            aluminiy_norma_log = (alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм=='0')))
+                            if aluminiy_norma_log:
+                                qatorlar_soni =4
+                                if alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм=='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)
+                                    meinss =float(alum_teks.заш_пл_кг_м_imzo_ak_низ_рас)
+                                elif alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм =='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст)
+                                else:
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст)+float(alum_teks.заш_пл_кг_м_imzo_ak_низ_рас)
+                            elif ((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм == '0')):
+                                qatorlar_soni = 3
+                            else:
+                                qatorlar_soni =5
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)[:1].get()
+                                meinss1 =float(alum_teks.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст)
+                                meinss2 =float(alum_teks.заш_пл_кг_м_imzo_ak_низ_рас)
+                                
+                        elif nakleyka_code =='NB1':
+                            aluminiy_norma_log = (alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм=='0')))
+                            if aluminiy_norma_log:
+                                qatorlar_soni =4
+                                if alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм=='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм)
+                                    meinss =float(alum_teks.заш_пл_кг_м_без_бр_низ_рас)
+                                elif alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм =='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_без_бр_вр_и_кг_м_без_бр_бк_ст_рас)
+                                else:
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_без_бр_вр_и_кг_м_без_бр_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_без_бр_низ_рас)
+                            elif ((alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм == '0')):
+                                qatorlar_soni = 3
+                            else:
+                                qatorlar_soni =5
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм)[:1].get()
+                                meinss1 =float(alum_teks.кг_м_без_бр_вр_и_кг_м_без_бр_бк_ст_рас)
+                                meinss2 =float(alum_teks.заш_пл_кг_м_без_бр_низ_рас)
+                                
+                        elif nakleyka_code =='E01':
+                            aluminiy_norma_log = (alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм== alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм and alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм != '0') or ((alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм!= alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм)and((alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм=='0')or(alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм=='0')))
+                            if aluminiy_norma_log:
+                                qatorlar_soni =4
+                                if alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм=='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм)
+                                    meinss =float(alum_teks.заш_пл_кг_м_eng_низ_рас_лн_на_1000_пр)
+                                elif alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм =='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм)
+                                    meinss =float(alum_teks.кг_м_eng_вр_и_кг_м_eng_бк_ст_рас)
+                                else:
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм)
+                                    meinss =float(alum_teks.кг_м_eng_вр_и_кг_м_eng_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_eng_низ_рас_лн_на_1000_пр)
+                            elif ((alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм =='0') and (alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм == '0')):
+                                qatorlar_soni = 3
+                            else:
+                                qatorlar_soni =5
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм)[:1].get()
+                                meinss1 =float(alum_teks.кг_м_eng_вр_и_кг_м_eng_бк_ст_рас)
+                                meinss2 =float(alum_teks.заш_пл_кг_м_eng_низ_рас_лн_на_1000_пр)
+                            
+                        elif nakleyka_code =='E02':
+                            aluminiy_norma_log = (alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты and alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты !='0') or ((alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты)and((alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты=='0')))
+                            if aluminiy_norma_log:
+                                qatorlar_soni =4
+                                if alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм=='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты)
+                                    meinss =float(alum_teks.заш_пл_кг_м_eng_qora_низ_рас)
+                                elif alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты =='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст)
+                                else:
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст)+float(alum_teks.заш_пл_кг_м_eng_qora_низ_рас)
+                            elif ((alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты == '0')):
+                                qatorlar_soni = 3
+                            else:
+                                qatorlar_soni =5
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты)[:1].get()
+                                meinss1 =float(alum_teks.кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст)
+                                meinss2 =float(alum_teks.заш_пл_кг_м_eng_qora_низ_рас)
+                            
+                        elif (nakleyka_code =='NT1') :
+                            qatorlar_soni = 0
+
+                        if qatorlar_soni == 4 :
+                            for nakleykaa in nakleyka_results:
+                                j+=1
+                                if (df[i][8].split('-')[1][:1]=='N'):
+                                    df_new['ID'].append('1')
+                                    df_new['MATNR'].append(df[i][8])
+                                    df_new['WERKS'].append('1101')
+                                    df_new['TEXT1'].append(df[i][9])
+                                    df_new['STLAL'].append(f'1')
+                                    df_new['STLAN'].append('1')
+                                    ztekst = 'Упаковка'
+                                    df_new['ZTEXT'].append(ztekst)
+                                    df_new['STKTX'].append(ztekst+' '+nakleykaa.ширина+nakleykaa.еи_ширины+' '+nakleykaa.тип_клея)
+                                    df_new['BMENG'].append( '1000')
+                                    df_new['BMEIN'].append('ШТ')
+                                    df_new['STLST'].append('1')
+                                    df_new['POSNR'].append('')
+                                    df_new['POSTP'].append('')
+                                    df_new['MATNR1'].append('')
+                                    df_new['TEXT2'].append('')
+                                    df_new['MEINS'].append('')
+                                    df_new['MENGE'].append('')
+                                    df_new['DATUV'].append('01012021')
+                                    df_new['PUSTOY'].append('')
+                                    df_new['LGORT'].append('')
+                                for k in range(0,2):
+                                    j+=1
+                                    df_new['ID'].append('2')
+                                    df_new['MATNR'].append('')
+                                    df_new['WERKS'].append('')
+                                    df_new['TEXT1'].append('')
+                                    df_new['STLAL'].append('')
+                                    df_new['STLAN'].append('')
+                                    df_new['ZTEXT'].append('')
+                                    df_new['STKTX'].append('')
+                                    df_new['BMENG'].append('')
+                                    df_new['BMEIN'].append('')
+                                    df_new['STLST'].append('')
+                                    df_new['POSNR'].append(k+1)
+                                    df_new['POSTP'].append('L')
+                                    
+                                    
+                                    if k == 0 :
+                                        df_new['MATNR1'].append(older_process['sapcode'])
+                                        df_new['TEXT2'].append(older_process['kratkiy'])
+                                        df_new['MEINS'].append('1000')
+                                        df_new['MENGE'].append('ШТ')
+                                        df_new['DATUV'].append('')
+                                        df_new['PUSTOY'].append('')
+                                    
+                                    if k==1:
+                                        df_new['MATNR1'].append(nakleykaa.sap_code_s4q100)
+                                        df_new['TEXT2'].append(nakleykaa.название)
+                                        df_new['MENGE'].append('М2')
+                                        df_new['MEINS'].append( "{:0f}".format(float(meinss)*mein_percent))
+                                        df_new['DATUV'].append('')
+                                        df_new['PUSTOY'].append('')
+                                    
+                                    
+                                        
+                                    df_new['LGORT'].append('PS10')
+                        elif qatorlar_soni == 5:
+                            j+=1
+                            if (df[i][8].split('-')[1][:1]=='N'):
+                                df_new['ID'].append('1')
+                                df_new['MATNR'].append(df[i][8])
+                                df_new['WERKS'].append('1101')
+                                df_new['TEXT1'].append(df[i][9])
+                                df_new['STLAL'].append(f'1')
+                                df_new['STLAN'].append('1')
+                                ztekst = 'Упаковка'
+                                df_new['ZTEXT'].append(ztekst)
+                                df_new['STKTX'].append(ztekst+' '+nakleyka_result1.ширина+nakleyka_result1.еи_ширины+' '+nakleyka_result1.тип_клея)
+                                df_new['BMENG'].append( '1000')
+                                df_new['BMEIN'].append('ШТ')
+                                df_new['STLST'].append('1')
+                                df_new['POSNR'].append('')
+                                df_new['POSTP'].append('')
+                                df_new['MATNR1'].append('')
+                                df_new['TEXT2'].append('')
+                                df_new['MEINS'].append('')
+                                df_new['MENGE'].append('')
+                                df_new['DATUV'].append('01012021')
+                                df_new['PUSTOY'].append('')
+                                df_new['LGORT'].append('')
+                            for k in range(0,2):
+                                j+=1
+                                df_new['ID'].append('2')
+                                df_new['MATNR'].append('')
+                                df_new['WERKS'].append('')
+                                df_new['TEXT1'].append('')
+                                df_new['STLAL'].append('')
+                                df_new['STLAN'].append('')
+                                df_new['ZTEXT'].append('')
+                                df_new['STKTX'].append('')
+                                df_new['BMENG'].append('')
+                                df_new['BMEIN'].append('')
+                                df_new['STLST'].append('')
+                                df_new['POSNR'].append(k+1)
+                                df_new['POSTP'].append('L')
+                                
+                                
+                                if k == 0 :
+                                    df_new['MATNR1'].append(older_process['sapcode'])
+                                    df_new['TEXT2'].append(older_process['kratkiy'])
+                                    df_new['MEINS'].append('1000')
+                                    df_new['MENGE'].append('ШТ')
+                                    df_new['DATUV'].append('')
+                                    df_new['PUSTOY'].append('')
+                                
+                                if k==1:
+                                    df_new['MATNR1'].append(nakleyka_result1.sap_code_s4q100)
+                                    df_new['TEXT2'].append(nakleyka_result1.название)
+                                    df_new['MENGE'].append('М2')
+                                    df_new['MEINS'].append( "{:0f}".format(float(meinss1)*mein_percent))
+                                    df_new['DATUV'].append('')
+                                    df_new['PUSTOY'].append('')
+                                df_new['LGORT'].append('PS10') 
+                                
+                            j+=1
+                            if (df[i][8].split('-')[1][:1]=='N'):
+                                df_new['ID'].append('1')
+                                df_new['MATNR'].append(df[i][8])
+                                df_new['WERKS'].append('1101')
+                                df_new['TEXT1'].append(df[i][9])
+                                df_new['STLAL'].append(f'1')
+                                df_new['STLAN'].append('1')
+                                ztekst = 'Упаковка'
+                                df_new['ZTEXT'].append(ztekst)
+                                df_new['STKTX'].append(ztekst+' '+nakleyka_result2.ширина+nakleyka_result2.еи_ширины+' '+nakleyka_result2.тип_клея)
+                                df_new['BMENG'].append( '1000')
+                                df_new['BMEIN'].append('ШТ')
+                                df_new['STLST'].append('1')
+                                df_new['POSNR'].append('')
+                                df_new['POSTP'].append('')
+                                df_new['MATNR1'].append('')
+                                df_new['TEXT2'].append('')
+                                df_new['MEINS'].append('')
+                                df_new['MENGE'].append('')
+                                df_new['DATUV'].append('01012021')
+                                df_new['PUSTOY'].append('')
+                                df_new['LGORT'].append('')
+                            for k in range(0,2):
+                                j+=1
+                                df_new['ID'].append('2')
+                                df_new['MATNR'].append('')
+                                df_new['WERKS'].append('')
+                                df_new['TEXT1'].append('')
+                                df_new['STLAL'].append('')
+                                df_new['STLAN'].append('')
+                                df_new['ZTEXT'].append('')
+                                df_new['STKTX'].append('')
+                                df_new['BMENG'].append('')
+                                df_new['BMEIN'].append('')
+                                df_new['STLST'].append('')
+                                df_new['POSNR'].append(k+1)
+                                df_new['POSTP'].append('L')
+                                
+                                
+                                if k == 0 :
+                                    df_new['MATNR1'].append(older_process['sapcode'])
+                                    df_new['TEXT2'].append(older_process['kratkiy'])
+                                    df_new['MEINS'].append('1000')
+                                    df_new['MENGE'].append('ШТ')
+                                    df_new['DATUV'].append('')
+                                    df_new['PUSTOY'].append('')
+                                
+                                if k==1:
+                                    df_new['MATNR1'].append(nakleyka_result2.sap_code_s4q100)
+                                    df_new['TEXT2'].append(nakleyka_result2.название)
+                                    df_new['MENGE'].append('М2')
+                                    df_new['MEINS'].append( "{:0f}".format(float(meinss2)*mein_percent))
+                                    df_new['DATUV'].append('')
+                                    df_new['PUSTOY'].append('')
+                                df_new['LGORT'].append('PS10') 
+                                
+                                       
+                older_process['sapcode'] =df[i][8]
+                older_process['kratkiy'] =df[i][9]
+        else:
+            normaexist = CheckNormaBase.objects.filter(artikul=df[i][8],kratkiytekst=df[i][9])[:1].get()
+            older_process['sapcode'] =normaexist.artikul
+            older_process['kratkiy'] =normaexist.kratkiytekst
+            
+        norma_existsK = CheckNormaBase.objects.filter(artikul=df[i][10],kratkiytekst=df[i][11]).exists()
+        if not norma_existsK:
+            if df[i][10] !="":
+                CheckNormaBase(artikul=df[i][10],kratkiytekst=df[i][11]).save()
+                if (df[i][10].split('-')[1][:1]=='K'):
+                    
+                    older_process_kombinirovanniy = {'s1':None,'k1':None,'s2':None,'k2':None,'s3':None,'k3':None}
+                    ###############  Nakleyka   ###################
+                    if df[i+1][8] !='':
+                        older_process_kombinirovanniy['s1'] = df[i+1][8]
+                        older_process_kombinirovanniy['k1'] = df[i+1][9]
+                        if df[i+2][8] !='':
+                            older_process_kombinirovanniy['s2'] = df[i+2][8]
+                            older_process_kombinirovanniy['k2'] = df[i+2][9]
+                        try:
+                            if df[i+3][8] !='':
+                                older_process_kombinirovanniy['s3'] = df[i+3][8]
+                                older_process_kombinirovanniy['k3'] = df[i+3][9]
+                        except:
+                            older_process_kombinirovanniy['s3'] = None
+                            older_process_kombinirovanniy['k3'] = None
+                            
+                    elif df[i+1][6] !='':
+                        older_process_kombinirovanniy['s1'] = df[i+1][6]
+                        older_process_kombinirovanniy['k1'] = df[i+1][7]
+                        if df[i+2][6] !='':
+                            older_process_kombinirovanniy['s2'] = df[i+2][6]
+                            older_process_kombinirovanniy['k2'] = df[i+2][7]
+                        try:
+                            if df[i+3][6] !='':
+                                older_process_kombinirovanniy['s3'] = df[i+3][6]
+                                older_process_kombinirovanniy['k3'] = df[i+3][7]
+                        except:
+                            older_process_kombinirovanniy['s3'] = None
+                            older_process_kombinirovanniy['k3'] = None
+                        
+                    elif df[i+1][4] !='':
+                        older_process_kombinirovanniy['s1'] = df[i+1][4]
+                        older_process_kombinirovanniy['k1'] = df[i+1][5]
+                        if df[i+2][4] !='':
+                            older_process_kombinirovanniy['s2'] = df[i+2][4]
+                            older_process_kombinirovanniy['k2'] = df[i+2][5]
+                        try:
+                            if df[i+3][4] !='':
+                                older_process_kombinirovanniy['s3'] = df[i+3][4]
+                                older_process_kombinirovanniy['k3'] = df[i+3][5]
+                        except:
+                            older_process_kombinirovanniy['s3'] = None
+                            older_process_kombinirovanniy['k3'] = None   
+                        
+                    elif df[i+1][2] !='':
+                        older_process_kombinirovanniy['s1'] = df[i+1][2]
+                        older_process_kombinirovanniy['k1'] = df[i+1][3]
+                        if df[i+2][2] !='':
+                            older_process_kombinirovanniy['s2'] = df[i+2][2]
+                            older_process_kombinirovanniy['k2'] = df[i+2][3]
+                        try:
+                            if df[i+3][2] !='':
+                                older_process_kombinirovanniy['s3'] = df[i+3][2]
+                                older_process_kombinirovanniy['k3'] = df[i+3][3]
+                        except:
+                            older_process_kombinirovanniy['s3'] = None
+                            older_process_kombinirovanniy['k3'] = None
+                        
+                    elif df[i+1][0] !='':
+                        older_process_kombinirovanniy['s1'] = df[i+1][0]
+                        older_process_kombinirovanniy['k1'] = df[i+1][1]
+                        if df[i+2][0] !='':
+                            older_process_kombinirovanniy['s2'] = df[i+2][0]
+                            older_process_kombinirovanniy['k2'] = df[i+2][1]
+                        try:
+                            if df[i+3][0] !='':
+                                older_process_kombinirovanniy['s3'] = df[i+3][0]
+                                older_process_kombinirovanniy['k3'] = df[i+3][1]
+                        except:
+                            older_process_kombinirovanniy['s3'] = None
+                            older_process_kombinirovanniy['k3'] = None
+                        
+                    
+                    j+=1
+                    if (df[i][10].split('-')[1][:1]=='K'):
+                        df_new['ID'].append('1')
+                        df_new['MATNR'].append(df[i][10])
+                        df_new['WERKS'].append('1101')
+                        df_new['TEXT1'].append(df[i][11])
+                        df_new['STLAL'].append(f'1')
+                        df_new['STLAN'].append('1')
+                        ztekst = 'Комбинированный'
+                        ateks2='Комбинированный'
+                        df_new['ZTEXT'].append(ztekst)
+                        df_new['STKTX'].append(ateks2)
+                        df_new['BMENG'].append( '1000')
+                        df_new['BMEIN'].append('ШТ')
+                        df_new['STLST'].append('1')
+                        df_new['POSNR'].append('')
+                        df_new['POSTP'].append('')
+                        df_new['MATNR1'].append('')
+                        df_new['TEXT2'].append('')
+                        df_new['MEINS'].append('')
+                        df_new['MENGE'].append('')
+                        df_new['DATUV'].append('01012021')
+                        df_new['PUSTOY'].append('')
+                        df_new['LGORT'].append('')
+                        length = df[i][10].split('-')[0]
+                        
+                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+                        
+                        mein_percent =((get_legth(df[i][11]))/float(alum_teks.длина_профиля_м))
+                        
+                        artikul = df[i][10].split('-')[0]
+                        kombininovanniy_utils = KombinirovaniyUtilsInformation.objects.get(artikul=artikul)
+                        dddd =[
+                                    {
+                                        'sap_code':kombininovanniy_utils.sap_code1,
+                                        'bridge':kombininovanniy_utils.termal_bridge1
+                                    },
+                                    {
+                                        'sap_code':kombininovanniy_utils.sap_code1,
+                                        'bridge':kombininovanniy_utils.termal_bridge2
+                                    },
+                                    {
+                                        'sap_code':kombininovanniy_utils.sap_code3,
+                                        'bridge':kombininovanniy_utils.termal_bridge3
+                                    },
+                                    {
+                                        'sap_code':kombininovanniy_utils.sap_code4,
+                                        'bridge':kombininovanniy_utils.termal_bridge4
+                                    }
+                                    ]
+                        length_of_profile = get_legth(df[i][11]) * 1000
+                        if older_process_kombinirovanniy['s3'] != None:
+                            for k in range(0,3):
+                                j+=1
+                                df_new['ID'].append('2')
+                                df_new['MATNR'].append('')
+                                df_new['WERKS'].append('')
+                                df_new['TEXT1'].append('')
+                                df_new['STLAL'].append('')
+                                df_new['STLAN'].append('')
+                                df_new['ZTEXT'].append('')
+                                df_new['STKTX'].append('')
+                                df_new['BMENG'].append('')
+                                df_new['BMEIN'].append('')
+                                df_new['STLST'].append('')
+                                df_new['POSNR'].append(f'{k+1}')
+                                df_new['POSTP'].append('L')
+                                df_new['MATNR1'].append(older_process_kombinirovanniy[f's{k+1}'])
+                                df_new['TEXT2'].append(older_process_kombinirovanniy[f'k{k+1}'])
+                                df_new['MEINS'].append('1000')
+                                df_new['MENGE'].append('ШТ')
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                                df_new['LGORT'].append('PS10')
+                            
+                            new_list_for_com = []
+                            sap_code_new ={}
+                            
+                            for ii in range(0,4):
+                            
+                                if not dddd[ii]['bridge'] in sap_code_new:
+                                    sap_code_new[dddd[ii]['bridge']] ={'sum':length_of_profile,'sap_code':dddd[ii]['sap_code']}
+                                    
+                                    
+                                if not dddd[ii]['bridge'] in new_list_for_com:
+                                    for jj in range(ii + 1 , 4):
+                                        if dddd[ii]['bridge'] == dddd[jj]['bridge']:
+                                            sap_code_new[dddd[ii]['bridge']]['sum']+=length_of_profile
+                                        
+                                new_list_for_com.append(dddd[ii]['bridge'])
+                            ttt = 4
+                            for key,val in sap_code_new.items(): 
+                                j += 1
+                                df_new['ID'].append('2')
+                                df_new['MATNR'].append('')
+                                df_new['WERKS'].append('')
+                                df_new['TEXT1'].append('')
+                                df_new['STLAL'].append('')
+                                df_new['STLAN'].append('')
+                                df_new['ZTEXT'].append('')
+                                df_new['STKTX'].append('')
+                                df_new['BMENG'].append('')
+                                df_new['BMEIN'].append('')
+                                df_new['STLST'].append('')
+                                df_new['POSNR'].append(f'{ttt}')
+                                df_new['POSTP'].append('L')
+                                df_new['MATNR1'].append(val['sap_code'])
+                                df_new['TEXT2'].append(key)
+                                df_new['MEINS'].append(f"{val['sum']}")
+                                df_new['MENGE'].append('М')
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                                df_new['LGORT'].append('PS10')
+                                ttt +=1
+                        
+                                
+                        else:
+                            for k in range(0,2):
+                                j+=1
+                                df_new['ID'].append('2')
+                                df_new['MATNR'].append('')
+                                df_new['WERKS'].append('')
+                                df_new['TEXT1'].append('')
+                                df_new['STLAL'].append('')
+                                df_new['STLAN'].append('')
+                                df_new['ZTEXT'].append('')
+                                df_new['STKTX'].append('')
+                                df_new['BMENG'].append('')
+                                df_new['BMEIN'].append('')
+                                df_new['STLST'].append('')
+                                df_new['POSNR'].append(f'{k+1}')
+                                df_new['POSTP'].append('L')
+                                df_new['MATNR1'].append(older_process_kombinirovanniy[f's{k+1}'])
+                                df_new['TEXT2'].append(older_process_kombinirovanniy[f'k{k+1}'])
+                                df_new['MEINS'].append('1000')
+                                df_new['MENGE'].append('ШТ')
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                                df_new['LGORT'].append('PS10')
+                            
+                            
+                            if kombininovanniy_utils.termal_bridge1 == kombininovanniy_utils.termal_bridge2:
+                                j += 1
+                                df_new['ID'].append('2')
+                                df_new['MATNR'].append('')
+                                df_new['WERKS'].append('')
+                                df_new['TEXT1'].append('')
+                                df_new['STLAL'].append('')
+                                df_new['STLAN'].append('')
+                                df_new['ZTEXT'].append('')
+                                df_new['STKTX'].append('')
+                                df_new['BMENG'].append('')
+                                df_new['BMEIN'].append('')
+                                df_new['STLST'].append('')
+                                df_new['POSNR'].append('3')
+                                df_new['POSTP'].append('L')
+                                df_new['MATNR1'].append(kombininovanniy_utils.sap_code1)
+                                df_new['TEXT2'].append(kombininovanniy_utils.termal_bridge1)
+                                df_new['MEINS'].append( f'{length_of_profile * 2}' )
+                                df_new['MENGE'].append('М')
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                                df_new['LGORT'].append('PS10')
+                            else:
+                                j += 1
+                                df_new['ID'].append('2')
+                                df_new['MATNR'].append('')
+                                df_new['WERKS'].append('')
+                                df_new['TEXT1'].append('')
+                                df_new['STLAL'].append('')
+                                df_new['STLAN'].append('')
+                                df_new['ZTEXT'].append('')
+                                df_new['STKTX'].append('')
+                                df_new['BMENG'].append('')
+                                df_new['BMEIN'].append('')
+                                df_new['STLST'].append('')
+                                df_new['POSNR'].append('3')
+                                df_new['POSTP'].append('L')
+                                df_new['MATNR1'].append(kombininovanniy_utils.sap_code1)
+                                df_new['TEXT2'].append(kombininovanniy_utils.termal_bridge1)
+                                df_new['MEINS'].append(f'{length_of_profile}')
+                                df_new['MENGE'].append('М')
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                                df_new['LGORT'].append('PS10')
+                                
+                                j += 1
+                                df_new['ID'].append('2')
+                                df_new['MATNR'].append('')
+                                df_new['WERKS'].append('')
+                                df_new['TEXT1'].append('')
+                                df_new['STLAL'].append('')
+                                df_new['STLAN'].append('')
+                                df_new['ZTEXT'].append('')
+                                df_new['STKTX'].append('')
+                                df_new['BMENG'].append('')
+                                df_new['BMEIN'].append('')
+                                df_new['STLST'].append('')
+                                df_new['POSNR'].append('4')
+                                df_new['POSTP'].append('L')
+                                df_new['MATNR1'].append(kombininovanniy_utils.sap_code2)
+                                df_new['TEXT2'].append(kombininovanniy_utils.termal_bridge2)
+                                df_new['MEINS'].append(f'{length_of_profile}')
+                                df_new['MENGE'].append('М')
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                                df_new['LGORT'].append('PS10')
+                                
+                            
+                            
+                older_process['sapcode'] =df[i][10]
+                older_process['kratkiy'] =df[i][11]
+        else:
+            normaexist = CheckNormaBase.objects.filter(artikul=df[i][10],kratkiytekst=df[i][11])[:1].get()
+            older_process['sapcode'] =normaexist.artikul
+            older_process['kratkiy'] =normaexist.kratkiytekst
+            
+         
+        
+                           
+        norma_exists7 = CheckNormaBase.objects.filter(artikul=df[i][12],kratkiytekst=df[i][13]).exists()
+        if not norma_exists7:
+            if df[i][12] !="":
+                CheckNormaBase(artikul=df[i][12],kratkiytekst=df[i][13]).save()
+                if (df[i][12].split('-')[1][:1]=='7'):
                     
                     
-                    if '_' in df[i][9]:
-                        ddd = df[i][9].split()[2]
+                    if '_' in df[i][13]:
+                        ddd = df[i][13].split()[2]
                     
-                    nakleyka_code = df[i][9].split()[-1]
-                    length = df[i][8].split('-')[0]
+                    nakleyka_code = df[i][13].split()[-1]
+                    length = df[i][12].split('-')[0]
                     
                     
                     alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                     
-                    mein_percent =((get_legth(df[i][9]))/float(alum_teks.длина_профиля_м))
+                    mein_percent =((get_legth(df[i][13]))/float(alum_teks.длина_профиля_м))
                     
-                    its_lamination = not ((not '_' in df[i][9]) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1]))
+                    its_lamination = not ((not '_' in df[i][13]) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1]))
                     
                     if nakleyka_code =='A01':
                         aluminiy_norma_log = (alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм == alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм and alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм != '0') or ((alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм != alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм)and((alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм =='0')or(alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм=='0')))
@@ -3352,90 +4043,22 @@ def process2(request,id):
                     
                         
                         
-                        
+                    its_kombinirovanniy ='-K' in df[i][10]
                     
-                    if ((not '_' in df[i][9]) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1])):
+                    if ((not '_' in df[i][13]) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1])):
                         
-                        if qatorlar_soni == 3:
-                            j+=1
-                            df_new['ID'].append('1')
-                            df_new['MATNR'].append(df[i][8])
-                            df_new['WERKS'].append('1101')
-                            df_new['TEXT1'].append(df[i][9])
-                            df_new['STLAL'].append('1')
-                            df_new['STLAN'].append('1')
-                            ztekst = 'Упаковка'
-                            df_new['ZTEXT'].append(ztekst)
-                            df_new['STKTX'].append(ztekst)
-                            df_new['BMENG'].append( '1000')
-                            df_new['BMEIN'].append('ШТ')
-                            df_new['STLST'].append('1')
-                            df_new['POSNR'].append('')
-                            df_new['POSTP'].append('')
-                            df_new['MATNR1'].append('')
-                            df_new['TEXT2'].append('')
-                            df_new['MEINS'].append('')
-                            df_new['MENGE'].append('')
-                            df_new['DATUV'].append('01012021')
-                            df_new['PUSTOY'].append('')
-                            df_new['LGORT'].append('')
-                            length = df[i][8].split('-')[0]
-                            for k in range(0,qatorlar_soni):
-                                j+=1
-                                df_new['ID'].append('2')
-                                df_new['MATNR'].append('')
-                                df_new['WERKS'].append('')
-                                df_new['TEXT1'].append('')
-                                df_new['STLAL'].append('')
-                                df_new['STLAN'].append('')
-                                df_new['ZTEXT'].append('')
-                                df_new['STKTX'].append('')
-                                df_new['BMENG'].append('')
-                                df_new['BMEIN'].append('')
-                                df_new['STLST'].append('')
-                                df_new['POSNR'].append(k+1)
-                                df_new['POSTP'].append('L')
-                                
-                                
-                                if k == 0 :
-                                    df_new['MATNR1'].append(older_process['sapcode'])
-                                    df_new['TEXT2'].append(older_process['kratkiy'])
-                                    df_new['MEINS'].append('1000')
-                                    df_new['MENGE'].append('ШТ')
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                
-                                if k==1:
-                                    df_new['MATNR1'].append('1000001016')
-                                    df_new['TEXT2'].append('Пленка П1 NS12см 60мк Ncolor')
-                                    df_new['MENGE'].append('КГ')
-                                    df_new['MEINS'].append( "{:0f}".format(float(alum_teks.уп_пол_лн_рас_уп_лн_на_1000_штук_кг)*mein_percent))
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                
-                                if k==2:
-                                    df_new['MATNR1'].append('1900000069')
-                                    df_new['TEXT2'].append('Скотч 36мм/300м')
-                                    df_new['MENGE'].append("ШТ")
-                                    df_new['MEINS'].append("{:0f}".format(float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent))
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                
-                                df_new['LGORT'].append('PS10')
-                        if qatorlar_soni == 4:
-                            jjj =0
-                            for nakleykaa in nakleyka_results:
-                                jjj += 1
+                        if its_kombinirovanniy:
+                            if qatorlar_soni == 3:
                                 j+=1
                                 df_new['ID'].append('1')
-                                df_new['MATNR'].append(df[i][8])
+                                df_new['MATNR'].append(df[i][12])
                                 df_new['WERKS'].append('1101')
-                                df_new['TEXT1'].append(df[i][9])
-                                df_new['STLAL'].append(f'{jjj}')
+                                df_new['TEXT1'].append(df[i][13])
+                                df_new['STLAL'].append('1')
                                 df_new['STLAN'].append('1')
                                 ztekst = 'Упаковка'
                                 df_new['ZTEXT'].append(ztekst)
-                                df_new['STKTX'].append(ztekst+' '+nakleykaa.ширина+nakleykaa.еи_ширины+' '+nakleykaa.тип_клея)
+                                df_new['STKTX'].append(ztekst)
                                 df_new['BMENG'].append( '1000')
                                 df_new['BMEIN'].append('ШТ')
                                 df_new['STLST'].append('1')
@@ -3448,8 +4071,74 @@ def process2(request,id):
                                 df_new['DATUV'].append('01012021')
                                 df_new['PUSTOY'].append('')
                                 df_new['LGORT'].append('')
-                                length = df[i][8].split('-')[0]
+                                length = df[i][12].split('-')[0]
                                 for k in range(0,qatorlar_soni):
+                                    j+=1
+                                    df_new['ID'].append('2')
+                                    df_new['MATNR'].append('')
+                                    df_new['WERKS'].append('')
+                                    df_new['TEXT1'].append('')
+                                    df_new['STLAL'].append('')
+                                    df_new['STLAN'].append('')
+                                    df_new['ZTEXT'].append('')
+                                    df_new['STKTX'].append('')
+                                    df_new['BMENG'].append('')
+                                    df_new['BMEIN'].append('')
+                                    df_new['STLST'].append('')
+                                    df_new['POSNR'].append(k+1)
+                                    df_new['POSTP'].append('L')
+                                    
+                                    
+                                    if k == 0 :
+                                        df_new['MATNR1'].append(older_process['sapcode'])
+                                        df_new['TEXT2'].append(older_process['kratkiy'])
+                                        df_new['MEINS'].append('1000')
+                                        df_new['MENGE'].append('ШТ')
+                                        df_new['DATUV'].append('')
+                                        df_new['PUSTOY'].append('')
+                                    
+                                    if k==1:
+                                        df_new['MATNR1'].append('1000001016')
+                                        df_new['TEXT2'].append('Пленка П1 NS12см 60мк Ncolor')
+                                        df_new['MENGE'].append('КГ')
+                                        df_new['MEINS'].append( "{:0f}".format(float(alum_teks.уп_пол_лн_рас_уп_лн_на_1000_штук_кг)*mein_percent))
+                                        df_new['DATUV'].append('')
+                                        df_new['PUSTOY'].append('')
+                                    
+                                    if k==2:
+                                        df_new['MATNR1'].append('1900000069')
+                                        df_new['TEXT2'].append('Скотч 36мм/300м')
+                                        df_new['MENGE'].append("ШТ")
+                                        df_new['MEINS'].append("{:0f}".format(float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent))
+                                        df_new['DATUV'].append('')
+                                        df_new['PUSTOY'].append('')
+                                    
+                                    df_new['LGORT'].append('PS10')
+                            if ((qatorlar_soni == 4) or (qatorlar_soni == 5)):
+                                j+=1
+                                df_new['ID'].append('1')
+                                df_new['MATNR'].append(df[i][12])
+                                df_new['WERKS'].append('1101')
+                                df_new['TEXT1'].append(df[i][13])
+                                df_new['STLAL'].append(f'1')
+                                df_new['STLAN'].append('1')
+                                ztekst = 'Упаковка'
+                                df_new['ZTEXT'].append(ztekst)
+                                df_new['STKTX'].append(ztekst+' Комбинированный')
+                                df_new['BMENG'].append( '1000')
+                                df_new['BMEIN'].append('ШТ')
+                                df_new['STLST'].append('1')
+                                df_new['POSNR'].append('')
+                                df_new['POSTP'].append('')
+                                df_new['MATNR1'].append('')
+                                df_new['TEXT2'].append('')
+                                df_new['MEINS'].append('')
+                                df_new['MENGE'].append('')
+                                df_new['DATUV'].append('01012021')
+                                df_new['PUSTOY'].append('')
+                                df_new['LGORT'].append('')
+                                length = df[i][12].split('-')[0]
+                                for k in range(0,3):
                                     j+=1
                                     df_new['ID'].append('2')
                                     df_new['MATNR'].append('')
@@ -3491,100 +4180,236 @@ def process2(request,id):
                                         df_new['DATUV'].append('')
                                         df_new['PUSTOY'].append('')
                                     
-                                    if k==3:
-                                        df_new['MATNR1'].append(nakleykaa.sap_code_s4q100)
-                                        df_new['TEXT2'].append(nakleykaa.название)
-                                        df_new['MENGE'].append("М2")
-                                        df_new['MEINS'].append("{:0f}".format((meinss)*mein_percent))
-                                        df_new['DATUV'].append('')
-                                        df_new['PUSTOY'].append('')
-                                    
                                     df_new['LGORT'].append('PS10')
-                    
-                        if qatorlar_soni == 5:
-                            j += 1
-                            df_new['ID'].append('1')
-                            df_new['MATNR'].append(df[i][8])
-                            df_new['WERKS'].append('1101')
-                            df_new['TEXT1'].append(df[i][9])
-                            df_new['STLAL'].append('1')
-                            df_new['STLAN'].append('1')
-                            ztekst = 'Упаковка'
-                            df_new['ZTEXT'].append(ztekst)
-                            df_new['STKTX'].append(ztekst)
-                            df_new['BMENG'].append( '1000')
-                            df_new['BMEIN'].append('ШТ')
-                            df_new['STLST'].append('1')
-                            df_new['POSNR'].append('')
-                            df_new['POSTP'].append('')
-                            df_new['MATNR1'].append('')
-                            df_new['TEXT2'].append('')
-                            df_new['MEINS'].append('')
-                            df_new['MENGE'].append('')
-                            df_new['DATUV'].append('01012021')
-                            df_new['PUSTOY'].append('')
-                            df_new['LGORT'].append('')
-                            length = df[i][8].split('-')[0]
-                            for k in range(0,qatorlar_soni):
-                                j+=1
-                                df_new['ID'].append('2')
-                                df_new['MATNR'].append('')
-                                df_new['WERKS'].append('')
-                                df_new['TEXT1'].append('')
-                                df_new['STLAL'].append('')
-                                df_new['STLAN'].append('')
-                                df_new['ZTEXT'].append('')
-                                df_new['STKTX'].append('')
-                                df_new['BMENG'].append('')
-                                df_new['BMEIN'].append('')
-                                df_new['STLST'].append('')
-                                df_new['POSNR'].append(k+1)
-                                df_new['POSTP'].append('L')
-                                
-                                
-                                if k == 0 :
-                                    df_new['MATNR1'].append(older_process['sapcode'])
-                                    df_new['TEXT2'].append(older_process['kratkiy'])
-                                    df_new['MEINS'].append('1000')
-                                    df_new['MENGE'].append('ШТ')
-                                    df_new['DATUV'].append('')
+                            else:
+                                if qatorlar_soni == 3:
+                                    j+=1
+                                    df_new['ID'].append('1')
+                                    df_new['MATNR'].append(df[i][12])
+                                    df_new['WERKS'].append('1101')
+                                    df_new['TEXT1'].append(df[i][13])
+                                    df_new['STLAL'].append('1')
+                                    df_new['STLAN'].append('1')
+                                    ztekst = 'Упаковка'
+                                    df_new['ZTEXT'].append(ztekst)
+                                    df_new['STKTX'].append(ztekst)
+                                    df_new['BMENG'].append( '1000')
+                                    df_new['BMEIN'].append('ШТ')
+                                    df_new['STLST'].append('1')
+                                    df_new['POSNR'].append('')
+                                    df_new['POSTP'].append('')
+                                    df_new['MATNR1'].append('')
+                                    df_new['TEXT2'].append('')
+                                    df_new['MEINS'].append('')
+                                    df_new['MENGE'].append('')
+                                    df_new['DATUV'].append('01012021')
                                     df_new['PUSTOY'].append('')
-                                
-                                if k==1:
-                                    df_new['MATNR1'].append('1000001016')
-                                    df_new['TEXT2'].append('Пленка П1 NS12см 60мк Ncolor')
-                                    df_new['MENGE'].append('КГ')
-                                    df_new['MEINS'].append( "{:0f}".format(float(alum_teks.уп_пол_лн_рас_уп_лн_на_1000_штук_кг)*mein_percent))
-                                    df_new['DATUV'].append('')
+                                    df_new['LGORT'].append('')
+                                    length = df[i][12].split('-')[0]
+                                    for k in range(0,qatorlar_soni):
+                                        j+=1
+                                        df_new['ID'].append('2')
+                                        df_new['MATNR'].append('')
+                                        df_new['WERKS'].append('')
+                                        df_new['TEXT1'].append('')
+                                        df_new['STLAL'].append('')
+                                        df_new['STLAN'].append('')
+                                        df_new['ZTEXT'].append('')
+                                        df_new['STKTX'].append('')
+                                        df_new['BMENG'].append('')
+                                        df_new['BMEIN'].append('')
+                                        df_new['STLST'].append('')
+                                        df_new['POSNR'].append(k+1)
+                                        df_new['POSTP'].append('L')
+                                        
+                                        
+                                        if k == 0 :
+                                            df_new['MATNR1'].append(older_process['sapcode'])
+                                            df_new['TEXT2'].append(older_process['kratkiy'])
+                                            df_new['MEINS'].append('1000')
+                                            df_new['MENGE'].append('ШТ')
+                                            df_new['DATUV'].append('')
+                                            df_new['PUSTOY'].append('')
+                                        
+                                        if k==1:
+                                            df_new['MATNR1'].append('1000001016')
+                                            df_new['TEXT2'].append('Пленка П1 NS12см 60мк Ncolor')
+                                            df_new['MENGE'].append('КГ')
+                                            df_new['MEINS'].append( "{:0f}".format(float(alum_teks.уп_пол_лн_рас_уп_лн_на_1000_штук_кг)*mein_percent))
+                                            df_new['DATUV'].append('')
+                                            df_new['PUSTOY'].append('')
+                                        
+                                        if k==2:
+                                            df_new['MATNR1'].append('1900000069')
+                                            df_new['TEXT2'].append('Скотч 36мм/300м')
+                                            df_new['MENGE'].append("ШТ")
+                                            df_new['MEINS'].append("{:0f}".format(float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent))
+                                            df_new['DATUV'].append('')
+                                            df_new['PUSTOY'].append('')
+                                        
+                                        df_new['LGORT'].append('PS10')
+                                if qatorlar_soni == 4:
+                                    jjj =0
+                                    for nakleykaa in nakleyka_results:
+                                        jjj += 1
+                                        j+=1
+                                        df_new['ID'].append('1')
+                                        df_new['MATNR'].append(df[i][12])
+                                        df_new['WERKS'].append('1101')
+                                        df_new['TEXT1'].append(df[i][13])
+                                        df_new['STLAL'].append(f'{jjj}')
+                                        df_new['STLAN'].append('1')
+                                        ztekst = 'Упаковка'
+                                        df_new['ZTEXT'].append(ztekst)
+                                        df_new['STKTX'].append(ztekst+' '+nakleykaa.ширина+nakleykaa.еи_ширины+' '+nakleykaa.тип_клея)
+                                        df_new['BMENG'].append( '1000')
+                                        df_new['BMEIN'].append('ШТ')
+                                        df_new['STLST'].append('1')
+                                        df_new['POSNR'].append('')
+                                        df_new['POSTP'].append('')
+                                        df_new['MATNR1'].append('')
+                                        df_new['TEXT2'].append('')
+                                        df_new['MEINS'].append('')
+                                        df_new['MENGE'].append('')
+                                        df_new['DATUV'].append('01012021')
+                                        df_new['PUSTOY'].append('')
+                                        df_new['LGORT'].append('')
+                                        length = df[i][12].split('-')[0]
+                                        for k in range(0,qatorlar_soni):
+                                            j+=1
+                                            df_new['ID'].append('2')
+                                            df_new['MATNR'].append('')
+                                            df_new['WERKS'].append('')
+                                            df_new['TEXT1'].append('')
+                                            df_new['STLAL'].append('')
+                                            df_new['STLAN'].append('')
+                                            df_new['ZTEXT'].append('')
+                                            df_new['STKTX'].append('')
+                                            df_new['BMENG'].append('')
+                                            df_new['BMEIN'].append('')
+                                            df_new['STLST'].append('')
+                                            df_new['POSNR'].append(k+1)
+                                            df_new['POSTP'].append('L')
+                                            
+                                            
+                                            if k == 0 :
+                                                df_new['MATNR1'].append(older_process['sapcode'])
+                                                df_new['TEXT2'].append(older_process['kratkiy'])
+                                                df_new['MEINS'].append('1000')
+                                                df_new['MENGE'].append('ШТ')
+                                                df_new['DATUV'].append('')
+                                                df_new['PUSTOY'].append('')
+                                            
+                                            if k==1:
+                                                df_new['MATNR1'].append('1000001016')
+                                                df_new['TEXT2'].append('Пленка П1 NS12см 60мк Ncolor')
+                                                df_new['MENGE'].append('КГ')
+                                                df_new['MEINS'].append( "{:0f}".format(float(alum_teks.уп_пол_лн_рас_уп_лн_на_1000_штук_кг)*mein_percent))
+                                                df_new['DATUV'].append('')
+                                                df_new['PUSTOY'].append('')
+                                            
+                                            if k==2:
+                                                skotch = Skotch.objects.get(id=1)
+                                                df_new['MATNR1'].append('1900000069')
+                                                df_new['TEXT2'].append('Скотч 36мм/300м')
+                                                df_new['MENGE'].append("ШТ")
+                                                df_new['MEINS'].append("{:0f}".format(float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent))
+                                                df_new['DATUV'].append('')
+                                                df_new['PUSTOY'].append('')
+                                            
+                                            if k==3:
+                                                df_new['MATNR1'].append(nakleykaa.sap_code_s4q100)
+                                                df_new['TEXT2'].append(nakleykaa.название)
+                                                df_new['MENGE'].append("М2")
+                                                df_new['MEINS'].append("{:0f}".format((meinss)*mein_percent))
+                                                df_new['DATUV'].append('')
+                                                df_new['PUSTOY'].append('')
+                                            
+                                            df_new['LGORT'].append('PS10')
+                                if qatorlar_soni == 5:
+                                    j += 1
+                                    df_new['ID'].append('1')
+                                    df_new['MATNR'].append(df[i][12])
+                                    df_new['WERKS'].append('1101')
+                                    df_new['TEXT1'].append(df[i][13])
+                                    df_new['STLAL'].append('1')
+                                    df_new['STLAN'].append('1')
+                                    ztekst = 'Упаковка'
+                                    df_new['ZTEXT'].append(ztekst)
+                                    df_new['STKTX'].append(ztekst)
+                                    df_new['BMENG'].append( '1000')
+                                    df_new['BMEIN'].append('ШТ')
+                                    df_new['STLST'].append('1')
+                                    df_new['POSNR'].append('')
+                                    df_new['POSTP'].append('')
+                                    df_new['MATNR1'].append('')
+                                    df_new['TEXT2'].append('')
+                                    df_new['MEINS'].append('')
+                                    df_new['MENGE'].append('')
+                                    df_new['DATUV'].append('01012021')
                                     df_new['PUSTOY'].append('')
-                                
-                                if k==2:
-                                    skotch = Skotch.objects.get(id=1)
-                                    df_new['MATNR1'].append('1900000069')
-                                    df_new['TEXT2'].append('Скотч 36мм/300м')
-                                    df_new['MENGE'].append("ШТ")
-                                    df_new['MEINS'].append("{:0f}".format(float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent))
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                
-                                if k==3:
-                                    df_new['MATNR1'].append(nakleyka_result1.sap_code_s4q100)
-                                    df_new['TEXT2'].append(nakleyka_result1.название)
-                                    df_new['MENGE'].append("М2")
-                                    df_new['MEINS'].append(float(meinss1)*mein_percent)
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                
-                                if k==4:
-                                    df_new['MATNR1'].append(nakleyka_result2.sap_code_s4q100)
-                                    df_new['TEXT2'].append(nakleyka_result2.название)
-                                    df_new['MENGE'].append("М2")
-                                    df_new['MEINS'].append(float(meinss2)*mein_percent)
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                
-                                df_new['LGORT'].append('PS10')
-                    
+                                    df_new['LGORT'].append('')
+                                    length = df[i][12].split('-')[0]
+                                    for k in range(0,qatorlar_soni):
+                                        j+=1
+                                        df_new['ID'].append('2')
+                                        df_new['MATNR'].append('')
+                                        df_new['WERKS'].append('')
+                                        df_new['TEXT1'].append('')
+                                        df_new['STLAL'].append('')
+                                        df_new['STLAN'].append('')
+                                        df_new['ZTEXT'].append('')
+                                        df_new['STKTX'].append('')
+                                        df_new['BMENG'].append('')
+                                        df_new['BMEIN'].append('')
+                                        df_new['STLST'].append('')
+                                        df_new['POSNR'].append(k+1)
+                                        df_new['POSTP'].append('L')
+                                        
+                                        
+                                        if k == 0 :
+                                            df_new['MATNR1'].append(older_process['sapcode'])
+                                            df_new['TEXT2'].append(older_process['kratkiy'])
+                                            df_new['MEINS'].append('1000')
+                                            df_new['MENGE'].append('ШТ')
+                                            df_new['DATUV'].append('')
+                                            df_new['PUSTOY'].append('')
+                                        
+                                        if k==1:
+                                            df_new['MATNR1'].append('1000001016')
+                                            df_new['TEXT2'].append('Пленка П1 NS12см 60мк Ncolor')
+                                            df_new['MENGE'].append('КГ')
+                                            df_new['MEINS'].append( "{:0f}".format(float(alum_teks.уп_пол_лн_рас_уп_лн_на_1000_штук_кг)*mein_percent))
+                                            df_new['DATUV'].append('')
+                                            df_new['PUSTOY'].append('')
+                                        
+                                        if k==2:
+                                            skotch = Skotch.objects.get(id=1)
+                                            df_new['MATNR1'].append('1900000069')
+                                            df_new['TEXT2'].append('Скотч 36мм/300м')
+                                            df_new['MENGE'].append("ШТ")
+                                            df_new['MEINS'].append("{:0f}".format(float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent))
+                                            df_new['DATUV'].append('')
+                                            df_new['PUSTOY'].append('')
+                                        
+                                        if k==3:
+                                            df_new['MATNR1'].append(nakleyka_result1.sap_code_s4q100)
+                                            df_new['TEXT2'].append(nakleyka_result1.название)
+                                            df_new['MENGE'].append("М2")
+                                            df_new['MEINS'].append(float(meinss1)*mein_percent)
+                                            df_new['DATUV'].append('')
+                                            df_new['PUSTOY'].append('')
+                                        
+                                        if k==4:
+                                            df_new['MATNR1'].append(nakleyka_result2.sap_code_s4q100)
+                                            df_new['TEXT2'].append(nakleyka_result2.название)
+                                            df_new['MENGE'].append("М2")
+                                            df_new['MEINS'].append(float(meinss2)*mein_percent)
+                                            df_new['DATUV'].append('')
+                                            df_new['PUSTOY'].append('')
+                                        
+                                        df_new['LGORT'].append('PS10')
+                            
                     else:
                         
                         laminatsiya_code = ddd.split('_')[1].split('/')
@@ -3617,9 +4442,9 @@ def process2(request,id):
                         if qatorlar_soni == 5:
                             j+=1
                             df_new['ID'].append('1')
-                            df_new['MATNR'].append(df[i][8])
+                            df_new['MATNR'].append(df[i][12])
                             df_new['WERKS'].append('1101')
-                            df_new['TEXT1'].append(df[i][9])
+                            df_new['TEXT1'].append(df[i][13])
                             df_new['STLAL'].append('1')
                             df_new['STLAN'].append('1')
                             ztekst = 'Ламинация + Наклейка + Упаковка'
@@ -3637,7 +4462,7 @@ def process2(request,id):
                             df_new['DATUV'].append('01012021')
                             df_new['PUSTOY'].append('')
                             df_new['LGORT'].append('')
-                            length = df[i][8].split('-')[0]
+                            length = df[i][12].split('-')[0]
                             for k in range(0,qatorlar_soni):
                                 j+=1
                                 df_new['ID'].append('2')
@@ -3703,9 +4528,9 @@ def process2(request,id):
                                 jjj += 1
                                 j+=1
                                 df_new['ID'].append('1')
-                                df_new['MATNR'].append(df[i][8])
+                                df_new['MATNR'].append(df[i][12])
                                 df_new['WERKS'].append('1101')
-                                df_new['TEXT1'].append(df[i][9])
+                                df_new['TEXT1'].append(df[i][13])
                                 df_new['STLAL'].append(f'{jjj}')
                                 df_new['STLAN'].append('1')
                                 ztekst = 'Ламинация + Наклейка + Упаковка'
@@ -3723,7 +4548,7 @@ def process2(request,id):
                                 df_new['DATUV'].append('01012021')
                                 df_new['PUSTOY'].append('')
                                 df_new['LGORT'].append('')
-                                length = df[i][8].split('-')[0]
+                                length = df[i][12].split('-')[0]
                                 for k in range(0,qatorlar_soni):
                                     j+=1
                                     df_new['ID'].append('2')
@@ -3796,9 +4621,9 @@ def process2(request,id):
                         if qatorlar_soni == 7:
                             j+=1
                             df_new['ID'].append('1')
-                            df_new['MATNR'].append(df[i][8])
+                            df_new['MATNR'].append(df[i][12])
                             df_new['WERKS'].append('1101')
-                            df_new['TEXT1'].append(df[i][9])
+                            df_new['TEXT1'].append(df[i][13])
                             df_new['STLAL'].append(f'1')
                             df_new['STLAN'].append('1')
                             ztekst = 'Ламинация + Наклейка + Упаковка'
@@ -3816,7 +4641,7 @@ def process2(request,id):
                             df_new['DATUV'].append('01012021')
                             df_new['PUSTOY'].append('')
                             df_new['LGORT'].append('')
-                            length = df[i][8].split('-')[0]
+                            length = df[i][12].split('-')[0]
                             for k in range(0,qatorlar_soni):
                                 j+=1
                                 df_new['ID'].append('2')
@@ -3895,9 +4720,9 @@ def process2(request,id):
                         if qatorlar_soni == 8:
                             j += 1
                             df_new['ID'].append('1')
-                            df_new['MATNR'].append(df[i][8])
+                            df_new['MATNR'].append(df[i][12])
                             df_new['WERKS'].append('1101')
-                            df_new['TEXT1'].append(df[i][9])
+                            df_new['TEXT1'].append(df[i][13])
                             df_new['STLAL'].append('1')
                             df_new['STLAN'].append('1')
                             ztekst = 'Ламинация + Наклейка + Упаковка'
@@ -3915,7 +4740,7 @@ def process2(request,id):
                             df_new['DATUV'].append('01012021')
                             df_new['PUSTOY'].append('')
                             df_new['LGORT'].append('')
-                            length = df[i][8].split('-')[0]
+                            length = df[i][12].split('-')[0]
                             for k in range(0,qatorlar_soni):
                                 j+=1
                                 df_new['ID'].append('2')
@@ -3998,8 +4823,8 @@ def process2(request,id):
                     
                     
                     
-                older_process['sapcode'] =df[i][8]
-                older_process['kratkiy'] =df[i][9]
+                older_process['sapcode'] =df[i][12]
+                older_process['kratkiy'] =df[i][13]
                 
                         
                         
@@ -4008,7 +4833,7 @@ def process2(request,id):
     #     print(key,len(val)) 
     # print(df_new)
     dff =pd.DataFrame(df_new)
-    path =os.path.join(os.path.expanduser("~/Desktop"),'new_base.xlsx')
+    path =os.path.join(os.path.expanduser("~/Desktop"),'new_base_cominirovaniy.xlsx')
     
     dff.to_excel(path)
     return JsonResponse({'a':'b'})

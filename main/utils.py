@@ -179,6 +179,7 @@ def counter_generated_data(datas):
   if len(excel_txt5) > 0:
     new_d=[[] for i in range(0,6)]
     for i in range(0,len(umumiy_without_duplicate[2])):
+      # if umumiy_without_duplicate[9][i] ==''
       new_d[0]+=['001' for j in range(0,9)]
       new_d[1]+=['KLAES_REST' for j in range(0,6)]
       new_d[1]+=['KLAES_PP' for j in range(0,3)]
