@@ -5,16 +5,12 @@ from config.settings import MEDIA_ROOT
 import pandas as pd
 import numpy as np
 import os
-now = datetime.now()
-year =now.strftime("%Y")
-month =now.strftime("%B")
-day =now.strftime("%d %a")
+
 
 group_one =['WDC47','WDT65','WDT78']
 
 
-def counter_generated_data(datas):
-  s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
+def counter_generated_data(datas,s2):
   pr = [x['new_sap_kod_del_otxod'] for x in Product.objects.all().values('new_sap_kod_del_otxod').annotate(dcount=Count('new_sap_kod_del_otxod')).order_by('dcount')]
   products = Product.objects.all().values('id','sap_kod_del_otxod','kratkiy_tekst_del_otxod')
 
@@ -132,27 +128,16 @@ def counter_generated_data(datas):
         umumiy = umumiy_dict(product,umumiy)
         umumiy_without_duplicate = umumiy_dict(product,umumiy_without_duplicate)
       counter[dat['sap_code_krat']]=counter_list
-  
-  create_folder(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\',year)
-  create_folder(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\',month)
-  create_folder(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\',day)
-  
-  for i in range(1,100):
-    first_file_exist =not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\new-data.xlsx')
-    if first_file_exist:
-      path =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\new-data.xlsx'
-      path2 =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\Лист в C 3.xlsx'
-      pathfile1 = f'uploads\\delovoyotxod\\{year}\\{month}\\{day}\\new-data.xlsx'
-      pathfile2 = f'uploads\\delovoyotxod\\{year}\\{month}\\{day}\\Лист в C 3.xlsx'
-      indexx_file =0
-      
-    if ((not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\new-data-{i}.xlsx')) and first_file_exist):  
-      path =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\new-data-{i}.xlsx'
-      path2 =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\Лист в C 3-{i}.xlsx'
-      pathfile1 = f'uploads\\delovoyotxod\\{year}\\{month}\\{day}\\new-data-{i}.xlsx'
-      pathfile2 = f'uploads\\delovoyotxod\\{year}\\{month}\\{day}\\Лист в C 3-{i}.xlsx'
-      indexx_file = i
-      break
+        
+  for i in range(1,100): 
+    s2=s2+f'--{i}'
+    parent_dir =f'{MEDIA_ROOT}\\uploads\\{s2}'
+    if not os.path.isdir(parent_dir):
+          create_folder(f'{MEDIA_ROOT}\\uploads\\',s2)
+          break
+        
+  path =f'{MEDIA_ROOT}\\uploads\\{s2}\\new-data.xlsx'
+  path2 =f'{MEDIA_ROOT}\\uploads\\{s2}\\Лист в C 3.xlsx'
   d={}
   d['SAP код материала']=umumiy[0]
   d['Краткий текст материала']=umumiy[1]
@@ -179,22 +164,13 @@ def counter_generated_data(datas):
   if len(excel_txt5) > 0:
     new_d=[[] for i in range(0,6)]
     for i in range(0,len(umumiy_without_duplicate[2])):
-      if (umumiy_without_duplicate[9][i] =='' or umumiy_without_duplicate[9][i] =='nan'):
-        new_d[0]+=['001' for j in range(0,6)]
-        new_d[1]+=['KLAES_REST' for j in range(0,3)]
-        new_d[1]+=['KLAES_PP' for j in range(0,3)]
-        new_d[2]+=['MARA' for j in range(0,6)]
-        new_d[3]+=[ umumiy_without_duplicate[2][i] for j in range(0,6)]
-        new_d[4]+=['KLAES','KLS_LENGTH','CH_PROFILE_TYPE','KLS_WAST','KLS_WAST_LENGTH','CH_KLAES_OPTM']
-        new_d[5]+=[umumiy_without_duplicate[4][i],excel_txt5[i],umumiy_without_duplicate[5][i],umumiy_without_duplicate[6][i],umumiy_without_duplicate[7][i],umumiy_without_duplicate[8][i]]
-      else:
-        new_d[0]+=['001' for j in range(0,9)]
-        new_d[1]+=['KLAES_REST' for j in range(0,6)]
-        new_d[1]+=['KLAES_PP' for j in range(0,3)]
-        new_d[2]+=['MARA' for j in range(0,9)]
-        new_d[3]+=[ umumiy_without_duplicate[2][i] for j in range(0,9)]
-        new_d[4]+=['KLAES','KLS_LENGTH','CH_PROFILE_TYPE','KLS_INNER_ID','KLS_INNER_COL','KLS_COLOR','KLS_WAST','KLS_WAST_LENGTH','CH_KLAES_OPTM']
-        new_d[5]+=[umumiy_without_duplicate[4][i],excel_txt5[i],umumiy_without_duplicate[5][i],umumiy_without_duplicate[9][i],umumiy_without_duplicate[10][i],umumiy_without_duplicate[11][i],umumiy_without_duplicate[6][i],umumiy_without_duplicate[7][i],umumiy_without_duplicate[8][i]]
+      new_d[0]+=['001' for j in range(0,9)]
+      new_d[1]+=['KLAES_REST' for j in range(0,6)]
+      new_d[1]+=['KLAES_PP' for j in range(0,3)]
+      new_d[2]+=['MARA' for j in range(0,9)]
+      new_d[3]+=[ umumiy_without_duplicate[2][i] for j in range(0,9)]
+      new_d[4]+=['KLAES','KLS_LENGTH','CH_PROFILE_TYPE','KLS_INNER_ID','KLS_INNER_COL','KLS_COLOR','KLS_WAST','KLS_WAST_LENGTH','CH_KLAES_OPTM']
+      new_d[5]+=[umumiy_without_duplicate[4][i],excel_txt5[i],umumiy_without_duplicate[5][i],umumiy_without_duplicate[9][i],umumiy_without_duplicate[10][i],umumiy_without_duplicate[11][i],umumiy_without_duplicate[6][i],umumiy_without_duplicate[7][i],umumiy_without_duplicate[8][i]]
   
     dd2['Вид класса'] = new_d[0]
     dd2['Класс'] = new_d[1]
@@ -222,13 +198,8 @@ def counter_generated_data(datas):
   d1['NTGEW']=umumiy_without_duplicate[15]
   d1['GEWEI']=[ 'КГ' for i in range(0,len(umumiy_without_duplicate[0]))]
   d1['MTPOS_MARA']=[ 'NORM' for i in range(0,len(umumiy_without_duplicate[0]))]
-  
   df1= pd.DataFrame(d1)
-  
-  if indexx_file > 0 :
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\1-{indexx_file}.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
-  else:
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\1.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\1.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
   
 
   header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tUEETK\tLGPRO\tSBDKZ'
@@ -275,14 +246,7 @@ def counter_generated_data(datas):
   d2['SBDKZ']=[ 2 for i in range(0,len(umumiy_without_duplicate[0]))]
 
   df2= pd.DataFrame(d2)
-  
-  if indexx_file > 0 :
-        np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\2-{indexx_file}.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
-  else:
-        np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\2.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
-    
-  
-
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\2.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
   
 
   header3 ='MAKTX\tMEINS\tMTART\tSPART\tMATNR\tWERKS\tVKORG\tMTPOS\tVTWEG\tPRCTR\tMTVFP\tALAND\tTATYP\tTAXKM\tVERSG\tKTGRM\tKONDM\tLADGR\tTRAGR'
@@ -308,12 +272,7 @@ def counter_generated_data(datas):
   d3['TRAGR']=[ '0001' for i in range(0,len(umumiy_without_duplicate[0]))]
   
   df3= pd.DataFrame(d3)
-  
-  if indexx_file > 0 :
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\3-{indexx_file}.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
-  else:
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\3.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
-
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\3.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
   
 
   new_ll =[[],[],[]]
@@ -337,29 +296,19 @@ def counter_generated_data(datas):
   d4['LGORT']=new_ll[2]
 
   df4= pd.DataFrame(d4)
-  
-  if indexx_file > 0 :
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\4-{indexx_file}.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
-  else:
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
-        
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
   
   d5 ={}
   d5['del_otxod_sap_code']=umumiy_without_duplicate[2]
   d5['ed_iz1']=[ 1000 for i in range(0,len(umumiy_without_duplicate[0]))]
   d5['ed_iz2']=excel_txt5
   d5['naz_ed_iz']=[ 'M' for i in range(0,len(umumiy_without_duplicate[0]))]
-  
   df5= pd.DataFrame(d5)
-  
-  if indexx_file > 0 :
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\Единицы изм-{indexx_file}.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
-  else:
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
+  np.savetxt(f'{MEDIA_ROOT}\\uploads\\{s2}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
 
-  file_exist =ExcelFiles(file =pathfile1,generated=True)
+  file_exist =ExcelFiles(file =f'uploads//{s2}//new-data.xlsx',generated=True)
   file_exist.save()
-  file_exist2 =ExcelFiles(file =pathfile2,generated=True)
+  file_exist2 =ExcelFiles(file =f'uploads//{s2}//Лист в C 3.xlsx',generated=True)
   file_exist2.save()
   return [file_exist.id,file_exist2.id]
 
@@ -387,7 +336,6 @@ def umumiy_dict(product,text_materials_list,duplicate='No'):
 
 
 def create_folder(parent_dir,directory):
-  if not os.path.isdir(parent_dir):
-    path = os.path.join(parent_dir, directory)
-    os.mkdir(path)
+  path = os.path.join(parent_dir, directory)
+  os.mkdir(path)
   
