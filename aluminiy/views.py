@@ -3,6 +3,7 @@ from django.http import JsonResponse
 import pandas as pd
 from .models import ArtikulComponent,AluminiyProduct,AluFile,AluminiyProductBasesimple
 from main.models import ExcelFiles
+from aluminiytermo.models import AluminiyProductTermo
 from .forms import FileForm
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
@@ -173,6 +174,11 @@ def product_add(request,id):
       umumiy_counter={}
       for al in aluminiy_group:
             umumiy_counter[ al['artikul'] + '-' + al['section'] ] = al['total_max']
+      ################ termo max ########
+      aluminiy_group_termo = AluminiyProductTermo.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
+      umumiy_counter_termo = {}
+      for al in aluminiy_group_termo:
+            umumiy_counter_termo[ al['artikul'] + '-' + al['section'] ] = al['total_max']
       ############################ end grouby ######
       
       
@@ -214,6 +220,7 @@ def product_add(request,id):
       # print(type(df['Артикул']))
       
       for key,row in df.iterrows():
+            termo = False
             row['Сплав'] =row['Сплав'].replace('.0','')
             row['Сплав'] =row['Сплав'].replace('.0','')
             row['Длина (мм)'] =row['Длина (мм)'].replace('.0','')
@@ -224,8 +231,13 @@ def product_add(request,id):
             if product_exists:
                   component = ArtikulComponent.objects.filter(artikul=row['Артикул'])[:1].get().component
             else:
-                  print('no components!!')
-                  continue
+                  if ArtikulComponent.objects.filter(component=row['Артикул']).exists():
+                        component = row['Артикул']
+                        termo = True
+                  else:
+                        print('no components and artikules!!')
+                        continue
+                  
             
             
             # print(component,AluminiyProduct.objects.filter(artikul =component,section ='E').values('section').annotate(total_max=Max('counter'))[0]['total_max'])
@@ -285,176 +297,360 @@ def product_add(request,id):
             else:
                   print("<<<<<< Нет Тип покрытия ! >>>>>>")
             
-            if AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['ekrat'][key]).exists():
-                  df_new['ekrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['ekrat'][key])[:1].get().material
-            else:
-                  if AluminiyProduct.objects.filter(artikul =component,section ='E').exists():
-                        # max_valuesE = AluminiyProduct.objects.filter(artikul =component,section ='E').values('section').annotate(total_max=Max('counter'))[0]['total_max']
-                        umumiy_counter[ component +'-E'] += 1
-                        max_valuesE = umumiy_counter[ component +'-E']
-                        materiale = component+"-E{:03d}".format(max_valuesE)
-                        AluminiyProduct(artikul =component,section ='E',counter=max_valuesE,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ekrat'][key],material=materiale).save()
-                        df_new['ekrat_counter'][key]=materiale
-                  else: 
-                        materiale = component+"-E{:03d}".format(1)
-                        AluminiyProduct(artikul =component,section ='E',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ekrat'][key],material=materiale).save()
-                        df_new['ekrat_counter'][key]=materiale
-                        umumiy_counter[ component +'-E'] = 1
-                        
-            if AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key]).exists():
-                  df_new['zkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key])[:1].get().material
-            else: 
-                  if AluminiyProduct.objects.filter(artikul =component,section ='Z').exists():
-                        umumiy_counter[ component +'-Z'] += 1
-                        max_valuesZ = umumiy_counter[ component +'-Z']
-                        materiale = component+"-Z{:03d}".format(max_valuesZ)
-                        AluminiyProduct(artikul =component,section ='Z',counter=max_valuesZ,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['zkrat'][key],material=materiale).save()
-                        df_new['zkrat_counter'][key]=materiale
+            if not termo:          
+                  if AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['ekrat'][key]).exists():
+                        df_new['ekrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['ekrat'][key])[:1].get().material
                   else:
-                        materiale = component+"-Z{:03d}".format(1)
-                        AluminiyProduct(artikul =component,section ='Z',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['zkrat'][key],material=materiale).save()
-                        df_new['zkrat_counter'][key]=materiale
-                        umumiy_counter[ component +'-Z'] = 1
-                        
-            
-            
-            if ((row['Тип покрытия'] == 'Сублимированный') or (row['Тип покрытия'] == 'Ламинированный') or (row['Тип покрытия'] == 'Окрашенный') or (row['Тип покрытия'] == 'Белый')): 
-                  if AluminiyProduct.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['pkrat'][key]).exists():
-                        df_new['pkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['pkrat'][key])[:1].get().material
-                  else: 
-                        if AluminiyProduct.objects.filter(artikul =component,section ='P').exists():
-                              umumiy_counter[component+'-P'] += 1
-                              
-                              max_valuesP = umumiy_counter[ component +'-P']
-                              materiale = component+"-P{:03d}".format(max_valuesP)
-                              AluminiyProduct(artikul =component,section ='P',counter=max_valuesP,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['pkrat'][key],material=materiale).save()
-                              df_new['pkrat_counter'][key]=materiale
-                        else:
-                              materiale = component+"-P{:03d}".format(1)
-                              AluminiyProduct(artikul =component,section ='P',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['pkrat'][key],material=materiale).save()
-                              df_new['pkrat_counter'][key] = materiale
-                              umumiy_counter[component+'-P'] = 1
-            
-            if row['Тип покрытия'] =='Сублимированный':       
-                  if AluminiyProduct.objects.filter(artikul =component,section ='S',kratkiy_tekst_materiala=df_new['skrat'][key]).exists():
-                        df_new['skrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='S',kratkiy_tekst_materiala=df_new['skrat'][key])[:1].get().material
-                  else: 
-                        if AluminiyProduct.objects.filter(artikul =component,section ='S').exists():
-                              umumiy_counter[component+'-S'] += 1
-                              max_valuesS = umumiy_counter[ component +'-S']
-                              materiale = component+"-S{:03d}".format(max_valuesS)
-                              AluminiyProduct(artikul =component,section ='S',counter=max_valuesS,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['skrat'][key],material=materiale).save()
-                              df_new['skrat_counter'][key]=materiale
-                        else:
-                              materiale = component+"-S{:03d}".format(1)
-                              AluminiyProduct(artikul =component,section ='S',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['skrat'][key],material=materiale).save()
-                              df_new['skrat_counter'][key]=materiale
-                              umumiy_counter[component+'-S'] = 1
-            
-            if row['Тип покрытия'] =='Анодированный':    
-                  if AluminiyProduct.objects.filter(artikul =component,section ='A',kratkiy_tekst_materiala=df_new['akrat'][key]).exists():
-                        df_new['akrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='A',kratkiy_tekst_materiala=df_new['akrat'][key])[:1].get().material
-                  else: 
-                        if AluminiyProduct.objects.filter(artikul =component,section ='A').exists():
-                              umumiy_counter[component+'-A'] += 1
-                              max_valuesA = umumiy_counter[ component +'-A']
-                              materiale = component+"-A{:03d}".format(max_valuesA)
-                              AluminiyProduct(artikul =component,section ='A',counter=max_valuesA,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['akrat'][key],material=materiale).save()
-                              df_new['akrat_counter'][key]=materiale
-                        else:
-                              materiale = component+"-A{:03d}".format(1)
-                              AluminiyProduct(artikul =component,section ='A',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['akrat'][key],material=materiale).save()
-                              df_new['akrat_counter'][key]=materiale
-                              umumiy_counter[component+'-A'] = 1
-                              
-            
-            if row['Тип покрытия'] == 'Ламинированный':     
-                  if AluminiyProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['lkrat'][key]).exists():
-                        df_new['lkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['lkrat'][key])[:1].get().material
-                  else: 
-                        if AluminiyProduct.objects.filter(artikul =component,section ='L').exists():
-                              umumiy_counter[component+'-L'] += 1
-                              max_valuesL = umumiy_counter[ component +'-L']
-                              materiale = component+"-L{:03d}".format(max_valuesL)
-                              AluminiyProduct(artikul =component,section ='L',counter=max_valuesL,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['lkrat'][key],material=materiale).save()
-                              df_new['lkrat_counter'][key]=materiale
-                        else:
-                              materiale = component+"-L{:03d}".format(1)
-                              AluminiyProduct(artikul =component,section ='L',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['lkrat'][key],material=materiale).save()
-                              df_new['lkrat_counter'][key]=materiale
-                              umumiy_counter[component+'-L'] = 1
-                        
-            if ((row['Код наклейки'] != 'NT1') and (row['Тип покрытия'] != 'Ламинированный')) :    
-                  if AluminiyProduct.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['nkrat'][key]).exists():
-                        df_new['nkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['nkrat'][key])[:1].get().material
-                  else:
-                        if  AluminiyProduct.objects.filter(artikul =component,section ='N').exists():
-                              umumiy_counter[component+'-N'] += 1
-                              max_valuesN = umumiy_counter[ component +'-N']
-                              materiale = component+"-N{:03d}".format(max_valuesN)
-                              AluminiyProduct(artikul =component,section ='N',counter=max_valuesN,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['nkrat'][key],material=materiale).save()
-                              df_new['nkrat_counter'][key]=materiale
-                        else:
-                              materiale = component+"-N{:03d}".format(1)
-                              AluminiyProduct(artikul =component,section ='N',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['nkrat'][key],material=materiale).save()
-                              df_new['nkrat_counter'][key]=materiale
-                              umumiy_counter[component+'-N'] = 1
+                        if AluminiyProduct.objects.filter(artikul =component,section ='E').exists():
+                              # max_valuesE = AluminiyProduct.objects.filter(artikul =component,section ='E').values('section').annotate(total_max=Max('counter'))[0]['total_max']
+                              umumiy_counter[ component +'-E'] += 1
+                              max_valuesE = umumiy_counter[ component +'-E']
+                              materiale = component+"-E{:03d}".format(max_valuesE)
+                              AluminiyProduct(artikul =component,section ='E',counter=max_valuesE,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ekrat'][key],material=materiale).save()
+                              df_new['ekrat_counter'][key]=materiale
+                        else: 
+                              materiale = component+"-E{:03d}".format(1)
+                              AluminiyProduct(artikul =component,section ='E',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ekrat'][key],material=materiale).save()
+                              df_new['ekrat_counter'][key]=materiale
+                              umumiy_counter[ component +'-E'] = 1
                   
                   
-            if row['Длина при выходе из пресса'] != 'nan':
-                  if AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='F',kratkiy_tekst_materiala=df_new['fkrat'][key]).exists():
-                        df_new['fkrat_counter'][key] = AluminiyProduct.objects.filter(artikul = row['Артикул'],section ='F',kratkiy_tekst_materiala=df_new['fkrat'][key])[:1].get().material
+                              
+                  if AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key]).exists():
+                        df_new['zkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key])[:1].get().material
                   else: 
-                        if AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='F').exists():
-                              umumiy_counter[row['Артикул']+'-F'] += 1
-                              max_valuesF = umumiy_counter[row['Артикул']+'-F']
-                              materiale = row['Артикул'] +"-F{:03d}".format(max_valuesF)
-                              AluminiyProduct(artikul =row['Артикул'],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['fkrat'][key],material=materiale).save()
-                              df_new['fkrat_counter'][key]=materiale
+                        if AluminiyProduct.objects.filter(artikul =component,section ='Z').exists():
+                              umumiy_counter[ component +'-Z'] += 1
+                              max_valuesZ = umumiy_counter[ component +'-Z']
+                              materiale = component+"-Z{:03d}".format(max_valuesZ)
+                              AluminiyProduct(artikul =component,section ='Z',counter=max_valuesZ,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['zkrat'][key],material=materiale).save()
+                              df_new['zkrat_counter'][key]=materiale
                         else:
-                              materiale = row['Артикул'] +"-F{:03d}".format(1)
-                              AluminiyProduct(artikul =row['Артикул'],section ='F',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['fkrat'][key],material=materiale).save()
-                              df_new['fkrat_counter'][key]=materiale
-                              umumiy_counter[row['Артикул']+'-F'] = 1
+                              materiale = component+"-Z{:03d}".format(1)
+                              AluminiyProduct(artikul =component,section ='Z',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['zkrat'][key],material=materiale).save()
+                              df_new['zkrat_counter'][key]=materiale
+                              umumiy_counter[ component +'-Z'] = 1
                               
                   
-                  if AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='75',kratkiy_tekst_materiala=df_new['ukrat2'][key]).exists():
-                        df_new['ukrat2_counter'][key] = AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='75',kratkiy_tekst_materiala=df_new['ukrat2'][key])[:1].get().material
-                  else: 
-                        if AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='75').exists():
-                              umumiy_counter[row['Артикул']+'-75'] += 1
-                              max_values75 = umumiy_counter[row['Артикул']+'-75']
-                              
-                              if max_values75 <= 99:
-                                    materiale = row['Артикул']+"-75{:02d}".format(max_values75)
+                  
+                  if ((row['Тип покрытия'] == 'Сублимированный') or (row['Тип покрытия'] == 'Ламинированный') or (row['Тип покрытия'] == 'Окрашенный') or (row['Тип покрытия'] == 'Белый')): 
+                        if AluminiyProduct.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['pkrat'][key]).exists():
+                              df_new['pkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['pkrat'][key])[:1].get().material
+                        else: 
+                              if AluminiyProduct.objects.filter(artikul =component,section ='P').exists():
+                                    umumiy_counter[component+'-P'] += 1
+                                    
+                                    max_valuesP = umumiy_counter[ component +'-P']
+                                    materiale = component+"-P{:03d}".format(max_valuesP)
+                                    AluminiyProduct(artikul =component,section ='P',counter=max_valuesP,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['pkrat'][key],material=materiale).save()
+                                    df_new['pkrat_counter'][key]=materiale
                               else:
-                                    counter =7500 + max_values75
-                                    materiale = row['Артикул']+"-{:04d}".format(counter)
+                                    materiale = component+"-P{:03d}".format(1)
+                                    AluminiyProduct(artikul =component,section ='P',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['pkrat'][key],material=materiale).save()
+                                    df_new['pkrat_counter'][key] = materiale
+                                    umumiy_counter[component+'-P'] = 1
+                  
+                  if row['Тип покрытия'] =='Сублимированный':       
+                        if AluminiyProduct.objects.filter(artikul =component,section ='S',kratkiy_tekst_materiala=df_new['skrat'][key]).exists():
+                              df_new['skrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='S',kratkiy_tekst_materiala=df_new['skrat'][key])[:1].get().material
+                        else: 
+                              if AluminiyProduct.objects.filter(artikul =component,section ='S').exists():
+                                    umumiy_counter[component+'-S'] += 1
+                                    max_valuesS = umumiy_counter[ component +'-S']
+                                    materiale = component+"-S{:03d}".format(max_valuesS)
+                                    AluminiyProduct(artikul =component,section ='S',counter=max_valuesS,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['skrat'][key],material=materiale).save()
+                                    df_new['skrat_counter'][key]=materiale
+                              else:
+                                    materiale = component+"-S{:03d}".format(1)
+                                    AluminiyProduct(artikul =component,section ='S',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['skrat'][key],material=materiale).save()
+                                    df_new['skrat_counter'][key]=materiale
+                                    umumiy_counter[component+'-S'] = 1
+                  
+                  if row['Тип покрытия'] =='Анодированный':    
+                        if AluminiyProduct.objects.filter(artikul =component,section ='A',kratkiy_tekst_materiala=df_new['akrat'][key]).exists():
+                              df_new['akrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='A',kratkiy_tekst_materiala=df_new['akrat'][key])[:1].get().material
+                        else: 
+                              if AluminiyProduct.objects.filter(artikul =component,section ='A').exists():
+                                    umumiy_counter[component+'-A'] += 1
+                                    max_valuesA = umumiy_counter[ component +'-A']
+                                    materiale = component+"-A{:03d}".format(max_valuesA)
+                                    AluminiyProduct(artikul =component,section ='A',counter=max_valuesA,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['akrat'][key],material=materiale).save()
+                                    df_new['akrat_counter'][key]=materiale
+                              else:
+                                    materiale = component+"-A{:03d}".format(1)
+                                    AluminiyProduct(artikul =component,section ='A',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['akrat'][key],material=materiale).save()
+                                    df_new['akrat_counter'][key]=materiale
+                                    umumiy_counter[component+'-A'] = 1
                                     
-                                    
-                              AluminiyProduct(artikul =row['Артикул'],section ='75',counter=max_values75,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat2'][key],material=materiale).save()
-                              df_new['ukrat2_counter'][key]=materiale  
+                  
+                  if row['Тип покрытия'] == 'Ламинированный':     
+                        if AluminiyProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['lkrat'][key]).exists():
+                              df_new['lkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['lkrat'][key])[:1].get().material
+                        else: 
+                              if AluminiyProduct.objects.filter(artikul =component,section ='L').exists():
+                                    umumiy_counter[component+'-L'] += 1
+                                    max_valuesL = umumiy_counter[ component +'-L']
+                                    materiale = component+"-L{:03d}".format(max_valuesL)
+                                    AluminiyProduct(artikul =component,section ='L',counter=max_valuesL,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['lkrat'][key],material=materiale).save()
+                                    df_new['lkrat_counter'][key]=materiale
+                              else:
+                                    materiale = component+"-L{:03d}".format(1)
+                                    AluminiyProduct(artikul =component,section ='L',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['lkrat'][key],material=materiale).save()
+                                    df_new['lkrat_counter'][key]=materiale
+                                    umumiy_counter[component+'-L'] = 1
+                              
+                  if ((row['Код наклейки'] != 'NT1') and (row['Тип покрытия'] != 'Ламинированный')) :    
+                        if AluminiyProduct.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['nkrat'][key]).exists():
+                              df_new['nkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['nkrat'][key])[:1].get().material
                         else:
-                              materiale = row['Артикул']+"-75{:02d}".format(1)
-                              AluminiyProduct(artikul =row['Артикул'],section ='75',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat2'][key],material=materiale).save()
-                              df_new['ukrat2_counter'][key]=materiale 
-                              umumiy_counter[row['Артикул']+'-75'] = 1 
-                               
-            else:     
-                  if AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='7',kratkiy_tekst_materiala=df_new['ukrat1'][key]).exists():
-                        df_new['ukrat1_counter'][key] = AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='7',kratkiy_tekst_materiala=df_new['ukrat1'][key])[:1].get().material
+                              if  AluminiyProduct.objects.filter(artikul =component,section ='N').exists():
+                                    umumiy_counter[component+'-N'] += 1
+                                    max_valuesN = umumiy_counter[ component +'-N']
+                                    materiale = component+"-N{:03d}".format(max_valuesN)
+                                    AluminiyProduct(artikul =component,section ='N',counter=max_valuesN,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['nkrat'][key],material=materiale).save()
+                                    df_new['nkrat_counter'][key]=materiale
+                              else:
+                                    materiale = component+"-N{:03d}".format(1)
+                                    AluminiyProduct(artikul =component,section ='N',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['nkrat'][key],material=materiale).save()
+                                    df_new['nkrat_counter'][key]=materiale
+                                    umumiy_counter[component+'-N'] = 1
+                        
+                        
+                  if row['Длина при выходе из пресса'] != 'nan':
+                        if AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='F',kratkiy_tekst_materiala=df_new['fkrat'][key]).exists():
+                              df_new['fkrat_counter'][key] = AluminiyProduct.objects.filter(artikul = row['Артикул'],section ='F',kratkiy_tekst_materiala=df_new['fkrat'][key])[:1].get().material
+                        else: 
+                              if AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='F').exists():
+                                    umumiy_counter[row['Артикул']+'-F'] += 1
+                                    max_valuesF = umumiy_counter[row['Артикул']+'-F']
+                                    materiale = row['Артикул'] +"-F{:03d}".format(max_valuesF)
+                                    AluminiyProduct(artikul =row['Артикул'],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['fkrat'][key],material=materiale).save()
+                                    df_new['fkrat_counter'][key]=materiale
+                              else:
+                                    materiale = row['Артикул'] +"-F{:03d}".format(1)
+                                    AluminiyProduct(artikul =row['Артикул'],section ='F',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['fkrat'][key],material=materiale).save()
+                                    df_new['fkrat_counter'][key]=materiale
+                                    umumiy_counter[row['Артикул']+'-F'] = 1
+                                    
+                        
+                        if AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='75',kratkiy_tekst_materiala=df_new['ukrat2'][key]).exists():
+                              df_new['ukrat2_counter'][key] = AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='75',kratkiy_tekst_materiala=df_new['ukrat2'][key])[:1].get().material
+                        else: 
+                              if AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='75').exists():
+                                    umumiy_counter[row['Артикул']+'-75'] += 1
+                                    max_values75 = umumiy_counter[row['Артикул']+'-75']
+                                    
+                                    if max_values75 <= 99:
+                                          materiale = row['Артикул']+"-75{:02d}".format(max_values75)
+                                    else:
+                                          counter =7500 + max_values75
+                                          materiale = row['Артикул']+"-{:04d}".format(counter)
+                                          
+                                          
+                                    AluminiyProduct(artikul =row['Артикул'],section ='75',counter=max_values75,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat2'][key],material=materiale).save()
+                                    df_new['ukrat2_counter'][key]=materiale  
+                              else:
+                                    materiale = row['Артикул']+"-75{:02d}".format(1)
+                                    AluminiyProduct(artikul =row['Артикул'],section ='75',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat2'][key],material=materiale).save()
+                                    df_new['ukrat2_counter'][key]=materiale 
+                                    umumiy_counter[row['Артикул']+'-75'] = 1 
+                                    
+                  else:     
+                        if AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='7',kratkiy_tekst_materiala=df_new['ukrat1'][key]).exists():
+                              df_new['ukrat1_counter'][key] = AluminiyProduct.objects.filter(artikul =row['Артикул'],section ='7',kratkiy_tekst_materiala=df_new['ukrat1'][key])[:1].get().material
+                        else: 
+                              if AluminiyProduct.objects.filter(artikul=row['Артикул'],section ='7').exists():
+                                    umumiy_counter[row['Артикул']+'-7'] += 1
+                                    max_values7 = umumiy_counter[row['Артикул']+'-7']
+                                    materiale = row['Артикул']+"-7{:03d}".format(max_values7)
+                                    AluminiyProduct(artikul = row['Артикул'],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat1'][key],material=materiale).save()
+                                    df_new['ukrat1_counter'][key] = materiale
+                              else:
+                                    materiale = row['Артикул']+"-7{:03d}".format(1)
+                                    AluminiyProduct(artikul = row['Артикул'],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat1'][key],material=materiale).save()
+                                    df_new['ukrat1_counter'][key] = materiale
+                                    umumiy_counter[row['Артикул']+'-7'] = 1
+            
+            else:
+                  if AluminiyProductTermo.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['ekrat'][key]).exists():
+                        df_new['ekrat_counter'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['ekrat'][key])[:1].get().material
+                  else:
+                        if AluminiyProductTermo.objects.filter(artikul =component,section ='E').exists():
+                              # max_valuesE = AluminiyProductTermo.objects.filter(artikul =component,section ='E').values('section').annotate(total_max=Max('counter'))[0]['total_max']
+                              umumiy_counter_termo[ component +'-E'] += 1
+                              max_valuesE = umumiy_counter_termo[ component +'-E']
+                              materiale = component+"-E{:03d}".format(max_valuesE)
+                              AluminiyProductTermo(artikul =component,section ='E',counter=max_valuesE,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ekrat'][key],material=materiale).save()
+                              df_new['ekrat_counter'][key]=materiale
+                        else: 
+                              materiale = component+"-E{:03d}".format(1)
+                              AluminiyProductTermo(artikul =component,section ='E',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ekrat'][key],material=materiale).save()
+                              df_new['ekrat_counter'][key]=materiale
+                              umumiy_counter_termo[ component +'-E'] = 1
+                  
+                  
+                              
+                  if AluminiyProductTermo.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key]).exists():
+                        df_new['zkrat_counter'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key])[:1].get().material
                   else: 
-                        if AluminiyProduct.objects.filter(artikul=row['Артикул'],section ='7').exists():
-                              umumiy_counter[row['Артикул']+'-7'] += 1
-                              max_values7 = umumiy_counter[row['Артикул']+'-7']
-                              materiale = row['Артикул']+"-7{:03d}".format(max_values7)
-                              AluminiyProduct(artikul = row['Артикул'],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat1'][key],material=materiale).save()
-                              df_new['ukrat1_counter'][key] = materiale
+                        if AluminiyProductTermo.objects.filter(artikul =component,section ='Z').exists():
+                              umumiy_counter_termo[ component +'-Z'] += 1
+                              max_valuesZ = umumiy_counter_termo[ component +'-Z']
+                              materiale = component+"-Z{:03d}".format(max_valuesZ)
+                              AluminiyProductTermo(artikul =component,section ='Z',counter=max_valuesZ,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['zkrat'][key],material=materiale).save()
+                              df_new['zkrat_counter'][key]=materiale
                         else:
-                              materiale = row['Артикул']+"-7{:03d}".format(1)
-                              AluminiyProduct(artikul = row['Артикул'],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat1'][key],material=materiale).save()
-                              df_new['ukrat1_counter'][key] = materiale
-                              umumiy_counter[row['Артикул']+'-7'] = 1
+                              materiale = component+"-Z{:03d}".format(1)
+                              AluminiyProductTermo(artikul =component,section ='Z',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['zkrat'][key],material=materiale).save()
+                              df_new['zkrat_counter'][key]=materiale
+                              umumiy_counter_termo[ component +'-Z'] = 1
+                              
+                  
+                  
+                  if ((row['Тип покрытия'] == 'Сублимированный') or (row['Тип покрытия'] == 'Ламинированный') or (row['Тип покрытия'] == 'Окрашенный') or (row['Тип покрытия'] == 'Белый')): 
+                        if AluminiyProductTermo.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['pkrat'][key]).exists():
+                              df_new['pkrat_counter'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['pkrat'][key])[:1].get().material
+                        else: 
+                              if AluminiyProductTermo.objects.filter(artikul =component,section ='P').exists():
+                                    umumiy_counter_termo[component+'-P'] += 1
+                                    
+                                    max_valuesP = umumiy_counter_termo[ component +'-P']
+                                    materiale = component+"-P{:03d}".format(max_valuesP)
+                                    AluminiyProductTermo(artikul =component,section ='P',counter=max_valuesP,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['pkrat'][key],material=materiale).save()
+                                    df_new['pkrat_counter'][key]=materiale
+                              else:
+                                    materiale = component+"-P{:03d}".format(1)
+                                    AluminiyProductTermo(artikul =component,section ='P',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['pkrat'][key],material=materiale).save()
+                                    df_new['pkrat_counter'][key] = materiale
+                                    umumiy_counter_termo[component+'-P'] = 1
+                  
+                  if row['Тип покрытия'] =='Сублимированный':       
+                        if AluminiyProductTermo.objects.filter(artikul =component,section ='S',kratkiy_tekst_materiala=df_new['skrat'][key]).exists():
+                              df_new['skrat_counter'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='S',kratkiy_tekst_materiala=df_new['skrat'][key])[:1].get().material
+                        else: 
+                              if AluminiyProductTermo.objects.filter(artikul =component,section ='S').exists():
+                                    umumiy_counter_termo[component+'-S'] += 1
+                                    max_valuesS = umumiy_counter_termo[ component +'-S']
+                                    materiale = component+"-S{:03d}".format(max_valuesS)
+                                    AluminiyProductTermo(artikul =component,section ='S',counter=max_valuesS,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['skrat'][key],material=materiale).save()
+                                    df_new['skrat_counter'][key]=materiale
+                              else:
+                                    materiale = component+"-S{:03d}".format(1)
+                                    AluminiyProductTermo(artikul =component,section ='S',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['skrat'][key],material=materiale).save()
+                                    df_new['skrat_counter'][key]=materiale
+                                    umumiy_counter_termo[component+'-S'] = 1
+                  
+                  if row['Тип покрытия'] =='Анодированный':    
+                        if AluminiyProductTermo.objects.filter(artikul =component,section ='A',kratkiy_tekst_materiala=df_new['akrat'][key]).exists():
+                              df_new['akrat_counter'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='A',kratkiy_tekst_materiala=df_new['akrat'][key])[:1].get().material
+                        else: 
+                              if AluminiyProductTermo.objects.filter(artikul =component,section ='A').exists():
+                                    umumiy_counter_termo[component+'-A'] += 1
+                                    max_valuesA = umumiy_counter_termo[ component +'-A']
+                                    materiale = component+"-A{:03d}".format(max_valuesA)
+                                    AluminiyProductTermo(artikul =component,section ='A',counter=max_valuesA,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['akrat'][key],material=materiale).save()
+                                    df_new['akrat_counter'][key]=materiale
+                              else:
+                                    materiale = component+"-A{:03d}".format(1)
+                                    AluminiyProductTermo(artikul =component,section ='A',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['akrat'][key],material=materiale).save()
+                                    df_new['akrat_counter'][key]=materiale
+                                    umumiy_counter_termo[component+'-A'] = 1
+                                    
+                  
+                  if row['Тип покрытия'] == 'Ламинированный':     
+                        if AluminiyProductTermo.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['lkrat'][key]).exists():
+                              df_new['lkrat_counter'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['lkrat'][key])[:1].get().material
+                        else: 
+                              if AluminiyProductTermo.objects.filter(artikul =component,section ='L').exists():
+                                    umumiy_counter_termo[component+'-L'] += 1
+                                    max_valuesL = umumiy_counter_termo[ component +'-L']
+                                    materiale = component+"-L{:03d}".format(max_valuesL)
+                                    AluminiyProductTermo(artikul =component,section ='L',counter=max_valuesL,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['lkrat'][key],material=materiale).save()
+                                    df_new['lkrat_counter'][key]=materiale
+                              else:
+                                    materiale = component+"-L{:03d}".format(1)
+                                    AluminiyProductTermo(artikul =component,section ='L',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['lkrat'][key],material=materiale).save()
+                                    df_new['lkrat_counter'][key]=materiale
+                                    umumiy_counter_termo[component+'-L'] = 1
+                              
+                  if ((row['Код наклейки'] != 'NT1') and (row['Тип покрытия'] != 'Ламинированный')) :    
+                        if AluminiyProductTermo.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['nkrat'][key]).exists():
+                              df_new['nkrat_counter'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['nkrat'][key])[:1].get().material
+                        else:
+                              if  AluminiyProductTermo.objects.filter(artikul =component,section ='N').exists():
+                                    umumiy_counter_termo[component+'-N'] += 1
+                                    max_valuesN = umumiy_counter_termo[ component +'-N']
+                                    materiale = component+"-N{:03d}".format(max_valuesN)
+                                    AluminiyProductTermo(artikul =component,section ='N',counter=max_valuesN,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['nkrat'][key],material=materiale).save()
+                                    df_new['nkrat_counter'][key]=materiale
+                              else:
+                                    materiale = component+"-N{:03d}".format(1)
+                                    AluminiyProductTermo(artikul =component,section ='N',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['nkrat'][key],material=materiale).save()
+                                    df_new['nkrat_counter'][key]=materiale
+                                    umumiy_counter_termo[component+'-N'] = 1
+                        
+                        
+                  if row['Длина при выходе из пресса'] != 'nan':
+                        if AluminiyProductTermo.objects.filter(artikul =row['Артикул'],section ='F',kratkiy_tekst_materiala=df_new['fkrat'][key]).exists():
+                              df_new['fkrat_counter'][key] = AluminiyProductTermo.objects.filter(artikul = row['Артикул'],section ='F',kratkiy_tekst_materiala=df_new['fkrat'][key])[:1].get().material
+                        else: 
+                              if AluminiyProductTermo.objects.filter(artikul =row['Артикул'],section ='F').exists():
+                                    umumiy_counter_termo[row['Артикул']+'-F'] += 1
+                                    max_valuesF = umumiy_counter_termo[row['Артикул']+'-F']
+                                    materiale = row['Артикул'] +"-F{:03d}".format(max_valuesF)
+                                    AluminiyProductTermo(artikul =row['Артикул'],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['fkrat'][key],material=materiale).save()
+                                    df_new['fkrat_counter'][key]=materiale
+                              else:
+                                    materiale = row['Артикул'] +"-F{:03d}".format(1)
+                                    AluminiyProductTermo(artikul =row['Артикул'],section ='F',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['fkrat'][key],material=materiale).save()
+                                    df_new['fkrat_counter'][key]=materiale
+                                    umumiy_counter_termo[row['Артикул']+'-F'] = 1
+                                    
+                        
+                        if AluminiyProductTermo.objects.filter(artikul =row['Артикул'],section ='75',kratkiy_tekst_materiala=df_new['ukrat2'][key]).exists():
+                              df_new['ukrat2_counter'][key] = AluminiyProductTermo.objects.filter(artikul =row['Артикул'],section ='75',kratkiy_tekst_materiala=df_new['ukrat2'][key])[:1].get().material
+                        else: 
+                              if AluminiyProductTermo.objects.filter(artikul =row['Артикул'],section ='75').exists():
+                                    umumiy_counter_termo[row['Артикул']+'-75'] += 1
+                                    max_values75 = umumiy_counter_termo[row['Артикул']+'-75']
+                                    
+                                    if max_values75 <= 99:
+                                          materiale = row['Артикул']+"-75{:02d}".format(max_values75)
+                                    else:
+                                          counter =7500 + max_values75
+                                          materiale = row['Артикул']+"-{:04d}".format(counter)
+                                          
+                                          
+                                    AluminiyProductTermo(artikul =row['Артикул'],section ='75',counter=max_values75,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat2'][key],material=materiale).save()
+                                    df_new['ukrat2_counter'][key]=materiale  
+                              else:
+                                    materiale = row['Артикул']+"-75{:02d}".format(1)
+                                    AluminiyProductTermo(artikul =row['Артикул'],section ='75',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat2'][key],material=materiale).save()
+                                    df_new['ukrat2_counter'][key]=materiale 
+                                    umumiy_counter_termo[row['Артикул']+'-75'] = 1 
+                                    
+                  else:     
+                        if AluminiyProductTermo.objects.filter(artikul =row['Артикул'],section ='7',kratkiy_tekst_materiala=df_new['ukrat1'][key]).exists():
+                              df_new['ukrat1_counter'][key] = AluminiyProductTermo.objects.filter(artikul =row['Артикул'],section ='7',kratkiy_tekst_materiala=df_new['ukrat1'][key])[:1].get().material
+                        else: 
+                              if AluminiyProductTermo.objects.filter(artikul=row['Артикул'],section ='7').exists():
+                                    umumiy_counter_termo[row['Артикул']+'-7'] += 1
+                                    max_values7 = umumiy_counter_termo[row['Артикул']+'-7']
+                                    materiale = row['Артикул']+"-7{:03d}".format(max_values7)
+                                    AluminiyProductTermo(artikul = row['Артикул'],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat1'][key],material=materiale).save()
+                                    df_new['ukrat1_counter'][key] = materiale
+                              else:
+                                    materiale = row['Артикул']+"-7{:03d}".format(1)
+                                    AluminiyProductTermo(artikul = row['Артикул'],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat1'][key],material=materiale).save()
+                                    df_new['ukrat1_counter'][key] = materiale
+                                    umumiy_counter_termo[row['Артикул']+'-7'] = 1
+            
+      
+      
+      
+      
+      
+      
       # del df_new["artikul"]            
       b = datetime.now()
       print('ends in ...',b)
