@@ -58,6 +58,8 @@ MIDDLEWARE = [
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
+
+
 ROOT_URLCONF = 'config.urls'
 # INTERNAL_IPS = [
 #     "127.0.0.1",
