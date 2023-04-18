@@ -13,7 +13,7 @@ import os
 from datetime import datetime
 now = datetime.now()
 import random
-from aluminiytermo.utils import create_characteristika
+from aluminiytermo.utils import create_characteristika,create_characteristika_utils
 from aluminiytermo.models import CharUtilsOne,CharUtilsTwo,CharUtilsThree,Characteristika,CharUtilsFour
 from django.db.models import Q
 
