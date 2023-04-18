@@ -1,14 +1,14 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import pandas as pd
-from .models import AluFileTermo,AluminiyProductTermo,AluminiyProductBasetermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour
+from .models import AluFileTermo,AluminiyProductTermo,AluminiyProductBasetermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour,CharacteristicTitle,BazaProfiley
 from main.models import ExcelFiles
 from aluminiy.models import AluFile,AluminiyProduct
 from .forms import FileFormTermo
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
 import numpy as np
-from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika
+from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils
 import os
 from datetime import datetime
 import json
@@ -2452,6 +2452,7 @@ def product_add_second(request,id):
       
       df_char = create_characteristika(cache_for_cratkiy_text) 
       
+      df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
                  
       b = datetime.now()
       print('ends in ...',b)
@@ -2465,13 +2466,19 @@ def product_add_second(request,id):
       if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_new-{s2}.xlsx'):
             path =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_new-{s2}.xlsx'
             path_char =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_char-{s2}.xlsx'
+            path_char_title =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_char_title-{s2}.xlsx'
       else:
             st =random.randint(0,1000)
             path =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_new-{s2}{st}.xlsx'
             path_char =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_char-{s2}{st}.xlsx'
-            
-      df_new.to_excel(path,index=False)
-      df_char.to_excel(path_char,index=False)
+            path_char_title =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_char_title-{s2}{st}.xlsx'
+
+      
+      writer = pd.ExcelWriter(path, engine='xlsxwriter')
+      df_new.to_excel(writer,index=False,sheet_name ='schotchik')
+      df_char.to_excel(writer,index=False,sheet_name ='characteristika')
+      df_char_title.to_excel(writer,index=False,sheet_name ='title')
+      writer.save()
       return JsonResponse({'a':'s'})
                   
     
@@ -2523,3 +2530,24 @@ def add_characteristika_utils(request):
                   ).save()
             
       return JsonResponse({'a':'b'})
+
+def base_profile(request):
+      df1 = pd.read_excel('c:\\OpenServer\\domains\\BASA PROFIL.xlsx')
+      df1 = df1.astype(str)
+      
+      for key,row in df1.iterrows():
+            BazaProfiley(
+                  артикул =row['артикул'],
+                  серия =row['серия'],
+                  старый_код_benkam =row['старый_код_benkam'],
+                  старый_код =row['старый_код'],
+                  old_product_description =row['old_product_description'],
+                  компонент =row['компонент'],
+                  product_description =row['product_description'],
+                  ).save()
+            
+            
+      return JsonResponse({'a':'b'})
+
+
+

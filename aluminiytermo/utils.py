@@ -1,7 +1,9 @@
 import os
 import pandas as pd
-from .models import Characteristika
+from .models import Characteristika,CharacteristicTitle
 import random
+from .models import BazaProfiley
+from django.db.models import Q
 
 
 
@@ -163,9 +165,110 @@ def create_characteristika(items):
 
 
 
-
-
-
+def create_characteristika_utils(items):
+    df =[
+        [],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[]
+    ]
+    
+    for item in items:
+        sap_kode =item['material'].split('-')[0]
+        baza_profiey = BazaProfiley.objects.filter(Q(артикул=sap_kode)|Q(компонент=sap_kode))[:1].get()
+        
+        if (('-7' in item['material']) or ('-K' in item['material']) or ('-L'  in item['material'])):
+            component_name ='Артикул'
+        else:
+            component_name ='Компонент'
+        
+        if '-7' in item['material']:
+            gruppa_material ='ALUGP'
+        else:
+            gruppa_material ='ALUPF'
+            
+        дата_изменение_добавление =''
+        статус_изменение_добавление=''
+        ссылки_для_чертежа=''
+        sap_код_s4p_100=item['material']
+        нумерация_до_sap =''
+        короткое_название_sap =item['kratkiy']
+        польное_наименование_sap =  str('Алюминиевый '+baza_profiey.product_description +', '+component_name +' '+sap_kode+', '+item['surface_treatment']+', Длина '+item['length']+' мм, Тип '+item['alloy']+'-'+item['temper']+' '+item['print_view'])
+        ед_изм ='ШТ'
+        альтернативная_ед_изм='КГ'
+        коэфициент_пересчета =''
+        альтернативный_участок=''
+        участок = item['section']
+        длина = item['length']
+        ширина = ''
+        высота = ''
+        группа_материалов =gruppa_material
+        удельный_вес_за_метр =''
+        общий_вес_за_штуку =''
+      
+        characteristik = CharacteristicTitle(
+                дата_изменение_добавление =дата_изменение_добавление,
+                статус_изменение_добавление =статус_изменение_добавление,
+                ссылки_для_чертежа =ссылки_для_чертежа,
+                sap_код_s4p_100 =sap_код_s4p_100,
+                нумерация_до_sap =нумерация_до_sap,
+                короткое_название_sap =короткое_название_sap,
+                польное_наименование_sap =польное_наименование_sap,
+                ед_изм =ед_изм,
+                альтернативная_ед_изм =альтернативная_ед_изм,
+                коэфициент_пересчета =коэфициент_пересчета,
+                участок =участок,
+                альтернативный_участок =альтернативный_участок,
+                длина =длина,
+                ширина =ширина,
+                высота =высота,
+                группа_материалов =группа_материалов,
+                удельный_вес_за_метр =удельный_вес_за_метр,
+                общий_вес_за_штуку =общий_вес_за_штуку
+                )
+        characteristik.save()
+        
+        df[0].append(characteristik.дата_изменение_добавление)
+        df[1].append(characteristik.статус_изменение_добавление)
+        df[2].append(characteristik.ссылки_для_чертежа)
+        df[3].append(characteristik.sap_код_s4p_100)
+        df[4].append(characteristik.нумерация_до_sap)
+        df[5].append(characteristik.короткое_название_sap)
+        df[6].append(characteristik.польное_наименование_sap)
+        df[7].append(characteristik.ед_изм)
+        df[8].append(characteristik.альтернативная_ед_изм)
+        df[9].append(characteristik.коэфициент_пересчета)
+        df[10].append(characteristik.участок)
+        df[11].append(characteristik.альтернативный_участок)
+        df[12].append(characteristik.длина)
+        df[13].append(characteristik.ширина)
+        df[14].append(characteristik.высота)
+        df[15].append(characteristik.группа_материалов)
+        df[16].append(characteristik.удельный_вес_за_метр)
+        df[17].append(characteristik.общий_вес_за_штуку)
+        
+    dat = {
+        'Дата изменение добавление':df[0],
+        'Статус изменение добавление':df[1],
+        'Ссылки для чертежа':df[2],
+        'SAP код S4P 100':df[3],
+        'Нумерация до SAP':df[4],
+        'Короткое название SAP':df[5],
+        'Польное наименование SAP':df[6],
+        'Ед, Изм,':df[7],
+        'Альтернативная ед, изм':df[8],
+        'Коэфициент пересчета':df[9],
+        'Участок':df[10],
+        'Альтернативный участок':df[11],
+        'Длина':df[12],
+        'Ширина':df[13],
+        'Высота':df[14],
+        'группа материалов':df[15],
+        'Удельный вес за метр':df[16],
+        'Общий вес за штуку':df[17]
+    }
+    
+    df_new = pd.DataFrame(dat)
+    
+    return df_new
 
 
 
