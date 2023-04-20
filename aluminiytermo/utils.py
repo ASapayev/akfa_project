@@ -249,15 +249,15 @@ def create_characteristika_utils(items):
         ch_anodization_method = item['anodization_method']
         ch_print_view = item['print_view']
         ch_profile_base = item['profile_base']
-        ch_width = item['width']
-        ch_height = item['height']
-        ch_category = item['category']
+        ch_width = item.get('width','')
+        ch_height = item.get('height','')
+        ch_category = ''
         ch_rawmat_type = item['rawmat_type']
-        ch_hollow_and_solid = item['hollow_and_solid']
-        ch_export_description = item['export_description']
-        ch_export_description_eng = item['export_description_eng']
-        ch_tnved = item['tnved']
-        ch_surface_treatment_export = item['surface_treatment_export']
+        ch_hollow_and_solid = item.get('hollow_and_solid','')
+        ch_export_description = item.get('export_description','')
+        ch_export_description_eng = item.get('export_description_eng','')
+        ch_tnved = item.get('tnved','')
+        ch_surface_treatment_export = item.get('surface_treatment_export','')
         
         
         ########End Characteristica variables############
@@ -923,8 +923,12 @@ def characteristika_created_txt_create(datas):
     d1['NTGEW']=umumiy_without_duplicate[10]
     d1['GEWEI']=umumiy_without_duplicate[11]
     d1['MTPOS_MARA']=umumiy_without_duplicate[12]
+    print(d1)
+    for k,val in d1.items():
+        print(f'text1 = {k}',len(val))
     df1= pd.DataFrame(d1)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\1.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
+    
+    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\1.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='utf-8')
     
 ########################## end 1.txt ##############################
 
@@ -949,7 +953,7 @@ def characteristika_created_txt_create(datas):
     d2['XCHPF']=umumiy_without_duplicate[16]
     d2['DISGR']=umumiy_without_duplicate[17]
     d2['DISMM']=umumiy_without_duplicate[18]
-    d2['DISPO']=[zavod_code[x] for x in umumiy_without_duplicate[6]]
+    d2['DISPO']=[zavod_code[x] for x in umumiy_without_duplicate[34]]
     d2['DISLS']=umumiy_without_duplicate[19]
     d2['WEBAZ']=umumiy_without_duplicate[20]
     d2['BESKZ']=umumiy_without_duplicate[21]
@@ -981,7 +985,7 @@ def characteristika_created_txt_create(datas):
     d2['SBDKZ']=umumiy_without_duplicate[47]
 
     df2= pd.DataFrame(d2)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\2.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
+    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\2.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='utf-8')
 ########################## end 2.txt ##############################
 
 ########################## 3.txt ##############################
@@ -1013,11 +1017,11 @@ def characteristika_created_txt_create(datas):
         d3['MEINS'] += umumiy_without_duplicate[14]
         d3['MTART'] += umumiy_without_duplicate[4]
         d3['SPART'] += umumiy_without_duplicate[8]
-        d3['MATNR'] += umumiy_without_duplicate[2]
+        d3['MATNR'] += umumiy_without_duplicate[0]
         d3['WERKS'] += umumiy_without_duplicate[34]
         d3['VKORG'] += [ 1200 for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['MTPOS'] += umumiy_without_duplicate[12]
-        d3['VTWEG'] += [ VTWEG for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['VTWEG'] += [ VTWEG[i] for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['PRCTR'] += [ '1203' if umumiy_without_duplicate[34][i] =='1203' else '1201' for i in range(0,len(umumiy_without_duplicate[34]))]
         d3['MTVFP'] += [ '02' for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['ALAND'] += [ 'UZ' for j in range(0,len(umumiy_without_duplicate[13]))]
@@ -1029,7 +1033,7 @@ def characteristika_created_txt_create(datas):
         d3['LADGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['TRAGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
     df3= pd.DataFrame(d3)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\3.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
+    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\3.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='utf-8')
 ########################## end 3.txt ##############################
     
 ########################## 4.txt ##############################    
@@ -1099,7 +1103,7 @@ def characteristika_created_txt_create(datas):
     d4['WERKS']=new_ll[1]
     d4['LGORT']=new_ll[2]
     df4= pd.DataFrame(d4)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
+    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='utf-8')
 ########################## end 4.txt ##############################
     
 ########################## 5.txt ##############################
@@ -1115,23 +1119,34 @@ def characteristika_created_txt_create(datas):
     }
     ED_IZM =['ШТ','М','КГ']
     
-    sap_code_title =[]
-    dlina_title =[]
-    obshiy_ves_za_shtuku =[]
-    wms_width =[]
-    wms_height =[]
+    # sap_code_title =[]
+    # dlina_title =[]
+    # obshiy_ves_za_shtuku =[]
+    # wms_width =[]
+    # wms_height =[]
+    ed_iz3 =[]
+    for i in range(0,3):
+        if i == 0 :
+            ed_iz3 += ['1' for j in range(0,len(sap_code_title)) ]
+        elif i == 1 :
+            ed_iz3 += [j for j in dlina_title ]
+        elif i == 2 :
+            ed_iz3 += [j for j in obshiy_ves_za_shtuku ]
+            
     
     for i in ED_IZM:    
         d5['sap_code'] += sap_code_title
         d5['ed_iz1'] += [ i for j in range(0,len(sap_code_title))]
-        d5['ed_iz2'] +=['1' for j in range(0,len(sap_code_title)) ]
-        d5['ed_iz3'] +=['1' for j in range(0,len(sap_code_title)) ]
+        d5['ed_iz2'] +=['1' if i =='ШТ' else '1000'  for j in range(0,len(sap_code_title)) ]
+        # d5['ed_iz3'] +=['1' if i =='ШТ' elif i=='М' for j in range(0,len(sap_code_title)) ]
         d5['ed_iz4'] +=[j for j in dlina_title ]
         d5['ed_iz5'] +=[j for j in wms_height ]
         d5['ed_iz6'] +=[j for j in wms_width ]
         d5['ed_iz7'] +=[ 'мм' for j in range(0,len(sap_code_title))]
+    print('d5 ====  == ',d5)
+    d5['ed_iz3'] = ed_iz3
     df5= pd.DataFrame(d5)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
+    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='utf-8')
 ########################## end 5.txt ##############################
 ########################## List v 3 ##############################
     dd2 = [[],[],[],[],[],[]]
@@ -1197,18 +1212,19 @@ def characteristika_created_txt_create(datas):
         dd2[5].append(row['WMS_WIDTH'])
         dd2[5].append(row['WMS_HEIGHT'])
         dd2[5].append(row['Price'])
-            
-    dd2['Вид класса'] = dd2[0]
-    dd2['Класс'] = dd2[1]
-    dd2['Таблица'] = dd2[2]
-    dd2['Объект'] = dd2[3]
-    dd2['Имя признака'] = dd2[4]
-    dd2['Значение признака'] = dd2[5]
-    dd2['Статус загрузки'] = ''
+    
+    new_date={}       
+    new_date['Вид класса'] = dd2[0]
+    new_date['Класс'] = dd2[1]
+    new_date['Таблица'] = dd2[2]
+    new_date['Объект'] = dd2[3]
+    new_date['Имя признака'] = dd2[4]
+    new_date['Значение признака'] = dd2[5]
+    new_date['Статус загрузки'] = ''
     
      
     path2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\Лист в C 3.xlsx'
-    ddf2 = pd.DataFrame(dd2)
+    ddf2 = pd.DataFrame(new_date)
     ddf2.to_excel(path2,index=False)
     
     return 1
@@ -1218,8 +1234,9 @@ def characteristika_created_txt_create(datas):
 
 
 def create_folder(parent_dir,directory):
-    path = os.path.join(parent_dir, directory)
-    os.mkdir(path)
+    path =os.path.join(parent_dir,directory)
+    if not os.path.isdir(path):
+        os.mkdir(path)
         
         
 

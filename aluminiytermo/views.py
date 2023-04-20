@@ -115,6 +115,10 @@ def upload_product(request):
                   context ={
                   'form':form
                   }
+      form =FileFormTermo()
+      context ={
+      'form':form
+      }
       return render(request,'excel_form.html',context)
 
 def aluminiy_files(request):
@@ -2469,14 +2473,10 @@ def product_add_second(request,id):
             
       if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_new-{s2}.xlsx'):
             path =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_new-{s2}.xlsx'
-            path_char =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_char-{s2}.xlsx'
-            path_char_title =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_char_title-{s2}.xlsx'
       else:
             st =random.randint(0,1000)
             path =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_new-{s2}{st}.xlsx'
-            path_char =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_char-{s2}{st}.xlsx'
-            path_char_title =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_char_title-{s2}{st}.xlsx'
-
+            
       
       writer = pd.ExcelWriter(path, engine='xlsxwriter')
       df_new.to_excel(writer,index=False,sheet_name ='schotchik')
