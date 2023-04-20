@@ -169,7 +169,7 @@ def update_char_title(request,id):
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}','title')
       df =df.astype(str)
       
-      characteristika_created_txt_create(df)
+      characteristika_created_txt_create(df,file_name='aluminiy')
       return JsonResponse({'a':'b'})
 
 

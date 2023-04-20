@@ -412,7 +412,7 @@ def create_characteristika_utils(items):
 
 
 
-def characteristika_created_txt_create(datas):
+def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     umumiy_without_duplicate1201 =[[] for i in range(0,48)]
     umumiy_without_duplicate1203 =[[] for i in range(0,48)]
     umumiy_without_duplicate12D1 =[[] for i in range(0,48)]
@@ -923,12 +923,11 @@ def characteristika_created_txt_create(datas):
     d1['NTGEW']=umumiy_without_duplicate[10]
     d1['GEWEI']=umumiy_without_duplicate[11]
     d1['MTPOS_MARA']=umumiy_without_duplicate[12]
-    print(d1)
-    for k,val in d1.items():
-        print(f'text1 = {k}',len(val))
+    
+    
     df1= pd.DataFrame(d1)
     
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\1.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
+    np.savetxt(f'{MEDIA_ROOT}\\uploads\\{file_name}\\1.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
     
 ########################## end 1.txt ##############################
 
@@ -985,7 +984,7 @@ def characteristika_created_txt_create(datas):
     d2['SBDKZ']=umumiy_without_duplicate[47]
 
     df2= pd.DataFrame(d2)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\2.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
+    np.savetxt(f'{MEDIA_ROOT}\\uploads\\{file_name}\\2.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
 ########################## end 2.txt ##############################
 
 ########################## 3.txt ##############################
@@ -1033,7 +1032,7 @@ def characteristika_created_txt_create(datas):
         d3['LADGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['TRAGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
     df3= pd.DataFrame(d3)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\3.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
+    np.savetxt(f'{MEDIA_ROOT}\\uploads\\{file_name}\\3.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
 ########################## end 3.txt ##############################
     
 ########################## 4.txt ##############################    
@@ -1103,7 +1102,7 @@ def characteristika_created_txt_create(datas):
     d4['WERKS']=new_ll[1]
     d4['LGORT']=new_ll[2]
     df4= pd.DataFrame(d4)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
+    np.savetxt(f'{MEDIA_ROOT}\\uploads\\{file_name}\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
 ########################## end 4.txt ##############################
     
 ########################## 5.txt ##############################
@@ -1143,10 +1142,10 @@ def characteristika_created_txt_create(datas):
         d5['ed_iz5'] +=[j for j in wms_height ]
         d5['ed_iz6'] +=[j for j in wms_width ]
         d5['ed_iz7'] +=[ 'мм' for j in range(0,len(sap_code_title))]
-    print('d5 ====  == ',d5)
+    
     d5['ed_iz3'] = ed_iz3
     df5= pd.DataFrame(d5)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
+    np.savetxt(f'{MEDIA_ROOT}\\uploads\\{file_name}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
 ########################## end 5.txt ##############################
 ########################## List v 3 ##############################
     dd2 = [[],[],[],[],[],[]]
@@ -1222,9 +1221,9 @@ def characteristika_created_txt_create(datas):
     new_date['Значение признака'] = dd2[5]
     new_date['Статус загрузки'] = ''
     
-     
-    path2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\Лист в C 3.xlsx'
+    path2 =f'{MEDIA_ROOT}\\uploads\\{file_name}\\Лист в C 3.xlsx'
     ddf2 = pd.DataFrame(new_date)
+    ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2.to_excel(path2,index=False)
     
     return 1
