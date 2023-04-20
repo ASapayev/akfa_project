@@ -43,6 +43,7 @@ class AluminiyProductBasetermo(models.Model):
 class AluFileTermo(models.Model):
     file =models.FileField()
     generated =models.BooleanField(default=False)
+    file_type =models.CharField(max_length=255,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
 
@@ -142,7 +143,8 @@ class CharacteristicTitle(models.Model):
     высота =models.CharField(max_length=255,blank=True,null=True) 
     группа_материалов =models.CharField(max_length=255,blank=True,null=True) 
     удельный_вес_за_метр =models.CharField(max_length=255,blank=True,null=True) 
-    общий_вес_за_штуку =models.CharField(max_length=255,blank=True,null=True) 
+    общий_вес_за_штуку =models.CharField(max_length=255,blank=True,null=True)
+    price = models.CharField(max_length=255,blank=True,null=True) 
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
     

@@ -29,6 +29,8 @@ def create_characteristika_utils(items):
     ]
     
     for item in items:
+        if '-L' in item['material']:
+            continue
         sap_kode =item['material'].split('-')[0]
         baza_profiey = BazaProfiley.objects.filter(Q(артикул=sap_kode)|Q(компонент=sap_kode))[:1].get()
         

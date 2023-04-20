@@ -2217,7 +2217,8 @@ def product_add_second(request,id):
                               
                                     
                               cache_for_cratkiy_text.append(
-                                                {'material':materiale,
+                                                {
+                                                'material':materiale,
                                                 'kratkiy':df_new['nkrat'][key],
                                                 'section':'N-Наклейка',
                                                 'export_customer_id':row['Код заказчика экспорт если експорт'],
@@ -2323,15 +2324,9 @@ def product_add_second(request,id):
             
             
       
-      
-     
-      
       df_char = create_characteristika(cache_for_cratkiy_text) 
       df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
                  
-      b = datetime.now()
-      print('ends in ...',b)
-      print('difference =',b-a) 
       s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
       parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
        
@@ -2340,14 +2335,9 @@ def product_add_second(request,id):
             
       if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}.xlsx'):
             path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}.xlsx'
-            path_char =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_char-{s2}.xlsx'
-            path_char_title =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_char_title-{s2}.xlsx'
       else:
             st =random.randint(0,1000)
             path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}{st}.xlsx'
-            path_char =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_char-{s2}{st}.xlsx'
-            path_char_title =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_char_title-{s2}{st}.xlsx'
-            
             
       writer = pd.ExcelWriter(path, engine='xlsxwriter')
       df_new.to_excel(writer,index=False,sheet_name='Schotchik')
@@ -2358,3 +2348,5 @@ def product_add_second(request,id):
       return JsonResponse({'a':'s'})
                   
      
+
+      

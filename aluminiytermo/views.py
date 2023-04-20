@@ -8,7 +8,7 @@ from .forms import FileFormTermo
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
 import numpy as np
-from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils
+from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create
 import os
 from datetime import datetime
 import json
@@ -25,100 +25,107 @@ def index(request):
 
 
 def aluminiy_productbases(request):
-  df = pd.read_excel('c:\\OpenServer\\domains\\База термо.XLSX','Лист1')
-  print(df.shape)
-#   print(df['Материал'][0])
-#   print(df['Материал'][39705])
-  
-  for i in range(0,df.shape[0]):
-    material =df['Материал'][i] 
-    artikul =df['Ариткул'][i]
-    section =df['Передел'][i]
-    counter =df['Счетчик'][i]
-    gruppa_materialov =df['Группа материалов'][i]
-    kratkiy_tekst_materiala=df['Краткий текст материала'][i]
-    kombinirovanniy=df['Комбинирования'][i]
-    
-    artiku_comp = AluminiyProductTermo(
-      material =material,
-      artikul =artikul,
-      section =section,
-      counter =counter,
-      gruppa_materialov =gruppa_materialov,
-      kratkiy_tekst_materiala =kratkiy_tekst_materiala,
-      kombinirovanniy =kombinirovanniy
-        )
-    artiku_comp.save()
-  
-  return JsonResponse({'converted':'a'})
+      df = pd.read_excel('c:\\OpenServer\\domains\\База термо.XLSX','Лист1')
+      print(df.shape)
+      #   print(df['Материал'][0])
+      #   print(df['Материал'][39705])
+
+      for i in range(0,df.shape[0]):
+            material =df['Материал'][i] 
+            artikul =df['Ариткул'][i]
+            section =df['Передел'][i]
+            counter =df['Счетчик'][i]
+            gruppa_materialov =df['Группа материалов'][i]
+            kratkiy_tekst_materiala=df['Краткий текст материала'][i]
+            kombinirovanniy=df['Комбинирования'][i]
+
+            artiku_comp = AluminiyProductTermo(
+            material =material,
+            artikul =artikul,
+            section =section,
+            counter =counter,
+            gruppa_materialov =gruppa_materialov,
+            kratkiy_tekst_materiala =kratkiy_tekst_materiala,
+            kombinirovanniy =kombinirovanniy
+                  )
+            artiku_comp.save()
+
+      return JsonResponse({'converted':'a'})
 
 def alu_product_base(request):
-  df = pd.read_excel('C:\\OpenServer\\domains\\Aluminiy_baza.xlsx','Лист1') 
-  print(df.shape)
-  for i in range(0,13197):
-    ekstruziya_sap_kod =df['Экструзия сап код'][i]
-    ekstruziya_kratkiy_tekst =df['Экструзия краткий текст'][i]
-    zakalka_sap_kod =df['Закалка сап код'][i]
-    zakalka_kratkiy_tekst =df['Закалка краткий текст'][i]
-    pokraska_sap_kod =df['Покраска сап код'][i]
-    pokraska_kratkiy_tekst =df['Покраска краткий текст'][i]
-    sublimatsiya_sap_kod =df['Сублимация сап код'][i]
-    sublimatsiya_kratkiy_tekst =df['Сублимация краткий текст'][i]
-    anodirovka_sap_kod =df['Анодировка сап код'][i]
-    anodirovka_kratkiy_tekst =df['Анодировка краткий текст'][i]
-    laminatsiya_sap_kod =df['Ламинация сап код'][i]
-    laminatsiya_kratkiy_tekst =df['Ламинация краткий текст'][i]
-    nakleyka_sap_kod =df['Наклейка сап код'][i]
-    nakleyka_kratkiy_tekst =df['Наклейка краткий текст'][i]
-    upakovka_sap_kod =df['Упаковка сап код'][i]
-    upakovka_kratkiy_tekst =df['Упаковка краткий текст'][i]
-    fabrikatsiya_sap_kod =df['Фабрикация сап код'][i]
-    fabrikatsiya_kratkiy_tekst =df['Фабрикация краткий текст'][i]
-    upakovka2_sap_kod =df['Упаковка2 сап код'][i]
-    upakovka2_kratkiy_tekst =df['Упаковка2 краткий текст'][i]
-    
-    artiku_comp =AluminiyProductBasetermo(
-      ekstruziya_sap_kod =ekstruziya_sap_kod,
-      ekstruziya_kratkiy_tekst =ekstruziya_kratkiy_tekst,
-      zakalka_sap_kod =zakalka_sap_kod,
-      zakalka_kratkiy_tekst =zakalka_kratkiy_tekst,
-      pokraska_sap_kod =pokraska_sap_kod,
-      pokraska_kratkiy_tekst =pokraska_kratkiy_tekst,
-      sublimatsiya_sap_kod =sublimatsiya_sap_kod,
-      sublimatsiya_kratkiy_tekst =sublimatsiya_kratkiy_tekst,
-      anodirovka_sap_kod =anodirovka_sap_kod,
-      anodirovka_kratkiy_tekst =anodirovka_kratkiy_tekst,
-      laminatsiya_sap_kod =laminatsiya_sap_kod,
-      laminatsiya_kratkiy_tekst =laminatsiya_kratkiy_tekst,
-      nakleyka_sap_kod =nakleyka_sap_kod,
-      nakleyka_kratkiy_tekst =nakleyka_kratkiy_tekst,
-      upakovka_sap_kod =upakovka_sap_kod,
-      upakovka_kratkiy_tekst =upakovka_kratkiy_tekst,
-      fabrikatsiya_sap_kod =fabrikatsiya_sap_kod,
-      fabrikatsiya_kratkiy_tekst =fabrikatsiya_kratkiy_tekst,
-      upakovka2_sap_kod =upakovka2_sap_kod,
-      upakovka2_kratkiy_tekst =upakovka2_kratkiy_tekst
-        )
-    artiku_comp.save()
-  return JsonResponse({'converted':'a'})
+      df = pd.read_excel('C:\\OpenServer\\domains\\Aluminiy_baza.xlsx','Лист1') 
+      for i in range(0,13197):
+            ekstruziya_sap_kod =df['Экструзия сап код'][i]
+            ekstruziya_kratkiy_tekst =df['Экструзия краткий текст'][i]
+            zakalka_sap_kod =df['Закалка сап код'][i]
+            zakalka_kratkiy_tekst =df['Закалка краткий текст'][i]
+            pokraska_sap_kod =df['Покраска сап код'][i]
+            pokraska_kratkiy_tekst =df['Покраска краткий текст'][i]
+            sublimatsiya_sap_kod =df['Сублимация сап код'][i]
+            sublimatsiya_kratkiy_tekst =df['Сублимация краткий текст'][i]
+            anodirovka_sap_kod =df['Анодировка сап код'][i]
+            anodirovka_kratkiy_tekst =df['Анодировка краткий текст'][i]
+            laminatsiya_sap_kod =df['Ламинация сап код'][i]
+            laminatsiya_kratkiy_tekst =df['Ламинация краткий текст'][i]
+            nakleyka_sap_kod =df['Наклейка сап код'][i]
+            nakleyka_kratkiy_tekst =df['Наклейка краткий текст'][i]
+            upakovka_sap_kod =df['Упаковка сап код'][i]
+            upakovka_kratkiy_tekst =df['Упаковка краткий текст'][i]
+            fabrikatsiya_sap_kod =df['Фабрикация сап код'][i]
+            fabrikatsiya_kratkiy_tekst =df['Фабрикация краткий текст'][i]
+            upakovka2_sap_kod =df['Упаковка2 сап код'][i]
+            upakovka2_kratkiy_tekst =df['Упаковка2 краткий текст'][i]
+            
+            artiku_comp =AluminiyProductBasetermo(
+                  ekstruziya_sap_kod =ekstruziya_sap_kod,
+                  ekstruziya_kratkiy_tekst =ekstruziya_kratkiy_tekst,
+                  zakalka_sap_kod =zakalka_sap_kod,
+                  zakalka_kratkiy_tekst =zakalka_kratkiy_tekst,
+                  pokraska_sap_kod =pokraska_sap_kod,
+                  pokraska_kratkiy_tekst =pokraska_kratkiy_tekst,
+                  sublimatsiya_sap_kod =sublimatsiya_sap_kod,
+                  sublimatsiya_kratkiy_tekst =sublimatsiya_kratkiy_tekst,
+                  anodirovka_sap_kod =anodirovka_sap_kod,
+                  anodirovka_kratkiy_tekst =anodirovka_kratkiy_tekst,
+                  laminatsiya_sap_kod =laminatsiya_sap_kod,
+                  laminatsiya_kratkiy_tekst =laminatsiya_kratkiy_tekst,
+                  nakleyka_sap_kod =nakleyka_sap_kod,
+                  nakleyka_kratkiy_tekst =nakleyka_kratkiy_tekst,
+                  upakovka_sap_kod =upakovka_sap_kod,
+                  upakovka_kratkiy_tekst =upakovka_kratkiy_tekst,
+                  fabrikatsiya_sap_kod =fabrikatsiya_sap_kod,
+                  fabrikatsiya_kratkiy_tekst =fabrikatsiya_kratkiy_tekst,
+                  upakovka2_sap_kod =upakovka2_sap_kod,
+                  upakovka2_kratkiy_tekst =upakovka2_kratkiy_tekst
+                  )
+            artiku_comp.save()
+      return JsonResponse({'converted':'a'})
 
 def upload_product(request):
-  if request.method == 'POST':
-    form = FileFormTermo(request.POST, request.FILES)
-    if form.is_valid():
-        form.save()
-        return redirect('aluminiy_files_termo')
-  else:
-      form =FileFormTermo()
-      context ={
-        'form':form
-      }
-  return render(request,'excel_form.html',context)
+      if request.method == 'POST':
+            form = FileFormTermo(request.POST, request.FILES)
+            if form.is_valid():
+                  form.save()
+                  if form.cleaned_data['file_type'] =='title':
+                        return redirect('aluminiy_files_termo')
+                  else:
+                        return redirect('aluminiy_files_termo')
+            else:
+                  form =FileFormTermo()
+                  context ={
+                  'form':form
+                  }
+      return render(request,'excel_form.html',context)
 
 def aluminiy_files(request):
-  files = AluFileTermo.objects.filter(generated =False)
-  context ={'files':files}
-  return render(request,'termo/alu_file_list.html',context)
+      files = AluFileTermo.objects.filter(generated =False)
+      context ={'files':files}
+      return render(request,'termo/alu_file_list.html',context)
+
+def aluminiy_files_termo_char_title(request):
+      files = AluFileTermo.objects.filter(file_type ='title')
+      context ={'files':files}
+      return render(request,'termo/alu_file_list_char_title.html',context)
 
 def aluminiy_group(request):
       aluminiy_group =AluminiyProductTermo.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
@@ -2453,10 +2460,7 @@ def product_add_second(request,id):
       df_char = create_characteristika(cache_for_cratkiy_text) 
       
       df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
-                 
-      b = datetime.now()
-      print('ends in ...',b)
-      print('difference =',b-a) 
+                  
       s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
       parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiytermo\\'
        
@@ -2550,4 +2554,11 @@ def base_profile(request):
       return JsonResponse({'a':'b'})
 
 
+def update_char_title(request,id):
+      file = AluFileTermo.objects.get(id=id).file
+      df = pd.read_excel(f'{MEDIA_ROOT}/{file}','title')
+      df =df.astype(str)
+      
+      characteristika_created_txt_create(df)
+      return JsonResponse({'a':'b'})
 
