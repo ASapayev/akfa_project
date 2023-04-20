@@ -34,6 +34,7 @@ class AluminiyProduct(models.Model):
 class AluFile(models.Model):
   file =models.FileField()
   generated =models.BooleanField(default=False)
+  file_type =models.CharField(max_length=255,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 

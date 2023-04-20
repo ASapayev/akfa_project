@@ -13,7 +13,7 @@ import os
 from datetime import datetime
 now = datetime.now()
 import random
-from aluminiytermo.utils import create_characteristika,create_characteristika_utils
+from aluminiytermo.utils import create_characteristika,create_characteristika_utils,characteristika_created_txt_create
 from aluminiytermo.models import CharUtilsOne,CharUtilsTwo,CharUtilsThree,Characteristika,CharUtilsFour
 from django.db.models import Q
 
@@ -164,7 +164,19 @@ def aluminiy_group(request):
       print('aa   ')
       return JsonResponse({'data':umumiy})
 
+def update_char_title(request,id):
+      file = AluFile.objects.get(id=id).file
+      df = pd.read_excel(f'{MEDIA_ROOT}/{file}','title')
+      df =df.astype(str)
+      
+      characteristika_created_txt_create(df)
+      return JsonResponse({'a':'b'})
 
+
+def aluminiy_files_simple_char_title(request):
+      files = AluFile.objects.filter(file_type ='title')
+      context ={'files':files}
+      return render(request,'aluminiy/alu_file_list_char_title.html',context)
 # def product_add(request,id):
 #       file = AluFile.objects.get(id=id).file
 #       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
@@ -2342,7 +2354,7 @@ def product_add_second(request,id):
       writer = pd.ExcelWriter(path, engine='xlsxwriter')
       df_new.to_excel(writer,index=False,sheet_name='Schotchik')
       df_char.to_excel(writer,index=False,sheet_name='Characteristika')
-      df_char_title.to_excel(writer,index=False,sheet_name='Title')
+      df_char_title.to_excel(writer,index=False,sheet_name='title')
       writer.save()
       
       return JsonResponse({'a':'s'})

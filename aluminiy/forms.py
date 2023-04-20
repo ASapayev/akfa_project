@@ -10,4 +10,4 @@ class FileForm(forms.ModelForm):
       })
   class Meta:
     model =AluFile
-    fields =['file']
+    fields =['file','file_type']
