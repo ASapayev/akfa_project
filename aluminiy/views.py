@@ -1525,7 +1525,7 @@ def product_add_second(request,id):
                                           'system':row['Название системы'],
                                           'article':artikle,
                                           'length':dlina,
-                                          'surface_treatment':row['Тип покрытия'],
+                                          'surface_treatment':'Неокрашенный',
                                           'alloy':row['Сплав'],
                                           'temper':row['тип закаленности'],
                                           'combination':row['Комбинация'],
@@ -1593,7 +1593,7 @@ def product_add_second(request,id):
                                           'system':row['Название системы'],
                                           'article':artikle,
                                           'length':dlina,
-                                          'surface_treatment':row['Тип покрытия'],
+                                          'surface_treatment':'Неокрашенный',
                                           'alloy':row['Сплав'],
                                           'temper':row['тип закаленности'],
                                           'combination':row['Комбинация'],
@@ -1669,7 +1669,7 @@ def product_add_second(request,id):
                                           'system':row['Название системы'],
                                           'article':artikle,
                                           'length':dlina,
-                                          'surface_treatment':row['Тип покрытия'],
+                                          'surface_treatment':'Неокрашенный',
                                           'alloy':row['Сплав'],
                                           'temper':row['тип закаленности'],
                                           'combination':row['Комбинация'],
@@ -1734,7 +1734,7 @@ def product_add_second(request,id):
                                           'system':row['Название системы'],
                                           'article':artikle,
                                           'length':dlina,
-                                          'surface_treatment':row['Тип покрытия'],
+                                          'surface_treatment':'Неокрашенный',
                                           'alloy':row['Сплав'],
                                           'temper':row['тип закаленности'],
                                           'combination':row['Комбинация'],
@@ -1778,7 +1778,11 @@ def product_add_second(request,id):
                               df_new['pkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['pkrat'][key])[:1].get().material
                         else:
                               df_new['pkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['pkrat'][key])[:1].get().material
-                  else: 
+                  else:
+                        if '9016' in df_new['pkrat'][key]:
+                                    tip_pokr ='Белый'
+                              else:
+                                    tip_pokr ='Окрашенный' 
                         if AluminiyProduct.objects.filter(artikul =component,section ='P').exists():
                               umumiy_counter[component+'-P'] += 1
                               
@@ -1815,7 +1819,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':tip_pokr,
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -1881,7 +1885,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':tip_pokr,
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -1963,7 +1967,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':'Сублимированный',
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -2029,7 +2033,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':'Сублимированный',
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -2109,7 +2113,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':'Анодированный',
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -2174,7 +2178,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':'Анодированный',
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -2218,6 +2222,17 @@ def product_add_second(request,id):
                         else:
                               df_new['nkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['nkrat'][key])[:1].get().material
                   else:
+                        name_tip_pokr =''
+                        if (('7777' in df_new['nkrat'][key]) or ('8888' in df_new['nkrat'][key])  or ('3701' in df_new['nkrat'][key]) or ('3702' in df_new['nkrat'][key])):
+                              name_tip_pokr = 'Сублимированный'
+                        elif '9016' in df_new['nkrat'][key]:
+                              name_tip_pokr = 'Белый'
+                        elif 'MF' in df_new['nkrat'][key]:
+                              name_tip_pokr = 'Неокрашенный'
+                        elif anodirovaka_check(ANODIROVKA_CODE,df_new['nkrat'][key]):
+                              name_tip_pokr = 'Анодированный'
+                        else:
+                              name_tip_pokr = 'Окрашенный'
                         if  AluminiyProduct.objects.filter(artikul =component,section ='N').exists():
                               umumiy_counter[component+'-N'] += 1
                               max_valuesN = umumiy_counter[ component +'-N']
@@ -2254,7 +2269,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':name_tip_pokr,
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -2319,7 +2334,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':name_tip_pokr,
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
