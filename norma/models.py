@@ -240,7 +240,7 @@ class CheckNormaBase(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
 class NormaExcelFiles(models.Model):
-    file =models.FileField(upload_to='uploads/norma/')
+    file =models.FileField(upload_to='uploads/norma/downloads')
     generated =models.BooleanField(default=False)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)

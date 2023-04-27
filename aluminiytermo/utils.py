@@ -1,13 +1,15 @@
 import os
-from .models import Characteristika,CharacteristicTitle
+from .models import Characteristika,CharacteristicTitle,NakleykaCode,BazaProfiley,CharUtilsOne,CharUtilsTwo,CharUtilsThree
 import random
-from .models import BazaProfiley 
 from django.db.models import Count,Q
 from datetime import datetime
 from config.settings import MEDIA_ROOT
 import pandas as pd
 import numpy as np
 from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203
+from django.shortcuts import render
+from aluminiy.models import ArtikulComponent
+from datetime import datetime
 
 
 
@@ -36,9 +38,18 @@ def create_characteristika(items):
         [],[],[],[],[],[],[],[],[],[],
         [],[],[],[],[],[],[],[],[],[],
         [],[],[],[],[],[],[],[],[],[],
-        [],[],[],[],[],[],[],[],[]
+        [],[],[],[],[],[],[],[]
     ]
+    nakleyka_codes =[ code[0] for code in NakleykaCode.objects.values_list('name')]
+    
+    
+        
     for item in items:
+        
+        krat_nak_code = item['kratkiy'][-3:]
+        if krat_nak_code not in nakleyka_codes:
+            item['print_view'] = ''
+        
         character = Characteristika(
             sap_code =item['material'],
             kratkiy_text =item['kratkiy'],
@@ -82,6 +93,85 @@ def create_characteristika(items):
             )
         character.save()
         
+        if character.sap_code =='nan':
+            character.sap_code=''
+        if character.kratkiy_text =='nan':
+            character.kratkiy_text=''
+        if character.section =='nan':
+            character.section=''
+        if character.savdo_id =='nan':
+            character.savdo_id=''
+        if character.savdo_name =='nan':
+            character.savdo_name=''
+        if character.export_customer_id =='nan':
+            character.export_customer_id=''
+        if character.system =='nan':
+            character.system=''
+        if character.article =='nan':
+            character.article=''
+        if character.length =='nan':
+            character.length=''
+        if character.surface_treatment =='nan':
+            character.surface_treatment=''
+        if character.alloy =='nan':
+            character.alloy=''
+        if character.temper =='nan':
+            character.temper=''
+        if character.combination =='nan':
+            character.combination=''
+        if character.outer_side_pc_id =='nan':
+            character.outer_side_pc_id=''
+        if character.outer_side_pc_brand =='nan':
+            character.outer_side_pc_brand=''
+        if character.inner_side_pc_id =='nan':
+            character.inner_side_pc_id=''
+        if character.inner_side_pc_brand =='nan':
+            character.inner_side_pc_brand=''
+        if character.outer_side_wg_s_id =='nan':
+            character.outer_side_wg_s_id=''
+        if character.inner_side_wg_s_id =='nan':
+            character.inner_side_wg_s_id=''
+        if character.outer_side_wg_id =='nan':
+            character.outer_side_wg_id=''
+        if character.inner_side_wg_id =='nan':
+            character.inner_side_wg_id=''
+        if character.anodization_contact =='nan':
+            character.anodization_contact=''
+        if character.anodization_type =='nan':
+            character.anodization_type=''
+        if character.anodization_method =='nan':
+            character.anodization_method=''
+        if character.print_view =='nan':
+            character.print_view=''
+        if character.profile_base =='nan':
+            character.profile_base=''
+        if character.width =='nan':
+            character.width=''
+        if character.height =='nan':
+            character.height=''
+        if character.category =='nan':
+            character.category=''
+        if character.rawmat_type =='nan':
+            character.rawmat_type=''
+        if character.benkam_id =='nan':
+            character.benkam_id=''
+        if character.hollow_and_solid =='nan':
+            character.hollow_and_solid=''
+        if character.export_description =='nan':
+            character.export_description=''
+        if character.export_description_eng =='nan':
+            character.export_description_eng=''
+        if character.tnved =='nan':
+            character.tnved=''
+        if character.surface_treatment_export =='nan':
+            character.surface_treatment_export=''
+        if character.wms_width == 'nan':
+            character.wms_width=''
+        if character.wms_height == 'nan':
+            character.wms_height=''
+        if character.group_prise == 'nan':
+            character.group_prise = ''
+        
         all_data[0].append(character.sap_code)
         all_data[1].append(character.kratkiy_text)
         all_data[2].append(character.section)
@@ -116,11 +206,10 @@ def create_characteristika(items):
         all_data[31].append(character.hollow_and_solid)
         all_data[32].append(character.export_description)
         all_data[33].append(character.export_description_eng)
-        all_data[34].append(character.tnved)
+        all_data[34].append(character.tnved.replace('.0',''))
         all_data[35].append(character.surface_treatment_export)
-        all_data[36].append(character.wms_width)
-        all_data[37].append(character.wms_height)
-        all_data[38].append(character.group_prise)
+        all_data[36].append(character.wms_width.replace('.0',''))
+        all_data[37].append(character.wms_height.replace('.0',''))
 
 
     df_new ={
@@ -161,8 +250,7 @@ def create_characteristika(items):
         'TNVED': all_data[34],
         'SURFACE_TREATMENT_EXPORT': all_data[35],
         'WMS_WIDTH': all_data[36],
-        'WMS_HEIGHT': all_data[37],
-        'GROUP PRISE': all_data[38],
+        'WMS_HEIGHT': all_data[37]
     }
     
     df_charakter = pd.DataFrame(df_new)
@@ -188,9 +276,20 @@ def create_characteristika_utils(items):
         [],[]
     ]
     
+    nakleyka_codes =[ code[0] for code in NakleykaCode.objects.values_list('name')]
+    
+    
+    
     for item in items:
         if '-L' in item['material']:
             continue
+        
+        krat_nak_code = item['kratkiy'][-3:]
+        if krat_nak_code not in nakleyka_codes:
+            item['print_view'] = ''
+        
+        
+        
         sap_kode =item['material'].split('-')[0]
         baza_profiey = BazaProfiley.objects.filter(Q(артикул=sap_kode)|Q(компонент=sap_kode))[:1].get()
         
@@ -223,8 +322,8 @@ def create_characteristika_utils(items):
         удельный_вес_за_метр =''
         общий_вес_за_штуку =''
         tip_pokritiya =item['surface_treatment']
-        wms_width =item['wms_width']
-        wms_height =item['wms_height']
+        wms_width =item['wms_width'].replace('.0','')
+        wms_height =item['wms_height'].replace('.0','')
         
         ########Characteristica variables############
         ch_material = item['material']
@@ -250,7 +349,12 @@ def create_characteristika_utils(items):
         ch_print_view = item['print_view']
         ch_profile_base = item['profile_base']
         ch_width = item.get('width','')
+        if ch_width !='':
+            ch_width =ch_width.replace('.0','')
         ch_height = item.get('height','')
+        if ch_height !='':
+            ch_height =ch_height.replace('.0','')
+        
         ch_category = ''
         ch_rawmat_type = item['rawmat_type']
         ch_hollow_and_solid = item.get('hollow_and_solid','')
@@ -393,10 +497,10 @@ def create_characteristika_utils(items):
         'ch_tnved': df[50],
         'ch_surface_treatment_export': df[51],
     }
-    
     df_new = pd.DataFrame(dat)
     
     return df_new
+
 
 
     
@@ -413,13 +517,57 @@ def create_characteristika_utils(items):
 
 
 def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
-    umumiy_without_duplicate1201 =[[] for i in range(0,48)]
-    umumiy_without_duplicate1203 =[[] for i in range(0,48)]
-    umumiy_without_duplicate12D1 =[[] for i in range(0,48)]
-    umumiy_without_duplicate12D2 =[[] for i in range(0,48)]
-    umumiy_without_duplicate12D3 =[[] for i in range(0,48)]
-    umumiy_without_duplicate12D4 =[[] for i in range(0,48)]
-    umumiy_without_duplicate12D5 =[[] for i in range(0,48)]
+    now = datetime.now()
+    year =now.strftime("%Y")
+    month =now.strftime("%B")
+    day =now.strftime("%a%d")
+    hour =now.strftime("%H HOUR")
+    minut =now.strftime("%M-%S MINUT")
+    
+    if file_name =='aluminiytermo':
+        parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiytermo\\'
+        
+        if not os.path.isdir(parent_dir):
+            create_folder(f'{MEDIA_ROOT}\\uploads\\','aluminiytermo')
+            
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\',f'{year}')
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\',f'{month}')
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\',day)
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\',hour)
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\',minut)
+        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\1.txt'
+        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\2.txt'
+        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\3.txt'
+        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\4.txt'
+        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt'
+        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx'
+        
+    elif file_name =='aluminiy':
+        parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
+        
+        if not os.path.isdir(parent_dir):
+            create_folder(f'{MEDIA_ROOT}\\uploads\\','aluminiy')
+            
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\',f'{year}')
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\',f'{month}')
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\',day)
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\',hour)
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\',minut)
+        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\1.txt'
+        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\2.txt'
+        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\3.txt'
+        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\4.txt'
+        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt'
+        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx'
+    
+    
+    umumiy_without_duplicate1201 =[[] for i in range(0,49)]
+    umumiy_without_duplicate1203 =[[] for i in range(0,49)]
+    umumiy_without_duplicate12D1 =[[] for i in range(0,49)]
+    umumiy_without_duplicate12D2 =[[] for i in range(0,49)]
+    umumiy_without_duplicate12D3 =[[] for i in range(0,49)]
+    umumiy_without_duplicate12D4 =[[] for i in range(0,49)]
+    umumiy_without_duplicate12D5 =[[] for i in range(0,49)]
     for key , row in datas.iterrows():
         
         if '-7' in row['SAP код S4P 100']:
@@ -428,7 +576,6 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             gruppa_material ='ALUPF'
                 
         if ((row['Тип покрытия'] =='Ламинированный') and (row['Участок'] =='U-Упаковка + Готовая продукция') or ((row['Тип покрытия'] =='Ламинированный') and (row['Участок'] =='K-Комбинирования'))):
-            #########1203
             umumiy_without_duplicate1203[0].append(row['SAP код S4P 100'])
             umumiy_without_duplicate1203[1].append(row['SAP код S4P 100'])
             umumiy_without_duplicate1203[2].append(row['Короткое название SAP'])
@@ -489,6 +636,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate1203[45].append('X')
             umumiy_without_duplicate1203[46].append(LGPRO1203[sap_code_simvol])
             umumiy_without_duplicate1203[47].append('1')
+            umumiy_without_duplicate1203[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         if gruppa_material=='ALUGP':
             #######12D1
@@ -555,6 +703,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D1[45].append('X')
             umumiy_without_duplicate12D1[46].append('')
             umumiy_without_duplicate12D1[47].append('1')
+            umumiy_without_duplicate12D1[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         if gruppa_material=='ALUGP':
             ######12D2
@@ -621,6 +770,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D2[45].append('X')
             umumiy_without_duplicate12D2[46].append('')
             umumiy_without_duplicate12D2[47].append('1')
+            umumiy_without_duplicate12D2[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         if gruppa_material=='ALUGP':
             ######12D3
@@ -687,6 +837,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D3[45].append('X')
             umumiy_without_duplicate12D3[46].append('')
             umumiy_without_duplicate12D3[47].append('1')
+            umumiy_without_duplicate12D3[48].append(row['ch_combination'] + row['Тип покрытия'])
         if gruppa_material=='ALUGP':
             ######12D4
             umumiy_without_duplicate12D4[0].append(row['SAP код S4P 100'])
@@ -752,6 +903,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D4[45].append('X')
             umumiy_without_duplicate12D4[46].append('')
             umumiy_without_duplicate12D4[47].append('1')
+            umumiy_without_duplicate12D4[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         if gruppa_material=='ALUGP':
             ######12D5
@@ -818,6 +970,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D5[45].append('X')
             umumiy_without_duplicate12D5[46].append('')
             umumiy_without_duplicate12D5[47].append('1')
+            umumiy_without_duplicate12D5[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         umumiy_without_duplicate1201[0].append(row['SAP код S4P 100'])
         umumiy_without_duplicate1201[1].append(row['SAP код S4P 100'])
@@ -883,7 +1036,8 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         umumiy_without_duplicate1201[45].append('X')
         umumiy_without_duplicate1201[46].append(LGPRO1201[sap_code_simvol])
         umumiy_without_duplicate1201[47].append('1')
-    umumiy_without_duplicate =[[] for i in range(0,48)]
+        umumiy_without_duplicate1201[48].append(row['ch_combination'] + row['Тип покрытия'])
+    umumiy_without_duplicate =[[] for i in range(0,49)]
     for i in range(0,len(umumiy_without_duplicate1201)):
         umumiy_without_duplicate[i]+=umumiy_without_duplicate1201[i] 
             
@@ -905,7 +1059,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     for i in range(0,len(umumiy_without_duplicate12D5)):
         umumiy_without_duplicate[i]+=umumiy_without_duplicate12D5[i]     
 
-        
+    
 
 ########################## 1.txt ##############################
     d1={}
@@ -927,7 +1081,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     
     df1= pd.DataFrame(d1)
     
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\{file_name}\\1.txt', df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
+    np.savetxt(pathtext1, df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='utf-8')
     
 ########################## end 1.txt ##############################
 
@@ -984,7 +1138,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     d2['SBDKZ']=umumiy_without_duplicate[47]
 
     df2= pd.DataFrame(d2)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\{file_name}\\2.txt', df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
+    np.savetxt(pathtext2, df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='utf-8')
 ########################## end 2.txt ##############################
 
 ########################## 3.txt ##############################
@@ -1011,6 +1165,20 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         'TRAGR':[]
     }
     VTWEG =['99','10','20']
+    KONDM ={
+        'с термомостоманодированный':'A0',
+        'без термомостаокрашенный':'A1',
+        'без термомостабелый':'A1',
+        'без термомостасублимированный':'A2',
+        'без термомостаанодированный':'A3',
+        'без термомосталаминированный':'A4',
+        'с термомостомламинированный':'A5',
+        'без термомостанеокрашенный':'A6',
+        'с термомостомокрашенный':'A7',
+        'с термомостомбелый':'A7',
+        'с термомостомнеокрашенный':'A8',
+        'с термомостомсублимированный':'A9',
+    }
     for i in range(0,3):
         d3['MAKTX'] += umumiy_without_duplicate[13]
         d3['MEINS'] += umumiy_without_duplicate[14]
@@ -1028,11 +1196,15 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         d3['TAXKM'] += [ '1' for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['VERSG'] += [ '1' for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['KTGRM'] += [ '01' for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['KONDM'] += [ '01' for j in range(0,len(umumiy_without_duplicate[13]))]
+        if i!=2:
+            d3['KONDM'] += [ '01' for j in range(0,len(umumiy_without_duplicate[13]))]
+        else:
+            d3['KONDM'] += [ '01' if '-7' not in umumiy_without_duplicate[0][x] else KONDM[umumiy_without_duplicate[48][x].lower()] for x in range(0,len(umumiy_without_duplicate[0]))]
+            
         d3['LADGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['TRAGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
     df3= pd.DataFrame(d3)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\{file_name}\\3.txt', df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
+    np.savetxt(pathtext3, df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='utf-8')
 ########################## end 3.txt ##############################
     
 ########################## 4.txt ##############################    
@@ -1102,7 +1274,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     d4['WERKS']=new_ll[1]
     d4['LGORT']=new_ll[2]
     df4= pd.DataFrame(d4)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\{file_name}\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
+    np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='utf-8')
 ########################## end 4.txt ##############################
     
 ########################## 5.txt ##############################
@@ -1145,16 +1317,16 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     
     d5['ed_iz3'] = ed_iz3
     df5= pd.DataFrame(d5)
-    np.savetxt(f'{MEDIA_ROOT}\\uploads\\{file_name}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
+    np.savetxt(pathtext5, df5.values, fmt='%s', delimiter="\t",encoding='utf-8')
 ########################## end 5.txt ##############################
 ########################## List v 3 ##############################
     dd2 = [[],[],[],[],[],[]]
     
     for key , row in datas.iterrows():
-        for j in range(0,39):
+        for j in range(0,38):
             dd2[0].append('001')
             
-        for j in range(0,39):
+        for j in range(0,38):
             if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
                 dd2[1].append('ALUMINIUM_PROFILE')
             else:
@@ -1163,10 +1335,10 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 elif HEADER[j] =='TNVED':
                     dd2[1].append('TNVED')
             
-        for j in range(0,39):
+        for j in range(0,38):
             dd2[2].append('MARA')
             
-        for j in range(0,39):
+        for j in range(0,38):
             dd2[3].append(row['SAP код S4P 100'])
             
         for j in HEADER:
@@ -1210,7 +1382,6 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         dd2[5].append(row['ch_surface_treatment_export'])
         dd2[5].append(row['WMS_WIDTH'])
         dd2[5].append(row['WMS_HEIGHT'])
-        dd2[5].append(row['Price'])
     
     new_date={}       
     new_date['Вид класса'] = dd2[0]
@@ -1221,10 +1392,10 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     new_date['Значение признака'] = dd2[5]
     new_date['Статус загрузки'] = ''
     
-    path2 =f'{MEDIA_ROOT}\\uploads\\{file_name}\\Лист в C 3.xlsx'
+    
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
-    ddf2.to_excel(path2,index=False)
+    ddf2.to_excel(pathtext6,index=False)
     
     return 1
 
@@ -1237,7 +1408,81 @@ def create_folder(parent_dir,directory):
     if not os.path.isdir(path):
         os.mkdir(path)
         
-        
+
+def anodirovaka_check(items,data):
+    for item in items:
+        if item in data:
+            return True
+    return False 
 
 
 
+
+def check_for_correct(items,filename='termo'):
+    char_utils_one =[]
+    char_utils_two =[]
+    baza_profiley =[]
+    component_list =[]
+    
+    
+    for key,row in items.iterrows():
+        if row['Артикул'] !='nan':
+            artikle =row['Артикул']
+            if not CharUtilsTwo.objects.filter(артикул = artikle).exists():
+                if artikle not in char_utils_two:
+                    char_utils_two.append(artikle)
+                
+            if not CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle)).exists():
+                if artikle not in char_utils_one:
+                    char_utils_one.append(artikle)
+                    
+            if not BazaProfiley.objects.filter(Q(артикул=artikle)|Q(компонент=artikle)).exists():
+                if artikle not in baza_profiley:
+                    baza_profiley.append(artikle)
+                    
+        if  filename =='termo':   
+            if row['Компонент'] !='nan':
+                artikle =row['Компонент']
+                if not CharUtilsTwo.objects.filter(артикул = artikle).exists():
+                    if artikle not in char_utils_two:
+                        char_utils_two.append(artikle)
+                    
+                if not CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle)).exists():
+                    if artikle not in char_utils_one:
+                        char_utils_one.append(artikle)
+                    
+                if not BazaProfiley.objects.filter(Q(артикул=artikle)|Q(компонент=artikle)).exists():
+                    if artikle not in baza_profiley:
+                        baza_profiley.append(artikle)
+                        
+    
+            
+        if ArtikulComponent.objects.filter(artikul=row['Артикул']).exists():
+            artikle = ArtikulComponent.objects.filter(artikul=row['Артикул'])[:1].get().component
+            if not CharUtilsTwo.objects.filter(артикул = artikle).exists():
+                if artikle not in char_utils_two:
+                    char_utils_two.append(artikle)
+                
+            if not CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle)).exists():
+                if artikle not in char_utils_one:
+                    char_utils_one.append(artikle)
+                
+            if not BazaProfiley.objects.filter(Q(артикул=artikle)|Q(компонент=artikle)).exists():
+                if artikle not in baza_profiley:
+                    baza_profiley.append(artikle)
+        else:
+            if row['Артикул'] not in component_list:
+                component_list.append(row['Артикул'])
+                    
+    correct = True
+    char_utils_correct =char_utils_one + char_utils_two + baza_profiley + component_list
+    if len(char_utils_correct) >0:
+        correct = False
+    return [ char_utils_one , char_utils_two , baza_profiley,component_list ] , correct
+
+
+def  create_all(request,df_char_title):
+    context ={
+        'df_char_title':df_char_title
+    }
+    return render(request,'termo/complete_ves.html',context)

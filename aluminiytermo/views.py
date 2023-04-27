@@ -8,12 +8,15 @@ from .forms import FileFormTermo
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
 import numpy as np
-from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create
+from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,anodirovaka_check,check_for_correct
 import os
 from datetime import datetime
 import json
 import random
 from django.db.models import Q
+from .BAZA import ANODIROVKA_CODE
+from django.views.decorators.csrf import csrf_exempt
+import ast
 
 now = datetime.now()
 
@@ -696,7 +699,14 @@ def product_add_second(request,id):
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
       df =df.astype(str)
       
-      
+      doesnotexist,correct = check_for_correct(df)
+      if not correct:
+            context ={
+                  'CharUtilsOne':doesnotexist[0],
+                  'CharUtilsTwo':doesnotexist[1],
+                  'BazaProfile':doesnotexist[2]
+            }
+            return render(request,'termo/check_for_correct.html',context)
       ################### group by#########
       aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
       umumiy_counter={}
@@ -711,7 +721,6 @@ def product_add_second(request,id):
       
       
       a=datetime.now()
-      print('starts in ...',a)
       for key,row in df.iterrows():
             if row['Тип покрытия'] == 'nan':
                   df = df.drop(key)
@@ -745,9 +754,6 @@ def product_add_second(request,id):
       
       
       
-      # exists =ArtikulComponent.objects.filter(artikul__in =df['Артикул'])
-      # print(df['Артикул'])
-      # print(type(df['Артикул']))
       cache_for_cratkiy_text =[]
       
       for key,row in df.iterrows():
@@ -756,11 +762,22 @@ def product_add_second(request,id):
             row['Длина (мм)'] = row['Длина (мм)'].replace('.0','')
             row['Бренд краски снаружи'] = row['Бренд краски снаружи'].replace('.0','')
             row['Код краски снаружи'] = row['Код краски снаружи'].replace('.0','')
+            row['Бренд краски внутри'] = row['Бренд краски внутри'].replace('.0','')
+            row['Код краски внутри'] = row['Код краски внутри'].replace('.0','')
+            row['Код декор пленки снаружи'] = row['Код декор пленки снаружи'].replace('.0','')
+            row['Цвет декор пленки снаружи'] = row['Цвет декор пленки снаружи'].replace('.0','')
+            row['Код декор пленки внутри'] = row['Код декор пленки внутри'].replace('.0','')
+            row['Код цвета анодировки внутри'] = row['Код цвета анодировки внутри'].replace('.0','')
+            row['Код цвета анодировки снаружи'] = row['Код цвета анодировки снаружи'].replace('.0','')
+            row['Контактность анодировки'] = row['Контактность анодировки'].replace('.0','')
+            row['Код лам пленки снаружи'] = row['Код лам пленки снаружи'].replace('.0','')
+            row['Код лам пленки внутри'] = row['Код лам пленки снаружи'].replace('.0','')
             
             artikul = df['Артикул'][key]
             component = df['Компонент'][key]
             
             if artikul !='nan':
+                  print('artikulllllllll')
                   if df['Длина при выходе из пресса'][key] != 'nan':
                         dlina = df['Длина при выходе из пресса'][key].replace('.0','')
                               
@@ -1117,7 +1134,7 @@ def product_add_second(request,id):
                                     AluminiyProductTermo(artikul = df['Артикул'][key],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['ukrat1'][key],material=materiale).save()
                                     df_new['ukrat1_counter'][key] = materiale
                                     artikle = str(materiale).split('-')[0]
-                                    print(artikle)
+                                   
                                     hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                                     
                                     if row['Тип покрытия'].lower() == 'сублимированный':
@@ -1130,7 +1147,7 @@ def product_add_second(request,id):
                                           export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                                     else:       
                                           export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                                    print(export_description)
+                                    
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
@@ -1148,7 +1165,7 @@ def product_add_second(request,id):
                                           surface_treatment_export = row['Цвет лам пленки снаружи']
                                           
                                           
-                                    
+                                    print(f"Ukrat1 tip pokr {row['Тип покрытия']}")
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
@@ -1227,7 +1244,7 @@ def product_add_second(request,id):
                                           surface_treatment_export = row['Цвет лам пленки снаружи']
                                           
                                           
-                                    
+                                    print(f"Ukrat1 tip pokr {row['Тип покрытия']}")
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
@@ -1274,6 +1291,19 @@ def product_add_second(request,id):
                   if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='K',kratkiy_tekst_materiala=df_new['kkrat1'][key]).exists():
                         df_new['kkrat1_counter'][key] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='K',kratkiy_tekst_materiala=df_new['kkrat1'][key])[:1].get().material
                   else: 
+                        
+                        name_tip_pokr =''
+                        if (('7777' in df_new['kkrat1'][key]) or ('8888' in df_new['kkrat1'][key])  or ('3701' in df_new['kkrat1'][key]) or ('3702' in df_new['kkrat1'][key])):
+                              name_tip_pokr = 'Сублимированный'
+                        elif '9016' in df_new['kkrat1'][key]:
+                              name_tip_pokr = 'Белый'
+                        elif 'MF' in df_new['kkrat1'][key]:
+                              name_tip_pokr = 'Неокрашенный'
+                        elif anodirovaka_check(ANODIROVKA_CODE,df_new['kkrat1'][key]):
+                              name_tip_pokr = 'Анодированный'
+                        else:
+                              name_tip_pokr = 'Окрашенный'
+                              
                         if AluminiyProductTermo.objects.filter(artikul=df['Артикул'][key],section ='K').exists():
                               umumiy_counter_termo[df['Артикул'][key]+'-K'] += 1
                               max_valuesK = umumiy_counter_termo[df['Артикул'][key]+'-K']
@@ -1302,7 +1332,12 @@ def product_add_second(request,id):
                               
                               width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
+                              print(f"kkrat1 tip pokr {row['Тип покрытия']}") 
+                              
+                              
                                     
+                                    
+                                  
                               cache_for_cratkiy_text.append(
                                                 {'material':materiale,
                                                 'kratkiy':df_new['kkrat1'][key],
@@ -1311,7 +1346,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':name_tip_pokr,
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -1368,7 +1403,7 @@ def product_add_second(request,id):
                               
                               width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
-                                    
+                              print(f"kkrat1 tip pokr {row['Тип покрытия']}")
                               cache_for_cratkiy_text.append(
                                                 {'material':materiale,
                                                 'kratkiy':df_new['kkrat1'][key],
@@ -1377,7 +1412,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':name_tip_pokr,
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -1440,7 +1475,7 @@ def product_add_second(request,id):
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                                     
-                                          
+                                    print(f"lkrat1 tip pokr {row['Тип покрытия']}")   
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
                                                       'kratkiy':df_new['lkrat'][key],
@@ -1449,7 +1484,7 @@ def product_add_second(request,id):
                                                       'system':row['Название системы'],
                                                       'article':artikle,
                                                       'length':dlina,
-                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'surface_treatment':'Ламинированный',
                                                       'alloy':row['Сплав'],
                                                       'temper':row['тип закаленности'],
                                                       'combination':row['Комбинация'],
@@ -1505,7 +1540,7 @@ def product_add_second(request,id):
                                     
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
-                                    
+                                    print(f"Ukrat1 tip pokr {row['Тип покрытия']}")
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
@@ -1515,7 +1550,7 @@ def product_add_second(request,id):
                                                       'system':row['Название системы'],
                                                       'article':artikle,
                                                       'length':dlina,
-                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'surface_treatment':'Ламинированный',
                                                       'alloy':row['Сплав'],
                                                       'temper':row['тип закаленности'],
                                                       'combination':row['Комбинация'],
@@ -1547,6 +1582,7 @@ def product_add_second(request,id):
                                                       }
                                                 )
             elif  component !='nan':
+                  print('komponenttttttt')
                   dlina =''
             
                   if df['Длина при выходе из пресса'][key] != 'nan':
@@ -1585,14 +1621,14 @@ def product_add_second(request,id):
                   else:
                         print("<<<<<< Нет Тип покрытия ! >>>>>>")
                   
-                  termo_existE =AluminiyProductTermo.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['ekrat'][key]).exists()
-                  simple_existE =AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['ekrat'][key]).exists()
-                  print('existsance = ',termo_existE,simple_existE)
+                  termo_existE = AluminiyProductTermo.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['ekrat'][key]).exists()
+                  simple_existE = AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['ekrat'][key]).exists()
+                  # print('existsance = ',termo_existE,simple_existE)
                   if (termo_existE or simple_existE):
                         if termo_existE:
                               df_new['ekrat_counter'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['ekrat'][key])[:1].get().material
                         else:
-                              print('aluminiy Profiega kirdi')
+                              
                               df_new['ekrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['ekrat'][key])[:1].get().material
                   else:
                         if AluminiyProductTermo.objects.filter(artikul =component,section ='E').exists():
@@ -1622,7 +1658,7 @@ def product_add_second(request,id):
                                     
                               
                               width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
-                              
+                              print(f"EEE tip pokr {row['Тип покрытия']}")
                                     
                               cache_for_cratkiy_text.append(
                                                 {'material':materiale,
@@ -1632,7 +1668,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':'Неокрашенный',
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -1691,7 +1727,7 @@ def product_add_second(request,id):
                               
                               width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
-                                    
+                              print(f"EEE tip pokr {row['Тип покрытия']}")    
                               cache_for_cratkiy_text.append(
                                                 {'material':materiale,
                                                 'kratkiy':df_new['ekrat'][key],
@@ -1700,7 +1736,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':'Неокрашенный',
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -1766,7 +1802,7 @@ def product_add_second(request,id):
                               
                               width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
-                                    
+                              print(f"ZZZ tip pokr {row['Тип покрытия']}")    
                               cache_for_cratkiy_text.append(
                                                 {'material':materiale,
                                                 'kratkiy':df_new['zkrat'][key],
@@ -1775,7 +1811,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':'Неокрашенный',
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -1831,7 +1867,7 @@ def product_add_second(request,id):
                               
                               width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
-                                    
+                              print(f"ZZZ tip pokr {row['Тип покрытия']}")  
                               cache_for_cratkiy_text.append(
                                                 {'material':materiale,
                                                 'kratkiy':df_new['zkrat'][key],
@@ -1840,7 +1876,7 @@ def product_add_second(request,id):
                                                 'system':row['Название системы'],
                                                 'article':artikle,
                                                 'length':dlina,
-                                                'surface_treatment':row['Тип покрытия'],
+                                                'surface_treatment':'Неокрашенный',
                                                 'alloy':row['Сплав'],
                                                 'temper':row['тип закаленности'],
                                                 'combination':row['Комбинация'],
@@ -1885,6 +1921,10 @@ def product_add_second(request,id):
                               else:
                                     df_new['pkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['pkrat'][key])[:1].get().material
                         else: 
+                              if '9016' in df_new['pkrat'][key]:
+                                    tip_pokr ='Белый'
+                              else:
+                                    tip_pokr ='Окрашенный'
                               if AluminiyProductTermo.objects.filter(artikul =component,section ='P').exists():
                                     umumiy_counter_termo[component+'-P'] += 1
                                     
@@ -1912,7 +1952,10 @@ def product_add_second(request,id):
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                                     
-                                          
+                                    print(f"p tip pokr {row['Тип покрытия']}")
+                                    
+                                    
+                                    
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
                                                       'kratkiy':df_new['pkrat'][key],
@@ -1921,7 +1964,7 @@ def product_add_second(request,id):
                                                       'system':row['Название системы'],
                                                       'article':artikle,
                                                       'length':dlina,
-                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'surface_treatment':tip_pokr,
                                                       'alloy':row['Сплав'],
                                                       'temper':row['тип закаленности'],
                                                       'combination':row['Комбинация'],
@@ -1978,7 +2021,7 @@ def product_add_second(request,id):
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                                     
-                                          
+                                    print(f"p tip pokr {row['Тип покрытия']}")
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
                                                       'kratkiy':df_new['pkrat'][key],
@@ -1987,7 +2030,7 @@ def product_add_second(request,id):
                                                       'system':row['Название системы'],
                                                       'article':artikle,
                                                       'length':dlina,
-                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'surface_treatment':tip_pokr,
                                                       'alloy':row['Сплав'],
                                                       'temper':row['тип закаленности'],
                                                       'combination':row['Комбинация'],
@@ -2060,6 +2103,7 @@ def product_add_second(request,id):
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                                     
+                                    print(f"S tip pokr {row['Тип покрытия']}")
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
@@ -2069,7 +2113,7 @@ def product_add_second(request,id):
                                                       'system':row['Название системы'],
                                                       'article':artikle,
                                                       'length':dlina,
-                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'surface_treatment':'Сублимированный',
                                                       'alloy':row['Сплав'],
                                                       'temper':row['тип закаленности'],
                                                       'combination':row['Комбинация'],
@@ -2125,7 +2169,7 @@ def product_add_second(request,id):
                                     
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
-                                    
+                                    print(f"S tip pokr {row['Тип покрытия']}")
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
@@ -2135,7 +2179,7 @@ def product_add_second(request,id):
                                                       'system':row['Название системы'],
                                                       'article':artikle,
                                                       'length':dlina,
-                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'surface_treatment':'Сублимированный',
                                                       'alloy':row['Сплав'],
                                                       'temper':row['тип закаленности'],
                                                       'combination':row['Комбинация'],
@@ -2206,7 +2250,7 @@ def product_add_second(request,id):
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                                     
-                                          
+                                    print(f"A tip pokr {row['Тип покрытия']}")    
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
                                                       'kratkiy':df_new['akrat'][key],
@@ -2215,7 +2259,7 @@ def product_add_second(request,id):
                                                       'system':row['Название системы'],
                                                       'article':artikle,
                                                       'length':dlina,
-                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'surface_treatment':'Анодированный',
                                                       'alloy':row['Сплав'],
                                                       'temper':row['тип закаленности'],
                                                       'combination':row['Комбинация'],
@@ -2271,7 +2315,7 @@ def product_add_second(request,id):
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                                     
-                                          
+                                    print(f"A tip pokr {row['Тип покрытия']}")  
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
                                                       'kratkiy':df_new['akrat'][key],
@@ -2280,7 +2324,7 @@ def product_add_second(request,id):
                                                       'system':row['Название системы'],
                                                       'article':artikle,
                                                       'length':dlina,
-                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'surface_treatment':'Анодированный',
                                                       'alloy':row['Сплав'],
                                                       'temper':row['тип закаленности'],
                                                       'combination':row['Комбинация'],
@@ -2324,6 +2368,18 @@ def product_add_second(request,id):
                               else:
                                     df_new['nkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['nkrat'][key])[:1].get().material
                         else:
+                              name_tip_pokr =''
+                              if (('7777' in df_new['nkrat'][key]) or ('8888' in df_new['nkrat'][key])  or ('3701' in df_new['nkrat'][key]) or ('3702' in df_new['nkrat'][key])):
+                                    name_tip_pokr = 'Сублимированный'
+                              elif '9016' in df_new['nkrat'][key]:
+                                    name_tip_pokr = 'Белый'
+                              elif 'MF' in df_new['nkrat'][key]:
+                                    name_tip_pokr = 'Неокрашенный'
+                              elif anodirovaka_check(ANODIROVKA_CODE,df_new['nkrat'][key]):
+                                    name_tip_pokr = 'Анодированный'
+                              else:
+                                    name_tip_pokr = 'Окрашенный'
+                              
                               if  AluminiyProductTermo.objects.filter(artikul =component,section ='N').exists():
                                     umumiy_counter_termo[component+'-N'] += 1
                                     max_valuesN = umumiy_counter_termo[ component +'-N']
@@ -2350,7 +2406,7 @@ def product_add_second(request,id):
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                                     
-                                          
+                                    print(f"N tip pokr {row['Тип покрытия']}")      
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
                                                       'kratkiy':df_new['nkrat'][key],
@@ -2359,7 +2415,7 @@ def product_add_second(request,id):
                                                       'system':row['Название системы'],
                                                       'article':artikle,
                                                       'length':dlina,
-                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'surface_treatment':name_tip_pokr,
                                                       'alloy':row['Сплав'],
                                                       'temper':row['тип закаленности'],
                                                       'combination':row['Комбинация'],
@@ -2414,7 +2470,7 @@ def product_add_second(request,id):
                                     
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
-                                    
+                                    print(f"N tip pokr {row['Тип покрытия']}")  
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
@@ -2424,7 +2480,7 @@ def product_add_second(request,id):
                                                       'system':row['Название системы'],
                                                       'article':artikle,
                                                       'length':dlina,
-                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'surface_treatment':name_tip_pokr,
                                                       'alloy':row['Сплав'],
                                                       'temper':row['тип закаленности'],
                                                       'combination':row['Комбинация'],
@@ -2460,30 +2516,61 @@ def product_add_second(request,id):
       
       
      
+      # print(cache_for_cratkiy_text)
       
       df_char = create_characteristika(cache_for_cratkiy_text) 
       
       df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
-                  
-      s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
+      
+      # created =request.GET.get('created',None)
+      # if not created:
+      #       create_all(df_char_title)
+      # else:
+      #       ves_za_metr = request.GET.get('ves_za_metr',None)    
+      #       ves_za_shtuk = request.GET.get('ves_za_shtuk',None)    
+      #       price = request.GET.get('price',None)
+            
+      #       df_char_title['Удельный вес за метр'] = ves_za_metr
+      #       df_char_title['Общий вес за штуку'] = ves_za_shtuk
+      #       df_char_title['Price'] = price
+          
+      now = datetime.now()
+      year =now.strftime("%Y")
+      month =now.strftime("%B")
+      day =now.strftime("%a%d")
+      hour =now.strftime("%H HOUR")
+      minut =now.strftime("%M")
+
+      
       parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiytermo\\'
        
       if not os.path.isdir(parent_dir):
             create_folder(f'{MEDIA_ROOT}\\uploads\\','aluminiytermo')
             
-      if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_new-{s2}.xlsx'):
-            path =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_new-{s2}.xlsx'
+      create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\',f'{year}')
+      create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\',f'{month}')
+      create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\',day)
+      create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\',hour)
+            
+            
+      if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\alumin_new_termo-{minut}.xlsx'):
+            path =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\alumin_new_termo-{minut}.xlsx'
       else:
             st =random.randint(0,1000)
-            path =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_termo_new-{s2}{st}.xlsx'
+            path =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\alumin_new_termo-{minut}-{st}.xlsx'
             
+      
+      
+      # df_char_title_full = pd.DataFrame(df_char_title)
+      # characteristika_created_txt_create(df_char_title_full)
       
       writer = pd.ExcelWriter(path, engine='xlsxwriter')
       df_new.to_excel(writer,index=False,sheet_name ='schotchik')
       df_char.to_excel(writer,index=False,sheet_name ='characteristika')
       df_char_title.to_excel(writer,index=False,sheet_name ='title')
+      # df_char_title_full.to_excel(writer,index=False,sheet_name ='title')
       writer.save()
-      return JsonResponse({'a':'s'})
+      return redirect('upload_product_termo')
                   
     
 
@@ -2562,3 +2649,32 @@ def update_char_title(request,id):
       characteristika_created_txt_create(df)
       return JsonResponse({'a':'b'})
 
+@csrf_exempt
+def add_char_utils_two(request):
+      data = request.POST.get('data',None)
+      if data:
+            items = [CharUtilsTwo(артикул =item['artikul'],полый_или_фасонный =item['selection']) for item in ast.literal_eval(data)]
+            CharUtilsTwo.objects.bulk_create(items)
+            return JsonResponse({'saved':True})
+      else:
+            return JsonResponse({'saved':False})
+
+@csrf_exempt
+def add_char_utils_one(request):
+      data = request.POST.get('data',None)
+      if data:
+            items = [CharUtilsOne(матрица =item['matritsa'],артикул =item['artikul'],высота=item['heigth'],ширина=item['width'],высота_ширина=item['height_and_width'],systems=item['systems']) for item in ast.literal_eval(data)]
+            CharUtilsOne.objects.bulk_create(items)
+            return JsonResponse({'saved':True})
+      else:
+            return JsonResponse({'saved':False})
+      
+@csrf_exempt
+def baza_profile(request):
+      data = request.POST.get('data',None)
+      if data:
+            items = [BazaProfiley(компонент =item['komponent'],артикул =item['artikul'],серия=item['seria'],старый_код_benkam=item['startiy_kod_bekam'],старый_код=item['stariykod'],old_product_description=item['oldprod_des'],product_description=item['prodesc']) for item in ast.literal_eval(data)]
+            BazaProfiley.objects.bulk_create(items)
+            return JsonResponse({'saved':True})
+      else:
+            return JsonResponse({'saved':False})

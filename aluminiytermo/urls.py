@@ -11,5 +11,8 @@ path('aluminiy/gr',views.aluminiy_group,name='aluminiy_group_termo'),
 path('alum/add/<int:id>',views.product_add_second,name='aluminiy_add_termo'),
 path('alum/update-char-title/<int:id>',views.update_char_title,name='update_char_title'),
 path('char-utils',views.add_characteristika_utils,name='charutils'),
-path('base-profile',views.base_profile,name='base_profile')
+path('base-profile',views.base_profile,name='base_profile'),
+path('add-to-char-utils-two',views.add_char_utils_two,name='add_char_utils_two'),
+path('add-to-char-utils-one',views.add_char_utils_one,name='add_char_utils_one'),
+path('baza-profile',views.baza_profile,name='baza_profile'),
 ]

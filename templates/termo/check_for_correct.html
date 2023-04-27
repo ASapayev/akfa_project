@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Akfa</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+        </ul>
+        <!-- <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
+      </div>
+    </nav>
+    <!-- <a href="{% url 'excel' %}" class="btn btn-primary ">Convert to Sql</a>
+    <a href="{% url 'excel' %}" class="btn btn-success ">Show All Datas</a> -->
+  </div>
+  <div class="container">
+    {% if CharUtilsOne %}
+    <label><em> <b>Character Utils One</b></em></label>
+      <form>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Матрица</th>
+                <th scope="col">Артикул</th>
+                <th scope="col">Высота</th>
+                <th scope="col">Ширина</th>
+                <th scope="col">Высота ширина</th>
+                <th scope="col">Systems</th>
+            </tr>
+            </thead>
+            <tbody>
+                    {%for char in CharUtilsOne %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td  class ='new_char_one' ><input type='text' id ='matritsa{{forloop.counter}}' value='{{char}}' required></td>
+                        <td ><input type='text' name='artikulone' id ='artikulone{{forloop.counter}}' value='{{char}}' required></td>
+                        <td><input type='text' name='height' id ='height{{forloop.counter}}' placeholder='Enter height...' required></td>
+                        <td><input type='text' name='width' id='width{{forloop.counter}}' placeholder='Enter width...' required></td>
+                        <td><input type='text' name='height_and_width' id ='height_and_width{{forloop.counter}}' placeholder='Enter height and width...' required></td>
+                        <td><input type='text'name='systems' id ='systems{{forloop.counter}}' placeholder='Enter systems...' required></td>
+                    </tr>
+                    {% endfor %}
+                    
+                  </tbody>
+                </table>
+                <input type='button' class='btn btn-md btn-primary ' onclick ='create_new_char_one()' id ='char_one' value='Создать'>
+      </form>
+      <hr>
+    {% endif %}
+
+    {% if CharUtilsTwo%}
+    <br>
+    <label><em> <b>Character Utils Two</b></em></label>
+    <label for="rg-from"></label>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Артикул</th>
+            <th scope="col">Полый или фасонный</th>
+            {% comment %} <th scope="col">Действие</th> {% endcomment %}
+          </tr>
+        </thead>
+        <tbody>
+                {%for char in CharUtilsTwo %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td id='artikul{{ forloop.counter }}' class ='new_char' >{{char}}</td>
+                        <td>
+                            <select class="form-select form-select-sm"style='width:35%' aria-label="Default select example" id="sel{{ forloop.counter }}">
+                                <option selected value='Default' >Default</option>
+                                <option value="Полый">Полый</option>
+                                <option value="Фасонный">Фасонный</option>    
+                            </select>
+                        </td>
+                        {% comment %} <td><input type='button' class='btn btn-sm btn-primary' value='Создать'></td> {% endcomment %}
+                    </tr>
+                {% endfor %}
+
+        </tbody>
+      </table>
+      <button class='btn btn-md btn-primary ' onclick ='create_new_char_two()' id ='char_two'>Создать</button>
+      <hr>
+    {% endif %}
+
+    {% if BazaProfile%}
+    <br>
+    <label><em> <b>BAZA PROFILES</b></em></label>
+    <label for="rg-from"></label>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Артикул</th>
+            <th scope="col">Компонент</th>
+            <th scope="col">Серия</th>
+            <th scope="col">Старый код Benkam</th>
+            <th scope="col">Старый код</th>
+            <th scope="col">Old Product Description</th>
+            <th scope="col">Product description</th>
+            {% comment %} <th scope="col">Действие</th> {% endcomment %}
+          </tr>
+        </thead>
+        <tbody>
+                {%for char in BazaProfile %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td class ='new_char_two' ><input type='text'  id ='artikultwo{{forloop.counter}}' value='{{char}}' required></td>
+                        <td ><input type='text'  id ='komponent{{forloop.counter}}' value='{{char}}' required></td>
+                        <td ><input type='text'  id ='seria{{forloop.counter}}'  required></td>
+                        <td ><input type='text'  id ='stariykodbenkam{{forloop.counter}}'  required></td>
+                        <td ><input type='text'  id ='stariykod{{forloop.counter}}'  required></td>
+                        <td ><input type='text'  id ='oldprodesc{{forloop.counter}}'  required></td>
+                        <td ><input type='text'  id ='prodesc{{forloop.counter}}'  required></td>
+                    </tr>
+                {% endfor %}
+
+        </tbody>
+      </table>
+      <button class='btn btn-md btn-primary ' onclick ='baza_profiley()' id ='char_three'>Создать</button>
+    {% endif %}
+    <div class="d-flex justify-content-center"><a href='' class='btn btn-warning btn-lg'>Done</a></div>
+  </div>
+
+<div class="p-3"></div>
+  </div>
+</body>
+<script>
+
+    
+    function baza_profiley(){
+        var new_char = document.querySelectorAll('.new_char_two');
+        var komponent, artikul,seria,startiy_kod_bekam,stariykod,oldprod_des,prodesc;
+        var default_exists = false;
+        var elements =[];
+
+        for(let i=1; i < new_char.length+1; i++){
+            komponent = document.getElementById('komponent' + i.toString()).value;
+            artikul = document.getElementById('artikultwo' + i.toString()).value;
+            seria = document.getElementById('seria' + i.toString()).value;
+            startiy_kod_bekam = document.getElementById('stariykodbenkam' + i.toString()).value;
+            stariykod = document.getElementById('stariykod' + i.toString()).value;
+            oldprod_des = document.getElementById('oldprodesc' + i.toString()).value;
+            prodesc = document.getElementById('prodesc' + i.toString()).value;
+            
+            if (komponent ==''){
+              default_exists = true;
+              break
+              }
+            if (artikul ==''){
+              default_exists = true;
+              break
+              }
+            if (seria ==''){
+              default_exists = true;
+              break
+              }
+            if (startiy_kod_bekam ==''){
+              default_exists = true;
+              break
+              }
+            if (stariykod ==''){
+              default_exists = true;
+              break
+              }
+            if (oldprod_des ==''){
+              default_exists = true;
+              break
+              }
+            if (prodesc ==''){
+              default_exists = true;
+              break
+              }
+            
+            var element ={
+                  'komponent':komponent,
+                  'artikul':artikul,
+                  'seria':seria,
+                  'startiy_kod_bekam':startiy_kod_bekam,
+                  'stariykod':stariykod,
+                  'oldprod_des':oldprod_des,
+                  'prodesc':prodesc,
+              }
+            elements.push(element);
+              
+            }
+
+            if (default_exists){
+              Swal.fire({
+                  title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
+                  showDenyButton: true,
+                })
+              }else{
+                var myJsonelements = JSON.stringify(elements);
+    
+                $.ajax({
+                    method: "POST",
+                    url: "{% url 'baza_profile' %}",
+                    data: {"data":myJsonelements}
+                  }).done(function( msg ) {
+                    if (msg.saved ==true){
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Successfuly saved!',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                        var btn = document.getElementById('char_three');
+                        btn.setAttribute('disabled','True');
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!'
+                              })
+    
+                        }
+                    });
+            }        
+    }
+
+    function create_new_char_one(){
+        var new_char = document.querySelectorAll('.new_char_one');
+        var matritsa, artikul,heigth,width,height_and_width,systems;
+        var default_exists = false;
+        var elements =[];
+
+        for(let i=1; i < new_char.length+1; i++){
+            matritsa = document.getElementById('matritsa' + i.toString()).value;
+            artikul = document.getElementById('artikulone' + i.toString()).value;
+            heigth = document.getElementById('height' + i.toString()).value;
+            width = document.getElementById('width' + i.toString()).value;
+            height_and_width = document.getElementById('height_and_width' + i.toString()).value;
+            systems = document.getElementById('systems' + i.toString()).value;
+            
+            if (matritsa ==''){
+              default_exists = true;
+              break
+              }
+            if (artikul ==''){
+              default_exists = true;
+              break
+              }
+            if (heigth ==''){
+              default_exists = true;
+              break
+              }
+            if (width ==''){
+              default_exists = true;
+              break
+              }
+            if (height_and_width ==''){
+              default_exists = true;
+              break
+              }
+            if (systems ==''){
+              default_exists = true;
+              break
+              }
+            
+            var element ={
+                  'matritsa':matritsa,
+                  'artikul':artikul,
+                  'heigth':heigth,
+                  'width':width,
+                  'height_and_width':height_and_width,
+                  'systems':systems,
+              }
+            elements.push(element);
+              
+            }
+
+            if (default_exists){
+              Swal.fire({
+                  title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
+                  showDenyButton: true,
+                })
+              }else{
+                var myJsonelements = JSON.stringify(elements);
+    
+                $.ajax({
+                    method: "POST",
+                    url: "{% url 'add_char_utils_one' %}",
+                    data: {"data":myJsonelements}
+                  }).done(function( msg ) {
+                    if (msg.saved ==true){
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Successfuly saved!',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                        var btn = document.getElementById('char_one');
+                        btn.setAttribute('disabled','True');
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!'
+                              })
+    
+                        }
+                    });
+            }        
+    }
+    function create_new_char_two(){
+        var new_char = document.querySelectorAll('.new_char');
+
+        var selection, value,text,artikul;
+
+        var default_exists = false;
+        var elements =[];
+
+        for(let i=1; i < new_char.length+1; i++){
+            artikul = document.getElementById('artikul' + i.toString());
+            selection = document.getElementById('sel' + i.toString());
+            value = selection.value
+            text = selection.options[selection.selectedIndex].text;
+            if (text =='Default'){
+                default_exists = true;
+                break
+            }
+            var element ={
+                'artikul':artikul.innerText,
+                'selection':text
+            }
+            if (elements.includes(element)){
+                continue
+            }else{
+                elements.push(element);
+            }
+            
+        }
+        if (default_exists){
+            Swal.fire({
+                title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
+                showDenyButton: true,
+              })
+        }else{
+            var myJsonelements = JSON.stringify(elements);
+
+            $.ajax({
+                method: "POST",
+                url: "{% url 'add_char_utils_two' %}",
+                data: {"data":myJsonelements}
+              }).done(function( msg ) {
+                if (msg.saved ==true){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Successfuly saved!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                    var btn = document.getElementById('char_two');
+                    btn.setAttribute('disabled','True');
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!'
+                          })
+
+                    }
+                });
+        }
+        
+    }
+    
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+</html>

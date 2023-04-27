@@ -10,12 +10,15 @@ from config.settings import MEDIA_ROOT
 import numpy as np
 from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle
 import os
-from datetime import datetime
-now = datetime.now()
 import random
-from aluminiytermo.utils import create_characteristika,create_characteristika_utils,characteristika_created_txt_create
-from aluminiytermo.models import CharUtilsOne,CharUtilsTwo,CharUtilsThree,Characteristika,CharUtilsFour
+from aluminiytermo.utils import create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct
+from aluminiytermo.models import CharUtilsOne,CharUtilsTwo,CharUtilsThree,Characteristika,CharUtilsFour,BazaProfiley
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
+import ast
+from datetime import datetime
+
+
 
 # Create your views here.
 def index(request):
@@ -710,7 +713,15 @@ def product_add_second(request,id):
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
       df =df.astype(str)
       
-      
+      doesnotexist,correct = check_for_correct(df,filename='aluminiy')
+      if not correct:
+            context ={
+                  'CharUtilsOne':doesnotexist[0],
+                  'CharUtilsTwo':doesnotexist[1],
+                  'BazaProfile':doesnotexist[2],
+                  'ArtikulComponent':doesnotexist[3]
+            }
+            return render(request,'aluminiy/check_for_correct.html',context)
       ################### group by#########
       aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
       umumiy_counter={}
@@ -724,14 +735,11 @@ def product_add_second(request,id):
       ############################ end grouby ######
       
       
-      a=datetime.now()
-      print('starts in ...',a)
+      
       for key,row in df.iterrows():
             if row['Тип покрытия'] == 'nan':
                   df = df.drop(key)
       
-      
-      # print(df)
       df_new =pd.DataFrame()
       df_new['Название системы']=df['Название системы']
       df_new['ekrat_counter']=''
@@ -757,9 +765,7 @@ def product_add_second(request,id):
 
       
       
-      # exists =ArtikulComponent.objects.filter(artikul__in =df['Артикул'])
-      # print(df['Артикул'])
-      # print(type(df['Артикул']))
+      
       cache_for_cratkiy_text =[]
       
       for key,row in df.iterrows():
@@ -768,6 +774,16 @@ def product_add_second(request,id):
             row['Длина (мм)'] = row['Длина (мм)'].replace('.0','')
             row['Бренд краски снаружи'] = row['Бренд краски снаружи'].replace('.0','')
             row['Код краски снаружи'] = row['Код краски снаружи'].replace('.0','')
+            row['Бренд краски внутри'] = row['Бренд краски внутри'].replace('.0','')
+            row['Код краски внутри'] = row['Код краски внутри'].replace('.0','')
+            row['Код декор пленки снаружи'] = row['Код декор пленки снаружи'].replace('.0','')
+            row['Цвет декор пленки снаружи'] = row['Цвет декор пленки снаружи'].replace('.0','')
+            row['Код декор пленки внутри'] = row['Код декор пленки внутри'].replace('.0','')
+            row['Код цвета анодировки внутри'] = row['Код цвета анодировки внутри'].replace('.0','')
+            row['Код цвета анодировки снаружи'] = row['Код цвета анодировки снаружи'].replace('.0','')
+            row['Контактность анодировки'] = row['Контактность анодировки'].replace('.0','')
+            row['Код лам пленки снаружи'] = row['Код лам пленки снаружи'].replace('.0','')
+            row['Код лам пленки внутри'] = row['Код лам пленки снаружи'].replace('.0','')
             
             product_exists = ArtikulComponent.objects.filter(artikul=row['Артикул']).exists()
             if row['Код декор пленки снаружи'] !='nan' and '.0' in row['Код декор пленки снаружи']:
@@ -1298,7 +1314,7 @@ def product_add_second(request,id):
                               AluminiyProduct(artikul =component,section ='L',counter=max_valuesL,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['lkrat'][key],material=materiale).save()
                               df_new['lkrat_counter'][key]=materiale
                               artikle = materiale.split('-')[0]
-                              
+                              print(artikle)
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -1625,6 +1641,7 @@ def product_add_second(request,id):
                         df_new['zkrat_counter'][key]=materiale
                         
                         artikle = materiale.split('-')[0]
+                        print('after component ',artikle)
                         hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                         if row['Тип покрытия'].lower() == 'сублимированный':
@@ -2336,29 +2353,81 @@ def product_add_second(request,id):
             
             
       
-      df_char = create_characteristika(cache_for_cratkiy_text) 
-      df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
-                 
-      s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
+      now = datetime.now()
+      year =now.strftime("%Y")
+      month =now.strftime("%B")
+      day =now.strftime("%a%d")
+      hour =now.strftime("%H HOUR")
+      minut =now.strftime("%M")
+      
       parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
        
       if not os.path.isdir(parent_dir):
             create_folder(f'{MEDIA_ROOT}\\uploads\\','aluminiy')
             
-      if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}.xlsx'):
-            path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}.xlsx'
+      create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\',f'{year}')
+      create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\',f'{month}')
+      create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\',day)
+      create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\',hour)
+      
+      df_char = create_characteristika(cache_for_cratkiy_text) 
+      df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
+                 
+      
+            
+      if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}.xlsx'):
+            path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}.xlsx'
       else:
             st =random.randint(0,1000)
-            path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\alumin_new-{s2}{st}.xlsx'
+            path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}-{st}.xlsx'
             
+     
       writer = pd.ExcelWriter(path, engine='xlsxwriter')
       df_new.to_excel(writer,index=False,sheet_name='Schotchik')
       df_char.to_excel(writer,index=False,sheet_name='Characteristika')
       df_char_title.to_excel(writer,index=False,sheet_name='title')
       writer.save()
       
-      return JsonResponse({'a':'s'})
+      return redirect('upload_product')
                   
      
+@csrf_exempt
+def add_char_utils_two(request):
+      data = request.POST.get('data',None)
+      if data:
+            items = [CharUtilsTwo(артикул =item['artikul'],полый_или_фасонный =item['selection']) for item in ast.literal_eval(data)]
+            CharUtilsTwo.objects.bulk_create(items)
+            return JsonResponse({'saved':True})
+      else:
+            return JsonResponse({'saved':False})
 
+@csrf_exempt
+def add_char_utils_one(request):
+      data = request.POST.get('data',None)
+      if data:
+            items = [CharUtilsOne(матрица =item['matritsa'],артикул =item['artikul'],высота=item['heigth'],ширина=item['width'],высота_ширина=item['height_and_width'],systems=item['systems']) for item in ast.literal_eval(data)]
+            CharUtilsOne.objects.bulk_create(items)
+            return JsonResponse({'saved':True})
+      else:
+            return JsonResponse({'saved':False})
+      
+@csrf_exempt
+def baza_profile(request):
+      data = request.POST.get('data',None)
+      if data:
+            items = [BazaProfiley(компонент =item['komponent'],артикул =item['artikul'],серия=item['seria'],старый_код_benkam=item['startiy_kod_bekam'],старый_код=item['stariykod'],old_product_description=item['oldprod_des'],product_description=item['prodesc']) for item in ast.literal_eval(data)]
+            BazaProfiley.objects.bulk_create(items)
+            return JsonResponse({'saved':True})
+      else:
+            return JsonResponse({'saved':False})
+      
+@csrf_exempt
+def artikul_component(request):
+      data = request.POST.get('data',None)
+      if data:
+            items = [ArtikulComponent(artikul =item['artikul'],component =item['komponent'],seria=item['seria'],product_description_ru1=item['product_description_ru2'],product_description_ru=item['product_description_ru'],stariy_code_benkam=item['startiy_kod_bekam'],stariy_code_jomiy=item['stariy_code_jomiy'],proverka_artikul2=item['proverka_artikul2'],proverka_component2=item['proverka_component2'],gruppa_materialov=item['gruppa_materialov'],gruppa_materialov2=item['gruppa_materialov2']) for item in ast.literal_eval(data)]
+            ArtikulComponent.objects.bulk_create(items)
+            return JsonResponse({'saved':True})
+      else:
+            return JsonResponse({'saved':False})
       
