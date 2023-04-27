@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import pandas as pd
 from .models import AluFileTermo,AluminiyProductTermo,AluminiyProductBasetermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour,CharacteristicTitle,BazaProfiley
-from main.models import ExcelFiles
-from aluminiy.models import AluFile,AluminiyProduct
+
+from aluminiy.models import AluminiyProduct
 from .forms import FileFormTermo
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
@@ -2678,3 +2678,4 @@ def baza_profile(request):
             return JsonResponse({'saved':True})
       else:
             return JsonResponse({'saved':False})
+      

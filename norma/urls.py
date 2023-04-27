@@ -12,5 +12,6 @@ urlpatterns = [
  path('generate',views.generatenewexceldata,name ='excellgenerate'),
  path('remove-whitespace',views.remove_whitespace,name ='remove_whitespace'),
  path('norma-utils',views.norma_add,name ='norma_utils'),
+ path('nakleyka-delete',views.nakleyka_duplicate_del,name ='nakleyka_delete'),
  
 ]

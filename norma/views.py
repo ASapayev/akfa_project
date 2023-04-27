@@ -4861,3 +4861,20 @@ def remove_whitespace(request):
         norma.save()
         
     return JsonResponse({'a':'b'})
+
+
+def nakleyka_duplicate_del(request):
+    nakleykas = Nakleyka.objects.all()
+      
+    for nakleyka in nakleykas:
+        nak =Nakleyka.objects.filter(код_наклейки =nakleyka.код_наклейки,ширина=nakleyka.ширина)
+        if len(nak)>1:
+            i=1
+            for n in nak:
+                if i ==1:
+                    i+=1
+                    continue
+                n.delete()
+                i+=1
+              
+    return JsonResponse({'a':'b'})
