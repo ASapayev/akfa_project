@@ -65,7 +65,7 @@ def aluminiy_productbases(request):
 #   print(df['Материал'][0])
 #   print(df['Материал'][39705])
   
-  for i in range(0,60696):
+  for i in range(0,df.shape[0]):
     material =df['Материал'][i] 
     artikul =df['Ариткул'][i]
     section =df['Передел'][i]
@@ -90,7 +90,7 @@ def aluminiy_productbases(request):
 def alu_product_base(request):
   df = pd.read_excel('C:\\OpenServer\\domains\\Aluminiy_baza.xlsx','Лист1') 
   print(df.shape)
-  for i in range(0,13197):
+  for i in range(0,df.shape[0]):
     ekstruziya_sap_kod =df['Экструзия сап код'][i]
     ekstruziya_kratkiy_tekst =df['Экструзия краткий текст'][i]
     zakalka_sap_kod =df['Закалка сап код'][i]
