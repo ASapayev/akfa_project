@@ -3181,7 +3181,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['STLAN'].append('1')
                                     ztekst = 'Упаковка'
                                     df_new['ZTEXT'].append(ztekst)
-                                    df_new['STKTX'].append(ztekst+' '+nakleykaa.ширина+nakleykaa.еи_ширины+' '+nakleykaa.тип_клея)
+                                    df_new['STKTX'].append(ztekst)
                                     df_new['BMENG'].append( '1000')
                                     df_new['BMEIN'].append('ШТ')
                                     df_new['STLST'].append('1')
@@ -3241,7 +3241,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['STLAN'].append('1')
                                 ztekst = 'Упаковка'
                                 df_new['ZTEXT'].append(ztekst)
-                                df_new['STKTX'].append(ztekst+' '+nakleyka_result1.ширина+nakleyka_result1.еи_ширины+' '+nakleyka_result1.тип_клея)
+                                df_new['STKTX'].append(ztekst)
                                 df_new['BMENG'].append( '1000')
                                 df_new['BMEIN'].append('ШТ')
                                 df_new['STLST'].append('1')
@@ -3298,7 +3298,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['STLAN'].append('1')
                                 ztekst = 'Упаковка'
                                 df_new['ZTEXT'].append(ztekst)
-                                df_new['STKTX'].append(ztekst+' '+nakleyka_result2.ширина+nakleyka_result2.еи_ширины+' '+nakleyka_result2.тип_клея)
+                                df_new['STKTX'].append(ztekst)
                                 df_new['BMENG'].append( '1000')
                                 df_new['BMEIN'].append('ШТ')
                                 df_new['STLST'].append('1')
@@ -3861,20 +3861,20 @@ def kombinirovaniy_process(request,id):
                             if aluminiy_norma_log:
                                 qatorlar_soni = 5
                                 if alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм =='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм)
                                     meinss =float(alum_teks.заш_пл_кг_м_ak_низ_рас_лн_на_1000_пр_м2)
                                 elif alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм =='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм)
                                     meinss =float(alum_teks.кг_м_ak_вр_и_кг_м_ak_бк_ст_рас_лн)
                                 else:
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм)
                                     meinss =float(alum_teks.кг_м_ak_вр_и_кг_м_ak_бк_ст_рас_лн)+float(alum_teks.заш_пл_кг_м_ak_низ_рас_лн_на_1000_пр_м2)
                             elif ((alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм =='0') and (alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм == '0')):
                                 qatorlar_soni = 4
                             else:
                                 qatorlar_soni = 6
-                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,тип_клея__in=['HL','HM'])[:1].get()
-                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,тип_клея__in=['HL','HM'])[:1].get()
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'A01',ширина= alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм)[:1].get()
                                 meinss1 =float(alum_teks.кг_м_ak_вр_и_кг_м_ak_бк_ст_рас_лн)
                                 meinss2 =float(alum_teks.заш_пл_кг_м_ak_низ_рас_лн_на_1000_пр_м2)
                                 
@@ -3885,20 +3885,20 @@ def kombinirovaniy_process(request,id):
                             if aluminiy_norma_log:
                                 qatorlar_soni =5
                                 if alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм=='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм)
                                     meinss =float(alum_teks.заш_пл_кг_м_retpen_низ_рас)
                                 elif alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм =='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм)
                                     meinss =float(alum_teks.кг_м_retpen_вр_и_кг_м_retpen_бк_ст_рас)
                                 else:
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм)
                                     meinss =float(alum_teks.кг_м_retpen_вр_и_кг_м_retpen_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_retpen_низ_рас)
                             elif log2:
                                 qatorlar_soni = 4
                             else:
                                 qatorlar_soni =6
-                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,тип_клея__in=['HL','HM'])[:1].get()
-                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,тип_клея__in=['HL','HM'])[:1].get()
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_верх_ширина_ленты_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'R05',ширина= alum_teks.заш_пл_кг_м_retpen_низ_ширина_ленты_мм)[:1].get()
                                 meinss1 =float(alum_teks.кг_м_retpen_вр_и_кг_м_retpen_бк_ст_рас)
                                 meinss2 =float(alum_teks.заш_пл_кг_м_retpen_низ_рас)
                                     
@@ -3907,20 +3907,20 @@ def kombinirovaniy_process(request,id):
                             if aluminiy_norma_log:
                                 qatorlar_soni =5
                                 if alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм=='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм)
                                     meinss =float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
                                 elif alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм =='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм)
                                     meinss =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)
                                 else:
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм)
                                     meinss =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
                             elif ((alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм == '0')):
                                 qatorlar_soni = 4
                             else:
                                 qatorlar_soni =6
-                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
-                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'B01',ширина= alum_teks.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм)[:1].get()
                                 meinss1 =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)
                                 meinss2 =float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
                                 
@@ -3929,20 +3929,20 @@ def kombinirovaniy_process(request,id):
                             if aluminiy_norma_log:
                                 qatorlar_soni = 5
                                 if alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)
                                     meinss =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
                                 elif alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм =='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)
                                     meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
                                 else:
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)
                                     meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
                             elif ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм == '0')):
                                 qatorlar_soni = 4
                             else:
                                 qatorlar_soni =6
-                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
-                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)[:1].get()
                                 meinss1 =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
                                 meinss2 =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
                                 
@@ -3951,20 +3951,20 @@ def kombinirovaniy_process(request,id):
                             if aluminiy_norma_log:
                                 qatorlar_soni =5
                                 if alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм=='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)
                                     meinss =float(alum_teks.заш_пл_кг_м_imzo_ak_низ_рас)
                                 elif alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм =='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм)
                                     meinss =float(alum_teks.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст)
                                 else:
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм)
                                     meinss =float(alum_teks.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст)+float(alum_teks.заш_пл_кг_м_imzo_ak_низ_рас)
                             elif ((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм == '0')):
                                 qatorlar_soni = 4
                             else:
                                 qatorlar_soni =6
-                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
-                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)[:1].get()
                                 meinss1 =float(alum_teks.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст)
                                 meinss2 =float(alum_teks.заш_пл_кг_м_imzo_ak_низ_рас)
                                 
@@ -3973,20 +3973,20 @@ def kombinirovaniy_process(request,id):
                             if aluminiy_norma_log:
                                 qatorlar_soni =5
                                 if alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм=='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм)
                                     meinss =float(alum_teks.заш_пл_кг_м_без_бр_низ_рас)
                                 elif alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм =='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм)
                                     meinss =float(alum_teks.кг_м_без_бр_вр_и_кг_м_без_бр_бк_ст_рас)
                                 else:
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм)
                                     meinss =float(alum_teks.кг_м_без_бр_вр_и_кг_м_без_бр_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_без_бр_низ_рас)
                             elif ((alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм == '0')):
                                 qatorlar_soni = 4
                             else:
                                 qatorlar_soni =6
-                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
-                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_вр_ширина_лн_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= alum_teks.заш_пл_кг_м_без_бр_низ_ширина_лн_мм)[:1].get()
                                 meinss1 =float(alum_teks.кг_м_без_бр_вр_и_кг_м_без_бр_бк_ст_рас)
                                 meinss2 =float(alum_teks.заш_пл_кг_м_без_бр_низ_рас)
                                 
@@ -3995,20 +3995,20 @@ def kombinirovaniy_process(request,id):
                             if aluminiy_norma_log:
                                 qatorlar_soni =5
                                 if alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм=='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм)
                                     meinss =float(alum_teks.заш_пл_кг_м_eng_низ_рас_лн_на_1000_пр)
                                 elif alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм =='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм)
                                     meinss =float(alum_teks.кг_м_eng_вр_и_кг_м_eng_бк_ст_рас)
                                 else:
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм)
                                     meinss =float(alum_teks.кг_м_eng_вр_и_кг_м_eng_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_eng_низ_рас_лн_на_1000_пр)
                             elif ((alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм =='0') and (alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм == '0')):
                                 qatorlar_soni = 4
                             else:
                                 qatorlar_soni =6
-                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм,тип_клея__in=['HL','HM'])[:1].get()
-                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм,тип_клея__in=['HL','HM'])[:1].get()
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_верх_ширина_ленты_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'E01',ширина= alum_teks.заш_пл_кг_м_eng_низ_ширина_ленты_мм)[:1].get()
                                 meinss1 =float(alum_teks.кг_м_eng_вр_и_кг_м_eng_бк_ст_рас)
                                 meinss2 =float(alum_teks.заш_пл_кг_м_eng_низ_рас_лн_на_1000_пр)
                             
@@ -4017,20 +4017,20 @@ def kombinirovaniy_process(request,id):
                             if aluminiy_norma_log:
                                 qatorlar_soni =5
                                 if alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм=='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты)
                                     meinss =float(alum_teks.заш_пл_кг_м_eng_qora_низ_рас)
                                 elif alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты =='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм)
                                     meinss =float(alum_teks.кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст)
                                 else:
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм)
                                     meinss =float(alum_teks.кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст)+float(alum_teks.заш_пл_кг_м_eng_qora_низ_рас)
                             elif ((alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты == '0')):
                                 qatorlar_soni = 4
                             else:
                                 qatorlar_soni =6
-                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
-                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты,тип_клея__in=['HL','HM'])[:1].get()
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты)[:1].get()
                                 meinss1 =float(alum_teks.кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст)
                                 meinss2 =float(alum_teks.заш_пл_кг_м_eng_qora_низ_рас)
                             
@@ -4261,7 +4261,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['STLAN'].append('1')
                                     ztekst = 'Упаковка'
                                     df_new['ZTEXT'].append(ztekst)
-                                    df_new['STKTX'].append(ztekst+' '+nakleykaa.ширина+nakleykaa.еи_ширины+' '+nakleykaa.тип_клея)
+                                    df_new['STKTX'].append(ztekst)
                                     df_new['BMENG'].append( '1000')
                                     df_new['BMEIN'].append('ШТ')
                                     df_new['STLST'].append('1')
