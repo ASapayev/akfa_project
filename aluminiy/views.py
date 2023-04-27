@@ -1780,7 +1780,7 @@ def product_add_second(request,id):
                               df_new['pkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['pkrat'][key])[:1].get().material
                   else:
                         if '9016' in df_new['pkrat'][key]:
-                                    tip_pokr ='Белый'
+                              tip_pokr ='Белый'
                         else:
                               tip_pokr ='Окрашенный' 
                         if AluminiyProduct.objects.filter(artikul =component,section ='P').exists():
