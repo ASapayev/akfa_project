@@ -11,12 +11,13 @@ import numpy as np
 from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle
 import os
 import random
-from aluminiytermo.utils import create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct
+from aluminiytermo.utils import create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct,anodirovaka_check
 from aluminiytermo.models import CharUtilsOne,CharUtilsTwo,CharUtilsThree,Characteristika,CharUtilsFour,BazaProfiley
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 import ast
 from datetime import datetime
+from aluminiytermo.BAZA import ANODIROVKA_CODE
 
 
 
