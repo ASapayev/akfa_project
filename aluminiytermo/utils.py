@@ -1081,7 +1081,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     
     df1= pd.DataFrame(d1)
     
-    np.savetxt(pathtext1, df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='utf-8')
+    np.savetxt(pathtext1, df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
     
 ########################## end 1.txt ##############################
 
@@ -1138,7 +1138,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     d2['SBDKZ']=umumiy_without_duplicate[47]
 
     df2= pd.DataFrame(d2)
-    np.savetxt(pathtext2, df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='utf-8')
+    np.savetxt(pathtext2, df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
 ########################## end 2.txt ##############################
 
 ########################## 3.txt ##############################
@@ -1204,7 +1204,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         d3['LADGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['TRAGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
     df3= pd.DataFrame(d3)
-    np.savetxt(pathtext3, df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='utf-8')
+    np.savetxt(pathtext3, df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
 ########################## end 3.txt ##############################
     
 ########################## 4.txt ##############################    
@@ -1274,7 +1274,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     d4['WERKS']=new_ll[1]
     d4['LGORT']=new_ll[2]
     df4= pd.DataFrame(d4)
-    np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='utf-8')
+    np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
 ########################## end 4.txt ##############################
     
 ########################## 5.txt ##############################
@@ -1317,7 +1317,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     
     d5['ed_iz3'] = ed_iz3
     df5= pd.DataFrame(d5)
-    np.savetxt(pathtext5, df5.values, fmt='%s', delimiter="\t",encoding='utf-8')
+    np.savetxt(pathtext5, df5.values, fmt='%s', delimiter="\t",encoding='ansi')
 ########################## end 5.txt ##############################
 ########################## List v 3 ##############################
     dd2 = [[],[],[],[],[],[]]
