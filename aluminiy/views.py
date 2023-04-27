@@ -1781,8 +1781,8 @@ def product_add_second(request,id):
                   else:
                         if '9016' in df_new['pkrat'][key]:
                                     tip_pokr ='Белый'
-                              else:
-                                    tip_pokr ='Окрашенный' 
+                        else:
+                              tip_pokr ='Окрашенный' 
                         if AluminiyProduct.objects.filter(artikul =component,section ='P').exists():
                               umumiy_counter[component+'-P'] += 1
                               
