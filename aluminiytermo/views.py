@@ -700,6 +700,7 @@ def product_add_second(request,id):
       df =df.astype(str)
       
       doesnotexist,correct = check_for_correct(df)
+      print(correct)
       if not correct:
             context ={
                   'CharUtilsOne':doesnotexist[0],
