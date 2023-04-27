@@ -2410,6 +2410,7 @@ def product_add_second(request,id):
 @csrf_exempt
 def add_char_utils_two(request):
       data = request.POST.get('data',None)
+      print(data)
       if data:
             items = [CharUtilsTwo(артикул =item['artikul'],полый_или_фасонный =item['selection']) for item in ast.literal_eval(data)]
             CharUtilsTwo.objects.bulk_create(items)
