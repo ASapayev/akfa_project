@@ -32,7 +32,7 @@ class AluminiyProduct(models.Model):
 
 
 class AluFile(models.Model):
-  file =models.FileField(upload_to='uploads/aluminiy/downloads/')
+  file =models.FileField(upload_to='uploads/aluminiy/downloads/',max_length=500)
   generated =models.BooleanField(default=False)
   file_type =models.CharField(max_length=255,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)

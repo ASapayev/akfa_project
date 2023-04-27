@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class ExcelFilesImzo(models.Model):
-    file =models.FileField(upload_to='uploads/imzo/downloads')
+    file =models.FileField(upload_to='uploads/imzo/downloads',max_length=500)
     generated =models.BooleanField(default=False)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
