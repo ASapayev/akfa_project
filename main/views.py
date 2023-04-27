@@ -447,7 +447,6 @@ group_three =['ALU']
 group_four =['PVC']
 
 def lenght_generate(request,id):
-  s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
   file = ExcelFiles.objects.get(id=id).file
   counter =0
   file_path =f'{MEDIA_ROOT}\\{file}'
