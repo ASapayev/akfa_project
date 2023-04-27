@@ -10,7 +10,7 @@ import os
 group_one =['WDC47','WDT65','WDT78']
 
 
-def counter_generated_data(datas,s2):
+def counter_generated_data(datas):
   pr = [x['new_sap_kod_del_otxod'] for x in Product.objects.all().values('new_sap_kod_del_otxod').annotate(dcount=Count('new_sap_kod_del_otxod')).order_by('dcount')]
   products = Product.objects.all().values('id','sap_kod_del_otxod','kratkiy_tekst_del_otxod')
 
