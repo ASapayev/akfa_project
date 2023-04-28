@@ -17,4 +17,5 @@ path('add-to-char-utils-one',views.add_char_utils_one,name='add_char_utils_one_s
 path('baza-profile',views.baza_profile,name='baza_profile_simple'),
 path('artikul-component',views.artikul_component,name='artikul_component_aluminiy'),
 path('excel-does-not-exists-add',views.excel_does_not_exists_add,name='excel_does_not_exists_add_simple'),
+path('duplicate-save',views.duplicate_correct,name='duplicate_save')
 ]

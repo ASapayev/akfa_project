@@ -2553,4 +2553,16 @@ def excel_does_not_exists_add(request):
  
  
 def duplicate_correct(request):
-      df =
+      df = pd.read_excel(f'{MEDIA_ROOT}\\example.xlsx')
+      for key,row in df.iterrows():
+            simple = AluminiyProduct.objects.filter(material =row['material'])
+            for sim in simple:
+                  sim.kratkiy_tekst_materiala =row['kratkiy_tekst_materiala']
+                  sim.save()
+                  
+            termo = AluminiyProductTermo.objects.filter(material =row['material'])
+            for ter in termo:
+                  ter.kratkiy_tekst_materiala =row['kratkiy_tekst_materiala']
+                  ter.save()
+                  
+      return JsonResponse({'a':'b'})
