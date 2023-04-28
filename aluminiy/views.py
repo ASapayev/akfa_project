@@ -714,6 +714,13 @@ def product_add_second(request,id):
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
       df =df.astype(str)
       
+      now = datetime.now()
+      year =now.strftime("%Y")
+      month =now.strftime("%B")
+      day =now.strftime("%a%d")
+      hour =now.strftime("%H HOUR")
+      minut =now.strftime("%M")
+      
       doesnotexist,correct = check_for_correct(df,filename='aluminiy')
       if not correct:
             context ={
@@ -722,6 +729,57 @@ def product_add_second(request,id):
                   'BazaProfile':doesnotexist[2],
                   'ArtikulComponent':doesnotexist[3]
             }
+            df_char_utils_one = pd.DataFrame({
+                  'матрица':doesnotexist[0],
+                  'артикул':doesnotexist[0],
+                  'высота':['' for i in doesnotexist[0]],
+                  'ширина':['' for i in doesnotexist[0]],
+                  'высота_ширина':['' for i in doesnotexist[0]],
+                  'systems':['' for i in doesnotexist[0]]
+                  })
+            df_char_utils_two =pd.DataFrame({
+                  'артикул':doesnotexist[1],
+                  'полый_или_фасонный':['' for i in doesnotexist[1]]
+            })
+            df_baza_profiley =pd.DataFrame({
+                  'артикул':doesnotexist[2],
+                  'серия':['' for i in doesnotexist[2]],
+                  'старый_код_benkam':['' for i in doesnotexist[2]],
+                  'старый_код':['' for i in doesnotexist[2]],
+                  'old_product_description':['' for i in doesnotexist[2]],
+                  'компонент':['' for i in doesnotexist[2]],
+                  'product_description':['' for i in doesnotexist[2]]
+            })
+            ArtikulComponent
+            df_artikul_component =pd.DataFrame({
+                  'artikul':doesnotexist[3],
+                  'component':doesnotexist[3],
+                  'seria':['' for i in doesnotexist[3]],
+                  'product_description_ru1':['' for i in doesnotexist[3]],
+                  'product_description_ru':['' for i in doesnotexist[3]],
+                  'stariy_code_benkam':['' for i in doesnotexist[3]],
+                  'stariy_code_jomiy':['' for i in doesnotexist[3]],
+                  'proverka_artikul2':['' for i in doesnotexist[3]],
+                  'proverka_component2':['' for i in doesnotexist[3]],
+                  'gruppa_materialov':['' for i in doesnotexist[3]],
+                  'gruppa_materialov2':['' for i in doesnotexist[3]]
+            })
+            create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\','Not Exists')
+            
+            path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\Not Exists\\Not_Exists.xlsx'
+            
+            if os.path.isfile(path_not_exists):
+                  try:
+                        os.remove(path_not_exists)
+                  except:
+                        return render(request,'utils/file_exist.html')
+            
+            writer = pd.ExcelWriter(path_not_exists, engine='xlsxwriter')
+            df_char_utils_one.to_excel(writer,index=False,sheet_name ='character utils one')
+            df_char_utils_two.to_excel(writer,index=False,sheet_name ='character utils two')
+            df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
+            df_artikul_component.to_excel(writer,index=False,sheet_name ='artikul component')
+            writer.save()
             return render(request,'aluminiy/check_for_correct.html',context)
       ################### group by#########
       aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
@@ -2369,12 +2427,7 @@ def product_add_second(request,id):
             
             
       
-      now = datetime.now()
-      year =now.strftime("%Y")
-      month =now.strftime("%B")
-      day =now.strftime("%a%d")
-      hour =now.strftime("%H HOUR")
-      minut =now.strftime("%M")
+      
       
       parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
        
@@ -2448,3 +2501,53 @@ def artikul_component(request):
       else:
             return JsonResponse({'saved':False})
       
+@csrf_exempt
+def excel_does_not_exists_add(request):
+      now = datetime.now()
+      year =now.strftime("%Y")
+      
+      path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\Not Exists\\Not_Exists.xlsx'
+      all_correct = True
+      
+      df = pd.read_excel(path_not_exists,sheet_name=['character utils one','character utils two','baza profile','artikul component'])
+      items =[]
+      if df['character utils one'].shape[0] > 0:
+            for key,row in df['character utils one'].iterrows():
+                  items.append(CharUtilsOne(матрица =row['матрица'],артикул =row['артикул'],высота=row['высота'],ширина=row['ширина'],высота_ширина=row['высота_ширина'],systems=row['systems']))
+            try:
+                  CharUtilsOne.objects.bulk_create(items)
+            except:
+                  all_correct =False
+            
+      
+      items =[]
+      if df['character utils two'].shape[0] > 0:
+            for key,row in df['character utils two'].iterrows():
+                  items.append(CharUtilsTwo(артикул =row['артикул'],полый_или_фасонный =row['полый_или_фасонный']))
+            try:
+                  CharUtilsTwo.objects.bulk_create(items)
+            except:
+                  all_correct =False
+            
+      
+      items =[]
+      if df['baza profile'].shape[0] > 0:
+            for key,row in df['baza profile'].iterrows():
+                  items.append(BazaProfiley(компонент = row['компонент'],артикул = row['артикул'],серия= row['серия'],старый_код_benkam= row['старый_код_benkam'],старый_код= row['старый_код'],old_product_description= row['old_product_description'],product_description= row['product_description']))
+            try:
+                  BazaProfiley.objects.bulk_create(items)
+            except:
+                  all_correct =False
+                  
+      items =[]
+      if df['artikul component'].shape[0] > 0:
+            for key,row in df['artikul component'].iterrows():
+                  items.append(ArtikulComponent(artikul = row['artikul'],component = row['component'],seria= row['seria'],product_description_ru1= row['product_description_ru1'],product_description_ru= row['product_description_ru'],stariy_code_benkam= row['stariy_code_benkam'],stariy_code_jomiy= row['stariy_code_jomiy'],proverka_artikul2=row['proverka_artikul2'],proverka_component2=row['proverka_component2'],gruppa_materialov=row['gruppa_materialov'],gruppa_materialov2=row['gruppa_materialov2']))
+            try:
+                  ArtikulComponent.objects.bulk_create(items)
+            except:
+                  all_correct =False
+            
+      
+      return JsonResponse({'saved':all_correct})
+ 

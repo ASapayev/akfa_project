@@ -160,7 +160,13 @@
       </table>
       <button class='btn btn-md btn-primary ' onclick ='baza_profiley()' id ='char_three'>Создать</button>
     {% endif %}
-    <div class="d-flex justify-content-center"><a href='' class='btn btn-warning btn-lg'>Done</a></div>
+      
+    <div class='m-3'></div>
+    <div class='d-flex justify-content-between'>
+      <div ><a href='' class='btn btn-warning btn-lg'>Done</a></div>
+      
+      <div ><span class='btn btn-warning btn-lg' onclick='excel_file_load()' >Excel file Load...</span></div>
+    </div>
   </div>
 
 <div class="p-3"></div>
@@ -168,6 +174,40 @@
 </body>
 <script>
 
+    function excel_file_load(){
+      var btn1 = document.getElementById('char_three');
+          btn1.setAttribute('disabled','True');
+      var btn2 = document.getElementById('char_one');
+          btn2.setAttribute('disabled','True');
+      var btn3 = document.getElementById('char_two');
+          btn3.setAttribute('disabled','True');
+
+      document.body.style.cursor='wait';
+
+      $.ajax({
+        method: "POST",
+        url: "{% url 'excel_does_not_exists_add' %}"
+      }).done(function( msg ) {
+        document.body.style.cursor='default';
+        if (msg.saved ==true){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Successfuly saved!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                  })
+
+            }
+        });
+    }
     
     function baza_profiley(){
         var new_char = document.querySelectorAll('.new_char_two');

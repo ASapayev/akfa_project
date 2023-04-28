@@ -15,4 +15,5 @@ path('base-profile',views.base_profile,name='base_profile'),
 path('add-to-char-utils-two',views.add_char_utils_two,name='add_char_utils_two'),
 path('add-to-char-utils-one',views.add_char_utils_one,name='add_char_utils_one'),
 path('baza-profile',views.baza_profile,name='baza_profile'),
+path('excel-does-not-exists-add',views.excel_does_not_exists_add,name='excel_does_not_exists_add'),
 ]
