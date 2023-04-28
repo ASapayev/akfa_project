@@ -121,6 +121,7 @@ class Norma(models.Model):
     рас_скотча_рас_скотча_на_1000_штук_шт = models.CharField(max_length = 255,blank=True,null=True)
     упаковка_колво_профилей_в_1_пачке = models.CharField(max_length = 255,blank=True,null=True)
     ala7_oddiy_ala8_qora_алю_сплав_6064 = models.CharField(max_length = 255,blank=True,null=True)
+    алю_сплав_биллетов_102_178 =models.CharField(max_length = 255,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
     
