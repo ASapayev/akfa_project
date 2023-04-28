@@ -2551,3 +2551,6 @@ def excel_does_not_exists_add(request):
       
       return JsonResponse({'saved':all_correct})
  
+ 
+def duplicate_correct(request):
+      df =

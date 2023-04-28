@@ -130,4 +130,6 @@ def create_characteristika_utils(items):
     return df_new
 
 
+
+
             
