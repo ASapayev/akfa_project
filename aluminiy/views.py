@@ -779,7 +779,8 @@ def product_add_second(request,id):
             df_char_utils_two.to_excel(writer,index=False,sheet_name ='character utils two')
             df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
             df_artikul_component.to_excel(writer,index=False,sheet_name ='artikul component')
-            writer.save()
+            writer.close()
+            # writer.save()
             return render(request,'aluminiy/check_for_correct.html',context)
       ################### group by#########
       aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
