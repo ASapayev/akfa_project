@@ -78,6 +78,32 @@ LGORT ={
                 {
                 'zavod_code':'1201',
                 'zavod_sap':'P170'   
+                }
+            ], 
+        'PL':[
+                {
+                'zavod_code':'1201',
+                'zavod_sap':'P050'   
+                },
+                {
+                'zavod_code':'1201',
+                'zavod_sap':'P060'   
+                },
+                {
+                'zavod_code':'1201',
+                'zavod_sap':'P070'   
+                },
+                {
+                'zavod_code':'1201',
+                'zavod_sap':'P080'   
+                },
+                {
+                'zavod_code':'1201',
+                'zavod_sap':'P090'   
+                },
+                {
+                'zavod_code':'1201',
+                'zavod_sap':'P170'   
                 },
                 {
                 'zavod_code':'1203',
@@ -155,6 +181,24 @@ LGORT ={
             }
         ],
         '7':[
+                {
+                'zavod_code':'1201',
+                'zavod_sap':'P170'    
+                },
+                {
+                'zavod_code':'1201',
+                'zavod_sap':'S400'    
+                },
+                {
+                'zavod_code':'1201',
+                'zavod_sap':'S410'    
+                },
+                {
+                'zavod_code':'1201',
+                'zavod_sap':'S420'    
+                }
+            ],  
+        '7L':[
                 {
                 'zavod_code':'1201',
                 'zavod_sap':'P170'    
@@ -252,9 +296,6 @@ LGORT ={
     }
 
 HEADER =[
-    'SAP CODE',
-    'KRATKIY TEXT',
-    'SECTION',
     'SAVDO_ID',
     'SAVDO_NAME',
     'EXPORT_CUSTOMER_ID',
@@ -283,14 +324,17 @@ HEADER =[
     'CATEGORY',
     'RAWMAT_TYPE',
     'BENKAM_ID',
-    'HOLLOW AND SOLID',
-    'EXPORT_DESCRIPTION',
-    'EXPORT_DESCRIPTION ENG',
     'TNVED',
     'SURFACE_TREATMENT_EXPORT',
     'WMS_WIDTH',
     'WMS_HEIGHT'
 ]
+# SAP CODE
+# KRATKIY TEXT
+# SECTION
+# HOLLOW AND SOLID
+# EXPORT_DESCRIPTION
+# EXPORT_DESCRIPTION ENG
 
 
 

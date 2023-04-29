@@ -49,7 +49,8 @@ def create_characteristika(items):
         krat_nak_code = item['kratkiy'][-3:]
         if krat_nak_code not in nakleyka_codes:
             item['print_view'] = ''
-        
+        # print('characteristikAAAAA outer  ',item['outer_side_wg_id'])
+        # print('characteristikAAAAA inner  ',item['inner_side_wg_id'])
         character = Characteristika(
             sap_code =item['material'],
             kratkiy_text =item['kratkiy'],
@@ -1081,7 +1082,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     
     df1= pd.DataFrame(d1)
     
-    np.savetxt(pathtext1, df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
+    np.savetxt(pathtext1, df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='utf-8')
     
 ########################## end 1.txt ##############################
 
@@ -1138,7 +1139,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     d2['SBDKZ']=umumiy_without_duplicate[47]
 
     df2= pd.DataFrame(d2)
-    np.savetxt(pathtext2, df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
+    np.savetxt(pathtext2, df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='utf-8')
 ########################## end 2.txt ##############################
 
 ########################## 3.txt ##############################
@@ -1204,7 +1205,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         d3['LADGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['TRAGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
     df3= pd.DataFrame(d3)
-    np.savetxt(pathtext3, df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
+    np.savetxt(pathtext3, df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='utf-8')
 ########################## end 3.txt ##############################
     
 ########################## 4.txt ##############################    
@@ -1222,6 +1223,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         wms_width.append(row['WMS_WIDTH'])
         wms_height.append(row['WMS_HEIGHT'])
 
+        
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
         if sap_code_simvol =='E':
             for i in range(0,len(LGORT['E'])):
@@ -1234,10 +1236,17 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 new_ll[1].append(LGORT['Z'][i]['zavod_code'])
                 new_ll[2].append(LGORT['Z'][i]['zavod_sap'])
         if sap_code_simvol =='P':
-            for i in range(0,len(LGORT['P'])):
-                new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['P'][i]['zavod_code'])
-                new_ll[2].append(LGORT['P'][i]['zavod_sap'])
+            if (row['Тип покрытия'] =='Ламинированный'):
+                for i in range(0,len(LGORT['PL'])):
+                    new_ll[0].append(row['SAP код S4P 100'])
+                    new_ll[1].append(LGORT['PL'][i]['zavod_code'])
+                    new_ll[2].append(LGORT['PL'][i]['zavod_sap'])
+            else:
+                for i in range(0,len(LGORT['P'])):
+                    new_ll[0].append(row['SAP код S4P 100'])
+                    new_ll[1].append(LGORT['P'][i]['zavod_code'])
+                    new_ll[2].append(LGORT['P'][i]['zavod_sap'])
+        
         if sap_code_simvol =='S':
             for i in range(0,len(LGORT['S'])):
                 new_ll[0].append(row['SAP код S4P 100'])
@@ -1258,11 +1267,19 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT['A'][i]['zavod_code'])
                 new_ll[2].append(LGORT['A'][i]['zavod_sap'])
+        
         if sap_code_simvol =='7':
-            for i in range(0,len(LGORT['7'])):
-                new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['7'][i]['zavod_code'])
-                new_ll[2].append(LGORT['7'][i]['zavod_sap'])
+            if (row['Тип покрытия'] =='Ламинированный'):
+                for i in range(0,len(LGORT['7L'])):
+                    new_ll[0].append(row['SAP код S4P 100'])
+                    new_ll[1].append(LGORT['7L'][i]['zavod_code'])
+                    new_ll[2].append(LGORT['7L'][i]['zavod_sap'])
+            else:
+                for i in range(0,len(LGORT['7'])):
+                    new_ll[0].append(row['SAP код S4P 100'])
+                    new_ll[1].append(LGORT['7'][i]['zavod_code'])
+                    new_ll[2].append(LGORT['7'][i]['zavod_sap'])
+        
         if sap_code_simvol =='F':
             for i in range(0,len(LGORT['F'])):
                 new_ll[0].append(row['SAP код S4P 100'])
@@ -1274,7 +1291,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     d4['WERKS']=new_ll[1]
     d4['LGORT']=new_ll[2]
     df4= pd.DataFrame(d4)
-    np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
+    np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='utf-8')
 ########################## end 4.txt ##############################
     
 ########################## 5.txt ##############################
@@ -1317,16 +1334,29 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     
     d5['ed_iz3'] = ed_iz3
     df5= pd.DataFrame(d5)
-    np.savetxt(pathtext5, df5.values, fmt='%s', delimiter="\t",encoding='ansi')
+    np.savetxt(pathtext5, df5.values, fmt='%s', delimiter="\t",encoding='utf-8')
 ########################## end 5.txt ##############################
 ########################## List v 3 ##############################
     dd2 = [[],[],[],[],[],[]]
     
     for key , row in datas.iterrows():
-        for j in range(0,38):
+        row['ch_tnved'] =str(row['ch_tnved']).replace('.0','')
+        row['ch_outer_side_pc_id'] =str(row['ch_outer_side_pc_id']).replace('.0','')
+        row['ch_outer_side_pc_brand'] =str(row['ch_outer_side_pc_brand']).replace('.0','')
+        row['ch_inner_side_pc_id'] =str(row['ch_inner_side_pc_id']).replace('.0','')
+        row['ch_inner_side_pc_brand'] =str(row['ch_inner_side_pc_brand']).replace('.0','')
+        row['ch_outer_side_wg_s_id'] =str(row['ch_outer_side_wg_s_id']).replace('.0','')
+        row['ch_inner_side_wg_s_id'] =str(row['ch_inner_side_wg_s_id']).replace('.0','')
+        row['ch_outer_side_wg_id'] =str(row['ch_outer_side_wg_id']).replace('.0','')
+        row['ch_inner_side_wg_id'] =str(row['ch_inner_side_wg_id']).replace('.0','')
+        row['ch_width'] =str(row['ch_width']).replace('.0','')
+        row['ch_height'] =str(row['ch_height']).replace('.0','')
+        
+        
+        for j in range(0,32):
             dd2[0].append('001')
             
-        for j in range(0,38):
+        for j in range(0,32):
             if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
                 dd2[1].append('ALUMINIUM_PROFILE')
             else:
@@ -1335,18 +1365,15 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 elif HEADER[j] =='TNVED':
                     dd2[1].append('TNVED')
             
-        for j in range(0,38):
+        for j in range(0,32):
             dd2[2].append('MARA')
             
-        for j in range(0,38):
+        for j in range(0,32):
             dd2[3].append(row['SAP код S4P 100'])
             
         for j in HEADER:
             dd2[4].append(j)
-   
-        dd2[5].append(row['ch_material'])
-        dd2[5].append(row['ch_kratkiy'])
-        dd2[5].append(row['ch_section'])
+
         dd2[5].append('')
         dd2[5].append('')
         dd2[5].append(row['ch_export_customer_id'])
@@ -1375,9 +1402,6 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         dd2[5].append(row['ch_category'])
         dd2[5].append(row['ch_rawmat_type'])
         dd2[5].append('')
-        dd2[5].append(row['ch_hollow_and_solid'])
-        dd2[5].append(row['ch_export_description'])
-        dd2[5].append(row['ch_export_description_eng'])
         dd2[5].append(row['ch_tnved'])
         dd2[5].append(row['ch_surface_treatment_export'])
         dd2[5].append(row['WMS_WIDTH'])

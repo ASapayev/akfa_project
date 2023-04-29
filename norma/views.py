@@ -2312,7 +2312,42 @@ def kombinirovaniy_process(request,id):
             row['SAP код K'],row['K-Комбинирования'],
             row['SAP код 7'],row['U-Упаковка + Готовая Продукция']
         ])
-        
+    norma = []
+    alumniy_silindr = []
+    subdekor = []
+    for fullsapkod in df:
+        for i in range(0,7):
+            length = fullsapkod[i * 2].split('-')
+            if fullsapkod[i * 2]!='':
+                if not Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=length[0])).exists():
+                    if length[0] not in norma:
+                        norma.append(length[0])
+                if (('-E' in length) and (length[0] not in norma)):
+                    alum_teks = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=length[0]))[:1].get()
+                    if '178' in alum_teks.алю_сплав_биллетов_102_178:
+                        if not AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178').exists():
+                            alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064])
+                    elif '102' in alum_teks.алю_сплав_биллетов_102_178:
+                        if not AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='102').exists():
+                            alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064])
+                if (('-S' in length) and (length[0] not in norma)) :
+                    sublimatsiya_code = length.split('_')[1]
+                    if sublimatsiya_code =='7777':
+                        code_ss = alum_teks.суб_ширина_декор_пленки_мм_зол_дуб
+                        
+                    elif sublimatsiya_code =='8888':
+                        code_ss = alum_teks.суб_ширина_декор_пленки_мм_дуб_мокко
+
+                    elif sublimatsiya_code =='3701':
+                        code_ss = alum_teks.суб_ширина_декор_пленки_мм_3д_313701
+                        
+                    elif sublimatsiya_code =='3702':
+                        code_ss = alum_teks.суб_ширина_декор_пленки_мм_3д_313702
+                    if not SubDekorPlonka.objects.get(код_декор_пленки = sublimatsiya_code, ширина_декор_пленки_мм = code_ss).exists(): 
+                        pass
+                                
+
+    return JsonResponse({'norma':norma,'Aluminiy Silindr':alumniy_silindr})
         
     
     df_new ={
@@ -2363,9 +2398,9 @@ def kombinirovaniy_process(request,id):
                     alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                     
                     if '178' in alum_teks.алю_сплав_биллетов_102_178:
-                        aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178')[:1].get()
+                        aliminisi = AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178')[:1].get()
                     elif '102' in alum_teks.алю_сплав_биллетов_102_178:
-                        aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='102')[:1].get()
+                        aliminisi = AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='102')[:1].get()
                     
                     mein_percent =((get_legth(df[i][1]))/float(alum_teks.длина_профиля_м))
                     df_new['STKTX'].append(aliminisi.название)
@@ -2744,7 +2779,6 @@ def kombinirovaniy_process(request,id):
             if df[i][4] !="":
                 CheckNormaBase(artikul=df[i][4],kratkiytekst=df[i][5]).save()
                 if (df[i][4].split('-')[1][:1]=='P'):
-                    print(df[i][4])
                     for p in range(0,6):    
                         j+=1
                         
@@ -2902,15 +2936,15 @@ def kombinirovaniy_process(request,id):
                             mein =alum_teks.сублимация_расход_на_1000_профиль_м21
                             
                         elif sublimatsiya_code =='8888':
-                            print('exceldagi qator ##### ',i,' #######')
+                            
                             code_ss = alum_teks.суб_ширина_декор_пленки_мм_дуб_мокко
                             mein =alum_teks.сублимация_расход_на_1000_профиль_м23
                         elif sublimatsiya_code =='3701':
-                            print('exceldagi qator ##### ',i,' #######')
+                            
                             code_ss = alum_teks.суб_ширина_декор_пленки_мм_3д_313701
                             mein =alum_teks.сублимация_расход_на_1000_профиль_м22
                         elif sublimatsiya_code =='3702':
-                            print('exceldagi qator ##### ',i,' #######')
+                            
                             code_ss = alum_teks.суб_ширина_декор_пленки_мм_3д_313702
                             mein =alum_teks.сублимация_расход_на_1000_профиль_м24
                         
@@ -2941,7 +2975,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['PUSTOY'].append('')
                             
                             if k==1:
-                                print('sub decor ployka ****** ',sublimatsiya_code,'*****<<shirina=== ',code_ss)
+                                
                                 subdecor = SubDekorPlonka.objects.get(код_декор_пленки = sublimatsiya_code, ширина_декор_пленки_мм = code_ss)
                                 df_new['MATNR1'].append(subdecor.sap_code_s4q100)
                                 df_new['TEXT2'].append(subdecor.название)
@@ -3672,7 +3706,7 @@ def kombinirovaniy_process(request,id):
                     nakleyka_code = df[i][13].split()[-1]
                     length = df[i][12].split('-')[0]
                     
-                    
+                    print(length)
                     alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                     
                     mein_percent =((get_legth(df[i][13]))/float(alum_teks.длина_профиля_м))
