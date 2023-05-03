@@ -57,7 +57,7 @@
 
     {% if ArtikulComponent %}
     <br>
-    <label><em> <b>Artikul and Component</b></em></label>
+    <label><em> <b>Artikul and Component</b></em>{{ ArtikulComponent|length }}</label>
     <label for="rg-from"></label>
     <table class="table table-striped">
         <thead>
@@ -77,7 +77,7 @@
           </tr>
         </thead>
         <tbody>
-                {%for char in ArtikulComponent %}
+                {%for char in ArtikulComponent |slice:":10" %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td class ='new_char_five' ><input type='text'  id ='artikulfive{{forloop.counter}}' value='{{char}}' required></td>
@@ -102,7 +102,7 @@
 
 
     {% if CharUtilsOne %}
-    <label><em> <b>Character Utils One</b></em></label>
+    <label><em> <b>Character Utils One</b></em>{{ CharUtilsOne|length }}</label>
       <form>
         <table class="table table-striped">
             <thead>
@@ -117,7 +117,7 @@
             </tr>
             </thead>
             <tbody>
-                    {%for char in CharUtilsOne %}
+                    {%for char in CharUtilsOne |slice:":10" %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td  class ='new_char_one' ><input type='text' id ='matritsa{{forloop.counter}}' value='{{char}}' required></td>
@@ -138,7 +138,7 @@
 
     {% if CharUtilsTwo%}
     <br>
-    <label><em> <b>Character Utils Two</b></em></label>
+    <label><em> <b>Character Utils Two</b></em>{{ CharUtilsTwo|length }}</label>
     <label for="rg-from"></label>
     <table class="table table-striped">
         <thead>
@@ -150,7 +150,7 @@
           </tr>
         </thead>
         <tbody>
-                {%for char in CharUtilsTwo %}
+                {%for char in CharUtilsTwo |slice:":10" %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td id='artikul{{ forloop.counter }}' class ='new_char' >{{char}}</td>
@@ -173,7 +173,7 @@
 
     {% if BazaProfile%}
     <br>
-    <label><em> <b>BAZA PROFILES</b></em></label>
+    <label><em> <b>BAZA PROFILES</b></em>{{ BazaProfile|length }}</label>
     <label for="rg-from"></label>
     <table class="table table-striped">
         <thead>
@@ -190,7 +190,7 @@
           </tr>
         </thead>
         <tbody>
-                {%for char in BazaProfile %}
+                {%for char in BazaProfile |slice:":10" %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td class ='new_char_two' ><input type='text'  id ='artikultwo{{forloop.counter}}' value='{{char}}' required></td>
