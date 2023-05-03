@@ -986,8 +986,8 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         umumiy_without_duplicate1201[6].append(gruppa_material)
         umumiy_without_duplicate1201[7].append('E')
         umumiy_without_duplicate1201[8].append('01')
-        umumiy_without_duplicate1201[9].append(row['Общий вес за штуку'])
-        umumiy_without_duplicate1201[10].append(row['Общий вес за штуку'])
+        umumiy_without_duplicate1201[9].append(str(row['Общий вес за штуку']).replace('.',','))
+        umumiy_without_duplicate1201[10].append(str(row['Общий вес за штуку']).replace('.',','))
         umumiy_without_duplicate1201[11].append('КГ')
         umumiy_without_duplicate1201[12].append('NORM')
         umumiy_without_duplicate1201[13].append(row['Короткое название SAP'])
@@ -1065,19 +1065,20 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
 ########################## 1.txt ##############################
     d1={}
     header1 ='MATNR\tBISMT\tMAKTX\tMEINS\tMTART\tMATKL\tWERKS\tBESKZ\tSPART\tBRGEW\tNTGEW\tGEWEI\tMTPOS_MARA'
-    d1['MATNR']=umumiy_without_duplicate[0]
-    d1['BISMT']=umumiy_without_duplicate[1]
-    d1['MAKTX']=umumiy_without_duplicate[2]
-    d1['MEINS']=umumiy_without_duplicate[3]
-    d1['MTART']=umumiy_without_duplicate[4]
-    d1['MATKL']=umumiy_without_duplicate[5]
-    d1['WERKS']=umumiy_without_duplicate[34]
-    d1['BESKZ']=umumiy_without_duplicate[7]
-    d1['SPART']=umumiy_without_duplicate[8]
-    d1['BRGEW']=umumiy_without_duplicate[9]
-    d1['NTGEW']=umumiy_without_duplicate[10]
-    d1['GEWEI']=umumiy_without_duplicate[11]
-    d1['MTPOS_MARA']=umumiy_without_duplicate[12]
+    
+    d1['MATNR']=umumiy_without_duplicate1201[0]
+    d1['BISMT']=umumiy_without_duplicate1201[1]
+    d1['MAKTX']=umumiy_without_duplicate1201[2]
+    d1['MEINS']=umumiy_without_duplicate1201[3]
+    d1['MTART']=umumiy_without_duplicate1201[4]
+    d1['MATKL']=umumiy_without_duplicate1201[5]
+    d1['WERKS']=umumiy_without_duplicate1201[34]
+    d1['BESKZ']=umumiy_without_duplicate1201[7]
+    d1['SPART']=umumiy_without_duplicate1201[8]
+    d1['BRGEW']=umumiy_without_duplicate1201[9]
+    d1['NTGEW']=umumiy_without_duplicate1201[10]
+    d1['GEWEI']=umumiy_without_duplicate1201[11]
+    d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
     
     
     df1= pd.DataFrame(d1)
