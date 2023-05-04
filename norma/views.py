@@ -2386,6 +2386,7 @@ def kombinirovaniy_process(request,id):
                             subdekor.append([sublimatsiya_code,code_ss,length[0]])
                 
                 if ((('-N' in t) or ('-7' in t)) and (length[0] not in norma)):
+                    print('gp --->>> ',length[0])
                     norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=length[0]))[:1].get()
                     nakleyka_code = fullsapkod[i * 2+1].split()[-1]
                     
@@ -2559,6 +2560,7 @@ def kombinirovaniy_process(request,id):
                                     nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':True})
                     
                     elif nakleyka_code =='E01':
+                        
                         aluminiy_norma_log = (norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм == norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм and norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм != '0') or ((norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм != norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм)and((norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм =='0')or(norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм=='0')))
                         if aluminiy_norma_log:
                             if norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм =='0':
@@ -2587,6 +2589,7 @@ def kombinirovaniy_process(request,id):
                                     nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':True})
                           
                     elif nakleyka_code =='E02':
+                        print('e ga kirdi gp')
                         aluminiy_norma_log = (norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты and norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты != '0') or ((norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты)and((norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты=='0')))
                         if aluminiy_norma_log:
                             if norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм =='0':
@@ -2691,7 +2694,7 @@ def kombinirovaniy_process(request,id):
     
     for i in range(0,len(df)):
         print('created i= ',i)
-       
+        print(isklyucheniye_ids)
         if i in isklyucheniye_ids:
             continue
         older_process ={'sapcode':'','kratkiy':''}
@@ -4014,7 +4017,9 @@ def kombinirovaniy_process(request,id):
         norma_exists7 = CheckNormaBase.objects.filter(artikul=df[i][12],kratkiytekst=df[i][13]).exists()
         if not norma_exists7:
             
+            print('gp ga  kirishtan oldin>>>>> ',df[i][12],'df 10 ',df[i][10],' ',key)
             if df[i][12] !="":
+                print('gp ga  kirdi>>>>> ',df[i][12])
                 CheckNormaBase(artikul=df[i][12],kratkiytekst=df[i][13]).save()
                 if (df[i][12].split('-')[1][:1]=='7'):
                     
@@ -4404,8 +4409,9 @@ def kombinirovaniy_process(request,id):
                         
                     its_kombinirovanniy ='-K' in df[i][10]
                     
+                    print('oldin >>>>>> gp bez nakleyka',df[i][12])
                     if ((not '_' in df[i][13]) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1])):
-                        
+                        print('gp bez nakleykaga kirdi === ',df[i][12])
                         if its_kombinirovanniy:
                             if qatorlar_soni == 3:
                                 j+=1
