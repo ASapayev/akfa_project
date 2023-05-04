@@ -3817,7 +3817,7 @@ def kombinirovaniy_process(request,id):
                         df_new['LGORT'].append('')
                         length = df[i][10].split('-')[0]
                         
-                        alum_teks = Norma.objects.filter((Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))& ~Q(ala7_oddiy_ala8_qora_алю_сплав_6064 ='0'))[:1].get()
+                        alum_teks = Norma.objects.filter((Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length)))[:1].get()
                         
                         mein_percent =((get_legth(df[i][11]))/float(alum_teks.длина_профиля_м))
                         
@@ -4025,7 +4025,7 @@ def kombinirovaniy_process(request,id):
                     nakleyka_code = df[i][13].split()[-1]
                     length = df[i][12].split('-')[0]
                     
-                    alum_teks = Norma.objects.filter((Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))& ~Q(ala7_oddiy_ala8_qora_алю_сплав_6064 ='0'))[:1].get()
+                    alum_teks = Norma.objects.filter((Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length)))[:1].get()
                     
                     mein_percent =((get_legth(df[i][13]))/float(alum_teks.длина_профиля_м))
                     

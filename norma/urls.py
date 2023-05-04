@@ -15,3 +15,4 @@ urlpatterns = [
  path('nakleyka-delete',views.nakleyka_duplicate_del,name ='nakleyka_delete'),
  
 ]
+
