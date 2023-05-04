@@ -5,8 +5,9 @@ from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonk
 from .forms import NormaFileForm
 from django.db.models import Q
 from config.settings import MEDIA_ROOT
-from .utils import excelgenerate 
+from .utils import excelgenerate,create_csv_file
 import os
+from datetime import datetime
 
 def index(request):
     return render(request,'norma/index.html')
@@ -2299,6 +2300,9 @@ def kombinirovaniy_process(request,id):
     df_exell = df_exell.fillna('')
     df_exell =df_exell.astype(str)
     
+    
+    product_type = request.GET.get('type','termo')
+        
     df = []
     
     norma_list,kraska_list = norma_for_list()
@@ -2314,12 +2318,15 @@ def kombinirovaniy_process(request,id):
             row['SAP код K'],row['K-Комбинирования'],
             row['SAP код 7'],row['U-Упаковка + Готовая Продукция']
         ])
+        
     norma = []
     alumniy_silindr = []
+    
     subdekor = []
     kraska =[]
     nakleyka_N = []
     kombinirovanniy = []
+    
     for fullsapkod in df:
         for i in range(0,7):
             t= fullsapkod[i * 2]
@@ -2331,21 +2338,26 @@ def kombinirovaniy_process(request,id):
                         norma.append(length[0])
                 
                 if (('-E' in t) or ('-P' in t) and (length[0] not in norma)):
-                    kraska_code = fullsapkod[i*2+1].split()[-1]
-                    if kraska_code!='MF':
-                        if kraska_code not in kraska_list:                                    
-                            kraska.append({f'{fullsapkod[i*2]}':kraska_code}) 
+                    if '-P' in t:
+                        kraska_code = fullsapkod[i*2+1].split()[-1]
+                        if kraska_code!='MF':
+                            if kraska_code not in kraska_list: 
+                                if kraska_code not in  kraska:                                  
+                                    kraska.append(kraska_code) 
                                     
                     alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=length[0]))
                     alum_teks = alum_teks_all[:1].get()
                     if '178' in alum_teks.алю_сплав_биллетов_102_178:
                         if not AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178').exists():
-                            alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,{'norma soni':len(alum_teks_all)}])
+                            if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,{'norma soni':len(alum_teks_all)}] not in alumniy_silindr:
+                                alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,{'norma soni':len(alum_teks_all)}])
                     elif '102' in alum_teks.алю_сплав_биллетов_102_178:
                         if not AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='102').exists():
-                            alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,{'norma soni':len(alum_teks_all)}])
+                            if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,{'norma soni':len(alum_teks_all)}] not in alumniy_silindr:
+                                alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,{'norma soni':len(alum_teks_all)}])
                     else:
-                        alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,{'norma soni':len(alum_teks_all)}])
+                        if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,{'norma soni':len(alum_teks_all)}] not in alumniy_silindr:
+                            alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,{'norma soni':len(alum_teks_all)}])
                 
                 if (('-S' in t) and (length[0] not in norma)) :
                     sublimatsiya_code = fullsapkod[i * 2+1].split('_')[1]
@@ -2361,7 +2373,8 @@ def kombinirovaniy_process(request,id):
                     elif sublimatsiya_code =='3702':
                         code_ss = alum_teks.суб_ширина_декор_пленки_мм_3д_313702
                     if not SubDekorPlonka.objects.filter(код_декор_пленки = sublimatsiya_code, ширина_декор_пленки_мм = code_ss).exists(): 
-                        subdekor.append({'sap code':length,'kode dekor plenki':sublimatsiya_code,'shirina kode':code_ss})
+                        if [sublimatsiya_code,code_ss,length[0]] not in subdekor:
+                            subdekor.append([sublimatsiya_code,code_ss,length[0]])
                 
                 if ((('-N' in t) or ('-7' in t)) and (length[0] not in norma)):
                     norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=length[0]))[:1].get()
@@ -2373,154 +2386,196 @@ def kombinirovaniy_process(request,id):
                         if aluminiy_norma_log:
                             if norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'A01',ширина= norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':True,'verx':False})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':True,'verx':False} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':True,'verx':False})
                             elif norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'A01',ширина= norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':False,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':False,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':False,'verx':True})
                             else:
                                 if not Nakleyka.objects.filter(код_наклейки = 'A01',ширина= norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':True,'verx':True})
                         elif ((norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм =='0') and (norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм == '0')):
-                            nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':True,'verx':True})
+                            if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':True,'verx':True})
                         else:
                             if ((not Nakleyka.objects.filter(код_наклейки = 'A01',ширина= norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм).exists()) and (not Nakleyka.objects.filter(код_наклейки = 'A01',ширина= norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм).exists())):
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,'niz':True,'verx':True})
                     
                     elif nakleyka_code =='R05':
                         aluminiy_norma_log = (norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм == norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм and norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм != '0') or ((norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм != norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм)and((norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм =='0')or(norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм=='0')))
                         if aluminiy_norma_log:
                             if norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'R05',ширина= norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':True,'verx':False})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':True,'verx':False} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':True,'verx':False})
                             elif norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'R05',ширина= norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':False,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':False,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':False,'verx':True})
                             else:
                                 if not Nakleyka.objects.filter(код_наклейки = 'R05',ширина= norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':True,'verx':True})
                         elif ((norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм =='0') and (norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм == '0')):
-                            nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':True,'verx':True})
+                            if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':True,'verx':True})
                         else:
                             if ((not Nakleyka.objects.filter(код_наклейки = 'R05',ширина= norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм).exists()) and (not Nakleyka.objects.filter(код_наклейки = 'R05',ширина= norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм).exists())):
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,'niz':True,'verx':True})
                         
                     elif nakleyka_code =='B01':
                         aluminiy_norma_log = (norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм and norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм != '0') or ((norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм)and((norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм=='0')))
                         if aluminiy_norma_log:
                             if norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'B01',ширина= norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':True,'verx':False})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':True,'verx':False} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':True,'verx':False})
                             elif norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'B01',ширина= norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':False,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':False,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':False,'verx':True})
                             else:
                                 if not Nakleyka.objects.filter(код_наклейки = 'B01',ширина= norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':True,'verx':True})
                         elif ((norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм == '0')):
-                            nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':True,'verx':True})
+                            if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':True,'verx':True})
                         else:
                             if ((not Nakleyka.objects.filter(код_наклейки = 'B01',ширина= norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм).exists()) and (not Nakleyka.objects.filter(код_наклейки = 'B01',ширина= norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм).exists())):
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,'niz':True,'verx':True})
                      
                     elif nakleyka_code =='I02':
                         aluminiy_norma_log = (norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм and norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм != '0') or ((norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм)and((norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм=='0')))
                         if aluminiy_norma_log:
                             if norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'I02',ширина= norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':True,'verx':False})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':True,'verx':False} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':True,'verx':False})
                             elif norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'I02',ширина= norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':False,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':False,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':False,'verx':True})
                             else:
                                 if not Nakleyka.objects.filter(код_наклейки = 'I02',ширина= norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':True,'verx':True})
                         elif ((norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм == '0')):
-                            nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':True,'verx':True})
+                            if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':True,'verx':True})
                         else:
                             if ((not Nakleyka.objects.filter(код_наклейки = 'I02',ширина= norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм).exists()) and (not Nakleyka.objects.filter(код_наклейки = 'I02',ширина= norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм).exists())):
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,'niz':True,'verx':True})
                          
                     elif nakleyka_code =='I01':
                         aluminiy_norma_log = (norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм and norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм != '0') or ((norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)and((norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм=='0')))
                         if aluminiy_norma_log:
                             if norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':True,'verx':False})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':True,'verx':False} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':True,'verx':False})
                             elif norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':False,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':False,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':False,'verx':True})
                             else:
                                 if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':True,'verx':True})
                         elif ((norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм == '0')):
-                            nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':True,'verx':True})
+                            if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':True,'verx':True})
                         else:
                             if ((not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм).exists()) and (not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм).exists())):
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,'niz':True,'verx':True})
                                      
                     elif nakleyka_code =='NB1':
                         aluminiy_norma_log = (norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм and norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм != '0') or ((norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм)and((norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм=='0')))
                         if aluminiy_norma_log:
                             if norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':False})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':False} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':False})
                             elif norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':False,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':False,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':False,'verx':True})
                             else:
                                 if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':True})
                         elif ((norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм == '0')):
-                            nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':True})
+                            if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':True})
                         else:
                             if ((not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм).exists()) and (not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм).exists())):
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,'shirina_verx':norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,'niz':True,'verx':True})
                     
                     elif nakleyka_code =='E01':
                         aluminiy_norma_log = (norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм == norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм and norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм != '0') or ((norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм != norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм)and((norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм =='0')or(norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм=='0')))
                         if aluminiy_norma_log:
                             if norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'E01',ширина= norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':False})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':False} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':False})
                             elif norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'E01',ширина= norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':False,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':False,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':False,'verx':True})
                             else:
                                 if not Nakleyka.objects.filter(код_наклейки = 'E01',ширина= norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':True})
                         elif ((norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм =='0') and (norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм == '0')):
-                            nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':True})
+                            if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':True})
                         else:
                             if ((not Nakleyka.objects.filter(код_наклейки = 'E01',ширина= norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм).exists()) and (not Nakleyka.objects.filter(код_наклейки = 'E01',ширина= norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм).exists())):
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,'shirina_verx':norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,'niz':True,'verx':True})
                           
                     elif nakleyka_code =='E02':
                         aluminiy_norma_log = (norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты and norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты != '0') or ((norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты)and((norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты=='0')))
                         if aluminiy_norma_log:
                             if norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'E02',ширина= norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':True,'verx':False})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':True,'verx':False} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':True,'verx':False})
                             elif norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'E02',ширина= norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':False,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':False,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':False,'verx':True})
                             else:
                                 if not Nakleyka.objects.filter(код_наклейки = 'E02',ширина= norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм).exists():
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':True,'verx':True})
                         elif ((norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты == '0')):
-                            nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':True,'verx':True})
+                            if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':True,'verx':True})
                         else:
                             if ((not Nakleyka.objects.filter(код_наклейки = 'E02',ширина= norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм).exists()) and (not Nakleyka.objects.filter(код_наклейки = 'E02',ширина= norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты).exists())):
-                                    nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':True,'verx':True})
+                                    if {'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':True,'verx':True} not in nakleyka_N:
+                                        nakleyka_N.append({'sap_code':length[0],'nakleyka_code':nakleyka_code,'shirina_niz':norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,'shirina_verx':norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,'niz':True,'verx':True})
                 
                 if (('-K' in t) and (length[0] not in norma)):
                     
                     if not KombinirovaniyUtilsInformation.objects.filter(artikul=length[0]):
-                        kombinirovanniy.append(artikul=length[0])
+                        if length[0] not in kombinirovanniy:
+                            kombinirovanniy.append(length[0])
                             
                               
     existing = norma + alumniy_silindr + subdekor + kraska + nakleyka_N + kombinirovanniy
     
-    if len(existing)>0:                           
+    if len(existing) > 0 : 
+        create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka_N,kombinirovanniy,str(product_type))                          
         return JsonResponse({'norma':norma,'aluminiy silindr':alumniy_silindr,'subdecor':subdekor,'kraska':kraska,'nakleyka':nakleyka_N,'kombinirovanniy':kombinirovanniy})
     
     df_new ={
@@ -2546,7 +2601,7 @@ def kombinirovaniy_process(request,id):
         'LGORT':[]
     }
     
-    j=0
+    j = 0
     
     
     for i in range(0,len(df)):
@@ -5040,15 +5095,30 @@ def kombinirovaniy_process(request,id):
                 older_process['sapcode'] =df[i][12]
                 older_process['kratkiy'] =df[i][13]
                 
-                        
-                        
-        
+    now = datetime.now()
+    year =now.strftime("%Y")
+    month =now.strftime("%B")
+    day =now.strftime("%a%d")
+    hour =now.strftime("%H HOUR")
+    minut =now.strftime("%M-%S")    
+                 
+            
+    create_folder(f'{MEDIA_ROOT}\\uploads\\','norma')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\norma\\',f'{year}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\{month}\\',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\{month}\\{day}\\',hour)
+            
+            
+    
+    path =f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\{month}\\{day}\\{hour}\\norma-{product_type}-{minut}.xlsx'
+    
     
     dff =pd.DataFrame(df_new)
-    path =os.path.join(os.path.expanduser("~/Desktop"),'new_base_cominirovaniy.xlsx')
+    # path =os.path.join(os.path.expanduser("~/Desktop"),'new_base_cominirovaniy.xlsx')
     
     dff.to_excel(path)
-    return JsonResponse({'a':'b'})
+    return redirect('norma_file_upload')
   
 
 def generatenewexceldata(request):

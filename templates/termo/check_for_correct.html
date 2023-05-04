@@ -55,7 +55,7 @@
   </div>
   <div class="container">
     {% if CharUtilsOne %}
-    <label><em> <b>Character Utils One</b></em>{{ CharUtilsOne|length }}</label>
+    <label><em> <b>Character Utils One</b></em></label>
       <form>
         <table class="table table-striped">
             <thead>
@@ -70,7 +70,7 @@
             </tr>
             </thead>
             <tbody>
-                    {%for char in CharUtilsOne |slice:":10" %}
+                    {%for char in CharUtilsOne  %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td  class ='new_char_one' ><input type='text' id ='matritsa{{forloop.counter}}' value='{{char}}' required></td>
@@ -91,7 +91,7 @@
 
     {% if CharUtilsTwo%}
     <br>
-    <label><em> <b>Character Utils Two</b></em>{{ CharUtilsTwo|length }}</label>
+    <label><em> <b>Character Utils Two</b></em></label>
     <label for="rg-from"></label>
     <table class="table table-striped">
         <thead>
@@ -103,7 +103,7 @@
           </tr>
         </thead>
         <tbody>
-                {%for char in CharUtilsTwo |slice:":10" %}
+                {%for char in CharUtilsTwo%}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td id='artikul{{ forloop.counter }}' class ='new_char' >{{char}}</td>
@@ -126,7 +126,7 @@
 
     {% if BazaProfile%}
     <br>
-    <label><em> <b>BAZA PROFILES</b></em>{{ BazaProfile|length }}</label>
+    <label><em> <b>BAZA PROFILES</b></em></label>
     <label for="rg-from"></label>
     <table class="table table-striped">
         <thead>
@@ -143,7 +143,7 @@
           </tr>
         </thead>
         <tbody>
-                {%for char in BazaProfile |slice:":10" %}
+                {%for char in BazaProfile  %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td class ='new_char_two' ><input type='text'  id ='artikultwo{{forloop.counter}}' value='{{char}}' required></td>
@@ -175,12 +175,7 @@
 <script>
 
     function excel_file_load(){
-      var btn1 = document.getElementById('char_three');
-          btn1.setAttribute('disabled','True');
-      var btn2 = document.getElementById('char_one');
-          btn2.setAttribute('disabled','True');
-      var btn3 = document.getElementById('char_two');
-          btn3.setAttribute('disabled','True');
+      
 
       document.body.style.cursor='wait';
 

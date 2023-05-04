@@ -800,6 +800,7 @@ def product_add_second(request,id):
       cache_for_cratkiy_text =[]
       
       for key,row in df.iterrows():
+            print(key)
             row['Сплав'] = row['Сплав'].replace('.0','')
             row['Сплав'] = row['Сплав'].replace('.0','')
             row['Длина (мм)'] = row['Длина (мм)'].replace('.0','')
@@ -1191,7 +1192,7 @@ def product_add_second(request,id):
                                           export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                                     else:       
                                           export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                                    
+                                    print(export_description)
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()

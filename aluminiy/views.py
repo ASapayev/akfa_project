@@ -721,68 +721,68 @@ def product_add_second(request,id):
       hour =now.strftime("%H HOUR")
       minut =now.strftime("%M")
       
-      doesnotexist,correct = check_for_correct(df,filename='aluminiy')
-      if not correct:
-            context ={
-                  'CharUtilsOne':doesnotexist[0],
-                  'CharUtilsTwo':doesnotexist[1],
-                  'BazaProfile':doesnotexist[2],
-                  'ArtikulComponent':doesnotexist[3]
-            }
-            df_char_utils_one = pd.DataFrame({
-                  'матрица':doesnotexist[0],
-                  'артикул':doesnotexist[0],
-                  'высота':['' for i in doesnotexist[0]],
-                  'ширина':['' for i in doesnotexist[0]],
-                  'высота_ширина':['' for i in doesnotexist[0]],
-                  'systems':['' for i in doesnotexist[0]]
-                  })
-            df_char_utils_two =pd.DataFrame({
-                  'артикул':doesnotexist[1],
-                  'полый_или_фасонный':['' for i in doesnotexist[1]]
-            })
-            df_baza_profiley =pd.DataFrame({
-                  'артикул':doesnotexist[2],
-                  'серия':['' for i in doesnotexist[2]],
-                  'старый_код_benkam':['' for i in doesnotexist[2]],
-                  'старый_код':['' for i in doesnotexist[2]],
-                  'old_product_description':['' for i in doesnotexist[2]],
-                  'компонент':['' for i in doesnotexist[2]],
-                  'product_description':['' for i in doesnotexist[2]]
-            })
-            ArtikulComponent
-            df_artikul_component =pd.DataFrame({
-                  'artikul':doesnotexist[3],
-                  'component':doesnotexist[3],
-                  'seria':['' for i in doesnotexist[3]],
-                  'product_description_ru1':['' for i in doesnotexist[3]],
-                  'product_description_ru':['' for i in doesnotexist[3]],
-                  'stariy_code_benkam':['' for i in doesnotexist[3]],
-                  'stariy_code_jomiy':['' for i in doesnotexist[3]],
-                  'proverka_artikul2':['' for i in doesnotexist[3]],
-                  'proverka_component2':['' for i in doesnotexist[3]],
-                  'gruppa_materialov':['' for i in doesnotexist[3]],
-                  'gruppa_materialov2':['' for i in doesnotexist[3]]
-            })
-            create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\','Not Exists')
+      # doesnotexist,correct = check_for_correct(df,filename='aluminiy')
+      # if not correct:
+      #       context ={
+      #             'CharUtilsOne':doesnotexist[0],
+      #             'CharUtilsTwo':doesnotexist[1],
+      #             'BazaProfile':doesnotexist[2],
+      #             'ArtikulComponent':doesnotexist[3]
+      #       }
+      #       df_char_utils_one = pd.DataFrame({
+      #             'матрица':doesnotexist[0],
+      #             'артикул':doesnotexist[0],
+      #             'высота':['' for i in doesnotexist[0]],
+      #             'ширина':['' for i in doesnotexist[0]],
+      #             'высота_ширина':['' for i in doesnotexist[0]],
+      #             'systems':['' for i in doesnotexist[0]]
+      #             })
+      #       df_char_utils_two =pd.DataFrame({
+      #             'артикул':doesnotexist[1],
+      #             'полый_или_фасонный':['' for i in doesnotexist[1]]
+      #       })
+      #       df_baza_profiley =pd.DataFrame({
+      #             'артикул':doesnotexist[2],
+      #             'серия':['' for i in doesnotexist[2]],
+      #             'старый_код_benkam':['' for i in doesnotexist[2]],
+      #             'старый_код':['' for i in doesnotexist[2]],
+      #             'old_product_description':['' for i in doesnotexist[2]],
+      #             'компонент':['' for i in doesnotexist[2]],
+      #             'product_description':['' for i in doesnotexist[2]]
+      #       })
+      #       ArtikulComponent
+      #       df_artikul_component =pd.DataFrame({
+      #             'artikul':doesnotexist[3],
+      #             'component':doesnotexist[3],
+      #             'seria':['' for i in doesnotexist[3]],
+      #             'product_description_ru1':['' for i in doesnotexist[3]],
+      #             'product_description_ru':['' for i in doesnotexist[3]],
+      #             'stariy_code_benkam':['' for i in doesnotexist[3]],
+      #             'stariy_code_jomiy':['' for i in doesnotexist[3]],
+      #             'proverka_artikul2':['' for i in doesnotexist[3]],
+      #             'proverka_component2':['' for i in doesnotexist[3]],
+      #             'gruppa_materialov':['' for i in doesnotexist[3]],
+      #             'gruppa_materialov2':['' for i in doesnotexist[3]]
+      #       })
+      #       create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\','Not Exists')
             
-            path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\Not Exists\\Not_Exists.xlsx'
+      #       path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\Not Exists\\Not_Exists.xlsx'
             
-            if os.path.isfile(path_not_exists):
-                  try:
-                        os.remove(path_not_exists)
-                  except:
-                        return render(request,'utils/file_exist.html')
+      #       if os.path.isfile(path_not_exists):
+      #             try:
+      #                   os.remove(path_not_exists)
+      #             except:
+      #                   return render(request,'utils/file_exist.html')
             
-            writer = pd.ExcelWriter(path_not_exists, engine='xlsxwriter')
-            df_char_utils_one.to_excel(writer,index=False,sheet_name ='character utils one')
-            df_char_utils_two.to_excel(writer,index=False,sheet_name ='character utils two')
-            df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
-            df_artikul_component.to_excel(writer,index=False,sheet_name ='artikul component')
-            writer.close()
-            # writer.save()
-            return render(request,'aluminiy/check_for_correct.html',context)
-      ################### group by#########
+      #       writer = pd.ExcelWriter(path_not_exists, engine='xlsxwriter')
+      #       df_char_utils_one.to_excel(writer,index=False,sheet_name ='character utils one')
+      #       df_char_utils_two.to_excel(writer,index=False,sheet_name ='character utils two')
+      #       df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
+      #       df_artikul_component.to_excel(writer,index=False,sheet_name ='artikul component')
+      #       writer.close()
+      #       # writer.save()
+      #       return render(request,'aluminiy/check_for_correct.html',context)
+      # ################### group by#########
       aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
       umumiy_counter={}
       for al in aluminiy_group:
@@ -829,6 +829,7 @@ def product_add_second(request,id):
       cache_for_cratkiy_text =[]
       
       for key,row in df.iterrows():
+            print(key)
             row['Сплав'] = row['Сплав'].replace('.0','')
             row['Сплав'] = row['Сплав'].replace('.0','')
             row['Длина (мм)'] = row['Длина (мм)'].replace('.0','')
@@ -1572,7 +1573,7 @@ def product_add_second(request,id):
                               export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                         else:       
                               export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                        
+                        print('char utils export_description = ',export_description)
                         export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                         
