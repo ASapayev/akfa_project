@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
  path('norma-base',views.norma_excel,name='norma_excel'),
  path('receipt-all',views.receipt_all,name='receipt_all'),
- path('process/<int:id>',views.process,name='process'),
+#  path('process/<int:id>',views.process,name='process'),
  path('process-combinirovanniy/<int:id>',views.kombinirovaniy_process,name='kombinirovaniy_process'),
  path('',views.index,name='norma_index'),
  path('file-upload',views.file_upload,name='norma_file_upload'),

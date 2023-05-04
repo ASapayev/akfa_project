@@ -66,10 +66,18 @@ def excelgenerate(data):
         
     return new_data
 
-def create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka,kombinirovanniy,file_name='termo'):
+def create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka,kombinirovanniy,lamplyonka,file_name='termo'):
     df_norma = pd.DataFrame({'SAP CODE':norma})
     df_kraska = pd.DataFrame({'SAP CODE':kraska})
     df_kombinirovanniy = pd.DataFrame({'Artikul':kombinirovanniy})
+    
+    norma_sap_kode = []
+    lamination_code = []
+    for lam in lamplyonka:
+        norma_sap_kode.append(lam[0])
+        lamination_code.append(lam[1])
+    
+    df_lamplyonka =pd.DataFrame({'NORMA SAP CODE':norma_sap_kode,'Lamination code':lamination_code})
     
     sap_code_s4q100 = []
     тип = []
@@ -128,6 +136,7 @@ def create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka,kombinirovann
     df_kraska.to_excel(writer,index=False,sheet_name ='Kraska')
     df_nakleyka.to_excel(writer,index=False,sheet_name ='Nakleyka')
     df_kombinirovanniy.to_excel(writer,index=False,sheet_name ='Kombinirovanniy utils')
+    df_lamplyonka.to_excel(writer,index=False,sheet_name ='Lamination code')
     writer.save()
     return 1
 

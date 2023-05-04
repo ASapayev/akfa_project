@@ -1537,7 +1537,7 @@ def product_add_second(request,id):
             elif row['Тип покрытия'] =='Анодированный':
                   df_new['akrat'][key]=row['Сплав'][len(row['Сплав'])-2:] +row['тип закаленности']+' L'+dlina+' '+row['Код цвета анодировки снаружи'].replace('.0','')
                   if row['Код наклейки'] != 'NT1':
-                        df_new['nkrat'][key]= df_new['akrat'][key] +' '+row['Контактность анодировки']+' ' + row['Код наклейки'].replace('.0','')
+                        df_new['nkrat'][key]= df_new['akrat'][key] +' ' + row['Код наклейки'].replace('.0','')
             else:
                   print("<<<<<< Нет Тип покрытия ! >>>>>>")
             
