@@ -78,7 +78,8 @@ def texcartaupload(request):
 def lenght_generate_imzo(request,id):
     file = ExcelFilesImzo.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
-    df =pd.read_excel(file_path,'BAZA')
+    df =pd.read_excel(file_path)
+    '''Shablon dlya zagruzki [ "МАТЕРИАЛ", "КРАТКИЙ ТЕКСТ", "UMREZ", "UMREN", "USR00", "USR01" ]   sheetname ="BAZA" '''
     df['Дупликат']='No'
     df =df.astype(str)
     counter = 0
@@ -136,12 +137,14 @@ def lenght_generate_imzo(request,id):
                     texcartatime.пресс_1_линия_буй ='1000'
                 if texcartatime.закалка_1_печь_буй =='0':
                     texcartatime.закалка_1_печь_буй ='1000'
-                if texcartatime.покраска_9016_белый_про_во_в_сутки_буй =='0':
-                    texcartatime.покраска_9016_белый_про_во_в_сутки_буй ='1000'
-                if texcartatime.покраска_8001_базовый_про_во_в_сутки_буй =='0':
-                    texcartatime.покраска_8001_базовый_про_во_в_сутки_буй ='1000'
-                if texcartatime.покраска_цветной_про_во_в_сутки_буй =='0':
-                    texcartatime.покраска_цветной_про_во_в_сутки_буй ='1000'
+                if texcartatime.покраска_SKM_белый_про_во_в_сутки_буй =='0':
+                    texcartatime.покраска_SKM_белый_про_во_в_сутки_буй ='1000'
+                if texcartatime.покраска_SAT_базовый_про_во_в_сутки_буй =='0':
+                    texcartatime.покраска_SAT_базовый_про_во_в_сутки_буй ='1000'
+                if texcartatime.покраска_горизонтал_про_во_в_сутки_буй =='0':
+                    texcartatime.покраска_горизонтал_про_во_в_сутки_буй ='1000'
+                if texcartatime.покраска_ручная_про_во_в_сутки_буй =='0':
+                    texcartatime.покраска_ручная_про_во_в_сутки_буй ='1000'
                 if texcartatime.вакуум_1_печка_про_во_в_сутки_буй =='0':
                     texcartatime.вакуум_1_печка_про_во_в_сутки_буй ='1000'
                 if texcartatime.термо_1_линия_про_во_в_сутки_буй =='0':
@@ -155,9 +158,10 @@ def lenght_generate_imzo(request,id):
                 texcartatime.пресс_1_линия_буй='1000'
                 texcartatime.пресс_1_линия_буй = '1000'
                 texcartatime.закалка_1_печь_буй = '1000'
-                texcartatime.покраска_9016_белый_про_во_в_сутки_буй = '1000'
-                texcartatime.покраска_8001_базовый_про_во_в_сутки_буй = '1000'
-                texcartatime.покраска_цветной_про_во_в_сутки_буй = '1000'
+                texcartatime.покраска_SKM_белый_про_во_в_сутки_буй = '1000'
+                texcartatime.покраска_SAT_базовый_про_во_в_сутки_буй = '1000'
+                texcartatime.покраска_горизонтал_про_во_в_сутки_буй = '1000'
+                texcartatime.покраска_ручная_про_во_в_сутки_буй = '1000'
                 texcartatime.вакуум_1_печка_про_во_в_сутки_буй = '1000'
                 texcartatime.термо_1_линия_про_во_в_сутки_буй = '1000'
                 texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй = '1000'
@@ -485,16 +489,11 @@ def lenght_generate_imzo(request,id):
             elif '-P' in row['МАТЕРИАЛ']:
                 if texcartatime=='0':
                     texcartatime ='1000'
-                if '9016' in row['КРАТКИЙ ТЕКСТ']:
-                    ptime = texcartatime.покраска_9016_белый_про_во_в_сутки_буй
-                elif '8001' in row['КРАТКИЙ ТЕКСТ']:
-                    ptime = texcartatime.покраска_8001_базовый_про_во_в_сутки_буй
-                else:
-                    ptime = texcartatime.покраска_цветной_про_во_в_сутки_буй
-             
                 for p in range(1,7):
                     if p ==1:
+                        ## SKM -SKM покраска
                         for i in range(1,3):
+                            
                             if i ==1:
                                 df_new['ID'][counter_2] ='1'
                                 df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
@@ -513,7 +512,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P1']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] =ptime
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_SKM_белый_про_во_в_сутки_буй
                                 df_new['MEINH'][counter_2] =BAZA['P1']['MEINH'][0]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -544,7 +543,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P2']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] =ptime
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_SAT_базовый_про_во_в_сутки_буй
                                 df_new['MEINH'][counter_2] =BAZA['P2']['MEINH'][0]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -575,7 +574,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P3']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] =ptime
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_горизонтал_про_во_в_сутки_буй
                                 df_new['MEINH'][counter_2] =BAZA['P3']['MEINH'][0]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -606,7 +605,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P4']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] =ptime
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_SKM_белый_про_во_в_сутки_буй
                                 df_new['MEINH'][counter_2] =BAZA['P4']['MEINH'][0]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -623,7 +622,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P4']['LTXA1'][1]
-                                df_new['BMSCH'][counter_2] =ptime
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_ручная_про_во_в_сутки_буй
                                 df_new['MEINH'][counter_2] =BAZA['P4']['MEINH'][1]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -654,7 +653,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P5']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] =ptime
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_SAT_базовый_про_во_в_сутки_буй
                                 df_new['MEINH'][counter_2] =BAZA['P5']['MEINH'][0]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -671,7 +670,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P5']['LTXA1'][1]
-                                df_new['BMSCH'][counter_2] =ptime
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_ручная_про_во_в_сутки_буй
                                 df_new['MEINH'][counter_2] =BAZA['P5']['MEINH'][1]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -702,7 +701,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P6']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] =ptime
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_горизонтал_про_во_в_сутки_буй
                                 df_new['MEINH'][counter_2] =BAZA['P6']['MEINH'][0]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -719,7 +718,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P6']['LTXA1'][1]
-                                df_new['BMSCH'][counter_2] =ptime
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_ручная_про_во_в_сутки_буй
                                 df_new['MEINH'][counter_2] =BAZA['P6']['MEINH'][1]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -736,15 +735,24 @@ def lenght_generate_imzo(request,id):
     now = datetime.now()
     s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
     
-    parent_dir = f'{MEDIA_ROOT}\\uploads\\imzo\\{s2}\\'
-    if not os.path.isdir(parent_dir):
-        create_folder(f'{MEDIA_ROOT}\\uploads\\imzo',s2)
-        
+    now = datetime.now()
+    year =now.strftime("%Y")
+    month =now.strftime("%B")
+    day =now.strftime("%a%d")
+    hour =now.strftime("%H HOUR")
+    minut =now.strftime("%M-%S")    
+                 
+            
+    create_folder(f'{MEDIA_ROOT}\\uploads\\','texcarta')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta\\',f'{year}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\{day}\\',hour)
     
-    path =f'{MEDIA_ROOT}\\uploads\\imzo\\{s2}\\duplicate.xlsx'
+    path =f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\{day}\\{hour}\\duplicate.xlsx'
     df.to_excel(path)
     
-    path2 =f'{MEDIA_ROOT}\\uploads\\imzo\\{s2}\\generated_data.xlsx'
+    path2 =f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\{day}\\{hour}\\цикл_тайм_для_тех_карты.xlsx'
     df_new.to_excel(path2)
     return redirect('abduvali')
 
