@@ -3933,7 +3933,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['BMENG'].append('')
                                 df_new['BMEIN'].append('')
                                 df_new['STLST'].append('')
-                                df_new['POSNR'].append(f'{k+1}')
+                                df_new['POSNR'].append(k+1)
                                 df_new['POSTP'].append('L')
                                 df_new['MATNR1'].append(older_process_kombinirovanniy[f's{k+1}'])
                                 df_new['TEXT2'].append(older_process_kombinirovanniy[f'k{k+1}'])
@@ -3941,7 +3941,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['MENGE'].append('ШТ')
                                 df_new['DATUV'].append('')
                                 df_new['PUSTOY'].append('')
-                                df_new['LGORT'].append('PS10')
+                                df_new['LGORT'].append('PS09')
                             
                             new_list_for_com = []
                             sap_code_new ={}
@@ -3972,7 +3972,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['BMENG'].append('')
                                 df_new['BMEIN'].append('')
                                 df_new['STLST'].append('')
-                                df_new['POSNR'].append(f'{ttt}')
+                                df_new['POSNR'].append(ttt)
                                 df_new['POSTP'].append('L')
                                 df_new['MATNR1'].append(val['sap_code'])
                                 df_new['TEXT2'].append(key)
@@ -3980,7 +3980,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['MENGE'].append('М')
                                 df_new['DATUV'].append('')
                                 df_new['PUSTOY'].append('')
-                                df_new['LGORT'].append('PS10')
+                                df_new['LGORT'].append('PS09')
                                 ttt +=1
                         
                                 
@@ -3998,7 +3998,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['BMENG'].append('')
                                 df_new['BMEIN'].append('')
                                 df_new['STLST'].append('')
-                                df_new['POSNR'].append(f'{k+1}')
+                                df_new['POSNR'].append(k+1)
                                 df_new['POSTP'].append('L')
                                 df_new['MATNR1'].append(older_process_kombinirovanniy[f's{k+1}'])
                                 df_new['TEXT2'].append(older_process_kombinirovanniy[f'k{k+1}'])
@@ -4483,9 +4483,9 @@ def kombinirovaniy_process(request,id):
                         
                     its_kombinirovanniy ='-K' in df[i][10]
                     
-                    print('oldin >>>>>> gp bez nakleyka',df[i][12])
+                    
                     if ((not '_' in df[i][13]) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1])):
-                        print('gp bez nakleykaga kirdi === ',df[i][12])
+                        
                         if its_kombinirovanniy:
                             if qatorlar_soni == 3:
                                 j+=1
@@ -5307,8 +5307,8 @@ def remove_whitespace(request):
     for norma in normas:
         print(norma.id)
         norma.компонент_1 = norma.компонент_1.strip()
-        norma.компонент_2 = norma.компонент_1.strip()
-        norma.компонент_3 = norma.компонент_1.strip()
+        norma.компонент_2 = norma.компонент_2.strip()
+        norma.компонент_3 = norma.компонент_3.strip()
         norma.артикул = norma.артикул.strip()
         norma.save()
         
@@ -5333,14 +5333,13 @@ def nakleyka_duplicate_del(request):
 
 
 def norma_for_list():
-        normas = Norma.objects.all().values_list("компонент_1","компонент_2","компонент_3",'артикул')
+        normas = Norma.objects.all().values_list("компонент_1","компонент_2","компонент_3","артикул")
         normass =[]
         for norm in normas:
             for n in norm:
                 if ((n !='0') and (n!='nan')):
                     normass.append(n)
-        norma_unique =set(normass)
         
         kraskas = Kraska.objects.all().values_list('код_краски_в_профилях',flat=True)
         
-        return norma_unique,kraskas
+        return normass,kraskas
