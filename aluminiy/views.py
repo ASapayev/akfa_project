@@ -706,7 +706,92 @@ kod_dekorativ_snaruji_ABC ={
       '3702':'ТЁМНЫЙ ОРЕХ',
       '8888':'ДУБ МОККО',
       '9999':'ШЕФ ДУБ СЕРЫЙ',
+      '3801':'3D',
       'nan':''  
+}
+
+svet_lam_plenke_POL ={
+      'Алюкс антрацит':'АЛЮКС АНТРАЦИТ',
+      'Золотой дуб':'ЗОЛОТОЙ ДУБ',
+      'Орех':'ОРЕХ',
+      'Дуб мокко':'ДУБ МОККО',
+      'Грецкий орех':'ГРЕЦКИЙ ОРЕХ',
+      'Дерево бальза':'ДЕРЕВО БАЛЬЗА',
+      'Винчестер':'ВИНЧЕСТЕР',
+      'Орех Ребраун':'ОРЕХ РЕБРАУН',
+      'Шеффелдский дуб серый':'ШЕФ ДУБ СЕРЫЙ',
+      'Шеф Альпийский дуб':'ШЕФ АЛЬП ДУБ',
+      'Гранитовый шеф дуб':'ГРАНИТ ШЕФ ДУБ',
+      'Метбраш серый антрацит':'МЕТБ СЕРЫЙ АНТР',
+      'Красный орех':'КРАСНЫЙ ОРЕХ',
+      'Шеффелдский дуб светлый':'ШЕФ ДУБ СВЕТ',
+      'Орех терра':'ОРЕХ ТЕРРА',
+      'Метбраш серый кварц':'МЕТБ СЕРЫЙ КВАР',
+      'Метбраш платин':'МЕТБ ПЛАТИН',
+      'Терновый дуб':'ТЕРНОВЫЙ ДУБ',
+      'Алюкс серый алюминий':'АЛЮКС СЕРЫЙ АЛЮ',
+      'Сантана':'САНТАНА',
+      'Светлый дуб':'СВЕТЛЫЙ ДУБ',
+      'ТЕМНЫЙ ДУБ':'ТЕМНЫЙ ДУБ',
+      'GOLD BRUSH':'GOLD BRUSH',
+      'X-BRUSH':'X-BRUSH',
+      'Ocean Blue':'Ocean Blue'
+}
+
+svet_lam_plenke_NA ={
+      'Алюкс антрацит':'НА АЛЮКС АНТРАЦИТ',
+      'Золотой дуб':'НА ЗОЛОТОЙ ДУБ',
+      'Орех':'НА ОРЕХ',
+      'Дуб мокко':'НА ДУБ МОККО',
+      'Грецкий орех':'НА ГРЕЦКИЙ ОРЕХ',
+      'Дерево бальза':'НА ДЕРЕВО БАЛЬЗА',
+      'Винчестер':'НА ВИНЧЕСТЕР',
+      'Орех Ребраун':'НА ОРЕХ РЕБРАУН',
+      'Шеффелдский дуб серый':'НА ШЕФ ДУБ СЕРЫЙ',
+      'Шеф Альпийский дуб':'НА ШЕФ АЛЬП ДУБ',
+      'Гранитовый шеф дуб':'НА ГРАНИТ ШЕФ ДУБ',
+      'Метбраш серый антрацит':'НА МЕТБ СЕРЫЙ АНТР',
+      'Красный орех':'НА КРАСНЫЙ ОРЕХ',
+      'Шеффелдский дуб светлый':'НА ШЕФ ДУБ СВЕТЛЫЙ',
+      'Орех терра':'НА ОРЕХ ТЕРРА',
+      'Метбраш серый кварц':'НА МЕТБ СЕРЫЙ КВАР',
+      'Метбраш платин':'НА МЕТБ ПЛАТИН',
+      'Терновый дуб':'НА ТЕРНОВЫЙ ДУБ',
+      'Алюкс серый алюминий':'НА АЛЮКС СЕРЫЙ АЛЮ',
+      'Сантана':'НА САНТАНА',
+      'Светлый дуб':'НА СВЕТЛЫЙ ДУБ',
+      'ТЕМНЫЙ ДУБ':'НА ТЕМНЫЙ ДУБ',
+      'GOLD BRUSH':'НА GOLD BRUSH',
+      'X-BRUSH':'НА X-BRUSH',
+      'Ocean Blue':'Ocean Blue'
+}
+
+svet_lam_plenke_VN ={
+      'Алюкс антрацит':'ВН АЛЮКС АНТРАЦИТ',
+      'Золотой дуб':'ВН ЗОЛОТОЙ ДУБ',
+      'Орех':'ВН ОРЕХ',
+      'Дуб мокко':'ВН ДУБ МОККО',
+      'Грецкий орех':'ВН ГРЕЦКИЙ ОРЕХ',
+      'Дерево бальза':'ВН ДЕРЕВО БАЛЬЗА',
+      'Винчестер':'ВН ВИНЧЕСТЕР',
+      'Орех Ребраун':'ВН ОРЕХ РЕБРАУН',
+      'Шеффелдский дуб серый':'ВН ШЕФ ДУБ СЕРЫЙ',
+      'Шеф Альпийский дуб':'ВН ШЕФ АЛЬП ДУБ',
+      'Гранитовый шеф дуб':'ВН ГРАНИТ ШЕФ ДУБ',
+      'Метбраш серый антрацит':'ВН МЕТБ СЕРЫЙ АНТР',
+      'Красный орех':'ВН КРАСНЫЙ ОРЕХ',
+      'Шеффелдский дуб светлый':'ВН ШЕФ ДУБ СВЕТЛЫЙ',
+      'Орех терра':'ВН ОРЕХ ТЕРРА',
+      'Метбраш серый кварц':'ВН МЕТБ СЕРЫЙ КВАР',
+      'Метбраш платин':'ВН МЕТБ ПЛАТИН',
+      'Терновый дуб':'ВН ТЕРНОВЫЙ ДУБ',
+      'Алюкс серый алюминий':'ВН АЛЮКС СЕРЫЙ АЛЮ',
+      'Сантана':'ВН САНТАНА',
+      'Светлый дуб':'ВН СВЕТЛЫЙ ДУБ',
+      'ТЕМНЫЙ ДУБ':'ВН ТЕМНЫЙ ДУБ',
+      'GOLD BRUSH':'ВН GOLD BRUSH',
+      'X-BRUSH':'ВН X-BRUSH',
+      'Ocean Blue':'Ocean Blue'
 }
 
 def product_add_second(request,id):
@@ -918,13 +1003,21 @@ def product_add_second(request,id):
                               AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['fkrat'][key],material=materiale).save()
                               df_new['fkrat_counter'][key]=materiale
                               artikle = materiale.split('-')[0]
-                        
+
+                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
                               else:
                                     tip_poktitiya = row['Тип покрытия'].lower()
                               
+                              
+                              export_description = ''
+                              if row['Комбинация'].lower() == 'с термомостом':  
+                                    export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                              else:       
+                                    export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                              export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()
                               
                               width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
@@ -976,11 +1069,19 @@ def product_add_second(request,id):
                               umumiy_counter[df['Артикул'][key]+'-F'] = 1
                               artikle = materiale.split('-')[0]
                         
+                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
                               else:
                                     tip_poktitiya = row['Тип покрытия'].lower()
+                              
+                              export_description = ''
+                              if row['Комбинация'].lower() == 'с термомостом':  
+                                    export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                              else:       
+                                    export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                              export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()
                               
                               
                               width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
@@ -1069,15 +1170,19 @@ def product_add_second(request,id):
                               if row['Тип покрытия'].lower() =='неокрашенный':
                                     surface_treatment_export ='Неокрашенный'
                               elif ((row['Тип покрытия'].lower() =='окрашенный') or (row['Тип покрытия'].lower() =='белый')):
-                                    surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']]
+                                    surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']] +' ' + row['Код краски снаружи']
                               elif row['Тип покрытия'].lower() =='сублимированный':
                                     surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
                               elif row['Тип покрытия'].lower() =='анодированный':
                                     surface_treatment_export = row['Код цвета анодировки снаружи']
                               elif row['Тип покрытия'].lower() =='ламинированный':
-                                    surface_treatment_export = row['Цвет лам пленки снаружи']
-                                    
-                                    
+                                    if (row['Цвет лам пленки снаружи']=='XXXX' or row['Цвет лам пленки снаружи']=='nan'):
+                                          surface_treatment_export = svet_lam_plenke_VN[row['Цвет лам пленки внутри']]                  
+                                    else:
+                                          if (row['Цвет лам пленки внутри']=='XXXX' or row['Цвет лам пленки внутри']=='nan'):
+                                                surface_treatment_export = svet_lam_plenke_NA[row['Цвет лам пленки снаружи']] 
+                                          else:
+                                                surface_treatment_export = svet_lam_plenke_POL[row['Цвет лам пленки снаружи']]
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -1148,15 +1253,19 @@ def product_add_second(request,id):
                               if row['Тип покрытия'].lower() =='неокрашенный':
                                     surface_treatment_export ='Неокрашенный'
                               elif ((row['Тип покрытия'].lower() =='окрашенный') or (row['Тип покрытия'].lower() =='белый')):
-                                    surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']]
+                                    surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']]+''+row['Код краски снаружи']
                               elif row['Тип покрытия'].lower() =='сублимированный':
                                     surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
                               elif row['Тип покрытия'].lower() =='анодированный':
                                     surface_treatment_export = row['Код цвета анодировки снаружи']
                               elif row['Тип покрытия'].lower() =='ламинированный':
-                                    surface_treatment_export = row['Цвет лам пленки снаружи']
-                                    
-                                    
+                                    if (row['Цвет лам пленки снаружи']=='XXXX' or row['Цвет лам пленки снаружи']=='nan'):
+                                          surface_treatment_export = svet_lam_plenke_VN[row['Цвет лам пленки внутри']]                  
+                                    else:
+                                          if (row['Цвет лам пленки внутри']=='XXXX' or row['Цвет лам пленки внутри']=='nan'):
+                                                surface_treatment_export = svet_lam_plenke_NA[row['Цвет лам пленки снаружи']] 
+                                          else:
+                                                surface_treatment_export = svet_lam_plenke_POL[row['Цвет лам пленки снаружи']]
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -1232,16 +1341,19 @@ def product_add_second(request,id):
                               if row['Тип покрытия'].lower() =='неокрашенный':
                                     surface_treatment_export ='Неокрашенный'
                               elif ((row['Тип покрытия'].lower() =='окрашенный') or (row['Тип покрытия'].lower() =='белый')):
-                                    surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']]
+                                    surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']] +' ' +row['Код краски снаружи']
                               elif row['Тип покрытия'].lower() =='сублимированный':
                                     surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
                               elif row['Тип покрытия'].lower() =='анодированный':
                                     surface_treatment_export = row['Код цвета анодировки снаружи']
                               elif row['Тип покрытия'].lower() =='ламинированный':
-                                    surface_treatment_export = row['Цвет лам пленки снаружи']
-                                    
-                                    
-                              
+                                    if (row['Цвет лам пленки снаружи']=='XXXX' or row['Цвет лам пленки снаружи']=='nan'):
+                                          surface_treatment_export = svet_lam_plenke_VN[row['Цвет лам пленки внутри']]                  
+                                    else:
+                                          if (row['Цвет лам пленки внутри']=='XXXX' or row['Цвет лам пленки внутри']=='nan'):
+                                                surface_treatment_export = svet_lam_plenke_NA[row['Цвет лам пленки снаружи']] 
+                                          else:
+                                                surface_treatment_export = svet_lam_plenke_POL[row['Цвет лам пленки снаружи']]
                                     
                               cache_for_cratkiy_text.append(
                                                 {'material':materiale,
@@ -1311,15 +1423,19 @@ def product_add_second(request,id):
                               if row['Тип покрытия'].lower() =='неокрашенный':
                                     surface_treatment_export ='Неокрашенный'
                               elif ((row['Тип покрытия'].lower() =='окрашенный') or (row['Тип покрытия'].lower() =='белый')):
-                                    surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']]
+                                    surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']] + ' ' + row['Код краски снаружи']
                               elif row['Тип покрытия'].lower() =='сублимированный':
                                     surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
                               elif row['Тип покрытия'].lower() =='анодированный':
                                     surface_treatment_export = row['Код цвета анодировки снаружи']
                               elif row['Тип покрытия'].lower() =='ламинированный':
-                                    surface_treatment_export = row['Цвет лам пленки снаружи']
-                                    
-                                    
+                                    if (row['Цвет лам пленки снаружи']=='XXXX' or row['Цвет лам пленки снаружи']=='nan'):
+                                          surface_treatment_export = svet_lam_plenke_VN[row['Цвет лам пленки внутри']]                  
+                                    else:
+                                          if (row['Цвет лам пленки внутри']=='XXXX' or row['Цвет лам пленки внутри']=='nan'):
+                                                surface_treatment_export = svet_lam_plenke_NA[row['Цвет лам пленки снаружи']] 
+                                          else:
+                                                surface_treatment_export = svet_lam_plenke_POL[row['Цвет лам пленки снаружи']]
                               
                                     
                               cache_for_cratkiy_text.append(
