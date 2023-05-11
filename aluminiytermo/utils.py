@@ -43,12 +43,15 @@ def create_characteristika(items):
     nakleyka_codes =[ code[0] for code in NakleykaCode.objects.values_list('name')]
     
     
-        
+    j=1 
     for item in items:
         
         krat_nak_code = item['kratkiy'][-3:]
         if krat_nak_code not in nakleyka_codes:
             item['print_view'] = ''
+        else:
+            item['print_view'] = krat_nak_code
+        j+=1
         # print('characteristikAAAAA outer  ',item['outer_side_wg_id'])
         # print('characteristikAAAAA inner  ',item['inner_side_wg_id'])
         character = Characteristika(
