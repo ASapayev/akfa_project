@@ -884,7 +884,7 @@ def product_add_second(request,id):
       cache_for_cratkiy_text =[]
       
       for key,row in df.iterrows():
-            print(key,'shablon >> ',row['Код наклейки'])
+            print(key)
             row['Сплав'] = row['Сплав'].replace('.0','')
             row['Сплав'] = row['Сплав'].replace('.0','')
             row['Длина (мм)'] = row['Длина (мм)'].replace('.0','')
