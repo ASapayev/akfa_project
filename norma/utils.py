@@ -1,5 +1,6 @@
 import pandas as pd
 from datetime import datetime
+import numpy as np
 import os
 from config.settings import MEDIA_ROOT
 import random
@@ -62,71 +63,64 @@ def excelgenerate(data):
         new_data['POSTP'][j] ='L'
         new_data['LGORT'][j] ='PS10'
         j+=1
-    
-        
     return new_data
 
+counter =0
+
 def create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka,kombinirovanniy,lamplyonka,file_name='termo'):
-    df_norma = pd.DataFrame({'SAP CODE':norma})
+    
+    
+    if len(norma)>0:
+        colors =[ color[11] for color in norma]
+        norma =[ col[:11] for col in norma]
+        
+        df_norma = pd.DataFrame(np.array(norma),columns=['Component','Artikul','Nakleyka code','Sublimation code','Sublimation meins','Skotch','shirina subdecor','Laminatsiya rasxod 1000 m2','Laminatsiya rasxod 1000 shtuk','уп_пол_лн_рас_уп_лн_на_1000_штук_кг или рас_скотча_рас_скотча_на_1000_штук_шт','Error type'])
+        # df_norma.style.apply(highlight_late,colors=colors)
+        # global counter
+        # counter = 0
+    else:
+        df_norma = pd.DataFrame(np.array([['','','','','','','','','','','']]),columns=['Component','Artikul','Nakleyka code','Sublimation code','Sublimation meins','Skotch','shirina subdecor','Laminatsiya rasxod 1000 m2','Laminatsiya rasxod 1000 shtuk','уп_пол_лн_рас_уп_лн_на_1000_штук_кг или рас_скотча_рас_скотча_на_1000_штук_шт','Error type'])
+    
     df_kraska = pd.DataFrame({'SAP CODE':kraska})
     df_kombinirovanniy = pd.DataFrame({'Artikul':kombinirovanniy})
     
-    norma_sap_kode = []
-    lamination_code = []
-    for lam in lamplyonka:
-        norma_sap_kode.append(lam[0])
-        lamination_code.append(lam[1])
+    if len(lamplyonka)>0:
+        df_lamplyonka =pd.DataFrame(np.array(lamplyonka),columns=['NORMA SAP CODE','Lamination code'])
+    else:
+        df_lamplyonka =pd.DataFrame(np.array([['','']]),columns=['NORMA SAP CODE','Lamination code'])
     
-    df_lamplyonka =pd.DataFrame({'NORMA SAP CODE':norma_sap_kode,'Lamination code':lamination_code})
-    
-    sap_code_s4q100 = []
-    тип = []
-    for silindr in alumniy_silindr:
-        sap_code_s4q100.append(silindr[0])
-        тип.append(silindr[1])
-        
-    pustoy_1 = ['' for i in sap_code_s4q100 ]
-    df_aluminiy_silindr = pd.DataFrame({'sap_code_s4q100':sap_code_s4q100,'название':pustoy_1,'еи':pustoy_1,'склад_закупа':pustoy_1,'тип':тип})
+    if len(alumniy_silindr)>0:
+        df_aluminiy_silindr = pd.DataFrame(np.array(alumniy_silindr),columns=['sap_code_s4q100','тип'])
+    else:
+        df_aluminiy_silindr = pd.DataFrame(np.array([['','']]),columns=['sap_code_s4q100','тип'])
 
+    if len(subdekor) >0:
+        df_subdekor = pd.DataFrame(np.array(subdekor),columns=['sap_code_s4q100','ширина_декор_пленки_мм','код_декор_пленки'])
+    else:
+        df_subdekor = pd.DataFrame(np.array([['','','']]),columns=['sap_code_s4q100','ширина_декор_пленки_мм','код_декор_пленки'])
+    
+    if len(nakleyka)>0:
+        df_nakleyka =pd.DataFrame(np.array(nakleyka),columns=['SAP CODE','NAKLEYKA CODE','SHIRINA NIZKIY','SHIRINA VERX','NIZKIY','VERX'])
+    else:
+        df_nakleyka =pd.DataFrame(np.array([['','','','','','']]),columns=['SAP CODE','NAKLEYKA CODE','SHIRINA NIZKIY','SHIRINA VERX','NIZKIY','VERX'])
+    
+    
 
-    код_декор_пленки = []
-    ширина_декор_пленки_мм = []
-    sap_code = []
     
-    for sub in subdekor:
-        код_декор_пленки.append(sub[0])
-        ширина_декор_пленки_мм.append(sub[1])
-        sap_code.append(sub[2])
-    
-    pustoy_2 = ['' for i in код_декор_пленки]
-    df_subdekor = pd.DataFrame({'sap_code_s4q100':sap_code,'название':pustoy_2,'еи':pustoy_2,'склад_закупа':pustoy_2,'код_декор_пленки':код_декор_пленки,'ширина_декор_пленки_мм':ширина_декор_пленки_мм})
-
-    sap_code_N = []
-    nakleyka_code=[]
-    shirina_niz =[]
-    shirina_verx =[]
-    niz = []
-    verx =[]
-    for nak in nakleyka:
-        sap_code_N.append(nak['sap_code'])
-        nakleyka_code.append(nak['nakleyka_code'])
-        shirina_niz.append(nak['shirina_niz'])
-        shirina_verx.append(nak['shirina_verx'])
-        niz.append(nak['niz'])
-        verx.append(nak['verx'])
-    
-    df_nakleyka =pd.DataFrame({'SAP CODE':sap_code_N,'NAKLEYKA CODE':nakleyka_code,'SHIRINA NIZKIY':shirina_niz,'SHIRINA VERX':shirina_verx,'NIZIY':niz,'VERX':verx})
-        
     now = datetime.now()
     year =now.strftime("%Y")
-    minut =now.strftime("%M-%S")
+    hour =now.strftime("%d-%B-%Y %H-%M")
+    
     
     create_folder(f'{MEDIA_ROOT}\\uploads\\','norma')
     create_folder(f'{MEDIA_ROOT}\\uploads\\norma\\',f'{year}')
     create_folder(f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\','Not Exists')
     
             
-    path =f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\Not Exists\\Not_Exists-{file_name}-{minut}.xlsx'
+    path =f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\Not Exists\\Not_exists-{hour}.xlsx'
+    
+    
+
     
     
     writer = pd.ExcelWriter(path, engine='xlsxwriter')
@@ -144,3 +138,9 @@ def create_folder(parent_dir,directory):
     path =os.path.join(parent_dir,directory)
     if not os.path.isdir(path):
         os.mkdir(path)
+        
+def highlight_late(col,colors):
+    global counter 
+    color = [f'background-color: {c}' for c in colors[counter] ]
+    counter += 1
+    return color +['background-color: white','background-color: white','background-color: white']

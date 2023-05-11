@@ -816,6 +816,9 @@ def product_add_second(request,id):
             row['Контактность анодировки'] = row['Контактность анодировки'].replace('.0','')
             row['Код лам пленки снаружи'] = row['Код лам пленки снаружи'].replace('.0','')
             row['Код лам пленки внутри'] = row['Код лам пленки внутри'].replace('.0','')
+            row['Код лам пленки внутри'] = row['Код лам пленки внутри'].replace('.0','')
+            
+            
             
             artikul = df['Артикул'][key]
             component = df['Компонент'][key]
@@ -1042,9 +1045,9 @@ def product_add_second(request,id):
                                     elif row['Тип покрытия'].lower() =='сублимированный':
                                           surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
                                     elif row['Тип покрытия'].lower() =='анодированный':
-                                          surface_treatment_export = row['Код цвета анодировки снаружи']
+                                          surface_treatment_export = str(row['Код цвета анодировки снаружи']).replace('.0','')
                                     elif row['Тип покрытия'].lower() =='ламинированный':
-                                          surface_treatment_export = row['Цвет лам пленки снаружи']
+                                          surface_treatment_export = str(row['Цвет лам пленки снаружи']).replace('.0','')
                                           
                                           
                                     
@@ -1121,9 +1124,9 @@ def product_add_second(request,id):
                                     elif row['Тип покрытия'].lower() =='сублимированный':
                                           surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
                                     elif row['Тип покрытия'].lower() =='анодированный':
-                                          surface_treatment_export = row['Код цвета анодировки снаружи']
+                                          surface_treatment_export = str(row['Код цвета анодировки снаружи']).replace('.0','')
                                     elif row['Тип покрытия'].lower() =='ламинированный':
-                                          surface_treatment_export = row['Цвет лам пленки снаружи']
+                                          surface_treatment_export = str(row['Цвет лам пленки снаружи']).replace('.0','')
                                           
                                           
                                     
@@ -1205,9 +1208,9 @@ def product_add_second(request,id):
                                     elif row['Тип покрытия'].lower() =='сублимированный':
                                           surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
                                     elif row['Тип покрытия'].lower() =='анодированный':
-                                          surface_treatment_export = row['Код цвета анодировки снаружи']
+                                          surface_treatment_export = str(row['Код цвета анодировки снаружи']).replace('.0','')
                                     elif row['Тип покрытия'].lower() =='ламинированный':
-                                          surface_treatment_export = row['Цвет лам пленки снаружи']
+                                          surface_treatment_export = str(row['Цвет лам пленки снаружи']).replace('.0','')
                                           
                                           
                                     print(f"Ukrat1 tip pokr {row['Тип покрытия']}")
@@ -1284,9 +1287,9 @@ def product_add_second(request,id):
                                     elif row['Тип покрытия'].lower() =='сублимированный':
                                           surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
                                     elif row['Тип покрытия'].lower() =='анодированный':
-                                          surface_treatment_export = row['Код цвета анодировки снаружи']
+                                          surface_treatment_export = str(row['Код цвета анодировки снаружи']).replace('.0','')
                                     elif row['Тип покрытия'].lower() =='ламинированный':
-                                          surface_treatment_export = row['Цвет лам пленки снаружи']
+                                          surface_treatment_export = str(row['Цвет лам пленки снаружи']).replace('.0','')
                                           
                                           
                                     print(f"Ukrat1 tip pokr {row['Тип покрытия']}")
