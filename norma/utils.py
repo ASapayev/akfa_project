@@ -71,15 +71,15 @@ def create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka,kombinirovann
     
     
     if len(norma)>0:
-        colors =[ color[11] for color in norma]
-        norma =[ col[:11] for col in norma]
+        colors =[ color[12] for color in norma]
+        norma =[ col[:12] for col in norma]
         
-        df_norma = pd.DataFrame(np.array(norma),columns=['Component','Artikul','Nakleyka code','Sublimation code','Sublimation meins','Skotch','shirina subdecor','Laminatsiya rasxod 1000 m2','Laminatsiya rasxod 1000 shtuk','уп_пол_лн_рас_уп_лн_на_1000_штук_кг или рас_скотча_рас_скотча_на_1000_штук_шт','Error type'])
+        df_norma = pd.DataFrame(np.array(norma),columns=['Component','Artikul','Nakleyka code','Sublimation code','Sublimation meins','Skotch','shirina subdecor','Laminatsiya rasxod 1000 m2','Laminatsiya rasxod 1000 shtuk','уп_пол_лн_рас_уп_лн_на_1000_штук_кг или рас_скотча_рас_скотча_на_1000_штук_шт','ala7_oddiy_ala8_qora_алю_сплав_6064','Error type'])
         # df_norma.style.apply(highlight_late,colors=colors)
         # global counter
         # counter = 0
     else:
-        df_norma = pd.DataFrame(np.array([['','','','','','','','','','','']]),columns=['Component','Artikul','Nakleyka code','Sublimation code','Sublimation meins','Skotch','shirina subdecor','Laminatsiya rasxod 1000 m2','Laminatsiya rasxod 1000 shtuk','уп_пол_лн_рас_уп_лн_на_1000_штук_кг или рас_скотча_рас_скотча_на_1000_штук_шт','Error type'])
+        df_norma = pd.DataFrame(np.array([['','','','','','','','','','','','']]),columns=['Component','Artikul','Nakleyka code','Sublimation code','Sublimation meins','Skotch','shirina subdecor','Laminatsiya rasxod 1000 m2','Laminatsiya rasxod 1000 shtuk','уп_пол_лн_рас_уп_лн_на_1000_штук_кг или рас_скотча_рас_скотча_на_1000_штук_шт','ala7_oddiy_ala8_qora_алю_сплав_6064','Error type'])
     
     df_kraska = pd.DataFrame({'SAP CODE':kraska})
     df_kombinirovanniy = pd.DataFrame({'Artikul':kombinirovanniy})
