@@ -639,7 +639,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate1203[44].append(SFSPF1203[sap_code_simvol])
             umumiy_without_duplicate1203[45].append('X')
             umumiy_without_duplicate1203[46].append(LGPRO1203[sap_code_simvol])
-            umumiy_without_duplicate1203[47].append('1')
+            umumiy_without_duplicate1203[47].append('')
             umumiy_without_duplicate1203[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         if gruppa_material=='ALUGP':
@@ -706,7 +706,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D1[44].append('')
             umumiy_without_duplicate12D1[45].append('X')
             umumiy_without_duplicate12D1[46].append('')
-            umumiy_without_duplicate12D1[47].append('1')
+            umumiy_without_duplicate12D1[47].append('X')
             umumiy_without_duplicate12D1[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         if gruppa_material=='ALUGP':
@@ -773,7 +773,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D2[44].append('')
             umumiy_without_duplicate12D2[45].append('X')
             umumiy_without_duplicate12D2[46].append('')
-            umumiy_without_duplicate12D2[47].append('1')
+            umumiy_without_duplicate12D2[47].append('X')
             umumiy_without_duplicate12D2[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         if gruppa_material=='ALUGP':
@@ -840,7 +840,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D3[44].append('')
             umumiy_without_duplicate12D3[45].append('X')
             umumiy_without_duplicate12D3[46].append('')
-            umumiy_without_duplicate12D3[47].append('1')
+            umumiy_without_duplicate12D3[47].append('X')
             umumiy_without_duplicate12D3[48].append(row['ch_combination'] + row['Тип покрытия'])
         if gruppa_material=='ALUGP':
             ######12D4
@@ -906,7 +906,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D4[44].append('')
             umumiy_without_duplicate12D4[45].append('X')
             umumiy_without_duplicate12D4[46].append('')
-            umumiy_without_duplicate12D4[47].append('1')
+            umumiy_without_duplicate12D4[47].append('X')
             umumiy_without_duplicate12D4[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         if gruppa_material=='ALUGP':
@@ -973,7 +973,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D5[44].append('')
             umumiy_without_duplicate12D5[45].append('X')
             umumiy_without_duplicate12D5[46].append('')
-            umumiy_without_duplicate12D5[47].append('1')
+            umumiy_without_duplicate12D5[47].append('X')
             umumiy_without_duplicate12D5[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         umumiy_without_duplicate1201[0].append(row['SAP код S4P 100'])
@@ -1039,7 +1039,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         umumiy_without_duplicate1201[44].append(SFSPF1201[sap_code_simvol])
         umumiy_without_duplicate1201[45].append('X')
         umumiy_without_duplicate1201[46].append(LGPRO1201[sap_code_simvol])
-        umumiy_without_duplicate1201[47].append('1')
+        umumiy_without_duplicate1201[47].append('')
         umumiy_without_duplicate1201[48].append(row['ch_combination'] + row['Тип покрытия'])
     umumiy_without_duplicate =[[] for i in range(0,49)]
     for i in range(0,len(umumiy_without_duplicate1201)):
@@ -1091,7 +1091,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
 ########################## end 1.txt ##############################
 
 ########################## 2.txt ##############################
-    header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tUEETK\tLGPRO\tSBDKZ'
+    header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tUEETK\tLGPRO\tAUTO_P_ORD'
     zavod_code ={
         '1203':'PVC',
         '1201':'PR1',
@@ -1140,7 +1140,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     d2['SFCPF']=umumiy_without_duplicate[44]
     d2['UEETK']=umumiy_without_duplicate[45]
     d2['LGPRO']=umumiy_without_duplicate[46]
-    d2['SBDKZ']=umumiy_without_duplicate[47]
+    d2['AUTO_P_ORD']=umumiy_without_duplicate[47]
 
     df2= pd.DataFrame(d2)
     np.savetxt(pathtext2, df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
