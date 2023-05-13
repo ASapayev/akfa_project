@@ -1438,7 +1438,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         dd2[5].append(row['ch_rawmat_type'])
         dd2[5].append('')
         dd2[5].append(row['ch_tnved'])
-        dd2[5].append(row['ch_surface_treatment_export'])
+        dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
         dd2[5].append(row['WMS_WIDTH'])
         dd2[5].append(row['WMS_HEIGHT'])
     
