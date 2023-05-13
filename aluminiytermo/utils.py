@@ -545,6 +545,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\4.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Длинный текст.txt'
         
     elif file_name =='aluminiy':
         parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
@@ -563,6 +564,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\4.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Длинный текст.txt'
     
     
     umumiy_without_duplicate1201 =[[] for i in range(0,49)]
@@ -572,7 +574,17 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     umumiy_without_duplicate12D3 =[[] for i in range(0,49)]
     umumiy_without_duplicate12D4 =[[] for i in range(0,49)]
     umumiy_without_duplicate12D5 =[[] for i in range(0,49)]
+    
+    dlinniy_text_zero =[[],[],[]]
     for key , row in datas.iterrows():
+        dlinniy_text_zero[0].append('1')
+        dlinniy_text_zero[1].append(row['SAP код S4P 100'])
+        dlinniy_text_zero[2].append(row['Польное наименование SAP'])
+        
+        dlinniy_text_zero[0].append('2')
+        dlinniy_text_zero[1].append(row['SAP код S4P 100'])
+        dlinniy_text_zero[2].append(row['Польное наименование SAP'])
+        
         
         if '-7' in row['SAP код S4P 100']:
                 gruppa_material ='ALUGP'
@@ -1063,7 +1075,26 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     for i in range(0,len(umumiy_without_duplicate12D5)):
         umumiy_without_duplicate[i]+=umumiy_without_duplicate12D5[i]     
 
+
+
+########################## Длинный текст.txt ##############################
+#dlinniy_text_zero
+    dlinniy_t ={}
+    header_dlinniy ='\tBISMT\t\t\t\tTEXT'
+    dlinniy_t['ID']=dlinniy_text_zero[0]
+    dlinniy_t['BISMT']=dlinniy_text_zero[1]
+    dlinniy_t['RU']=['RU' for x in dlinniy_text_zero[1]]
+    dlinniy_t['GRUN']=['GRUN' for x in dlinniy_text_zero[1]]
+    dlinniy_t['sa']=['' for x in dlinniy_text_zero[1]]
+    dlinniy_t['TEXT']=dlinniy_text_zero[2]
     
+    df_dlinniy_text= pd.DataFrame(dlinniy_t)
+    
+    np.savetxt(pathtext7, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
+    
+    
+########################## end Длинный текст.txt ##############################
+
 
 ########################## 1.txt ##############################
     d1={}
