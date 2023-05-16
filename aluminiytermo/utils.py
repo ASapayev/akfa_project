@@ -580,6 +580,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     dlinniy_text_zero =[[],[],[]]
     buxgalterskiy_naz =[[],[],[],[],[],[],[],[]]
     
+    # print(datas.columns)
     for key , row in datas.iterrows():
         dlinniy_text_zero[0].append('1')
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
@@ -591,10 +592,8 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         
         
         ############################ bugalter nazvaniya###
-        if '-7' in row['SAP код S4P 100']:
-            # buxgalterskiy_naz[0].append(row['SAP код S4P 100'])
-            # export_description
-            # export_description_eng
+        if 'ГП' == row['ch_rawmat_type']:
+            
             
             for ii in range(0,3):
                 if ii ==0:
@@ -615,7 +614,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 
                 buxgalterskiy_naz[0].append('1')
                 buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
-                buxgalterskiy_naz[2].append('')
+                buxgalterskiy_naz[2].append('1200')
                 buxgalterskiy_naz[3].append(vtweg)
                 buxgalterskiy_naz[4].append('EN')
                 buxgalterskiy_naz[5].append('1')
@@ -629,7 +628,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 buxgalterskiy_naz[4].append('RU')
                 buxgalterskiy_naz[5].append('1')
                 buxgalterskiy_naz[6].append('')
-                buxgalterskiy_naz[7].append(row['export_description'])
+                buxgalterskiy_naz[7].append(row['ch_export_description'])
                 
                 buxgalterskiy_naz[0].append('2')
                 buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
@@ -638,7 +637,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 buxgalterskiy_naz[4].append('EN')
                 buxgalterskiy_naz[5].append('1')
                 buxgalterskiy_naz[6].append('')
-                buxgalterskiy_naz[7].append(row['export_description_eng'])
+                buxgalterskiy_naz[7].append(row['ch_export_description_eng'])
                 
         
         
