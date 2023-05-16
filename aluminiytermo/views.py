@@ -1744,7 +1744,8 @@ def product_add_second(request,id):
                         
                         
                   df_new['ekrat'][key] = row['Сплав'][len(row['Сплав'])-2:] +'T4 '+'L'+dlina+' MF'
-                  df_new['zkrat'][key] = row['Сплав'][len(row['Сплав'])-2:] + row['тип закаленности'] +' L'+dlina+' MF'
+                  if row['тип закаленности']!='T4':
+                        df_new['zkrat'][key] = row['Сплав'][len(row['Сплав'])-2:] + row['тип закаленности'] +' L'+dlina+' MF'
                   
                   
                               
@@ -1922,12 +1923,13 @@ def product_add_second(request,id):
                               
                   termo_existZ =AluminiyProductTermo.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key]).exists()
                   simple_existZ =AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key]).exists()
-                  if (termo_existZ or simple_existZ):
-                        if termo_existZ:
-                              df_new['zkrat_counter'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key])[:1].get().material
-                        else:
-                              df_new['zkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key])[:1].get().material
-                  else: 
+                  if row['тип закаленности']!='T4':
+                        if (termo_existZ or simple_existZ):
+                              if termo_existZ:
+                                    df_new['zkrat_counter'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key])[:1].get().material
+                              else:
+                                    df_new['zkrat_counter'][key] = AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['zkrat'][key])[:1].get().material
+                        else: 
                         if AluminiyProductTermo.objects.filter(artikul =component,section ='Z').exists():
                               umumiy_counter_termo[ component +'-Z'] += 1
                               max_valuesZ = umumiy_counter_termo[ component +'-Z']
