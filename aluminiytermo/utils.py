@@ -40,17 +40,17 @@ def create_characteristika(items):
         [],[],[],[],[],[],[],[],[],[],
         [],[],[],[],[],[],[],[]
     ]
-    nakleyka_codes =[ code[0] for code in NakleykaCode.objects.values_list('name')]
+    # nakleyka_codes =[ code[0] for code in NakleykaCode.objects.values_list('name')]
     
     
     j=1 
     for item in items:
         
-        krat_nak_code = item['kratkiy'][-3:]
-        if krat_nak_code not in nakleyka_codes:
-            item['print_view'] = ''
-        else:
-            item['print_view'] = krat_nak_code
+        # krat_nak_code = item['kratkiy'][-3:]
+        # if krat_nak_code not in nakleyka_codes:
+        #     item['print_view'] = ''
+        # else:
+        #     item['print_view'] = krat_nak_code
         j+=1
         # print('characteristikAAAAA outer  ',item['outer_side_wg_id'])
         # print('characteristikAAAAA inner  ',item['inner_side_wg_id'])
@@ -280,7 +280,7 @@ def create_characteristika_utils(items):
         [],[]
     ]
     
-    nakleyka_codes =[ code[0] for code in NakleykaCode.objects.values_list('name')]
+    # nakleyka_codes =[ code[0] for code in NakleykaCode.objects.values_list('name')]
     
     
     
@@ -288,9 +288,9 @@ def create_characteristika_utils(items):
         if '-L' in item['material']:
             continue
         
-        krat_nak_code = item['kratkiy'][-3:]
-        if krat_nak_code not in nakleyka_codes:
-            item['print_view'] = ''
+        # krat_nak_code = item['kratkiy'][-3:]
+        # if krat_nak_code not in nakleyka_codes:
+        #     item['print_view'] = ''
         
         
         
@@ -546,6 +546,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Длинный текст.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Бухгалтерская названия.txt'
         
     elif file_name =='aluminiy':
         parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
@@ -565,6 +566,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Длинный текст.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Бухгалтерская названия.txt'
     
     
     umumiy_without_duplicate1201 =[[] for i in range(0,49)]
@@ -576,6 +578,8 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     umumiy_without_duplicate12D5 =[[] for i in range(0,49)]
     
     dlinniy_text_zero =[[],[],[]]
+    buxgalterskiy_naz =[[],[],[],[],[],[],[],[]]
+    
     for key , row in datas.iterrows():
         dlinniy_text_zero[0].append('1')
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
@@ -585,6 +589,60 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
         dlinniy_text_zero[2].append(row['Польное наименование SAP'])
         
+        
+        ############################ bugalter nazvaniya###
+        if '-7' in row['SAP код S4P 100']:
+            # buxgalterskiy_naz[0].append(row['SAP код S4P 100'])
+            # export_description
+            # export_description_eng
+            
+            for ii in range(0,3):
+                if ii ==0:
+                    vtweg ='99'
+                elif ii ==1:
+                    vtweg ='10'
+                elif ii ==2:
+                    vtweg ='20'
+                    
+                buxgalterskiy_naz[0].append('1')
+                buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                buxgalterskiy_naz[2].append('1200')
+                buxgalterskiy_naz[3].append(vtweg)
+                buxgalterskiy_naz[4].append('RU')
+                buxgalterskiy_naz[5].append('1')
+                buxgalterskiy_naz[6].append('')
+                buxgalterskiy_naz[7].append('')
+                
+                buxgalterskiy_naz[0].append('1')
+                buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                buxgalterskiy_naz[2].append('')
+                buxgalterskiy_naz[3].append(vtweg)
+                buxgalterskiy_naz[4].append('EN')
+                buxgalterskiy_naz[5].append('1')
+                buxgalterskiy_naz[6].append('')
+                buxgalterskiy_naz[7].append('')
+                
+                buxgalterskiy_naz[0].append('2')
+                buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                buxgalterskiy_naz[2].append('1200')
+                buxgalterskiy_naz[3].append(vtweg)
+                buxgalterskiy_naz[4].append('RU')
+                buxgalterskiy_naz[5].append('1')
+                buxgalterskiy_naz[6].append('')
+                buxgalterskiy_naz[7].append(row['export_description'])
+                
+                buxgalterskiy_naz[0].append('2')
+                buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                buxgalterskiy_naz[2].append('1200')
+                buxgalterskiy_naz[3].append(vtweg)
+                buxgalterskiy_naz[4].append('EN')
+                buxgalterskiy_naz[5].append('1')
+                buxgalterskiy_naz[6].append('')
+                buxgalterskiy_naz[7].append(row['export_description_eng'])
+                
+        
+        
+        ############################ end bugalter nazvaniya###
         
         if '-7' in row['SAP код S4P 100']:
                 gruppa_material ='ALUGP'
@@ -1077,6 +1135,24 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
 
 
 
+########################## Бухгалтерская название.txt ##############################
+    buxgalterskiy_t ={}
+    header_buxgalter ='ID\tMATNR\tVKORG\tVTWEG\tLANG\tTDID\tPOS\tLTEXT'
+    buxgalterskiy_t['ID']=buxgalterskiy_naz[0]
+    buxgalterskiy_t['MATNR']=buxgalterskiy_naz[1]
+    buxgalterskiy_t['VKORG']=buxgalterskiy_naz[2]
+    buxgalterskiy_t['VTWEG']=buxgalterskiy_naz[3]
+    buxgalterskiy_t['LANG']=buxgalterskiy_naz[4]
+    buxgalterskiy_t['TDID']=buxgalterskiy_naz[5]
+    buxgalterskiy_t['POS']=buxgalterskiy_naz[6]
+    buxgalterskiy_t['LTEXT']=buxgalterskiy_naz[7]
+    
+    df_bug_text= pd.DataFrame(buxgalterskiy_t)
+    
+    np.savetxt(pathtext8, df_bug_text.values,fmt='%s', delimiter="\t",header=header_buxgalter,comments='',encoding='ansi')
+    
+    
+########################## end Бухгалтерская название.txt ##############################
 ########################## Длинный текст.txt ##############################
 #dlinniy_text_zero
     dlinniy_t ={}
