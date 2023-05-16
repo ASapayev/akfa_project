@@ -608,7 +608,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 buxgalterskiy_naz[2].append('1200')
                 buxgalterskiy_naz[3].append(vtweg)
                 buxgalterskiy_naz[4].append('RU')
-                buxgalterskiy_naz[5].append('1')
+                buxgalterskiy_naz[5].append('0001')
                 buxgalterskiy_naz[6].append('')
                 buxgalterskiy_naz[7].append('')
                 
@@ -617,7 +617,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 buxgalterskiy_naz[2].append('1200')
                 buxgalterskiy_naz[3].append(vtweg)
                 buxgalterskiy_naz[4].append('EN')
-                buxgalterskiy_naz[5].append('1')
+                buxgalterskiy_naz[5].append('0001')
                 buxgalterskiy_naz[6].append('')
                 buxgalterskiy_naz[7].append('')
                 
@@ -626,7 +626,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 buxgalterskiy_naz[2].append('1200')
                 buxgalterskiy_naz[3].append(vtweg)
                 buxgalterskiy_naz[4].append('RU')
-                buxgalterskiy_naz[5].append('1')
+                buxgalterskiy_naz[5].append('0001')
                 buxgalterskiy_naz[6].append('')
                 buxgalterskiy_naz[7].append(row['ch_export_description'])
                 
@@ -635,7 +635,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 buxgalterskiy_naz[2].append('1200')
                 buxgalterskiy_naz[3].append(vtweg)
                 buxgalterskiy_naz[4].append('EN')
-                buxgalterskiy_naz[5].append('1')
+                buxgalterskiy_naz[5].append('0001')
                 buxgalterskiy_naz[6].append('')
                 buxgalterskiy_naz[7].append(row['ch_export_description_eng'])
                 
