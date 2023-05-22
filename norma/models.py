@@ -122,6 +122,8 @@ class Norma(models.Model):
     упаковка_колво_профилей_в_1_пачке = models.CharField(max_length = 255,blank=True,null=True)
     ala7_oddiy_ala8_qora_алю_сплав_6064 = models.CharField(max_length = 255,blank=True,null=True)
     алю_сплав_биллетов_102_178 =models.CharField(max_length = 255,blank=True,null=True)
+    бумага_расход_упоковочной_ленты_на_1000_штук_кг =models.CharField(max_length = 255,blank=True,null=True)
+    
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
     
