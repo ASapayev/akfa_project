@@ -271,3 +271,7 @@ class KombinirovaniyUtilsInformation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+class Accessuar(models.Model):
+    sap_code = models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
