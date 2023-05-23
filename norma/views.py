@@ -14,7 +14,7 @@ def index(request):
 
 # Create your views here.
 def norma_excel(request):
-    df = pd.read_excel('C:\\OpenServer\\domains\\Norma22.xlsx','Общий')
+    df = pd.read_excel('c:\OSPanel\domains\\Norma22.xlsx','Общий')
     df =df.astype(str)
     
     df =df.replace('nan','0')
@@ -2443,12 +2443,12 @@ def kombinirovaniy_process(request,id):
                     print(artikul_org,length[0])             
                     if artikul_org!='':
                         if product_type =='termo':              
-                            alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]) & ~Q(ala7_oddiy_ala8_qora_алю_сплав_6064='0'))
+                            alum_teks_all =  Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]) | Q(артикул =artikul_org))
                         else:
                             print('shu yerda')
-                            alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])).filter(артикул =artikul_org)
+                            alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул =artikul_org))
                     else:
-                        alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])& ~Q(ala7_oddiy_ala8_qora_алю_сплав_6064='0'))
+                        alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул =length[0]))
                     alum_teks = alum_teks_all[:1].get()
                     if (('178' in alum_teks.алю_сплав_биллетов_102_178) and (alum_teks.алю_сплав_биллетов_102_178 !='0')):
                         if not AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178').exists():
@@ -2470,9 +2470,9 @@ def kombinirovaniy_process(request,id):
                 
                 if (('-S' in t) and (length[0] not in does_not_exist_norm)) :
                     if artikul_org!='':                
-                        alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])).filter(артикул=artikul_org)
+                        alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=artikul_org))
                     else:
-                        alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]))
+                        alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=length[0]))
                     alum_teks = alum_teks_all[:1].get()
                     
                     sublimatsiya_code = fullsapkod[i * 2+1].split('_')[1]
@@ -2532,7 +2532,7 @@ def kombinirovaniy_process(request,id):
                     its_kombinirovanniy ='-K' in df[k][10]
                     
                     if its_kombinirovanniy:
-                        norma_1 = Norma.objects.filter(артикул=artikul_org)[:1].get()
+                        norma_1 = Norma.objects.filter(артикул=length[0])[:1].get()
                         if ((norma_1.уп_пол_лн_рас_уп_лн_на_1000_штук_кг =='0') or (norma_1.рас_скотча_рас_скотча_на_1000_штук_шт=='0')):
                             isklyucheniye_ids.append(k)
                             norma.append([length[0],artikul_org,'','','','','','','','xato 0','','Normada Gp bez nakleyka',['#12a4d9','#12a4d9','white','white','white','white','white']])
@@ -2541,14 +2541,14 @@ def kombinirovaniy_process(request,id):
                     if ('-N' in t):
                         if artikul_org != '':
                             try:
-                                norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])).filter(артикул=artikul_org)[:1].get()
+                                norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=artikul_org))[:1].get()
                             except Norma.DoesNotExist:
                                 norma.append([length[0],artikul_org,'','','','','','','','','','Normada Komponenta va artikul birgalikda kelmagan',['#12a4d9','#12a4d9','white','white','white','white','white']])
                                 isklyucheniye_ids.append(k)
                                 continue
                         else:
                             try:
-                                norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]))[:1].get()
+                                norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=length[0]))[:1].get()
                             except Norma.DoesNotExist:
                                 norma.append([length[0],artikul_org,'','','','','','','','','','Normada Komponenta va artikul birgalikda kelmagan',['#12a4d9','#12a4d9','white','white','white','white','white']])
                                 isklyucheniye_ids.append(k)
@@ -2943,26 +2943,6 @@ def kombinirovaniy_process(request,id):
         older_process ={'sapcode':'','kratkiy':''}
         norma_existsE = CheckNormaBase.objects.filter(artikul=df[i][0],kratkiytekst=df[i][1]).exists()
         
-        if df[i][12] !='':
-            artikul_org = df[i][12].split('-')[0]
-        elif df[i][0] !='':
-            komponent =df[i][0].split('-')[0]
-            artikul_org = Norma.objects.filter(Q(компонент_1=komponent)|Q(компонент_2=komponent)|Q(компонент_3=komponent)& ~Q(артикул='0'))[:1].get().артикул   
-        elif df[i][2] !='':
-            komponent =df[i][2].split('-')[0]
-            artikul_org = Norma.objects.filter(Q(компонент_1=komponent)|Q(компонент_2=komponent)|Q(компонент_3=komponent)& ~Q(артикул='0'))[:1].get().артикул   
-        elif df[i][4] !='':
-            komponent =df[i][4].split('-')[0]
-            artikul_org = Norma.objects.filter(Q(компонент_1=komponent)|Q(компонент_2=komponent)|Q(компонент_3=komponent)& ~Q(артикул='0'))[:1].get().артикул
-        elif df[i][6] !='':
-            komponent =df[i][6].split('-')[0]
-            artikul_org = Norma.objects.filter(Q(компонент_1=komponent)|Q(компонент_2=komponent)|Q(компонент_3=komponent)& ~Q(артикул='0'))[:1].get().артикул
-        elif df[i][8] !='':
-            komponent =df[i][8].split('-')[0]
-            artikul_org = Norma.objects.filter(Q(компонент_1=komponent)|Q(компонент_2=komponent)|Q(компонент_3=komponent)& ~Q(артикул='0'))[:1].get().артикул
-        elif df[i][10] !='':
-            komponent =df[i][10].split('-')[0]
-            artikul_org = Norma.objects.filter(Q(компонент_1=komponent)|Q(компонент_2=komponent)|Q(компонент_3=komponent)& ~Q(артикул='0'))[:1].get().артикул
         
         
         if not norma_existsE:
@@ -2981,7 +2961,7 @@ def kombinirovaniy_process(request,id):
                         ztekst ='Экструзия (пресс) + Пила'
                     df_new['ZTEXT'].append(ztekst)
                     length = df[i][0].split('-')[0]
-                    alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)).filter(артикул=artikul_org)[:1].get()
+                    alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                     
                     if '178' in alum_teks.алю_сплав_биллетов_102_178:
                         aliminisi = AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178')[:1].get()
@@ -3089,7 +3069,7 @@ def kombinirovaniy_process(request,id):
                     df_new['ZTEXT'].append(ztekst)
                     length = df[i][2].split('-')[0]
                     
-                    alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length) & ~Q(алю_сплав_биллетов_102_178='0'))[:1].get()
+                    alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
                     
                     if '178' in alum_teks.алю_сплав_биллетов_102_178:
                         aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178')[:1].get()
@@ -3220,9 +3200,9 @@ def kombinirovaniy_process(request,id):
                             df_new['LGORT'].append('')
                             length = df[i][4].split('-')[0]
                             if product_type =='termo':
-                                alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length) & ~Q(ala7_oddiy_ala8_qora_алю_сплав_6064='0'))[:1].get()
+                                alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
                             else:
-                                alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)).filter(артикул=artikul_org)[:1].get()
+                                alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                             
                             print(length)
                             mein_percent =((get_legth(df[i][5]))/float(alum_teks.длина_профиля_м))
@@ -3342,7 +3322,7 @@ def kombinirovaniy_process(request,id):
                         df_new['LGORT'].append('')
                         length = df[i][6].split('-')[0]
                         
-                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)).filter(артикул=artikul_org)[:1].get()
+                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                         
                         mein_percent =((get_legth(df[i][7]))/float(alum_teks.длина_профиля_м))
                         
@@ -3436,7 +3416,7 @@ def kombinirovaniy_process(request,id):
                     
                         length = df[i][8].split('-')[0]
                         print('N ===== ',length,' artikul === ',artikul_org)
-                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)).filter(артикул=artikul_org)[:1].get()
+                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                         
                         mein_percent =((get_legth(df[i][9]))/float(alum_teks.длина_профиля_м))
                         
@@ -4123,7 +4103,7 @@ def kombinirovaniy_process(request,id):
                     nakleyka_code = df[i][13].split()[-1]
                     length = df[i][12].split('-')[0]
                     
-                    alum_teks = Norma.objects.filter(артикул=length)[:1].get()
+                    alum_teks =  Norma.objects.filter(артикул=length)[:1].get()
                     
                     mein_percent =((get_legth(df[i][13]))/float(alum_teks.длина_профиля_м))
                     

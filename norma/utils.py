@@ -131,7 +131,7 @@ def create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka,kombinirovann
     df_nakleyka.to_excel(writer,index=False,sheet_name ='Nakleyka')
     df_kombinirovanniy.to_excel(writer,index=False,sheet_name ='Kombinirovanniy utils')
     df_lamplyonka.to_excel(writer,index=False,sheet_name ='Lamination code')
-    writer.save()
+    writer.close()
     return 1
 
 def create_folder(parent_dir,directory):
