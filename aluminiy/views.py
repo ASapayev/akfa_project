@@ -2575,7 +2575,7 @@ def product_add_second(request,id):
       df_new.to_excel(writer,index=False,sheet_name='Schotchik')
       df_char.to_excel(writer,index=False,sheet_name='Characteristika')
       df_char_title.to_excel(writer,index=False,sheet_name='title')
-      writer.save()
+      writer.close()
       
       return redirect('upload_product')
                   

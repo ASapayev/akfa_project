@@ -832,7 +832,7 @@ def product_add_second(request,id):
             df_char_utils_one.to_excel(writer,index=False,sheet_name ='character utils one')
             df_char_utils_two.to_excel(writer,index=False,sheet_name ='character utils two')
             df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
-            writer.save()
+            writer.close()
             return render(request,'termo/check_for_correct.html',context)
       ################### group by#########
       aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
@@ -2729,7 +2729,7 @@ def product_add_second(request,id):
       df_char.to_excel(writer,index=False,sheet_name ='characteristika')
       df_char_title.to_excel(writer,index=False,sheet_name ='title')
       # df_char_title_full.to_excel(writer,index=False,sheet_name ='title')
-      writer.save()
+      writer.close()
       return redirect('upload_product_termo')
                   
     
