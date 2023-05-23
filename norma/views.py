@@ -2448,7 +2448,7 @@ def kombinirovaniy_process(request,id):
                             print('shu yerda')
                             alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул =artikul_org))
                     else:
-                        alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул =length[0]))
+                        alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]))
                     alum_teks = alum_teks_all[:1].get()
                     if (('178' in alum_teks.алю_сплав_биллетов_102_178) and (alum_teks.алю_сплав_биллетов_102_178 !='0')):
                         if not AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178').exists():
@@ -2470,9 +2470,9 @@ def kombinirovaniy_process(request,id):
                 
                 if (('-S' in t) and (length[0] not in does_not_exist_norm)) :
                     if artikul_org!='':                
-                        alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=artikul_org))
+                        alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]))
                     else:
-                        alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=length[0]))
+                        alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]))
                     alum_teks = alum_teks_all[:1].get()
                     
                     sublimatsiya_code = fullsapkod[i * 2+1].split('_')[1]
@@ -2496,6 +2496,13 @@ def kombinirovaniy_process(request,id):
                     if alum_teks.молярный_скотч_рас_на_1000_пр_шт1 =='0':
                         skotch_bor =False
                     
+                        
+                    # if not mein_bor:
+                    #     isklyucheniye_ids.append(k)
+                    #     norma.append([length[0],'','',sublimatsiya_code,'Xato 0 berilgan','','','','','','','Norma Sublimatsiya meins 0 ga teng',['white','white','white','white','#d9138a','#d9138a','#d9138a']])
+                    # if not skotch_bor:
+                    #     isklyucheniye_ids.append(k)
+                    #     norma.append([length[0],'','',sublimatsiya_code,'','Xato 0 berilgan','','','','','','Norma Sublimatsiya scotch 0 ga teng',['white','white','white','white','#d9138a','#d9138a','#d9138a']])
                     if ((code_ss =='0') or (not mein_bor) or (not skotch_bor)):
                         if not mein_bor:
                             if not skotch_bor:
@@ -2541,14 +2548,14 @@ def kombinirovaniy_process(request,id):
                     if ('-N' in t):
                         if artikul_org != '':
                             try:
-                                norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=artikul_org))[:1].get()
+                                norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]))[:1].get()
                             except Norma.DoesNotExist:
                                 norma.append([length[0],artikul_org,'','','','','','','','','','Normada Komponenta va artikul birgalikda kelmagan',['#12a4d9','#12a4d9','white','white','white','white','white']])
                                 isklyucheniye_ids.append(k)
                                 continue
                         else:
                             try:
-                                norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=length[0]))[:1].get()
+                                norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]))[:1].get()
                             except Norma.DoesNotExist:
                                 norma.append([length[0],artikul_org,'','','','','','','','','','Normada Komponenta va artikul birgalikda kelmagan',['#12a4d9','#12a4d9','white','white','white','white','white']])
                                 isklyucheniye_ids.append(k)
@@ -2630,7 +2637,7 @@ def kombinirovaniy_process(request,id):
                                     if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,True,True] not in nakleyka_N:
                                         nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм,norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм,True,True])
                         elif ((norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм =='0') and (norma_1.заш_пл_кг_м_akfa_низ_ширина_ленты_мм == '0')):
-                            norma.append(['',artikul_org,'A01','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
+                            norma.append(['',length[0],'A01','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
                             isklyucheniye_ids.append(k)
                         else:
                             if not Nakleyka.objects.filter(код_наклейки = 'A01',ширина= norma_1.заш_пл_кг_м_akfa_верх_ширина_ленты_мм).exists():
@@ -2661,7 +2668,7 @@ def kombinirovaniy_process(request,id):
                                     if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,True,True] not in nakleyka_N:
                                         nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм,norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм,True,True])
                         elif ((norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм =='0') and (norma_1.заш_пл_кг_м_retpen_низ_ширина_ленты_мм == '0')):
-                            norma.append(['',artikul_org,'R05','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
+                            norma.append(['',length[0],'R05','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
                             isklyucheniye_ids.append(k)
                         else:
                             if not Nakleyka.objects.filter(код_наклейки = 'R05',ширина= norma_1.заш_пл_кг_м_retpen_верх_ширина_ленты_мм).exists():
@@ -2693,7 +2700,7 @@ def kombinirovaniy_process(request,id):
                                         nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,True,True])
                         elif ((norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм == '0')):
                           
-                            norma.append(['',artikul_org,'B01','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
+                            norma.append(['',length[0],'B01','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
                             isklyucheniye_ids.append(k)
                         else:
                             if not Nakleyka.objects.filter(код_наклейки = 'B01',ширина= norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм).exists():
@@ -2724,7 +2731,7 @@ def kombinirovaniy_process(request,id):
                                     if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,True,True] not in nakleyka_N:
                                         nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,True,True])
                         elif ((norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм == '0')):
-                            norma.append(['',artikul_org,'I02','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
+                            norma.append(['',length[0],'I02','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
                             isklyucheniye_ids.append(k)
                         else:
                             if not Nakleyka.objects.filter(код_наклейки = 'I02',ширина= norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм).exists():
@@ -2755,7 +2762,7 @@ def kombinirovaniy_process(request,id):
                                     if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,True] not in nakleyka_N:
                                         nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,True])
                         elif ((norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм == '0')):
-                            norma.append(['',artikul_org,'I01','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
+                            norma.append(['',length[0],'I01','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
                             isklyucheniye_ids.append(k)
                         else:
                             if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм).exists():
@@ -2786,7 +2793,7 @@ def kombinirovaniy_process(request,id):
                                     if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,True] not in nakleyka_N:
                                         nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,True])
                         elif ((norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм == '0')):
-                            norma.append(['',artikul_org,'NB1','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
+                            norma.append(['',length[0],'NB1','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
                             isklyucheniye_ids.append(k)
                         else:
                             if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм).exists():
@@ -2818,7 +2825,7 @@ def kombinirovaniy_process(request,id):
                                     if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,True,True] not in nakleyka_N:
                                         nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,True,True])
                         elif ((norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм =='0') and (norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм == '0')):
-                            norma.append(['',artikul_org,'E01','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
+                            norma.append(['',length[0],'E01','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
                             isklyucheniye_ids.append(k)
                         else:
                             if not Nakleyka.objects.filter(код_наклейки = 'E01',ширина= norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм).exists():
@@ -2831,8 +2838,10 @@ def kombinirovaniy_process(request,id):
                                     nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,True,True])
                           
                     elif nakleyka_code =='E02':
+                        
                         aluminiy_norma_log = (norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты and norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты != '0') or ((norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты)and((norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты=='0')))
                         if aluminiy_norma_log:
+                            
                             if norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм =='0':
                                 if not Nakleyka.objects.filter(код_наклейки = 'E02',ширина= norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты).exists():
                                     isklyucheniye_ids.append(k)
@@ -2848,8 +2857,9 @@ def kombinirovaniy_process(request,id):
                                     isklyucheniye_ids.append(k)
                                     if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,True,True] not in nakleyka_N:
                                         nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты,norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм,True,True])
+                            
                         elif ((norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты == '0')):
-                            norma.append(['',artikul_org,'E02','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
+                            norma.append(['',length[0],'E02','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
                             isklyucheniye_ids.append(k)
                         else:
                             if not Nakleyka.objects.filter(код_наклейки = 'E02',ширина= norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм).exists():
@@ -2961,7 +2971,7 @@ def kombinirovaniy_process(request,id):
                         ztekst ='Экструзия (пресс) + Пила'
                     df_new['ZTEXT'].append(ztekst)
                     length = df[i][0].split('-')[0]
-                    alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+                    alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
                     
                     if '178' in alum_teks.алю_сплав_биллетов_102_178:
                         aliminisi = AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178')[:1].get()
@@ -3202,7 +3212,7 @@ def kombinirovaniy_process(request,id):
                             if product_type =='termo':
                                 alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
                             else:
-                                alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+                                alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
                             
                             print(length)
                             mein_percent =((get_legth(df[i][5]))/float(alum_teks.длина_профиля_м))
@@ -3322,7 +3332,7 @@ def kombinirovaniy_process(request,id):
                         df_new['LGORT'].append('')
                         length = df[i][6].split('-')[0]
                         
-                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
                         
                         mein_percent =((get_legth(df[i][7]))/float(alum_teks.длина_профиля_м))
                         
@@ -3416,7 +3426,7 @@ def kombinirovaniy_process(request,id):
                     
                         length = df[i][8].split('-')[0]
                         print('N ===== ',length,' artikul === ',artikul_org)
-                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
                         
                         mein_percent =((get_legth(df[i][9]))/float(alum_teks.длина_профиля_м))
                         

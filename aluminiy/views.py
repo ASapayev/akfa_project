@@ -27,9 +27,6 @@ def index(request):
 
 def artikul_and_companent(request):
       df = pd.read_excel('c:\\OpenServer\\domains\\new_component.xlsx','Лист1')
-      print(df.shape)
-      # print(df['АРТИКУЛ'][0])
-      # print(df['АРТИКУЛ'][3749])
       for i in range(0,3750):
             artikul =df['АРТИКУЛ'][i] 
             component =df['КОМПОНЕНТ'][i]
@@ -61,9 +58,6 @@ def artikul_and_companent(request):
 
 def aluminiy_productbases(request):
   df = pd.read_excel('c:\\OpenServer\\domains\\Новая база2.XLSX','без термо')
-  print(df.shape)
-#   print(df['Материал'][0])
-#   print(df['Материал'][39705])
   
   for i in range(0,df.shape[0]):
     material =df['Материал'][i] 
@@ -89,7 +83,7 @@ def aluminiy_productbases(request):
 
 def alu_product_base(request):
   df = pd.read_excel('C:\\OpenServer\\domains\\Aluminiy_baza.xlsx','Лист1') 
-  print(df.shape)
+  
   for i in range(0,df.shape[0]):
     ekstruziya_sap_kod =df['Экструзия сап код'][i]
     ekstruziya_kratkiy_tekst =df['Экструзия краткий текст'][i]
@@ -157,7 +151,7 @@ def aluminiy_files(request):
 
 def aluminiy_group(request):
       aluminiy_group =AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
-      #   print(aluminiy_group)
+      
       umumiy={}
       for al in aluminiy_group:    
             # product ={}
@@ -165,7 +159,7 @@ def aluminiy_group(request):
             # product['section_max']=al['total_max']
             # product['artikul']=al['artikul']
             umumiy[ al['artikul'] + '-' + al['section'] ] = al['total_max']
-      print('aa   ')
+      
       return JsonResponse({'data':umumiy})
 
 def update_char_title(request,id):
@@ -201,7 +195,7 @@ def aluminiy_files_simple_char_title(request):
       
       
 #       a=datetime.now()
-#       print('starts in ...',a)
+#       
 #       for key,row in df.iterrows():
 #             if row['Тип покрытия'] == 'nan':
 #                   df = df.drop(key)
@@ -234,8 +228,7 @@ def aluminiy_files_simple_char_title(request):
       
       
 #       # exists =ArtikulComponent.objects.filter(artikul__in =df['Артикул'])
-#       # print(df['Артикул'])
-#       # print(type(df['Артикул']))
+
       
 #       for key,row in df.iterrows():
 #             termo = False
@@ -671,8 +664,7 @@ def aluminiy_files_simple_char_title(request):
       
 #       # del df_new["artikul"]            
 #       b = datetime.now()
-#       print('ends in ...',b)
-#       print('difference =',b-a) 
+
 #       s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
 #       parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
        
@@ -953,7 +945,6 @@ def product_add_second(request,id):
                         component = row['Артикул']
                         termo = True
                   else:
-                        print('no components and artikules!!')
                         continue
                   
             if df['Длина при выходе из пресса'][key] != 'nan':
@@ -1328,7 +1319,7 @@ def product_add_second(request,id):
                               AluminiyProduct(artikul = df['Артикул'][key],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][key],material=materiale).save()
                               df_new['SAP код 7'][key] = materiale
                               artikle = str(materiale).split('-')[0]
-                              print(artikle)
+                             
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -1341,7 +1332,7 @@ def product_add_second(request,id):
                                     export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                               else:       
                                     export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                              print(export_description)
+                              
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                               width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
@@ -1502,7 +1493,7 @@ def product_add_second(request,id):
                               AluminiyProduct(artikul =component,section ='L',counter=max_valuesL,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Ламинация'][key],material=materiale).save()
                               df_new['SAP код L'][key]=materiale
                               artikle = materiale.split('-')[0]
-                              print(artikle)
+                              
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -1665,16 +1656,17 @@ def product_add_second(request,id):
                   if row['Код наклейки'] != 'NT1':
                         df_new['Наклейка'][key]= df_new['Анодировка'][key] +' ' + row['Код наклейки'].replace('.0','')
             else:
-                  print("<<<<<< Нет Тип покрытия ! >>>>>>")
+                  pass
+                  
             
             termo_existE =AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key]).exists()
             simple_existE =AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key]).exists()
-            print('existsance = ',termo_existE,simple_existE)
+            
             if (termo_existE or simple_existE):
                   if termo_existE:
                         df_new['SAP код E'][key] = AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
                   else:
-                        print('aluminiy Profiega kirdi')
+                      
                         df_new['SAP код E'][key] = AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
             else:
                   if AluminiyProduct.objects.filter(artikul =component,section ='E').exists():
@@ -1686,7 +1678,7 @@ def product_add_second(request,id):
                         df_new['SAP код E'][key]=materiale
                         
                         artikle = materiale.split('-')[0]
-                        print(artikle)
+                        
                         hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                         if row['Тип покрытия'].lower() == 'сублимированный':
@@ -1699,7 +1691,7 @@ def product_add_second(request,id):
                               export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                         else:       
                               export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                        print('char utils export_description = ',export_description)
+                      
                         export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                         
@@ -1832,7 +1824,7 @@ def product_add_second(request,id):
                               df_new['SAP код Z'][key]=materiale
                               
                               artikle = materiale.split('-')[0]
-                              print('after component ',artikle)
+                             
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                                     
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -2591,7 +2583,7 @@ def product_add_second(request,id):
 @csrf_exempt
 def add_char_utils_two(request):
       data = request.POST.get('data',None)
-      print(data)
+      
       if data:
             items = [CharUtilsTwo(артикул =item['artikul'],полый_или_фасонный =item['selection']) for item in ast.literal_eval(data)]
             CharUtilsTwo.objects.bulk_create(items)
