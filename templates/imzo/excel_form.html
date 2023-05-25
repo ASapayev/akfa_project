@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static%}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,12 +9,12 @@
   <title>File upload</title>
 </head>
 <body>
-  <div class="container">
+  <div class="container" style="background-image: url({% static 'images1.jpg'%});background-position: center; height:1080px">
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token%}
       <div class="form-group p-3">
 
-        <label for="exampleFormControlFile1">File Upload</label><br>
+        <label for="exampleFormControlFile1">Загрузка файла</label><br>
         {{form.file}}
       </div>
     <input type="submit" class="btn btn-success" value="Upload">

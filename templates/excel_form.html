@@ -1,24 +1,24 @@
 <!DOCTYPE html>
+{% load static%}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <title>File upload</title>
+  <title>Файл загрузка</title>
 </head>
 <body>
-  <div class="container">
+  <div class="container" style="background-image: url({% static 'images1.jpg'%});background-position: center; height:1080px">
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token%}
       <div class="form-group p-3">
 
-        <label for="exampleFormControlFile1">File Upload</label><br>
+        <label for="exampleFormControlFile1" style="color: azure;">Файл загрузка</label><br>
         {{form.file}}<br>
-        <label >File Type</label><br>
-        {{form.file_type}}
+        
       </div>
-    <input type="submit" class="btn btn-success" value="Upload">
+    <input type="submit" class="btn btn-success" value="Загрузка">
     </form>
   </div>
 </body>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,11 +9,11 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="container">
+  <div class="container" style="background-image: url({% static 'images1.jpg'%});background-position: center; height:1080px">
 
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Akfa</a>
+    <nav class="navbar navbar-expand-lg navbar-light ">
+      <a class="navbar-brand" href="#" style="color: azure;">Akfa</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -20,24 +21,24 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home </a>
+            <a class="nav-link" href="#" style="color: azure;">Home </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="#" style="color: azure;">Link</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Dropdown
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#" style="color: azure;">Action</a>
+              <a class="dropdown-item" href="#" style="color: azure;">Another action</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#" style="color: azure;">Something else here</a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
+            <a class="nav-link disabled" href="#" style="color: azure;">Disabled</a>
           </li>
         </ul>
         <!-- <form class="form-inline my-2 my-lg-0">
@@ -48,17 +49,18 @@
     </nav>
     <!-- <a href="{% url 'excel' %}" class="btn btn-primary ">Convert to Sql</a>
     <a href="{% url 'excel' %}" class="btn btn-success ">Show All Datas</a> -->
-  </div>
-  <div class="container">
+  
+  
     {%for file in files%}
     <br>
+    <div class="p-1">
     <a href="{{file.file.url}}" class="p-3">{{file.file}}</a>
     <!-- <a href="{% url 'import_and_merge' file.id %}" class="btn btn-primary btn-sm">Show file</a> -->
     <!-- <a href="{% url 'add_data' file.id %}" class="btn btn-info btn-sm">Import File</a> -->
-    <a href="{% url 'aluminiy_add_termo' file.id %}" class="btn btn-success btn-sm">Generate aluminiy product</a>
-    <a href="{% url 'update_char_title' file.id %}" class="btn btn-success btn-sm">Character_text</a>
-    <a href="{% url 'delete_file' file.id %}" class="btn btn-danger btn-sm">Delete</a>
-
+    <a href="{% url 'aluminiy_add_termo' file.id %}" class="btn btn-success btn-sm">Генерация <span style="color:chocolate;font-weight: 700;">ТЕРМО</span> алюминого файла</a>
+    <a href="{% url 'update_char_title' file.id %}" class="btn btn-success btn-sm">Характеристики генерация</a>
+    <a href="{% url 'delete_file' file.id %}" class="btn btn-danger btn-sm">Удалить</a>
+  </div>
     {% endfor %}
   </div>
 

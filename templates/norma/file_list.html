@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static%}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,11 +9,11 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="container">
+  <div class="container" style="background-image: url({% static 'images1.jpg'%});background-position: center; height:1080px">
 
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Akfa</a>
+    <nav class="navbar navbar-expand-lg navbar-light ">
+      <a class="navbar-brand" href="#" style="color: azure;"></a>>Akfa</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -20,24 +21,24 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home </a>
+            <a class="nav-link" href="#" style="color: azure;"></a>>Home </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="#" style="color: azure;"></a>>Link</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Dropdown
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#" style="color: azure;"></a>>Action</a>
+              <a class="dropdown-item" href="#" style="color: azure;"></a>>Another action</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#" style="color: azure;"></a>>Something else here</a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
+            <a class="nav-link disabled" href="#" style="color: azure;"></a>>Disabled</a>
           </li>
         </ul>
         </div>
@@ -47,8 +48,8 @@
     {%for file in files%}
     <br>
     <a href="#" class="p-3">{{file.file}}</a>
-    <a href="{% url 'kombinirovaniy_process' file.id %}?type='simple'" class="btn btn-primary btn-sm">Generate Norma File Simple</a>
-    <a href="{% url 'kombinirovaniy_process' file.id %}?type='termo'" class="btn btn-info btn-sm">Generate Norma File Combinirovanniy</a>
+    <a href="{% url 'kombinirovaniy_process' file.id %}?type='simple'" class="btn btn-primary btn-sm">Генерация норма обычного файла</a>
+    <a href="{% url 'kombinirovaniy_process' file.id %}?type='termo'" class="btn btn-info btn-sm">Генерация норма комбинированного файла</a>
 
     {% endfor %}
   </div>
