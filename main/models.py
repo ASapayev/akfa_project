@@ -20,9 +20,9 @@ class Product(models.Model):
   kls_inner_color =models.CharField(max_length=50,blank=True,null=True)
   kls_color =models.CharField(max_length=50,blank=True,null=True)
   ves_gp =models.CharField(max_length=150,blank=True,null=True)
-  ves_del_odxod =models.FloatField(blank=True,null=True)
-  sena_za_shtuk =models.FloatField(blank=True,null=True)
-  sena_za_metr =models.FloatField(blank=True,null=True)
+  ves_del_odxod =models.CharField(max_length=250,blank=True,null=True)
+  sena_za_shtuk =models.CharField(max_length=250,blank=True,null=True)
+  sena_za_metr =models.CharField(max_length=250,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
   
