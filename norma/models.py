@@ -114,7 +114,6 @@ class Norma(models.Model):
     кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_eng_qora_низ_ширина_ленты = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_eng_qora_низ_рас = models.CharField(max_length = 255,blank=True,null=True)
-    
     уп_пол_лента_ширина_уп_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     уп_пол_лн_рас_уп_лн_на_1000_штук_кг = models.CharField(max_length = 255,blank=True,null=True)
     расход_скотча_ширина_скотча_мм = models.CharField(max_length = 255,blank=True,null=True)
@@ -123,6 +122,7 @@ class Norma(models.Model):
     ala7_oddiy_ala8_qora_алю_сплав_6064 = models.CharField(max_length = 255,blank=True,null=True)
     алю_сплав_биллетов_102_178 =models.CharField(max_length = 255,blank=True,null=True)
     бумага_расход_упоковочной_ленты_на_1000_штук_кг =models.CharField(max_length = 255,blank=True,null=True)
+    алюминиевый_сплав_6063_при_этом_балвашка = models.CharField(max_length = 255,blank=True,null=True)
     
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)

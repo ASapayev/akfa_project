@@ -2628,15 +2628,17 @@ def excel_does_not_exists_add(request):
       
       path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\Not Exists\\Not_Exists.xlsx'
       all_correct = True
-      
       df = pd.read_excel(path_not_exists,sheet_name=['character utils one','character utils two','baza profile','artikul component'])
+      # print(df['artikul component'])
       items =[]
       if df['character utils one'].shape[0] > 0:
             for key,row in df['character utils one'].iterrows():
                   items.append(CharUtilsOne(матрица =row['матрица'],артикул =row['артикул'],высота=row['высота'],ширина=row['ширина'],высота_ширина=row['высота_ширина'],systems=row['systems']))
             try:
+                  print(items)
                   CharUtilsOne.objects.bulk_create(items)
             except:
+                  print('character utils one')
                   all_correct =False
             
       
@@ -2647,6 +2649,7 @@ def excel_does_not_exists_add(request):
             try:
                   CharUtilsTwo.objects.bulk_create(items)
             except:
+                  print('character utils two')
                   all_correct =False
             
       
@@ -2657,6 +2660,7 @@ def excel_does_not_exists_add(request):
             try:
                   BazaProfiley.objects.bulk_create(items)
             except:
+                  print('baza profile')
                   all_correct =False
                   
       items =[]
@@ -2666,6 +2670,7 @@ def excel_does_not_exists_add(request):
             try:
                   ArtikulComponent.objects.bulk_create(items)
             except:
+                  print('artikul component')
                   all_correct =False
             
       
