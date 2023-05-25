@@ -913,6 +913,7 @@ def product_add_second(request,id):
       
       
       cache_for_cratkiy_text =[]
+      duplicat_list =[]
       
       for key,row in df.iterrows():
             print(key)
@@ -995,6 +996,7 @@ def product_add_second(request,id):
             if df['Длина при выходе из пресса'][key] != 'nan':
                   if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key]).exists():
                         df_new['SAP код Ф'][key] = AluminiyProduct.objects.filter(artikul = df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key])[:1].get().material
+                        duplicat_list.append([df['Артикул'][key],df_new['Фабрикация'][key],'F'])
                   else: 
                         if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F').exists():
                               umumiy_counter[df['Артикул'][key]+'-F'] += 1
@@ -1132,6 +1134,7 @@ def product_add_second(request,id):
                   
                   if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key]).exists():
                         df_new['SAP код 75'][key] = AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key])[:1].get().material
+                        duplicat_list.append([df['Артикул'][key],df_new['U-Упаковка + Готовая Продукция 75'][key],'75'])
                   else: 
                         if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='75').exists():
                               umumiy_counter[df['Артикул'][key]+'-75'] += 1
@@ -1311,6 +1314,7 @@ def product_add_second(request,id):
             else:     
                   if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][key]).exists():
                         df_new['SAP код 7'][key] = AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][key])[:1].get().material
+                        duplicat_list.append([df['Артикул'][key],df_new['U-Упаковка + Готовая Продукция 7'][key],'7'])
                   else: 
                         if AluminiyProduct.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
                               umumiy_counter[df['Артикул'][key]+'-7'] += 1
@@ -1485,6 +1489,7 @@ def product_add_second(request,id):
             if df['Тип покрытия'][key] == 'Ламинированный':      
                   if AluminiyProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][key]).exists():
                         df_new['SAP код L'][key] = AluminiyProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][key])[:1].get().material
+                        duplicat_list.append([component,df_new['Ламинация'][key],'L'])
                   else: 
                         if AluminiyProduct.objects.filter(artikul =component,section ='L').exists():
                               umumiy_counter[component+'-L'] += 1
@@ -1661,6 +1666,8 @@ def product_add_second(request,id):
             
             termo_existE =AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key]).exists()
             simple_existE =AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key]).exists()
+
+           
             
             if (termo_existE or simple_existE):
                   if termo_existE:
@@ -1668,6 +1675,7 @@ def product_add_second(request,id):
                   else:
                       
                         df_new['SAP код E'][key] = AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
+                  duplicat_list.append([component,df_new['Экструзия холодная резка'][key],'E'])
             else:
                   if AluminiyProduct.objects.filter(artikul =component,section ='E').exists():
                         # max_valuesE = AluminiyProduct.objects.filter(artikul =component,section ='E').values('section').annotate(total_max=Max('counter'))[0]['total_max']
@@ -1815,6 +1823,7 @@ def product_add_second(request,id):
                               df_new['SAP код Z'][key] = AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['Печь старения'][key])[:1].get().material
                         else:
                               df_new['SAP код Z'][key] = AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['Печь старения'][key])[:1].get().material
+                        duplicat_list.append([component,df_new['Печь старения'][key],'Z'])
                   else: 
                         if AluminiyProduct.objects.filter(artikul =component,section ='Z').exists():
                               umumiy_counter[ component +'-Z'] += 1
@@ -1960,6 +1969,7 @@ def product_add_second(request,id):
                               df_new['SAP код P'][key] = AluminiyProduct.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['Покраска автомат'][key])[:1].get().material
                         else:
                               df_new['SAP код P'][key] = AluminiyProduct.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['Покраска автомат'][key])[:1].get().material
+                        duplicat_list.append([component,df_new['Покраска автомат'][key],'P'])
                   else:
                         if '9016' in df_new['Покраска автомат'][key]:
                               tip_pokr ='Белый'
@@ -2110,6 +2120,7 @@ def product_add_second(request,id):
                               df_new['SAP код S'][key] = AluminiyProduct.objects.filter(artikul =component,section ='S',kratkiy_tekst_materiala=df_new['Сублимация'][key])[:1].get().material
                         else:
                               df_new['SAP код S'][key] = AluminiyProduct.objects.filter(artikul =component,section ='S',kratkiy_tekst_materiala=df_new['Сублимация'][key])[:1].get().material
+                        duplicat_list.append([component,df_new['Сублимация'][key],'S'])
                   else: 
                         if AluminiyProduct.objects.filter(artikul =component,section ='S').exists():
                               umumiy_counter[component+'-S'] += 1
@@ -2255,6 +2266,7 @@ def product_add_second(request,id):
                               df_new['SAP код A'][key] = AluminiyProduct.objects.filter(artikul =component,section ='A',kratkiy_tekst_materiala=df_new['Анодировка'][key])[:1].get().material
                         else:
                               df_new['SAP код A'][key] = AluminiyProduct.objects.filter(artikul =component,section ='A',kratkiy_tekst_materiala=df_new['Анодировка'][key])[:1].get().material
+                        duplicat_list.append([component,df_new['Анодировка'][key],'A'])
                   
                   else: 
                         if AluminiyProduct.objects.filter(artikul =component,section ='A').exists():
@@ -2400,6 +2412,7 @@ def product_add_second(request,id):
                               df_new['SAP код N'][key] = AluminiyProduct.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['Наклейка'][key])[:1].get().material
                         else:
                               df_new['SAP код N'][key] = AluminiyProduct.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['Наклейка'][key])[:1].get().material
+                        duplicat_list.append([component,df_new['Наклейка'][key],'N'])
                   else:
                         name_tip_pokr =''
                         if (('7777' in df_new['Наклейка'][key]) or ('8888' in df_new['Наклейка'][key])  or ('3701' in df_new['Наклейка'][key]) or ('3702' in df_new['Наклейка'][key])):
@@ -2569,12 +2582,16 @@ def product_add_second(request,id):
       else:
             st =random.randint(0,1000)
             path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}-{st}.xlsx'
-            
-     
+      if  len(duplicat_list)>0:     
+            df_duplicates =pd.DataFrame(np.array(duplicat_list),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
+      else:
+            df_duplicates =pd.DataFrame(np.array([['','','']]),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
+
       writer = pd.ExcelWriter(path, engine='xlsxwriter')
       df_new.to_excel(writer,index=False,sheet_name='Schotchik')
       df_char.to_excel(writer,index=False,sheet_name='Characteristika')
       df_char_title.to_excel(writer,index=False,sheet_name='title')
+      df_duplicates.to_excel(writer,index=False,sheet_name='Duplicates')
       writer.close()
       
       return redirect('upload_product')
