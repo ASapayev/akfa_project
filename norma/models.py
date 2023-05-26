@@ -85,11 +85,11 @@ class Norma(models.Model):
     заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_bn_жл_низ_рас = models.CharField(max_length = 255,blank=True,null=True)
     
-    заш_пл_кг_м_ch_вр_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
-    заш_пл_кг_м_ch_бк_ст_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
-    кг_м_ch_вр_и_кг_м_ch_бк_ст_рас = models.CharField(max_length = 255,blank=True,null=True)
-    заш_пл_кг_м_ch_низ_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
-    заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2 = models.CharField(max_length = 255,blank=True,null=True)
+    заш_пл_кг_м_голд_вр_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
+    заш_пл_кг_м_голд_бк_ст_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
+    кг_м_голд_вр_и_кг_м_голд_бк_ст_рас = models.CharField(max_length = 255,blank=True,null=True)
+    заш_пл_кг_м_голд_низ_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
+    заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2 = models.CharField(max_length = 255,blank=True,null=True)
     
     заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм = models.CharField(max_length = 255,blank=True,null=True)
     заш_пл_кг_м_imzo_akfa_бк_ст_ширина_лн = models.CharField(max_length = 255,blank=True,null=True)

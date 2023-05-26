@@ -163,16 +163,21 @@ def norma_excel(request):
         кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас = df["Защитная пленка__кг__м BENKAM (желтый) __ верх и Защитная пленка__кг__м BENKAM (желтый) __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i].replace('.0','') if df["Защитная пленка__кг__м BENKAM (желтый) __ верх и Защитная пленка__кг__м BENKAM (желтый) __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i][-2:]=='.0' else df["Защитная пленка__кг__м BENKAM (желтый) __ верх и Защитная пленка__кг__м BENKAM (желтый) __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i]
         заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм = df["Защитная пленка__кг__м BENKAM (желтый) __ низ ширина ленты__мм"][i].replace('.0','') if df["Защитная пленка__кг__м BENKAM (желтый) __ низ ширина ленты__мм"][i][-2:]=='.0' else df["Защитная пленка__кг__м BENKAM (желтый) __ низ ширина ленты__мм"][i]
         заш_пл_кг_м_bn_жл_низ_рас = df["Защитная пленка__кг__м BENKAM (желтый) __ низ расход ленты на 1000 профиль__м2"][i].replace('.0','') if df["Защитная пленка__кг__м BENKAM (желтый) __ низ расход ленты на 1000 профиль__м2"][i][-2:]=='.0' else df["Защитная пленка__кг__м BENKAM (желтый) __ низ расход ленты на 1000 профиль__м2"][i]
-        заш_пл_кг_м_ch_вр_ширина_лн_мм = df["Защитная пленка__кг__м IMZO CHEMPION __ верх ширина ленты__мм"][i].replace('.0','') if df["Защитная пленка__кг__м IMZO CHEMPION __ верх ширина ленты__мм"][i][-2:]=='.0' else df["Защитная пленка__кг__м IMZO CHEMPION __ верх ширина ленты__мм"][i]
-        заш_пл_кг_м_ch_бк_ст_ширина_лн_мм = df["Защитная пленка__кг__м IMZO CHEMPION __ (Боковая сторона) ширина ленты__мм"][i].replace('.0','') if df["Защитная пленка__кг__м IMZO CHEMPION __ (Боковая сторона) ширина ленты__мм"][i][-2:]=='.0' else df["Защитная пленка__кг__м IMZO CHEMPION __ (Боковая сторона) ширина ленты__мм"][i]
-        кг_м_ch_вр_и_кг_м_ch_бк_ст_рас = df["Защитная пленка__кг__м IMZO CHEMPION __ верх и Защитная пленка__кг__м IMZO CHEMPION __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i].replace('.0','') if df["Защитная пленка__кг__м IMZO CHEMPION __ верх и Защитная пленка__кг__м IMZO CHEMPION __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i][-2:]=='.0' else df["Защитная пленка__кг__м IMZO CHEMPION __ верх и Защитная пленка__кг__м IMZO CHEMPION __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i]
-        заш_пл_кг_м_ch_низ_ширина_лн_мм = df["Защитная пленка__кг__м IMZO CHEMPION __ низ ширина ленты__мм"][i].replace('.0','') if df["Защитная пленка__кг__м IMZO CHEMPION __ низ ширина ленты__мм"][i][-2:]=='.0' else df["Защитная пленка__кг__м IMZO CHEMPION __ низ ширина ленты__мм"][i]
-        заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2 = df["Защитная пленка__кг__м IMZO CHEMPION __ низ расход ленты на 1000 профиль__м2"][i].replace('.0','') if df["Защитная пленка__кг__м IMZO CHEMPION __ низ расход ленты на 1000 профиль__м2"][i][-2:]=='.0' else df["Защитная пленка__кг__м IMZO CHEMPION __ низ расход ленты на 1000 профиль__м2"][i]
+        
+        заш_пл_кг_м_голд_вр_ширина_лн_мм = df["Защитная пленка__кг__м GOLD __ верх ширина ленты__мм"][i].replace('.0','') if df["Защитная пленка__кг__м GOLD __ верх ширина ленты__мм"][i][-2:]=='.0' else df["Защитная пленка__кг__м GOLD __ верх ширина ленты__мм"][i]
+        заш_пл_кг_м_голд_бк_ст_ширина_лн_мм = df["Защитная пленка__кг__м GOLD __ (Боковая сторона) ширина ленты__мм"][i].replace('.0','') if df["Защитная пленка__кг__м GOLD __ (Боковая сторона) ширина ленты__мм"][i][-2:]=='.0' else df["Защитная пленка__кг__м GOLD __ (Боковая сторона) ширина ленты__мм"][i]
+        кг_м_голд_вр_и_кг_м_голд_бк_ст_рас = df["Защитная пленка__кг__м GOLD __ верх и Защитная пленка__кг__м GOLD __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i].replace('.0','') if df["Защитная пленка__кг__м GOLD __ верх и Защитная пленка__кг__м GOLD __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i][-2:]=='.0' else df["Защитная пленка__кг__м GOLD __ верх и Защитная пленка__кг__м GOLD __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i]
+        заш_пл_кг_м_голд_низ_ширина_лн_мм = df["Защитная пленка__кг__м GOLD __ низ ширина ленты__мм"][i].replace('.0','') if df["Защитная пленка__кг__м GOLD __ низ ширина ленты__мм"][i][-2:]=='.0' else df["Защитная пленка__кг__м GOLD __ низ ширина ленты__мм"][i]
+        заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2 = df["Защитная пленка__кг__м GOLD __ низ расход ленты на 1000 профиль__м2"][i].replace('.0','') if df["Защитная пленка__кг__м GOLD __ низ расход ленты на 1000 профиль__м2"][i][-2:]=='.0' else df["Защитная пленка__кг__м GOLD __ низ расход ленты на 1000 профиль__м2"][i]
+        
         заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм = df["Защитная пленка__кг__м IMZO AKFA __ верх ширина ленты__мм"][i].replace('.0','') if df["Защитная пленка__кг__м IMZO AKFA __ верх ширина ленты__мм"][i][-2:]=='.0' else df["Защитная пленка__кг__м IMZO AKFA __ верх ширина ленты__мм"][i]
         заш_пл_кг_м_imzo_akfa_бк_ст_ширина_лн = df["Защитная пленка__кг__м IMZO AKFA __ (Боковая сторона) ширина ленты__мм"][i].replace('.0','') if df["Защитная пленка__кг__м IMZO AKFA __ (Боковая сторона) ширина ленты__мм"][i][-2:]=='.0' else df["Защитная пленка__кг__м IMZO AKFA __ (Боковая сторона) ширина ленты__мм"][i]
         кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст = df["Защитная пленка__кг__м IMZO AKFA __ верх и Защитная пленка__кг__м IMZO AKFA __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i].replace('.0','') if df["Защитная пленка__кг__м IMZO AKFA __ верх и Защитная пленка__кг__м IMZO AKFA __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i][-2:]=='.0' else df["Защитная пленка__кг__м IMZO AKFA __ верх и Защитная пленка__кг__м IMZO AKFA __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i]
         заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм = df["Защитная пленка__кг__м IMZO AKFA __ низ ширина ленты__мм"][i].replace('.0','') if df["Защитная пленка__кг__м IMZO AKFA __ низ ширина ленты__мм"][i][-2:]=='.0' else df["Защитная пленка__кг__м IMZO AKFA __ низ ширина ленты__мм"][i]
         заш_пл_кг_м_imzo_ak_низ_рас = df["Защитная пленка__кг__м IMZO AKFA __ низ расход ленты на 1000 профиль__м2"][i].replace('.0','') if df["Защитная пленка__кг__м IMZO AKFA __ низ расход ленты на 1000 профиль__м2"][i][-2:]=='.0' else df["Защитная пленка__кг__м IMZO AKFA __ низ расход ленты на 1000 профиль__м2"][i]
+
+        
+        
         заш_пл_кг_м_без_бр_вр_ширина_лн_мм = df["Защитная пленка__кг__м Без бренд __ верх ширина ленты__мм"][i].replace('.0','') if df["Защитная пленка__кг__м Без бренд __ верх ширина ленты__мм"][i][-2:]=='.0' else df["Защитная пленка__кг__м Без бренд __ верх ширина ленты__мм"][i]
         заш_пл_кг_м_без_бр_бк_ст_ширина_лн_мм = df["Защитная пленка__кг__м Без бренд __ (Боковая сторона) ширина ленты__мм"][i].replace('.0','') if df["Защитная пленка__кг__м Без бренд __ (Боковая сторона) ширина ленты__мм"][i][-2:]=='.0' else df["Защитная пленка__кг__м Без бренд __ (Боковая сторона) ширина ленты__мм"][i]
         кг_м_без_бр_вр_и_кг_м_без_бр_бк_ст_рас = df["Защитная пленка__кг__м Без бренд __ верх и Защитная пленка__кг__м Без бренд __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i].replace('.0','') if df["Защитная пленка__кг__м Без бренд __ верх и Защитная пленка__кг__м Без бренд __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i][-2:]=='.0' else df["Защитная пленка__кг__м Без бренд __ верх и Защитная пленка__кг__м Без бренд __ (Боковая сторона) расход ленты на 1000 профилей__м2"][i]
@@ -268,11 +273,13 @@ def norma_excel(request):
         кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас =кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас,  
         заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм =заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,  
         заш_пл_кг_м_bn_жл_низ_рас =заш_пл_кг_м_bn_жл_низ_рас,  
-        заш_пл_кг_м_ch_вр_ширина_лн_мм =заш_пл_кг_м_ch_вр_ширина_лн_мм,  
-        заш_пл_кг_м_ch_бк_ст_ширина_лн_мм =заш_пл_кг_м_ch_бк_ст_ширина_лн_мм,  
-        кг_м_ch_вр_и_кг_м_ch_бк_ст_рас =кг_м_ch_вр_и_кг_м_ch_бк_ст_рас,  
-        заш_пл_кг_м_ch_низ_ширина_лн_мм =заш_пл_кг_м_ch_низ_ширина_лн_мм,  
-        заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2 =заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2,  
+        
+        заш_пл_кг_м_голд_вр_ширина_лн_мм =заш_пл_кг_м_голд_вр_ширина_лн_мм,  
+        заш_пл_кг_м_голд_бк_ст_ширина_лн_мм =заш_пл_кг_м_голд_бк_ст_ширина_лн_мм,  
+        кг_м_голд_вр_и_кг_м_голд_бк_ст_рас =кг_м_голд_вр_и_кг_м_голд_бк_ст_рас,  
+        заш_пл_кг_м_голд_низ_ширина_лн_мм =заш_пл_кг_м_голд_низ_ширина_лн_мм,  
+        заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2 =заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2,  
+        
         заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,  
         заш_пл_кг_м_imzo_akfa_бк_ст_ширина_лн =заш_пл_кг_м_imzo_akfa_бк_ст_ширина_лн,  
         кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст =кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст,  
@@ -1409,47 +1416,47 @@ def get_legth(lengg):
 #                             meinss1 =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)
 #                             meinss2 =float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
                             
-#                     elif nakleyka_code =='I02':
-#                         aluminiy_norma_log = (alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм=='0')))
+#                     elif nakleyka_code =='G01':
+#                         aluminiy_norma_log = (alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм=='0')))
 #                         if aluminiy_norma_log:
 #                             qatorlar_soni =4
-#                             if alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0':
-#                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)
-#                                 meinss =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
-#                             elif alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм =='0':
-#                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)
-#                                 meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
+#                             if alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм=='0':
+#                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)
+#                                 meinss =float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
+#                             elif alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм =='0':
+#                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм)
+#                                 meinss =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)
 #                             else:
-#                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)
-#                                 meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
-#                         elif ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм == '0')):
+#                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм)
+#                                 meinss =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
+#                         elif ((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм == '0')):
 #                             qatorlar_soni = 3
 #                         else:
 #                             qatorlar_soni =5
-#                             nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)[:1].get()
-#                             nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)[:1].get()
-#                             meinss1 =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
-#                             meinss2 =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
+#                             nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм)[:1].get()
+#                             nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)[:1].get()
+#                             meinss1 =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)
+#                             meinss2 =float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
                             
-#                     elif nakleyka_code =='I02':
+#                     elif nakleyka_code =='G01':
 #                         aluminiy_norma_log = (alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм=='0')))
 #                         if aluminiy_norma_log:
 #                             qatorlar_soni =4
 #                             if alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм=='0':
-#                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)
+#                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)
 #                                 meinss =float(alum_teks.заш_пл_кг_м_imzo_ak_низ_рас)
 #                             elif alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм =='0':
-#                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм)
+#                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм)
 #                                 meinss =float(alum_teks.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст)
 #                             else:
-#                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм)
+#                                 nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм)
 #                                 meinss =float(alum_teks.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст)+float(alum_teks.заш_пл_кг_м_imzo_ak_низ_рас)
 #                         elif ((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм == '0')):
 #                             qatorlar_soni = 3
 #                         else:
 #                             qatorlar_soni =5
-#                             nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм)[:1].get()
-#                             nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)[:1].get()
+#                             nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм)[:1].get()
+#                             nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)[:1].get()
 #                             meinss1 =float(alum_teks.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст)
 #                             meinss2 =float(alum_teks.заш_пл_кг_м_imzo_ak_низ_рас)
                             
@@ -1592,47 +1599,47 @@ def get_legth(lengg):
 #                                 meinss1 =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)
 #                                 meinss2 =float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
                                 
-#                         elif nakleyka_code =='I02':
-#                             aluminiy_norma_log = (alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм=='0')))
+#                         elif nakleyka_code =='G01':
+#                             aluminiy_norma_log = (alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм=='0')))
 #                             if aluminiy_norma_log:
 #                                 qatorlar_soni = 5
-#                                 if alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0':
-#                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])
-#                                     meinss =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
-#                                 elif alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм =='0':
-#                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
-#                                     meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
+#                                 if alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм=='0':
+#                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])
+#                                     meinss =float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
+#                                 elif alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм =='0':
+#                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+#                                     meinss =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)
 #                                 else:
-#                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
-#                                     meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
-#                             elif ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм == '0')):
+#                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+#                                     meinss =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
+#                             elif ((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм == '0')):
 #                                 qatorlar_soni = 4
 #                             else:
 #                                 qatorlar_soni =6
-#                                 nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
-#                                 nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
-#                                 meinss1 =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
-#                                 meinss2 =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
+#                                 nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
+#                                 nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
+#                                 meinss1 =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)
+#                                 meinss2 =float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
                                 
-#                         elif nakleyka_code =='I02':
+#                         elif nakleyka_code =='G01':
 #                             aluminiy_norma_log = (alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм=='0')))
 #                             if aluminiy_norma_log:
 #                                 qatorlar_soni =5
 #                                 if alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм=='0':
-#                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])
+#                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])
 #                                     meinss =float(alum_teks.заш_пл_кг_м_imzo_ak_низ_рас)
 #                                 elif alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм =='0':
-#                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+#                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
 #                                     meinss =float(alum_teks.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст)
 #                                 else:
-#                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
+#                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])
 #                                     meinss =float(alum_teks.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст)+float(alum_teks.заш_пл_кг_м_imzo_ak_низ_рас)
 #                             elif ((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм == '0')):
 #                                 qatorlar_soni = 4
 #                             else:
 #                                 qatorlar_soni =6
-#                                 nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
-#                                 nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
+#                                 nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
+#                                 nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,тип_клея__in=['HL','HM'])[:1].get()
 #                                 meinss1 =float(alum_teks.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст)
 #                                 meinss2 =float(alum_teks.заш_пл_кг_м_imzo_ak_низ_рас)
                                 
@@ -2492,14 +2499,14 @@ def kombinirovaniy_process(request,id):
                     mein_bor = True   
                     if mein =='0':
                         mein_bor = False
-                    skotch_bor =True
+                    skotголд_bor =True
                     if alum_teks.молярный_скотч_рас_на_1000_пр_шт1 =='0':
-                        skotch_bor =False
+                        skotголд_bor =False
                     
                         
-                    if ((code_ss =='0') or (not mein_bor) or (not skotch_bor)):
+                    if ((code_ss =='0') or (not mein_bor) or (not skotголд_bor)):
                         if not mein_bor:
-                            if not skotch_bor:
+                            if not skotголд_bor:
                                 if code_ss =='0':
                                     norma.append([length[0],'','',sublimatsiya_code,'Xato 0 berilgan','Xato 0 berilgan','Xato 0 berilgan','','','','','Norma Sublimatsiya shirinasi 0 ga teng va boshqalar',['white','white','white','white','#d9138a','#d9138a','#d9138a']])
                                 else:
@@ -2510,7 +2517,7 @@ def kombinirovaniy_process(request,id):
                                 else:
                                     norma.append([length[0],'','',sublimatsiya_code,'Xato 0 berilgan','','','','','','','Norma Sublimatsiya xatolari',['white','white','white','white','#d9138a','white','white']])
                         else:
-                            if not skotch_bor:
+                            if not skotголд_bor:
                                 if code_ss =='0':
                                     norma.append([length[0],'','',sublimatsiya_code,'','Xato 0 berilgan','','','','','Norma Sublimatsiya shirinasi 0 ga teng va boshqalar',['white','white','white','white','white','#d9138a','#d9138a']])
                                 else:
@@ -2706,36 +2713,36 @@ def kombinirovaniy_process(request,id):
                                 if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,False,True] not in nakleyka_N:
                                     nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм,True,True])
                      
-                    elif nakleyka_code =='I02':
-                        aluminiy_norma_log = (norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм and norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм != '0') or ((norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм)and((norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм=='0')))
+                    elif nakleyka_code =='G01':
+                        aluminiy_norma_log = (norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм and norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм != '0') or ((norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм)and((norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм=='0')))
                         if aluminiy_norma_log:
-                            if norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0':
-                                if not Nakleyka.objects.filter(код_наклейки = 'I02',ширина= norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм).exists():
+                            if norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм =='0':
+                                if not Nakleyka.objects.filter(код_наклейки = 'G01',ширина= norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм).exists():
                                     isklyucheniye_ids.append(k)
-                                    if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,True,False] not in nakleyka_N:
-                                        nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,True,False])
-                            elif norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм =='0':
-                                if not Nakleyka.objects.filter(код_наклейки = 'I02',ширина= norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм).exists():
+                                    if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм,True,False] not in nakleyka_N:
+                                        nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм,True,False])
+                            elif norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм =='0':
+                                if not Nakleyka.objects.filter(код_наклейки = 'G01',ширина= norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм).exists():
                                     isklyucheniye_ids.append(k)
-                                    if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,False,True] not in nakleyka_N:
-                                        nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,False,True])
+                                    if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм,False,True] not in nakleyka_N:
+                                        nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм,False,True])
                             else:
-                                if not Nakleyka.objects.filter(код_наклейки = 'I02',ширина= norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм).exists():
+                                if not Nakleyka.objects.filter(код_наклейки = 'G01',ширина= norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм).exists():
                                     isklyucheniye_ids.append(k)
-                                    if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,True,True] not in nakleyka_N:
-                                        nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,True,True])
-                        elif ((norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм == '0')):
-                            norma.append(['',length[0],'I02','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
+                                    if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм,True,True] not in nakleyka_N:
+                                        nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм,True,True])
+                        elif ((norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм == '0')):
+                            norma.append(['',length[0],'G01','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
                             isklyucheniye_ids.append(k)
                         else:
-                            if not Nakleyka.objects.filter(код_наклейки = 'I02',ширина= norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм).exists():
+                            if not Nakleyka.objects.filter(код_наклейки = 'G01',ширина= norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм).exists():
                                 isklyucheniye_ids.append(k)
-                                if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,True,False] not in nakleyka_N:
-                                    nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,True,True])
-                            if not Nakleyka.objects.filter(код_наклейки = 'I02',ширина= norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм).exists():
+                                if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм,True,False] not in nakleyka_N:
+                                    nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм,True,True])
+                            if not Nakleyka.objects.filter(код_наклейки = 'G01',ширина= norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм).exists():
                                 isklyucheniye_ids.append(k)
-                                if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,False,True] not in nakleyka_N:
-                                    nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_ch_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_ch_вр_ширина_лн_мм,True,True])
+                                if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм,False,True] not in nakleyka_N:
+                                    nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм,True,True])
                          
                     elif nakleyka_code =='I01':
                         aluminiy_norma_log = (norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм and norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм != '0') or ((norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)and((norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм=='0')))
@@ -3510,27 +3517,27 @@ def kombinirovaniy_process(request,id):
                                 meinss1 =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)
                                 meinss2 =float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
                                 
-                        elif nakleyka_code =='I02':
-                            aluminiy_norma_log = (alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм=='0')))
+                        elif nakleyka_code =='G01':
+                            aluminiy_norma_log = (alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм=='0')))
                             if aluminiy_norma_log:
                                 qatorlar_soni =4
-                                if alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)
-                                    meinss =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
-                                elif alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм =='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)
-                                    meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
+                                if alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм=='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)
+                                    meinss =float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
+                                elif alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм =='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)
                                 else:
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)
-                                    meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
-                            elif ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм == '0')):
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
+                            elif ((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм == '0')):
                                 qatorlar_soni = 3
                             else:
                                 qatorlar_soni =5
-                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)[:1].get()
-                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)[:1].get()
-                                meinss1 =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
-                                meinss2 =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)[:1].get()
+                                meinss1 =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)
+                                meinss2 =float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
                                 
                         elif nakleyka_code =='I01':
                             aluminiy_norma_log = (alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм=='0')))
@@ -4195,27 +4202,27 @@ def kombinirovaniy_process(request,id):
                             meinss1 =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)
                             meinss2 =float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
                             
-                    elif nakleyka_code =='I02':
-                        aluminiy_norma_log = (alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм=='0')))
+                    elif nakleyka_code =='G01':
+                        aluminiy_norma_log = (alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм=='0')))
                         if aluminiy_norma_log:
                             qatorlar_soni =4
-                            if alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0':
-                                nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)
-                                meinss =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
-                            elif alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм =='0':
-                                nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)
-                                meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
+                            if alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм=='0':
+                                nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)
+                                meinss =float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
+                            elif alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм =='0':
+                                nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм)
+                                meinss =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)
                             else:
-                                nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)
-                                meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
-                        elif ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм == '0')):
+                                nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм)
+                                meinss =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
+                        elif ((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм == '0')):
                             qatorlar_soni = 3
                         else:
                             qatorlar_soni =5
-                            nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)[:1].get()
-                            nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)[:1].get()
-                            meinss1 =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
-                            meinss2 =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
+                            nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм)[:1].get()
+                            nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)[:1].get()
+                            meinss1 =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)
+                            meinss2 =float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
                             
                     elif nakleyka_code =='I01':
                         aluminiy_norma_log = (alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм=='0')))
@@ -4379,27 +4386,27 @@ def kombinirovaniy_process(request,id):
                                 meinss1 =float(alum_teks.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас)
                                 meinss2 =float(alum_teks.заш_пл_кг_м_bn_жл_низ_рас)
                                 
-                        elif nakleyka_code =='I02':
-                            aluminiy_norma_log = (alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм=='0')))
+                        elif nakleyka_code =='G01':
+                            aluminiy_norma_log = (alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм=='0')))
                             if aluminiy_norma_log:
                                 qatorlar_soni = 5
-                                if alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм=='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)
-                                    meinss =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
-                                elif alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм =='0':
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)
-                                    meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
+                                if alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм=='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)
+                                    meinss =float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
+                                elif alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм =='0':
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)
                                 else:
-                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)
-                                    meinss =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
-                            elif ((alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм == '0')):
+                                    nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм)
+                                    meinss =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)+float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
+                            elif ((alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм == '0')):
                                 qatorlar_soni = 4
                             else:
                                 qatorlar_soni =6
-                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_вр_ширина_лн_мм)[:1].get()
-                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'I02',ширина= alum_teks.заш_пл_кг_м_ch_низ_ширина_лн_мм)[:1].get()
-                                meinss1 =float(alum_teks.кг_м_ch_вр_и_кг_м_ch_бк_ст_рас)
-                                meinss2 =float(alum_teks.заш_пл_кг_м_ch_низ_рас_лн_на_1000_пр_м2)
+                                nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_вр_ширина_лн_мм)[:1].get()
+                                nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'G01',ширина= alum_teks.заш_пл_кг_м_голд_низ_ширина_лн_мм)[:1].get()
+                                meinss1 =float(alum_teks.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас)
+                                meinss2 =float(alum_teks.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2)
                                 
                         elif nakleyka_code =='I01':
                             aluminiy_norma_log = (alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм and alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм != '0') or ((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)and((alum_teks.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм=='0')))
