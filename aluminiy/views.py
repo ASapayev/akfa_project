@@ -145,7 +145,7 @@ def upload_product(request):
   return render(request,'excel_form.html',context)
 
 def aluminiy_files(request):
-  files = AluFile.objects.filter(generated =False)
+  files = AluFile.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files}
   return render(request,'aluminiy/alu_file_list.html',context)
 

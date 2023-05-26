@@ -613,7 +613,7 @@ def file_upload(request):
   return render(request,'norma/excel_form.html',context)
 
 def file_list(request):
-    files = NormaExcelFiles.objects.filter(generated =False)
+    files = NormaExcelFiles.objects.filter(generated =False).order_by('-created_at')
     context ={'files':files}
     return render(request,'norma/file_list.html',context)
 

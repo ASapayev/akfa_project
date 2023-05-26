@@ -30,7 +30,7 @@ def file_uploadImzo(request):
   return render(request,'imzo/excel_form.html',context)
 
 def imzo_file(request):
-    files = ExcelFilesImzo.objects.filter(generated =False)
+    files = ExcelFilesImzo.objects.filter(generated =False).order_by('-created_at')
     context ={'files':files}
     return render(request,'imzo/file_list.html',context)
 
