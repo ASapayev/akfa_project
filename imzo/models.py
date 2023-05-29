@@ -22,10 +22,12 @@ class TexCartaTime(models.Model):
     артикул = models.CharField(max_length = 255,blank=True,null=True)
     пресс_1_линия_буй = models.CharField(max_length = 255,blank=True,null=True)
     закалка_1_печь_буй = models.CharField(max_length = 255,blank=True,null=True)	
+    
     покраска_SKM_белый_про_во_в_сутки_буй = models.CharField(max_length = 255,blank=True,null=True)
     покраска_SAT_базовый_про_во_в_сутки_буй = models.CharField(max_length = 255,blank=True,null=True)
     покраска_горизонтал_про_во_в_сутки_буй = models.CharField(max_length = 255,blank=True,null=True)
     покраска_ручная_про_во_в_сутки_буй = models.CharField(max_length = 255,blank=True,null=True)
+    
     вакуум_1_печка_про_во_в_сутки_буй = models.CharField(max_length = 255,blank=True,null=True)
     термо_1_линия_про_во_в_сутки_буй = models.CharField(max_length = 255,blank=True,null=True)
     наклейка_упаковка_1_линия_про_во_в_сутки_буй = models.CharField(max_length = 255,blank=True,null=True)
