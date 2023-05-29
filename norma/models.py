@@ -149,6 +149,7 @@ class Kraska(models.Model):
     код_краски = models.CharField(max_length=255,blank=True,null=True)
     тип_краски = models.CharField(max_length=255,blank=True,null=True)
     код_краски_в_профилях = models.CharField(max_length=255,blank=True,null=True)
+    order = models.IntegerField(blank=True,null=True,default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

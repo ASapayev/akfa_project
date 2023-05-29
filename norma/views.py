@@ -3221,7 +3221,7 @@ def kombinirovaniy_process(request,id):
             if df[i][4] !="":
                 CheckNormaBase(artikul=df[i][4],kratkiytekst=df[i][5]).save()
                 if (df[i][4].split('-')[1][:1]=='P'):
-                    if (('8001' in df[i][5]) or ('8024' in df[i][5]) or ('9016' in df[i][5])):
+                    if (('8001' in df[i][5]) or ('8024' in df[i][5])):
 
                         for p in range(0,6):    
                             j+=1
@@ -3337,7 +3337,7 @@ def kombinirovaniy_process(request,id):
                     
                     else:
                         kraska_code = df[i][5].split()[-1]
-                        kraskas =Kraska.objects.filter(код_краски_в_профилях = kraska_code)
+                        kraskas =Kraska.objects.filter(код_краски_в_профилях = kraska_code).order_by('order')
                         kraska_counter =0
                         for kras in kraskas:
                             for p in range(0,6):    
