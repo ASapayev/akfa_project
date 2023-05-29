@@ -2838,7 +2838,7 @@ def kombinirovaniy_process(request,id):
                                 if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,False,True] not in nakleyka_N:
                                     nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_eng_низ_ширина_ленты_мм,norma_1.заш_пл_кг_м_eng_верх_ширина_ленты_мм,True,True])
                           
-                    elif nakleyka_code =='E02':
+                    elif nakleyka_code =='E02': 
                         
                         aluminiy_norma_log = (norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты and norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты != '0') or ((norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты)and((norma_1.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_eng_qora_низ_ширина_ленты=='0')))
                         if aluminiy_norma_log:
@@ -2946,7 +2946,13 @@ def kombinirovaniy_process(request,id):
     
     j = 0
     
-    
+    siryo_dlya_upakovki1 = SiryoDlyaUpakovki.objects.get(id=1)
+    siryo_dlya_upakovki2 = SiryoDlyaUpakovki.objects.get(id=2)
+
+    kleydlyalamp1 =KleyDlyaLamp.objects.get(id=1)
+    kleydlyalamp2 =KleyDlyaLamp.objects.get(id=2)
+    kleydlyalamp3 =KleyDlyaLamp.objects.get(id=3)
+
     for i in range(0,len(df)):
         print(i)
         if i in isklyucheniye_ids:
@@ -2992,7 +2998,7 @@ def kombinirovaniy_process(request,id):
                     df_new['DATUV'].append('01012021')
                     df_new['PUSTOY'].append('')
                     df_new['LGORT'].append('')
-                    for k in range(1,7):
+                    for k in range(1,8):
                         j+=1
                         df_new['ID'].append('2')
                         df_new['MATNR'].append('')
@@ -3047,14 +3053,23 @@ def kombinirovaniy_process(request,id):
                             df_new['MATNR1'].append(alummm.sap_code_s4q100)
                             df_new['TEXT2'].append(alummm.название)
                             df_new['MENGE'].append(alummm.еи)
-                            df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)+float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))*mein_percent) ).replace('.',','))
+                            df_new['MEINS'].append(("%.3f" % ((-1)*float(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)*mein_percent)).replace('.',','))
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                         if k == 6:
-                            df_new['MATNR1'].append('bavlashka')
-                            df_new['TEXT2'].append('bavlashkatext')
-                            df_new['MENGE'].append('bavlashkatextmenge')
-                            df_new['MEINS'].append(("%.3f" % float(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)).replace('.',','))
+                            alummm = AlyuminniysilindrEkstruziya2.objects.get(id=5)
+                            df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                            df_new['TEXT2'].append(alummm.название)
+                            df_new['MENGE'].append(alummm.еи)
+                            df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)))*mein_percent) ).replace('.',','))
+                            df_new['DATUV'].append('')
+                            df_new['PUSTOY'].append('')
+                        if k == 7:
+                            alummm = AlyuminniysilindrEkstruziya2.objects.get(id=6)
+                            df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                            df_new['TEXT2'].append(alummm.название)
+                            df_new['MENGE'].append(alummm.еи)
+                            df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))*mein_percent) ).replace('.',','))
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                             
@@ -3109,7 +3124,7 @@ def kombinirovaniy_process(request,id):
                     df_new['PUSTOY'].append('')
                     df_new['LGORT'].append('')
                     
-                    for k in range(1,7):
+                    for k in range(1,8):
                         j+=1
                         df_new['ID'].append('2')
                         df_new['MATNR'].append('')
@@ -3139,7 +3154,7 @@ def kombinirovaniy_process(request,id):
                             df_new['MATNR1'].append(alummm.sap_code_s4q100)
                             df_new['TEXT2'].append(alummm.название)
                             df_new['MENGE'].append(alummm.еи)
-                            df_new['MEINS'].append(("%.3f" % (float(alum_teks.смазка_для_пресса_кг_графитовая)*mein_percent)).replace('.',','))
+                            df_new['MEINS'].append( ("%.3f" % (float(alum_teks.смазка_для_пресса_кг_графитовая)*mein_percent)).replace('.',','))
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                         if k==3:
@@ -3163,14 +3178,23 @@ def kombinirovaniy_process(request,id):
                             df_new['MATNR1'].append(alummm.sap_code_s4q100)
                             df_new['TEXT2'].append(alummm.название)
                             df_new['MENGE'].append(alummm.еи)
-                            df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)+float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))*mein_percent) ).replace('.',','))
+                            df_new['MEINS'].append(("%.3f" % ((-1)*float(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)*mein_percent)).replace('.',','))
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                         if k == 6:
-                            df_new['MATNR1'].append('bavlashka')
-                            df_new['TEXT2'].append('bavlashkatext')
-                            df_new['MENGE'].append('bavlashkatextmenge')
-                            df_new['MEINS'].append(("%.3f" % float(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)).replace('.',','))
+                            alummm = AlyuminniysilindrEkstruziya2.objects.get(id=5)
+                            df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                            df_new['TEXT2'].append(alummm.название)
+                            df_new['MENGE'].append(alummm.еи)
+                            df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)))*mein_percent) ).replace('.',','))
+                            df_new['DATUV'].append('')
+                            df_new['PUSTOY'].append('')
+                        if k == 7:
+                            alummm = AlyuminniysilindrEkstruziya2.objects.get(id=6)
+                            df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                            df_new['TEXT2'].append(alummm.название)
+                            df_new['MENGE'].append(alummm.еи)
+                            df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))*mein_percent) ).replace('.',','))
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                             
@@ -4047,7 +4071,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['BMENG'].append('')
                                 df_new['BMEIN'].append('')
                                 df_new['STLST'].append('')
-                                df_new['POSNR'].append('3')
+                                df_new['POSNR'].append(3)
                                 df_new['POSTP'].append('L')
                                 df_new['MATNR1'].append(kombininovanniy_utils.sap_code1)
                                 df_new['TEXT2'].append(kombininovanniy_utils.termal_bridge1)
@@ -4069,7 +4093,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['BMENG'].append('')
                                 df_new['BMEIN'].append('')
                                 df_new['STLST'].append('')
-                                df_new['POSNR'].append('3')
+                                df_new['POSNR'].append(3)
                                 df_new['POSTP'].append('L')
                                 df_new['MATNR1'].append(kombininovanniy_utils.sap_code1)
                                 df_new['TEXT2'].append(kombininovanniy_utils.termal_bridge1)
@@ -4091,7 +4115,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['BMENG'].append('')
                                 df_new['BMEIN'].append('')
                                 df_new['STLST'].append('')
-                                df_new['POSNR'].append('4')
+                                df_new['POSNR'].append(4)
                                 df_new['POSTP'].append('L')
                                 df_new['MATNR1'].append(kombininovanniy_utils.sap_code2)
                                 df_new['TEXT2'].append(kombininovanniy_utils.termal_bridge2)
@@ -4587,16 +4611,16 @@ def kombinirovaniy_process(request,id):
                                             df_new['PUSTOY'].append('')
                                         
                                         if k==1:
-                                            df_new['MATNR1'].append('1000001016')
-                                            df_new['TEXT2'].append('Пленка П1 NS12см 60мк Ncolor')
+                                            df_new['MATNR1'].append(siryo_dlya_upakovki1.sap_code_s4q100)
+                                            df_new['TEXT2'].append(siryo_dlya_upakovki1.название)
                                             df_new['MENGE'].append('КГ')
                                             df_new['MEINS'].append( ("%.3f" % (float(alum_teks.уп_пол_лн_рас_уп_лн_на_1000_штук_кг)*mein_percent)).replace('.',','))
                                             df_new['DATUV'].append('')
                                             df_new['PUSTOY'].append('')
                                         
                                         if k==2:
-                                            df_new['MATNR1'].append('1900000069')
-                                            df_new['TEXT2'].append('Скотч 36мм/300м')
+                                            df_new['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
+                                            df_new['TEXT2'].append(siryo_dlya_upakovki2.название)
                                             df_new['MENGE'].append("ШТ")
                                             df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',','))
                                             df_new['DATUV'].append('')
@@ -4679,8 +4703,8 @@ def kombinirovaniy_process(request,id):
                                             df_new['PUSTOY'].append('')
                                         
                                         if k==1:
-                                            df_new['MATNR1'].append('1000001016')
-                                            df_new['TEXT2'].append('Пленка П1 NS12см 60мк Ncolor')
+                                            df_new['MATNR1'].append(siryo_dlya_upakovki1.sap_code_s4q100)
+                                            df_new['TEXT2'].append(siryo_dlya_upakovki1.название)
                                             df_new['MENGE'].append('КГ')
                                             df_new['MEINS'].append(("%.3f" % (float(alum_teks.уп_пол_лн_рас_уп_лн_на_1000_штук_кг)*mein_percent)).replace('.',','))
                                             df_new['DATUV'].append('')
@@ -4688,8 +4712,8 @@ def kombinirovaniy_process(request,id):
                                         
                                         if k==2:
                                             skotch = Skotch.objects.get(id=1)
-                                            df_new['MATNR1'].append('1900000069')
-                                            df_new['TEXT2'].append('Скотч 36мм/300м')
+                                            df_new['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
+                                            df_new['TEXT2'].append(siryo_dlya_upakovki2.название)
                                             df_new['MENGE'].append("ШТ")
                                             df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',','))
                                             df_new['DATUV'].append('')
@@ -4773,16 +4797,16 @@ def kombinirovaniy_process(request,id):
                                             df_new['PUSTOY'].append('')
                                         
                                         if k==1:
-                                            df_new['MATNR1'].append('1000001016')
-                                            df_new['TEXT2'].append('Пленка П1 NS12см 60мк Ncolor')
+                                            df_new['MATNR1'].append(siryo_dlya_upakovki1.sap_code_s4q100)
+                                            df_new['TEXT2'].append(siryo_dlya_upakovki1.название)
                                             df_new['MENGE'].append('КГ')
                                             df_new['MEINS'].append( ("%.3f" % (float(alum_teks.уп_пол_лн_рас_уп_лн_на_1000_штук_кг)*mein_percent)).replace('.',','))
                                             df_new['DATUV'].append('')
                                             df_new['PUSTOY'].append('')
                                         
                                         if k==2:
-                                            df_new['MATNR1'].append('1900000069')
-                                            df_new['TEXT2'].append('Скотч 36мм/300м')
+                                            df_new['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
+                                            df_new['TEXT2'].append(siryo_dlya_upakovki2.название)
                                             df_new['MENGE'].append("ШТ")
                                             df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',','))
                                             df_new['DATUV'].append('')
@@ -4882,8 +4906,8 @@ def kombinirovaniy_process(request,id):
                                                 df_new['PUSTOY'].append('')
                                             
                                             if k==1:
-                                                df_new['MATNR1'].append('1000001016')
-                                                df_new['TEXT2'].append('Пленка П1 NS12см 60мк Ncolor')
+                                                df_new['MATNR1'].append(siryo_dlya_upakovki1.sap_code_s4q100)
+                                                df_new['TEXT2'].append(siryo_dlya_upakovki1.название)
                                                 df_new['MENGE'].append('КГ')
                                                 df_new['MEINS'].append( ("%.3f" % (float(alum_teks.уп_пол_лн_рас_уп_лн_на_1000_штук_кг)*mein_percent)).replace('.',','))
                                                 df_new['DATUV'].append('')
@@ -4891,8 +4915,8 @@ def kombinirovaniy_process(request,id):
                                             
                                             if k==2:
                                                 skotch = Skotch.objects.get(id=1)
-                                                df_new['MATNR1'].append('1900000069')
-                                                df_new['TEXT2'].append('Скотч 36мм/300м')
+                                                df_new['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
+                                                df_new['TEXT2'].append(siryo_dlya_upakovki2.название)
                                                 df_new['MENGE'].append("ШТ")
                                                 df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',','))
                                                 df_new['DATUV'].append('')
@@ -5006,8 +5030,8 @@ def kombinirovaniy_process(request,id):
                                             df_new['PUSTOY'].append('')
                                         
                                         if k==1:
-                                            df_new['MATNR1'].append('1000001016')
-                                            df_new['TEXT2'].append('Пленка П1 NS12см 60мк Ncolor')
+                                            df_new['MATNR1'].append(siryo_dlya_upakovki1.sap_code_s4q100)
+                                            df_new['TEXT2'].append(siryo_dlya_upakovki1.название)
                                             df_new['MENGE'].append('КГ')
                                             df_new['MEINS'].append( ("%.3f" % (float(alum_teks.уп_пол_лн_рас_уп_лн_на_1000_штук_кг)*mein_percent)).replace('.',','))
                                             df_new['DATUV'].append('')
@@ -5015,8 +5039,8 @@ def kombinirovaniy_process(request,id):
                                         
                                         if k==2:
                                             skotch = Skotch.objects.get(id=1)
-                                            df_new['MATNR1'].append('1900000069')
-                                            df_new['TEXT2'].append('Скотч 36мм/300м')
+                                            df_new['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
+                                            df_new['TEXT2'].append(siryo_dlya_upakovki2.название)
                                             df_new['MENGE'].append("ШТ")
                                             df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',','))
                                             df_new['DATUV'].append('')
@@ -5041,6 +5065,7 @@ def kombinirovaniy_process(request,id):
                                         df_new['LGORT'].append('PS10')
 
                         if alum_teks.бумага_расход_упоковочной_ленты_на_1000_штук_кг != '0' :
+                            kraft_bumaga =Ximikat.objects.get(id=5)
                             j+=1
                             df_new['ID'].append('2')
                             df_new['MATNR'].append('')
@@ -5055,8 +5080,8 @@ def kombinirovaniy_process(request,id):
                             df_new['STLST'].append('')
                             df_new['POSNR'].append(craft_counter+1)
                             df_new['POSTP'].append('L')
-                            df_new['MATNR1'].append('craftmatnr')
-                            df_new['TEXT2'].append('crafttext')
+                            df_new['MATNR1'].append(kraft_bumaga.sap_code_s4q100)
+                            df_new['TEXT2'].append(kraft_bumaga.название)
                             df_new['MENGE'].append('КГ')
                             df_new['MEINS'].append( ("%.3f" % (float(alum_teks.бумага_расход_упоковочной_ленты_на_1000_штук_кг))).replace('.',','))
                             df_new['DATUV'].append('')
@@ -5143,24 +5168,24 @@ def kombinirovaniy_process(request,id):
                                     df_new['PUSTOY'].append('')
                                 
                                 if k==1:
-                                    df_new['MATNR1'].append('1300000064')
-                                    df_new['TEXT2'].append('KLEIBERIT 704,5')
+                                    df_new['MATNR1'].append(kleydlyalamp1.sap_code_s4q100)
+                                    df_new['TEXT2'].append(kleydlyalamp1.название)
                                     df_new['MENGE'].append('КГ')
                                     df_new['MEINS'].append( ("%.3f" % (float(alum_teks.лам_рас_клея_на_1000_штук_пр_кг)*mein_percent)).replace('.',','))
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
                                 
                                 if k==2:
-                                    df_new['MATNR1'].append('1300000068')
-                                    df_new['TEXT2'].append('KLEIBERIT Primer 831,0')
+                                    df_new['MATNR1'].append(kleydlyalamp2.sap_code_s4q100)
+                                    df_new['TEXT2'].append(kleydlyalamp2.название)
                                     df_new['MENGE'].append("КГ")
                                     df_new['MEINS'].append(("%.3f" % (float(alum_teks.лам_рас_праймера_на_1000_штук_пр_кг)*mein_percent)).replace('.',','))
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
                                 
                                 if k==3:
-                                    df_new['MATNR1'].append('1000001020')
-                                    df_new['TEXT2'].append('Пленка П2 NS35см 140мк Grey1')
+                                    df_new['MATNR1'].append(kleydlyalamp3.sap_code_s4q100)
+                                    df_new['TEXT2'].append(kleydlyalamp3.название)
                                     df_new['MENGE'].append("КГ")
                                     df_new['MEINS'].append(("%.3f" % (float(alum_teks.лам_рас_уп_материала_мешок_на_1000_пр)*mein_percent)).replace('.',','))
                                     df_new['DATUV'].append('')
@@ -5231,24 +5256,24 @@ def kombinirovaniy_process(request,id):
                                         df_new['PUSTOY'].append('')
                                     
                                     if k==1:
-                                        df_new['MATNR1'].append('1300000064')
-                                        df_new['TEXT2'].append('KLEIBERIT 704,5')
+                                        df_new['MATNR1'].append(kleydlyalamp1.sap_code_s4q100)
+                                        df_new['TEXT2'].append(kleydlyalamp1.название)
                                         df_new['MENGE'].append('КГ')
                                         df_new['MEINS'].append( ("%.3f" % (float(alum_teks.лам_рас_клея_на_1000_штук_пр_кг)*mein_percent)).replace('.',','))
                                         df_new['DATUV'].append('')
                                         df_new['PUSTOY'].append('')
                                     
                                     if k==2:
-                                        df_new['MATNR1'].append('1300000068')
-                                        df_new['TEXT2'].append('KLEIBERIT Primer 831,0')
+                                        df_new['MATNR1'].append(kleydlyalamp2.sap_code_s4q100)
+                                        df_new['TEXT2'].append(kleydlyalamp2.название)
                                         df_new['MENGE'].append("КГ")
                                         df_new['MEINS'].append(("%.3f" % (float(alum_teks.лам_рас_праймера_на_1000_штук_пр_кг)*mein_percent)).replace('.',','))
                                         df_new['DATUV'].append('')
                                         df_new['PUSTOY'].append('')
                                     
                                     if k==3:
-                                        df_new['MATNR1'].append('1000001020')
-                                        df_new['TEXT2'].append('Пленка П2 NS35см 140мк Grey1')
+                                        df_new['MATNR1'].append(kleydlyalamp3.sap_code_s4q100)
+                                        df_new['TEXT2'].append(kleydlyalamp3.название)
                                         df_new['MENGE'].append("КГ")
                                         df_new['MEINS'].append(("%.3f" % (float(alum_teks.лам_рас_уп_материала_мешок_на_1000_пр)*mein_percent)).replace('.',','))
                                         df_new['DATUV'].append('')
@@ -5324,24 +5349,24 @@ def kombinirovaniy_process(request,id):
                                     df_new['PUSTOY'].append('')
                                 
                                 if k==1:
-                                    df_new['MATNR1'].append('1300000064')
-                                    df_new['TEXT2'].append('KLEIBERIT 704,5')
+                                    df_new['MATNR1'].append(kleydlyalamp1.sap_code_s4q100)
+                                    df_new['TEXT2'].append(kleydlyalamp1.название)
                                     df_new['MENGE'].append('КГ')
                                     df_new['MEINS'].append( ("%.3f" % (float(alum_teks.лам_рас_клея_на_1000_штук_пр_кг)*mein_percent)).replace('.',','))
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
                                 
                                 if k==2:
-                                    df_new['MATNR1'].append('1300000068')
-                                    df_new['TEXT2'].append('KLEIBERIT Primer 831,0')
+                                    df_new['MATNR1'].append(kleydlyalamp2.sap_code_s4q100)
+                                    df_new['TEXT2'].append(kleydlyalamp2.название)
                                     df_new['MENGE'].append("КГ")
                                     df_new['MEINS'].append(("%.3f" % (float(alum_teks.лам_рас_праймера_на_1000_штук_пр_кг)*mein_percent)).replace('.',','))
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
                                 
                                 if k==3:
-                                    df_new['MATNR1'].append('1000001020')
-                                    df_new['TEXT2'].append('Пленка П2 NS35см 140мк Grey1')
+                                    df_new['MATNR1'].append(kleydlyalamp3.sap_code_s4q100)
+                                    df_new['TEXT2'].append(kleydlyalamp3.название)
                                     df_new['MENGE'].append("КГ")
                                     df_new['MEINS'].append(("%.3f" % (float(alum_teks.лам_рас_уп_материала_мешок_на_1000_пр)*mein_percent)).replace('.',','))
                                     df_new['DATUV'].append('')
@@ -5423,24 +5448,24 @@ def kombinirovaniy_process(request,id):
                                     df_new['PUSTOY'].append('')
                                 
                                 if k==1:
-                                    df_new['MATNR1'].append('1300000064')
-                                    df_new['TEXT2'].append('KLEIBERIT 704,5')
+                                    df_new['MATNR1'].append(kleydlyalamp1.sap_code_s4q100)
+                                    df_new['TEXT2'].append(kleydlyalamp1.название)
                                     df_new['MENGE'].append('КГ')
                                     df_new['MEINS'].append( ("%.3f" % (float(alum_teks.лам_рас_клея_на_1000_штук_пр_кг)*mein_percent)).replace('.',','))
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
                                 
                                 if k==2:
-                                    df_new['MATNR1'].append('1300000068')
-                                    df_new['TEXT2'].append('KLEIBERIT Primer 831,0')
+                                    df_new['MATNR1'].append(kleydlyalamp2.sap_code_s4q100)
+                                    df_new['TEXT2'].append(kleydlyalamp2.название)
                                     df_new['MENGE'].append("КГ")
                                     df_new['MEINS'].append(("%.3f" % (float(alum_teks.лам_рас_праймера_на_1000_штук_пр_кг)*mein_percent)).replace('.',','))
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
                                 
                                 if k==3:
-                                    df_new['MATNR1'].append('1000001020')
-                                    df_new['TEXT2'].append('Пленка П2 NS35см 140мк Grey1')
+                                    df_new['MATNR1'].append(kleydlyalamp3.sap_code_s4q100)
+                                    df_new['TEXT2'].append(kleydlyalamp3.название)
                                     df_new['MENGE'].append("КГ")
                                     df_new['MEINS'].append(("%.3f" % (float(alum_teks.лам_рас_уп_материала_мешок_на_1000_пр)*mein_percent)).replace('.',','))
                                     df_new['DATUV'].append('')
@@ -5478,6 +5503,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['LGORT'].append('PS11')
 
                         if alum_teks.бумага_расход_упоковочной_ленты_на_1000_штук_кг != '0' :
+                            kraft_bumaga =Ximikat.objects.get(id=5)
                             j+=1
                             df_new['ID'].append('2')
                             df_new['MATNR'].append('')
@@ -5492,8 +5518,8 @@ def kombinirovaniy_process(request,id):
                             df_new['STLST'].append('')
                             df_new['POSNR'].append(craft_counter+1)
                             df_new['POSTP'].append('L')
-                            df_new['MATNR1'].append('craftmatnr')
-                            df_new['TEXT2'].append('crafttext')
+                            df_new['MATNR1'].append(kraft_bumaga.sap_code_s4q100)
+                            df_new['TEXT2'].append(kraft_bumaga.название)
                             df_new['MENGE'].append('КГ')
                             df_new['MEINS'].append( ("%.3f" % (float(alum_teks.бумага_расход_упоковочной_ленты_на_1000_штук_кг))).replace('.',','))
                             df_new['DATUV'].append('')
