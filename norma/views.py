@@ -3338,15 +3338,17 @@ def kombinirovaniy_process(request,id):
                     else:
                         kraska_code = df[i][5].split()[-1]
                         kraskas =Kraska.objects.filter(код_краски_в_профилях = kraska_code)
+                        kraska_counter =0
                         for kras in kraskas:
                             for p in range(0,6):    
                                 j+=1
+                                kraska_counter +=1
                                 if (df[i][4].split('-')[1][:1]=='P'):
                                     df_new['ID'].append('1')
                                     df_new['MATNR'].append(df[i][4])
                                     df_new['WERKS'].append('1101')
                                     df_new['TEXT1'].append(df[i][5])
-                                    df_new['STLAL'].append(f'{p+1}')
+                                    df_new['STLAL'].append(f'{kraska_counter}')
                                     df_new['STLAN'].append('1')
                                     ztekst = sklad['sklad_pokraski'][p]
                                     df_new['ZTEXT'].append(ztekst)
