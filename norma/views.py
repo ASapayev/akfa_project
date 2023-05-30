@@ -2983,7 +2983,7 @@ def kombinirovaniy_process(request,id):
                         aliminisi = AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178')[:1].get()
                     elif '102' in alum_teks.алю_сплав_биллетов_102_178:
                         aliminisi = AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='102')[:1].get()
-                    print(aliminisi)
+                    
                     mein_percent =((get_legth(df[i][1]))/float(alum_teks.длина_профиля_м))
                     df_new['STKTX'].append(aliminisi.название)
                     df_new['BMENG'].append( '1000')
