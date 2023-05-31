@@ -1,13 +1,14 @@
 from django.shortcuts import render,redirect
 import pandas as pd
 from django.http import JsonResponse
-from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell,KombinirovaniyUtilsInformation,Accessuar
+from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell,KombinirovaniyUtilsInformation,Accessuar,NakleykaIskyuchenie
 from .forms import NormaFileForm
 from django.db.models import Q
 from config.settings import MEDIA_ROOT
 from .utils import excelgenerate,create_csv_file,create_folder
 import os
 from datetime import datetime
+
 
 def index(request):
     return render(request,'norma/index.html')
@@ -2397,7 +2398,7 @@ def kombinirovaniy_process(request,id):
         
     df = []
     
-    norma_list,kraska_list,accessuar = norma_for_list()
+    norma_list,kraska_list,accessuar,nakleyka_iskyuch = norma_for_list()
    
     check_for_existing =[]
     artikul_org=''
@@ -2547,6 +2548,8 @@ def kombinirovaniy_process(request,id):
                             
                         
                     if ('-N' in t):
+                        if length[0] in nakleyka_iskyuch:
+                            continue
                         if artikul_org != '':
                             try:
                                 norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]))[:1].get()
@@ -3101,7 +3104,7 @@ def kombinirovaniy_process(request,id):
                     df_new['ZTEXT'].append(ztekst)
                     length = df[i][2].split('-')[0]
                     
-                    alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
+                    alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                     
                     if '178' in alum_teks.алю_сплав_биллетов_102_178:
                         aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178')[:1].get()
@@ -3335,8 +3338,8 @@ def kombinirovaniy_process(request,id):
                                 # df_new['STKTX'][j-6+i]=(df_new['TEXT2'][j-4+i])
                     
                     else:
-                        kraska_code = df[i][5].split()[-1]
-                        kraskas =Kraska.objects.filter(код_краски_в_профилях = kraska_code).order_by('order')
+                        kraska_code = df[i][5].split()[-1][1:]
+                        kraskas =Kraska.objects.filter(код_краски = kraska_code).order_by('order')
                         kraska_counter =0
                         for kras in kraskas:
                             for p in range(0,6):    
@@ -3573,6 +3576,8 @@ def kombinirovaniy_process(request,id):
         norma_existsN = CheckNormaBase.objects.filter(artikul=df[i][8],kratkiytekst=df[i][9]).exists()
         if not norma_existsN:
             if df[i][8] !="":
+                if df[i][8].split('-')[0] in nakleyka_iskyuch:
+                    continue
                 CheckNormaBase(artikul=df[i][8],kratkiytekst=df[i][9]).save()
                 if (df[i][8].split('-')[1][:1]=='N'):
                     
@@ -5725,5 +5730,6 @@ def norma_for_list():
         
         kraskas = Kraska.objects.all().values_list('код_краски_в_профилях',flat=True)
         accessuar = Accessuar.objects.all().values_list('sap_code',flat=True)
+        nakleyka = NakleykaIskyuchenie.objects.all().values_list('sap_code',flat=True)
         
-        return normass,kraskas,accessuar
+        return normass,kraskas,accessuar,nakleyka

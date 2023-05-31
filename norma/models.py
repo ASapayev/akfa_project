@@ -274,5 +274,11 @@ class KombinirovaniyUtilsInformation(models.Model):
     
 class Accessuar(models.Model):
     sap_code = models.CharField(max_length=255,blank=True,null=True)
+    skotch =models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class NakleykaIskyuchenie(models.Model):
+    sap_code = models.CharField(max_length=255,blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
