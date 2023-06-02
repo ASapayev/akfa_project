@@ -189,7 +189,7 @@ def product_add(request,id):
       df_new['SAP код L']=''
       df_new['Ламинация']=''
       df_new['SAP код 7']=''
-      df_new['U-Упаковка + Готовая Продукция 7']=''
+      df_new['U-Упаковка + Готовая Продукция']=''
       df_new['SAP код F']=''
       df_new['Фабрикация']=''
       df_new['SAP код 75']=''
@@ -236,7 +236,7 @@ def product_add(request,id):
                   
                               else:
                                     dlina = df['Длина (мм)'][indexx]
-                                    df_new['U-Упаковка + Готовая Продукция 7'][indexx] = df['Краткий текст товара'][indexx]
+                                    df_new['U-Упаковка + Готовая Продукция'][indexx] = df['Краткий текст товара'][indexx]
                                     
                                     if df['Тип покрытия'][indexx] != 'Ламинированный': 
                                           df_new['K-Комбинирования'][indexx] = df['Краткий текст товара'][indexx]
@@ -300,18 +300,18 @@ def product_add(request,id):
                                                 umumiy_counter_termo[df['Артикул'][indexx]+'-75'] = 1 
                                                 
                               else:     
-                                    if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][indexx]).exists():
-                                          df_new['SAP код 7'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][indexx])[:1].get().material
+                                    if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx]).exists():
+                                          df_new['SAP код 7'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx])[:1].get().material
                                     else: 
                                           if AluminiyProductTermo.objects.filter(artikul=df['Артикул'][indexx],section ='7').exists():
                                                 umumiy_counter_termo[df['Артикул'][indexx]+'-7'] += 1
                                                 max_values7 = umumiy_counter_termo[df['Артикул'][indexx]+'-7']
                                                 materiale = df['Артикул'][indexx]+"-7{:03d}".format(max_values7)
-                                                AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][indexx],material=materiale).save()
+                                                AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx],material=materiale).save()
                                                 df_new['SAP код 7'][indexx] = materiale
                                           else:
                                                 materiale = df['Артикул'][indexx]+"-7{:03d}".format(1)
-                                                AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][indexx],material=materiale).save()
+                                                AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx],material=materiale).save()
                                                 df_new['SAP код 7'][indexx] = materiale
                                                 umumiy_counter_termo[df['Артикул'][indexx]+'-7'] = 1
                                     ##### kombirinovanniy
@@ -529,7 +529,7 @@ def product_add(request,id):
       
                   else:
                         dlina = df['Длина (мм)'][indexx]
-                        df_new['U-Упаковка + Готовая Продукция 7'][indexx] = df['Краткий текст товара'][indexx]
+                        df_new['U-Упаковка + Готовая Продукция'][indexx] = df['Краткий текст товара'][indexx]
                         
                         if df['Тип покрытия'][indexx] != 'Ламинированный':
                               df_new['K-Комбинирования'][indexx] = df['Краткий текст товара'][indexx]
@@ -610,18 +610,18 @@ def product_add(request,id):
                                     
                                     
                   else:     
-                        if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][indexx]).exists():
-                              df_new['SAP код 7'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][indexx])[:1].get().material
+                        if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx]).exists():
+                              df_new['SAP код 7'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx])[:1].get().material
                         else: 
                               if AluminiyProductTermo.objects.filter(artikul=df['Артикул'][indexx],section ='7').exists():
                                     umumiy_counter_termo[df['Артикул'][indexx]+'-7'] += 1
                                     max_values7 = umumiy_counter_termo[df['Артикул'][indexx]+'-7']
                                     materiale = df['Артикул'][indexx]+"-7{:03d}".format(max_values7)
-                                    AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][indexx],material=materiale).save()
+                                    AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx],material=materiale).save()
                                     df_new['SAP код 7'][indexx] = materiale
                               else:
                                     materiale = df['Артикул'][indexx]+"-7{:03d}".format(1)
-                                    AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][indexx],material=materiale).save()
+                                    AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx],material=materiale).save()
                                     df_new['SAP код 7'][indexx] = materiale
                                     umumiy_counter_termo[df['Артикул'][indexx]+'-7'] = 1
                         ##### kombirinovanniy
@@ -883,7 +883,7 @@ def product_add_second(request,id):
       df_new['SAP код L']=''
       df_new['Ламинация']=''
       df_new['SAP код 7']=''
-      df_new['U-Упаковка + Готовая Продукция 7']=''
+      df_new['U-Упаковка + Готовая Продукция']=''
       df_new['SAP код F']=''
       df_new['Фабрикация']=''
       df_new['SAP код 75']=''
@@ -951,7 +951,7 @@ def product_add_second(request,id):
 
                   else:
                         dlina = df['Длина (мм)'][key]
-                        df_new['U-Упаковка + Готовая Продукция 7'][key] = df['Краткий текст товара'][key]
+                        df_new['U-Упаковка + Готовая Продукция'][key] = df['Краткий текст товара'][key]
                         
                         if df['Тип покрытия'][key] != 'Ламинированный': 
                               df_new['K-Комбинирования'][key] = df['Краткий текст товара'][key]
@@ -1279,15 +1279,15 @@ def product_add_second(request,id):
                                                 )
                                     
                   else:     
-                        if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][key]).exists():
-                              df_new['SAP код 7'][key] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][key])[:1].get().material
-                              duplicat_list.append([df_new['SAP код 7'][key],df_new['U-Упаковка + Готовая Продукция 7'][key],'75'])
+                        if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key]).exists():
+                              df_new['SAP код 7'][key] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key])[:1].get().material
+                              duplicat_list.append([df_new['SAP код 7'][key],df_new['U-Упаковка + Готовая Продукция'][key],'75'])
                         else: 
                               if AluminiyProductTermo.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
                                     umumiy_counter_termo[df['Артикул'][key]+'-7'] += 1
                                     max_values7 = umumiy_counter_termo[df['Артикул'][key]+'-7']
                                     materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
-                                    AluminiyProductTermo(artikul = df['Артикул'][key],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][key],material=materiale).save()
+                                    AluminiyProductTermo(artikul = df['Артикул'][key],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key],material=materiale).save()
                                     df_new['SAP код 7'][key] = materiale
                                     artikle = str(materiale).split('-')[0]
                                    
@@ -1331,7 +1331,7 @@ def product_add_second(request,id):
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
-                                                      'kratkiy':df_new['U-Упаковка + Готовая Продукция 7'][key],
+                                                      'kratkiy':df_new['U-Упаковка + Готовая Продукция'][key],
                                                       'section':'U-Упаковка + Готовая продукция',
                                                       'export_customer_id':row['Код заказчика экспорт если експорт'],
                                                       'system':row['Название системы'],
@@ -1371,7 +1371,7 @@ def product_add_second(request,id):
                               
                               else:
                                     materiale = df['Артикул'][key]+"-7{:03d}".format(1)
-                                    AluminiyProductTermo(artikul = df['Артикул'][key],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 7'][key],material=materiale).save()
+                                    AluminiyProductTermo(artikul = df['Артикул'][key],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key],material=materiale).save()
                                     df_new['SAP код 7'][key] = materiale
                                     umumiy_counter_termo[df['Артикул'][key]+'-7'] = 1
                                     artikle = materiale.split('-')[0]
@@ -1415,7 +1415,7 @@ def product_add_second(request,id):
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
-                                                      'kratkiy':df_new['U-Упаковка + Готовая Продукция 7'][key],
+                                                      'kratkiy':df_new['U-Упаковка + Готовая Продукция'][key],
                                                       'section':'U-Упаковка + Готовая продукция',
                                                       'export_customer_id':row['Код заказчика экспорт если експорт'],
                                                       'system':row['Название системы'],

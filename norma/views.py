@@ -2567,7 +2567,7 @@ def kombinirovaniy_process(request,id):
                                  
                     else:
                         if artikul_org != '':
-                                
+                            # print(artikul_org)    
                             norma_1 = Norma.objects.filter(артикул=artikul_org)[:1].get()
                             if ((not '_' in kratkiy_org) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1])):
                                 nakley_code = kratkiy_org.split()[-1]
@@ -2883,11 +2883,11 @@ def kombinirovaniy_process(request,id):
                             kombinirovanniy.append(length[0])
                             
                 if ((i*2+1) == 13  and (length[0] not in does_not_exist_norm)):
+
                     
                     if '_' in fullsapkod[13]:
-                        
                         ddd = fullsapkod[13].split()[2]
-                        
+   
                         if ((not '_' in fullsapkod[13]) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1])):
                             continue
                         else:
@@ -2916,6 +2916,14 @@ def kombinirovaniy_process(request,id):
                                 if not Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code2).exists():
                                     isklyucheniye_ids.append(k)
                                     lamplyonka.append([length[0],laminatsiya_code2])
+                    else:
+                        norma_1 = Norma.objects.filter(артикул=length[0])[:1].get()
+                        nakley_code = fullsapkod[13].split()[-1]
+                        if nakley_code !='NT1':
+                            if (((norma_1.уп_пол_лн_рас_уп_лн_на_1000_штук_кг =='0') or (norma_1.рас_скотча_рас_скотча_на_1000_штук_шт=='0'))and(length[0] not in accessuar)):
+                                isklyucheniye_ids.append(k)
+                                norma.append([length[0],length[0],'','','','','','','','xato 0','','Normada Gp bez nakleyka',['#12a4d9','#12a4d9','white','white','white','white','white']])
+                        
                                     
                                  
     existing = norma + alumniy_silindr + subdekor + kraska + nakleyka_N + kombinirovanniy + lamplyonka
@@ -4174,7 +4182,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['MENGE'].append('ШТ')
                                 df_new['DATUV'].append('')
                                 df_new['PUSTOY'].append('')
-                                df_new['LGORT'].append('PS10')
+                                df_new['LGORT'].append('PS09')
                             
                             
                             if kombininovanniy_utils.termal_bridge1 == kombininovanniy_utils.termal_bridge2:
@@ -4198,7 +4206,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['MENGE'].append('М')
                                 df_new['DATUV'].append('')
                                 df_new['PUSTOY'].append('')
-                                df_new['LGORT'].append('PS10')
+                                df_new['LGORT'].append('PS09')
                             else:
                                 j += 1
                                 df_new['ID'].append('2')
@@ -4220,7 +4228,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['MENGE'].append('М')
                                 df_new['DATUV'].append('')
                                 df_new['PUSTOY'].append('')
-                                df_new['LGORT'].append('PS10')
+                                df_new['LGORT'].append('PS09')
                                 
                                 j += 1
                                 df_new['ID'].append('2')
@@ -4242,7 +4250,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['MENGE'].append('М')
                                 df_new['DATUV'].append('')
                                 df_new['PUSTOY'].append('')
-                                df_new['LGORT'].append('PS10')
+                                df_new['LGORT'].append('PS09')
                                 
                             
                             
@@ -4701,7 +4709,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['MENGE'].append('ШТ')
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
-                                    df_new['LGORT'].append('PS10')
+                                    df_new['LGORT'].append('PS09')
                                     craft_counter += 1
                                 else:
                                     for k in range(0,qatorlar_soni):
@@ -4745,7 +4753,7 @@ def kombinirovaniy_process(request,id):
                                             df_new['DATUV'].append('')
                                             df_new['PUSTOY'].append('')
                                         
-                                        df_new['LGORT'].append('PS10')
+                                        df_new['LGORT'].append('PS09')
 
                                 
                             if ((qatorlar_soni == 4) or (qatorlar_soni == 5)):
@@ -4793,7 +4801,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['MENGE'].append('ШТ')
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
-                                    df_new['LGORT'].append('PS10')
+                                    df_new['LGORT'].append('PS09')
                                     craft_counter+=1
                                 else:
                                     for k in range(0,3):
@@ -4838,9 +4846,9 @@ def kombinirovaniy_process(request,id):
                                             df_new['DATUV'].append('')
                                             df_new['PUSTOY'].append('')
                                         
-                                        df_new['LGORT'].append('PS10')
+                                        df_new['LGORT'].append('PS09')
 
-                                
+                        ##############################################     
                         else:
                             if qatorlar_soni == 3:
                                 j+=1
@@ -5664,7 +5672,7 @@ def kombinirovaniy_process(request,id):
             
             
     
-    path =f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}.xlsx'
+    path =f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}-{product_type}.xlsx'
     
     
     dff =pd.DataFrame(df_new)
