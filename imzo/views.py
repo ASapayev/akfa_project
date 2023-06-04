@@ -160,8 +160,9 @@ def lenght_generate_imzo(request,id):
                 
             if '-7' in row['МАТЕРИАЛ']:
                 lenghtht =row['МАТЕРИАЛ'].split('-')[0]
+                isklyuchenie =False
                 if lenghtht in accessuar:
-                    continue
+                    isklyuchenie = True
 
                 if texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй !='nan':
                     if '.' in texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй:
@@ -193,10 +194,10 @@ def lenght_generate_imzo(request,id):
                             df_new['ARBPL'][counter_2] =BAZA['7']['ARBPL'][0]
                             df_new['WERKS1'][counter_2] ='1101'
                             df_new['STEUS'][counter_2] ='ZK01'
-                            df_new['LTXA1'][counter_2] =BAZA['7']['LTXA1'][0]
-                            df_new['BMSCH'][counter_2] = nak #2 * (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
-                            df_new['MEINH'][counter_2] =BAZA['7']['MEINH'][0]
-                            df_new['VGW01'][counter_2] ='24'
+                            df_new['LTXA1'][counter_2] =BAZA['7N']['LTXA1'][0] if isklyuchenie else BAZA['7']['LTXA1'][0]
+                            df_new['BMSCH'][counter_2] = ''  if isklyuchenie else nak #2 * (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
+                            df_new['MEINH'][counter_2] = '' if isklyuchenie else BAZA['7']['MEINH'][0] 
+                            df_new['VGW01'][counter_2] ='' if isklyuchenie else '24'
                             df_new['VGE01'][counter_2] ='STD'
                             df_new['ACTTYPE_01'][counter_2] =BAZA['7']['ACTTYPE_01'][0]
                             df_new['CKSELKZ'][counter_2] ='X'
@@ -226,10 +227,10 @@ def lenght_generate_imzo(request,id):
                             df_new['ARBPL'][counter_2] =BAZA['7K']['ARBPL'][0]
                             df_new['WERKS1'][counter_2] ='1101'
                             df_new['STEUS'][counter_2] ='ZK01'
-                            df_new['LTXA1'][counter_2] =BAZA['7K']['LTXA1'][0]
-                            df_new['BMSCH'][counter_2] = nak 
-                            df_new['MEINH'][counter_2] =BAZA['7K']['MEINH'][0]
-                            df_new['VGW01'][counter_2] ='24'
+                            df_new['LTXA1'][counter_2] =BAZA['7KN']['LTXA1'][0] if isklyuchenie else BAZA['7K']['LTXA1'][0]
+                            df_new['BMSCH'][counter_2] = '' if isklyuchenie else nak
+                            df_new['MEINH'][counter_2] ='' if isklyuchenie else BAZA['7K']['MEINH'][0]
+                            df_new['VGW01'][counter_2] ='' if isklyuchenie else '24'
                             df_new['VGE01'][counter_2] ='STD'
                             df_new['ACTTYPE_01'][counter_2] =BAZA['7K']['ACTTYPE_01'][0]
                             df_new['CKSELKZ'][counter_2] ='X'
@@ -258,10 +259,10 @@ def lenght_generate_imzo(request,id):
                             df_new['ARBPL'][counter_2] =BAZA['7L']['ARBPL'][0]
                             df_new['WERKS1'][counter_2] ='1101'
                             df_new['STEUS'][counter_2] ='ZK01'
-                            df_new['LTXA1'][counter_2] =BAZA['7L']['LTXA1'][0]
-                            df_new['BMSCH'][counter_2] =texcartatime.ламинат_1_линия_про_во_в_сутки_буй
-                            df_new['MEINH'][counter_2] =BAZA['7L']['MEINH'][0]
-                            df_new['VGW01'][counter_2] ='24'
+                            df_new['LTXA1'][counter_2] =BAZA['7LN']['LTXA1'][0] if isklyuchenie else BAZA['7L']['LTXA1'][0]
+                            df_new['BMSCH'][counter_2] ='' if isklyuchenie else texcartatime.ламинат_1_линия_про_во_в_сутки_буй
+                            df_new['MEINH'][counter_2] ='' if isklyuchenie else BAZA['7L']['MEINH'][0]
+                            df_new['VGW01'][counter_2] ='' if isklyuchenie else '24'
                             df_new['VGE01'][counter_2] ='STD'
                             df_new['ACTTYPE_01'][counter_2] =BAZA['7L']['ACTTYPE_01'][0]
                             df_new['CKSELKZ'][counter_2] ='X'
@@ -766,29 +767,15 @@ def lenght_generate_imzo(request,id):
 
 def delete_tex(request):
     texx =[
-        'AXC40.A3032',
-        'AXC40.A6117',
-        'SLT65.A0002',
-        'STAK3030',
-        'STAK3321',
-        'STAK5021',
-        'STAK6317',
-        'WDC45.AC002',
-        'WDC45.HG001',
-        'WDC45.HG002',
-        'WDC45.HG004',
-        'WDC47.GR005',
-        'WDC47.HG001',
-        'WDC47.HG002',
-        'WDC47.HG003',
-        'WDC47.HG004',
-        'WDC47.HG005',
-        'WDC47.HG006',
-        'WDC47.HGA01',
-        'WDC47.HGA02',
-        'WDC47.MP001',
-        'AX403032', 'AX406117', 'SL650006', 'STAK3030', 'STAK3321', 'STAK5021', 'STAK6317', 'WD450350', 'WD450440', 'WD450442', 'WD450771', 'WD470010', 'WD470286', 'WD470287', 'WD470329', 'WD470330', 'WD478060', 'WD478061', 'WD478062', 'WD478063', 'WD470275'
-    ]
+        'SLT65.F0001-K045',
+        'SLT65.F0001-7053',
+        'SL650004-N016',
+        'SL650003-N018',
+        'SLT65.F0001-K004',
+        'SLT65.F0001-7004',
+        'SL650004-N002',
+        'SL650003-N002',
+          ]
     # a=0
     # component =[]
     # for tex in texx:
