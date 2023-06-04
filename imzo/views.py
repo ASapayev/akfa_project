@@ -4,6 +4,7 @@ from .models import ExcelFilesImzo,ImzoBase,TexCartaTime
 from config.settings import MEDIA_ROOT
 import pandas as pd
 from .BAZA import BAZA
+from aluminiy.models import ArtikulComponent
 import os
 from .utils import create_folder
 from django.http import JsonResponse
@@ -97,7 +98,6 @@ def lenght_generate_imzo(request,id):
                 counter +=4
             elif '-E' in row['МАТЕРИАЛ']:
                 counter +=3
-            ImzoBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
         else:
             df['Дупликат'][key]='Yes'
 
@@ -134,47 +134,29 @@ def lenght_generate_imzo(request,id):
     sap_code_link = []
     pakraska_nan = []
     counter_2 = 0
+
     for key,row in df.iterrows():
-        print(key)
         if row['Дупликат'] == 'No':
             sap_code = row['МАТЕРИАЛ'].split('-')[0]
             try:
                 texcartatime = TexCartaTime.objects.filter(Q(компонент_1=sap_code)|Q(компонент_2=sap_code)|Q(компонент_3=sap_code)|Q(артикул=sap_code))[:1].get()
-                # if texcartatime.пресс_1_линия_буй =='0':
-                #     texcartatime.пресс_1_линия_буй ='1'
-                # if texcartatime.закалка_1_печь_буй =='0':
-                #     texcartatime.закалка_1_печь_буй ='1'
-                # if texcartatime.покраска_SKM_белый_про_во_в_сутки_буй =='0':
-                #     texcartatime.покраска_SKM_белый_про_во_в_сутки_буй ='1'
-                # if texcartatime.покраска_SAT_базовый_про_во_в_сутки_буй =='0':
-                #     texcartatime.покраска_SAT_базовый_про_во_в_сутки_буй ='1'
-                # if texcartatime.покраска_горизонтал_про_во_в_сутки_буй =='0':
-                #     texcartatime.покраска_горизонтал_про_во_в_сутки_буй ='1'
-                # if texcartatime.покраска_ручная_про_во_в_сутки_буй =='0':
-                #     texcartatime.покраска_ручная_про_во_в_сутки_буй ='1'
-                # if texcartatime.вакуум_1_печка_про_во_в_сутки_буй =='0':
-                #     texcartatime.вакуум_1_печка_про_во_в_сутки_буй ='1'
-                # if texcartatime.термо_1_линия_про_во_в_сутки_буй =='0':
-                #     texcartatime.термо_1_линия_про_во_в_сутки_буй ='1'
-                # if texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй =='0':
-                #     texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй ='1'
-                # if texcartatime.ламинат_1_линия_про_во_в_сутки_буй =='0':
-                #     texcartatime.ламинат_1_линия_про_во_в_сутки_буй ='1'
             except:
                 sap_code_link.append(row['МАТЕРИАЛ'])
-                continue
-                # texcartatime = TexCartaTime()
-                # texcartatime.пресс_1_линия_буй='1'
-                # texcartatime.пресс_1_линия_буй = '1'
-                # texcartatime.закалка_1_печь_буй = '1'
-                # texcartatime.покраска_SKM_белый_про_во_в_сутки_буй = '1'
-                # texcartatime.покраска_SAT_базовый_про_во_в_сутки_буй = '1'
-                # texcartatime.покраска_горизонтал_про_во_в_сутки_буй = '1'
-                # texcartatime.покраска_ручная_про_во_в_сутки_буй = '1'
-                # texcartatime.вакуум_1_печка_про_во_в_сутки_буй = '1'
-                # texcartatime.термо_1_линия_про_во_в_сутки_буй = '1'
-                # texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй = '1'
-                # texcartatime.ламинат_1_линия_про_во_в_сутки_буй = '1'
+                
+    if len(sap_code_link) >0:
+        return JsonResponse({'TexCartada yoqlari':sap_code_link})
+
+
+
+    for key,row in df.iterrows():
+        print(key)
+        if row['Дупликат'] == 'No':
+            
+            sap_code = row['МАТЕРИАЛ'].split('-')[0]
+            
+            texcartatime = TexCartaTime.objects.filter(Q(компонент_1=sap_code)|Q(компонент_2=sap_code)|Q(компонент_3=sap_code)|Q(артикул=sap_code))[:1].get()
+            
+                
                 
             if '-7' in row['МАТЕРИАЛ']:
                 lenghtht =row['МАТЕРИАЛ'].split('-')[0]
@@ -182,7 +164,10 @@ def lenght_generate_imzo(request,id):
                     continue
 
                 if texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй !='nan':
-                    nak =2 * (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
+                    if '.' in texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй:
+                        nak =("%.3f" % (2 * (float(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)))).replace('.',',')
+                    else:
+                        nak =2 * (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
                 else:
                     nak = 'nan'
                     nakleyka_nan.append(lenghtht)
@@ -743,7 +728,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['USR01'][counter_2] = row['USR01']
                             counter_2 +=1
     
-
+            ImzoBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
     del df_new["counter"]
     from datetime import datetime
     now = datetime.now()
@@ -778,3 +763,97 @@ def lenght_generate_imzo(request,id):
     df_new.to_excel(path2)
     return redirect('abduvali')
 
+
+def delete_tex(request):
+    texx =[
+        'AXC40.A3032',
+        'AXC40.A6117',
+        'SLT65.A0002',
+        'STAK3030',
+        'STAK3321',
+        'STAK5021',
+        'STAK6317',
+        'WDC45.AC002',
+        'WDC45.HG001',
+        'WDC45.HG002',
+        'WDC45.HG004',
+        'WDC47.GR005',
+        'WDC47.HG001',
+        'WDC47.HG002',
+        'WDC47.HG003',
+        'WDC47.HG004',
+        'WDC47.HG005',
+        'WDC47.HG006',
+        'WDC47.HGA01',
+        'WDC47.HGA02',
+        'WDC47.MP001',
+        'AX403032', 'AX406117', 'SL650006', 'STAK3030', 'STAK3321', 'STAK5021', 'STAK6317', 'WD450350', 'WD450440', 'WD450442', 'WD450771', 'WD470010', 'WD470286', 'WD470287', 'WD470329', 'WD470330', 'WD478060', 'WD478061', 'WD478062', 'WD478063', 'WD470275'
+    ]
+    # a=0
+    # component =[]
+    # for tex in texx:
+    #     if ArtikulComponent.objects.filter(artikul=tex).exists():
+    #         component.append(ArtikulComponent.objects.filter(artikul=tex)[:1].get().component)
+    #         a+=1
+    # print(component)
+    # print(len(texx),a)
+
+    # tex =[
+    #     'AXC40.A3032-7001',
+    #     'AXC40.A6117-7001',
+    #     'AXC40.A6117-7002',
+    #     'AXC40.A6117-7003',
+    #     'AXC40.A6117-7004',
+    #     'AXC40.A6117-7005',
+    #     'AXC40.A6117-7006',
+    #     'CLX11.W0120-7001',
+    #     'CLX11.W0120-7002',
+    #     'CLX11.W0120-7003',
+    #     'SLT65.A0002-7003',
+    #     'SLT65.A0002-7004',
+    #     'STAK3030-7001',
+    #     'STAK3321-7001',
+    #     'STAK3321-7002',
+    #     'STAK3321-7003',
+    #     'STAK3321-7004',
+    #     'STAK3321-7005',
+    #     'STAK3321-7006',
+    #     'STAK5021-7001',
+    #     'STAK5021-7002',
+    #     'STAK5021-7003',
+    #     'STAK5021-7004',
+    #     'STAK5021-7005',
+    #     'STAK5021-7006',
+    #     'STAK5021-7007',
+    #     'STAK5021-7008',
+    #     'STAK6317-7001',
+    #     'WDC45.AC002-7002',
+    #     'WDC45.AC002-7003',
+    #     'WDC45.HG001-7002',
+    #     'WDC45.HG001-7003',
+    #     'WDC45.HG002-7002',
+    #     'WDC45.HG002-7003',
+    #     'WDC45.HG004-7001',
+    #     'WDC45.HG004-7002',
+    #     'WDC47.GR005-7005',
+    #     'WDC47.HG001-7001',
+    #     'WDC47.HG002-7001',
+    #     'WDC47.HG003-7001',
+    #     'WDC47.HG004-7001',
+    #     'WDC47.HG005-7002',
+    #     'WDC47.HG006-7001',
+    #     'WDC47.HGA01-7001',
+    #     'WDC47.HGA02-7001',
+    #     'WDC47.MP001-7001',
+    #     'WDC47.MP001-7002',
+    #     'WDC47.MP001-7003',
+    #     'WDC47.MP001-7004',
+    #     'WDC47.MP001-7005',
+    #     'WDC47.MP001-7006',
+
+    # ]
+    for tex in texx:
+        texcarta=ImzoBase.objects.filter(material__icontains=tex)
+        texcarta.delete()
+        
+    return JsonResponse({'a':'b'})

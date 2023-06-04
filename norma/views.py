@@ -2930,7 +2930,7 @@ def kombinirovaniy_process(request,id):
     
     if len(existing) > 0 : 
         create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka_N,kombinirovanniy,lamplyonka,str(product_type))                          
-        # return JsonResponse({'norma':norma,'aluminiy silindr':alumniy_silindr,'subdecor':subdekor,'kraska':kraska,'nakleyka':nakleyka_N,'kombinirovanniy':kombinirovanniy})
+        return JsonResponse({'norma':norma,'aluminiy silindr':alumniy_silindr,'subdecor':subdekor,'kraska':kraska,'nakleyka':nakleyka_N,'kombinirovanniy':kombinirovanniy})
     
     df_new ={
         'ID':[],

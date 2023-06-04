@@ -7,5 +7,5 @@ urlpatterns = [
   path('imzo/file',views.imzo_file, name='imzo_file'),
   path('imzo/<int:id>',views.lenght_generate_imzo,name='imzo_gen'),
   path('texcartabaseupload',views.texcartaupload,name='texcartaupload'),
-
+  path('remove/',views.delete_tex,name='remove')
 ]
