@@ -2590,21 +2590,21 @@ def product_add_second(request,id):
       for key,razlov in df_new.iterrows():
             if not RazlovkaObichniy.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция 7']).exists():
                   RazlovkaObichniy(
-                        esap_code =razlov['SAP код E']
-                        ekratkiy =razlov['Экструзия холодная резка']
-                        zsap_code =razlov['SAP код Z']
-                        zkratkiy =razlov['Печь старения']
-                        psap_code =razlov['SAP код P']
-                        pkratkiy =razlov['Покраска автомат']
-                        ssap_code =razlov['SAP код S']
-                        skratkiy =razlov['Сублимация']
-                        asap_code =razlov['SAP код A']
-                        akratkiy =razlov['Анодировка']
-                        lsap_code =razlov['SAP код L']
-                        lkratkiy =razlov['Ламинация']
-                        nsap_code =razlov['SAP код N']
-                        nkratkiy =razlov['Наклейка']
-                        sap_code7 =razlov['SAP код 7']
+                        esap_code =razlov['SAP код E'],
+                        ekratkiy =razlov['Экструзия холодная резка'],
+                        zsap_code =razlov['SAP код Z'],
+                        zkratkiy =razlov['Печь старения'],
+                        psap_code =razlov['SAP код P'],
+                        pkratkiy =razlov['Покраска автомат'],
+                        ssap_code =razlov['SAP код S'],
+                        skratkiy =razlov['Сублимация'],
+                        asap_code =razlov['SAP код A'],
+                        akratkiy =razlov['Анодировка'],
+                        lsap_code =razlov['SAP код L'],
+                        lkratkiy =razlov['Ламинация'],
+                        nsap_code =razlov['SAP код N'],
+                        nkratkiy =razlov['Наклейка'],
+                        sap_code7 =razlov['SAP код 7'],
                         kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
                   ).save()
 
