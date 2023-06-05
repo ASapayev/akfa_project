@@ -3,7 +3,7 @@ from django.http import JsonResponse
 import pandas as pd
 from .models import AluFileTermo,AluminiyProductTermo,AluminiyProductBasetermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour,CharacteristicTitle,BazaProfiley
 
-from aluminiy.models import AluminiyProduct
+from aluminiy.models import AluminiyProduct,RazlovkaTermo
 from .forms import FileFormTermo
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
@@ -852,16 +852,6 @@ def product_add_second(request,id):
             if row['Тип покрытия'] == 'nan':
                   df = df.drop(key)
       
-      
-      # print(df)
-      
-            # row['SAP код E'],row['Экструзия холодная резка'],
-            # row['SAP код Z'],row['Печь старения'],
-            # row['SAP код P'],row['Покраска автомат'],
-            # row['SAP код S'],row['Сублимация'],
-            # row['SAP код N'],row['Наклейка'],
-            # row['SAP код K'],row['K-Комбинирования'],
-            # row['SAP код 7'],row['U-Упаковка + Готовая Продукция']
       
       
       df_new =pd.DataFrame()
@@ -2689,29 +2679,10 @@ def product_add_second(request,id):
                                                       }
                                                 )
                   
-                  
-      
-      
-     
-      # print(cache_for_cratkiy_text)
       
       df_char = create_characteristika(cache_for_cratkiy_text) 
       
       df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
-      
-      # created =request.GET.get('created',None)
-      # if not created:
-      #       create_all(df_char_title)
-      # else:
-      #       ves_za_metr = request.GET.get('ves_za_metr',None)    
-      #       ves_za_shtuk = request.GET.get('ves_za_shtuk',None)    
-      #       price = request.GET.get('price',None)
-            
-      #       df_char_title['Удельный вес за метр'] = ves_za_metr
-      #       df_char_title['Общий вес за штуку'] = ves_za_shtuk
-      #       df_char_title['Price'] = price
-          
-      
 
       
       parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiytermo\\'
@@ -2739,6 +2710,31 @@ def product_add_second(request,id):
       
       # df_char_title_full = pd.DataFrame(df_char_title)
       # characteristika_created_txt_create(df_char_title_full)
+
+
+      
+      for key,razlov in df_new.iterrows():
+            if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция 7']).exists():
+                  RazlovkaTermo(
+                        esap_code =razlov['SAP код E']
+                        ekratkiy =razlov['Экструзия холодная резка']
+                        zsap_code =razlov['SAP код Z']
+                        zkratkiy =razlov['Печь старения']
+                        psap_code =razlov['SAP код P']
+                        pkratkiy =razlov['Покраска автомат']
+                        ssap_code =razlov['SAP код S']
+                        skratkiy =razlov['Сублимация']
+                        asap_code =razlov['SAP код A']
+                        akratkiy =razlov['Анодировка']
+                        nsap_code =razlov['SAP код N']
+                        nkratkiy =razlov['Наклейка']
+                        ksap_code =razlov['SAP код K']
+                        kratkiy =razlov['K-Комбинирования']
+                        lsap_code =razlov['SAP код L']
+                        lkratkiy =razlov['Ламинация']
+                        sap_code7 =razlov['SAP код 7']
+                        kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
+                  ).save()
       
       writer = pd.ExcelWriter(path, engine='xlsxwriter')
       df_new.to_excel(writer,index=False,sheet_name ='Schotchik')
