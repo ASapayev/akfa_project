@@ -2588,7 +2588,7 @@ def product_add_second(request,id):
 
 
       for key,razlov in df_new.iterrows():
-            if not RazlovkaObichniy.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция 7']).exists():
+            if not RazlovkaObichniy.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
                   RazlovkaObichniy(
                         esap_code =razlov['SAP код E'],
                         ekratkiy =razlov['Экструзия холодная резка'],
@@ -2622,7 +2622,7 @@ def razlovka_save(request):
       df_new = pd.read_excel(f'{MEDIA_ROOT}/obichniy.xlsx')
 
       for key,razlov in df_new.iterrows():
-            if not RazlovkaObichniy.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция 7']).exists():
+            if not RazlovkaObichniy.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
                   RazlovkaObichniy(
                         esap_code =razlov['SAP код E'],
                         ekratkiy =razlov['Экструзия холодная резка'],

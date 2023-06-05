@@ -2714,7 +2714,7 @@ def product_add_second(request,id):
 
       
       for key,razlov in df_new.iterrows():
-            if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция 7']).exists():
+            if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
                   RazlovkaTermo(
                         esap_code =razlov['SAP код E'],
                         ekratkiy =razlov['Экструзия холодная резка'],
