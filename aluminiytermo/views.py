@@ -210,7 +210,7 @@ def razlovkatermo_save(request):
                               kratkiy7 =razlov['U-Упаковка + Готовая Продукция 7']
                         ).save()
       for key,razlov in df_new['Characteristika'].iterrows():
-            if not Characteristika.objects.filter(sap_code=razlov[''],kratkiy_text=razlov['']).exists():
+            if not Characteristika.objects.filter(sap_code=razlov['SAP CODE'],kratkiy_text=razlov['KRATKIY TEXT']).exists():
                   Characteristika(
                         sap_code =razlov['SAP CODE'],
                         kratkiy_text =razlov['KRATKIY TEXT'],
@@ -2523,7 +2523,7 @@ def product_add_second(request,id):
                               ).save()
       
       for key,razlov in df_char.iterrows():
-            if not Characteristika.objects.filter(sap_code=razlov[''],kratkiy_text=razlov['']).exists():
+            if not Characteristika.objects.filter(sap_code=razlov['SAP CODE'],kratkiy_text=razlov['KRATKIY TEXT']).exists():
                   Characteristika(
                         sap_code =razlov['SAP CODE'],
                         kratkiy_text =razlov['KRATKIY TEXT'],
