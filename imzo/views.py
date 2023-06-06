@@ -143,8 +143,8 @@ def lenght_generate_imzo(request,id):
             except:
                 sap_code_link.append(row['МАТЕРИАЛ'])
                 
-    if len(sap_code_link) >0:
-        return JsonResponse({'TexCartada yoqlari':sap_code_link})
+    # if len(sap_code_link) >0:
+    #     return JsonResponse({'TexCartada yoqlari':sap_code_link})
 
 
 
@@ -153,9 +153,11 @@ def lenght_generate_imzo(request,id):
         if row['Дупликат'] == 'No':
             
             sap_code = row['МАТЕРИАЛ'].split('-')[0]
-            
-            texcartatime = TexCartaTime.objects.filter(Q(компонент_1=sap_code)|Q(компонент_2=sap_code)|Q(компонент_3=sap_code)|Q(артикул=sap_code))[:1].get()
-            
+            texcarta_bor = True
+            if TexCartaTime.objects.filter(Q(компонент_1=sap_code)|Q(компонент_2=sap_code)|Q(компонент_3=sap_code)|Q(артикул=sap_code)).exists():
+                texcartatime = TexCartaTime.objects.filter(Q(компонент_1=sap_code)|Q(компонент_2=sap_code)|Q(компонент_3=sap_code)|Q(артикул=sap_code))[:1].get()
+            else:
+                texcarta_bor = False
                 
                 
             if '-7' in row['МАТЕРИАЛ']:
@@ -163,15 +165,17 @@ def lenght_generate_imzo(request,id):
                 isklyuchenie =False
                 if lenghtht in accessuar:
                     isklyuchenie = True
-
-                if texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй !='nan':
-                    if '.' in texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй:
-                        nak =("%.3f" % (2 * (float(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)))).replace('.',',')
+                if texcarta_bor:
+                    if texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй !='nan':
+                        if '.' in texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй:
+                            nak =("%.3f" % (2 * (float(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)))).replace('.',',')
+                        else:
+                            nak =2 * (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
                     else:
-                        nak =2 * (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
+                        nak = '11111'
+                        nakleyka_nan.append(lenghtht)
                 else:
-                    nak = 'nan'
-                    nakleyka_nan.append(lenghtht)
+                    nak='11111'
                 kombiniroavniy = ('7777' in row['КРАТКИЙ ТЕКСТ']) or ('8888' in row['КРАТКИЙ ТЕКСТ']) or ('3701' in row['КРАТКИЙ ТЕКСТ']) or ('3702' in row['КРАТКИЙ ТЕКСТ'])
                 
                 length =len(row['КРАТКИЙ ТЕКСТ'])
@@ -291,7 +295,7 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['K']['LTXA1'][0]
-                        df_new['BMSCH'][counter_2] =texcartatime.термо_1_линия_про_во_в_сутки_буй
+                        df_new['BMSCH'][counter_2] =texcartatime.термо_1_линия_про_во_в_сутки_буй if texcarta_bor else '11111'
                         df_new['MEINH'][counter_2] =BAZA['K']['MEINH'][0]
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
@@ -324,7 +328,7 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['N']['LTXA1'][0]
-                        df_new['BMSCH'][counter_2] =texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй
+                        df_new['BMSCH'][counter_2] =texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй if texcarta_bor else '11111'
                         df_new['MEINH'][counter_2] =BAZA['N']['MEINH'][0]
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
@@ -336,8 +340,6 @@ def lenght_generate_imzo(request,id):
                         df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-S' in row['МАТЕРИАЛ']:
-                if texcartatime=='0':
-                    texcartatime ='1000'
                 for i7 in range(1,3):
                     if i7 ==1:
                         df_new['ID'][counter_2] ='1'
@@ -357,7 +359,7 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['S']['LTXA1'][0]
-                        df_new['BMSCH'][counter_2] = texcartatime.вакуум_1_печка_про_во_в_сутки_буй
+                        df_new['BMSCH'][counter_2] = texcartatime.вакуум_1_печка_про_во_в_сутки_буй if texcarta_bor else '11111'
                         df_new['MEINH'][counter_2] =BAZA['S']['MEINH'][0]
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
@@ -369,8 +371,6 @@ def lenght_generate_imzo(request,id):
                         df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-E' in row['МАТЕРИАЛ']:
-                if texcartatime=='0':
-                    texcartatime ='1000'
                 for i7 in range(1,4):
                     if i7 ==1:
                         df_new['ID'][counter_2] ='1'
@@ -390,7 +390,7 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['E']['LTXA1'][0]
-                        df_new['BMSCH'][counter_2] = texcartatime.пресс_1_линия_буй
+                        df_new['BMSCH'][counter_2] = texcartatime.пресс_1_линия_буй if texcarta_bor else '11111'
                         df_new['MEINH'][counter_2] =BAZA['E']['MEINH'][0]
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
@@ -407,7 +407,7 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['E']['LTXA1'][1]
-                        df_new['BMSCH'][counter_2] = texcartatime.пресс_1_линия_буй
+                        df_new['BMSCH'][counter_2] = texcartatime.пресс_1_линия_буй if texcarta_bor else '11111'
                         df_new['MEINH'][counter_2] =BAZA['E']['MEINH'][1]
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
@@ -419,8 +419,6 @@ def lenght_generate_imzo(request,id):
                         df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-Z' in row['МАТЕРИАЛ']:
-                if texcartatime=='0':
-                    texcartatime ='1000'
                 for i7 in range(1,5):
                     if i7 ==1:
                         df_new['ID'][counter_2] ='1'
@@ -440,7 +438,7 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['Z']['LTXA1'][0]
-                        df_new['BMSCH'][counter_2] =texcartatime.пресс_1_линия_буй
+                        df_new['BMSCH'][counter_2] =texcartatime.пресс_1_линия_буй if texcarta_bor else '11111'
                         df_new['MEINH'][counter_2] =BAZA['Z']['MEINH'][0]
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
@@ -457,7 +455,7 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['Z']['LTXA1'][1]
-                        df_new['BMSCH'][counter_2] =texcartatime.пресс_1_линия_буй
+                        df_new['BMSCH'][counter_2] =texcartatime.пресс_1_линия_буй if texcarta_bor else '11111'
                         df_new['MEINH'][counter_2] =BAZA['Z']['MEINH'][1]
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
@@ -474,7 +472,7 @@ def lenght_generate_imzo(request,id):
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] =BAZA['Z']['LTXA1'][2]
-                        df_new['BMSCH'][counter_2] = texcartatime.закалка_1_печь_буй
+                        df_new['BMSCH'][counter_2] = texcartatime.закалка_1_печь_буй if texcarta_bor else '11111'
                         df_new['MEINH'][counter_2] =BAZA['Z']['MEINH'][2]
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
@@ -486,8 +484,6 @@ def lenght_generate_imzo(request,id):
                         df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-P' in row['МАТЕРИАЛ']:
-                if texcartatime=='0':
-                    texcartatime ='1000'
                 for p in range(1,7):
                     if p ==1:
                         ## SKM -SKM покраска
@@ -511,7 +507,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P1']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] =texcartatime.покраска_SKM_белый_про_во_в_сутки_буй
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_SKM_белый_про_во_в_сутки_буй if texcarta_bor else '11111'
                                 df_new['MEINH'][counter_2] =BAZA['P1']['MEINH'][0]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -542,7 +538,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P2']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] =texcartatime.покраска_SAT_базовый_про_во_в_сутки_буй
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_SAT_базовый_про_во_в_сутки_буй if texcarta_bor else '11111'
                                 df_new['MEINH'][counter_2] =BAZA['P2']['MEINH'][0]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -573,7 +569,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P3']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] =texcartatime.покраска_горизонтал_про_во_в_сутки_буй
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_горизонтал_про_во_в_сутки_буй if texcarta_bor else '11111'
                                 df_new['MEINH'][counter_2] =BAZA['P3']['MEINH'][0]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -604,7 +600,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P4']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] =texcartatime.покраска_SKM_белый_про_во_в_сутки_буй
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_SKM_белый_про_во_в_сутки_буй if texcarta_bor else '11111'
                                 df_new['MEINH'][counter_2] =BAZA['P4']['MEINH'][0]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -621,7 +617,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P4']['LTXA1'][1]
-                                df_new['BMSCH'][counter_2] =texcartatime.покраска_ручная_про_во_в_сутки_буй
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_ручная_про_во_в_сутки_буй if texcarta_bor else '11111'
                                 df_new['MEINH'][counter_2] =BAZA['P4']['MEINH'][1]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -652,7 +648,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P5']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] =texcartatime.покраска_SAT_базовый_про_во_в_сутки_буй
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_SAT_базовый_про_во_в_сутки_буй if texcarta_bor else '11111'
                                 df_new['MEINH'][counter_2] =BAZA['P5']['MEINH'][0]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -669,7 +665,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P5']['LTXA1'][1]
-                                df_new['BMSCH'][counter_2] =texcartatime.покраска_ручная_про_во_в_сутки_буй
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_ручная_про_во_в_сутки_буй if texcarta_bor else '11111'
                                 df_new['MEINH'][counter_2] =BAZA['P5']['MEINH'][1]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -700,7 +696,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P6']['LTXA1'][0]
-                                df_new['BMSCH'][counter_2] =texcartatime.покраска_горизонтал_про_во_в_сутки_буй
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_горизонтал_про_во_в_сутки_буй if texcarta_bor else '11111'
                                 df_new['MEINH'][counter_2] =BAZA['P6']['MEINH'][0]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -717,7 +713,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS1'][counter_2] ='1101'
                                 df_new['STEUS'][counter_2] ='ZK01'
                                 df_new['LTXA1'][counter_2] =BAZA['P6']['LTXA1'][1]
-                                df_new['BMSCH'][counter_2] =texcartatime.покраска_ручная_про_во_в_сутки_буй
+                                df_new['BMSCH'][counter_2] =texcartatime.покраска_ручная_про_во_в_сутки_буй if texcarta_bor else '11111'
                                 df_new['MEINH'][counter_2] =BAZA['P6']['MEINH'][1]
                                 df_new['VGW01'][counter_2] ='24'
                                 df_new['VGE01'][counter_2] ='STD'
@@ -776,69 +772,7 @@ def delete_tex(request):
         'SL650004-N002',
         'SL650003-N002',
           ]
-    # a=0
-    # component =[]
-    # for tex in texx:
-    #     if ArtikulComponent.objects.filter(artikul=tex).exists():
-    #         component.append(ArtikulComponent.objects.filter(artikul=tex)[:1].get().component)
-    #         a+=1
-    # print(component)
-    # print(len(texx),a)
-
-    # tex =[
-    #     'AXC40.A3032-7001',
-    #     'AXC40.A6117-7001',
-    #     'AXC40.A6117-7002',
-    #     'AXC40.A6117-7003',
-    #     'AXC40.A6117-7004',
-    #     'AXC40.A6117-7005',
-    #     'AXC40.A6117-7006',
-    #     'CLX11.W0120-7001',
-    #     'CLX11.W0120-7002',
-    #     'CLX11.W0120-7003',
-    #     'SLT65.A0002-7003',
-    #     'SLT65.A0002-7004',
-    #     'STAK3030-7001',
-    #     'STAK3321-7001',
-    #     'STAK3321-7002',
-    #     'STAK3321-7003',
-    #     'STAK3321-7004',
-    #     'STAK3321-7005',
-    #     'STAK3321-7006',
-    #     'STAK5021-7001',
-    #     'STAK5021-7002',
-    #     'STAK5021-7003',
-    #     'STAK5021-7004',
-    #     'STAK5021-7005',
-    #     'STAK5021-7006',
-    #     'STAK5021-7007',
-    #     'STAK5021-7008',
-    #     'STAK6317-7001',
-    #     'WDC45.AC002-7002',
-    #     'WDC45.AC002-7003',
-    #     'WDC45.HG001-7002',
-    #     'WDC45.HG001-7003',
-    #     'WDC45.HG002-7002',
-    #     'WDC45.HG002-7003',
-    #     'WDC45.HG004-7001',
-    #     'WDC45.HG004-7002',
-    #     'WDC47.GR005-7005',
-    #     'WDC47.HG001-7001',
-    #     'WDC47.HG002-7001',
-    #     'WDC47.HG003-7001',
-    #     'WDC47.HG004-7001',
-    #     'WDC47.HG005-7002',
-    #     'WDC47.HG006-7001',
-    #     'WDC47.HGA01-7001',
-    #     'WDC47.HGA02-7001',
-    #     'WDC47.MP001-7001',
-    #     'WDC47.MP001-7002',
-    #     'WDC47.MP001-7003',
-    #     'WDC47.MP001-7004',
-    #     'WDC47.MP001-7005',
-    #     'WDC47.MP001-7006',
-
-    # ]
+    
     for tex in texx:
         texcarta=ImzoBase.objects.filter(material__icontains=tex)
         texcarta.delete()

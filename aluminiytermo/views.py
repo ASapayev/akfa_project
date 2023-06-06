@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import pandas as pd
-from .models import AluFileTermo,AluminiyProductTermo,AluminiyProductBasetermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour,CharacteristicTitle,BazaProfiley
+from .models import AluFileTermo,AluminiyProductTermo,AluminiyProductBasetermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour,CharacteristicTitle,BazaProfiley,Characteristika
 
 from aluminiy.models import AluminiyProduct,RazlovkaTermo
 from .forms import FileFormTermo
@@ -151,11 +151,15 @@ def razlovkatermo_save(request):
       df_new = pd.read_excel(f'{MEDIA_ROOT}/termo.xlsx',sheet_name=['Schotchik','Characteristika','title'])
       razlovka_yoq = True
       df_new['Schotchik'] =df_new['Schotchik'].astype(str)
+      df_new['Characteristika'] =df_new['Characteristika'].astype(str)
+      df_new['title'] =df_new['title'].astype(str)
       df_new['Schotchik']=df_new['Schotchik'].replace('nan','')
+      df_new['Characteristika']=df_new['Characteristika'].replace('nan','')
+      df_new['title']=df_new['title'].replace('nan','')
       # print(df_new['Schotchik'])
       for key,razlov in df_new['Schotchik'].iterrows():
             if razlov['SAP код 7']!="":
-                  if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
+                  if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция 7']).exists():
                         razlovka_yoq = True
                         razlovka_komb = RazlovkaTermo(
                               parent_id=0,
@@ -176,7 +180,7 @@ def razlovkatermo_save(request):
                               lsap_code =razlov['SAP код L'],
                               lkratkiy =razlov['Ламинация'],
                               sap_code7 =razlov['SAP код 7'],
-                              kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
+                              kratkiy7 =razlov['U-Упаковка + Готовая Продукция 7']
                         )
                         razlovka_komb.save()
                   else:
@@ -203,8 +207,74 @@ def razlovkatermo_save(request):
                               lsap_code =razlov['SAP код L'],
                               lkratkiy =razlov['Ламинация'],
                               sap_code7 =razlov['SAP код 7'],
-                              kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
+                              kratkiy7 =razlov['U-Упаковка + Готовая Продукция 7']
                         ).save()
+      for key,razlov in df_new['Characteristika'].iterrows():
+            if not Characteristika.objects.filter(sap_code=razlov[''],kratkiy_text=razlov['']).exists():
+                  Characteristika(
+                        sap_code =razlov['SAP CODE'],
+                        kratkiy_text =razlov['KRATKIY TEXT'],
+                        section =razlov['SECTION'],
+                        savdo_id =razlov['SAVDO_ID'],
+                        savdo_name =razlov['SAVDO_NAME'],
+                        export_customer_id =razlov['EXPORT_CUSTOMER_ID'],
+                        system =razlov['SYSTEM'],
+                        article =razlov['ARTICLE'],
+                        length =razlov['LENGTH'],
+                        surface_treatment =razlov['SURFACE_TREATMENT'],
+                        alloy =razlov['ALLOY'],
+                        temper =razlov['TEMPER'],
+                        combination =razlov['COMBINATION'],
+                        outer_side_pc_id =razlov['OUTER_SIDE_PC_ID'],
+                        outer_side_pc_brand =razlov['OUTER_SIDE_PC_BRAND'],
+                        inner_side_pc_id =razlov['INNER_SIDE_PC_ID'],
+                        inner_side_pc_brand =razlov['INNER_SIDE_PC_BRAND'],
+                        outer_side_wg_s_id =razlov['OUTER_SIDE_WG_S_ID'],
+                        inner_side_wg_s_id =razlov['INNER_SIDE_WG_S_ID'],
+                        outer_side_wg_id =razlov['OUTER_SIDE_WG_ID'],
+                        inner_side_wg_id =razlov['INNER_SIDE_WG_ID'],
+                        anodization_contact =razlov['ANODIZATION_CONTACT'],
+                        anodization_type =razlov['ANODIZATION_TYPE'],
+                        anodization_method =razlov['ANODIZATION_METHOD'],
+                        print_view =razlov['PRINT_VIEW'],
+                        profile_base =razlov['PROFILE_BASE'],
+                        width =razlov['WIDTH'],
+                        height =razlov['HEIGHT'],
+                        category =razlov['CATEGORY'],
+                        rawmat_type =razlov['RAWMAT_TYPE'],
+                        benkam_id =razlov['BENKAM_ID'],
+                        hollow_and_solid =razlov['HOLLOW AND SOLID'],
+                        export_description =razlov['EXPORT_DESCRIPTION'],
+                        export_description_eng =razlov['EXPORT_DESCRIPTION ENG'],
+                        tnved =razlov['TNVED'],
+                        surface_treatment_export =razlov['SURFACE_TREATMENT_EXPORT'],
+                        wms_width =razlov['WMS_WIDTH'],
+                        wms_height =razlov['WMS_HEIGHT'],
+                        group_prise =''					
+                  ).save()
+      for key,razlov in df_new['title'].iterrows():
+            if not CharacteristicTitle.objects.filter(sap_код_s4p_100 = razlov['SAP код S4P 100']).exists():
+                  CharacteristicTitle(
+                        дата_изменение_добавление =razlov['Дата изменение добавление'], 
+                        статус_изменение_добавление =razlov['Статус изменение добавление'], 
+                        ссылки_для_чертежа =razlov['Ссылки для чертежа'], 
+                        sap_код_s4p_100 =razlov['SAP код S4P 100'], 
+                        нумерация_до_sap =razlov['Нумерация до SAP'], 
+                        короткое_название_sap =razlov['Короткое название SAP'], 
+                        польное_наименование_sap =razlov['Польное наименование SAP'], 
+                        ед_изм =razlov['Ед, Изм,'], 
+                        альтернативная_ед_изм =razlov['Альтернативная ед, изм'], 
+                        коэфициент_пересчета =razlov['Коэфициент пересчета'], 
+                        участок =razlov['Участок'], 
+                        альтернативный_участок =razlov['Альтернативный участок'], 
+                        длина =razlov['Длина'], 
+                        ширина =razlov['Ширина'], 
+                        высота =razlov['Высота'], 
+                        группа_материалов =razlov['группа материалов'], 
+                        удельный_вес_за_метр =razlov['Удельный вес за метр'], 
+                        общий_вес_за_штуку =razlov['Общий вес за штуку'],
+                        price =razlov['Price']
+                  ).save()
       
       return JsonResponse({'a':'b'})
 
@@ -2426,7 +2496,7 @@ def product_add_second(request,id):
                               )
                               razlovka_komb.save()
                         else:
-                        razlovka_yoq = False 
+                              razlovka_yoq = False 
             
                   else:
                         if razlovka_yoq:
@@ -2451,6 +2521,73 @@ def product_add_second(request,id):
                                     sap_code7 =razlov['SAP код 7'],
                                     kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
                               ).save()
+      
+      for key,razlov in df_char.iterrows():
+            if not Characteristika.objects.filter(sap_code=razlov[''],kratkiy_text=razlov['']).exists():
+                  Characteristika(
+                        sap_code =razlov['SAP CODE'],
+                        kratkiy_text =razlov['KRATKIY TEXT'],
+                        section =razlov['SECTION'],
+                        savdo_id =razlov['SAVDO_ID'],
+                        savdo_name =razlov['SAVDO_NAME'],
+                        export_customer_id =razlov['EXPORT_CUSTOMER_ID'],
+                        system =razlov['SYSTEM'],
+                        article =razlov['ARTICLE'],
+                        length =razlov['LENGTH'],
+                        surface_treatment =razlov['SURFACE_TREATMENT'],
+                        alloy =razlov['ALLOY'],
+                        temper =razlov['TEMPER'],
+                        combination =razlov['COMBINATION'],
+                        outer_side_pc_id =razlov['OUTER_SIDE_PC_ID'],
+                        outer_side_pc_brand =razlov['OUTER_SIDE_PC_BRAND'],
+                        inner_side_pc_id =razlov['INNER_SIDE_PC_ID'],
+                        inner_side_pc_brand =razlov['INNER_SIDE_PC_BRAND'],
+                        outer_side_wg_s_id =razlov['OUTER_SIDE_WG_S_ID'],
+                        inner_side_wg_s_id =razlov['INNER_SIDE_WG_S_ID'],
+                        outer_side_wg_id =razlov['OUTER_SIDE_WG_ID'],
+                        inner_side_wg_id =razlov['INNER_SIDE_WG_ID'],
+                        anodization_contact =razlov['ANODIZATION_CONTACT'],
+                        anodization_type =razlov['ANODIZATION_TYPE'],
+                        anodization_method =razlov['ANODIZATION_METHOD'],
+                        print_view =razlov['PRINT_VIEW'],
+                        profile_base =razlov['PROFILE_BASE'],
+                        width =razlov['WIDTH'],
+                        height =razlov['HEIGHT'],
+                        category =razlov['CATEGORY'],
+                        rawmat_type =razlov['RAWMAT_TYPE'],
+                        benkam_id =razlov['BENKAM_ID'],
+                        hollow_and_solid =razlov['HOLLOW AND SOLID'],
+                        export_description =razlov['EXPORT_DESCRIPTION'],
+                        export_description_eng =razlov['EXPORT_DESCRIPTION ENG'],
+                        tnved =razlov['TNVED'],
+                        surface_treatment_export =razlov['SURFACE_TREATMENT_EXPORT'],
+                        wms_width =razlov['WMS_WIDTH'],
+                        wms_height =razlov['WMS_HEIGHT'],
+                        group_prise =''					
+                  ).save()
+      for key,razlov in df_char_title.iterrows():
+            if not CharacteristicTitle.objects.filter(sap_код_s4p_100 = razlov['SAP код S4P 100']).exists():
+                  CharacteristicTitle(
+                        дата_изменение_добавление =razlov['Дата изменение добавление'], 
+                        статус_изменение_добавление =razlov['Статус изменение добавление'], 
+                        ссылки_для_чертежа =razlov['Ссылки для чертежа'], 
+                        sap_код_s4p_100 =razlov['SAP код S4P 100'], 
+                        нумерация_до_sap =razlov['Нумерация до SAP'], 
+                        короткое_название_sap =razlov['Короткое название SAP'], 
+                        польное_наименование_sap =razlov['Польное наименование SAP'], 
+                        ед_изм =razlov['Ед, Изм,'], 
+                        альтернативная_ед_изм =razlov['Альтернативная ед, изм'], 
+                        коэфициент_пересчета =razlov['Коэфициент пересчета'], 
+                        участок =razlov['Участок'], 
+                        альтернативный_участок =razlov['Альтернативный участок'], 
+                        длина =razlov['Длина'], 
+                        ширина =razlov['Ширина'], 
+                        высота =razlov['Высота'], 
+                        группа_материалов =razlov['группа материалов'], 
+                        удельный_вес_за_метр =razlov['Удельный вес за метр'], 
+                        общий_вес_за_штуку =razlov['Общий вес за штуку'],
+                        price =razlov['Price']
+                  ).save()
       
       
       writer = pd.ExcelWriter(path, engine='xlsxwriter')
