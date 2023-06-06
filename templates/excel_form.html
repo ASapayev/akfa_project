@@ -12,7 +12,7 @@
   <div class="container" style="background-image: url({% static 'images1.jpg'%});background-position: center; height:1080px">
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token%}
-      <div class="form-group p-3">
+      <div class="form-group p-3" style="color:orange">
 
         <label for="exampleFormControlFile1" style="color: azure;">Файл загрузка</label><br>
         {{form.file}}<br>
