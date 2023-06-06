@@ -2395,7 +2395,7 @@ def product_add_second(request,id):
       
       # df_char_title_full = pd.DataFrame(df_char_title)
       # characteristika_created_txt_create(df_char_title_full)
-
+      df_new = df_new.replace('nan','')
 
       razlovka_yoq = True
       for key,razlov in df_new.iterrows():
