@@ -2677,8 +2677,18 @@ def product_add_second(request,id):
       
       return redirect('upload_product')
                   
-     
+import glob
 def razlovka_save(request):
+      
+      res =[]
+      dir_path = f'{MEDIA_ROOT}\\uploads\\aluminiy\\'
+      d = pathlib.Path(dir_path)
+      for entry in d.iterdir():
+    # check if it a file
+            if entry.is_file():
+                  res.append(entry)
+      print(res)
+
       df_new = pd.read_excel(f'{MEDIA_ROOT}/obichniy.xlsx',sheet_name=['Schotchik','Characteristika','title'])
 
       for key,razlov in df_new['Schotchik'].iterrows():

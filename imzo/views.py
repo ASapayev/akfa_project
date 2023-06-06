@@ -9,7 +9,7 @@ import os
 from .utils import create_folder
 from django.http import JsonResponse
 from django.db.models import Q
-from norma.models import Accessuar
+from norma.models import Accessuar,CheckNormaBase
     
 # Create your views here.
 
@@ -868,6 +868,8 @@ def delete_tex(request):
           ]
     
     
+    # texcarta=CheckNormaBase.objects.filter(material__in=texx)
+    # texcarta.delete()
     texcarta=ImzoBase.objects.filter(material__in=texx)
     texcarta.delete()
         
