@@ -3382,7 +3382,7 @@ def kombinirovaniy_process(request,id):
                                     if product_type =='termo':
                                         alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
                                     else:
-                                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
+                                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                                     
                                     
                                     mein_percent =((get_legth(df[i][5]))/float(alum_teks.длина_профиля_м))
