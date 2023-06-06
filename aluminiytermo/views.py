@@ -147,533 +147,214 @@ def aluminiy_group(request):
       print('aa   ')
       return JsonResponse({'data':umumiy})
 
-######termo old
-def product_add(request,id):
-      file = AluFileTermo.objects.get(id=id).file
-      df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
-      df =df.astype(str)
-      c =int(df.shape[0])-1
-      
-      for key,row in df.iterrows():
-            if ((row['Артикул'] == 'nan') and (row['Компонент'] == 'nan')) :
-                  df = df.drop(key)
-      
-      
-      ################### group by termo #########
-      aluminiy_group_termo = AluminiyProductTermo.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
-      umumiy_counter_termo={}
-      for al in aluminiy_group_termo:
-            umumiy_counter_termo[ al['artikul'] + '-' + al['section'] ] = al['total_max']
-      ############################ end grouby ######
-      
-      
-      # print(df)
-      
-      
-      df_new =pd.DataFrame()
-      df_new['artikul']=df['Артикул']
-      df_new['SAP код E']=''
-      df_new['Экструзия холодная резка']=''
-      df_new['SAP код Z']=''
-      df_new['Печь старения']=''
-      df_new['SAP код P']=''
-      df_new['Покраска автомат']=''
-      df_new['SAP код S']=''
-      df_new['Сублимация']=''
-      df_new['SAP код A']=''
-      df_new['Анодировка']=''
-      df_new['SAP код N']=''
-      df_new['Наклейка']=''
-      df_new['SAP код K']=''
-      df_new['K-Комбинирования']=''
-      df_new['SAP код L']=''
-      df_new['Ламинация']=''
-      df_new['SAP код 7']=''
-      df_new['U-Упаковка + Готовая Продукция']=''
-      df_new['SAP код F']=''
-      df_new['Фабрикация']=''
-      df_new['SAP код 75']=''
-      df_new['U-Упаковка + Готовая Продукция 75']=''
-      
-      
-      termo_artukul_first = False
-      for key,row in df.iterrows():
-            row['Сплав'] = row['Сплав'].replace('.0','')
-            row['Сплав'] = row['Сплав'].replace('.0','')
-            row['Длина (мм)'] = row['Длина (мм)'].replace('.0','')
-            row['Бренд краски снаружи'] = row['Бренд краски снаружи'].replace('.0','')
-            row['Код краски снаружи'] = row['Код краски снаружи'].replace('.0','')
-            if row['Артикул'] !='nan':
-                  if termo_artukul_first:
-                        if row['Артикул'] != 'nan':
-                              if df['Длина при выходе из пресса'][indexx] != 'nan':
-                                    dlina = df['Длина при выходе из пресса'][indexx].replace('.0','')
-                                          
-                                    df_new['Фабрикация'][indexx]=fabrikatsiya_sap_kod(df['Краткий текст товара'][indexx],df['Длина (мм)'][indexx])
-                                    df_new['U-Упаковка + Готовая Продукция 75'][indexx]=fabrikatsiya_sap_kod(df['Краткий текст товара'][indexx],df['Длина (мм)'][indexx])
-                                    
-                                    if df['Тип покрытия'][indexx] != 'Ламинированный':
-                                          df_new['K-Комбинирования'][indexx] = fabrikatsiya_sap_kod(df['Краткий текст товара'][indexx],df['Длина при выходе из пресса'][indexx].replace('.0',''))
-                                    else:
-                                          df_new['K-Комбинирования'][indexx] = fabrikatsiya_sap_kod(df['Краткий текст товара'][indexx].split('_')[0] +' NT1',df['Длина при выходе из пресса'][indexx].replace('.0',''))
-                                    
-                                    if df['Тип покрытия'][indexx] == 'Ламинированный':
-                                          plenki1 = False
-                                          plenki2 = False
-                                          if df['Код лам пленки снаружи'][indexx] != 'nan':
-                                                laminatsiya =row['Код лам пленки снаружи'].replace('.0','')+'/XXXX'
-                                                plenki1 = True
-                                                
-                                          if df['Код лам пленки внутри'][indexx] != 'nan':
-                                                laminatsiya ='XXXX/'+df['Код лам пленки внутри'][indexx].replace('.0','')
-                                                plenki2 =True
-                                                
-                                          if plenki1 and plenki2:
-                                                laminatsiya =df['Код лам пленки снаружи'][indexx].replace('.0','') +'/'+ df['Код лам пленки внутри'][indexx].replace('.0','')
-                                                
-                                          ll =row['Сплав'][len(row['Сплав'])-2:] + row['тип закаленности'] +' L'+dlina+' '+row['Бренд краски снаружи'].replace('.0','')+row['Код краски снаружи'].replace('.0','')+'/'+df['Код краски внутри'][indexx].replace('.0','')+'_'+laminatsiya +' ' +row['Код наклейки']
-                                          df_new['Ламинация'][indexx] = fabrikatsiya_sap_kod(ll,df['Длина при выходе из пресса'][indexx].replace('.0',''))
-                  
-                              else:
-                                    dlina = df['Длина (мм)'][indexx]
-                                    df_new['U-Упаковка + Готовая Продукция'][indexx] = df['Краткий текст товара'][indexx]
-                                    
-                                    if df['Тип покрытия'][indexx] != 'Ламинированный': 
-                                          df_new['K-Комбинирования'][indexx] = df['Краткий текст товара'][indexx]
-                                    else: 
-                                          df_new['K-Комбинирования'][indexx] = df['Краткий текст товара'][indexx].split('_')[0] +' NT1'
-                                    
-                                    if df['Тип покрытия'][indexx] == 'Ламинированный':
-                                          plenki1 = False
-                                          plenki2 = False
-                                          if row['Код лам пленки снаружи'] != 'nan':
-                                                laminatsiya =row['Код лам пленки снаружи'].replace('.0','')+'/XXXX'
-                                                plenki1 = True
-                                                
-                                          if df['Код лам пленки внутри'][indexx] != 'nan':
-                                                laminatsiya ='XXXX/'+df['Код лам пленки внутри'][indexx].replace('.0','')
-                                                plenki2 =True
-                                                
-                                          if plenki1 and plenki2:
-                                                laminatsiya =df['Код лам пленки снаружи'][indexx].replace('.0','') +'/'+ df['Код лам пленки внутри'][indexx].replace('.0','')
-                                                
-                                          df_new['Ламинация'][indexx] = df['Краткий текст товара'][indexx]
-                                    
-                              if df['Длина при выходе из пресса'][indexx] != 'nan':
-                                    if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][indexx]).exists():
-                                          df_new['SAP код F'][indexx] = AluminiyProductTermo.objects.filter(artikul = df['Артикул'][indexx],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][indexx])[:1].get().material
-                                    else: 
-                                          if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='F').exists():
-                                                umumiy_counter_termo[df['Артикул'][indexx]+'-F'] += 1
-                                                max_valuesF = umumiy_counter_termo[df['Артикул'][indexx]+'-F']
-                                                materiale = df['Артикул'][indexx] +"-F{:03d}".format(max_valuesF)
-                                                AluminiyProductTermo(artikul =df['Артикул'][indexx],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][indexx],material=materiale).save()
-                                                df_new['SAP код F'][indexx]=materiale
-                                          else:
-                                                materiale = df['Артикул'][indexx] +"-F{:03d}".format(1)
-                                                AluminiyProductTermo(artikul =df['Артикул'][indexx],section ='F',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][indexx],material=materiale).save()
-                                                df_new['SAP код F'][indexx]=materiale
-                                                umumiy_counter_termo[df['Артикул'][indexx]+'-F'] = 1
-                                                
-                                    
-                                    
-                                    if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][indexx]).exists():
-                                          df_new['SAP код 75'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][indexx])[:1].get().material
-                                    else: 
-                                          if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='75').exists():
-                                                umumiy_counter_termo[df['Артикул'][indexx]+'-75'] += 1
-                                                max_values75 = umumiy_counter_termo[df['Артикул'][indexx]+'-75']
-                                                
-                                                if max_values75 <= 99:
-                                                      materiale = df['Артикул'][indexx]+"-75{:02d}".format(max_values75)
-                                                else:
-                                                      counter =7500 + max_values75
-                                                      materiale = df['Артикул'][indexx]+"-{:04d}".format(counter)
-                                                      
-                                                      
-                                                AluminiyProductTermo(artikul =df['Артикул'][indexx],section ='75',counter=max_values75,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][indexx],material=materiale).save()
-                                                df_new['SAP код 75'][indexx] = materiale  
-                                          else:
-                                                materiale = df['Артикул'][indexx]+"-75{:02d}".format(1)
-                                                AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='75',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][indexx],material=materiale).save()
-                                                df_new['SAP код 75'][indexx] = materiale 
-                                                umumiy_counter_termo[df['Артикул'][indexx]+'-75'] = 1 
-                                                
-                              else:     
-                                    if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx]).exists():
-                                          df_new['SAP код 7'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx])[:1].get().material
-                                    else: 
-                                          if AluminiyProductTermo.objects.filter(artikul=df['Артикул'][indexx],section ='7').exists():
-                                                umumiy_counter_termo[df['Артикул'][indexx]+'-7'] += 1
-                                                max_values7 = umumiy_counter_termo[df['Артикул'][indexx]+'-7']
-                                                materiale = df['Артикул'][indexx]+"-7{:03d}".format(max_values7)
-                                                AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx],material=materiale).save()
-                                                df_new['SAP код 7'][indexx] = materiale
-                                          else:
-                                                materiale = df['Артикул'][indexx]+"-7{:03d}".format(1)
-                                                AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx],material=materiale).save()
-                                                df_new['SAP код 7'][indexx] = materiale
-                                                umumiy_counter_termo[df['Артикул'][indexx]+'-7'] = 1
-                                    ##### kombirinovanniy
-                              if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='K',kratkiy_tekst_materiala=df_new['K-Комбинирования'][indexx]).exists():
-                                    df_new['SAP код K'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='K',kratkiy_tekst_materiala=df_new['K-Комбинирования'][indexx])[:1].get().material
-                              else: 
-                                    if AluminiyProductTermo.objects.filter(artikul=df['Артикул'][indexx],section ='K').exists():
-                                          umumiy_counter_termo[df['Артикул'][indexx]+'-K'] += 1
-                                          max_valuesK = umumiy_counter_termo[df['Артикул'][indexx]+'-K']
-                                          materiale = df['Артикул'][indexx]+"-K{:03d}".format(max_valuesK)
-                                          AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='K',counter=max_valuesK,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['K-Комбинирования'][indexx],material=materiale).save()
-                                          df_new['SAP код K'][indexx] = materiale
-                                    else:
-                                          materiale = df['Артикул'][indexx]+"-K{:03d}".format(1)
-                                          AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='K',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['K-Комбинирования'][indexx],material=materiale).save()
-                                          df_new['SAP код K'][indexx] = materiale
-                                          umumiy_counter_termo[df['Артикул'][indexx]+'-K'] = 1
-                              
-                              if df['Тип покрытия'][indexx] == 'Ламинированный':      
-                                    if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][indexx]).exists():
-                                          df_new['SAP код L'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][indexx])[:1].get().material
-                                    else: 
-                                          if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='L').exists():
-                                                umumiy_counter_termo[df['Артикул'][indexx]+'-L'] += 1
-                                                max_valuesL = umumiy_counter_termo[ df['Артикул'][indexx] +'-L']
-                                                materiale = df['Артикул'][indexx]+"-L{:03d}".format(max_valuesL)
-                                                AluminiyProductTermo(artikul =df['Артикул'][indexx],section ='L',counter=max_valuesL,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Ламинация'][indexx],material=materiale).save()
-                                                df_new['SAP код L'][indexx]=materiale
-                                          else:
-                                                materiale = df['Артикул'][indexx]+"-L{:03d}".format(1)
-                                                AluminiyProductTermo(artikul =df['Артикул'][indexx],section ='L',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Ламинация'][indexx],material=materiale).save()
-                                                df_new['SAP код L'][indexx]=materiale
-                                                umumiy_counter_termo[df['Артикул'][indexx]+'-L'] = 1
-                                    
-                                     
-                        indexx = key
+def razlovkatermo_save(request):
+      df_new = pd.read_excel(f'{MEDIA_ROOT}/termo.xlsx',sheet_name=['Schotchik','Characteristika','title'])
+      razlovka_yoq = True
+      for key,razlov in df_new['Schotchik'].iterrows():
+            if razlov['SAP код 7']!='':
+                  if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
+                        razlovka_yoq = True
+                        razlovka_komb = RazlovkaTermo(
+                              parent_id=0,
+                              esap_code =razlov['SAP код E'],
+                              ekratkiy =razlov['Экструзия холодная резка'],
+                              zsap_code =razlov['SAP код Z'],
+                              zkratkiy =razlov['Печь старения'],
+                              psap_code =razlov['SAP код P'],
+                              pkratkiy =razlov['Покраска автомат'],
+                              ssap_code =razlov['SAP код S'],
+                              skratkiy =razlov['Сублимация'],
+                              asap_code =razlov['SAP код A'],
+                              akratkiy =razlov['Анодировка'],
+                              nsap_code =razlov['SAP код N'],
+                              nkratkiy =razlov['Наклейка'],
+                              ksap_code =razlov['SAP код K'],
+                              kratkiy =razlov['K-Комбинирования'],
+                              lsap_code =razlov['SAP код L'],
+                              lkratkiy =razlov['Ламинация'],
+                              sap_code7 =razlov['SAP код 7'],
+                              kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
+                        )
+                        razlovka_komb.save()
                   else:
-                        indexx = key
-                  termo_artukul_first = True 
-                  continue
-            
-            df['Код декор пленки снаружи'][key] = df['Код декор пленки снаружи'][key].replace('.0','')
-            
-            component = row['Компонент']
-    
-            # print(component,AluminiyProductTermo.objects.filter(artikul =component,section ='E').values('section').annotate(total_max=Max('counter'))[0]['total_max'])
-            dlina =''
-            
-            if df['Длина при выходе из пресса'][key] != 'nan':
-                  dlina = df['Длина при выходе из пресса'][key].replace('.0','')      
+                       razlovka_yoq = False 
+      
             else:
-                  dlina = df['Длина (мм)'][key]
-                  
-                  
-            df_new['Экструзия холодная резка'][key] = row['Сплав'][len(row['Сплав'])-2:] +'T4 '+'L'+dlina+' MF'
-            df_new['Печь старения'][key] = row['Сплав'][len(row['Сплав'])-2:] + row['тип закаленности'] +' L'+dlina+' MF'
-            
-            
-                        
-            if ((row['Тип покрытия'] == 'Окрашенный') or (row['Тип покрытия'] == 'Белый' )):
-                  df_new['Покраска автомат'][key] = row['Сплав'][len(row['Сплав'])-2:] + row['тип закаленности'] +' L'+dlina+' '+row['Бренд краски снаружи']+row['Код краски снаружи']
-                  if row['Код наклейки'] != 'NT1':
-                        df_new['Наклейка'][key] = df_new['Покраска автомат'][key] +' '+ row['Код наклейки'].replace('.0','')
-            
-            
-                        
-            elif row['Тип покрытия'] == 'Ламинированный':
-                  df_new['Покраска автомат'][key] = row['Сплав'][len(row['Сплав'])-2:] + row['тип закаленности'] +' L'+dlina+' '+row['Бренд краски снаружи']+row['Код краски снаружи']
-                  
-                 
-            elif row['Тип покрытия'] =='Сублимированный':
-                  df_new['Покраска автомат'][key]=row['Сплав'][len(row['Сплав'])-2:] + row['тип закаленности'] +' L'+dlina+' '+row['Бренд краски снаружи'].replace('.0','')+row['Код краски снаружи'].replace('.0','')
-                  df_new['Сублимация'][key]=row['Сплав'][len(row['Сплав'])-2:] + row['тип закаленности'] +' L'+dlina+' '+row['Бренд краски снаружи'].replace('.0','')+row['Код краски снаружи'].replace('.0','')+'_'+row['Код декор пленки снаружи'].replace('.0','')
-                  
-                  if row['Код наклейки'] != 'NT1':
-                        df_new['Наклейка'][key]=df_new['Сублимация'][key] + ' ' + row['Код наклейки'].replace('.0','')
+                  if razlovka_yoq:
+                        RazlovkaTermo(
+                              parent_id=razlovka_komb.id,
+                              esap_code =razlov['SAP код E'],
+                              ekratkiy =razlov['Экструзия холодная резка'],
+                              zsap_code =razlov['SAP код Z'],
+                              zkratkiy =razlov['Печь старения'],
+                              psap_code =razlov['SAP код P'],
+                              pkratkiy =razlov['Покраска автомат'],
+                              ssap_code =razlov['SAP код S'],
+                              skratkiy =razlov['Сублимация'],
+                              asap_code =razlov['SAP код A'],
+                              akratkiy =razlov['Анодировка'],
+                              nsap_code =razlov['SAP код N'],
+                              nkratkiy =razlov['Наклейка'],
+                              ksap_code =razlov['SAP код K'],
+                              kratkiy =razlov['K-Комбинирования'],
+                              lsap_code =razlov['SAP код L'],
+                              lkratkiy =razlov['Ламинация'],
+                              sap_code7 =razlov['SAP код 7'],
+                              kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
+                        ).save()
+      return JsonResponse({'a':'b'})
 
-            elif row['Тип покрытия'] =='Анодированный':
-                  df_new['Анодировка'][key]=row['Сплав'][len(row['Сплав'])-2:] +row['тип закаленности']+' L'+dlina+' '+row['Код цвета анодировки снаружи'].replace('.0','')
-                  if row['Код наклейки'] != 'NT1':
-                        df_new['Наклейка'][key]= df_new['Анодировка'][key] +' '+ row['Код наклейки'].replace('.0','')
-            else:
-                  print("<<<<<< Нет Тип покрытия ! >>>>>>")
-            
-            if AluminiyProductTermo.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key]).exists():
-                  df_new['SAP код E'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
-            else:
-                  if AluminiyProductTermo.objects.filter(artikul =component,section ='E').exists():
-                        # max_valuesE = AluminiyProductTermo.objects.filter(artikul =component,section ='E').values('section').annotate(total_max=Max('counter'))[0]['total_max']
-                        umumiy_counter_termo[component+'-E'] += 1
-                        max_valuesE = umumiy_counter_termo[component+'-E']
-                        materiale = component+"-E{:03d}".format(max_valuesE)
-                        AluminiyProductTermo(artikul =component,section ='E',counter=max_valuesE,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key],material=materiale).save()
-                        df_new['SAP код E'][key]=materiale
-                  else: 
-                        materiale = component+"-E{:03d}".format(1)
-                        AluminiyProductTermo(artikul =component,section ='E',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key],material=materiale).save()
-                        df_new['SAP код E'][key]=materiale
-                        umumiy_counter_termo[component+'-E'] = 1
-                        
-            if AluminiyProductTermo.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['Печь старения'][key]).exists():
-                  df_new['SAP код Z'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['Печь старения'][key])[:1].get().material
-            else: 
-                  if AluminiyProductTermo.objects.filter(artikul =component,section ='Z').exists():
-                        umumiy_counter_termo[ component +'-Z'] += 1
-                        max_valuesZ = umumiy_counter_termo[ component +'-Z']
-                        materiale = component+"-Z{:03d}".format(max_valuesZ)
-                        AluminiyProductTermo(artikul =component,section ='Z',counter=max_valuesZ,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Печь старения'][key],material=materiale).save()
-                        df_new['SAP код Z'][key]=materiale
-                  else:
-                        materiale = component+"-Z{:03d}".format(1)
-                        AluminiyProductTermo(artikul =component,section ='Z',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Печь старения'][key],material=materiale).save()
-                        df_new['SAP код Z'][key]=materiale
-                        umumiy_counter_termo[ component +'-Z'] = 1
-                        
-            
-            
-            if ((row['Тип покрытия'] == 'Сублимированный') or (row['Тип покрытия'] == 'Ламинированный') or (row['Тип покрытия'] == 'Окрашенный') or (row['Тип покрытия'] == 'Белый')): 
-                  if AluminiyProductTermo.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['Покраска автомат'][key]).exists():
-                        df_new['SAP код P'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='P',kratkiy_tekst_materiala=df_new['Покраска автомат'][key])[:1].get().material
-                  else: 
-                        if AluminiyProductTermo.objects.filter(artikul =component,section ='P').exists():
-                              umumiy_counter_termo[component+'-P'] += 1
-                              
-                              max_valuesP = umumiy_counter_termo[ component +'-P']
-                              materiale = component+"-P{:03d}".format(max_valuesP)
-                              AluminiyProductTermo(artikul =component,section ='P',counter=max_valuesP,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Покраска автомат'][key],material=materiale).save()
-                              df_new['SAP код P'][key]=materiale
-                        else:
-                              materiale = component+"-P{:03d}".format(1)
-                              AluminiyProductTermo(artikul =component,section ='P',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Покраска автомат'][key],material=materiale).save()
-                              df_new['SAP код P'][key] = materiale
-                              umumiy_counter_termo[component+'-P'] = 1
-            
-            if row['Тип покрытия'] =='Сублимированный':       
-                  if AluminiyProductTermo.objects.filter(artikul =component,section ='S',kratkiy_tekst_materiala=df_new['Сублимация'][key]).exists():
-                        df_new['SAP код S'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='S',kratkiy_tekst_materiala=df_new['Сублимация'][key])[:1].get().material
-                  else: 
-                        if AluminiyProductTermo.objects.filter(artikul =component,section ='S').exists():
-                              umumiy_counter_termo[component+'-S'] += 1
-                              max_valuesS = umumiy_counter_termo[ component +'-S']
-                              materiale = component+"-S{:03d}".format(max_valuesS)
-                              AluminiyProductTermo(artikul =component,section ='S',counter=max_valuesS,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Сублимация'][key],material=materiale).save()
-                              df_new['SAP код S'][key]=materiale
-                        else:
-                              materiale = component+"-S{:03d}".format(1)
-                              AluminiyProductTermo(artikul =component,section ='S',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Сублимация'][key],material=materiale).save()
-                              df_new['SAP код S'][key]=materiale
-                              umumiy_counter_termo[component+'-S'] = 1
-            
-            if row['Тип покрытия'] =='Анодированный':    
-                  if AluminiyProductTermo.objects.filter(artikul =component,section ='A',kratkiy_tekst_materiala=df_new['Анодировка'][key]).exists():
-                        df_new['SAP код A'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='A',kratkiy_tekst_materiala=df_new['Анодировка'][key])[:1].get().material
-                  else: 
-                        if AluminiyProductTermo.objects.filter(artikul =component,section ='A').exists():
-                              umumiy_counter_termo[component+'-A'] += 1
-                              max_valuesA = umumiy_counter_termo[ component +'-A']
-                              materiale = component+"-A{:03d}".format(max_valuesA)
-                              AluminiyProductTermo(artikul =component,section ='A',counter=max_valuesA,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Анодировка'][key],material=materiale).save()
-                              df_new['SAP код A'][key]=materiale
-                        else:
-                              materiale = component+"-A{:03d}".format(1)
-                              AluminiyProductTermo(artikul =component,section ='A',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Анодировка'][key],material=materiale).save()
-                              df_new['SAP код A'][key]=materiale
-                              umumiy_counter_termo[component+'-A'] = 1
-                              
-            
-            
-                        
-            if ((row['Код наклейки'] != 'NT1') and (row['Тип покрытия'] != 'Ламинированный')) :    
-                  if AluminiyProductTermo.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['Наклейка'][key]).exists():
-                        df_new['SAP код N'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['Наклейка'][key])[:1].get().material
-                  else:
-                        if  AluminiyProductTermo.objects.filter(artikul =component,section ='N').exists():
-                              umumiy_counter_termo[component+'-N'] += 1
-                              max_valuesN = umumiy_counter_termo[ component +'-N']
-                              materiale = component+"-N{:03d}".format(max_valuesN)
-                              AluminiyProductTermo(artikul =component,section ='N',counter=max_valuesN,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Наклейка'][key],material=materiale).save()
-                              df_new['SAP код N'][key]=materiale
-                        else:
-                              materiale = component+"-N{:03d}".format(1)
-                              AluminiyProductTermo(artikul =component,section ='N',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Наклейка'][key],material=materiale).save()
-                              df_new['SAP код N'][key]=materiale
-                              umumiy_counter_termo[component+'-N'] = 1
-            
-            # print(f'key = {key}  shape = {c} indexx= {indexx}')
-            if key == c:               
-                  if df['Длина при выходе из пресса'][indexx] != 'nan':
-                        dlina = df['Длина при выходе из пресса'][indexx].replace('.0','')
-                              
-                        df_new['Фабрикация'][indexx]=fabrikatsiya_sap_kod(df['Краткий текст товара'][indexx],df['Длина (мм)'][indexx])
-                        df_new['U-Упаковка + Готовая Продукция 75'][indexx]=fabrikatsiya_sap_kod(df['Краткий текст товара'][indexx],df['Длина (мм)'][indexx])
-                        
-                        if df['Тип покрытия'][indexx] != 'Ламинированный':
-                              df_new['K-Комбинирования'][indexx] = fabrikatsiya_sap_kod(df['Краткий текст товара'][indexx],df['Длина при выходе из пресса'][indexx].replace('.0',''))
-                        else:
-                              df_new['K-Комбинирования'][indexx] = fabrikatsiya_sap_kod(df['Краткий текст товара'][indexx].split('_')[0] +' NT1',df['Длина при выходе из пресса'][indexx].replace('.0',''))
-                        
-                        if df['Тип покрытия'][indexx] == 'Ламинированный':
-                              plenki1 = False
-                              plenki2 = False
-                              if df['Код лам пленки снаружи'][indexx] != 'nan':
-                                    laminatsiya =row['Код лам пленки снаружи'].replace('.0','')+'/XXXX'
-                                    plenki1 = True
-                                    
-                              if df['Код лам пленки внутри'][indexx] != 'nan':
-                                    laminatsiya ='XXXX/'+df['Код лам пленки внутри'][indexx].replace('.0','')
-                                    plenki2 =True
-                                    
-                              if plenki1 and plenki2:
-                                    laminatsiya =row['Код лам пленки снаружи'].replace('.0','') +'/'+ df['Код лам пленки внутри'][indexx].replace('.0','')
-                              
-                              ll =row['Сплав'][len(row['Сплав'])-2:] + row['тип закаленности'] +' L'+dlina+' '+row['Бренд краски снаружи'].replace('.0','')+row['Код краски снаружи'].replace('.0','')+'/'+df['Код краски внутри'][indexx].replace('.0','')+'_'+laminatsiya +' ' +row['Код наклейки']
-                              df_new['Ламинация'][indexx] = fabrikatsiya_sap_kod(ll,df['Длина при выходе из пресса'][indexx].replace('.0',''))
+
+def add_characteristika_utils(request):
+      df1 = pd.read_excel('c:\\OpenServer\\domains\\WMS&TMS.xlsx')
+      df1 = df1.astype(str)
       
-                  else:
-                        dlina = df['Длина (мм)'][indexx]
-                        df_new['U-Упаковка + Готовая Продукция'][indexx] = df['Краткий текст товара'][indexx]
-                        
-                        if df['Тип покрытия'][indexx] != 'Ламинированный':
-                              df_new['K-Комбинирования'][indexx] = df['Краткий текст товара'][indexx]
-                        else:
-                              df_new['K-Комбинирования'][indexx] = df['Краткий текст товара'][indexx].split('_')[0] +' NT1'
-                        
-                        if df['Тип покрытия'][indexx] == 'Ламинированный':
-                              plenki1 = False
-                              plenki2 = False
-                              if row['Код лам пленки снаружи'] != 'nan':
-                                    laminatsiya =row['Код лам пленки снаружи'].replace('.0','')+'/XXXX'
-                                    plenki1 = True
-                                    
-                              if df['Код лам пленки внутри'][indexx] != 'nan':
-                                    laminatsiya ='XXXX/'+df['Код лам пленки внутри'][indexx].replace('.0','')
-                                    plenki2 =True
-                                    
-                              if plenki1 and plenki2:
-                                    laminatsiya =row['Код лам пленки снаружи'].replace('.0','') +'/'+ df['Код лам пленки внутри'][indexx].replace('.0','')
-                                    
-                              df_new['Ламинация'][indexx] = df['Краткий текст товара'][indexx]
-                        
-                  if df['Длина при выходе из пресса'][indexx] != 'nan':
-                        if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][indexx]).exists():
-                              df_new['SAP код F'][indexx] = AluminiyProductTermo.objects.filter(artikul = df['Артикул'][indexx],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][indexx])[:1].get().material
-                        else: 
-                              if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='F').exists():
-                                    umumiy_counter_termo[df['Артикул'][indexx]+'-F'] += 1
-                                    max_valuesF = umumiy_counter_termo[df['Артикул'][indexx]+'-F']
-                                    materiale = df['Артикул'][indexx] +"-F{:03d}".format(max_valuesF)
-                                    AluminiyProductTermo(artikul =df['Артикул'][indexx],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][indexx],material=materiale).save()
-                                    df_new['SAP код F'][indexx]=materiale
-                              else:
-                                    materiale = df['Артикул'][indexx] +"-F{:03d}".format(1)
-                                    AluminiyProductTermo(artikul =df['Артикул'][indexx],section ='F',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][indexx],material=materiale).save()
-                                    df_new['SAP код F'][indexx]=materiale
-                                    umumiy_counter_termo[df['Артикул'][indexx]+'-F'] = 1
-                                    
-                        
-                        
-                        if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][indexx]).exists():
-                              df_new['SAP код 75'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][indexx])[:1].get().material
-                        else: 
-                              if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='75').exists():
-                                    umumiy_counter_termo[df['Артикул'][indexx]+'-75'] += 1
-                                    max_values75 = umumiy_counter_termo[df['Артикул'][indexx]+'-75']
-                                    
-                                    if max_values75 <= 99:
-                                          materiale = df['Артикул'][indexx]+"-75{:02d}".format(max_values75)
-                                    else:
-                                          counter =7500 + max_values75
-                                          materiale = df['Артикул'][indexx]+"-{:04d}".format(counter)
-                                          
-                                          
-                                    AluminiyProductTermo(artikul =df['Артикул'][indexx],section ='75',counter=max_values75,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][indexx],material=materiale).save()
-                                    df_new['SAP код 75'][indexx] = materiale  
-                              else:
-                                    materiale = df['Артикул'][indexx]+"-75{:02d}".format(1)
-                                    AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='75',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][indexx],material=materiale).save()
-                                    df_new['SAP код 75'][indexx] = materiale 
-                                    umumiy_counter_termo[df['Артикул'][indexx]+'-75'] = 1 
-                        if df['Тип покрытия'][indexx] == 'Ламинированный':     
-                              if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][indexx]).exists():
-                                    df_new['SAP код L'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][indexx])[:1].get().material
-                              else: 
-                                    if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='L').exists():
-                                          umumiy_counter_termo[df['Артикул'][indexx]+'-L'] += 1
-                                          max_valuesL = umumiy_counter_termo[ df['Артикул'][indexx] +'-L']
-                                          materiale = df['Артикул'][indexx]+"-L{:03d}".format(max_valuesL)
-                                          AluminiyProductTermo(artikul =df['Артикул'][indexx],section ='L',counter=max_valuesL,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Ламинация'][indexx],material=materiale).save()
-                                          df_new['SAP код L'][indexx]=materiale
-                                    else:
-                                          materiale = df['Артикул'][indexx]+"-L{:03d}".format(1)
-                                          AluminiyProductTermo(artikul =df['Артикул'][indexx],section ='L',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Ламинация'][indexx],material=materiale).save()
-                                          df_new['SAP код L'][indexx]=materiale
-                                          umumiy_counter_termo[df['Артикул'][indexx]+'-L'] = 1
-                              
-                                    
-                                    
-                  else:     
-                        if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx]).exists():
-                              df_new['SAP код 7'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx])[:1].get().material
-                        else: 
-                              if AluminiyProductTermo.objects.filter(artikul=df['Артикул'][indexx],section ='7').exists():
-                                    umumiy_counter_termo[df['Артикул'][indexx]+'-7'] += 1
-                                    max_values7 = umumiy_counter_termo[df['Артикул'][indexx]+'-7']
-                                    materiale = df['Артикул'][indexx]+"-7{:03d}".format(max_values7)
-                                    AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx],material=materiale).save()
-                                    df_new['SAP код 7'][indexx] = materiale
-                              else:
-                                    materiale = df['Артикул'][indexx]+"-7{:03d}".format(1)
-                                    AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][indexx],material=materiale).save()
-                                    df_new['SAP код 7'][indexx] = materiale
-                                    umumiy_counter_termo[df['Артикул'][indexx]+'-7'] = 1
-                        ##### kombirinovanniy
-                  if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='K',kratkiy_tekst_materiala=df_new['K-Комбинирования'][indexx]).exists():
-                        df_new['SAP код K'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='K',kratkiy_tekst_materiala=df_new['K-Комбинирования'][indexx])[:1].get().material
-                  else: 
-                        if AluminiyProductTermo.objects.filter(artikul=df['Артикул'][indexx],section ='K').exists():
-                              umumiy_counter_termo[df['Артикул'][indexx]+'-K'] += 1
-                              max_valuesK = umumiy_counter_termo[df['Артикул'][indexx]+'-K']
-                              materiale = df['Артикул'][indexx]+"-K{:03d}".format(max_valuesK)
-                              AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='K',counter=max_valuesK,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['K-Комбинирования'][indexx],material=materiale).save()
-                              df_new['SAP код K'][indexx] = materiale
-                        else:
-                              materiale = df['Артикул'][indexx]+"-K{:03d}".format(1)
-                              AluminiyProductTermo(artikul = df['Артикул'][indexx],section ='K',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['K-Комбинирования'][indexx],material=materiale).save()
-                              df_new['SAP код K'][indexx] = materiale
-                              umumiy_counter_termo[df['Артикул'][indexx]+'-K'] = 1
-                  
-                  if df['Тип покрытия'][indexx] == 'Ламинированный':   
-                        if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][indexx]).exists():
-                              df_new['SAP код L'][indexx] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][indexx])[:1].get().material
-                        else: 
-                              if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][indexx],section ='L').exists():
-                                    umumiy_counter_termo[df['Артикул'][indexx]+'-L'] += 1
-                                    max_valuesL = umumiy_counter_termo[ df['Артикул'][indexx] +'-L']
-                                    materiale = df['Артикул'][indexx]+"-L{:03d}".format(max_valuesL)
-                                    AluminiyProductTermo(artikul =df['Артикул'][indexx],section ='L',counter=max_valuesL,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Ламинация'][indexx],material=materiale).save()
-                                    df_new['SAP код L'][indexx]=materiale
-                              else:
-                                    materiale = df['Артикул'][indexx]+"-L{:03d}".format(1)
-                                    AluminiyProductTermo(artikul =df['Артикул'][indexx],section ='L',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Ламинация'][indexx],material=materiale).save()
-                                    df_new['SAP код L'][indexx]=materiale
-                                    umumiy_counter_termo[df['Артикул'][indexx]+'-L'] = 1
-                                                    
-                                   
-      # del df_new["artikul"]
-      
-      s2 = now.strftime("%d-%m-%Y__%H-%M-%S")
-      parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiytermo\\'
-       
-      if not os.path.isdir(parent_dir):
-            create_folder(f'{MEDIA_ROOT}\\uploads\\','aluminiytermo')
+      for key,row in df1.iterrows():
+            CharUtilsOne(
+                  матрица =row['матрица'],
+                  артикул =row['артикул'],
+                  высота =row['высота'],
+                  ширина =row['ширина'],
+                  высота_ширина =row['высота_ширина'],
+                  systems =row['systems'],
+                  ).save()
             
-      if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_new-{s2}.xlsx'):
-            path =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_new-{s2}.xlsx'
+      df2 = pd.read_excel('c:\\OpenServer\\domains\\HOLLOW.xlsx')
+      df2 = df2.astype(str)
+      
+      for key,row in df2.iterrows():
+            CharUtilsTwo(
+                 артикул =row['артикул'],
+                 полый_или_фасонный = row['полый_или_фасонный'] 
+                  ).save()
+            
+            
+      df3 = pd.read_excel('c:\\OpenServer\\domains\\Бухгалтерская.xlsx')
+      df3 = df3.astype(str)
+      
+      for key,row in df3.iterrows():
+            CharUtilsThree(
+                 bux_name_rus =row['BUX_NAME_RUS'],
+                 bux_name_eng = row['BUX_NAME_ENG'],
+                 tnved =row['TNVED'],
+                 group_price = row['GROUP_PRICE'] 
+                  ).save()
+            
+      df4 = pd.read_excel('c:\\OpenServer\\domains\\price.xlsx')
+      df4 = df4.astype(str)
+      
+      for key,row in df4.iterrows():
+            CharUtilsFour(
+                 category = row['CATEGORY'],
+                  type = row['TYPE'],
+                  price_for_1kg_som = row['price_for_1kg_SOM'],
+                  price_for_1kg_usd = row['price_for_1kg_USD']
+                  ).save()
+            
+      return JsonResponse({'a':'b'})
+
+def base_profile(request):
+      df1 = pd.read_excel('c:\\OpenServer\\domains\\BASA PROFIL.xlsx')
+      df1 = df1.astype(str)
+      
+      for key,row in df1.iterrows():
+            BazaProfiley(
+                  артикул =row['артикул'],
+                  серия =row['серия'],
+                  старый_код_benkam =row['старый_код_benkam'],
+                  старый_код =row['старый_код'],
+                  old_product_description =row['old_product_description'],
+                  компонент =row['компонент'],
+                  product_description =row['product_description'],
+                  ).save()
+            
+            
+      return JsonResponse({'a':'b'})
+
+
+def update_char_title(request,id):
+      file = AluFileTermo.objects.get(id=id).file
+      df = pd.read_excel(f'{MEDIA_ROOT}/{file}','title')
+      df =df.astype(str)
+      
+      characteristika_created_txt_create(df)
+      return JsonResponse({'a':'b'})
+
+@csrf_exempt
+def add_char_utils_two(request):
+      data = request.POST.get('data',None)
+      if data:
+            items = [CharUtilsTwo(артикул =item['artikul'],полый_или_фасонный =item['selection']) for item in ast.literal_eval(data)]
+            CharUtilsTwo.objects.bulk_create(items)
+            return JsonResponse({'saved':True})
       else:
-            st =random.randint(0,1000)
-            path =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\alumin_new-{s2}{st}.xlsx'
-          
-      df_new.to_excel(path,index = False)
-      return JsonResponse({'a':'s'})
-                  
+            return JsonResponse({'saved':False})
+
+@csrf_exempt
+def add_char_utils_one(request):
+      data = request.POST.get('data',None)
+      if data:
+            items = [CharUtilsOne(матрица =item['matritsa'],артикул =item['artikul'],высота=item['heigth'],ширина=item['width'],высота_ширина=item['height_and_width'],systems=item['systems']) for item in ast.literal_eval(data)]
+            CharUtilsOne.objects.bulk_create(items)
+            return JsonResponse({'saved':True})
+      else:
+            return JsonResponse({'saved':False})
+      
+@csrf_exempt
+def baza_profile(request):
+      data = request.POST.get('data',None)
+      if data:
+            items = [BazaProfiley(компонент =item['komponent'],артикул =item['artikul'],серия=item['seria'],старый_код_benkam=item['startiy_kod_bekam'],старый_код=item['stariykod'],old_product_description=item['oldprod_des'],product_description=item['prodesc']) for item in ast.literal_eval(data)]
+            BazaProfiley.objects.bulk_create(items)
+            return JsonResponse({'saved':True})
+      else:
+            return JsonResponse({'saved':False})
+      
+@csrf_exempt
+def excel_does_not_exists_add(request):
+      now = datetime.now()
+      year =now.strftime("%Y")
+      
+      path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\Not Exists\\Not_Exists.xlsx'
+      all_correct = True
+      
+      df = pd.read_excel(path_not_exists,sheet_name=['character utils one','character utils two','baza profile'])
+      items =[]
+      if df['character utils one'].shape[0] > 0:
+            for key,row in df['character utils one'].iterrows():
+                  items.append(CharUtilsOne(матрица =row['матрица'],артикул =row['артикул'],высота=row['высота'],ширина=row['ширина'],высота_ширина=row['высота_ширина'],systems=row['systems']))
+            try:
+                  CharUtilsOne.objects.bulk_create(items)
+            except:
+                  all_correct =False
+            
+      
+      items =[]
+      if df['character utils two'].shape[0] > 0:
+            for key,row in df['character utils two'].iterrows():
+                  items.append(CharUtilsTwo(артикул =row['артикул'],полый_или_фасонный =row['полый_или_фасонный']))
+            try:
+                  CharUtilsTwo.objects.bulk_create(items)
+            except:
+                  all_correct =False
+            
+      
+      items =[]
+      if df['baza profile'].shape[0] > 0:
+            for key,row in df['baza profile'].iterrows():
+                  items.append(BazaProfiley(компонент = row['компонент'],артикул = row['артикул'],серия= row['серия'],старый_код_benkam= row['старый_код_benkam'],старый_код= row['старый_код'],old_product_description= row['old_product_description'],product_description= row['product_description']))
+            try:
+                  BazaProfiley.objects.bulk_create(items)
+            except:
+                  all_correct =False
+            
+      
+      return JsonResponse({'saved':all_correct})
+      
+
+      
+
+
 brand_kraski_snaruji_ABC ={
       'A': 'AKZONOBEL',
       'R':  'RAINBOW',
@@ -777,7 +458,7 @@ svet_lam_plenke_VN ={
       'X-BRUSH':'ВН X-BRUSH',
       'Ocean Blue':'Ocean Blue'
 }
-### new
+
 def product_add_second(request,id):
       file = AluFileTermo.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
@@ -2716,6 +2397,7 @@ def product_add_second(request,id):
       for key,razlov in df_new.iterrows():
             if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
                   RazlovkaTermo(
+                        parent_id=0,
                         esap_code =razlov['SAP код E'],
                         ekratkiy =razlov['Экструзия холодная резка'],
                         zsap_code =razlov['SAP код Z'],
@@ -2746,209 +2428,3 @@ def product_add_second(request,id):
       return redirect('upload_product_termo')
                   
     
-def razlovkatermo_save(request):
-      df_new = pd.read_excel(f'{MEDIA_ROOT}/termo.xlsx')
-      razlovka_yoq = True
-      for key,razlov in df_new.iterrows():
-            if razlov['SAP код 7']!='':
-                  if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
-                        razlovka_yoq = True
-                        razlovka_komb = RazlovkaTermo(
-                              parent_id=0,
-                              esap_code =razlov['SAP код E'],
-                              ekratkiy =razlov['Экструзия холодная резка'],
-                              zsap_code =razlov['SAP код Z'],
-                              zkratkiy =razlov['Печь старения'],
-                              psap_code =razlov['SAP код P'],
-                              pkratkiy =razlov['Покраска автомат'],
-                              ssap_code =razlov['SAP код S'],
-                              skratkiy =razlov['Сублимация'],
-                              asap_code =razlov['SAP код A'],
-                              akratkiy =razlov['Анодировка'],
-                              nsap_code =razlov['SAP код N'],
-                              nkratkiy =razlov['Наклейка'],
-                              ksap_code =razlov['SAP код K'],
-                              kratkiy =razlov['K-Комбинирования'],
-                              lsap_code =razlov['SAP код L'],
-                              lkratkiy =razlov['Ламинация'],
-                              sap_code7 =razlov['SAP код 7'],
-                              kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
-                        )
-                        razlovka_komb.save()
-                  else:
-                       razlovka_yoq = False 
-      
-            else:
-                  if razlovka_yoq:
-                        RazlovkaTermo(
-                              parent_id=razlovka_komb.id,
-                              esap_code =razlov['SAP код E'],
-                              ekratkiy =razlov['Экструзия холодная резка'],
-                              zsap_code =razlov['SAP код Z'],
-                              zkratkiy =razlov['Печь старения'],
-                              psap_code =razlov['SAP код P'],
-                              pkratkiy =razlov['Покраска автомат'],
-                              ssap_code =razlov['SAP код S'],
-                              skratkiy =razlov['Сублимация'],
-                              asap_code =razlov['SAP код A'],
-                              akratkiy =razlov['Анодировка'],
-                              nsap_code =razlov['SAP код N'],
-                              nkratkiy =razlov['Наклейка'],
-                              ksap_code =razlov['SAP код K'],
-                              kratkiy =razlov['K-Комбинирования'],
-                              lsap_code =razlov['SAP код L'],
-                              lkratkiy =razlov['Ламинация'],
-                              sap_code7 =razlov['SAP код 7'],
-                              kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
-                        ).save()
-      return JsonResponse({'a':'b'})
-
-
-def add_characteristika_utils(request):
-      df1 = pd.read_excel('c:\\OpenServer\\domains\\WMS&TMS.xlsx')
-      df1 = df1.astype(str)
-      
-      for key,row in df1.iterrows():
-            CharUtilsOne(
-                  матрица =row['матрица'],
-                  артикул =row['артикул'],
-                  высота =row['высота'],
-                  ширина =row['ширина'],
-                  высота_ширина =row['высота_ширина'],
-                  systems =row['systems'],
-                  ).save()
-            
-      df2 = pd.read_excel('c:\\OpenServer\\domains\\HOLLOW.xlsx')
-      df2 = df2.astype(str)
-      
-      for key,row in df2.iterrows():
-            CharUtilsTwo(
-                 артикул =row['артикул'],
-                 полый_или_фасонный = row['полый_или_фасонный'] 
-                  ).save()
-            
-            
-      df3 = pd.read_excel('c:\\OpenServer\\domains\\Бухгалтерская.xlsx')
-      df3 = df3.astype(str)
-      
-      for key,row in df3.iterrows():
-            CharUtilsThree(
-                 bux_name_rus =row['BUX_NAME_RUS'],
-                 bux_name_eng = row['BUX_NAME_ENG'],
-                 tnved =row['TNVED'],
-                 group_price = row['GROUP_PRICE'] 
-                  ).save()
-            
-      df4 = pd.read_excel('c:\\OpenServer\\domains\\price.xlsx')
-      df4 = df4.astype(str)
-      
-      for key,row in df4.iterrows():
-            CharUtilsFour(
-                 category = row['CATEGORY'],
-                  type = row['TYPE'],
-                  price_for_1kg_som = row['price_for_1kg_SOM'],
-                  price_for_1kg_usd = row['price_for_1kg_USD']
-                  ).save()
-            
-      return JsonResponse({'a':'b'})
-
-def base_profile(request):
-      df1 = pd.read_excel('c:\\OpenServer\\domains\\BASA PROFIL.xlsx')
-      df1 = df1.astype(str)
-      
-      for key,row in df1.iterrows():
-            BazaProfiley(
-                  артикул =row['артикул'],
-                  серия =row['серия'],
-                  старый_код_benkam =row['старый_код_benkam'],
-                  старый_код =row['старый_код'],
-                  old_product_description =row['old_product_description'],
-                  компонент =row['компонент'],
-                  product_description =row['product_description'],
-                  ).save()
-            
-            
-      return JsonResponse({'a':'b'})
-
-
-def update_char_title(request,id):
-      file = AluFileTermo.objects.get(id=id).file
-      df = pd.read_excel(f'{MEDIA_ROOT}/{file}','title')
-      df =df.astype(str)
-      
-      characteristika_created_txt_create(df)
-      return JsonResponse({'a':'b'})
-
-@csrf_exempt
-def add_char_utils_two(request):
-      data = request.POST.get('data',None)
-      if data:
-            items = [CharUtilsTwo(артикул =item['artikul'],полый_или_фасонный =item['selection']) for item in ast.literal_eval(data)]
-            CharUtilsTwo.objects.bulk_create(items)
-            return JsonResponse({'saved':True})
-      else:
-            return JsonResponse({'saved':False})
-
-@csrf_exempt
-def add_char_utils_one(request):
-      data = request.POST.get('data',None)
-      if data:
-            items = [CharUtilsOne(матрица =item['matritsa'],артикул =item['artikul'],высота=item['heigth'],ширина=item['width'],высота_ширина=item['height_and_width'],systems=item['systems']) for item in ast.literal_eval(data)]
-            CharUtilsOne.objects.bulk_create(items)
-            return JsonResponse({'saved':True})
-      else:
-            return JsonResponse({'saved':False})
-      
-@csrf_exempt
-def baza_profile(request):
-      data = request.POST.get('data',None)
-      if data:
-            items = [BazaProfiley(компонент =item['komponent'],артикул =item['artikul'],серия=item['seria'],старый_код_benkam=item['startiy_kod_bekam'],старый_код=item['stariykod'],old_product_description=item['oldprod_des'],product_description=item['prodesc']) for item in ast.literal_eval(data)]
-            BazaProfiley.objects.bulk_create(items)
-            return JsonResponse({'saved':True})
-      else:
-            return JsonResponse({'saved':False})
-      
-@csrf_exempt
-def excel_does_not_exists_add(request):
-      now = datetime.now()
-      year =now.strftime("%Y")
-      
-      path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\Not Exists\\Not_Exists.xlsx'
-      all_correct = True
-      
-      df = pd.read_excel(path_not_exists,sheet_name=['character utils one','character utils two','baza profile'])
-      items =[]
-      if df['character utils one'].shape[0] > 0:
-            for key,row in df['character utils one'].iterrows():
-                  items.append(CharUtilsOne(матрица =row['матрица'],артикул =row['артикул'],высота=row['высота'],ширина=row['ширина'],высота_ширина=row['высота_ширина'],systems=row['systems']))
-            try:
-                  CharUtilsOne.objects.bulk_create(items)
-            except:
-                  all_correct =False
-            
-      
-      items =[]
-      if df['character utils two'].shape[0] > 0:
-            for key,row in df['character utils two'].iterrows():
-                  items.append(CharUtilsTwo(артикул =row['артикул'],полый_или_фасонный =row['полый_или_фасонный']))
-            try:
-                  CharUtilsTwo.objects.bulk_create(items)
-            except:
-                  all_correct =False
-            
-      
-      items =[]
-      if df['baza profile'].shape[0] > 0:
-            for key,row in df['baza profile'].iterrows():
-                  items.append(BazaProfiley(компонент = row['компонент'],артикул = row['артикул'],серия= row['серия'],старый_код_benkam= row['старый_код_benkam'],старый_код= row['старый_код'],old_product_description= row['old_product_description'],product_description= row['product_description']))
-            try:
-                  BazaProfiley.objects.bulk_create(items)
-            except:
-                  all_correct =False
-            
-      
-      return JsonResponse({'saved':all_correct})
-      
-
-      
