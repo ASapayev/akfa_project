@@ -84,6 +84,7 @@ class RazlovkaObichniy(models.Model):
   updated_at =models.DateTimeField(auto_now=True)
 
 class RazlovkaTermo(models.Model):
+  parent_id =models.IntegerField(default=0)
   esap_code =models.CharField(max_length=100)
   ekratkiy =models.CharField(max_length=150)
   zsap_code =models.CharField(max_length=100)
