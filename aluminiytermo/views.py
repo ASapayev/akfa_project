@@ -150,8 +150,11 @@ def aluminiy_group(request):
 def razlovkatermo_save(request):
       df_new = pd.read_excel(f'{MEDIA_ROOT}/termo.xlsx',sheet_name=['Schotchik','Characteristika','title'])
       razlovka_yoq = True
+      df_new['Schotchik'] =df_new['Schotchik'].astype(str)
+      df_new['Schotchik']=df_new['Schotchik'].replace('nan','')
+      # print(df_new['Schotchik'])
       for key,razlov in df_new['Schotchik'].iterrows():
-            if razlov['SAP код 7']!='':
+            if razlov['SAP код 7']!="":
                   if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
                         razlovka_yoq = True
                         razlovka_komb = RazlovkaTermo(
@@ -202,6 +205,7 @@ def razlovkatermo_save(request):
                               sap_code7 =razlov['SAP код 7'],
                               kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
                         ).save()
+      
       return JsonResponse({'a':'b'})
 
 
@@ -2393,30 +2397,61 @@ def product_add_second(request,id):
       # characteristika_created_txt_create(df_char_title_full)
 
 
-      
+      razlovka_yoq = True
       for key,razlov in df_new.iterrows():
             if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
-                  RazlovkaTermo(
-                        parent_id=0,
-                        esap_code =razlov['SAP код E'],
-                        ekratkiy =razlov['Экструзия холодная резка'],
-                        zsap_code =razlov['SAP код Z'],
-                        zkratkiy =razlov['Печь старения'],
-                        psap_code =razlov['SAP код P'],
-                        pkratkiy =razlov['Покраска автомат'],
-                        ssap_code =razlov['SAP код S'],
-                        skratkiy =razlov['Сублимация'],
-                        asap_code =razlov['SAP код A'],
-                        akratkiy =razlov['Анодировка'],
-                        nsap_code =razlov['SAP код N'],
-                        nkratkiy =razlov['Наклейка'],
-                        ksap_code =razlov['SAP код K'],
-                        kratkiy =razlov['K-Комбинирования'],
-                        lsap_code =razlov['SAP код L'],
-                        lkratkiy =razlov['Ламинация'],
-                        sap_code7 =razlov['SAP код 7'],
-                        kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
-                  ).save()
+                  if razlov['SAP код 7']!="":
+                        if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
+                              razlovka_yoq = True
+                              razlovka_komb = RazlovkaTermo(
+                                    parent_id=0,
+                                    esap_code =razlov['SAP код E'],
+                                    ekratkiy =razlov['Экструзия холодная резка'],
+                                    zsap_code =razlov['SAP код Z'],
+                                    zkratkiy =razlov['Печь старения'],
+                                    psap_code =razlov['SAP код P'],
+                                    pkratkiy =razlov['Покраска автомат'],
+                                    ssap_code =razlov['SAP код S'],
+                                    skratkiy =razlov['Сублимация'],
+                                    asap_code =razlov['SAP код A'],
+                                    akratkiy =razlov['Анодировка'],
+                                    nsap_code =razlov['SAP код N'],
+                                    nkratkiy =razlov['Наклейка'],
+                                    ksap_code =razlov['SAP код K'],
+                                    kratkiy =razlov['K-Комбинирования'],
+                                    lsap_code =razlov['SAP код L'],
+                                    lkratkiy =razlov['Ламинация'],
+                                    sap_code7 =razlov['SAP код 7'],
+                                    kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
+                              )
+                              razlovka_komb.save()
+                        else:
+                        razlovka_yoq = False 
+            
+                  else:
+                        if razlovka_yoq:
+                              RazlovkaTermo(
+                                    parent_id=razlovka_komb.id,
+                                    esap_code =razlov['SAP код E'],
+                                    ekratkiy =razlov['Экструзия холодная резка'],
+                                    zsap_code =razlov['SAP код Z'],
+                                    zkratkiy =razlov['Печь старения'],
+                                    psap_code =razlov['SAP код P'],
+                                    pkratkiy =razlov['Покраска автомат'],
+                                    ssap_code =razlov['SAP код S'],
+                                    skratkiy =razlov['Сублимация'],
+                                    asap_code =razlov['SAP код A'],
+                                    akratkiy =razlov['Анодировка'],
+                                    nsap_code =razlov['SAP код N'],
+                                    nkratkiy =razlov['Наклейка'],
+                                    ksap_code =razlov['SAP код K'],
+                                    kratkiy =razlov['K-Комбинирования'],
+                                    lsap_code =razlov['SAP код L'],
+                                    lkratkiy =razlov['Ламинация'],
+                                    sap_code7 =razlov['SAP код 7'],
+                                    kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
+                              ).save()
+      
       
       writer = pd.ExcelWriter(path, engine='xlsxwriter')
       df_new.to_excel(writer,index=False,sheet_name ='Schotchik')
