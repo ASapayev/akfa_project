@@ -2681,14 +2681,11 @@ import glob
 def razlovka_save(request):
       
       res =[]
-      dir_path = f'{MEDIA_ROOT}\\uploads\\aluminiy\\'
-      d = pathlib.Path(dir_path)
-      for entry in d.iterdir():
-    # check if it a file
-            if entry.is_file():
-                  res.append(entry)
-      print(res)
-
+      dir_path = f'{MEDIA_ROOT}\\uploads\\aluminiy\\**\*alumin*.*'
+      path_list =[]
+      for file in glob.glob(dir_path, recursive=True):
+            path_list.append(file)
+      print(path_list)
       df_new = pd.read_excel(f'{MEDIA_ROOT}/obichniy.xlsx',sheet_name=['Schotchik','Characteristika','title'])
 
       for key,razlov in df_new['Schotchik'].iterrows():
