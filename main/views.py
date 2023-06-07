@@ -28,6 +28,7 @@ def get_ready_ozmka(request,id):
   df = pd.read_excel(file_path)
   sap_code_yoqlari =[]
   # print(df)
+  sap_exists =[]
   obichniy_razlovka =[]
   termo_razlovka =[]
   for key,row in df.iterrows():
@@ -54,7 +55,8 @@ def get_ready_ozmka(request,id):
       |Q(sap_code7 =row['SAP CODE'])
       )[:1].values_list()
       sap_code_exists=True
-      obichniy_razlovka+=list(razlovkaobichniy)
+      if list(razlovkaobichniy)[0][0] not in sap_exists:
+        obichniy_razlovka+=list(razlovkaobichniy)
 
     if RazlovkaTermo.objects.filter(
       Q(esap_code =row['SAP CODE'])
@@ -80,15 +82,17 @@ def get_ready_ozmka(request,id):
       )[:1].get()
       id =razlovkatermo.parent_id
       if id == 0:
-        termo_head =RazlovkaTermo.objects.filter(id=razlovkatermo.id)[:1].values_list()
-        components =RazlovkaTermo.objects.filter(parent_id=razlovkatermo.id).values_list()
-        termo_razlovka+=list(termo_head)
-        termo_razlovka+=list(components)
+        if razlovkatermo.id not in sap_exists:
+          termo_head =RazlovkaTermo.objects.filter(id=razlovkatermo.id)[:1].values_list()
+          components =RazlovkaTermo.objects.filter(parent_id=razlovkatermo.id).values_list()
+          termo_razlovka+=list(termo_head)
+          termo_razlovka+=list(components)
       else:
-        termo_head =RazlovkaTermo.objects.filter(id=id)[:1].values_list()
-        components =RazlovkaTermo.objects.filter(parent_id=id).values_list()
-        termo_razlovka+=list(termo_head)
-        termo_razlovka+=list(components)
+        if id not in sap_exists:
+          termo_head =RazlovkaTermo.objects.filter(id=id)[:1].values_list()
+          components =RazlovkaTermo.objects.filter(parent_id=id).values_list()
+          termo_razlovka+=list(termo_head)
+          termo_razlovka+=list(components)
       sap_code_exists=True
       
     
