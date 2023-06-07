@@ -55,7 +55,7 @@ def create_characteristika(items):
         # print('characteristikAAAAA outer  ',item['outer_side_wg_id'])
         # print('characteristikAAAAA inner  ',item['inner_side_wg_id'])
         if Characteristika.objects.filter(sap_code =item['material'],kratkiy_text=item['kratkiy']).exists():
-            character = Characteristika.objects.filter(sap_code =item['material'],kratkiy_text=item['kratkiy']))[:1].get()
+            character = Characteristika.objects.filter(sap_code =item['material'],kratkiy_text=item['kratkiy'])[:1].get()
         else:
             character = Characteristika(
                 sap_code =item['material'],
