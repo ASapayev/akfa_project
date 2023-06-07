@@ -11,7 +11,9 @@ urlpatterns = [
   path('gr',views.group,name='gr'),
   path('sz',views.size_product,name='size'),
   path('file-upload',views.file_upload,name='file-upload'),
+  path('file-upload-for-ozmka',views.file_upload_for_get_ozmka,name='file-upload-ozmka'),
   path('file-list',views.file_list,name='file_list'),
+  path('file-list-ozmka',views.file_list_ozmka,name='file_list_ozmka'),
   path('import-and-merge/<int:id>',views.import_file,name='import_and_merge'),
   path('get-counter',views.counter_exist_data,name='get_counter'),
   path('add-data/<int:id>',views.read_and_write,name='add_data'),
@@ -19,5 +21,6 @@ urlpatterns = [
   path('len-gen/<int:id>',views.lenght_generate,name='lenght_generate'),
   path('delete-file/<int:id>',views.delete_file,name='delete_file'),
   path('work-wast',views.work_wast,name ='work_wast'),
+  path('get-ozmka/<int:id>',views.get_ready_ozmka,name ='get_ready_ozmka'),
   
 ]

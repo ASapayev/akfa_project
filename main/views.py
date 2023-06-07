@@ -1,13 +1,14 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 import pandas as pd
-from .models import Product,ExcelFiles
+from .models import Product,ExcelFiles,ExcelFilesOzmka
 from django.core.paginator import Paginator
 from django.http import JsonResponse,HttpResponse,Http404
 import re
 from django.db.models import Count,Q
-from .forms import FileForm
+from .forms import FileForm,FileFormOZMKA
 import os
+from aluminiy.models import RazlovkaObichniy,RazlovkaTermo
 from django.conf import settings  
 from config.settings import MEDIA_ROOT
 from datetime import datetime
@@ -20,6 +21,93 @@ now = datetime.now()
 
 def work_wast(request):
   return render(request,'delovoy_otxod/index.html')
+
+def get_ready_ozmka(request,id):
+  file = ExcelFilesOzmka.objects.get(id=id).file
+  file_path =f'{MEDIA_ROOT}\\{file}'
+  df = pd.read_excel(file_path)
+  sap_code_yoqlari =[]
+  # print(df)
+  obichniy_razlovka =[]
+  termo_razlovka =[]
+  for key,row in df.iterrows():
+    sap_code =row['SAP CODE']
+    sap_code_exists =False
+    if RazlovkaObichniy.objects.filter(
+      Q(esap_code =row['SAP CODE'])
+      |Q(zsap_code =row['SAP CODE'])
+      |Q(psap_code =row['SAP CODE'])
+      |Q(ssap_code =row['SAP CODE'])
+      |Q(asap_code =row['SAP CODE'])
+      |Q(lsap_code =row['SAP CODE'])
+      |Q(nsap_code =row['SAP CODE'])
+      |Q(sap_code7 =row['SAP CODE'])
+      ).exists():
+      razlovkaobichniy =RazlovkaObichniy.objects.filter(
+        Q(esap_code =row['SAP CODE'])
+      |Q(zsap_code =row['SAP CODE'])
+      |Q(psap_code =row['SAP CODE'])
+      |Q(ssap_code =row['SAP CODE'])
+      |Q(asap_code =row['SAP CODE'])
+      |Q(lsap_code =row['SAP CODE'])
+      |Q(nsap_code =row['SAP CODE'])
+      |Q(sap_code7 =row['SAP CODE'])
+      )[:1].values_list()
+      sap_code_exists=True
+      obichniy_razlovka+=list(razlovkaobichniy)
+
+    if RazlovkaTermo.objects.filter(
+      Q(esap_code =row['SAP CODE'])
+      |Q(zsap_code =row['SAP CODE'])
+      |Q(psap_code =row['SAP CODE'])
+      |Q(ssap_code =row['SAP CODE'])
+      |Q(asap_code =row['SAP CODE'])
+      |Q(lsap_code =row['SAP CODE'])
+      |Q(nsap_code =row['SAP CODE'])
+      |Q(ksap_code =row['SAP CODE'])
+      |Q(sap_code7 =row['SAP CODE'])
+      ).exists():
+      razlovkatermo =RazlovkaTermo.objects.filter(
+        Q(esap_code =row['SAP CODE'])
+      |Q(zsap_code =row['SAP CODE'])
+      |Q(psap_code =row['SAP CODE'])
+      |Q(ssap_code =row['SAP CODE'])
+      |Q(asap_code =row['SAP CODE'])
+      |Q(ksap_code =row['SAP CODE'])
+      |Q(nsap_code =row['SAP CODE'])
+      |Q(lsap_code =row['SAP CODE'])
+      |Q(sap_code7 =row['SAP CODE'])
+      )[:1].get()
+      id =razlovkatermo.parent_id
+      if id == 0:
+        termo_head =RazlovkaTermo.objects.filter(id=razlovkatermo.id)[:1].values_list()
+        components =RazlovkaTermo.objects.filter(parent_id=razlovkatermo.id).values_list()
+        termo_razlovka+=list(termo_head)
+        termo_razlovka+=list(components)
+      else:
+        termo_head =RazlovkaTermo.objects.filter(id=id)[:1].values_list()
+        components =RazlovkaTermo.objects.filter(parent_id=id).values_list()
+        termo_razlovka+=list(termo_head)
+        termo_razlovka+=list(components)
+      sap_code_exists=True
+      
+    
+    if not sap_code_exists:
+      sap_code_yoqlari.append(sap_code)
+  termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
+  obichniy_razlovka =[ raz[:-2] for raz in obichniy_razlovka]
+  df_termo = pd.DataFrame(termo_razlovka,columns=['ID','PARENT ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+  df_obichniy = pd.DataFrame(obichniy_razlovka,columns=['ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код L','Ламинация','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+  df_yoqlari = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
+  now =datetime.now()
+  minut =now.strftime('%M-%S')
+  path =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka-{minut}.xlsx'
+  writer = pd.ExcelWriter(path, engine='xlsxwriter')
+  df_termo.to_excel(writer,index=False,sheet_name='TERMO')
+  df_obichniy.to_excel(writer,index=False,sheet_name='OBICHNIY')
+  df_yoqlari.to_excel(writer,index=False,sheet_name='NOT EXISTS')
+  writer.close()
+  return JsonResponse({'a':'b'})
 
 # Create your views here.
 def excel(request):
@@ -217,10 +305,29 @@ def file_upload(request):
       }
   return render(request,'excel_form.html',context)
 
+def file_upload_for_get_ozmka(request):
+  
+  if request.method == 'POST':
+    form = FileFormOZMKA(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('file_list_ozmka')
+  else:
+      form =FileFormOZMKA()
+      context ={
+        'form':form
+      }
+  return render(request,'excel_form_ozmka.html',context)
+
 def file_list(request):
   files = ExcelFiles.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files}
   return render(request,'file_list.html',context)
+
+def file_list_ozmka(request):
+  files = ExcelFilesOzmka.objects.filter(generated =False).order_by('-created_at')
+  context ={'files':files}
+  return render(request,'file_list_ozmka.html',context)
 
 def import_file(request,id):
   file = ExcelFiles.objects.get(id=id).file

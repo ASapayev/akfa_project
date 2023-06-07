@@ -35,3 +35,10 @@ class ExcelFiles(models.Model):
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 
+class ExcelFilesOzmka(models.Model):
+  file =models.FileField(upload_to='uploads/ozmka/ozmka/',max_length=500)
+  generated =models.BooleanField(default=False)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
+
+
