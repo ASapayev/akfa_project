@@ -10,7 +10,7 @@ import os
 group_one =['WDC47','WDT65','WDT78']
 
 
-def counter_generated_data(datas):
+def counter_generated_data(datas,data_type):
   pr = [x['new_sap_kod_del_otxod'] for x in Product.objects.all().values('new_sap_kod_del_otxod').annotate(dcount=Count('new_sap_kod_del_otxod')).order_by('dcount')]
   products = Product.objects.all().values('id','sap_kod_del_otxod','kratkiy_tekst_del_otxod')
 
@@ -327,8 +327,14 @@ def counter_generated_data(datas):
   d5['naz_ed_iz']=[ 'M' for i in range(0,len(umumiy_without_duplicate[0]))]
   df5= pd.DataFrame(d5)
   np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
-
-  file_exist =ExcelFiles(file =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\new-data.xlsx',generated=True)
+  
+  now = datetime.now()
+  year =now.strftime("%d.%m.%Y")
+  if data_type ='pvc':
+    data_name ='PVC'
+  else:
+    data_name ='ALU'
+  file_exist =ExcelFiles(file =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\{year}_{data_name}.xlsx',generated=True)
   file_exist.save()
   file_exist2 =ExcelFiles(file =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx',generated=True)
   file_exist2.save()
