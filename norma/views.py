@@ -3033,8 +3033,8 @@ def kombinirovaniy_process(request,id):
                             
                             df_new['MATNR1'].append(aliminisi.sap_code_s4q100)
                             df_new['TEXT2'].append(aliminisi.название)
-                            mmm = int(alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг)*int(mein_percent) if alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг[-2:]=='.0' else ("%.3f" % (float(alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг)*mein_percent)).replace('.',',')
-                            df_new['MEINS'].append(mmm) 
+                            
+                            df_new['MEINS'].append(("%.3f" % (float(alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг)*mein_percent)).replace('.',',')) 
                             df_new['MENGE'].append('КГ')
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
