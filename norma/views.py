@@ -3044,8 +3044,8 @@ def kombinirovaniy_process(request,id):
                             df_new['MATNR1'].append(alummm.sap_code_s4q100)
                             df_new['TEXT2'].append(alummm.название)
                             df_new['MENGE'].append(alummm.еи)
-                            mmm = int(alum_teks.смазка_для_пресса_кг_графитовая)*int(mein_percent) if alum_teks.смазка_для_пресса_кг_графитовая[-2:]=='.0' else ("%.3f" % (float(alum_teks.смазка_для_пресса_кг_графитовая)*mein_percent)).replace('.',',')
-                            df_new['MEINS'].append( mmm)
+                           
+                            df_new['MEINS'].append(("%.3f" % (float(alum_teks.смазка_для_пресса_кг_графитовая)*mein_percent)).replace('.',','))
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                         if k==3:
@@ -3053,8 +3053,8 @@ def kombinirovaniy_process(request,id):
                             df_new['MATNR1'].append(alummm.sap_code_s4q100)
                             df_new['TEXT2'].append(alummm.название)
                             df_new['MENGE'].append(alummm.еи)
-                            mmm = (int(alum_teks.смазка_для_пресса_кг_пилы_хл_резки_сол) + int(alum_teks.смазка_для_пресса_кг_горячей_резки_сол))*int(mein_percent) if alum_teks.смазка_для_пресса_кг_пилы_хл_резки_сол[-2:]=='.0' else ("%.3f" % ((float(alum_teks.смазка_для_пресса_кг_пилы_хл_резки_сол) + float(alum_teks.смазка_для_пресса_кг_горячей_резки_сол))*mein_percent)).replace('.',',')
-                            df_new['MEINS'].append(mmm) 
+                            
+                            df_new['MEINS'].append(("%.3f" % ((float(alum_teks.смазка_для_пресса_кг_пилы_хл_резки_сол) + float(alum_teks.смазка_для_пресса_кг_горячей_резки_сол))*mein_percent)).replace('.',',')) 
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                         if k == 4:
@@ -3062,8 +3062,8 @@ def kombinirovaniy_process(request,id):
                             df_new['MATNR1'].append(alummm.sap_code_s4q100)
                             df_new['TEXT2'].append(alummm.название)
                             df_new['MENGE'].append(alummm.еи)
-                            mmm = int(alum_teks.смазка_для_пресса_кг_графитовые_плиты)*int(mein_percent) if alum_teks.смазка_для_пресса_кг_графитовые_плитыл[-2:]=='.0' else ("%.3f" % (float(alum_teks.смазка_для_пресса_кг_графитовые_плиты)*mein_percent)).replace('.',',')
-                            df_new['MEINS'].append(mmm) ##XATO
+                            
+                            df_new['MEINS'].append(("%.3f" % (float(alum_teks.смазка_для_пресса_кг_графитовые_плиты)*mein_percent)).replace('.',',')) ##XATO
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                         if k == 5:
@@ -3071,8 +3071,8 @@ def kombinirovaniy_process(request,id):
                             df_new['MATNR1'].append(alummm.sap_code_s4q100)
                             df_new['TEXT2'].append(alummm.название)
                             df_new['MENGE'].append(alummm.еи)
-                            mmm = (-1)*int(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)*int(mein_percent) if alum_teks.алюминиевый_сплав_6063_при_этом_балвашка[-2:]=='.0' else ("%.3f" % ((-1)*float(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)*mein_percent)).replace('.',',')
-                            df_new['MEINS'].append(mmm) ##XATO
+                            
+                            df_new['MEINS'].append(("%.3f" % ((-1)*float(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)*mein_percent)).replace('.',',')) ##XATO
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                         if k == 6:
@@ -3080,8 +3080,8 @@ def kombinirovaniy_process(request,id):
                             df_new['MATNR1'].append(alummm.sap_code_s4q100)
                             df_new['TEXT2'].append(alummm.название)
                             df_new['MENGE'].append(alummm.еи)
-                            mmm = (-1)*int(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)*int(mein_percent) if alum_teks.алю_сплав_6063_при_этом_тех_отхода1[-2:]=='.0' else ("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)))*mein_percent) ).replace('.',',')
-                            df_new['MEINS'].append(mmm) ##XATO
+                            
+                            df_new['MEINS'].append( ("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)))*mein_percent) ).replace('.',',')) ##XATO
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                         if k == 7:
@@ -3089,8 +3089,8 @@ def kombinirovaniy_process(request,id):
                             df_new['MATNR1'].append(alummm.sap_code_s4q100)
                             df_new['TEXT2'].append(alummm.название)
                             df_new['MENGE'].append(alummm.еи)
-                            mmm = (-1)*int(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)*int(mein_percent) if alum_teks.алю_сплав_6063_при_этом_тех_отхода2[-2:]=='.0' else ("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))*mein_percent) ).replace('.',',')
-                            df_new['MEINS'].append(mmm) ##XATO
+                            
+                            df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))*mein_percent) ).replace('.',',')) ##XATO
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
                             
