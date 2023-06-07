@@ -5772,7 +5772,17 @@ def kombinirovaniy_process(request,id):
     
     path =f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}-{product_type}.xlsx'
     
+
+    meins7 = []
     
+    for mein in df_new['MEINS']:
+        mein_txt = str(mein)
+        if mein_txt[-4:] ==',000':
+            meins7.append(mein_txt.replace(',000',''))
+        else:
+            meins7.append(mein_txt)
+    df_new['MEINS'] =meins7
+
     dff =pd.DataFrame(df_new)
     # path =os.path.join(os.path.expanduser("~/Desktop"),'new_base_cominirovaniy.xlsx')
     
