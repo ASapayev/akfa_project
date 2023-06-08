@@ -307,8 +307,6 @@ def lenght_generate_imzo(request,id):
                         df_new['USR01'][counter_2] = row['USR01']
                     counter_2 +=1
             elif '-N' in row['МАТЕРИАЛ']:
-                if texcartatime=='0':
-                    texcartatime ='1000'
                 for i7 in range(1,3):
                     if i7 ==1:
                         df_new['ID'][counter_2] ='1'
