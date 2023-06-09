@@ -2390,12 +2390,11 @@ def kombinirovaniy_process(request,id):
     
     
     pro_type = request.GET.get('type','termo')
-    
-    if pro_type =='termo':
+
+    if pro_type.replace("'","") =='termo':
         product_type ='termo'
     else:
         product_type ='simple'
-        
     df = []
     
     norma_list,kraska_list,accessuar,nakleyka_iskyuch = norma_for_list()
