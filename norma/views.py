@@ -2566,7 +2566,7 @@ def kombinirovaniy_process(request,id):
                                  
                     else:
                         if artikul_org != '':
-                            # print(artikul_org)    
+                            print(artikul_org)    
                             norma_1 = Norma.objects.filter(артикул=artikul_org)[:1].get()
                             if ((not '_' in kratkiy_org) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1])):
                                 nakley_code = kratkiy_org.split()[-1]

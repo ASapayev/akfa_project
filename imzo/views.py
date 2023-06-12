@@ -158,7 +158,8 @@ def lenght_generate_imzo(request,id):
                 texcartatime = TexCartaTime.objects.filter(Q(компонент_1=sap_code)|Q(компонент_2=sap_code)|Q(компонент_3=sap_code)|Q(артикул=sap_code))[:1].get()
             else:
                 texcarta_bor = False
-                
+            if ImzoBase.objects().filter(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).exists():
+                continue 
                 
             if '-7' in row['МАТЕРИАЛ']:
                 lenghtht =row['МАТЕРИАЛ'].split('-')[0]
