@@ -135,7 +135,14 @@ def counter_generated_data(datas,data_type):
   day =now.strftime("%a%d")
   hour =now.strftime("%H HOUR")
   minut =now.strftime("%M-%S")
+  
 
+  now = datetime.now()
+  yearr =now.strftime("%d.%m.%Y")
+  if data_type =='pvc':
+    data_name ='PVC'
+  else:
+    data_name ='ALU'
   
   parent_dir ='{MEDIA_ROOT}\\uploads\\delovoyotxod\\'
     
@@ -148,8 +155,8 @@ def counter_generated_data(datas,data_type):
   create_folder(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\',hour)
   create_folder(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\',minut)
             
-        
-  path =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\new-data.xlsx'
+  data_type =data_type.upper()   
+  path =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\{year}_{data_name}.xlsx'
   path2 =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx'
   d={}
   d['SAP код материала']=umumiy[0]
@@ -328,12 +335,7 @@ def counter_generated_data(datas,data_type):
   df5= pd.DataFrame(d5)
   np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
   
-  now = datetime.now()
-  year =now.strftime("%d.%m.%Y")
-  if data_type =='pvc':
-    data_name ='PVC'
-  else:
-    data_name ='ALU'
+  
   file_exist =ExcelFiles(file =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\{year}_{data_name}.xlsx',generated=True)
   file_exist.save()
   file_exist2 =ExcelFiles(file =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx',generated=True)
