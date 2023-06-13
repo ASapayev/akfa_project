@@ -16,6 +16,7 @@ def index(request):
 # Create your views here.
 def norma_excel(request):
     df = pd.read_excel('c:\OSPanel\domains\\Norma22.xlsx','Общий')
+    # df = pd.read_excel('C:\\OpenServer\\domains\\Norma22.xlsx','Общий')
     df =df.astype(str)
     
     df =df.replace('nan','0')

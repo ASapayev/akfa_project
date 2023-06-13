@@ -40,6 +40,7 @@ def imzo_file(request):
 def texcartaupload(request):
     
     df = pd.read_excel('C:\\OSPanel\\domains\\БазаTexcarta.xlsx','Лист1')
+    # df = pd.read_excel('C:\\OpenServer\\domains\\БазаTexcarta.xlsx','Лист1')
     df =df.astype(str)
     
     for i in range(0,df.shape[0]):
