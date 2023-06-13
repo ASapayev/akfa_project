@@ -183,10 +183,10 @@ def lenght_generate_imzo(request,id):
                         else:
                             nak =2 * (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
                     else:
-                        nak = '11111'
+                        nak = 'nan'
                         nakleyka_nan.append(lenghtht)
                 else:
-                    nak='11111'
+                    nak='nan'
                 kombiniroavniy = ('7777' in row['КРАТКИЙ ТЕКСТ']) or ('8888' in row['КРАТКИЙ ТЕКСТ']) or ('3701' in row['КРАТКИЙ ТЕКСТ']) or ('3702' in row['КРАТКИЙ ТЕКСТ'])
                 
                 length =len(row['КРАТКИЙ ТЕКСТ'])
