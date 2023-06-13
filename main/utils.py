@@ -9,6 +9,11 @@ import os
 
 group_one =['WDC47','WDT65','WDT78']
 
+def create_folder(parent_dir,directory):
+    path =os.path.join(parent_dir,directory)
+    if not os.path.isdir(path):
+        os.mkdir(path)
+  
 
 def counter_generated_data(datas,data_type):
   pr = [x['new_sap_kod_del_otxod'] for x in Product.objects.all().values('new_sap_kod_del_otxod').annotate(dcount=Count('new_sap_kod_del_otxod')).order_by('dcount')]
@@ -144,10 +149,10 @@ def counter_generated_data(datas,data_type):
   else:
     data_name ='ALU'
   
-  parent_dir ='{MEDIA_ROOT}\\uploads\\delovoyotxod\\'
+  parent_dir =f'{MEDIA_ROOT}\\uploads\\delovoyotxod'
     
   if not os.path.isdir(parent_dir):
-        create_folder(f'{MEDIA_ROOT}\\uploads\\','delovoyotxod')
+        create_folder(f'{MEDIA_ROOT}\\uploads','delovoyotxod')
         
   create_folder(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\',f'{year}')
   create_folder(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\',f'{month}')
@@ -365,8 +370,3 @@ def umumiy_dict(product,text_materials_list,duplicate='No'):
 
 
 
-def create_folder(parent_dir,directory):
-    path =os.path.join(parent_dir,directory)
-    if not os.path.isdir(path):
-        os.mkdir(path)
-  
