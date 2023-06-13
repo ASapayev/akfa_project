@@ -161,7 +161,7 @@ def counter_generated_data(datas,data_type):
   create_folder(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\',minut)
             
   data_type =data_type.upper()   
-  path =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\{year}_{data_name}.xlsx'
+  path =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\{data_name}_{yearr}.xlsx'
   path2 =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx'
   d={}
   d['SAP код материала']=umumiy[0]
@@ -341,7 +341,7 @@ def counter_generated_data(datas,data_type):
   np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
   
   
-  file_exist =ExcelFiles(file =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\{year}_{data_name}.xlsx',generated=True)
+  file_exist =ExcelFiles(file =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\{data_name}_{yearr}.xlsx',generated=True)
   file_exist.save()
   file_exist2 =ExcelFiles(file =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx',generated=True)
   file_exist2.save()
