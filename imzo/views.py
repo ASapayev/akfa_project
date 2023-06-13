@@ -76,6 +76,15 @@ def texcartaupload(request):
         ламинат_1_линия_про_во_в_сутки_буй = ламинат_1_линия_про_во_в_сутки_буй ,
      
             ).save()
+    
+    texcartas = TexCartaTime.objects.all()
+    for texs in texcartas:
+        print(texs.id)
+        texs.компонент_1 = texs.компонент_1.strip()
+        texs.компонент_2 = texs.компонент_2.strip()
+        texs.компонент_3 = texs.компонент_3.strip()
+        texs.артикул = texs.артикул.strip()
+        texs.save()
     return JsonResponse({'a':'b'})
 
 

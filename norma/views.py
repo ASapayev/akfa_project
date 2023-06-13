@@ -312,7 +312,16 @@ def norma_excel(request):
         алюминиевый_сплав_6063_при_этом_балвашка = алюминиевый_сплав_6063_при_этом_балвашка
         ).save()  
     
+    normas = Norma.objects.all()
     
+    for norma in normas:
+        print(norma.id)
+        norma.компонент_1 = norma.компонент_1.strip()
+        norma.компонент_2 = norma.компонент_2.strip()
+        norma.компонент_3 = norma.компонент_3.strip()
+        norma.артикул = norma.артикул.strip()
+        norma.save()
+        
     return redirect('index')
 
     
