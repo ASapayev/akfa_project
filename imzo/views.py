@@ -764,6 +764,20 @@ def lenght_generate_imzo(request,id):
                             counter_2 +=1
     
             ImzoBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
+    
+    meins7 = []
+    
+    for mein in df_new['BMSCH']:
+        mein_txt = str(mein)
+        if mein_txt[-4:] ==',000':
+            meins7.append(mein_txt.replace(',000',''))
+        else:
+            meins7.append(mein_txt)
+
+    df_new['BMSCH'] =meins7
+    
+    
+    
     del df_new["counter"]
     from datetime import datetime
     now = datetime.now()
@@ -777,11 +791,11 @@ def lenght_generate_imzo(request,id):
     minut =now.strftime("%M-%S")    
                  
             
-    create_folder(f'{MEDIA_ROOT}\\uploads\\','texcarta')
-    create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta\\',f'{year}')
-    create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\',f'{month}')
-    create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\',day)
-    create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\{day}\\',hour)
+    create_folder(f'{MEDIA_ROOT}\\uploads','texcarta')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta',f'{year}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\{day}',hour)
     
     path =f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\{day}\\{hour}\\duplicate.xlsx'
     df.to_excel(path)
