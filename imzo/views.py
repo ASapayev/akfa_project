@@ -772,7 +772,7 @@ def lenght_generate_imzo(request,id):
         if mein_txt[-4:] ==',000':
             meins7.append(mein_txt.replace(',000',''))
         else:
-            meins7.append(mein_txt)
+            meins7.append(("%.3f" % (float(mein_txt))).replace('.',','))
 
     df_new['BMSCH'] =meins7
     
