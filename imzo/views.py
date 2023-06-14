@@ -140,35 +140,9 @@ def lenght_generate_imzo(request,id):
     df_new['UMREN']=''
     df_new['USR00']=''
     df_new['USR01']=''
+    df_new['SAP CODE']=''
 
-    df_new_nan = pd.DataFrame()
-    df_new_nan['counter'] =[ '' for i in range(0,counter)]
-    df_new_nan['ID']=''
-    df_new_nan['MATNR']=''
-    df_new_nan['WERKS']=''
-    df_new_nan['PLNNR']=''
-    df_new_nan['STTAG']=''
-    df_new_nan['PLNAL']=''
-    df_new_nan['KTEXT']=''
-    df_new_nan['VERWE']=''
-    df_new_nan['STATU']=''
-    df_new_nan['LOSVN']=''
-    df_new_nan['LOSBS']=''
-    df_new_nan['VORNR']=''
-    df_new_nan['ARBPL']=''
-    df_new_nan['WERKS1']=''
-    df_new_nan['STEUS']=''
-    df_new_nan['LTXA1']=''
-    df_new_nan['BMSCH']=''
-    df_new_nan['MEINH']=''
-    df_new_nan['VGW01']=''
-    df_new_nan['VGE01']=''
-    df_new_nan['ACTTYPE_01']=''
-    df_new_nan['CKSELKZ']=''
-    df_new_nan['UMREZ']=""
-    df_new_nan['UMREN']=''
-    df_new_nan['USR00']=''
-    df_new_nan['USR01']=''
+    
     accessuar = Accessuar.objects.all().values_list('sap_code',flat=True)
     sap_code_link = []
     pakraska_nan = []
@@ -249,6 +223,7 @@ def lenght_generate_imzo(request,id):
                             df_new['UMREN'][counter_2] = row['UMREN']
                             df_new['USR00'][counter_2] = row['USR00']
                             df_new['USR01'][counter_2] = row['USR01']
+                            df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                         counter_2 +=1
                 
                 
@@ -282,6 +257,7 @@ def lenght_generate_imzo(request,id):
                             df_new['UMREN'][counter_2] = row['UMREN']
                             df_new['USR00'][counter_2] = row['USR00']
                             df_new['USR01'][counter_2] = row['USR01']
+                            df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                         counter_2 +=1
                 
                 elif ((length ==36) or (length ==30)):         
@@ -314,6 +290,7 @@ def lenght_generate_imzo(request,id):
                             df_new['UMREN'][counter_2] = row['UMREN']
                             df_new['USR00'][counter_2] = row['USR00']
                             df_new['USR01'][counter_2] = row['USR01']
+                            df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                         counter_2 +=1                
             elif '-K' in row['МАТЕРИАЛ']:
                 for i7 in range(1,3):
@@ -345,6 +322,7 @@ def lenght_generate_imzo(request,id):
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
                         df_new['USR01'][counter_2] = row['USR01']
+                        df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     counter_2 +=1
             elif '-N' in row['МАТЕРИАЛ']:
                 for i7 in range(1,3):
@@ -376,6 +354,7 @@ def lenght_generate_imzo(request,id):
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
                         df_new['USR01'][counter_2] = row['USR01']
+                        df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     counter_2 +=1
             elif '-S' in row['МАТЕРИАЛ']:
                 for i7 in range(1,3):
@@ -407,6 +386,7 @@ def lenght_generate_imzo(request,id):
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
                         df_new['USR01'][counter_2] = row['USR01']
+                        df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     counter_2 +=1
             elif '-E' in row['МАТЕРИАЛ']:
                 for i7 in range(1,4):
@@ -438,6 +418,7 @@ def lenght_generate_imzo(request,id):
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
                         df_new['USR01'][counter_2] = row['USR01']
+                        df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     elif i7 == 3:
                         df_new['ID'][counter_2]='2'
                         df_new['VORNR'][counter_2] =BAZA['E']['VORNR'][1]
@@ -455,6 +436,7 @@ def lenght_generate_imzo(request,id):
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
                         df_new['USR01'][counter_2] = row['USR01']
+                        df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     counter_2 +=1
             elif '-Z' in row['МАТЕРИАЛ']:
                 for i7 in range(1,5):
@@ -486,6 +468,7 @@ def lenght_generate_imzo(request,id):
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
                         df_new['USR01'][counter_2] = row['USR01']
+                        df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     elif i7 == 3:
                         df_new['ID'][counter_2]='2'
                         df_new['VORNR'][counter_2] =BAZA['Z']['VORNR'][1]
@@ -503,6 +486,7 @@ def lenght_generate_imzo(request,id):
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
                         df_new['USR01'][counter_2] = row['USR01']
+                        df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     elif i7 == 4:
                         df_new['ID'][counter_2]='2'
                         df_new['VORNR'][counter_2] =BAZA['Z']['VORNR'][2]
@@ -520,6 +504,7 @@ def lenght_generate_imzo(request,id):
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
                         df_new['USR01'][counter_2] = row['USR01']
+                        df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     counter_2 +=1
             elif '-P' in row['МАТЕРИАЛ']:
                 for p in range(1,7):
@@ -555,6 +540,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
                                 df_new['USR01'][counter_2] = row['USR01']
+                                df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             counter_2 +=1
                     elif p == 2:
                         for i in range(1,3):
@@ -586,6 +572,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
                                 df_new['USR01'][counter_2] = row['USR01']
+                                df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             counter_2 +=1
                     elif p == 3:
                         for i in range(1,3):
@@ -617,6 +604,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
                                 df_new['USR01'][counter_2] = row['USR01']
+                                df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             counter_2 +=1
                     elif p == 4:
                         for i in range(1,4):
@@ -648,6 +636,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
                                 df_new['USR01'][counter_2] = row['USR01']
+                                df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             elif i == 3:
                                 df_new['ID'][counter_2]='2'
                                 df_new['VORNR'][counter_2] =BAZA['P4']['VORNR'][1]
@@ -665,6 +654,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
                                 df_new['USR01'][counter_2] = row['USR01']
+                                df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             counter_2 +=1
                     elif p == 5:
                         for i in range(1,4):
@@ -696,6 +686,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
                                 df_new['USR01'][counter_2] = row['USR01']
+                                df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             elif i == 3:
                                 df_new['ID'][counter_2]='2'
                                 df_new['VORNR'][counter_2] =BAZA['P5']['VORNR'][1]
@@ -713,6 +704,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
                                 df_new['USR01'][counter_2] = row['USR01']
+                                df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             counter_2 +=1
                     elif p == 6:
                         for i in range(1,4):
@@ -744,6 +736,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
                                 df_new['USR01'][counter_2] = row['USR01']
+                                df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             elif i == 3:
                                 df_new['ID'][counter_2]='2'
                                 df_new['VORNR'][counter_2] =BAZA['P6']['VORNR'][1]
@@ -761,6 +754,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
                                 df_new['USR01'][counter_2] = row['USR01']
+                                df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             counter_2 +=1
     
             ImzoBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
