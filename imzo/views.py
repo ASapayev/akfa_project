@@ -765,16 +765,16 @@ def lenght_generate_imzo(request,id):
     
             ImzoBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
     
-    meins7 = []
+    # meins7 = []
     
-    for mein in df_new['BMSCH']:
-        mein_txt = str(mein)
-        if mein_txt[-4:] ==',000':
-            meins7.append(mein_txt.replace(',000',''))
-        else:
-            meins7.append(("%.3f" % (float(mein_txt))).replace('.',','))
+    # for mein in df_new['BMSCH']:
+    #     mein_txt = str(mein)
+    #     if mein_txt[-4:] ==',000':
+    #         meins7.append(mein_txt.replace(',000',''))
+    #     else:
+    #         meins7.append(("%.3f" % (float(mein_txt))).replace('.',','))
 
-    df_new['BMSCH'] =meins7
+    # df_new['BMSCH'] =meins7
     
     
     
