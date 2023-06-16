@@ -777,17 +777,6 @@ def lenght_generate_imzo(request,id):
                 meins7.append(mein_txt)
     df_new['BMSCH'] =meins7
 
-    # df_new=df_new.replace('nan','')
-
-    # for i in range(0,len(df_new)):
-    #     mein_txt = str(df_new.loc[i, "BMSCH"])
-    #     print(df_new.loc[i, "BMSCH"])
-    #     print('mein',mein_txt)
-    #     if mein_txt[-4:] ==',000':
-    #         meins7.append(mein_txt.replace(',000',''))
-    #     else:
-    #         print(mein_txt)
-    #         meins7.append(mein_txt)
     
     
     
