@@ -2577,7 +2577,7 @@ def kombinirovaniy_process(request,id):
                     else:
                         if artikul_org != '':
                             print(artikul_org)    
-                            norma_1 = Norma.objects.filter(артикул=artikul_org)[:1].get()
+                            norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=artikul_org))[:1].get()
                             if ((not '_' in kratkiy_org) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1])):
                                 nakley_code = kratkiy_org.split()[-1]
                                 if nakley_code =='NT1':
@@ -5625,7 +5625,7 @@ def kombinirovaniy_process(request,id):
                     nakleyka_code = df[i][13].split()[-1]
                     length = df[i][12].split('-')[0]
                     
-                    alum_teks =  Norma.objects.filter(артикул=length)[:1].get()
+                    alum_teks =  Norma.objects.filter(Q(артикул=length)|Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
                     
                     mein_percent =((get_legth(df[i][13]))/float(alum_teks.длина_профиля_м))
                     
