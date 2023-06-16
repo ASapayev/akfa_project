@@ -10,6 +10,7 @@ from .utils import create_folder
 from django.http import JsonResponse
 from django.db.models import Q
 from norma.models import Accessuar,CheckNormaBase
+import math
     
 # Create your views here.
 
@@ -759,16 +760,34 @@ def lenght_generate_imzo(request,id):
     
             ImzoBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
     
-    # meins7 = []
-    
-    # for mein in df_new['BMSCH']:
-    #     mein_txt = str(mein)
+    meins7 = []
+    df_new=df_new.replace('nan','')
+
+    for i in df_new.index:
+        mein_txt = str(df_new.loc[i, "BMSCH"])
+        if mein_txt[-4:] ==',000':
+            meins7.append(mein_txt.replace(',000',''))
+        else:
+            if mein_txt !='':
+                if mein_txt[-4:] ==',000':
+                    meins7.append(mein_txt.replace(',000',''))
+                else:
+                    meins7.append(math.ceil(float(mein_txt)))
+            else:
+                meins7.append(mein_txt)
+    df_new['BMSCH'] =meins7
+
+    # df_new=df_new.replace('nan','')
+
+    # for i in range(0,len(df_new)):
+    #     mein_txt = str(df_new.loc[i, "BMSCH"])
+    #     print(df_new.loc[i, "BMSCH"])
+    #     print('mein',mein_txt)
     #     if mein_txt[-4:] ==',000':
     #         meins7.append(mein_txt.replace(',000',''))
     #     else:
-    #         meins7.append(("%.3f" % (float(mein_txt))).replace('.',','))
-
-    # df_new['BMSCH'] =meins7
+    #         print(mein_txt)
+    #         meins7.append(mein_txt)
     
     
     
