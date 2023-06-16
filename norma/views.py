@@ -2926,7 +2926,7 @@ def kombinirovaniy_process(request,id):
                                     isklyucheniye_ids.append(k)
                                     lamplyonka.append([length[0],laminatsiya_code2])
                     else:
-                        norma_1 = Norma.objects.filter(артикул=length[0])[:1].get()
+                        norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=length[0]))[:1].get()
                         nakley_code = fullsapkod[13].split()[-1]
                         if nakley_code !='NT1':
                             if (((norma_1.уп_пол_лн_рас_уп_лн_на_1000_штук_кг =='0') or (norma_1.рас_скотча_рас_скотча_на_1000_штук_шт=='0'))and(length[0] not in accessuar)):
