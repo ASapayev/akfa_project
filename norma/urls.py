@@ -13,7 +13,8 @@ urlpatterns = [
  path('remove-whitespace',views.remove_whitespace,name ='remove_whitespace'),
  path('norma-utils',views.norma_add,name ='norma_utils'),
  path('nakleyka-delete',views.nakleyka_duplicate_del,name ='nakleyka_delete'),
- path('norma-update',views.norma_update,name='norma_update')
+ path('norma-update',views.norma_update,name='norma_update'),
+ path('norma-delete',views.norma_delete,name='norma-delete'),
  
 ]
 

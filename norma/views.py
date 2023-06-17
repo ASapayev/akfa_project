@@ -8,6 +8,7 @@ from config.settings import MEDIA_ROOT
 from .utils import excelgenerate,create_csv_file,create_folder
 import os
 from datetime import datetime
+from django.contrib import messages
 
 
 def index(request):
@@ -6597,5 +6598,17 @@ def norma_for_list():
 
 
 def norma_update(request):
-    normalar = Norma.objects.all()
+    normalar = Norma.objects.all()[:50]
     return render(request,'norma/norma_crud/update.html',{'normas':normalar})
+
+def norma_delete(request):
+    if request.method =='POST':
+        ozmk =request.POST.get('ozmk',None)
+        if ozmk:
+            ozmks =ozmk.split()
+            norma_base = CheckNormaBase.objects.filter(artikul__in =ozmks)
+            norma_base.delete()
+            messages.add_message(request, messages.INFO, "Ozmka ochirildi")
+        return render(request,'norma/norma_find.html')
+    else:
+        return render(request,'norma/norma_find.html')
