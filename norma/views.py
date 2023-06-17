@@ -6597,4 +6597,5 @@ def norma_for_list():
 
 
 def norma_update(request):
-    return render(request,'norma/norma_crud/update.html')
+    normalar = Norma.objects.all()
+    return render(request,'norma/norma_crud/update.html',{'normas':normalar})
