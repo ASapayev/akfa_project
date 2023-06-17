@@ -10,6 +10,7 @@ from .utils import create_folder
 from django.http import JsonResponse
 from django.db.models import Q
 from norma.models import Accessuar,CheckNormaBase
+from django.contrib import messages
 import math
     
 # Create your views here.
@@ -829,3 +830,17 @@ def delete_tex(request):
     texcarta.delete()
         
     return JsonResponse({'a':'b'})
+
+
+
+def tex_delete(request):
+    if request.method =='POST':
+        ozmk =request.POST.get('tex',None)
+        if ozmk:
+            ozmks =ozmk.split()
+            norma_base = ImzoBase.objects.filter(material__in =ozmks)
+            norma_base.delete()
+            messages.add_message(request, messages.INFO, "Texcarta arxividan ochirildi")
+        return render(request,'imzo/tex_find.html')
+    else:
+        return render(request,'imzo/tex_find.html')

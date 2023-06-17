@@ -50,13 +50,21 @@
     
 
     <form method="POST">
+      {%csrf_token%}
         <div class="form-group">
           <label for="exampleFormControlTextarea1">Example textarea</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea> <br>
-          <input type="submit" class="btn btn-outline-success" value="FIND NORM">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" name="tex"></textarea> <br>
+          <input type="submit" class="btn btn-outline-success" value="DELETE TEXCART">
         </div>
         
     </form>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li style="color: red;" {%if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
   </div>
 
 </body>
