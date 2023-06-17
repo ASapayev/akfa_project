@@ -6,7 +6,7 @@ from datetime import datetime
 from config.settings import MEDIA_ROOT
 import pandas as pd
 import numpy as np
-from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203
+from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101
 from django.shortcuts import render
 from aluminiy.models import ArtikulComponent
 from datetime import datetime
@@ -644,68 +644,68 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
         else:
             gruppa_material ='ALUPF'
                 
-        if ((row['Тип покрытия'] =='Ламинированный') and (row['Участок'] =='U-Упаковка + Готовая продукция') or ((row['Тип покрытия'] =='Ламинированный') and (row['Участок'] =='K-Комбинирования'))):
-            umumiy_without_duplicate1203[0].append(row['SAP код S4P 100'])
-            umumiy_without_duplicate1203[1].append(row['SAP код S4P 100'])
-            umumiy_without_duplicate1203[2].append(row['Короткое название SAP'])
-            umumiy_without_duplicate1203[3].append('ШТ')
-            umumiy_without_duplicate1203[4].append('ZPRF')
-            umumiy_without_duplicate1203[5].append(gruppa_material)
-            umumiy_without_duplicate1203[6].append(gruppa_material)
-            umumiy_without_duplicate1203[7].append('E')
-            umumiy_without_duplicate1203[8].append('01')
-            umumiy_without_duplicate1203[9].append(row['Общий вес за штуку'])
-            umumiy_without_duplicate1203[10].append(row['Общий вес за штуку'])
-            umumiy_without_duplicate1203[11].append('КГ')
-            umumiy_without_duplicate1203[12].append('NORM')
-            umumiy_without_duplicate1203[13].append(row['Короткое название SAP'])
-            umumiy_without_duplicate1203[14].append('ШТ')
-            umumiy_without_duplicate1203[15].append('999')
-            umumiy_without_duplicate1203[16].append('X')
-            umumiy_without_duplicate1203[17].append('0000')
-            umumiy_without_duplicate1203[18].append('PD')
-            umumiy_without_duplicate1203[19].append('EX')
-            umumiy_without_duplicate1203[20].append('0')
-            umumiy_without_duplicate1203[21].append('E')
-            ss =''
-            sartrr =''
-            if gruppa_material =='ALUGP':
-                ss ='S400'
-                sartrr ='5'
+        # if ((row['Тип покрытия'] =='Ламинированный') and (row['Участок'] =='U-Упаковка + Готовая продукция') or ((row['Тип покрытия'] =='Ламинированный') and (row['Участок'] =='K-Комбинирования'))):
+        #     umumiy_without_duplicate1203[0].append(row['SAP код S4P 100'])
+        #     umumiy_without_duplicate1203[1].append(row['SAP код S4P 100'])
+        #     umumiy_without_duplicate1203[2].append(row['Короткое название SAP'])
+        #     umumiy_without_duplicate1203[3].append('ШТ')
+        #     umumiy_without_duplicate1203[4].append('ZPRF')
+        #     umumiy_without_duplicate1203[5].append(gruppa_material)
+        #     umumiy_without_duplicate1203[6].append(gruppa_material)
+        #     umumiy_without_duplicate1203[7].append('E')
+        #     umumiy_without_duplicate1203[8].append('01')
+        #     umumiy_without_duplicate1203[9].append(row['Общий вес за штуку'])
+        #     umumiy_without_duplicate1203[10].append(row['Общий вес за штуку'])
+        #     umumiy_without_duplicate1203[11].append('КГ')
+        #     umumiy_without_duplicate1203[12].append('NORM')
+        #     umumiy_without_duplicate1203[13].append(row['Короткое название SAP'])
+        #     umumiy_without_duplicate1203[14].append('ШТ')
+        #     umumiy_without_duplicate1203[15].append('999')
+        #     umumiy_without_duplicate1203[16].append('X')
+        #     umumiy_without_duplicate1203[17].append('0000')
+        #     umumiy_without_duplicate1203[18].append('PD')
+        #     umumiy_without_duplicate1203[19].append('EX')
+        #     umumiy_without_duplicate1203[20].append('0')
+        #     umumiy_without_duplicate1203[21].append('E')
+        #     ss =''
+        #     sartrr =''
+        #     if gruppa_material =='ALUGP':
+        #         ss ='S400'
+        #         sartrr ='5'
                 
-            bklast ='0100'
-            if gruppa_material =='ALUPF':
-                bklast ='0102'
+        #     bklast ='0100'
+        #     if gruppa_material =='ALUPF':
+        #         bklast ='0102'
                 
                 
-            umumiy_without_duplicate1203[22].append(ss)
-            umumiy_without_duplicate1203[23].append('')
-            umumiy_without_duplicate1203[24].append('M')
-            umumiy_without_duplicate1203[25].append('02')
-            umumiy_without_duplicate1203[26].append('26')
-            umumiy_without_duplicate1203[27].append(sartrr)
-            umumiy_without_duplicate1203[28].append('X')
-            umumiy_without_duplicate1203[29].append('5')
-            umumiy_without_duplicate1203[30].append('Z_SAP_PP_002')
-            umumiy_without_duplicate1203[31].append('4')
-            umumiy_without_duplicate1203[32].append('SAP999')
-            umumiy_without_duplicate1203[33].append('26')
-            umumiy_without_duplicate1203[34].append('1203')
-            umumiy_without_duplicate1203[35].append('3')
-            umumiy_without_duplicate1203[36].append(bklast)
-            umumiy_without_duplicate1203[37].append('S')
-            umumiy_without_duplicate1203[38].append('1')
-            umumiy_without_duplicate1203[39].append(row['Price'])
-            umumiy_without_duplicate1203[40].append('1203')
-            umumiy_without_duplicate1203[41].append('X')
-            umumiy_without_duplicate1203[42].append('X')
-            umumiy_without_duplicate1203[43].append('1')
-            sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]
-            umumiy_without_duplicate1203[44].append(SFSPF1203[sap_code_simvol])
-            umumiy_without_duplicate1203[45].append('X')
-            umumiy_without_duplicate1203[46].append(LGPRO1203[sap_code_simvol])
-            umumiy_without_duplicate1203[47].append('')
-            umumiy_without_duplicate1203[48].append(row['ch_combination'] + row['Тип покрытия'])
+        #     umumiy_without_duplicate1203[22].append(ss)
+        #     umumiy_without_duplicate1203[23].append('')
+        #     umumiy_without_duplicate1203[24].append('M')
+        #     umumiy_without_duplicate1203[25].append('02')
+        #     umumiy_without_duplicate1203[26].append('26')
+        #     umumiy_without_duplicate1203[27].append(sartrr)
+        #     umumiy_without_duplicate1203[28].append('X')
+        #     umumiy_without_duplicate1203[29].append('5')
+        #     umumiy_without_duplicate1203[30].append('Z_SAP_PP_002')
+        #     umumiy_without_duplicate1203[31].append('4')
+        #     umumiy_without_duplicate1203[32].append('SAP999')
+        #     umumiy_without_duplicate1203[33].append('26')
+        #     umumiy_without_duplicate1203[34].append('1203')
+        #     umumiy_without_duplicate1203[35].append('3')
+        #     umumiy_without_duplicate1203[36].append(bklast)
+        #     umumiy_without_duplicate1203[37].append('S')
+        #     umumiy_without_duplicate1203[38].append('1')
+        #     umumiy_without_duplicate1203[39].append(row['Price'])
+        #     umumiy_without_duplicate1203[40].append('1203')
+        #     umumiy_without_duplicate1203[41].append('X')
+        #     umumiy_without_duplicate1203[42].append('X')
+        #     umumiy_without_duplicate1203[43].append('1')
+        #     sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]
+        #     umumiy_without_duplicate1203[44].append(SFSPF1203[sap_code_simvol])
+        #     umumiy_without_duplicate1203[45].append('X')
+        #     umumiy_without_duplicate1203[46].append(LGPRO1203[sap_code_simvol])
+        #     umumiy_without_duplicate1203[47].append('')
+        #     umumiy_without_duplicate1203[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         if gruppa_material=='ALUGP':
             #######12D1
@@ -757,13 +757,13 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D1[31].append('4')
             umumiy_without_duplicate12D1[32].append('SAP999')
             umumiy_without_duplicate12D1[33].append('10')
-            umumiy_without_duplicate12D1[34].append('12D1')
+            umumiy_without_duplicate12D1[34].append('11D1')
             umumiy_without_duplicate12D1[35].append('3')
             umumiy_without_duplicate12D1[36].append(bklast)
             umumiy_without_duplicate12D1[37].append('S')
             umumiy_without_duplicate12D1[38].append('1')
             umumiy_without_duplicate12D1[39].append(row['Price'])
-            umumiy_without_duplicate12D1[40].append('1201')
+            umumiy_without_duplicate12D1[40].append('1101')
             umumiy_without_duplicate12D1[41].append('X')
             umumiy_without_duplicate12D1[42].append('X')
             umumiy_without_duplicate12D1[43].append('1')
@@ -824,13 +824,13 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D2[31].append('4')
             umumiy_without_duplicate12D2[32].append('SAP999')
             umumiy_without_duplicate12D2[33].append('10')
-            umumiy_without_duplicate12D2[34].append('12D2')
+            umumiy_without_duplicate12D2[34].append('11D2')
             umumiy_without_duplicate12D2[35].append('3')
             umumiy_without_duplicate12D2[36].append(bklast)
             umumiy_without_duplicate12D2[37].append('S')
             umumiy_without_duplicate12D2[38].append('1')
             umumiy_without_duplicate12D2[39].append(row['Price'])
-            umumiy_without_duplicate12D2[40].append('1201')
+            umumiy_without_duplicate12D2[40].append('1101')
             umumiy_without_duplicate12D2[41].append('X')
             umumiy_without_duplicate12D2[42].append('X')
             umumiy_without_duplicate12D2[43].append('1')
@@ -891,13 +891,13 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D3[31].append('4')
             umumiy_without_duplicate12D3[32].append('SAP999')
             umumiy_without_duplicate12D3[33].append('10')
-            umumiy_without_duplicate12D3[34].append('12D3')
+            umumiy_without_duplicate12D3[34].append('11D3')
             umumiy_without_duplicate12D3[35].append('3')
             umumiy_without_duplicate12D3[36].append(bklast)
             umumiy_without_duplicate12D3[37].append('S')
             umumiy_without_duplicate12D3[38].append('1')
             umumiy_without_duplicate12D3[39].append(row['Price'])
-            umumiy_without_duplicate12D3[40].append('1201')
+            umumiy_without_duplicate12D3[40].append('1101')
             umumiy_without_duplicate12D3[41].append('X')
             umumiy_without_duplicate12D3[42].append('X')
             umumiy_without_duplicate12D3[43].append('1')
@@ -957,13 +957,13 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D4[31].append('4')
             umumiy_without_duplicate12D4[32].append('SAP999')
             umumiy_without_duplicate12D4[33].append('10')
-            umumiy_without_duplicate12D4[34].append('12D4')
+            umumiy_without_duplicate12D4[34].append('11D4')
             umumiy_without_duplicate12D4[35].append('3')
             umumiy_without_duplicate12D4[36].append(bklast)
             umumiy_without_duplicate12D4[37].append('S')
             umumiy_without_duplicate12D4[38].append('1')
             umumiy_without_duplicate12D4[39].append(row['Price'])
-            umumiy_without_duplicate12D4[40].append('1201')
+            umumiy_without_duplicate12D4[40].append('1101')
             umumiy_without_duplicate12D4[41].append('X')
             umumiy_without_duplicate12D4[42].append('X')
             umumiy_without_duplicate12D4[43].append('1')
@@ -1024,13 +1024,13 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D5[31].append('4')
             umumiy_without_duplicate12D5[32].append('SAP999')
             umumiy_without_duplicate12D5[33].append('10')
-            umumiy_without_duplicate12D5[34].append('12D5')
+            umumiy_without_duplicate12D5[34].append('11D5')
             umumiy_without_duplicate12D5[35].append('3')
             umumiy_without_duplicate12D5[36].append(bklast)
             umumiy_without_duplicate12D5[37].append('S')
             umumiy_without_duplicate12D5[38].append('1')
             umumiy_without_duplicate12D5[39].append(row['Price'])
-            umumiy_without_duplicate12D5[40].append('1201')
+            umumiy_without_duplicate12D5[40].append('1101')
             umumiy_without_duplicate12D5[41].append('X')
             umumiy_without_duplicate12D5[42].append('X')
             umumiy_without_duplicate12D5[43].append('1')
@@ -1078,33 +1078,33 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             bklast ='0102'
             
             
-        umumiy_without_duplicate1201[22].append(ss)
+        umumiy_without_duplicate1201[22].append('')
         umumiy_without_duplicate1201[23].append('')
         umumiy_without_duplicate1201[24].append('M')
         umumiy_without_duplicate1201[25].append('02')
-        umumiy_without_duplicate1201[26].append('26')
-        umumiy_without_duplicate1201[27].append(sartrr)
-        umumiy_without_duplicate1201[28].append('X')
-        umumiy_without_duplicate1201[29].append('5')
-        umumiy_without_duplicate1201[30].append('Z_SAP_PP_002')
-        umumiy_without_duplicate1201[31].append('4')
-        umumiy_without_duplicate1201[32].append('SAP999')
-        umumiy_without_duplicate1201[33].append('26')
-        umumiy_without_duplicate1201[34].append('1201')
+        umumiy_without_duplicate1201[26].append('10')
+        umumiy_without_duplicate1201[27].append('')
+        umumiy_without_duplicate1201[28].append('')
+        umumiy_without_duplicate1201[29].append('')
+        umumiy_without_duplicate1201[30].append('')
+        umumiy_without_duplicate1201[31].append('')
+        umumiy_without_duplicate1201[32].append('')
+        umumiy_without_duplicate1201[33].append('10')
+        umumiy_without_duplicate1201[34].append('1101')
         umumiy_without_duplicate1201[35].append('3')
         umumiy_without_duplicate1201[36].append(bklast)
         umumiy_without_duplicate1201[37].append('S')
         umumiy_without_duplicate1201[38].append('1')
-        umumiy_without_duplicate1201[39].append(row['Price'])
-        umumiy_without_duplicate1201[40].append('1201')
+        umumiy_without_duplicate1201[39].append('1')
+        umumiy_without_duplicate1201[40].append('1101')
         umumiy_without_duplicate1201[41].append('X')
         umumiy_without_duplicate1201[42].append('X')
         umumiy_without_duplicate1201[43].append('1')
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]
-        umumiy_without_duplicate1201[44].append(SFSPF1201[sap_code_simvol])
+        umumiy_without_duplicate1201[44].append(SFSPF1101[sap_code_simvol])
         umumiy_without_duplicate1201[45].append('X')
-        umumiy_without_duplicate1201[46].append(LGPRO1201[sap_code_simvol])
-        umumiy_without_duplicate1201[47].append('')
+        umumiy_without_duplicate1201[46].append('')
+        umumiy_without_duplicate1201[47].append('X')
         umumiy_without_duplicate1201[48].append(row['ch_combination'] + row['Тип покрытия'])
     umumiy_without_duplicate =[[] for i in range(0,49)]
     for i in range(0,len(umumiy_without_duplicate1201)):
@@ -1203,6 +1203,15 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
         '12D4':'001',
         '12D5':'001',
     }
+    zavod_code_1101 ={
+        '1103':'PVC',
+        '1101':'PR1',
+        '11D1':'001',
+        '11D2':'001',
+        '11D3':'001',
+        '11D4':'001',
+        '11D5':'001',
+    }
     d2={}
     d2['MAKTX']=umumiy_without_duplicate[13]
     d2['MEINS']=umumiy_without_duplicate[14]
@@ -1213,7 +1222,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
     d2['XCHPF']=umumiy_without_duplicate[16]
     d2['DISGR']=umumiy_without_duplicate[17]
     d2['DISMM']=umumiy_without_duplicate[18]
-    d2['DISPO']=[zavod_code[x] for x in umumiy_without_duplicate[34]]
+    d2['DISPO']=[zavod_code_1101[x] for x in umumiy_without_duplicate[34]]
     d2['DISLS']=umumiy_without_duplicate[19]
     d2['WEBAZ']=umumiy_without_duplicate[20]
     d2['BESKZ']=umumiy_without_duplicate[21]

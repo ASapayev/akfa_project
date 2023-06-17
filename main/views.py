@@ -15,12 +15,101 @@ from datetime import datetime
 from django.core.files import File
 import string
 import random
+from django.contrib import messages
 from .utils import counter_generated_data
 now = datetime.now()
 
 
 def work_wast(request):
   return render(request,'delovoy_otxod/index.html')
+
+def get_ozmka(ozmk):
+  sap_code_yoqlari =[]
+  # print(df)
+  sap_exists =[]
+  obichniy_razlovka =[]
+  termo_razlovka =[]
+  for ozm in ozmk:
+    sap_code =ozm
+    sap_code_exists =False
+    if RazlovkaObichniy.objects.filter(
+      Q(esap_code =ozm)
+      |Q(zsap_code =ozm)
+      |Q(psap_code =ozm)
+      |Q(ssap_code =ozm)
+      |Q(asap_code =ozm)
+      |Q(lsap_code =ozm)
+      |Q(nsap_code =ozm)
+      |Q(sap_code7 =ozm)
+      ).exists():
+      razlovkaobichniy =RazlovkaObichniy.objects.filter(
+        Q(esap_code =ozm)
+      |Q(zsap_code =ozm)
+      |Q(psap_code =ozm)
+      |Q(ssap_code =ozm)
+      |Q(asap_code =ozm)
+      |Q(lsap_code =ozm)
+      |Q(nsap_code =ozm)
+      |Q(sap_code7 =ozm)
+      )[:1].values_list()
+      sap_code_exists=True
+      if list(razlovkaobichniy)[0][0] not in sap_exists:
+        obichniy_razlovka+=list(razlovkaobichniy)
+
+    if RazlovkaTermo.objects.filter(
+      Q(esap_code =ozm)
+      |Q(zsap_code =ozm)
+      |Q(psap_code =ozm)
+      |Q(ssap_code =ozm)
+      |Q(asap_code =ozm)
+      |Q(lsap_code =ozm)
+      |Q(nsap_code =ozm)
+      |Q(ksap_code =ozm)
+      |Q(sap_code7 =ozm)
+      ).exists():
+      razlovkatermo =RazlovkaTermo.objects.filter(
+        Q(esap_code =ozm)
+      |Q(zsap_code =ozm)
+      |Q(psap_code =ozm)
+      |Q(ssap_code =ozm)
+      |Q(asap_code =ozm)
+      |Q(ksap_code =ozm)
+      |Q(nsap_code =ozm)
+      |Q(lsap_code =ozm)
+      |Q(sap_code7 =ozm)
+      )[:1].get()
+      id =razlovkatermo.parent_id
+      if id == 0:
+        if razlovkatermo.id not in sap_exists:
+          termo_head =RazlovkaTermo.objects.filter(id=razlovkatermo.id)[:1].values_list()
+          components =RazlovkaTermo.objects.filter(parent_id=razlovkatermo.id).values_list()
+          termo_razlovka+=list(termo_head)
+          termo_razlovka+=list(components)
+      else:
+        if id not in sap_exists:
+          termo_head =RazlovkaTermo.objects.filter(id=id)[:1].values_list()
+          components =RazlovkaTermo.objects.filter(parent_id=id).values_list()
+          termo_razlovka+=list(termo_head)
+          termo_razlovka+=list(components)
+      sap_code_exists=True
+      
+    
+    if not sap_code_exists:
+      sap_code_yoqlari.append(sap_code)
+  termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
+  obichniy_razlovka =[ raz[:-2] for raz in obichniy_razlovka]
+  df_termo = pd.DataFrame(termo_razlovka,columns=['ID','PARENT ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+  df_obichniy = pd.DataFrame(obichniy_razlovka,columns=['ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код L','Ламинация','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+  df_yoqlari = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
+  now =datetime.now()
+  minut =now.strftime('%M-%S')
+  path =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka-{minut}.xlsx'
+  writer = pd.ExcelWriter(path, engine='xlsxwriter')
+  df_termo.to_excel(writer,index=False,sheet_name='TERMO')
+  df_obichniy.to_excel(writer,index=False,sheet_name='OBICHNIY')
+  df_yoqlari.to_excel(writer,index=False,sheet_name='NOT EXISTS')
+  writer.close()
+  return 1
 
 def get_ready_ozmka(request,id):
   file = ExcelFilesOzmka.objects.get(id=id).file
@@ -310,18 +399,21 @@ def file_upload(request):
   return render(request,'excel_form.html',context)
 
 def file_upload_for_get_ozmka(request):
-  
-  if request.method == 'POST':
-    form = FileFormOZMKA(request.POST, request.FILES)
-    if form.is_valid():
-        form.save()
-        return redirect('file_list_ozmka')
-  else:
-      form =FileFormOZMKA()
-      context ={
-        'form':form
-      }
-  return render(request,'excel_form_ozmka.html',context)
+  if request.method =='POST':
+    ozmk = request.POST.get('ozmk',None)  
+    if ozmk:
+      ozmks =ozmk.split()
+      get_ozmka(ozmks)
+      messages.add_message(request, messages.INFO, "Razlovka tayyor!!!")
+      return render(request,'norma/razlovka_find.html')
+    else:
+        return render(request,'norma/razlovka_find.html')
+  return render(request,'norma/razlovka_find.html')
+
+
+
+
+    
 
 def file_list(request):
   files = ExcelFiles.objects.filter(generated =False).order_by('-created_at')
