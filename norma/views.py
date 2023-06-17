@@ -6608,7 +6608,7 @@ def norma_delete(request):
             ozmks =ozmk.split()
             norma_base = CheckNormaBase.objects.filter(artikul__in =ozmks)
             norma_base.delete()
-            messages.add_message(request, messages.INFO, "Ozmka ochirildi")
+            messages.add_message(request, messages.INFO, "Normalar arxividan ochirildi")
         return render(request,'norma/norma_find.html')
     else:
         return render(request,'norma/norma_find.html')
