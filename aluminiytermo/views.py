@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import pandas as pd
 from .models import AluFileTermo,AluminiyProductTermo,AluminiyProductBasetermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour,CharacteristicTitle,BazaProfiley,Characteristika
-
+from norma.models import NakleykaIskyuchenie
 from aluminiy.models import AluminiyProduct,RazlovkaTermo
 from .forms import FileFormTermo
 from django.db.models import Count,Max
@@ -627,6 +627,7 @@ def product_add_second(request,id):
       hour =now.strftime("%H HOUR")
       minut =now.strftime("%M")
       
+      nakleyka_iskyucheniye =NakleykaIskyuchenie.objects.all().values_list('sap_code',flat=True)
       doesnotexist,correct = check_for_correct(df)
       if not correct:
             context ={
@@ -655,7 +656,7 @@ def product_add_second(request,id):
                   'компонент':['' for i in doesnotexist[2]],
                   'product_description':['' for i in doesnotexist[2]]
             })
-            create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\','Not Exists')
+            create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}','Not Exists')
             
             path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\Not Exists\\Not_Exists.xlsx'
             
@@ -688,7 +689,6 @@ def product_add_second(request,id):
       for key,row in df.iterrows():
             if row['Тип покрытия'] == 'nan':
                   df = df.drop(key)
-      
       
       
       df_new =pd.DataFrame()
@@ -2363,6 +2363,8 @@ def product_add_second(request,id):
                   
                               
                   if ((row['Код наклейки'] != 'NT1') and (row['Тип покрытия'] != 'Ламинированный')) :
+                        if component in nakleyka_iskyucheniye:
+                              continue
                         termo_existN =AluminiyProductTermo.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['Наклейка'][key]).exists()
                         simple_existN =AluminiyProduct.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['Наклейка'][key]).exists()
                         if (termo_existN or simple_existN):
