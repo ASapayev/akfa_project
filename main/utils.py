@@ -143,7 +143,7 @@ def counter_generated_data(datas,data_type):
   
 
   now = datetime.now()
-  yearr =now.strftime("%d.%m.%Y")
+  yearr =now.strftime("%d.%m.%Y %H-%M-%S")
   if data_type =='pvc':
     data_name ='PVC'
   else:
