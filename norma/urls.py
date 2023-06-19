@@ -15,6 +15,7 @@ urlpatterns = [
  path('nakleyka-delete',views.nakleyka_duplicate_del,name ='nakleyka_delete'),
  path('norma-update',views.norma_update,name='norma_update'),
  path('norma-delete',views.norma_delete,name='norma-delete'),
+ path('norma-delete-org',views.norma_delete_org,name='norma-delete-org'),
  
 ]
 

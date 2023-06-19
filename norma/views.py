@@ -6723,3 +6723,15 @@ def norma_delete(request):
         return render(request,'norma/norma_find.html')
     else:
         return render(request,'norma/norma_find.html')
+    
+def norma_delete_org(request):
+    if request.method =='POST':
+        ozmk =request.POST.get('ozmk',None)
+        if ozmk:
+            ozmks =ozmk.split()
+            norma_base = CheckNormaBase.objects.filter(artikul__in =ozmks)
+            norma_base.delete()
+            messages.add_message(request, messages.INFO, "Normalar arxividan ochirildi")
+        return render(request,'delete_/delete_norm.html')
+    else:
+        return render(request,'delete_/delete_norm.html')
