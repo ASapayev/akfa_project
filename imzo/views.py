@@ -844,3 +844,15 @@ def tex_delete(request):
         return render(request,'imzo/tex_find.html')
     else:
         return render(request,'imzo/tex_find.html')
+
+def tex_delete_org(request):
+    if request.method =='POST':
+        ozmk =request.POST.get('ozmk',None)
+        if ozmk:
+            ozmks =ozmk.split()
+            norma_base = ImzoBase.objects.filter(material__in =ozmks)
+            norma_base.delete()
+            messages.add_message(request, messages.INFO, "Texcarta arxividan ochirildi")
+        return render(request,'delete_/delete_texcart.html')
+    else:
+        return render(request,'delete_/delete_texcart.html')

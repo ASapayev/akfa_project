@@ -7,7 +7,6 @@ from django.http import JsonResponse,HttpResponse,Http404
 import re
 from django.db.models import Count,Q
 from .forms import FileForm,FileFormOZMKA
-import os
 from aluminiy.models import RazlovkaObichniy,RazlovkaTermo
 from django.conf import settings  
 from config.settings import MEDIA_ROOT
@@ -17,6 +16,7 @@ import string
 import random
 from django.contrib import messages
 from .utils import counter_generated_data
+import subprocess,sys,os
 now = datetime.now()
 
 
@@ -109,7 +109,7 @@ def get_ozmka(ozmk):
   df_obichniy.to_excel(writer,index=False,sheet_name='OBICHNIY')
   df_yoqlari.to_excel(writer,index=False,sheet_name='NOT EXISTS')
   writer.close()
-  return 1
+  return path
 
 def get_ready_ozmka(request,id):
   file = ExcelFilesOzmka.objects.get(id=id).file
@@ -410,7 +410,25 @@ def file_upload_for_get_ozmka(request):
         return render(request,'norma/razlovka_find.html')
   return render(request,'norma/razlovka_find.html')
 
+def file_upload_for_get_ozmka_org(request):
+  if request.method =='POST':
+    ozmk = request.POST.get('ozmk',None)  
+    if ozmk:
+      ozmks =ozmk.split()
+      path = get_ozmka(ozmks)
+      return render(request,'norma/razlovka_find_org.html',{'path':path})
+    else:
+        return render(request,'norma/razlovka_find_org.html')
+  else:
+    path = request.GET.get('path',None)
 
+    if path:
+      if sys.platform == "win32":
+        os.startfile(path)
+      else:
+        opener = "open" if sys.platform == "darwin" else "xdg-open"
+        subprocess.call([opener, filename])
+    return render(request,'norma/razlovka_find_org.html')
 
 
     

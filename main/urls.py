@@ -12,6 +12,7 @@ urlpatterns = [
   path('sz',views.size_product,name='size'),
   path('file-upload',views.file_upload,name='file-upload'),
   path('file-upload-for-ozmka',views.file_upload_for_get_ozmka,name='file-upload-ozmka'),
+  path('file-upload-for-ozmka-org',views.file_upload_for_get_ozmka_org,name='file-upload-ozmka-org'),
   path('file-list',views.file_list,name='file_list'),
   path('file-list-ozmka',views.file_list_ozmka,name='file_list_ozmka'),
   path('import-and-merge/<int:id>',views.import_file,name='import_and_merge'),
