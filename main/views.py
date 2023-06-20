@@ -23,7 +23,7 @@ now = datetime.now()
 def work_wast(request):
   return render(request,'delovoy_otxod/index.html')
 
-def get_ozmka(ozmk):
+def get_ozmka(ozmk,zavod1101,zavod1201):
   sap_code_yoqlari =[]
   # print(df)
   sap_exists =[]
@@ -83,14 +83,17 @@ def get_ozmka(ozmk):
         if razlovkatermo.id not in sap_exists:
           termo_head =RazlovkaTermo.objects.filter(id=razlovkatermo.id)[:1].values_list()
           components =RazlovkaTermo.objects.filter(parent_id=razlovkatermo.id).values_list()
-          termo_razlovka+=list(termo_head)
-          termo_razlovka+=list(components)
+          print(list(termo_head))
+          if list(termo_head)[0] not in termo_razlovka:
+            termo_razlovka+=list(termo_head)
+            termo_razlovka+=list(components)
       else:
         if id not in sap_exists:
           termo_head =RazlovkaTermo.objects.filter(id=id)[:1].values_list()
           components =RazlovkaTermo.objects.filter(parent_id=id).values_list()
-          termo_razlovka+=list(termo_head)
-          termo_razlovka+=list(components)
+          if list(termo_head)[0] not in termo_razlovka:
+            termo_razlovka+=list(termo_head)
+            termo_razlovka+=list(components)
       sap_code_exists=True
       
     
@@ -98,51 +101,90 @@ def get_ozmka(ozmk):
       sap_code_yoqlari.append(sap_code)
 
 
-  termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
-  obichniy_razlovka =[ raz[:-2] for raz in obichniy_razlovka]
-  df_termo_1201 = pd.DataFrame(termo_razlovka,columns=['ID','PARENT ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
-  df_obichniy_1201 = pd.DataFrame(obichniy_razlovka,columns=['ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код L','Ламинация','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
-  df_yoqlari_1201 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
-  now =datetime.now()
-  minut =now.strftime('%M-%S')
-  path1201 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1201-{minut}.xlsx'
-  writer = pd.ExcelWriter(path1201, engine='xlsxwriter')
-  df_termo_1201.to_excel(writer,index=False,sheet_name='TERMO')
-  df_obichniy_1201.to_excel(writer,index=False,sheet_name='OBICHNIY')
-  df_yoqlari_1201.to_excel(writer,index=False,sheet_name='NOT EXISTS')
-  writer.close()
+  if (zavod1101 and zavod1201):
+    termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
+    obichniy_razlovka =[ raz[:-2] for raz in obichniy_razlovka]
+    df_termo_1201 = pd.DataFrame(termo_razlovka,columns=['ID','PARENT ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_obichniy_1201 = pd.DataFrame(obichniy_razlovka,columns=['ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код L','Ламинация','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_yoqlari_1201 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
+    now =datetime.now()
+    minut =now.strftime('%M-%S')
+    path1201 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1201-{minut}.xlsx'
+    writer = pd.ExcelWriter(path1201, engine='xlsxwriter')
+    df_termo_1201.to_excel(writer,index=False,sheet_name='TERMO')
+    df_obichniy_1201.to_excel(writer,index=False,sheet_name='OBICHNIY')
+    df_yoqlari_1201.to_excel(writer,index=False,sheet_name='NOT EXISTS')
+    writer.close()
 
+    termo_razlovka1101 =[ raz[4:10] + raz[12:16] + raz[18:20] for raz in termo_razlovka]
+    obichniy_razlovka1101 =[ raz[1:9] + raz[15:17] for raz in obichniy_razlovka]
+    counter = 0
+    obichniy_razlovka1101org = []
+    for obichniy in obichniy_razlovka1101:
+      if obichniy[2] !='':
+        ob =['','']+ list(obichniy[2:])
+        obichniy_razlovka1101org.append(ob)
+      else:
+        obichniy_razlovka1101org.append(obichniy)
+      counter += 1
+
+    df_termo_1101 = pd.DataFrame(termo_razlovka1101,columns=['SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_obichniy_1101 = pd.DataFrame(obichniy_razlovka1101org,columns=['SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_yoqlari_1101 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
+    now =datetime.now()
+    minut =now.strftime('%M-%S')
+    path1101 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1101-{minut}.xlsx'
+    writer = pd.ExcelWriter(path1101, engine='xlsxwriter')
+    df_termo_1101.to_excel(writer,index=False,sheet_name='TERMO')
+    df_obichniy_1101.to_excel(writer,index=False,sheet_name='OBICHNIY')
+    df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')
+    writer.close()
+    return path1201
+  
+  if ((zavod1201 and not zavod1201) or ((not zavod1101) and (not zavod1101))):
+    termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
+    obichniy_razlovka =[ raz[:-2] for raz in obichniy_razlovka]
+    df_termo_1201 = pd.DataFrame(termo_razlovka,columns=['ID','PARENT ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_obichniy_1201 = pd.DataFrame(obichniy_razlovka,columns=['ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код L','Ламинация','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_yoqlari_1201 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
+    now =datetime.now()
+    minut =now.strftime('%M-%S')
+    path1201 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1201-{minut}.xlsx'
+    writer = pd.ExcelWriter(path1201, engine='xlsxwriter')
+    df_termo_1201.to_excel(writer,index=False,sheet_name='TERMO')
+    df_obichniy_1201.to_excel(writer,index=False,sheet_name='OBICHNIY')
+    df_yoqlari_1201.to_excel(writer,index=False,sheet_name='NOT EXISTS')
+    writer.close()
+    return path1201
   # print(obichniy_razlovka[0])
   # return 1
-  
-  termo_razlovka1101 =[ raz[4:10] + raz[12:16] + raz[18:20] for raz in termo_razlovka]
-  obichniy_razlovka1101 =[ raz[1:9] + raz[15:17] for raz in obichniy_razlovka]
-  counter = 0
-  obichniy_razlovka1101org = []
-  for obichniy in obichniy_razlovka1101:
-    if obichniy[2] !='':
-      ob =['','']+ list(obichniy[2:])
-      obichniy_razlovka1101org.append(ob)
-    else:
-      obichniy_razlovka1101org.append(obichniy)
-    counter += 1
+  if zavod1101:
+    termo_razlovka1101 =[ raz[4:10] + raz[12:16] + raz[18:20] for raz in termo_razlovka]
+    obichniy_razlovka1101 =[ raz[1:9] + raz[15:17] for raz in obichniy_razlovka]
+    counter = 0
+    obichniy_razlovka1101org = []
+    for obichniy in obichniy_razlovka1101:
+      if obichniy[2] !='':
+        ob =['','']+ list(obichniy[2:])
+        obichniy_razlovka1101org.append(ob)
+      else:
+        obichniy_razlovka1101org.append(obichniy)
+      counter += 1
 
-  df_termo_1101 = pd.DataFrame(termo_razlovka1101,columns=['SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
-  df_obichniy_1101 = pd.DataFrame(obichniy_razlovka1101org,columns=['SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
-  df_yoqlari_1101 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
-  now =datetime.now()
-  minut =now.strftime('%M-%S')
-  path1101 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1101-{minut}.xlsx'
-  writer = pd.ExcelWriter(path1101, engine='xlsxwriter')
-  df_termo_1101.to_excel(writer,index=False,sheet_name='TERMO')
-  df_obichniy_1101.to_excel(writer,index=False,sheet_name='OBICHNIY')
-  df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')
-  writer.close()
+    df_termo_1101 = pd.DataFrame(termo_razlovka1101,columns=['SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_obichniy_1101 = pd.DataFrame(obichniy_razlovka1101org,columns=['SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_yoqlari_1101 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
+    now =datetime.now()
+    minut =now.strftime('%M-%S')
+    path1101 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1101-{minut}.xlsx'
+    writer = pd.ExcelWriter(path1101, engine='xlsxwriter')
+    df_termo_1101.to_excel(writer,index=False,sheet_name='TERMO')
+    df_obichniy_1101.to_excel(writer,index=False,sheet_name='OBICHNIY')
+    df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')
+    writer.close()
+    return path1101
 
 
-
-
-  return path1201
 
 def get_ready_ozmka(request,id):
   file = ExcelFilesOzmka.objects.get(id=id).file
@@ -433,10 +475,22 @@ def file_upload(request):
 
 def file_upload_for_get_ozmka(request):
   if request.method =='POST':
-    ozmk = request.POST.get('ozmk',None)  
+    ozmk = request.POST.get('ozmk',None)
+    zavod1101 =request.POST.get('for1101',None)  
+    zavod1201 =request.POST.get('for1201',None)
+
+    if zavod1101 =='on':
+      z1101 =True
+    else:
+      z1101 =False
+
+    if zavod1201 =='on':
+      z1201 =True
+    else:
+      z1201 =False  
     if ozmk:
       ozmks =ozmk.split()
-      get_ozmka(ozmks)
+      get_ozmka(ozmks,z1101,z1201)
       messages.add_message(request, messages.INFO, "Razlovka tayyor!!!")
       return render(request,'norma/razlovka_find.html')
     else:
