@@ -351,14 +351,12 @@ SFSPF1201 ={
     }
 SFSPF1101 ={
     'E':  'Z0ZJP0',
-    'Z' : 'Z0ZJP1',
+    'Z' : 'Z0ZJP0',
     'P':  'Z0ZJP2',
     'S':  'Z0ZJP3',
     'N':  'Z0ZJP4',
     'K':  'Z0ZJP5',
-    'A':  'Z0ZJP6',
-    '7':  'Z0ZJP7',
-    'F':  'Z0ZJP8'
+    '7':  'Z0ZJP6'
 }
 LGPRO1201 ={
 'E' : 'P021',

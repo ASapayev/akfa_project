@@ -1248,10 +1248,12 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
     d2['EKALR']=umumiy_without_duplicate[41]
     d2['HKMAT']=umumiy_without_duplicate[42]
     d2['LOSGR']=umumiy_without_duplicate[43]
+    d2['FEVOR']=umumiy_without_duplicate[49]
     d2['SFCPF']=umumiy_without_duplicate[44]
     d2['UEETK']=umumiy_without_duplicate[45]
     d2['LGPRO']=umumiy_without_duplicate[46]
     d2['AUTO_P_ORD']=umumiy_without_duplicate[47]
+    d2['AHDIS']=umumiy_without_duplicate[50]
 
     df2= pd.DataFrame(d2)
     np.savetxt(pathtext2, df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
