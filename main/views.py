@@ -96,6 +96,8 @@ def get_ozmka(ozmk):
     
     if not sap_code_exists:
       sap_code_yoqlari.append(sap_code)
+
+
   termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
   obichniy_razlovka =[ raz[:-2] for raz in obichniy_razlovka]
   df_termo_1201 = pd.DataFrame(termo_razlovka,columns=['ID','PARENT ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
@@ -103,13 +105,44 @@ def get_ozmka(ozmk):
   df_yoqlari_1201 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
   now =datetime.now()
   minut =now.strftime('%M-%S')
-  path =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka-{minut}.xlsx'
-  writer = pd.ExcelWriter(path, engine='xlsxwriter')
+  path1201 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1201-{minut}.xlsx'
+  writer = pd.ExcelWriter(path1201, engine='xlsxwriter')
   df_termo_1201.to_excel(writer,index=False,sheet_name='TERMO')
   df_obichniy_1201.to_excel(writer,index=False,sheet_name='OBICHNIY')
   df_yoqlari_1201.to_excel(writer,index=False,sheet_name='NOT EXISTS')
   writer.close()
-  return path
+
+  # print(obichniy_razlovka[0])
+  # return 1
+  
+  termo_razlovka1101 =[ raz[4:10] + raz[12:16] + raz[18:20] for raz in termo_razlovka]
+  obichniy_razlovka1101 =[ raz[1:9] + raz[15:17] for raz in obichniy_razlovka]
+  counter = 0
+  obichniy_razlovka1101org = []
+  for obichniy in obichniy_razlovka1101:
+    if obichniy[2] !='':
+      ob =['','']+ list(obichniy[2:])
+      obichniy_razlovka1101org.append(ob)
+    else:
+      obichniy_razlovka1101org.append(obichniy)
+    counter += 1
+
+  df_termo_1101 = pd.DataFrame(termo_razlovka1101,columns=['SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+  df_obichniy_1101 = pd.DataFrame(obichniy_razlovka1101org,columns=['SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+  df_yoqlari_1101 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
+  now =datetime.now()
+  minut =now.strftime('%M-%S')
+  path1101 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1101-{minut}.xlsx'
+  writer = pd.ExcelWriter(path1101, engine='xlsxwriter')
+  df_termo_1101.to_excel(writer,index=False,sheet_name='TERMO')
+  df_obichniy_1101.to_excel(writer,index=False,sheet_name='OBICHNIY')
+  df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')
+  writer.close()
+
+
+
+
+  return path1201
 
 def get_ready_ozmka(request,id):
   file = ExcelFilesOzmka.objects.get(id=id).file
