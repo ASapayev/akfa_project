@@ -6,7 +6,7 @@ from datetime import datetime
 from config.settings import MEDIA_ROOT
 import pandas as pd
 import numpy as np
-from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101
+from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101,LGORT_1101
 from django.shortcuts import render
 from aluminiy.models import ArtikulComponent
 from datetime import datetime
@@ -534,15 +534,16 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}',f'{month}')
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}',day)
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}',hour)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}',minut)
-        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\1_1101.txt'
-        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\2_1101.txt'
-        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\3_1101.txt'
-        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\4_1101.txt'
-        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм_1101.txt'
-        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3_1101.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Длинный текст_1101.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Бухгалтерская названия_1101.txt'
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}','JOMIY')
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY',minut)
+        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\1.txt'
+        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\2.txt'
+        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\3.txt'
+        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4.txt'
+        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм.txt'
+        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3.xlsx'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текст.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия.txt'
         
     elif file_name =='aluminiy':
         parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
@@ -554,15 +555,16 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}',f'{month}')
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}',day)
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}',hour)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}',minut)
-        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\1_1101.txt'
-        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\2_1101.txt'
-        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\3_1101.txt'
-        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\4_1101.txt'
-        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм_1101.txt'
-        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3_1101.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Длинный текст_1101.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Бухгалтерская названия_1101.txt'
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}','JOMIY')
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY',minut)
+        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\1_1101.txt'
+        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\2_1101.txt'
+        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\3_1101.txt'
+        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4_1101.txt'
+        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм_1101.txt'
+        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3_1101.xlsx'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текст_1101.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия_1101.txt'
     
     
     umumiy_without_duplicate1201 =[[] for i in range(0,49)]
@@ -644,69 +646,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
         else:
             gruppa_material ='ALUPF'
                 
-        # if ((row['Тип покрытия'] =='Ламинированный') and (row['Участок'] =='U-Упаковка + Готовая продукция') or ((row['Тип покрытия'] =='Ламинированный') and (row['Участок'] =='K-Комбинирования'))):
-        #     umumiy_without_duplicate1203[0].append(row['SAP код S4P 100'])
-        #     umumiy_without_duplicate1203[1].append(row['SAP код S4P 100'])
-        #     umumiy_without_duplicate1203[2].append(row['Короткое название SAP'])
-        #     umumiy_without_duplicate1203[3].append('ШТ')
-        #     umumiy_without_duplicate1203[4].append('ZPRF')
-        #     umumiy_without_duplicate1203[5].append(gruppa_material)
-        #     umumiy_without_duplicate1203[6].append(gruppa_material)
-        #     umumiy_without_duplicate1203[7].append('E')
-        #     umumiy_without_duplicate1203[8].append('01')
-        #     umumiy_without_duplicate1203[9].append(row['Общий вес за штуку'])
-        #     umumiy_without_duplicate1203[10].append(row['Общий вес за штуку'])
-        #     umumiy_without_duplicate1203[11].append('КГ')
-        #     umumiy_without_duplicate1203[12].append('NORM')
-        #     umumiy_without_duplicate1203[13].append(row['Короткое название SAP'])
-        #     umumiy_without_duplicate1203[14].append('ШТ')
-        #     umumiy_without_duplicate1203[15].append('999')
-        #     umumiy_without_duplicate1203[16].append('X')
-        #     umumiy_without_duplicate1203[17].append('0000')
-        #     umumiy_without_duplicate1203[18].append('PD')
-        #     umumiy_without_duplicate1203[19].append('EX')
-        #     umumiy_without_duplicate1203[20].append('0')
-        #     umumiy_without_duplicate1203[21].append('E')
-        #     ss =''
-        #     sartrr =''
-        #     if gruppa_material =='ALUGP':
-        #         ss ='S400'
-        #         sartrr ='5'
-                
-        #     bklast ='0100'
-        #     if gruppa_material =='ALUPF':
-        #         bklast ='0102'
-                
-                
-        #     umumiy_without_duplicate1203[22].append(ss)
-        #     umumiy_without_duplicate1203[23].append('')
-        #     umumiy_without_duplicate1203[24].append('M')
-        #     umumiy_without_duplicate1203[25].append('02')
-        #     umumiy_without_duplicate1203[26].append('26')
-        #     umumiy_without_duplicate1203[27].append(sartrr)
-        #     umumiy_without_duplicate1203[28].append('X')
-        #     umumiy_without_duplicate1203[29].append('5')
-        #     umumiy_without_duplicate1203[30].append('Z_SAP_PP_002')
-        #     umumiy_without_duplicate1203[31].append('4')
-        #     umumiy_without_duplicate1203[32].append('SAP999')
-        #     umumiy_without_duplicate1203[33].append('26')
-        #     umumiy_without_duplicate1203[34].append('1203')
-        #     umumiy_without_duplicate1203[35].append('3')
-        #     umumiy_without_duplicate1203[36].append(bklast)
-        #     umumiy_without_duplicate1203[37].append('S')
-        #     umumiy_without_duplicate1203[38].append('1')
-        #     umumiy_without_duplicate1203[39].append(row['Price'])
-        #     umumiy_without_duplicate1203[40].append('1203')
-        #     umumiy_without_duplicate1203[41].append('X')
-        #     umumiy_without_duplicate1203[42].append('X')
-        #     umumiy_without_duplicate1203[43].append('1')
-        #     sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]
-        #     umumiy_without_duplicate1203[44].append(SFSPF1203[sap_code_simvol])
-        #     umumiy_without_duplicate1203[45].append('X')
-        #     umumiy_without_duplicate1203[46].append(LGPRO1203[sap_code_simvol])
-        #     umumiy_without_duplicate1203[47].append('')
-        #     umumiy_without_duplicate1203[48].append(row['ch_combination'] + row['Тип покрытия'])
-            
+          
         if gruppa_material=='ALUGP':
             #######12D1
             umumiy_without_duplicate12D1[0].append(row['SAP код S4P 100'])
@@ -1194,15 +1134,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
 
     ########################## 2.txt ##############################
     header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tUEETK\tLGPRO\tAUTO_P_ORD'
-    zavod_code ={
-        '1203':'PVC',
-        '1201':'PR1',
-        '12D1':'001',
-        '12D2':'001',
-        '12D3':'001',
-        '12D4':'001',
-        '12D5':'001',
-    }
+    
     zavod_code_1101 ={
         '1103':'PVC',
         '1101':'PR1',
@@ -1307,7 +1239,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
         d3['VKORG'] += [ 1200 for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['MTPOS'] += umumiy_without_duplicate[12]
         d3['VTWEG'] += [ VTWEG[i] for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['PRCTR'] += [ '1203' if umumiy_without_duplicate[34][i] =='1203' else '1201' for i in range(0,len(umumiy_without_duplicate[34]))]
+        d3['PRCTR'] += [ '1103' if umumiy_without_duplicate[34][i] =='1103' else '1101' for i in range(0,len(umumiy_without_duplicate[34]))]
         d3['MTVFP'] += [ '02' for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['ALAND'] += [ 'UZ' for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['TATYP'] += [ 'MWST' for j in range(0,len(umumiy_without_duplicate[13]))]
@@ -1343,65 +1275,65 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
         
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
         if sap_code_simvol =='E':
-            for i in range(0,len(LGORT['E'])):
+            for i in range(0,len(LGORT_1101['E'])):
                 new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['E'][i]['zavod_code'])
-                new_ll[2].append(LGORT['E'][i]['zavod_sap'])
+                new_ll[1].append(LGORT_1101['E'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['E'][i]['zavod_sap'])
         if sap_code_simvol =='Z':
-            for i in range(0,len(LGORT['Z'])):
+            for i in range(0,len(LGORT_1101['Z'])):
                 new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['Z'][i]['zavod_code'])
-                new_ll[2].append(LGORT['Z'][i]['zavod_sap'])
+                new_ll[1].append(LGORT_1101['Z'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['Z'][i]['zavod_sap'])
         if sap_code_simvol =='P':
             if (row['Тип покрытия'] =='Ламинированный'):
-                for i in range(0,len(LGORT['PL'])):
+                for i in range(0,len(LGORT_1101['PL'])):
                     new_ll[0].append(row['SAP код S4P 100'])
-                    new_ll[1].append(LGORT['PL'][i]['zavod_code'])
-                    new_ll[2].append(LGORT['PL'][i]['zavod_sap'])
+                    new_ll[1].append(LGORT_1101['PL'][i]['zavod_code'])
+                    new_ll[2].append(LGORT_1101['PL'][i]['zavod_sap'])
             else:
-                for i in range(0,len(LGORT['P'])):
+                for i in range(0,len(LGORT_1101['P'])):
                     new_ll[0].append(row['SAP код S4P 100'])
-                    new_ll[1].append(LGORT['P'][i]['zavod_code'])
-                    new_ll[2].append(LGORT['P'][i]['zavod_sap'])
+                    new_ll[1].append(LGORT_1101['P'][i]['zavod_code'])
+                    new_ll[2].append(LGORT_1101['P'][i]['zavod_sap'])
         
         if sap_code_simvol =='S':
-            for i in range(0,len(LGORT['S'])):
+            for i in range(0,len(LGORT_1101['S'])):
                 new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['S'][i]['zavod_code'])
-                new_ll[2].append(LGORT['S'][i]['zavod_sap'])
+                new_ll[1].append(LGORT_1101['S'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['S'][i]['zavod_sap'])
         if sap_code_simvol =='N':
-            for i in range(0,len(LGORT['N'])):
+            for i in range(0,len(LGORT_1101['N'])):
                 new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['N'][i]['zavod_code'])
-                new_ll[2].append(LGORT['N'][i]['zavod_sap'])
+                new_ll[1].append(LGORT_1101['N'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['N'][i]['zavod_sap'])
         if sap_code_simvol =='K':
-            for i in range(0,len(LGORT['K'])):
+            for i in range(0,len(LGORT_1101['K'])):
                 new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['K'][i]['zavod_code'])
-                new_ll[2].append(LGORT['K'][i]['zavod_sap'])
+                new_ll[1].append(LGORT_1101['K'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['K'][i]['zavod_sap'])
         if sap_code_simvol =='A':
-            for i in range(0,len(LGORT['A'])):
+            for i in range(0,len(LGORT_1101['A'])):
                 new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['A'][i]['zavod_code'])
-                new_ll[2].append(LGORT['A'][i]['zavod_sap'])
+                new_ll[1].append(LGORT_1101['A'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['A'][i]['zavod_sap'])
         
         if sap_code_simvol =='7':
             if (row['Тип покрытия'] =='Ламинированный'):
-                for i in range(0,len(LGORT['7L'])):
+                for i in range(0,len(LGORT_1101['7L'])):
                     new_ll[0].append(row['SAP код S4P 100'])
-                    new_ll[1].append(LGORT['7L'][i]['zavod_code'])
-                    new_ll[2].append(LGORT['7L'][i]['zavod_sap'])
+                    new_ll[1].append(LGORT_1101['7L'][i]['zavod_code'])
+                    new_ll[2].append(LGORT_1101['7L'][i]['zavod_sap'])
             else:
-                for i in range(0,len(LGORT['7'])):
+                for i in range(0,len(LGORT_1101['7'])):
                     new_ll[0].append(row['SAP код S4P 100'])
-                    new_ll[1].append(LGORT['7'][i]['zavod_code'])
-                    new_ll[2].append(LGORT['7'][i]['zavod_sap'])
+                    new_ll[1].append(LGORT_1101['7'][i]['zavod_code'])
+                    new_ll[2].append(LGORT_1101['7'][i]['zavod_sap'])
         
         if sap_code_simvol =='F':
-            for i in range(0,len(LGORT['F'])):
+            for i in range(0,len(LGORT_1101['F'])):
                 new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['F'][i]['zavod_code'])
-                new_ll[2].append(LGORT['F'][i]['zavod_sap'])
+                new_ll[1].append(LGORT_1101['F'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['F'][i]['zavod_sap'])
     header4='MATNR\tWERKS\tLGORT'
     d4={}
     d4['MATNR']=new_ll[0]
@@ -1566,15 +1498,16 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}',f'{month}')
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}',day)
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}',hour)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}',minut)
-        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\1.txt'
-        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\2.txt'
-        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\3.txt'
-        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\4.txt'
-        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt'
-        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Длинный текст.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Бухгалтерская названия.txt'
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}','BENKAM')
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM',minut)
+        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\1.txt'
+        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\2.txt'
+        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\3.txt'
+        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\4.txt'
+        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Единицы изм.txt'
+        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Лист в C 3.xlsx'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текст.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бухгалтерская названия.txt'
         
     elif file_name =='aluminiy':
         parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy'
@@ -1586,15 +1519,16 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}',f'{month}')
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}',day)
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}',hour)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}',minut)
-        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\1.txt'
-        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\2.txt'
-        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\3.txt'
-        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\4.txt'
-        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt'
-        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Длинный текст.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Бухгалтерская названия.txt'
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}','BENKAM')
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM',minut)
+        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\1.txt'
+        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\2.txt'
+        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\3.txt'
+        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\4.txt'
+        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Единицы изм.txt'
+        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Лист в C 3.xlsx'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текст.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бухгалтерская названия.txt'
     
     
     umumiy_without_duplicate1201 =[[] for i in range(0,49)]
