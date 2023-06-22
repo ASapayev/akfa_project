@@ -1548,7 +1548,6 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
 
 
 def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
-    characteristika_created_txt_create_1101(datas)
     now = datetime.now()
     year =now.strftime("%Y")
     month =now.strftime("%B")
@@ -2560,7 +2559,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2.to_excel(pathtext6,index=False)
-    
+    characteristika_created_txt_create_1101(datas)
     return 1
 
 
