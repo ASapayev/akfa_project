@@ -139,7 +139,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     df_obichniy_1101.to_excel(writer,index=False,sheet_name='OBICHNIY')
     df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')
     writer.close()
-    return path1201
+    return [path1201,path1101]
   
   if ((zavod1201 and not zavod1201) or ((not zavod1101) and (not zavod1101))):
     termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
@@ -155,7 +155,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     df_obichniy_1201.to_excel(writer,index=False,sheet_name='OBICHNIY')
     df_yoqlari_1201.to_excel(writer,index=False,sheet_name='NOT EXISTS')
     writer.close()
-    return path1201
+    return [path1201,'']
   # print(obichniy_razlovka[0])
   # return 1
   if zavod1101:
@@ -182,7 +182,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     df_obichniy_1101.to_excel(writer,index=False,sheet_name='OBICHNIY')
     df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')
     writer.close()
-    return path1101
+    return [path1101,'']
 
 
 
@@ -499,19 +499,30 @@ def file_upload_for_get_ozmka(request):
 
 def file_upload_for_get_ozmka_org(request):
   if request.method =='POST':
-    ozmk = request.POST.get('ozmk',None)  
+    ozmk = request.POST.get('ozmk',None)
+    zavod1101 =request.POST.get('for1101',None)  
+    zavod1201 =request.POST.get('for1201',None)
+
+    if zavod1101 =='on':
+      z1101 =True
+    else:
+      z1101 =False
+
+    if zavod1201 =='on':
+      z1201 =True
+    else:
+      z1201 =False    
     if ozmk:
       ozmks =ozmk.split()
-      path = get_ozmka(ozmks)
+      path = get_ozmka(ozmks,z1101,z1201)
       return render(request,'norma/razlovka_find_org.html',{'path':path})
     else:
         return render(request,'norma/razlovka_find_org.html')
   else:
-    path = request.GET.get('path',None)
-
-    if path:
+    path1 = request.GET.get('path',None)
+    if path1:
       if sys.platform == "win32":
-        os.startfile(path)
+        os.startfile(path1)
       else:
         opener = "open" if sys.platform == "darwin" else "xdg-open"
         subprocess.call([opener, filename])
