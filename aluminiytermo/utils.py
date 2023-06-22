@@ -612,7 +612,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 
                 buxgalterskiy_naz[0].append('1')
                 buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
-                buxgalterskiy_naz[2].append('1200')
+                buxgalterskiy_naz[2].append('1100')
                 buxgalterskiy_naz[3].append(vtweg)
                 buxgalterskiy_naz[4].append('EN')
                 buxgalterskiy_naz[5].append('0001')
@@ -621,7 +621,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 
                 buxgalterskiy_naz[0].append('2')
                 buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
-                buxgalterskiy_naz[2].append('1200')
+                buxgalterskiy_naz[2].append('1100')
                 buxgalterskiy_naz[3].append(vtweg)
                 buxgalterskiy_naz[4].append('RU')
                 buxgalterskiy_naz[5].append('0001')
@@ -630,7 +630,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 
                 buxgalterskiy_naz[0].append('2')
                 buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
-                buxgalterskiy_naz[2].append('1200')
+                buxgalterskiy_naz[2].append('1100')
                 buxgalterskiy_naz[3].append(vtweg)
                 buxgalterskiy_naz[4].append('EN')
                 buxgalterskiy_naz[5].append('0001')

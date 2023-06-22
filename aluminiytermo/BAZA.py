@@ -152,19 +152,19 @@ LGORT_1101 ={
                 {
                 'zavod_code':'11D1',
                 'zavod_sap':'D100'    
-                }
+                },
                 {
                 'zavod_code':'11D2',
                 'zavod_sap':'D100'    
-                }
+                },
                 {
                 'zavod_code':'11D3',
                 'zavod_sap':'D100'    
-                }
+                },
                 {
                 'zavod_code':'11D4',
                 'zavod_sap':'D100'    
-                }
+                },
                 {
                 'zavod_code':'11D5',
                 'zavod_sap':'D100'    
