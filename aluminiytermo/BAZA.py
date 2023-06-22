@@ -5,185 +5,129 @@ LGORT_1101 ={
         'E':[
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P021'
-                }
+                'zavod_sap':'PS01'
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'PS03'
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'PS04'
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'PS05'
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'PS06'
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'PS07'
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'PS10'
+                },
             ],
         'Z':[
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P030'  
+                'zavod_sap':'PS01'
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P050'  
+                'zavod_sap':'PS03'
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P060'  
+                'zavod_sap':'PS04'
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P070'  
+                'zavod_sap':'PS05'
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P080'  
+                'zavod_sap':'PS06'
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P090'  
+                'zavod_sap':'PS07'
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P100'  
+                'zavod_sap':'PS10'
                 },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P110'  
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P120'  
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P130'  
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P170'  
-                }
             ],
         'P':[
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P050'   
+                'zavod_sap':'PS04'   
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P060'   
+                'zavod_sap':'PS05'   
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P070'   
+                'zavod_sap':'PS06'   
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P080'   
+                'zavod_sap':'PS07'   
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P090'   
+                'zavod_sap':'PS08'   
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P170'   
-                }
-            ], 
-        'PL':[
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P050'   
+                'zavod_sap':'PS10'   
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P060'   
+                'zavod_sap':'PS11'   
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P070'   
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P080'   
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P090'   
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P170'   
-                },
-                {
-                'zavod_code':'1103',
-                'zavod_sap':'P230'   
-                },
-                {
-                'zavod_code':'1103',
-                'zavod_sap':'P179'   
+                'zavod_sap':'PS12'   
                 }
             ], 
         'S':[
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P060'    
+                'zavod_sap':'PS08'    
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P070'    
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P080'    
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P090'    
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P170'    
+                'zavod_sap':'PS10'    
                 }
             ],  
-        'A':[
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P070'   
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P080'   
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P090'   
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P130'   
-                },
-                {
-                'zavod_code':'1101',
-                'zavod_sap':'P170'   
-                }
-            ], 
         'N':[
             {
             'zavod_code':'1101',
-            'zavod_sap':'P030'    
+            'zavod_sap':'PS09'    
             },
             {
             'zavod_code':'1101',
-            'zavod_sap':'P070'    
-            },
-            {
-            'zavod_code':'1101',
-            'zavod_sap':'P080'    
-            },
-            {
-            'zavod_code':'1101',
-            'zavod_sap':'P090'    
-            },
-            {
-            'zavod_code':'1101',
-            'zavod_sap':'P170'    
+            'zavod_sap':'PS10'    
             }
         ],
         '7':[
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'P170'    
+                'zavod_sap':'PS09'    
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'PS10'    
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'PS11'    
                 },
                 {
                 'zavod_code':'1101',
@@ -191,109 +135,56 @@ LGORT_1101 ={
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'S410'    
+                'zavod_sap':'S401'    
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'S420'    
+                'zavod_sap':'S402'    
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'S403'    
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'S404'    
+                },
+                {
+                'zavod_code':'11D1',
+                'zavod_sap':'D100'    
                 }
-            ],  
-        '7L':[
                 {
-                'zavod_code':'1101',
-                'zavod_sap':'P170'    
-                },
+                'zavod_code':'11D2',
+                'zavod_sap':'D100'    
+                }
                 {
-                'zavod_code':'1101',
-                'zavod_sap':'S400'    
-                },
+                'zavod_code':'11D3',
+                'zavod_sap':'D100'    
+                }
                 {
-                'zavod_code':'1101',
-                'zavod_sap':'S410'    
-                },
+                'zavod_code':'11D4',
+                'zavod_sap':'D100'    
+                }
                 {
-                'zavod_code':'1101',
-                'zavod_sap':'S420'    
-                },
-                {
-                'zavod_code':'1103',
-                'zavod_sap':'P170'    
-                },
-                {
-                'zavod_code':'1103',
-                'zavod_sap':'P179'    
-                },
-                {
-                'zavod_code':'1103',
-                'zavod_sap':'PS02'    
-                },
-                {
-                'zavod_code':'1103',
-                'zavod_sap':'PS23'    
-                },
-                {
-                'zavod_code':'1103',
-                'zavod_sap':'S400'    
-                },
-                {
-                'zavod_code':'1103',
-                'zavod_sap':'S420'    
-                },
-                {
-                'zavod_code':'1103',
-                'zavod_sap':'P230'    
-                },
+                'zavod_code':'11D5',
+                'zavod_sap':'D100'    
+                }
             ],  
         'K':[
             {
             'zavod_code':'1101',
-            'zavod_sap':'P070'    
+            'zavod_sap':'PS09'    
             },
             {
             'zavod_code':'1101',
-            'zavod_sap':'P080'    
+            'zavod_sap':'PS10'    
             },
             {
             'zavod_code':'1101',
-            'zavod_sap':'P090'    
-            },
-            {
-            'zavod_code':'1101',
-            'zavod_sap':'P170'    
-            },
-            {
-            'zavod_code':'1103',
-            'zavod_sap':'P230'    
-            },
-            {
-            'zavod_code':'1103',
-            'zavod_sap':'P179'    
-            },
-            
-        ],
-        'F':[
-            {
-            'zavod_code':'1101',
-            'zavod_sap':'P030'   
-            },
-            {
-            'zavod_code':'1101',
-            'zavod_sap':'P070'   
-            },
-            {
-            'zavod_code':'1101',
-            'zavod_sap':'P080'   
-            },
-            {
-            'zavod_code':'1101',
-            'zavod_sap':'P090'   
-            },
-            {
-            'zavod_code':'1101',
-            'zavod_sap':'P170'   
+            'zavod_sap':'PS11'    
             }
-        ]    
-    }
+        ]
+}
 
 
 LGORT ={
@@ -399,14 +290,6 @@ LGORT ={
                 {
                 'zavod_code':'1201',
                 'zavod_sap':'P170'   
-                },
-                {
-                'zavod_code':'1203',
-                'zavod_sap':'P230'   
-                },
-                {
-                'zavod_code':'1203',
-                'zavod_sap':'P179'   
                 }
             ], 
         'S':[
@@ -491,6 +374,26 @@ LGORT ={
                 {
                 'zavod_code':'1201',
                 'zavod_sap':'S420'    
+                },
+                {
+                'zavod_code':'12D1',
+                'zavod_sap':'D100'    
+                },
+                {
+                'zavod_code':'12D2',
+                'zavod_sap':'D100'    
+                },
+                {
+                'zavod_code':'12D3',
+                'zavod_sap':'D100'    
+                },
+                {
+                'zavod_code':'12D4',
+                'zavod_sap':'D100'    
+                },
+                {
+                'zavod_code':'12D5',
+                'zavod_sap':'D100'    
                 }
             ],  
         '7L':[
@@ -511,33 +414,25 @@ LGORT ={
                 'zavod_sap':'S420'    
                 },
                 {
-                'zavod_code':'1203',
-                'zavod_sap':'P170'    
+                'zavod_code':'12D1',
+                'zavod_sap':'D100'    
                 },
                 {
-                'zavod_code':'1203',
-                'zavod_sap':'P179'    
+                'zavod_code':'12D2',
+                'zavod_sap':'D100'    
                 },
                 {
-                'zavod_code':'1203',
-                'zavod_sap':'PS02'    
+                'zavod_code':'12D3',
+                'zavod_sap':'D100'    
                 },
                 {
-                'zavod_code':'1203',
-                'zavod_sap':'PS23'    
+                'zavod_code':'12D4',
+                'zavod_sap':'D100'    
                 },
                 {
-                'zavod_code':'1203',
-                'zavod_sap':'S400'    
-                },
-                {
-                'zavod_code':'1203',
-                'zavod_sap':'S420'    
-                },
-                {
-                'zavod_code':'1203',
-                'zavod_sap':'P230'    
-                },
+                'zavod_code':'12D5',
+                'zavod_sap':'D100'    
+                }
             ],  
         'K':[
             {
@@ -555,15 +450,7 @@ LGORT ={
             {
             'zavod_code':'1201',
             'zavod_sap':'P170'    
-            },
-            {
-            'zavod_code':'1203',
-            'zavod_sap':'P230'    
-            },
-            {
-            'zavod_code':'1203',
-            'zavod_sap':'P179'    
-            },
+            }
             
         ],
         'F':[

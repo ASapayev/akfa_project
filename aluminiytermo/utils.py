@@ -672,7 +672,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D1[16].append('X')
             umumiy_without_duplicate12D1[17].append('0000')
             umumiy_without_duplicate12D1[18].append('PD')
-            umumiy_without_duplicate12D1[19].append('EX')
+            umumiy_without_duplicate12D1[19].append('MB')
             umumiy_without_duplicate12D1[20].append('0')
             umumiy_without_duplicate12D1[21].append('E')
             
@@ -739,7 +739,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D2[16].append('X')
             umumiy_without_duplicate12D2[17].append('0000')
             umumiy_without_duplicate12D2[18].append('PD')
-            umumiy_without_duplicate12D2[19].append('EX')
+            umumiy_without_duplicate12D2[19].append('MB')
             umumiy_without_duplicate12D2[20].append('0')
             umumiy_without_duplicate12D2[21].append('E')
             
@@ -806,7 +806,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D3[16].append('X')
             umumiy_without_duplicate12D3[17].append('0000')
             umumiy_without_duplicate12D3[18].append('PD')
-            umumiy_without_duplicate12D3[19].append('EX')
+            umumiy_without_duplicate12D3[19].append('MB')
             umumiy_without_duplicate12D3[20].append('0')
             umumiy_without_duplicate12D3[21].append('E')
             
@@ -872,7 +872,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D4[16].append('X')
             umumiy_without_duplicate12D4[17].append('0000')
             umumiy_without_duplicate12D4[18].append('PD')
-            umumiy_without_duplicate12D4[19].append('EX')
+            umumiy_without_duplicate12D4[19].append('MB')
             umumiy_without_duplicate12D4[20].append('0')
             umumiy_without_duplicate12D4[21].append('E')
             
@@ -939,7 +939,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D5[16].append('X')
             umumiy_without_duplicate12D5[17].append('0000')
             umumiy_without_duplicate12D5[18].append('PD')
-            umumiy_without_duplicate12D5[19].append('EX')
+            umumiy_without_duplicate12D5[19].append('MB')
             umumiy_without_duplicate12D5[20].append('0')
             umumiy_without_duplicate12D5[21].append('E')
             
@@ -1004,7 +1004,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
         umumiy_without_duplicate1201[16].append('X')
         umumiy_without_duplicate1201[17].append('0000')
         umumiy_without_duplicate1201[18].append('PD')
-        umumiy_without_duplicate1201[19].append('EX')
+        umumiy_without_duplicate1201[19].append('MB')
         umumiy_without_duplicate1201[20].append('0')
         umumiy_without_duplicate1201[21].append('E')
         ss =''
@@ -1163,12 +1163,12 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
     d2['PERKZ']=umumiy_without_duplicate[24]
     d2['MTVFP']=umumiy_without_duplicate[25]
     d2['SCM_STRA1']=umumiy_without_duplicate[26]
-    d2['VRMOD']=umumiy_without_duplicate[27]
-    d2['PPSKZ']=umumiy_without_duplicate[28]
-    d2['SCM_WHATBOM']=umumiy_without_duplicate[29]
-    d2['SCM_HEUR_ID']=umumiy_without_duplicate[30]
-    d2['SCM_RRP_TYPE']=umumiy_without_duplicate[31]
-    d2['SCM_PROFID']=umumiy_without_duplicate[32]
+    d2['VRMOD']=['' for x in umumiy_without_duplicate[27]]
+    d2['PPSKZ']=['' for x in umumiy_without_duplicate[27]]
+    d2['SCM_WHATBOM']= ['' for x in umumiy_without_duplicate[27]]
+    d2['SCM_HEUR_ID']= ['' for x in umumiy_without_duplicate[27]]
+    d2['SCM_RRP_TYPE']= ['' for x in umumiy_without_duplicate[27]]
+    d2['SCM_PROFID']= ['' for x in umumiy_without_duplicate[27]]
     d2['STRGR']=umumiy_without_duplicate[33]
     d2['BWKEY']=umumiy_without_duplicate[34]
     d2['MLAST']=umumiy_without_duplicate[35]
@@ -1236,7 +1236,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
         d3['SPART'] += umumiy_without_duplicate[8]
         d3['MATNR'] += umumiy_without_duplicate[0]
         d3['WERKS'] += umumiy_without_duplicate[34]
-        d3['VKORG'] += [ 1200 for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['VKORG'] += [ 1100 for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['MTPOS'] += umumiy_without_duplicate[12]
         d3['VTWEG'] += [ VTWEG[i] for j in range(0,len(umumiy_without_duplicate[13]))]
         d3['PRCTR'] += [ '1103' if umumiy_without_duplicate[34][i] =='1103' else '1101' for i in range(0,len(umumiy_without_duplicate[34]))]
