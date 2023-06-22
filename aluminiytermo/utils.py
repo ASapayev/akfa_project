@@ -603,7 +603,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                     
                 buxgalterskiy_naz[0].append('1')
                 buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
-                buxgalterskiy_naz[2].append('1200')
+                buxgalterskiy_naz[2].append('1100')
                 buxgalterskiy_naz[3].append(vtweg)
                 buxgalterskiy_naz[4].append('RU')
                 buxgalterskiy_naz[5].append('0001')
@@ -1427,8 +1427,8 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             for j in HEADER:
                 dd2[4].append(j)
             
-            dd2[4].append('')
-            dd2[4].append('')
+            dd2[4].append('XXXXXXXXXX')
+            dd2[4].append('XXXXXXXXXX')
 
             dd2[5].append('')
             dd2[5].append('')
@@ -1462,8 +1462,8 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
-            dd2[5].append('')
-            dd2[5].append('')
+            dd2[5].append('XXXXXXXXXX')
+            dd2[5].append('XXXXXXXXXX')
         else:
             for j in range(0,32):
                 dd2[0].append('001')
@@ -1486,7 +1486,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 
             for j in HEADER:
                 dd2[4].append(j)
-            dd2[4].append('')
+            dd2[4].append('XXXXXXXXXX')
 
             dd2[5].append('')
             dd2[5].append('')
@@ -1520,7 +1520,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
-            dd2[5].append('')
+            dd2[5].append('XXXXXXXXXX')
 
     new_date={}       
     new_date['Вид класса'] = dd2[0]
@@ -1534,10 +1534,11 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
     
     
     ddf2 = pd.DataFrame(new_date)
-    ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != "" | (ddf2["Значение признака"] == "" & ddf2["Класс"] == "QBIC") | (ddf2["Значение признака"] == "" & ddf2["Класс"] == "ZPP_023_FERT")| (ddf2["Значение признака"] == "" & ddf2["Класс"] == "ZPP_023_HALB") ))]
+    ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
+    ddf2 =ddf2.replace('XXXXXXXXXX','')
     ddf2.to_excel(pathtext6,index=False)
     
-    return 1
+    return
 
     #########################################################################################################################
     ###############################################################################################################
@@ -1547,7 +1548,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
 
 
 def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
-    # characteristika_created_txt_create_1101(datas)
+    characteristika_created_txt_create_1101(datas)
     now = datetime.now()
     year =now.strftime("%Y")
     month =now.strftime("%B")
