@@ -1319,10 +1319,10 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
         
         if sap_code_simvol =='7':
             if (row['Тип покрытия'] =='Ламинированный'):
-                for i in range(0,len(LGORT_1101['7L'])):
+                for i in range(0,len(LGORT_1101['7'])):
                     new_ll[0].append(row['SAP код S4P 100'])
-                    new_ll[1].append(LGORT_1101['7L'][i]['zavod_code'])
-                    new_ll[2].append(LGORT_1101['7L'][i]['zavod_sap'])
+                    new_ll[1].append(LGORT_1101['7'][i]['zavod_code'])
+                    new_ll[2].append(LGORT_1101['7'][i]['zavod_sap'])
             else:
                 for i in range(0,len(LGORT_1101['7'])):
                     new_ll[0].append(row['SAP код S4P 100'])
@@ -1401,73 +1401,140 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
         row['ch_width'] =str(row['ch_width']).replace('.0','')
         row['ch_height'] =str(row['ch_height']).replace('.0','')
         
+        if '-7' in row['SAP код S4P 100']:
+            for j in range(0,33):
+                dd2[0].append('001')
+            dd2[0].append('023')
+                
+            for j in range(0,32):
+                if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
+                    dd2[1].append('ALUMINIUM_PROFILE')
+                else:
+                    if HEADER[j] in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT']:
+                        dd2[1].append('RAWMAT_TYPE')
+                    elif HEADER[j] =='TNVED':
+                        dd2[1].append('TNVED')
+                
+            dd2[1].append('QBIC')
+            dd2[1].append('ZPP_023_FERT')
         
-        for j in range(0,32):
-            dd2[0].append('001')
+            for j in range(0,34):
+                dd2[2].append('MARA')
+                
+            for j in range(0,34):
+                dd2[3].append(row['SAP код S4P 100'])
+                
+            for j in HEADER:
+                dd2[4].append(j)
             
-        for j in range(0,32):
-            if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
-                dd2[1].append('ALUMINIUM_PROFILE')
-            else:
-                if HEADER[j] in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT']:
-                    dd2[1].append('RAWMAT_TYPE')
-                elif HEADER[j] =='TNVED':
-                    dd2[1].append('TNVED')
-            
-        for j in range(0,32):
-            dd2[2].append('MARA')
-            
-        for j in range(0,32):
-            dd2[3].append(row['SAP код S4P 100'])
-            
-        for j in HEADER:
-            dd2[4].append(j)
+            dd2[4].append('')
+            dd2[4].append('')
 
-        dd2[5].append('')
-        dd2[5].append('')
-        dd2[5].append(row['ch_export_customer_id'])
-        dd2[5].append(row['ch_system'])
-        dd2[5].append(row['ch_article'])
-        dd2[5].append(row['Длина'])
-        dd2[5].append(row['Тип покрытия'])
-        dd2[5].append(row['ch_alloy'])
-        dd2[5].append(row['ch_temper'])
-        dd2[5].append(row['ch_combination'])
-        dd2[5].append(row['ch_outer_side_pc_id'])
-        dd2[5].append(row['ch_outer_side_pc_brand'])
-        dd2[5].append(row['ch_inner_side_pc_id'])
-        dd2[5].append(row['ch_inner_side_pc_brand'])
-        dd2[5].append(row['ch_outer_side_wg_s_id'])
-        dd2[5].append(row['ch_inner_side_wg_s_id'])
-        dd2[5].append(row['ch_outer_side_wg_id'])
-        dd2[5].append(row['ch_inner_side_wg_id'])
-        dd2[5].append(row['ch_anodization_contact'])
-        dd2[5].append(row['ch_anodization_type'])
-        dd2[5].append(row['ch_anodization_method'])
-        dd2[5].append(row['ch_print_view'])
-        dd2[5].append(row['ch_profile_base'])
-        dd2[5].append(row['ch_width'])
-        dd2[5].append(row['ch_height'])
-        dd2[5].append(row['ch_category'])
-        dd2[5].append(row['ch_rawmat_type'])
-        dd2[5].append('')
-        dd2[5].append(row['ch_tnved'])
-        dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
-        dd2[5].append(row['WMS_WIDTH'])
-        dd2[5].append(row['WMS_HEIGHT'])
-    
+            dd2[5].append('')
+            dd2[5].append('')
+            dd2[5].append(row['ch_export_customer_id'])
+            dd2[5].append(row['ch_system'])
+            dd2[5].append(row['ch_article'])
+            dd2[5].append(row['Длина'])
+            dd2[5].append(row['Тип покрытия'])
+            dd2[5].append(row['ch_alloy'])
+            dd2[5].append(row['ch_temper'])
+            dd2[5].append(row['ch_combination'])
+            dd2[5].append(row['ch_outer_side_pc_id'])
+            dd2[5].append(row['ch_outer_side_pc_brand'])
+            dd2[5].append(row['ch_inner_side_pc_id'])
+            dd2[5].append(row['ch_inner_side_pc_brand'])
+            dd2[5].append(row['ch_outer_side_wg_s_id'])
+            dd2[5].append(row['ch_inner_side_wg_s_id'])
+            dd2[5].append(row['ch_outer_side_wg_id'])
+            dd2[5].append(row['ch_inner_side_wg_id'])
+            dd2[5].append(row['ch_anodization_contact'])
+            dd2[5].append(row['ch_anodization_type'])
+            dd2[5].append(row['ch_anodization_method'])
+            dd2[5].append(row['ch_print_view'])
+            dd2[5].append(row['ch_profile_base'])
+            dd2[5].append(row['ch_width'])
+            dd2[5].append(row['ch_height'])
+            dd2[5].append(row['ch_category'])
+            dd2[5].append(row['ch_rawmat_type'])
+            dd2[5].append('')
+            dd2[5].append(row['ch_tnved'])
+            dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
+            dd2[5].append(row['WMS_WIDTH'])
+            dd2[5].append(row['WMS_HEIGHT'])
+            dd2[5].append('')
+            dd2[5].append('')
+        else:
+            for j in range(0,32):
+                dd2[0].append('001')
+            dd2[0].append('023')
+                
+            for j in range(0,32):
+                if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
+                    dd2[1].append('ALUMINIUM_PROFILE')
+                else:
+                    if HEADER[j] in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT']:
+                        dd2[1].append('RAWMAT_TYPE')
+                    elif HEADER[j] =='TNVED':
+                        dd2[1].append('TNVED')
+            dd2[1].append('ZPP_023_HALB')
+            for j in range(0,33):
+                dd2[2].append('MARA')
+                
+            for j in range(0,33):
+                dd2[3].append(row['SAP код S4P 100'])
+                
+            for j in HEADER:
+                dd2[4].append(j)
+            dd2[4].append('')
+
+            dd2[5].append('')
+            dd2[5].append('')
+            dd2[5].append(row['ch_export_customer_id'])
+            dd2[5].append(row['ch_system'])
+            dd2[5].append(row['ch_article'])
+            dd2[5].append(row['Длина'])
+            dd2[5].append(row['Тип покрытия'])
+            dd2[5].append(row['ch_alloy'])
+            dd2[5].append(row['ch_temper'])
+            dd2[5].append(row['ch_combination'])
+            dd2[5].append(row['ch_outer_side_pc_id'])
+            dd2[5].append(row['ch_outer_side_pc_brand'])
+            dd2[5].append(row['ch_inner_side_pc_id'])
+            dd2[5].append(row['ch_inner_side_pc_brand'])
+            dd2[5].append(row['ch_outer_side_wg_s_id'])
+            dd2[5].append(row['ch_inner_side_wg_s_id'])
+            dd2[5].append(row['ch_outer_side_wg_id'])
+            dd2[5].append(row['ch_inner_side_wg_id'])
+            dd2[5].append(row['ch_anodization_contact'])
+            dd2[5].append(row['ch_anodization_type'])
+            dd2[5].append(row['ch_anodization_method'])
+            dd2[5].append(row['ch_print_view'])
+            dd2[5].append(row['ch_profile_base'])
+            dd2[5].append(row['ch_width'])
+            dd2[5].append(row['ch_height'])
+            dd2[5].append(row['ch_category'])
+            dd2[5].append(row['ch_rawmat_type'])
+            dd2[5].append('')
+            dd2[5].append(row['ch_tnved'])
+            dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
+            dd2[5].append(row['WMS_WIDTH'])
+            dd2[5].append(row['WMS_HEIGHT'])
+            dd2[5].append('')
+
     new_date={}       
     new_date['Вид класса'] = dd2[0]
     new_date['Класс'] = dd2[1]
     new_date['Таблица'] = dd2[2]
     new_date['Объект'] = dd2[3]
+
     new_date['Имя признака'] = dd2[4]
     new_date['Значение признака'] = dd2[5]
     new_date['Статус загрузки'] = ''
     
     
     ddf2 = pd.DataFrame(new_date)
-    ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
+    ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != "" | (ddf2["Значение признака"] == "" & ddf2["Класс"] == "QBIC") | (ddf2["Значение признака"] == "" & ddf2["Класс"] == "ZPP_023_FERT")| (ddf2["Значение признака"] == "" & ddf2["Класс"] == "ZPP_023_HALB") ))]
     ddf2.to_excel(pathtext6,index=False)
     
     return 1
