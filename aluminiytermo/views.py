@@ -17,9 +17,17 @@ from django.db.models import Q
 from .BAZA import ANODIROVKA_CODE
 from django.views.decorators.csrf import csrf_exempt
 import ast
-
+from .create_char import product_add_second_termo,product_add_second_simple
 now = datetime.now()
 
+def create_characteristika_force(request,id):
+      termo =request.GET.get('termo',None)
+      if termo:
+            product_add_second_termo(id)
+      else:
+            print('simple')
+            # product_add_second_simple(id)
+      return JsonResponse({'crated':'character'})
 
 # Create your views here.
 def index(request):

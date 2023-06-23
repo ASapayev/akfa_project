@@ -54,51 +54,51 @@ def create_characteristika(items):
         j+=1
         # print('characteristikAAAAA outer  ',item['outer_side_wg_id'])
         # print('characteristikAAAAA inner  ',item['inner_side_wg_id'])
-        if Characteristika.objects.filter(sap_code =item['material'],kratkiy_text=item['kratkiy']).exists():
-            character = Characteristika.objects.filter(sap_code =item['material'],kratkiy_text=item['kratkiy'])[:1].get()
-        else:
-            character = Characteristika(
-                sap_code =item['material'],
-                kratkiy_text =item['kratkiy'],
-                section =item['section'],
-                savdo_id ='',
-                savdo_name ='',
-                export_customer_id = item['export_customer_id'],
-                system = item['system'],
-                article = item['article'],
-                length = item['length'],
-                surface_treatment = item['surface_treatment'],
-                alloy = item['alloy'],
-                temper = item['temper'],
-                combination = item['combination'],
-                outer_side_pc_id = item['outer_side_pc_id'],
-                outer_side_pc_brand = item['outer_side_pc_brand'],
-                inner_side_pc_id = item['inner_side_pc_id'],
-                inner_side_pc_brand = item['inner_side_pc_brand'],
-                outer_side_wg_s_id = item['outer_side_wg_s_id'],
-                inner_side_wg_s_id = item['inner_side_wg_s_id'],
-                outer_side_wg_id = item['outer_side_wg_id'],
-                inner_side_wg_id = item['inner_side_wg_id'],
-                anodization_contact = item['anodization_contact'],
-                anodization_type = item['anodization_type'],
-                anodization_method = item['anodization_method'],
-                print_view = item['print_view'],
-                profile_base = item['profile_base'],
-                width = item['width'],
-                height = item['height'],
-                category = item.get('category',''),
-                rawmat_type = item['rawmat_type'],
-                benkam_id = item.get('benkam_id',''),
-                hollow_and_solid = item.get('hollow_and_solid',''),
-                export_description = item.get('export_description',''),
-                export_description_eng = item.get('export_description_eng',''),
-                tnved = item.get('tnved',''),
-                surface_treatment_export = item.get('surface_treatment_export',''),
-                wms_width = item['wms_width'],
-                wms_height = item['wms_height'],
-                group_prise = item['group_prise'],
-                )
-            character.save()
+        # if Characteristika.objects.filter(sap_code =item['material'],kratkiy_text=item['kratkiy']).exists():
+        #     character = Characteristika.objects.filter(sap_code =item['material'],kratkiy_text=item['kratkiy'])[:1].get()
+        # else:
+        character = Characteristika(
+            sap_code =item['material'],
+            kratkiy_text =item['kratkiy'],
+            section =item['section'],
+            savdo_id ='',
+            savdo_name ='',
+            export_customer_id = item['export_customer_id'],
+            system = item['system'],
+            article = item['article'],
+            length = item['length'],
+            surface_treatment = item['surface_treatment'],
+            alloy = item['alloy'],
+            temper = item['temper'],
+            combination = item['combination'],
+            outer_side_pc_id = item['outer_side_pc_id'],
+            outer_side_pc_brand = item['outer_side_pc_brand'],
+            inner_side_pc_id = item['inner_side_pc_id'],
+            inner_side_pc_brand = item['inner_side_pc_brand'],
+            outer_side_wg_s_id = item['outer_side_wg_s_id'],
+            inner_side_wg_s_id = item['inner_side_wg_s_id'],
+            outer_side_wg_id = item['outer_side_wg_id'],
+            inner_side_wg_id = item['inner_side_wg_id'],
+            anodization_contact = item['anodization_contact'],
+            anodization_type = item['anodization_type'],
+            anodization_method = item['anodization_method'],
+            print_view = item['print_view'],
+            profile_base = item['profile_base'],
+            width = item['width'],
+            height = item['height'],
+            category = item.get('category',''),
+            rawmat_type = item['rawmat_type'],
+            benkam_id = item.get('benkam_id',''),
+            hollow_and_solid = item.get('hollow_and_solid',''),
+            export_description = item.get('export_description',''),
+            export_description_eng = item.get('export_description_eng',''),
+            tnved = item.get('tnved',''),
+            surface_treatment_export = item.get('surface_treatment_export',''),
+            wms_width = item['wms_width'],
+            wms_height = item['wms_height'],
+            group_prise = item['group_prise'],
+            )
+        character.save()
         
         if character.sap_code =='nan':
             character.sap_code=''
