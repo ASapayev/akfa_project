@@ -1615,7 +1615,7 @@ def product_add_second_simple(id):
                     
                         export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                             
-                        
+                        print(obichniy.artikul)
                         width_and_height = CharUtilsOne.objects.filter(Q(матрица = obichniy.artikul) | Q(артикул = obichniy.artikul))[:1].get()
                         
                             

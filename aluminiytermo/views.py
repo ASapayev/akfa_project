@@ -26,7 +26,7 @@ def create_characteristika_force(request,id):
             product_add_second_termo(id)
       else:
             print('simple')
-            # product_add_second_simple(id)
+            product_add_second_simple(id)
       return JsonResponse({'crated':'character'})
 
 # Create your views here.

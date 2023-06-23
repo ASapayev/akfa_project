@@ -489,6 +489,8 @@ def kombinirovaniy_process(request,id):
                     if '-P' in t:
                         kraska_code = fullsapkod[i*2+1].split()[-1]
                         if kraska_code!='MF':
+                            if '7042' in kraska_code:
+                                kraska_code =kraska_code.replace('A','R')
                             if kraska_code not in kraska_list:
                                 isklyucheniye_ids.append(k) 
                                 if kraska_code not in  kraska:                                  
@@ -1496,7 +1498,7 @@ def kombinirovaniy_process(request,id):
             if df[i][4] !="":
                 CheckNormaBase(artikul=df[i][4],kratkiytekst=df[i][5]).save()
                 if (df[i][4].split('-')[1][:1]=='P'):
-                    if (('8001' in df[i][5]) or ('8024' in df[i][5])):
+                    if (('8001' in df[i][5]) or ('7042' in df[i][5])or ('8024' in df[i][5])):
 
                         for p in range(0,6):    
                             j+=1
