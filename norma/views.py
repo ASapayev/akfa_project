@@ -1559,7 +1559,6 @@ def kombinirovaniy_process(request,id):
                                         df_new['PUSTOY'].append('')
                                     
                                     if k==1:
-                                        alummm = AlyuminniysilindrEkstruziya2.objects.get(id=1)
                                         kraska_code1 = df[i][5].split()[-1]
                                         kraska_code = kraska_code1.replace('A','R')
                                                                         
@@ -1674,7 +1673,7 @@ def kombinirovaniy_process(request,id):
                                             df_new['PUSTOY'].append('')
                                         
                                         if k==1:
-                                            alummm = AlyuminniysilindrEkstruziya2.objects.get(id=1)
+                                            
                                             df_new['MATNR1'].append(kras.sap_code_s4q100)
                                             df_new['TEXT2'].append(kras.название)
                                             df_new['MENGE'].append('КГ')
@@ -1791,7 +1790,6 @@ def kombinirovaniy_process(request,id):
                                         df_new_duplicate['PUSTOY'].append('')
                                     
                                     if k==1:
-                                        alummm = AlyuminniysilindrEkstruziya2.objects.get(id=1)
                                         kraska_code1 = df[i][5].split()[-1]
                                         kraska_code = kraska_code1.replace('A','R')
                                                                         
@@ -1906,7 +1904,6 @@ def kombinirovaniy_process(request,id):
                                             df_new_duplicate['PUSTOY'].append('')
                                         
                                         if k==1:
-                                            alummm = AlyuminniysilindrEkstruziya2.objects.get(id=1)
                                             df_new_duplicate['MATNR1'].append(kras.sap_code_s4q100)
                                             df_new_duplicate['TEXT2'].append(kras.название)
                                             df_new_duplicate['MENGE'].append('КГ')
