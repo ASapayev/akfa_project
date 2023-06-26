@@ -20,7 +20,7 @@ import ast
 from .create_char import product_add_second_termo,product_add_second_simple
 now = datetime.now()
 
-def create_characteristika_force(request,id):
+def  create_characteristika_force(request,id):
       termo =request.GET.get('termo',None)
       if termo:
             product_add_second_termo(id)

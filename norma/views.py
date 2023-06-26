@@ -5014,7 +5014,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['MATNR1'].append(nakleyka_result2.sap_code_s4q100)
                                     df_new['TEXT2'].append(nakleyka_result2.название)
                                     df_new['MENGE'].append("М2")
-                                    df_new['MEINS'].append(("%.3f" % (float(meinss1)*mein_percent)).replace('.',',')) ##XATO
+                                    df_new['MEINS'].append(("%.3f" % (float(meinss2)*mein_percent)).replace('.',',')) ##XATO
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
                                 if k == 6:
@@ -5118,7 +5118,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['MATNR1'].append(nakleyka_result1.sap_code_s4q100)
                                     df_new['TEXT2'].append(nakleyka_result1.название)
                                     df_new['MENGE'].append("М2")
-                                    df_new['MEINS'].append(("%.3f" % (float(meinss1)*mein_percent)).replace('.',',')) ##XATO
+                                    df_new['MEINS'].append(("%.3f" % (float(meinss)*mein_percent)).replace('.',',')) ##XATO
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
                                 if k == 5:
