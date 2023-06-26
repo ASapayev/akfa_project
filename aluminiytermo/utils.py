@@ -980,72 +980,73 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D5[46].append('')
             umumiy_without_duplicate12D5[47].append('X')
             umumiy_without_duplicate12D5[48].append(row['ch_combination'] + row['Тип покрытия'])
-            
-        umumiy_without_duplicate1201[0].append(row['SAP код S4P 100'])
-        umumiy_without_duplicate1201[1].append(row['SAP код S4P 100'])
-        umumiy_without_duplicate1201[2].append(row['Короткое название SAP'])
-        umumiy_without_duplicate1201[3].append('ШТ')
-        umumiy_without_duplicate1201[4].append('ZPRF')
-        if '-7' in row['SAP код S4P 100']:
-            gruppa_material ='ALUGP'
-        else:
-            gruppa_material ='ALUPF'
-        umumiy_without_duplicate1201[5].append(gruppa_material)
-        umumiy_without_duplicate1201[6].append(gruppa_material)
-        umumiy_without_duplicate1201[7].append('E')
-        umumiy_without_duplicate1201[8].append('01')
-        umumiy_without_duplicate1201[9].append(str(row['Общий вес за штуку']).replace('.',','))
-        umumiy_without_duplicate1201[10].append(str(row['Общий вес за штуку']).replace('.',','))
-        umumiy_without_duplicate1201[11].append('КГ')
-        umumiy_without_duplicate1201[12].append('NORM')
-        umumiy_without_duplicate1201[13].append(row['Короткое название SAP'])
-        umumiy_without_duplicate1201[14].append('ШТ')
-        umumiy_without_duplicate1201[15].append('999')
-        umumiy_without_duplicate1201[16].append('X')
-        umumiy_without_duplicate1201[17].append('0000')
-        umumiy_without_duplicate1201[18].append('PD')
-        umumiy_without_duplicate1201[19].append('MB')
-        umumiy_without_duplicate1201[20].append('0')
-        umumiy_without_duplicate1201[21].append('E')
-        ss =''
-        sartrr =''
-        if gruppa_material =='ALUGP':
-            ss ='S400'
-            sartrr ='5'
-            
-        bklast ='0100'
-        if gruppa_material =='ALUPF':
-            bklast ='0102'
-            
-            
-        umumiy_without_duplicate1201[22].append('')
-        umumiy_without_duplicate1201[23].append('')
-        umumiy_without_duplicate1201[24].append('M')
-        umumiy_without_duplicate1201[25].append('02')
-        umumiy_without_duplicate1201[26].append('10')
-        umumiy_without_duplicate1201[27].append('')
-        umumiy_without_duplicate1201[28].append('')
-        umumiy_without_duplicate1201[29].append('')
-        umumiy_without_duplicate1201[30].append('')
-        umumiy_without_duplicate1201[31].append('')
-        umumiy_without_duplicate1201[32].append('')
-        umumiy_without_duplicate1201[33].append('10')
-        umumiy_without_duplicate1201[34].append('1101')
-        umumiy_without_duplicate1201[35].append('3')
-        umumiy_without_duplicate1201[36].append(bklast)
-        umumiy_without_duplicate1201[37].append('S')
-        umumiy_without_duplicate1201[38].append('1')
-        umumiy_without_duplicate1201[39].append('1')
-        umumiy_without_duplicate1201[40].append('1101')
-        umumiy_without_duplicate1201[41].append('X')
-        umumiy_without_duplicate1201[42].append('X')
-        umumiy_without_duplicate1201[43].append('1')
-        sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]
-        umumiy_without_duplicate1201[44].append(SFSPF1101[sap_code_simvol])
-        umumiy_without_duplicate1201[45].append('X')
-        umumiy_without_duplicate1201[46].append('')
-        umumiy_without_duplicate1201[47].append('X')
-        umumiy_without_duplicate1201[48].append(row['ch_combination'] + row['Тип покрытия'])
+
+        if (('-F' not in row['SAP код S4P 100']) and ('-A' not in row['SAP код S4P 100'])):
+            umumiy_without_duplicate1201[0].append(row['SAP код S4P 100'])
+            umumiy_without_duplicate1201[1].append(row['SAP код S4P 100'])
+            umumiy_without_duplicate1201[2].append(row['Короткое название SAP'])
+            umumiy_without_duplicate1201[3].append('ШТ')
+            umumiy_without_duplicate1201[4].append('ZPRF')
+            if '-7' in row['SAP код S4P 100']:
+                gruppa_material ='ALUGP'
+            else:
+                gruppa_material ='ALUPF'
+            umumiy_without_duplicate1201[5].append(gruppa_material)
+            umumiy_without_duplicate1201[6].append(gruppa_material)
+            umumiy_without_duplicate1201[7].append('E')
+            umumiy_without_duplicate1201[8].append('01')
+            umumiy_without_duplicate1201[9].append(str(row['Общий вес за штуку']).replace('.',','))
+            umumiy_without_duplicate1201[10].append(str(row['Общий вес за штуку']).replace('.',','))
+            umumiy_without_duplicate1201[11].append('КГ')
+            umumiy_without_duplicate1201[12].append('NORM')
+            umumiy_without_duplicate1201[13].append(row['Короткое название SAP'])
+            umumiy_without_duplicate1201[14].append('ШТ')
+            umumiy_without_duplicate1201[15].append('999')
+            umumiy_without_duplicate1201[16].append('X')
+            umumiy_without_duplicate1201[17].append('0000')
+            umumiy_without_duplicate1201[18].append('PD')
+            umumiy_without_duplicate1201[19].append('MB')
+            umumiy_without_duplicate1201[20].append('0')
+            umumiy_without_duplicate1201[21].append('E')
+            ss =''
+            sartrr =''
+            if gruppa_material =='ALUGP':
+                ss ='S400'
+                sartrr ='5'
+                
+            bklast ='0100'
+            if gruppa_material =='ALUPF':
+                bklast ='0102'
+                
+                
+            umumiy_without_duplicate1201[22].append('')
+            umumiy_without_duplicate1201[23].append('')
+            umumiy_without_duplicate1201[24].append('M')
+            umumiy_without_duplicate1201[25].append('02')
+            umumiy_without_duplicate1201[26].append('10')
+            umumiy_without_duplicate1201[27].append('')
+            umumiy_without_duplicate1201[28].append('')
+            umumiy_without_duplicate1201[29].append('')
+            umumiy_without_duplicate1201[30].append('')
+            umumiy_without_duplicate1201[31].append('')
+            umumiy_without_duplicate1201[32].append('')
+            umumiy_without_duplicate1201[33].append('10')
+            umumiy_without_duplicate1201[34].append('1101')
+            umumiy_without_duplicate1201[35].append('3')
+            umumiy_without_duplicate1201[36].append(bklast)
+            umumiy_without_duplicate1201[37].append('S')
+            umumiy_without_duplicate1201[38].append('1')
+            umumiy_without_duplicate1201[39].append('1')
+            umumiy_without_duplicate1201[40].append('1101')
+            umumiy_without_duplicate1201[41].append('X')
+            umumiy_without_duplicate1201[42].append('X')
+            umumiy_without_duplicate1201[43].append('1')
+            sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]
+            umumiy_without_duplicate1201[44].append(SFSPF1101[sap_code_simvol])
+            umumiy_without_duplicate1201[45].append('X')
+            umumiy_without_duplicate1201[46].append('')
+            umumiy_without_duplicate1201[47].append('X')
+            umumiy_without_duplicate1201[48].append(row['ch_combination'] + row['Тип покрытия'])
     umumiy_without_duplicate =[[] for i in range(0,49)]
     for i in range(0,len(umumiy_without_duplicate1201)):
         umumiy_without_duplicate[i]+=umumiy_without_duplicate1201[i] 

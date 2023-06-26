@@ -1959,7 +1959,7 @@ def kombinirovaniy_process(request,id):
                             mein =alum_teks.сублимация_расход_на_1000_профиль_м24
                         
                         
-                        for k in range(0,4):
+                        for k in range(0,3):
                             j+=1
                             df_new['ID'].append('2')
                             df_new['MATNR'].append('')
@@ -1994,15 +1994,8 @@ def kombinirovaniy_process(request,id):
                                 df_new['DATUV'].append('')
                                 df_new['PUSTOY'].append('')
                             
-                            # if k==2:
-                            #     skotch = Skotch.objects.get(id=1)
-                            #     df_new['MATNR1'].append(skotch.sap_code_s4q100)
-                            #     df_new['TEXT2'].append(skotch.название)
-                            #     df_new['MENGE'].append("ШТ")
-                            #     df_new['MEINS'].append(("%.3f" % (float(alum_teks.молярный_скотч_рас_на_1000_пр_шт1)*mein_percent)).replace('.',',')) ##XATO
-                            #     df_new['DATUV'].append('')
-                            #     df_new['PUSTOY'].append('')
-                            if k == 3:
+                            
+                            if k == 2:
                                 skotch = Skotch.objects.get(id=2)
                                 df_new['MATNR1'].append(skotch.sap_code_s4q100)
                                 df_new['TEXT2'].append(skotch.название)
@@ -2070,7 +2063,7 @@ def kombinirovaniy_process(request,id):
                             mein =alum_teks.сублимация_расход_на_1000_профиль_м24
                         
                         
-                        for k in range(0,4):
+                        for k in range(0,2):
                             j+=1
                             df_new_duplicate['ID'].append('2')
                             df_new_duplicate['MATNR'].append('')
@@ -2105,22 +2098,6 @@ def kombinirovaniy_process(request,id):
                                 df_new_duplicate['DATUV'].append('')
                                 df_new_duplicate['PUSTOY'].append('')
                             
-                            # if k==2:
-                            #     skotch = Skotch.objects.get(id=1)
-                            #     df_new_duplicate['MATNR1'].append(skotch.sap_code_s4q100)
-                            #     df_new_duplicate['TEXT2'].append(skotch.название)
-                            #     df_new_duplicate['MENGE'].append("ШТ")
-                            #     df_new_duplicate['MEINS'].append(("%.3f" % (float(alum_teks.молярный_скотч_рас_на_1000_пр_шт1)*mein_percent)).replace('.',',')) ##XATO
-                            #     df_new_duplicate['DATUV'].append('')
-                            #     df_new_duplicate['PUSTOY'].append('')
-                            # if k == 3:
-                            #     skotch = Skotch.objects.get(id=2)
-                            #     df_new_duplicate['MATNR1'].append(skotch.sap_code_s4q100)
-                            #     df_new_duplicate['TEXT2'].append(skotch.название)
-                            #     df_new_duplicate['MENGE'].append("ШТ")
-                            #     df_new_duplicate['MEINS'].append(("%.3f" % (float(alum_teks.молярный_скотч_рас_на_1000_пр_шт2)*mein_percent)).replace('.',',')) ##XATO
-                            #     df_new_duplicate['DATUV'].append('')
-                            #     df_new_duplicate['PUSTOY'].append('')
                             
                                 
                             df_new_duplicate['LGORT'].append('PS08')
@@ -4044,7 +4021,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['LGORT'].append('PS09')
                                     craft_counter += 1
                                 else:
-                                    for k in range(0,qatorlar_soni):
+                                    for k in range(0,qatorlar_soni-1):
                                         j+=1
                                         df_new['ID'].append('2')
                                         df_new['MATNR'].append('')
@@ -4077,13 +4054,6 @@ def kombinirovaniy_process(request,id):
                                             df_new['DATUV'].append('')
                                             df_new['PUSTOY'].append('')
                                         
-                                        # if k==2:
-                                        #     df_new['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
-                                        #     df_new['TEXT2'].append(siryo_dlya_upakovki2.название)
-                                        #     df_new['MENGE'].append("ШТ")
-                                        #     df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',',')) ##XATO
-                                        #     df_new['DATUV'].append('')
-                                        #     df_new['PUSTOY'].append('')
                                         
                                         df_new['LGORT'].append('PS09')
 
@@ -4136,7 +4106,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['LGORT'].append('PS09')
                                     craft_counter+=1
                                 else:
-                                    for k in range(0,3):
+                                    for k in range(0,2):
                                         j+=1
                                         df_new['ID'].append('2')
                                         df_new['MATNR'].append('')
@@ -4169,14 +4139,7 @@ def kombinirovaniy_process(request,id):
                                             df_new['DATUV'].append('')
                                             df_new['PUSTOY'].append('')
                                         
-                                        # if k==2:
-                                        #     skotch = Skotch.objects.get(id=1)
-                                        #     df_new['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
-                                        #     df_new['TEXT2'].append(siryo_dlya_upakovki2.название)
-                                        #     df_new['MENGE'].append("ШТ")
-                                        #     df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',',')) ##XATO
-                                        #     df_new['DATUV'].append('')
-                                        #     df_new['PUSTOY'].append('')
+                                        
                                         
                                         df_new['LGORT'].append('PS09')
 
@@ -4230,7 +4193,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['LGORT'].append('PS10')
                                     craft_counter+=1
                                 else:
-                                    for k in range(0,qatorlar_soni):
+                                    for k in range(0,qatorlar_soni-1):
                                         j+=1
                                         df_new['ID'].append('2')
                                         df_new['MATNR'].append('')
@@ -4263,13 +4226,7 @@ def kombinirovaniy_process(request,id):
                                             df_new['DATUV'].append('')
                                             df_new['PUSTOY'].append('')
                                         
-                                        # if k==2:
-                                        #     df_new['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
-                                        #     df_new['TEXT2'].append(siryo_dlya_upakovki2.название)
-                                        #     df_new['MENGE'].append("ШТ")
-                                        #     df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',',')) ##XATO
-                                        #     df_new['DATUV'].append('')
-                                        #     df_new['PUSTOY'].append('')
+                                        
                                         
                                         df_new['LGORT'].append('PS10')
                                 
@@ -4339,7 +4296,7 @@ def kombinirovaniy_process(request,id):
                                 
                             
                                     else:
-                                        for k in range(0,qatorlar_soni):
+                                        for k in range(0,qatorlar_soni-1):
                                             j+=1
                                             df_new['ID'].append('2')
                                             df_new['MATNR'].append('')
@@ -4372,16 +4329,9 @@ def kombinirovaniy_process(request,id):
                                                 df_new['DATUV'].append('')
                                                 df_new['PUSTOY'].append('')
                                             
-                                            # if k==2:
-                                            #     skotch = Skotch.objects.get(id=1)
-                                            #     df_new['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
-                                            #     df_new['TEXT2'].append(siryo_dlya_upakovki2.название)
-                                            #     df_new['MENGE'].append("ШТ")
-                                            #     df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',',')) ##XATO
-                                            #     df_new['DATUV'].append('')
-                                            #     df_new['PUSTOY'].append('')
                                             
-                                            if k==3:
+                                            
+                                            if k==2:
                                                 df_new['MATNR1'].append(nakleykaa.sap_code_s4q100)
                                                 df_new['TEXT2'].append(nakleykaa.название)
                                                 df_new['MENGE'].append("М2")
@@ -4463,7 +4413,7 @@ def kombinirovaniy_process(request,id):
                                         df_new['LGORT'].append('PS10')
                         
                                 else:
-                                    for k in range(0,qatorlar_soni):
+                                    for k in range(0,qatorlar_soni-1):
                                         j+=1
                                         df_new['ID'].append('2')
                                         df_new['MATNR'].append('')
@@ -4496,16 +4446,9 @@ def kombinirovaniy_process(request,id):
                                             df_new['DATUV'].append('')
                                             df_new['PUSTOY'].append('')
                                         
-                                        # if k==2:
-                                        #     skotch = Skotch.objects.get(id=1)
-                                        #     df_new['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
-                                        #     df_new['TEXT2'].append(siryo_dlya_upakovki2.название)
-                                        #     df_new['MENGE'].append("ШТ")
-                                        #     df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',',')) ##XATO
-                                        #     df_new['DATUV'].append('')
-                                        #     df_new['PUSTOY'].append('')
                                         
-                                        if k==3:
+                                        
+                                        if k==2:
                                             df_new['MATNR1'].append(nakleyka_result1.sap_code_s4q100)
                                             df_new['TEXT2'].append(nakleyka_result1.название)
                                             df_new['MENGE'].append("М2")
@@ -4513,7 +4456,7 @@ def kombinirovaniy_process(request,id):
                                             df_new['DATUV'].append('')
                                             df_new['PUSTOY'].append('')
                                         
-                                        if k==4:
+                                        if k==3:
                                             df_new['MATNR1'].append(nakleyka_result2.sap_code_s4q100)
                                             df_new['TEXT2'].append(nakleyka_result2.название)
                                             df_new['MENGE'].append("М2")
@@ -4605,7 +4548,7 @@ def kombinirovaniy_process(request,id):
                             df_new['PUSTOY'].append('')
                             df_new['LGORT'].append('')
                             length = df[i][12].split('-')[0]
-                            for k in range(0,qatorlar_soni+1):
+                            for k in range(0,qatorlar_soni):
                                 j+=1
                                 df_new['ID'].append('2')
                                 df_new['MATNR'].append('')
@@ -4661,13 +4604,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['MEINS'].append(("%.3f" % (float(meinsL)*mein_percent)).replace('.',',')) ##XATO
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
-                                # if k==5:
-                                #     df_new['MATNR1'].append(skotch_dya_laminatsii.sap_code_s4q100)
-                                #     df_new['TEXT2'].append(skotch_dya_laminatsii.название)
-                                #     df_new['MENGE'].append(skotch_dya_laminatsii.еи)
-                                #     df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт))).replace('.',',')) ##XATO
-                                #     df_new['DATUV'].append('')
-                                #     df_new['PUSTOY'].append('')
+                                
                                 
                                 df_new['LGORT'].append('PS11')
                         
@@ -4766,13 +4703,7 @@ def kombinirovaniy_process(request,id):
                                         df_new['MEINS'].append(("%.3f" % (float(meinsL)*mein_percent)).replace('.',',')) ##XATO
                                         df_new['DATUV'].append('')
                                         df_new['PUSTOY'].append('')
-                                    # if k==6:
-                                    #     df_new['MATNR1'].append(skotch_dya_laminatsii.sap_code_s4q100)
-                                    #     df_new['TEXT2'].append(skotch_dya_laminatsii.название)
-                                    #     df_new['MENGE'].append(skotch_dya_laminatsii.еи)
-                                    #     df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт))).replace('.',',')) ##XATO
-                                    #     df_new['DATUV'].append('')
-                                    #     df_new['PUSTOY'].append('')
+                                    
                                     
                                     df_new['LGORT'].append('PS11')
                     
@@ -4800,7 +4731,7 @@ def kombinirovaniy_process(request,id):
                             df_new['PUSTOY'].append('')
                             df_new['LGORT'].append('')
                             length = df[i][12].split('-')[0]
-                            for k in range(0,qatorlar_soni+1):
+                            for k in range(0,qatorlar_soni):
                                 j+=1
                                 df_new['ID'].append('2')
                                 df_new['MATNR'].append('')
@@ -4872,13 +4803,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['MEINS'].append(("%.3f" % (float(meinsL)*mein_percent)).replace('.',',')) ##XATO
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
-                                # if k==7:
-                                #     df_new['MATNR1'].append(skotch_dya_laminatsii.sap_code_s4q100)
-                                #     df_new['TEXT2'].append(skotch_dya_laminatsii.название)
-                                #     df_new['MENGE'].append(skotch_dya_laminatsii.еи)
-                                #     df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт))).replace('.',',')) ##XATO
-                                #     df_new['DATUV'].append('')
-                                #     df_new['PUSTOY'].append('')
+                                
                                 
                                 df_new['LGORT'].append('PS11')
                     
@@ -4906,7 +4831,7 @@ def kombinirovaniy_process(request,id):
                             df_new['PUSTOY'].append('')
                             df_new['LGORT'].append('')
                             length = df[i][12].split('-')[0]
-                            for k in range(0,qatorlar_soni+1):
+                            for k in range(0,qatorlar_soni):
                                 j+=1
                                 df_new['ID'].append('2')
                                 df_new['MATNR'].append('')
@@ -4983,13 +4908,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['MEINS'].append(("%.3f" % (float(meinsL2)*mein_percent)).replace('.',',')) ##XATO
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
-                                # if k == 8:
-                                #     df_new['MATNR1'].append(skotch_dya_laminatsii.sap_code_s4q100)
-                                #     df_new['TEXT2'].append(skotch_dya_laminatsii.название)
-                                #     df_new['MENGE'].append(skotch_dya_laminatsii.еи)
-                                #     df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт))).replace('.',',')) ##XATO
-                                #     df_new['DATUV'].append('')
-                                #     df_new['PUSTOY'].append('')
+                                
                                 df_new['LGORT'].append('PS11')
                         
                         if qatorlar_soni == 9:
@@ -5017,7 +4936,7 @@ def kombinirovaniy_process(request,id):
                             df_new['PUSTOY'].append('')
                             df_new['LGORT'].append('')
                             length = df[i][12].split('-')[0]
-                            for k in range(0,8):
+                            for k in range(0,7):
                                 j+=1
                                 df_new['ID'].append('2')
                                 df_new['MATNR'].append('')
@@ -5087,13 +5006,6 @@ def kombinirovaniy_process(request,id):
                                     df_new['MEINS'].append(("%.3f" % (float(meinsL2)*mein_percent)).replace('.',',')) ##XATO
                                     df_new['DATUV'].append('')
                                     df_new['PUSTOY'].append('')
-                                # if k == 7:
-                                #     df_new['MATNR1'].append(skotch_dya_laminatsii.sap_code_s4q100)
-                                #     df_new['TEXT2'].append(skotch_dya_laminatsii.название)
-                                #     df_new['MENGE'].append(skotch_dya_laminatsii.еи)
-                                #     df_new['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт))).replace('.',',')) ##XATO
-                                #     df_new['DATUV'].append('')
-                                #     df_new['PUSTOY'].append('')
                                 df_new['LGORT'].append('PS11')
 
                         
@@ -5573,7 +5485,7 @@ def kombinirovaniy_process(request,id):
                                     df_new_duplicate['LGORT'].append('PS09')
                                     craft_counter += 1
                                 else:
-                                    for k in range(0,qatorlar_soni):
+                                    for k in range(0,qatorlar_soni-1):
                                         j+=1
                                         df_new_duplicate['ID'].append('2')
                                         df_new_duplicate['MATNR'].append('')
@@ -5606,13 +5518,6 @@ def kombinirovaniy_process(request,id):
                                             df_new_duplicate['DATUV'].append('')
                                             df_new_duplicate['PUSTOY'].append('')
                                         
-                                        # if k==2:
-                                        #     df_new_duplicate['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
-                                        #     df_new_duplicate['TEXT2'].append(siryo_dlya_upakovki2.название)
-                                        #     df_new_duplicate['MENGE'].append("ШТ")
-                                        #     df_new_duplicate['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',',')) ##XATO
-                                        #     df_new_duplicate['DATUV'].append('')
-                                        #     df_new_duplicate['PUSTOY'].append('')
                                         
                                         df_new_duplicate['LGORT'].append('PS09')
 
@@ -5665,7 +5570,7 @@ def kombinirovaniy_process(request,id):
                                     df_new_duplicate['LGORT'].append('PS09')
                                     craft_counter+=1
                                 else:
-                                    for k in range(0,3):
+                                    for k in range(0,2):
                                         j+=1
                                         df_new_duplicate['ID'].append('2')
                                         df_new_duplicate['MATNR'].append('')
@@ -5698,14 +5603,7 @@ def kombinirovaniy_process(request,id):
                                             df_new_duplicate['DATUV'].append('')
                                             df_new_duplicate['PUSTOY'].append('')
                                         
-                                        # if k==2:
-                                        #     skotch = Skotch.objects.get(id=1)
-                                        #     df_new_duplicate['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
-                                        #     df_new_duplicate['TEXT2'].append(siryo_dlya_upakovki2.название)
-                                        #     df_new_duplicate['MENGE'].append("ШТ")
-                                        #     df_new_duplicate['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',',')) ##XATO
-                                        #     df_new_duplicate['DATUV'].append('')
-                                        #     df_new_duplicate['PUSTOY'].append('')
+                                        
                                         
                                         df_new_duplicate['LGORT'].append('PS09')
 
@@ -5759,7 +5657,7 @@ def kombinirovaniy_process(request,id):
                                     df_new_duplicate['LGORT'].append('PS10')
                                     craft_counter+=1
                                 else:
-                                    for k in range(0,qatorlar_soni):
+                                    for k in range(0,qatorlar_soni-1):
                                         j+=1
                                         df_new_duplicate['ID'].append('2')
                                         df_new_duplicate['MATNR'].append('')
@@ -5792,13 +5690,7 @@ def kombinirovaniy_process(request,id):
                                             df_new_duplicate['DATUV'].append('')
                                             df_new_duplicate['PUSTOY'].append('')
                                         
-                                        # if k==2:
-                                        #     df_new_duplicate['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
-                                        #     df_new_duplicate['TEXT2'].append(siryo_dlya_upakovki2.название)
-                                        #     df_new_duplicate['MENGE'].append("ШТ")
-                                        #     df_new_duplicate['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',',')) ##XATO
-                                        #     df_new_duplicate['DATUV'].append('')
-                                        #     df_new_duplicate['PUSTOY'].append('')
+                                        
                                         
                                         df_new_duplicate['LGORT'].append('PS10')
                                 
@@ -5868,7 +5760,7 @@ def kombinirovaniy_process(request,id):
                                 
                             
                                     else:
-                                        for k in range(0,qatorlar_soni):
+                                        for k in range(0,qatorlar_soni-1):
                                             j+=1
                                             df_new_duplicate['ID'].append('2')
                                             df_new_duplicate['MATNR'].append('')
@@ -5901,16 +5793,9 @@ def kombinirovaniy_process(request,id):
                                                 df_new_duplicate['DATUV'].append('')
                                                 df_new_duplicate['PUSTOY'].append('')
                                             
-                                            # if k==2:
-                                            #     skotch = Skotch.objects.get(id=1)
-                                            #     df_new_duplicate['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
-                                            #     df_new_duplicate['TEXT2'].append(siryo_dlya_upakovki2.название)
-                                            #     df_new_duplicate['MENGE'].append("ШТ")
-                                            #     df_new_duplicate['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',',')) ##XATO
-                                            #     df_new_duplicate['DATUV'].append('')
-                                            #     df_new_duplicate['PUSTOY'].append('')
                                             
-                                            if k==3:
+                                            
+                                            if k==2:
                                                 df_new_duplicate['MATNR1'].append(nakleykaa.sap_code_s4q100)
                                                 df_new_duplicate['TEXT2'].append(nakleykaa.название)
                                                 df_new_duplicate['MENGE'].append("М2")
@@ -5992,7 +5877,7 @@ def kombinirovaniy_process(request,id):
                                         df_new_duplicate['LGORT'].append('PS10')
                         
                                 else:
-                                    for k in range(0,qatorlar_soni):
+                                    for k in range(0,qatorlar_soni-1):
                                         j+=1
                                         df_new_duplicate['ID'].append('2')
                                         df_new_duplicate['MATNR'].append('')
@@ -6025,16 +5910,9 @@ def kombinirovaniy_process(request,id):
                                             df_new_duplicate['DATUV'].append('')
                                             df_new_duplicate['PUSTOY'].append('')
                                         
-                                        # if k==2:
-                                        #     skotch = Skotch.objects.get(id=1)
-                                        #     df_new_duplicate['MATNR1'].append(siryo_dlya_upakovki2.sap_code_s4q100)
-                                        #     df_new_duplicate['TEXT2'].append(siryo_dlya_upakovki2.название)
-                                        #     df_new_duplicate['MENGE'].append("ШТ")
-                                        #     df_new_duplicate['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт)*mein_percent)).replace('.',',')) ##XATO
-                                        #     df_new_duplicate['DATUV'].append('')
-                                        #     df_new_duplicate['PUSTOY'].append('')
                                         
-                                        if k==3:
+                                        
+                                        if k==2:
                                             df_new_duplicate['MATNR1'].append(nakleyka_result1.sap_code_s4q100)
                                             df_new_duplicate['TEXT2'].append(nakleyka_result1.название)
                                             df_new_duplicate['MENGE'].append("М2")
@@ -6042,7 +5920,7 @@ def kombinirovaniy_process(request,id):
                                             df_new_duplicate['DATUV'].append('')
                                             df_new_duplicate['PUSTOY'].append('')
                                         
-                                        if k==4:
+                                        if k==3:
                                             df_new_duplicate['MATNR1'].append(nakleyka_result2.sap_code_s4q100)
                                             df_new_duplicate['TEXT2'].append(nakleyka_result2.название)
                                             df_new_duplicate['MENGE'].append("М2")
@@ -6130,7 +6008,7 @@ def kombinirovaniy_process(request,id):
                             df_new_duplicate['PUSTOY'].append('')
                             df_new_duplicate['LGORT'].append('')
                             length = df[i][12].split('-')[0]
-                            for k in range(0,qatorlar_soni+1):
+                            for k in range(0,qatorlar_soni):
                                 j+=1
                                 df_new_duplicate['ID'].append('2')
                                 df_new_duplicate['MATNR'].append('')
@@ -6186,13 +6064,7 @@ def kombinirovaniy_process(request,id):
                                     df_new_duplicate['MEINS'].append(("%.3f" % (float(meinsL)*mein_percent)).replace('.',',')) ##XATO
                                     df_new_duplicate['DATUV'].append('')
                                     df_new_duplicate['PUSTOY'].append('')
-                                # if k==5:
-                                #     df_new_duplicate['MATNR1'].append(skotch_dya_laminatsii.sap_code_s4q100)
-                                #     df_new_duplicate['TEXT2'].append(skotch_dya_laminatsii.название)
-                                #     df_new_duplicate['MENGE'].append(skotch_dya_laminatsii.еи)
-                                #     df_new_duplicate['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт))).replace('.',',')) ##XATO
-                                #     df_new_duplicate['DATUV'].append('')
-                                #     df_new_duplicate['PUSTOY'].append('')
+                                
                                 
                                 df_new_duplicate['LGORT'].append('PS11')
                         
@@ -6225,7 +6097,7 @@ def kombinirovaniy_process(request,id):
                                 df_new_duplicate['PUSTOY'].append('')
                                 df_new_duplicate['LGORT'].append('')
                                 length = df[i][12].split('-')[0]
-                                for k in range(0,qatorlar_soni+1):
+                                for k in range(0,qatorlar_soni):
                                     j+=1
                                     df_new_duplicate['ID'].append('2')
                                     df_new_duplicate['MATNR'].append('')
@@ -6291,13 +6163,7 @@ def kombinirovaniy_process(request,id):
                                         df_new_duplicate['MEINS'].append(("%.3f" % (float(meinsL)*mein_percent)).replace('.',',')) ##XATO
                                         df_new_duplicate['DATUV'].append('')
                                         df_new_duplicate['PUSTOY'].append('')
-                                    # if k==6:
-                                    #     df_new_duplicate['MATNR1'].append(skotch_dya_laminatsii.sap_code_s4q100)
-                                    #     df_new_duplicate['TEXT2'].append(skotch_dya_laminatsii.название)
-                                    #     df_new_duplicate['MENGE'].append(skotch_dya_laminatsii.еи)
-                                    #     df_new_duplicate['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт))).replace('.',',')) ##XATO
-                                    #     df_new_duplicate['DATUV'].append('')
-                                    #     df_new_duplicate['PUSTOY'].append('')
+                                    
                                     
                                     df_new_duplicate['LGORT'].append('PS11')
                     
@@ -6325,7 +6191,7 @@ def kombinirovaniy_process(request,id):
                             df_new_duplicate['PUSTOY'].append('')
                             df_new_duplicate['LGORT'].append('')
                             length = df[i][12].split('-')[0]
-                            for k in range(0,qatorlar_soni+1):
+                            for k in range(0,qatorlar_soni):
                                 j+=1
                                 df_new_duplicate['ID'].append('2')
                                 df_new_duplicate['MATNR'].append('')
@@ -6397,13 +6263,7 @@ def kombinirovaniy_process(request,id):
                                     df_new_duplicate['MEINS'].append(("%.3f" % (float(meinsL)*mein_percent)).replace('.',',')) ##XATO
                                     df_new_duplicate['DATUV'].append('')
                                     df_new_duplicate['PUSTOY'].append('')
-                                # if k==7:
-                                #     df_new_duplicate['MATNR1'].append(skotch_dya_laminatsii.sap_code_s4q100)
-                                #     df_new_duplicate['TEXT2'].append(skotch_dya_laminatsii.название)
-                                #     df_new_duplicate['MENGE'].append(skotch_dya_laminatsii.еи)
-                                #     df_new_duplicate['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт))).replace('.',',')) ##XATO
-                                #     df_new_duplicate['DATUV'].append('')
-                                #     df_new_duplicate['PUSTOY'].append('')
+                                
                                 
                                 df_new_duplicate['LGORT'].append('PS11')
                     
@@ -6431,7 +6291,7 @@ def kombinirovaniy_process(request,id):
                             df_new_duplicate['PUSTOY'].append('')
                             df_new_duplicate['LGORT'].append('')
                             length = df[i][12].split('-')[0]
-                            for k in range(0,qatorlar_soni+1):
+                            for k in range(0,qatorlar_soni):
                                 j+=1
                                 df_new_duplicate['ID'].append('2')
                                 df_new_duplicate['MATNR'].append('')
@@ -6508,13 +6368,7 @@ def kombinirovaniy_process(request,id):
                                     df_new_duplicate['MEINS'].append(("%.3f" % (float(meinsL2)*mein_percent)).replace('.',',')) ##XATO
                                     df_new_duplicate['DATUV'].append('')
                                     df_new_duplicate['PUSTOY'].append('')
-                                # if k == 8:
-                                #     df_new_duplicate['MATNR1'].append(skotch_dya_laminatsii.sap_code_s4q100)
-                                #     df_new_duplicate['TEXT2'].append(skotch_dya_laminatsii.название)
-                                #     df_new_duplicate['MENGE'].append(skotch_dya_laminatsii.еи)
-                                #     df_new_duplicate['MEINS'].append(("%.3f" % (float(alum_teks.рас_скотча_рас_скотча_на_1000_штук_шт))).replace('.',',')) ##XATO
-                                #     df_new_duplicate['DATUV'].append('')
-                                #     df_new_duplicate['PUSTOY'].append('')
+                                
                                 df_new_duplicate['LGORT'].append('PS11')
 
                         if alum_teks.бумага_расход_упоковочной_ленты_на_1000_штук_кг != '0' :
@@ -6585,6 +6439,7 @@ def kombinirovaniy_process(request,id):
     df_new_duplicate['MEINS'] =meins7d
 
     dff =pd.DataFrame(df_new)
+    print(df_new_duplicate)
     dff_duplicate =pd.DataFrame(df_new_duplicate)
 
 
