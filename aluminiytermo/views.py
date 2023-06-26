@@ -2687,7 +2687,6 @@ def product_add_second(request,id):
       df_char.to_excel(writer,index=False,sheet_name ='Characteristika')
       df_char_title.to_excel(writer,index=False,sheet_name ='title')
       df_duplicates.to_excel(writer,index=False,sheet_name='Duplicates')
-      # df_char_title_full.to_excel(writer,index=False,sheet_name ='title')
       writer.close()
       return redirect('upload_product_termo')
                   

@@ -16,6 +16,7 @@ urlpatterns = [
  path('norma-update',views.norma_update,name='norma_update'),
  path('norma-delete',views.norma_delete,name='norma-delete'),
  path('norma-delete-org',views.norma_delete_org,name='norma-delete-org'),
+ path('find-chaarcteristics',views.find_characteristics,name='find-characteristics'),
  
 ]
 
