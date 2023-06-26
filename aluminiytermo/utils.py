@@ -2560,7 +2560,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2.to_excel(pathtext6,index=False)
-    # characteristika_created_txt_create_1101(datas)
+    characteristika_created_txt_create_1101(datas)
     return 1
 
 

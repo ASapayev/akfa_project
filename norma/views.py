@@ -546,32 +546,26 @@ def kombinirovaniy_process(request,id):
                     mein_bor = True   
                     if mein =='0':
                         mein_bor = False
-                    skotголд_bor =True
-                    if alum_teks.молярный_скотч_рас_на_1000_пр_шт1 =='0':
-                        skotголд_bor =False
+                    # skotголд_bor =True
+                    # if alum_teks.молярный_скотч_рас_на_1000_пр_шт1 =='0':
+                    #     skotголд_bor =False
                     
                         
-                    if ((code_ss =='0') or (not mein_bor) or (not skotголд_bor)):
+                    if ((code_ss =='0') or (not mein_bor)):
                         if not mein_bor:
-                            if not skotголд_bor:
-                                if code_ss =='0':
-                                    norma.append([length[0],'','',sublimatsiya_code,'Xato 0 berilgan','Xato 0 berilgan','Xato 0 berilgan','','','','','Norma Sublimatsiya shirinasi 0 ga teng va boshqalar',['white','white','white','white','#d9138a','#d9138a','#d9138a']])
-                                else:
-                                    norma.append([length[0],'','',sublimatsiya_code,'Xato 0 berilgan','Xato 0 berilgan','','','','','Norma Sublimatsiya xatolari',['white','white','white','white','#d9138a','#d9138a','white']])
+                           
+                            if code_ss =='0':
+                                norma.append([length[0],'','',sublimatsiya_code,'Xato 0 berilgan','Xato 0 berilgan','Xato 0 berilgan','','','','','Norma Sublimatsiya shirinasi 0 ga teng va boshqalar',['white','white','white','white','#d9138a','#d9138a','#d9138a']])
                             else:
-                                if code_ss =='0':
-                                    norma.append([length[0],'','',sublimatsiya_code,'Xato 0 berilgan','','','','','','','Norma Sublimatsiya shirinasi 0 ga teng va boshqalar',['white','white','white','white','#d9138a','white','#d9138a']])
-                                else:
-                                    norma.append([length[0],'','',sublimatsiya_code,'Xato 0 berilgan','','','','','','','Norma Sublimatsiya xatolari',['white','white','white','white','#d9138a','white','white']])
+                                norma.append([length[0],'','',sublimatsiya_code,'Xato 0 berilgan','Xato 0 berilgan','','','','','Norma Sublimatsiya xatolari',['white','white','white','white','#d9138a','#d9138a','white']])
+                            
                         else:
-                            if not skotголд_bor:
-                                if code_ss =='0':
-                                    norma.append([length[0],'','',sublimatsiya_code,'','Xato 0 berilgan','','','','','Norma Sublimatsiya shirinasi 0 ga teng va boshqalar',['white','white','white','white','white','#d9138a','#d9138a']])
-                                else:
-                                    norma.append([length[0],'','',sublimatsiya_code,'','Xato 0 berilgan','','','','','Norma Sublimatsiya xatolari',['white','white','white','white','white','#d9138a','white']])
+                           
+                            if code_ss =='0':
+                                norma.append([length[0],'','',sublimatsiya_code,'','Xato 0 berilgan','','','','','Norma Sublimatsiya shirinasi 0 ga teng va boshqalar',['white','white','white','white','white','#d9138a','#d9138a']])
                             else:
-                                norma.append([length[0],'','',sublimatsiya_code,'','','','','','','Norma Sublimatsiya shirinasi 0 ga teng',['white','white','white','white','white','white','#d9138a']])
-                                
+                                norma.append([length[0],'','',sublimatsiya_code,'','Xato 0 berilgan','','','','','Norma Sublimatsiya xatolari',['white','white','white','white','white','#d9138a','white']])
+                            
                         isklyucheniye_ids.append(k)
                     else:    
                         if not SubDekorPlonka.objects.filter(код_декор_пленки = sublimatsiya_code, ширина_декор_пленки_мм = code_ss).exists():
@@ -587,8 +581,9 @@ def kombinirovaniy_process(request,id):
                     its_kombinirovanniy ='-K' in df[k][10]
                     
                     if its_kombinirovanniy:
+                        print('k ga kiryapti')
                         norma_1 = Norma.objects.filter(артикул=length[0])[:1].get()
-                        if (((norma_1.уп_пол_лн_рас_уп_лн_на_1000_штук_кг =='0') or (norma_1.рас_скотча_рас_скотча_на_1000_штук_шт=='0')) and (length[0] not in accessuar)):
+                        if ((norma_1.уп_пол_лн_рас_уп_лн_на_1000_штук_кг =='0' ) and (length[0] not in accessuar)):
                             isklyucheniye_ids.append(k)
                             norma.append([length[0],artikul_org,'','','','','','','','xato 0','','Normada Gp bez nakleyka',['#12a4d9','#12a4d9','white','white','white','white','white']])
                             
@@ -617,8 +612,8 @@ def kombinirovaniy_process(request,id):
                             norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=artikul_org))[:1].get()
                             if ((not '_' in kratkiy_org) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1])):
                                 nakley_code = kratkiy_org.split()[-1]
-                                if nakley_code =='NT1':
-                                    if (((norma_1.уп_пол_лн_рас_уп_лн_на_1000_штук_кг =='0') or (norma_1.рас_скотча_рас_скотча_на_1000_штук_шт=='0'))and(length[0] not in accessuar)):
+                                if nakley_code !='NT1':
+                                    if ((norma_1.уп_пол_лн_рас_уп_лн_на_1000_штук_кг =='0')and(length[0] not in accessuar)):
                                         isklyucheniye_ids.append(k)
                                         norma.append([length[0],artikul_org,'','','','','','','','xato 0','','Normada Gp bez nakleyka',['#12a4d9','#12a4d9','white','white','white','white','white']])
                             else:
@@ -966,7 +961,7 @@ def kombinirovaniy_process(request,id):
                         norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=length[0]))[:1].get()
                         nakley_code = fullsapkod[13].split()[-1]
                         if nakley_code !='NT1':
-                            if (((norma_1.уп_пол_лн_рас_уп_лн_на_1000_штук_кг =='0') or (norma_1.рас_скотча_рас_скотча_на_1000_штук_шт=='0'))and(length[0] not in accessuar)):
+                            if ((norma_1.уп_пол_лн_рас_уп_лн_на_1000_штук_кг =='0')and(length[0] not in accessuar)):
                                 isklyucheniye_ids.append(k)
                                 norma.append([length[0],length[0],'','','','','','','','xato 0','','Normada Gp bez nakleyka',['#12a4d9','#12a4d9','white','white','white','white','white']])
                         
@@ -5975,7 +5970,7 @@ def kombinirovaniy_process(request,id):
                                 meinsL = float(alum_teks.лам_верх_a_рас_ленты_на_1000_пр_м2)+float(alum_teks.лам_низ_b_рас_ленты_на_1000_пр_м2)
                                 
                                 laminatsiya =Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code1)[:1].get() 
-                                
+                            print('shuyerdaadad')
                         else:
                             qatorlar_soni +=2
                             laminatsiya_result1 = Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code1)[:1].get() 
@@ -6438,6 +6433,8 @@ def kombinirovaniy_process(request,id):
             meins7d.append(mein_txt)
     df_new_duplicate['MEINS'] =meins7d
 
+    for i in df_new:
+        print('############ ',len(i))
     dff =pd.DataFrame(df_new)
     print(df_new_duplicate)
     dff_duplicate =pd.DataFrame(df_new_duplicate)
