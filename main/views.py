@@ -277,54 +277,8 @@ def get_ready_ozmka(request,id):
   return JsonResponse({'a':'b'})
 
 # Create your views here.
-def excel(request):
-  df = pd.read_excel('C:\\OpenServer\\domains\\new_base2.xlsx','sheet')
- 
-  # print(df['SAP код материала'][0],df['Краткий текст материала'][0],df['SAP код ДЕЛ.Отход'][0])
-  # print(df['SAP код материала'][19516],df['Краткий текст материала'][19516],df['SAP код ДЕЛ.Отход'][19516])
-  for i in range(0,19526):
-    sap_code_materials =df['SAP код материала'][i] 
-    ktartkiy_tekst_materiala =df['Краткий текст материала'][i]
-    sap_kod_del_otxod =df['SAP код ДЕЛ.Отход'][i]
-    kratkiy_tekst_del_otxod =df['Краткий текст ДЕЛ.Отход'][i]
-    new_sap_kod_del_otxod =df['SAP код ДЕЛ.Отход'][i].split('-')[0]
-    id_klaes =df['KLAES'][i]
-    ch_profile_type = df['CH_PROFILE_TYPE'][i]
-    kls_wast = df['KLS_WAST'][i]
-    kls_wast_length = df['KLS_WAST_LENGTH'][i]
-    ch_kls_optom =df['CH_KLAES_OPTM'][i]
-    kls_inner_id =df['KLS_INNER_ID'][i]
-    kls_inner_color =df['KLS_INNER_COL'][i]
-    kls_color =df['KLS_COLOR'][i]
-    ves_gp =df['Вес ГП'][i]
-    ves_del_odxod=df['Вес дел.отход'][i]
-    sena_za_shtuk =df['Цена за ШТ'][i]
-    sena_za_metr =df['Цена дел.отход'][i]
-    
-    product =Product(
-      sap_code_materials =sap_code_materials ,
-      ktartkiy_tekst_materiala =ktartkiy_tekst_materiala,
-      sap_kod_del_otxod = sap_kod_del_otxod,
-      new_sap_kod_del_otxod = new_sap_kod_del_otxod,
-      kratkiy_tekst_del_otxod =kratkiy_tekst_del_otxod,
-      id_klaes =id_klaes,
-      ch_profile_type =ch_profile_type,
-      kls_wast =kls_wast,
-      kls_wast_length =kls_wast_length,
-      ch_kls_optom = ch_kls_optom,
-      kls_inner_id =kls_inner_id,
-      kls_inner_color =kls_inner_color,
-      kls_color =kls_color,
-      ves_gp =ves_gp,
-      ves_del_odxod=ves_del_odxod,
-      sena_za_shtuk =sena_za_shtuk,
-      sena_za_metr =sena_za_metr
-      )
-    product.save()
-  return redirect('index')
 
 def index(request):
- 
   return render(request,'index.html')
 
 def show_list(request):
@@ -359,104 +313,10 @@ def show_list(request):
   }
   return render(request,'show_list.html',context)
 
-def experiment_json(request):
-  start=None
-  end  =None
-  if request.GET.get('start'):
-    start =request.GET.get('start')
-  if request.GET.get('end'):
-    end =request.GET.get('end')
-  
-  if start and end:
-    products = Product.objects.filter(id__gte=int(start),id__lte=int(end))
-  else:
-    products = Product.objects.filter(id__lte=100)
-  pr ={}
-  for p in products:
-    sp =p.ktartkiy_tekst_materiala.split()
-    if (('/' in p.ktartkiy_tekst_materiala) and ('_' in p.ktartkiy_tekst_materiala)):
-      count = len(re.findall("/", p.ktartkiy_tekst_materiala)) 
-      if count == 1:
-        for i in range(0,len(sp)):
-          if ('/' in sp[i]):
-            splited_text =sp[i].split('_')
-            section_one =splited_text[0]
-            section_two =splited_text[1]
-            sp[i]={'section_1':section_one,'section2':section_two}
-        print('section_1.1',count)  
-      elif count == 2:
-        for i in range(0,len(sp)):
-          if ('/' in sp[i]):
-            splited_text =sp[i].split('_')
-            section_one =splited_text[0]
-            section_two =splited_text[1]
-            sp[i]={'section_1':section_one,'section2':section_two}
-        print('section_1.2',count)
-      # section_one =
-      pass
-    elif (('/' in p.ktartkiy_tekst_materiala) and (not '_' in p.ktartkiy_tekst_materiala)):
-      for i in range(0,len(sp)):
-          if ('/' in sp[i]):
-            splited_text =sp[i].split('/')
-            section_one =splited_text[0]
-            section_two =splited_text[1]
-            sp[i]={'section_1':section_one,'section2':section_two}
-      print('section_1.2',count)
-      print('section_2',count)  
-      # section_one =
-      pass
-    elif (('_' in p.ktartkiy_tekst_materiala) and (not '/' in p.ktartkiy_tekst_materiala)):
-      count = len(re.findall("_", p.ktartkiy_tekst_materiala)) 
-      for i in range(0,len(sp)):
-          if ('_' in sp[i]):
-            splited_text =sp[i].split('_')
-            section_one =splited_text[0]
-            section_two =splited_text[1]
-            sp[i]={'section_1':section_one,'section2':section_two}
-      print('section_3',count)  
-      # section_one =
-      pass
-    # print(p.ktartkiy_tekst_materiala)
-    pr[p.id]={'real':p.ktartkiy_tekst_materiala,'splited':sp}
 
-  
-  return JsonResponse(pr)
-
-def counter_set(request):
-  products =Product.objects.all()
-  for pr in products:
-    mix_text =pr.mix_sap_kod_del_otxod
-    count =Product.objects.filter(mix_sap_kod_del_otxod=mix_text).count()
-    if count>1:
-      print(pr.id)
-  return redirect('index')
   # products =products
 
-def group(request):
-  pr=Product.objects.all().values('new_sap_kod_del_otxod').annotate(dcount=Count('new_sap_kod_del_otxod')).order_by('dcount')
-  
-  products =Product.objects.filter(id__lte=1000).order_by('id')
-  s={}
-  dtt ={}
-  # i=1
-  new_list=[]
-  for p in pr:
-    if not p['new_sap_kod_del_otxod'] in new_list:
-      new_list.append(p['new_sap_kod_del_otxod'])
-      dtt[p['new_sap_kod_del_otxod']]=1
-  
-  i=1
-  for pp in products:
-    text =pp.mix_sap_kod_del_otxod
-    if not Product.objects.filter(id__lt=pp.id).filter(mix_sap_kod_del_otxod=text).exists():
-      s[i]={'old':pp.sap_kod_del_otxod,'new':pp.new_sap_kod_del_otxod+"-W{:04d}".format(dtt[pp.new_sap_kod_del_otxod]),'kratkiy_tekst_del_otxod':pp.kratkiy_tekst_del_otxod,'counter':dtt[pp.new_sap_kod_del_otxod]}
-      dtt[pp.new_sap_kod_del_otxod]+=1
-    i+=1
-  return JsonResponse({'ss':new_list,'s':s})
 
-def size_product(request):
-  products =Product.objects.all()
-  return JsonResponse({'a':2})
 
 def file_upload(request):
   
@@ -565,30 +425,7 @@ def import_file(request,id):
   return render(request,'result.html',context)
   
 
-def counter_exist_data(request):
-  pr = [x['new_sap_kod_del_otxod'] for x in Product.objects.all().values('new_sap_kod_del_otxod').annotate(dcount=Count('new_sap_kod_del_otxod')).order_by('dcount')]
-  products = Product.objects.all().values('id','sap_kod_del_otxod','kratkiy_tekst_del_otxod')
 
-  counter = {}
-  for p in pr:
-    counter[p]=[]
-
-  
-  
-  for product in products:
-    sap_code = product['sap_kod_del_otxod'].split('-W')
-    counter_exist = int(sap_code[1])
-   
-    new_counter_list = counter[sap_code[0]]
-    new_counter_list.append(counter_exist)
-    new_counter_list.sort()
-    counter[sap_code[0]] = new_counter_list
-
-
-  
-  return JsonResponse({'new':pr,'s':counter})
-
-#### function one
 
 def read_and_write(request,id):
   file = ExcelFiles.objects.get(id=id).file
