@@ -824,14 +824,19 @@ def delete_tex(request):
 
           ]
     
-
+    chartext =[]
+    ids =[]
     characteristika = Characteristika.objects.all().order_by('-created_at')
     i=0
     for char in characteristika:
         print(char.id)
-        if i==5:
-            break
-        i+=1
+        text =char.sap_code + char.kratkiy_text
+        if text not in chartext:
+            chartext.append(text)
+        else:
+            ids.append(char.id)
+    print(ids)
+    print(len(ids))
     # razlovka =RazlovkaTermo.objects.all()
     # for raz in razlovka:
     #     if raz.nsap_code =='':
