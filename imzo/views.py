@@ -834,8 +834,10 @@ def delete_tex(request):
             chartext.append(text)
         else:
             ids.append(char.id)
-    print(ids)
-    print(len(ids))
+    # print(ids)
+    ch =Characteristika.objects.filter(id__in =ids)
+    ch.delete()
+    # print(len(ids))
     # razlovka =RazlovkaTermo.objects.all()
     # for raz in razlovka:
     #     if raz.nsap_code =='':
