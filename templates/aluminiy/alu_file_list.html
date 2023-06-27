@@ -47,15 +47,13 @@
         </form> -->
       </div>
     </nav>
-    <!-- <a href="{% url 'excel' %}" class="btn btn-primary ">Convert to Sql</a>
-    <a href="{% url 'excel' %}" class="btn btn-success ">Show All Datas</a> -->
+   
   
     {%for file in files%}
     <br>
     <div class="p-1">
     <a href="{{file.file.url}}" class="p-3">{{file.file}}</a>
-    <!-- <a href="{% url 'import_and_merge' file.id %}" class="btn btn-primary btn-sm">Show file</a> -->
-    <!-- <a href="{% url 'add_data' file.id %}" class="btn btn-info btn-sm">Import File</a> -->
+    
     <a href="{% url 'aluminiy_add' file.id %}" class="btn btn-success btn-sm">Генерация <span style="color:chocolate;font-weight: 700;">ОБЫЧНОГО</span> алюминого файла</a>
     <a href="{% url 'update_char_title_simple' file.id %}" class="btn btn-success btn-sm">Характеристики генерация</a>
     <a href="{% url 'delete_file' file.id %}" class="btn btn-danger btn-sm">Удалить</a>

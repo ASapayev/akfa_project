@@ -53,8 +53,7 @@
     {%for file in files%}
     <br>
     <a href="{{file.file.url}}" class="p-3">{{file.file}}</a>
-    <!-- <a href="{% url 'import_and_merge' file.id %}" class="btn btn-primary btn-sm">Show file</a> -->
-    <!-- <a href="{% url 'add_data' file.id %}" class="btn btn-info btn-sm">Import File</a> -->
+   
     <a href="{% url 'update_char_title' file.id %}" class="btn btn-success btn-sm">Characterika create</a>
     <a href="{% url 'delete_file' file.id %}" class="btn btn-danger btn-sm">Delete</a>
 
