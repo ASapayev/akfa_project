@@ -578,7 +578,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
     dlinniy_text_zero =[[],[],[]]
     buxgalterskiy_naz =[[],[],[],[],[],[],[],[]]
     
-    # print(datas.columns)
+   
     for key , row in datas.iterrows():
         dlinniy_text_zero[0].append('1')
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
@@ -1610,7 +1610,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     dlinniy_text_zero =[[],[],[]]
     buxgalterskiy_naz =[[],[],[],[],[],[],[],[]]
     
-    # print(datas.columns)
+
     for key , row in datas.iterrows():
         dlinniy_text_zero[0].append('1')
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
@@ -2643,7 +2643,7 @@ def check_for_correct(items,filename='termo'):
     char_utils_correct =char_utils_one + char_utils_two + baza_profiley + component_list
     if len(char_utils_correct) >0:
         correct = False
-        print(char_utils_correct)
+       
     return [ char_utils_one , char_utils_two , baza_profiley,component_list ] , correct
 
 
