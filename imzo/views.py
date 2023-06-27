@@ -5,6 +5,7 @@ from config.settings import MEDIA_ROOT
 import pandas as pd
 from .BAZA import BAZA
 from aluminiy.models import ArtikulComponent,RazlovkaTermo
+from aluminiytermo.models import Characteristika
 import os
 from .utils import create_folder
 from django.http import JsonResponse
@@ -822,11 +823,23 @@ def delete_tex(request):
 
 
           ]
-    razlovka =RazlovkaTermo.objects.all()
-    for raz in razlovka:
-        if raz.nsap_code =='':
-            raz.nkratkiy =''
-            raz.save()
+    
+
+    characteristika = Characteristika.objects.all().order_by('-crated_at')
+    i=0
+    for char in characteristika:
+        print(char.id)
+        if i==5:
+            break
+        i+=1
+    # razlovka =RazlovkaTermo.objects.all()
+    # for raz in razlovka:
+    #     if raz.nsap_code =='':
+    #         raz.nkratkiy =''
+    #         raz.save()
+
+
+    
     
     # texcarta=CheckNormaBase.objects.filter(artikul__in=texx)
     # texcarta.delete()
