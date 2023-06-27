@@ -825,7 +825,7 @@ def delete_tex(request):
           ]
     
 
-    characteristika = Characteristika.objects.all().order_by('-crated_at')
+    characteristika = Characteristika.objects.all().order_by('-created_at')
     i=0
     for char in characteristika:
         print(char.id)
