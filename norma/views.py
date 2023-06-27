@@ -1458,7 +1458,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['STLAL'].append(f'{p+1}')
                                 df_new['STLAN'].append('1')
                                 ztekst = sklad['sklad_pokraski'][p]
-                                df_new['ZTEXT'].append(ztekst)
+                                df_new['ZTEXT'].append('Покраска')
                                 df_new['STKTX'].append(ztekst)
                                 df_new['BMENG'].append( '1000')
                                 df_new['BMEIN'].append('ШТ')
@@ -1573,7 +1573,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['STLAL'].append(f'{kraska_counter}')
                                     df_new['STLAN'].append('1')
                                     ztekst = sklad['sklad_pokraski'][p]
-                                    df_new['ZTEXT'].append(ztekst)
+                                    df_new['ZTEXT'].append('Покраска')
                                     df_new['STKTX'].append(ztekst)
                                     df_new['BMENG'].append( '1000')
                                     df_new['BMEIN'].append('ШТ')
@@ -1689,7 +1689,7 @@ def kombinirovaniy_process(request,id):
                                 df_new_duplicate['STLAL'].append(f'{p+1}')
                                 df_new_duplicate['STLAN'].append('1')
                                 ztekst = sklad['sklad_pokraski'][p]
-                                df_new_duplicate['ZTEXT'].append(ztekst)
+                                df_new_duplicate['ZTEXT'].append('Покраска')
                                 df_new_duplicate['STKTX'].append(ztekst)
                                 df_new_duplicate['BMENG'].append( '1000')
                                 df_new_duplicate['BMEIN'].append('ШТ')
@@ -1804,7 +1804,7 @@ def kombinirovaniy_process(request,id):
                                     df_new_duplicate['STLAL'].append(f'{kraska_counter}')
                                     df_new_duplicate['STLAN'].append('1')
                                     ztekst = sklad['sklad_pokraski'][p]
-                                    df_new_duplicate['ZTEXT'].append(ztekst)
+                                    df_new_duplicate['ZTEXT'].append('Покраска')
                                     df_new_duplicate['STKTX'].append(ztekst)
                                     df_new_duplicate['BMENG'].append( '1000')
                                     df_new_duplicate['BMEIN'].append('ШТ')
@@ -2301,7 +2301,7 @@ def kombinirovaniy_process(request,id):
                                     df_new['TEXT1'].append(df[i][9])
                                     df_new['STLAL'].append(f'1')
                                     df_new['STLAN'].append('1')
-                                    ztekst = 'Упаковка'
+                                    ztekst = 'Наклейка'
                                     df_new['ZTEXT'].append(ztekst)
                                     df_new['STKTX'].append(ztekst)
                                     df_new['BMENG'].append( '1000')
@@ -2359,7 +2359,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['TEXT1'].append(df[i][9])
                                 df_new['STLAL'].append(f'1')
                                 df_new['STLAN'].append('1')
-                                ztekst = 'Упаковка'
+                                ztekst = 'Наклейка'
                                 df_new['ZTEXT'].append(ztekst)
                                 df_new['STKTX'].append(ztekst)
                                 df_new['BMENG'].append( '1000')
@@ -2416,7 +2416,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['TEXT1'].append(df[i][9])
                                 df_new['STLAL'].append(f'1')
                                 df_new['STLAN'].append('1')
-                                ztekst = 'Упаковка'
+                                ztekst = 'Наклейка'
                                 df_new['ZTEXT'].append(ztekst)
                                 df_new['STKTX'].append(ztekst)
                                 df_new['BMENG'].append( '1000')
@@ -2678,7 +2678,7 @@ def kombinirovaniy_process(request,id):
                                     df_new_duplicate['TEXT1'].append(df[i][9])
                                     df_new_duplicate['STLAL'].append(f'1')
                                     df_new_duplicate['STLAN'].append('1')
-                                    ztekst = 'Упаковка'
+                                    ztekst = 'Наклейка'
                                     df_new_duplicate['ZTEXT'].append(ztekst)
                                     df_new_duplicate['STKTX'].append(ztekst)
                                     df_new_duplicate['BMENG'].append( '1000')
@@ -2736,7 +2736,7 @@ def kombinirovaniy_process(request,id):
                                 df_new_duplicate['TEXT1'].append(df[i][9])
                                 df_new_duplicate['STLAL'].append(f'1')
                                 df_new_duplicate['STLAN'].append('1')
-                                ztekst = 'Упаковка'
+                                ztekst = 'Наклейка'
                                 df_new_duplicate['ZTEXT'].append(ztekst)
                                 df_new_duplicate['STKTX'].append(ztekst)
                                 df_new_duplicate['BMENG'].append( '1000')
@@ -2793,7 +2793,7 @@ def kombinirovaniy_process(request,id):
                                 df_new_duplicate['TEXT1'].append(df[i][9])
                                 df_new_duplicate['STLAL'].append(f'1')
                                 df_new_duplicate['STLAN'].append('1')
-                                ztekst = 'Упаковка'
+                                ztekst = 'Наклейка'
                                 df_new_duplicate['ZTEXT'].append(ztekst)
                                 df_new_duplicate['STKTX'].append(ztekst)
                                 df_new_duplicate['BMENG'].append( '1000')
