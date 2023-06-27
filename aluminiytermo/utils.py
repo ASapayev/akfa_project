@@ -1312,11 +1312,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['K'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['K'][i]['zavod_sap'])
-        if sap_code_simvol =='A':
-            for i in range(0,len(LGORT_1101['A'])):
-                new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT_1101['A'][i]['zavod_code'])
-                new_ll[2].append(LGORT_1101['A'][i]['zavod_sap'])
+        
         
         if sap_code_simvol =='7':
             if (row['Тип покрытия'] =='Ламинированный'):
@@ -1330,11 +1326,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                     new_ll[1].append(LGORT_1101['7'][i]['zavod_code'])
                     new_ll[2].append(LGORT_1101['7'][i]['zavod_sap'])
         
-        if sap_code_simvol =='F':
-            for i in range(0,len(LGORT_1101['F'])):
-                new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT_1101['F'][i]['zavod_code'])
-                new_ll[2].append(LGORT_1101['F'][i]['zavod_sap'])
+        
     header4='MATNR\tWERKS\tLGORT'
     d4={}
     d4['MATNR']=new_ll[0]
