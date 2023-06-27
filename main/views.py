@@ -83,7 +83,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
         if razlovkatermo.id not in sap_exists:
           termo_head =RazlovkaTermo.objects.filter(id=razlovkatermo.id)[:1].values_list()
           components =RazlovkaTermo.objects.filter(parent_id=razlovkatermo.id).values_list()
-          print(list(termo_head))
+          
           if list(termo_head)[0] not in termo_razlovka:
             termo_razlovka+=list(termo_head)
             termo_razlovka+=list(components)
@@ -156,8 +156,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     df_yoqlari_1201.to_excel(writer,index=False,sheet_name='NOT EXISTS')
     writer.close()
     return [path1201,'']
-  # print(obichniy_razlovka[0])
-  # return 1
+  
   if zavod1101:
     termo_razlovka1101 =[ raz[4:10] + raz[12:16] + raz[18:20] for raz in termo_razlovka]
     obichniy_razlovka1101 =[ raz[1:9] + raz[15:17] for raz in obichniy_razlovka]
@@ -280,7 +279,7 @@ def get_ready_ozmka(request,id):
 # Create your views here.
 def excel(request):
   df = pd.read_excel('C:\\OpenServer\\domains\\new_base2.xlsx','sheet')
-  print(df.shape)
+ 
   # print(df['SAP код материала'][0],df['Краткий текст материала'][0],df['SAP код ДЕЛ.Отход'][0])
   # print(df['SAP код материала'][19516],df['Краткий текст материала'][19516],df['SAP код ДЕЛ.Отход'][19516])
   for i in range(0,19526):
@@ -325,7 +324,7 @@ def excel(request):
   return redirect('index')
 
 def index(request):
-  print(MEDIA_ROOT)
+ 
   return render(request,'index.html')
 
 def show_list(request):
