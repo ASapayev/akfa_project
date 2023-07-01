@@ -2687,9 +2687,9 @@ def check_for_correct(items,filename='termo'):
                     if artikle not in char_utils_two:
                         char_utils_two.append(artikle)
                     
-                # if not CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle)).exists():
-                #     if artikle not in char_utils_one:
-                #         char_utils_one.append(artikle)
+                if not CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle)).exists():
+                    if artikle not in char_utils_one:
+                        char_utils_one.append(artikle)
                     
                 if not BazaProfiley.objects.filter(Q(артикул=artikle)|Q(компонент=artikle)).exists():
                     if artikle not in baza_profiley:
