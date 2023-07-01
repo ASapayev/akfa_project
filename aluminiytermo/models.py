@@ -47,6 +47,13 @@ class AluFileTermo(models.Model):
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
 
+class CharacteristikaFile(models.Model):
+    file =models.FileField(upload_to='uploads/aluminiytermo/downloads/',max_length=500)
+    generated =models.BooleanField(default=False)
+    file_type =models.CharField(max_length=255,blank=True,null=True)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)
+
 
 class Characteristika(models.Model):
     sap_code =models.CharField(max_length=255,blank=True,null=True)
