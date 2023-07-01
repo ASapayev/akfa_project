@@ -1441,7 +1441,13 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             dd2[5].append(row['ch_inner_side_wg_s_id'])
             dd2[5].append(row['ch_outer_side_wg_id'])
             dd2[5].append(row['ch_inner_side_wg_id'])
-            dd2[5].append(row['ch_anodization_contact'])
+            if row['ch_anodization_contact'].lower() =='yc':
+                dd2[5].append('С КОНТАКТОМ')
+            elif row['ch_anodization_contact'].lower()=='nc' :
+                dd2[5].append('БЕЗ КОНТАКТА')
+            else:
+                dd2[5].append(row['ch_anodization_contact'])
+
             dd2[5].append(row['ch_anodization_type'])
             dd2[5].append(row['ch_anodization_method'])
             dd2[5].append(row['ch_print_view'])
@@ -2525,7 +2531,12 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             dd2[5].append(row['ch_inner_side_wg_s_id'])
             dd2[5].append(row['ch_outer_side_wg_id'])
             dd2[5].append(row['ch_inner_side_wg_id'])
-            dd2[5].append(row['ch_anodization_contact'])
+            if row['ch_anodization_contact'].lower() =='yc':
+                dd2[5].append('С КОНТАКТОМ')
+            elif row['ch_anodization_contact'].lower()=='nc' :
+                dd2[5].append('БЕЗ КОНТАКТА')
+            else:
+                dd2[5].append(row['ch_anodization_contact'])
             dd2[5].append(row['ch_anodization_type'])
             dd2[5].append(row['ch_anodization_method'])
             dd2[5].append(row['ch_profile_base'])
