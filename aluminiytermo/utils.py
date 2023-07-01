@@ -1361,7 +1361,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
         elif i == 1 :
             ed_iz3 += [j for j in dlina_title ]
         elif i == 2 :
-            ed_iz3 += [j for j in obshiy_ves_za_shtuku ]
+            ed_iz3 += [int(float(j)*1000) for j in obshiy_ves_za_shtuku ]
             
     
     for i in ED_IZM:    
