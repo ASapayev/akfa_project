@@ -1,15 +1,15 @@
 {% load static%}
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-    <a class="sidebar-brand brand-logo" href="index.html"><img src="{% static 'assets/images/logo.png' %}" alt="logo" /></a>
-    <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="{% static 'assets/images/logo-mini.svg' %}" alt="logo" /></a>
+    <a class="sidebar-brand brand-logo" href="{%url 'home' %}"><img src="{% static 'assets/images/logo.png' %}" alt="logo" /></a>
+    <a class="sidebar-brand brand-logo-mini" href="{%url 'home' %}"><img src="{% static 'assets/images/logo-mini.svg' %}" alt="logo" /></a>
   </div>
   <ul class="nav">
     <li class="nav-item profile">
       <div class="profile-desc">
         <div class="profile-pic">
           <div class="count-indicator">
-            <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
+            <img class="img-xs rounded-circle " src="{{user_profile.profile_picture.url}}" alt="">
             <span class="count bg-success"></span>
           </div>
           <div class="profile-name">
@@ -66,17 +66,17 @@
       </a>
     </li>
     <li class="nav-item menu-items">
-      <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+      <a class="nav-link" data-toggle="collapse" href="#del-othod" aria-expanded="false" aria-controls="del-othod">
         <span class="menu-icon">
           <i class="mdi mdi-laptop"></i>
         </span>
         <span class="menu-title">Форм.дел отход</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="ui-basic">
+      <div class="collapse" id="del-othod">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{% url 'work_wast' %}">Загрузка файла</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'file-upload' %}">История файлов</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'work_wast' %}" >Загрузка файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'show_list_history' %}">История файлов</a></li>
         </ul>
       </div>
     </li>
@@ -90,7 +90,8 @@
       </a>
       <div class="collapse" id="ui-basics">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{% url 'work_wast' %}">Загрузка файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'upload_product_org' %}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class=""> обычный </span> файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{%url 'upload_product_termo_org' %}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо</span> файла</a></li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'file-upload' %}">История файлов</a></li>
         </ul>
       </div>
@@ -105,7 +106,7 @@
       </a>
       <div class="collapse" id="ui-basic-norm">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{% url 'work_wast' %}">Загрузка файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">Загрузка файла</a></li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'file-upload' %}">История файлов</a></li>
         </ul>
       </div>
@@ -120,26 +121,12 @@
       </a>
       <div class="collapse" id="ui-basic-tex">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{% url 'work_wast' %}">Загрузка файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">Загрузка файла</a></li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'file-upload' %}">История файлов</a></li>
         </ul>
       </div>
     </li>
-    <!-- <li class="nav-item menu-items">
-      <a class="nav-link" data-toggle="collapse" href="#ui-basic-tex" aria-expanded="false" aria-controls="ui-basic-tex">
-        <span class="menu-icon">
-          <i class="mdi mdi-contacts"></i>
-        </span>
-        <span class="menu-title">Форм. техкарты</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="ui-basic-tex">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{% url 'work_wast' %}">Загрузка файла</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'file-upload' %}">История файлов</a></li>
-        </ul>
-      </div>
-    </li> -->
+    
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'file-upload-ozmka-org' %}">
         <span class="menu-icon">
@@ -164,47 +151,7 @@
         <span class="menu-title">Удалить техкарты</span>
       </a>
     </li>
-    <!-- <li class="nav-item menu-items">
-      <a class="nav-link" href="pages/charts/chartjs.html">
-        <span class="menu-icon">
-          <i class="mdi mdi-chart-bar"></i>
-        </span>
-        <span class="menu-title">Charts</span>
-      </a>
-    </li>
-    <li class="nav-item menu-items">
-      <a class="nav-link" href="pages/icons/mdi.html">
-        <span class="menu-icon">
-          <i class="mdi mdi-contacts"></i>
-        </span>
-        <span class="menu-title">Icons</span>
-      </a>
-    </li>
-    <li class="nav-item menu-items">
-      <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-        <span class="menu-icon">
-          <i class="mdi mdi-security"></i>
-        </span>
-        <span class="menu-title">User Pages</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="auth">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-        </ul>
-      </div>
-    </li>
-    <li class="nav-item menu-items">
-      <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
-        <span class="menu-icon">
-          <i class="mdi mdi-file-document-box"></i>
-        </span>
-        <span class="menu-title">Documentation</span>
-      </a>
-    </li> -->
+   
   </ul>
 </nav>
+

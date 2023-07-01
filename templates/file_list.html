@@ -49,13 +49,10 @@
         </form> -->
       </div>
     </nav>
-    <!-- <a href="{% url 'excel' %}" class="btn btn-primary ">Convert to Sql</a>
-    <a href="{% url 'excel' %}" class="btn btn-success ">Show All Datas</a> -->
+   
     {%for file in files%}
     <br>
     <a href="{{file.file.url}}" class="p-1">{{file.file}}</a>
-    <!-- <a href="{% url 'import_and_merge' file.id %}" class="btn btn-primary btn-sm">Show file</a>
-    <a href="{% url 'add_data' file.id %}" class="btn btn-info btn-sm">Import File</a> -->
     <a  class="btn btn-warning btn-sm mx-1 my-2" onclick="myFunction('Aluminiyni generatsiya qilyapsizmi?','alu','{{file.id}}')"  >Генерация алюминового файла</a>
     <a  class="btn btn-success btn-sm " onclick="myFunction('PVCni generatsiya qilyapsizmi?','pvc','{{file.id}}')" >Генерация PVC файла </a>
     {% endfor %}

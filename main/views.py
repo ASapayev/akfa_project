@@ -13,15 +13,34 @@ from config.settings import MEDIA_ROOT
 from datetime import datetime
 from django.core.files import File
 import string
+import platform
 import random
 from django.contrib import messages
+from django.template.defaulttags import register
 from .utils import counter_generated_data
 import subprocess,sys,os
+FILEBROWSER_PATH = os.path.join(os.getenv('WINDIR'), 'explorer.exe')
+
+
+
 now = datetime.now()
 
 
 def work_wast(request):
-  return render(request,'delovoy_otxod/index.html')
+  if request.method == 'POST':
+    form = FileForm(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('file_list_org')
+  else:
+      form =FileForm()
+      context ={
+        'form':form,
+        'section':'Деловой отход'
+      }
+  return render(request,'for_downloads/main.html',context)
+
+
 
 def get_ozmka(ozmk,zavod1101,zavod1201):
   sap_code_yoqlari =[]
@@ -277,9 +296,10 @@ def get_ready_ozmka(request,id):
   return JsonResponse({'a':'b'})
 
 # Create your views here.
-
+@login_required(login_url='/accounts/login/')
 def index(request):
   return render(request,'index.html')
+
 
 def show_list(request):
   search =request.GET.get('search',None)
@@ -317,7 +337,6 @@ def show_list(request):
   # products =products
 
 
-
 def file_upload(request):
   
   if request.method == 'POST':
@@ -331,6 +350,21 @@ def file_upload(request):
         'form':form
       }
   return render(request,'excel_form.html',context)
+
+def file_upload_org(request):
+  print(request)
+  if request.method == 'POST':
+    form = FileForm(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('file_list')
+  else:
+      form =FileForm()
+      context ={
+        'form':form
+      }
+  return render(request,'excel_form.html',context)
+
 
 def file_upload_for_get_ozmka(request):
   if request.method =='POST':
@@ -355,6 +389,7 @@ def file_upload_for_get_ozmka(request):
     else:
         return render(request,'norma/razlovka_find.html')
   return render(request,'norma/razlovka_find.html')
+
 
 def file_upload_for_get_ozmka_org(request):
   if request.method =='POST':
@@ -394,6 +429,13 @@ def file_list(request):
   files = ExcelFiles.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files}
   return render(request,'file_list.html',context)
+
+
+def file_list_org(request):
+  files = ExcelFiles.objects.filter(generated =False).order_by('-created_at')
+  context ={'files':files}
+  return render(request,'delovoy_otxod/file_list.html',context)
+
 
 def file_list_ozmka(request):
   files = ExcelFilesOzmka.objects.filter(generated =False).order_by('-created_at')
@@ -601,6 +643,7 @@ group_two =['FST','FSC','PVF','PDF']
 group_three =['ALU']
 group_four =['PVC']
 
+
 def lenght_generate(request,id):
   file = ExcelFiles.objects.get(id=id).file
   counter =0
@@ -642,21 +685,52 @@ def lenght_generate(request,id):
   context={
     'files':files
   }
-  # counter+=5
-  # s2 = res = ''.join(random.choices(string.ascii_letters, k=7))
-  # path =f'{MEDIA_ROOT}\\uploads\\fake_data-{s2}.xlsx'
-  # df =pd.DataFrame()
-  # df['sap']=['' for x in range(0,counter)]
-  # df['krat']=['' for x in range(0,counter)]
-  # t=0
-  # for i in range(0,len(new_liss)):
-  #   for key,values in new_liss[i].items():
-  #     for val in values:
-  #       df.loc[t]=[key,val]
-  #       t+=1
-  # df.to_excel(path)
-  # return JsonResponse({'a':'b'})
+
   return render(request,'generated_file.html',context)
+
+def lenght_generate_org(request,id):
+  file = ExcelFiles.objects.get(id=id).file
+  counter =0
+  file_path =f'{MEDIA_ROOT}\\{file}'
+  df_org = pd.read_excel(file_path)
+  new_liss = []
+  data_type = request.GET.get('type',None)
+  for key ,row in df_org.iterrows():
+    new = row['Краткий текст материала'].split()
+    # print(new)
+    chast =1
+    if row['SAP код'][:5] in group_one:
+      chast =1
+    elif (row['SAP код'][:2] =='FW') or (row['SAP код'][:3] in group_two):
+      continue
+    else:
+      
+      if data_type and (data_type =='alu'):
+        chast = 4
+      elif data_type and (data_type =='pvc'):
+        chast =3
+    new_generated_data =[]
+    for i in range(0,len(new)):
+      if new[i].startswith('L'):
+        nn=new[i].replace('L','')
+        if nn.isdigit():
+          lenn=int(nn)
+          length =int(int(nn)/500)
+          for j in range(chast,length):
+            new[i] =f'WL{j*500}'
+            s=' '.join(new)
+            new_generated_data.append({'sap_del_cod':s,'lenn':int(j*500)})
+            counter+=1
+    pr={'sena':row['Цена'],'length':lenn,'ves_gp':row['Вес за ШТ'],'kls_color':row['KLS_COLOR'],'kls_inner_color':row['KLS_INNER_COL'],'kls_inner_id':row['KLS_INNER_ID'],'ch_profile_type':row['Гр.мат'][len(row['Гр.мат'])-3:],'id_claes':row['KLAES ID'],'sap_code':row['SAP код'],'sap_code_krat':row['SAP код'].split('-')[0],'text':row['Краткий текст материала'],'data':new_generated_data}
+    new_liss.append(pr)
+  # print(new_liss)
+  file_ids  = counter_generated_data(new_liss,data_type)
+  files = ExcelFiles.objects.filter(id__in=file_ids)
+  context={
+    'files':files
+  }
+
+  return render(request,'delovoy_otxod/generated_files.html',context)
 
 
 def delete_file(request,id):
@@ -671,12 +745,37 @@ def delete_file(request,id):
   file.delete()
   return redirect('file_list')
 
+def open_folder_path_in_explorer(request):
+  path =request.GET.get('path',None)
+  path = os.path.normpath(path)
+  open_type = request.GET.get('open_type',None)
+  if open_type =='true':
+    if os.path.isdir(path):
+        subprocess.run([FILEBROWSER_PATH, path])
+    elif os.path.isfile(path):
+        subprocess.run([FILEBROWSER_PATH, '/select,', os.path.normpath(path)])
+  elif open_type =='false':
+    os.startfile(path)
+
+  return JsonResponse({'msg':True})
+  
 
 
+def show_list_history(request):
+  files =ExcelFiles.objects.filter(generated=False).order_by('-created_at')
+  context ={
+    'files':files
+  }
+  return render(request,'delovoy_otxod/history.html',context)
 
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def home(request):
   return render(request,'home.html')
 
 
+@register.filter(name='split_text')
+def split_text(value):
+    txt =str(value)
+    print(txt) 
+    return txt.split('\\')[-1]

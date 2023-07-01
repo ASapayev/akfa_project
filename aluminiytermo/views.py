@@ -17,6 +17,7 @@ from django.db.models import Q
 from .BAZA import ANODIROVKA_CODE
 from django.views.decorators.csrf import csrf_exempt
 import ast
+from django.contrib.auth.decorators import user_passes_test,login_required
 from .create_char import product_add_second_termo,product_add_second_simple
 now = datetime.now()
 
@@ -111,6 +112,27 @@ def alu_product_base(request):
                   )
             artiku_comp.save()
       return JsonResponse({'converted':'a'})
+
+def upload_product_org(request):
+      if request.method == 'POST':
+            form = FileFormTermo(request.POST, request.FILES)
+            if form.is_valid():
+                  form.save()
+                  if form.cleaned_data['file_type'] =='title':
+                        return redirect('aluminiy_files_termo')
+                  else:
+                        return redirect('aluminiy_files_termo')
+            else:
+                  form =FileFormTermo()
+                  context ={
+                  'form':form
+                  }
+      form =FileFormTermo()
+      context ={
+      'form':form,
+      'section':'Формирование сапкода термо'
+      }
+      return render(request,'for_downloads/main.html',context)
 
 def upload_product(request):
       if request.method == 'POST':

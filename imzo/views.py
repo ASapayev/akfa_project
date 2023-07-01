@@ -521,7 +521,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS'][counter_2] ='1101'
                                 df_new['STTAG'][counter_2] ='01012023'
                                 df_new['PLNAL'][counter_2] ='1'
-                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ'] +' / '+' / ' + str(p)
                                 df_new['VERWE'][counter_2] ='1'
                                 df_new['STATU'][counter_2] ='4'
                                 df_new['LOSVN'][counter_2] ='1'
@@ -553,7 +553,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS'][counter_2] ='1101'
                                 df_new['STTAG'][counter_2] ='01012023'
                                 df_new['PLNAL'][counter_2] ='1'
-                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']+' / ' + str(p)
                                 df_new['VERWE'][counter_2] ='1'
                                 df_new['STATU'][counter_2] ='4'
                                 df_new['LOSVN'][counter_2] ='1'
@@ -585,7 +585,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS'][counter_2] ='1101'
                                 df_new['STTAG'][counter_2] ='01012023'
                                 df_new['PLNAL'][counter_2] ='1'
-                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']+' / ' + str(p)
                                 df_new['VERWE'][counter_2] ='1'
                                 df_new['STATU'][counter_2] ='4'
                                 df_new['LOSVN'][counter_2] ='1'
@@ -617,7 +617,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS'][counter_2] ='1101'
                                 df_new['STTAG'][counter_2] ='01012023'
                                 df_new['PLNAL'][counter_2] ='1'
-                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']+' / ' + str(p)
                                 df_new['VERWE'][counter_2] ='1'
                                 df_new['STATU'][counter_2] ='4'
                                 df_new['LOSVN'][counter_2] ='1'
@@ -667,7 +667,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS'][counter_2] ='1101'
                                 df_new['STTAG'][counter_2] ='01012023'
                                 df_new['PLNAL'][counter_2] ='1'
-                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']+' / ' + str(p)
                                 df_new['VERWE'][counter_2] ='1'
                                 df_new['STATU'][counter_2] ='4'
                                 df_new['LOSVN'][counter_2] ='1'
@@ -717,7 +717,7 @@ def lenght_generate_imzo(request,id):
                                 df_new['WERKS'][counter_2] ='1101'
                                 df_new['STTAG'][counter_2] ='01012023'
                                 df_new['PLNAL'][counter_2] ='1'
-                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']+' / ' + str(p)
                                 df_new['VERWE'][counter_2] ='1'
                                 df_new['STATU'][counter_2] ='4'
                                 df_new['LOSVN'][counter_2] ='1'

@@ -2,6 +2,8 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils import timezone
+import os
+from config.settings import STATIC_ROOT
 
 tz = timezone.get_current_timezone()
 
@@ -88,6 +90,8 @@ class User(AbstractBaseUser):
         user_role ='Admin'
     #   print(self.role)
       return user_role
+    
+    
 
 
 
@@ -107,3 +111,9 @@ class UserProfile(models.Model):
     longitute = models.CharField(max_length=20, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+       return self.user.username
+    
+    # def get_image_path(self):
+    #    return os.path.join('D:/',str(self.profile_picture))

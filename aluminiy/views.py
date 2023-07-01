@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import pandas as pd
 from .models import ArtikulComponent,AluminiyProduct,AluFile,AluminiyProductBasesimple,RazlovkaObichniy
@@ -21,8 +22,10 @@ from aluminiytermo.BAZA import ANODIROVKA_CODE
 
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def index(request):
       return render(request,'aluminiy/index.html')
+
 
 def artikul_and_companent(request):
       df = pd.read_excel('c:\\OpenServer\\domains\\new_component.xlsx','Лист1')
@@ -142,6 +145,20 @@ def upload_product(request):
         'form':form
       }
   return render(request,'excel_form.html',context)
+
+def upload_product_org(request):
+  if request.method == 'POST':
+    form = FileForm(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('aluminiy_files')
+  else:
+      form =FileForm()
+      context ={
+        'form':form,
+        'section':'Формирование сапкода обычный'
+      }
+  return render(request,'for_downloads/main.html',context)
 
 def aluminiy_files(request):
   files = AluFile.objects.filter(generated =False).order_by('-created_at')
