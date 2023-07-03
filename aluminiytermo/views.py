@@ -4816,6 +4816,13 @@ def product_add_second_org(request,id):
       df_char_title.to_excel(writer,index=False,sheet_name ='title')
       df_duplicates.to_excel(writer,index=False,sheet_name='Duplicates')
       writer.close()
-      return redirect('upload_product_termo')
+
+      file =[File(file=path,filetype='obichniy')]
+      context ={
+            'files':file,
+            'section':'Формированый термо файл'
+      }
+      return render(request,'universal/generated_files.html',context)
+      
                   
     

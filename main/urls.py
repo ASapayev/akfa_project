@@ -3,8 +3,8 @@ from . import views
 
 
 urlpatterns = [
-  path('',views.index, name='index'),
-  path('home',views.home, name='home'),
+  path('home',views.index, name='index'),
+  path('',views.home, name='home'),
   path('list',views.show_list,name='show_list'),
   path('file-upload',views.file_upload,name='file-upload'),
   path('file-upload-for-ozmka',views.file_upload_for_get_ozmka,name='file-upload-ozmka'),

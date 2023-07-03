@@ -4,6 +4,7 @@ from django.http import JsonResponse
 import pandas as pd
 from .models import ArtikulComponent,AluminiyProduct,AluFile,AluminiyProductBasesimple,RazlovkaObichniy
 from aluminiytermo.models import AluminiyProductTermo
+from aluminiytermo.views import File
 from .forms import FileForm
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
@@ -169,7 +170,7 @@ def aluminiy_files(request):
 
 def aluminiy_files_org(request):
   files = AluFile.objects.filter(generated =False).order_by('-created_at')
-  context ={'files':files,'section':'Формированный обычный файлы','type':'ОБЫЧНЫЙ','link':'/alu/alum/add/'}
+  context ={'files':files,'section':'Формированный обычный файлы','type':'ОБЫЧНЫЙ','link':'/alu/alum-org/add/'}
   return render(request,'universal/file_list.html',context)
 
 def aluminiy_group(request):
@@ -4084,8 +4085,12 @@ def product_add_second_org(request,id):
       df_char_title.to_excel(writer,index=False,sheet_name='title')
       df_duplicates.to_excel(writer,index=False,sheet_name='Duplicates')
       writer.close()
-      
-      return redirect('upload_product_org')
+      file =[File(file=path,filetype='obichniy')]
+      context ={
+            'files':file,
+            'section':'Формированый обычный файл'
+      }
+      return render(request,'universal/generated_files.html',context)
                   
 import glob
 def razlovka_save(request):
