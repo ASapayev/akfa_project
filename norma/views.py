@@ -1445,7 +1445,7 @@ def kombinirovaniy_process(request,id):
             if df[i][4] !="":
                 CheckNormaBase(artikul=df[i][4],kratkiytekst=df[i][5]).save()
                 if (df[i][4].split('-')[1][:1]=='P'):
-                    if (('8001' in df[i][5]) or ('7042' in df[i][5])or ('8024' in df[i][5])):
+                    if (('8001' in df[i][5]) or ('7042' in df[i][5])or ('8024' in df[i][5])or ('8003' in df[i][5])):
 
                         for p in range(0,6):    
                             j+=1
@@ -1676,7 +1676,7 @@ def kombinirovaniy_process(request,id):
             normaexist = CheckNormaBase.objects.filter(artikul=df[i][4],kratkiytekst=df[i][5])[:1].get()
             if df[i][4] !="":
                 if (df[i][4].split('-')[1][:1]=='P'):
-                    if (('8001' in df[i][5]) or ('8024' in df[i][5])):
+                    if (('8001' in df[i][5]) or ('7042' in df[i][5])or ('8024' in df[i][5])or ('8003' in df[i][5])):
 
                         for p in range(0,6):    
                             j+=1

@@ -3,7 +3,8 @@
 
 {% block content %}
 <div class="content-wrapper">
-  <div class="row ">
+    {% if ArtikulComponent %}
+    <div class="row ">
     <div class="col-12 grid-margin">
       <div class="card">
         <div class="card-body">
@@ -28,6 +29,7 @@
                 </tr>
               </thead>
               <tbody>
+                {%for char in ArtikulComponent  %}
                 <tr>
                     <td>
                         {{ forloop.counter }}
@@ -47,604 +49,323 @@
                     <div class="badge badge-outline-success">Approved</div>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <span class="pl-2">Henry Klein</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Dashboard </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <span class="pl-2">Henry Klein</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Dashboard </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <span class="pl-2">Henry Klein</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Dashboard </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <span class="pl-2">Henry Klein</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Dashboard </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <span class="pl-2">Henry Klein</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Dashboard </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <span class="pl-2">Henry Klein</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Dashboard </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <span class="pl-2">Henry Klein</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Dashboard </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
+                {% endfor %}
                 
               </tbody>
             </table>
         </div>
-        <button type="button" class="btn btn-danger btn-lg mt-3">btn-lg</button>
+        <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='artikul_component()'>btn-lg</button>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="row ">
-    <div class="col-12 grid-margin">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Order Status</h4>
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </th>
-                  <th> Client Name </th>
-                  <th> Order No </th>
-                  <th> Product Cost </th>
-                  <th> Project </th>
-                  <th> Payment Mode </th>
-                  <th> Start Date </th>
-                  <th> Payment Status </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face1.jpg" alt="image" />
-                    <span class="pl-2">Henry Klein</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Dashboard </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face2.jpg" alt="image" />
-                    <span class="pl-2">Estella Bryan</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Website </td>
-                  <td> Cash on delivered </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-warning">Pending</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face5.jpg" alt="image" />
-                    <span class="pl-2">Lucy Abbott</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> App design </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-danger">Rejected</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face3.jpg" alt="image" />
-                    <span class="pl-2">Peter Gill</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Development </td>
-                  <td> Online Payment </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face4.jpg" alt="image" />
-                    <span class="pl-2">Sallie Reyes</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Website </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="row ">
-    <div class="col-12 grid-margin">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Order Status</h4>
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </th>
-                  <th> Client Name </th>
-                  <th> Order No </th>
-                  <th> Product Cost </th>
-                  <th> Project </th>
-                  <th> Payment Mode </th>
-                  <th> Start Date </th>
-                  <th> Payment Status </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face1.jpg" alt="image" />
-                    <span class="pl-2">Henry Klein</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Dashboard </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face2.jpg" alt="image" />
-                    <span class="pl-2">Estella Bryan</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Website </td>
-                  <td> Cash on delivered </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-warning">Pending</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face5.jpg" alt="image" />
-                    <span class="pl-2">Lucy Abbott</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> App design </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-danger">Rejected</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face3.jpg" alt="image" />
-                    <span class="pl-2">Peter Gill</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Development </td>
-                  <td> Online Payment </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face4.jpg" alt="image" />
-                    <span class="pl-2">Sallie Reyes</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Website </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+    {% endif %}
+    {% if CharUtilsOne %}
+    <div class="row ">
+        <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+            <h4 class="card-title">Character utils one</h4>
+            <div class="table-responsive">
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Матрица</th>
+                        <th>Артикул</th>
+                        <th>Высота</th>
+                        <th>Ширина</th>
+                        <th>Высота ширина</th>
+                        <th>Systems</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td  class ='new_char_one' ><input type='text' id ='matritsa{{forloop.counter}}' value='{{char}}'></td>
+                        <td ><input type='text' name='artikulone' id ='artikulone{{forloop.counter}}' value='{{char}}' ></td>
+                        <td><input type='text' name='height' id ='height{{forloop.counter}}' placeholder='Enter height...' ></td>
+                        <td><input type='text' name='width' id='width{{forloop.counter}}' placeholder='Enter width...'></td>
+                        <td><input type='text' name='height_and_width' id ='height_and_width{{forloop.counter}}' placeholder='Enter height and width...'></td>
+                        <td><input type='text'name='systems' id ='systems{{forloop.counter}}' placeholder='Enter systems...'></td>
+                        <td>
+                            <div class="badge badge-outline-danger">Remove</div>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_one()'>btn-lg</button>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="row ">
-    <div class="col-12 grid-margin">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Order Status</h4>
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </th>
-                  <th> Client Name </th>
-                  <th> Order No </th>
-                  <th> Product Cost </th>
-                  <th> Project </th>
-                  <th> Payment Mode </th>
-                  <th> Start Date </th>
-                  <th> Payment Status </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face1.jpg" alt="image" />
-                    <span class="pl-2">Henry Klein</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Dashboard </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face2.jpg" alt="image" />
-                    <span class="pl-2">Estella Bryan</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Website </td>
-                  <td> Cash on delivered </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-warning">Pending</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face5.jpg" alt="image" />
-                    <span class="pl-2">Lucy Abbott</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> App design </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-danger">Rejected</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face3.jpg" alt="image" />
-                    <span class="pl-2">Peter Gill</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Development </td>
-                  <td> Online Payment </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check form-check-muted m-0">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input">
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <img src="assets/images/faces/face4.jpg" alt="image" />
-                    <span class="pl-2">Sallie Reyes</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> Website </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+    {% endif %}
+    {% if CharUtilsTwo%}
+    <div class="row ">
+        <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+            <h4 class="card-title">Character utils two</h4>
+            <div class="table-responsive">
+                <table class="table">
+                <thead>
+                    <tr>
+                    <th>
+                        <div class="form-check form-check-muted m-0">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                        </label>
+                        </div>
+                    </th>
+                    <th> Client Name </th>
+                    <th> Order No </th>
+                    <th> Product Cost </th>
+                    <th> Project </th>
+                    <th> Payment Mode </th>
+                    <th> Start Date </th>
+                    <th> Payment Status </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>
+                        <div class="form-check form-check-muted m-0">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                        </label>
+                        </div>
+                    </td>
+                    <td>
+                        <img src="assets/images/faces/face1.jpg" alt="image" />
+                        <span class="pl-2">Henry Klein</span>
+                    </td>
+                    <td> 02312 </td>
+                    <td> $14,500 </td>
+                    <td> Dashboard </td>
+                    <td> Credit card </td>
+                    <td> 04 Dec 2019 </td>
+                    <td>
+                        <div class="badge badge-outline-success">Approved</div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <div class="form-check form-check-muted m-0">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                        </label>
+                        </div>
+                    </td>
+                    <td>
+                        <img src="assets/images/faces/face2.jpg" alt="image" />
+                        <span class="pl-2">Estella Bryan</span>
+                    </td>
+                    <td> 02312 </td>
+                    <td> $14,500 </td>
+                    <td> Website </td>
+                    <td> Cash on delivered </td>
+                    <td> 04 Dec 2019 </td>
+                    <td>
+                        <div class="badge badge-outline-warning">Pending</div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <div class="form-check form-check-muted m-0">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                        </label>
+                        </div>
+                    </td>
+                    <td>
+                        <img src="assets/images/faces/face5.jpg" alt="image" />
+                        <span class="pl-2">Lucy Abbott</span>
+                    </td>
+                    <td> 02312 </td>
+                    <td> $14,500 </td>
+                    <td> App design </td>
+                    <td> Credit card </td>
+                    <td> 04 Dec 2019 </td>
+                    <td>
+                        <div class="badge badge-outline-danger">Rejected</div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <div class="form-check form-check-muted m-0">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                        </label>
+                        </div>
+                    </td>
+                    <td>
+                        <img src="assets/images/faces/face3.jpg" alt="image" />
+                        <span class="pl-2">Peter Gill</span>
+                    </td>
+                    <td> 02312 </td>
+                    <td> $14,500 </td>
+                    <td> Development </td>
+                    <td> Online Payment </td>
+                    <td> 04 Dec 2019 </td>
+                    <td>
+                        <div class="badge badge-outline-success">Approved</div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <div class="form-check form-check-muted m-0">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                        </label>
+                        </div>
+                    </td>
+                    <td>
+                        <img src="assets/images/faces/face4.jpg" alt="image" />
+                        <span class="pl-2">Sallie Reyes</span>
+                    </td>
+                    <td> 02312 </td>
+                    <td> $14,500 </td>
+                    <td> Website </td>
+                    <td> Credit card </td>
+                    <td> 04 Dec 2019 </td>
+                    <td>
+                        <div class="badge badge-outline-success">Approved</div>
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_two()'>btn-lg</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if BazaProfile%}
+    <div class="row ">
+        <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+            <h4 class="card-title">Baza profiles</h4>
+            <div class="table-responsive">
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Артикул</th>
+                        <th scope="col">Полый или фасонный</th>
+                        <th scope="col">Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td id='artikul{{ forloop.counter }}' class ='new_char' >{{char}}</td>
+                        <td>
+                            <select class="form-select form-select-sm"style='width:35%' aria-label="Default select example" id="sel{{ forloop.counter }}">
+                                <option selected value='Default' >Default</option>
+                                <option value="Полый">Полый</option>
+                                <option value="Фасонный">Фасонный</option>    
+                            </select>
+                        </td>
+                    <td>
+                        <div class="badge badge-outline-success">Approved</div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <div class="form-check form-check-muted m-0">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                        </label>
+                        </div>
+                    </td>
+                    <td>
+                        <img src="assets/images/faces/face2.jpg" alt="image" />
+                        <span class="pl-2">Estella Bryan</span>
+                    </td>
+                    <td> 02312 </td>
+                    <td> $14,500 </td>
+                    <td> Website </td>
+                    <td> Cash on delivered </td>
+                    <td> 04 Dec 2019 </td>
+                    <td>
+                        <div class="badge badge-outline-warning">Pending</div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <div class="form-check form-check-muted m-0">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                        </label>
+                        </div>
+                    </td>
+                    <td>
+                        <img src="assets/images/faces/face5.jpg" alt="image" />
+                        <span class="pl-2">Lucy Abbott</span>
+                    </td>
+                    <td> 02312 </td>
+                    <td> $14,500 </td>
+                    <td> App design </td>
+                    <td> Credit card </td>
+                    <td> 04 Dec 2019 </td>
+                    <td>
+                        <div class="badge badge-outline-danger">Rejected</div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <div class="form-check form-check-muted m-0">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                        </label>
+                        </div>
+                    </td>
+                    <td>
+                        <img src="assets/images/faces/face3.jpg" alt="image" />
+                        <span class="pl-2">Peter Gill</span>
+                    </td>
+                    <td> 02312 </td>
+                    <td> $14,500 </td>
+                    <td> Development </td>
+                    <td> Online Payment </td>
+                    <td> 04 Dec 2019 </td>
+                    <td>
+                        <div class="badge badge-outline-success">Approved</div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <div class="form-check form-check-muted m-0">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                        </label>
+                        </div>
+                    </td>
+                    <td>
+                        <img src="assets/images/faces/face4.jpg" alt="image" />
+                        <span class="pl-2">Sallie Reyes</span>
+                    </td>
+                    <td> 02312 </td>
+                    <td> $14,500 </td>
+                    <td> Website </td>
+                    <td> Credit card </td>
+                    <td> 04 Dec 2019 </td>
+                    <td>
+                        <div class="badge badge-outline-success">Approved</div>
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='baza_profiley()'>btn-lg</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
