@@ -2259,7 +2259,7 @@ def product_add_second_org(request,id):
                   try:
                         os.remove(path_not_exists)
                   except:
-                        return render(request,'utils/file_exist.html')
+                        return render(request,'utils/file_exist_org.html')
             
             writer = pd.ExcelWriter(path_not_exists, engine='xlsxwriter')
             df_char_utils_one.to_excel(writer,index=False,sheet_name ='character utils one')
@@ -2268,7 +2268,7 @@ def product_add_second_org(request,id):
             df_artikul_component.to_excel(writer,index=False,sheet_name ='artikul component')
             writer.close()
             # writer.save()
-            return render(request,'aluminiy/check_for_correct.html',context)
+            return render(request,'utils/components.html',context)
       
       aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
       umumiy_counter={}

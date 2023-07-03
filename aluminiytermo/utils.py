@@ -2603,6 +2603,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             dd2[5].append(row['ch_inner_side_wg_s_id'])
             dd2[5].append(row['ch_outer_side_wg_id'])
             dd2[5].append(row['ch_inner_side_wg_id'])
+            
             if row['ch_anodization_contact'].lower() =='yc':
                 dd2[5].append('С КОНТАКТОМ')
             elif row['ch_anodization_contact'].lower()=='nc' :

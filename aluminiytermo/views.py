@@ -2808,7 +2808,7 @@ def product_add_second_org(request,id):
             df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
             writer.close()
 
-            return render(request,'termo/check_for_correct.html',context)
+            return render(request,'utils/components.html',context)
       ################### group by#########
       aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
       umumiy_counter={}

@@ -1,23 +1,30 @@
 {% extends 'base.html'%}
 
 {% block content %}
+{%load static%}
 <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
-        <h3 class="page-title"> Деловой отход файлы </h3>
-        <nav aria-label="breadcrumb">
+        <!-- <h3 class="page-title"> Деловой отход файлы </h3> -->
+        <!-- <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
             <li class="breadcrumb-item active" aria-current="page">Buttons</li>
           </ol>
-        </nav>
+        </nav> -->
       </div>
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Загруженные файлы</h4>
+            <h4 class="card-title">Предупреждение</h4>
 
-            
+            <!-- <h2>Rounded Corners</h2> -->
+            <p>ILTIMOS EXCEL FILENI OCHIQ BO'LSA YOPING!!!</p>            
+            <img src="{% static 'notice/notice.jpg' %}" class="img-rounded" alt="Cinque Terre" width="304" height="236"> 
+            <p>ПОЖАЛУЙСТА, ЗАКРОЙТЕ ФАЙЛ EXCEL, ЕСЛИ ОН ОТКРЫТ!!!</p>  
+            <div class="template-demo mt-4">
+              <a href="" class="btn btn-danger btn-lg">Готов</a>
+            </div>          
           </div>
         </div>
       </div>
