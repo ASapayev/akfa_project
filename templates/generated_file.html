@@ -40,22 +40,16 @@
             <a class="nav-link disabled" href="#">Disabled</a>
           </li>
         </ul>
-        <!-- <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> -->
       </div>
     </nav>
-    <!-- <a href="{% url 'excel' %}" class="btn btn-primary ">Convert to Sql</a>
-    <a href="{% url 'excel' %}" class="btn btn-success ">Show All Datas</a> -->
+   
   </div>
   <div class="container">
     <br>
     {% for file in files %}
     <a href="{% url 'download' file.id %}" class="p-2">{{file.file}}</a>
     <a href="{% url 'delete_file' file.id %}?generated=True" class="btn btn-danger btn-sm">Delete</a><br>
-    <!-- <a href="{% url 'import_and_merge' file.id %}" class="btn btn-primary">Import File fake</a>
-    <a href="{% url 'add_data' file.id %}" class="btn btn-warning">Import File</a> -->
+   
     {% endfor %}
 
   </div>

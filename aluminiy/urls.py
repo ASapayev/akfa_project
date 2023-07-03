@@ -22,4 +22,6 @@ path('razlovka-simple',views.razlovka_save,name='razlovka_save'),
 
 
 path('upload-product-org',views.upload_product_org,name='upload_product_org'),
+path('aluminiy-files-org',views.aluminiy_files_org,name='aluminiy_files_org'),
+path('alum/add/<int:id>',views.product_add_second_org,name='aluminiy_add_org'),
 ]

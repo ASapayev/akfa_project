@@ -38,7 +38,7 @@ def work_wast(request):
         'form':form,
         'section':'Деловой отход'
       }
-  return render(request,'for_downloads/main.html',context)
+  return render(request,'universal/main.html',context)
 
 
 
@@ -352,7 +352,6 @@ def file_upload(request):
   return render(request,'excel_form.html',context)
 
 def file_upload_org(request):
-  print(request)
   if request.method == 'POST':
     form = FileForm(request.POST, request.FILES)
     if form.is_valid():
@@ -727,10 +726,11 @@ def lenght_generate_org(request,id):
   file_ids  = counter_generated_data(new_liss,data_type)
   files = ExcelFiles.objects.filter(id__in=file_ids)
   context={
-    'files':files
+    'files':files,
+    'section':'Деловой отход файлы'
   }
 
-  return render(request,'delovoy_otxod/generated_files.html',context)
+  return render(request,'universal/generated_files.html',context)
 
 
 def delete_file(request,id):
@@ -777,5 +777,9 @@ def home(request):
 @register.filter(name='split_text')
 def split_text(value):
     txt =str(value)
-    print(txt) 
-    return txt.split('\\')[-1]
+    if '\\' in txt: 
+      return txt.split('\\')[-1]
+    elif '/' in txt:
+      return txt.split('/')[-1]
+    else:
+      return txt
