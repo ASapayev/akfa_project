@@ -2800,13 +2800,14 @@ def product_add_second_org(request,id):
                   try:
                         os.remove(path_not_exists)
                   except:
-                        return render(request,'utils/file_exist.html')
+                        return render(request,'utils/file_exist_org.html')
             
             writer = pd.ExcelWriter(path_not_exists, engine='xlsxwriter')
             df_char_utils_one.to_excel(writer,index=False,sheet_name ='character utils one')
             df_char_utils_two.to_excel(writer,index=False,sheet_name ='character utils two')
             df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
             writer.close()
+
             return render(request,'termo/check_for_correct.html',context)
       ################### group by#########
       aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
