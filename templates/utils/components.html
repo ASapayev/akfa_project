@@ -154,117 +154,362 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Артикул</th>
-                        <th scope="col">Полый или фасонный</th>
-                        <th scope="col">Действие</th>
+                        <th scope="col">Компонент</th>
+                        <th scope="col">Серия</th>
+                        <th scope="col">Старый код Benkam</th>
+                        <th scope="col">Старый код</th>
+                        <th scope="col">Old Product Description</th>
+                        <th scope="col">Product description</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {%for char in BazaProfile  %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td id='artikul{{ forloop.counter }}' class ='new_char' >{{char}}</td>
-                        <td>
-                            <select class="form-select form-select-sm"style='width:35%' aria-label="Default select example" id="sel{{ forloop.counter }}">
-                                <option selected value='Default' >Default</option>
-                                <option value="Полый">Полый</option>
-                                <option value="Фасонный">Фасонный</option>    
-                            </select>
-                        </td>
-                    <td>
-                        <div class="badge badge-outline-success">Approved</div>
-                    </td>
+                        <td class ='new_char_two' ><input type='text'  id ='artikultwo{{forloop.counter}}' value='{{char}}' required></td>
+                        <td ><input type='text'  id ='komponent{{forloop.counter}}' value='{{char}}' required></td>
+                        <td ><input type='text'  id ='seria{{forloop.counter}}'  required></td>
+                        <td ><input type='text'  id ='stariykodbenkam{{forloop.counter}}'  required></td>
+                        <td ><input type='text'  id ='stariykod{{forloop.counter}}'  required></td>
+                        <td ><input type='text'  id ='oldprodesc{{forloop.counter}}'  required></td>
+                        <td ><input type='text'  id ='prodesc{{forloop.counter}}'  required></td>
                     </tr>
-                    <tr>
-                    <td>
-                        <div class="form-check form-check-muted m-0">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input">
-                        </label>
-                        </div>
-                    </td>
-                    <td>
-                        <img src="assets/images/faces/face2.jpg" alt="image" />
-                        <span class="pl-2">Estella Bryan</span>
-                    </td>
-                    <td> 02312 </td>
-                    <td> $14,500 </td>
-                    <td> Website </td>
-                    <td> Cash on delivered </td>
-                    <td> 04 Dec 2019 </td>
-                    <td>
-                        <div class="badge badge-outline-warning">Pending</div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                        <div class="form-check form-check-muted m-0">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input">
-                        </label>
-                        </div>
-                    </td>
-                    <td>
-                        <img src="assets/images/faces/face5.jpg" alt="image" />
-                        <span class="pl-2">Lucy Abbott</span>
-                    </td>
-                    <td> 02312 </td>
-                    <td> $14,500 </td>
-                    <td> App design </td>
-                    <td> Credit card </td>
-                    <td> 04 Dec 2019 </td>
-                    <td>
-                        <div class="badge badge-outline-danger">Rejected</div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                        <div class="form-check form-check-muted m-0">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input">
-                        </label>
-                        </div>
-                    </td>
-                    <td>
-                        <img src="assets/images/faces/face3.jpg" alt="image" />
-                        <span class="pl-2">Peter Gill</span>
-                    </td>
-                    <td> 02312 </td>
-                    <td> $14,500 </td>
-                    <td> Development </td>
-                    <td> Online Payment </td>
-                    <td> 04 Dec 2019 </td>
-                    <td>
-                        <div class="badge badge-outline-success">Approved</div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                        <div class="form-check form-check-muted m-0">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input">
-                        </label>
-                        </div>
-                    </td>
-                    <td>
-                        <img src="assets/images/faces/face4.jpg" alt="image" />
-                        <span class="pl-2">Sallie Reyes</span>
-                    </td>
-                    <td> 02312 </td>
-                    <td> $14,500 </td>
-                    <td> Website </td>
-                    <td> Credit card </td>
-                    <td> 04 Dec 2019 </td>
-                    <td>
-                        <div class="badge badge-outline-success">Approved</div>
-                    </td>
-                    </tr>
+                {% endfor %}
                 </tbody>
                 </table>
             </div>
-            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='baza_profiley()'>btn-lg</button>
+            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='baza_profiley()'>Готов</button>
             </div>
         </div>
         </div>
     </div>
     {% endif %}
 </div>
+<script>
+function artikul_component(){
+
+    var new_char = document.querySelectorAll('.new_char_five');
+    var artikul,komponent,seria,product_description_ru,product_description_ru2,startiy_kod_bekam,stariy_code_jomiy,proverka_artikul2;
+    var proverka_component2,gruppa_materialov,gruppa_materialov2
+
+    var default_exists = false;
+    var elements =[];
+
+    for(let i=1; i < new_char.length+1; i++){
+        artikul = document.getElementById('artikulfive' + i.toString()).value;
+        komponent = document.getElementById('komponentfive' + i.toString()).value;
+        seria = document.getElementById('seriafive' + i.toString()).value;
+        product_description_ru = document.getElementById('productdescru' + i.toString()).value;
+        proverka_artikul2 = document.getElementById('proverkaartikultwo' + i.toString()).value;
+        proverka_component2 = document.getElementById('proverkacomponenttwo' + i.toString()).value;
+        gruppa_materialov = document.getElementById('groupmaterial' + i.toString()).value;
+        gruppa_materialov2 = document.getElementById('groupmaterialtwo' + i.toString()).value;
+        product_description_ru2 = document.getElementById('productdescrutwo' + i.toString()).value;
+        startiy_kod_bekam = document.getElementById('stariykodbenkamtwo' + i.toString()).value;
+        stariy_code_jomiy = document.getElementById('stariykodjomiytwo' + i.toString()).value;
+        
+        
+        if (artikul ==''){
+          default_exists = true;
+          break
+          }
+        if (komponent ==''){
+          default_exists = true;
+          break
+          }
+        
+        
+        var element ={
+              'artikul':artikul,
+              'komponent':komponent,
+              'seria':seria,
+              'product_description_ru':product_description_ru,
+              'proverka_artikul2':proverka_artikul2,
+              'proverka_component2':proverka_component2,
+              'gruppa_materialov':gruppa_materialov,
+              'gruppa_materialov2':gruppa_materialov2,
+              'product_description_ru2':product_description_ru2,
+              'startiy_kod_bekam':startiy_kod_bekam,
+              'stariy_code_jomiy':stariy_code_jomiy 
+          }
+        elements.push(element);
+          
+        }
+
+        if (default_exists){
+          Swal.fire({
+              title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
+              showDenyButton: true,
+            })
+          }else{
+            var myJsonelements = JSON.stringify(elements);
+
+            $.ajax({
+                method: "POST",
+                url: "{% url 'artikul_component_aluminiy' %}",
+                data: {"data":myJsonelements}
+              }).done(function( msg ) {
+                if (msg.saved ==true){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Successfuly saved!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                    var btn = document.getElementById('char_four');
+                    btn.setAttribute('disabled','True');
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!'
+                          })
+
+                    }
+                });
+        }        
+}
+function baza_profiley(){
+    var new_char = document.querySelectorAll('.new_char_two');
+    var komponent, artikul,seria,startiy_kod_bekam,stariykod,oldprod_des,prodesc;
+    var default_exists = false;
+    var elements =[];
+
+    for(let i=1; i < new_char.length+1; i++){
+        komponent = document.getElementById('komponent' + i.toString()).value;
+        artikul = document.getElementById('artikultwo' + i.toString()).value;
+        seria = document.getElementById('seria' + i.toString()).value;
+        startiy_kod_bekam = document.getElementById('stariykodbenkam' + i.toString()).value;
+        stariykod = document.getElementById('stariykod' + i.toString()).value;
+        oldprod_des = document.getElementById('oldprodesc' + i.toString()).value;
+        prodesc = document.getElementById('prodesc' + i.toString()).value;
+        
+        if (komponent ==''){
+          default_exists = true;
+          break
+          }
+        if (artikul ==''){
+          default_exists = true;
+          break
+          }
+        if (seria ==''){
+          default_exists = true;
+          break
+          }
+        if (startiy_kod_bekam ==''){
+          default_exists = true;
+          break
+          }
+        if (stariykod ==''){
+          default_exists = true;
+          break
+          }
+        if (oldprod_des ==''){
+          default_exists = true;
+          break
+          }
+        if (prodesc ==''){
+          default_exists = true;
+          break
+          }
+        
+        var element ={
+              'komponent':komponent,
+              'artikul':artikul,
+              'seria':seria,
+              'startiy_kod_bekam':startiy_kod_bekam,
+              'stariykod':stariykod,
+              'oldprod_des':oldprod_des,
+              'prodesc':prodesc,
+          }
+        elements.push(element);
+          
+        }
+
+        if (default_exists){
+          Swal.fire({
+              title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
+              showDenyButton: true,
+            })
+          }else{
+            var myJsonelements = JSON.stringify(elements);
+
+            $.ajax({
+                method: "POST",
+                url: "{% url 'baza_profile_simple' %}",
+                data: {"data":myJsonelements}
+              }).done(function( msg ) {
+                if (msg.saved ==true){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Successfuly saved!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                    var btn = document.getElementById('char_three');
+                    btn.setAttribute('disabled','True');
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!'
+                          })
+
+                    }
+                });
+        }        
+}
+
+function create_new_char_one(){
+    var new_char = document.querySelectorAll('.new_char_one');
+    var matritsa, artikul,heigth,width,height_and_width,systems;
+    var default_exists = false;
+    var elements =[];
+
+    for(let i=1; i < new_char.length+1; i++){
+        matritsa = document.getElementById('matritsa' + i.toString()).value;
+        artikul = document.getElementById('artikulone' + i.toString()).value;
+        heigth = document.getElementById('height' + i.toString()).value;
+        width = document.getElementById('width' + i.toString()).value;
+        height_and_width = document.getElementById('height_and_width' + i.toString()).value;
+        systems = document.getElementById('systems' + i.toString()).value;
+        
+        if (matritsa ==''){
+          default_exists = true;
+          break
+          }
+        if (artikul ==''){
+          default_exists = true;
+          break
+          }
+        if (heigth ==''){
+          default_exists = true;
+          break
+          }
+        if (width ==''){
+          default_exists = true;
+          break
+          }
+        if (height_and_width ==''){
+          default_exists = true;
+          break
+          }
+        if (systems ==''){
+          default_exists = true;
+          break
+          }
+        
+        var element ={
+              'matritsa':matritsa,
+              'artikul':artikul,
+              'heigth':heigth,
+              'width':width,
+              'height_and_width':height_and_width,
+              'systems':systems,
+          }
+        elements.push(element);
+          
+        }
+
+        if (default_exists){
+          Swal.fire({
+              title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
+              showDenyButton: true,
+            })
+          }else{
+            var myJsonelements = JSON.stringify(elements);
+
+            $.ajax({
+                method: "POST",
+                url: "{% url 'add_char_utils_one_simple' %}",
+                data: {"data":myJsonelements}
+              }).done(function( msg ) {
+                if (msg.saved ==true){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Successfuly saved!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                    var btn = document.getElementById('char_one');
+                    btn.setAttribute('disabled','True');
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!'
+                          })
+
+                    }
+                });
+        }        
+}
+
+function create_new_char_two(){
+    var new_char = document.querySelectorAll('.new_char');
+
+    var selection, value,text,artikul;
+
+    var default_exists = false;
+    var elements =[];
+
+    for(let i=1; i < new_char.length+1; i++){
+        artikul = document.getElementById('artikul' + i.toString());
+        selection = document.getElementById('sel' + i.toString());
+        value = selection.value
+        text = selection.options[selection.selectedIndex].text;
+        if (text =='Default'){
+            default_exists = true;
+            break
+        }
+        var element ={
+            'artikul':artikul.innerText,
+            'selection':text
+        }
+        if (elements.includes(element)){
+            continue
+        }else{
+            elements.push(element);
+        }
+        
+    }
+    if (default_exists){
+        Swal.fire({
+            title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
+            showDenyButton: true,
+          })
+    }else{
+        var myJsonelements = JSON.stringify(elements);
+
+        $.ajax({
+            method: "POST",
+            url: "{% url 'add_char_utils_two_simple' %}",
+            data: {"data":myJsonelements}
+          }).done(function( msg ) {
+            if (msg.saved ==true){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Successfuly saved!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                var btn = document.getElementById('char_two');
+                btn.setAttribute('disabled','True');
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+                      })
+
+                }
+            });
+    }
+    
+}
+</script>
 {% endblock %}

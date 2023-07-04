@@ -345,7 +345,7 @@ def product_add_second(request,id):
                   'компонент':['' for i in doesnotexist[2]],
                   'product_description':['' for i in doesnotexist[2]]
             })
-            ArtikulComponent
+            
             df_artikul_component =pd.DataFrame({
                   'artikul':doesnotexist[3],
                   'component':doesnotexist[3],
@@ -2237,7 +2237,7 @@ def product_add_second_org(request,id):
                   'компонент':['' for i in doesnotexist[2]],
                   'product_description':['' for i in doesnotexist[2]]
             })
-            ArtikulComponent
+          
             df_artikul_component =pd.DataFrame({
                   'artikul':doesnotexist[3],
                   'component':doesnotexist[3],

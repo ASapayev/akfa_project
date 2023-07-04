@@ -4,7 +4,6 @@ from .models import ExcelFilesImzo,ImzoBase,TexCartaTime
 from config.settings import MEDIA_ROOT
 import pandas as pd
 from .BAZA import BAZA
-from aluminiy.models import ArtikulComponent,RazlovkaTermo
 from aluminiytermo.models import Characteristika
 import os
 from .utils import create_folder
