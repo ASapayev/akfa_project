@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import pandas as pd
-from .models import ArtikulComponent,AluminiyProduct,AluFile,AluminiyProductBasesimple,RazlovkaObichniy
+from .models import ArtikulComponent,AluminiyProduct,AluFile,RazlovkaObichniy
 from aluminiytermo.models import AluminiyProductTermo
 from aluminiytermo.views import File
 from .forms import FileForm
