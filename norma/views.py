@@ -490,8 +490,6 @@ def kombinirovaniy_process(request,id):
                     if '-P' in t:
                         kraska_code = fullsapkod[i*2+1].split()[-1]
                         if kraska_code!='MF':
-                            if (('8001' in kraska_code) or ('7042' in kraska_code) or ('8024' in kraska_code) or ('8003' in kraska_code)):
-                                kraska_code =kraska_code.replace('A','R')
                             if kraska_code[1:] not in kraska_list:
                                 isklyucheniye_ids.append(k) 
                                 if kraska_code not in  kraska:                                  
