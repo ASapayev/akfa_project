@@ -25,7 +25,7 @@
                     <th>Продукт описания Ru 2</th>
                     <th>Старый код Benkam</th>
                     <th>Старый код Jomiy</th>
-                    <th>Действие</th>
+                   
                 </tr>
               </thead>
               <tbody>
@@ -36,25 +36,22 @@
                     </td>
                     <td class ='new_char_five' ><input type='text'  id ='artikulfive{{forloop.counter}}' value='{{char}}' required></td>
                     <td ><input type='text'  id ='komponentfive{{forloop.counter}}' required></td>
-                    <td ><input type='text'  id ='seriafive{{forloop.counter}}'  required></td>
-                    <td ><input type='text'  id ='productdescru{{forloop.counter}}'  required></td>
-                    <td ><input type='text'  id ='proverkaartikultwo{{forloop.counter}}'  required></td>
-                    <td ><input type='text'  id ='proverkacomponenttwo{{forloop.counter}}'  required></td>
-                    <td ><input type='text'  id ='groupmaterial{{forloop.counter}}'  required></td>
-                    <td ><input type='text'  id ='groupmaterialtwo{{forloop.counter}}'  required></td>
-                    <td ><input type='text'  id ='productdescrutwo{{forloop.counter}}'  required></td>
-                    <td ><input type='text'  id ='stariykodbenkamtwo{{forloop.counter}}'  required></td>
-                    <td ><input type='text'  id ='stariykodjomiytwo{{forloop.counter}}'  required></td>
-                  <td>
-                    <div class="badge badge-outline-success">Approved</div>
-                  </td>
+                    <td ><input type='text'  id ='seriafive{{forloop.counter}}' style="width: 75px;" required></td>
+                    <td ><input type='text'  id ='productdescru{{forloop.counter}}' style="width: 75px;"required></td>
+                    <td ><input type='text'  id ='proverkaartikultwo{{forloop.counter}}' style="width: 75px;" required></td>
+                    <td ><input type='text'  id ='proverkacomponenttwo{{forloop.counter}}'  style="width: 75px;" required></td>
+                    <td ><input type='text'  id ='groupmaterial{{forloop.counter}}' style="width: 75px;" required></td>
+                    <td ><input type='text'  id ='groupmaterialtwo{{forloop.counter}}' style="width: 75px;" required></td>
+                    <td ><input type='text'  id ='productdescrutwo{{forloop.counter}}'  style="width: 75px;" required></td>
+                    <td ><input type='text'  id ='stariykodbenkamtwo{{forloop.counter}}' style="width: 75px;" required></td>
+                    <td ><input type='text'  id ='stariykodjomiytwo{{forloop.counter}}' style="width: 75px;" required></td>
                 </tr>
                 {% endfor %}
                 
               </tbody>
             </table>
         </div>
-        <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='artikul_component()'>btn-lg</button>
+        <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='artikul_component()'>Готов</button>
         </div>
       </div>
     </div>
@@ -80,23 +77,24 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {%for char in CharUtilsOne%}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td  class ='new_char_one' ><input type='text' id ='matritsa{{forloop.counter}}' value='{{char}}'></td>
                         <td ><input type='text' name='artikulone' id ='artikulone{{forloop.counter}}' value='{{char}}' ></td>
-                        <td><input type='text' name='height' id ='height{{forloop.counter}}' placeholder='Enter height...' ></td>
-                        <td><input type='text' name='width' id='width{{forloop.counter}}' placeholder='Enter width...'></td>
-                        <td><input type='text' name='height_and_width' id ='height_and_width{{forloop.counter}}' placeholder='Enter height and width...'></td>
+                        <td><input type='text' name='height' id ='height{{forloop.counter}}' style="width: 50px;" placeholder='height...' ></td>
+                        <td><input type='text' name='width' id='width{{forloop.counter}}' style="width: 50px;" placeholder='width...'></td>
+                        <td><input type='text' name='height_and_width' id ='height_and_width{{forloop.counter}}'style="width: 50px;" placeholder='...'></td>
                         <td><input type='text'name='systems' id ='systems{{forloop.counter}}' placeholder='Enter systems...'></td>
                         <td>
                             <div class="badge badge-outline-danger">Remove</div>
                         </td>
                     </tr>
-                    
+                    {% endfor%}
                 </tbody>
                 </table>
             </div>
-            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_one()'>btn-lg</button>
+            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_one()'>Готов</button>
             </div>
         </div>
         </div>
@@ -112,132 +110,33 @@
                 <table class="table">
                 <thead>
                     <tr>
-                    <th>
-                        <div class="form-check form-check-muted m-0">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input">
-                        </label>
-                        </div>
-                    </th>
-                    <th> Client Name </th>
-                    <th> Order No </th>
-                    <th> Product Cost </th>
-                    <th> Project </th>
-                    <th> Payment Mode </th>
-                    <th> Start Date </th>
-                    <th> Payment Status </th>
+                        <th scope="col">#</th>
+                        <th scope="col">Артикул</th>
+                        <th scope="col">Полый или фасонный</th>
+                        <th scope="col">Действие</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {%for char in CharUtilsTwo  %}
                     <tr>
-                    <td>
-                        <div class="form-check form-check-muted m-0">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input">
-                        </label>
-                        </div>
-                    </td>
-                    <td>
-                        <img src="assets/images/faces/face1.jpg" alt="image" />
-                        <span class="pl-2">Henry Klein</span>
-                    </td>
-                    <td> 02312 </td>
-                    <td> $14,500 </td>
-                    <td> Dashboard </td>
-                    <td> Credit card </td>
-                    <td> 04 Dec 2019 </td>
-                    <td>
-                        <div class="badge badge-outline-success">Approved</div>
-                    </td>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td id='artikul{{ forloop.counter }}' class ='new_char' >{{char}}</td>
+                        <td>
+                            <select class="form-select form-select-sm"style='width:35%' aria-label="Default select example" id="sel{{ forloop.counter }}">
+                                <option selected value='Default' >Default</option>
+                                <option value="Полый">Полый</option>
+                                <option value="Фасонный">Фасонный</option>    
+                            </select>
+                        </td>
+                        <td>
+                            <div class="badge badge-outline-success">Approved</div>
+                        </td>
                     </tr>
-                    <tr>
-                    <td>
-                        <div class="form-check form-check-muted m-0">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input">
-                        </label>
-                        </div>
-                    </td>
-                    <td>
-                        <img src="assets/images/faces/face2.jpg" alt="image" />
-                        <span class="pl-2">Estella Bryan</span>
-                    </td>
-                    <td> 02312 </td>
-                    <td> $14,500 </td>
-                    <td> Website </td>
-                    <td> Cash on delivered </td>
-                    <td> 04 Dec 2019 </td>
-                    <td>
-                        <div class="badge badge-outline-warning">Pending</div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                        <div class="form-check form-check-muted m-0">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input">
-                        </label>
-                        </div>
-                    </td>
-                    <td>
-                        <img src="assets/images/faces/face5.jpg" alt="image" />
-                        <span class="pl-2">Lucy Abbott</span>
-                    </td>
-                    <td> 02312 </td>
-                    <td> $14,500 </td>
-                    <td> App design </td>
-                    <td> Credit card </td>
-                    <td> 04 Dec 2019 </td>
-                    <td>
-                        <div class="badge badge-outline-danger">Rejected</div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                        <div class="form-check form-check-muted m-0">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input">
-                        </label>
-                        </div>
-                    </td>
-                    <td>
-                        <img src="assets/images/faces/face3.jpg" alt="image" />
-                        <span class="pl-2">Peter Gill</span>
-                    </td>
-                    <td> 02312 </td>
-                    <td> $14,500 </td>
-                    <td> Development </td>
-                    <td> Online Payment </td>
-                    <td> 04 Dec 2019 </td>
-                    <td>
-                        <div class="badge badge-outline-success">Approved</div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                        <div class="form-check form-check-muted m-0">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input">
-                        </label>
-                        </div>
-                    </td>
-                    <td>
-                        <img src="assets/images/faces/face4.jpg" alt="image" />
-                        <span class="pl-2">Sallie Reyes</span>
-                    </td>
-                    <td> 02312 </td>
-                    <td> $14,500 </td>
-                    <td> Website </td>
-                    <td> Credit card </td>
-                    <td> 04 Dec 2019 </td>
-                    <td>
-                        <div class="badge badge-outline-success">Approved</div>
-                    </td>
-                    </tr>
+                    {% endfor%}
                 </tbody>
                 </table>
             </div>
-            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_two()'>btn-lg</button>
+            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_two()'>Готов</button>
             </div>
         </div>
         </div>

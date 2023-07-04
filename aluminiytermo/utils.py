@@ -1420,8 +1420,8 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             for j in HEADER:
                 dd2[4].append(j)
             
-            dd2[4].append('XXXXXXXXXX')
-            dd2[4].append('XXXXXXXXXX')
+            dd2[4].append('COATING_QBIC')
+            dd2[4].append('LOBM_LWEDT')
 
             dd2[5].append('')
             dd2[5].append('')
@@ -1485,7 +1485,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 
             for j in HEADER:
                 dd2[4].append(j)
-            dd2[4].append('XXXXXXXXXX')
+            dd2[4].append('LOBM_LWEDT')
 
             dd2[5].append('')
             dd2[5].append('')
@@ -2502,6 +2502,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                         dd2[1].append('RAWMAT_TYPE')
                     elif HEADER2[j] =='TNVED':
                         dd2[1].append('TNVED')
+            dd2[1].append('ZPP_023_HALB')
                 
             for j in range(0,31):
                 dd2[2].append('MARA')
@@ -2511,6 +2512,8 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 
             for j in HEADER2:
                 dd2[4].append(j)
+            dd2[4].append('LOBM_LWEDT')
+
 
             dd2[5].append('')
             dd2[5].append('')
@@ -2550,6 +2553,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
+            dd2[5].append('XXXXXXXXXX')
         else:
             row['ch_tnved'] =str(row['ch_tnved']).replace('.0','')
             row['ch_outer_side_pc_id'] =str(row['ch_outer_side_pc_id']).replace('.0','')
@@ -2576,6 +2580,12 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                     elif HEADER[j] =='TNVED':
                         dd2[1].append('TNVED')
                 
+            if '-7' in row['SAP код S4P 100']:
+                dd2[1].append('QBIC')
+                dd2[1].append('ZPP_023_FERT')
+            else:
+                dd2[1].append('ZPP_023_HALB')
+
             for j in range(0,32):
                 dd2[2].append('MARA')
                 
@@ -2584,6 +2594,12 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 
             for j in HEADER:
                 dd2[4].append(j)
+
+            if '-7' in row['SAP код S4P 100']:
+                dd2[4].append('COATING_QBIC')
+                dd2[4].append('LOBM_LWEDT')
+            else:
+                dd2[4].append('LOBM_LWEDT')
 
             dd2[5].append('')
             dd2[5].append('')
@@ -2624,7 +2640,12 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
-    
+            if '-7' in row['SAP код S4P 100']:
+                dd2[5].append('XXXXXXXXXX')
+                dd2[5].append('XXXXXXXXXX')
+            else:
+                dd2[5].append('XXXXXXXXXX')
+
     new_date={}       
     new_date['Вид класса'] = dd2[0]
     new_date['Класс'] = dd2[1]
@@ -2637,6 +2658,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
+    ddf2 =ddf2.replace('XXXXXXXXXX','')
     ddf2.to_excel(pathtext6,index=False)
     path_1101 = characteristika_created_txt_create_1101(datas,file_name)
     return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8] ,path_1101
