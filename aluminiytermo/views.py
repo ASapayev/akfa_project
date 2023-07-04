@@ -3291,7 +3291,7 @@ def product_add_second_org(request,id):
                                                 else:
                                                       surface_treatment_export = svet_lam_plenke_POL[row['Цвет лам пленки снаружи']]
                                           
-                                    print(f"Ukrat1 tip pokr {row['Тип покрытия']}")
+                                   
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
@@ -3361,7 +3361,7 @@ def product_add_second_org(request,id):
                                     if row['Тип покрытия'].lower() =='неокрашенный':
                                           surface_treatment_export ='Неокрашенный'
                                     elif ((row['Тип покрытия'].lower() =='окрашенный') or (row['Тип покрытия'].lower() =='белый')):
-                                          surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']] + row['Код краски снаружи']
+                                          surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']] +' ' + row['Код краски снаружи']
                                     elif row['Тип покрытия'].lower() =='сублимированный':
                                           surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
                                     elif row['Тип покрытия'].lower() =='анодированный':
@@ -3715,7 +3715,6 @@ def product_add_second_org(request,id):
                                                       }
                                                 )
             elif  component !='nan':
-                  print('komponenttttttt')
                   dlina =''
             
                   if df['Длина при выходе из пресса'][key] != 'nan':

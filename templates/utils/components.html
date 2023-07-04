@@ -187,13 +187,8 @@
 </div>
 <script>
 
-// var heigth = document.getElementById("fname").addEventListener("change", myFunction);
-// var width = document.getElementById("fname").addEventListener("change", myFunction);
 
-// function myFunction() {
-//   var x = document.getElementById("fname");
-//   x.value = x.value.toUpperCase();
-// }
+
 function excel_file_load(){
 
     document.body.style.cursor='wait';
@@ -364,7 +359,7 @@ function baza_profiley(){
 
 function create_new_char_one(){
     var new_char = document.querySelectorAll('.new_char_one');
-    var matritsa, artikul,heigth,width,height_and_width,systems;
+    var matritsa, artikul,heigth,width,systems;
     var default_exists = false;
     var elements =[];
 
@@ -373,18 +368,9 @@ function create_new_char_one(){
         artikul = document.getElementById('artikulone' + i.toString()).value;
         heigth = document.getElementById('height' + i.toString()).value;
         width = document.getElementById('width' + i.toString()).value;
-
-        height_and_width = document.getElementById('height_and_width' + i.toString()).value;
         systems = document.getElementById('systems' + i.toString()).value;
         
-        if (matritsa ==''){
-          default_exists = true;
-          break
-          }
-        if (artikul ==''){
-          default_exists = true;
-          break
-          }
+        
         if (heigth ==''){
           default_exists = true;
           break
@@ -393,14 +379,7 @@ function create_new_char_one(){
           default_exists = true;
           break
           }
-        if (height_and_width ==''){
-          default_exists = true;
-          break
-          }
-        if (systems ==''){
-          default_exists = true;
-          break
-          }
+        
         
         var element ={
               'matritsa':matritsa,
