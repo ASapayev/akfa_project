@@ -134,9 +134,7 @@ class CharacteristicTitle(models.Model):
 class BazaProfiley(models.Model):
     артикул =models.CharField(max_length=255,blank=True,null=True)
     серия =models.CharField(max_length=255,blank=True,null=True)
-    старый_код_benkam =models.CharField(max_length=255,blank=True,null=True)
     старый_код =models.CharField(max_length=255,blank=True,null=True)
-    old_product_description =models.CharField(max_length=255,blank=True,null=True)
     компонент =models.CharField(max_length=255,blank=True,null=True)
     product_description =models.CharField(max_length=255,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)

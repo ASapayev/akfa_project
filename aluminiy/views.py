@@ -4293,7 +4293,7 @@ def baza_profile(request):
 def artikul_component(request):
       data = request.POST.get('data',None)
       if data:
-            items = [ArtikulComponent(artikul =item['artikul'],component =item['komponent'],seria=item['seria'],product_description_ru1=item['product_description_ru2'],product_description_ru=item['product_description_ru'],stariy_code_benkam=item['startiy_kod_bekam'],stariy_code_jomiy=item['stariy_code_jomiy'],proverka_artikul2=item['proverka_artikul2'],proverka_component2=item['proverka_component2'],gruppa_materialov=item['gruppa_materialov'],gruppa_materialov2=item['gruppa_materialov2']) for item in ast.literal_eval(data)]
+            items = [ArtikulComponent(artikul =item['artikul'],component =item['komponent']) for item in ast.literal_eval(data)]
             ArtikulComponent.objects.bulk_create(items)
             return JsonResponse({'saved':True})
       else:

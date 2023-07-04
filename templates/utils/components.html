@@ -16,15 +16,6 @@
                     <th>#</th>  
                     <th>Артикул</th>
                     <th>Компонент</th>
-                    <th>Серия</th>
-                    <th>Продукт описания ru</th>
-                    <th>Проверка Артикул 2</th>
-                    <th>Проверка компонент 2</th>
-                    <th>Группа материалов</th>
-                    <th>Группа материалов 2</th>
-                    <th>Продукт описания Ru 2</th>
-                    <th>Старый код Benkam</th>
-                    <th>Старый код Jomiy</th>
                    
                 </tr>
               </thead>
@@ -36,15 +27,6 @@
                     </td>
                     <td class ='new_char_five' ><input type='text'  id ='artikulfive{{forloop.counter}}' value='{{char}}' required></td>
                     <td ><input type='text'  id ='komponentfive{{forloop.counter}}' required></td>
-                    <td ><input type='text'  id ='seriafive{{forloop.counter}}' style="width: 75px;" required></td>
-                    <td ><input type='text'  id ='productdescru{{forloop.counter}}' style="width: 75px;"required></td>
-                    <td ><input type='text'  id ='proverkaartikultwo{{forloop.counter}}' style="width: 75px;" required></td>
-                    <td ><input type='text'  id ='proverkacomponenttwo{{forloop.counter}}'  style="width: 75px;" required></td>
-                    <td ><input type='text'  id ='groupmaterial{{forloop.counter}}' style="width: 75px;" required></td>
-                    <td ><input type='text'  id ='groupmaterialtwo{{forloop.counter}}' style="width: 75px;" required></td>
-                    <td ><input type='text'  id ='productdescrutwo{{forloop.counter}}'  style="width: 75px;" required></td>
-                    <td ><input type='text'  id ='stariykodbenkamtwo{{forloop.counter}}' style="width: 75px;" required></td>
-                    <td ><input type='text'  id ='stariykodjomiytwo{{forloop.counter}}' style="width: 75px;" required></td>
                 </tr>
                 {% endfor %}
                 
@@ -189,8 +171,7 @@
 function artikul_component(){
 
     var new_char = document.querySelectorAll('.new_char_five');
-    var artikul,komponent,seria,product_description_ru,product_description_ru2,startiy_kod_bekam,stariy_code_jomiy,proverka_artikul2;
-    var proverka_component2,gruppa_materialov,gruppa_materialov2
+    var artikul,komponent;
 
     var default_exists = false;
     var elements =[];
@@ -198,16 +179,6 @@ function artikul_component(){
     for(let i=1; i < new_char.length+1; i++){
         artikul = document.getElementById('artikulfive' + i.toString()).value;
         komponent = document.getElementById('komponentfive' + i.toString()).value;
-        seria = document.getElementById('seriafive' + i.toString()).value;
-        product_description_ru = document.getElementById('productdescru' + i.toString()).value;
-        proverka_artikul2 = document.getElementById('proverkaartikultwo' + i.toString()).value;
-        proverka_component2 = document.getElementById('proverkacomponenttwo' + i.toString()).value;
-        gruppa_materialov = document.getElementById('groupmaterial' + i.toString()).value;
-        gruppa_materialov2 = document.getElementById('groupmaterialtwo' + i.toString()).value;
-        product_description_ru2 = document.getElementById('productdescrutwo' + i.toString()).value;
-        startiy_kod_bekam = document.getElementById('stariykodbenkamtwo' + i.toString()).value;
-        stariy_code_jomiy = document.getElementById('stariykodjomiytwo' + i.toString()).value;
-        
         
         if (artikul ==''){
           default_exists = true;
@@ -221,16 +192,7 @@ function artikul_component(){
         
         var element ={
               'artikul':artikul,
-              'komponent':komponent,
-              'seria':seria,
-              'product_description_ru':product_description_ru,
-              'proverka_artikul2':proverka_artikul2,
-              'proverka_component2':proverka_component2,
-              'gruppa_materialov':gruppa_materialov,
-              'gruppa_materialov2':gruppa_materialov2,
-              'product_description_ru2':product_description_ru2,
-              'startiy_kod_bekam':startiy_kod_bekam,
-              'stariy_code_jomiy':stariy_code_jomiy 
+              'komponent':komponent
           }
         elements.push(element);
           
