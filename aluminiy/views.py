@@ -4313,10 +4313,8 @@ def excel_does_not_exists_add(request):
             for key,row in df['character utils one'].iterrows():
                   items.append(CharUtilsOne(матрица =row['матрица'],артикул =row['артикул'],высота=row['высота'],ширина=row['ширина'],высота_ширина=row['высота_ширина'],systems=row['systems']))
             try:
-                  print(items)
                   CharUtilsOne.objects.bulk_create(items)
             except:
-                  print('character utils one')
                   all_correct =False
             
       
@@ -4334,17 +4332,16 @@ def excel_does_not_exists_add(request):
       items =[]
       if df['baza profile'].shape[0] > 0:
             for key,row in df['baza profile'].iterrows():
-                  items.append(BazaProfiley(компонент = row['компонент'],артикул = row['артикул'],серия= row['серия'],старый_код_benkam= row['старый_код_benkam'],старый_код= row['старый_код'],old_product_description= row['old_product_description'],product_description= row['product_description']))
+                  items.append(BazaProfiley(компонент = row['компонент'],артикул = row['артикул'],серия= row['серия'],старый_код= row['старый_код'],product_description= row['product_description']))
             try:
                   BazaProfiley.objects.bulk_create(items)
             except:
-                  print('baza profile')
                   all_correct =False
                   
       items =[]
       if df['artikul component'].shape[0] > 0:
             for key,row in df['artikul component'].iterrows():
-                  items.append(ArtikulComponent(artikul = row['artikul'],component = row['component'],seria= row['seria'],product_description_ru1= row['product_description_ru1'],product_description_ru= row['product_description_ru'],stariy_code_benkam= row['stariy_code_benkam'],stariy_code_jomiy= row['stariy_code_jomiy'],proverka_artikul2=row['proverka_artikul2'],proverka_component2=row['proverka_component2'],gruppa_materialov=row['gruppa_materialov'],gruppa_materialov2=row['gruppa_materialov2']))
+                  items.append(ArtikulComponent(artikul = row['artikul'],component = row['component']))
             try:
                   ArtikulComponent.objects.bulk_create(items)
             except:

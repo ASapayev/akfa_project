@@ -2656,13 +2656,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             else:
                 dd2[5].append('XXXXXXXXXX')
 
-    new_date={}     
-    print(len(dd2[0]))  
-    print(len(dd2[1]))  
-    print(len(dd2[2]))  
-    print(len(dd2[3]))  
-    print(len(dd2[4]))  
-    print(len(dd2[5]))  
+    new_date={}       
     new_date['Вид класса'] = dd2[0]
     new_date['Класс'] = dd2[1]
     new_date['Таблица'] = dd2[2]

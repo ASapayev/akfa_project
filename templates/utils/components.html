@@ -172,23 +172,14 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
             <div class="card-body">
-                
+                  <a href="" class="btn btn-outline-secondary btn-lg btn-block">Все готов</a>
             </div>
             </div>
         </div>
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Social button with text</h4>
-                <p class="card-description">Add class <code>.btn-social-icon-text</code></p>
-                <div class="template-demo">
-                <button type="button" class="btn btn-social-icon-text btn-facebook"><i class="mdi mdi-facebook"></i>Facebook</button>
-                <button type="button" class="btn btn-social-icon-text btn-youtube"><i class="mdi mdi-youtube"></i>Youtube</button>
-                <button type="button" class="btn btn-social-icon-text btn-twitter"><i class="mdi mdi-twitter"></i>Twitter</button>
-                <button type="button" class="btn btn-social-icon-text btn-dribbble"><i class="mdi mdi-dribbble"></i>Dribbble</button>
-                <button type="button" class="btn btn-social-icon-text btn-linkedin"><i class="mdi mdi-linkedin"></i>Linkedin</button>
-                <button type="button" class="btn btn-social-icon-text btn-google"><i class="mdi mdi-google-plus"></i>Google</button>
-                </div>
+                  <button type="button" onclick='excel_file_load()' class="btn btn-outline-secondary btn-lg btn-block">Скачать эксель файл</button>
             </div>
             </div>
         </div>
@@ -203,6 +194,34 @@
 //   var x = document.getElementById("fname");
 //   x.value = x.value.toUpperCase();
 // }
+function excel_file_load(){
+
+    document.body.style.cursor='wait';
+
+    $.ajax({
+        method: "POST",
+        url: "{% url 'excel_does_not_exists_add_simple' %}"
+        }).done(function( msg ) {
+        document.body.style.cursor='default';
+        if (msg.saved ==true){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Successfuly saved!',
+                showConfirmButton: false,
+                timer: 1500
+                })
+        
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!'
+                })
+
+        }
+    });
+}
 
 function artikul_component(){
 
