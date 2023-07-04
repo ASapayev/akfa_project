@@ -4283,7 +4283,7 @@ def add_char_utils_one(request):
 def baza_profile(request):
       data = request.POST.get('data',None)
       if data:
-            items = [BazaProfiley(компонент =item['komponent'],артикул =item['artikul'],серия=item['seria'],старый_код_benkam=item['startiy_kod_bekam'],старый_код=item['stariykod'],old_product_description=item['oldprod_des'],product_description=item['prodesc']) for item in ast.literal_eval(data)]
+            items = [BazaProfiley(компонент =item['komponent'],артикул =item['artikul'],серия=item['seria'],старый_код=item['stariykod'],product_description=item['prodesc']) for item in ast.literal_eval(data)]
             BazaProfiley.objects.bulk_create(items)
             return JsonResponse({'saved':True})
       else:

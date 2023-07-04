@@ -33,7 +33,7 @@
               </tbody>
             </table>
         </div>
-        <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='artikul_component()'>Готов</button>
+        <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='artikul_component()' id ='char_four'>Готов</button>
         </div>
       </div>
     </div>
@@ -56,6 +56,7 @@
                         <th>Ширина</th>
                         <th>Высота ширина</th>
                         <th>Systems</th>
+                        <th>Действие</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,7 +77,7 @@
                 </tbody>
                 </table>
             </div>
-            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_one()'>Готов</button>
+            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_one()' id ='char_one'>Готов</button>
             </div>
         </div>
         </div>
@@ -95,7 +96,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Артикул</th>
                         <th scope="col">Полый или фасонный</th>
-                        <th scope="col">Действие</th>
+                        <th>Действие</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -111,14 +112,14 @@
                             </select>
                         </td>
                         <td>
-                            <div class="badge badge-outline-success">Approved</div>
+                            <div class="badge badge-outline-danger">Remove</div>
                         </td>
                     </tr>
                     {% endfor%}
                 </tbody>
                 </table>
             </div>
-            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_two()'>Готов</button>
+            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_two()' id ='char_two'>Готов</button>
             </div>
         </div>
         </div>
@@ -138,10 +139,10 @@
                         <th scope="col">Артикул</th>
                         <th scope="col">Компонент</th>
                         <th scope="col">Серия</th>
-                        <th scope="col">Старый код Benkam</th>
                         <th scope="col">Старый код</th>
-                        <th scope="col">Old Product Description</th>
                         <th scope="col">Product description</th>
+                        <th scope="col">Действие</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -151,23 +152,58 @@
                         <td class ='new_char_two' ><input type='text'  id ='artikultwo{{forloop.counter}}' value='{{char}}' required></td>
                         <td ><input type='text'  id ='komponent{{forloop.counter}}' value='{{char}}' required></td>
                         <td ><input type='text'  id ='seria{{forloop.counter}}'  required></td>
-                        <td ><input type='text'  id ='stariykodbenkam{{forloop.counter}}'  required></td>
                         <td ><input type='text'  id ='stariykod{{forloop.counter}}'  required></td>
-                        <td ><input type='text'  id ='oldprodesc{{forloop.counter}}'  required></td>
                         <td ><input type='text'  id ='prodesc{{forloop.counter}}'  required></td>
+                        <td>
+                            <div class="badge badge-outline-danger">Remove</div>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
                 </table>
             </div>
-            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='baza_profiley()'>Готов</button>
+            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='baza_profiley()' id ='char_three'>Готов</button>
             </div>
         </div>
         </div>
     </div>
     {% endif %}
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                
+            </div>
+            </div>
+        </div>
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Social button with text</h4>
+                <p class="card-description">Add class <code>.btn-social-icon-text</code></p>
+                <div class="template-demo">
+                <button type="button" class="btn btn-social-icon-text btn-facebook"><i class="mdi mdi-facebook"></i>Facebook</button>
+                <button type="button" class="btn btn-social-icon-text btn-youtube"><i class="mdi mdi-youtube"></i>Youtube</button>
+                <button type="button" class="btn btn-social-icon-text btn-twitter"><i class="mdi mdi-twitter"></i>Twitter</button>
+                <button type="button" class="btn btn-social-icon-text btn-dribbble"><i class="mdi mdi-dribbble"></i>Dribbble</button>
+                <button type="button" class="btn btn-social-icon-text btn-linkedin"><i class="mdi mdi-linkedin"></i>Linkedin</button>
+                <button type="button" class="btn btn-social-icon-text btn-google"><i class="mdi mdi-google-plus"></i>Google</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
+
+// var heigth = document.getElementById("fname").addEventListener("change", myFunction);
+// var width = document.getElementById("fname").addEventListener("change", myFunction);
+
+// function myFunction() {
+//   var x = document.getElementById("fname");
+//   x.value = x.value.toUpperCase();
+// }
+
 function artikul_component(){
 
     var new_char = document.querySelectorAll('.new_char_five');
@@ -234,7 +270,7 @@ function artikul_component(){
 }
 function baza_profiley(){
     var new_char = document.querySelectorAll('.new_char_two');
-    var komponent, artikul,seria,startiy_kod_bekam,stariykod,oldprod_des,prodesc;
+    var komponent, artikul,seria,stariykod,prodesc;
     var default_exists = false;
     var elements =[];
 
@@ -242,35 +278,20 @@ function baza_profiley(){
         komponent = document.getElementById('komponent' + i.toString()).value;
         artikul = document.getElementById('artikultwo' + i.toString()).value;
         seria = document.getElementById('seria' + i.toString()).value;
-        startiy_kod_bekam = document.getElementById('stariykodbenkam' + i.toString()).value;
         stariykod = document.getElementById('stariykod' + i.toString()).value;
-        oldprod_des = document.getElementById('oldprodesc' + i.toString()).value;
         prodesc = document.getElementById('prodesc' + i.toString()).value;
         
-        if (komponent ==''){
-          default_exists = true;
-          break
-          }
-        if (artikul ==''){
-          default_exists = true;
-          break
-          }
+        
         if (seria ==''){
           default_exists = true;
           break
           }
-        if (startiy_kod_bekam ==''){
-          default_exists = true;
-          break
-          }
+        
         if (stariykod ==''){
           default_exists = true;
           break
           }
-        if (oldprod_des ==''){
-          default_exists = true;
-          break
-          }
+        
         if (prodesc ==''){
           default_exists = true;
           break
@@ -280,9 +301,7 @@ function baza_profiley(){
               'komponent':komponent,
               'artikul':artikul,
               'seria':seria,
-              'startiy_kod_bekam':startiy_kod_bekam,
               'stariykod':stariykod,
-              'oldprod_des':oldprod_des,
               'prodesc':prodesc,
           }
         elements.push(element);
@@ -335,6 +354,7 @@ function create_new_char_one(){
         artikul = document.getElementById('artikulone' + i.toString()).value;
         heigth = document.getElementById('height' + i.toString()).value;
         width = document.getElementById('width' + i.toString()).value;
+
         height_and_width = document.getElementById('height_and_width' + i.toString()).value;
         systems = document.getElementById('systems' + i.toString()).value;
         

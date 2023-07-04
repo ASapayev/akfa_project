@@ -2723,21 +2723,9 @@ def check_for_correct(items,filename='termo'):
                         
         else:
             if ArtikulComponent.objects.filter(artikul=row['Артикул']).exists():
-                artikle = ArtikulComponent.objects.filter(artikul=row['Артикул'])[:1].get().component
-                if not CharUtilsTwo.objects.filter(артикул = artikle).exists():
-                    if artikle not in char_utils_two:
-                        char_utils_two.append(artikle)
-                    
-                if not CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle)).exists():
-                    if artikle not in char_utils_one:
-                        char_utils_one.append(artikle)
-                    
-                if not BazaProfiley.objects.filter(Q(артикул=artikle)|Q(компонент=artikle)).exists():
-                    if artikle not in baza_profiley:
-                        baza_profiley.append(artikle)
-            else:
-                if row['Артикул'] not in component_list:
-                    component_list.append(row['Артикул'])
+                continue
+            if row['Артикул'] not in component_list:
+                component_list.append(row['Артикул'])
                     
     correct = True
     char_utils_correct =char_utils_one + char_utils_two + baza_profiley + component_list
