@@ -4273,7 +4273,7 @@ def add_char_utils_two(request):
 def add_char_utils_one(request):
       data = request.POST.get('data',None)
       if data:
-            items = [CharUtilsOne(матрица =item['matritsa'],артикул =item['artikul'],высота=item['heigth'],ширина=item['width'],высота_ширина=item['height_and_width'],systems=item['systems']) for item in ast.literal_eval(data)]
+            items = [CharUtilsOne(матрица =item['matritsa'],артикул =item['artikul'],высота=item['heigth'],ширина=item['width'],высота_ширина=item['heigth']+'X'+item['width'],systems=item['systems']) for item in ast.literal_eval(data)]
             CharUtilsOne.objects.bulk_create(items)
             return JsonResponse({'saved':True})
       else:

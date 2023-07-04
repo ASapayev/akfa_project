@@ -54,7 +54,6 @@
                         <th>Артикул</th>
                         <th>Высота</th>
                         <th>Ширина</th>
-                        <th>Высота ширина</th>
                         <th>Systems</th>
                         <th>Действие</th>
                     </tr>
@@ -67,7 +66,6 @@
                         <td ><input type='text' name='artikulone' id ='artikulone{{forloop.counter}}' value='{{char}}' ></td>
                         <td><input type='text' name='height' id ='height{{forloop.counter}}' style="width: 50px;" placeholder='height...' ></td>
                         <td><input type='text' name='width' id='width{{forloop.counter}}' style="width: 50px;" placeholder='width...'></td>
-                        <td><input type='text' name='height_and_width' id ='height_and_width{{forloop.counter}}'style="width: 50px;" placeholder='...'></td>
                         <td><input type='text'name='systems' id ='systems{{forloop.counter}}' placeholder='Enter systems...'></td>
                         <td>
                             <div class="badge badge-outline-danger">Remove</div>
@@ -386,7 +384,6 @@ function create_new_char_one(){
               'artikul':artikul,
               'heigth':heigth,
               'width':width,
-              'height_and_width':height_and_width,
               'systems':systems,
           }
         elements.push(element);
