@@ -492,7 +492,7 @@ def kombinirovaniy_process(request,id):
                         if kraska_code!='MF':
                             if (('8001' in kraska_code) or ('7042' in kraska_code) or ('8024' in kraska_code) or ('8003' in kraska_code)):
                                 kraska_code =kraska_code.replace('A','R')
-                            if kraska_code not in kraska_list:
+                            if kraska_code[1:] not in kraska_list:
                                 isklyucheniye_ids.append(k) 
                                 if kraska_code not in  kraska:                                  
                                     kraska.append(kraska_code)       
@@ -6487,7 +6487,7 @@ def norma_for_list():
             if ((norm['артикул'] !='0') and (norm['артикул']!='nan')):
                     normass.append(norm['артикул'])
         
-        kraskas = Kraska.objects.all().values_list('код_краски_в_профилях',flat=True)
+        kraskas = Kraska.objects.all().values_list('код_краски',flat=True)
         accessuar = Accessuar.objects.all().values_list('sap_code',flat=True)
         nakleyka = NakleykaIskyuchenie.objects.all().values_list('sap_code',flat=True)
         
