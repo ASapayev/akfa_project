@@ -72,7 +72,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
       |Q(sap_code7 =ozm)
       )[:1].values_list()
       sap_code_exists=True
-      if list(razlovkaobichniy)[0][0] not in sap_exists:
+      if list(razlovkaobichniy)[0] not in obichniy_razlovka:
         obichniy_razlovka+=list(razlovkaobichniy)
 
     if RazlovkaTermo.objects.filter(
