@@ -8,6 +8,7 @@ from aluminiytermo.models import Characteristika,CharacteristicTitle
 from config.settings import MEDIA_ROOT
 from .utils import excelgenerate,create_csv_file,create_folder
 import os
+from aluminiytermo.views import File
 from datetime import datetime
 from django.contrib import messages
 
@@ -412,10 +413,56 @@ def file_upload(request):
       }
   return render(request,'norma/excel_form.html',context)
 
+def file_upload_termo_org(request): 
+  if request.method == 'POST':
+    form = NormaFileForm(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('norma_file_list_termo_org')
+  else:
+      form =NormaFileForm()
+      context ={
+        'section':''
+      }
+  return render(request,'universal/main.html',context)
+
+def file_upload_org(request): 
+  if request.method == 'POST':
+    form = NormaFileForm(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('norma_file_list_org')
+  else:
+      form =NormaFileForm()
+      context ={
+        'section':''
+      }
+  return render(request,'universal/main.html',context)
+
 def file_list(request):
     files = NormaExcelFiles.objects.filter(generated =False).order_by('-created_at')
     context ={'files':files}
     return render(request,'norma/file_list.html',context)
+
+def file_list_org(request):
+    files = NormaExcelFiles.objects.filter(generated =False).order_by('-created_at')
+    context ={'files':files,
+              'link':'/norma/process-combinirovanniy/',
+              'section':'Генерация норма обычного файла',
+              'type':'обычный',
+              'file_type':'simple'
+              }
+    return render(request,'universal/file_list_norma.html',context)
+
+def file_list_termo_org(request):
+    files = NormaExcelFiles.objects.filter(generated =False).order_by('-created_at')
+    context ={'files':files,
+              'link':'/norma/process-combinirovanniy/',
+              'section':'Генерация норма термо файла',
+              'type':'термо',
+              'file_type':'termo'
+              }
+    return render(request,'universal/file_list_norma.html',context)
 
 def get_legth(lengg):
     lls =lengg.split()
@@ -438,7 +485,9 @@ def kombinirovaniy_process(request,id):
 
     if pro_type.replace("'","") =='termo':
         product_type ='termo'
+        file_content ='термо'
     else:
+        file_content ='обычный'
         product_type ='simple'
     df = []
     
@@ -6427,8 +6476,12 @@ def kombinirovaniy_process(request,id):
     dff_duplicate.to_excel(writer,index=False,sheet_name ='EXISTS')
     writer.close()
     # path =os.path.join(os.path.expanduser("~/Desktop"),'new_base_cominirovaniy.xlsx')
-    
-    return redirect('norma_file_upload')
+    file =[File(file=path,filetype='obichniy')]
+    context = {
+            'files':file,
+            'section':f'Формированый {file_content} файл'
+      }
+    return render(request,'universal/generated_files.html',context)
   
 
 def generatenewexceldata(request):
