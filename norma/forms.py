@@ -10,4 +10,4 @@ class NormaFileForm(forms.ModelForm):
       })
   class Meta:
     model = NormaExcelFiles
-    fields =['file']
+    fields =['file','type']

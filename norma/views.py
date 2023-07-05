@@ -415,7 +415,9 @@ def file_upload(request):
 
 def file_upload_termo_org(request): 
   if request.method == 'POST':
-    form = NormaFileForm(request.POST, request.FILES)
+    data = request.POST.copy()
+    data['type']='termo'
+    form = NormaFileForm(data, request.FILES)
     if form.is_valid():
         form.save()
         return redirect('norma_file_list_termo_org')
@@ -428,7 +430,9 @@ def file_upload_termo_org(request):
 
 def file_upload_org(request): 
   if request.method == 'POST':
-    form = NormaFileForm(request.POST, request.FILES)
+    data = request.POST.copy()
+    data['type']='simple'
+    form = NormaFileForm(data, request.FILES)
     if form.is_valid():
         form.save()
         return redirect('norma_file_list_org')
@@ -445,7 +449,7 @@ def file_list(request):
     return render(request,'norma/file_list.html',context)
 
 def file_list_org(request):
-    files = NormaExcelFiles.objects.filter(generated =False).order_by('-created_at')
+    files = NormaExcelFiles.objects.filter(generated =False,type='simple').order_by('-created_at')
     context ={'files':files,
               'link':'/norma/process-combinirovanniy/',
               'section':'Генерация норма обычного файла',
@@ -455,7 +459,7 @@ def file_list_org(request):
     return render(request,'universal/file_list_norma.html',context)
 
 def file_list_termo_org(request):
-    files = NormaExcelFiles.objects.filter(generated =False).order_by('-created_at')
+    files = NormaExcelFiles.objects.filter(generated =False,type='termo').order_by('-created_at')
     context ={'files':files,
               'link':'/norma/process-combinirovanniy/',
               'section':'Генерация норма термо файла',
