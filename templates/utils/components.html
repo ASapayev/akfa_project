@@ -68,7 +68,7 @@
                         <td><input type='text' name='width' id='width{{forloop.counter}}' style="width: 50px;" placeholder='width...'></td>
                         <td><input type='text'name='systems' id ='systems{{forloop.counter}}' placeholder='Enter systems...'></td>
                         <td>
-                            <div class="badge badge-outline-danger">Remove</div>
+                            <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
                         </td>
                     </tr>
                     {% endfor%}
@@ -110,7 +110,7 @@
                             </select>
                         </td>
                         <td>
-                            <div class="badge badge-outline-danger">Remove</div>
+                            <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
                         </td>
                     </tr>
                     {% endfor%}
@@ -153,7 +153,7 @@
                         <td ><input type='text'  id ='stariykod{{forloop.counter}}'  required></td>
                         <td ><input type='text'  id ='prodesc{{forloop.counter}}'  required></td>
                         <td>
-                            <div class="badge badge-outline-danger">Remove</div>
+                            <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
                         </td>
                     </tr>
                 {% endfor %}
@@ -353,6 +353,10 @@ function baza_profiley(){
                     }
                 });
         }        
+}
+
+function remove_me(elem){
+    elem.parentElement.parentElement.remove()
 }
 
 function create_new_char_one(){
