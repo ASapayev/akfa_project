@@ -2583,11 +2583,11 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 
             if '-7' in row['SAP код S4P 100']:
                 dd2[0].append('001')
-                dd2[0].append('001')
+                dd2[0].append('023')
                 dd2[1].append('QBIC')
                 dd2[1].append('ZPP_023_FERT')
             else:
-                dd2[0].append('001')
+                dd2[0].append('023')
                 dd2[1].append('ZPP_023_HALB')
 
             for j in range(0,32):
