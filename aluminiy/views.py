@@ -2408,8 +2408,8 @@ def product_add_second_org(request,id):
                               materiale = df['Артикул'][key] +"-F{:03d}".format(max_valuesF)
                               AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][key],material=materiale).save()
                               df_new['SAP код Ф'][key]=materiale
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -2473,8 +2473,8 @@ def product_add_second_org(request,id):
                               AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][key],material=materiale).save()
                               df_new['SAP код Ф'][key]=materiale
                               umumiy_counter[df['Артикул'][key]+'-F'] = 1
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -2555,8 +2555,8 @@ def product_add_second_org(request,id):
                               df_new['SAP код 75'][key] = materiale
                               
                              
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -2639,8 +2639,8 @@ def product_add_second_org(request,id):
                               df_new['SAP код 75'][key] = materiale 
                               umumiy_counter[df['Артикул'][key]+'-75'] = 1
                               
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -2729,8 +2729,8 @@ def product_add_second_org(request,id):
                               AluminiyProduct(artikul = df['Артикул'][key],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key],material=materiale).save()
                               df_new['SAP код 7'][key] = materiale
                               
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -2812,8 +2812,8 @@ def product_add_second_org(request,id):
                               df_new['SAP код 7'][key] = materiale
                               umumiy_counter[df['Артикул'][key]+'-7'] = 1
                              
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -2906,8 +2906,8 @@ def product_add_second_org(request,id):
                               AluminiyProduct(artikul =component,section ='L',counter=max_valuesL,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Ламинация'][key],material=materiale).save()
                               df_new['SAP код L'][key]=materiale
                              
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -2972,8 +2972,8 @@ def product_add_second_org(request,id):
                               df_new['SAP код L'][key]=materiale
                               umumiy_counter[df['Артикул'][key]+'-L'] = 1
                              
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3093,8 +3093,8 @@ def product_add_second_org(request,id):
                         AluminiyProduct(artikul =component,section ='E',counter=max_valuesE,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key],material=materiale).save()
                         df_new['SAP код E'][key]=materiale
                         
-                        component = materiale.split('-')[0]
-                        artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                        component2 = materiale.split('-')[0]
+                        artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                         hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                         if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3160,8 +3160,8 @@ def product_add_second_org(request,id):
                         df_new['SAP код E'][key]=materiale
                         umumiy_counter[component+'-E'] = 1
                         
-                        component = materiale.split('-')[0]
-                        artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                        component2 = materiale.split('-')[0]
+                        artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                         hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                         if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3241,8 +3241,8 @@ def product_add_second_org(request,id):
                               df_new['SAP код Z'][key]=materiale
                               
                               
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                                     
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3308,8 +3308,8 @@ def product_add_second_org(request,id):
                               df_new['SAP код Z'][key]=materiale
                               umumiy_counter[ component +'-Z'] = 1
                             
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                                     
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3394,8 +3394,8 @@ def product_add_second_org(request,id):
                               AluminiyProduct(artikul =component,section ='P',counter=max_valuesP,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Покраска автомат'][key],material=materiale).save()
                               df_new['SAP код P'][key]=materiale
                               
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3462,8 +3462,8 @@ def product_add_second_org(request,id):
                               df_new['SAP код P'][key] = materiale
                               umumiy_counter[component+'-P'] = 1
                               
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3542,8 +3542,8 @@ def product_add_second_org(request,id):
                               AluminiyProduct(artikul =component,section ='S',counter=max_valuesS,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Сублимация'][key],material=materiale).save()
                               df_new['SAP код S'][key]=materiale
                               
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3609,8 +3609,8 @@ def product_add_second_org(request,id):
                               df_new['SAP код S'][key]=materiale
                               umumiy_counter[component+'-S'] = 1
                             
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3691,8 +3691,8 @@ def product_add_second_org(request,id):
                               AluminiyProduct(artikul =component,section ='A',counter=max_valuesA,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Анодировка'][key],material=materiale).save()
                               df_new['SAP код A'][key]=materiale
                             
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3757,8 +3757,8 @@ def product_add_second_org(request,id):
                               df_new['SAP код A'][key]=materiale
                               umumiy_counter[component+'-A'] = 1
                              
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3849,8 +3849,8 @@ def product_add_second_org(request,id):
                               AluminiyProduct(artikul =component,section ='N',counter=max_valuesN,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Наклейка'][key],material=materiale).save()
                               df_new['SAP код N'][key]=materiale
                         
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3916,8 +3916,8 @@ def product_add_second_org(request,id):
                               df_new['SAP код N'][key]=materiale
                               umumiy_counter[component+'-N'] = 1
                              
-                              component = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component)|Q(component=component)).artikul
+                              component2 = materiale.split('-')[0]
+                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
