@@ -23,8 +23,9 @@ from aluminiytermo.BAZA import ANODIROVKA_CODE
 
 
 def save_razlovka2(request):
-      df = pd.read_excel('c:\\OpenServer\\domains\\new_component.xlsx','Лист1')
-      save_razlovka(df,'simple')
+      # df = pd.read_excel('c:\\OpenServer\\domains\\new.xlsx','Лист1')
+      df = pd.read_excel('C:\\OSPanel\\domains\\new.xlsx','Лист1')
+      save_razlovka(df,'termo')
       return JsonResponse({'a':'b'})
 
 
