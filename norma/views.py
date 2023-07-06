@@ -6678,6 +6678,123 @@ def find_characteristics(request):
     else:
         return render(request,'norma/find_characteristics.html')
     
+def find_characteristics_org(request):
+    all_data = [ [] for i in range(38)]
+    does_not_exists = []
+    if request.method =='POST':
+        ozmk =request.POST.get('ozmk',None)
+        if ozmk:
+            ozmks = ozmk.split()
+            for ozm in ozmks:
+                if Characteristika.objects.filter(sap_code =ozm).exists():
+                    character = Characteristika.objects.filter(sap_code = ozm).order_by('-created_at')[:1].get()
+                    all_data[0].append(character.sap_code)
+                    all_data[1].append(character.kratkiy_text)
+                    all_data[2].append(character.section)
+                    all_data[3].append(character.savdo_id)
+                    all_data[4].append(character.savdo_name)
+                    all_data[5].append(character.export_customer_id)
+                    all_data[6].append(character.system)
+                    all_data[7].append(character.article)
+                    all_data[8].append(character.length)
+                    all_data[9].append(character.surface_treatment)
+                    all_data[10].append(character.alloy)
+                    all_data[11].append(character.temper)
+                    all_data[12].append(character.combination)
+                    all_data[13].append(character.outer_side_pc_id)
+                    all_data[14].append(character.outer_side_pc_brand)
+                    all_data[15].append(character.inner_side_pc_id)
+                    all_data[16].append(character.inner_side_pc_brand)
+                    all_data[17].append(character.outer_side_wg_s_id)
+                    all_data[18].append(character.inner_side_wg_s_id)
+                    all_data[19].append(character.outer_side_wg_id)
+                    all_data[20].append(character.inner_side_wg_id)
+                    all_data[21].append(character.anodization_contact)
+                    all_data[22].append(character.anodization_type)
+                    all_data[23].append(character.anodization_method)
+                    all_data[24].append(character.print_view)
+                    all_data[25].append(character.profile_base)
+                    all_data[26].append(character.width)
+                    all_data[27].append(character.height)
+                    all_data[28].append(character.category)
+                    all_data[29].append(character.rawmat_type)
+                    all_data[30].append(character.benkam_id)
+                    all_data[31].append(character.hollow_and_solid)
+                    all_data[32].append(character.export_description)
+                    all_data[33].append(character.export_description_eng)
+                    all_data[34].append(character.tnved.replace('.0',''))
+                    all_data[35].append(character.surface_treatment_export)
+                    all_data[36].append(character.wms_width.replace('.0',''))
+                    all_data[37].append(character.wms_height.replace('.0',''))
+         
+                else:
+                    does_not_exists.append(ozm)
+          
+            df_new ={
+                    'SAP CODE' : all_data[0],
+                    'KRATKIY TEXT': all_data[1],
+                    'SECTION': all_data[2],
+                    'SAVDO_ID': all_data[3],
+                    'SAVDO_NAME': all_data[4],
+                    'EXPORT_CUSTOMER_ID': all_data[5],
+                    'SYSTEM': all_data[6],
+                    'ARTICLE': all_data[7],
+                    'LENGTH': all_data[8],
+                    'SURFACE_TREATMENT': all_data[9],
+                    'ALLOY': all_data[10],
+                    'TEMPER': all_data[11],
+                    'COMBINATION': all_data[12],
+                    'OUTER_SIDE_PC_ID': all_data[13],
+                    'OUTER_SIDE_PC_BRAND': all_data[14],
+                    'INNER_SIDE_PC_ID': all_data[15],
+                    'INNER_SIDE_PC_BRAND': all_data[16],
+                    'OUTER_SIDE_WG_S_ID': all_data[17],
+                    'INNER_SIDE_WG_S_ID': all_data[18],
+                    'OUTER_SIDE_WG_ID': all_data[19],
+                    'INNER_SIDE_WG_ID': all_data[20],
+                    'ANODIZATION_CONTACT': all_data[21],
+                    'ANODIZATION_TYPE': all_data[22],
+                    'ANODIZATION_METHOD': all_data[23],
+                    'PRINT_VIEW': all_data[24],
+                    'PROFILE_BASE': all_data[25],
+                    'WIDTH': all_data[26],
+                    'HEIGHT': all_data[27],
+                    'CATEGORY': all_data[28],
+                    'RAWMAT_TYPE': all_data[29],
+                    'BENKAM_ID': all_data[30],
+                    'HOLLOW AND SOLID': all_data[31],
+                    'EXPORT_DESCRIPTION': all_data[32],
+                    'EXPORT_DESCRIPTION ENG': all_data[33],
+                    'TNVED': all_data[34],
+                    'SURFACE_TREATMENT_EXPORT': all_data[35],
+                    'WMS_WIDTH': all_data[36],
+                    'WMS_HEIGHT': all_data[37]
+                    }
+            now = datetime.now()
+            day =now.strftime("%Y%B%a%d")
+            hour =now.strftime("%H HOUR")
+            minut =now.strftime("%H-SOAT %M-MINUT %S- SECUND")
+            create_folder(f'{MEDIA_ROOT}\\uploads','characteristika')
+            create_folder(f'{MEDIA_ROOT}\\uploads\\characteristika',f'{day}')
+            create_folder(f'{MEDIA_ROOT}\\uploads\\characteristika\\{day}',f'{minut}')
+            path =f'{MEDIA_ROOT}\\uploads\\characteristika\\{day}\\{minut}\\characteristika.xlsx'
+            df_charakter = pd.DataFrame(df_new)
+            df_charakter_sap = pd.DataFrame({'SAP CODE':does_not_exists})
+            df_charakter =df_charakter.replace('nan','')
+            writer = pd.ExcelWriter(path, engine='xlsxwriter')
+            df_charakter.to_excel(writer,index=False,sheet_name ='Characteristika')
+            df_charakter_sap.to_excel(writer,index=False,sheet_name ='DOES NOT EXISTS')
+            writer.close()
+            messages.add_message(request, messages.INFO, "Characteristika yaratildi")
+            files =[File(file=path,filetype='obichniy'),]
+            context ={
+                'files':files,
+                'section':'Найденные характеристики'
+            }
+        return render(request,'universal/generated_files.html',context)
+    else:
+        return render(request,'norma/character_find.html')
+    
 def norma_delete_org(request):
     if request.method =='POST':
         ozmk =request.POST.get('ozmk',None)
