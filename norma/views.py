@@ -6785,7 +6785,6 @@ def find_characteristics_org(request):
             df_charakter.to_excel(writer,index=False,sheet_name ='Characteristika')
             df_charakter_sap.to_excel(writer,index=False,sheet_name ='DOES NOT EXISTS')
             writer.close()
-            messages.add_message(request, messages.INFO, "Characteristika yaratildi")
             files =[File(file=path,filetype='obichniy'),]
             context ={
                 'files':files,
