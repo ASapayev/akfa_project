@@ -9,7 +9,7 @@ from .forms import FileForm
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
 import numpy as np
-from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle
+from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_razlovka
 import os
 import random
 from aluminiytermo.utils import create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct,anodirovaka_check
@@ -20,6 +20,12 @@ import ast
 from datetime import datetime
 from aluminiytermo.BAZA import ANODIROVKA_CODE
 
+
+
+def save_razlovka2(request):
+      df = pd.read_excel('c:\\OpenServer\\domains\\new_component.xlsx','Лист1')
+      save_razlovka(df,'simple')
+      return JsonResponse({'a':'b'})
 
 
 # Create your views here.
