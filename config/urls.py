@@ -7,7 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('accounts.urls')),
     path('',include('main.urls')),
-    path('imzo/',include('imzo.urls')),
+    path('texcart/',include('imzo.urls')),
     path('alu/',include('aluminiy.urls')),
     path('termo/',include('aluminiytermo.urls')),
     path('norma/',include('norma.urls')),

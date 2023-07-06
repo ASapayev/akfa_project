@@ -10,4 +10,9 @@ urlpatterns = [
   path('remove/',views.delete_tex,name='remove'),
   path('tex-delete',views.tex_delete,name='tex-delete'),
   path('tex-delete-org',views.tex_delete_org,name='tex-delete-org'),
+
+  path('file-upload-texcart/',views.file_uploadTexcarta_org, name='texcart_file_upload'),
+  path('texcarta/file-list',views.texcart_file, name='texcart_files'),
+  path('texcarta/<int:id>',views.lenght_generate_texcarta,name='texcarta_gen'),
+
 ]

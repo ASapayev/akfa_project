@@ -110,7 +110,8 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org'%}">Загрузка термо файла</a></li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_org'%}">Загрузка обыч файла</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">История файлов</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_list_termo_org'%}">История термо файлов</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_list_org'%}">История обычный файлов</a></li>
         </ul>
       </div>
     </li>
@@ -124,8 +125,8 @@
       </a>
       <div class="collapse" id="ui-basic-tex">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="">Загрузка файла</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'file-upload' %}">История файлов</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'texcart_file_upload'%}">Загрузка файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'texcart_files' %}">История файлов</a></li>
         </ul>
       </div>
     </li>
