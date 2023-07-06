@@ -7,3 +7,18 @@ def user_profile(request):
     else:
         user_profile = None
     return {'user_profile':user_profile}
+
+ROLE_CHOICES ={
+    1:'moderator',
+    2:'user1',
+    3:'user2'
+}
+
+def get_user_role(request):
+    user_role =request.user.role
+    if user_role ==None:
+        user_role='nan'
+    else:
+        user_role =ROLE_CHOICES[user_role]
+    
+    return {'user_role':str(user_role)}

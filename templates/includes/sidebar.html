@@ -65,6 +65,7 @@
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
+    {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#del-othod" aria-expanded="false" aria-controls="del-othod">
         <span class="menu-icon">
@@ -80,6 +81,8 @@
         </ul>
       </div>
     </li>
+    {%endif%}
+    {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#ui-basics" aria-expanded="false" aria-controls="ui-basics">
         <span class="menu-icon">
@@ -98,6 +101,8 @@
         </ul>
       </div>
     </li>
+    {%endif%}
+    {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm" aria-expanded="false" aria-controls="ui-basic-norm">
         <span class="menu-icon">
@@ -115,6 +120,8 @@
         </ul>
       </div>
     </li>
+    {%endif%}
+    {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic-tex" aria-expanded="false" aria-controls="ui-basic-tex">
         <span class="menu-icon">
@@ -130,7 +137,8 @@
         </ul>
       </div>
     </li>
-    
+    {%endif%}
+    {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'file-upload-ozmka-org' %}">
         <span class="menu-icon">
@@ -139,6 +147,8 @@
         <span class="menu-title">Найти разловки</span>
       </a>
     </li>
+    {%endif%}
+    {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'find_characteristics_org' %}">
         <span class="menu-icon">
@@ -147,6 +157,8 @@
         <span class="menu-title">Найти характер</span>
       </a>
     </li>
+    {%endif%}
+    {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'norma-delete-org' %}">
         <span class="menu-icon">
@@ -155,6 +167,8 @@
         <span class="menu-title">Удалить нормы</span>
       </a>
     </li>
+    {%endif%}
+    {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'tex-delete-org' %}">
         <span class="menu-icon">
@@ -163,7 +177,7 @@
         <span class="menu-title">Удалить техкарты</span>
       </a>
     </li>
-   
+    {%endif%}
   </ul>
 </nav>
 
