@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import pandas as pd
+from django.core.paginator import Paginator
 from .models import ArtikulComponent,AluminiyProduct,AluFile,RazlovkaObichniy
 from aluminiytermo.models import AluminiyProductTermo
 from aluminiytermo.views import File
@@ -4389,3 +4390,35 @@ def duplicate_correct(request):
                   ter.save()
                   
       return JsonResponse({'a':'b'})
+
+def show_list_simple_sapcodes(request):
+
+      search =request.GET.get('search',None)
+      if search:
+            products = AluminiyProduct.objects.filter(
+                  Q(material__icontains=search)
+                  |Q(artikul__icontains=search)
+                  |Q(section__icontains=search)
+                  |Q(gruppa_materialov__icontains=search)
+                  |Q(kratkiy_tekst_materiala__icontains=search)
+                  |Q(kombinirovanniy__icontains=search)
+                  ).order_by('-created_at')
+      else:
+            products =AluminiyProduct.objects.all().order_by('-created_at')
+                  
+      paginator = Paginator(products, 25)
+
+      if request.GET.get('page') != None:
+            page_number = request.GET.get('page')
+      else:
+            page_number=1
+
+      page_obj = paginator.get_page(page_number)
+
+      context ={
+            'section':'Обычный сапкоды',
+            'products':page_obj,
+            'search':search
+
+      }
+      return render(request,'universal/show_sapcodes.html',context)

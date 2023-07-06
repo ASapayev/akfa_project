@@ -1,0 +1,111 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row ">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Листь</h4>
+              <div class="table-responsive">
+                <table class="table" style="color: aliceblue;">
+                  <thead>
+                    <tr >
+                      <th  style="color: aliceblue;">
+                        #
+                      </th>
+                      <th  style="color: aliceblue;"> SAP CODE </th>
+                      <th  style="color: aliceblue;"> KRATKIY TEXT</th>
+                      <th  style="color: aliceblue;"> ARTIKUL</th>
+                      <th  style="color: aliceblue;"> SECTION</th>
+                      <th  style="color: aliceblue;"> GROUP MATERIALOV </th>
+                      <th  style="color: aliceblue;"> KOMBINIROVANNIY </th>
+                      <th  style="color: aliceblue;"> Действие </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for profile in products %}
+                    <tr >
+                      <td>
+                        <div class="form-check form-check-muted m-0">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                          </label>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.material}}</span>
+                      </td>
+                      <td>{{profile.kratkiy_tekst_materiala}} </td>
+                      <td> {{profile.artikul}} </td>
+                      <td> {{profile.section}} </td>
+                      <td> {{profile.gruppa_materialov}} </td>
+                      <td> {{profile.kombinirovanniy}} </td>
+                      <td>
+                        <div class="badge badge-outline-success">Approved</div>
+                      </td>
+                    </tr>
+                    {%endfor%}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+   
+  </div>
+  <div class="container">
+    <div class="d-flex justify-content-between">
+        <div class="pagination p-2">
+          <span class="step-links">
+            <ul class="pagination">
+                {% if products.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}{%if search%}&search={{search}}{%endif%}">Previous</a></li>
+                    {% if products.number > 3 %}
+                        <li class="page-item"><a class="page-link" href="?page=1{%if search%}&search={{search}}{%endif%}">1</a></li>
+                        {% if products.number > 4 %}
+                        <li class="page-item"> <span>...</span></li>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+
+                {% for num in products.paginator.page_range %}
+                    {% if products.number == num %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                    {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if products.has_next %}
+                    {% if products.number < products.paginator.num_pages|add:'-3' %}
+                    <li class="page-item"> <span>...</span></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                    {% elif products.number < products.paginator.num_pages|add:'-2' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                    {% endif %}
+                    
+                    <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}{%if search%}&search={{search}}{%endif%}">Next Page »</a></li>
+                   
+                {% endif %}
+              </ul>
+          </span>
+        </div>
+    </div>
+  </div>
+ 
+{% endblock %}
