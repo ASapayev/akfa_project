@@ -25,8 +25,8 @@ from aluminiytermo.BAZA import ANODIROVKA_CODE
 
 def save_razlovka2(request):
       # df = pd.read_excel('c:\\OpenServer\\domains\\new.xlsx','Лист1')
-      df = pd.read_excel('C:\\OSPanel\\domains\\new.xlsx','Лист1')
-      save_razlovka(df,'termo')
+      df = pd.read_excel('C:\\OSPanel\\domains\\NormaSimple.xlsx','Лист1')
+      save_razlovka(df,'simple')
       return JsonResponse({'a':'b'})
 
 
@@ -4418,7 +4418,8 @@ def show_list_simple_sapcodes(request):
       context ={
             'section':'Обычный сапкоды',
             'products':page_obj,
-            'search':search
+            'search':search,
+            'type':'simple'
 
       }
       return render(request,'universal/show_sapcodes.html',context)
@@ -4427,7 +4428,19 @@ def show_list_simple_sapcodes(request):
 @csrf_exempt
 def delete_sap_code(request,id):
       if request.method =='POST':
-            print(id)
+            file_type = request.POST.get('type',None)
+            if file_type:
+                  sapcode = AluminiyProduct.objects.get(id=id)
+                  if Characteristika.objects.filter(sap_code=sapcode.material).exists():
+                        character =Characteristika.objects.filter(sap_code=sapcode.material).order_by('-created_at')[:1].get()
+                        character.delete()
+                  if '-7' in sapcode.material:
+                        if RazlovkaObichniy.objects.filter(sap_code7 = sapcode.material).exists():
+                              RazlovkaObichniy.objects.get(sap_code7 = sapcode.material).delete()
+                  sapcode.delete()
+                  
+            else:
+                  AluminiyProductTermo.objects.get(id=id).delete()
             return JsonResponse({'msg':True})
       else:
             return JsonResponse({'msg':False})

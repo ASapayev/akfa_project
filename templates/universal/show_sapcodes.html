@@ -113,19 +113,22 @@
 
 <script>
   function delete_sapcode(elem,id){
+    
     Swal.fire({
         showDenyButton: true,
         confirmButtonText: 'SAP codeni o\'chirilsinmi',
         denyButtonText: `Yo'q`,
       }).then((result) => {
         if (result.isConfirmed) {
-          var url ="/alu/delete-sapcode/" + id;
+          var url ="/alu/delete-sapcode/" + id+'?type={{type}}';
           $.ajax({
                 method:'POST',
                 url: url,
                 csrfmiddlewaretoken:'{% csrf_token %}',
+                data:{'type':'{{type}}'}
             }).done(function() {
-              Swal.fire('Ishga tushdi...', 'Muvafaqiyatli o\'chirildi', 'success')
+              remove_me(elem)
+              // Swal.fire('Ishga tushdi...', 'Muvafaqiyatli o\'chirildi', 'success')
             });
 
         } else if (result.isDenied) {
@@ -135,6 +138,9 @@
 
   }
 
+  function remove_me(elem){
+    elem.parentElement.parentElement.remove()
+  }
   function myFunction(typ,file_id) {
       console.log('salom')
       
