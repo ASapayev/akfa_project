@@ -4,7 +4,7 @@ from django.http import JsonResponse
 import pandas as pd
 from django.core.paginator import Paginator
 from .models import ArtikulComponent,AluminiyProduct,AluFile,RazlovkaObichniy
-from aluminiytermo.models import AluminiyProductTermo
+from aluminiytermo.models import AluminiyProductTermo,CharacteristikaFile
 from aluminiytermo.views import File
 from .forms import FileForm
 from django.db.models import Count,Max
@@ -192,12 +192,20 @@ def aluminiy_group(request):
       return JsonResponse({'data':umumiy})
 
 def update_char_title(request,id):
-      file = AluFile.objects.get(id=id).file
+      file = CharacteristikaFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}','title')
       df =df.astype(str)
       
-      characteristika_created_txt_create(df,file_name='aluminiy')
-      return JsonResponse({'a':'b'})
+      pathbenkam,pathjomiy = characteristika_created_txt_create(df,'aluminiy')
+      filesbenkam = [File(file=path,filetype='BENKAM') for path in pathbenkam]
+      filesjomiy = [File(file=path,filetype='JOMIY') for path in pathjomiy]
+      context = {
+            'filesbenkam':filesbenkam,
+            'filesjomiy':filesjomiy,
+            'section':'Формированные файлы'
+            }
+
+      return render(request,'universal/generated_files_char.html',context)
 
 
 def aluminiy_files_simple_char_title(request):

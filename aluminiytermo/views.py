@@ -181,7 +181,12 @@ def aluminiy_files_org(request):
 
 def aluminiy_files_char_org(request):
       files = CharacteristikaFile.objects.all().order_by('-created_at')
-      context ={'files':files,'section':'Формированный характеристика файлы','type':'характеристики','link':'/termo/alum/update-char-title-org/'}
+      text =str(files[0].file).split('/')[-1]
+      if 'termo' in text.lower():
+            file_type ='termo'
+      else:
+            file_type ='alu'
+      context ={'files':files,'section':'Формированный характеристика файлы','type':'характеристики','link':f'/{file_type}/alum/update-char-title-org/'}
       return render(request,'universal/file_list.html',context)
 
 def aluminiy_files_termo_char_title(request):

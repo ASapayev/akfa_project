@@ -20,7 +20,7 @@ path('excel-does-not-exists-add',views.excel_does_not_exists_add,name='excel_doe
 path('duplicate-save',views.duplicate_correct,name='duplicate_save'),
 path('razlovka-simple',views.razlovka_save,name='razlovka_save'),
 
-
+path('alum/update-char-title-org/<int:id>',views.update_char_title,name='update_char_title_org'),
 path('upload-product-org',views.upload_product_org,name='upload_product_org'),
 path('aluminiy-files-org',views.aluminiy_files_org,name='aluminiy_files_org'),
 path('alum-org/add/<int:id>',views.product_add_second_org,name='aluminiy_add_org'),
