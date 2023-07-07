@@ -55,8 +55,8 @@
                       <td> {{profile.gruppa_materialov}} </td>
                       <td> {{profile.kombinirovanniy}} </td>
                       <td>
-                        <div class="badge badge-outline-warning" style="cursor: pointer;" data-id="{{profile.id}}">Edit</div>
-                        <div class="badge badge-outline-danger" style="cursor: pointer;" onclick="delete_sapcode(this,'{{profile.id}}')" data-id="{{profile.id}}">Delete</div>
+                        <div class="badge badge-outline-warning" style="cursor: pointer;" data-id="{{profile.id}}" onclick="edit_sapcode(this,'{{profile.id}}')" data-toggle="modal" data-target="#exampleModal">Edit</div>
+                        <div class="badge badge-outline-danger" style="cursor: pointer;" onclick="delete_sapcode(this,'{{profile.id}}')">Delete</div>
                       </td>
                     </tr>
                     {%endfor%}
@@ -111,8 +111,52 @@
     </div>
   </div>
 
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Recipient:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Message:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Send message</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <script>
-  function delete_sapcode(elem,id){
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) 
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+})
+
+
+function edit_sapcode(elem,id){
+
+}
+
+function delete_sapcode(elem,id){
     
     Swal.fire({
         showDenyButton: true,
@@ -128,7 +172,6 @@
                 data:{'type':'{{type}}'}
             }).done(function() {
               remove_me(elem)
-              // Swal.fire('Ishga tushdi...', 'Muvafaqiyatli o\'chirildi', 'success')
             });
 
         } else if (result.isDenied) {
@@ -141,24 +184,6 @@
   function remove_me(elem){
     elem.parentElement.parentElement.remove()
   }
-  function myFunction(typ,file_id) {
-      console.log('salom')
-      
-      console.log(typ)
-      
-      Swal.fire({
-        showDenyButton: true,
-        confirmButtonText: text,
-        denyButtonText: `Yo'q`,
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire('Ishga tushdi...', '', 'success')
-          window.location.href=loc
-        } else if (result.isDenied) {
-          Swal.fire('Chuchvara otmen!!!', '', 'info')
-        }
-      })
-    }
+ 
 </script>
 {% endblock %}
