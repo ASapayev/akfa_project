@@ -25,5 +25,6 @@ path('upload-product-org',views.upload_product_org,name='upload_product_org'),
 path('aluminiy-files-org',views.aluminiy_files_org,name='aluminiy_files_org'),
 path('alum-org/add/<int:id>',views.product_add_second_org,name='aluminiy_add_org'),
 path('save-razlovka-org',views.save_razlovka2,name='aluminiy_add_org2'),
-path('show-simple-sap-list',views.show_list_simple_sapcodes,name='show_simple_sapcodes')
+path('show-simple-sap-list',views.show_list_simple_sapcodes,name='show_simple_sapcodes'),
+path('delete-sapcode/<int:id>',views.delete_sap_code, name='delete_sapkode'),
 ]

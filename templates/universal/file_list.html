@@ -68,7 +68,7 @@
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          Swal.fire('Ishag tushdi...', '', 'success')
+          Swal.fire('Ishga tushdi...', '', 'success')
           window.location.href=loc
         } else if (result.isDenied) {
           Swal.fire('Chuchvara otmen!!!', '', 'info')

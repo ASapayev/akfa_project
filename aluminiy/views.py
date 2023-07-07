@@ -4422,3 +4422,12 @@ def show_list_simple_sapcodes(request):
 
       }
       return render(request,'universal/show_sapcodes.html',context)
+
+
+@csrf_exempt
+def delete_sap_code(request,id):
+      if request.method =='POST':
+            print(id)
+            return JsonResponse({'msg':True})
+      else:
+            return JsonResponse({'msg':False})
