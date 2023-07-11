@@ -21,6 +21,58 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from .create_char import product_add_second_termo,product_add_second_simple
 now = datetime.now()
 
+
+def character_extras(request):
+      df = pd.read_excel('C:\\OSPanel\\domains\\char.xlsx','Лист1')
+      for key, row in df.iterrows():
+            character = Characteristika(
+            sap_code =row['Материал'],
+            kratkiy_text =row['Краткий текст материала'],
+            section ='',
+            savdo_id ='',
+            savdo_name ='',
+            export_customer_id = row['EXPORT_CUSTOMER_ID'],
+            system = row['SYSTEM'],
+            article = row['ARTICLE'],
+            length = row['LENGTH'],
+            surface_treatment = row['SURFACE_TREATMENT'],
+            alloy = row['ALLOY'],
+            temper = row['TEMPER'],
+            combination = row['COMBINATION'],
+            outer_side_pc_id = row['OUTER_SIDE_PC_ID'],
+            outer_side_pc_brand = row['OUTER_SIDE_PC_BRAND'],
+            inner_side_pc_id = row['INNER_SIDE_PC_ID'],
+            inner_side_pc_brand = row['INNER_SIDE_PC_BRAND'],
+            outer_side_wg_s_id = row['OUTER_SIDE_WG_S_ID'],
+            inner_side_wg_s_id = row['INNER_SIDE_WG_S_ID'],
+            outer_side_wg_id = row['OUTER_SIDE_WG_ID'],
+            inner_side_wg_id = row['INNER_SIDE_WG_ID'],
+            anodization_contact = row['ANODIZATION_CONTACT'],
+            anodization_type = row['ANODIZATION_TYPE'],
+            anodization_method = row['ANODIZATION_METHOD'],
+            print_view = row['PRINT_VIEW'],
+            profile_base = row['PROFILE_BASE'],
+            width = row['WIDTH'],
+            height = row['HEIGHT'],
+            category = row['CATEGORY'],
+            rawmat_type = row['MATERIAL_CLASS'],
+            benkam_id = '',
+            hollow_and_solid = '',
+            export_description = '',
+            export_description_eng = '',
+            tnved = '',
+            surface_treatment_export = row['SURFACE_TREATMENT_EXPORT'],
+            wms_width = '',
+            wms_height = '',
+            group_prise = '',
+            )
+            character.save()
+      return JsonResponse({'a':'b'})
+      
+
+
+
+
 def  create_characteristika_force(request,id):
       termo =request.GET.get('termo',None)
       if termo:
