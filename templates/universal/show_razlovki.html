@@ -1,0 +1,271 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row ">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Листь</h4>
+              <div class="table-responsive">
+                <table class="table  table-contextual">
+                  {% if type %}
+                  <thead>
+                    <tr>
+                      <th>
+                        #
+                      </th>
+                      <th> SAP код E/7 </th>
+                      <th> Экструзия холодная резка/U-Упаковка </th>
+                      <th> SAP код Z </th>
+                      <th> Печь старения </th>
+                      <th> SAP код P </th>
+                      <th>Покраска автомат </th>
+                      <th> SAP код S </th>
+                      <th> Сублимация </th>
+                      <th>SAP код A </th>
+                      <th> Анодировка </th>
+                      <th> SAP код L </th>
+                      <th> Ламинация </th>
+                      <th> SAP код N </th>
+                      <th> Наклейка </th>
+                      <th> SAP код 7 </th>
+                      <th> U-Упаковка + Готовая Продукция </th>
+                      <th> Действие </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for profile in products %}
+                      {% if '-7' in profile.sap_code7 %}
+                        <tr class="table-success">
+                          <td>
+                            <div class="form-check form-check-muted m-0">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">
+                              </label>
+                            </div>
+                          </td>
+                          <td>
+                            {{profile.sap_code7}}
+                          </td>
+                          <td> {{profile.kratkiy7}}</td>
+                          <td>
+                            {{profile.zsap_code}}
+                          </td>
+                          <td> {{profile.zkratkiy}}</td>
+                          <td>
+                            {{profile.psap_code}}
+                          </td>
+                          <td> {{profile.pkratkiy}}</td>
+                          <td>
+                            {{profile.ssap_code}}
+                          </td>
+                          <td> {{profile.skratkiy}}</td>
+                          <td>
+                            {{profile.asap_code}}
+                          </td>
+                          <td> {{profile.akratkiy}}</td>
+                          <td>
+                            {{profile.lsap_code}}
+                          </td>
+                          <td> {{profile.lkratkiy}}</td>
+                          <td>
+                            {{profile.nsap_code}}
+                          </td>
+                          <td> {{profile.nkratkiy}}</td>
+                          <td>
+                            {{profile.sap_code7}}
+                          </td>
+                          <td> {{profile.kratkiy7}}</td>
+                          
+                          <td>
+                            <div class="badge btn-warning" style="cursor: pointer;">Удалить</div>
+                          </td>
+                        </tr>
+                        {%else%}
+                        <tr >
+                          <td>
+                            <div class="form-check form-check-muted m-0">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">
+                              </label>
+                            </div>
+                          </td>
+                          <td>
+                            {{profile.esap_code}}
+                          </td>
+                          <td> {{profile.ekratkiy}}</td>
+                          <td>
+                            {{profile.zsap_code}}
+                          </td>
+                          <td> {{profile.zkratkiy}}</td>
+                          <td>
+                            {{profile.psap_code}}
+                          </td>
+                          <td> {{profile.pkratkiy}}</td>
+                          <td>
+                            {{profile.ssap_code}}
+                          </td>
+                          <td> {{profile.skratkiy}}</td>
+                          <td>
+                            {{profile.asap_code}}
+                          </td>
+                          <td> {{profile.akratkiy}}</td>
+                          <td>
+                            {{profile.lsap_code}}
+                          </td>
+                          <td> {{profile.lkratkiy}}</td>
+                          <td>
+                            {{profile.nsap_code}}
+                          </td>
+                          <td> {{profile.nkratkiy}}</td>
+                          <td>
+                            {{profile.sap_code7}}
+                          </td>
+                          <td> {{profile.kratkiy7}}</td>
+                          
+                          <td>
+                            <div class="badge btn-warning" style="cursor: pointer;">Удалить</div>
+                          </td>
+                        </tr>
+                      {%endif%}
+                    {%endfor%}
+                  </tbody>
+                  {%else%}
+                  <thead>
+                    <tr>
+                      <th>
+                        #
+                      </th>
+                      <th> SAP код E/7 </th>
+                      <th> Экструзия холодная резка/U-Упаковка </th>
+                      <th> SAP код Z </th>
+                      <th> Печь старения </th>
+                      <th> SAP код P </th>
+                      <th>Покраска автомат </th>
+                      <th> SAP код S </th>
+                      <th> Сублимация </th>
+                      <th>SAP код A </th>
+                      <th> Анодировка </th>
+                      <th> SAP код L </th>
+                      <th> Ламинация </th>
+                      <th> SAP код N </th>
+                      <th> Наклейка </th>
+                      <th> SAP код 7 </th>
+                      <th> U-Упаковка + Готовая Продукция </th>
+                      <th> Действие </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for profile in products %}
+                        <tr >
+                          <td>
+                            <div class="form-check form-check-muted m-0">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">
+                              </label>
+                            </div>
+                          </td>
+                          <td>
+                            {{profile.esap_code}}
+                          </td>
+                          <td> {{profile.ekratkiy}}</td>
+                          <td>
+                            {{profile.zsap_code}}
+                          </td>
+                          <td> {{profile.zkratkiy}}</td>
+                          <td>
+                            {{profile.psap_code}}
+                          </td>
+                          <td> {{profile.pkratkiy}}</td>
+                          <td>
+                            {{profile.ssap_code}}
+                          </td>
+                          <td> {{profile.skratkiy}}</td>
+                          <td>
+                            {{profile.asap_code}}
+                          </td>
+                          <td> {{profile.akratkiy}}</td>
+                          <td>
+                            {{profile.lsap_code}}
+                          </td>
+                          <td> {{profile.lkratkiy}}</td>
+                          <td>
+                            {{profile.nsap_code}}
+                          </td>
+                          <td> {{profile.nkratkiy}}</td>
+                          <td>
+                            {{profile.sap_code7}}
+                          </td>
+                          <td> {{profile.kratkiy7}}</td>
+                          
+                          <td>
+                            <div class="badge btn-warning" style="cursor: pointer;">Удалить</div>
+                          </td>
+                        </tr>
+                    {%endfor%}
+                  </tbody>
+
+                  {%endif%}
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+   
+  </div>
+  <div class="container">
+    <div class="d-flex justify-content-between">
+        <div class="pagination p-2">
+          <span class="step-links">
+            <ul class="pagination"  style="background-color: azure;">
+                {% if products.has_previous %}
+                <li class="page-item" ><a class="page-link"  style="background-color: azure;" href="?page={{ products.previous_page_number }}{%if search%}&search={{search}}{%endif%}">Previous</a></li>
+                    {% if products.number > 3 %}
+                        <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page=1{%if search%}&search={{search}}{%endif%}">1</a></li>
+                        {% if products.number > 4 %}
+                        <li class="page-item"  style="background-color: azure;"> <span style="color: black;">...</span></li>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+
+                {% for num in products.paginator.page_range %}
+                    {% if products.number == num %}
+                        <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                    {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                        <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if products.has_next %}
+                    {% if products.number < products.paginator.num_pages|add:'-3' %}
+                    <li class="page-item"  style="background-color: azure;" > <span style="color: black;">...</span></li>
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;"  href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                    {% elif products.number < products.paginator.num_pages|add:'-2' %}
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                    {% endif %}
+                    
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ products.next_page_number }}{%if search%}&search={{search}}{%endif%}">Next Page »</a></li>
+                   
+                {% endif %}
+              </ul>
+          </span>
+        </div>
+    </div>
+  </div>
+ 
+{% endblock %}

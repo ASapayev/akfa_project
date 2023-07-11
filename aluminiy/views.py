@@ -22,6 +22,47 @@ from datetime import datetime
 from aluminiytermo.BAZA import ANODIROVKA_CODE
 
 
+def show_razlovki(request):
+     
+     
+      products = RazlovkaObichniy.objects.all().order_by('-created_at')
+
+      paginator = Paginator(products, 25)
+
+      if request.GET.get('page') != None:
+            page_number = request.GET.get('page')
+      else:
+            page_number=1
+
+      page_obj = paginator.get_page(page_number)
+      context ={
+            'section':'Обычный разловки',
+            'products':page_obj,
+            'type':False
+      }
+                  
+      return render(request,'universal/show_razlovki.html',context)
+
+def show_razlovki_termo(request):
+      
+      products = RazlovkaTermo.objects.all().order_by('created_at')
+
+      paginator = Paginator(products, 25)
+
+      if request.GET.get('page') != None:
+            page_number = request.GET.get('page')
+      else:
+            page_number=1
+
+      page_obj = paginator.get_page(page_number)
+      context ={
+            'section':'Термо разловки',
+            'products':page_obj,
+            'type':True
+            
+      }
+                  
+      return render(request,'universal/show_razlovki.html',context)
 
 def save_razlovka2(request):
       # df = pd.read_excel('c:\\OpenServer\\domains\\new.xlsx','Лист1')
@@ -4400,11 +4441,9 @@ def duplicate_correct(request):
       return JsonResponse({'a':'b'})
 
 def show_list_simple_sapcodes(request):
-
       search =request.GET.get('search',None)
       if search:
             try:
-                  # print(search)
                   try:
                         f_date = datetime.strptime(search,'%m.%d.%Y %H:%M')
                         products = AluminiyProduct.objects.filter(
@@ -4457,7 +4496,6 @@ def show_list_simple_sapcodes(request):
 def delete_sap_code(request,id):
       if request.method =='POST':
             file_type = request.POST.get('type',None)
-            print(file_type)
             if file_type =='simple':
                   sapcode = AluminiyProduct.objects.get(id=id)
                   if Characteristika.objects.filter(sap_code=sapcode.material).exists():

@@ -27,4 +27,6 @@ path('alum-org/add/<int:id>',views.product_add_second_org,name='aluminiy_add_org
 path('save-razlovka-org',views.save_razlovka2,name='aluminiy_add_org2'),
 path('show-simple-sap-list',views.show_list_simple_sapcodes,name='show_simple_sapcodes'),
 path('delete-sapcode/<int:id>',views.delete_sap_code, name='delete_sapkode'),
+path('show-razlovki',views.show_razlovki,name='show_razlovki'),
+path('show-termo-razlovki',views.show_razlovki_termo,name='show_razlovki_termo')
 ]
