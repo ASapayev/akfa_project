@@ -4407,7 +4407,13 @@ def show_list_simple_sapcodes(request):
                   # print(search)
                   f_date = datetime.strptime(search,'%m.%d.%Y %H:%M')
                   print(f_date)
-                  products = AluminiyProduct.objects.filter(created_at__date =f_date)
+                  products = AluminiyProduct.objects.filter(
+                        created_at__year =f_date.year,
+                        created_at__month =f_date.month,
+                        created_at__day =f_date.day,
+                        created_at__hour =f_date.hour,
+                        created_at__minute =f_date.minute
+                        )
             except:
                   products = AluminiyProduct.objects.filter(
                         Q(material__icontains=search)
