@@ -29,10 +29,6 @@
                       </th>
                       <th  style="color: aliceblue;"> SAP CODE </th>
                       <th  style="color: aliceblue;"> KRATKIY TEXT</th>
-                      <th  style="color: aliceblue;"> ARTIKUL</th>
-                      <th  style="color: aliceblue;"> SECTION</th>
-                      <th  style="color: aliceblue;"> GROUP MATERIALOV </th>
-                      <th  style="color: aliceblue;"> KOMBINIROVANNIY </th>
                       <th  style="color: aliceblue;"> CREATED DATE </th>
                       <th  style="color: aliceblue;"> Действие </th>
                     </tr>
@@ -51,11 +47,7 @@
                         <span class="pl-2">{{profile.material}}</span>
                       </td>
                       <td>{{profile.kratkiy_tekst_materiala}} </td>
-                      <td> {{profile.artikul}} </td>
-                      <td> {{profile.section}} </td>
-                      <td> {{profile.gruppa_materialov}} </td>
-                      <td> {{profile.kombinirovanniy}} </td>
-                      <td> {{profile.created_at}} </td>
+                      <td> {{profile.created_at |date:"m.d.Y H:i"}} </td>
                       <td>
                         <div class="badge badge-outline-danger" style="cursor: pointer;" onclick="delete_sapcode(this,'{{profile.id}}')">Delete</div>
                       </td>

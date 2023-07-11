@@ -4403,14 +4403,20 @@ def show_list_simple_sapcodes(request):
 
       search =request.GET.get('search',None)
       if search:
-            products = AluminiyProduct.objects.filter(
-                  Q(material__icontains=search)
-                  |Q(artikul__icontains=search)
-                  |Q(section__icontains=search)
-                  |Q(gruppa_materialov__icontains=search)
-                  |Q(kratkiy_tekst_materiala__icontains=search)
-                  |Q(kombinirovanniy__icontains=search)
-                  ).order_by('-created_at')
+            try:
+                  # print(search)
+                  f_date = datetime.strptime(search,'%m.%d.%Y %H:%M')
+                  print(f_date)
+                  products = AluminiyProduct.objects.filter(created_at__date =f_date)
+            except:
+                  products = AluminiyProduct.objects.filter(
+                        Q(material__icontains=search)
+                        |Q(artikul__icontains=search)
+                        |Q(section__icontains=search)
+                        |Q(gruppa_materialov__icontains=search)
+                        |Q(kratkiy_tekst_materiala__icontains=search)
+                        |Q(kombinirovanniy__icontains=search)
+                        ).order_by('-created_at')
       else:
             products =AluminiyProduct.objects.all().order_by('-created_at')
                   
