@@ -7,6 +7,7 @@ from aluminiy.models import AluminiyProduct,RazlovkaTermo
 from .forms import FileFormTermo,FileFormChar
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
+from django.core.paginator import Paginator
 import numpy as np
 from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,anodirovaka_check,check_for_correct
 import os
@@ -20,6 +21,63 @@ import ast
 from django.contrib.auth.decorators import user_passes_test,login_required
 from .create_char import product_add_second_termo,product_add_second_simple
 now = datetime.now()
+
+
+
+def show_list_simple_sapcodes(request):
+
+      search =request.GET.get('search',None)
+      if search:
+            try:
+                  # print(search)
+                  try:
+                        f_date = datetime.strptime(search,'%m.%d.%Y %H:%M')
+                        products = AluminiyProductTermo.objects.filter(
+                              created_at__year =f_date.year,
+                              created_at__month =f_date.month,
+                              created_at__day =f_date.day,
+                              created_at__hour =f_date.hour,
+                              created_at__minute =f_date.minute
+                        )
+                  except:
+                        f_date = datetime.strptime(search,'%m.%d.%Y')
+                        products = AluminiyProductTermo.objects.filter(
+                              created_at__year =f_date.year,
+                              created_at__month =f_date.month,
+                              created_at__day =f_date.day
+                        )
+                  
+            except:
+                  products = AluminiyProductTermo.objects.filter(
+                        Q(material__icontains=search)
+                        |Q(artikul__icontains=search)
+                        |Q(section__icontains=search)
+                        |Q(gruppa_materialov__icontains=search)
+                        |Q(kratkiy_tekst_materiala__icontains=search)
+                        |Q(kombinirovanniy__icontains=search)
+                        ).order_by('-created_at')
+      else:
+            products =AluminiyProductTermo.objects.all().order_by('-created_at')
+                  
+      paginator = Paginator(products, 25)
+
+      if request.GET.get('page') != None:
+            page_number = request.GET.get('page')
+      else:
+            page_number=1
+
+      page_obj = paginator.get_page(page_number)
+
+      context ={
+            'section':'Термо сапкоды',
+            'products':page_obj,
+            'search':search,
+            'type':'termo'
+
+      }
+      return render(request,'universal/show_sapcodes.html',context)
+
+
 
 
 def character_extras(request):

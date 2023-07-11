@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import pandas as pd
 from django.core.paginator import Paginator
-from .models import ArtikulComponent,AluminiyProduct,AluFile,RazlovkaObichniy
+from .models import ArtikulComponent,AluminiyProduct,AluFile,RazlovkaObichniy,RazlovkaTermo
 from aluminiytermo.models import AluminiyProductTermo,CharacteristikaFile
 from aluminiytermo.views import File
 from .forms import FileForm
@@ -4457,7 +4457,8 @@ def show_list_simple_sapcodes(request):
 def delete_sap_code(request,id):
       if request.method =='POST':
             file_type = request.POST.get('type',None)
-            if file_type:
+            print(file_type)
+            if file_type =='simple':
                   sapcode = AluminiyProduct.objects.get(id=id)
                   if Characteristika.objects.filter(sap_code=sapcode.material).exists():
                         character =Characteristika.objects.filter(sap_code=sapcode.material).order_by('-created_at')[:1].get()
@@ -4468,7 +4469,19 @@ def delete_sap_code(request,id):
                   sapcode.delete()
                   
             else:
-                  AluminiyProductTermo.objects.get(id=id).delete()
+                  sapcode = AluminiyProductTermo.objects.get(id=id)
+                  if Characteristika.objects.filter(sap_code=sapcode.material).exists():
+                        character =Characteristika.objects.filter(sap_code=sapcode.material).order_by('-created_at')[:1].get()
+                        character.delete()
+
+                  if '-7' in sapcode.material:
+                        if RazlovkaTermo.objects.filter(sap_code7 = sapcode.material).exists():
+                              termo =RazlovkaTermo.objects.get(sap_code7 = sapcode.material)
+                              components =RazlovkaTermo.objects.filter(parent_id =termo.id)
+                              components.delete()
+                              termo.delete()
+                  sapcode.delete()
+
             return JsonResponse({'msg':True})
       else:
             return JsonResponse({'msg':False})

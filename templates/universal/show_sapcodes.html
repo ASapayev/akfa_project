@@ -119,7 +119,7 @@ function delete_sapcode(elem,id){
         denyButtonText: `Yo'q`,
       }).then((result) => {
         if (result.isConfirmed) {
-          var url ="/alu/delete-sapcode/" + id+'?type={{type}}';
+          var url ="/alu/delete-sapcode/" + id;
           $.ajax({
                 method:'POST',
                 url: url,
