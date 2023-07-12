@@ -22,6 +22,23 @@ from datetime import datetime
 from aluminiytermo.BAZA import ANODIROVKA_CODE
 
 
+
+def download_all_razlovki(request):
+
+      return JsonResponse({'msg':True})
+
+
+
+def download(request, id):
+  path =str(ExcelFiles.objects.get(id=id).file)
+  file_path = os.path.join(settings.MEDIA_ROOT, path)
+  if os.path.exists(file_path):
+      with open(file_path, 'rb') as fh:
+          response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+          response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+          return response
+  raise Http404
+
 def show_razlovki(request):
      
      

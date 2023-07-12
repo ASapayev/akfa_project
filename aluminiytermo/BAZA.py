@@ -94,6 +94,10 @@ LGORT_1101 ={
                 {
                 'zavod_code':'1101',
                 'zavod_sap':'PS12'   
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'S405'   
                 }
             ], 
         'S':[
@@ -150,6 +154,10 @@ LGORT_1101 ={
                 'zavod_sap':'S404'    
                 },
                 {
+                'zavod_code':'1101',
+                'zavod_sap':'S405'    
+                },
+                {
                 'zavod_code':'11D1',
                 'zavod_sap':'D100'    
                 },
@@ -182,6 +190,10 @@ LGORT_1101 ={
             {
             'zavod_code':'1101',
             'zavod_sap':'PS11'    
+            },
+            {
+            'zavod_code':'1101',
+            'zavod_sap':'S405'    
             }
         ]
 }
