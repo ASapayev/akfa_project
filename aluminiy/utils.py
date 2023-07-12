@@ -5,6 +5,8 @@ import os
 from aluminiytermo.models import CharacteristicTitle
 from django.db.models import Q
 import pandas as pd
+from io import BytesIO as IO
+from django.http import HttpResponse,FileResponse
 
 def fabrikatsiya_sap_kod(sap_kod,length):
     new =sap_kod.split(' ')
@@ -206,4 +208,16 @@ def save_razlovka(df_new,file_type):
                               kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
                         ).save()
 
-            
+def download_bs64(download_df,name):
+    excel_file = IO()
+
+    xlwriter = pd.ExcelWriter(excel_file, engine='xlsxwriter')
+
+    download_df.to_excel(xlwriter)
+    xlwriter.close()
+
+    excel_file.seek(0)
+    content =f"attachment; filename={name}.xlsx"
+    response = HttpResponse(excel_file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = content
+    return response       

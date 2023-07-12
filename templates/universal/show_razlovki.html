@@ -9,7 +9,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><button type="button" class="btn btn-success btn-fw">Все скачать</button></li>
+            <li class="breadcrumb-item active" aria-current="page"><a type="button" class="btn btn-success btn-fw" href="{% url 'download_razlovki_all'%}?type={%if type %}termo{%else%}simple{%endif%}">Все скачать</a></li>
           </ol>
         </nav>
       </div>
@@ -268,4 +268,5 @@
     </div>
   </div>
  
+
 {% endblock %}

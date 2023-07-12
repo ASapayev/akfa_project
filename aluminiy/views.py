@@ -1,43 +1,69 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
 import pandas as pd
 from django.core.paginator import Paginator
 from .models import ArtikulComponent,AluminiyProduct,AluFile,RazlovkaObichniy,RazlovkaTermo
 from aluminiytermo.models import AluminiyProductTermo,CharacteristikaFile
 from aluminiytermo.views import File
 from .forms import FileForm
-from django.db.models import Count,Max
+from django.db.models import Max
 from config.settings import MEDIA_ROOT
 import numpy as np
-from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_razlovka
+from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_razlovka,download_bs64
 import os
 import random
 from aluminiytermo.utils import create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct,anodirovaka_check
-from aluminiytermo.models import CharUtilsOne,CharUtilsTwo,CharUtilsThree,Characteristika,CharUtilsFour,BazaProfiley
+from aluminiytermo.models import CharUtilsOne,CharUtilsTwo,CharUtilsThree,Characteristika,BazaProfiley
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 import ast
+from django.http import JsonResponse,HttpResponse,FileResponse
 from datetime import datetime
 from aluminiytermo.BAZA import ANODIROVKA_CODE
+from io import BytesIO as IO
 
 
 
 def download_all_razlovki(request):
+      file_type = request.GET.get('type',None)
+      if file_type =='simple':
+            simple_list = RazlovkaObichniy.objects.all().values_list('esap_code','ekratkiy','zsap_code','zkratkiy','psap_code','pkratkiy','ssap_code','skratkiy','asap_code','akratkiy','lsap_code','lkratkiy','nsap_code','nkratkiy','sap_code7','kratkiy7')
+            data = pd.DataFrame(np.array(list(simple_list)),columns=[
+                  'SAP код E','Экструзия холодная резка',
+                  'SAP код Z','Печь старения',
+                  'SAP код P','Покраска автомат',
+                  'SAP код S','Сублимация',
+                  'SAP код A','Анодировка',
+                  'SAP код L','Ламинация',
+                  'SAP код N','Наклейка',
+                  'SAP код 7','U-Упаковка + Готовая Продукция'
+                                                            ])
+            
+            data = data.replace('nan','')
+            
+            res = download_bs64(data,'OBICHNIY')
+            return res
+      else:
+            termo_list = RazlovkaTermo.objects.all().order_by('created_at').values_list('esap_code','ekratkiy','zsap_code','zkratkiy','psap_code','pkratkiy','ssap_code','skratkiy','asap_code','akratkiy','nsap_code','nkratkiy','ksap_code','kratkiy','lsap_code','lkratkiy','sap_code7','kratkiy7')
+            data = pd.DataFrame(np.array(list(termo_list)),columns=[
+                  'SAP код E','Экструзия холодная резка',
+                  'SAP код Z','Печь старения',
+                  'SAP код P','Покраска автомат',
+                  'SAP код S','Сублимация',
+                  'SAP код A','Анодировка',
+                  'SAP код N','Наклейка',
+                  'SAP код K','K-Комбинирования',
+                  'SAP код L','Ламинация',
+                  'SAP код 7','U-Упаковка + Готовая Продукция'
+                                                            ])
+            data = data.replace('nan','')
+            res = download_bs64(data,'TERMO')
+      
+      return res
+      
 
-      return JsonResponse({'msg':True})
 
 
-
-def download(request, id):
-  path =str(ExcelFiles.objects.get(id=id).file)
-  file_path = os.path.join(settings.MEDIA_ROOT, path)
-  if os.path.exists(file_path):
-      with open(file_path, 'rb') as fh:
-          response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-          response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-          return response
-  raise Http404
 
 def show_razlovki(request):
      
@@ -52,11 +78,17 @@ def show_razlovki(request):
             page_number=1
 
       page_obj = paginator.get_page(page_number)
+
+      object_to_download =pd.DataFrame({'salom':[1,2]})
+    
+      
+
       context ={
             'section':'Обычный разловки',
             'products':page_obj,
             'type':False
       }
+
                   
       return render(request,'universal/show_razlovki.html',context)
 
