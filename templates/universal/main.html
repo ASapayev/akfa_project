@@ -9,7 +9,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+            <li class="breadcrumb-item active" aria-current="page">{% if link %}<a type="button" href="{{link}}" class="btn btn-success btn-fw" >Скачать</a>{%else%}Buttons{% endif %}</li>
           </ol>
         </nav>
       </div>

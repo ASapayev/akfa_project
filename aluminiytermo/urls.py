@@ -29,5 +29,6 @@ path('aluminiy-files-char-org',views.aluminiy_files_char_org,name='aluminiy_file
 path('alumtermo/add/<int:id>',views.product_add_second_org,name='aluminiy_add_termo_org'),
 path('character-extras/',views.character_extras,name ='character_extras'),
 path('show-list-termo/',views.show_list_simple_sapcodes,name ='show_list_termo'),
+path('downloading-characteristika/',views.downloading_characteristika,name ='downloading_character'),
 
 ]
