@@ -22,6 +22,7 @@ urlpatterns = [
     path('file-list-termo-org',views.file_list_termo_org,name='norma_file_list_termo_org'),
     path('process-combinirovanniy/<int:id>',views.kombinirovaniy_process,name='kombinirovaniy_process'),
     path('find-chaarcteristics_org',views.find_characteristics_org,name='find_characteristics_org'),
+    path('show-norma-base',views.show_norm_base,name='show_norm_base'),
     
 ]
 

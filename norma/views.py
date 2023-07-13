@@ -16,6 +16,9 @@ from django.contrib import messages
 def index(request):
     return render(request,'norma/index.html')
 
+def show_norm_base(request):
+    return render(request,'')
+
 # Create your views here.
 def norma_excel(request):
     # df = pd.read_excel('c:\OSPanel\domains\\Norma22.xlsx','Общий')
