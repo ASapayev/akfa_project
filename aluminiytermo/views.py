@@ -4812,8 +4812,8 @@ def product_add_second_org(request,id):
 
       razlovka_yoq = True
       for key,razlov in df_new.iterrows():
-            if razlov['SAP код 7']!="":
-                  if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
+            if ((razlov['SAP код 7']!="") or (razlov['SAP код 75']!="")):
+                  if not RazlovkaTermo.objects.filter((Q(sap_code7=razlov['SAP код 7'])&Q(kratkiy7=razlov['U-Упаковка + Готовая Продукция']))|(Q(sap_code75=razlov['SAP код 75'])&Q(kratkiy75=razlov['U-Упаковка + Готовая Продукция 75']))).exists():
                         razlovka_yoq = True
                         razlovka_komb = RazlovkaTermo(
                               parent_id=0,
