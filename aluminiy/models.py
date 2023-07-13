@@ -73,3 +73,11 @@ class RazlovkaTermo(models.Model):
   kratkiy7 =models.CharField(max_length=150)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
+
+
+class NewAndOld(models.Model):
+  artikul = models.CharField(max_length=50)
+  komponent =models.CharField(max_length=50)
+  oldername = models.CharField(max_length=50)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
