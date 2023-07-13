@@ -135,7 +135,7 @@ def create_characteristika_utils(items):
 def save_razlovka(df_new,file_type):
     if file_type =='simple':
         for key,razlov in df_new.iterrows():
-            if not RazlovkaObichniy.objects.filter((Q(sap_code7=razlov['SAP код 7'])&Q(kratkiy7=razlov['U-Упаковка + Готовая Продукция']))|(Q(sap_code75=razlov['SAP код 75']&Q(kratkiy75=razlov['U-Упаковка + Готовая Продукция 75'])))).exists():
+            if not RazlovkaObichniy.objects.filter((Q(sap_code7=razlov['SAP код 7'])&Q(kratkiy7=razlov['U-Упаковка + Готовая Продукция']))|(Q(sap_code75=razlov['SAP код 75'])&Q(kratkiy75=razlov['U-Упаковка + Готовая Продукция 75']))).exists():
                     RazlovkaObichniy(
                         esap_code =razlov['SAP код E'],
                         ekratkiy =razlov['Экструзия холодная резка'],
