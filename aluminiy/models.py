@@ -48,6 +48,10 @@ class RazlovkaObichniy(models.Model):
   nkratkiy =models.CharField(max_length=150)
   sap_code7 =models.CharField(max_length=100)
   kratkiy7 =models.CharField(max_length=150)
+  fsap_code =models.CharField(max_length=100,default='')
+  fkratkiy =models.CharField(max_length=150,default='')
+  sap_code75 =models.CharField(max_length=100,default='')
+  kratkiy75 =models.CharField(max_length=150,default='')
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 
@@ -71,6 +75,10 @@ class RazlovkaTermo(models.Model):
   lkratkiy =models.CharField(max_length=150)
   sap_code7 =models.CharField(max_length=100)
   kratkiy7 =models.CharField(max_length=150)
+  fsap_code =models.CharField(max_length=100,default='')
+  fkratkiy =models.CharField(max_length=150,default='')
+  sap_code75 =models.CharField(max_length=100,default='')
+  kratkiy75 =models.CharField(max_length=150,default='')
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 
