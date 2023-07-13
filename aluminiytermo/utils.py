@@ -575,6 +575,16 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
     
    
     for key , row in datas.iterrows():
+        if row['Тип покрытия'] =='Анодированный':
+            continue
+        if file_name =='aluminiy':
+            filte_type2 = ('-E' in row['SAP код S4P 100']) and ('-Z' in row['SAP код S4P 100']) and ('-P' in row['SAP код S4P 100']) and ('-S' in row['SAP код S4P 100'])and ('-7' in row['SAP код S4P 100'])
+        else:
+            filte_type2 = ('-Z' in row['SAP код S4P 100']) and ('-P' in row['SAP код S4P 100']) and ('-S' in row['SAP код S4P 100']) and ('-N' in row['SAP код S4P 100'])and ('-K' in row['SAP код S4P 100'])and ('-7' in row['SAP код S4P 100'])
+        
+        if not filte_type2:
+            continue
+
         dlinniy_text_zero[0].append('1')
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
         dlinniy_text_zero[2].append(row['Польное наименование SAP'])
