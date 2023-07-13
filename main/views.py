@@ -135,10 +135,6 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     if not sap_code_exists:
       sap_code_yoqlari.append(sap_code)
 
-  # fsap_code =razlov['SAP код Ф'],
-  # fkratkiy =razlov['Фабрикация'],
-  # sap_code75 =razlov['SAP код 75'],
-  # kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
   if (zavod1101 and zavod1201):
     termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
     obichniy_razlovka =[ raz[:-2] for raz in obichniy_razlovka]
