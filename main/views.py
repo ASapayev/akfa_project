@@ -60,6 +60,10 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
       |Q(lsap_code =ozm)
       |Q(nsap_code =ozm)
       |Q(sap_code7 =ozm)
+      |Q(fsap_code =ozm)
+      |Q(fkratkiy =ozm)
+      |Q(sap_code75 =ozm)
+      |Q(kratkiy75 =ozm)
       ).exists():
       razlovkaobichniy =RazlovkaObichniy.objects.filter(
         Q(esap_code =ozm)
@@ -70,6 +74,10 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
       |Q(lsap_code =ozm)
       |Q(nsap_code =ozm)
       |Q(sap_code7 =ozm)
+      |Q(fsap_code =ozm)
+      |Q(fkratkiy =ozm)
+      |Q(sap_code75 =ozm)
+      |Q(kratkiy75 =ozm)
       )[:1].values_list()
       sap_code_exists=True
       if list(razlovkaobichniy)[0] not in obichniy_razlovka:
@@ -85,6 +93,10 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
       |Q(nsap_code =ozm)
       |Q(ksap_code =ozm)
       |Q(sap_code7 =ozm)
+      |Q(fsap_code =ozm)
+      |Q(fkratkiy =ozm)
+      |Q(sap_code75 =ozm)
+      |Q(kratkiy75 =ozm)
       ).exists():
       razlovkatermo =RazlovkaTermo.objects.filter(
         Q(esap_code =ozm)
@@ -96,6 +108,10 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
       |Q(nsap_code =ozm)
       |Q(lsap_code =ozm)
       |Q(sap_code7 =ozm)
+      |Q(fsap_code =ozm)
+      |Q(fkratkiy =ozm)
+      |Q(sap_code75 =ozm)
+      |Q(kratkiy75 =ozm)
       )[:1].get()
       id =razlovkatermo.parent_id
       if id == 0:
@@ -119,12 +135,15 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     if not sap_code_exists:
       sap_code_yoqlari.append(sap_code)
 
-
+  # fsap_code =razlov['SAP код Ф'],
+  # fkratkiy =razlov['Фабрикация'],
+  # sap_code75 =razlov['SAP код 75'],
+  # kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
   if (zavod1101 and zavod1201):
     termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
     obichniy_razlovka =[ raz[:-2] for raz in obichniy_razlovka]
-    df_termo_1201 = pd.DataFrame(termo_razlovka,columns=['ID','PARENT ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
-    df_obichniy_1201 = pd.DataFrame(obichniy_razlovka,columns=['ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код L','Ламинация','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_termo_1201 = pd.DataFrame(termo_razlovka,columns=['ID','PARENT ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция','SAP код Ф','Фабрикация','SAP код 75','U-Упаковка + Готовая Продукция 75'])#,'CREATED DATE','UPDATED DATE'
+    df_obichniy_1201 = pd.DataFrame(obichniy_razlovka,columns=['ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код L','Ламинация','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция','SAP код Ф','Фабрикация','SAP код 75','U-Упаковка + Готовая Продукция 75'])#,'CREATED DATE','UPDATED DATE'
     df_yoqlari_1201 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
     now =datetime.now()
     minut =now.strftime('%M-%S')
@@ -163,8 +182,8 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
   if ((zavod1201 and not zavod1201) or ((not zavod1101) and (not zavod1101))):
     termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
     obichniy_razlovka =[ raz[:-2] for raz in obichniy_razlovka]
-    df_termo_1201 = pd.DataFrame(termo_razlovka,columns=['ID','PARENT ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
-    df_obichniy_1201 = pd.DataFrame(obichniy_razlovka,columns=['ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код L','Ламинация','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_termo_1201 = pd.DataFrame(termo_razlovka,columns=['ID','PARENT ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция','SAP код Ф','Фабрикация','SAP код 75','U-Упаковка + Готовая Продукция 75'])#,'CREATED DATE','UPDATED DATE'
+    df_obichniy_1201 = pd.DataFrame(obichniy_razlovka,columns=['ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код L','Ламинация','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция','SAP код Ф','Фабрикация','SAP код 75','U-Упаковка + Готовая Продукция 75'])#,'CREATED DATE','UPDATED DATE'
     df_yoqlari_1201 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
     now =datetime.now()
     minut =now.strftime('%M-%S')
