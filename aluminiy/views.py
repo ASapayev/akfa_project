@@ -4132,7 +4132,11 @@ def product_add_second_org(request,id):
                         nsap_code =razlov['SAP код N'],
                         nkratkiy =razlov['Наклейка'],
                         sap_code7 =razlov['SAP код 7'],
-                        kratkiy7 =razlov['U-Упаковка + Готовая Продукция']
+                        kratkiy7 =razlov['U-Упаковка + Готовая Продукция'],
+                        fsap_code =razlov['SAP код Ф'],
+                        fkratkiy =razlov['Фабрикация'],
+                        sap_code75 =razlov['SAP код 75'],
+                        kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
                   ).save()
       for key,razlov in df_char.iterrows():
             if not Characteristika.objects.filter(sap_code=razlov['SAP CODE'],kratkiy_text=razlov['KRATKIY TEXT']).exists():
