@@ -4806,8 +4806,7 @@ def product_add_second_org(request,id):
             df_duplicates =pd.DataFrame(np.array([['','','']]),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
 
       
-      # df_char_title_full = pd.DataFrame(df_char_title)
-      # characteristika_created_txt_create(df_char_title_full)
+    
       df_new = df_new.replace('nan','')
 
       razlovka_yoq = True
