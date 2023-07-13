@@ -679,7 +679,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D1[18].append('PD')
             umumiy_without_duplicate12D1[19].append('MB')
             umumiy_without_duplicate12D1[20].append('0')
-            umumiy_without_duplicate12D1[21].append('E')
+            umumiy_without_duplicate12D1[21].append('F')
             
             sartrr =''
             if gruppa_material =='ALUGP':
@@ -690,7 +690,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 bklast ='0102'
                 
                 
-            umumiy_without_duplicate12D1[22].append('D100')
+            umumiy_without_duplicate12D1[22].append('')
             umumiy_without_duplicate12D1[23].append('')
             umumiy_without_duplicate12D1[24].append('M')
             umumiy_without_duplicate12D1[25].append('02')
@@ -746,7 +746,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D2[18].append('PD')
             umumiy_without_duplicate12D2[19].append('MB')
             umumiy_without_duplicate12D2[20].append('0')
-            umumiy_without_duplicate12D2[21].append('E')
+            umumiy_without_duplicate12D2[21].append('F')
             
             sartrr =''
             if gruppa_material =='ALUGP':
@@ -757,7 +757,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 bklast ='0102'
                 
                 
-            umumiy_without_duplicate12D2[22].append('D100')
+            umumiy_without_duplicate12D2[22].append('')
             umumiy_without_duplicate12D2[23].append('')
             umumiy_without_duplicate12D2[24].append('M')
             umumiy_without_duplicate12D2[25].append('02')
@@ -813,7 +813,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D3[18].append('PD')
             umumiy_without_duplicate12D3[19].append('MB')
             umumiy_without_duplicate12D3[20].append('0')
-            umumiy_without_duplicate12D3[21].append('E')
+            umumiy_without_duplicate12D3[21].append('F')
             
             sartrr =''
             if gruppa_material =='ALUGP':
@@ -824,7 +824,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 bklast ='0102'
                 
                 
-            umumiy_without_duplicate12D3[22].append('D100')
+            umumiy_without_duplicate12D3[22].append('')
             umumiy_without_duplicate12D3[23].append('')
             umumiy_without_duplicate12D3[24].append('M')
             umumiy_without_duplicate12D3[25].append('02')
@@ -879,7 +879,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D4[18].append('PD')
             umumiy_without_duplicate12D4[19].append('MB')
             umumiy_without_duplicate12D4[20].append('0')
-            umumiy_without_duplicate12D4[21].append('E')
+            umumiy_without_duplicate12D4[21].append('F')
             
             sartrr =''
             if gruppa_material =='ALUGP':
@@ -890,7 +890,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 bklast ='0102'
                 
                 
-            umumiy_without_duplicate12D4[22].append('D100')
+            umumiy_without_duplicate12D4[22].append('')
             umumiy_without_duplicate12D4[23].append('')
             umumiy_without_duplicate12D4[24].append('M')
             umumiy_without_duplicate12D4[25].append('02')
@@ -946,7 +946,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate12D5[18].append('PD')
             umumiy_without_duplicate12D5[19].append('MB')
             umumiy_without_duplicate12D5[20].append('0')
-            umumiy_without_duplicate12D5[21].append('E')
+            umumiy_without_duplicate12D5[21].append('F')
             
             sartrr =''
             if gruppa_material =='ALUGP':
@@ -957,7 +957,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 bklast ='0102'
                 
                 
-            umumiy_without_duplicate12D5[22].append('D100')
+            umumiy_without_duplicate12D5[22].append('')
             umumiy_without_duplicate12D5[23].append('')
             umumiy_without_duplicate12D5[24].append('M')
             umumiy_without_duplicate12D5[25].append('02')
@@ -1010,7 +1010,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate1201[16].append('X')
             umumiy_without_duplicate1201[17].append('0000')
             umumiy_without_duplicate1201[18].append('PD')
-            umumiy_without_duplicate1201[19].append('MB')
+            umumiy_without_duplicate1201[19].append('EX')
             umumiy_without_duplicate1201[20].append('0')
             umumiy_without_duplicate1201[21].append('E')
             ss =''
@@ -1041,7 +1041,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             umumiy_without_duplicate1201[36].append(bklast)
             umumiy_without_duplicate1201[37].append('S')
             umumiy_without_duplicate1201[38].append('1')
-            umumiy_without_duplicate1201[39].append('1')
+            umumiy_without_duplicate1201[39].append(row['Price'])
             umumiy_without_duplicate1201[40].append('1101')
             umumiy_without_duplicate1201[41].append('X')
             umumiy_without_duplicate1201[42].append('X')
