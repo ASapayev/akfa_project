@@ -522,7 +522,7 @@ def product_add_second(request,id):
       df_new['Наклейка']=''
       df_new['SAP код 7']=''
       df_new['U-Упаковка + Готовая Продукция']=''
-      df_new['SAP код Ф']=''
+      df_new['SAP код F']=''
       df_new['Фабрикация']=''
       df_new['SAP код 75']=''
       df_new['U-Упаковка + Готовая Продукция 75']=''
@@ -613,15 +613,15 @@ def product_add_second(request,id):
                   
             if df['Длина при выходе из пресса'][key] != 'nan':
                   if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key]).exists():
-                        df_new['SAP код Ф'][key] = AluminiyProduct.objects.filter(artikul = df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key])[:1].get().material
-                        duplicat_list.append([df_new['SAP код Ф'][key],df_new['Фабрикация'][key],'F'])
+                        df_new['SAP код F'][key] = AluminiyProduct.objects.filter(artikul = df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key])[:1].get().material
+                        duplicat_list.append([df_new['SAP код F'][key],df_new['Фабрикация'][key],'F'])
                   else: 
                         if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F').exists():
                               umumiy_counter[df['Артикул'][key]+'-F'] += 1
                               max_valuesF = umumiy_counter[df['Артикул'][key]+'-F']
                               materiale = df['Артикул'][key] +"-F{:03d}".format(max_valuesF)
                               AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][key],material=materiale).save()
-                              df_new['SAP код Ф'][key]=materiale
+                              df_new['SAP код F'][key]=materiale
                               artikle = materiale.split('-')[0]
 
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
@@ -685,7 +685,7 @@ def product_add_second(request,id):
                         else:
                               materiale = df['Артикул'][key] +"-F{:03d}".format(1)
                               AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][key],material=materiale).save()
-                              df_new['SAP код Ф'][key]=materiale
+                              df_new['SAP код F'][key]=materiale
                               umumiy_counter[df['Артикул'][key]+'-F'] = 1
                               artikle = materiale.split('-')[0]
                         
@@ -2414,7 +2414,7 @@ def product_add_second_org(request,id):
       df_new['Наклейка']=''
       df_new['SAP код 7']=''
       df_new['U-Упаковка + Готовая Продукция']=''
-      df_new['SAP код Ф']=''
+      df_new['SAP код F']=''
       df_new['Фабрикация']=''
       df_new['SAP код 75']=''
       df_new['U-Упаковка + Готовая Продукция 75']=''
@@ -2505,15 +2505,15 @@ def product_add_second_org(request,id):
                   
             if df['Длина при выходе из пресса'][key] != 'nan':
                   if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key]).exists():
-                        df_new['SAP код Ф'][key] = AluminiyProduct.objects.filter(artikul = df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key])[:1].get().material
-                        duplicat_list.append([df_new['SAP код Ф'][key],df_new['Фабрикация'][key],'F'])
+                        df_new['SAP код F'][key] = AluminiyProduct.objects.filter(artikul = df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key])[:1].get().material
+                        duplicat_list.append([df_new['SAP код F'][key],df_new['Фабрикация'][key],'F'])
                   else: 
                         if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F').exists():
                               umumiy_counter[df['Артикул'][key]+'-F'] += 1
                               max_valuesF = umumiy_counter[df['Артикул'][key]+'-F']
                               materiale = df['Артикул'][key] +"-F{:03d}".format(max_valuesF)
                               AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][key],material=materiale).save()
-                              df_new['SAP код Ф'][key]=materiale
+                              df_new['SAP код F'][key]=materiale
                               component2 = materiale.split('-')[0]
                               artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
@@ -2571,7 +2571,7 @@ def product_add_second_org(request,id):
                         else:
                               materiale = df['Артикул'][key] +"-F{:03d}".format(1)
                               AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][key],material=materiale).save()
-                              df_new['SAP код Ф'][key]=materiale
+                              df_new['SAP код F'][key]=materiale
                               umumiy_counter[df['Артикул'][key]+'-F'] = 1
                               component2 = materiale.split('-')[0]
                               artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
@@ -4122,7 +4122,7 @@ def product_add_second_org(request,id):
                               nkratkiy =razlov['Наклейка'],
                               sap_code7 =razlov['SAP код 7'],
                               kratkiy7 =razlov['U-Упаковка + Готовая Продукция'],
-                              fsap_code =razlov['SAP код Ф'],
+                              fsap_code =razlov['SAP код F'],
                               fkratkiy =razlov['Фабрикация'],
                               sap_code75 =razlov['SAP код 75'],
                               kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
@@ -4146,7 +4146,7 @@ def product_add_second_org(request,id):
                               nkratkiy =razlov['Наклейка'],
                               sap_code7 =razlov['SAP код 7'],
                               kratkiy7 =razlov['U-Упаковка + Готовая Продукция'],
-                              fsap_code =razlov['SAP код Ф'],
+                              fsap_code =razlov['SAP код F'],
                               fkratkiy =razlov['Фабрикация'],
                               sap_code75 =razlov['SAP код 75'],
                               kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']

@@ -4834,7 +4834,7 @@ def product_add_second_org(request,id):
                               lkratkiy =razlov['Ламинация'],
                               sap_code7 =razlov['SAP код 7'],
                               kratkiy7 =razlov['U-Упаковка + Готовая Продукция'],
-                              fsap_code =razlov['SAP код Ф'],
+                              fsap_code =razlov['SAP код F'],
                               fkratkiy =razlov['Фабрикация'],
                               sap_code75 =razlov['SAP код 75'],
                               kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
@@ -4865,7 +4865,7 @@ def product_add_second_org(request,id):
                               lkratkiy =razlov['Ламинация'],
                               sap_code7 =razlov['SAP код 7'],
                               kratkiy7 =razlov['U-Упаковка + Готовая Продукция'],
-                              fsap_code =razlov['SAP код Ф'],
+                              fsap_code =razlov['SAP код F'],
                               fkratkiy =razlov['Фабрикация'],
                               sap_code75 =razlov['SAP код 75'],
                               kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
@@ -4896,7 +4896,7 @@ def product_add_second_org(request,id):
                               lkratkiy =razlov['Ламинация'],
                               sap_code7 =razlov['SAP код 7'],
                               kratkiy7 =razlov['U-Упаковка + Готовая Продукция'],
-                              fsap_code =razlov['SAP код Ф'],
+                              fsap_code =razlov['SAP код F'],
                               fkratkiy =razlov['Фабрикация'],
                               sap_code75 =razlov['SAP код 75'],
                               kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
