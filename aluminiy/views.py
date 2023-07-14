@@ -114,8 +114,8 @@ def show_razlovki_termo(request):
       return render(request,'universal/show_razlovki.html',context)
 
 def save_razlovka2(request):
-      # df = pd.read_excel('c:\\OpenServer\\domains\\new.xlsx','Лист1')
-      df = pd.read_excel('C:\\OSPanel\\domains\\NormaSimple.xlsx','Лист1')
+      df = pd.read_excel('c:\\OpenServer\\domains\\Razlovka.xlsx','Лист1')
+      # df = pd.read_excel('C:\\OSPanel\\domains\\Razlovka.xlsx','Лист1')
       save_razlovka(df,'simple')
       return JsonResponse({'a':'b'})
 
