@@ -1401,7 +1401,9 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                         dd2[1].append('RAWMAT_TYPE')
                     elif HEADER[j] =='TNVED':
                         dd2[1].append('TNVED')
-                
+            
+           
+
             dd2[1].append('QBIC')
             dd2[1].append('ZPP_023_FERT')
         
@@ -1456,7 +1458,23 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
             dd2[5].append(row['ch_artikul_old'])
-            dd2[5].append('XXXXXXXXXX')
+            if row['Тип покрытия'] =='Неокрашенный':
+                qbic ='XXXXXXXXXX'
+            elif row['Тип покрытия'] =='Окрашенный':
+                qbic = row['ch_outer_side_pc_id']
+            elif row['Тип покрытия'] =='Анодированный':
+                qbic = row['ch_outer_side_pc_id']
+            elif row['Тип покрытия'] =='Ламинированный':
+                if row['ch_outer_side_wg_id'] =='XXXX':
+                    qbic = row['ch_inner_side_wg_id']
+                else:
+                    qbic = row['ch_outer_side_wg_id']
+            elif row['Тип покрытия'] =='Сублимированный':
+                qbic = row['ch_outer_side_wg_s_id']
+            else:
+                qbic ='XXXXXXXXXX'
+
+            dd2[5].append(qbic)
             dd2[5].append('XXXXXXXXXX')
         else:
             for j in range(0,33):
@@ -2494,6 +2512,8 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 
             for j in range(0,32):
                 if HEADER2[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
+
+
                     dd2[1].append('ALUMINIUM_PROFILE')
                 else:
                     if HEADER2[j] in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT']:
@@ -2638,7 +2658,22 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
             dd2[5].append(row['WMS_HEIGHT'])
             dd2[5].append(row['ch_artikul_old'])
             if '-7' in row['SAP код S4P 100']:
-                dd2[5].append('XXXXXXXXXX')
+                if row['Тип покрытия'] =='Неокрашенный':
+                    qbic ='XXXXXXXXXX'
+                elif row['Тип покрытия'] =='Окрашенный':
+                    qbic = row['ch_outer_side_pc_id']
+                elif row['Тип покрытия'] =='Анодированный':
+                    qbic = row['ch_outer_side_pc_id']
+                elif row['Тип покрытия'] =='Ламинированный':
+                    if row['ch_outer_side_wg_id'] =='XXXX':
+                        qbic = row['ch_inner_side_wg_id']
+                    else:
+                        qbic = row['ch_outer_side_wg_id']
+                elif row['Тип покрытия'] =='Сублимированный':
+                    qbic = row['ch_outer_side_wg_s_id']
+                else:
+                    qbic ='XXXXXXXXXX'
+                dd2[5].append(qbic)
                 dd2[5].append('XXXXXXXXXX')
             else:
                 dd2[5].append('XXXXXXXXXX')
