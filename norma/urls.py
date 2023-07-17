@@ -23,6 +23,8 @@ urlpatterns = [
     path('process-combinirovanniy/<int:id>',views.kombinirovaniy_process,name='kombinirovaniy_process'),
     path('find-chaarcteristics_org',views.find_characteristics_org,name='find_characteristics_org'),
     path('show-norma-base',views.show_norm_base,name='show_norm_base'),
+    path('add-norm',views.add_norm,name = 'add_norm'),
+    
     
 ]
 

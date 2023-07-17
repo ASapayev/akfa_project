@@ -67,8 +67,33 @@ def download_all_razlovki(request):
 
 def show_razlovki(request):
      
-     
-      products = RazlovkaObichniy.objects.all().order_by('-created_at')
+      search_text = request.GET.get('search',None)
+
+      if search_text:
+            products = RazlovkaObichniy.objects.filter(
+                  Q(esap_code__icontains = search_text)|
+                  Q(ekratkiy__icontains = search_text)|
+                  Q(zsap_code__icontains = search_text)|
+                  Q(zkratkiy__icontains = search_text)|
+                  Q(psap_code__icontains = search_text)|
+                  Q(pkratkiy__icontains = search_text)|
+                  Q(ssap_code__icontains = search_text)|
+                  Q(skratkiy__icontains = search_text)|
+                  Q(asap_code__icontains = search_text)|
+                  Q(akratkiy__icontains = search_text)|
+                  Q(lsap_code__icontains = search_text)|
+                  Q(lkratkiy__icontains = search_text)|
+                  Q(nsap_code__icontains = search_text)|
+                  Q(nkratkiy__icontains = search_text)|
+                  Q(sap_code7__icontains = search_text)|
+                  Q(kratkiy7__icontains = search_text)|
+                  Q(fsap_code__icontains = search_text)|
+                  Q(fkratkiy__icontains = search_text)|
+                  Q(sap_code75__icontains = search_text)|
+                  Q(kratkiy75__icontains = search_text)
+            ).order_by('-created_at')
+      else:
+            products = RazlovkaObichniy.objects.all().order_by('-created_at')
 
       paginator = Paginator(products, 25)
 
@@ -86,7 +111,8 @@ def show_razlovki(request):
       context ={
             'section':'Обычный разловки',
             'products':page_obj,
-            'type':False
+            'type':False,
+            'search':search_text
       }
 
                   

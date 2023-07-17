@@ -17,7 +17,13 @@
         <div class="col-12 grid-margin">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Листь</h4>
+             <form>
+              <div class="d-flex">
+                <div class="mr-auto p-2"><h4 class="card-title">Листь</h4></div>
+                <div class="p-2"><input type="search" class="form-control" placeholder="Search sapcode" name="search"></div>
+                <div class="p-2"><button class="btn btn-info " style="height: 35px;"  type="submit">Search</button></div>
+              </div>
+            </form>
               <div class="table-responsive">
                 <table class="table  table-contextual">
                   {% if type %}

@@ -13,11 +13,16 @@ from datetime import datetime
 from django.contrib import messages
 
 
+
+def add_norm(request):
+
+    return render(request,'norma/norma_crud/add.html')
+
 def index(request):
     return render(request,'norma/index.html')
 
 def show_norm_base(request):
-    return render(request,'')
+    return render(request,'norma/norma_crud/show_list.html')
 
 # Create your views here.
 def norma_excel(request):
