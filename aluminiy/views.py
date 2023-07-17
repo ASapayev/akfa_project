@@ -122,7 +122,7 @@ def show_razlovki_termo(request):
       search_text = request.GET.get('search',None)
 
       if search_text:
-            products = RazlovkaObichniy.objects.filter(
+            products = RazlovkaTermo.objects.filter(
                   Q(esap_code__icontains = search_text)|
                   Q(ekratkiy__icontains = search_text)|
                   Q(zsap_code__icontains = search_text)|
