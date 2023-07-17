@@ -42,12 +42,14 @@
                       <th> Сублимация </th>
                       <th>SAP код A </th>
                       <th> Анодировка </th>
-                      <th> SAP код L </th>
-                      <th> Ламинация </th>
                       <th> SAP код N </th>
                       <th> Наклейка </th>
                       <th> SAP код 7 </th>
                       <th> U-Упаковка + Готовая Продукция </th>
+                      <th> SAP код F </th>
+                      <th> Фабрикация </th>
+                      <th> SAP код 75 </th>
+                      <th> U-Упаковка + Готовая Продукция 75 </th>
                       <th> Действие </th>
                     </tr>
                   </thead>
@@ -82,10 +84,7 @@
                             {{profile.asap_code}}
                           </td>
                           <td> {{profile.akratkiy}}</td>
-                          <td>
-                            {{profile.lsap_code}}
-                          </td>
-                          <td> {{profile.lkratkiy}}</td>
+                          
                           <td>
                             {{profile.nsap_code}}
                           </td>
@@ -94,7 +93,14 @@
                             {{profile.sap_code7}}
                           </td>
                           <td> {{profile.kratkiy7}}</td>
-                          
+                          <td>
+                            {{profile.fsap_code}}
+                          </td>
+                          <td> {{profile.fkratkiy}}</td>
+                          <td>
+                            {{profile.sap_code75}}
+                          </td>
+                          <td> {{profile.kratkiy75}}</td>
                           <td>
                             <div class="badge btn-warning" style="cursor: pointer;">Удалить</div>
                           </td>
