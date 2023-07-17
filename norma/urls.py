@@ -24,6 +24,7 @@ urlpatterns = [
     path('find-chaarcteristics_org',views.find_characteristics_org,name='find_characteristics_org'),
     path('show-norma-base',views.show_norm_base,name='show_norm_base'),
     path('add-norm',views.add_norm,name = 'add_norm'),
+    path('add-norm-post',views.add_norm_post,name = 'add_norm_post'),
     
     
 ]
