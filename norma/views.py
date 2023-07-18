@@ -1,8 +1,8 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 import pandas as pd
 from django.http import JsonResponse
 from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell,KombinirovaniyUtilsInformation,Accessuar,NakleykaIskyuchenie,ZakalkaIskyuchenie
-from .forms import NormaFileForm
+from .forms import NormaFileForm,NormaEditForm
 from django.db.models import Q
 from aluminiytermo.models import Characteristika,CharacteristicTitle
 from config.settings import MEDIA_ROOT
@@ -12,7 +12,18 @@ from aluminiytermo.views import File
 from datetime import datetime
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
 
+
+
+def edit_norm(request,id):
+    norma = get_object_or_404(Norma, id = id)
+    form = NormaEditForm(instance = norma)
+    context ={
+        'norm':form,
+        # 'form':form
+    }
+    return render(request,'norma/norma_crud/edit.html',context)
 
 @csrf_exempt
 def add_norm_post(request):   
@@ -158,7 +169,26 @@ def index(request):
     return render(request,'norma/index.html')
 
 def show_norm_base(request):
-    return render(request,'norma/norma_crud/show_list.html')
+    search_text = request.GET.get('search',None)
+
+    if search_text:
+        normas = Norma.objects.filter(Q(устаревший__icontains = search_text)|Q(компонент_1__icontains = search_text)|Q(компонент_2__icontains = search_text)|Q(компонент_3__icontains = search_text)|Q(артикул__icontains=search_text))
+    else:
+        normas = Norma.objects.all()
+
+    paginator = Paginator(normas, 25)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'products':page_obj,
+        'search':search_text
+    }
+    return render(request,'norma/norma_crud/show_list.html',context)
 
 # Create your views here.
 def norma_excel(request):

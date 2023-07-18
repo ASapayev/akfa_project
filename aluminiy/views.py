@@ -24,6 +24,8 @@ from io import BytesIO as IO
 
 
 
+
+
 def download_all_razlovki(request):
       file_type = request.GET.get('type',None)
       if file_type =='simple':
@@ -104,7 +106,6 @@ def show_razlovki(request):
 
       page_obj = paginator.get_page(page_number)
 
-      object_to_download =pd.DataFrame({'salom':[1,2]})
     
       
 
