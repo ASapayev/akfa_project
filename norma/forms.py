@@ -13,11 +13,6 @@ class NormaFileForm(forms.ModelForm):
     fields =['file','type']
 
 class NormaEditForm(forms.ModelForm):
-  def __init__(self, *args, **kwargs):
-      super(NormaEditForm, self).__init__(*args, **kwargs)
-      self.fields['устаревший'].widget.attrs.update({
-          'class': 'form-control'
-      })
   class Meta:
     model = Norma
     fields ='__all__'
