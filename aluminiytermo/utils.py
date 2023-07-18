@@ -1417,7 +1417,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 dd2[4].append(j)
             
             dd2[4].append('COATING_QBIC')
-            dd2[4].append('LOBM_LWEDT')
+            dd2[4].append('ZBATCH_NUM')
 
             dd2[5].append('')
             dd2[5].append('')
@@ -1498,7 +1498,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
                 
             for j in HEADER:
                 dd2[4].append(j)
-            dd2[4].append('LOBM_LWEDT')
+            dd2[4].append('ZBATCH_NUM')
 
             dd2[5].append('')
             dd2[5].append('')
@@ -2530,7 +2530,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 
             for j in HEADER2:
                 dd2[4].append(j)
-            dd2[4].append('LOBM_LWEDT')
+            dd2[4].append('ZBATCH_NUM')
 
 
             dd2[5].append('')
@@ -2611,11 +2611,11 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
                 dd2[3].append(row['SAP код S4P 100'])
                 dd2[3].append(row['SAP код S4P 100'])
                 dd2[4].append('COATING_QBIC')
-                dd2[4].append('LOBM_LWEDT')
+                dd2[4].append('ZBATCH_NUM')
             else:
                 dd2[2].append('MARA')
                 dd2[3].append(row['SAP код S4P 100'])
-                dd2[4].append('LOBM_LWEDT')
+                dd2[4].append('ZBATCH_NUM')
 
             dd2[5].append('')
             dd2[5].append('')
