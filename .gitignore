@@ -22,7 +22,9 @@ media
 
 # C extensions
 *.so
-
+STAR_akfagroup_com_chained.crt
+STAR_akfagroup_com.crt
+key.key
 # Distribution / packaging
 .Python
 build/
