@@ -185,7 +185,7 @@ def show_norm_base(request):
     if search_text:
         normas = Norma.objects.filter(Q(устаревший__icontains = search_text)|Q(компонент_1__icontains = search_text)|Q(компонент_2__icontains = search_text)|Q(компонент_3__icontains = search_text)|Q(артикул__icontains=search_text))
     else:
-        normas = Norma.objects.all()
+        normas = Norma.objects.all().order_by('created_at')
 
     paginator = Paginator(normas, 25)
 
