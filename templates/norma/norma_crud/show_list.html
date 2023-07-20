@@ -147,7 +147,8 @@
                       <td style="background-color: aliceblue;">{{norm.упаковка_колво_профилей_в_1_пачке }}</td>
                       <td style="background-color: aliceblue;">{{norm.ala7_oddiy_ala8_qora_алю_сплав_6064 }}</td>
                       <td style="background-color: aliceblue;">{{norm.алю_сплав_биллетов_102_178}}</td>
-                      <td style="background-color: aliceblue;"><a class="btn btn-warning btn-fw mx-1" href="{% url 'edit_norm' norm.id %}"><i class="mdi mdi-eyedropper"></i>Edit</a><a type="button" class="btn btn-danger btn-fw"  onclick="delete_norm(this,{{norm.id}})"><i class="mdi mdi-delete"></i>Delete</a</td>
+                      <!-- <td style="background-color: aliceblue;"><a class="btn btn-warning btn-fw mx-1" href="{% url 'edit_norm' norm.id %}"><i class="mdi mdi-eyedropper"></i>Edit</a><a type="button" class="btn btn-danger btn-fw"  onclick="delete_norm(this,{{norm.id}})"><i class="mdi mdi-delete"></i>Delete</a</td> -->
+                      <td style="background-color: aliceblue;"><a type="button" class="btn btn-danger btn-fw"  onclick="delete_norm(this,{{norm.id}})"><i class="mdi mdi-delete"></i>Delete</a</td>
                     </tr>
                   {%endfor%}
                 </table>
