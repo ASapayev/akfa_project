@@ -13,6 +13,7 @@ class NormaFileForm(forms.ModelForm):
     fields =['file','type']
 
 class NormaEditForm(forms.ModelForm):
+  
   class Meta:
     model = Norma
     fields ='__all__'

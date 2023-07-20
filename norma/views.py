@@ -17,7 +17,21 @@ from django.core.paginator import Paginator
 
 
 def edit_norm(request,id):
-    norma = get_object_or_404(Norma, id = id)
+    norma = Norma.objects.get( id = id)
+
+    if request.method =='POST':
+        # data = request.POST
+        instance = get_object_or_404(Norma, id=id)
+        form = NormaEditForm(request.POST or None, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('show_norm_base')
+        
+        # norm_form = NormaEditForm(norma,request.POST)
+        # if norm_form.is_valid():
+        #     norm_form.save()
+        #     return redirect('show_norm_base')
+        
     form = NormaEditForm(instance = norma)
     context ={
         'norm':form,
