@@ -2,16 +2,35 @@
 {% load static %}
 <html lang="en">
  {% include 'includes/header.html' %}
-  <body>
-    <div class="container-scroller">
+ <style>
+  /* * {
+  background-color: transparent !important;
+  } */
+
+  /* body * {
+    background-color: rgba(0, 0,0, .8)!important;
+   
+  } */
+  /* div * {
+    background-color: rgba(0, 0,0, .5)!important;
+    
+  } */
+  /* nav * {
+    background-color: rgba(0, 0,0, .5)!important;
+   
+  } */
+  
+ </style>
+  <body >
+    <div class="container-scroller" >
       <!-- partial:partials/_sidebar.html -->
       {% include 'includes/sidebar.html' %}
       <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
+      <div class="container-fluid page-body-wrapper " >
         <!-- partial:partials/_navbar.html -->
         {% include 'includes/navbar.html' %}
         <!-- partial -->
-        <div class="main-panel">
+        <div class="main-panel" style="background-color: aliceblue  !important;">
           {% block content%}
           {% endblock%}
           <!-- content-wrapper ends -->
