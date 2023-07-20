@@ -14,7 +14,11 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 
-
+@csrf_exempt
+def delete_norm(request, id):
+    norma = Norma.objects.get(id= id)
+    norma.delete()
+    return JsonResponse({'msg':True,'text':'Deleted successfully'})
 
 def edit_norm(request,id):
     norma = Norma.objects.get( id = id)

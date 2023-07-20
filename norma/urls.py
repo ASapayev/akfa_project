@@ -26,6 +26,7 @@ urlpatterns = [
     path('add-norm',views.add_norm,name = 'add_norm'),
     path('add-norm-post',views.add_norm_post,name = 'add_norm_post'),
     path('edit-norm/<int:id>',views.edit_norm,name = 'edit_norm'),
+    path('delete-norm/<int:id>',views.delete_norm,name = 'delete_norm'),
     
     
 ]

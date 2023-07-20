@@ -147,7 +147,7 @@
                       <td style="background-color: aliceblue;">{{norm.упаковка_колво_профилей_в_1_пачке }}</td>
                       <td style="background-color: aliceblue;">{{norm.ala7_oddiy_ala8_qora_алю_сплав_6064 }}</td>
                       <td style="background-color: aliceblue;">{{norm.алю_сплав_биллетов_102_178}}</td>
-                      <td style="background-color: aliceblue;"><a class="btn btn-warning btn-fw mx-1" href="{% url 'edit_norm' norm.id %}"><i class="mdi mdi-eyedropper"></i>Edit</a><a type="button" class="btn btn-danger btn-fw" href=""><i class="mdi mdi-delete"></i>Delete</a</td>
+                      <td style="background-color: aliceblue;"><a class="btn btn-warning btn-fw mx-1" href="{% url 'edit_norm' norm.id %}"><i class="mdi mdi-eyedropper"></i>Edit</a><a type="button" class="btn btn-danger btn-fw"  onclick="delete_norm(this,{{norm.id}})"><i class="mdi mdi-delete"></i>Delete</a</td>
                     </tr>
                   {%endfor%}
                 </table>
@@ -204,4 +204,53 @@
         </div>
     </div>
   </div>
+<script>
+  function delete_norm(elem,id){
+    console.log(id)
+    url =`/norma/delete-norm/${id}`
+    console.log(url)
+
+
+    Swal.fire({
+      showDenyButton: true,
+      confirmButtonText: 'Normani o\'chirmoqchimisiz?',
+      denyButtonText: `Yo'q`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+       
+        $.ajax({
+                    method: "POST",
+                    url: url
+                    
+                  }).done(function( msg ) {
+                    
+                    if (msg.msg ==true){
+                       remove_me(elem);
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: msg.text,
+                            showConfirmButton: false,
+                            timer: 1000
+                          })
+                      
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: msg.text
+                              })
+    
+                        }
+                    });
+      } else if (result.isDenied) {
+        Swal.fire('!!!', 'Ok', 'info')
+      }
+    })
+  }
+
+  function remove_me(elem){
+    elem.parentElement.parentElement.remove()
+  }
+</script>
 {% endblock %}
