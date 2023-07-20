@@ -277,12 +277,14 @@ def save_razlovka(df_new,file_type):
                             kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
                         ).save()
 
-def download_bs64(download_df,name):
+def download_bs64(download_df_list,name):
     excel_file = IO()
 
     xlwriter = pd.ExcelWriter(excel_file, engine='xlsxwriter')
-
-    download_df.to_excel(xlwriter)
+    i = 1
+    for download_df in download_df_list:
+        download_df.to_excel(xlwriter,index=False,sheet_name=f'{i}')
+        i+=1
     xlwriter.close()
 
     excel_file.seek(0)

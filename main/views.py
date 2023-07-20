@@ -12,9 +12,7 @@ from django.conf import settings
 from config.settings import MEDIA_ROOT
 from datetime import datetime
 from django.core.files import File
-import string
-import platform
-import random
+from aluminiy.utils import download_bs64
 from django.contrib import messages
 from django.template.defaulttags import register
 from .utils import counter_generated_data
@@ -173,7 +171,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     df_obichniy_1101.to_excel(writer,index=False,sheet_name='OBICHNIY')
     df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')
     writer.close()
-    return [path1201,path1101]
+    return [path1201,path1101],[df_termo_1201,df_obichniy_1201,df_yoqlari_1201]
   
   if ((zavod1201 and not zavod1201) or ((not zavod1101) and (not zavod1101))):
     termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
@@ -189,7 +187,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     df_obichniy_1201.to_excel(writer,index=False,sheet_name='OBICHNIY')
     df_yoqlari_1201.to_excel(writer,index=False,sheet_name='NOT EXISTS')
     writer.close()
-    return [path1201,'']
+    return [path1201,''],[df_termo_1201,df_obichniy_1201,df_yoqlari_1201]
   
   if zavod1101:
     termo_razlovka1101 =[ raz[4:10] + raz[12:16] + raz[18:20] for raz in termo_razlovka]
@@ -215,7 +213,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     df_obichniy_1101.to_excel(writer,index=False,sheet_name='OBICHNIY')
     df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')
     writer.close()
-    return [path1101,'']
+    return [path1101,''],[df_termo_1101,df_obichniy_1101,df_yoqlari_1101]
 
 
 
@@ -404,6 +402,9 @@ def file_upload_for_get_ozmka(request):
         return render(request,'norma/razlovka_find.html')
   return render(request,'norma/razlovka_find.html')
 
+# def downloading_razlovka(request):
+#   res = download_bs64([data,]'CHARACTERISTIKA')
+#   return res
 
 def file_upload_for_get_ozmka_org(request):
   if request.method =='POST':
@@ -422,7 +423,10 @@ def file_upload_for_get_ozmka_org(request):
       z1201 =False    
     if ozmk:
       ozmks =ozmk.split()
-      path = get_ozmka(ozmks,z1101,z1201)
+      path,df = get_ozmka(ozmks,z1101,z1201)
+      res = download_bs64(df,'RAZLOVKA')
+      if request.user.role ==2:
+        return res
       return render(request,'norma/razlovka_find_org.html',{'path':path})
     else:
         return render(request,'norma/razlovka_find_org.html')

@@ -43,7 +43,7 @@ def download_all_razlovki(request):
             
             data = data.replace('nan','')
             
-            res = download_bs64(data,'OBICHNIY')
+            res = download_bs64([data,],'OBICHNIY')
             return res
       else:
             termo_list = RazlovkaTermo.objects.all().order_by('created_at').values_list('esap_code','ekratkiy','zsap_code','zkratkiy','psap_code','pkratkiy','ssap_code','skratkiy','asap_code','akratkiy','nsap_code','nkratkiy','ksap_code','kratkiy','lsap_code','lkratkiy','sap_code7','kratkiy7')
@@ -59,7 +59,7 @@ def download_all_razlovki(request):
                   'SAP код 7','U-Упаковка + Готовая Продукция'
                                                             ])
             data = data.replace('nan','')
-            res = download_bs64(data,'TERMO')
+            res = download_bs64([data,],'TERMO')
       
       return res
       

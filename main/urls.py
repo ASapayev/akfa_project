@@ -25,7 +25,7 @@ urlpatterns = [
   path('len-gen-org/<int:id>',views.lenght_generate_org,name='lenght_generate_org'),
   path('open-in-explorer',views.open_folder_path_in_explorer,name='open-explorer'),
   path('list-history',views.show_list_history,name='show_list_history'),
-  
+  # path('downloading-razlovka',views.downloading_razlovka,name ='downloading_razlovka'),
 
  
 

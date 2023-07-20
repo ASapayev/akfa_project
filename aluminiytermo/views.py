@@ -133,7 +133,7 @@ def downloading_characteristika(request):
       simple_list = Characteristika.objects.all().values_list('sap_code','kratkiy_text','section','savdo_id','savdo_name','export_customer_id','system','article','length','surface_treatment','alloy','temper','combination','outer_side_pc_id','outer_side_pc_brand','inner_side_pc_id','inner_side_pc_brand','outer_side_wg_s_id','inner_side_wg_s_id','outer_side_wg_id','inner_side_wg_id','anodization_contact','anodization_type','anodization_method','print_view','profile_base','width','height','category','rawmat_type','benkam_id','hollow_and_solid','export_description','export_description_eng','tnved','surface_treatment_export','wms_width','wms_height','group_prise')
       data = pd.DataFrame(np.array(list(simple_list)),columns=['SAP CODE','KRATKIY TEXT','SECTION','SAVDO_ID','SAVDO_NAME','EXPORT_CUSTOMER_ID','SYSTEM','ARTICLE','LENGTH','SURFACE_TREATMENT','ALLOY','TEMPER','COMBINATION','OUTER_SIDE_PC_ID','OUTER_SIDE_PC_BRAND','INNER_SIDE_PC_ID','INNER_SIDE_PC_BRAND','OUTER_SIDE_WG_S_ID','INNER_SIDE_WG_S_ID','OUTER_SIDE_WG_ID','INNER_SIDE_WG_ID','ANODIZATION_CONTACT','ANODIZATION_TYPE','ANODIZATION_METHOD','PRINT_VIEW','PROFILE_BASE','WIDTH','HEIGHT','CATEGORY','RAWMAT_TYPE','BENKAM_ID','HOLLOW AND SOLID','EXPORT_DESCRIPTION','EXPORT_DESCRIPTION ENG','TNVED','SURFACE_TREATMENT_EXPORT','WMS_WIDTH','WMS_HEIGHT','GROUP PRIZE'])
       data = data.replace('nan','')
-      res = download_bs64(data,'CHARACTERISTIKA')
+      res = download_bs64([data,],'CHARACTERISTIKA')
       return res
 
 
