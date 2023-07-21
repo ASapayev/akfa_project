@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages,auth
-from .models import User
+from .models import User,UserProfile
+from django.contrib.auth.decorators import login_required
+from .forms import UserProfileForm,AccountForm
 
 
 # Create your views here.
@@ -41,3 +43,26 @@ def registerUser(request):
     return redirect('login')
   else:
     return render(request,'accounts/register.html')
+  
+@login_required(login_url='/accounts/login/')
+def myAccount(request):
+  user = request.user
+  user_profile =  UserProfile.objects.get(user = user)
+  
+  if request.method =='POST':
+    user_form = AccountForm(request.POST, instance= user)
+    user_profile_form =UserProfileForm(request.POST,request.FILES,instance= user_profile,)
+    if user_form.is_valid() and user_profile_form.is_valid():
+      user_form.save()
+      user_profile_form.save()
+      return redirect('myAccount')
+  else:
+    user_form = AccountForm(instance=user)
+    user_profile_form =UserProfileForm(instance= user_profile)
+    context ={
+      'user':user,
+      'user_profile_2':user_profile,
+      'user_form':user_form,
+      'user_profile_form':user_profile_form
+    }
+    return render(request,'accounts/my_profile.html',context)
