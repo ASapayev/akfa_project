@@ -512,7 +512,7 @@ def create_characteristika_utils(items):
 
 
 
-def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
+def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo'):
     now = datetime.now()
     year =now.strftime("%Y")
     month =now.strftime("%B")
@@ -575,6 +575,10 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
     
    
     for key , row in datas.iterrows():
+
+        if  (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
+            continue 
+
         if row['Тип покрытия'] =='Анодированный':
             continue
         if file_name =='aluminiy':
@@ -1687,7 +1691,7 @@ def characteristika_created_txt_create_1101(datas,file_name='aluminiytermo'):
 
 
 
-def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
+def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
     now = datetime.now()
     year =now.strftime("%Y")
     month =now.strftime("%B")
@@ -2820,7 +2824,7 @@ def characteristika_created_txt_create(datas,file_name='aluminiytermo'):
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 =ddf2.replace('XXXXXXXXXX','')
     ddf2.to_excel(pathtext6,index=False)
-    path_1101 = characteristika_created_txt_create_1101(datas,file_name)
+    path_1101 = characteristika_created_txt_create_1101(datas,elist,file_name)
     return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8] ,path_1101
 
 

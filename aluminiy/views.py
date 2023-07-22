@@ -337,9 +337,11 @@ def aluminiy_group(request):
 def update_char_title(request,id):
       file = CharacteristikaFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}','title')
+      df_extrusion = pd.read_excel(f'{MEDIA_ROOT}/{file}','T4')
+      e_list =df_extrusion['SAP CODE E'].values.tolist()
       df =df.astype(str)
       
-      pathbenkam,pathjomiy = characteristika_created_txt_create(df,'aluminiy')
+      pathbenkam,pathjomiy = characteristika_created_txt_create(df,e_list,'aluminiy')
       filesbenkam = [File(file=path,filetype='BENKAM') for path in pathbenkam]
       filesjomiy = [File(file=path,filetype='JOMIY') for path in pathjomiy]
       context = {
@@ -2478,6 +2480,8 @@ def product_add_second_org(request,id):
       cache_for_cratkiy_text =[]
       duplicat_list =[]
       
+      exturision_list = []
+      
       for key,row in df.iterrows():
             print(key)
             row['Сплав'] = row['Сплав'].replace('.0','')
@@ -3227,10 +3231,14 @@ def product_add_second_org(request,id):
             
             if (termo_existE or simple_existE):
                   if termo_existE:
-                        df_new['SAP код E'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
+                        sap_code_e = AluminiyProductTermo.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
                   else:
-                        df_new['SAP код E'][key] = AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
+                        sap_code_e = AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
                   duplicat_list.append([df_new['SAP код E'][key],df_new['Экструзия холодная резка'][key],'E'])
+                  df_new['SAP код E'][key] = sap_code_e
+
+                  if row['тип закаленности']=='T4':
+                        exturision_list.append(sap_code_e)
             else:
                   if AluminiyProduct.objects.filter(artikul =component,section ='E').exists():
                         # max_valuesE = AluminiyProduct.objects.filter(artikul =component,section ='E').values('section').annotate(total_max=Max('counter'))[0]['total_max']
@@ -3240,6 +3248,9 @@ def product_add_second_org(request,id):
                         AluminiyProduct(artikul =component,section ='E',counter=max_valuesE,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key],material=materiale).save()
                         df_new['SAP код E'][key]=materiale
                         
+                        if row['тип закаленности']=='T4':
+                              exturision_list.append(materiale)
+
                         component2 = materiale.split('-')[0]
                         artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                         hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
@@ -4153,6 +4164,7 @@ def product_add_second_org(request,id):
       else:
             df_duplicates =pd.DataFrame(np.array([['','','']]),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
 
+      df_extrusion = pd.DataFrame({'SAP CODE E' : exturision_list})
 
 
       for key,razlov in df_new.iterrows():
@@ -4275,7 +4287,7 @@ def product_add_second_org(request,id):
       df_new.to_excel(writer,index=False,sheet_name='Schotchik')
       df_char.to_excel(writer,index=False,sheet_name='Characteristika')
       df_char_title.to_excel(writer,index=False,sheet_name='title')
-      df_duplicates.to_excel(writer,index=False,sheet_name='Duplicates')
+      df_extrusion.to_excel(writer,index=False,sheet_name='T4')
       writer.close()
       file =[File(file=path,filetype='obichniy')]
       context ={

@@ -614,8 +614,10 @@ def update_char_title(request,id):
       file = CharacteristikaFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}','title')
       df =df.astype(str)
-      
-      pathbenkam,pathjomiy = characteristika_created_txt_create(df)
+      df_extrusion = pd.read_excel(f'{MEDIA_ROOT}/{file}','T4')
+      e_list =df_extrusion['SAP CODE E'].values.tolist()
+
+      pathbenkam,pathjomiy = characteristika_created_txt_create(df,e_list,'termo')
       filesbenkam = [File(file=path,filetype='BENKAM') for path in pathbenkam]
       filesjomiy = [File(file=path,filetype='JOMIY') for path in pathjomiy]
       context = {
@@ -2976,6 +2978,8 @@ def product_add_second_org(request,id):
       df_new['SAP код 75']=''
       df_new['U-Упаковка + Готовая Продукция 75']=''
       
+
+      exturision_list = []
       
       
       cache_for_cratkiy_text =[]
@@ -3882,11 +3886,15 @@ def product_add_second_org(request,id):
                   # print('existsance = ',termo_existE,simple_existE)
                   if (termo_existE or simple_existE):
                         if termo_existE:
-                              df_new['SAP код E'][key] = AluminiyProductTermo.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
+                              sap_code_e = AluminiyProductTermo.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
                         else:
                               
-                              df_new['SAP код E'][key] = AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
+                              sap_code_e = AluminiyProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
+                        df_new['SAP код E'][key] = sap_code_e
                         duplicat_list.append([df_new['SAP код E'][key],df_new['Экструзия холодная резка'][key],'E'])
+                        
+                        if row['тип закаленности']=='T4':
+                              exturision_list.append(sap_code_e)
                   else:
                         if AluminiyProductTermo.objects.filter(artikul =component,section ='E').exists():
                               # max_valuesE = AluminiyProductTermo.objects.filter(artikul =component,section ='E').values('section').annotate(total_max=Max('counter'))[0]['total_max']
@@ -3896,8 +3904,12 @@ def product_add_second_org(request,id):
                               AluminiyProductTermo(artikul =component,section ='E',counter=max_valuesE,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key],material=materiale).save()
                               df_new['SAP код E'][key]=materiale
                               
+
+                              if row['тип закаленности']=='T4':
+                                    exturision_list.append(sap_code_e)
+
                               artikle = materiale.split('-')[0]
-                              print(artikle)
+                              
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                                     
                               if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3915,7 +3927,7 @@ def product_add_second_org(request,id):
                                     
                               
                               width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
-                              print(f"EEE tip pokr {row['Тип покрытия']}")
+                              
                                     
                               cache_for_cratkiy_text.append(
                                                 {'material':materiale,
@@ -3984,7 +3996,7 @@ def product_add_second_org(request,id):
                               
                               width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
-                              print(f"EEE tip pokr {row['Тип покрытия']}")    
+                                 
                               cache_for_cratkiy_text.append(
                                                 {'material':materiale,
                                                 'kratkiy':df_new['Экструзия холодная резка'][key],
@@ -4800,12 +4812,12 @@ def product_add_second_org(request,id):
             st =random.randint(0,1000)
             path =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\alumin_new_termo-{minut}-{st}.xlsx'
             
-      if  len(duplicat_list)>0:     
-            df_duplicates =pd.DataFrame(np.array(duplicat_list),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
-      else:
-            df_duplicates =pd.DataFrame(np.array([['','','']]),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
+      # if  len(duplicat_list)>0:     
+      #       df_duplicates =pd.DataFrame(np.array(duplicat_list),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
+      # else:
+      #       df_duplicates =pd.DataFrame(np.array([['','','']]),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
 
-      
+      df_extrusion = pd.DataFrame({'SAP CODE E' : exturision_list})
     
       df_new = df_new.replace('nan','')
 
@@ -4975,7 +4987,7 @@ def product_add_second_org(request,id):
       df_new.to_excel(writer,index=False,sheet_name ='Schotchik')
       df_char.to_excel(writer,index=False,sheet_name ='Characteristika')
       df_char_title.to_excel(writer,index=False,sheet_name ='title')
-      df_duplicates.to_excel(writer,index=False,sheet_name='Duplicates')
+      df_extrusion.to_excel(writer,index=False,sheet_name='T4')
       writer.close()
 
       file =[File(file=path,filetype='obichniy')]
