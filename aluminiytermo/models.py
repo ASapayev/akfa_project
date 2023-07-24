@@ -137,6 +137,7 @@ class BazaProfiley(models.Model):
     старый_код =models.CharField(max_length=255,blank=True,null=True)
     компонент =models.CharField(max_length=255,blank=True,null=True)
     product_description =models.CharField(max_length=255,blank=True,null=True)
+    link = models.CharField(max_length=200,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
     
