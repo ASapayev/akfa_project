@@ -1359,10 +1359,12 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     sap_code_title =[]
     dlina_title =[]
     obshiy_ves_za_shtuku =[]
-    wms_width =[]
+    bwms_width =[]
     wms_height =[]
     
     for key , row in datas.iterrows():
+        if (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
+            continue
         sap_code_title.append(row['SAP код S4P 100'])
         dlina_title.append(row['Длина'])
         obshiy_ves_za_shtuku.append(row['Общий вес за штуку'])
@@ -1467,6 +1469,8 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     dd2 = [[],[],[],[],[],[]]
     
     for key , row in datas.iterrows():
+        if (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
+            continue
         row['ch_tnved'] =str(row['ch_tnved']).replace('.0','')
         row['ch_outer_side_pc_id'] =str(row['ch_outer_side_pc_id']).replace('.0','')
         row['ch_outer_side_pc_brand'] =str(row['ch_outer_side_pc_brand']).replace('.0','')
