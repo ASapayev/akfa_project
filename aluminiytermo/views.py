@@ -617,7 +617,7 @@ def update_char_title(request,id):
       df_extrusion = pd.read_excel(f'{MEDIA_ROOT}/{file}','T4')
       e_list =df_extrusion['SAP CODE E'].values.tolist()
 
-      pathbenkam,pathjomiy = characteristika_created_txt_create(df,e_list,'termo')
+      pathbenkam,pathjomiy = characteristika_created_txt_create(df,e_list,'aluminiytermo')
       filesbenkam = [File(file=path,filetype='BENKAM') for path in pathbenkam]
       filesjomiy = [File(file=path,filetype='JOMIY') for path in pathjomiy]
       context = {

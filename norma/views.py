@@ -14,6 +14,15 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 
+def add_sikl_data(request):
+    return render(request,'norma/norma_crud/add_data.html')
+
+def show_sikl_data(request):
+
+    return render(request,'norma/norma_crud/show_list_data.html')
+
+
+
 @csrf_exempt
 def delete_norm(request, id):
     norma = Norma.objects.get(id= id)
