@@ -1359,7 +1359,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     sap_code_title =[]
     dlina_title =[]
     obshiy_ves_za_shtuku =[]
-    bwms_width =[]
+    wms_width =[]
     wms_height =[]
     
     for key , row in datas.iterrows():
