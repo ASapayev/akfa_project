@@ -197,7 +197,8 @@ def show_norm_base(request):
     page_obj = paginator.get_page(page_number)
     context = {
         'products':page_obj,
-        'search':search_text
+        'search':search_text,
+        'section':'Все нормы'
     }
     return render(request,'norma/norma_crud/show_list.html',context)
 
