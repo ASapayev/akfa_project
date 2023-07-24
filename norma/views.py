@@ -9,6 +9,7 @@ from config.settings import MEDIA_ROOT
 from .utils import excelgenerate,create_csv_file,create_folder
 import os
 from aluminiytermo.views import File
+from imzo.models import TexCartaTime
 from datetime import datetime
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
@@ -29,7 +30,31 @@ def add_sikl_data_post(request):
         if len(item) < 14:
             return JsonResponse({'msg':False,'text':'Kiritilayotgan shablon notog\'ri'})
         
-    return JsonResponse({'msg':True})
+        if not TexCartaTime.objects.filter(Q( компонент_1 = item[0])|Q(компонент_2 = item[1])|Q(компонент_3 = item[2])|Q( артикул = item[3])):
+            texcart_time = TexCartaTime(
+                компонент_1 = item[0],
+                компонент_2 = item[1],
+                компонент_3 = item[2],
+                артикул = item[3],
+                пресс_1_линия_буй = item[4],
+                закалка_1_печь_буй = item[5],	
+                
+                покраска_SKM_белый_про_во_в_сутки_буй = item[6],
+                покраска_SAT_базовый_про_во_в_сутки_буй = item[7],
+                покраска_горизонтал_про_во_в_сутки_буй = item[8],
+                покраска_ручная_про_во_в_сутки_буй = item[9],
+                
+                вакуум_1_печка_про_во_в_сутки_буй = item[10],
+                термо_1_линия_про_во_в_сутки_буй = item[11],
+                наклейка_упаковка_1_линия_про_во_в_сутки_буй = item[12],
+                ламинат_1_линия_про_во_в_сутки_буй = item[13]
+            )
+            print(texcart_time)
+        else:
+            
+            return JsonResponse({'msg':False,'text':f'Цикл timeda '})
+        # texcart_time.save()
+    return JsonResponse({'msg':True,'text':'Sucessfully saved!'})
 
 
 def add_sikl_data(request):
