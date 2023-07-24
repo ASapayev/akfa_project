@@ -21,6 +21,7 @@ def add_sikl_data_post(request):
     data = dict(request.POST)
 
     counter = 0
+    sap_codes=''
     for key,item in data.items():
         counter += 1
 
@@ -30,7 +31,7 @@ def add_sikl_data_post(request):
         if len(item) < 14:
             return JsonResponse({'msg':False,'text':'Kiritilayotgan shablon notog\'ri'})
         
-        if not TexCartaTime.objects.filter(Q( компонент_1 = item[0])|Q(компонент_2 = item[1])|Q(компонент_3 = item[2])|Q( артикул = item[3])):
+        if not TexCartaTime.objects.filter(компонент_1 = item[0],компонент_2 = item[1],компонент_3 = item[2],артикул = item[3]).exists():
             texcart_time = TexCartaTime(
                 компонент_1 = item[0],
                 компонент_2 = item[1],
@@ -49,11 +50,27 @@ def add_sikl_data_post(request):
                 наклейка_упаковка_1_линия_про_во_в_сутки_буй = item[12],
                 ламинат_1_линия_про_во_в_сутки_буй = item[13]
             )
-            print(texcart_time)
+            texcart_time.save()
         else:
-            
-            return JsonResponse({'msg':False,'text':f'Цикл timeda '})
-        # texcart_time.save()
+            count = TexCartaTime.objects.filter(компонент_1 = item[0],компонент_2 = item[1],компонент_3 = item[2],артикул = item[3]).count()
+            if count == 1:
+                tex_carta = TexCartaTime.objects.filter(компонент_1 = item[0],компонент_2 = item[1],компонент_3 = item[2],артикул = item[3])[:1].get()
+                tex_carta.пресс_1_линия_буй = item[4]
+                tex_carta.закалка_1_печь_буй = item[5]	
+                
+                tex_carta.покраска_SKM_белый_про_во_в_сутки_буй = item[6]
+                tex_carta.покраска_SAT_базовый_про_во_в_сутки_буй = item[7]
+                tex_carta.покраска_горизонтал_про_во_в_сутки_буй = item[8]
+                tex_carta.покраска_ручная_про_во_в_сутки_буй = item[9]
+                
+                tex_carta.вакуум_1_печка_про_во_в_сутки_буй = item[10]
+                tex_carta.термо_1_линия_про_во_в_сутки_буй = item[11]
+                tex_carta.наклейка_упаковка_1_линия_про_во_в_сутки_буй = item[12]
+                tex_carta.ламинат_1_линия_про_во_в_сутки_буй = item[13]
+                tex_carta.save()
+            else:
+                return JsonResponse({'msg':False,'text':f'{[item[0],item[1],item[2],item[3]]} sapcode duplicated '})
+        
     return JsonResponse({'msg':True,'text':'Sucessfully saved!'})
 
 
