@@ -722,15 +722,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
             umumiy_without_duplicate12D1[46].append('')
             umumiy_without_duplicate12D1[47].append('X')
             umumiy_without_duplicate12D1[48].append(row['ch_combination'] + row['Тип покрытия'])
-            if ( (row['Тип покрытия'] =='Ламинированный') and ('-7' in row['SAP код S4P 100']) ):
-                umumiy_without_duplicate12D1[49].append('JPL')
-            elif (('-7' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100'])):
-                if file_name =="aluminiytermo":
-                    umumiy_without_duplicate12D1[49].append('JPK')
-                else:
-                    umumiy_without_duplicate12D1[49].append('JPG')
-            else:
-                 umumiy_without_duplicate12D1[49].append('JP1')
+            umumiy_without_duplicate12D1[49].append('')
 
             if row['Тип покрытия'] =='Белый':
                 umumiy_without_duplicate12D1[50].append('S0')
@@ -813,15 +805,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
             umumiy_without_duplicate12D2[46].append('')
             umumiy_without_duplicate12D2[47].append('X')
             umumiy_without_duplicate12D2[48].append(row['ch_combination'] + row['Тип покрытия'])
-            if ( (row['Тип покрытия'] =='Ламинированный') and ('-7' in row['SAP код S4P 100']) ):
-                umumiy_without_duplicate12D2[49].append('JPL')
-            elif (('-7' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100'])):
-                if file_name =="aluminiytermo":
-                    umumiy_without_duplicate12D2[49].append('JPK')
-                else:
-                    umumiy_without_duplicate12D2[49].append('JPG')
-            else:
-                 umumiy_without_duplicate12D2[49].append('JP1')
+            umumiy_without_duplicate12D2[49].append('')
 
             if row['Тип покрытия'] =='Белый':
                 umumiy_without_duplicate12D2[50].append('S0')
@@ -900,15 +884,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
             umumiy_without_duplicate12D3[46].append('')
             umumiy_without_duplicate12D3[47].append('X')
             umumiy_without_duplicate12D3[48].append(row['ch_combination'] + row['Тип покрытия'])
-            if ( (row['Тип покрытия'] =='Ламинированный') and ('-7' in row['SAP код S4P 100']) ):
-                umumiy_without_duplicate12D3[49].append('JPL')
-            elif (('-7' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100'])):
-                if file_name =="aluminiytermo":
-                    umumiy_without_duplicate12D3[49].append('JPK')
-                else:
-                    umumiy_without_duplicate12D3[49].append('JPG')
-            else:
-                 umumiy_without_duplicate12D3[49].append('JP1')
+            umumiy_without_duplicate12D3[49].append('')
 
             if row['Тип покрытия'] =='Белый':
                 umumiy_without_duplicate12D3[50].append('S0')
@@ -987,15 +963,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
             umumiy_without_duplicate12D4[46].append('')
             umumiy_without_duplicate12D4[47].append('X')
             umumiy_without_duplicate12D4[48].append(row['ch_combination'] + row['Тип покрытия'])
-            if ( (row['Тип покрытия'] =='Ламинированный') and ('-7' in row['SAP код S4P 100']) ):
-                umumiy_without_duplicate12D4[49].append('JPL')
-            elif (('-7' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100'])):
-                if file_name =="aluminiytermo":
-                    umumiy_without_duplicate12D4[49].append('JPK')
-                else:
-                    umumiy_without_duplicate12D4[49].append('JPG')
-            else:
-                 umumiy_without_duplicate12D4[49].append('JP1')
+            umumiy_without_duplicate12D4[49].append('')
 
             if row['Тип покрытия'] =='Белый':
                 umumiy_without_duplicate12D4[50].append('S0')
@@ -1075,16 +1043,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
             umumiy_without_duplicate12D5[46].append('')
             umumiy_without_duplicate12D5[47].append('X')
             umumiy_without_duplicate12D5[48].append(row['ch_combination'] + row['Тип покрытия'])
-
-            if ( (row['Тип покрытия'] =='Ламинированный') and ('-7' in row['SAP код S4P 100']) ):
-                umumiy_without_duplicate12D5[49].append('JPL')
-            elif (('-7' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100'])):
-                if file_name =="aluminiytermo":
-                    umumiy_without_duplicate12D5[49].append('JPK')
-                else:
-                    umumiy_without_duplicate12D5[49].append('JPG')
-            else:
-                 umumiy_without_duplicate12D5[49].append('JP1')
+            umumiy_without_duplicate12D5[49].append('')
 
             if row['Тип покрытия'] =='Белый':
                 umumiy_without_duplicate12D5[50].append('S0')

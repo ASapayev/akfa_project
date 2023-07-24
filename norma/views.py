@@ -14,6 +14,24 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 
+
+@csrf_exempt
+def add_sikl_data_post(request):
+    data = dict(request.POST)
+
+    counter = 0
+    for key,item in data.items():
+        counter += 1
+
+        if counter <= 1:
+            continue
+
+        if len(item) < 14:
+            return JsonResponse({'msg':False,'text':'Kiritilayotgan shablon notog\'ri'})
+        
+    return JsonResponse({'msg':True})
+
+
 def add_sikl_data(request):
     return render(request,'norma/norma_crud/add_data.html')
 

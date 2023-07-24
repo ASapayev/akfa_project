@@ -29,6 +29,7 @@ urlpatterns = [
     path('delete-norm/<int:id>',views.delete_norm,name = 'delete_norm'),
     path('show-data',views.show_sikl_data,name = 'show_sikl_data'),
     path('add-silk-data',views.add_sikl_data,name='add_sikl_data'),
+    path('add-silk-data-post',views.add_sikl_data_post,name='add_sikl_data_post'),
     
     
 ]
