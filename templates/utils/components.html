@@ -139,6 +139,7 @@
                         <th scope="col">Серия</th>
                         <th scope="col">Старый код</th>
                         <th scope="col">Product description</th>
+                        <th scope="col">Link</th>
                         <th scope="col">Действие</th>
 
                     </tr>
@@ -152,6 +153,7 @@
                         <td ><input type='text'  id ='seria{{forloop.counter}}'  required></td>
                         <td ><input type='text'  id ='stariykod{{forloop.counter}}'  required></td>
                         <td ><input type='text'  id ='prodesc{{forloop.counter}}'  required></td>
+                        <td ><input type='text'  id ='link{{forloop.counter}}'  required></td>
                         <td>
                             <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
                         </td>
@@ -282,7 +284,7 @@ function artikul_component(){
 }
 function baza_profiley(){
     var new_char = document.querySelectorAll('.new_char_two');
-    var komponent, artikul,seria,stariykod,prodesc;
+    var komponent, artikul,seria,stariykod,prodesc,link;
     var default_exists = false;
     var elements =[];
 
@@ -292,6 +294,7 @@ function baza_profiley(){
         seria = document.getElementById('seria' + i.toString()).value;
         stariykod = document.getElementById('stariykod' + i.toString()).value;
         prodesc = document.getElementById('prodesc' + i.toString()).value;
+        link = document.getElementById('link' + i.toString()).value;
         
         
         if (seria ==''){
@@ -315,6 +318,7 @@ function baza_profiley(){
               'seria':seria,
               'stariykod':stariykod,
               'prodesc':prodesc,
+              'link':link
           }
         elements.push(element);
           

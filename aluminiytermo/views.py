@@ -2915,7 +2915,8 @@ def product_add_second_org(request,id):
                   'старый_код':['' for i in doesnotexist[2]],
                   'old_product_description':['' for i in doesnotexist[2]],
                   'компонент':['' for i in doesnotexist[2]],
-                  'product_description':['' for i in doesnotexist[2]]
+                  'product_description':['' for i in doesnotexist[2]],
+                  'link':['' for i in doesnotexist[2]],
             })
             create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}','Not Exists')
             

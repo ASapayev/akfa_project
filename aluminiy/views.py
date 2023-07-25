@@ -4487,7 +4487,7 @@ def add_char_utils_one(request):
 def baza_profile(request):
       data = request.POST.get('data',None)
       if data:
-            items = [BazaProfiley(компонент =item['komponent'],артикул =item['artikul'],серия=item['seria'],старый_код=item['stariykod'],product_description=item['prodesc']) for item in ast.literal_eval(data)]
+            items = [BazaProfiley(компонент =item['komponent'],артикул =item['artikul'],серия=item['seria'],старый_код=item['stariykod'],product_description=item['prodesc'],link = item['link']) for item in ast.literal_eval(data)]
             BazaProfiley.objects.bulk_create(items)
             return JsonResponse({'saved':True})
       else:
@@ -4536,7 +4536,7 @@ def excel_does_not_exists_add(request):
       items =[]
       if df['baza profile'].shape[0] > 0:
             for key,row in df['baza profile'].iterrows():
-                  items.append(BazaProfiley(компонент = row['компонент'],артикул = row['артикул'],серия= row['серия'],старый_код= row['старый_код'],product_description= row['product_description']))
+                  items.append(BazaProfiley(компонент = row['компонент'],артикул = row['артикул'],серия= row['серия'],старый_код= row['старый_код'],product_description= row['product_description'],link =row['link']))
             try:
                   BazaProfiley.objects.bulk_create(items)
             except:
