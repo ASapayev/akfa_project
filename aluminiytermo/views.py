@@ -10,7 +10,7 @@ from config.settings import MEDIA_ROOT
 from django.core.paginator import Paginator
 from aluminiy.utils import download_bs64
 import numpy as np
-from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,anodirovaka_check,check_for_correct
+from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,anodirovaka_check,check_for_correct,get_cretead_txt_for_1201
 import os
 from datetime import datetime
 import json
@@ -23,7 +23,13 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from .create_char import product_add_second_termo,product_add_second_simple
 now = datetime.now()
 
-
+def create_txt_for_1101(request):
+      # df = pd.read_excel('C:\\OpenServer\\domains\\sap_codes.xlsx')
+      df = pd.read_excel('C:\\OSPanel\\domains\\sap_codes.xlsx','sapcode')
+      eli = pd.read_excel('C:\\OSPanel\\domains\\sap_codes.xlsx','esapcode')
+      elist = eli['sapcode'].values.tolist()
+      get_cretead_txt_for_1201(df,elist,'aluminiytermo')
+      return JsonResponse({'a':'b'})
 
 def show_list_simple_sapcodes(request):
 
