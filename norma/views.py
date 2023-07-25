@@ -7222,7 +7222,7 @@ def find_characteristics_org(request):
             }
         return render(request,'universal/generated_files.html',context)
     else:
-        return render(request,'norma/character_find.html')
+        return render(request,'norma/character_find.html',{'section':'Характеристики','section2':'Найти Характеристики'})
     
 def norma_delete_org(request):
     if request.method =='POST':

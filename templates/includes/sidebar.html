@@ -171,6 +171,16 @@
       </a>
     </li>
     {%endif%}
+    {% if user_role == 'moderator' or user_role == 'user1' %}
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="{% url 'get_raube' %}">
+        <span class="menu-icon">
+          <i class="mdi mdi-file-document-box"></i>
+        </span>
+        <span class="menu-title">Найти RAUBE</span>
+      </a>
+    </li>
+    {%endif%}
     {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'find_characteristics_org' %}">

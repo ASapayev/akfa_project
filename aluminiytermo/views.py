@@ -23,6 +23,41 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from .create_char import product_add_second_termo,product_add_second_simple
 now = datetime.now()
 
+def get_raube(request):
+      raube_list =[[],[],[]]
+
+      if request.method =='POST':
+            ozmk =request.POST.get('ozmk',None)
+            if ozmk:
+                  ozmks = ozmk.split()
+                  for ozm in ozmks:
+                        if Characteristika.objects.filter(sap_code =ozm).exists():
+                             
+                              character = Characteristika.objects.filter(sap_code = ozm).order_by('-created_at')[:1].get()
+                              
+                              if character.surface_treatment.capitalize() =='Белый':
+                                    raube_list[0].append('S0')
+                                    raube_list[1].append(ozm)
+                              elif character.surface_treatment.capitalize() =='Неокрашенный':
+                                    raube_list[0].append('S1')
+                                    raube_list[1].append(ozm)
+                              elif character.surface_treatment.capitalize() =='Окрашенный':
+                                    raube_list[0].append('S2')
+                                    raube_list[1].append(ozm)
+                              elif character.surface_treatment.capitalize() =='Сублимированный':
+                                    raube_list[0].append('S3')
+                                    raube_list[1].append(ozm)
+                              elif character.surface_treatment.capitalize() =='Ламинированный':
+                                    raube_list[0].append('S4')
+                                    raube_list[1].append(ozm)
+                        else:
+                              raube_list[2].append(ozm)
+                              
+            return JsonResponse({'sap_code':raube_list[1],'raube':raube_list[0],'Does not exists':raube_list[2]})
+      else:
+            return render(request,'norma/character_find.html',{'section':'RAUBE','section2':'Найти RAUBE'})
+
+
 def create_txt_for_1101(request):
       # df = pd.read_excel('C:\\OpenServer\\domains\\sap_codes.xlsx')
       df = pd.read_excel('C:\\OSPanel\\domains\\sap_codes.xlsx','sapcode')
