@@ -17,28 +17,48 @@ from django.core.paginator import Paginator
 
 
 
-def vi_generate(request):
+def vi_generate(request,id):
     file = ViFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
-    df_new = pd.read_excel(file_path,sheet_name=['MARA','MAPL','MAST','PLPO','CRHD','STKO'])
+    df_new = pd.read_excel(file_path,sheet_name=['MARA','MAPL','MAST','PLPO','STKO'])
     df_new['MARA'] =df_new['MARA'].astype(str)
     df_new['MAPL'] =df_new['MAPL'].astype(str)
     df_new['MAST'] =df_new['MAST'].astype(str)
     df_new['PLPO'] =df_new['PLPO'].astype(str)
-    df_new['CRHD'] =df_new['CRHD'].astype(str)
     df_new['STKO'] =df_new['STKO'].astype(str)
 
     df_new['MARA']=df_new['MARA'].replace('nan','')
     df_new['MAPL']=df_new['MAPL'].replace('nan','')
     df_new['MAST']=df_new['MAST'].replace('nan','')
     df_new['PLPO']=df_new['PLPO'].replace('nan','')
-    df_new['CRHD']=df_new['CRHD'].replace('nan','')
     df_new['STKO']=df_new['STKO'].replace('nan','')
+
+    # for key,row in df_new.iterrows():
+    #     pass
+
+
+
+
+    df_vi = pd.DataFrame()
+    df_vi['WERKS'] = ['1101' for i in df_new['MARA']['Материал']]
+    df_vi['MATNR'] = df_new['MARA']['Материал']
+    df_vi['VERID'] = df_new['MARA']['Материал']
+    df_vi['TEXT1'] = df_new['MARA']['Материал']
+    df_vi['BSTMI'] = ['1' for i in df_new['MARA']['Материал']]
+    df_vi['BSTMA'] = ['99999999' for i in df_new['MARA']['Материал']]
+    df_vi['ADATU'] = ['01012023' for i in df_new['MARA']['Материал']]
+    df_vi['BDATU'] = ['31129999' for i in df_new['MARA']['Материал']]
+    df_vi['PLNTY'] = ['N' for i in df_new['MARA']['Материал']]
+    df_vi['PLNNR'] = df_new['MARA']['Материал']
+    df_vi['ALNAL'] = ['1' for i in df_new['MARA']['Материал']]
+    df_vi['STLAL'] = df_new['MARA']['Материал']
+    df_vi['STLAN'] = ['1' for i in df_new['MARA']['Материал']]
+    df_vi['ELPRO'] = df_new['MARA']['Материал']
+    df_vi['ALORT'] = df_new['MARA']['Материал']
+
+    print(df_vi)
     
-    
-    for key,row in df_new.iterrows():
-        pass
-    return 
+    return JsonResponse({'a':'b'})
 
 
 def vi_file(request):
