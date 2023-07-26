@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 import pandas as pd
+import numpy as np
 from django.http import JsonResponse
 from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell,KombinirovaniyUtilsInformation,Accessuar,NakleykaIskyuchenie,ZakalkaIskyuchenie,ViFiles
 from .forms import NormaFileForm,NormaEditForm,ViFileForm
@@ -33,30 +34,98 @@ def vi_generate(request,id):
     df_new['PLPO']=df_new['PLPO'].replace('nan','')
     df_new['STKO']=df_new['STKO'].replace('nan','')
 
-    # for key,row in df_new.iterrows():
-    #     pass
+
+
+    
 
 
 
+
+   
+
+    # print(df)
 
     df_vi = pd.DataFrame()
     df_vi['WERKS'] = ['1101' for i in df_new['MAST']['Материал']]
     df_vi['MATNR'] = df_new['MAST']['Материал']
     df_vi['VERID'] = ["{:04d}".format(int(i)) for i in df_new['MAST']['АльтернСпецификация']]
-    df_vi['TEXT1'] = df_new['MAST']['Материал']
+    # df_vi['TEXT1'] = df_new['MAST']['Материал']
     df_vi['BSTMI'] = ['1' for i in df_new['MAST']['Материал']]
     df_vi['BSTMA'] = ['99999999' for i in df_new['MAST']['Материал']]
     df_vi['ADATU'] = ['01012023' for i in df_new['MAST']['Материал']]
     df_vi['BDATU'] = ['31129999' for i in df_new['MAST']['Материал']]
     df_vi['PLNTY'] = ['N' for i in df_new['MAST']['Материал']]
-    df_vi['PLNNR'] = df_new['MAST']['Материал']
+    
     df_vi['ALNAL'] = ['1' for i in df_new['MAST']['Материал']]
     df_vi['STLAL'] = df_new['MAST']['АльтернСпецификация']
     df_vi['STLAN'] = ['1' for i in df_new['MAST']['Материал']]
-    df_vi['ELPRO'] = df_new['MAST']['Материал']
-    df_vi['ALORT'] = df_new['MAST']['Материал']
+    df_vi['ELPRO'] = ''
+    df_vi['ALORT'] = ''
+    df_vi['MATNR ALT'] =df_vi['MATNR']+df_vi['STLAL']
+    
+    
 
-    print(df_vi)
+
+    df_merge1 = pd.DataFrame()
+    df_merge1['Спецификация'] =df_new['MAST']['Спецификация']
+    df_merge1['Материал'] =df_new['MAST']['Материал']
+    df = pd.merge(df_merge1,df_new['STKO'],   how='inner',left_on=['Спецификация'],right_on=['Спецификация'])
+    df['MATNR ALT'] =df['Материал'] +df['АльтернСпецификация']
+    # df_new['STKO'].merge(df_new['MAST'],on='Спецификация', how='inner')
+
+    df_text_alt = pd.DataFrame()
+    df_text_alt['MATNR ALT'] =df['MATNR ALT']
+    df_text_alt['TEXT1'] =df['Текст к альтернативе']
+
+    df_new_vi = pd.merge(df_text_alt,df_vi,   how='inner',left_on=['MATNR ALT'],right_on=['MATNR ALT'])
+
+
+    df_plpo = pd.DataFrame()
+    df_plpo['Материал'] =df_new['MAPL']['Материал']
+    df_plpo['Группа'] =df_new['MAPL']['Группа']
+    df2 = pd.merge(df_plpo,df_new['PLPO'],   how='inner',left_on=['Группа'],right_on=['Группа'])
+
+    df2_filtered =df2[~df2['Краткий текст к операции'].isin(['SKM Хим. обработка', 'ГР Хим. обработка', 'SAT Хим. обработка'])] 
+
+    df2_filtered['MATNR PLPO KRATKIY'] =df2_filtered['Материал']+ df2_filtered['Краткий текст к операции']
+
+    df_new_vi['MATNR PLPO KRATKIY'] =df_new_vi['MATNR'] +df_new_vi['TEXT1']
+    
+
+    df_plpo_2 =pd.DataFrame()
+    df_plpo_2['MATNR PLPO KRATKIY'] = df2_filtered['MATNR PLPO KRATKIY']
+    df_plpo_2['PLNNR'] = df2_filtered['Группа']
+
+    df_new_vi2 = pd.merge(df_plpo_2,df_new_vi,   how='inner',left_on=['MATNR PLPO KRATKIY'],right_on=['MATNR PLPO KRATKIY'])
+
+    print(df_new_vi2)
+
+    ################
+    #algort
+    ####################
+
+    df_4_filter =df_new_vi2[df_new_vi2['VERID'].isin(['0004'])]
+    df_5_filter =df_new_vi2[df_new_vi2['VERID'].isin(['0005'])]
+    df_6_filter =df_new_vi2[df_new_vi2['VERID'].isin(['0006'])]
+
+    df_pere_prisvoeniye_4 = pd.DataFrame({'MATNR':df_4_filter['MATNR'],'WERKS':['1101' for i in df_4_filter['MATNR']],'PLNNR':df_4_filter['PLNNR'],'VORNR':['010' for i in df_4_filter['MATNR']],'PLNFL':['0010' for i in df_4_filter['MATNR']]})
+    df_pere_prisvoeniye_5 = pd.DataFrame({'MATNR':df_5_filter['MATNR'],'WERKS':['1101' for i in df_5_filter['MATNR']],'PLNNR':df_5_filter['PLNNR'],'VORNR':['010' for i in df_5_filter['MATNR']],'PLNFL':['0010' for i in df_5_filter['MATNR']]})
+    df_pere_prisvoeniye_6 = pd.DataFrame({'MATNR':df_6_filter['MATNR'],'WERKS':['1101' for i in df_6_filter['MATNR']],'PLNNR':df_6_filter['PLNNR'],'VORNR':['010' for i in df_6_filter['MATNR']],'PLNFL':['0010' for i in df_6_filter['MATNR']]})
+    
+    del df_new_vi2["MATNR PLPO KRATKIY"]
+    del df_new_vi2["MATNR ALT"]
+
+    columnsTitles = ['WERKS', 'MATNR', 'VERID','TEXT1','BSTMI','BSTMA','ADATU','BDATU','PLNTY','PLNNR','ALNAL','STLAL','STLAN','ELPRO','ALORT']
+    df_new_vi2 = df_new_vi2.reindex(columns=columnsTitles)
+    
+    writer = pd.ExcelWriter('C:\\Users\\Muzaffar.Tursunov\\Desktop\\vi.xlsx', engine='xlsxwriter')
+    df_new_vi2.to_excel(writer,index=False,sheet_name ='ВИ')
+    df_pere_prisvoeniye_4.to_excel(writer,index=False,sheet_name ='4')
+    df_pere_prisvoeniye_5.to_excel(writer,index=False,sheet_name ='5')
+    df_pere_prisvoeniye_6.to_excel(writer,index=False,sheet_name ='6')
+    writer.close()
+
+    # print(df_new_vi)
     
     return JsonResponse({'a':'b'})
 
