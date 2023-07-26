@@ -2813,7 +2813,7 @@ def product_add_second_org(request,id):
                               if row['Тип покрытия'].lower() =='неокрашенный':
                                     surface_treatment_export ='Неокрашенный'
                               elif ((row['Тип покрытия'].lower() =='окрашенный') or (row['Тип покрытия'].lower() =='белый')):
-                                    surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']]+''+row['Код краски снаружи']
+                                    surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']]+' '+row['Код краски снаружи']
                               elif row['Тип покрытия'].lower() =='сублимированный':
                                     surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
                               elif row['Тип покрытия'].lower() =='анодированный':
