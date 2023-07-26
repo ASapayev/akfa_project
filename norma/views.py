@@ -31,6 +31,9 @@ def vi_generate(request):
     df_new['MARA']=df_new['MARA'].replace('nan','')
     df_new['MAPL']=df_new['MAPL'].replace('nan','')
     df_new['MAST']=df_new['MAST'].replace('nan','')
+    df_new['PLPO']=df_new['PLPO'].replace('nan','')
+    df_new['CRHD']=df_new['CRHD'].replace('nan','')
+    df_new['STKO']=df_new['STKO'].replace('nan','')
     
     
     for key,row in df_new.iterrows():
