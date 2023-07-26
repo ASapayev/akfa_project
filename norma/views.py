@@ -17,13 +17,33 @@ from django.core.paginator import Paginator
 
 
 
+def vi_generate(request):
+    file = ViFiles.objects.get(id=id).file
+    file_path =f'{MEDIA_ROOT}\\{file}'
+    df_new = pd.read_excel(file_path,sheet_name=['MARA','MAPL','MAST','PLPO','CRHD','STKO'])
+    df_new['MARA'] =df_new['MARA'].astype(str)
+    df_new['MAPL'] =df_new['MAPL'].astype(str)
+    df_new['MAST'] =df_new['MAST'].astype(str)
+    df_new['PLPO'] =df_new['PLPO'].astype(str)
+    df_new['CRHD'] =df_new['CRHD'].astype(str)
+    df_new['STKO'] =df_new['STKO'].astype(str)
+
+    df_new['MARA']=df_new['MARA'].replace('nan','')
+    df_new['MAPL']=df_new['MAPL'].replace('nan','')
+    df_new['MAST']=df_new['MAST'].replace('nan','')
+    
+    
+    for key,row in df_new.iterrows():
+        pass
+    return 
+
 
 def vi_file(request):
     files = ViFiles.objects.all().order_by('-created_at')
     context ={
         'files':files,
         'section':'Формирование ВИ файла',
-        'link':'/texcart/texcarta/',
+        'link':'/norma/vi-generate/',
         'type':'ВИ'
         }
     return render(request,'universal/file_list.html',context)
