@@ -1,5 +1,5 @@
 from django import forms
-from .models import NormaExcelFiles,Norma
+from .models import NormaExcelFiles,Norma,ViFiles
 
 
 class NormaFileForm(forms.ModelForm):
@@ -11,6 +11,17 @@ class NormaFileForm(forms.ModelForm):
   class Meta:
     model = NormaExcelFiles
     fields =['file','type']
+
+class ViFileForm(forms.ModelForm):
+  def __init__(self, *args, **kwargs):
+      super(ViFileForm, self).__init__(*args, **kwargs)
+      self.fields['file'].widget.attrs.update({
+          'class': 'form-control-file'
+      })
+  class Meta:
+    model = ViFiles
+    fields =['file',]
+
 
 class NormaEditForm(forms.ModelForm):
   

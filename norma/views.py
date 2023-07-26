@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 import pandas as pd
 from django.http import JsonResponse
-from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell,KombinirovaniyUtilsInformation,Accessuar,NakleykaIskyuchenie,ZakalkaIskyuchenie
-from .forms import NormaFileForm,NormaEditForm
+from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell,KombinirovaniyUtilsInformation,Accessuar,NakleykaIskyuchenie,ZakalkaIskyuchenie,ViFiles
+from .forms import NormaFileForm,NormaEditForm,ViFileForm
 from django.db.models import Q
 from aluminiytermo.models import Characteristika,CharacteristicTitle
 from config.settings import MEDIA_ROOT
@@ -14,6 +14,33 @@ from datetime import datetime
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
+
+
+
+
+def vi_file(request):
+    files = ViFiles.objects.all().order_by('-created_at')
+    context ={
+        'files':files,
+        'section':'Формирование ВИ файла',
+        'link':'/texcart/texcarta/',
+        'type':'ВИ'
+        }
+    return render(request,'universal/file_list.html',context)
+
+
+def file_vi_upload_org(request):
+      
+    if request.method == 'POST':
+        form = ViFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('vi_file_list')
+    else:
+        context ={
+            'section':'Загрузка ВИ файла'
+        }
+    return render(request,'universal/main.html',context)
 
 
 @csrf_exempt

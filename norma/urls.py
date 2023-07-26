@@ -18,6 +18,7 @@ urlpatterns = [
     
     path('file-upload-termo-org',views.file_upload_termo_org,name='norma_file_upload_termo_org'),
     path('file-upload-org',views.file_upload_org,name='norma_file_upload_org'),
+    path('vifile-upload-org',views.file_vi_upload_org,name='vi_file_upload_org'),
     path('file-list-org',views.file_list_org,name='norma_file_list_org'),
     path('file-list-termo-org',views.file_list_termo_org,name='norma_file_list_termo_org'),
     path('process-combinirovanniy/<int:id>',views.kombinirovaniy_process,name='kombinirovaniy_process'),
@@ -30,6 +31,7 @@ urlpatterns = [
     path('show-data',views.show_sikl_data,name = 'show_sikl_data'),
     path('add-silk-data',views.add_sikl_data,name='add_sikl_data'),
     path('add-silk-data-post',views.add_sikl_data_post,name='add_sikl_data_post'),
+    path('vi-file-list',views.vi_file,name='vi_file_list'),
     
     
 ]
