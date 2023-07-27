@@ -98,10 +98,31 @@ def vi_generate(request,id):
 
     df_new_vi2 = pd.merge(df_plpo_2,df_new_vi,   how='inner',left_on=['MATNR PLPO KRATKIY'],right_on=['MATNR PLPO KRATKIY'])
 
-    print(df_new_vi2)
+    # print(df_new_vi2)
 
     ################
     #algort
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Упаковка']),'ALORT'] = 'PS10'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['SKM - SKM покраска']),'ALORT'] = 'PS04'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['SAT - SAT покраска']),'ALORT'] = 'PS05'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['ГР - ГР покраска']),'ALORT'] = 'PS06'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['SKM - Ручная покраска']),'ALORT'] = 'PS07'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['SAT - Ручная покраска']),'ALORT'] = 'PS07'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['ГР - Ручная покраска']),'ALORT'] = 'PS07'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Алю. цилиндр. пруток 6063-1 178мм HM']),'ALORT'] = 'PS03'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Алю. цилиндр. пруток 6063-1 102мм HM']),'ALORT'] = 'PS03'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Сублимация - 7777']),'ALORT'] = 'PS08'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Сублимация - 8888']),'ALORT'] = 'PS08'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Алю. цилиндр. пруток 6063-1 A7 178мм HM']),'ALORT'] = 'PS03'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Алю. цилиндр. пруток 6063-1 A7 102мм HM']),'ALORT'] = 'PS03'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Сублимация - 3701']),'ALORT'] = 'PS08'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Ламинация + Наклейка + Упаковка']),'ALORT'] = 'PS11'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Упаковка Комбинированный']),'ALORT'] = 'PS09'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Комбинированный']),'ALORT'] = 'PS09'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Сублимация - 3702']),'ALORT'] = 'PS03'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Наклейка']),'ALORT'] = 'PS10'
+    
+
     ####################
 
     df_4_filter =df_new_vi2[df_new_vi2['VERID'].isin(['0004'])]
@@ -118,16 +139,41 @@ def vi_generate(request,id):
     columnsTitles = ['WERKS', 'MATNR', 'VERID','TEXT1','BSTMI','BSTMA','ADATU','BDATU','PLNTY','PLNNR','ALNAL','STLAL','STLAN','ELPRO','ALORT']
     df_new_vi2 = df_new_vi2.reindex(columns=columnsTitles)
     
-    writer = pd.ExcelWriter('C:\\Users\\Muzaffar.Tursunov\\Desktop\\vi.xlsx', engine='xlsxwriter')
+    df_new_vi2 = df_new_vi2.drop_duplicates()
+    df_pere_prisvoeniye_4 = df_pere_prisvoeniye_4.drop_duplicates()
+    df_pere_prisvoeniye_5 = df_pere_prisvoeniye_5.drop_duplicates()
+    df_pere_prisvoeniye_6 = df_pere_prisvoeniye_6.drop_duplicates()
+
+    now = datetime.now()
+    year =now.strftime("%Y")
+    month =now.strftime("%B")
+    day =now.strftime("%a%d")
+    hour =now.strftime("%H HOUR")
+    minut =now.strftime("%d-%B-%Y %H-%M")    
+                 
+            
+    create_folder(f'{MEDIA_ROOT}\\uploads\\','vi')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\',f'{year}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\',hour)
+
+    path =f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}\\ВИ.xlsx'
+    
+    writer = pd.ExcelWriter(path, engine='xlsxwriter')
     df_new_vi2.to_excel(writer,index=False,sheet_name ='ВИ')
     df_pere_prisvoeniye_4.to_excel(writer,index=False,sheet_name ='4')
     df_pere_prisvoeniye_5.to_excel(writer,index=False,sheet_name ='5')
     df_pere_prisvoeniye_6.to_excel(writer,index=False,sheet_name ='6')
     writer.close()
 
-    # print(df_new_vi)
-    
-    return JsonResponse({'a':'b'})
+    files =[File(file =path,filetype='vi')]
+    print(files)
+    context ={
+        'section':'ВИ',
+        'files':files
+    }
+    return render(request,'universal/generated_files.html',context)
 
 
 def vi_file(request):
