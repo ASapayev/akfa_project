@@ -64,6 +64,8 @@ def vi_generate(request,id):
     df_vi['ALORT'] = ''
     df_vi['MATNR ALT'] =df_vi['MATNR']+df_vi['STLAL']
     
+    # find_z =df_vi[df_vi['MATNR'].str.contains("-Z")]
+    # print(find_z)
     
 
 
@@ -80,6 +82,8 @@ def vi_generate(request,id):
 
     df_new_vi = pd.merge(df_text_alt,df_vi,   how='inner',left_on=['MATNR ALT'],right_on=['MATNR ALT'])
 
+    # find_z = df_new_vi[df_new_vi['MATNR'].str.contains("-Z")]
+    # print(find_z)
 
     df_plpo = pd.DataFrame()
     df_plpo['Материал'] =df_new['MAPL']['Материал']
@@ -93,13 +97,33 @@ def vi_generate(request,id):
     df_new_vi['MATNR PLPO KRATKIY'] =df_new_vi['MATNR'] +df_new_vi['TEXT1']
     
 
+    # find_z = df_new_vi[df_new_vi['MATNR'].str.contains("-Z")]
+    # print(find_z)
+
     df_plpo_2 =pd.DataFrame()
     df_plpo_2['MATNR PLPO KRATKIY'] = df2_filtered['MATNR PLPO KRATKIY']
     df_plpo_2['PLNNR'] = df2_filtered['Группа']
 
+    
+    df_z = df_plpo[df_plpo['Материал'].str.contains("-Z")]
+    df_z['MATNR'] = df_z['Материал']
+    df_z['PLNNR'] = df_z['Группа']
+    del df_z["Материал"]
+    del df_z["Группа"]
+
+
+    find_z_in_vi = df_new_vi[df_new_vi['MATNR PLPO KRATKIY'].str.contains("-Z")]
+
+
+    df_new_vi_z = pd.merge(df_z,find_z_in_vi,   how='inner',left_on=['MATNR'],right_on=['MATNR'])
+    # print(df_new_vi_z,'vi')
+
+
+
     df_new_vi2 = pd.merge(df_plpo_2,df_new_vi,   how='inner',left_on=['MATNR PLPO KRATKIY'],right_on=['MATNR PLPO KRATKIY'])
 
-    # print(df_new_vi2)
+    df_new_vi2 = pd.concat([df_new_vi2, df_new_vi_z])
+    
 
     ################
     #algort
@@ -124,6 +148,7 @@ def vi_generate(request,id):
     df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Наклейка']),'ALORT'] = 'PS10'
     
 
+
     ####################
 
     df_4_filter =df_new_vi2[df_new_vi2['VERID'].isin(['0004'])]
@@ -140,6 +165,7 @@ def vi_generate(request,id):
     columnsTitles = ['WERKS', 'MATNR', 'VERID','TEXT1','BSTMI','BSTMA','ADATU','BDATU','PLNTY','PLNNR','ALNAL','STLAL','STLAN','ELPRO','ALORT']
     df_new_vi2 = df_new_vi2.reindex(columns=columnsTitles)
     
+
     df_new_vi2 = df_new_vi2.drop_duplicates()
     df_pere_prisvoeniye_4 = df_pere_prisvoeniye_4.drop_duplicates()
     df_pere_prisvoeniye_5 = df_pere_prisvoeniye_5.drop_duplicates()
@@ -169,7 +195,6 @@ def vi_generate(request,id):
     writer.close()
 
     files =[File(file =path,filetype='vi')]
-    print(files)
     context ={
         'section':'ВИ',
         'files':files
