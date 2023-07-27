@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
+from django.http import Http404,HttpResponse
 import pandas as pd
 import numpy as np
 from django.http import JsonResponse
@@ -175,6 +176,16 @@ def vi_generate(request,id):
     }
     return render(request,'universal/generated_files.html',context)
 
+
+def download(request):
+  file_path = request.GET.get('file_path',None)
+  if file_path:
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+  raise Http404
 
 def vi_file(request):
     files = ViFiles.objects.all().order_by('-created_at')

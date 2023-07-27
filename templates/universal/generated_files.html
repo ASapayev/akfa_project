@@ -35,7 +35,7 @@
                             <td> {{file.file | split_text}} </td>
                             <td> <a class="btn btn-outline-primary btn-fw" data-name="{{file.file}}" onclick="openFile('mesto',this)">Открыть место положение</a> </td>
                             <td> <a class="btn btn-outline-secondary btn-fw" data-name="{{file.file}}" id="{{ forloop.counter }}" onclick="openFile('file',this)">Открыть файл</a> </td>
-                            <td> <button class="btn btn-outline-success btn-fw" type="button" onclick="downloadFunc('{{file.file}}')">Download</button> </td>
+                            <td> <a class="btn btn-outline-success btn-fw" href="{% url 'download_vi' %}?file_path={{file.file}}">Download</a> </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -72,13 +72,6 @@
       
     }
 
-    function downloadFunc(path){
-    	var anchor=document.createElement('a');
-    	anchor.setAttribute('href',path);
-    	anchor.setAttribute('download','');
-    	document.body.appendChild(anchor);
-    	anchor.click();
-    	anchor.parentNode.removeChild(anchor);
-  }
+ 
   </script>
 {% endblock %}
