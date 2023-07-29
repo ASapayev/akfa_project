@@ -2390,13 +2390,12 @@ def product_add_second_org(request,id):
                   'полый_или_фасонный':['' for i in doesnotexist[1]]
             })
             df_baza_profiley =pd.DataFrame({
-                  'артикул':doesnotexist[2],
-                  'серия':['' for i in doesnotexist[2]],
-                  'старый_код_benkam':['' for i in doesnotexist[2]],
-                  'старый_код':['' for i in doesnotexist[2]],
-                  'old_product_description':['' for i in doesnotexist[2]],
-                  'компонент':['' for i in doesnotexist[2]],
-                  'product_description':['' for i in doesnotexist[2]]
+                  'артикул':[i[0] for i in doesnotexist[2]],
+                  'серия':[i[1] for i in doesnotexist[2]],
+                  'старый_код':[i[2] for i in doesnotexist[2]],
+                  'компонент':[i[3] for i in doesnotexist[2]],
+                  'product_description':[i[4] for i in doesnotexist[2]],
+                  'link':[i[5] for i in doesnotexist[2]],
             })
           
             df_artikul_component =pd.DataFrame({
@@ -4150,7 +4149,7 @@ def product_add_second_org(request,id):
       create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\',hour)
       
       df_char = create_characteristika(cache_for_cratkiy_text) 
-      df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
+      df_char_title,bz_link =create_characteristika_utils(cache_for_cratkiy_text)
                  
       
             
@@ -4287,6 +4286,7 @@ def product_add_second_org(request,id):
       df_new.to_excel(writer,index=False,sheet_name='Schotchik')
       df_char.to_excel(writer,index=False,sheet_name='Characteristika')
       df_char_title.to_excel(writer,index=False,sheet_name='title')
+      bz_link.to_excel(writer,index=False,sheet_name='link')
       df_extrusion.to_excel(writer,index=False,sheet_name='T4')
       writer.close()
       file =[File(file=path,filetype='obichniy')]
@@ -4486,6 +4486,11 @@ def add_char_utils_one(request):
 @csrf_exempt
 def baza_profile(request):
       data = request.POST.get('data',None)
+      for item in ast.literal_eval(data):
+            if BazaProfiley.objects.filter(артикул =item['artikul'],компонент =item['komponent']).exists():
+                  bazaprofiles = BazaProfiley.objects.filter(артикул =item['artikul'],компонент =item['komponent'])[:1].get()
+                  bazaprofiles.delete()
+
       if data:
             items = [BazaProfiley(компонент =item['komponent'],артикул =item['artikul'],серия=item['seria'],старый_код=item['stariykod'],product_description=item['prodesc'],link = item['link']) for item in ast.literal_eval(data)]
             BazaProfiley.objects.bulk_create(items)

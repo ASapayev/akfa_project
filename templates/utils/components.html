@@ -148,12 +148,12 @@
                     {%for char in BazaProfile  %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td class ='new_char_two' ><input type='text'  id ='artikultwo{{forloop.counter}}' value='{{char}}' required></td>
-                        <td ><input type='text'  id ='komponent{{forloop.counter}}' value='{{char}}' required></td>
-                        <td ><input type='text'  id ='seria{{forloop.counter}}'  required></td>
-                        <td ><input type='text'  id ='stariykod{{forloop.counter}}'  required></td>
-                        <td ><input type='text'  id ='prodesc{{forloop.counter}}'  required></td>
-                        <td ><input type='text'  id ='link{{forloop.counter}}'  required></td>
+                        <td class ='new_char_two' ><input type='text'  id ='artikultwo{{forloop.counter}}' value='{{char.0}}' required></td>
+                        <td ><input type='text'  id ='komponent{{forloop.counter}}' value='{{char.1}}' required></td>
+                        <td ><input type='text'  id ='seria{{forloop.counter}}'  value='{{char.2}}' required></td>
+                        <td ><input type='text'  id ='stariykod{{forloop.counter}}' value='{{char.3}}' required></td>
+                        <td ><input type='text'  id ='prodesc{{forloop.counter}}' value='{{char.4}}' required></td>
+                        <td ><input type='text'  id ='link{{forloop.counter}}' value='{{char.5}}' required></td>
                         <td>
                             <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
                         </td>

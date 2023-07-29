@@ -2949,15 +2949,14 @@ def product_add_second_org(request,id):
                   'артикул':doesnotexist[1],
                   'полый_или_фасонный':['' for i in doesnotexist[1]]
             })
+
             df_baza_profiley =pd.DataFrame({
-                  'артикул':doesnotexist[2],
-                  'серия':['' for i in doesnotexist[2]],
-                  'старый_код_benkam':['' for i in doesnotexist[2]],
-                  'старый_код':['' for i in doesnotexist[2]],
-                  'old_product_description':['' for i in doesnotexist[2]],
-                  'компонент':['' for i in doesnotexist[2]],
-                  'product_description':['' for i in doesnotexist[2]],
-                  'link':['' for i in doesnotexist[2]],
+                  'артикул':[i[0] for i in doesnotexist[2]],
+                  'серия':[i[1] for i in doesnotexist[2]],
+                  'старый_код':[i[2] for i in doesnotexist[2]],
+                  'компонент':[i[3] for i in doesnotexist[2]],
+                  'product_description':[i[4] for i in doesnotexist[2]],
+                  'link':[i[5] for i in doesnotexist[2]],
             })
             create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}','Not Exists')
             
@@ -4834,7 +4833,7 @@ def product_add_second_org(request,id):
       
       df_char = create_characteristika(cache_for_cratkiy_text) 
       
-      df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
+      df_char_title,bz_link =create_characteristika_utils(cache_for_cratkiy_text)
 
       
       parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiytermo\\'
@@ -5029,6 +5028,7 @@ def product_add_second_org(request,id):
       df_new.to_excel(writer,index=False,sheet_name ='Schotchik')
       df_char.to_excel(writer,index=False,sheet_name ='Characteristika')
       df_char_title.to_excel(writer,index=False,sheet_name ='title')
+      bz_link.to_excel(writer,index=False,sheet_name ='link')
       df_extrusion.to_excel(writer,index=False,sheet_name='T4')
       writer.close()
 

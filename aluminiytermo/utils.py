@@ -1845,7 +1845,7 @@ def create_characteristika_utils(items):
     
     # nakleyka_codes =[ code[0] for code in NakleykaCode.objects.values_list('name')]
     
-    
+    bazaprofiley_link =[[],[]]
     
     for item in items:
         if '-L' in item['material']:
@@ -1859,7 +1859,9 @@ def create_characteristika_utils(items):
         
         sap_kode =item['material'].split('-')[0]
         baza_profiey = BazaProfiley.objects.filter(Q(артикул=sap_kode)|Q(компонент=sap_kode))[:1].get()
-        
+        bazaprofiley_link[0].append(sap_kode)
+        bazaprofiley_link[1].append(baza_profiey.link)
+
         if (('-7' in item['material']) or ('-K' in item['material']) or ('-L'  in item['material'])):
             component_name ='Артикул'
         else:
@@ -2072,7 +2074,13 @@ def create_characteristika_utils(items):
     }
     df_new = pd.DataFrame(dat)
     
-    return df_new
+    baza_link ={
+        'Номер материала':bazaprofiley_link[0],
+        'Ссылка на чертеж':bazaprofiley_link[1]
+    }
+    df_link = pd.DataFrame(baza_link)
+
+    return df_new,df_link
 
 
 
@@ -4410,7 +4418,12 @@ def check_for_correct(items,filename='termo'):
                     
             if not BazaProfiley.objects.filter(Q(артикул=artikle)|Q(компонент=artikle)).exists():
                 if artikle not in baza_profiley:
-                    baza_profiley.append(artikle)
+                    baza_profiley.append([artikle,'','','','',''])
+            else:
+                baza_profile =BazaProfiley.objects.filter(Q(артикул=artikle)|Q(компонент=artikle))[:1].get()
+
+                if baza_profile.link == None:
+                    baza_profiley.append([artikle,baza_profile.серия,baza_profile.старый_код,baza_profile.компонент,baza_profile.product_description,''])
                     
         if  filename =='termo':   
             if row['Компонент'] !='nan':
