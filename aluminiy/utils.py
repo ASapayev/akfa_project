@@ -189,6 +189,8 @@ def save_razlovka(df_new,file_type):
             if  razlov['SAP код 7']!="":
                 if not RazlovkaTermo.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
                     razlovka_yoq = True
+                    print(key)
+                    
                     razlovka_komb = RazlovkaTermo(
                         parent_id=0,
                         esap_code =razlov['SAP код E'],
@@ -218,7 +220,9 @@ def save_razlovka(df_new,file_type):
                 else:
                     razlovka_yoq=False
             else:
+                  print(key)
                   if razlovka_yoq:
+                        print(key)
                         RazlovkaTermo(
                             parent_id=razlovka_komb.id,
                             esap_code =razlov['SAP код E'],
