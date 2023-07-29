@@ -170,6 +170,7 @@ def save_razlovka2(request):
       df = pd.read_excel('c:\\OpenServer\\domains\\Razlovka.xlsx','Лист1')
       # df = pd.read_excel('C:\\OSPanel\\domains\\Razlovka.xlsx','Лист1')
       df = df.replace('nan','')
+      print(df)
       save_razlovka(df,'simple')
       return JsonResponse({'a':'b'})
 
