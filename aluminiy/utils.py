@@ -239,7 +239,7 @@ def save_razlovka(df_new,file_type):
                             nsap_code =razlov['SAP код N'],
                             nkratkiy =razlov['Наклейка'],
                             ksap_code =razlov['SAP код K'],
-                            kratkiy =razlov['K-Комбинирования'],
+                            kratkiy =razlov['Комбинированный'],
                             lsap_code =razlov['SAP код L'],
                             lkratkiy =razlov['Ламинация'],
                             sap_code7 =razlov['SAP код 7'],
