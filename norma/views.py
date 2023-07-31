@@ -142,8 +142,8 @@ def vi_generate(request,id):
     df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Алю. цилиндр. пруток 6063-1 A7 102мм HM']),'ALORT'] = 'PS03'
     df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Сублимация - 3701']),'ALORT'] = 'PS08'
     df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Ламинация + Наклейка + Упаковка']),'ALORT'] = 'PS11'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Упаковка Комбинированный']),'ALORT'] = 'PS09'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Комбинированный']),'ALORT'] = 'PS09'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Комбинированный + Упаковка']),'ALORT'] = 'PS09'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Комбинирование']),'ALORT'] = 'PS09'
     df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Сублимация - 3702']),'ALORT'] = 'PS03'
     df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Наклейка']),'ALORT'] = 'PS10'
     
