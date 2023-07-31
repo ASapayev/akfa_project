@@ -3697,8 +3697,8 @@ def kombinirovaniy_process(request,id):
                         df_new['TEXT1'].append(df[i][11])
                         df_new['STLAL'].append(f'1')
                         df_new['STLAN'].append('1')
-                        ztekst = 'Комбинированный'
-                        ateks2='Комбинированный'
+                        ztekst = 'Комбинирование'
+                        ateks2='Комбинирование'
                         df_new['ZTEXT'].append(ztekst)
                         df_new['STKTX'].append(ateks2)
                         df_new['BMENG'].append( '1000')
@@ -4048,8 +4048,8 @@ def kombinirovaniy_process(request,id):
                         df_new_duplicate['TEXT1'].append(df[i][11])
                         df_new_duplicate['STLAL'].append(f'1')
                         df_new_duplicate['STLAN'].append('1')
-                        ztekst = 'Комбинированный'
-                        ateks2='Комбинированный'
+                        ztekst = 'Комбинирование'
+                        ateks2='Комбинирование'
                         df_new_duplicate['ZTEXT'].append(ztekst)
                         df_new_duplicate['STKTX'].append(ateks2)
                         df_new_duplicate['BMENG'].append( '1000')
@@ -4751,7 +4751,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['STLAN'].append('1')
                                 ztekst = 'Упаковка'
                                 df_new['ZTEXT'].append(ztekst)
-                                df_new['STKTX'].append(ztekst+' Комбинированный')
+                                df_new['STKTX'].append('Комбинированный + Упаковка')
                                 df_new['BMENG'].append( '1000')
                                 df_new['BMEIN'].append('ШТ')
                                 df_new['STLST'].append('1')
@@ -6216,7 +6216,7 @@ def kombinirovaniy_process(request,id):
                                 df_new_duplicate['STLAN'].append('1')
                                 ztekst = 'Упаковка'
                                 df_new_duplicate['ZTEXT'].append(ztekst)
-                                df_new_duplicate['STKTX'].append(ztekst+' Комбинированный')
+                                df_new_duplicate['STKTX'].append('Комбинированный + Упаковка')
                                 df_new_duplicate['BMENG'].append( '1000')
                                 df_new_duplicate['BMEIN'].append('ШТ')
                                 df_new_duplicate['STLST'].append('1')
