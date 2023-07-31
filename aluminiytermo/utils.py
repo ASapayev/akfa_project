@@ -2948,7 +2948,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
             d3['KONDM'] += [ '01' if '-7' not in umumiy_without_duplicate[0][x] else KONDM[umumiy_without_duplicate[48][x].lower()] for x in range(0,len(umumiy_without_duplicate[0]))]
             
         d3['LADGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['TRAGR'] += [ '11' + umumiy_without_duplicate[50][j] for j in range(0,len(umumiy_without_duplicate[50]))]
+        d3['TRAGR'] += [ '11' + umumiy_without_duplicate[50][j] if (('-7' in sap_code ) or ('-P' in sap_code ) or ('-K' in sap_code )) else '0001' for sap_code in umumiy_without_duplicate[0]]
     df3= pd.DataFrame(d3)
     np.savetxt(pathtext3, df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
     ########################## end 3.txt ##############################
