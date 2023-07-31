@@ -10,6 +10,7 @@ from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101
 from django.shortcuts import render
 from aluminiy.models import ArtikulComponent
 from datetime import datetime
+import math
 
 def get_cretead_txt_for_1201(datas,elist,file_name='aluminiytermo'):
     now = datetime.now()
@@ -2752,6 +2753,15 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     d9['MAKTX']=umumiy_without_duplicate[13]
     d9['MATNR']=umumiy_without_duplicate[0]
     d9['RAUBE']=umumiy_without_duplicate[50]
+    i = 0
+    for row in umumiy_without_duplicate[0]:
+        if (('-7' in row) or ('-P' in row) or ('-K' in row)):
+            d9['MAKTX'].append(umumiy_without_duplicate[13][i])
+            d9['MATNR'].append(umumiy_without_duplicate[0][i])
+            d9['RAUBE'].append(umumiy_without_duplicate[50][i])
+            i += 1
+    
+    d9.drop_duplicates()
 
     df9= pd.DataFrame(d9)
     np.savetxt(pathtext9, df9.values,fmt='%s', delimiter="\t",header=header9,comments='',encoding='ansi')
@@ -2861,7 +2871,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     d2['BKLAS']=umumiy_without_duplicate[36]
     d2['VPRSV']=umumiy_without_duplicate[37]
     d2['PEINH']=umumiy_without_duplicate[38]
-    d2['STPRS']=umumiy_without_duplicate[39]
+    d2['STPRS']=[math.ceil(k) for k in umumiy_without_duplicate[39]]
     d2['PRCTR']=umumiy_without_duplicate[40]
     d2['EKALR']=umumiy_without_duplicate[41]
     d2['HKMAT']=umumiy_without_duplicate[42]
