@@ -3140,6 +3140,7 @@ def product_add_second_org(request,id):
                               else:       
                                     export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                               
+                              print(export_description)
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                               
