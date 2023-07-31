@@ -3063,7 +3063,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         if (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
             continue
 
-        sap_code = row['SAP код S4P 100'].aplit('-')[0]
+        sap_code = row['SAP код S4P 100'].split('-')[0]
         bazaprofiley_link =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
         baza_profile_links[0].append(row['SAP код S4P 100'])
         baza_profile_links[1].append(bazaprofiley_link)
@@ -4190,7 +4190,7 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
     
 
     for key , row in datas.iterrows():
-        sap_code = row['SAP код S4P 100'].aplit('-')[0]
+        sap_code = row['SAP код S4P 100'].split('-')[0]
         bazaprofiley_link =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
         baza_profile_links[0].append(row['SAP код S4P 100'])
         baza_profile_links[1].append(bazaprofiley_link)
