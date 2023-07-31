@@ -1845,7 +1845,7 @@ def create_characteristika_utils(items):
     
     # nakleyka_codes =[ code[0] for code in NakleykaCode.objects.values_list('name')]
     
-    bazaprofiley_link =[[],[]]
+    # bazaprofiley_link =[[],[]]
     
     for item in items:
         if '-L' in item['material']:
@@ -1859,8 +1859,8 @@ def create_characteristika_utils(items):
         
         sap_kode =item['material'].split('-')[0]
         baza_profiey = BazaProfiley.objects.filter(Q(артикул=sap_kode)|Q(компонент=sap_kode))[:1].get()
-        bazaprofiley_link[0].append(sap_kode)
-        bazaprofiley_link[1].append(baza_profiey.link)
+        # bazaprofiley_link[0].append(sap_kode)
+        # bazaprofiley_link[1].append(baza_profiey.link)
 
         if (('-7' in item['material']) or ('-K' in item['material']) or ('-L'  in item['material'])):
             component_name ='Артикул'
@@ -2074,13 +2074,13 @@ def create_characteristika_utils(items):
     }
     df_new = pd.DataFrame(dat)
     
-    baza_link ={
-        'Номер материала':bazaprofiley_link[0],
-        'Ссылка на чертеж':bazaprofiley_link[1]
-    }
-    df_link = pd.DataFrame(baza_link)
+    # baza_link ={
+    #     'Номер материала':bazaprofiley_link[0],
+    #     'Ссылка на чертеж':bazaprofiley_link[1]
+    # }
+    # df_link = pd.DataFrame(baza_link)
 
-    return df_new,df_link
+    return df_new
 
 
 
@@ -2116,6 +2116,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текст.txt'
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\RAUBE.txt'
+        pathtext10 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         
     elif file_name =='aluminiy':
         parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
@@ -2138,6 +2139,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текст_1101.txt'
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия_1101.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\RAUBE.txt'
+        pathtext10 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
     
     
     umumiy_without_duplicate1201 =[[] for i in range(0,51)]
@@ -3054,10 +3056,18 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     ########################## end 5.txt ##############################
     ########################## List v 3 ##############################
     dd2 = [[],[],[],[],[],[]]
-    
+    baza_profile_links =[[],[]]
+
     for key , row in datas.iterrows():
+
         if (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
             continue
+
+        sap_code = row['SAP код S4P 100'].aplit('-')[0]
+        bazaprofiley_link =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
+        baza_profile_links[0].append(row['SAP код S4P 100'])
+        baza_profile_links[1].append(bazaprofiley_link)
+
         row['ch_tnved'] =str(row['ch_tnved']).replace('.0','')
         row['ch_outer_side_pc_id'] =str(row['ch_outer_side_pc_id']).replace('.0','')
         row['ch_outer_side_pc_brand'] =str(row['ch_outer_side_pc_brand']).replace('.0','')
@@ -3227,7 +3237,9 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     new_date['Значение признака'] = dd2[5]
     new_date['Статус загрузки'] = ''
     
-    
+    df_baza_profiley_link =pd.DataFrame({'SAP CODE':baza_profile_links[0],'link':baza_profile_links[1]})
+    df_baza_profiley_link.to_excel(pathtext10,index=False)
+
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 =ddf2.replace('XXXXXXXXXX','')
@@ -3269,6 +3281,7 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текст.txt'
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бухгалтерская названия.txt'
+        pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         
     elif file_name =='aluminiy':
         parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy'
@@ -3290,6 +3303,7 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текст.txt'
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бухгалтерская названия.txt'
+        pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
     
     
     umumiy_without_duplicate1201 =[[] for i in range(0,49)]
@@ -4172,8 +4186,15 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
 ########################## end 5.txt ##############################
 ########################## List v 3 ##############################
     dd2 = [[],[],[],[],[],[]]
+    baza_profile_links =[[],[]]
     
+
     for key , row in datas.iterrows():
+        sap_code = row['SAP код S4P 100'].aplit('-')[0]
+        bazaprofiley_link =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
+        baza_profile_links[0].append(row['SAP код S4P 100'])
+        baza_profile_links[1].append(bazaprofiley_link)
+
         row['ch_tnved'] =str(row['ch_tnved']).replace('.0','')
         row['ch_outer_side_pc_id'] =str(row['ch_outer_side_pc_id']).replace('.0','')
         row['ch_outer_side_pc_brand'] =str(row['ch_outer_side_pc_brand']).replace('.0','')
@@ -4370,11 +4391,16 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
     new_date['Статус загрузки'] = ''
     
     
+    df_baza_profiley_link =pd.DataFrame({'SAP CODE':baza_profile_links[0],'link':baza_profile_links[1]})
+    df_baza_profiley_link.to_excel(pathtext9,index=False)
+    
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 =ddf2.replace('XXXXXXXXXX','')
     ddf2.to_excel(pathtext6,index=False)
     path_1101 = characteristika_created_txt_create_1101(datas,elist,file_name)
+
+
     return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8] ,path_1101
 
 

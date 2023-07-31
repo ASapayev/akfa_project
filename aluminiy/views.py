@@ -4152,7 +4152,7 @@ def product_add_second_org(request,id):
       create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\',hour)
       
       df_char = create_characteristika(cache_for_cratkiy_text) 
-      df_char_title,bz_link =create_characteristika_utils(cache_for_cratkiy_text)
+      df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
                  
       
             
@@ -4289,7 +4289,6 @@ def product_add_second_org(request,id):
       df_new.to_excel(writer,index=False,sheet_name='Schotchik')
       df_char.to_excel(writer,index=False,sheet_name='Characteristika')
       df_char_title.to_excel(writer,index=False,sheet_name='title')
-      bz_link.to_excel(writer,index=False,sheet_name='link')
       df_extrusion.to_excel(writer,index=False,sheet_name='T4')
       writer.close()
       file =[File(file=path,filetype='obichniy')]
