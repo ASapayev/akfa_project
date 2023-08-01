@@ -2871,7 +2871,6 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     d2['VPRSV']=umumiy_without_duplicate[37]
     d2['PEINH']=umumiy_without_duplicate[38]
     d2['STPRS']=[math.ceil(float(k)) for k in umumiy_without_duplicate[39]]
-    # d2['STPRS']=umumiy_without_duplicate[39]
     d2['PRCTR']=umumiy_without_duplicate[40]
     d2['EKALR']=umumiy_without_duplicate[41]
     d2['HKMAT']=umumiy_without_duplicate[42]
@@ -2883,8 +2882,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     d2['AUTO_P_ORD']=umumiy_without_duplicate[47]
     # d2['RAUBE']=umumiy_without_duplicate[50]
 
-    for key,val in d2.items():
-        print(key,'len = ',len(val),'\n',val)
+   
     df2= pd.DataFrame(d2)
     np.savetxt(pathtext2, df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
     ########################## end 2.txt ##############################
