@@ -2760,10 +2760,9 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
             d9['MATNR'].append(umumiy_without_duplicate[0][i])
             d9['RAUBE'].append(umumiy_without_duplicate[50][i])
             i += 1
-    
-    d9.drop_duplicates()
 
     df9= pd.DataFrame(d9)
+    df9.drop_duplicates()
     np.savetxt(pathtext9, df9.values,fmt='%s', delimiter="\t",header=header9,comments='',encoding='ansi')
 
     ########################## Бухгалтерская название.txt ##############################
