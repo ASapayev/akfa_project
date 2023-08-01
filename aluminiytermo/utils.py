@@ -2314,7 +2314,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
             elif row['Тип покрытия'] =='Сублимированный':
                 umumiy_without_duplicate12D1[50].append('S3')
             elif row['Тип покрытия'] =='Ламинированный':
-                umumiy_without_duplicate12D1[50].append('S4')
+                umumiy_without_duplicate12D1[50].append('0001')
             # else:
             #     umumiy_without_duplicate12D1[50].append('')
 
@@ -2397,7 +2397,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
             elif row['Тип покрытия'] =='Сублимированный':
                 umumiy_without_duplicate12D2[50].append('S3')
             elif row['Тип покрытия'] =='Ламинированный':
-                umumiy_without_duplicate12D2[50].append('S4')
+                umumiy_without_duplicate12D2[50].append('0001')
 
         if gruppa_material=='ALUGP':
             ######12D3
@@ -2476,7 +2476,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
             elif row['Тип покрытия'] =='Сублимированный':
                 umumiy_without_duplicate12D3[50].append('S3')
             elif row['Тип покрытия'] =='Ламинированный':
-                umumiy_without_duplicate12D3[50].append('S4')
+                umumiy_without_duplicate12D3[50].append('0001')
         
         if gruppa_material=='ALUGP':
             ######12D4
@@ -2555,7 +2555,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
             elif row['Тип покрытия'] =='Сублимированный':
                 umumiy_without_duplicate12D4[50].append('S3')
             elif row['Тип покрытия'] =='Ламинированный':
-                umumiy_without_duplicate12D4[50].append('S4')
+                umumiy_without_duplicate12D4[50].append('0001')
 
 
         if gruppa_material=='ALUGP':
@@ -2635,7 +2635,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
             elif row['Тип покрытия'] =='Сублимированный':
                 umumiy_without_duplicate12D5[50].append('S3')
             elif row['Тип покрытия'] =='Ламинированный':
-                umumiy_without_duplicate12D5[50].append('S4')
+                umumiy_without_duplicate12D5[50].append('0001')
 
         if (('-F' not in row['SAP код S4P 100']) and ('-A' not in row['SAP код S4P 100'])):
             umumiy_without_duplicate1201[0].append(row['SAP код S4P 100'])
@@ -2952,7 +2952,10 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         j = 0
         for sap_code in umumiy_without_duplicate[0]:
             if (('-7' in sap_code ) or ('-P' in sap_code ) or ('-K' in sap_code )):
-               trag.append('11' + umumiy_without_duplicate[50][j]) 
+                if umumiy_without_duplicate[50][j]!='0001':
+                    trag.append('11' + umumiy_without_duplicate[50][j])
+                else:
+                    trag.append(umumiy_without_duplicate[50][j])
             else:
                 trag.append('0001')
             j += 1
