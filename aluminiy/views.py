@@ -2574,6 +2574,7 @@ def product_add_second_org(request,id):
                               AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][key],material=materiale).save()
                               df_new['SAP код F'][key]=materiale
                               component2 = materiale.split('-')[0]
+                              print(component2)
                               artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
                               hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
                               
