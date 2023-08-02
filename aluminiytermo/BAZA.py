@@ -97,8 +97,28 @@ LGORT_1101 ={
                 },
                 {
                 'zavod_code':'1101',
-                'zavod_sap':'S405'   
-                }
+                'zavod_sap':'S400'    
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'S401'    
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'S402'    
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'S403'    
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'S404'    
+                },
+                {
+                'zavod_code':'1101',
+                'zavod_sap':'S405'    
+                },
             ], 
         'S':[
                 {
@@ -193,8 +213,28 @@ LGORT_1101 ={
             },
             {
             'zavod_code':'1101',
+            'zavod_sap':'S400'    
+            },
+            {
+            'zavod_code':'1101',
+            'zavod_sap':'S401'    
+            },
+            {
+            'zavod_code':'1101',
+            'zavod_sap':'S402'    
+            },
+            {
+            'zavod_code':'1101',
+            'zavod_sap':'S403'    
+            },
+            {
+            'zavod_code':'1101',
+            'zavod_sap':'S404'    
+            },
+            {
+            'zavod_code':'1101',
             'zavod_sap':'S405'    
-            }
+            },
         ]
 }
 
