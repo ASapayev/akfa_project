@@ -2888,7 +2888,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     ########################## end 2.txt ##############################
 
     ########################## 3.txt ##############################
-    header3 ='MAKTX\tMEINS\tMTART\tSPART\tMATNR\tWERKS\tVKORG\tMTPOS\tVTWEG\tPRCTR\tMTVFP\tALAND\tTATYP\tTAXKM\tVERSG\tKTGRM\tKONDM\tLADGR\tTRAGR'
+    header3 ='MAKTX\tMEINS\tMTART\tSPART\tMATNR\tWERKS\tVKORG\tMTPOS\tVTWEG\tPRCTR\tMTVFP\tALAND\tTATYP\tTAXKM\tVERSG\tKTGRM\tKONDM\tTRAGR\tLADGR'
     d3={
         'MAKTX':[],
         'MEINS':[],
@@ -2907,8 +2907,8 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         'VERSG':[],
         'KTGRM':[],
         'KONDM':[],
-        'LADGR':[],
-        'TRAGR':[]
+        'TRAGR':[],
+        'LADGR':[]
     }
     VTWEG =['99','10','20']
     KONDM ={
@@ -2947,20 +2947,21 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         else:
             d3['KONDM'] += [ '01' if '-7' not in umumiy_without_duplicate[0][x] else KONDM[umumiy_without_duplicate[48][x].lower()] for x in range(0,len(umumiy_without_duplicate[0]))]
             
-        d3['LADGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
-        trag =[]
+        d3['TRAGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
+        
+        ladgr =[]
         j = 0
         for sap_code in umumiy_without_duplicate[0]:
             if (('-7' in sap_code ) or ('-P' in sap_code ) or ('-K' in sap_code )):
                 if umumiy_without_duplicate[50][j]!='0001':
-                    trag.append('11' + umumiy_without_duplicate[50][j])
+                    ladgr.append('11' + umumiy_without_duplicate[50][j])
                 else:
-                    trag.append(umumiy_without_duplicate[50][j])
+                    ladgr.append(umumiy_without_duplicate[50][j])
             else:
-                trag.append('0001')
+                ladgr.append('0001')
             j += 1
 
-        d3['TRAGR'] += trag
+        d3['LADGR'] += ladgr
     df3= pd.DataFrame(d3)
     np.savetxt(pathtext3, df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
     ########################## end 3.txt ##############################
