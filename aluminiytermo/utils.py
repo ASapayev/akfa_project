@@ -2964,7 +2964,10 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
                 if umumiy_without_duplicate[50][j]!='0001':
                     ladgr.append('11' + umumiy_without_duplicate[50][j])
                 else:
-                    ladgr.append(umumiy_without_duplicate[50][j])
+                    if '-7' in sap_code:
+                        ladgr.append('11S4')
+                    else:
+                        ladgr.append(umumiy_without_duplicate[50][j])
             else:
                 ladgr.append('0001')
             j += 1
@@ -3098,7 +3101,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         if file_name =='aluminiy':
             if '-N' in row['SAP код S4P 100']:
                 continue
-            
+
         sap_code = row['SAP код S4P 100'].split('-')[0]
         bazaprofiley_link =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
         baza_profile_links[0].append(row['SAP код S4P 100'])
