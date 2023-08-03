@@ -37,7 +37,7 @@
                             <td> {{file.file | split_text}} </td>
                             <td> <a class="btn btn-outline-primary btn-fw" data-name="{{file.file}}" onclick="openFile('mesto',this)">Открыть место положение</a> </td>
                             <td> <a class="btn btn-outline-secondary btn-fw" data-name="{{file.file}}" id="{{ forloop.counter }}" onclick="openFile('file',this)">Открыть файл</a> </td>
-                            {% if 'vi-generate' in request.build_absolute_uri %}<td> <a class="btn btn-outline-success btn-fw" href="{% url 'download_vi' %}?file_path={{file.file}}">Download</a> </td>{% endif %}
+                           <td> <a class="btn btn-outline-success btn-fw" href="{% url 'download_vi' %}?file_path={{file.file}}">Download</a> </td>
                         </tr>
                     {% endfor %}
                 </tbody>
