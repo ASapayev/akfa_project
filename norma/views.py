@@ -176,7 +176,7 @@ def vi_generate(request,id):
     month =now.strftime("%B")
     day =now.strftime("%a%d")
     hour =now.strftime("%H HOUR")
-    minut =now.strftime("%d-%B-%Y %H-%M")    
+    minut =now.strftime("%d-%B-%Y %H-%M-%S")    
                  
             
     create_folder(f'{MEDIA_ROOT}\\uploads\\','vi')
