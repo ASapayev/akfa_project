@@ -2964,10 +2964,8 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
                 if umumiy_without_duplicate[50][j]!='0001':
                     ladgr.append('11' + umumiy_without_duplicate[50][j])
                 else:
-                    if '-7' in sap_code:
-                        ladgr.append('11S4')
-                    else:
-                        ladgr.append(umumiy_without_duplicate[50][j])
+                    ladgr.append(umumiy_without_duplicate[50][j])
+                        
             else:
                 ladgr.append('0001')
             j += 1
