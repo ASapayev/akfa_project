@@ -2747,7 +2747,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         umumiy_without_duplicate[i]+=umumiy_without_duplicate12D5[i]     
 
     ########################## RAUBE.txt ##############################
-    header9='MAKTX\tMATNR\tRAUBE'
+    header_raube='MAKTX\tMATNR\tRAUBE'
     
     d9={}
     d9['MAKTX']=[]
@@ -2755,15 +2755,23 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     d9['RAUBE']=[]
     i = 0
     for row in umumiy_without_duplicate[0]:
-        if (('-7' in row) or ('-P' in row) or ('-K' in row)):
+        if '-7' in row:
             d9['MAKTX'].append(umumiy_without_duplicate[13][i])
             d9['MATNR'].append(umumiy_without_duplicate[0][i])
             d9['RAUBE'].append(umumiy_without_duplicate[50][i])
-            i += 1
+        if '-P' in row:
+            d9['MAKTX'].append(umumiy_without_duplicate[13][i])
+            d9['MATNR'].append(umumiy_without_duplicate[0][i])
+            d9['RAUBE'].append(umumiy_without_duplicate[50][i])
+        if '-K' in row:
+            d9['MAKTX'].append(umumiy_without_duplicate[13][i])
+            d9['MATNR'].append(umumiy_without_duplicate[0][i])
+            d9['RAUBE'].append(umumiy_without_duplicate[50][i])
+        i += 1
 
     df9= pd.DataFrame(d9)
-    df9.drop_duplicates()
-    np.savetxt(pathtext9, df9.values,fmt='%s', delimiter="\t",header=header9,comments='',encoding='ansi')
+    df9 = df9.drop_duplicates()
+    np.savetxt(pathtext9, df9.values,fmt='%s', delimiter="\t",header=header_raube,comments='',encoding='ansi')
 
     ########################## Бухгалтерская название.txt ##############################
     buxgalterskiy_t ={}
@@ -3006,11 +3014,12 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['S'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['S'][i]['zavod_sap'])
-        if sap_code_simvol =='N':
-            for i in range(0,len(LGORT_1101['N'])):
-                new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT_1101['N'][i]['zavod_code'])
-                new_ll[2].append(LGORT_1101['N'][i]['zavod_sap'])
+        if file_name !='aluminiy':
+            if sap_code_simvol =='N':
+                for i in range(0,len(LGORT_1101['N'])):
+                    new_ll[0].append(row['SAP код S4P 100'])
+                    new_ll[1].append(LGORT_1101['N'][i]['zavod_code'])
+                    new_ll[2].append(LGORT_1101['N'][i]['zavod_sap'])
         if sap_code_simvol =='K':
             for i in range(0,len(LGORT_1101['K'])):
                 new_ll[0].append(row['SAP код S4P 100'])
@@ -3086,6 +3095,10 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         if (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
             continue
 
+        if file_name =='aluminiy':
+            if '-N' in row['SAP код S4P 100']:
+                continue
+            
         sap_code = row['SAP код S4P 100'].split('-')[0]
         bazaprofiley_link =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
         baza_profile_links[0].append(row['SAP код S4P 100'])

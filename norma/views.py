@@ -184,8 +184,9 @@ def vi_generate(request,id):
     create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\',f'{month}')
     create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\',day)
     create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\',hour)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}',minut)
 
-    path =f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}\\ВИ.xlsx'
+    path =f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}\\{minut}\\ВИ.xlsx'
     
     writer = pd.ExcelWriter(path, engine='xlsxwriter')
     df_new_vi2.to_excel(writer,index=False,sheet_name ='ВИ')
