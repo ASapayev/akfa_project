@@ -658,16 +658,14 @@ def update_char_title(request,id):
       df_extrusion = pd.read_excel(f'{MEDIA_ROOT}/{file}','T4')
       e_list =df_extrusion['SAP CODE E'].values.tolist()
 
-      pathbenkam,pathjomiy = characteristika_created_txt_create(df,e_list,'aluminiytermo')
-      filesbenkam = [File(file=path,filetype='BENKAM') for path in pathbenkam]
-      filesjomiy = [File(file=path,filetype='JOMIY') for path in pathjomiy]
+      pathzip = characteristika_created_txt_create(df,e_list,'aluminiytermo')
+      fileszip = [File(file=path,filetype='BENKAM') for path in pathzip]
       context = {
-            'filesbenkam':filesbenkam,
-            'filesjomiy':filesjomiy,
+            'files':fileszip,
             'section':'Формированные файлы'
             }
 
-      return render(request,'universal/generated_files_char.html',context)
+      return render(request,'universal/generated_files.html',context)
       
 
 @csrf_exempt
@@ -3520,7 +3518,7 @@ def product_add_second_org(request,id):
                                           export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                                     else:       
                                           export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                                    
+                                    print(export_description)
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                                     width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
