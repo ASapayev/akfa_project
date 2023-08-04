@@ -33,7 +33,7 @@ urlpatterns = [
     path('add-silk-data-post',views.add_sikl_data_post,name='add_sikl_data_post'),
     path('vi-file-list',views.vi_file,name='vi_file_list'),
     path('vi-generate/<int:id>',views.vi_generate,name='vi_generate'),
-    path('downloading-vi',views.download, name='download_vi'),
+    path('downloading-files',views.download, name='download_vi'),
     
 ]
 

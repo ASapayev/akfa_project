@@ -807,14 +807,14 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}',hour)
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}','JOMIY')
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY',minut)
-        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\1_1101.txt'
-        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\2_1101.txt'
-        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\3_1101.txt'
-        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4_1101.txt'
-        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм_1101.txt'
-        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3_1101.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текст_1101.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия_1101.txt'
+        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\1.txt'
+        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\2.txt'
+        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\3.txt'
+        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4.txt'
+        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм.txt'
+        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3.xlsx'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текст.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия.txt'
     
     
     umumiy_without_duplicate1201 =[[] for i in range(0,51)]
@@ -2133,14 +2133,14 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}',hour)
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}','JOMIY')
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY',minut)
-        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\1_1101.txt'
-        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\2_1101.txt'
-        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\3_1101.txt'
-        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4_1101.txt'
-        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм_1101.txt'
-        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3_1101.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текст_1101.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия_1101.txt'
+        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\1.txt'
+        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\2.txt'
+        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\3.txt'
+        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4.txt'
+        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм.txt'
+        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3.xlsx'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текст.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\RAUBE.txt'
         pathtext10 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}'
