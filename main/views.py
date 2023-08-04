@@ -11,7 +11,7 @@ from aluminiy.models import RazlovkaObichniy,RazlovkaTermo
 from django.conf import settings  
 from config.settings import MEDIA_ROOT
 from datetime import datetime
-from django.core.files import File
+from aluminiytermo.views import File
 from aluminiy.utils import download_bs64
 from django.contrib import messages
 from django.template.defaulttags import register
@@ -427,7 +427,12 @@ def file_upload_for_get_ozmka_org(request):
       res = download_bs64(df,'RAZLOVKA')
       if request.user.role ==2:
         return res
-      return render(request,'norma/razlovka_find_org.html',{'path':path})
+      files = [File(file=p,filetype='simple') for p in path]
+      context ={
+        'files':files,
+        'section':'Разловка'
+      }
+      return render(request,'universal/generated_files.html',context)
     else:
         return render(request,'norma/razlovka_find_org.html')
   else:

@@ -32,6 +32,7 @@
                 </thead>
                 <tbody>
                     {%for file in files%}
+                      {% if file.file %}
                         <tr>
                             <td> {{ forloop.counter }} </td>
                             <td> {{file.file | split_text}} </td>
@@ -39,6 +40,7 @@
                             <td> <a class="btn btn-outline-secondary btn-fw" data-name="{{file.file}}" id="{{ forloop.counter }}" onclick="openFile('file',this)">Открыть файл</a> </td>
                            <td> <a class="btn btn-outline-success btn-fw" href="{% url 'download_vi' %}?file_path={{file.file}}">Download</a> </td>
                         </tr>
+                      {%endif%}
                     {% endfor %}
                 </tbody>
               </table>
