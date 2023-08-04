@@ -11,6 +11,7 @@ from django.shortcuts import render
 from aluminiy.models import ArtikulComponent
 from datetime import datetime
 import math
+import zipfile
 
 def get_cretead_txt_for_1201(datas,elist,file_name='aluminiytermo'):
     now = datetime.now()
@@ -2118,6 +2119,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\RAUBE.txt'
         pathtext10 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
+        pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}'
         
     elif file_name =='aluminiy':
         parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
@@ -2141,6 +2143,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия_1101.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\RAUBE.txt'
         pathtext10 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
+        pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}'
     
     
     umumiy_without_duplicate1201 =[[] for i in range(0,51)]
@@ -3285,7 +3288,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     ddf2 =ddf2.replace('XXXXXXXXXX','')
     ddf2.to_excel(pathtext6,index=False)
     
-    return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8]
+    return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8,pathtext9,pathtext10],pathzip
     #########################################################################################################################
     ###############################################################################################################
     #######################################################################################
@@ -3322,7 +3325,7 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текст.txt'
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бухгалтерская названия.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
-        
+        pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}'
     elif file_name =='aluminiy':
         parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy'
         
@@ -3344,6 +3347,7 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текст.txt'
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бухгалтерская названия.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
+        pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}'
     
     
     umumiy_without_duplicate1201 =[[] for i in range(0,49)]
@@ -4438,10 +4442,14 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 =ddf2.replace('XXXXXXXXXX','')
     ddf2.to_excel(pathtext6,index=False)
-    path_1101 = characteristika_created_txt_create_1101(datas,elist,file_name)
 
+    path_1101,path_zip2 = characteristika_created_txt_create_1101(datas,elist,file_name)
 
-    return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8] ,path_1101
+    file_path =f'{path_zip2}.zip'
+    
+    zip(path_zip2, path_zip2)
+
+    return [file_path,]
 
 
 
@@ -4525,3 +4533,14 @@ def  create_all(request,df_char_title):
         'df_char_title':df_char_title
     }
     return render(request,'termo/complete_ves.html',context)
+
+def zip(src, dst):
+    zf = zipfile.ZipFile("%s.zip" % (dst), "w", zipfile.ZIP_DEFLATED)
+    abs_src = os.path.abspath(src)
+    for dirname, subdirs, files in os.walk(src):
+        for filename in files:
+            absname = os.path.abspath(os.path.join(dirname, filename))
+            arcname = absname[len(abs_src) + 1:]
+            zf.write(absname, arcname)
+    zf.close()
+

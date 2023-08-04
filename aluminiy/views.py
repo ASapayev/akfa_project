@@ -7,6 +7,7 @@ from aluminiytermo.models import AluminiyProductTermo,CharacteristikaFile
 from aluminiytermo.views import File
 from .forms import FileForm
 from django.db.models import Max
+import zipfile
 from config.settings import MEDIA_ROOT
 import numpy as np
 from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_razlovka,download_bs64
@@ -344,16 +345,15 @@ def update_char_title(request,id):
       e_list =df_extrusion['SAP CODE E'].values.tolist()
       df =df.astype(str)
       
-      pathbenkam,pathjomiy = characteristika_created_txt_create(df,e_list,'aluminiy')
-      filesbenkam = [File(file=path,filetype='BENKAM') for path in pathbenkam]
-      filesjomiy = [File(file=path,filetype='JOMIY') for path in pathjomiy]
+      pathzip = characteristika_created_txt_create(df,e_list,'aluminiy')
+      fileszip = [File(file=path,filetype='BENKAM') for path in pathzip]  
+
       context = {
-            'filesbenkam':filesbenkam,
-            'filesjomiy':filesjomiy,
+            'files':fileszip,
             'section':'Формированные файлы'
             }
 
-      return render(request,'universal/generated_files_char.html',context)
+      return render(request,'universal/generated_files.html',context)
 
 
 def aluminiy_files_simple_char_title(request):
