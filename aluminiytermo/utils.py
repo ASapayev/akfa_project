@@ -39,8 +39,8 @@ def get_cretead_txt_for_1201(datas,elist,file_name='aluminiytermo'):
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\4.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текст.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бухгалтерская названия.txt'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текс.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
         
     elif file_name =='aluminiy':
         parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy'
@@ -60,8 +60,8 @@ def get_cretead_txt_for_1201(datas,elist,file_name='aluminiytermo'):
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\4.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текст.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бухгалтерская названия.txt'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текс.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
     
     
     umumiy_without_duplicate1201 =[[] for i in range(0,49)]
@@ -792,8 +792,8 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текст.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия.txt'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текс.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бух название SDLONGTEXT.txt'
         
     elif file_name =='aluminiy':
         parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
@@ -813,8 +813,8 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текст.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия.txt'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текс.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бух название SDLONGTEXT.txt'
     
     
     umumiy_without_duplicate1201 =[[] for i in range(0,51)]
@@ -1440,7 +1440,7 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
     
     
     ########################## end Бухгалтерская название.txt ##############################
-    ########################## Длинный текст.txt ##############################
+    ########################## Длинный текс.txt ##############################
     #dlinniy_text_zero
     dlinniy_t ={}
     header_dlinniy ='\tBISMT\t\t\t\tTEXT'
@@ -1456,7 +1456,7 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
     np.savetxt(pathtext7, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
     
     
-    ########################## end Длинный текст.txt ##############################
+    ########################## end Длинный текс.txt ##############################
 
 
 
@@ -2115,8 +2115,8 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текст.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия.txt'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текс.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бух название SDLONGTEXT.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\RAUBE.txt'
         pathtext10 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}'
@@ -2139,8 +2139,8 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текст.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бухгалтерская названия.txt'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текс.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бух название SDLONGTEXT.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\RAUBE.txt'
         pathtext10 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}'
@@ -2794,7 +2794,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     
     
     ########################## end Бухгалтерская название.txt ##############################
-    ########################## Длинный текст.txt ##############################
+    ########################## Длинный текс.txt ##############################
     #dlinniy_text_zero
     dlinniy_t ={}
     header_dlinniy ='\tBISMT\t\t\t\tTEXT'
@@ -2810,7 +2810,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     np.savetxt(pathtext7, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
     
     
-    ########################## end Длинный текст.txt ##############################
+    ########################## end Длинный текс.txt ##############################
 
 
     ########################## 1.txt ##############################
@@ -3322,8 +3322,8 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\4.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текст.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бухгалтерская названия.txt'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текс.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}'
     elif file_name =='aluminiy':
@@ -3344,8 +3344,8 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\4.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текст.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бухгалтерская названия.txt'
+        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текс.txt'
+        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}'
     
@@ -3933,7 +3933,7 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
     
     
 ########################## end Бухгалтерская название.txt ##############################
-########################## Длинный текст.txt ##############################
+########################## Длинный текс.txt ##############################
 #dlinniy_text_zero
     dlinniy_t ={}
     header_dlinniy ='\tBISMT\t\t\t\tTEXT'
@@ -3949,7 +3949,7 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
     np.savetxt(pathtext7, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
     
     
-########################## end Длинный текст.txt ##############################
+########################## end Длинный текс.txt ##############################
 
 
 ########################## 1.txt ##############################
