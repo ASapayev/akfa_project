@@ -5022,22 +5022,29 @@ def product_add_second_org(request,id):
                         price =razlov['Price']
                   ).save()
       
+      print(df_char_title)
+      print('+'*10,' oldin ','+'*10)
       exchange_value = ExchangeValues.objects.get(id=1)
       price_all_correct = True
       for key, row in df_char_title.iterrows():
             if LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
                   length_of_profile = LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина'])[:1].get()
-                  if row['ch_combination'] =='Без термомоста':
-                        df_char_title['Общий вес за штуку'][key] =float(length_of_profile.ves_za_metr) * float(row['Длина'])
-                  else:
-                        df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
-                  
+                  df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
                   df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
                   price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],tip=row['ch_combination'])[:1].get()
-                  df_char_title['Price'] = float(price.price) * float(df_char_title['Общий вес за штуку'][key])  * float(exchange_value.valute)
+                  df_char_title['Price'][key] = float(price.price.replace(',','.')) * float(df_char_title['Общий вес за штуку'][key].replace(',','.'))  * float(exchange_value.valute.replace(',','.'))
+            elif row['ch_combination'].lower() ==str("Без термомоста").lower():
+                  if LengthOfProfile.objects.filter(artikul=row['ch_article']).exists():
+                        df_char_title['Общий вес за штуку'][key] =float(length_of_profile.ves_za_metr.replace(',','.')) * float(row['Длина'].replace(',','.'))
+                        df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
+                        price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],tip=row['ch_combination'])[:1].get()
+                        df_char_title['Price'][key] = float(str(price.price).replace(',','.')) * float(str(df_char_title['Общий вес за штуку'][key]).replace(',','.'))  * float( str(exchange_value.valute).replace(',','.') )
             else:
                   price_all_correct = False
 
+      print(df_char_title['Price'],df_char_title['Общий вес за штуку'])
+      print('+'*10,' keyin ','+'*10)
+      print(price_all_correct)
       if price_all_correct:
             path = update_char_title_function(df_char_title,df_extrusion,'aluminiytermo')
             file =[File(file=p,filetype='obichniy') for p in path]

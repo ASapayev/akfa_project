@@ -3076,7 +3076,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         elif i == 1 :
             ed_iz3 += [j for j in dlina_title ]
         elif i == 2 :
-            ed_iz3 += [int(float(j)*1000) for j in obshiy_ves_za_shtuku ]
+            ed_iz3 += [int(float(j.replace(',','.'))*1000) for j in obshiy_ves_za_shtuku ]
             
     
     for i in ED_IZM:    
@@ -4110,7 +4110,7 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
     for key , row in datas.iterrows():
         sap_code_title.append(row['SAP код S4P 100'])
         dlina_title.append(row['Длина'])
-        obshiy_ves_za_shtuku.append(row['Общий вес за штуку'])
+        obshiy_ves_za_shtuku.append(row['Общий вес за штуку'].replace(',','.'))
         wms_width.append(row['WMS_WIDTH'])
         wms_height.append(row['WMS_HEIGHT'])
 

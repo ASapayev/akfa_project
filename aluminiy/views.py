@@ -4308,12 +4308,12 @@ def product_add_second_org(request,id):
                   df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
 
                   price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],tip=row['ch_combination'])[:1].get()
-                  df_char_title['Price'] = float(price.price) * float(length_of_profile.ves_za_shtuk)  * float(exchange_value.valute)
+                  df_char_title['Price'][key] = float(price.price) * float(length_of_profile.ves_za_shtuk)  * float(exchange_value.valute)
             else:
                   price_all_correct = False
 
       print(price_all_correct)
-
+      print(df_char_title)
       if price_all_correct:
             path = update_char_title_function(df_char_title,df_extrusion,'aluminiy')
             file =[File(file=p,filetype='obichniy') for p in path]
