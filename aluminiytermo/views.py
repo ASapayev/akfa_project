@@ -5028,7 +5028,7 @@ def product_add_second_org(request,id):
             if LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
                   length_of_profile = LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина'])[:1].get()
                   if row['ch_combination'] =='Без термомоста':
-                        df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_metr * row['Длина']
+                        df_char_title['Общий вес за штуку'][key] =float(length_of_profile.ves_za_metr) * float(row['Длина'])
                   else:
                         df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
                   

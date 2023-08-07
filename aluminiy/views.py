@@ -4312,6 +4312,8 @@ def product_add_second_org(request,id):
             else:
                   price_all_correct = False
 
+      print(price_all_correct)
+
       if price_all_correct:
             path = update_char_title_function(df_char_title,df_extrusion,'aluminiy')
             file =[File(file=p,filetype='obichniy') for p in path]
