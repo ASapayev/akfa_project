@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 import pandas as pd
 from django.core.paginator import Paginator
-from .models import ArtikulComponent,AluminiyProduct,AluFile,RazlovkaObichniy,RazlovkaTermo
+from .models import ArtikulComponent,AluminiyProduct,AluFile,RazlovkaObichniy,RazlovkaTermo,Price,LengthOfProfile,ExchangeValues
 from aluminiytermo.models import AluminiyProductTermo,CharacteristikaFile
-from aluminiytermo.views import File
+from aluminiytermo.views import *
 from .forms import FileForm
 from django.db.models import Max
 import zipfile
@@ -25,7 +25,10 @@ from io import BytesIO as IO
 
 
 
-
+class File:
+      def __init__(self,file,filetype):
+            self.file =file
+            self.filetype =filetype
 
 def download_all_razlovki(request):
       file_type = request.GET.get('type',None)
@@ -337,6 +340,16 @@ def aluminiy_group(request):
             umumiy[ al['artikul'] + '-' + al['section'] ] = al['total_max']
       
       return JsonResponse({'data':umumiy})
+
+def update_char_title_function(df_title,df_t4,file_type='aluminiy'):
+      df = df_title
+      df_extrusion = df_t4
+      e_list =df_extrusion['SAP CODE E'].values.tolist()
+      df =df.astype(str)
+      
+      pathzip = characteristika_created_txt_create(df,e_list,file_type)
+
+      return pathzip
 
 def update_char_title(request,id):
       file = CharacteristikaFile.objects.get(id=id).file
@@ -4286,18 +4299,42 @@ def product_add_second_org(request,id):
                         общий_вес_за_штуку =razlov['Общий вес за штуку'],
                         price =razlov['Price']
                   ).save()
+      exchange_value = ExchangeValues.objects.get(id=1)
+      price_all_correct = True
+      for key, row in df_char_title.iterrows():
+            if LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
+                  length_of_profile = LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина'])[:1].get()
+                  df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
+                  df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
 
-      writer = pd.ExcelWriter(path, engine='xlsxwriter')
-      df_new.to_excel(writer,index=False,sheet_name='Schotchik')
-      df_char.to_excel(writer,index=False,sheet_name='Characteristika')
-      df_char_title.to_excel(writer,index=False,sheet_name='title')
-      df_extrusion.to_excel(writer,index=False,sheet_name='T4')
-      writer.close()
-      file =[File(file=path,filetype='obichniy')]
-      context ={
-            'files':file,
-            'section':'Формированый обычный файл'
-      }
+                  price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],tip=row['ch_combination'])[:1].get()
+                  df_char_title['Price'] = float(price.price) * float(length_of_profile.ves_za_shtuk)  * float(exchange_value.valute)
+            else:
+                  price_all_correct = False
+
+      if price_all_correct:
+            path = update_char_title_function(df_char_title,df_extrusion,'aluminiy')
+            file =[File(file=p,filetype='obichniy') for p in path]
+            context ={
+                  'files':file,
+                  'section':'Формированый обычный файл'
+            }
+
+      else:
+
+
+            writer = pd.ExcelWriter(path, engine='xlsxwriter')
+            df_new.to_excel(writer,index=False,sheet_name='Schotchik')
+            df_char.to_excel(writer,index=False,sheet_name='Characteristika')
+            df_char_title.to_excel(writer,index=False,sheet_name='title')
+            df_extrusion.to_excel(writer,index=False,sheet_name='T4')
+            writer.close()
+
+            file =[File(file=path,filetype='obichniy')]
+            context ={
+                  'files':file,
+                  'section':'Формированый обычный файл'
+            }
       return render(request,'universal/generated_files.html',context)
                   
 import glob

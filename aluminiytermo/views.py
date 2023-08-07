@@ -3,7 +3,7 @@ from django.http import JsonResponse
 import pandas as pd
 from .models import AluFileTermo,AluminiyProductTermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour,CharacteristicTitle,BazaProfiley,Characteristika,CharacteristikaFile
 from norma.models import NakleykaIskyuchenie
-from aluminiy.models import AluminiyProduct,RazlovkaTermo
+from aluminiy.models import AluminiyProduct,RazlovkaTermo,LengthOfProfile,ExchangeValues,Price
 from .forms import FileFormTermo,FileFormChar
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
@@ -14,6 +14,7 @@ from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,cre
 import os
 from datetime import datetime
 import json
+from aluminiy.views import update_char_title_function
 import random
 from django.db.models import Q
 from .BAZA import ANODIROVKA_CODE
@@ -5021,19 +5022,42 @@ def product_add_second_org(request,id):
                         price =razlov['Price']
                   ).save()
       
-      
-      writer = pd.ExcelWriter(path, engine='xlsxwriter')
-      df_new.to_excel(writer,index=False,sheet_name ='Schotchik')
-      df_char.to_excel(writer,index=False,sheet_name ='Characteristika')
-      df_char_title.to_excel(writer,index=False,sheet_name ='title')
-      df_extrusion.to_excel(writer,index=False,sheet_name='T4')
-      writer.close()
+      exchange_value = ExchangeValues.objects.get(id=1)
+      price_all_correct = True
+      for key, row in df_char_title.iterrows():
+            if LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
+                  length_of_profile = LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина'])[:1].get()
+                  if row['ch_combination'] =='Без термомоста':
+                        df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_metr * row['Длина']
+                  else:
+                        df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
+                  
+                  df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
+                  price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],tip=row['ch_combination'])[:1].get()
+                  df_char_title['Price'] = float(price.price) * float(df_char_title['Общий вес за штуку'][key])  * float(exchange_value.valute)
+            else:
+                  price_all_correct = False
 
-      file =[File(file=path,filetype='obichniy')]
-      context ={
-            'files':file,
-            'section':'Формированый термо файл'
-      }
+      if price_all_correct:
+            path = update_char_title_function(df_char_title,df_extrusion,'aluminiytermo')
+            file =[File(file=p,filetype='obichniy') for p in path]
+            context ={
+                  'files':file,
+                  'section':'Формированый термо файл'
+            }
+      else:
+            writer = pd.ExcelWriter(path, engine='xlsxwriter')
+            df_new.to_excel(writer,index=False,sheet_name ='Schotchik')
+            df_char.to_excel(writer,index=False,sheet_name ='Characteristika')
+            df_char_title.to_excel(writer,index=False,sheet_name ='title')
+            df_extrusion.to_excel(writer,index=False,sheet_name='T4')
+            writer.close()
+
+            file =[File(file=path,filetype='obichniy')]
+            context ={
+                  'files':file,
+                  'section':'Формированый термо файл'
+            }
       return render(request,'universal/generated_files.html',context)
       
                   
