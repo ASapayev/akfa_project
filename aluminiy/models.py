@@ -95,7 +95,7 @@ class NewAndOld(models.Model):
 class Price(models.Model):
   tip_pokritiya = models.CharField(max_length=150)
   tip = models.CharField(max_length=150)
-  price = models.IntegerField()
+  price = models.FloatField()
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 
