@@ -95,15 +95,15 @@ class NewAndOld(models.Model):
 class Price(models.Model):
   tip_pokritiya = models.CharField(max_length=150)
   tip = models.CharField(max_length=150)
-  price = models.FloatField()
+  price = models.CharField(max_length=150)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 
 
 class LengthOfProfile(models.Model):
   artikul = models.CharField(max_length=100)
-  length = models.IntegerField()
-  ves_za_shtuk = models.FloatField()
-  ves_za_metr = models.FloatField()
+  length = models.CharField(max_length=150)
+  ves_za_shtuk = models.CharField(max_length=150)
+  ves_za_metr = models.CharField(max_length=150)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
