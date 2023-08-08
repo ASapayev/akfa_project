@@ -532,7 +532,6 @@ LGORT ={
 HEADER =[
     'SAVDO_ID',
     'SAVDO_NAME',
-    'EXPORT_CUSTOMER_ID',
     'SYSTEM',
     'ARTICLE',
     'LENGTH',
@@ -567,7 +566,6 @@ HEADER =[
 HEADER2 =[
     'SAVDO_ID',
     'SAVDO_NAME',
-    'EXPORT_CUSTOMER_ID',
     'SYSTEM',
     'ARTICLE',
     'LENGTH',
