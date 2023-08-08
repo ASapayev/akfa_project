@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101,LGORT_1101,HEADER2
 from django.shortcuts import render
-from aluminiy.models import ArtikulComponent
+from aluminiy.models import ArtikulComponent,LengthOfProfile
 from datetime import datetime
 import math
 import zipfile
@@ -3363,6 +3363,14 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
     
 
     for key , row in datas.iterrows():
+
+        if not LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
+            LengthOfProfile(
+                artikul = row['ch_article'],
+                length = row['Длина'],
+                ves_za_shtuk = row['Общий вес за штуку'],
+                ves_za_metr = row['Удельный вес за метр']
+            ).save()
         dlinniy_text_zero[0].append('1')
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
         dlinniy_text_zero[2].append(row['Польное наименование SAP'])
