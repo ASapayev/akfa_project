@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'aluminiytermo',
     'imzo',
     'norma',
+    'order'
     # "debug_toolbar",
 ]
 
@@ -95,12 +97,19 @@ DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'akfa', 
+        # 'USER': 'postgres',
+        # 'PASSWORD': 'postgres',
+        # 'HOST': '127.0.0.1', 
+        # 'PORT': '5432',
+
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'akfa', 
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': config('HOST'),
+        'PORT': config('PORT'),
     }
 }
 
