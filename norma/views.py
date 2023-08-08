@@ -1498,8 +1498,14 @@ def kombinirovaniy_process(request,id):
     existing = norma + alumniy_silindr + subdekor + kraska + nakleyka_N + kombinirovanniy + lamplyonka
     
     if len(existing) > 0 : 
-        create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka_N,kombinirovanniy,lamplyonka,str(product_type))                          
-        return JsonResponse({'norma':norma,'aluminiy silindr':alumniy_silindr,'subdecor':subdekor,'kraska':kraska,'nakleyka':nakleyka_N,'kombinirovanniy':kombinirovanniy,'lamplyonka':lamplyonka})
+        path = create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka_N,kombinirovanniy,lamplyonka,str(product_type))
+        files =[File(file=path,filetype='norma')]     
+        context ={
+            'files':files,
+            'section':'Ошибки нормы'
+
+        }                     
+        return render(request,'universal/generated_files.html',context)
     
     df_new ={
         'ID':[],

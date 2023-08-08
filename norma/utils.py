@@ -124,6 +124,7 @@ def create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka,kombinirovann
     
     
     writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    df_norma = df_norma.drop_duplicates()
     df_norma.to_excel(writer,index=False,sheet_name ='norma')
     df_aluminiy_silindr.to_excel(writer,index=False,sheet_name ='aluminiy silindr 1')
     df_subdekor.to_excel(writer,index=False,sheet_name ='Subdekor')
@@ -132,7 +133,7 @@ def create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka,kombinirovann
     df_kombinirovanniy.to_excel(writer,index=False,sheet_name ='Kombinirovanniy utils')
     df_lamplyonka.to_excel(writer,index=False,sheet_name ='Lamination code')
     writer.close()
-    return 1
+    return path
 
 def create_folder(parent_dir,directory):
     path =os.path.join(parent_dir,directory)
