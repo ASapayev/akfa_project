@@ -761,10 +761,6 @@ def get_cretead_txt_for_1201(datas,elist,file_name='aluminiytermo'):
     
     path_1101 = get_cretead_txt_for_1101(datas,elist,file_name)
     return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8] ,path_1101
-
-    
-
-
     
 
 def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
