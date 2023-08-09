@@ -13,7 +13,7 @@ from datetime import datetime
 import math
 import zipfile
 
-def get_cretead_txt_for_1201(datas,elist):
+def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     now = datetime.now()
     year =now.strftime("%Y")
     month =now.strftime("%B")
@@ -42,6 +42,7 @@ def get_cretead_txt_for_1201(datas,elist):
     pathtext7 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текс.txt'
     pathtext8 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
     pathtext9 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
+    pathdoesnot_exists =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\NOT.xlsx'
     pathzip =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}'
    
     umumiy_without_duplicate1201 =[[] for i in range(0,49)]
@@ -1141,6 +1142,14 @@ def get_cretead_txt_for_1201(datas,elist):
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 =ddf2.replace('XXXXXXXXXX','')
     ddf2.to_excel(pathtext6,index=False)
+
+
+    if  len(does_not_exists)>0:     
+        not_exists =pd.DataFrame(np.array(does_not_exists),columns=['SAP CODE','Error'])
+    else:
+        not_exists =pd.DataFrame(np.array([['','']]),columns=['SAP CODE','Error'])
+
+    not_exists.to_excel(pathdoesnot_exists,index=False)
 
     path_1101,path_zip2 = get_cretead_txt_for_1101(datas,elist)
 

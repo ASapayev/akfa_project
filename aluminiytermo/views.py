@@ -129,6 +129,12 @@ def create_txt_for_1101(request):
                         else:
                             all_correct = False
                             does_not_exists.append([artikul,'НЕТ ВЕС'])
+
+                        if BazaProfiley.objects.filter(Q(артикул=artikul)|Q(компонент=artikul)).exists():
+                              stariy_code = BazaProfiley.objects.filter(Q(артикул=artikul)|Q(компонент=artikul))[:1].get()
+                        else:
+                            all_correct = False
+                            does_not_exists.append([artikul,'НЕТ СТАРЫЙ КОД (Baza Profiley)'])
                         
                         
                         
@@ -173,11 +179,10 @@ def create_txt_for_1101(request):
                               character_dict['ch_profile_base'].append(character_txt.profile_base)
                               character_dict['ch_category'].append(character_txt.category)
                               character_dict['ch_surface_treatment_export'].append(character_txt.surface_treatment_export)
-                              baza_profile = BazaProfiley.objects.filter(Q(артикул=artikul)|Q(компонент=artikul))[:1].get()
-                              character_dict['ch_artikul_old'].append(baza_profile.старый_код)
-
+                              character_dict['ch_artikul_old'].append(stariy_code.старый_код)
+                        
                   df = pd.DataFrame(character_dict)
-                  path = get_cretead_txt_for_1201(df,elist)
+                  path = get_cretead_txt_for_1201(df,elist,does_not_exists)
                   files =[File(file=p,filetype='txt') for p in path]
                   context ={
                         'files':files,
