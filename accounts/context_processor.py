@@ -11,7 +11,8 @@ def user_profile(request):
 ROLE_CHOICES ={
     1:'moderator',
     2:'user1',
-    3:'user2'
+    3:'user2',
+    4:'only_razlovka'
 }
 
 def get_user_role(request):

@@ -60,12 +60,25 @@ def get_raube(request):
 
 
 def create_txt_for_1101(request):
-      # df = pd.read_excel('C:\\OpenServer\\domains\\sap_codes.xlsx')
-      df = pd.read_excel('C:\\OSPanel\\domains\\sap_codes.xlsx','sapcode')
-      eli = pd.read_excel('C:\\OSPanel\\domains\\sap_codes.xlsx','esapcode')
-      elist = eli['sapcode'].values.tolist()
-      get_cretead_txt_for_1201(df,elist,'aluminiytermo')
-      return JsonResponse({'a':'b'})
+      
+      # if request.method =='POST':
+      #       character_dict ={}
+      #       character_dict['SAP код S4P 100']=[]
+      #       character_dict['ch_export_description']=[]
+      #       character_dict['ch_export_description_eng']=[]
+      #       character_dict['Тип покрытия']=[]
+      #       character_dict['Участок']=[]
+      #       character_dict['Короткое название SAP']=[]
+      #       character_dict['Общий вес за штуку']=[]
+      #       character_dict['ch_combination']=[]
+      #       character_dict['Price']=[]
+      #       character_dict['Польное наименование SAP']=[]
+      #       character_dict['ch_rawmat_type']=[]
+
+
+      #       elist = eli['sapcode'].values.tolist()
+      #       get_cretead_txt_for_1201(df,elist,'aluminiytermo')
+      return render(request,'universal/create_txt.html')
 
 def show_list_simple_sapcodes(request):
 
