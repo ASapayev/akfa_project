@@ -8,12 +8,12 @@ import pandas as pd
 import numpy as np
 from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101,LGORT_1101,HEADER2
 from django.shortcuts import render
-from aluminiy.models import ArtikulComponent,LengthOfProfile
+from aluminiy.models import ArtikulComponent,LengthOfProfile,RazlovkaTermo
 from datetime import datetime
 import math
 import zipfile
 
-def get_cretead_txt_for_1201(datas,elist,file_name='aluminiytermo'):
+def get_cretead_txt_for_1201(datas,elist):
     now = datetime.now()
     year =now.strftime("%Y")
     month =now.strftime("%B")
@@ -21,49 +21,29 @@ def get_cretead_txt_for_1201(datas,elist,file_name='aluminiytermo'):
     hour =now.strftime("%H HOUR")
     minut =now.strftime("%M-%S MINUT")
     
-    if file_name =='aluminiytermo':
-        parent_dir =f'{MEDIA_ROOT}\\uploads\\aluminiytermo'
-        
-        if not os.path.isdir(parent_dir):
-            create_folder(f'{MEDIA_ROOT}\\uploads','aluminiytermo')
-            
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo',f'{year}')
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}',f'{month}')
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}',day)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}',hour)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}','BENKAM')
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM',minut)
-        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\1.txt'
-        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\2.txt'
-        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\3.txt'
-        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\4.txt'
-        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Единицы изм.txt'
-        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текс.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
-        
-    elif file_name =='aluminiy':
-        parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy'
-        
-        if not os.path.isdir(parent_dir):
-            create_folder(f'{MEDIA_ROOT}\\uploads','aluminiy')
-            
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy',f'{year}')
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}',f'{month}')
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}',day)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}',hour)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}','BENKAM')
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM',minut)
-        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\1.txt'
-        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\2.txt'
-        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\3.txt'
-        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\4.txt'
-        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Единицы изм.txt'
-        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текс.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
     
+    parent_dir =f'{MEDIA_ROOT}\\uploads\\TXT'
     
+    if not os.path.isdir(parent_dir):
+        create_folder(f'{MEDIA_ROOT}\\uploads','TXT')
+        
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT',f'{year}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT\\{year}',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}',hour)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}','BENKAM')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM',minut)
+    pathtext1 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\1.txt'
+    pathtext2 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\2.txt'
+    pathtext3 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\3.txt'
+    pathtext4 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\4.txt'
+    pathtext5 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Единицы изм.txt'
+    pathtext6 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Лист в C 3.xlsx'
+    pathtext7 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текс.txt'
+    pathtext8 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
+    pathtext9 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
+    pathzip =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}'
+   
     umumiy_without_duplicate1201 =[[] for i in range(0,49)]
     umumiy_without_duplicate1203 =[[] for i in range(0,49)]
     umumiy_without_duplicate12D1 =[[] for i in range(0,49)]
@@ -77,6 +57,22 @@ def get_cretead_txt_for_1201(datas,elist,file_name='aluminiytermo'):
     
 
     for key , row in datas.iterrows():
+
+        if not LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
+            LengthOfProfile(
+                artikul = row['ch_article'],
+                length = row['Длина'],
+                ves_za_shtuk = row['Общий вес за штуку'],
+                ves_za_metr = row['Удельный вес за метр']
+            ).save()
+        dlinniy_text_zero[0].append('1')
+        dlinniy_text_zero[1].append(row['SAP код S4P 100'])
+        dlinniy_text_zero[2].append(row['Польное наименование SAP'])
+        
+        dlinniy_text_zero[0].append('2')
+        dlinniy_text_zero[1].append(row['SAP код S4P 100'])
+        dlinniy_text_zero[2].append(row['Польное наименование SAP'])
+        
         
         ############################ bugalter nazvaniya###
         if 'ГП' == row['ch_rawmat_type']:
@@ -638,7 +634,52 @@ def get_cretead_txt_for_1201(datas,elist,file_name='aluminiytermo'):
     np.savetxt(pathtext8, df_bug_text.values,fmt='%s', delimiter="\t",header=header_buxgalter,comments='',encoding='ansi')
     
     
+########################## end Бухгалтерская название.txt ##############################
+########################## Длинный текс.txt ##############################
+#dlinniy_text_zero
+    dlinniy_t ={}
+    header_dlinniy ='\tBISMT\t\t\t\tTEXT'
+    dlinniy_t['ID']=dlinniy_text_zero[0]
+    dlinniy_t['BISMT']=dlinniy_text_zero[1]
+    dlinniy_t['RU']=['RU' for x in dlinniy_text_zero[1]]
+    dlinniy_t['GRUN']=['GRUN' for x in dlinniy_text_zero[1]]
+    dlinniy_t['sa']=['' for x in dlinniy_text_zero[1]]
+    dlinniy_t['TEXT']=dlinniy_text_zero[2]
+    
+    df_dlinniy_text= pd.DataFrame(dlinniy_t)
+    
+    np.savetxt(pathtext7, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
+    
+    
+########################## end Длинный текс.txt ##############################
 
+
+########################## 1.txt ##############################
+    d1={}
+    header1 ='MATNR\tBISMT\tMAKTX\tMEINS\tMTART\tMATKL\tWERKS\tBESKZ\tSPART\tBRGEW\tNTGEW\tGEWEI\tMTPOS_MARA'
+    
+    d1['MATNR']=umumiy_without_duplicate1201[0]
+    d1['BISMT']=umumiy_without_duplicate1201[1]
+    d1['MAKTX']=umumiy_without_duplicate1201[2]
+    d1['MEINS']=umumiy_without_duplicate1201[3]
+    d1['MTART']=umumiy_without_duplicate1201[4]
+    d1['MATKL']=umumiy_without_duplicate1201[5]
+    d1['WERKS']=umumiy_without_duplicate1201[34]
+    d1['BESKZ']=umumiy_without_duplicate1201[7]
+    d1['SPART']=umumiy_without_duplicate1201[8]
+    d1['BRGEW']=umumiy_without_duplicate1201[9]
+    d1['NTGEW']=umumiy_without_duplicate1201[10]
+    d1['GEWEI']=umumiy_without_duplicate1201[11]
+    d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
+    
+    
+    df1= pd.DataFrame(d1)
+    
+    np.savetxt(pathtext1, df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
+    
+########################## end 1.txt ##############################
+
+########################## 2.txt ##############################
     header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tUEETK\tLGPRO\tAUTO_P_ORD'
     zavod_code ={
         '1203':'PVC',
@@ -758,12 +799,359 @@ def get_cretead_txt_for_1201(datas,elist,file_name='aluminiytermo'):
         d3['TRAGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
     df3= pd.DataFrame(d3)
     np.savetxt(pathtext3, df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
+########################## end 3.txt ##############################
     
-    path_1101 = get_cretead_txt_for_1101(datas,elist,file_name)
-    return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8] ,path_1101
+########################## 4.txt ##############################    
+    new_ll =[[],[],[]]
+    sap_code_title =[]
+    dlina_title =[]
+    obshiy_ves_za_shtuku =[]
+    wms_width =[]
+    wms_height =[]
+    
+    for key , row in datas.iterrows():
+        sap_code_title.append(row['SAP код S4P 100'])
+        dlina_title.append(row['Длина'])
+        obshiy_ves_za_shtuku.append(row['Общий вес за штуку'].replace(',','.'))
+        wms_width.append(row['WMS_WIDTH'])
+        wms_height.append(row['WMS_HEIGHT'])
+
+        
+        sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
+        if sap_code_simvol =='E':
+            for i in range(0,len(LGORT['E'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT['E'][i]['zavod_code'])
+                new_ll[2].append(LGORT['E'][i]['zavod_sap'])
+        if sap_code_simvol =='Z':
+            for i in range(0,len(LGORT['Z'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT['Z'][i]['zavod_code'])
+                new_ll[2].append(LGORT['Z'][i]['zavod_sap'])
+        if sap_code_simvol =='P':
+            if (row['Тип покрытия'] =='Ламинированный'):
+                for i in range(0,len(LGORT['PL'])):
+                    new_ll[0].append(row['SAP код S4P 100'])
+                    new_ll[1].append(LGORT['PL'][i]['zavod_code'])
+                    new_ll[2].append(LGORT['PL'][i]['zavod_sap'])
+            else:
+                for i in range(0,len(LGORT['P'])):
+                    new_ll[0].append(row['SAP код S4P 100'])
+                    new_ll[1].append(LGORT['P'][i]['zavod_code'])
+                    new_ll[2].append(LGORT['P'][i]['zavod_sap'])
+        
+        if sap_code_simvol =='S':
+            for i in range(0,len(LGORT['S'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT['S'][i]['zavod_code'])
+                new_ll[2].append(LGORT['S'][i]['zavod_sap'])
+        if sap_code_simvol =='N':
+            for i in range(0,len(LGORT['N'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT['N'][i]['zavod_code'])
+                new_ll[2].append(LGORT['N'][i]['zavod_sap'])
+        if sap_code_simvol =='K':
+            for i in range(0,len(LGORT['K'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT['K'][i]['zavod_code'])
+                new_ll[2].append(LGORT['K'][i]['zavod_sap'])
+        if sap_code_simvol =='A':
+            for i in range(0,len(LGORT['A'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT['A'][i]['zavod_code'])
+                new_ll[2].append(LGORT['A'][i]['zavod_sap'])
+        
+        if sap_code_simvol =='7':
+            if (row['Тип покрытия'] =='Ламинированный'):
+                for i in range(0,len(LGORT['7L'])):
+                    new_ll[0].append(row['SAP код S4P 100'])
+                    new_ll[1].append(LGORT['7L'][i]['zavod_code'])
+                    new_ll[2].append(LGORT['7L'][i]['zavod_sap'])
+            else:
+                for i in range(0,len(LGORT['7'])):
+                    new_ll[0].append(row['SAP код S4P 100'])
+                    new_ll[1].append(LGORT['7'][i]['zavod_code'])
+                    new_ll[2].append(LGORT['7'][i]['zavod_sap'])
+        
+        if sap_code_simvol =='F':
+            for i in range(0,len(LGORT['F'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT['F'][i]['zavod_code'])
+                new_ll[2].append(LGORT['F'][i]['zavod_sap'])
+
+    header4='MATNR\tWERKS\tLGORT'
+    d4={}
+    d4['MATNR']=new_ll[0]
+    d4['WERKS']=new_ll[1]
+    d4['LGORT']=new_ll[2]
+    df4= pd.DataFrame(d4)
+    np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
+########################## end 4.txt ##############################
+    
+########################## 5.txt ##############################
+    d5 ={
+        'sap_code':[],
+        'ed_iz1':[],
+        'ed_iz2':[],
+        'ed_iz3':[],
+        'ed_iz4':[],
+        'ed_iz5':[],
+        'ed_iz6':[],
+        'ed_iz7':[]
+    }
+    ED_IZM =['ШТ','М','КГ']
+    
+    # sap_code_title =[]
+    # dlina_title =[]
+    # obshiy_ves_za_shtuku =[]
+    # wms_width =[]
+    # wms_height =[]
+    ed_iz3 =[]
+    for i in range(0,3):
+        if i == 0 :
+            ed_iz3 += ['1' for j in range(0,len(sap_code_title)) ]
+        elif i == 1 :
+            ed_iz3 += [j for j in dlina_title ]
+        elif i == 2 :
+            ed_iz3 += [int(float(j)*1000) for j in obshiy_ves_za_shtuku ]
+            
+    
+    for i in ED_IZM:    
+        d5['sap_code'] += sap_code_title
+        d5['ed_iz1'] += [ i for j in range(0,len(sap_code_title))]
+        d5['ed_iz2'] +=['1' if i =='ШТ' else '1000'  for j in range(0,len(sap_code_title)) ]
+        # d5['ed_iz3'] +=['1' if i =='ШТ' elif i=='М' for j in range(0,len(sap_code_title)) ]
+        d5['ed_iz4'] +=[j for j in dlina_title ]
+        d5['ed_iz5'] +=[j for j in wms_height ]
+        d5['ed_iz6'] +=[j for j in wms_width ]
+        d5['ed_iz7'] +=[ 'мм' for j in range(0,len(sap_code_title))]
+    
+    d5['ed_iz3'] = ed_iz3
+    df5= pd.DataFrame(d5)
+    np.savetxt(pathtext5, df5.values, fmt='%s', delimiter="\t",encoding='ansi')
+########################## end 5.txt ##############################
+########################## List v 3 ##############################
+    dd2 = [[],[],[],[],[],[]]
+    baza_profile_links =[[],[]]
     
 
-def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
+    for key , row in datas.iterrows():
+        sap_code = row['SAP код S4P 100'].split('-')[0]
+        bazaprofiley_link =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
+        baza_profile_links[0].append(row['SAP код S4P 100'])
+        baza_profile_links[1].append(bazaprofiley_link)
+
+        row['ch_tnved'] =str(row['ch_tnved']).replace('.0','')
+        row['ch_outer_side_pc_id'] =str(row['ch_outer_side_pc_id']).replace('.0','')
+        row['ch_outer_side_pc_brand'] =str(row['ch_outer_side_pc_brand']).replace('.0','')
+        row['ch_inner_side_pc_id'] =str(row['ch_inner_side_pc_id']).replace('.0','')
+        row['ch_inner_side_pc_brand'] =str(row['ch_inner_side_pc_brand']).replace('.0','')
+        row['ch_outer_side_wg_s_id'] =str(row['ch_outer_side_wg_s_id']).replace('.0','')
+        row['ch_inner_side_wg_s_id'] =str(row['ch_inner_side_wg_s_id']).replace('.0','')
+        row['ch_outer_side_wg_id'] =str(row['ch_outer_side_wg_id']).replace('.0','')
+        row['ch_inner_side_wg_id'] =str(row['ch_inner_side_wg_id']).replace('.0','')
+        row['ch_width'] =str(row['ch_width']).replace('.0','')
+        row['ch_height'] =str(row['ch_height']).replace('.0','')
+        
+        if (('-E' in row['SAP код S4P 100']) or ('-Z' in row['SAP код S4P 100']) or ('-P' in row['SAP код S4P 100']) or ('-A' in row['SAP код S4P 100']) or ('-S' in row['SAP код S4P 100'])):
+
+            for j in range(0,31):
+                dd2[0].append('001')
+            dd2[0].append('023')
+                
+            for j in range(0,31):
+                if HEADER2[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
+
+                    dd2[1].append('ALUMINIUM_PROFILE')
+                else:
+                    if HEADER2[j] in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT']:
+                        dd2[1].append('RAWMAT_TYPE')
+                    elif HEADER2[j] =='TNVED':
+                        dd2[1].append('TNVED')
+            dd2[1].append('ZPP_023_HALB')
+                
+            for j in range(0,32):
+                dd2[2].append('MARA')
+                
+            for j in range(0,32):
+                dd2[3].append(row['SAP код S4P 100'])
+                
+            for j in HEADER2:
+                dd2[4].append(j)
+            dd2[4].append('ZBATCH_NUM')
+
+
+            dd2[5].append('')
+            dd2[5].append('')
+            dd2[5].append(row['ch_system'])
+            dd2[5].append(row['ch_article'])
+            dd2[5].append(row['Длина'])
+            dd2[5].append(row['Тип покрытия'])
+            dd2[5].append(row['ch_alloy'])
+            dd2[5].append(row['ch_temper'])
+            dd2[5].append(row['ch_combination'])
+            dd2[5].append(row['ch_outer_side_pc_id'])
+            dd2[5].append(row['ch_outer_side_pc_brand'])
+            dd2[5].append(row['ch_inner_side_pc_id'])
+            dd2[5].append(row['ch_inner_side_pc_brand'])
+            dd2[5].append(row['ch_outer_side_wg_s_id'])
+            dd2[5].append(row['ch_inner_side_wg_s_id'])
+            dd2[5].append(row['ch_outer_side_wg_id'])
+            dd2[5].append(row['ch_inner_side_wg_id'])
+           
+            if row['ch_anodization_contact'].lower() =='yc':
+                dd2[5].append('С КОНТАКТОМ')
+            elif row['ch_anodization_contact'].lower()=='nc' :
+                dd2[5].append('БЕЗ КОНТАКТА')
+            else:
+                dd2[5].append(row['ch_anodization_contact'])
+
+            dd2[5].append(row['ch_anodization_type'])
+            dd2[5].append(row['ch_anodization_method'])
+            dd2[5].append(row['ch_profile_base'])
+            dd2[5].append(row['ch_width'])
+            dd2[5].append(row['ch_height'])
+            dd2[5].append(row['ch_category'])
+            dd2[5].append(row['ch_rawmat_type'])
+            dd2[5].append('')
+            dd2[5].append(row['ch_tnved'])
+            dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
+            dd2[5].append(row['WMS_WIDTH'])
+            dd2[5].append(row['WMS_HEIGHT'])
+            dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append('XXXXXXXXXX')
+        else:
+            
+            for j in range(0,32):
+                dd2[0].append('001')
+                
+            for j in range(0,32):
+                if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
+                    dd2[1].append('ALUMINIUM_PROFILE')
+                else:
+                    if HEADER[j] in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT']:
+                        dd2[1].append('RAWMAT_TYPE')
+                    elif HEADER[j] =='TNVED':
+                        dd2[1].append('TNVED')
+
+            if '-7' in row['SAP код S4P 100']:
+                dd2[0].append('001')
+                dd2[0].append('023')
+                dd2[1].append('QBIC')
+                dd2[1].append('ZPP_023_FERT')
+            else:
+                dd2[0].append('023')
+                dd2[1].append('ZPP_023_HALB')
+
+            for j in range(0,32):
+                dd2[2].append('MARA')
+                
+            for j in range(0,32):
+                dd2[3].append(row['SAP код S4P 100'])
+                
+            for j in HEADER:
+                dd2[4].append(j)
+
+            if '-7' in row['SAP код S4P 100']:
+                dd2[2].append('MARA')
+                dd2[2].append('MARA')
+                dd2[3].append(row['SAP код S4P 100'])
+                dd2[3].append(row['SAP код S4P 100'])
+                dd2[4].append('COATING_QBIC')
+                dd2[4].append('ZBATCH_NUM')
+            else:
+                dd2[2].append('MARA')
+                dd2[3].append(row['SAP код S4P 100'])
+                dd2[4].append('ZBATCH_NUM')
+
+            dd2[5].append('')
+            dd2[5].append('')
+            dd2[5].append(row['ch_system'])
+            dd2[5].append(row['ch_article'])
+            dd2[5].append(row['Длина'])
+            dd2[5].append(row['Тип покрытия'])
+            dd2[5].append(row['ch_alloy'])
+            dd2[5].append(row['ch_temper'])
+            dd2[5].append(row['ch_combination'])
+            dd2[5].append(row['ch_outer_side_pc_id'])
+            dd2[5].append(row['ch_outer_side_pc_brand'])
+            dd2[5].append(row['ch_inner_side_pc_id'])
+            dd2[5].append(row['ch_inner_side_pc_brand'])
+            dd2[5].append(row['ch_outer_side_wg_s_id'])
+            dd2[5].append(row['ch_inner_side_wg_s_id'])
+            dd2[5].append(row['ch_outer_side_wg_id'])
+            dd2[5].append(row['ch_inner_side_wg_id'])
+            
+            if row['ch_anodization_contact'].lower() =='yc':
+                dd2[5].append('С КОНТАКТОМ')
+            elif row['ch_anodization_contact'].lower()=='nc' :
+                dd2[5].append('БЕЗ КОНТАКТА')
+            else:
+                dd2[5].append(row['ch_anodization_contact'])
+            
+            dd2[5].append(row['ch_anodization_type'])
+            dd2[5].append(row['ch_anodization_method'])
+            dd2[5].append(row['ch_print_view'])
+            dd2[5].append(row['ch_profile_base'])
+            dd2[5].append(row['ch_width'])
+            dd2[5].append(row['ch_height'])
+            dd2[5].append(row['ch_category'])
+            dd2[5].append(row['ch_rawmat_type'])
+            dd2[5].append('')
+            dd2[5].append(row['ch_tnved'])
+            dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
+            dd2[5].append(row['WMS_WIDTH'])
+            dd2[5].append(row['WMS_HEIGHT'])
+            dd2[5].append(row['ch_artikul_old'])
+            if '-7' in row['SAP код S4P 100']:
+                if row['Тип покрытия'] =='Неокрашенный':
+                    qbic ='XXXXXXXXXX'
+                elif row['Тип покрытия'] =='Окрашенный':
+                    qbic = row['ch_outer_side_pc_id']
+                elif row['Тип покрытия'] =='Анодированный':
+                    qbic = row['ch_outer_side_pc_id']
+                elif row['Тип покрытия'] =='Ламинированный':
+                    if row['ch_outer_side_wg_id'] =='XXXX':
+                        qbic = row['ch_inner_side_wg_id']
+                    else:
+                        qbic = row['ch_outer_side_wg_id']
+                elif row['Тип покрытия'] =='Сублимированный':
+                    qbic = row['ch_outer_side_wg_s_id']
+                else:
+                    qbic ='XXXXXXXXXX'
+                dd2[5].append(qbic)
+                dd2[5].append('XXXXXXXXXX')
+            else:
+                dd2[5].append('XXXXXXXXXX')
+
+    new_date={}       
+    new_date['Вид класса'] = dd2[0]
+    new_date['Класс'] = dd2[1]
+    new_date['Таблица'] = dd2[2]
+    new_date['Объект'] = dd2[3]
+    new_date['Имя признака'] = dd2[4]
+    new_date['Значение признака'] = dd2[5]
+    new_date['Статус загрузки'] = ''
+    
+    
+    df_baza_profiley_link =pd.DataFrame({'SAP CODE':baza_profile_links[0],'link':baza_profile_links[1]})
+    df_baza_profiley_link.to_excel(pathtext9,index=False)
+    
+    ddf2 = pd.DataFrame(new_date)
+    ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
+    ddf2 =ddf2.replace('XXXXXXXXXX','')
+    ddf2.to_excel(pathtext6,index=False)
+
+    path_1101,path_zip2 = get_cretead_txt_for_1101(datas,elist)
+
+    file_path =f'{path_zip2}.zip'
+    
+    zip(path_zip2, path_zip2)
+
+    return [file_path,]
+    
+    
+def get_cretead_txt_for_1101(datas,elist):
     now = datetime.now()
     year =now.strftime("%Y")
     month =now.strftime("%B")
@@ -771,47 +1159,29 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
     hour =now.strftime("%H HOUR")
     minut =now.strftime("%M-%S MINUT")
     
-    if file_name =="aluminiytermo":
-        
-        if not os.path.isdir(f'{MEDIA_ROOT}\\uploads\\aluminiytermo'):
-            create_folder(f'{MEDIA_ROOT}\\uploads',"aluminiytermo")
-            
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo',f"{year}")
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}',f'{month}')
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}',day)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}',hour)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}','JOMIY')
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY',minut)
-        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\1.txt'
-        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\2.txt'
-        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\3.txt'
-        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4.txt'
-        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм.txt'
-        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текс.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бух название SDLONGTEXT.txt'
-        
-    elif file_name =='aluminiy':
-        parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
-        
-        if not os.path.isdir(parent_dir):
-            create_folder(f'{MEDIA_ROOT}\\uploads','aluminiy')
-            
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy',f'{year}')
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}',f'{month}')
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}',day)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}',hour)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}','JOMIY')
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY',minut)
-        pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\1.txt'
-        pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\2.txt'
-        pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\3.txt'
-        pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4.txt'
-        pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм.txt'
-        pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3.xlsx'
-        pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текс.txt'
-        pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бух название SDLONGTEXT.txt'
     
+       
+    if not os.path.isdir(f'{MEDIA_ROOT}\\uploads\\TXT'):
+        create_folder(f'{MEDIA_ROOT}\\uploads',"TXT")
+        
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT',f"{year}")
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT\\{year}',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}',hour)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}','JOMIY')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY',minut)
+    pathtext1 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\1.txt'
+    pathtext2 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\2.txt'
+    pathtext3 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\3.txt'
+    pathtext4 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4.txt'
+    pathtext5 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм.txt'
+    pathtext6 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3.xlsx'
+    pathtext7 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текс.txt'
+    pathtext8 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Бух название SDLONGTEXT.txt'
+    pathtext9 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\RAUBE.txt'
+    pathtext10 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
+    pathzip =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}'
+        
     
     umumiy_without_duplicate1201 =[[] for i in range(0,51)]
     umumiy_without_duplicate1203 =[[] for i in range(0,51)]
@@ -832,10 +1202,8 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
 
         if row['Тип покрытия'] =='Анодированный':
             continue
-        if file_name =='aluminiy':
-            filte_type2 = ('-E' in row['SAP код S4P 100']) or ('-Z' in row['SAP код S4P 100']) or ('-P' in row['SAP код S4P 100']) or ('-S' in row['SAP код S4P 100'])or ('-7' in row['SAP код S4P 100'])
-        else:
-            filte_type2 = ('-Z' in row['SAP код S4P 100']) or ('-P' in row['SAP код S4P 100']) or ('-S' in row['SAP код S4P 100']) or ('-N' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100']) or ('-7' in row['SAP код S4P 100'])
+        
+        filte_type2 = ('-E' in row['SAP код S4P 100']) or ('-Z' in row['SAP код S4P 100']) or ('-P' in row['SAP код S4P 100']) or ('-S' in row['SAP код S4P 100']) or ('-N' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100']) or ('-7' in row['SAP код S4P 100'])
         
         if not filte_type2:
             continue
@@ -975,18 +1343,17 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
             umumiy_without_duplicate12D1[48].append(row['ch_combination'] + row['Тип покрытия'])
             umumiy_without_duplicate12D1[49].append('')
 
-            if row['Тип покрытия'] =='Белый':
+            if row['Тип покрытия'].capitalize() =='Белый':
                 umumiy_without_duplicate12D1[50].append('S0')
-            elif row['Тип покрытия'] =='Неокрашенный':
+            elif row['Тип покрытия'].capitalize() =='Неокрашенный':
                 umumiy_without_duplicate12D1[50].append('S1')
-            elif row['Тип покрытия'] =='Окрашенный':
+            elif row['Тип покрытия'].capitalize() =='Окрашенный':
                 umumiy_without_duplicate12D1[50].append('S2')
-            elif row['Тип покрытия'] =='Сублимированный':
+            elif row['Тип покрытия'].capitalize() =='Сублимированный':
                 umumiy_without_duplicate12D1[50].append('S3')
-            elif row['Тип покрытия'] =='Ламинированный':
-                umumiy_without_duplicate12D1[50].append('S4')
-            # else:
-            #     umumiy_without_duplicate12D1[50].append('')
+            elif row['Тип покрытия'].capitalize() =='Ламинированный':
+                umumiy_without_duplicate12D1[50].append('0001')
+            
 
 
             
@@ -1058,16 +1425,17 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
             umumiy_without_duplicate12D2[48].append(row['ch_combination'] + row['Тип покрытия'])
             umumiy_without_duplicate12D2[49].append('')
 
-            if row['Тип покрытия'] =='Белый':
+            if row['Тип покрытия'].capitalize() =='Белый':
                 umumiy_without_duplicate12D2[50].append('S0')
-            elif row['Тип покрытия'] =='Неокрашенный':
+            elif row['Тип покрытия'].capitalize() =='Неокрашенный':
                 umumiy_without_duplicate12D2[50].append('S1')
-            elif row['Тип покрытия'] =='Окрашенный':
+            elif row['Тип покрытия'].capitalize() =='Окрашенный':
                 umumiy_without_duplicate12D2[50].append('S2')
-            elif row['Тип покрытия'] =='Сублимированный':
+            elif row['Тип покрытия'].capitalize() =='Сублимированный':
                 umumiy_without_duplicate12D2[50].append('S3')
-            elif row['Тип покрытия'] =='Ламинированный':
-                umumiy_without_duplicate12D2[50].append('S4')
+            elif row['Тип покрытия'].capitalize() =='Ламинированный':
+                umumiy_without_duplicate12D2[50].append('0001')
+            
 
         if gruppa_material=='ALUGP':
             ######12D3
@@ -1137,16 +1505,17 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
             umumiy_without_duplicate12D3[48].append(row['ch_combination'] + row['Тип покрытия'])
             umumiy_without_duplicate12D3[49].append('')
 
-            if row['Тип покрытия'] =='Белый':
+            if row['Тип покрытия'].capitalize() =='Белый':
                 umumiy_without_duplicate12D3[50].append('S0')
-            elif row['Тип покрытия'] =='Неокрашенный':
+            elif row['Тип покрытия'].capitalize() =='Неокрашенный':
                 umumiy_without_duplicate12D3[50].append('S1')
-            elif row['Тип покрытия'] =='Окрашенный':
+            elif row['Тип покрытия'].capitalize() =='Окрашенный':
                 umumiy_without_duplicate12D3[50].append('S2')
-            elif row['Тип покрытия'] =='Сублимированный':
+            elif row['Тип покрытия'].capitalize() =='Сублимированный':
                 umumiy_without_duplicate12D3[50].append('S3')
-            elif row['Тип покрытия'] =='Ламинированный':
-                umumiy_without_duplicate12D3[50].append('S4')
+            elif row['Тип покрытия'].capitalize() =='Ламинированный':
+                umumiy_without_duplicate12D3[50].append('0001')
+           
         
         if gruppa_material=='ALUGP':
             ######12D4
@@ -1216,17 +1585,17 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
             umumiy_without_duplicate12D4[48].append(row['ch_combination'] + row['Тип покрытия'])
             umumiy_without_duplicate12D4[49].append('')
 
-            if row['Тип покрытия'] =='Белый':
+            if row['Тип покрытия'].capitalize() =='Белый':
                 umumiy_without_duplicate12D4[50].append('S0')
-            elif row['Тип покрытия'] =='Неокрашенный':
+            elif row['Тип покрытия'].capitalize() =='Неокрашенный':
                 umumiy_without_duplicate12D4[50].append('S1')
-            elif row['Тип покрытия'] =='Окрашенный':
+            elif row['Тип покрытия'].capitalize() =='Окрашенный':
                 umumiy_without_duplicate12D4[50].append('S2')
-            elif row['Тип покрытия'] =='Сублимированный':
+            elif row['Тип покрытия'].capitalize() =='Сублимированный':
                 umumiy_without_duplicate12D4[50].append('S3')
-            elif row['Тип покрытия'] =='Ламинированный':
-                umumiy_without_duplicate12D4[50].append('S4')
-
+            elif row['Тип покрытия'].capitalize() =='Ламинированный':
+                umumiy_without_duplicate12D4[50].append('0001')
+            
 
         if gruppa_material=='ALUGP':
             ######12D5
@@ -1296,16 +1665,17 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
             umumiy_without_duplicate12D5[48].append(row['ch_combination'] + row['Тип покрытия'])
             umumiy_without_duplicate12D5[49].append('')
 
-            if row['Тип покрытия'] =='Белый':
+            if row['Тип покрытия'].capitalize() =='Белый':
                 umumiy_without_duplicate12D5[50].append('S0')
-            elif row['Тип покрытия'] =='Неокрашенный':
+            elif row['Тип покрытия'].capitalize() =='Неокрашенный':
                 umumiy_without_duplicate12D5[50].append('S1')
-            elif row['Тип покрытия'] =='Окрашенный':
+            elif row['Тип покрытия'].capitalize() =='Окрашенный':
                 umumiy_without_duplicate12D5[50].append('S2')
-            elif row['Тип покрытия'] =='Сублимированный':
+            elif row['Тип покрытия'].capitalize() =='Сублимированный':
                 umumiy_without_duplicate12D5[50].append('S3')
-            elif row['Тип покрытия'] =='Ламинированный':
-                umumiy_without_duplicate12D5[50].append('S4')
+            elif row['Тип покрытия'].capitalize() =='Ламинированный':
+                umumiy_without_duplicate12D5[50].append('0001')
+            
 
         if (('-F' not in row['SAP код S4P 100']) and ('-A' not in row['SAP код S4P 100'])):
             umumiy_without_duplicate1201[0].append(row['SAP код S4P 100'])
@@ -1376,23 +1746,24 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
             if ( (row['Тип покрытия'] =='Ламинированный') and ('-7' in row['SAP код S4P 100']) ):
                 umumiy_without_duplicate1201[49].append('JPL')
             elif (('-7' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100'])):
-                if file_name =="aluminiytermo":
+                if row['ch_combination'].lower() == "с термомостом":
                     umumiy_without_duplicate1201[49].append('JPK')
                 else:
                     umumiy_without_duplicate1201[49].append('JPG')
             else:
                  umumiy_without_duplicate1201[49].append('JP1')
             
-            if row['Тип покрытия'] =='Белый':
+            if row['Тип покрытия'].capitalize() =='Белый':
                 umumiy_without_duplicate1201[50].append('S0')
-            elif row['Тип покрытия'] =='Неокрашенный':
+            elif row['Тип покрытия'].capitalize() =='Неокрашенный':
                 umumiy_without_duplicate1201[50].append('S1')
-            elif row['Тип покрытия'] =='Окрашенный':
+            elif row['Тип покрытия'].capitalize() =='Окрашенный':
                 umumiy_without_duplicate1201[50].append('S2')
-            elif row['Тип покрытия'] =='Сублимированный':
+            elif row['Тип покрытия'].capitalize() =='Сублимированный':
                 umumiy_without_duplicate1201[50].append('S3')
-            elif row['Тип покрытия'] =='Ламинированный':
+            elif row['Тип покрытия'].capitalize() =='Ламинированный':
                 umumiy_without_duplicate1201[50].append('S4')
+            
 
     umumiy_without_duplicate =[[] for i in range(0,51)]
     for i in range(0,len(umumiy_without_duplicate1201)):
@@ -1416,7 +1787,33 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
     for i in range(0,len(umumiy_without_duplicate12D5)):
         umumiy_without_duplicate[i]+=umumiy_without_duplicate12D5[i]     
 
+    ########################## RAUBE.txt ##############################
+    header_raube='MAKTX\tMATNR\tRAUBE'
+    
+    d9={}
+    d9['MAKTX']=[]
+    d9['MATNR']=[]
+    d9['RAUBE']=[]
+    i = 0
+    
+    for row in umumiy_without_duplicate[0]:
+        if '-7' in row:
+            d9['MAKTX'].append(umumiy_without_duplicate[13][i])
+            d9['MATNR'].append(umumiy_without_duplicate[0][i])
+            d9['RAUBE'].append(umumiy_without_duplicate[50][i])
+        if '-P' in row:
+            d9['MAKTX'].append(umumiy_without_duplicate[13][i])
+            d9['MATNR'].append(umumiy_without_duplicate[0][i])
+            d9['RAUBE'].append(umumiy_without_duplicate[50][i])
+        if '-K' in row:
+            d9['MAKTX'].append(umumiy_without_duplicate[13][i])
+            d9['MATNR'].append(umumiy_without_duplicate[0][i])
+            d9['RAUBE'].append(umumiy_without_duplicate[50][i])
+        i += 1
 
+    df9= pd.DataFrame(d9)
+    df9 = df9.drop_duplicates()
+    np.savetxt(pathtext9, df9.values,fmt='%s', delimiter="\t",header=header_raube,comments='',encoding='ansi')
 
     ########################## Бухгалтерская название.txt ##############################
     buxgalterskiy_t ={}
@@ -1455,9 +1852,33 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
     ########################## end Длинный текс.txt ##############################
 
 
+    ########################## 1.txt ##############################
+    d1={}
+    header1 ='MATNR\tBISMT\tMAKTX\tMEINS\tMTART\tMATKL\tWERKS\tBESKZ\tSPART\tBRGEW\tNTGEW\tGEWEI\tMTPOS_MARA'
+    
+    d1['MATNR']=umumiy_without_duplicate1201[0]
+    d1['BISMT']=umumiy_without_duplicate1201[1]
+    d1['MAKTX']=umumiy_without_duplicate1201[2]
+    d1['MEINS']=umumiy_without_duplicate1201[3]
+    d1['MTART']=umumiy_without_duplicate1201[4]
+    d1['MATKL']=umumiy_without_duplicate1201[5]
+    d1['WERKS']=umumiy_without_duplicate1201[34]
+    d1['BESKZ']=umumiy_without_duplicate1201[7]
+    d1['SPART']=umumiy_without_duplicate1201[8]
+    d1['BRGEW']=umumiy_without_duplicate1201[9]
+    d1['NTGEW']=umumiy_without_duplicate1201[10]
+    d1['GEWEI']=umumiy_without_duplicate1201[11]
+    d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
+    
+    
+    df1= pd.DataFrame(d1)
+    
+    np.savetxt(pathtext1, df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
+    
+    ########################## end 1.txt ##############################
 
     ########################## 2.txt ##############################
-    header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tFEVOR\tUEETK\tLGPRO\tAUTO_P_ORD\tRAUBE'
+    header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tFEVOR\tUEETK\tLGPRO\tAUTO_P_ORD'
     
     zavod_code_1101 ={
         '1103':'PVC',
@@ -1499,7 +1920,7 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
     d2['BKLAS']=umumiy_without_duplicate[36]
     d2['VPRSV']=umumiy_without_duplicate[37]
     d2['PEINH']=umumiy_without_duplicate[38]
-    d2['STPRS']=umumiy_without_duplicate[39]
+    d2['STPRS']=[math.ceil(float(k)) for k in umumiy_without_duplicate[39]]
     d2['PRCTR']=umumiy_without_duplicate[40]
     d2['EKALR']=umumiy_without_duplicate[41]
     d2['HKMAT']=umumiy_without_duplicate[42]
@@ -1509,14 +1930,15 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
     d2['UEETK']=umumiy_without_duplicate[45]
     d2['LGPRO']=umumiy_without_duplicate[46]
     d2['AUTO_P_ORD']=umumiy_without_duplicate[47]
-    d2['RAUBE']=umumiy_without_duplicate[50]
+    # d2['RAUBE']=umumiy_without_duplicate[50]
 
+   
     df2= pd.DataFrame(d2)
     np.savetxt(pathtext2, df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
     ########################## end 2.txt ##############################
 
     ########################## 3.txt ##############################
-    header3 ='MAKTX\tMEINS\tMTART\tSPART\tMATNR\tWERKS\tVKORG\tMTPOS\tVTWEG\tPRCTR\tMTVFP\tALAND\tTATYP\tTAXKM\tVERSG\tKTGRM\tKONDM\tLADGR\tTRAGR'
+    header3 ='MAKTX\tMEINS\tMTART\tSPART\tMATNR\tWERKS\tVKORG\tMTPOS\tVTWEG\tPRCTR\tMTVFP\tALAND\tTATYP\tTAXKM\tVERSG\tKTGRM\tKONDM\tTRAGR\tLADGR'
     d3={
         'MAKTX':[],
         'MEINS':[],
@@ -1535,8 +1957,8 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
         'VERSG':[],
         'KTGRM':[],
         'KONDM':[],
-        'LADGR':[],
-        'TRAGR':[]
+        'TRAGR':[],
+        'LADGR':[]
     }
     VTWEG =['99','10','20']
     KONDM ={
@@ -1575,13 +1997,339 @@ def get_cretead_txt_for_1101(datas,elist,file_name='aluminiytermo'):
         else:
             d3['KONDM'] += [ '01' if '-7' not in umumiy_without_duplicate[0][x] else KONDM[umumiy_without_duplicate[48][x].lower()] for x in range(0,len(umumiy_without_duplicate[0]))]
             
-        d3['LADGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['TRAGR'] += [ '11' + umumiy_without_duplicate[50][j] for j in range(0,len(umumiy_without_duplicate[50]))]
+        d3['TRAGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
+        
+        ladgr =[]
+        j = 0
+        for sap_code in umumiy_without_duplicate[0]:
+            if (('-7' in sap_code ) or ('-P' in sap_code ) or ('-K' in sap_code )):
+                if umumiy_without_duplicate[34][j]=='1101':
+                    if umumiy_without_duplicate[50][j]!='0001':
+                        ladgr.append('11' + umumiy_without_duplicate[50][j])
+                    else:
+                        ladgr.append(umumiy_without_duplicate[50][j])
+                else:
+                    ladgr.append('0001')
+
+            else:
+                ladgr.append('0001')
+            j += 1
+
+        d3['LADGR'] += ladgr
     df3= pd.DataFrame(d3)
     np.savetxt(pathtext3, df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
+    ########################## end 3.txt ##############################
     
-    return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8]
+    ########################## 4.txt ##############################    
+    new_ll =[[],[],[]]
+    sap_code_title =[]
+    dlina_title =[]
+    obshiy_ves_za_shtuku =[]
+    wms_width =[]
+    wms_height =[]
     
+    for key , row in datas.iterrows():
+        if (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
+            continue
+        sap_code_title.append(row['SAP код S4P 100'])
+        dlina_title.append(row['Длина'])
+        obshiy_ves_za_shtuku.append(row['Общий вес за штуку'])
+        wms_width.append(row['WMS_WIDTH'])
+        wms_height.append(row['WMS_HEIGHT'])
+
+        
+        sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
+        if sap_code_simvol =='E':
+            for i in range(0,len(LGORT_1101['E'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT_1101['E'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['E'][i]['zavod_sap'])
+        if sap_code_simvol =='Z':
+            for i in range(0,len(LGORT_1101['Z'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT_1101['Z'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['Z'][i]['zavod_sap'])
+        if sap_code_simvol =='P':
+            for i in range(0,len(LGORT_1101['P'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT_1101['P'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['P'][i]['zavod_sap'])
+        
+        if sap_code_simvol =='S':
+            for i in range(0,len(LGORT_1101['S'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT_1101['S'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['S'][i]['zavod_sap'])
+        if RazlovkaTermo.objects.filter(nsap_code =row['SAP код S4P 100']).exists():
+            if sap_code_simvol =='N':
+                for i in range(0,len(LGORT_1101['N'])):
+                    new_ll[0].append(row['SAP код S4P 100'])
+                    new_ll[1].append(LGORT_1101['N'][i]['zavod_code'])
+                    new_ll[2].append(LGORT_1101['N'][i]['zavod_sap'])
+        if sap_code_simvol =='K':
+            for i in range(0,len(LGORT_1101['K'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT_1101['K'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['K'][i]['zavod_sap'])
+        
+        
+        if sap_code_simvol =='7':
+            for i in range(0,len(LGORT_1101['7'])):
+                new_ll[0].append(row['SAP код S4P 100'])
+                new_ll[1].append(LGORT_1101['7'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1101['7'][i]['zavod_sap'])
+            
+        
+        
+    header4='MATNR\tWERKS\tLGORT'
+    d4={}
+    d4['MATNR']=new_ll[0]
+    d4['WERKS']=new_ll[1]
+    d4['LGORT']=new_ll[2]
+    df4= pd.DataFrame(d4)
+    np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
+    ########################## end 4.txt ##############################
+    
+    ########################## 5.txt ##############################
+    d5 ={
+        'sap_code':[],
+        'ed_iz1':[],
+        'ed_iz2':[],
+        'ed_iz3':[],
+        'ed_iz4':[],
+        'ed_iz5':[],
+        'ed_iz6':[],
+        'ed_iz7':[]
+    }
+    ED_IZM =['ШТ','М','КГ']
+    
+    # sap_code_title =[]
+    # dlina_title =[]
+    # obshiy_ves_za_shtuku =[]
+    # wms_width =[]
+    # wms_height =[]
+    ed_iz3 =[]
+    for i in range(0,3):
+        if i == 0 :
+            ed_iz3 += ['1' for j in range(0,len(sap_code_title)) ]
+        elif i == 1 :
+            ed_iz3 += [j for j in dlina_title ]
+        elif i == 2 :
+            ed_iz3 += [int(float(j.replace(',','.'))*1000) for j in obshiy_ves_za_shtuku ]
+            
+    
+    for i in ED_IZM:    
+        d5['sap_code'] += sap_code_title
+        d5['ed_iz1'] += [ i for j in range(0,len(sap_code_title))]
+        d5['ed_iz2'] +=['1' if i =='ШТ' else '1000'  for j in range(0,len(sap_code_title)) ]
+        # d5['ed_iz3'] +=['1' if i =='ШТ' elif i=='М' for j in range(0,len(sap_code_title)) ]
+        d5['ed_iz4'] +=[j for j in dlina_title ]
+        d5['ed_iz5'] +=[j for j in wms_height ]
+        d5['ed_iz6'] +=[j for j in wms_width ]
+        d5['ed_iz7'] +=[ 'мм' for j in range(0,len(sap_code_title))]
+    
+    d5['ed_iz3'] = ed_iz3
+    df5= pd.DataFrame(d5)
+    np.savetxt(pathtext5, df5.values, fmt='%s', delimiter="\t",encoding='ansi')
+    ########################## end 5.txt ##############################
+    ########################## List v 3 ##############################
+    dd2 = [[],[],[],[],[],[]]
+    baza_profile_links =[[],[]]
+
+    for key , row in datas.iterrows():
+
+        if (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
+            continue
+
+        if not RazlovkaTermo.objects.filter(nsap_code =row['SAP код S4P 100']).exists():
+            if '-N' in row['SAP код S4P 100']:
+                continue
+
+        sap_code = row['SAP код S4P 100'].split('-')[0]
+        bazaprofiley_link =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
+        baza_profile_links[0].append(row['SAP код S4P 100'])
+        baza_profile_links[1].append(bazaprofiley_link)
+
+        row['ch_tnved'] =str(row['ch_tnved']).replace('.0','')
+        row['ch_outer_side_pc_id'] =str(row['ch_outer_side_pc_id']).replace('.0','')
+        row['ch_outer_side_pc_brand'] =str(row['ch_outer_side_pc_brand']).replace('.0','')
+        row['ch_inner_side_pc_id'] =str(row['ch_inner_side_pc_id']).replace('.0','')
+        row['ch_inner_side_pc_brand'] =str(row['ch_inner_side_pc_brand']).replace('.0','')
+        row['ch_outer_side_wg_s_id'] =str(row['ch_outer_side_wg_s_id']).replace('.0','')
+        row['ch_inner_side_wg_s_id'] =str(row['ch_inner_side_wg_s_id']).replace('.0','')
+        row['ch_outer_side_wg_id'] =str(row['ch_outer_side_wg_id']).replace('.0','')
+        row['ch_inner_side_wg_id'] =str(row['ch_inner_side_wg_id']).replace('.0','')
+        row['ch_width'] =str(row['ch_width']).replace('.0','')
+        row['ch_height'] =str(row['ch_height']).replace('.0','')
+        
+        if '-7' in row['SAP код S4P 100']:
+            for j in range(0,33):
+                dd2[0].append('001')
+            dd2[0].append('023')
+                
+            for j in range(0,32):
+                if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
+                    dd2[1].append('ALUMINIUM_PROFILE')
+                else:
+                    if HEADER[j] in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT']:
+                        dd2[1].append('RAWMAT_TYPE')
+                    elif HEADER[j] =='TNVED':
+                        dd2[1].append('TNVED')
+            
+           
+
+            dd2[1].append('QBIC')
+            dd2[1].append('ZPP_023_FERT')
+        
+            for j in range(0,34):
+                dd2[2].append('MARA')
+                
+            for j in range(0,34):
+                dd2[3].append(row['SAP код S4P 100'])
+                
+            for j in HEADER:
+                dd2[4].append(j)
+            
+            dd2[4].append('COATING_QBIC')
+            dd2[4].append('ZBATCH_NUM')
+
+            dd2[5].append('')
+            dd2[5].append('')
+            dd2[5].append(row['ch_system'])
+            dd2[5].append(row['ch_article'])
+            dd2[5].append(row['Длина'])
+            dd2[5].append(row['Тип покрытия'])
+            dd2[5].append(row['ch_alloy'])
+            dd2[5].append(row['ch_temper'])
+            dd2[5].append(row['ch_combination'])
+            dd2[5].append(row['ch_outer_side_pc_id'])
+            dd2[5].append(row['ch_outer_side_pc_brand'])
+            dd2[5].append(row['ch_inner_side_pc_id'])
+            dd2[5].append(row['ch_inner_side_pc_brand'])
+            dd2[5].append(row['ch_outer_side_wg_s_id'])
+            dd2[5].append(row['ch_inner_side_wg_s_id'])
+            dd2[5].append(row['ch_outer_side_wg_id'])
+            dd2[5].append(row['ch_inner_side_wg_id'])
+            if row['ch_anodization_contact'].lower() =='yc':
+                dd2[5].append('С КОНТАКТОМ')
+            elif row['ch_anodization_contact'].lower()=='nc' :
+                dd2[5].append('БЕЗ КОНТАКТА')
+            else:
+                dd2[5].append(row['ch_anodization_contact'])
+
+            dd2[5].append(row['ch_anodization_type'])
+            dd2[5].append(row['ch_anodization_method'])
+            dd2[5].append(row['ch_print_view'])
+            dd2[5].append(row['ch_profile_base'])
+            dd2[5].append(row['ch_width'])
+            dd2[5].append(row['ch_height'])
+            dd2[5].append(row['ch_category'])
+            dd2[5].append(row['ch_rawmat_type'])
+            dd2[5].append('')
+            dd2[5].append(row['ch_tnved'])
+            dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
+            dd2[5].append(row['WMS_WIDTH'])
+            dd2[5].append(row['WMS_HEIGHT'])
+            dd2[5].append(row['ch_artikul_old'])
+            if row['Тип покрытия'] =='Неокрашенный':
+                qbic ='XXXXXXXXXX'
+            elif row['Тип покрытия'] =='Окрашенный':
+                qbic = row['ch_outer_side_pc_id']
+            elif row['Тип покрытия'] =='Анодированный':
+                qbic = row['ch_outer_side_pc_id']
+            elif row['Тип покрытия'] =='Ламинированный':
+                if row['ch_outer_side_wg_id'] =='XXXX':
+                    qbic = row['ch_inner_side_wg_id']
+                else:
+                    qbic = row['ch_outer_side_wg_id']
+            elif row['Тип покрытия'] =='Сублимированный':
+                qbic = row['ch_outer_side_wg_s_id']
+            else:
+                qbic ='XXXXXXXXXX'
+
+            dd2[5].append(qbic)
+            dd2[5].append('XXXXXXXXXX')
+        else:
+            for j in range(0,32):
+                dd2[0].append('001')
+            dd2[0].append('023')
+                
+            for j in range(0,32):
+                if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
+                    dd2[1].append('ALUMINIUM_PROFILE')
+                else:
+                    if HEADER[j] in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT']:
+                        dd2[1].append('RAWMAT_TYPE')
+                    elif HEADER[j] =='TNVED':
+                        dd2[1].append('TNVED')
+            dd2[1].append('ZPP_023_HALB')
+            for j in range(0,33):
+                dd2[2].append('MARA')
+                
+            for j in range(0,33):
+                dd2[3].append(row['SAP код S4P 100'])
+                
+            for j in HEADER:
+                dd2[4].append(j)
+            dd2[4].append('ZBATCH_NUM')
+
+            dd2[5].append('')
+            dd2[5].append('')
+            dd2[5].append(row['ch_system'])
+            dd2[5].append(row['ch_article'])
+            dd2[5].append(row['Длина'])
+            dd2[5].append(row['Тип покрытия'])
+            dd2[5].append(row['ch_alloy'])
+            dd2[5].append(row['ch_temper'])
+            dd2[5].append(row['ch_combination'])
+            dd2[5].append(row['ch_outer_side_pc_id'])
+            dd2[5].append(row['ch_outer_side_pc_brand'])
+            dd2[5].append(row['ch_inner_side_pc_id'])
+            dd2[5].append(row['ch_inner_side_pc_brand'])
+            dd2[5].append(row['ch_outer_side_wg_s_id'])
+            dd2[5].append(row['ch_inner_side_wg_s_id'])
+            dd2[5].append(row['ch_outer_side_wg_id'])
+            dd2[5].append(row['ch_inner_side_wg_id'])
+            dd2[5].append(row['ch_anodization_contact'])
+            dd2[5].append(row['ch_anodization_type'])
+            dd2[5].append(row['ch_anodization_method'])
+            dd2[5].append(row['ch_print_view'])
+            dd2[5].append(row['ch_profile_base'])
+            dd2[5].append(row['ch_width'])
+            dd2[5].append(row['ch_height'])
+            dd2[5].append(row['ch_category'])
+            dd2[5].append(row['ch_rawmat_type'])
+            dd2[5].append('')
+            dd2[5].append(row['ch_tnved'])
+            dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
+            dd2[5].append(row['WMS_WIDTH'])
+            dd2[5].append(row['WMS_HEIGHT'])
+            dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append('XXXXXXXXXX')
+
+    new_date={}       
+    new_date['Вид класса'] = dd2[0]
+    new_date['Класс'] = dd2[1]
+    new_date['Таблица'] = dd2[2]
+    new_date['Объект'] = dd2[3]
+
+    new_date['Имя признака'] = dd2[4]
+    new_date['Значение признака'] = dd2[5]
+    new_date['Статус загрузки'] = ''
+    
+    df_baza_profiley_link =pd.DataFrame({'SAP CODE':baza_profile_links[0],'link':baza_profile_links[1]})
+    df_baza_profiley_link.to_excel(pathtext10,index=False)
+
+    ddf2 = pd.DataFrame(new_date)
+    ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
+    ddf2 =ddf2.replace('XXXXXXXXXX','')
+    ddf2.to_excel(pathtext6,index=False)
+    
+    return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8,pathtext9,pathtext10],pathzip
+    #########################################################################################################################
+    ###############################################################################################################
+    #######################################################################################
+
 
 
 def fabrikatsiya_sap_kod(sap_kod,length):

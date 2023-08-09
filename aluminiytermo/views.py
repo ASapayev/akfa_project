@@ -61,24 +61,133 @@ def get_raube(request):
 
 def create_txt_for_1101(request):
       
-      # if request.method =='POST':
-      #       character_dict ={}
-      #       character_dict['SAP код S4P 100']=[]
-      #       character_dict['ch_export_description']=[]
-      #       character_dict['ch_export_description_eng']=[]
-      #       character_dict['Тип покрытия']=[]
-      #       character_dict['Участок']=[]
-      #       character_dict['Короткое название SAP']=[]
-      #       character_dict['Общий вес за штуку']=[]
-      #       character_dict['ch_combination']=[]
-      #       character_dict['Price']=[]
-      #       character_dict['Польное наименование SAP']=[]
-      #       character_dict['ch_rawmat_type']=[]
+      if request.method =='POST':
+            sap_codes = request.POST.get('ozmk',None)
 
+            if sap_codes:
+                  character_dict ={}
+                  character_dict['SAP код S4P 100']=[]
+                  character_dict['ch_export_description']=[]
+                  character_dict['ch_export_description_eng']=[]
+                  character_dict['Тип покрытия']=[]
+                  character_dict['Участок']=[]
+                  character_dict['Короткое название SAP']=[]
+                  character_dict['Общий вес за штуку']=[]
+                  character_dict['ch_combination']=[]
+                  character_dict['Price']=[]
+                  character_dict['Польное наименование SAP']=[]
+                  character_dict['ch_rawmat_type']=[]
+                  character_dict['ch_article']=[]
+                  character_dict['ch_tnved']=[]
+                  character_dict['ch_outer_side_pc_id']=[]
+                  character_dict['ch_outer_side_pc_brand']=[]
+                  character_dict['ch_inner_side_pc_id']=[]
+                  character_dict['ch_inner_side_pc_brand']=[]
+                  character_dict['ch_outer_side_wg_s_id']=[]
+                  character_dict['ch_inner_side_wg_s_id']=[]
+                  character_dict['ch_outer_side_wg_id']=[]
+                  character_dict['ch_inner_side_wg_id']=[]
+                  character_dict['ch_width']=[]
+                  character_dict['ch_height']=[]
+                  character_dict['ch_system']=[]
+                  character_dict['ch_alloy']=[]
+                  character_dict['ch_temper']=[]
+                  character_dict['ch_anodization_contact']=[]
+                  character_dict['ch_anodization_type']=[]
+                  character_dict['ch_anodization_method']=[]
+                  character_dict['ch_print_view']=[]
+                  character_dict['ch_profile_base']=[]
+                  character_dict['ch_category']=[]
+                  character_dict['ch_surface_treatment_export']=[]
+                  character_dict['ch_artikul_old']=[]
+                  character_dict['Длина']=[]
+                  character_dict['WMS_WIDTH']=[]
+                  character_dict['WMS_HEIGHT']=[]
+                  elist = []
 
-      #       elist = eli['sapcode'].values.tolist()
-      #       get_cretead_txt_for_1201(df,elist,'aluminiytermo')
-      return render(request,'universal/create_txt.html')
+                  does_not_exists = []
+                  sap_codes =sap_codes.split()
+                  exchange_value = ExchangeValues.objects.get(id=1)
+
+                  for sap_code in sap_codes:
+                        all_correct = True
+                        if Characteristika.objects.filter(sap_code =sap_code).exists():
+                              character_txt = Characteristika.objects.filter(sap_code =sap_code).order_by('-created_at')[:1].get()
+                        else:
+                            all_correct = False
+                            does_not_exists.append([sap_code,'НЕТ ХАРАКТЕРИСТИКИ'])
+
+                        if CharacteristicTitle.objects.filter(sap_код_s4p_100 =sap_code).exists():
+                              character_title_txt = CharacteristicTitle.objects.filter(sap_код_s4p_100 =sap_code).order_by('-created_at')[:1].get()
+                        else:
+                            all_correct = False
+                            does_not_exists.append([sap_code,'НЕТ ХАРАКТЕРИСТИКИ TITLE'])
+
+                        artikul = sap_code.split('-')[0]
+                        if LengthOfProfile.objects.filter(artikul =artikul).exists():
+                              leng_of_profile_txt = LengthOfProfile.objects.filter(artikul =artikul).order_by('-created_at')[:1].get()
+                        else:
+                            all_correct = False
+                            does_not_exists.append([artikul,'НЕТ ВЕС'])
+                        
+                        
+                        
+                        if all_correct:
+                              character_dict['SAP код S4P 100'].append(sap_code)
+                              character_dict['ch_export_description'].append(character_txt.export_description)
+                              character_dict['ch_export_description_eng'].append(character_txt.export_description_eng)
+                              character_dict['Тип покрытия'].append(character_txt.surface_treatment)
+                              character_dict['Участок'].append(character_txt.section)
+                              character_dict['Короткое название SAP'].append(character_txt.kratkiy_text)
+                              character_dict['Общий вес за штуку'].append(leng_of_profile_txt.ves_za_shtuk)
+                              character_dict['ch_combination'].append(character_txt.combination)
+                              character_dict['ch_article'].append(sap_code.split('-')[0])
+                              
+                              price = Price.objects.filter(tip_pokritiya = character_txt.surface_treatment.capitalize(),tip=character_txt.combination.capitalize())[:1].get()
+                              price_org = float(str(price.price).replace(',','.')) * float(str(leng_of_profile_txt.ves_za_shtuk).replace(',','.'))  * float( str(exchange_value.valute).replace(',','.') )
+                              
+                              character_dict['Price'].append(price_org)
+                              character_dict['Польное наименование SAP'].append(character_title_txt.польное_наименование_sap)
+                              character_dict['ch_rawmat_type'].append(character_txt.rawmat_type)
+                              character_dict['Длина'].append(character_txt.length)
+                              character_dict['WMS_HEIGHT'].append(character_txt.wms_height)
+                              character_dict['WMS_WIDTH'].append(character_txt.wms_width)
+                              character_dict['ch_tnved'].append(character_txt.tnved)
+                              character_dict['ch_outer_side_pc_id'].append(character_txt.outer_side_pc_id)
+                              character_dict['ch_outer_side_pc_brand'].append(character_txt.outer_side_pc_brand)
+                              character_dict['ch_inner_side_pc_id'].append(character_txt.inner_side_pc_id)
+                              character_dict['ch_inner_side_pc_brand'].append(character_txt.inner_side_pc_brand)
+                              character_dict['ch_outer_side_wg_s_id'].append(character_txt.outer_side_wg_s_id)
+                              character_dict['ch_inner_side_wg_s_id'].append(character_txt.inner_side_wg_s_id)
+                              character_dict['ch_outer_side_wg_id'].append(character_txt.outer_side_wg_id)
+                              character_dict['ch_inner_side_wg_id'].append(character_txt.inner_side_wg_id)
+                              character_dict['ch_width'].append(character_txt.width)
+                              character_dict['ch_height'].append(character_txt.height)
+                              character_dict['ch_system'].append(character_txt.system)
+                              character_dict['ch_alloy'].append(character_txt.alloy)
+                              character_dict['ch_temper'].append(character_txt.temper)
+                              character_dict['ch_anodization_contact'].append(character_txt.anodization_contact)
+                              character_dict['ch_anodization_type'].append(character_txt.anodization_type)
+                              character_dict['ch_anodization_method'].append(character_txt.anodization_method)
+                              character_dict['ch_print_view'].append(character_txt.print_view)
+                              character_dict['ch_profile_base'].append(character_txt.profile_base)
+                              character_dict['ch_category'].append(character_txt.category)
+                              character_dict['ch_surface_treatment_export'].append(character_txt.surface_treatment_export)
+                              baza_profile = BazaProfiley.objects.filter(Q(артикул=artikul)|Q(компонент=artikul))[:1].get()
+                              character_dict['ch_artikul_old'].append(baza_profile.старый_код)
+
+                  df = pd.DataFrame(character_dict)
+                  path = get_cretead_txt_for_1201(df,elist)
+                  files =[File(file=p,filetype='txt') for p in path]
+                  context ={
+                        'files':files,
+                        'section':'Текст'
+                  }
+                  return render(request,'universal/generated_files.html',context)
+            else:
+                  return render(request,'universal/create_text.html')
+     
+      return render(request,'universal/create_text.html')
 
 def show_list_simple_sapcodes(request):
 
@@ -5035,8 +5144,7 @@ def product_add_second_org(request,id):
                         price =razlov['Price']
                   ).save()
       
-      print(df_char_title)
-      print('+'*10,' oldin ','+'*10)
+     
       exchange_value = ExchangeValues.objects.get(id=1)
       price_all_correct = True
       for key, row in df_char_title.iterrows():
@@ -5055,9 +5163,7 @@ def product_add_second_org(request,id):
             else:
                   price_all_correct = False
 
-      print(df_char_title['Price'],df_char_title['Общий вес за штуку'])
-      print('+'*10,' keyin ','+'*10)
-      print(price_all_correct)
+   
       if price_all_correct:
             path = update_char_title_function(df_char_title,df_extrusion,'aluminiytermo')
             file =[File(file=p,filetype='obichniy') for p in path]
@@ -5069,7 +5175,7 @@ def product_add_second_org(request,id):
             writer = pd.ExcelWriter(path, engine='xlsxwriter')
             df_new.to_excel(writer,index=False,sheet_name ='Schotchik')
             df_char.to_excel(writer,index=False,sheet_name ='Characteristika')
-            df_char_title.to_excel(writer,index=False,sheet_name ='title')
+            df_char_title.to_excel(writer,index=False,sheet_name ='t    itle')
             df_extrusion.to_excel(writer,index=False,sheet_name='T4')
             writer.close()
 

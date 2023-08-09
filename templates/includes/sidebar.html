@@ -178,11 +178,21 @@
       </div>
     </li>
     {%endif%}
+    {% if user_role == 'moderator' %}
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="{% url 'create_txt_for_1101' %}">
+        <span class="menu-icon">
+          <i class="mdi mdi-file-document-box"></i>
+        </span>
+        <span class="menu-title">Создать Текст</span>
+      </a>
+    </li>
+    {%endif%}
     {% if user_role == 'moderator' or user_role == 'user1' or user_role == 'only_razlovka' %}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'file-upload-ozmka-org' %}">
         <span class="menu-icon">
-          <i class="mdi mdi-file-document-box"></i>
+          <i class="mdi mdi-file-find"></i>
         </span>
         <span class="menu-title">Найти разловки</span>
       </a>
