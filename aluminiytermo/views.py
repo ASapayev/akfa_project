@@ -117,12 +117,7 @@ def create_txt_for_1101(request):
                             all_correct = False
                             does_not_exists.append([sap_code,'НЕТ ХАРАКТЕРИСТИКИ'])
 
-                        # if CharacteristicTitle.objects.filter(sap_код_s4p_100 =sap_code).exists():
-                        #       character_title_txt = CharacteristicTitle.objects.filter(sap_код_s4p_100 =sap_code).order_by('-created_at')[:1].get()
-                        # else:
-                        #     all_correct = False
-                        #     does_not_exists.append([sap_code,'НЕТ ХАРАКТЕРИСТИКИ TITLE'])
-
+                        
                         artikul = sap_code.split('-')[0]
                         if LengthOfProfile.objects.filter(artikul =artikul).exists():
                               leng_of_profile_txt = LengthOfProfile.objects.filter(artikul =artikul).order_by('-created_at')[:1].get()
@@ -5175,7 +5170,7 @@ def product_add_second_org(request,id):
             elif row['ch_combination'].lower() ==str("Без термомоста").lower():
                   if LengthOfProfile.objects.filter(artikul=row['ch_article']).exists():
                         length_of_profile = LengthOfProfile.objects.filter(artikul=row['ch_article'])[:1].get()
-                        df_char_title['Общий вес за штуку'][key] =float(length_of_profile.ves_za_metr.replace(',','.')) * float(row['Длина'].replace(',','.'))
+                        df_char_title['Общий вес за штуку'][key] =float(length_of_profile.ves_za_metr.replace(',','.')) * float(row['Длина'].replace(',','.'))/(1000)
                         df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
                         price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],tip=row['ch_combination'])[:1].get()
                         df_char_title['Price'][key] = float(str(price.price).replace(',','.')) * float(str(df_char_title['Общий вес за штуку'][key]).replace(',','.'))  * float( str(exchange_value.valute).replace(',','.') )
