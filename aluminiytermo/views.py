@@ -117,11 +117,11 @@ def create_txt_for_1101(request):
                             all_correct = False
                             does_not_exists.append([sap_code,'НЕТ ХАРАКТЕРИСТИКИ'])
 
-                        if CharacteristicTitle.objects.filter(sap_код_s4p_100 =sap_code).exists():
-                              character_title_txt = CharacteristicTitle.objects.filter(sap_код_s4p_100 =sap_code).order_by('-created_at')[:1].get()
-                        else:
-                            all_correct = False
-                            does_not_exists.append([sap_code,'НЕТ ХАРАКТЕРИСТИКИ TITLE'])
+                        # if CharacteristicTitle.objects.filter(sap_код_s4p_100 =sap_code).exists():
+                        #       character_title_txt = CharacteristicTitle.objects.filter(sap_код_s4p_100 =sap_code).order_by('-created_at')[:1].get()
+                        # else:
+                        #     all_correct = False
+                        #     does_not_exists.append([sap_code,'НЕТ ХАРАКТЕРИСТИКИ TITLE'])
 
                         artikul = sap_code.split('-')[0]
                         if LengthOfProfile.objects.filter(artikul =artikul).exists():
@@ -147,13 +147,26 @@ def create_txt_for_1101(request):
                               character_dict['Короткое название SAP'].append(character_txt.kratkiy_text)
                               character_dict['Общий вес за штуку'].append(leng_of_profile_txt.ves_za_shtuk)
                               character_dict['ch_combination'].append(character_txt.combination)
-                              character_dict['ch_article'].append(sap_code.split('-')[0])
+                              character_dict['ch_article'].append(artikul)
                               
                               price = Price.objects.filter(tip_pokritiya = character_txt.surface_treatment.capitalize(),tip=character_txt.combination.capitalize())[:1].get()
                               price_org = float(str(price.price).replace(',','.')) * float(str(leng_of_profile_txt.ves_za_shtuk).replace(',','.'))  * float( str(exchange_value.valute).replace(',','.') )
                               
                               character_dict['Price'].append(price_org)
-                              character_dict['Польное наименование SAP'].append(character_title_txt.польное_наименование_sap)
+                              
+
+                              baza_profiey = BazaProfiley.objects.filter(Q(артикул=artikul)|Q(компонент=artikul))[:1].get()
+        
+
+                              if (('-7' in sap_code) or ('-K' in sap_code) or ('-L'  in sap_code)):
+                                    component_name ='Артикул'
+                              else:
+                                    component_name ='Компонент'
+
+                              польное_наименование_sap = 'Алюминиевый '+baza_profiey.product_description +', '+component_name +' '+artikul+', '+character_txt.surface_treatment+', Длина '+character_txt.length+' мм, Тип '+character_txt.alloy+'-'+character_txt.temper+' '+character_txt.print_view
+
+
+                              character_dict['Польное наименование SAP'].append(польное_наименование_sap)
                               character_dict['ch_rawmat_type'].append(character_txt.rawmat_type)
                               character_dict['Длина'].append(character_txt.length)
                               character_dict['WMS_HEIGHT'].append(character_txt.wms_height)

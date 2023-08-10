@@ -2614,8 +2614,7 @@ def create_characteristika_utils(items):
         
         sap_kode =item['material'].split('-')[0]
         baza_profiey = BazaProfiley.objects.filter(Q(артикул=sap_kode)|Q(компонент=sap_kode))[:1].get()
-        # bazaprofiley_link[0].append(sap_kode)
-        # bazaprofiley_link[1].append(baza_profiey.link)
+        
 
         if (('-7' in item['material']) or ('-K' in item['material']) or ('-L'  in item['material'])):
             component_name ='Артикул'
