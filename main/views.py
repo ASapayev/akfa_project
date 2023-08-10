@@ -801,9 +801,15 @@ def home(request):
 @register.filter(name='split_text')
 def split_text(value):
     txt =str(value)
-    if '\\' in txt: 
-      return txt.split('\\')[-1]
+    if '\\' in txt:
+      text = txt.split('\\')[-1]
+      if  len(text)>15:
+        text =text[:10]+text[-5:]
+      return text
     elif '/' in txt:
-      return txt.split('/')[-1]
+      text = txt.split('/')[-1]
+      if  len(text)>15:
+        text =text[:10]+text[-5:]
+      return text
     else:
       return txt

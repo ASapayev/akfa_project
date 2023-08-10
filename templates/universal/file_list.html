@@ -26,6 +26,7 @@
                   <tr>
                     <th> # </th>
                     <th > Имя файла </th>
+                    <th > Дата </th>
                     <th> Действие </th>
                   </tr>
                 </thead>
@@ -34,7 +35,7 @@
                         <tr>
                             <td> {{ forloop.counter }} </td>
                             <td class="p-1"> {{file.file|split_text}} </td>
-                            <td> </td>
+                            <td>{{file.created_at |date:"d-m-Y H:i"}} </td>
                             <td> <a href="{{link}}{{file.id}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">{{type}}</span> алюминого файла</a> </td>
                         </tr>
                     {% endfor %}

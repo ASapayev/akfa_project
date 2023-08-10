@@ -8,8 +8,8 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/accounts/login/')
 def index(request):
     user = request.user
-    orders = Order.objects.filter()
+    current_orders = Order.objects.filter(current_worker=user)
     context ={
-        'context':context
+        'orders':current_orders
     }
     return render(request,'dashboard/workers.html',context)
