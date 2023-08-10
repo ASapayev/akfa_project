@@ -5194,7 +5194,7 @@ def product_add_second_org(request,id):
             writer = pd.ExcelWriter(path, engine='xlsxwriter')
             df_new.to_excel(writer,index=False,sheet_name ='Schotchik')
             df_char.to_excel(writer,index=False,sheet_name ='Characteristika')
-            df_char_title.to_excel(writer,index=False,sheet_name ='t    itle')
+            df_char_title.to_excel(writer,index=False,sheet_name ='title')
             df_extrusion.to_excel(writer,index=False,sheet_name='T4')
             writer.close()
 
