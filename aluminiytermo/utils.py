@@ -669,8 +669,8 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     d1['BESKZ']=umumiy_without_duplicate1201[7]
     d1['SPART']=umumiy_without_duplicate1201[8]
     d1['BRGEW']=umumiy_without_duplicate1201[9]
-    d1['NTGEW']=[round(float(k), 3) for k in umumiy_without_duplicate1201[10]]
-    d1['GEWEI']=[round(float(k2),3) for k2 in umumiy_without_duplicate1201[11]]
+    d1['NTGEW']=[round(float(k1.replace(',','.')), 3) for k1 in umumiy_without_duplicate1201[10]]
+    d1['GEWEI']=[round(float(k2.replace(',','.')),3) for k2 in umumiy_without_duplicate1201[11]]
     d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
     
     
@@ -722,7 +722,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     d2['BKLAS']=umumiy_without_duplicate[36]
     d2['VPRSV']=umumiy_without_duplicate[37]
     d2['PEINH']=umumiy_without_duplicate[38]
-    d2['STPRS']=[round(float(n),2) for n in umumiy_without_duplicate[39]]
+    d2['STPRS']=[round(float(n.replace(',','.')),2) for n in umumiy_without_duplicate[39]]
     d2['PRCTR']=umumiy_without_duplicate[40]
     d2['EKALR']=umumiy_without_duplicate[41]
     d2['HKMAT']=umumiy_without_duplicate[42]
@@ -1875,8 +1875,8 @@ def get_cretead_txt_for_1101(datas,elist):
     d1['BESKZ']=umumiy_without_duplicate1201[7]
     d1['SPART']=umumiy_without_duplicate1201[8]
     d1['BRGEW']=umumiy_without_duplicate1201[9]
-    d1['NTGEW']=[round(float(k1),3) for k1 in umumiy_without_duplicate1201[10]]
-    d1['GEWEI']=[round(float(k2),3) for k2 in umumiy_without_duplicate1201[11]]
+    d1['NTGEW']=[round(float(k1.replace(',','.')),3) for k1 in umumiy_without_duplicate1201[10]]
+    d1['GEWEI']=[round(float(k2.replace(',','.')),3) for k2 in umumiy_without_duplicate1201[11]]
     d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
     
     
@@ -1929,7 +1929,7 @@ def get_cretead_txt_for_1101(datas,elist):
     d2['BKLAS']=umumiy_without_duplicate[36]
     d2['VPRSV']=umumiy_without_duplicate[37]
     d2['PEINH']=umumiy_without_duplicate[38]
-    d2['STPRS']=[round(float(k),2) for k in umumiy_without_duplicate[39]]
+    d2['STPRS']=[round(float(k.replace(',','.')),2) for k in umumiy_without_duplicate[39]]
     d2['PRCTR']=umumiy_without_duplicate[40]
     d2['EKALR']=umumiy_without_duplicate[41]
     d2['HKMAT']=umumiy_without_duplicate[42]
@@ -3579,8 +3579,8 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     d1['BESKZ']=umumiy_without_duplicate1201[7]
     d1['SPART']=umumiy_without_duplicate1201[8]
     d1['BRGEW']=umumiy_without_duplicate1201[9]
-    d1['NTGEW']=[round(float(k1),3) for k1 in umumiy_without_duplicate1201[10]]
-    d1['GEWEI']=[round(float(k2),3) for k2 in umumiy_without_duplicate1201[11]]
+    d1['NTGEW']=[round(float(k1.replace(',','.')),3) for k1 in umumiy_without_duplicate1201[10]]
+    d1['GEWEI']=[round(float(k2.replace(',','.')),3) for k2 in umumiy_without_duplicate1201[11]]
     d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
     
     
@@ -3633,7 +3633,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     d2['BKLAS']=umumiy_without_duplicate[36]
     d2['VPRSV']=umumiy_without_duplicate[37]
     d2['PEINH']=umumiy_without_duplicate[38]
-    d2['STPRS']=[round(float(k),2) for k in umumiy_without_duplicate[39]]
+    d2['STPRS']=[round(float(k.replace(',','.')),2) for k in umumiy_without_duplicate[39]]
     d2['PRCTR']=umumiy_without_duplicate[40]
     d2['EKALR']=umumiy_without_duplicate[41]
     d2['HKMAT']=umumiy_without_duplicate[42]
@@ -4724,8 +4724,8 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
     d1['BESKZ']=umumiy_without_duplicate1201[7]
     d1['SPART']=umumiy_without_duplicate1201[8]
     d1['BRGEW']=umumiy_without_duplicate1201[9]
-    d1['NTGEW']=[round(float(k1),3) for k1 in umumiy_without_duplicate1201[10]]
-    d1['GEWEI']=[round(float(k2),3) for k2 in umumiy_without_duplicate1201[11]]
+    d1['NTGEW']=[round(float(k1.replace(',','.')),3) for k1 in umumiy_without_duplicate1201[10]]
+    d1['GEWEI']=[round(float(k2.replace(',','.')),3) for k2 in umumiy_without_duplicate1201[11]]
     d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
     
     
@@ -4777,7 +4777,7 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
     d2['BKLAS']=umumiy_without_duplicate[36]
     d2['VPRSV']=umumiy_without_duplicate[37]
     d2['PEINH']=umumiy_without_duplicate[38]
-    d2['STPRS']=[round(float(n),2) for n in umumiy_without_duplicate[39]]
+    d2['STPRS']=[round(float(n.replace(',','.')),2) for n in umumiy_without_duplicate[39]]
     d2['PRCTR']=umumiy_without_duplicate[40]
     d2['EKALR']=umumiy_without_duplicate[41]
     d2['HKMAT']=umumiy_without_duplicate[42]
