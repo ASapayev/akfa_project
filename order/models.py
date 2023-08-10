@@ -24,6 +24,7 @@ class Order(models.Model):
     status = models.SmallIntegerField(choices=STATUS_CHOICES,default=1)
     work_type =models.SmallIntegerField(choices=WORK_TYPE_CHOICES,default=1)
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
+    current_worker = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='on_time_worker')
     aluminiy_worker = models.ForeignKey(User,models.CASCADE,blank=True,null=True,related_name='aluminiy_work')
     alumin_wrongs = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='aluminiy_work_wrong')
     norma_worker = models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True,related_name='norma_work')

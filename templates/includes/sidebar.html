@@ -67,6 +67,16 @@
     </li>
     {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
+      <a class="nav-link" href="{%url 'order' %}">
+        <span class="menu-icon">
+          <i class="mdi mdi-equal-box"></i>
+        </span>
+        <span class="menu-title">Заявки</span>
+      </a>
+    </li>
+    {%endif%}
+    {% if user_role == 'moderator'%}
+    <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#del-othod" aria-expanded="false" aria-controls="del-othod">
         <span class="menu-icon">
           <i class="mdi mdi-laptop"></i>
