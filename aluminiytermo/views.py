@@ -209,7 +209,7 @@ def show_list_simple_sapcodes(request):
             try:
                   # print(search)
                   try:
-                        f_date = datetime.strptime(search,'%m.%d.%Y %H:%M')
+                        f_date = datetime.strptime(search,'%d-%m-%Y %H:%M')
                         products = AluminiyProductTermo.objects.filter(
                               created_at__year =f_date.year,
                               created_at__month =f_date.month,
@@ -218,7 +218,7 @@ def show_list_simple_sapcodes(request):
                               created_at__minute =f_date.minute
                         )
                   except:
-                        f_date = datetime.strptime(search,'%m.%d.%Y')
+                        f_date = datetime.strptime(search,'%d-%m-%Y')
                         products = AluminiyProductTermo.objects.filter(
                               created_at__year =f_date.year,
                               created_at__month =f_date.month,
