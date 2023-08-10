@@ -670,7 +670,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     d1['SPART']=umumiy_without_duplicate1201[8]
     d1['BRGEW']=umumiy_without_duplicate1201[9]
     d1['NTGEW']=[round(float(k1.replace(',','.')), 3) for k1 in umumiy_without_duplicate1201[10]]
-    d1['GEWEI']=[round(float(k2.replace(',','.')),3) for k2 in umumiy_without_duplicate1201[11]]
+    d1['GEWEI']=umumiy_without_duplicate1201[11]
     d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
     
     
@@ -1876,7 +1876,7 @@ def get_cretead_txt_for_1101(datas,elist):
     d1['SPART']=umumiy_without_duplicate1201[8]
     d1['BRGEW']=umumiy_without_duplicate1201[9]
     d1['NTGEW']=[round(float(k1.replace(',','.')),3) for k1 in umumiy_without_duplicate1201[10]]
-    d1['GEWEI']=[round(float(k2.replace(',','.')),3) for k2 in umumiy_without_duplicate1201[11]]
+    d1['GEWEI']=umumiy_without_duplicate1201[11]
     d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
     
     
@@ -3580,7 +3580,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     d1['SPART']=umumiy_without_duplicate1201[8]
     d1['BRGEW']=umumiy_without_duplicate1201[9]
     d1['NTGEW']=[round(float(k1.replace(',','.')),3) for k1 in umumiy_without_duplicate1201[10]]
-    d1['GEWEI']=[round(float(k2.replace(',','.')),3) for k2 in umumiy_without_duplicate1201[11]]
+    d1['GEWEI']=umumiy_without_duplicate1201[11]
     d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
     
     
@@ -4725,7 +4725,7 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
     d1['SPART']=umumiy_without_duplicate1201[8]
     d1['BRGEW']=umumiy_without_duplicate1201[9]
     d1['NTGEW']=[round(float(k1.replace(',','.')),3) for k1 in umumiy_without_duplicate1201[10]]
-    d1['GEWEI']=[round(float(k2.replace(',','.')),3) for k2 in umumiy_without_duplicate1201[11]]
+    d1['GEWEI']=umumiy_without_duplicate1201[11]
     d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
     
     
