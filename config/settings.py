@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'aluminiytermo',
     'imzo',
     'norma',
-    'order'
+    'order',
+    # 'json_field',
     # "debug_toolbar",
 ]
 
