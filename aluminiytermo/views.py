@@ -5166,7 +5166,7 @@ def product_add_second_org(request,id):
                   df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
                   df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
                   price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],tip=row['ch_combination'])[:1].get()
-                  print(df_char_title['Общий вес за штуку'][key],price.price.replace(',','.'),exchange_value.valute.replace(',','.'))
+                  print(row['ch_article'],df_char_title['Общий вес за штуку'][key],price.price.replace(',','.'),exchange_value.valute.replace(',','.'))
                   df_char_title['Price'][key] = float(price.price.replace(',','.')) * float(str(df_char_title['Общий вес за штуку'][key]).replace(',','.'))  * float(exchange_value.valute.replace(',','.'))
             elif row['ch_combination'].lower() ==str("Без термомоста").lower():
                   if LengthOfProfile.objects.filter(artikul=row['ch_article']).exists():
