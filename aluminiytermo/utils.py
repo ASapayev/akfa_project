@@ -2107,7 +2107,10 @@ def get_cretead_txt_for_1101(datas,elist):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['7'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['7'][i]['zavod_sap'])
-                new_ll[3].append(raube_txt)
+                if LGORT_1101['7'][i]['zavod_code'] =='1101':
+                    new_ll[3].append(raube_txt)
+                else:
+                    new_ll[3].append('')
             
         
         
@@ -3831,7 +3834,11 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['7'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['7'][i]['zavod_sap'])
-                new_ll[3].append(raube_txt)
+                if LGORT_1101['7'][i]['zavod_code'] =='1101':
+                    new_ll[3].append(raube_txt)
+                else:
+                    new_ll[3].append('')
+                
         
 
         
