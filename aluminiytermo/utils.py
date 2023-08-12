@@ -1797,32 +1797,32 @@ def get_cretead_txt_for_1101(datas,elist):
         umumiy_without_duplicate[i]+=umumiy_without_duplicate12D5[i]     
 
     ########################## RAUBE.txt ##############################
-    header_raube='MAKTX\tMATNR\tRAUBE'
+    # header_raube='MAKTX\tMATNR\tRAUBE'
     
-    d9={}
-    d9['MAKTX']=[]
-    d9['MATNR']=[]
-    d9['RAUBE']=[]
-    i = 0
+    # d9={}
+    # d9['MAKTX']=[]
+    # d9['MATNR']=[]
+    # d9['RAUBE']=[]
+    # i = 0
     
-    for row in umumiy_without_duplicate[0]:
-        if '-7' in row:
-            d9['MAKTX'].append(umumiy_without_duplicate[13][i])
-            d9['MATNR'].append(umumiy_without_duplicate[0][i])
-            d9['RAUBE'].append(umumiy_without_duplicate[50][i])
-        if '-P' in row:
-            d9['MAKTX'].append(umumiy_without_duplicate[13][i])
-            d9['MATNR'].append(umumiy_without_duplicate[0][i])
-            d9['RAUBE'].append(umumiy_without_duplicate[50][i])
-        if '-K' in row:
-            d9['MAKTX'].append(umumiy_without_duplicate[13][i])
-            d9['MATNR'].append(umumiy_without_duplicate[0][i])
-            d9['RAUBE'].append(umumiy_without_duplicate[50][i])
-        i += 1
+    # for row in umumiy_without_duplicate[0]:
+    #     if '-7' in row:
+    #         d9['MAKTX'].append(umumiy_without_duplicate[13][i])
+    #         d9['MATNR'].append(umumiy_without_duplicate[0][i])
+    #         d9['RAUBE'].append(umumiy_without_duplicate[50][i])
+    #     if '-P' in row:
+    #         d9['MAKTX'].append(umumiy_without_duplicate[13][i])
+    #         d9['MATNR'].append(umumiy_without_duplicate[0][i])
+    #         d9['RAUBE'].append(umumiy_without_duplicate[50][i])
+    #     if '-K' in row:
+    #         d9['MAKTX'].append(umumiy_without_duplicate[13][i])
+    #         d9['MATNR'].append(umumiy_without_duplicate[0][i])
+    #         d9['RAUBE'].append(umumiy_without_duplicate[50][i])
+    #     i += 1
 
-    df9= pd.DataFrame(d9)
-    df9 = df9.drop_duplicates()
-    np.savetxt(pathtext9, df9.values,fmt='%s', delimiter="\t",header=header_raube,comments='',encoding='ansi')
+    # df9= pd.DataFrame(d9)
+    # df9 = df9.drop_duplicates()
+    # np.savetxt(pathtext9, df9.values,fmt='%s', delimiter="\t",header=header_raube,comments='',encoding='ansi')
 
     ########################## Бухгалтерская название.txt ##############################
     buxgalterskiy_t ={}
@@ -2030,7 +2030,7 @@ def get_cretead_txt_for_1101(datas,elist):
     ########################## end 3.txt ##############################
     
     ########################## 4.txt ##############################    
-    new_ll =[[],[],[]]
+    new_ll =[[],[],[],[]]
     sap_code_title =[]
     dlina_title =[]
     obshiy_ves_za_shtuku =[]
@@ -2047,39 +2047,59 @@ def get_cretead_txt_for_1101(datas,elist):
         wms_height.append(row['WMS_HEIGHT'])
 
         
+        raube_txt = ''
+
+        if row['Тип покрытия'] =='Белый':
+            raube_txt = 'S0'
+        elif row['Тип покрытия'] =='Неокрашенный':
+            raube_txt = 'S1'
+        elif row['Тип покрытия'] =='Окрашенный':
+            raube_txt = 'S2'
+        elif row['Тип покрытия'] =='Сублимированный':
+            raube_txt = 'S3'
+        elif row['Тип покрытия'] =='Ламинированный':
+            raube_txt = '0001'
+
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
         if sap_code_simvol =='E':
             for i in range(0,len(LGORT_1101['E'])):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['E'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['E'][i]['zavod_sap'])
+                new_ll[3].append('')
+
         if sap_code_simvol =='Z':
             for i in range(0,len(LGORT_1101['Z'])):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['Z'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['Z'][i]['zavod_sap'])
+                new_ll[3].append('')
         if sap_code_simvol =='P':
             for i in range(0,len(LGORT_1101['P'])):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['P'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['P'][i]['zavod_sap'])
+                new_ll[3].append(raube_txt)
         
         if sap_code_simvol =='S':
             for i in range(0,len(LGORT_1101['S'])):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['S'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['S'][i]['zavod_sap'])
+                new_ll[3].append('')
         if RazlovkaTermo.objects.filter(nsap_code =row['SAP код S4P 100']).exists():
             if sap_code_simvol =='N':
                 for i in range(0,len(LGORT_1101['N'])):
                     new_ll[0].append(row['SAP код S4P 100'])
                     new_ll[1].append(LGORT_1101['N'][i]['zavod_code'])
                     new_ll[2].append(LGORT_1101['N'][i]['zavod_sap'])
+                    new_ll[3].append('')
         if sap_code_simvol =='K':
             for i in range(0,len(LGORT_1101['K'])):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['K'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['K'][i]['zavod_sap'])
+                new_ll[3].append(raube_txt)
         
         
         if sap_code_simvol =='7':
@@ -2087,14 +2107,16 @@ def get_cretead_txt_for_1101(datas,elist):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['7'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['7'][i]['zavod_sap'])
+                new_ll[3].append(raube_txt)
             
         
         
-    header4='MATNR\tWERKS\tLGORT'
+    header4='MATNR\tWERKS\tLGORT\tRAUBE'
     d4={}
     d4['MATNR']=new_ll[0]
     d4['WERKS']=new_ll[1]
     d4['LGORT']=new_ll[2]
+    d4['RAUBE']=new_ll[3]
     df4= pd.DataFrame(d4)
     np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################
@@ -3502,31 +3524,31 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         umumiy_without_duplicate[i]+=umumiy_without_duplicate12D5[i]     
 
     ########################## RAUBE.txt ##############################
-    header_raube='MAKTX\tMATNR\tRAUBE'
+    # header_raube='MAKTX\tMATNR\tRAUBE'
     
-    d9={}
-    d9['MAKTX']=[]
-    d9['MATNR']=[]
-    d9['RAUBE']=[]
-    i = 0
-    for row in umumiy_without_duplicate[0]:
-        if '-7' in row:
-            d9['MAKTX'].append(umumiy_without_duplicate[13][i])
-            d9['MATNR'].append(umumiy_without_duplicate[0][i])
-            d9['RAUBE'].append(umumiy_without_duplicate[50][i])
-        if '-P' in row:
-            d9['MAKTX'].append(umumiy_without_duplicate[13][i])
-            d9['MATNR'].append(umumiy_without_duplicate[0][i])
-            d9['RAUBE'].append(umumiy_without_duplicate[50][i])
-        if '-K' in row:
-            d9['MAKTX'].append(umumiy_without_duplicate[13][i])
-            d9['MATNR'].append(umumiy_without_duplicate[0][i])
-            d9['RAUBE'].append(umumiy_without_duplicate[50][i])
-        i += 1
+    # d9={}
+    # d9['MAKTX']=[]
+    # d9['MATNR']=[]
+    # d9['RAUBE']=[]
+    # i = 0
+    # for row in umumiy_without_duplicate[0]:
+    #     if '-7' in row:
+    #         d9['MAKTX'].append(umumiy_without_duplicate[13][i])
+    #         d9['MATNR'].append(umumiy_without_duplicate[0][i])
+    #         d9['RAUBE'].append(umumiy_without_duplicate[50][i])
+    #     if '-P' in row:
+    #         d9['MAKTX'].append(umumiy_without_duplicate[13][i])
+    #         d9['MATNR'].append(umumiy_without_duplicate[0][i])
+    #         d9['RAUBE'].append(umumiy_without_duplicate[50][i])
+    #     if '-K' in row:
+    #         d9['MAKTX'].append(umumiy_without_duplicate[13][i])
+    #         d9['MATNR'].append(umumiy_without_duplicate[0][i])
+    #         d9['RAUBE'].append(umumiy_without_duplicate[50][i])
+    #     i += 1
 
-    df9= pd.DataFrame(d9)
-    df9 = df9.drop_duplicates()
-    np.savetxt(pathtext9, df9.values,fmt='%s', delimiter="\t",header=header_raube,comments='',encoding='ansi')
+    # df9= pd.DataFrame(d9)
+    # df9 = df9.drop_duplicates()
+    # np.savetxt(pathtext9, df9.values,fmt='%s', delimiter="\t",header=header_raube,comments='',encoding='ansi')
 
     ########################## Бухгалтерская название.txt ##############################
     buxgalterskiy_t ={}
@@ -3734,7 +3756,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
     ########################## end 3.txt ##############################
     
     ########################## 4.txt ##############################    
-    new_ll =[[],[],[]]
+    new_ll =[[],[],[],[]]
     sap_code_title =[]
     dlina_title =[]
     obshiy_ves_za_shtuku =[]
@@ -3750,6 +3772,18 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         wms_width.append(row['WMS_WIDTH'])
         wms_height.append(row['WMS_HEIGHT'])
 
+        raube_txt = ''
+
+        if row['Тип покрытия'] =='Белый':
+            raube_txt = 'S0'
+        elif row['Тип покрытия'] =='Неокрашенный':
+            raube_txt = 'S1'
+        elif row['Тип покрытия'] =='Окрашенный':
+            raube_txt = 'S2'
+        elif row['Тип покрытия'] =='Сублимированный':
+            raube_txt = 'S3'
+        elif row['Тип покрытия'] =='Ламинированный':
+            raube_txt = '0001'
         
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
         if sap_code_simvol =='E':
@@ -3757,48 +3791,57 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['E'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['E'][i]['zavod_sap'])
+                new_ll[3].append('')
         if sap_code_simvol =='Z':
             for i in range(0,len(LGORT_1101['Z'])):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['Z'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['Z'][i]['zavod_sap'])
+                new_ll[3].append('')
         if sap_code_simvol =='P':
             for i in range(0,len(LGORT_1101['P'])):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['P'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['P'][i]['zavod_sap'])
+                new_ll[3].append(raube_txt)
+
         
         if sap_code_simvol =='S':
             for i in range(0,len(LGORT_1101['S'])):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['S'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['S'][i]['zavod_sap'])
+                new_ll[3].append('')
         if file_name !='aluminiy':
             if sap_code_simvol =='N':
                 for i in range(0,len(LGORT_1101['N'])):
                     new_ll[0].append(row['SAP код S4P 100'])
                     new_ll[1].append(LGORT_1101['N'][i]['zavod_code'])
                     new_ll[2].append(LGORT_1101['N'][i]['zavod_sap'])
+                    new_ll[3].append('')
         if sap_code_simvol =='K':
             for i in range(0,len(LGORT_1101['K'])):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['K'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['K'][i]['zavod_sap'])
-        
+                new_ll[3].append(raube_txt)
         
         if sap_code_simvol =='7':
             for i in range(0,len(LGORT_1101['7'])):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['7'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['7'][i]['zavod_sap'])
-            
+                new_ll[3].append(raube_txt)
+        
+
         
         
-    header4='MATNR\tWERKS\tLGORT'
+    header4='MATNR\tWERKS\tLGORT\tRAUBE'
     d4={}
     d4['MATNR']=new_ll[0]
     d4['WERKS']=new_ll[1]
     d4['LGORT']=new_ll[2]
+    d4['RAUBE']=new_ll[3]
     df4= pd.DataFrame(d4)
     np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################
