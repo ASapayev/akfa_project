@@ -59,13 +59,13 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
 
     for key , row in datas.iterrows():
 
-        if not LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
-            LengthOfProfile(
-                artikul = row['ch_article'],
-                length = row['Длина'],
-                ves_za_shtuk = row['Общий вес за штуку'],
-                ves_za_metr = row['Удельный вес за метр']
-            ).save()
+        # if not LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
+            # LengthOfProfile(
+            #     artikul = row['ch_article'],
+            #     length = row['Длина'],
+            #     ves_za_shtuk = row['Общий вес за штуку'],
+            #     ves_za_metr = row['Удельный вес за метр']
+            # ).save()
         dlinniy_text_zero[0].append('1')
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
         dlinniy_text_zero[2].append(row['Польное наименование SAP'])
