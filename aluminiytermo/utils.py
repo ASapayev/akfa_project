@@ -2049,15 +2049,15 @@ def get_cretead_txt_for_1101(datas,elist):
         
         raube_txt = ''
 
-        if row['Тип покрытия'] =='Белый':
+        if row['Тип покрытия'].capitalize() =='Белый':
             raube_txt = 'S0'
-        elif row['Тип покрытия'] =='Неокрашенный':
+        elif row['Тип покрытия'].capitalize() =='Неокрашенный':
             raube_txt = 'S1'
-        elif row['Тип покрытия'] =='Окрашенный':
+        elif row['Тип покрытия'].capitalize() =='Окрашенный':
             raube_txt = 'S2'
-        elif row['Тип покрытия'] =='Сублимированный':
+        elif row['Тип покрытия'].capitalize() =='Сублимированный':
             raube_txt = 'S3'
-        elif row['Тип покрытия'] =='Ламинированный':
+        elif row['Тип покрытия'].capitalize() =='Ламинированный':
             raube_txt = '0001'
 
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
@@ -3774,15 +3774,15 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
 
         raube_txt = ''
 
-        if row['Тип покрытия'] =='Белый':
+        if row['Тип покрытия'].capitalize() =='Белый':
             raube_txt = 'S0'
-        elif row['Тип покрытия'] =='Неокрашенный':
+        elif row['Тип покрытия'].capitalize() =='Неокрашенный':
             raube_txt = 'S1'
-        elif row['Тип покрытия'] =='Окрашенный':
+        elif row['Тип покрытия'].capitalize() =='Окрашенный':
             raube_txt = 'S2'
-        elif row['Тип покрытия'] =='Сублимированный':
+        elif row['Тип покрытия'].capitalize() =='Сублимированный':
             raube_txt = 'S3'
-        elif row['Тип покрытия'] =='Ламинированный':
+        elif row['Тип покрытия'].capitalize() =='Ламинированный':
             raube_txt = '0001'
         
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
