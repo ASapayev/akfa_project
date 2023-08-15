@@ -120,6 +120,7 @@ def create_txt_for_1101(request):
                         
                         artikul = sap_code.split('-')[0]
                         if LengthOfProfile.objects.filter(artikul =artikul).exists():
+                              print(artikul)
                               leng_of_profile_txt = LengthOfProfile.objects.filter(artikul =artikul).order_by('-created_at')[:1].get()
                         else:
                             all_correct = False
