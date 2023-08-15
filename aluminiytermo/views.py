@@ -141,7 +141,7 @@ def create_txt_for_1101(request):
                               character_dict['Тип покрытия'].append(character_txt.surface_treatment)
                               character_dict['Участок'].append(character_txt.section)
                               character_dict['Короткое название SAP'].append(character_txt.kratkiy_text)
-                              character_dict['Общий вес за штуку'].append(leng_of_profile_txt.ves_za_shtuk)
+                              
                               character_dict['ch_combination'].append(character_txt.combination)
                               character_dict['ch_article'].append(artikul)
                               
@@ -154,9 +154,10 @@ def create_txt_for_1101(request):
 
                               if termo_component:
                                     length_profile = float(str(leng_of_profile_txt.ves_za_metr).replace(',','.'))*(float(character_txt.length)/1000)
+                                    character_dict['Общий вес за штуку'].append(length_profile)
                               else:
                                     length_profile = float(str(leng_of_profile_txt.ves_za_shtuk).replace(',','.'))
-                                    
+                                    character_dict['Общий вес за штуку'].append(leng_of_profile_txt.ves_za_shtuk)
                               price_org =  pprice * length_profile  * exchange_val
                               
                               character_dict['Price'].append(price_org)
