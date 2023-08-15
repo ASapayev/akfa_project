@@ -147,6 +147,8 @@ def create_txt_for_1101(request):
                               
                               price = Price.objects.filter(tip_pokritiya = character_txt.surface_treatment.capitalize(),tip=character_txt.combination.capitalize())[:1].get()
                               pprice = float(str(price.price).replace(',','.'))
+
+                              print(sap_code,leng_of_profile_txt.ves_za_shtuk,'####'*5)
                               length_profile = float(str(leng_of_profile_txt.ves_za_shtuk).replace(',','.'))
                               exchange_val = float( str(exchange_value.valute).replace(',','.') )
                               price_org =  pprice * length_profile  * exchange_val
