@@ -668,6 +668,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     d1['WERKS']=umumiy_without_duplicate1201[34]
     d1['BESKZ']=umumiy_without_duplicate1201[7]
     d1['SPART']=umumiy_without_duplicate1201[8]
+    print(umumiy_without_duplicate1201[9])
     d1['BRGEW']=[str(round(float(k1.replace(',','.')),3)).replace('.',',') for k1 in umumiy_without_duplicate1201[9]]
     d1['NTGEW']=[str(round(float(k2.replace(',','.')),3)).replace('.',',') for k2 in umumiy_without_duplicate1201[10]]
     d1['GEWEI']=umumiy_without_duplicate1201[11]
