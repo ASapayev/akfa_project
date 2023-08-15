@@ -2150,7 +2150,7 @@ def get_cretead_txt_for_1101(datas,elist):
         elif i == 1 :
             ed_iz3 += [j for j in dlina_title ]
         elif i == 2 :
-            ed_iz3 += [int(float(j.replace(',','.'))*1000) for j in obshiy_ves_za_shtuku ]
+            ed_iz3 += [int(float(str(j).replace(',','.'))*1000) for j in obshiy_ves_za_shtuku ]
             
     
     for i in ED_IZM:    
