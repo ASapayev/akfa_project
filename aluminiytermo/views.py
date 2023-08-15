@@ -146,7 +146,10 @@ def create_txt_for_1101(request):
                               character_dict['ch_article'].append(artikul)
                               
                               price = Price.objects.filter(tip_pokritiya = character_txt.surface_treatment.capitalize(),tip=character_txt.combination.capitalize())[:1].get()
-                              price_org = float(str(price.price).replace(',','.')) * float(str(leng_of_profile_txt.ves_za_shtuk).replace(',','.'))  * float( str(exchange_value.valute).replace(',','.') )
+                              pprice = float(str(price.price).replace(',','.'))
+                              length_profile = float(str(leng_of_profile_txt.ves_za_shtuk).replace(',','.'))
+                              exchange_val = float( str(exchange_value.valute).replace(',','.') )
+                              price_org =  pprice * length_profile  * exchange_val
                               
                               character_dict['Price'].append(price_org)
                               
