@@ -814,7 +814,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     for key , row in datas.iterrows():
         sap_code_title.append(row['SAP код S4P 100'])
         dlina_title.append(row['Длина'])
-        obshiy_ves_za_shtuku.append(row['Общий вес за штуку'].replace(',','.'))
+        obshiy_ves_za_shtuku.append(str(row['Общий вес за штуку']).replace(',','.'))
         wms_width.append(row['WMS_WIDTH'])
         wms_height.append(row['WMS_HEIGHT'])
 
