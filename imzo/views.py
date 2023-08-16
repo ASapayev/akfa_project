@@ -932,6 +932,7 @@ def lenght_generate_texcarta(request,id):
                 if lenghtht in accessuar:
                     isklyuchenie = True
                 if texcarta_bor:
+                    print(row['МАТЕРИАЛ'])
                     if texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй !='nan':
                         if '.' in texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй:
                             nak =("%.3f" % (2 * (float(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)))).replace('.',',')
