@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse,HttpResponse,Http404
 import re
 from django.db.models import Count,Q
-from .forms import FileForm,FileFormOZMKA
+from .forms import FileForm
 from aluminiy.models import RazlovkaObichniy,RazlovkaTermo
 from django.conf import settings  
 from config.settings import MEDIA_ROOT
@@ -17,6 +17,8 @@ from django.contrib import messages
 from django.template.defaulttags import register
 from .utils import counter_generated_data
 import subprocess,sys,os
+import json
+from aluminiytermo.utils import zip
 FILEBROWSER_PATH = os.path.join(os.getenv('WINDIR'), 'explorer.exe')
 
 
@@ -747,8 +749,10 @@ def lenght_generate_org(request,id):
     pr={'sena':row['Цена'],'length':lenn,'ves_gp':row['Вес за ШТ'],'kls_color':row['KLS_COLOR'],'kls_inner_color':row['KLS_INNER_COL'],'kls_inner_id':row['KLS_INNER_ID'],'ch_profile_type':row['Гр.мат'][len(row['Гр.мат'])-3:],'id_claes':row['KLAES ID'],'sap_code':row['SAP код'],'sap_code_krat':row['SAP код'].split('-')[0],'text':row['Краткий текст материала'],'data':new_generated_data}
     new_liss.append(pr)
   # print(new_liss)
-  file_ids  = counter_generated_data(new_liss,data_type)
-  files = ExcelFiles.objects.filter(id__in=file_ids)
+  file_ids,zip_path  = counter_generated_data(new_liss,data_type)
+  # files = ExcelFiles.objects.filter(id__in=file_ids)
+  files = [File(file=zip_path,filetype='delovoy'),]
+  zip(zip_path,zip_path)
   context={
     'files':files,
     'section':'Деловой отход файлы'
@@ -803,13 +807,29 @@ def split_text(value):
     txt =str(value)
     if '\\' in txt:
       text = txt.split('\\')[-1]
+      if '/' in text:
+        text = text.split('/')[-1]
       if  len(text)>15:
-        text =text[:10]+text[-5:]
+        text =text[:6]+'..'+text[-7:]
       return text
     elif '/' in txt:
       text = txt.split('/')[-1]
+      if '\\' in text:
+        text = text.split('\\')[-1]
       if  len(text)>15:
-        text =text[:10]+text[-5:]
+        text =text[:6]+'..'+text[-7:]
       return text
     else:
       return txt
+    
+@register.filter(name='order_number_format')
+def order_number_format(value):
+  return "A{:05d}".format(value)
+  
+@register.filter(name='convert_str_date')
+def convert_str_date(value):
+    print(value)
+    return datetime.strptime(value, '%Y-%m-%d %H:%M:%S')
+
+
+

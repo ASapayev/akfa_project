@@ -340,12 +340,12 @@ def counter_generated_data(datas,data_type):
   df5= pd.DataFrame(d5)
   np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
   
-  
+  path_zip =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}'
   file_exist =ExcelFiles(file =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\{data_name}_{yearr}.xlsx',generated=True)
   file_exist.save()
   file_exist2 =ExcelFiles(file =f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Лист в C 3.xlsx',generated=True)
   file_exist2.save()
-  return [file_exist.id,file_exist2.id]
+  return [file_exist.id,file_exist2.id],path_zip
 
 
 def umumiy_dict(product,text_materials_list,duplicate='No'):
