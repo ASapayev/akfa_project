@@ -2059,7 +2059,7 @@ def get_cretead_txt_for_1101(datas,elist):
         elif row['Тип покрытия'].capitalize() =='Сублимированный':
             raube_txt = 'S3'
         elif row['Тип покрытия'].capitalize() =='Ламинированный':
-            raube_txt = '0001'
+            raube_txt = 'S4'
 
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
         if sap_code_simvol =='E':
@@ -3787,7 +3787,7 @@ def characteristika_created_txt_create_1101(datas,elist,file_name='aluminiytermo
         elif row['Тип покрытия'].capitalize() =='Сублимированный':
             raube_txt = 'S3'
         elif row['Тип покрытия'].capitalize() =='Ламинированный':
-            raube_txt = '0001'
+            raube_txt = 'S4'
         
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
         if sap_code_simvol =='E':
