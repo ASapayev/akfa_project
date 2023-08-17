@@ -751,7 +751,7 @@ def lenght_generate_org(request,id):
   # print(new_liss)
   file_ids,zip_path  = counter_generated_data(new_liss,data_type)
   # files = ExcelFiles.objects.filter(id__in=file_ids)
-  files = [File(file=zip_path,filetype='delovoy'),]
+  files = [File(file=f'{zip_path}.zip',filetype='delovoy'),]
   zip(zip_path,zip_path)
   context={
     'files':files,
