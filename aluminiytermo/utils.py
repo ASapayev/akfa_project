@@ -4136,7 +4136,7 @@ def characteristika_created_txt_create(datas,elist,file_name='aluminiytermo'):
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy',f'{year}')
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}',f'{month}')
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}',day)
-        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}',f'{hour}  ОБЫЧНЫЙ')
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}',f'{hour} ОБЫЧНЫЙ')
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ','BENKAM')
         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM',minut)
         pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\1.txt'
