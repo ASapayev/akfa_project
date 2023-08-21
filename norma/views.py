@@ -12,6 +12,7 @@ from .utils import excelgenerate,create_csv_file,create_folder
 import os
 from aluminiytermo.views import File
 from imzo.models import TexCartaTime
+from order.models import Order
 from datetime import datetime
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
@@ -961,7 +962,7 @@ def kombinirovaniy_process(request,id):
     df_exell = df_exell.fillna('')
     df_exell =df_exell.astype(str)
     
-    
+   
     pro_type = request.GET.get('type','termo')
 
     if pro_type.replace("'","") =='termo':
@@ -1504,7 +1505,19 @@ def kombinirovaniy_process(request,id):
             'files':files,
             'section':'Ошибки нормы'
 
-        }                     
+        }
+        order_id = request.GET.get('order_id',None)
+
+        if order_id:
+            order = Order.objects.get(id = order_id)
+            paths = order.paths 
+            paths['status_norma_lack']= 'on process'
+            order.norma_wrongs =request.user
+            context2['order'] = order
+            paths =  order.paths
+            for key,val in paths.items():
+                context2[key] = val
+
         return render(request,'universal/generated_files.html',context)
     
     df_new ={
@@ -5207,7 +5220,10 @@ def kombinirovaniy_process(request,id):
                             if qatorlar_soni ==5:
                                 qatorlar_soni +=4
                             else:
-                                qatorlar_soni +=2
+                                if qatorlar_soni == 4:
+                                    qatorlar_soni += 3
+                                else: 
+                                    qatorlar_soni +=2
                             
                             laminatsiya_result1 = Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code1)[:1].get() 
                             laminatsiya_result2 = Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code2)[:1].get() 
