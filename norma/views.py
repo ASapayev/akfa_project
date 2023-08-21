@@ -1047,6 +1047,7 @@ def kombinirovaniy_process(request,id):
                             isklyucheniye_ids.append(k)
                             if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064] not in alumniy_silindr:
                                 alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064])
+
                     elif alum_teks.алю_сплав_биллетов_102_178 =='0':
                         isklyucheniye_ids.append(k)
                         norma.append([length[0],artikul_org,'','','','','','','','','Xato 0','Normada ala7_oddiy_ala8_qora_алю_сплав_6064 0 ga teng',['#12a4d9','#12a4d9','white','white','white','white','white']])
@@ -1054,6 +1055,27 @@ def kombinirovaniy_process(request,id):
                         if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064] not in alumniy_silindr:
                             isklyucheniye_ids.append(k)
                             alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064])
+
+
+
+                    if (('178' in alum_teks.алю_сплав_биллетов_102_178_2) and (alum_teks.алю_сплав_биллетов_102_178_2 !='0')):
+                        if not AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2,название__icontains='178').exists():
+                            isklyucheniye_ids.append(k)
+                            if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2] not in alumniy_silindr:
+                                alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2])
+                    elif (('102' in alum_teks.алю_сплав_биллетов_102_178_2) and (alum_teks.алю_сплав_биллетов_102_178_2 !='0')):
+                        if not AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2,название__icontains='102').exists():
+                            isklyucheniye_ids.append(k)
+                            if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2] not in alumniy_silindr:
+                                alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2])
+                    elif alum_teks.алю_сплав_биллетов_102_178_2 =='0':
+                        isklyucheniye_ids.append(k)
+                        norma.append([length[0],artikul_org,'','','','','','','','','Xato 0','Normada ala7_oddiy_ala8_qora_алю_сплав_6064__2 0 ga teng',['#12a4d9','#12a4d9','white','white','white','white','white']])
+                    else:
+                        if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2] not in alumniy_silindr:
+                            isklyucheniye_ids.append(k)
+                            alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2])
+
                 
                 if (('-S' in t) and (length[0] not in does_not_exist_norm)) :
                     if artikul_org!='':                
