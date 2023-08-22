@@ -5507,7 +5507,7 @@ def kombinirovaniy_process(request,id):
                             if qatorlar_soni ==5:
                                 qatorlar_soni +=4
                             else:
-                                qatorlar_soni +=2
+                                # qatorlar_soni +=2
                                 if qatorlar_soni == 4:
                                     qatorlar_soni += 6
                                 else: 
