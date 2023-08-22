@@ -1810,7 +1810,7 @@ def kombinirovaniy_process(request,id):
         
         if not norma_existsZ:
             if df[i][2] !="":
-                
+                "normadfs"
                 CheckNormaBase(artikul=df[i][2],kratkiytekst=df[i][3]).save()
 
                 sap_code_zak = df[i][2].split('-')[0]
@@ -2085,7 +2085,7 @@ def kombinirovaniy_process(request,id):
                             df_new['MATNR'].append(df[i][2])
                             df_new['WERKS'].append('1101')
                             df_new['TEXT1'].append(df[i][3])
-                            df_new['STLAL'].append('1')
+                            df_new['STLAL'].append('2')
                             df_new['STLAN'].append('1')
                             if df[i][2].split('-')[1][:1]=='Z':
                                 ztekst ='Экструзия (пресс) + Пила + Старение'
@@ -2100,6 +2100,9 @@ def kombinirovaniy_process(request,id):
                                 aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2,название__icontains='102')[:1].get()
                             
                             
+
+
+
                             mein_percent =((get_legth(df[i][3]))/float(alum_teks.длина_профиля_м))
                             df_new['STKTX'].append(aliminisi.название)
                             df_new['BMENG'].append( '1000')
