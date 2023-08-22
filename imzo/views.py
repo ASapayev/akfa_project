@@ -937,12 +937,12 @@ def lenght_generate_texcarta(request,id):
                     if ((texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй !='nan') or (texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй != "")):
                         if '.' in texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй:
                             if 'NT1' in row['КРАТКИЙ ТЕКСТ']:
-                                nak =("%.3f" % ((float(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)))).replace('.',',')
+                                nak ='nan'
                             else:
                                 nak =("%.3f" % (2 * (float(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)))).replace('.',',')
                         else:
                             if 'NT1' in row['КРАТКИЙ ТЕКСТ']:
-                                nak = (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
+                                nak = 'nan'
                             else:
                                 nak =2 * (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
                     else:
