@@ -5507,11 +5507,11 @@ def kombinirovaniy_process(request,id):
                             if qatorlar_soni ==5:
                                 qatorlar_soni +=4
                             else:
-                                # qatorlar_soni +=2
-                                if qatorlar_soni == 4:
-                                    qatorlar_soni += 3
-                                else: 
-                                    qatorlar_soni +=2
+                                qatorlar_soni +=2
+                                # if qatorlar_soni == 4:
+                                #     qatorlar_soni += 3
+                                # else: 
+                                #     qatorlar_soni +=2
                             
                             laminatsiya_result1 = Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code1)[:1].get() 
                             laminatsiya_result2 = Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code2)[:1].get() 
