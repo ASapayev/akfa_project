@@ -936,9 +936,15 @@ def lenght_generate_texcarta(request,id):
                     print(row['МАТЕРИАЛ'])
                     if ((texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй !='nan') or (texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй != "")):
                         if '.' in texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй:
-                            nak =("%.3f" % (2 * (float(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)))).replace('.',',')
+                            if 'NT1' in row['КРАТКИЙ ТЕКСТ']:
+                                nak =("%.3f" % ((float(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)))).replace('.',',')
+                            else:
+                                nak =("%.3f" % (2 * (float(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)))).replace('.',',')
                         else:
-                            nak =2 * (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
+                            if 'NT1' in row['КРАТКИЙ ТЕКСТ']:
+                                nak = (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
+                            else:
+                                nak =2 * (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
                     else:
                         nak = 'nan'
                         nakleyka_nan.append(lenghtht)
