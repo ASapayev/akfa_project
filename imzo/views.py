@@ -1027,12 +1027,20 @@ def lenght_generate_texcarta(request,id):
                             df_new['LOSVN'][counter_2] ='1'
                             df_new['LOSBS'][counter_2] ='99999999'
                         elif i7 == 2:
+                            ltx1 = ''
+                            if isklyuchenie:
+                                ltx1 =BAZA['7LN']['LTXA1'][0]
+                            elif 'NT1' in row['КРАТКИЙ ТЕКСТ']:
+                                ltx1 =BAZA['7L']['LTXA1'][1]
+                            else:
+                                ltx1 =BAZA['7L']['LTXA1'][0]
+
                             df_new['ID'][counter_2]='2'
                             df_new['VORNR'][counter_2] =BAZA['7L']['VORNR'][0]
                             df_new['ARBPL'][counter_2] =BAZA['7L']['ARBPL'][0]
                             df_new['WERKS1'][counter_2] ='1101'
                             df_new['STEUS'][counter_2] ='ZK01'
-                            df_new['LTXA1'][counter_2] =BAZA['7LN']['LTXA1'][0] if isklyuchenie else BAZA['7L']['LTXA1'][0]
+                            df_new['LTXA1'][counter_2] = ltx1
                             df_new['BMSCH'][counter_2] ='' if isklyuchenie else texcartatime.ламинат_1_линия_про_во_в_сутки_буй
                             df_new['MEINH'][counter_2] ='' if isklyuchenie else BAZA['7L']['MEINH'][0]
                             df_new['VGW01'][counter_2] ='' if isklyuchenie else '24'

@@ -5527,7 +5527,7 @@ def kombinirovaniy_process(request,id):
                             df_new['TEXT1'].append(df[i][13])
                             df_new['STLAL'].append('1')
                             df_new['STLAN'].append('1')
-                            ztekst = 'Ламинация + Наклейка + Упаковка'
+                            ztekst = 'Ламинация + Упаковка'
                             df_new['ZTEXT'].append(ztekst)
                             df_new['STKTX'].append(ztekst)
                             df_new['BMENG'].append( '1000')
