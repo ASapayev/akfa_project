@@ -919,6 +919,7 @@ def lenght_generate_texcarta(request,id):
             
             sap_code = row['МАТЕРИАЛ'].split('-')[0]
             texcarta_bor = True
+            print(sap_code)
             if TexCartaTime.objects.filter(Q(компонент_1=sap_code)|Q(компонент_2=sap_code)|Q(компонент_3=sap_code)|Q(артикул=sap_code)).exists():
                 texcartatime = TexCartaTime.objects.filter(Q(компонент_1=sap_code)|Q(компонент_2=sap_code)|Q(компонент_3=sap_code)|Q(артикул=sap_code))[:1].get()
             else:
