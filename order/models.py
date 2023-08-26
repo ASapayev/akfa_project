@@ -10,14 +10,20 @@ STATUS_CHOICES =(
     (4,'DONE')
 )
 WORK_TYPE_CHOICES =(
-    (1,'SAP CODE CREATING'),
-    (2,'SAP CODE CREATING LACKS'),
-    (3,'TEXT CREATING'),
-    (4,'TEXT CREATING LACKS'),
-    (5,'NORMA'),
-    (6,'NORMA CREATING LACKS'),
-    (7,'TEXCARTA'),
-    (8,'VI')
+    (1,'ON HOLD'),
+    (2,'SAP CODE CREATING'),
+    (3,'SAP CODE CREATING LACKS'),
+    (4,'TEXT CREATING'),
+    (5,'TEXT CREATING LACKS'),
+    (6,'NORMA'),
+    (7,'NORMA CREATING LACKS'),
+    (8,'TEXCARTA'),
+    (9,'VI'),
+    (10,'DONE')
+)
+ORDER_TYPE_CHOICES =(
+    (1,'ОБЫЧНЫЙ'),
+    (2,'ТЕРМО')
 )
 class Order(models.Model):
     title = models.CharField(max_length=150)
@@ -27,10 +33,12 @@ class Order(models.Model):
     current_worker = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='on_time_worker')
     aluminiy_worker = models.ForeignKey(User,models.CASCADE,blank=True,null=True,related_name='aluminiy_work')
     alumin_wrongs = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='aluminiy_work_wrong')
+    alumin_text_wrongs = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='aluminiy_text_work_wrong')
     norma_worker = models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True,related_name='norma_work')
     norma_wrongs = models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True,related_name='norma_work_wrong')
     texcarta_worker = models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True,related_name='texcarta_work')
     vi_worker = models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True,related_name='vi_work')
-    paths = jsonfield.JSONField()
+    paths = models.JSONField(null=True,blank=True,default=dict)
+    order_type = models.SmallIntegerField(choices=ORDER_TYPE_CHOICES,default=1)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)

@@ -17,7 +17,7 @@ path('product-base',views.alu_product_base,name='alu_product_base_termo'),
 path('product-alu',views.aluminiy_productbases,name='alu_product_alu_termo'),
 path('aluminiy/gr',views.aluminiy_group,name='aluminiy_group_termo'),
 path('razlovka-termo',views.razlovkatermo_save,name='razlovka-save'),
-path('aluminiyfile/<int:id>',views.create_characteristika_force, name='cretecharacteristika'),
+path('character-force/<int:id>',views.create_characteristika_force, name='cretecharacteristika'),
 
 
 

@@ -65,7 +65,7 @@
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
-    {% if user_role == 'moderator'%}
+    {% if user_role == 'moderator' or user_role == 'user1' %}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{%url 'order' %}">
         <span class="menu-icon">
@@ -135,7 +135,7 @@
       </div>
     </li>
     {%endif%}
-    {% if user_role == 'moderator'%}
+    {% if user_role == 'moderator' or user_role == 'user1' %}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic-tex" aria-expanded="false" aria-controls="ui-basic-tex">
         <span class="menu-icon">
@@ -152,7 +152,7 @@
       </div>
     </li>
     {%endif%}
-    {% if user_role == 'moderator'%}
+    {% if user_role == 'moderator' or user_role == 'user1'%}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic-vi" aria-expanded="false" aria-controls="ui-basic-vi">
         <span class="menu-icon">
@@ -208,7 +208,7 @@
       </a>
     </li>
     {%endif%}
-    {% if user_role == 'moderator' or user_role == 'user1' %}
+    {% if user_role == 'moderator'  %}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'get_raube' %}">
         <span class="menu-icon">
@@ -228,7 +228,7 @@
       </a>
     </li>
     {%endif%}
-    {% if user_role == 'moderator'%}
+    {% if user_role == 'moderator' or user_role == 'user1'%}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'norma-delete-org' %}">
         <span class="menu-icon">
@@ -238,7 +238,7 @@
       </a>
     </li>
     {%endif%}
-    {% if user_role == 'moderator'%}
+    {% if user_role == 'moderator' or user_role == 'user1' %}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'tex-delete-org' %}">
         <span class="menu-icon">

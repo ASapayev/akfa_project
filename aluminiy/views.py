@@ -12,6 +12,7 @@ from config.settings import MEDIA_ROOT
 import numpy as np
 from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_razlovka,download_bs64
 import os
+from order.models import Order
 import random
 from aluminiytermo.utils import create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct,anodirovaka_check
 from aluminiytermo.models import CharUtilsOne,CharUtilsTwo,CharUtilsThree,Characteristika,BazaProfiley
@@ -22,6 +23,9 @@ from django.http import JsonResponse,HttpResponse,FileResponse
 from datetime import datetime
 from aluminiytermo.BAZA import ANODIROVKA_CODE
 from io import BytesIO as IO
+from accounts.models import User
+from django.urls import reverse
+from norma.models import NormaExcelFiles
 
 
 
@@ -305,19 +309,61 @@ def upload_product(request):
       }
   return render(request,'excel_form.html',context)
 
+@login_required(login_url='/accounts/login/')
 def upload_product_org(request):
-  if request.method == 'POST':
-    form = FileForm(request.POST, request.FILES)
-    if form.is_valid():
-        form.save()
-        return redirect('aluminiy_files_org')
-  else:
-      form =FileForm()
-      context ={
-        'form':form,
-        'section':'Формирование сапкода обычный'
-      }
-  return render(request,'universal/main.html',context)
+      if request.method == 'POST':
+            form = FileForm(request.POST, request.FILES)
+            if form.is_valid():
+                  title = str(form.cleaned_data['file']).split('.')[0]
+                  worker_id = request.POST.get('worker',None)
+                  new_order = form.save()
+                  if worker_id:
+                        is_1101 = request.POST.get('for1101','off')
+                        is_1201 = request.POST.get('for1201','off')
+                        is_1112 = request.POST.get('for1112','off')
+
+                        o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
+                        paths ={
+                                    'obichniy_file':f'{MEDIA_ROOT}\\{new_order.file}',
+                                    'oid':new_order.id,
+                                    'obichniy_date':o_created_at,
+                                    'is_obichniy':'yes',
+                                    'type':'Обычный',
+                                    'status_l':'on hold',
+                                    'status_raz':'on hold',
+                                    'status_zip':'on hold',
+                                    'status_norma':'on hold',
+                                    'status_text_l':'on hold',
+                                    'status_norma_lack':'on hold',
+                                    'status_texcarta':'on hold',
+                                    'is_1101':is_1101,
+                                    'is_1201':is_1201,
+                                    'is_1112':is_1112,
+
+                                }
+                         
+                        order = Order(title = title,owner=request.user,current_worker_id= worker_id,aluminiy_worker_id =worker_id,paths=paths,order_type =1)
+                        order.save()
+                  return redirect('order_detail',id=order.id)
+            else:
+                  form =FileFormTermo()
+                  workers = User.objects.filter(role = 1)
+                  
+                  context ={
+                  'form':form,
+                  'section':'Формирование сапкода термо',
+                  'workers':workers
+                  }
+                  return render(request,'universal/main.html',context)
+      else:
+            form =FileForm()
+            workers = User.objects.filter(role = 1)
+            context ={
+            'form':form,
+            'section':'Формирование сапкода обычный',
+            'workers':workers
+            }
+      return render(request,'universal/main.html',context)
 
 
 
@@ -341,13 +387,12 @@ def aluminiy_group(request):
       
       return JsonResponse({'data':umumiy})
 
-def update_char_title_function(df_title,df_t4,file_type='aluminiy'):
+def update_char_title_function(df_title,df_t4,order_id,file_type='aluminiy'):
       df = df_title
       df_extrusion = df_t4
       e_list =df_extrusion['SAP CODE E'].values.tolist()
       df =df.astype(str)
-      
-      pathzip = characteristika_created_txt_create(df,e_list,file_type)
+      pathzip = characteristika_created_txt_create(df,e_list,order_id,file_name=file_type)
 
       return pathzip
 
@@ -2372,7 +2417,8 @@ def product_add_second(request,id):
       writer.close()
       
       return redirect('upload_product')
-                  
+
+@login_required(login_url='/accounts/login/')    
 def product_add_second_org(request,id):
       file = AluFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
@@ -2385,6 +2431,9 @@ def product_add_second_org(request,id):
       hour =now.strftime("%H HOUR")
       minut =now.strftime("%M")
       
+      order_id = request.GET.get('order_id',None)
+      
+
       doesnotexist,correct = check_for_correct(df,filename='aluminiy')
       if not correct:
             context ={
@@ -2443,6 +2492,27 @@ def product_add_second_org(request,id):
             df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
             df_artikul_component.to_excel(writer,index=False,sheet_name ='artikul component')
             writer.close()
+
+            if order_id:
+                  order = Order.objects.get(id = order_id)
+                  paths = order.paths
+                  l_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+                  paths['obichniy_lack_file']= path_not_exists
+                  paths['l_created_at']= l_created_at
+                  paths['status_l']= 'on process'
+                  
+
+                  order.paths = paths
+                  order.alumin_wrongs = request.user
+                  order.current_worker = request.user
+                  order.work_type = 3
+                  order.save()
+                  context['order'] = order
+                  paths =  order.paths
+                  for key,val in paths.items():
+                        context[key] = val
+                  
+                  return render(request,'order/order_detail.html',context)
             # writer.save()
             return render(request,'utils/components.html',context)
       
@@ -2466,7 +2536,7 @@ def product_add_second_org(request,id):
             
       
       
-      df_new =pd.DataFrame()
+      df_new = pd.DataFrame()
       df_new['Название системы']=df['Название системы']
       df_new['SAP код E']=''
       df_new['Экструзия холодная резка']=''
@@ -4166,16 +4236,19 @@ def product_add_second_org(request,id):
       create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\',day)
       create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\',hour)
       
+      print('df_char_title >>>>> ',cache_for_cratkiy_text)
       df_char = create_characteristika(cache_for_cratkiy_text) 
       df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
                  
       
             
       if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}.xlsx'):
-            path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}.xlsx'
+            path_alu =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}.xlsx'
+            path_ramka_norma =f'uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}.xlsx'
       else:
             st =random.randint(0,1000)
-            path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}-{st}.xlsx'
+            path_alu =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}-{st}.xlsx'
+            path_ramka_norma =f'uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}-{st}.xlsx'
       if  len(duplicat_list)>0:     
             df_duplicates =pd.DataFrame(np.array(duplicat_list),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
       else:
@@ -4301,6 +4374,8 @@ def product_add_second_org(request,id):
                   ).save()
       exchange_value = ExchangeValues.objects.get(id=1)
       price_all_correct = True
+      # print('#*'*15)
+      # print(df_char_title)
       for key, row in df_char_title.iterrows():
             if LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
                   length_of_profile = LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина'])[:1].get()
@@ -4313,29 +4388,127 @@ def product_add_second_org(request,id):
                   price_all_correct = False
 
 
-      if price_all_correct:
-            path = update_char_title_function(df_char_title,df_extrusion,'aluminiy')
-            file =[File(file=p,filetype='obichniy') for p in path]
+
+      writer = pd.ExcelWriter(path_alu, engine='xlsxwriter')
+      df_new.to_excel(writer,index=False,sheet_name='Schotchik')
+      df_char.to_excel(writer,index=False,sheet_name='Characteristika')
+      df_char_title.to_excel(writer,index=False,sheet_name='title')
+      df_extrusion.to_excel(writer,index=False,sheet_name='T4')
+      writer.close()
+
+      del df_new['Название системы']
+      del df_new['SAP код A']
+      del df_new['Анодировка']
+      del df_new['SAP код L']
+      del df_new['Ламинация']
+      df_new['SAP код K']=''
+      df_new['K-Комбинирования']=''
+
+      for key, row in df_new.iterrows():
+            if row['SAP код Z'] !='':
+                  df_new['SAP код E'][key] = ''
+      
+      norma_file = df_new.to_excel(f'{MEDIA_ROOT}\\{path_ramka_norma}',index=False)
+
+      order_id = request.GET.get('order_id',None)
+      work_type = 1
+      if order_id:
+            work_type = Order.objects.get(id = order_id).work_type
+      
+      if price_all_correct and  work_type != 5 :
+            path = update_char_title_function(df_char_title,df_extrusion,order_id,'aluminiy')
+            files =[File(file=p,filetype='obichniy') for p in path]
+            files.append(File(file=path_alu,filetype='obichniy'))
             context ={
-                  'files':file,
+                  'files':files,
                   'section':'Формированый обычный файл'
             }
 
+            if order_id:
+                  norma_file = NormaExcelFiles(file = path_ramka_norma,type='simple')
+                  norma_file.save()
+                  file_paths =[ file.file for file in files]
+                  order = Order.objects.get(id = order_id)
+                  paths = order.paths
+                  raz_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+                  zip_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+                  paths['obichniy_razlovka_file']= file_paths
+
+                  paths['norma_formula_file'] = f'{MEDIA_ROOT}\\{path_ramka_norma}'
+                  paths['norma_link'] ='/norma/process-combinirovanniy/' + str(norma_file.id) +f'?type=simple&order_id={order_id}'
+                 
+
+                  paths['raz_created_at']= raz_created_at
+                  paths['zip_created_at']= zip_created_at
+                  paths['status_l']= 'done'
+                  paths['status_raz']= 'done'
+                  paths['status_zip']= 'done'
+                  paths['status_text_l']= 'done'
+                  paths['status_norma']= 'on process'
+                  order.paths = paths
+                  order.aluminiy_worker = request.user
+                  order.current_worker = request.user
+                  order.work_type = 6
+                  order.save()
+                  context['order'] = order
+                  paths =  order.paths
+                  for key,val in paths.items():
+                        context[key] = val
+                  return render(request,'order/order_detail.html',context)  
       else:
-
-
-            writer = pd.ExcelWriter(path, engine='xlsxwriter')
-            df_new.to_excel(writer,index=False,sheet_name='Schotchik')
-            df_char.to_excel(writer,index=False,sheet_name='Characteristika')
-            df_char_title.to_excel(writer,index=False,sheet_name='title')
-            df_extrusion.to_excel(writer,index=False,sheet_name='T4')
-            writer.close()
-
-            file =[File(file=path,filetype='obichniy')]
-            context ={
+            
+            file =[File(file = path_alu,filetype='obichniy')]
+            context = {
                   'files':file,
                   'section':'Формированый обычный файл'
             }
+            
+            if order_id:
+                  norma_file = NormaExcelFiles(file = path_ramka_norma,type='simple')
+                  norma_file.save()
+                  order = Order.objects.get( id = order_id)
+                  paths = order.paths 
+                  if work_type != 5:
+                        context2 ={
+                              'obichniy_razlovka_file':[path_alu,path_alu]
+                        }
+                        paths['obichniy_razlovka_file'] = [path_alu,path_alu]
+                  else:
+                        path_alu = order.paths['obichniy_razlovka_file']
+                        context2 ={
+                              'obichniy_razlovka_file':[path_alu,path_alu]
+                        }
+
+                  
+                  raz_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                  paths['raz_created_at']= raz_created_at
+                  
+                  paths['status_l']= 'done'
+                  paths['status_raz']= 'done'
+                  paths['status_zip']= 'on process'
+                  paths['status_text_l']= 'on process'
+                  paths['status_norma']= 'on process'
+                  paths['status_norma_lack']= 'on process'
+
+                  paths['norma_formula_file'] =  f'{MEDIA_ROOT}\\{path_ramka_norma}'
+                  paths['norma_link'] ='/norma/process-combinirovanniy/' + str(norma_file.id) +'?type=simple&order_id='+str(order_id)
+                  
+
+                  order.paths = paths
+                  order.current_worker = request.user
+                  order.work_type = 5
+                  order.save()
+                  context2['order'] = order
+                  paths =  order.paths
+                  for key,val in paths.items():
+                        context2[key] = val
+
+                  workers = User.objects.filter(role = 1,is_active =True)
+                  context2['workers'] = workers
+
+                  return render(request,'order/order_detail.html',context2)
+
+
       return render(request,'universal/generated_files.html',context)
                   
 import glob
@@ -4518,6 +4691,7 @@ def add_char_utils_two(request):
 @csrf_exempt
 def add_char_utils_one(request):
       data = request.POST.get('data',None)
+      print(data)
       if data:
             items = [CharUtilsOne(матрица =item['matritsa'],артикул =item['artikul'],высота=item['heigth'],ширина=item['width'],высота_ширина=item['heigth']+'X'+item['width'],systems=item['systems']) for item in ast.literal_eval(data)]
             CharUtilsOne.objects.bulk_create(items)

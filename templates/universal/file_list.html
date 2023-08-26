@@ -27,6 +27,7 @@
                     <th> # </th>
                     <th > Имя файла </th>
                     <th > Дата </th>
+                    <th> Исполнитель</th>
                     <th> Действие </th>
                   </tr>
                 </thead>
@@ -36,6 +37,33 @@
                             <td> {{ forloop.counter }} </td>
                             <td class="p-1"> {{file.file|split_text}} </td>
                             <td>{{file.created_at |date:"d-m-Y H:i"}} </td>
+                            <td>
+                              
+                                  <div class="d-flex justify-content-start align-items-center">
+                                    <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                                        class="text-muted small">settings</span></p>
+                                      <span class="ms-3 me-4">|</span></p>
+                                    <a href="#!">
+                                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-2.webp" alt="avatar"
+                                        class="img-fluid rounded-circle me-1" width="35">
+                                    </a>
+                                    <!-- <a href="#!">
+                                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-3.webp" alt="avatar"
+                                        class="img-fluid rounded-circle me-1" width="35">
+                                    </a>
+                                    <a href="#!">
+                                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-4.webp" alt="avatar"
+                                        class="img-fluid rounded-circle me-1" width="35">
+                                    </a>
+                                    <a href="#!">
+                                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
+                                        class="img-fluid rounded-circle me-3" width="35">
+                                    </a> -->
+                                    <!-- <button type="button" class="btn btn-outline-dark btn-sm btn-floating">
+                                      <i class="mdi mdi-account-plus"></i>
+                                    </button> -->
+                                  </div>
+                            </td>
                             <td> <a href="{{link}}{{file.id}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">{{type}}</span> алюминого файла</a> </td>
                         </tr>
                     {% endfor %}
@@ -44,37 +72,7 @@
             </div>
           </div>
         </div>
-      </div>
-      
+      </div> 
     </div>
-   
-  </div>
-  <script>
-    function myFunction(typ,file_id) {
-      console.log('salom')
-      
-      console.log(typ)
-      if(typ =='alu'){
-        text ='Aluminiyni generatsiya qilyapsizmi? Ha bolsa tugmani bosing'
-        loc = 'len-gen-org/'+file_id+'?type=alu'
-    }else{
-        loc = 'len-gen-org/'+file_id+'?type=pvc'
-        text ='PVCni generatsiya qilyapsizmi? Ha bolsa tugmani bosing'
-  
-      }
-      Swal.fire({
-        showDenyButton: true,
-        confirmButtonText: text,
-        denyButtonText: `Yo'q`,
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire('Ishga tushdi...', '', 'success')
-          window.location.href=loc
-        } else if (result.isDenied) {
-          Swal.fire('Chuchvara otmen!!!', '', 'info')
-        }
-      })
-    }
-  </script>
+</div>
 {% endblock %}

@@ -64,5 +64,10 @@
     <script src="{% static 'assets/js/settings.js'%}"></script>
     <script src="{% static 'assets/js/todolist.js'%}"></script>
     <!-- endinject -->
+    <script>
+      websocket = new WebSocket("ws://localhost:8888/");
+      websocket.onopen = (event) => websocket.send("<your token>");
+      websocket.onmessage = (event) => console.log(event.data);
+    </script>
   </body>
 </html>

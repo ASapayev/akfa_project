@@ -13,6 +13,7 @@ from django.db.models import Q
 from norma.models import Accessuar,CheckNormaBase
 from django.contrib import messages
 import math
+from order.models import Order
     
 # Create your views here.
 
@@ -846,6 +847,7 @@ def lenght_generate_texcarta(request,id):
     file = ExcelFilesImzo.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
     df =pd.read_excel(file_path)
+    
     '''Shablon dlya zagruzki [ "МАТЕРИАЛ", "КРАТКИЙ ТЕКСТ", "UMREZ", "UMREN", "USR00", "USR01" ]   sheetname ="BAZA" '''
     df['Дупликат']='No'
     df =df.astype(str)
@@ -1585,6 +1587,22 @@ def lenght_generate_texcarta(request,id):
         'section':'Техкарта',
 
     }
+
+    order_id =  request.GET.get('order_id',None)
+
+    if order_id:
+        context2 ={}
+        order = Order.objects.get(id = order_id)
+        paths = order.paths 
+        paths['status_texcarta']= 'done'
+        paths['texcarta_file'] = path2
+        order.work_type = 10
+        order.save()
+        context2['order'] = order
+        paths =  order.paths
+        for key,val in paths.items():
+            context2[key] = val
+        return render(request,'order/order_detail.html',context2)
 
     return render(request,'universal/generated_files.html',context)
 

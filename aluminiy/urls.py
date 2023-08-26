@@ -29,5 +29,6 @@ path('show-simple-sap-list',views.show_list_simple_sapcodes,name='show_simple_sa
 path('delete-sapcode/<int:id>',views.delete_sap_code, name='delete_sapkode'),
 path('show-razlovki',views.show_razlovki,name='show_razlovki'),
 path('show-termo-razlovki',views.show_razlovki_termo,name='show_razlovki_termo'),
-path('download-razlovki',views.download_all_razlovki,name='download_razlovki_all')
+path('download-razlovki',views.download_all_razlovki,name='download_razlovki_all'),
+
 ]

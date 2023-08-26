@@ -17,7 +17,7 @@ urlpatterns = [
     path('find-chaarcteristics',views.find_characteristics,name='find-characteristics'),
     
     path('file-upload-termo-org',views.file_upload_termo_org,name='norma_file_upload_termo_org'),
-    path('file-upload-org',views.file_upload_org,name='norma_file_upload_org'),
+    path('file-upload-org-norma',views.file_upload_org,name='norma_file_upload_org'),
     path('vifile-upload-org',views.file_vi_upload_org,name='vi_file_upload_org'),
     path('file-list-org',views.file_list_org,name='norma_file_list_org'),
     path('file-list-termo-org',views.file_list_termo_org,name='norma_file_list_termo_org'),
@@ -34,6 +34,8 @@ urlpatterns = [
     path('vi-file-list',views.vi_file,name='vi_file_list'),
     path('vi-generate/<int:id>',views.vi_generate,name='vi_generate'),
     path('downloading-files',views.download, name='download_vi'),
+    path('downloading-zip-file',views.download_zip_file, name='download_zip_file'),
+
     
 ]
 
