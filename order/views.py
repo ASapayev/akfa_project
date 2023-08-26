@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from .models import Order
 from django.contrib.auth.decorators import login_required
@@ -38,3 +38,12 @@ def order_detail(request,id):
     for key,val in paths.items():
         context[key] = val
     return render(request,'order/order_detail.html',context)
+
+
+@login_required(login_url='/accounts/login/')
+def order_delete(request,id):
+    order = Order.objects.get(id = id)
+    order.delete()
+    return redirect('order')
+
+

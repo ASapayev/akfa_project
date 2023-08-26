@@ -121,6 +121,9 @@
                       {%else%}
                       <a class="btn btn-success"  href="{% url 'order_detail' order.id %}"><i class="mdi mdi-eye"></i>Detail</a>
                       {%endif%}
+                      {%if order.owner == request.user %}
+                      <a class="btn btn-danger"  href="{%url 'order_delete' order.id %}"><i class="mdi mdi-delete-forever"></i>Delete</a>
+                      {%endif%}
                     </div>
                   </td>
                 </tr>
