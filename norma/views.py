@@ -18,6 +18,7 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 import mimetypes
+import ast
 
 
 
@@ -218,6 +219,9 @@ def download(request):
 
 def download_zip_file(request):
     file_path = request.GET.get('file_path',None)
+    if file_path and '[' in file_path:
+        file_pathh =ast.literal_eval(file_path)
+        file_path =file_pathh[0]
     if file_path:
         filename = 'GENERATED.zip'
 
