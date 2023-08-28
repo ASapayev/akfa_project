@@ -39,7 +39,7 @@
                       <td>
                         <div class="form-check form-check-muted m-0">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input">
+                            <input type="checkbox" class="form-check-input"  id="selected_checbox"  value="{{profile.id}}">
                           </label>
                         </div>
                       </td>
@@ -49,7 +49,7 @@
                       <td>{{profile.kratkiy_tekst_materiala}} </td>
                       <td> {{profile.created_at |date:"d-m-Y H:i"}} </td>
                       <td>
-                        <div class="badge badge-outline-danger" style="cursor: pointer;" onclick="delete_sapcode(this,'{{profile.id}}')">Delete</div>
+                        <div class="badge badge-outline-danger" style="cursor: pointer;" onclick="delete_sapcode('{{profile.id}}')" id ="delete_btn">Delete</div>
                       </td>
                     </tr>
                     {%endfor%}
@@ -58,12 +58,14 @@
               </div>
             </div>
           </div>
+          <div class="badge btn-info m-2" style="display: none;" onclick="bulk_delete()" id="btn_del">Delete</div>
         </div>
       </div>
       
     </div>
    
   </div>
+  
   <div class="container">
     <div class="d-flex justify-content-between">
         <div class="pagination p-2">
@@ -108,10 +110,56 @@
 <script>
 
 
+var items = document.querySelectorAll('#selected_checbox')
+var btn_del = document.getElementById('btn_del')
+
+for (let i = 0; i < items.length; i++) {
+  items[i].addEventListener('click', function(elem) {
+    var delete_btns = document.querySelectorAll('#delete_btn')
+    for (let j = 0; j < delete_btns.length; j++) {
+      delete_btns[j].style.display = "none";
+    }
+    btn_del.style.display ='block';
+  });
+}
 
 
 
-function delete_sapcode(elem,id){
+function bulk_delete(ids){
+  var selected_chek = document.querySelectorAll('#selected_checbox:checked');
+  var ids = []
+  for (let i = 0; i < selected_chek.length; i++) {
+    ids.push(selected_chek[i].value)
+    // console.log(selected_chek[i].value);
+  }
+  
+  Swal.fire({
+        showDenyButton: true,
+        confirmButtonText: 'SAP codelar o\'chirilsinmi',
+        denyButtonText: `Yo'q`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var url ="{% url 'bulk_delete_sapkode' %}";
+          console.log(ids);
+          $.ajax({
+                method:'POST',
+                url: url,
+                csrfmiddlewaretoken:'{% csrf_token %}',
+                data:{'type':'{{type}}','ids':String(ids)}
+            }).done(function() {
+              for (let i = 0; i < selected_chek.length; i++) {
+                remove_me_all(selected_chek[i])
+              }
+            });
+
+        } else if (result.isDenied) {
+          Swal.fire('Chuchvara otmen!!!', 'ok', 'info')
+        }
+      })
+}
+
+
+function delete_sapcode(id){
     
     Swal.fire({
         showDenyButton: true,
@@ -138,6 +186,10 @@ function delete_sapcode(elem,id){
 
   function remove_me(elem){
     elem.parentElement.parentElement.remove()
+  }
+ 
+  function remove_me_all(elem){
+    elem.parentElement.parentElement.parentElement.parentElement.remove()
   }
  
 </script>

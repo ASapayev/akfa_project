@@ -4875,3 +4875,41 @@ def delete_sap_code(request,id):
             return JsonResponse({'msg':True})
       else:
             return JsonResponse({'msg':False})
+      
+@csrf_exempt
+def sap_code_bulk_delete(request):
+      if request.method =='POST':
+            file_type = request.POST.get('type',None)
+            ids = request.POST.get('ids',None)
+
+            if ids:
+                  ids = ids.split(',')
+                  if file_type =='simple':
+                        for id in ids:
+                              sapcode = AluminiyProduct.objects.get(id=id)
+                              if Characteristika.objects.filter(sap_code=sapcode.material).exists():
+                                    character =Characteristika.objects.filter(sap_code=sapcode.material).order_by('-created_at')[:1].get()
+                                    character.delete()
+                              if '-7' in sapcode.material:
+                                    if RazlovkaObichniy.objects.filter(sap_code7 = sapcode.material).exists():
+                                          RazlovkaObichniy.objects.get(sap_code7 = sapcode.material).delete()
+                              sapcode.delete()
+                              
+                  else:
+                        for id in ids:
+                              sapcode = AluminiyProductTermo.objects.get(id=id)
+                              if Characteristika.objects.filter(sap_code=sapcode.material).exists():
+                                    character =Characteristika.objects.filter(sap_code=sapcode.material).order_by('-created_at')[:1].get()
+                                    character.delete()
+
+                              if '-7' in sapcode.material:
+                                    if RazlovkaTermo.objects.filter(sap_code7 = sapcode.material).exists():
+                                          termo =RazlovkaTermo.objects.get(sap_code7 = sapcode.material)
+                                          components =RazlovkaTermo.objects.filter(parent_id =termo.id)
+                                          components.delete()
+                                          termo.delete()
+                              sapcode.delete()
+
+            return JsonResponse({'msg':True})
+      else:
+            return JsonResponse({'msg':False})
