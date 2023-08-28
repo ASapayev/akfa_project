@@ -6155,7 +6155,7 @@ def kombinirovaniy_process(request,id):
                             df_new['MEINS'].append( ("%.3f" % (float(alum_teks.бумага_расход_упоковочной_ленты_на_1000_штук_кг))).replace('.',','))
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
-                            df_new['LGORT'].append('PS09')
+                            df_new['LGORT'].append('PS11')
                     
                 older_process['sapcode'] =df[i][12]
                 older_process['kratkiy'] =df[i][13]
@@ -7509,7 +7509,7 @@ def kombinirovaniy_process(request,id):
                             df_new_duplicate['MEINS'].append( ("%.3f" % (float(alum_teks.бумага_расход_упоковочной_ленты_на_1000_штук_кг))).replace('.',','))
                             df_new_duplicate['DATUV'].append('')
                             df_new_duplicate['PUSTOY'].append('')
-                            df_new_duplicate['LGORT'].append('PS09')
+                            df_new_duplicate['LGORT'].append('PS11')
                     
                 older_process['sapcode'] =df[i][12]
                 older_process['kratkiy'] =df[i][13]
