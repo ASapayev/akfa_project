@@ -4881,7 +4881,6 @@ def sap_code_bulk_delete(request):
       if request.method =='POST':
             file_type = request.POST.get('type',None)
             ids = request.POST.get('ids',None)
-
             if ids:
                   ids = ids.split(',')
                   if file_type =='simple':

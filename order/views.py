@@ -47,3 +47,11 @@ def order_delete(request,id):
     return redirect('order')
 
 
+@login_required(login_url='/accounts/login/')
+def status_change_to_done(request,id):
+    order = Order.objects.get(id = id)
+    order.work_type =10
+    order.save()
+    return redirect('order')
+
+
