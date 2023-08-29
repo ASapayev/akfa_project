@@ -5312,6 +5312,7 @@ def product_add_second_org(request,id):
       for key, row in df_new.iterrows():
             if row['SAP код Z'] !='':
                   df_new['SAP код E'][key] = ''
+                  df_new['Экструзия холодная резка'][key] = ''
 
       norma_file = df_new.to_excel(f'{MEDIA_ROOT}\\{path_ramka_norma}',index=False)
       
