@@ -231,7 +231,7 @@ def download_zip_file(request):
         mime_type, _ = mimetypes.guess_type(file_path)
         response = HttpResponse(fl, content_type=mime_type)
         # response.add_header('Content-Disposition', 'attachment', filename=filename)
-        response['Content-Disposition'] = "attachment;" + "filename="+ filename
+        response['Content-Disposition'] = 'attachment; filename= "{}"'.format(filename)
         return response
     return response
         
@@ -1053,7 +1053,7 @@ def kombinirovaniy_process(request,id):
                         alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]))
                     alum_teks = alum_teks_all[:1].get()
                     if ((alum_teks.qora_алю_сплав_6064_sap_code !='0')):
-                        if not AlyuminniysilindrEkstruziya1.objects.filter(qora_алю_сплав_6064_sap_code =alum_teks.qora_алю_сплав_6064_sap_code).exists():
+                        if not AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code).exists():
                             isklyucheniye_ids.append(k)
                             if [length[0],alum_teks.qora_алю_сплав_6064_sap_code] not in alumniy_silindr:
                                 alumniy_silindr.append([length[0],alum_teks.qora_алю_сплав_6064_sap_code])
