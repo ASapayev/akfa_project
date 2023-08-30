@@ -223,7 +223,8 @@ def download_zip_file(request):
         file_pathh =ast.literal_eval(file_path)
         file_path =file_pathh[0]
     if file_path:
-        filename = 'GENERATED.zip'
+        split_tup = os.path.splitext(file_path)
+        filename = split_tup[0] + split_tup[1]
 
         fl = open(file_path,'rb')
         mime_type, _ = mimetypes.guess_type(file_path)
