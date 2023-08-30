@@ -231,7 +231,7 @@ def download_zip_file(request):
         mime_type, _ = mimetypes.guess_type(file_path)
         response = HttpResponse(fl, content_type=mime_type)
         # response.add_header('Content-Disposition', 'attachment', filename=filename)
-        response['Content-Disposition'] = f"attachment; filename={filename};"# % str(filename)
+        response['Content-Disposition'] = "attachment;" + "filename="+ filename
         return response
     return response
         
