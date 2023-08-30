@@ -474,10 +474,7 @@ def add_norm_post(request):
                 расход_скотча_ширина_скотча_мм = str(item[98]).strip(),
                 рас_скотча_рас_скотча_на_1000_штук_шт = str(item[99]).strip(),
                 упаковка_колво_профилей_в_1_пачке = str(item[100]).strip(),
-                ala7_oddiy_ala8_qora_алю_сплав_6064 = str(item[101]).strip(),
-                алю_сплав_биллетов_102_178 =str(item[102]).strip(),
-                ala7_oddiy_ala8_qora_алю_сплав_6064_2 = str(item[103]).strip(),
-                алю_сплав_биллетов_102_178_2 =str(item[104]).strip()
+                qora_алю_сплав_6064_sap_code = str(item[101]).strip()
             )
         else:
             elem =[item[1],item[2],item[3],item[4]]
@@ -703,10 +700,7 @@ def norma_excel(request):
         рас_скотча_рас_скотча_на_1000_штук_шт = df["Расход скотча __ расход скотча на 1000 штук __Шт"][i].replace('.0','') if df["Расход скотча __ расход скотча на 1000 штук __Шт"][i][-2:]=='.0' else df["Расход скотча __ расход скотча на 1000 штук __Шт"][i]
         упаковка_колво_профилей_в_1_пачке = df["Упаковка __ Кол-во профилей в 1- пачке"][i].replace('.0','') if df["Упаковка __ Кол-во профилей в 1- пачке"][i][-2:]=='.0' else df["Упаковка __ Кол-во профилей в 1- пачке"][i]
         бумага_расход_упоковочной_ленты_на_1000_штук_кг = df["Крафт бумага_расход упоковочной ленты на 1000 штук__кг"][i].replace('.0','') if df["Крафт бумага_расход упоковочной ленты на 1000 штук__кг"][i][-2:]=='.0' else df["Крафт бумага_расход упоковочной ленты на 1000 штук__кг"][i]
-        ala7_oddiy_ala8_qora_алю_сплав_6064 = df["AL-A7 (Oddiy) __ AL-A8 (Qora) Алюминиевый сплав 6064"][i].replace('.0','') if df["AL-A7 (Oddiy) __ AL-A8 (Qora) Алюминиевый сплав 6064"][i][-2:]=='.0' else df["AL-A7 (Oddiy) __ AL-A8 (Qora) Алюминиевый сплав 6064"][i]
-        алю_сплав_биллетов_102_178 =df['Алюминиевый сплав биллетов Ø102 Ø178'][i].replace('.0','') if df['Алюминиевый сплав биллетов Ø102 Ø178'][i][-2:]=='.0' else df['Алюминиевый сплав биллетов Ø102 Ø178'][i]
-        ala7_oddiy_ala8_qora_алю_сплав_6064_2 = df["AL-A7 (Oddiy) __ AL-A8 (Qora) Алюминиевый сплав 6064_2"][i].replace('.0','') if df["AL-A7 (Oddiy) __ AL-A8 (Qora) Алюминиевый сплав 6064_2"][i][-2:]=='.0' else df["AL-A7 (Oddiy) __ AL-A8 (Qora) Алюминиевый сплав 6064_2"][i]
-        алю_сплав_биллетов_102_178_2 =df['Алюминиевый сплав биллетов Ø102 Ø178_2'][i].replace('.0','') if df['Алюминиевый сплав биллетов Ø102 Ø178_2'][i][-2:]=='.0' else df['Алюминиевый сплав биллетов Ø102 Ø178_2'][i]
+        qora_алю_сплав_6064_sap_code = df["AL-A7 (Oddiy) __ AL-A8 (Qora) Алюминиевый сплав 6064"][i].replace('.0','') if df["AL-A7 (Oddiy) __ AL-A8 (Qora) Алюминиевый сплав 6064"][i][-2:]=='.0' else df["AL-A7 (Oddiy) __ AL-A8 (Qora) Алюминиевый сплав 6064"][i]
         алюминиевый_сплав_6063_при_этом_балвашка =df['Алюминиевый сплав 6063 __ при этом __балвашка'][i].replace('.0','') if df['Алюминиевый сплав 6063 __ при этом __балвашка'][i][-2:]=='.0' else df['Алюминиевый сплав 6063 __ при этом __балвашка'][i]
         
         Norma(
@@ -811,10 +805,7 @@ def norma_excel(request):
         расход_скотча_ширина_скотча_мм =расход_скотча_ширина_скотча_мм,  
         рас_скотча_рас_скотча_на_1000_штук_шт =рас_скотча_рас_скотча_на_1000_штук_шт,  
         упаковка_колво_профилей_в_1_пачке =упаковка_колво_профилей_в_1_пачке,  
-        ala7_oddiy_ala8_qora_алю_сплав_6064 =ala7_oddiy_ala8_qora_алю_сплав_6064,
-        алю_сплав_биллетов_102_178=алю_сплав_биллетов_102_178,
-        ala7_oddiy_ala8_qora_алю_сплав_6064_2 =ala7_oddiy_ala8_qora_алю_сплав_6064_2,
-        алю_сплав_биллетов_102_178_2=алю_сплав_биллетов_102_178_2,
+        qora_алю_сплав_6064_sap_code = qora_алю_сплав_6064_sap_code,
         бумага_расход_упоковочной_ленты_на_1000_штук_кг = бумага_расход_упоковочной_ленты_на_1000_штук_кг,
         алюминиевый_сплав_6063_при_этом_балвашка = алюминиевый_сплав_6063_при_этом_балвашка
         ).save()  
@@ -1058,46 +1049,22 @@ def kombinirovaniy_process(request,id):
                     else:
                         alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]))
                     alum_teks = alum_teks_all[:1].get()
-                    if (('178' in alum_teks.алю_сплав_биллетов_102_178) and (alum_teks.алю_сплав_биллетов_102_178 !='0')):
-                        if not AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178').exists():
+                    if ((alum_teks.qora_алю_сплав_6064_sap_code !='0')):
+                        if not AlyuminniysilindrEkstruziya1.objects.filter(qora_алю_сплав_6064_sap_code =alum_teks.qora_алю_сплав_6064_sap_code).exists():
                             isklyucheniye_ids.append(k)
-                            if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064] not in alumniy_silindr:
-                                alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064])
-                    elif (('102' in alum_teks.алю_сплав_биллетов_102_178) and (alum_teks.алю_сплав_биллетов_102_178 !='0')):
-                        if not AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='102').exists():
-                            isklyucheniye_ids.append(k)
-                            if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064] not in alumniy_silindr:
-                                alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064])
-
-                    elif alum_teks.алю_сплав_биллетов_102_178 =='0':
+                            if [length[0],alum_teks.qora_алю_сплав_6064_sap_code] not in alumniy_silindr:
+                                alumniy_silindr.append([length[0],alum_teks.qora_алю_сплав_6064_sap_code])
+                    
+                    elif alum_teks.qora_алю_сплав_6064_sap_code == '0' :
                         isklyucheniye_ids.append(k)
-                        norma.append([length[0],artikul_org,'','','','','','','','','Xato 0','Normada ala7_oddiy_ala8_qora_алю_сплав_6064 0 ga teng',['#12a4d9','#12a4d9','white','white','white','white','white']])
+                        norma.append([length[0],artikul_org,'','','','','','','','','Xato 0','Normada qora_алю_сплав_6064_sap_code 0 ga teng',['#12a4d9','#12a4d9','white','white','white','white','white']])
                     else:
-                        if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064] not in alumniy_silindr:
+                        if [length[0],alum_teks.qora_алю_сплав_6064_sap_code] not in alumniy_silindr:
                             isklyucheniye_ids.append(k)
-                            alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064])
+                            alumniy_silindr.append([length[0],alum_teks.qora_алю_сплав_6064_sap_code])
 
 
-                    if length[0] in zakalka_iskyuchenie6064:
-                        if (('178' in alum_teks.алю_сплав_биллетов_102_178_2) and (alum_teks.алю_сплав_биллетов_102_178_2 !='0')):
-                            if not AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2,название__icontains='178').exists():
-                                isklyucheniye_ids.append(k)
-                                if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2] not in alumniy_silindr:
-                                    alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2])
-                        elif (('102' in alum_teks.алю_сплав_биллетов_102_178_2) and (alum_teks.алю_сплав_биллетов_102_178_2 !='0')):
-                            if not AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2,название__icontains='102').exists():
-                                isklyucheniye_ids.append(k)
-                                if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2] not in alumniy_silindr:
-                                    alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2])
-                        elif alum_teks.алю_сплав_биллетов_102_178_2 =='0':
-                            isklyucheniye_ids.append(k)
-                            norma.append([length[0],artikul_org,'','','','','','','','','Xato 0','Normada ala7_oddiy_ala8_qora_алю_сплав_6064__2 0 ga teng',['#12a4d9','#12a4d9','white','white','white','white','white']])
-                        else:
-                            if [length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2] not in alumniy_silindr:
-                                isklyucheniye_ids.append(k)
-                                alumniy_silindr.append([length[0],alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2])
-
-                
+                    
                 if (('-S' in t) and (length[0] not in does_not_exist_norm)) :
                     if artikul_org!='':                
                         alum_teks_all = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0]))
@@ -1659,10 +1626,9 @@ def kombinirovaniy_process(request,id):
                     length = df[i][0].split('-')[0]
                     alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
                     
-                    if '178' in alum_teks.алю_сплав_биллетов_102_178:
-                        aliminisi = AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178')[:1].get()
-                    elif '102' in alum_teks.алю_сплав_биллетов_102_178:
-                        aliminisi = AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='102')[:1].get()
+                   
+                    aliminisi = AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
+                   
                     
                     mein_percent =((get_legth(df[i][1]))/float(alum_teks.длина_профиля_м))
                     df_new['STKTX'].append(aliminisi.название)
@@ -1754,10 +1720,8 @@ def kombinirovaniy_process(request,id):
                     length = df[i][0].split('-')[0]
                     alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length))[:1].get()
                     
-                    if '178' in alum_teks.алю_сплав_биллетов_102_178:
-                        aliminisi = AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178')[:1].get()
-                    elif '102' in alum_teks.алю_сплав_биллетов_102_178:
-                        aliminisi = AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='102')[:1].get()
+                    
+                    aliminisi = AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
                     
                     mein_percent =((get_legth(df[i][1]))/float(alum_teks.длина_профиля_м))
                     df_new_duplicate['STKTX'].append(aliminisi.название)
@@ -1862,10 +1826,8 @@ def kombinirovaniy_process(request,id):
                         
                         alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                         
-                        if '178' in alum_teks.алю_сплав_биллетов_102_178:
-                            aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178')[:1].get()
-                        elif '102' in alum_teks.алю_сплав_биллетов_102_178:
-                            aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='102')[:1].get()
+                        
+                        aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
                         
                         
                         mein_percent =((get_legth(df[i][3]))/float(alum_teks.длина_профиля_м))
@@ -1952,7 +1914,7 @@ def kombinirovaniy_process(request,id):
                         
                         alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                             
-                        aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='102')[:1].get()
+                        aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
                         
                         mein_percent =((get_legth(df[i][3]))/float(alum_teks.длина_профиля_м))
                         df_new['STKTX'].append(aliminisi.название)
@@ -2036,7 +1998,7 @@ def kombinirovaniy_process(request,id):
                         
                         alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                             
-                        aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178')[:1].get()
+                        aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
                         
                         mein_percent =((get_legth(df[i][3]))/float(alum_teks.длина_профиля_м))
                         df_new['STKTX'].append(aliminisi.название)
@@ -2123,11 +2085,8 @@ def kombinirovaniy_process(request,id):
                             
                             alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                             
-                            if '178' in alum_teks.алю_сплав_биллетов_102_178_2:
-                                aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2,название__icontains='178')[:1].get()
-                            elif '102' in alum_teks.алю_сплав_биллетов_102_178_2:
-                                aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2,название__icontains='102')[:1].get()
                             
+                            aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
                             
 
 
@@ -2216,7 +2175,7 @@ def kombinirovaniy_process(request,id):
                             
                             alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                                 
-                            aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2,название__icontains='102')[:1].get()
+                            aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
                             
                             mein_percent =((get_legth(df[i][3]))/float(alum_teks.длина_профиля_м))
                             df_new['STKTX'].append(aliminisi.название)
@@ -2300,7 +2259,7 @@ def kombinirovaniy_process(request,id):
                             
                             alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                                 
-                            aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064_2,название__icontains='178')[:1].get()
+                            aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
                             
                             mein_percent =((get_legth(df[i][3]))/float(alum_teks.длина_профиля_м))
                             df_new['STKTX'].append(aliminisi.название)
@@ -2390,10 +2349,8 @@ def kombinirovaniy_process(request,id):
                     
                     alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                     
-                    if '178' in alum_teks.алю_сплав_биллетов_102_178:
-                        aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='178')[:1].get()
-                    elif '102' in alum_teks.алю_сплав_биллетов_102_178:
-                        aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(тип =alum_teks.ala7_oddiy_ala8_qora_алю_сплав_6064,название__icontains='102')[:1].get()
+                   
+                    aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
                     
                     
                     mein_percent =((get_legth(df[i][3]))/float(alum_teks.длина_профиля_м))

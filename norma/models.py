@@ -119,10 +119,7 @@ class Norma(models.Model):
     расход_скотча_ширина_скотча_мм = models.CharField(max_length = 255,blank=True,null=True)
     рас_скотча_рас_скотча_на_1000_штук_шт = models.CharField(max_length = 255,blank=True,null=True)
     упаковка_колво_профилей_в_1_пачке = models.CharField(max_length = 255,blank=True,null=True)
-    ala7_oddiy_ala8_qora_алю_сплав_6064 = models.CharField(max_length = 255,blank=True,null=True)
-    алю_сплав_биллетов_102_178 =models.CharField(max_length = 255,blank=True,null=True)
-    ala7_oddiy_ala8_qora_алю_сплав_6064_2 = models.CharField(max_length = 255,blank=True,null=True)
-    алю_сплав_биллетов_102_178_2 =models.CharField(max_length = 255,blank=True,null=True)
+    qora_алю_сплав_6064_sap_code = models.CharField(max_length = 255,blank=True,null=True)
     бумага_расход_упоковочной_ленты_на_1000_штук_кг =models.CharField(max_length = 255,blank=True,null=True)
     алюминиевый_сплав_6063_при_этом_балвашка = models.CharField(max_length = 255,blank=True,null=True)
     
