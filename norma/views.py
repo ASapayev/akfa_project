@@ -232,7 +232,7 @@ def download_zip_file(request):
         fl = open(file_path,'rb')
         mime_type, _ = mimetypes.guess_type(file_path)
         response = HttpResponse(fl, content_type=mime_type)
-        response['Content-Disposition'] = "attachment; filename=%s" % filename
+        response['Content-Disposition'] = "attachment; filename=%s" % str(filename)
         return response
     return response
         
