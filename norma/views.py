@@ -20,7 +20,7 @@ from django.core.paginator import Paginator
 import mimetypes
 import ast
 from django.utils.text import slugify
-
+from pathlib import Path 
 
 def vi_generate(request,id):
     file = ViFiles.objects.get(id=id).file
@@ -223,15 +223,15 @@ def download_zip_file(request):
         file_pathh =ast.literal_eval(file_path)
         file_path =file_pathh[0]
     if file_path:
-        filename = os.path.basename(file_path)
-        # filename = filename_n.replace(' ','-')
+        # filename = os.path.splitext(file_path)[0]
+        filename = Path(file_path).name
         print(filename,'*'*70)
 
         fl = open(file_path,'rb')
         mime_type, _ = mimetypes.guess_type(file_path)
         response = HttpResponse(fl, content_type=mime_type)
         # response.add_header('Content-Disposition', 'attachment', filename=filename)
-        response['Content-Disposition'] = f'attachment; filename={slugify(filename)}'
+        response['Content-Disposition'] = f'attachment; filename={slugify(filename)}.zip'
         return response
     return response
         
