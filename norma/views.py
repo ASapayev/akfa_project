@@ -223,9 +223,8 @@ def download_zip_file(request):
         file_pathh =ast.literal_eval(file_path)
         file_path =file_pathh[0]
     if file_path:
-        # filename = os.path.splitext(file_path)[0]
         filename = Path(file_path).name
-        print(filename,'*'*70)
+        
 
         fl = open(file_path,'rb')
         mime_type, _ = mimetypes.guess_type(file_path)
