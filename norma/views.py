@@ -19,6 +19,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 import mimetypes
 import ast
+from pathlib import Path
 
 
 
@@ -224,7 +225,8 @@ def download_zip_file(request):
         file_path =file_pathh[0]
     if file_path:
         split_tup = os.path.splitext(file_path)
-        filename = split_tup[0] + split_tup[1]
+        ff = Path(file_path).stem
+        filename = ff + split_tup[1]
         print(filename,'*'*70)
 
         fl = open(file_path,'rb')
