@@ -224,9 +224,9 @@ def download_zip_file(request):
         file_pathh =ast.literal_eval(file_path)
         file_path =file_pathh[0]
     if file_path:
-        split_tup = os.path.splitext(file_path)
-        ff = Path(file_path).stem
-        filename = ff + split_tup[1]
+        # split_tup = os.path.splitext(file_path)
+        # ff = Path(file_path).stem
+        filename = os.path.basename(file_path)
         print(filename,'*'*70)
 
         fl = open(file_path,'rb')
