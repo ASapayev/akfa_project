@@ -125,7 +125,7 @@
                       {%else%}
                       <a class="btn btn-success"  href="{% url 'order_detail' order.id %}"><i class="mdi mdi-eye"></i>Detail</a>
                       {%endif%}
-                      {%if order.owner == request.user %}
+                      {%if order.owner == request.user or request.user.is_superadmin %}
                       <a class="btn btn-warning"  href="{%url 'status_change_to_done' order.id %}"><i class="mdi mdi-check-all text-success"></i>DONE</a>
                       <a class="btn btn-danger"  href="{%url 'order_delete' order.id %}"><i class="mdi mdi-delete-forever"></i>Delete</a>
                       {%endif%}
