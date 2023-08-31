@@ -32,6 +32,26 @@ class TexCartaTime(models.Model):
     термо_1_линия_про_во_в_сутки_буй = models.CharField(max_length = 255,blank=True,null=True)
     наклейка_упаковка_1_линия_про_во_в_сутки_буй = models.CharField(max_length = 255,blank=True,null=True)
     ламинат_1_линия_про_во_в_сутки_буй = models.CharField(max_length = 255,blank=True,null=True)
+    
+    ekstruziya = models.CharField(max_length = 255,blank=True,null=True)
+    pila = models.CharField(max_length = 255,blank=True,null=True)
+    strayenie = models.CharField(max_length = 255,blank=True,null=True)
+    skm_pokras = models.CharField(max_length = 255,blank=True,null=True)
+    sat_pokras = models.CharField(max_length = 255,blank=True,null=True)
+    gr_pokras = models.CharField(max_length = 255,blank=True,null=True)
+    skm_xim = models.CharField(max_length = 255,blank=True,null=True)
+    sat_xim = models.CharField(max_length = 255,blank=True,null=True)
+    gr_xim = models.CharField(max_length = 255,blank=True,null=True)
+    ruchnoy_pokraska = models.CharField(max_length = 255,blank=True,null=True)
+    sublimat = models.CharField(max_length = 255,blank=True,null=True)
+    nakleyka = models.CharField(max_length = 255,blank=True,null=True)
+    kombinirovan = models.CharField(max_length = 255,blank=True,null=True)
+    upakovka = models.CharField(max_length = 255,blank=True,null=True)
+    lam_nak_upakovka = models.CharField(max_length = 255,blank=True,null=True)
+    kom_upakovka = models.CharField(max_length = 255,blank=True,null=True)
+
+
+
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
     

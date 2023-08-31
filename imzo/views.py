@@ -89,6 +89,22 @@ def texcartaupload(request):
         термо_1_линия_про_во_в_сутки_буй = df["термо_1_линия_про_во_в_сутки_буй"][i].replace('.0','') if df["термо_1_линия_про_во_в_сутки_буй"][i][-2:]=='.0' else df["термо_1_линия_про_во_в_сутки_буй"][i]
         наклейка_упаковка_1_линия_про_во_в_сутки_буй = df["наклейка_упаковка_1_линия_про_во_в_сутки_буй"][i].replace('.0','') if df["наклейка_упаковка_1_линия_про_во_в_сутки_буй"][i][-2:]=='.0' else df["наклейка_упаковка_1_линия_про_во_в_сутки_буй"][i]
         ламинат_1_линия_про_во_в_сутки_буй = df["ламинат_1_линия_про_во_в_сутки_буй"][i].replace('.0','') if df["ламинат_1_линия_про_во_в_сутки_буй"][i][-2:]=='.0' else df["ламинат_1_линия_про_во_в_сутки_буй"][i]
+        ekstruziya = df["ekstruziya"][i].replace('.0','') if df["ekstruziya"][i][-2:]=='.0' else df["ekstruziya"][i]
+        pila = df["pila"][i].replace('.0','') if df["pila"][i][-2:]=='.0' else df["pila"][i]
+        strayenie = df["strayenie"][i].replace('.0','') if df["strayenie"][i][-2:]=='.0' else df["strayenie"][i]
+        skm_pokras = df["skm_pokras"][i].replace('.0','') if df["skm_pokras"][i][-2:]=='.0' else df["skm_pokras"][i]
+        sat_pokras = df["sat_pokras"][i].replace('.0','') if df["sat_pokras"][i][-2:]=='.0' else df["sat_pokras"][i]
+        gr_pokras = df["gr_pokras"][i].replace('.0','') if df["gr_pokras"][i][-2:]=='.0' else df["gr_pokras"][i]
+        skm_xim = df["skm_xim"][i].replace('.0','') if df["skm_xim"][i][-2:]=='.0' else df["skm_xim"][i]
+        sat_xim = df["sat_xim"][i].replace('.0','') if df["sat_xim"][i][-2:]=='.0' else df["sat_xim"][i]
+        gr_xim = df["gr_xim"][i].replace('.0','') if df["gr_xim"][i][-2:]=='.0' else df["gr_xim"][i]
+        ruchnoy_pokraska = df["ruchnoy_pokraska"][i].replace('.0','') if df["ruchnoy_pokraska"][i][-2:]=='.0' else df["ruchnoy_pokraska"][i]
+        sublimat = df["sublimat"][i].replace('.0','') if df["sublimat"][i][-2:]=='.0' else df["sublimat"][i]
+        nakleyka = df["nakleyka"][i].replace('.0','') if df["nakleyka"][i][-2:]=='.0' else df["nakleyka"][i]
+        kombinirovan = df["kombinirovan"][i].replace('.0','') if df["kombinirovan"][i][-2:]=='.0' else df["kombinirovan"][i]
+        upakovka = df["upakovka"][i].replace('.0','') if df["upakovka"][i][-2:]=='.0' else df["upakovka"][i]
+        lam_nak_upakovka = df["lam_nak_upakovka"][i].replace('.0','') if df["lam_nak_upakovka"][i][-2:]=='.0' else df["lam_nak_upakovka"][i]
+        kom_upakovka = df["kom_upakovka"][i].replace('.0','') if df["kom_upakovka"][i][-2:]=='.0' else df["kom_upakovka"][i]
         
         TexCartaTime(
         компонент_1 = компонент_1 ,
@@ -105,7 +121,22 @@ def texcartaupload(request):
         термо_1_линия_про_во_в_сутки_буй = термо_1_линия_про_во_в_сутки_буй ,
         наклейка_упаковка_1_линия_про_во_в_сутки_буй = наклейка_упаковка_1_линия_про_во_в_сутки_буй ,
         ламинат_1_линия_про_во_в_сутки_буй = ламинат_1_линия_про_во_в_сутки_буй ,
-     
+        ekstruziya =ekstruziya ,
+        pila = pila,
+        strayenie =strayenie ,
+        skm_pokras = skm_pokras,
+        sat_pokras =sat_pokras,
+        gr_pokras = gr_pokras,
+        skm_xim = skm_xim,
+        sat_xim = sat_xim,
+        gr_xim = gr_xim,
+        ruchnoy_pokraska =ruchnoy_pokraska ,
+        sublimat =sublimat ,
+        nakleyka = nakleyka,
+        kombinirovan = kombinirovan,
+        upakovka = upakovka,
+        lam_nak_upakovka =lam_nak_upakovka ,
+        kom_upakovka = kom_upakovka
             ).save()
     
     texcartas = TexCartaTime.objects.all()
@@ -984,7 +1015,7 @@ def lenght_generate_texcarta(request,id):
                             df_new['UMREZ'][counter_2] = row['UMREZ']
                             df_new['UMREN'][counter_2] = row['UMREN']
                             df_new['USR00'][counter_2] = row['USR00']
-                            df_new['USR01'][counter_2] = row['USR01']
+                            df_new['USR01'][counter_2] = texcartatime.upakovka if not isklyuchenie else row['USR01']
                             df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                         counter_2 +=1
                 
@@ -1018,7 +1049,7 @@ def lenght_generate_texcarta(request,id):
                             df_new['UMREZ'][counter_2] = row['UMREZ']
                             df_new['UMREN'][counter_2] = row['UMREN']
                             df_new['USR00'][counter_2] = row['USR00']
-                            df_new['USR01'][counter_2] = row['USR01']
+                            df_new['USR01'][counter_2] = texcartatime.kom_upakovka if not isklyuchenie else row['USR01']
                             df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                         counter_2 +=1
                 
@@ -1037,12 +1068,15 @@ def lenght_generate_texcarta(request,id):
                             df_new['LOSBS'][counter_2] ='99999999'
                         elif i7 == 2:
                             ltx1 = ''
+                            text_tt = row['USR00']
                             if isklyuchenie:
                                 ltx1 =BAZA['7LN']['LTXA1'][0]
                             elif 'NT1' in row['КРАТКИЙ ТЕКСТ']:
                                 ltx1 =BAZA['7L']['LTXA1'][1]
+                                text_tt = texcartatime.lam_nak_upakovka
                             else:
                                 ltx1 =BAZA['7L']['LTXA1'][0]
+                                text_tt = texcartatime.lam_nak_upakovka
 
                             df_new['ID'][counter_2]='2'
                             df_new['VORNR'][counter_2] =BAZA['7L']['VORNR'][0]
@@ -1059,7 +1093,7 @@ def lenght_generate_texcarta(request,id):
                             df_new['UMREZ'][counter_2] = row['UMREZ']
                             df_new['UMREN'][counter_2] = row['UMREN']
                             df_new['USR00'][counter_2] = row['USR00']
-                            df_new['USR01'][counter_2] = row['USR01']
+                            df_new['USR01'][counter_2] = text_tt
                             df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                         counter_2 +=1                
             elif '-K' in row['МАТЕРИАЛ']:
@@ -1091,7 +1125,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['UMREZ'][counter_2] = row['UMREZ']
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
-                        df_new['USR01'][counter_2] = row['USR01']
+                        df_new['USR01'][counter_2] = texcartatime.kombinirovan if texcarta_bor else '0'
                         df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     counter_2 +=1
             elif '-N' in row['МАТЕРИАЛ']:
@@ -1123,7 +1157,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['UMREZ'][counter_2] = row['UMREZ']
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
-                        df_new['USR01'][counter_2] = row['USR01']
+                        df_new['USR01'][counter_2] = texcartatime.nakleyka if texcarta_bor else '0'
                         df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     counter_2 +=1
             elif '-S' in row['МАТЕРИАЛ']:
@@ -1155,7 +1189,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['UMREZ'][counter_2] = row['UMREZ']
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
-                        df_new['USR01'][counter_2] = row['USR01']
+                        df_new['USR01'][counter_2] = texcartatime.sublimat if texcarta_bor else '0'
                         df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     counter_2 +=1
             elif '-E' in row['МАТЕРИАЛ']:
@@ -1187,7 +1221,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['UMREZ'][counter_2] = row['UMREZ']
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
-                        df_new['USR01'][counter_2] = row['USR01']
+                        df_new['USR01'][counter_2] = texcartatime.ekstruziya if texcarta_bor else '0'
                         df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     elif i7 == 3:
                         df_new['ID'][counter_2]='2'
@@ -1205,7 +1239,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['UMREZ'][counter_2] = row['UMREZ']
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
-                        df_new['USR01'][counter_2] = row['USR01']
+                        df_new['USR01'][counter_2] = texcartatime.pila if texcarta_bor else '0'
                         df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     counter_2 +=1
             elif '-Z' in row['МАТЕРИАЛ']:
@@ -1237,7 +1271,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['UMREZ'][counter_2] = row['UMREZ']
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
-                        df_new['USR01'][counter_2] = row['USR01']
+                        df_new['USR01'][counter_2] = texcartatime.ekstruziya if texcarta_bor else '0'
                         df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     elif i7 == 3:
                         df_new['ID'][counter_2]='2'
@@ -1255,7 +1289,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['UMREZ'][counter_2] = row['UMREZ']
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
-                        df_new['USR01'][counter_2] = row['USR01']
+                        df_new['USR01'][counter_2] = texcartatime.pila if texcarta_bor else '0'
                         df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     elif i7 == 4:
                         df_new['ID'][counter_2]='2'
@@ -1273,7 +1307,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['UMREZ'][counter_2] = row['UMREZ']
                         df_new['UMREN'][counter_2] = row['UMREN']
                         df_new['USR00'][counter_2] = row['USR00']
-                        df_new['USR01'][counter_2] = row['USR01']
+                        df_new['USR01'][counter_2] = texcartatime.strayenie if texcarta_bor else '0'
                         df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     counter_2 +=1
             elif '-P' in row['МАТЕРИАЛ']:
@@ -1309,7 +1343,7 @@ def lenght_generate_texcarta(request,id):
                                 df_new['UMREZ'][counter_2] = row['UMREZ']
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
-                                df_new['USR01'][counter_2] = row['USR01']
+                                df_new['USR01'][counter_2] =texcartatime.skm_pokras if texcarta_bor else '0'
                                 df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             counter_2 +=1
                     elif p == 2:
@@ -1341,7 +1375,7 @@ def lenght_generate_texcarta(request,id):
                                 df_new['UMREZ'][counter_2] = row['UMREZ']
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
-                                df_new['USR01'][counter_2] = row['USR01']
+                                df_new['USR01'][counter_2] = texcartatime.sat_pokras if texcarta_bor else '0'
                                 df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             counter_2 +=1
                     elif p == 3:
@@ -1373,7 +1407,7 @@ def lenght_generate_texcarta(request,id):
                                 df_new['UMREZ'][counter_2] = row['UMREZ']
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
-                                df_new['USR01'][counter_2] = row['USR01']
+                                df_new['USR01'][counter_2] = texcartatime.gr_pokras if texcarta_bor else '0'
                                 df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             counter_2 +=1
                     elif p == 4:
@@ -1405,7 +1439,7 @@ def lenght_generate_texcarta(request,id):
                                 df_new['UMREZ'][counter_2] = row['UMREZ']
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
-                                df_new['USR01'][counter_2] = row['USR01']
+                                df_new['USR01'][counter_2] = texcartatime.skm_xim if texcarta_bor else '0'
                                 df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             elif i == 3:
                                 df_new['ID'][counter_2]='2'
@@ -1423,7 +1457,7 @@ def lenght_generate_texcarta(request,id):
                                 df_new['UMREZ'][counter_2] = row['UMREZ']
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
-                                df_new['USR01'][counter_2] = row['USR01']
+                                df_new['USR01'][counter_2] =  texcartatime.ruchnoy_pokraska if texcarta_bor else '0'
                                 df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             counter_2 +=1
                     elif p == 5:
@@ -1455,7 +1489,7 @@ def lenght_generate_texcarta(request,id):
                                 df_new['UMREZ'][counter_2] = row['UMREZ']
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
-                                df_new['USR01'][counter_2] = row['USR01']
+                                df_new['USR01'][counter_2] =  texcartatime.sat_xim if texcarta_bor else '0'
                                 df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             elif i == 3:
                                 df_new['ID'][counter_2]='2'
@@ -1473,7 +1507,7 @@ def lenght_generate_texcarta(request,id):
                                 df_new['UMREZ'][counter_2] = row['UMREZ']
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
-                                df_new['USR01'][counter_2] = row['USR01']
+                                df_new['USR01'][counter_2] =  texcartatime.ruchnoy_pokraska if texcarta_bor else '0'
                                 df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             counter_2 +=1
                     elif p == 6:
@@ -1505,7 +1539,7 @@ def lenght_generate_texcarta(request,id):
                                 df_new['UMREZ'][counter_2] = row['UMREZ']
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
-                                df_new['USR01'][counter_2] = row['USR01']
+                                df_new['USR01'][counter_2] = texcartatime.gr_xim if texcarta_bor else '0'
                                 df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             elif i == 3:
                                 df_new['ID'][counter_2]='2'
@@ -1523,7 +1557,7 @@ def lenght_generate_texcarta(request,id):
                                 df_new['UMREZ'][counter_2] = row['UMREZ']
                                 df_new['UMREN'][counter_2] = row['UMREN']
                                 df_new['USR00'][counter_2] = row['USR00']
-                                df_new['USR01'][counter_2] = row['USR01']
+                                df_new['USR01'][counter_2] =texcartatime.ruchnoy_pokraska if texcarta_bor else '0'
                                 df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                             counter_2 +=1
     
