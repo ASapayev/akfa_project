@@ -4238,7 +4238,7 @@ def product_add_second_org(request,id):
       
       print('df_char_title >>>>> ',cache_for_cratkiy_text)
       df_char = create_characteristika(cache_for_cratkiy_text) 
-      df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
+      df_char_title = create_characteristika_utils(cache_for_cratkiy_text)
                  
       
             
@@ -4249,6 +4249,7 @@ def product_add_second_org(request,id):
             st =random.randint(0,1000)
             path_alu =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}-{st}.xlsx'
             path_ramka_norma =f'uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}-{st}.xlsx'
+      
       if  len(duplicat_list)>0:     
             df_duplicates =pd.DataFrame(np.array(duplicat_list),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
       else:
