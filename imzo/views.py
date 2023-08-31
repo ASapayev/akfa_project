@@ -71,7 +71,7 @@ def texcartaupload(request):
     df = pd.read_excel('C:\\OpenServer\\domains\\БазаTexcarta.xlsx','Лист1')
     df =df.astype(str)
     
-    df = df.replace('nan','')
+    df = df.replace('nan','0')
     
     for i in range(0,df.shape[0]):
         компонент_1 = df['компонент1'][i]
