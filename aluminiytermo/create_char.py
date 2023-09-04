@@ -1024,6 +1024,7 @@ def product_add_second_termo(id):
                                         name_tip_pokr = 'Окрашенный'
                         
                                 if  AluminiyProductTermo.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['Наклейка'][key]).exists():
+                                        print('nga kiryapti')
                                         termo = AluminiyProductTermo.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['Наклейка'][key])[:1].get()
                                 
                                         hollow_and_solid =CharUtilsTwo.objects.filter(артикул = termo.artikul)[:1].get().полый_или_фасонный
