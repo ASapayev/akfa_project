@@ -6313,6 +6313,7 @@ def kombinirovaniy_process(request,id):
                             aluminiy_norma_log = (alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм== alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты and alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты !='0') or ((alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм!= alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты)and((alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм=='0')or(alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты=='0')))
                             if aluminiy_norma_log:
                                 qatorlar_soni =5
+                                print('shuyerdaadad qiymat 5')
                                 if alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм=='0':
                                     nakleyka_results = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты)
                                     meinss =float(alum_teks.заш_пл_кг_м_eng_qora_низ_рас)
@@ -6324,8 +6325,10 @@ def kombinirovaniy_process(request,id):
                                     meinss =float(alum_teks.кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст)+float(alum_teks.заш_пл_кг_м_eng_qora_низ_рас)
                             elif ((alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм =='0') and (alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты == '0')):
                                 qatorlar_soni = 4
+                                print('shuyerdaadad qiymat 4')
                             else:
                                 qatorlar_soni =6
+                                print('shuyerdaadad qiymat 6')
                                 nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм)[:1].get()
                                 nakleyka_result2 = Nakleyka.objects.filter(код_наклейки = 'E02',ширина= alum_teks.заш_пл_кг_м_eng_qora_низ_ширина_ленты)[:1].get()
                                 meinss1 =float(alum_teks.кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст)
@@ -6880,8 +6883,9 @@ def kombinirovaniy_process(request,id):
                                 meinsL = float(alum_teks.лам_верх_a_рас_ленты_на_1000_пр_м2)+float(alum_teks.лам_низ_b_рас_ленты_на_1000_пр_м2)
                                 
                                 laminatsiya =Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code1)[:1].get() 
-                            print('shuyerdaadad')
+                            print('shuyerdaadad lam 1')
                         else:
+                            print('shuyerdaadad lam 2')
                             qatorlar_soni +=2
                             laminatsiya_result1 = Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code1)[:1].get() 
                             laminatsiya_result2 = Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code2)[:1].get() 
