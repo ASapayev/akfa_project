@@ -7073,6 +7073,7 @@ def kombinirovaniy_process(request,id):
                                     df_new_duplicate['LGORT'].append('PS11')
                     
                         if qatorlar_soni == 7:
+                            print('sdfsdsdsd  ',df[i][12],df[i][13])
                             j+=1
                             df_new_duplicate['ID'].append('1')
                             df_new_duplicate['MATNR'].append(df[i][12])
