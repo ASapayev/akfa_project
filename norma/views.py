@@ -7457,12 +7457,16 @@ def kombinirovaniy_process(request,id):
 
     dff =pd.DataFrame(df_new)
     
-    dff_duplicate =pd.DataFrame(df_new_duplicate)
 
 
     writer = pd.ExcelWriter(path, engine='xlsxwriter')
     dff.to_excel(writer,index=False,sheet_name ='Norma')
-    dff_duplicate.to_excel(writer,index=False,sheet_name ='EXISTS')
+    try:
+        dff_duplicate =pd.DataFrame(df_new_duplicate)
+        dff_duplicate.to_excel(writer,index=False,sheet_name ='EXISTS')
+    except:
+        pass
+    
     writer.close()
 
     order_id = request.GET.get('order_id',None)
