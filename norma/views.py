@@ -6890,7 +6890,7 @@ def kombinirovaniy_process(request,id):
                                 qatorlar_soni += 4
                             else:
                                 qatorlar_soni +=2
-                                
+
                             laminatsiya_result1 = Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code1)[:1].get() 
                             laminatsiya_result2 = Lamplonka.objects.filter(код_лам_пленки =laminatsiya_code2)[:1].get() 
                             meinsL1 = float(alum_teks.лам_верх_a_рас_ленты_на_1000_пр_м2)
@@ -7364,7 +7364,7 @@ def kombinirovaniy_process(request,id):
                                         df_new_duplicate['MATNR1'].append(nakleykaa.sap_code_s4q100)
                                         df_new_duplicate['TEXT2'].append(nakleykaa.название)
                                         df_new_duplicate['MENGE'].append("М2")
-                                        df_new_duplicate['MEINS'].append(("%.3f" % (float(meinss1)*mein_percent)).replace('.',',')) ##XATO
+                                        df_new_duplicate['MEINS'].append(("%.3f" % (float(meinss)*mein_percent)).replace('.',',')) ##XATO
                                         df_new_duplicate['DATUV'].append('')
                                         df_new_duplicate['PUSTOY'].append('')
                                     if k == 6:
