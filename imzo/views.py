@@ -1300,6 +1300,10 @@ def lenght_generate_texcarta(request,id):
                         df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     counter_2 +=1
             elif '-Z' in row['МАТЕРИАЛ']:
+
+                if lenghtht in zakalka_iskyucheniye7:
+                    continue
+
                 for i7 in range(1,5):
                     if i7 ==1:
                         df_new['ID'][counter_2] ='1'
