@@ -976,7 +976,7 @@ def lenght_generate_texcarta(request,id):
                                 nak =("%.3f" % (2 * (float(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)))).replace('.',',')
                         else:
                             if 'NT1' in row['КРАТКИЙ ТЕКСТ']:
-                                nak = 'nan'
+                                nak = ("%.3f" % (2 * (float(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй)))).replace('.',',')
                             else:
                                 nak =2 * (int(texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй))
                     else:
