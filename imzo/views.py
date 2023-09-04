@@ -12,6 +12,7 @@ from django.http import JsonResponse
 from django.db.models import Q
 from norma.models import Accessuar,CheckNormaBase
 from django.contrib import messages
+from norma.models import ZakalkaIskyuchenie
 import math
 from order.models import Order
     
@@ -943,7 +944,7 @@ def lenght_generate_texcarta(request,id):
                 
     # if len(sap_code_link) >0:
     #     return JsonResponse({'TexCartada yoqlari':sap_code_link})
-
+    zakalka_iskyucheniye7 = ZakalkaIskyuchenie.objects.all().values_list('sap_code',flat=True)
 
 
     for key,row in df.iterrows():
@@ -986,6 +987,60 @@ def lenght_generate_texcarta(request,id):
                 kombiniroavniy = ('7777' in row['КРАТКИЙ ТЕКСТ']) or ('8888' in row['КРАТКИЙ ТЕКСТ']) or ('3701' in row['КРАТКИЙ ТЕКСТ']) or ('3702' in row['КРАТКИЙ ТЕКСТ'])
                 
                 length =len(row['КРАТКИЙ ТЕКСТ'])
+
+                if lenghtht in zakalka_iskyucheniye7:
+                    for i7 in range(1,4):
+                        if i7 ==1:
+                            df_new['ID'][counter_2] ='1'
+                            df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                            df_new['WERKS'][counter_2] ='1101'
+                            df_new['STTAG'][counter_2] ='01012023'
+                            df_new['PLNAL'][counter_2] ='1'
+                            df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                            df_new['VERWE'][counter_2] ='1'
+                            df_new['STATU'][counter_2] ='4'
+                            df_new['LOSVN'][counter_2] ='1'
+                            df_new['LOSBS'][counter_2] ='99999999'
+                        elif i7 == 2:
+                            df_new['ID'][counter_2]='2'
+                            df_new['VORNR'][counter_2] =BAZA['E']['VORNR'][0]
+                            df_new['ARBPL'][counter_2] =BAZA['E']['ARBPL'][0]
+                            df_new['WERKS1'][counter_2] ='1101'
+                            df_new['STEUS'][counter_2] ='ZK01'
+                            df_new['LTXA1'][counter_2] =BAZA['E']['LTXA1'][0]
+                            df_new['BMSCH'][counter_2] = texcartatime.пресс_1_линия_буй if texcarta_bor else '11111'
+                            df_new['MEINH'][counter_2] =BAZA['E']['MEINH'][0]
+                            df_new['VGW01'][counter_2] ='24'
+                            df_new['VGE01'][counter_2] ='STD'
+                            df_new['ACTTYPE_01'][counter_2] =BAZA['E']['ACTTYPE_01'][0]
+                            df_new['CKSELKZ'][counter_2] ='X'
+                            df_new['UMREZ'][counter_2] = row['UMREZ']
+                            df_new['UMREN'][counter_2] = row['UMREN']
+                            df_new['USR00'][counter_2] = row['USR00']
+                            df_new['USR01'][counter_2] = texcartatime.ekstruziya if texcarta_bor else '0'
+                            df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
+                        elif i7 == 3:
+                            df_new['ID'][counter_2]='2'
+                            df_new['VORNR'][counter_2] =BAZA['E']['VORNR'][1]
+                            df_new['ARBPL'][counter_2] =BAZA['E']['ARBPL'][1]
+                            df_new['WERKS1'][counter_2] ='1101'
+                            df_new['STEUS'][counter_2] ='ZK01'
+                            df_new['LTXA1'][counter_2] =BAZA['E']['LTXA1'][1]
+                            df_new['BMSCH'][counter_2] = texcartatime.пресс_1_линия_буй if texcarta_bor else '11111'
+                            df_new['MEINH'][counter_2] =BAZA['E']['MEINH'][1]
+                            df_new['VGW01'][counter_2] ='24'
+                            df_new['VGE01'][counter_2] ='STD'
+                            df_new['ACTTYPE_01'][counter_2] =BAZA['E']['ACTTYPE_01'][1]
+                            df_new['CKSELKZ'][counter_2] ='X'
+                            df_new['UMREZ'][counter_2] = row['UMREZ']
+                            df_new['UMREN'][counter_2] = row['UMREN']
+                            df_new['USR00'][counter_2] = row['USR00']
+                            df_new['USR01'][counter_2] = texcartatime.pila if texcarta_bor else '0'
+                            df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
+                        counter_2 +=1
+                
+                    continue
+
                 if ((length ==20) or (length ==25) or (length ==17)) :         
                     for i7 in range(1,3):
                         if i7 ==1:
@@ -1096,6 +1151,8 @@ def lenght_generate_texcarta(request,id):
                             df_new['USR01'][counter_2] = text_tt
                             df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                         counter_2 +=1                
+            
+            
             elif '-K' in row['МАТЕРИАЛ']:
                 for i7 in range(1,3):
                     if i7 ==1:
