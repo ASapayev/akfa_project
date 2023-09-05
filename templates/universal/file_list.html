@@ -64,7 +64,7 @@
                                     </button> -->
                                   </div>
                             </td>
-                            <td> <a href="{{link}}{{file.id}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">{{type}}</span> алюминого файла</a> </td>
+                            <td> <a href="{{link}}{{file.id}}{%if char %}{%if char_type == 'simple' %}?simple=True{%else%}?termo=True{%endif%}{%endif%}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">{{type}}</span> алюминого файла</a> </td>
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -34,6 +34,9 @@ class File:
             self.file =file
             self.filetype =filetype
 
+
+
+
 def download_all_razlovki(request):
       file_type = request.GET.get('type',None)
       if file_type =='simple':
@@ -309,6 +312,23 @@ def upload_product(request):
       }
   return render(request,'excel_form.html',context)
 
+
+@login_required(login_url='/accounts/login/')
+def upload_for_char(request):
+      if request.method == 'POST':
+            form = FileForm(request.POST, request.FILES)
+            if form.is_valid():
+                  form.save()
+                  return redirect('char_files_org')
+      else:
+            form =FileForm()
+            context ={
+            'form':form,
+            'section':'Формирование сапкода обычный',
+            }
+      return render(request,'universal/main.html',context)
+
+
 @login_required(login_url='/accounts/login/')
 def upload_product_org(request):
       if request.method == 'POST':
@@ -371,6 +391,11 @@ def aluminiy_files(request):
   files = AluFile.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files}
   return render(request,'aluminiy/alu_file_list.html',context)
+
+def char_files_org(request):
+  files = AluFile.objects.filter(generated =False).order_by('-created_at')[:1]
+  context ={'files':files,'section':'Формированный обычный файлы','type':'ОБЫЧНЫЙ','link':'/termo/character-force/','char':True,'char_type':'simple'}
+  return render(request,'universal/file_list.html',context)
 
 def aluminiy_files_org(request):
   files = AluFile.objects.filter(generated =False).order_by('-created_at')

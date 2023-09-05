@@ -338,7 +338,7 @@ def  create_characteristika_force(request,id):
             product_add_second_termo(id)
       else:
             product_add_second_simple(id)
-      return JsonResponse({'crated':'character'})
+      return redirect('home')
 
 # Create your views here.
 def index(request):
@@ -475,6 +475,27 @@ def upload_product_org(request):
       'workers':workers
       }
       return render(request,'universal/main.html',context)
+
+@login_required(login_url='/accounts/login/')
+def upload_for_char_termo(request):
+      if request.method == 'POST':
+            form = FileFormTermo(request.POST, request.FILES)
+            if form.is_valid():
+                  form.save()
+                  return redirect('char_files_org_termo')
+      else:
+            form =FileFormTermo()
+            context ={
+            'form':form,
+            'section':'Формирование сапкода обычный',
+            }
+      return render(request,'universal/main.html',context)
+
+
+def char_files_org_termo(request):
+  files = AluFileTermo.objects.filter(generated =False).order_by('-created_at')[:1]
+  context ={'files':files,'section':'Формированный термо файлы','type':'ТЕРМО','link':'/termo/character-force/','char':True,'char_type':'termo'}
+  return render(request,'universal/file_list.html',context)
 
 def upload_product_char(request):
       if request.method == 'POST':

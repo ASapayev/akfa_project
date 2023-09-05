@@ -32,4 +32,7 @@ path('show-list-termo/',views.show_list_simple_sapcodes,name ='show_list_termo')
 path('downloading-characteristika/',views.downloading_characteristika,name ='downloading_character'),
 path('create-txt',views.create_txt_for_1101,name='create_txt_for_1101'),
 path('get-raube',views.get_raube,name='get_raube'),
+path('upload-character-force',views.upload_for_char_termo,name='upload_for_char_termo'),
+path('termo-files-org-force',views.char_files_org_termo,name='char_files_org_termo'),
+
 ]

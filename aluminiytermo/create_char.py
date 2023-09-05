@@ -208,7 +208,7 @@ def product_add_second_termo(id):
                 artikul = df['Артикул'][key]
                 component = df['Компонент'][key]
                 
-                print(artikul,component)
+                
                 duplicat_list =[]
                 
                 if artikul !='nan':
@@ -628,7 +628,6 @@ def product_add_second_termo(id):
                                                 )
                         
                 elif  component !='nan':
-                        print('komponenttttttt')
                         dlina =''
                 
                         if df['Длина при выходе из пресса'][key] != 'nan':
@@ -1024,10 +1023,9 @@ def product_add_second_termo(id):
                                         name_tip_pokr = 'Анодированный'
                                 else:
                                         name_tip_pokr = 'Окрашенный'
-                                print('nnnnnnnnnga kiryapti')
-                                print(component,df_new['Наклейка'][key])
+                               
                                 if  AluminiyProductTermo.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['Наклейка'][key]).exists():
-                                        print('nga kiryapti')
+                                        
                                         termo = AluminiyProductTermo.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['Наклейка'][key])[:1].get()
                                 
                                         hollow_and_solid =CharUtilsTwo.objects.filter(артикул = termo.artikul)[:1].get().полый_или_фасонный

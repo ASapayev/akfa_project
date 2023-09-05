@@ -23,6 +23,7 @@ path('razlovka-simple',views.razlovka_save,name='razlovka_save'),
 path('alum/update-char-title-org/<int:id>',views.update_char_title,name='update_char_title_org'),
 path('upload-product-org',views.upload_product_org,name='upload_product_org'),
 path('aluminiy-files-org',views.aluminiy_files_org,name='aluminiy_files_org'),
+path('char-files-org',views.char_files_org,name='char_files_org'),
 path('alum-org/add/<int:id>',views.product_add_second_org,name='aluminiy_add_org'),
 path('save-razlovka-org',views.save_razlovka2,name='aluminiy_add_org2'),
 path('show-simple-sap-list',views.show_list_simple_sapcodes,name='show_simple_sapcodes'),
@@ -31,5 +32,6 @@ path('bulk-delete-sapcode',views.sap_code_bulk_delete, name='bulk_delete_sapkode
 path('show-razlovki',views.show_razlovki,name='show_razlovki'),
 path('show-termo-razlovki',views.show_razlovki_termo,name='show_razlovki_termo'),
 path('download-razlovki',views.download_all_razlovki,name='download_razlovki_all'),
+path('upload-for-character',views.upload_for_char,name='upload_for_char')
 
 ]
