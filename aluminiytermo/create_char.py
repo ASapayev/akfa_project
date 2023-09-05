@@ -1023,7 +1023,7 @@ def product_add_second_termo(id):
                                 else:
                                         name_tip_pokr = 'Окрашенный'
                                 print('nnnnnnnnnga kiryapti')
-                        
+                                print(component,df_new['Наклейка'][key])
                                 if  AluminiyProductTermo.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['Наклейка'][key]).exists():
                                         print('nga kiryapti')
                                         termo = AluminiyProductTermo.objects.filter(artikul =component,section ='N',kratkiy_tekst_materiala=df_new['Наклейка'][key])[:1].get()
