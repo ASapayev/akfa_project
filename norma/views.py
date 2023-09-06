@@ -269,6 +269,7 @@ def delete_norm(request, id):
     norma = Norma.objects.get(id= id)
     if TexCartaTime.objects.filter(компонент_1 =norma.компонент_1,компонент_2=norma.компонент_2,компонент_3=norma.компонент_3,артикул=norma.артикул).exists():
         texcarta = TexCartaTime.objects.filter(компонент_1 =norma.компонент_1,компонент_2=norma.компонент_2,компонент_3=norma.компонент_3,артикул=norma.артикул)
+        print(texcarta)
         texcarta.delete()
     norma.delete()
     return JsonResponse({'msg':True,'text':'Deleted successfully'})
