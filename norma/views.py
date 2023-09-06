@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from django.http import JsonResponse
 from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell,KombinirovaniyUtilsInformation,Accessuar,NakleykaIskyuchenie,ZakalkaIskyuchenie,ViFiles,ZakalkaIskyuchenie6064
-from .forms import NormaFileForm,NormaEditForm,ViFileForm
+from .forms import NormaFileForm,NormaEditForm,ViFileForm,TexcartaEditForm
 from django.db.models import Q
 from aluminiytermo.models import Characteristika,CharacteristicTitle
 from config.settings import MEDIA_ROOT
@@ -483,6 +483,22 @@ def edit_norm(request,id):
     }
     return render(request,'norma/norma_crud/edit.html',context)
 
+def edit_sikl(request,id):
+    norma = TexCartaTime.objects.get( id = id)
+
+    if request.method =='POST':
+        instance = get_object_or_404(TexCartaTime, id=id)
+        form = TexcartaEditForm(request.POST or None, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('show_norm_base')
+        
+    form = TexcartaEditForm(instance = norma)
+    context ={
+        'texcarta':form,
+    }
+    return render(request,'norma/norma_crud/edit_sikl_data.html',context)
+
 @csrf_exempt
 def add_norm_post(request):   
     data = dict(request.POST)
@@ -650,6 +666,30 @@ def show_norm_base(request):
         'section':'Все нормы'
     }
     return render(request,'norma/norma_crud/show_list.html',context)
+
+# Create your views here.
+def show_sikl_base(request):
+    search_text = request.GET.get('search',None)
+
+    if search_text:
+        texcartas = TexCartaTime.objects.filter(Q(компонент_1__icontains = search_text)|Q(компонент_2__icontains = search_text)|Q(компонент_3__icontains = search_text)|Q(артикул__icontains=search_text))
+    else:
+        texcartas = TexCartaTime.objects.all().order_by('created_at')
+
+    paginator = Paginator(texcartas, 25)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'products':page_obj,
+        'search':search_text,
+        'section':'Все техкарты'
+    }
+    return render(request,'norma/norma_crud/show_list_sikl_data.html',context)
 
 # Create your views here.
 def norma_excel(request):

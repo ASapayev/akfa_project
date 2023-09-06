@@ -1,0 +1,256 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{% if link %}<a type="button" href="{{link}}" class="btn btn-success btn-fw" >Скачать</a>{%else%}Buttons{% endif %}</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row" id ='fileupload'>
+        <div class="col-md-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <form>
+                <div class="d-flex">
+                  <div class="mr-auto p-2"><h4 class="card-title">Нормы</h4></div>
+                  <div class="p-2"><input type="search" class="form-control" placeholder="Search sapcode" name="search"></div>
+                  <div class="p-2"><button class="btn btn-info " style="height: 35px;"  type="submit">Search</button></div>
+                </div>
+              </form>
+              <div id="excel_data" class="mt-5" style="overflow-x: scroll;  ">
+                <table class="table table-striped table-bordered" >
+                  <tr><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">0.44</th><th style="background-color: blanchedalmond;">0.55</th><th style="background-color: blanchedalmond;">0.01</th><th style="background-color: blanchedalmond;">0</th><th style="background-color: blanchedalmond;">0</th><th style="background-color: blanchedalmond;">0</th><th style="background-color: blanchedalmond;">0</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">0</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">0</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Ламинация</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Защитная пленка/кг/м  Akfa</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Защитная пленка/кг/м  RETPEN</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Защитная пленка/кг/м  BENKAM (желтый)</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Защитная пленка/кг/м Gold </th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Защитная пленка/кг/м  IMZO AKFA</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Защитная пленка/кг/м  Без бренд</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Защитная пленка/кг/м  Engelberg</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Защитная пленка/кг/м  Engelberg (QORA)</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">0</th></tr>
+                  <tr><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Алюминиевый сплав 6063</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Смазка для пресса/кг</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Химикаты (подготовка к окрашиванию)/ POLITEKNIK кг</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Порошковый краситель</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Сублимация</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Молярный скотч </th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Термомост </th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">верх A</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">низ B</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">низ C</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">верх или (Боковая сторона)</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">низ</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">верх или (Боковая сторона)</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">низ</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">верх или (Боковая сторона)</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">низ</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">верх или (Боковая сторона)</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">низ</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">верх или (Боковая сторона)</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">низ</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">верх или (Боковая сторона)</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">низ</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">верх или (Боковая сторона)</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">низ</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">верх или (Боковая сторона)</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">низ</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Упаковочная полиэтиленовая лента</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Крафт бумага</th><th style="background-color: blanchedalmond;">Расход скотча</th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">Упаковка</th></tr>
+                  <tr><th style="background-color: blanchedalmond;">Устаревший</th><th style="background-color: blanchedalmond;">КОМПОНЕНТ</th><th style="background-color: blanchedalmond;">КОМПОНЕНТ</th><th style="background-color: blanchedalmond;">КОМПОНЕНТ</th><th style="background-color: blanchedalmond;">АРТИКУЛ</th><th style="background-color: blanchedalmond;">Серия</th><th style="background-color: blanchedalmond;">Наименование</th><th style="background-color: blanchedalmond;">Внешний периметр профиля/ мм</th><th style="background-color: blanchedalmond;">Площадь /мм²</th><th style="background-color: blanchedalmond;">Площадь /мм²</th><th style="background-color: blanchedalmond;">Удельный вес профиля кг/м</th><th style="background-color: blanchedalmond;">Диаметр описанной окружности/мм</th><th style="background-color: blanchedalmond;">Длина профиля/м</th><th style="background-color: blanchedalmond;">Расчетное кол-во профиля/шт</th><th style="background-color: blanchedalmond;">Общий вес профиля/кг</th><th style="background-color: blanchedalmond;">расход сплава на 1000 шт профиля/кг</th><th style="background-color: blanchedalmond;">при этом % тех.отхода БАЛВАШКА</th><th style="background-color: blanchedalmond;">при этом % тех.отхода 1-МЕТР БРАК</th><th style="background-color: blanchedalmond;">при этом % тех.отхода СТРУЖКА</th><th style="background-color: blanchedalmond;">Графитовая</th><th style="background-color: blanchedalmond;">пилы холодной резки (Солярка)</th><th style="background-color: blanchedalmond;"> горячей резки (Солярка)</th><th style="background-color: blanchedalmond;">графитовые плиты</th><th style="background-color: blanchedalmond;">POLITOKSAL AC 25P</th><th style="background-color: blanchedalmond;">ALUPOL СR 51</th><th style="background-color: blanchedalmond;">ALUPOL AC 52</th><th style="background-color: blanchedalmond;">толщина покрытия, мкм</th><th style="background-color: blanchedalmond;">расход /кг на 1000 профилей</th><th style="background-color: blanchedalmond;">при этом % тех.отхода </th><th style="background-color: blanchedalmond;"></th><th style="background-color: blanchedalmond;">ширина декор пленки/мм (Зол.дуб)</th><th style="background-color: blanchedalmond;">расход на 1000 профиль/м²</th><th style="background-color: blanchedalmond;">ширина декор пленки/мм (3Д 3137-01) </th><th style="background-color: blanchedalmond;">расход на 1000 профиль/м²</th><th style="background-color: blanchedalmond;">ширина декор пленки/мм (Дуб.мокко) </th><th style="background-color: blanchedalmond;">расход на 1000 профиль/м²</th><th style="background-color: blanchedalmond;">ширина декор пленки/мм (3Д 3137-02) </th><th style="background-color: blanchedalmond;">расход на 1000 профиль/м²</th><th style="background-color: blanchedalmond;">ширина мол- скотча/мм</th><th style="background-color: blanchedalmond;">расход на 1000 профиль/шт</th><th style="background-color: blanchedalmond;">ширина мол- скотча/мм</th><th style="background-color: blanchedalmond;">расход на 1000 профиль/шт</th><th style="background-color: blanchedalmond;">Термомост </th><th style="background-color: blanchedalmond;">Термомост </th><th style="background-color: blanchedalmond;">Термомост </th><th style="background-color: blanchedalmond;">Термомост </th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профилей/м²</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профилей/м²</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профилей/м²</th><th style="background-color: blanchedalmond;">расход праймера на 1000 штук профилей/кг</th><th style="background-color: blanchedalmond;">расход клея на 1000 штук профилей/кг</th><th style="background-color: blanchedalmond;">Расход упаковочного материала (мешок) на 1000 профилей</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профилей/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профиль/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профилей/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профиль/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профилей/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профиль/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профилей/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профиль/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профилей/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профиль/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профилей/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профиль/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профилей/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профиль/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профилей/м2</th><th style="background-color: blanchedalmond;">ширина ленты/мм</th><th style="background-color: blanchedalmond;">расход ленты на 1000 профиль/м2</th><th style="background-color: blanchedalmond;">ширина упоковочной ленты/мм</th><th style="background-color: blanchedalmond;">расход упоковочной ленты на 1000 штук /кг</th><th style="background-color: blanchedalmond;">расход упоковочной ленты на 1000 штук /кг</th><th style="background-color: blanchedalmond;">ширина скотча/мм</th><th style="background-color: blanchedalmond;">расход скотча на 1000 штук /Шт</th><th style="background-color: blanchedalmond;">Кол-во профилей в 1- пачке</th><th style="background-color: blanchedalmond;">Алюминиевый сплав 6063</th><th style="background-color: blanchedalmond;">Действие</th></tr>
+                
+                  {%for texcarta in products %}
+                    <tr >
+                      <td style="background-color: aliceblue;">{{texcarta.устаревший }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.компонент_1 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.компонент_2 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.компонент_3 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.артикул }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.серия }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.наименование }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.внешний_периметр_профиля_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.площадь_мм21 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.площадь_мм22 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.удельный_вес_профиля_кг_м }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.диаметр_описанной_окружности_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.длина_профиля_м }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.расчетное_колво_профиля_шт }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.общий_вес_профиля_кг }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.алю_сп_6063_рас_спа_на_1000_шт_пр_кг }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.алюминиевый_сплав_6063_при_этом_балвашка }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.алю_сплав_6063_при_этом_тех_отхода1 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.алю_сплав_6063_при_этом_тех_отхода2 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.смазка_для_пресса_кг_графитовая }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.смазка_для_пресса_кг_пилы_хл_резки_сол }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.смазка_для_пресса_кг_горячей_резки_сол }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.смазка_для_пресса_кг_графитовые_плиты }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.хим_пг_к_окр_politeknik_кг_pol_ac_25p }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.хим_пг_к_окр_politeknik_кг_alupol_сr_51 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.хим_пг_к_окр_politeknik_кг_alupol_ac_52 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.пр_краситель_толщина_пк_мкм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.порошковый_краситель_рас_кг_на_1000_пр }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.пр_краситель_при_этом_тех_отхода  }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.не_нужний }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.суб_ширина_декор_пленки_мм_зол_дуб }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.сублимация_расход_на_1000_профиль_м21 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.суб_ширина_декор_пленки_мм_3д_313701 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.сублимация_расход_на_1000_профиль_м22 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.суб_ширина_декор_пленки_мм_дуб_мокко }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.сублимация_расход_на_1000_профиль_м23 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.суб_ширина_декор_пленки_мм_3д_313702 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.сублимация_расход_на_1000_профиль_м24 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.молярный_скотч_ширина1_мол_скотча_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.молярный_скотч_рас_на_1000_пр_шт1 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.молярный_скотч_ширина2_мол_скотча_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.молярный_скотч_рас_на_1000_пр_шт2 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.термомост_1 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.термомост_2 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.термомост_3 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.термомост_4 }}</td>
+                  
+                      <td style="background-color: aliceblue;">{{texcarta.ламинация_верх_a_ширина_ленты_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.лам_верх_a_рас_ленты_на_1000_пр_м2 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.ламинация_низ_b_ширина_ленты_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.лам_низ_b_рас_ленты_на_1000_пр_м2 }}</td>
+                  
+                      <td style="background-color: aliceblue;">{{texcarta.ламинация_низ_c_ширина_ленты_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.лам_низ_c_рас_ленты_на_1000_пр_м2 }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.лам_рас_праймера_на_1000_штук_пр_кг }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.лам_рас_клея_на_1000_штук_пр_кг }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.лам_рас_уп_материала_мешок_на_1000_пр }}</td>
+ 
+                  
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_akfa_верх_ширина_ленты_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_akfa_бк_ст_ширина_ленты_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.кг_м_ak_вр_и_кг_м_ak_бк_ст_рас_лн }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_akfa_низ_ширина_ленты_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_ak_низ_рас_лн_на_1000_пр_м2 }}</td>
+                
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_retpen_верх_ширина_ленты_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_retpen_бк_ст_ширина_ленты }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.кг_м_retpen_вр_и_кг_м_retpen_бк_ст_рас }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_retpen_низ_ширина_ленты_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_retpen_низ_рас  }}</td>
+                      
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм  }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_benkam_жл_бк_ст_ширина_лн }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_bn_жл_низ_рас }}</td>
+                  
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_голд_вр_ширина_лн_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_голд_бк_ст_ширина_лн_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.кг_м_голд_вр_и_кг_м_голд_бк_ст_рас }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_голд_низ_ширина_лн_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2 }}</td>
+                  
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_imzo_akfa_бк_ст_ширина_лн }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_imzo_ak_низ_рас }}</td>
+                  
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_без_бр_вр_ширина_лн_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_без_бр_бк_ст_ширина_лн_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.кг_м_без_бр_вр_и_кг_м_без_бр_бк_ст_рас }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_без_бр_низ_ширина_лн_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_без_бр_низ_рас }}</td>
+                  
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_eng_верх_ширина_ленты_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_eng_бк_ст_ширина_ленты_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.кг_м_eng_вр_и_кг_м_eng_бк_ст_рас }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_eng_низ_ширина_ленты_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_eng_низ_рас_лн_на_1000_пр }}</td>
+                  
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_eng_qora_вр_ширина_лн_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_eng_qora_бк_ст_ширина_лн_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_eng_qora_низ_ширина_ленты }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.заш_пл_кг_м_eng_qora_низ_рас }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.уп_пол_лента_ширина_уп_ленты_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.уп_пол_лн_рас_уп_лн_на_1000_штук_кг }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.бумага_расход_упоковочной_ленты_на_1000_штук_кг}}</td>
+
+                      <td style="background-color: aliceblue;">{{texcarta.расход_скотча_ширина_скотча_мм }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.рас_скотча_рас_скотча_на_1000_штук_шт }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.упаковка_колво_профилей_в_1_пачке }}</td>
+                      <td style="background-color: aliceblue;">{{texcarta.qora_алю_сплав_6064_sap_code }}</td>
+                      <td style="background-color: aliceblue;"><a class="btn btn-warning btn-fw mx-1" href="{% url 'edit_sikl' texcarta.id %}"><i class="mdi mdi-eyedropper"></i>Edit</a><a type="button" class="btn btn-danger btn-fw"  onclick="delete_norm(this,{{texcarta.id}})"><i class="mdi mdi-delete"></i>Delete</a</td>
+                      <!-- <td style="background-color: aliceblue;"><a type="button" class="btn btn-danger btn-fw"  onclick="delete_norm(this,{{norm.id}})"><i class="mdi mdi-delete"></i>Delete</a</td> -->
+                    </tr>
+                  {%endfor%}
+                </table>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center "><button type="button" class="btn btn-success btn-fw" style="display: none;" id="buttonupload">Добавить нормы</button></div>
+        
+      </div>
+      
+
+      
+    </div>
+   
+  </div>
+  <div class="container">
+    <div class="d-flex justify-content-between">
+        <div class="pagination p-2">
+          <span class="step-links">
+            <ul class="pagination"  style="background-color: azure;">
+                {% if products.has_previous %}
+                <li class="page-item" ><a class="page-link"  style="background-color: azure;" href="?page={{ products.previous_page_number }}{%if search%}&search={{search}}{%endif%}">Previous</a></li>
+                    {% if products.number > 3 %}
+                        <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page=1{%if search%}&search={{search}}{%endif%}">1</a></li>
+                        {% if products.number > 4 %}
+                        <li class="page-item"  style="background-color: azure;"> <span style="color: black;">...</span></li>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+
+                {% for num in products.paginator.page_range %}
+                    {% if products.number == num %}
+                        <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                    {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                        <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if products.has_next %}
+                    {% if products.number < products.paginator.num_pages|add:'-3' %}
+                    <li class="page-item"  style="background-color: azure;" > <span style="color: black;">...</span></li>
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;"  href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                    {% elif products.number < products.paginator.num_pages|add:'-2' %}
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                    {% endif %}
+                    
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ products.next_page_number }}{%if search%}&search={{search}}{%endif%}">Next Page »</a></li>
+                   
+                {% endif %}
+              </ul>
+          </span>
+        </div>
+    </div>
+  </div>
+<script>
+  function delete_norm(elem,id){
+    console.log(id)
+    url =`/norma/delete-norm/${id}`
+    console.log(url)
+
+
+    Swal.fire({
+      showDenyButton: true,
+      confirmButtonText: 'Normani o\'chirmoqchimisiz?',
+      denyButtonText: `Yo'q`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+       
+        $.ajax({
+                    method: "POST",
+                    url: url
+                    
+                  }).done(function( msg ) {
+                    
+                    if (msg.msg ==true){
+                       remove_me(elem);
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: msg.text,
+                            showConfirmButton: false,
+                            timer: 1000
+                          })
+                      
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: msg.text
+                              })
+    
+                        }
+                    });
+      } else if (result.isDenied) {
+        Swal.fire('!!!', 'Ok', 'info')
+      }
+    })
+  }
+
+  function remove_me(elem){
+    elem.parentElement.parentElement.remove()
+  }
+</script>
+{% endblock %}

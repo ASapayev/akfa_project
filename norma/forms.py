@@ -1,5 +1,6 @@
 from django import forms
 from .models import NormaExcelFiles,Norma,ViFiles
+from imzo.models import TexCartaTime
 
 
 class NormaFileForm(forms.ModelForm):
@@ -27,4 +28,10 @@ class NormaEditForm(forms.ModelForm):
   
   class Meta:
     model = Norma
+    fields ='__all__'
+
+class TexcartaEditForm(forms.ModelForm):
+  
+  class Meta:
+    model = TexCartaTime
     fields ='__all__'
