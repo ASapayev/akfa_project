@@ -14,6 +14,7 @@ from datetime import datetime
 import math
 import zipfile
 from imzo.models import ExcelFilesImzo
+from norma.models import ZakalkaIskyuchenie6064
 
 def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     now = datetime.now()
@@ -2939,6 +2940,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     dlinniy_text_zero =[[],[],[]]
     buxgalterskiy_naz =[[],[],[],[],[],[],[],[]]
     
+    zakalka_iskyucheniye = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
    
     for key , row in datas.iterrows():
 
@@ -3483,23 +3485,32 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             umumiy_without_duplicate1201[42].append('X')
             umumiy_without_duplicate1201[43].append('1')
             sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]
+            sap_codee =row['SAP код S4P 100'].split('-')[0]
+            if sap_codee in zakalka_iskyucheniye:
+                sap_code_simvol ='Z'
             umumiy_without_duplicate1201[44].append(SFSPF1101[sap_code_simvol])
             umumiy_without_duplicate1201[45].append('X')
             umumiy_without_duplicate1201[46].append('')
             umumiy_without_duplicate1201[47].append('X')
             umumiy_without_duplicate1201[48].append(row['ch_combination'] + row['Тип покрытия'])
-            if ( (row['Тип покрытия'] =='Ламинированный') and ('-7' in row['SAP код S4P 100']) ):
-                umumiy_without_duplicate1201[49].append('JPL')
-            elif (('-7' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100'])):
-                if file_name =="aluminiytermo":
-                    umumiy_without_duplicate1201[49].append('JPK')
-                else:
-                    umumiy_without_duplicate1201[49].append('JPG')
 
+            if sap_codee in zakalka_iskyucheniye:
+                umumiy_without_duplicate1201[49].append('JPZ')
             else:
-                 umumiy_without_duplicate1201[49].append('JP1')
+                if ( (row['Тип покрытия'] =='Ламинированный') and ('-7' in row['SAP код S4P 100']) ):
+                    umumiy_without_duplicate1201[49].append('JPL')
+                elif (('-7' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100'])):
+                    if file_name =="aluminiytermo":
+                        umumiy_without_duplicate1201[49].append('JPK')
+                    else:
+                        umumiy_without_duplicate1201[49].append('JPG')
+
+                else:
+                    umumiy_without_duplicate1201[49].append('JP1')
 
             
+
+
             if row['Тип покрытия'] =='Белый':
                 umumiy_without_duplicate1201[50].append('S0')
             elif row['Тип покрытия'] =='Неокрашенный':
