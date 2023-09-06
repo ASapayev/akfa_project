@@ -184,8 +184,8 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{% url 'show_norm_base' %}">Показать все нормы</a></li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'add_norm'%}">Добавить нормы</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'show_sikl_data' %}">Показать все цикл time</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'add_sikl_data' %}">Добавить цикл time</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{%url 'full_update_norm' %}">Пол. обнов. базы</a></li>
+          <li class="nav-item"> <a class="nav-link text-danger"  onclick="confirm_delete()">Пол.удалить. базы</a></li>
         </ul>
       </div>
     </li>
@@ -253,3 +253,52 @@
   </ul>
 </nav>
 
+<script>
+
+function confirm_delete() {
+
+Swal.fire({
+  showDenyButton: true,
+  confirmButtonText: 'Norma hammasini rosdan o\'chirmoqchimisiz?',
+  denyButtonText: `Yo'q`,
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    $.ajax({
+                method: "POST",
+                url: "{% url 'norma_delete_all' %}",
+              }).done(function( msg ) {
+                
+                if (msg.msg ==true){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: msg.text,
+                        showConfirmButton: false,
+                        timer: 1000
+                      })
+                  
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: msg.text
+                          })
+
+                    }
+                });
+  } else if (result.isDenied) {
+    Swal.fire('!!!', 'Ok', 'info')
+  }
+})
+
+}
+
+
+
+
+
+
+// href="{% url 'norma_delete_all' %}"
+
+</script>

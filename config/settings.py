@@ -47,7 +47,8 @@ MIDDLEWARE = [
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
-
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10242880
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 1024000
 
 ROOT_URLCONF = 'config.urls'
 

@@ -25,16 +25,16 @@ urlpatterns = [
     path('find-chaarcteristics_org',views.find_characteristics_org,name='find_characteristics_org'),
     path('show-norma-base',views.show_norm_base,name='show_norm_base'),
     path('add-norm',views.add_norm,name = 'add_norm'),
+    path('full-update-norma',views.full_update_norm,name = 'full_update_norm'),
     path('add-norm-post',views.add_norm_post,name = 'add_norm_post'),
     path('edit-norm/<int:id>',views.edit_norm,name = 'edit_norm'),
     path('delete-norm/<int:id>',views.delete_norm,name = 'delete_norm'),
-    path('show-data',views.show_sikl_data,name = 'show_sikl_data'),
-    path('add-silk-data',views.add_sikl_data,name='add_sikl_data'),
-    path('add-silk-data-post',views.add_sikl_data_post,name='add_sikl_data_post'),
     path('vi-file-list',views.vi_file,name='vi_file_list'),
     path('vi-generate/<int:id>',views.vi_generate,name='vi_generate'),
     path('downloading-files',views.download, name='download_vi'),
     path('downloading-zip-file',views.download_zip_file, name='download_zip_file'),
+    path('norma-delete-all',views.norma_delete_all,name='norma_delete_all'),
+    path('full-update',views.full_update_norma,name='full_update_norma_base')
 
     
 ]
