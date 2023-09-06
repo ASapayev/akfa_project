@@ -893,10 +893,15 @@ def update_char_title(request,id):
       e_list =df_extrusion['SAP CODE E'].values.tolist()
 
       order_id = request.GET.get('order_id',None)
-      pathzip = characteristika_created_txt_create(df,e_list,order_id,'aluminiytermo')
-      fileszip = [File(file=path,filetype='BENKAM') for path in pathzip]
+      filename ='aluminiytermo'
       if order_id:
             order = Order.objects.get(id = order_id)
+            if order.order_type == 1:
+                  filename ='aluminiy'
+
+      pathzip = characteristika_created_txt_create(df,e_list,order_id,filename)
+      fileszip = [File(file=path,filetype='BENKAM') for path in pathzip]
+      if order_id:
             paths = order.paths
             zip_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             paths['status_zip'] ='done'
