@@ -3495,7 +3495,6 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                     umumiy_without_duplicate1201[49].append('JPK')
                 else:
                     umumiy_without_duplicate1201[49].append('JPG')
-                print(umumiy_without_duplicate1201[49][-1],'&'*150)
 
             else:
                  umumiy_without_duplicate1201[49].append('JP1')
