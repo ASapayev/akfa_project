@@ -1236,7 +1236,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['ARBPL'][counter_2] =BAZA['S']['ARBPL'][0]
                         df_new['WERKS1'][counter_2] ='1101'
                         df_new['STEUS'][counter_2] ='ZK01'
-                        df_new['LTXA1'][counter_2] =BAZA['S']['LTXA1'][0]
+                        df_new['LTXA1'][counter_2] =BAZA['S']['LTXA1'][0] + ' - ' + row['КРАТКИЙ ТЕКСТ'].split('_')[1]
                         df_new['BMSCH'][counter_2] = texcartatime.вакуум_1_печка_про_во_в_сутки_буй if texcarta_bor else '11111'
                         df_new['MEINH'][counter_2] =BAZA['S']['MEINH'][0]
                         df_new['VGW01'][counter_2] ='24'
