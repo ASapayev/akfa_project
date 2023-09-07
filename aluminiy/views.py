@@ -2593,7 +2593,6 @@ def product_add_second_org(request,id):
       exturision_list = []
       
       for key,row in df.iterrows():
-            print(key)
             row['Сплав'] = row['Сплав'].replace('.0','')
             row['Сплав'] = row['Сплав'].replace('.0','')
             row['Длина (мм)'] = row['Длина (мм)'].replace('.0','')

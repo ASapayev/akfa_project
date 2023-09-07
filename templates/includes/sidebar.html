@@ -221,6 +221,16 @@
       </a>
     </li>
     {%endif%}
+    {% if user_role == 'moderator'  %}
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="{% url 'get_sapcodes' %}">
+        <span class="menu-icon">
+          <i class="mdi mdi-arrow-expand-all"></i>
+        </span>
+        <span class="menu-title">Найти SAPCODE</span>
+      </a>
+    </li>
+    {%endif%}
     {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'find_characteristics_org' %}">

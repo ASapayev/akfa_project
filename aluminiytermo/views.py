@@ -28,6 +28,25 @@ from order.models import Order
 
 now = datetime.now()
 
+
+def get_sapcodes(request):
+
+      if request.method =='POST':
+            ozmk =request.POST.get('ozmk',None)
+            if ozmk:
+                  ozmks = ozmk.split()
+                  obichniy = AluminiyProduct.objects.filter(artikul__in = ozmks).order_by('section').order_by('counter')
+                  termo = AluminiyProductTermo.objects.filter(artikul__in = ozmks).order_by('section').order_by('counter')
+                  context ={
+                        'section1':'Обычный',
+                        'section2':'Термо',
+                        'products':obichniy,
+                        'termo_products':termo
+                  }
+                  return render(request,'universal/show_sapcodes.html',context)
+
+      return render(request,'norma/character_find.html',{'section':'SAPCODE','section2':'Найти SAPCODE'})
+
 def get_raube(request):
       raube_list =[[],[],[]]
 
