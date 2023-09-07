@@ -192,8 +192,8 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     return [path1201,''],[df_termo_1201,df_obichniy_1201,df_yoqlari_1201]
   
   if zavod1101:
-    termo_razlovka1101 =[ ['',''] + raz[4:10] + raz[12:16] + raz[18:20] for raz in termo_razlovka]
-    obichniy_razlovka1101 =[ raz[1:9] + ['','','',''] + raz[15:17] for raz in obichniy_razlovka]
+    termo_razlovka1101 =[ ('','') + raz[4:10] + raz[12:16] + raz[18:20] for raz in termo_razlovka]
+    obichniy_razlovka1101 =[ raz[1:9] + ('','','','') + raz[15:17] for raz in obichniy_razlovka]
     counter = 0
     obichniy_razlovka1101org = []
     for obichniy in obichniy_razlovka1101:
