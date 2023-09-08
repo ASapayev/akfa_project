@@ -292,7 +292,7 @@ def lenght_generate_texcarta(request,id):
                         in_correct[1].append('Pila secund 0 (7-iskyucheniye)')
 
                 length =len(row['КРАТКИЙ ТЕКСТ'])
-
+                kombiniroavniy = ('7777' in row['КРАТКИЙ ТЕКСТ']) or ('8888' in row['КРАТКИЙ ТЕКСТ']) or ('3701' in row['КРАТКИЙ ТЕКСТ']) or ('3702' in row['КРАТКИЙ ТЕКСТ'])
                 if ((length ==20) or (length ==25) or (length ==17)) :
                     if texcartatime.upakovka =='0':
                         in_correct[0].append(row['МАТЕРИАЛ'])
