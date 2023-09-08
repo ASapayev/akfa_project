@@ -2876,7 +2876,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     year =now.strftime("%Y")
     month =now.strftime("%B")
     day =now.strftime("%a%d")
-    hour =now.strftime("%H HOUR")
+    hour =now.strftime("%H HOUR %S")
     minut =now.strftime("%M-%S MINUT")
     
     if file_name =="aluminiytermo":
@@ -4130,7 +4130,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
     year =now.strftime("%Y")
     month =now.strftime("%B")
     day =now.strftime("%a%d")
-    hour =now.strftime("%H HOUR")
+    hour =now.strftime("%H HOUR %S")
     minut =now.strftime("%M-%S MINUT")
     if order_id:
         order =Order.objects.get(id = order_id)
