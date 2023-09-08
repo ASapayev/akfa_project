@@ -527,7 +527,7 @@ def lenght_generate_texcarta(request,id):
                             df_new['LOSBS'][counter_2] ='99999999'
                         elif i7 == 2:
                             ltx1 = ''
-                            text_tt = row['USR00']
+                            text_tt = '1'
                             if isklyuchenie:
                                 ltx1 =BAZA['7LN']['LTXA1'][0]
                             elif 'NT1' in row['КРАТКИЙ ТЕКСТ']:
