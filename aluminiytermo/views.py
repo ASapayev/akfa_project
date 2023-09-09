@@ -175,7 +175,7 @@ def create_txt_for_1101(request):
                               pprice = float(str(price.price).replace(',','.'))
 
                             
-                              termo_component = RazlovkaTermo.objects.filter(Q(esap_code=sap_code)|Q(zsap_code=sap_code)|Q(psap_code=sap_code)|Q(ssap_code=sap_code)|Q(asap_code=sap_code)|Q(nsap_code=sap_code)).exists()
+                              termo_component = AluminiyProductTermo.objects.filter(material=sap_code).exists()
                               exchange_val = float( str(exchange_value.valute).replace(',','.') )
 
                               if termo_component:
