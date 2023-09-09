@@ -234,7 +234,7 @@ def lenght_generate_texcarta(request,id):
             
             if not texcarta_bor:
                 in_correct[0].append(row['МАТЕРИАЛ'])
-                in_correct[1].append('texcarta yo\'q')
+                in_correct[1].append('sikl timeda sapcode yo\'q')
                 continue
 
             if '-E' in row['МАТЕРИАЛ']:
