@@ -1,0 +1,89 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        
+        <div class="col-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">{{section2}}</h4>
+              <form class="forms-sample" method="POST">
+                {%csrf_token%}
+                      <input type="hidden" value="1" id="countt" name="count">
+                      <div class="table-responsive">
+                        <table class="table table-bordered table-contextual">
+                          <thead>
+                            <tr>
+                              <th> # </th>
+                              <th> SAP CODE </th>
+                              <th> KRATKIY TEXT </th>
+                            </tr>
+                          </thead>
+                          <tbody id ='sap_code'>
+                            <tr class="table-striped">
+                              <td> 1 </td>
+                              <td> <input type="text" name="sapcode1"  class="form-control form-control-sm sapp" placeholder="Sap code ..." aria-label="Username"> </td>
+                              <td> <input type="text" name="kratkiy1"  class="form-control form-control-sm" placeholder="Kratkiy text ..." aria-label="Username"> </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    <!-- <div class="row">
+                      <div class="col-10">
+                      </div>
+                      <div class="col-2">
+                        <button type="button" class="btn btn-success  mt-2 btn-fw " onclick="add_td()" >Add</button>
+                      </div>
+                    </div> -->
+                   
+                <button type="submit" class="btn btn-primary p-2 mt-2">Submit</button>
+                <button class="btn btn-dark p-2 mt-2 ml-3">Cancel</button>
+              </form>
+              <br>
+              {%if path%}
+                
+                  {% if path != "" %}
+                  <form>
+                    <input type="hidden" name="path" value="{{path}}">
+                    <p class="text-info">{{path}}</p>
+                    <button class="btn btn-primary p-2 mt-2" >Открыть файл </button>
+                  </form>
+                  {%endif%}
+                
+              {%endif%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- <script>
+
+
+  function add_td(){
+    var sapp = document.querySelectorAll('.sapp').length
+    var dd = document.getElementById('countt')
+    dd.value = parseInt(dd.value) + 1
+    console.log(dd)
+    var btn = document.getElementById('sap_code')
+    $('#sap_code').append(`<tr class="table-striped">
+                              <td> ${sapp+1} </td>
+                              <td> <input type="text" name="sapcode${sapp+1}"  class="form-control form-control-sm sapp" placeholder="Sap code ..." aria-label="Username"> </td>
+                              <td> <input type="text" name="kratkiy${sapp+1}"  class="form-control form-control-sm" placeholder="Kratkiy text ..." aria-label="Username"> </td>
+                            </tr>`);
+  }
+</script> -->
+{% endblock %}
+

@@ -32,20 +32,23 @@ now = datetime.now()
 def get_sapcodes(request):
 
       if request.method =='POST':
-            ozmk =request.POST.get('ozmk',None)
-            if ozmk:
-                  ozmks = ozmk.split()
-                  obichniy = AluminiyProduct.objects.filter(artikul__in = ozmks).order_by('section').order_by('counter')
-                  termo = AluminiyProductTermo.objects.filter(artikul__in = ozmks).order_by('section').order_by('counter')
+            sap_code =request.POST.get('sapcode1',None)
+            kratkiy_tekst =request.POST.get('kratkiy1',None)
+
+            if sap_code and kratkiy_tekst:
+                  obichniy = AluminiyProduct.objects.filter(artikul__icontains = sap_code,kratkiy_tekst_materiala__icontains =kratkiy_tekst).order_by('section').order_by('counter')
+                  termo = AluminiyProductTermo.objects.filter(artikul__icontains = sap_code,kratkiy_tekst_materiala__icontains =kratkiy_tekst).order_by('section').order_by('counter')
+                  print(obichniy)
+                  print(termo)
                   context ={
                         'section1':'Обычный',
                         'section2':'Термо',
                         'products':obichniy,
                         'termo_products':termo
                   }
-                  return render(request,'universal/show_sapcodes.html',context)
+                  return render(request,'universal/sapcodes.html',context)
 
-      return render(request,'norma/character_find.html',{'section':'SAPCODE','section2':'Найти SAPCODE'})
+      return render(request,'norma/search_sapcode.html',{'section':'SAPCODE','section2':'Найти SAPCODE'})
 
 def get_raube(request):
       raube_list =[[],[],[]]
