@@ -7,7 +7,7 @@ from order.models import Order
 from config.settings import MEDIA_ROOT
 import pandas as pd
 import numpy as np
-from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101,LGORT_1101,HEADER2
+from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101,LGORT_1101,HEADER2,LGORT_1301
 from django.shortcuts import render
 from aluminiy.models import ArtikulComponent,LengthOfProfile,RazlovkaTermo
 from datetime import datetime
@@ -2869,6 +2869,350 @@ def create_characteristika_utils(items):
 
     
 
+
+
+def characteristika_created_txt_create_1301(datas):
+    now = datetime.now()
+    year =now.strftime("%Y")
+    month =now.strftime("%B")
+    day =now.strftime("%a%d")
+    hour =now.strftime("%H HOUR %S")
+    minut =now.strftime("%M-%S MINUT")
+    
+   
+            
+    create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo',f"{year}")
+    create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}',f'{hour} ТЕРМО')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО','IMZO')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\IMZO',minut)
+    pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\IMZO\\{minut}\\1.txt'
+    pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\IMZO\\{minut}\\2.txt'
+    pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\IMZO\\{minut}\\3.txt'
+    pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\IMZO\\{minut}\\4.txt'
+    pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО'
+        
+    # elif file_name =='aluminiy':
+    #     parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
+        
+    #     if not os.path.isdir(parent_dir):
+    #         create_folder(f'{MEDIA_ROOT}\\uploads','aluminiy')
+            
+    #     create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy',f'{year}')
+    #     create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}',f'{month}')
+    #     create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}',day)
+    #     create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}',f'{hour} ОБЫЧНЫЙ')
+    #     create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ','IMZO')
+    #     create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\IMZO',minut)
+    #     pathtext1 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\IMZO\\{minut}\\1.txt'
+    #     pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\IMZO\\{minut}\\2.txt'
+    #     pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\IMZO\\{minut}\\3.txt'
+    #     pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\IMZO\\{minut}\\4.txt'
+    #     pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ'
+    
+    
+    umumiy_without_duplicate1201 =[[] for i in range(0,49)]
+    
+    
+    zakalka_iskyucheniye = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
+   
+    for key , row in datas.iterrows():
+        
+        
+        if '-7' in row['MATNR']:
+                gruppa_material ='ALUGP'
+        else:
+            gruppa_material ='ALUPF'
+                
+        umumiy_without_duplicate1201[0].append(row['MATNR'])
+        umumiy_without_duplicate1201[1].append(row['MATNR'])
+        umumiy_without_duplicate1201[2].append(row['MAKTX'])
+        umumiy_without_duplicate1201[3].append('ШТ')
+        umumiy_without_duplicate1201[4].append('ZPRF')
+
+        if row['MATKL'] =='PVCGP':
+            spart ='02'
+            dispo ='102'
+        else:
+            dispo ='101'
+            spart ='01'
+        umumiy_without_duplicate1201[5].append(row['MATKL'])
+
+        umumiy_without_duplicate1201[6].append(gruppa_material)
+        umumiy_without_duplicate1201[7].append('F')
+
+        umumiy_without_duplicate1201[8].append(spart)
+
+        umumiy_without_duplicate1201[9].append('')
+        umumiy_without_duplicate1201[10].append('')
+        umumiy_without_duplicate1201[11].append('')
+        umumiy_without_duplicate1201[12].append('NORM')
+        umumiy_without_duplicate1201[13].append(row['MAKTX'])
+        umumiy_without_duplicate1201[14].append('ШТ')
+        umumiy_without_duplicate1201[15].append('120')
+        umumiy_without_duplicate1201[16].append('X')
+        umumiy_without_duplicate1201[17].append('0000')
+        umumiy_without_duplicate1201[18].append('PD')
+        umumiy_without_duplicate1201[19].append('MB')
+        umumiy_without_duplicate1201[20].append('0')
+        umumiy_without_duplicate1201[21].append('F')
+        umumiy_without_duplicate1201[22].append('S100')
+        umumiy_without_duplicate1201[23].append('0')
+        umumiy_without_duplicate1201[24].append('M')
+        umumiy_without_duplicate1201[25].append('02')
+        umumiy_without_duplicate1201[26].append('')
+        umumiy_without_duplicate1201[27].append('')
+        umumiy_without_duplicate1201[28].append('')
+        umumiy_without_duplicate1201[29].append('5')
+        umumiy_without_duplicate1201[30].append('Z_SAP_PP_002')
+        umumiy_without_duplicate1201[31].append('4')
+        umumiy_without_duplicate1201[32].append('SAP999')
+        umumiy_without_duplicate1201[33].append('26')
+        umumiy_without_duplicate1201[34].append('1301')
+        umumiy_without_duplicate1201[35].append('3')
+        umumiy_without_duplicate1201[36].append('0101')
+        umumiy_without_duplicate1201[37].append('S')
+        umumiy_without_duplicate1201[38].append('1')
+        umumiy_without_duplicate1201[39].append(row['STPRS'])
+
+        umumiy_without_duplicate1201[40].append('1101')
+
+        umumiy_without_duplicate1201[41].append('1301')
+        umumiy_without_duplicate1201[42].append('X')
+
+        if row['MATKL'] =='PVCGP':
+            dispo ='02'
+        else:
+            dispo ='01'
+        umumiy_without_duplicate1201[43].append(dispo)
+
+        sap_code_simvol =row['MATNR'].split('-')[1][0]
+        sap_codee =row['MATNR'].split('-')[0]
+        if sap_codee in zakalka_iskyucheniye:
+            sap_code_simvol ='Z'
+        umumiy_without_duplicate1201[44].append(SFSPF1101[sap_code_simvol])
+        umumiy_without_duplicate1201[45].append('X')
+        umumiy_without_duplicate1201[46].append('')
+        umumiy_without_duplicate1201[47].append('2')
+        umumiy_without_duplicate1201[48].append('20')
+
+       
+
+        
+
+
+        
+
+    umumiy_without_duplicate =[[] for i in range(0,49)]
+    for i in range(0,len(umumiy_without_duplicate1201)):
+        umumiy_without_duplicate[i]+=umumiy_without_duplicate1201[i] 
+            
+    
+    ########################## 1.txt ##############################
+    d1={}
+    header1 ='MATNR\tBISMT\tMAKTX\tMEINS\tMTART\tMATKL\tWERKS\tBESKZ\tSPART\tBRGEW\tNTGEW\tGEWEI\tMTPOS_MARA'
+    
+    d1['MATNR']=umumiy_without_duplicate1201[0]
+    d1['BISMT']=umumiy_without_duplicate1201[1]
+    d1['MAKTX']=umumiy_without_duplicate1201[2]
+    d1['MEINS']=umumiy_without_duplicate1201[3]
+    d1['MTART']=umumiy_without_duplicate1201[4]
+    d1['MATKL']=umumiy_without_duplicate1201[5]
+    d1['WERKS']=umumiy_without_duplicate1201[34]
+    d1['BESKZ']=umumiy_without_duplicate1201[7]
+    d1['SPART']=umumiy_without_duplicate1201[8]
+    d1['BRGEW']=umumiy_without_duplicate1201[9]
+    d1['NTGEW']=umumiy_without_duplicate1201[10]
+    d1['GEWEI']=umumiy_without_duplicate1201[11]
+    d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
+    
+    
+    df1= pd.DataFrame(d1)
+    
+    np.savetxt(pathtext1, df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
+    
+    ########################## end 1.txt ##############################
+
+    ########################## 2.txt ##############################
+    header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tFEVOR\tUEETK\tLGPRO\tAUTO_P_ORD'
+    
+   
+    d2={}
+    d2['MAKTX']=umumiy_without_duplicate[2]
+    d2['MEINS']=umumiy_without_duplicate[3]
+    d2['MTART']=umumiy_without_duplicate[4]
+    d2['MATNR']=umumiy_without_duplicate[0]
+    d2['WERKS']=umumiy_without_duplicate[34]
+    d2['EKGRP']=umumiy_without_duplicate[15]
+    d2['XCHPF']=umumiy_without_duplicate[16]
+    d2['DISGR']=umumiy_without_duplicate[17]
+    d2['DISMM']=umumiy_without_duplicate[18]
+
+    d2['DISPO']= umumiy_without_duplicate[43]
+
+    d2['DISLS']=umumiy_without_duplicate[19]
+    d2['WEBAZ']=umumiy_without_duplicate[20]    
+    d2['BESKZ']=umumiy_without_duplicate[21]
+    d2['LGFSB']=umumiy_without_duplicate[22]
+    d2['PLIFZ']=umumiy_without_duplicate[23]
+    d2['PERKZ']=umumiy_without_duplicate[24]
+    d2['MTVFP']=umumiy_without_duplicate[25]
+    d2['SCM_STRA1']=umumiy_without_duplicate[26]
+    d2['VRMOD']=umumiy_without_duplicate[27]
+    d2['PPSKZ']=umumiy_without_duplicate[28]
+    d2['SCM_WHATBOM']= umumiy_without_duplicate[29]
+    d2['SCM_HEUR_ID']= umumiy_without_duplicate[30]
+    d2['SCM_RRP_TYPE']= umumiy_without_duplicate[31]
+    d2['SCM_PROFID']= umumiy_without_duplicate[32]
+    d2['STRGR']=umumiy_without_duplicate[33]
+    d2['BWKEY']=umumiy_without_duplicate[34]
+    d2['MLAST']=umumiy_without_duplicate[35]
+    d2['BKLAS']=umumiy_without_duplicate[36]
+    d2['VPRSV']=umumiy_without_duplicate[37]
+    d2['PEINH']=umumiy_without_duplicate[38]
+
+    d2['STPRS']=umumiy_without_duplicate[39]
+
+    d2['PRCTR']=umumiy_without_duplicate[40]
+    d2['EKALR']=umumiy_without_duplicate[41]
+    d2['HKMAT']=umumiy_without_duplicate[42]
+    d2['LOSGR']=umumiy_without_duplicate[39]
+    d2['SFCPF']=umumiy_without_duplicate[46]
+    
+    d2['UEETK']=umumiy_without_duplicate[45]
+    d2['SBDKZ']=umumiy_without_duplicate[47]
+    d2['SOBSL']=umumiy_without_duplicate[48]
+    # d2['RAUBE']=umumiy_without_duplicate[50]
+
+   
+    df2= pd.DataFrame(d2)
+    np.savetxt(pathtext2, df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
+    ########################## end 2.txt ##############################
+
+    ########################## 3.txt ##############################
+    header3 ='MAKTX\tMEINS\tMTART\tSPART\tMATNR\tWERKS\tVKORG\tMTPOS\tVTWEG\tPRCTR\tMTVFP\tALAND\tTATYP\tTAXKM\tVERSG\tKTGRM\tKONDM\tTRAGR\tLADGR'
+    d3={
+        'MAKTX':[],
+        'MEINS':[],
+        'MTART':[],
+        'SPART':[],
+        'MATNR':[],
+        'WERKS':[],
+        'VKORG':[],
+        'MTPOS':[],
+        'VTWEG':[],
+        'PRCTR':[],
+        'MTVFP':[],
+        'ALAND':[],
+        'TATYP':[],
+        'TAXKM':[],
+        'VERSG':[],
+        'KTGRM':[],
+        'KONDM':[],
+        'TRAGR':[],
+        'LADGR':[]
+    }
+    VTWEG =['99','10','20']
+   
+    for i in range(0,3):
+        d3['MAKTX'] += umumiy_without_duplicate[13]
+        d3['MEINS'] += umumiy_without_duplicate[14]
+        d3['MTART'] += umumiy_without_duplicate[4]
+
+        d3['SPART'] += umumiy_without_duplicate[8]
+
+
+        d3['MATNR'] += umumiy_without_duplicate[0]
+        d3['WERKS'] += umumiy_without_duplicate[34]
+        d3['VKORG'] += [ 1300 for j in range(0,len(umumiy_without_duplicate[13]))]
+
+        d3['MTPOS'] += ['NORM' if VTWEG[i]=='99' else 'ZORM' for x in  umumiy_without_duplicate[12]]
+
+        d3['VTWEG'] += [ VTWEG[i] for j in range(0,len(umumiy_without_duplicate[13]))]
+
+        d3['PRCTR'] += umumiy_without_duplicate[34]
+        d3['MTVFP'] += [ '02' for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['ALAND'] += [ 'UZ' for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['TATYP'] += [ 'MWST' for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['TAXKM'] += [ '1' for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['VERSG'] += [ '1' for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['KTGRM'] += [ '03' for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['KONDM'] += [ '01' for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['LADGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['TRAGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
+        
+       
+
+    df3= pd.DataFrame(d3)
+    np.savetxt(pathtext3, df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
+    ########################## end 3.txt ##############################
+    
+    ########################## 4.txt ##############################    
+    new_ll =[[],[],[]]
+    
+    
+    for key , row in datas.iterrows():
+        
+        
+        sap_code_simvol =row['MATNR'].split('-')[1][0]        
+        if sap_code_simvol =='E':
+            for i in range(0,len(LGORT_1301['E'])):
+                new_ll[0].append(row['MATNR'])
+                new_ll[1].append(LGORT_1301['E'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1301['E'][i]['zavod_sap'])
+                
+        
+                
+        if sap_code_simvol =='P':
+            for i in range(0,len(LGORT_1301['P'])):
+                new_ll[0].append(row['MATNR'])
+                new_ll[1].append(LGORT_1301['P'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1301['P'][i]['zavod_sap'])
+                
+
+                    
+        if sap_code_simvol =='K':
+            for i in range(0,len(LGORT_1301['K'])):
+                new_ll[0].append(row['MATNR'])
+                new_ll[1].append(LGORT_1301['K'][i]['zavod_code'])
+                new_ll[2].append(LGORT_1301['K'][i]['zavod_sap'])
+                
+        
+        if sap_code_simvol =='7':
+            if row['MATKL'] =='PVCGP':
+                for i in range(0,len(LGORT_1301['7P'])):
+                    new_ll[0].append(row['MATNR'])
+                    new_ll[1].append(LGORT_1301['7P'][i]['zavod_code'])
+                    new_ll[2].append(LGORT_1301['7P'][i]['zavod_sap'])
+            else:
+                for i in range(0,len(LGORT_1301['7'])):
+                    new_ll[0].append(row['MATNR'])
+                    new_ll[1].append(LGORT_1301['7'][i]['zavod_code'])
+                    new_ll[2].append(LGORT_1301['7'][i]['zavod_sap'])
+                
+                
+        
+
+        
+        
+    header4='MATNR\tWERKS\tLGORT\tRAUBE'
+    d4={}
+    d4['MATNR']=new_ll[0]
+    d4['WERKS']=new_ll[1]
+    d4['LGORT']=new_ll[2]
+    
+    df4= pd.DataFrame(d4)
+    np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
+    ########################## end 4.txt ##############################
+ 
+    file_path =f'{pathzip}.zip'
+    
+    zip(pathzip, pathzip)
+
+    return [file_path,]
+    
+    #########################################################################################################################
 
 
 def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_name='aluminiytermo'):

@@ -35,5 +35,6 @@ path('get-raube',views.get_raube,name='get_raube'),
 path('get-sapcodes',views.get_sapcodes,name='get_sapcodes'),
 path('upload-character-force',views.upload_for_char_termo,name='upload_for_char_termo'),
 path('termo-files-org-force',views.char_files_org_termo,name='char_files_org_termo'),
+path('for-three-factory',views.upload_for_1301,name='upload_for_1301'),
 
 ]

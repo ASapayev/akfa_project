@@ -1,0 +1,181 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{% if link %}<a type="button" href="{{link}}" class="btn btn-success btn-fw" >Скачать</a>{%else%}Buttons{% endif %}</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row" id ='fileupload'>
+        <div class="col-md-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">File upload</h4>
+              <p class="card-description"> Excel file yuklash uchun faqat. </p>
+              <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                  {% csrf_token%}
+                    <label>File excel</label>
+                    <!-- <input type="file" name="" class="file-upload-default"> -->
+                    <div class="input-group">
+                      <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Excel File">
+                      <span class="input-group-append">
+                        <!-- <input  type="file" name="file"></input> -->
+                        <input class="file-upload-browse btn btn-primary" type="file" id="excel_file" />
+                      </span>
+                    </div>
+                  </div>
+              </form>
+              <div id="excel_data" class="mt-5" style="overflow-x: scroll;  "></div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center "><button type="button" class="btn btn-success btn-fw" style="display: none;" id="buttonupload" onclick="confirm()"><i class="mdi mdi-content-save"></i>Добавить нормы</button></div>
+        
+      </div>
+      
+
+      
+    </div>
+   
+  </div>
+  <script>
+    var sheet_data;
+
+  function confirm() {
+
+    Swal.fire({
+      showDenyButton: true,
+      confirmButtonText: 'Ha',
+      denyButtonText: `Yo'q`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+       
+        $.ajax({
+                    method: "POST",
+                    url: "{% url 'full_update_norma_base' %}",
+                    data:{'data':sheet_data},
+                    
+                  }).done(function( msg ) {
+                    
+                    if (msg.msg ==true){
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: msg.text,
+                            showConfirmButton: false,
+                            timer: 1000
+                          })
+                      
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: msg.text
+                              })
+    
+                        }
+                    });
+      } else if (result.isDenied) {
+        Swal.fire('!!!', 'Ok', 'info')
+      }
+    })
+
+  }
+
+
+
+
+
+     
+    const excel_file = document.getElementById('excel_file');
+    
+    excel_file.addEventListener('change', (event) => {
+    
+        if(!['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'].includes(event.target.files[0].type))
+        {
+            document.getElementById('excel_data').innerHTML = '<div class="alert alert-danger">Only .xlsx or .xls file format are allowed</div>';
+    
+            excel_file.value = '';
+    
+            return false;
+        }
+        
+        var reader = new FileReader();
+    
+        reader.readAsArrayBuffer(event.target.files[0]);
+    
+        reader.onload = function(event){
+    
+            var data = new Uint8Array(reader.result);
+    
+            var work_book = XLSX.read(data, {type:'array'});
+    
+            var sheet_name = work_book.SheetNames;
+    
+            sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], {header:1});
+
+            
+            if(sheet_data.length > 0)
+            {
+                var table_output = '<table class="table table-striped table-bordered" >';
+    
+                for(var row = 0; row < sheet_data.length; row++)
+                {
+    
+                    table_output += '<tr>';
+    
+                    for(var cell = 0; cell < sheet_data[row].length; cell++)
+                    {
+    
+                        if(row == 0 | row ==1 | row ==2 | row == 3)
+                        {
+                            if (sheet_data[row][cell] ==undefined){
+
+                              table_output += '<th style="background-color: blanchedalmond;"></th>';
+                            }else{
+
+                              table_output += '<th style="background-color: blanchedalmond;">'+sheet_data[row][cell]+'</th>';
+                            }
+    
+                        }
+                        else
+                        {
+                          
+                          if (sheet_data[row][cell] == undefined){
+
+                            table_output += '<td style="background-color: aliceblue;"></td>';
+                          }else{
+
+                            table_output += '<td style="background-color: aliceblue;">'+sheet_data[row][cell]+'</td>';
+                          }
+    
+                        }
+    
+                    }
+    
+                    table_output += '</tr>';
+    
+                }
+    
+                table_output += '</table>';
+    
+                document.getElementById('excel_data').innerHTML = table_output;
+            }
+    
+            excel_file.value = '';
+           
+            $("#buttonupload").css("display","block");
+        }
+    
+    });
+    
+    </script>
+{% endblock %}
