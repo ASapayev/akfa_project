@@ -36,6 +36,22 @@ class File:
 
 
 
+def upload_razlovka_simple(request):
+      if request.method == 'POST':
+            form = FileForm(request.POST, request.FILES)
+            if form.is_valid():
+                  file_path =form.cleaned_data["file"]
+                  df = pd.read_excel(file_path)
+                  df = df.astype(str)
+                  df = df.replace('nan','')
+                  save_razlovka(df,'simple')
+                  context ={
+                        'msg':'Simple razlovka successfully uploaded!'
+                  }
+                  
+                  return render(request,'universal/upload.html',context)
+      return render(request,'universal/main.html')
+
 
 def download_all_razlovki(request):
       file_type = request.GET.get('type',None)

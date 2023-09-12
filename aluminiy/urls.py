@@ -32,6 +32,7 @@ path('bulk-delete-sapcode',views.sap_code_bulk_delete, name='bulk_delete_sapkode
 path('show-razlovki',views.show_razlovki,name='show_razlovki'),
 path('show-termo-razlovki',views.show_razlovki_termo,name='show_razlovki_termo'),
 path('download-razlovki',views.download_all_razlovki,name='download_razlovki_all'),
-path('upload-for-character',views.upload_for_char,name='upload_for_char')
+path('upload-for-character',views.upload_for_char,name='upload_for_char'),
+path('upload-razlovka-simple',views.upload_razlovka_simple,name='upload_razlovka_simple'),
 
 ]

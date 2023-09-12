@@ -5,6 +5,7 @@ from .models import AluFileTermo,AluminiyProductTermo,CharUtilsTwo,CharUtilsOne,
 from norma.models import NakleykaIskyuchenie,NormaExcelFiles
 from aluminiy.models import AluminiyProduct,RazlovkaTermo,LengthOfProfile,ExchangeValues,Price
 from .forms import FileFormTermo,FileFormChar
+from aluminiy.utils import save_razlovka
 from django.db.models import Count,Max
 from config.settings import MEDIA_ROOT
 from django.core.paginator import Paginator
@@ -533,6 +534,21 @@ def upload_for_1301(request):
                         'files':files,
                   }
                   return render(request,'universal/generated_file_1301.html',context)
+      return render(request,'universal/main.html')
+
+def upload_razlovka_termo(request):
+      if request.method == 'POST':
+            form = FileFormTermo(request.POST, request.FILES)
+            if form.is_valid():
+                  file_path =form.cleaned_data["file"]
+                  df = pd.read_excel(file_path)
+                  df = df.astype(str)
+                  df = df.replace('nan','')
+                  save_razlovka(df,'termo')
+                  context ={
+                        'msg':'Termo razlovka successfully uploaded!'
+                  }
+                  return render(request,'universal/upload.html',context)
       return render(request,'universal/main.html')
 
 
