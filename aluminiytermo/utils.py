@@ -2981,10 +2981,7 @@ def characteristika_created_txt_create_1301(datas):
         umumiy_without_duplicate1201[41].append('X')
         umumiy_without_duplicate1201[42].append('X')
 
-        if row['MATKL'] =='PVCGP':
-            dispo ='02'
-        else:
-            dispo ='01'
+        
         umumiy_without_duplicate1201[43].append(dispo)
 
         sap_code_simvol =row['MATNR'].split('-')[1][0]
@@ -3091,7 +3088,7 @@ def characteristika_created_txt_create_1301(datas):
     ########################## end 2.txt ##############################
 
     ########################## 3.txt ##############################
-    header3 ='MAKTX\tMEINS\tMTART\tSPART\tMATNR\tWERKS\tVKORG\tMTPOS\tVTWEG\tPRCTR\tMTVFP\tALAND\tTATYP\tTAXKM\tVERSG\tKTGRM\tKONDM\tTRAGR\tLADGR'
+    header3 ='MAKTX\tMEINS\tMTART\tSPART\tMATNR\tWERKS\tVKORG\tMTPOS\tVTWEG\tPRCTR\tMTVFP\tALAND\tTATYP\tTAXKM\tVERSG\tKTGRM\tKONDM\tLADGR\tTRAGR'
     d3={
         'MAKTX':[],
         'MEINS':[],
