@@ -3004,9 +3004,9 @@ def characteristika_created_txt_create_1301(datas):
 
         
 
-    umumiy_without_duplicate =[[] for i in range(0,49)]
-    for i in range(0,len(umumiy_without_duplicate1201)):
-        umumiy_without_duplicate[i]+=umumiy_without_duplicate1201[i] 
+    # umumiy_without_duplicate =[[] for i in range(0,49)]
+    # for i in range(0,len(umumiy_without_duplicate1201)):
+    #     umumiy_without_duplicate[i]+=umumiy_without_duplicate1201[i] 
             
     
     ########################## 1.txt ##############################
@@ -3039,50 +3039,50 @@ def characteristika_created_txt_create_1301(datas):
     
    
     d2={}
-    d2['MAKTX']=umumiy_without_duplicate[2]
-    d2['MEINS']=umumiy_without_duplicate[3]
-    d2['MTART']=umumiy_without_duplicate[4]
-    d2['MATNR']=umumiy_without_duplicate[0]
-    d2['WERKS']=umumiy_without_duplicate[34]
-    d2['EKGRP']=umumiy_without_duplicate[15]
-    d2['XCHPF']=umumiy_without_duplicate[16]
-    d2['DISGR']=umumiy_without_duplicate[17]
-    d2['DISMM']=umumiy_without_duplicate[18]
+    d2['MAKTX']=umumiy_without_duplicate1201[2]
+    d2['MEINS']=umumiy_without_duplicate1201[3]
+    d2['MTART']=umumiy_without_duplicate1201[4]
+    d2['MATNR']=umumiy_without_duplicate1201[0]
+    d2['WERKS']=umumiy_without_duplicate1201[34]
+    d2['EKGRP']=umumiy_without_duplicate1201[15]
+    d2['XCHPF']=umumiy_without_duplicate1201[16]
+    d2['DISGR']=umumiy_without_duplicate1201[17]
+    d2['DISMM']=umumiy_without_duplicate1201[18]
 
-    d2['DISPO']= umumiy_without_duplicate[43]
+    d2['DISPO']= umumiy_without_duplicate1201[43]
 
-    d2['DISLS']=umumiy_without_duplicate[19]
-    d2['WEBAZ']=umumiy_without_duplicate[20]    
-    d2['BESKZ']=umumiy_without_duplicate[21]
-    d2['LGFSB']=umumiy_without_duplicate[22]
-    d2['PLIFZ']=umumiy_without_duplicate[23]
-    d2['PERKZ']=umumiy_without_duplicate[24]
-    d2['MTVFP']=umumiy_without_duplicate[25]
-    d2['SCM_STRA1']=umumiy_without_duplicate[26]
-    d2['VRMOD']=umumiy_without_duplicate[27]
-    d2['PPSKZ']=umumiy_without_duplicate[28]
-    d2['SCM_WHATBOM']= umumiy_without_duplicate[29]
-    d2['SCM_HEUR_ID']= umumiy_without_duplicate[30]
-    d2['SCM_RRP_TYPE']= umumiy_without_duplicate[31]
-    d2['SCM_PROFID']= umumiy_without_duplicate[32]
-    d2['STRGR']=umumiy_without_duplicate[33]
-    d2['BWKEY']=umumiy_without_duplicate[34]
-    d2['MLAST']=umumiy_without_duplicate[35]
-    d2['BKLAS']=umumiy_without_duplicate[36]
-    d2['VPRSV']=umumiy_without_duplicate[37]
-    d2['PEINH']=umumiy_without_duplicate[38]
+    d2['DISLS']=umumiy_without_duplicate1201[19]
+    d2['WEBAZ']=umumiy_without_duplicate1201[20]    
+    d2['BESKZ']=umumiy_without_duplicate1201[21]
+    d2['LGFSB']=umumiy_without_duplicate1201[22]
+    d2['PLIFZ']=umumiy_without_duplicate1201[23]
+    d2['PERKZ']=umumiy_without_duplicate1201[24]
+    d2['MTVFP']=umumiy_without_duplicate1201[25]
+    d2['SCM_STRA1']=umumiy_without_duplicate1201[26]
+    d2['VRMOD']=umumiy_without_duplicate1201[27]
+    d2['PPSKZ']=umumiy_without_duplicate1201[28]
+    d2['SCM_WHATBOM']= umumiy_without_duplicate1201[29]
+    d2['SCM_HEUR_ID']= umumiy_without_duplicate1201[30]
+    d2['SCM_RRP_TYPE']= umumiy_without_duplicate1201[31]
+    d2['SCM_PROFID']= umumiy_without_duplicate1201[32]
+    d2['STRGR']=umumiy_without_duplicate1201[33]
+    d2['BWKEY']=umumiy_without_duplicate1201[34]
+    d2['MLAST']=umumiy_without_duplicate1201[35]
+    d2['BKLAS']=umumiy_without_duplicate1201[36]
+    d2['VPRSV']=umumiy_without_duplicate1201[37]
+    d2['PEINH']=umumiy_without_duplicate1201[38]
 
-    d2['STPRS']=umumiy_without_duplicate[39]
+    d2['STPRS']=umumiy_without_duplicate1201[39]
 
-    d2['PRCTR']=umumiy_without_duplicate[40]
-    d2['EKALR']=umumiy_without_duplicate[41]
-    d2['HKMAT']=umumiy_without_duplicate[42]
-    d2['LOSGR']=umumiy_without_duplicate[39]
-    d2['SFCPF']=umumiy_without_duplicate[46]
+    d2['PRCTR']=umumiy_without_duplicate1201[40]
+    d2['EKALR']=umumiy_without_duplicate1201[41]
+    d2['HKMAT']=umumiy_without_duplicate1201[42]
+    d2['LOSGR']=umumiy_without_duplicate1201[39]
+    d2['SFCPF']=umumiy_without_duplicate1201[46]
     
-    d2['UEETK']=umumiy_without_duplicate[45]
-    d2['SBDKZ']=umumiy_without_duplicate[47]
-    d2['SOBSL']=umumiy_without_duplicate[48]
+    d2['UEETK']=umumiy_without_duplicate1201[45]
+    d2['SBDKZ']=umumiy_without_duplicate1201[47]
+    d2['SOBSL']=umumiy_without_duplicate1201[48]
     # d2['RAUBE']=umumiy_without_duplicate[50]
 
    
@@ -3116,31 +3116,31 @@ def characteristika_created_txt_create_1301(datas):
     VTWEG =['99','10','20']
    
     for i in range(0,3):
-        d3['MAKTX'] += umumiy_without_duplicate[13]
-        d3['MEINS'] += umumiy_without_duplicate[14]
-        d3['MTART'] += umumiy_without_duplicate[4]
+        d3['MAKTX'] += umumiy_without_duplicate1201[13]
+        d3['MEINS'] += umumiy_without_duplicate1201[14]
+        d3['MTART'] += umumiy_without_duplicate1201[4]
 
-        d3['SPART'] += umumiy_without_duplicate[8]
+        d3['SPART'] += umumiy_without_duplicate1201[8]
 
 
-        d3['MATNR'] += umumiy_without_duplicate[0]
-        d3['WERKS'] += umumiy_without_duplicate[34]
-        d3['VKORG'] += [ 1300 for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['MATNR'] += umumiy_without_duplicate1201[0]
+        d3['WERKS'] += umumiy_without_duplicate1201[34]
+        d3['VKORG'] += [ 1300 for j in range(0,len(umumiy_without_duplicate1201[13]))]
 
-        d3['MTPOS'] += ['NORM' if VTWEG[i]=='99' else 'ZORM' for x in  umumiy_without_duplicate[12]]
+        d3['MTPOS'] += ['NORM' if VTWEG[i]=='99' else 'ZORM' for x in  umumiy_without_duplicate1201[12]]
 
-        d3['VTWEG'] += [ VTWEG[i] for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['VTWEG'] += [ VTWEG[i] for j in range(0,len(umumiy_without_duplicate1201[13]))]
 
-        d3['PRCTR'] += umumiy_without_duplicate[34]
-        d3['MTVFP'] += [ '02' for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['ALAND'] += [ 'UZ' for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['TATYP'] += [ 'MWST' for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['TAXKM'] += [ '1' for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['VERSG'] += [ '1' for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['KTGRM'] += [ '03' for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['KONDM'] += [ '01' for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['LADGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['TRAGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))]
+        d3['PRCTR'] += umumiy_without_duplicate1201[34]
+        d3['MTVFP'] += [ '02' for j in range(0,len(umumiy_without_duplicate1201[13]))]
+        d3['ALAND'] += [ 'UZ' for j in range(0,len(umumiy_without_duplicate1201[13]))]
+        d3['TATYP'] += [ 'MWST' for j in range(0,len(umumiy_without_duplicate1201[13]))]
+        d3['TAXKM'] += [ '1' for j in range(0,len(umumiy_without_duplicate1201[13]))]
+        d3['VERSG'] += [ '1' for j in range(0,len(umumiy_without_duplicate1201[13]))]
+        d3['KTGRM'] += [ '03' for j in range(0,len(umumiy_without_duplicate1201[13]))]
+        d3['KONDM'] += [ '01' for j in range(0,len(umumiy_without_duplicate1201[13]))]
+        d3['LADGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate1201[13]))]
+        d3['TRAGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate1201[13]))]
         
        
 
