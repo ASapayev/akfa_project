@@ -3057,7 +3057,7 @@ def characteristika_created_txt_create_1301(datas):
     d2['MTVFP']=umumiy_without_duplicate1201[25]
     d2['SCM_STRA1']=umumiy_without_duplicate1201[26]
     d2['VRMOD']=umumiy_without_duplicate1201[27]
-    d2['PPSKZ']=umumiy_without_duplicate1201[28]
+    d2['PPSKZ']=umumiy_without_duplicate1201[27]
     d2['SCM_WHATBOM']= umumiy_without_duplicate1201[29]
     d2['SCM_HEUR_ID']= umumiy_without_duplicate1201[30]
     d2['SCM_RRP_TYPE']= umumiy_without_duplicate1201[31]
