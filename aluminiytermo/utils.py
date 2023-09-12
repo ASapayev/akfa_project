@@ -2963,7 +2963,7 @@ def characteristika_created_txt_create_1301(datas):
         umumiy_without_duplicate1201[25].append('02')
         umumiy_without_duplicate1201[26].append('')
         umumiy_without_duplicate1201[27].append('')
-        umumiy_without_duplicate1201[28].append('')
+        umumiy_without_duplicate1201[28].append('x')
         umumiy_without_duplicate1201[29].append('5')
         umumiy_without_duplicate1201[30].append('Z_SAP_PP_002')
         umumiy_without_duplicate1201[31].append('4')
@@ -2976,9 +2976,9 @@ def characteristika_created_txt_create_1301(datas):
         umumiy_without_duplicate1201[38].append('1')
         umumiy_without_duplicate1201[39].append(row['STPRS'])
 
-        umumiy_without_duplicate1201[40].append('1101')
+        umumiy_without_duplicate1201[40].append('1301')
 
-        umumiy_without_duplicate1201[41].append('1301')
+        umumiy_without_duplicate1201[41].append('X')
         umumiy_without_duplicate1201[42].append('X')
 
         if row['MATKL'] =='PVCGP':
@@ -3035,7 +3035,7 @@ def characteristika_created_txt_create_1301(datas):
     ########################## end 1.txt ##############################
 
     ########################## 2.txt ##############################
-    header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tUEETK\tLGPRO\tSBDKZ\tSOBSL'
+    header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tUEETK\tSBDKZ\tSOBSL'
     
    
     d2={}
@@ -3077,7 +3077,7 @@ def characteristika_created_txt_create_1301(datas):
     d2['PRCTR']=umumiy_without_duplicate1201[40]
     d2['EKALR']=umumiy_without_duplicate1201[41]
     d2['HKMAT']=umumiy_without_duplicate1201[42]
-    d2['LOSGR']=umumiy_without_duplicate1201[39]
+    d2['LOSGR']=umumiy_without_duplicate1201[38]
     d2['SFCPF']=umumiy_without_duplicate1201[46]
     
     d2['UEETK']=umumiy_without_duplicate1201[45]
