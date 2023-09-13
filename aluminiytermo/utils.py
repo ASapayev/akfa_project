@@ -2159,7 +2159,7 @@ def get_cretead_txt_for_1101(datas,elist):
     ########################## end 4.txt ##############################
 
     ########################## 55.txt ##############################    
-    new_ll_55 =[[],[],[]]
+    new_ll_55 =[[],[],[],[]]
     
     for key , row in datas.iterrows():
         if (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
@@ -4346,7 +4346,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     ########################## end 4.txt ##############################
 
     ########################## 55.txt ##############################    
-    new_ll_55 =[[],[],[]]
+    new_ll_55 =[[],[],[],[]]
     
     for key , row in datas.iterrows():
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
