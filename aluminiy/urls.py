@@ -34,5 +34,11 @@ path('show-termo-razlovki',views.show_razlovki_termo,name='show_razlovki_termo')
 path('download-razlovki',views.download_all_razlovki,name='download_razlovki_all'),
 path('upload-for-character',views.upload_for_char,name='upload_for_char'),
 path('upload-razlovka-simple',views.upload_razlovka_simple,name='upload_razlovka_simple'),
+path('show-price-profile', views.show_price_profile,name='show_profile'),
+path('delete-length-profile/<int:id>',views.delete_length_profile,name='delete_length_profile'), 
+path('bulk-delete-length-profile',views.bulk_delete_length_profile,name='bulk_delete_length_profile'), 
+path('length-profile-edit/<int:id>',views.profile_edit,name='edit_profile_length'),
+path('add-length-profile',views.add_length_profile,name='add_length_profile'),
+path('edit-currency',views.edit_currency,name='edit_currency')
 
 ]

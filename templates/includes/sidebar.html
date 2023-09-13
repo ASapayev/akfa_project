@@ -92,6 +92,7 @@
       </div>
     </li>
     {%endif%}
+    
     {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#ui-basics" aria-expanded="false" aria-controls="ui-basics">
@@ -157,6 +158,26 @@
       </div>
     </li>
     {%endif%}
+
+    {% if user_role == 'moderator'%}
+    <li class="nav-item menu-items">
+      <a class="nav-link" data-toggle="collapse" href="#sena" aria-expanded="false" aria-controls="sena">
+        <span class="menu-icon">
+          <i class="mdi mdi-currency-usd"></i>
+        </span>
+        <span class="menu-title">Цена профилей</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="sena">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{%url 'show_profile'%}" >Все профилей</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{%url 'add_length_profile' %}">Добавить профилей</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{%url 'edit_currency' %}">Обмен валюты</a></li>
+        </ul>
+      </div>
+    </li>
+    {%endif%}
+
     {% if user_role == 'moderator' or user_role == 'user1'%}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic-vi" aria-expanded="false" aria-controls="ui-basic-vi">

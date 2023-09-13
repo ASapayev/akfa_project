@@ -28,27 +28,26 @@
                         #
                       </th>
                       <th  style="color: aliceblue;"> SAP CODE </th>
-                      <th  style="color: aliceblue;"> KRATKIY TEXT</th>
-                      <th  style="color: aliceblue;"> CREATED DATE </th>
-                      <th  style="color: aliceblue;"> Действие </th>
+                      <th  style="color: aliceblue;"> LENGTH</th>
+                      <th  style="color: aliceblue;"> VES ZA SHTUK </th>
+                      <th  style="color: aliceblue;"> VES ZA METR </th>
+                      <th  style="color: aliceblue;">Действие</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for profile in products %}
+                    {% for profile in profiles %}
                     <tr >
                       <td>
-                        <div class="form-check form-check-muted m-0">
-                          <label class="">
-                            <input type="checkbox" class="form-check-input"  id="selected_checbox"  value="{{profile.id}}">
-                          </label>
-                        </div>
+                        {{forloop.counter}}
                       </td>
                       <td>
-                        <span class="pl-2">{{profile.material}}</span>
+                        <span class="pl-2">{{profile.artikul}}</span>
                       </td>
-                      <td>{{profile.kratkiy_tekst_materiala}} </td>
-                      <td> {{profile.created_at |date:"d-m-Y H:i"}} </td>
+                      <td>{{profile.length}} </td>
+                      <td>{{profile.ves_za_shtuk}} </td>
+                      <td>{{profile.ves_za_metr}} </td>
                       <td>
+                        <div class="badge" style="cursor: pointer;" onclick="" id ="edit"><a class="btn btn-warning" href="{%url 'edit_profile_length' profile.id %}">Edit</a></div>
                         <div class="badge badge-outline-danger" style="cursor: pointer;" onclick="delete_sapcode(this,'{{profile.id}}')" id ="delete_btn">Delete</div>
                       </td>
                     </tr>
@@ -71,33 +70,33 @@
         <div class="pagination p-2">
           <span class="step-links">
             <ul class="pagination"  style="background-color: azure;">
-                {% if products.has_previous %}
-                <li class="page-item" ><a class="page-link"  style="background-color: azure;" href="?page={{ products.previous_page_number }}{%if search%}&search={{search}}{%endif%}">Previous</a></li>
-                    {% if products.number > 3 %}
+                {% if profiles.has_previous %}
+                <li class="page-item" ><a class="page-link"  style="background-color: azure;" href="?page={{ profiles.previous_page_number }}{%if search%}&search={{search}}{%endif%}">Previous</a></li>
+                    {% if profiles.number > 3 %}
                         <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page=1{%if search%}&search={{search}}{%endif%}">1</a></li>
-                        {% if products.number > 4 %}
+                        {% if profiles.number > 4 %}
                         <li class="page-item"  style="background-color: azure;"> <span style="color: black;">...</span></li>
                         {% endif %}
                     {% endif %}
                 {% endif %}
 
-                {% for num in products.paginator.page_range %}
-                    {% if products.number == num %}
+                {% for num in profiles.paginator.page_range %}
+                    {% if profiles.number == num %}
                         <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
-                    {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                    {% elif num > profiles.number|add:'-3' and num < profiles.number|add:'3' %}
                         <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
                     {% endif %}
                 {% endfor %}
 
-                {% if products.has_next %}
-                    {% if products.number < products.paginator.num_pages|add:'-3' %}
+                {% if profiles.has_next %}
+                    {% if profiles.number < profiles.paginator.num_pages|add:'-3' %}
                     <li class="page-item"  style="background-color: azure;" > <span style="color: black;">...</span></li>
-                    <li class="page-item"><a class="page-link"  style="background-color: azure;"  href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
-                    {% elif products.number < products.paginator.num_pages|add:'-2' %}
-                    <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;"  href="?page={{ profiles.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ profiles.paginator.num_pages }}</a></li>
+                    {% elif profiles.number < profiles.paginator.num_pages|add:'-2' %}
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ profiles.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ profiles.paginator.num_pages }}</a></li>
                     {% endif %}
                     
-                    <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ products.next_page_number }}{%if search%}&search={{search}}{%endif%}">Next Page »</a></li>
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ profiles.next_page_number }}{%if search%}&search={{search}}{%endif%}">Next Page »</a></li>
                    
                 {% endif %}
               </ul>
@@ -135,11 +134,11 @@ function bulk_delete(ids){
   
   Swal.fire({
         showDenyButton: true,
-        confirmButtonText: 'SAP codelar o\'chirilsinmi',
+        confirmButtonText: 'SAP codelar o\'chirilsinmi?Ha',
         denyButtonText: `Yo'q`,
       }).then((result) => {
         if (result.isConfirmed) {
-          var url ="{% url 'bulk_delete_sapkode' %}";
+          var url ="{% url 'bulk_delete_length_profile' %}";
           console.log(ids);
           $.ajax({
                 method:'POST',
@@ -163,11 +162,11 @@ function delete_sapcode(elem,id){
     
     Swal.fire({
         showDenyButton: true,
-        confirmButtonText: 'SAP codeni o\'chirilsinmi',
+        confirmButtonText: 'SAP codeni o\'chirilsinmi?Ha',
         denyButtonText: `Yo'q`,
       }).then((result) => {
         if (result.isConfirmed) {
-          var url ="/alu/delete-sapcode/" + id;
+          var url ="/alu/delete-length-profile/" + id;
           $.ajax({
                 method:'POST',
                 url: url,

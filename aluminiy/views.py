@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 from .models import ArtikulComponent,AluminiyProduct,AluFile,RazlovkaObichniy,RazlovkaTermo,Price,LengthOfProfile,ExchangeValues
 from aluminiytermo.models import AluminiyProductTermo,CharacteristikaFile
 from aluminiytermo.views import *
-from .forms import FileForm
+from .forms import FileForm,LengthOfProfilwForm,ExchangeValueForm
 from django.db.models import Max
 import zipfile
 from config.settings import MEDIA_ROOT
@@ -26,6 +26,95 @@ from io import BytesIO as IO
 from accounts.models import User
 from django.urls import reverse
 from norma.models import NormaExcelFiles
+
+
+def add_length_profile(request):
+
+      if request.method == 'POST':
+            form = LengthOfProfilwForm(data=request.POST)
+            if form.is_valid():
+                  form.save()
+                  return redirect('show_profile')
+      else:
+            form = LengthOfProfilwForm()
+
+      context ={
+            'form':form
+      }
+      return render(request,'price/add.html',context)
+
+
+def edit_currency(request):
+
+      length_of_profile = ExchangeValues.objects.get(id =1)
+
+      if request.method == 'POST':
+            form = ExchangeValueForm(data=request.POST,instance=length_of_profile)
+            if form.is_valid():
+                  form.save()
+                  return redirect('home')
+      else:
+            form = ExchangeValueForm(instance=length_of_profile)
+
+      context ={
+            'form':form
+      }
+      return render(request,'price/currency_update.html',context)
+
+def profile_edit(request,id):
+
+      length_of_profile = LengthOfProfile.objects.get(id = id)
+
+      if request.method == 'POST':
+            form = LengthOfProfilwForm(data=request.POST,instance=length_of_profile)
+            if form.is_valid():
+                  form.save()
+                  return redirect('show_profile')
+      else:
+            form = LengthOfProfilwForm(instance=length_of_profile)
+
+      context ={
+            'form':form
+      }
+      return render(request,'price/edit.html',context)
+
+@csrf_exempt
+def delete_length_profile(request,id):
+      profile_length = LengthOfProfile.objects.get(id = id)
+      profile_length.delete()
+      return JsonResponse({'msg':True})
+
+@csrf_exempt
+def bulk_delete_length_profile(request):
+      ids = request.POST.get('ids',None)
+      if ids:
+            ids = ids.split(',')
+            profile_length = LengthOfProfile.objects.filter(id__in = ids)
+            profile_length.delete()
+      return JsonResponse({'msg':True})
+
+
+def show_price_profile(request):
+
+      search = request.GET.get('search',None)
+
+      if search:
+            profiles = LengthOfProfile.objects.filter(artikul__icontains = search).order_by('-created_at')
+      else:
+            profiles = LengthOfProfile.objects.all().order_by('-created_at')
+
+      paginator = Paginator(profiles, 25)
+
+      if request.GET.get('page') != None:
+            page_number = request.GET.get('page')
+      else:
+            page_number=1
+
+      page_obj = paginator.get_page(page_number)
+      context = {
+            'profiles':page_obj
+      }
+      return render(request,'price/show.html',context)
 
 
 

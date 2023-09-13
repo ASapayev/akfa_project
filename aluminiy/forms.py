@@ -1,5 +1,5 @@
 from django import forms
-from .models import AluFile
+from .models import AluFile,LengthOfProfile,ExchangeValues
 
 
 class FileForm(forms.ModelForm):
@@ -11,3 +11,14 @@ class FileForm(forms.ModelForm):
   class Meta:
     model =AluFile
     fields =['file','file_type']
+
+class LengthOfProfilwForm(forms.ModelForm):
+  class Meta:
+    model = LengthOfProfile
+    fields ='__all__'
+
+
+class ExchangeValueForm(forms.ModelForm):
+  class Meta:
+    model = ExchangeValues
+    fields ='__all__'
