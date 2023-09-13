@@ -40,6 +40,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     pathtext2 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\2.txt'
     pathtext3 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\3.txt'
     pathtext4 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\4.txt'
+    pathtext55 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\5.txt'
     pathtext5 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Единицы изм.txt'
     pathtext6 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Лист в C 3.xlsx'
     pathtext7 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\Длинный текс.txt'
@@ -892,6 +893,34 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     df4= pd.DataFrame(d4)
     np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
 ########################## end 4.txt ##############################
+########################## 55.txt ##############################    
+    new_ll_55 =[[],[],[]]
+    
+    for key , row in datas.iterrows():
+        sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
+
+        if sap_code_simvol =='7':
+            if (row['Тип покрытия'] =='Ламинированный'):
+                for i in range(0,len(LGORT['7L'])):
+                    new_ll_55[0].append(row['SAP код S4P 100'])
+                    new_ll_55[1].append(LGORT['7L'][i]['zavod_code'])
+                    new_ll_55[2].append(LGORT['7L'][i]['zavod_sap'])
+            else:
+                for i in range(0,len(LGORT['7'])):
+                    new_ll_55[0].append(row['SAP код S4P 100'])
+                    new_ll_55[1].append(LGORT['7'][i]['zavod_code'])
+                    new_ll_55[2].append(LGORT['7'][i]['zavod_sap'])
+
+    header55='MATNR\tWERKS\tLGORT\tRAUBE'
+    d55={}
+    d55['MATNR']=new_ll_55[0] 
+    d55['WERKS']=new_ll_55[1] 
+    d55['LGORT']=new_ll_55[2] 
+    d55['RAUBE']=['' for x in new_ll_55[2]] 
+    df55= pd.DataFrame(d55)
+    np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
+    ########################## end 55.txt ##############################
+    
     
 ########################## 5.txt ##############################
     d5 ={
@@ -1187,6 +1216,7 @@ def get_cretead_txt_for_1101(datas,elist):
     pathtext2 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\2.txt'
     pathtext3 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\3.txt'
     pathtext4 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\4.txt'
+    pathtext55 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\5.txt'
     pathtext5 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Единицы изм.txt'
     pathtext6 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Лист в C 3.xlsx'
     pathtext7 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\Длинный текс.txt'
@@ -2127,6 +2157,47 @@ def get_cretead_txt_for_1101(datas,elist):
     df4= pd.DataFrame(d4)
     np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################
+
+    ########################## 55.txt ##############################    
+    new_ll_55 =[[],[],[]]
+    
+    for key , row in datas.iterrows():
+        if (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
+            continue
+        sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]   
+
+        raube_txt = ''
+
+        if row['Тип покрытия'].capitalize() =='Белый':
+            raube_txt = 'S0'
+        elif row['Тип покрытия'].capitalize() =='Неокрашенный':
+            raube_txt = 'S1'
+        elif row['Тип покрытия'].capitalize() =='Окрашенный':
+            raube_txt = 'S2'
+        elif row['Тип покрытия'].capitalize() =='Сублимированный':
+            raube_txt = 'S3'
+        elif row['Тип покрытия'].capitalize() =='Ламинированный':
+            raube_txt = 'S4'     
+
+        if sap_code_simvol =='7':
+            for i in range(0,len(LGORT_1101['7'])):
+                new_ll_55[0].append(row['SAP код S4P 100'])
+                new_ll_55[1].append(LGORT_1101['7'][i]['zavod_code'])
+                new_ll_55[2].append(LGORT_1101['7'][i]['zavod_sap'])
+                if LGORT_1101['7'][i]['zavod_code'] =='1101':
+                    new_ll_55[3].append(raube_txt)
+                else:
+                    new_ll_55[3].append('')
+
+    header55='MATNR\tWERKS\tLGORT\tRAUBE'
+    d55={}
+    d55['MATNR']=new_ll_55[0] 
+    d55['WERKS']=new_ll_55[1] 
+    d55['LGORT']=new_ll_55[2] 
+    d55['RAUBE']=['' for x in new_ll_55[2]] 
+    df55= pd.DataFrame(d55)
+    np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
+    ########################## end 55.txt ##############################
     
     ########################## 5.txt ##############################
     d5 ={
@@ -3285,6 +3356,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
         pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\2.txt'
         pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\3.txt'
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\4.txt'
+        pathtext55 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\5.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\Длинный текс.txt'
@@ -3310,6 +3382,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
         pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\2.txt'
         pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\3.txt'
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\4.txt'
+        pathtext55 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\5.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\Длинный текс.txt'
@@ -4271,6 +4344,45 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     df4= pd.DataFrame(d4)
     np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################
+
+    ########################## 55.txt ##############################    
+    new_ll_55 =[[],[],[]]
+    
+    for key , row in datas.iterrows():
+        sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
+        
+        raube_txt = ''
+
+        if row['Тип покрытия'].capitalize() =='Белый':
+            raube_txt = 'S0'
+        elif row['Тип покрытия'].capitalize() =='Неокрашенный':
+            raube_txt = 'S1'
+        elif row['Тип покрытия'].capitalize() =='Окрашенный':
+            raube_txt = 'S2'
+        elif row['Тип покрытия'].capitalize() =='Сублимированный':
+            raube_txt = 'S3'
+        elif row['Тип покрытия'].capitalize() =='Ламинированный':
+            raube_txt = 'S4'
+
+        if sap_code_simvol =='7':
+            for i in range(0,len(LGORT_1101['7'])):
+                new_ll_55[0].append(row['SAP код S4P 100'])
+                new_ll_55[1].append(LGORT_1101['7'][i]['zavod_code'])
+                new_ll_55[2].append(LGORT_1101['7'][i]['zavod_sap'])
+                if LGORT_1101['7'][i]['zavod_code'] =='1101':
+                    new_ll_55[3].append(raube_txt)
+                else:
+                    new_ll_55[3].append('')
+
+    header55='MATNR\tWERKS\tLGORT\tRAUBE'
+    d55={}
+    d55['MATNR']=new_ll_55[0] 
+    d55['WERKS']=new_ll_55[1] 
+    d55['LGORT']=new_ll_55[2] 
+    d55['RAUBE']=['' for x in new_ll_55[2]] 
+    df55= pd.DataFrame(d55)
+    np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
+    ########################## end 55.txt ##############################
     
     ########################## 5.txt ##############################
     d5 ={
@@ -4562,6 +4674,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\2.txt'
         pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\3.txt'
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\4.txt'
+        pathtext55 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\5.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Длинный текс.txt'
@@ -4584,6 +4697,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\2.txt'
         pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\3.txt'
         pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\4.txt'
+        pathtext55 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\5.txt'
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Длинный текс.txt'
@@ -5478,6 +5592,34 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         df4= pd.DataFrame(d4)
         np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################
+
+    ########################## 55.txt ##############################    
+        new_ll_55 =[[],[],[]]
+        
+        for key , row in datas.iterrows():
+            sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
+            
+            if sap_code_simvol =='7':
+                if (row['Тип покрытия'] =='Ламинированный'):
+                    for i in range(0,len(LGORT['7L'])):
+                        new_ll_55[0].append(row['SAP код S4P 100'])
+                        new_ll_55[1].append(LGORT['7L'][i]['zavod_code'])
+                        new_ll_55[2].append(LGORT['7L'][i]['zavod_sap'])
+                else:
+                    for i in range(0,len(LGORT['7'])):
+                        new_ll_55[0].append(row['SAP код S4P 100'])
+                        new_ll_55[1].append(LGORT['7'][i]['zavod_code'])
+                        new_ll_55[2].append(LGORT['7'][i]['zavod_sap'])
+
+        header55='MATNR\tWERKS\tLGORT\tRAUBE'
+        d55={}
+        d55['MATNR']=new_ll_55[0] 
+        d55['WERKS']=new_ll_55[1] 
+        d55['LGORT']=new_ll_55[2] 
+        d55['RAUBE']=['' for x in new_ll_55[2]] 
+        df55= pd.DataFrame(d55)
+        np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
+    ########################## end 55.txt ##############################
         
     ########################## 5.txt ##############################
         d5 ={
@@ -6015,6 +6157,33 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         df4= pd.DataFrame(d4)
         np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################
+    ########################## 55.txt ##############################    
+        new_ll_55 =[[],[],[]]
+        
+        for key , row in datas.iterrows():
+            sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
+            
+            if sap_code_simvol =='7':
+                if (row['Тип покрытия'] =='Ламинированный'):
+                    for i in range(0,len(LGORT['7L'])):
+                        new_ll_55[0].append(row['SAP код S4P 100'])
+                        new_ll_55[1].append(LGORT['7L'][i]['zavod_code'])
+                        new_ll_55[2].append(LGORT['7L'][i]['zavod_sap'])
+                else:
+                    for i in range(0,len(LGORT['7'])):
+                        new_ll_55[0].append(row['SAP код S4P 100'])
+                        new_ll_55[1].append(LGORT['7'][i]['zavod_code'])
+                        new_ll_55[2].append(LGORT['7'][i]['zavod_sap'])
+
+        header55='MATNR\tWERKS\tLGORT\tRAUBE'
+        d55={}
+        d55['MATNR']=new_ll_55[0] 
+        d55['WERKS']=new_ll_55[1] 
+        d55['LGORT']=new_ll_55[2] 
+        d55['RAUBE']=['' for x in new_ll_55[2]] 
+        df55= pd.DataFrame(d55)
+        np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
+    ########################## end 55.txt ##############################
         
     ########################## 5.txt ##############################
         d5 ={
