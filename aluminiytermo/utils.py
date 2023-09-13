@@ -7,7 +7,7 @@ from order.models import Order
 from config.settings import MEDIA_ROOT
 import pandas as pd
 import numpy as np
-from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101,LGORT_1101,HEADER2,LGORT_1301
+from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101,LGORT_1101,HEADER2,LGORT_1301,HEADER_1301
 from django.shortcuts import render
 from aluminiy.models import ArtikulComponent,LengthOfProfile,RazlovkaTermo
 from datetime import datetime
@@ -2891,6 +2891,7 @@ def characteristika_created_txt_create_1301(datas):
     pathtext2 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\IMZO\\{minut}\\2.txt'
     pathtext3 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\IMZO\\{minut}\\3.txt'
     pathtext4 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\IMZO\\{minut}\\4.txt'
+    pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\IMZO\\{minut}\\Лист в C 3.xlsx'
     pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО'
         
     # elif file_name =='aluminiy':
@@ -3202,6 +3203,55 @@ def characteristika_created_txt_create_1301(datas):
     df4= pd.DataFrame(d4)
     np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################
+
+    dd2 = [[],[],[],[],[],[]]
+    
+
+    for key , row in datas.iterrows():
+        for j in range(0,6):
+            dd2[0].append('01')
+            
+        for j in range(0,6):
+            if HEADER_1301[j] != 'GOODS_GROUP':
+                dd2[1].append('KLAES')
+            else:
+                dd2[1].append('GOODS_GROUP')
+                
+            
+        for j in range(0,6):
+            dd2[2].append('MARA')
+            
+        for j in range(0,6):
+            dd2[3].append(row['MATNR'])
+            
+        for j in HEADER_1301:
+            dd2[4].append(j)
+
+
+        dd2[5].append(row['KLAES'])
+        dd2[5].append(row['CH_PROFILE_TYPE'])
+        dd2[5].append(row['KLS_WAST_LENGTH'])
+        dd2[5].append(row['KLS_WAST'])
+        dd2[5].append(row['CH_KLAES_OPTM'])
+        dd2[5].append(row['GOODS_GROUP'])
+    
+        
+    
+    new_date={}       
+    new_date['Вид класса'] = dd2[0] 
+    new_date['Класс'] = dd2[1] 
+    new_date['Таблица'] = dd2[2] 
+    new_date['Объект'] = dd2[3] 
+    new_date['Имя признака'] = dd2[4] 
+    new_date['Значение признака'] = dd2[5] 
+    new_date['Статус загрузки'] = ['' for x in dd2[5] ]
+    
+    
+    ddf2 = pd.DataFrame(new_date)
+    ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
+    ddf2 =ddf2.replace('XXXXXXXXXX','')
+    ddf2.to_excel(pathtext6,index=False)
+
  
     file_path =f'{pathzip}.zip'
     

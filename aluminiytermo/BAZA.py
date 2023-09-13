@@ -481,6 +481,10 @@ LGORT ={
                 {
                 'zavod_code':'1201',
                 'zavod_sap':'P021'
+                },
+                {
+                'zavod_code':'1201',
+                'zavod_sap':'P170'
                 }
             ],
         'Z':[
@@ -765,6 +769,15 @@ LGORT ={
             }
         ]    
     }
+
+HEADER_1301 =[
+    'KLAES',
+    'CH_PROFILE_TYPE',
+    'KLS_WAST_LENGTH',
+    'KLS_WAST',
+    'CH_KLAES_OPTM',
+    'GOODS_GROUP'
+]
 
 HEADER =[
     'SAVDO_ID',
