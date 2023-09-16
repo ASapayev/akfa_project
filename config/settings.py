@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'imzo',
     'norma',
     'order',
+    'pvc'
     # 'json_field',
     # "debug_toolbar",
 ]
