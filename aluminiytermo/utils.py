@@ -1053,7 +1053,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
             dd2[5].append(row['ch_artikul_old'])
-            dd2[5].append('XXXXXXXXXX')
+            dd2[5].append('XXXX')
         else:
             
             for j in range(0,32):
@@ -1139,7 +1139,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
             dd2[5].append(row['ch_artikul_old'])
             if '-7' in row['SAP код S4P 100']:
                 if row['Тип покрытия'] =='Неокрашенный':
-                    qbic ='XXXXXXXXXX'
+                    qbic ='XXXX'
                 elif row['Тип покрытия'] =='Окрашенный':
                     qbic = row['ch_outer_side_pc_id']
                 elif row['Тип покрытия'] =='Анодированный':
@@ -1152,11 +1152,11 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
                 elif row['Тип покрытия'] =='Сублимированный':
                     qbic = row['ch_outer_side_wg_s_id']
                 else:
-                    qbic ='XXXXXXXXXX'
+                    qbic ='XXXX'
                 dd2[5].append(qbic)
-                dd2[5].append('XXXXXXXXXX')
+                dd2[5].append('XXXX')
             else:
-                dd2[5].append('XXXXXXXXXX')
+                dd2[5].append('XXXX')
 
     new_date={}       
     new_date['Вид класса'] = dd2[0]
@@ -1173,7 +1173,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
-    ddf2 =ddf2.replace('XXXXXXXXXX','')
+    ddf2 =ddf2.replace('XXXX','')
     ddf2.to_excel(pathtext6,index=False)
 
 
@@ -4619,7 +4619,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     ddf2.to_excel(pathtext6,index=False)
     if is_1101 =='on':
         return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8,pathtext9,pathtext10],pathzip,pathtexcarta
-    else:
+    elif is_1112 =='on':
         return [buxgalterskiy_t,dlinniy_t,d1,d2,d3,d4,d5,new_date],pathtexcarta
     #########################################################################################################################
     ###############################################################################################################
@@ -4657,9 +4657,9 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
             zip(path_zip2, path_zip2)
 
             return [file_path,],path_texcarta
-
+    
+    
     if file_name =='aluminiytermo':
-        parent_dir =f'{MEDIA_ROOT}\\uploads\\aluminiytermo'
         
         if not os.path.isdir(parent_dir):
             create_folder(f'{MEDIA_ROOT}\\uploads','aluminiytermo')
@@ -5760,7 +5760,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 dd2[5].append(row['WMS_WIDTH'])
                 dd2[5].append(row['WMS_HEIGHT'])
                 dd2[5].append(row['ch_artikul_old'])
-                dd2[5].append('XXXXXXXXXX')
+                dd2[5].append('XXXX')
             else:
                 
                 for j in range(0,32):
@@ -5846,7 +5846,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 dd2[5].append(row['ch_artikul_old'])
                 if '-7' in row['SAP код S4P 100']:
                     if row['Тип покрытия'] =='Неокрашенный':
-                        qbic ='XXXXXXXXXX'
+                        qbic ='XXXX'
                     elif row['Тип покрытия'] =='Окрашенный':
                         qbic = row['ch_outer_side_pc_id']
                     elif row['Тип покрытия'] =='Анодированный':
@@ -5859,11 +5859,11 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                     elif row['Тип покрытия'] =='Сублимированный':
                         qbic = row['ch_outer_side_wg_s_id']
                     else:
-                        qbic ='XXXXXXXXXX'
+                        qbic ='XXXX'
                     dd2[5].append(qbic)
-                    dd2[5].append('XXXXXXXXXX')
+                    dd2[5].append('XXXX')
                 else:
-                    dd2[5].append('XXXXXXXXXX')
+                    dd2[5].append('XXXX')
 
         new_date={}       
         new_date['Вид класса'] = dd2[0]  + datas_1112[7]['Вид класса']
@@ -5880,7 +5880,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         
         ddf2 = pd.DataFrame(new_date)
         ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
-        ddf2 =ddf2.replace('XXXXXXXXXX','')
+        ddf2 =ddf2.replace('XXXX','')
         ddf2.to_excel(pathtext6,index=False)
     
     else:
