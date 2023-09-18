@@ -18,6 +18,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
      'sslserver',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -32,7 +33,8 @@ INSTALLED_APPS = [
     'imzo',
     'norma',
     'order',
-    'pvc'
+    'pvc',
+    'chat'
     # 'json_field',
     # "debug_toolbar",
 ]
@@ -71,6 +73,18 @@ TEMPLATES = [
         },
     },
 ]
+
+ASGI_APPLICATION = 'config.asgi.application'
+
+
+CHANNEL_LAYERS ={
+    'default':{
+        # 'BACKEND':'chennels.layers.InMemoryChannelLayer',
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
+
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
