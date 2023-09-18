@@ -24,7 +24,6 @@ chatSocket.onmessage = function(e){
 
     console.log('Data',data.type)
     if(data.type === "chat"){
-        console.log('sssss')
          let messages = document.getElementById('messages')
          var p = document.createElement('p')
          p.innerHTML =`${data.message}`
