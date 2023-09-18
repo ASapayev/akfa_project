@@ -4660,7 +4660,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
     
     
     if file_name =='aluminiytermo':
-        
+        parent_dir =f'{MEDIA_ROOT}\\uploads\\aluminiytermo'
         if not os.path.isdir(parent_dir):
             create_folder(f'{MEDIA_ROOT}\\uploads','aluminiytermo')
             
