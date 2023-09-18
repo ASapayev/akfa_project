@@ -16,9 +16,13 @@
     <div id="messages"></div>
 
 <script type="text/javascript">
-let url =` wss://${window.location.host}/ws/socket-server/`
 
-const chatSocket = new WebSocket(url)
+var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+var chatSocket = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + window.location.pathname);
+
+// let url =` wss://${window.location.host}/ws/socket-server/`
+
+// const chatSocket = new WebSocket(url)
 
 chatSocket.onmessage = function(e){
     let data = JSON.parse(e.data)
