@@ -227,6 +227,7 @@ def product_add_second_termo(id):
                         if df['Тип покрытия'][key] == 'Ламинированный':
                                 plenki1 = False
                                 plenki2 = False
+                                dlina = df['Длина (мм)'][key]
                                 if df['Код лам пленки снаружи'][key] != 'nan':
                                         laminatsiya =row['Код лам пленки снаружи'].replace('.0','')+'/XXXX'
                                         plenki1 = True
