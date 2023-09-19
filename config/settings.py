@@ -18,7 +18,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',
+    # 'channels',
      'sslserver',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'norma',
     'order',
     'pvc',
-    'chat'
+    
     # 'json_field',
     # "debug_toolbar",
 ]
@@ -74,7 +74,7 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = 'config.asgi.application'
+# ASGI_APPLICATION = 'config.asgi.application'
 
 
 CHANNEL_LAYERS ={
