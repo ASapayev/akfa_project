@@ -90,6 +90,7 @@ def create_txt_for_1101(request):
       
       if request.method =='POST':
             sap_codes = request.POST.get('ozmk',None)
+            esap_codes = request.POST.get('eozmk',None)
 
             if sap_codes:
                   character_dict ={}
@@ -130,9 +131,14 @@ def create_txt_for_1101(request):
                   character_dict['Длина']=[]
                   character_dict['WMS_WIDTH']=[]
                   character_dict['WMS_HEIGHT']=[]
-                  elist = []
-
                   does_not_exists = []
+                  print(esap_codes,'sss')
+                  if esap_codes:
+
+                        elist =  esap_codes.split()
+                  else:
+                        elist = []
+
                   sap_codes =sap_codes.split()
                   exchange_value = ExchangeValues.objects.get(id=1)
 
@@ -147,7 +153,7 @@ def create_txt_for_1101(request):
                         
                         artikul = sap_code.split('-')[0]
                         if LengthOfProfile.objects.filter(artikul =artikul).exists():
-                              print(artikul)
+                             
                               leng_of_profile_txt = LengthOfProfile.objects.filter(artikul =artikul).order_by('-created_at')[:1].get()
                         else:
                             all_correct = False
