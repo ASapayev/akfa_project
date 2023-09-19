@@ -132,7 +132,6 @@ def create_txt_for_1101(request):
                   character_dict['WMS_WIDTH']=[]
                   character_dict['WMS_HEIGHT']=[]
                   does_not_exists = []
-                  print(esap_codes,'sss')
                   if esap_codes:
 
                         elist =  esap_codes.split()
