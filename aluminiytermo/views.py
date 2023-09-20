@@ -29,23 +29,48 @@ from order.models import Order
 
 now = datetime.now()
 
+class SAPCODES:
+      def __init__(self,material,kratkiy_tekst_materiala,created_at):
+            self.material = material
+            self.kratkiy_tekst_materiala = kratkiy_tekst_materiala
+            self.crated_at = created_at
+
+
 
 def get_sapcodes(request):
 
       if request.method =='POST':
-            sap_code =request.POST.get('sapcode1',None)
-            kratkiy_tekst =request.POST.get('kratkiy1',None)
+            countt = request.POST.get('count',None)
+            if countt:
+                  sap_codes = {}
+                  sap_codes_list = []
 
-            if sap_code and kratkiy_tekst:
-                  obichniy = AluminiyProduct.objects.filter(artikul__icontains = sap_code,kratkiy_tekst_materiala__icontains =kratkiy_tekst).order_by('section').order_by('counter')
-                  termo = AluminiyProductTermo.objects.filter(artikul__icontains = sap_code,kratkiy_tekst_materiala__icontains =kratkiy_tekst).order_by('section').order_by('counter')
+                  for i in range(1,int(countt) + 1):
+                        sap_code =request.POST.get(f'sapcode{i}',None)
+                        kratkiy_tekst =request.POST.get(f'kratkiy{i}',None)
+
+                        if sap_code and kratkiy_tekst:
+                              sap_codes[sap_code] = kratkiy_tekst
+                              sap_codes_list.append(sap_code)
+
+                  obichniy = AluminiyProduct.objects.filter(artikul__in = sap_codes_list).order_by('section').order_by('counter')
+                  termo = AluminiyProductTermo.objects.filter(artikul__icontains = sap_codes_list).order_by('section').order_by('counter')
+                  products =[]
+                  for obich in obichniy:
+                        if (obich.artikul in sap_codes) and (obich.material == sap_codes[obich.artikul]):
+                              products.append(SAPCODES(material=obich.material,kratkiy_tekst_materiala=obich.kratkiy_tekst_materiala,created_at=obich.created_at))
+                  termo_products =[]
+                  for ter in termo:
+                        if (ter.artikul in sap_codes) and (ter.material == sap_codes[ter.artikul]):
+                              termo_products.append(SAPCODES(material=ter.material,kratkiy_tekst_materiala=ter.kratkiy_tekst_materiala,created_at=ter.created_at))
+
                   print(obichniy)
                   print(termo)
                   context ={
                         'section1':'Обычный',
                         'section2':'Термо',
-                        'products':obichniy,
-                        'termo_products':termo
+                        'products':products,
+                        'termo_products':termo_products
                   }
                   return render(request,'universal/sapcodes.html',context)
 
