@@ -4381,10 +4381,10 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     header55='MATNR\tWERKS\tLGORT\tRAUBE'
     d55={}
     d55['MATNR']=new_ll_55[0] 
-    d55['WERKS']=new_ll_55[1] 
-    d55['LGORT']=new_ll_55[2] 
-    d55['RAUBE']=['' for x in new_ll_55[2]] 
+    d55['WERKS']=new_ll_55[1]  
+    d55['RAUBE']=new_ll_55[2]
     df55= pd.DataFrame(d55)
+    df55=df55.drop_duplicates()
     np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
     ########################## end 55.txt ##############################
     
