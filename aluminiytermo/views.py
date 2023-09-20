@@ -57,11 +57,11 @@ def get_sapcodes(request):
                   termo = AluminiyProductTermo.objects.filter(artikul__icontains = sap_codes_list).order_by('section').order_by('counter')
                   products =[]
                   for obich in obichniy:
-                        if (obich.artikul in sap_codes) and (obich.material == sap_codes[obich.artikul]):
+                        if ((obich.artikul in sap_codes) and (obich.material == sap_codes[obich.artikul])):
                               products.append(SAPCODES(material=obich.material,kratkiy_tekst_materiala=obich.kratkiy_tekst_materiala,created_at=obich.created_at))
                   termo_products =[]
                   for ter in termo:
-                        if (ter.artikul in sap_codes) and (ter.material == sap_codes[ter.artikul]):
+                        if ((ter.artikul in sap_codes) and (ter.material == sap_codes[ter.artikul])):
                               termo_products.append(SAPCODES(material=ter.material,kratkiy_tekst_materiala=ter.kratkiy_tekst_materiala,created_at=ter.created_at))
 
                   print(obichniy)
