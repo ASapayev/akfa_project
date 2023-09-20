@@ -1086,7 +1086,7 @@ def product_add_second_termo(id):
                                                         'group_prise': export_description_eng.group_price,
                                                         }
                                                 )
-        # print(cache_for_cratkiy_text)
+        print(cache_for_cratkiy_text)
         df_char = create_characteristika(cache_for_cratkiy_text) 
         
         df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
