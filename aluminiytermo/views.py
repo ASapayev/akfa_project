@@ -69,8 +69,8 @@ def get_sapcodes(request):
                               if ter.material == sap_codes[ter.artikul]:
                                     termo_products.append(SAPCODES(material=ter.material,kratkiy_tekst_materiala=ter.kratkiy_tekst_materiala,created_at=ter.created_at))
 
-                  print(obichniy)
-                  print(termo)
+                  print(products)
+                  print(termo_products)
                   context ={
                         'section1':'Обычный',
                         'section2':'Термо',
