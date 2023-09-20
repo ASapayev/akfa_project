@@ -61,6 +61,7 @@ def get_sapcodes(request):
                         if (obich.artikul in sap_codes):
                               print('inside of for ',obich.artikul,'query = ',obich.kratkiy_tekst_materiala,' dict =',sap_codes[obich.artikul])
                               if obich.material == sap_codes[obich.artikul]:
+                                    print('ddd')
                                     products.append(SAPCODES(material=obich.material,kratkiy_tekst_materiala=obich.kratkiy_tekst_materiala,created_at=obich.created_at))
                   termo_products =[]
                   for ter in termo:
