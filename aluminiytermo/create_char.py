@@ -401,7 +401,7 @@ def product_add_second_termo(id):
                         
                                 print('ddd')
                         else:
-                                print('ttteeeeeeee'*40)      
+                                print('ttteeeeeeee'*40,df['Артикул'][key],'***'*10,df_new['U-Упаковка + Готовая Продукция'][key])      
                                 if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key]).exists():
                                         print(df['Артикул'][key])
                                         termo = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key])[:1].get()
