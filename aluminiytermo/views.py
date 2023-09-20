@@ -14,7 +14,7 @@ import numpy as np
 from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,anodirovaka_check,check_for_correct,get_cretead_txt_for_1201,characteristika_created_txt_create_1301
 import os
 from accounts.models import User
-from datetime import datetime
+from datetime import datetime,date
 import json
 from aluminiy.views import update_char_title_function
 import random
@@ -26,14 +26,13 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from .create_char import product_add_second_termo,product_add_second_simple
 from order.models import Order
 
-
 now = datetime.now()
 
 class SAPCODES:
       def __init__(self,material,kratkiy_tekst_materiala,created_at):
             self.material = material
             self.kratkiy_tekst_materiala = kratkiy_tekst_materiala
-            self.crated_at = created_at
+            self.crated_at = date(created_at)
 
 
 
