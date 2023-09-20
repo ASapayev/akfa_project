@@ -32,7 +32,7 @@ class SAPCODES:
       def __init__(self,material,kratkiy_tekst_materiala,created_at):
             self.material = material
             self.kratkiy_tekst_materiala = kratkiy_tekst_materiala
-            self.crated_at = date(created_at)
+            self.crated_at = created_at
 
 
 
