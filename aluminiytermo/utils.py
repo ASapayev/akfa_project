@@ -2180,14 +2180,16 @@ def get_cretead_txt_for_1101(datas,elist):
             raube_txt = 'S4'     
 
         if sap_code_simvol =='7':
+            
             for i in range(0,len(LGORT_1101['7'])):
-                new_ll_55[0].append(row['SAP код S4P 100'])
-                new_ll_55[1].append(LGORT_1101['7'][i]['zavod_code'])
-                new_ll_55[2].append(LGORT_1101['7'][i]['zavod_sap'])
                 if LGORT_1101['7'][i]['zavod_code'] =='1101':
-                    new_ll_55[3].append(raube_txt)
-                else:
-                    new_ll_55[3].append('')
+                    new_ll_55[0].append(row['SAP код S4P 100'])
+                    new_ll_55[1].append(LGORT_1101['7'][i]['zavod_code'])
+                    new_ll_55[2].append(LGORT_1101['7'][i]['zavod_sap'])
+                    if LGORT_1101['7'][i]['zavod_code'] =='1101':
+                        new_ll_55[3].append(raube_txt)
+                    else:
+                        new_ll_55[3].append('')
 
     header55='MATNR\tWERKS\tLGORT\tRAUBE'
     d55={}
@@ -4366,13 +4368,14 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
 
         if sap_code_simvol =='7':
             for i in range(0,len(LGORT_1101['7'])):
-                new_ll_55[0].append(row['SAP код S4P 100'])
-                new_ll_55[1].append(LGORT_1101['7'][i]['zavod_code'])
-                new_ll_55[2].append(LGORT_1101['7'][i]['zavod_sap'])
                 if LGORT_1101['7'][i]['zavod_code'] =='1101':
-                    new_ll_55[3].append(raube_txt)
-                else:
-                    new_ll_55[3].append('')
+                    new_ll_55[0].append(row['SAP код S4P 100'])
+                    new_ll_55[1].append(LGORT_1101['7'][i]['zavod_code'])
+                    new_ll_55[2].append(LGORT_1101['7'][i]['zavod_sap'])
+                    if LGORT_1101['7'][i]['zavod_code'] =='1101':
+                        new_ll_55[3].append(raube_txt)
+                    else:
+                        new_ll_55[3].append('')
 
     header55='MATNR\tWERKS\tLGORT\tRAUBE'
     d55={}
