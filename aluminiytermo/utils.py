@@ -2167,7 +2167,7 @@ def get_cretead_txt_for_1101(datas,elist):
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]   
 
         raube_txt = ''
-        print(row['Тип покрытия'],'**'*15)
+        
         if row['Тип покрытия'].capitalize() =='Белый':
             raube_txt = 'S0'
         elif row['Тип покрытия'].capitalize() =='Неокрашенный':
@@ -2194,7 +2194,7 @@ def get_cretead_txt_for_1101(datas,elist):
     d55['MATNR']=new_ll_55[0] 
     d55['WERKS']=new_ll_55[1] 
     d55['LGORT']=new_ll_55[2] 
-    d55['RAUBE']=['' for x in new_ll_55[2]] 
+    d55['RAUBE']=new_ll_55[3] 
     df55= pd.DataFrame(d55)
     np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
     ########################## end 55.txt ##############################
