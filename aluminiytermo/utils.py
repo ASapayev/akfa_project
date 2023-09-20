@@ -2148,13 +2148,14 @@ def get_cretead_txt_for_1101(datas,elist):
             
         
         
-    header4='MATNR\tWERKS\tRAUBE'
+    header4='MATNR\tWERKS\tLGORT\tRAUBE'
     d4={}
     d4['MATNR']=new_ll[0]
     d4['WERKS']=new_ll[1]
+    d4['LGORT']=new_ll[2]
     d4['RAUBE']=new_ll[3]
     df4= pd.DataFrame(d4)
-    df4.drop_duplicates()
+  
     np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################
 
@@ -2191,13 +2192,13 @@ def get_cretead_txt_for_1101(datas,elist):
                     else:
                         new_ll_55[3].append('')
 
-    header55='MATNR\tWERKS\tLGORT\tRAUBE'
+    header55='MATNR\tWERKS\tRAUBE'
     d55={}
     d55['MATNR']=new_ll_55[0] 
-    d55['WERKS']=new_ll_55[1] 
-    d55['LGORT']=new_ll_55[2] 
+    d55['WERKS']=new_ll_55[1]  
     d55['RAUBE']=new_ll_55[3] 
     df55= pd.DataFrame(d55)
+    df55.drop_duplicates()
     np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
     ########################## end 55.txt ##############################
     
