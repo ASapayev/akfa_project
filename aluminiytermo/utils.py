@@ -2167,7 +2167,7 @@ def get_cretead_txt_for_1101(datas,elist):
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]   
 
         raube_txt = ''
-
+        print(row['Тип покрытия'],'**'*15)
         if row['Тип покрытия'].capitalize() =='Белый':
             raube_txt = 'S0'
         elif row['Тип покрытия'].capitalize() =='Неокрашенный':
