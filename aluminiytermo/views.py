@@ -11,7 +11,7 @@ from config.settings import MEDIA_ROOT
 from django.core.paginator import Paginator
 from aluminiy.utils import download_bs64
 import numpy as np
-from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,anodirovaka_check,check_for_correct,get_cretead_txt_for_1201,characteristika_created_txt_create_1301
+from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,anodirovaka_check,check_for_correct,get_cretead_txt_for_1201,characteristika_created_txt_create_1301,characteristika_created_txt_create_1301_v2
 import os
 from accounts.models import User
 from datetime import datetime
@@ -29,6 +29,21 @@ from order.models import Order
 
 now = datetime.now()
 
+
+
+def upload_for_1301_v22(request):
+      if request.method == 'POST':
+            form = FileFormTermo(request.POST, request.FILES)
+            if form.is_valid():
+                  file_path =form.cleaned_data["file"]
+                  df = pd.read_excel(file_path)
+                  file_destination = characteristika_created_txt_create_1301_v2(df)
+                  files = [File(file=f,filetype='Obichniy') for f in file_destination]
+                  context = {
+                        'files':files,
+                  }
+                  return render(request,'universal/generated_file_1301.html',context)
+      return render(request,'universal/main.html')
 
 def get_sapcodes(request):
 
@@ -540,6 +555,8 @@ def upload_for_1301(request):
                   }
                   return render(request,'universal/generated_file_1301.html',context)
       return render(request,'universal/main.html')
+
+
 
 def upload_razlovka_termo(request):
       if request.method == 'POST':
