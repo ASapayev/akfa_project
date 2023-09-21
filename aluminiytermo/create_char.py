@@ -216,9 +216,11 @@ def product_add_second_termo(id):
                         if df['Длина при выходе из пресса'][key] != 'nan':
                                 dlina = df['Длина при выходе из пресса'][key].replace('.0','')
                                 
-                        df_new['Фабрикация'][key]=fabrikatsiya_sap_kod(df['Краткий текст товара'][key],df['Длина (мм)'][key])
-                        df_new['U-Упаковка + Готовая Продукция 75'][key]=fabrikatsiya_sap_kod(df['Краткий текст товара'][key],df['Длина (мм)'][key])
-                        
+                                df_new['Фабрикация'][key]=fabrikatsiya_sap_kod(df['Краткий текст товара'][key],df['Длина (мм)'][key])
+                                df_new['U-Упаковка + Готовая Продукция 75'][key]=fabrikatsiya_sap_kod(df['Краткий текст товара'][key],df['Длина (мм)'][key])
+                        else:
+                               df_new['U-Упаковка + Готовая Продукция'][key] = df['Краткий текст товара'][key]
+                               
                         if df['Тип покрытия'][key] != 'Ламинированный':
                                 df_new['K-Комбинирования'][key] = fabrikatsiya_sap_kod(df['Краткий текст товара'][key],df['Длина при выходе из пресса'][key].replace('.0',''))
                         else:
@@ -227,6 +229,7 @@ def product_add_second_termo(id):
                         if df['Тип покрытия'][key] == 'Ламинированный':
                                 plenki1 = False
                                 plenki2 = False
+                                dlina = df['Длина (мм)'][key]
                                 if df['Код лам пленки снаружи'][key] != 'nan':
                                         laminatsiya =row['Код лам пленки снаружи'].replace('.0','')+'/XXXX'
                                         plenki1 = True
@@ -243,7 +246,9 @@ def product_add_second_termo(id):
 
                         else:
                                 dlina = df['Длина (мм)'][key]
-                                df_new['U-Упаковка + Готовая Продукция'][key] = df['Краткий текст товара'][key]
+                                print(df['Краткий текст товара'][key],'gg'*40)
+                        
+                        
                         
                         if df['Тип покрытия'][key] != 'Ламинированный': 
                                 df_new['K-Комбинирования'][key] = df['Краткий текст товара'][key]
@@ -399,7 +404,8 @@ def product_add_second_termo(id):
                                         )
                         
                                 print('ddd')
-                        else:      
+                        else:
+                                print('ttteeeeeeee'*40,df['Артикул'][key],'***'*10,df_new['U-Упаковка + Готовая Продукция'][key])      
                                 if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key]).exists():
                                         print(df['Артикул'][key])
                                         termo = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key])[:1].get()
@@ -1085,7 +1091,7 @@ def product_add_second_termo(id):
                                                         'group_prise': export_description_eng.group_price,
                                                         }
                                                 )
-        # print(cache_for_cratkiy_text)
+        print(cache_for_cratkiy_text)
         df_char = create_characteristika(cache_for_cratkiy_text) 
         
         df_char_title =create_characteristika_utils(cache_for_cratkiy_text)

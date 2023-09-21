@@ -14,7 +14,7 @@ import numpy as np
 from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,anodirovaka_check,check_for_correct,get_cretead_txt_for_1201,characteristika_created_txt_create_1301,characteristika_created_txt_create_1301_v2
 import os
 from accounts.models import User
-from datetime import datetime
+from datetime import datetime,date
 import json
 from aluminiy.views import update_char_title_function
 import random
@@ -26,8 +26,14 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from .create_char import product_add_second_termo,product_add_second_simple
 from order.models import Order
 
-
 now = datetime.now()
+
+class SAPCODES:
+      def __init__(self,material,kratkiy_tekst_materiala,created_at):
+            self.material = material
+            self.kratkiy_tekst_materiala = kratkiy_tekst_materiala
+            self.crated_at = created_at
+
 
 
 
@@ -48,19 +54,42 @@ def upload_for_1301_v22(request):
 def get_sapcodes(request):
 
       if request.method =='POST':
-            sap_code =request.POST.get('sapcode1',None)
-            kratkiy_tekst =request.POST.get('kratkiy1',None)
+            countt = request.POST.get('count',None)
+            if countt:
+                  sap_codes = {}
+                  sap_codes_list = []
 
-            if sap_code and kratkiy_tekst:
-                  obichniy = AluminiyProduct.objects.filter(artikul__icontains = sap_code,kratkiy_tekst_materiala__icontains =kratkiy_tekst).order_by('section').order_by('counter')
-                  termo = AluminiyProductTermo.objects.filter(artikul__icontains = sap_code,kratkiy_tekst_materiala__icontains =kratkiy_tekst).order_by('section').order_by('counter')
-                  print(obichniy)
-                  print(termo)
+                  for i in range(1,int(countt) + 1):
+                        sap_code =request.POST.get(f'sapcode{i}',None)
+                        kratkiy_tekst =request.POST.get(f'kratkiy{i}',None)
+
+                        if sap_code and kratkiy_tekst:
+                              sap_codes[sap_code] = kratkiy_tekst
+                              sap_codes_list.append(sap_code)
+
+                  obichniy = AluminiyProduct.objects.filter(artikul__in = sap_codes_list).order_by('section').order_by('counter')
+                  termo = AluminiyProductTermo.objects.filter(artikul__icontains = sap_codes_list).order_by('section').order_by('counter')
+                  products =[]
+                  
+                  for obich in obichniy:
+                        if (obich.artikul in sap_codes):
+                              print('inside of for ',obich.artikul,'query = ',obich.kratkiy_tekst_materiala,' dict =',sap_codes[obich.artikul])
+                              if obich.kratkiy_tekst_materiala == sap_codes[obich.artikul]:
+                                    print('ddd')
+                                    products.append(SAPCODES(material=obich.material,kratkiy_tekst_materiala=obich.kratkiy_tekst_materiala,created_at=obich.created_at))
+                  termo_products =[]
+                  for ter in termo:
+                        if ter.artikul in sap_codes:
+                              if ter.kratkiy_tekst_materiala == sap_codes[ter.artikul]:
+                                    termo_products.append(SAPCODES(material=ter.material,kratkiy_tekst_materiala=ter.kratkiy_tekst_materiala,created_at=ter.created_at))
+
+                  print(products)
+                  print(termo_products)
                   context ={
                         'section1':'Обычный',
                         'section2':'Термо',
-                        'products':obichniy,
-                        'termo_products':termo
+                        'products':products,
+                        'termo_products':termo_products
                   }
                   return render(request,'universal/sapcodes.html',context)
 

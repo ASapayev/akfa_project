@@ -2155,6 +2155,7 @@ def get_cretead_txt_for_1101(datas,elist):
     d4['LGORT']=new_ll[2]
     d4['RAUBE']=new_ll[3]
     df4= pd.DataFrame(d4)
+  
     np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################
 
@@ -2167,7 +2168,7 @@ def get_cretead_txt_for_1101(datas,elist):
         sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]   
 
         raube_txt = ''
-
+        
         if row['Тип покрытия'].capitalize() =='Белый':
             raube_txt = 'S0'
         elif row['Тип покрытия'].capitalize() =='Неокрашенный':
@@ -2180,22 +2181,24 @@ def get_cretead_txt_for_1101(datas,elist):
             raube_txt = 'S4'     
 
         if sap_code_simvol =='7':
+            
             for i in range(0,len(LGORT_1101['7'])):
-                new_ll_55[0].append(row['SAP код S4P 100'])
-                new_ll_55[1].append(LGORT_1101['7'][i]['zavod_code'])
-                new_ll_55[2].append(LGORT_1101['7'][i]['zavod_sap'])
                 if LGORT_1101['7'][i]['zavod_code'] =='1101':
-                    new_ll_55[3].append(raube_txt)
-                else:
-                    new_ll_55[3].append('')
+                    new_ll_55[0].append(row['SAP код S4P 100'])
+                    new_ll_55[1].append(LGORT_1101['7'][i]['zavod_code'])
+                    new_ll_55[2].append(LGORT_1101['7'][i]['zavod_sap'])
+                    if LGORT_1101['7'][i]['zavod_code'] =='1101':
+                        new_ll_55[3].append(raube_txt)
+                    else:
+                        new_ll_55[3].append('')
 
-    header55='MATNR\tWERKS\tLGORT\tRAUBE'
+    header55='MATNR\tWERKS\tRAUBE'
     d55={}
     d55['MATNR']=new_ll_55[0] 
-    d55['WERKS']=new_ll_55[1] 
-    d55['LGORT']=new_ll_55[2] 
-    d55['RAUBE']=['' for x in new_ll_55[2]] 
+    d55['WERKS']=new_ll_55[1]  
+    d55['RAUBE']=new_ll_55[3] 
     df55= pd.DataFrame(d55)
+    df55=df55.drop_duplicates()
     np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
     ########################## end 55.txt ##############################
     
@@ -4615,21 +4618,22 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
 
         if sap_code_simvol =='7':
             for i in range(0,len(LGORT_1101['7'])):
-                new_ll_55[0].append(row['SAP код S4P 100'])
-                new_ll_55[1].append(LGORT_1101['7'][i]['zavod_code'])
-                new_ll_55[2].append(LGORT_1101['7'][i]['zavod_sap'])
                 if LGORT_1101['7'][i]['zavod_code'] =='1101':
-                    new_ll_55[3].append(raube_txt)
-                else:
-                    new_ll_55[3].append('')
+                    new_ll_55[0].append(row['SAP код S4P 100'])
+                    new_ll_55[1].append(LGORT_1101['7'][i]['zavod_code'])
+                    new_ll_55[2].append(LGORT_1101['7'][i]['zavod_sap'])
+                    if LGORT_1101['7'][i]['zavod_code'] =='1101':
+                        new_ll_55[3].append(raube_txt)
+                    else:
+                        new_ll_55[3].append('')
 
     header55='MATNR\tWERKS\tLGORT\tRAUBE'
     d55={}
     d55['MATNR']=new_ll_55[0] 
-    d55['WERKS']=new_ll_55[1] 
-    d55['LGORT']=new_ll_55[2] 
-    d55['RAUBE']=['' for x in new_ll_55[2]] 
+    d55['WERKS']=new_ll_55[1]  
+    d55['RAUBE']=new_ll_55[2]
     df55= pd.DataFrame(d55)
+    df55=df55.drop_duplicates()
     np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
     ########################## end 55.txt ##############################
     
