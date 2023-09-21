@@ -56,8 +56,8 @@ def characteristika_created_txt_create_1301_v2(datas):
         umumiy_without_duplicate1201[2].append(row['MAKTX'])
         umumiy_without_duplicate1201[3].append('М2')
         umumiy_without_duplicate1201[4].append('ZPRF')
-        umumiy_without_duplicate1201[5].append('')
-        umumiy_without_duplicate1201[6].append('')
+        umumiy_without_duplicate1201[5].append('5')
+        umumiy_without_duplicate1201[6].append('4')
         umumiy_without_duplicate1201[7].append('F')
         umumiy_without_duplicate1201[8].append('21')
         umumiy_without_duplicate1201[9].append('')
@@ -73,12 +73,12 @@ def characteristika_created_txt_create_1301_v2(datas):
         umumiy_without_duplicate1201[19].append('EX')
         umumiy_without_duplicate1201[20].append('0')
         umumiy_without_duplicate1201[21].append('E')
-        umumiy_without_duplicate1201[22].append('')
+        umumiy_without_duplicate1201[22].append('PS01')
         umumiy_without_duplicate1201[23].append('')
         umumiy_without_duplicate1201[24].append('M')
         umumiy_without_duplicate1201[25].append('02')
         umumiy_without_duplicate1201[26].append('26')
-        umumiy_without_duplicate1201[27].append('')
+        umumiy_without_duplicate1201[27].append('S100')
         umumiy_without_duplicate1201[28].append('X')
         umumiy_without_duplicate1201[29].append('5')
         umumiy_without_duplicate1201[30].append('Z_SAP_PP_002')
@@ -100,8 +100,8 @@ def characteristika_created_txt_create_1301_v2(datas):
         umumiy_without_duplicate1201[44].append('1301AL')
 
         umumiy_without_duplicate1201[45].append('X')
-        umumiy_without_duplicate1201[46].append('2')
-        umumiy_without_duplicate1201[47].append('20')
+        umumiy_without_duplicate1201[46].append('1')
+        umumiy_without_duplicate1201[47].append('')
         umumiy_without_duplicate1201[48].append('')
     
 
@@ -143,26 +143,31 @@ def characteristika_created_txt_create_1301_v2(datas):
     d2['MTART']=umumiy_without_duplicate1201[4] * 2
     d2['MATNR']=umumiy_without_duplicate1201[0] * 2
     d2['WERKS']=umumiy_without_duplicate1201[34] + ['1305' for x in umumiy_without_duplicate1201[34]]
-    d2['EKGRP']=umumiy_without_duplicate1201[15] * 2
+    d2['EKGRP']=umumiy_without_duplicate1201[15] + ['540' for x in umumiy_without_duplicate1201[34]]
     d2['XCHPF']=umumiy_without_duplicate1201[16] * 2
     d2['DISGR']=umumiy_without_duplicate1201[17] * 2
     d2['DISMM']=umumiy_without_duplicate1201[18] * 2
     d2['DISPO']=['IMA' if 'ALU' in x else 'IMP' for x in umumiy_without_duplicate1201[0]] * 2
-    d2['DISLS']=umumiy_without_duplicate1201[19] * 2
+    d2['DISLS']=umumiy_without_duplicate1201[19] + ['MB' for x in umumiy_without_duplicate1201[34]]
     d2['WEBAZ']=umumiy_without_duplicate1201[20] * 2
     d2['BESKZ']=umumiy_without_duplicate1201[21] + ['F' for x in umumiy_without_duplicate1201[21]]
-    d2['LGFSB']=umumiy_without_duplicate1201[23] * 2
+    d2['LGFSB']=umumiy_without_duplicate1201[27] + umumiy_without_duplicate1201[23]
     d2['PLIFZ']=umumiy_without_duplicate1201[23] * 2
     d2['PERKZ']=umumiy_without_duplicate1201[24] * 2
-    d2['MTVFP']=umumiy_without_duplicate1201[25] * 2
+    d2['MTVFP']=umumiy_without_duplicate1201[25] + umumiy_without_duplicate1201[23]
     d2['SCM_STRA1']=umumiy_without_duplicate1201[26] * 2
     d2['VRMOD']=umumiy_without_duplicate1201[23] * 2
-    d2['PPSKZ']=umumiy_without_duplicate1201[23] * 2
-    d2['SCM_WHATBOM']=umumiy_without_duplicate1201[23] * 2
-    d2['SCM_HEUR_ID']=umumiy_without_duplicate1201[23] * 2
-    d2['SCM_RRP_TYPE']=umumiy_without_duplicate1201[23] * 2
-    d2['SCM_PROFID']=umumiy_without_duplicate1201[23] * 2
-    d2['STRGR']=umumiy_without_duplicate1201[33] * 2
+    d2['PPSKZ']=umumiy_without_duplicate1201[45] + umumiy_without_duplicate1201[23]
+
+    d2['SCM_WHATBOM']=umumiy_without_duplicate1201[5] + umumiy_without_duplicate1201[23]
+
+    d2['SCM_HEUR_ID']=umumiy_without_duplicate1201[30] + umumiy_without_duplicate1201[23]
+    
+    d2['SCM_RRP_TYPE']=umumiy_without_duplicate1201[6] + umumiy_without_duplicate1201[23]
+
+    d2['SCM_PROFID']=umumiy_without_duplicate1201[32] + umumiy_without_duplicate1201[23]
+
+    d2['STRGR']=umumiy_without_duplicate1201[33] + umumiy_without_duplicate1201[23]
     d2['BWKEY']=umumiy_without_duplicate1201[34] + ['1305' for x in umumiy_without_duplicate1201[34]]
     d2['MLAST']=umumiy_without_duplicate1201[35] * 2
     d2['BKLAS']=umumiy_without_duplicate1201[36] * 2
@@ -175,7 +180,9 @@ def characteristika_created_txt_create_1301_v2(datas):
     d2['LOSGR']=umumiy_without_duplicate1201[43] * 2
     d2['SFCPF']=umumiy_without_duplicate1201[44] + umumiy_without_duplicate1201[23]
     d2['UEETK']=umumiy_without_duplicate1201[45] * 2
-    d2['LGPRO']=umumiy_without_duplicate1201[23] * 2
+    
+    d2['LGPRO']=umumiy_without_duplicate1201[22] + umumiy_without_duplicate1201[23]
+
     d2['SBDKZ']=umumiy_without_duplicate1201[46] + umumiy_without_duplicate1201[23]
     d2['SOBSL']=umumiy_without_duplicate1201[47] +['80' for x in umumiy_without_duplicate1201[47]]
 
