@@ -10,7 +10,7 @@ from django.db.models import Max
 import zipfile
 from config.settings import MEDIA_ROOT
 import numpy as np
-from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_razlovka,download_bs64
+from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_razlovka,download_bs64,characteristika_created_txt_create_1301_v2
 import os
 from order.models import Order
 import random
@@ -26,6 +26,22 @@ from io import BytesIO as IO
 from accounts.models import User
 from django.urls import reverse
 from norma.models import NormaExcelFiles
+
+
+
+def upload_for_1301_v22(request):
+      if request.method == 'POST':
+            form = FileFormTermo(request.POST, request.FILES)
+            if form.is_valid():
+                  file_path =form.cleaned_data["file"]
+                  df = pd.read_excel(file_path)
+                  file_destination = characteristika_created_txt_create_1301_v2(df)
+                  files = [File(file=f,filetype='Obichniy') for f in file_destination]
+                  context = {
+                        'files':files,
+                  }
+                  return render(request,'universal/generated_file_1301.html',context)
+      return render(request,'universal/main.html')
 
 
 def add_length_profile(request):

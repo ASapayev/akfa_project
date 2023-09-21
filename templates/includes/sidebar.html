@@ -237,11 +237,12 @@
     {%endif%}
     {% if user_role == 'moderator'  %}
     <li class="nav-item menu-items">
-      <a class="nav-link" href="{% url 'get_raube' %}">
+      <a class="nav-link" href="{%url 'create_construction'%}">
         <span class="menu-icon">
           <i class="mdi mdi-bing"></i>
         </span>
-        <span class="menu-title">Найти RAUBE</span>
+        <span class="menu-title">Созд.констр для imzo</span>
+        
       </a>
     </li>
     {%endif%}
