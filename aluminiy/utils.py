@@ -155,7 +155,7 @@ def characteristika_created_txt_create_1301_v2(datas):
     d2['PLIFZ']=umumiy_without_duplicate1201[23] * 2
     d2['PERKZ']=umumiy_without_duplicate1201[24] * 2
     d2['MTVFP']=umumiy_without_duplicate1201[25] + umumiy_without_duplicate1201[23]
-    d2['SCM_STRA1']=umumiy_without_duplicate1201[26] * 2
+    d2['SCM_STRA1']=umumiy_without_duplicate1201[26] + umumiy_without_duplicate1201[23]
     d2['VRMOD']=umumiy_without_duplicate1201[23] * 2
     d2['PPSKZ']=umumiy_without_duplicate1201[45] + umumiy_without_duplicate1201[23]
 
