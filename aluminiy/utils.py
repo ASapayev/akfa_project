@@ -9,6 +9,8 @@ from io import BytesIO as IO
 from django.http import HttpResponse,FileResponse
 from datetime import datetime
 from config.settings import MEDIA_ROOT
+import numpy as np
+import zipfile
 
 
 
@@ -21,7 +23,7 @@ def characteristika_created_txt_create_1301_v2(datas):
     minut =now.strftime("%M-%S MINUT")
     
     
-    parent_dir =f'{MEDIA_ROOT}\\uploads\\sozdaniye_materiala'
+    parent_dir =f'{MEDIA_ROOT}\\uploads\\sozdaniye_materiala\\'
     if not os.path.isdir(parent_dir):
         create_folder(f'{MEDIA_ROOT}\\uploads','sozdaniye_materiala')
         
@@ -48,31 +50,21 @@ def characteristika_created_txt_create_1301_v2(datas):
     
 
     for key , row in datas.iterrows():
-
-        if '-7' in row['SAP код S4P 100']:
-                gruppa_material ='ALUGP'
-        else:
-            gruppa_material ='ALUPF'
                 
-       
-        umumiy_without_duplicate1201[0].append(row['SAP код S4P 100'])
-        umumiy_without_duplicate1201[1].append(row['SAP код S4P 100'])
-        umumiy_without_duplicate1201[2].append(row['Короткое название SAP'])
+        umumiy_without_duplicate1201[0].append(row['MATNR'])
+        umumiy_without_duplicate1201[1].append(row['MATNR'])
+        umumiy_without_duplicate1201[2].append(row['MAKTX'])
         umumiy_without_duplicate1201[3].append('M2')
         umumiy_without_duplicate1201[4].append('ZPRF')
-        if '-7' in row['SAP код S4P 100']:
-            gruppa_material ='ALUGP'
-        else:
-            gruppa_material ='ALUPF'
-        umumiy_without_duplicate1201[5].append(gruppa_material)
-        umumiy_without_duplicate1201[6].append(gruppa_material)
+        umumiy_without_duplicate1201[5].append('')
+        umumiy_without_duplicate1201[6].append('')
         umumiy_without_duplicate1201[7].append('F')
         umumiy_without_duplicate1201[8].append('21')
-        umumiy_without_duplicate1201[9].append(str(row['Общий вес за штуку']).replace('.',','))
-        umumiy_without_duplicate1201[10].append(str(row['Общий вес за штуку']).replace('.',','))
+        umumiy_without_duplicate1201[9].append('')
+        umumiy_without_duplicate1201[10].append('')
         umumiy_without_duplicate1201[11].append('КГ')
         umumiy_without_duplicate1201[12].append('ZNRM')
-        umumiy_without_duplicate1201[13].append(row['Короткое название SAP'])
+        umumiy_without_duplicate1201[13].append(row['MAKTX'])
         umumiy_without_duplicate1201[14].append('M2')
         umumiy_without_duplicate1201[15].append('999')
         umumiy_without_duplicate1201[16].append('X')
@@ -81,20 +73,12 @@ def characteristika_created_txt_create_1301_v2(datas):
         umumiy_without_duplicate1201[19].append('EX')
         umumiy_without_duplicate1201[20].append('0')
         umumiy_without_duplicate1201[21].append('E')
-        ss =''
-        sartrr =''
-        if gruppa_material =='ALUGP':
-            ss ='S400'
-            sartrr ='5'
-      
-            
-            
-        umumiy_without_duplicate1201[22].append(ss)
+        umumiy_without_duplicate1201[22].append('')
         umumiy_without_duplicate1201[23].append('')
         umumiy_without_duplicate1201[24].append('M')
         umumiy_without_duplicate1201[25].append('02')
         umumiy_without_duplicate1201[26].append('26')
-        umumiy_without_duplicate1201[27].append(sartrr)
+        umumiy_without_duplicate1201[27].append('')
         umumiy_without_duplicate1201[28].append('X')
         umumiy_without_duplicate1201[29].append('5')
         umumiy_without_duplicate1201[30].append('Z_SAP_PP_002')
@@ -111,14 +95,14 @@ def characteristika_created_txt_create_1301_v2(datas):
         umumiy_without_duplicate1201[41].append('X')
         umumiy_without_duplicate1201[42].append('X')
         umumiy_without_duplicate1201[43].append('1')
-        sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]
-        #!
+   
+      
         umumiy_without_duplicate1201[44].append('1301AL')
 
         umumiy_without_duplicate1201[45].append('X')
         umumiy_without_duplicate1201[46].append('2')
         umumiy_without_duplicate1201[47].append('20')
-        umumiy_without_duplicate1201[48].append(row['ch_combination'] + row['Тип покрытия'])
+        umumiy_without_duplicate1201[48].append('')
     
 
 
@@ -184,7 +168,7 @@ def characteristika_created_txt_create_1301_v2(datas):
     d2['BKLAS']=umumiy_without_duplicate1201[36] * 2
     d2['VPRSV']=umumiy_without_duplicate1201[37] * 2
     d2['PEINH']=umumiy_without_duplicate1201[38] * 2
-    d2['STPRS']=[round(float(n.replace(',','.')),2) for n in umumiy_without_duplicate1201[39]] * 2
+    d2['STPRS']=[round(float(str(n).replace(',','.')),2) for n in umumiy_without_duplicate1201[39]] * 2
     d2['PRCTR']=umumiy_without_duplicate1201[40] + ['1305' for x in umumiy_without_duplicate1201[34]]
     d2['EKALR']=umumiy_without_duplicate1201[41] * 2
     d2['HKMAT']=umumiy_without_duplicate1201[42] * 2
@@ -257,6 +241,17 @@ def characteristika_created_txt_create_1301_v2(datas):
     zip(pathzip, pathzip)
 
     return [file_path,]
+
+def zip(src, dst):
+    zf = zipfile.ZipFile("%s.zip" % (dst), "w", zipfile.ZIP_DEFLATED)
+    abs_src = os.path.abspath(src)
+    for dirname, subdirs, files in os.walk(src):
+        for filename in files:
+            absname = os.path.abspath(os.path.join(dirname, filename))
+            arcname = absname[len(abs_src) + 1:]
+            zf.write(absname, arcname)
+    zf.close()
+
 
 
 def fabrikatsiya_sap_kod(sap_kod,length):
