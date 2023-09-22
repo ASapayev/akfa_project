@@ -79,10 +79,10 @@ def get_sapcodes(request):
                   
                   for i in range(0,len(sap_codes_list)):
                         if AluminiyProduct.objects.filter(artikul__icontains = sap_codes_list[i],kratkiy_tekst_materiala__icontains =kratkiy_texts[i]).exists():
-                              obichniy = AluminiyProduct.objects.get(artikul= sap_codes_list[i],kratkiy_tekst_materiala =kratkiy_texts[i])
+                              obichniy = AluminiyProduct.objects.filter(artikul= sap_codes_list[i],kratkiy_tekst_materiala =kratkiy_texts[i])[:1].get()
                               products.append(SAPCODES(material=obichniy.material,kratkiy_tekst_materiala=obichniy.kratkiy_tekst_materiala,created_at=obichniy.created_at))
                         if AluminiyProductTermo.objects.filter(artikul__icontains = sap_codes_list[i],kratkiy_tekst_materiala__icontains =kratkiy_texts[i]).exists():
-                              termo = AluminiyProductTermo.objects.get(artikul__icontains = sap_codes_list[i],kratkiy_tekst_materiala=kratkiy_texts[i])
+                              termo = AluminiyProductTermo.objects.filter(artikul__icontains = sap_codes_list[i],kratkiy_tekst_materiala=kratkiy_texts[i])[:1].get()
                               termo_products.append(SAPCODES(material=termo.material,kratkiy_tekst_materiala=termo.kratkiy_tekst_materiala,created_at=termo.created_at))
                   
                   print(products)
