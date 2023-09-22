@@ -85,8 +85,6 @@ def get_sapcodes(request):
                               termo = AluminiyProductTermo.objects.get(artikul__icontains = sap_codes_list)
                               termo_products.append(SAPCODES(material=termo.material,kratkiy_tekst_materiala=termo.kratkiy_tekst_materiala,created_at=termo.created_at))
                   
-                  
-
                   print(products)
                   print(termo_products)
                   context ={
