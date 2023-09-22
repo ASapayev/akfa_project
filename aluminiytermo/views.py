@@ -66,6 +66,8 @@ def get_sapcodes(request):
                         if sap_code and kratkiy_tekst:
                               sap_codes[sap_code] = kratkiy_tekst
                               sap_codes_list.append(sap_code)
+                  
+                  print(sap_codes_list)
 
                   obichniy = AluminiyProduct.objects.filter(artikul__in = sap_codes_list).order_by('section').order_by('counter')
                   termo = AluminiyProductTermo.objects.filter(artikul__icontains = sap_codes_list).order_by('section').order_by('counter')
@@ -73,9 +75,7 @@ def get_sapcodes(request):
                   
                   for obich in obichniy:
                         if (obich.artikul in sap_codes):
-                              print('inside of for ',obich.artikul,'query = ',obich.kratkiy_tekst_materiala,' dict =',sap_codes[obich.artikul])
                               if obich.kratkiy_tekst_materiala == sap_codes[obich.artikul]:
-                                    print('ddd')
                                     products.append(SAPCODES(material=obich.material,kratkiy_tekst_materiala=obich.kratkiy_tekst_materiala,created_at=obich.created_at))
                   termo_products =[]
                   for ter in termo:
