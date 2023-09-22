@@ -70,7 +70,7 @@ def get_sapcodes(request):
                               kratkiy_texts.append(kratkiy_tekst)
                               sap_codes_list.append(sap_code)
                   
-                  print(sap_codes_list)
+                  
 
                   obichniy = AluminiyProduct.objects.filter(artikul__in = sap_codes_list).order_by('section').order_by('counter')
                   termo = AluminiyProductTermo.objects.filter(artikul__icontains = sap_codes_list).order_by('section').order_by('counter')
@@ -87,8 +87,7 @@ def get_sapcodes(request):
                               for ter in termo:
                                     termo_products.append(SAPCODES(material=ter.material,kratkiy_tekst_materiala=ter.kratkiy_tekst_materiala,created_at=ter.created_at))
                   
-                  print(products)
-                  print(termo_products)
+                  
                   context ={
                         'section1':'Обычный',
                         'section2':'Термо',
