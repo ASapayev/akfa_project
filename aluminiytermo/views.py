@@ -78,7 +78,9 @@ def get_sapcodes(request):
                   
                   for obich in obichniy:
                         idexs =get_indices(obich.artikul,sap_codes_list)
+                        print(idexs)
                         for j in idexs:
+                              print(kratkiy_texts[j])
                               if obich.kratkiy_tekst_materiala == kratkiy_texts[j]:
                                     products.append(SAPCODES(material=obich.material,kratkiy_tekst_materiala=obich.kratkiy_tekst_materiala,created_at=obich.created_at))
                   termo_products =[]
