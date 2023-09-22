@@ -84,7 +84,7 @@ def get_sapcodes(request):
                   termo_products =[]
                   for ter in termo:
                         idexs =get_indices(obich.artikul,sap_codes_list)
-                        for j in indexs:
+                        for j in idexs:
                               if ter.kratkiy_tekst_materiala == kratkiy_texts[j]:
                                     termo_products.append(SAPCODES(material=ter.material,kratkiy_tekst_materiala=ter.kratkiy_tekst_materiala,created_at=ter.created_at))
 
