@@ -56,7 +56,7 @@ def get_sapcodes(request):
       if request.method =='POST':
             countt = request.POST.get('count',None)
             if countt:
-                  sap_codes = {}
+                  kratkiy_texts = []
                   sap_codes_list = []
 
                   for i in range(1,int(countt) + 1):
@@ -64,7 +64,7 @@ def get_sapcodes(request):
                         kratkiy_tekst =request.POST.get(f'kratkiy{i}',None)
 
                         if sap_code and kratkiy_tekst:
-                              sap_codes[sap_code] = kratkiy_tekst
+                              kratkiy_texts.append(kratkiy_tekst)
                               sap_codes_list.append(sap_code)
                   
                   print(sap_codes_list)
@@ -72,17 +72,15 @@ def get_sapcodes(request):
                   obichniy = AluminiyProduct.objects.filter(artikul__in = sap_codes_list).order_by('section').order_by('counter')
                   termo = AluminiyProductTermo.objects.filter(artikul__icontains = sap_codes_list).order_by('section').order_by('counter')
                   products =[]
-                  print('sap_codes === ',sap_codes)
+                  
                   for obich in obichniy:
-                        if (obich.artikul in sap_codes):
-                              print(obich.kratkiy_tekst_materiala,'=====',sap_codes[obich.artikul])
-                              if obich.kratkiy_tekst_materiala.lower() == str(sap_codes[obich.artikul]).lower():
+                        for j in range(0,len(sap_codes_list)):
+                              if ((obich.artikul == sap_codes_list[j]) and (obich.kratkiy_tekst_materiala == kratkiy_texts[j])):
                                     products.append(SAPCODES(material=obich.material,kratkiy_tekst_materiala=obich.kratkiy_tekst_materiala,created_at=obich.created_at))
                   termo_products =[]
                   for ter in termo:
-                        if ter.artikul in sap_codes:
-                              print(obich.kratkiy_tekst_materiala,'=====',sap_codes[obich.artikul])
-                              if ter.kratkiy_tekst_materiala.lower() == str(sap_codes[ter.artikul]).lower():
+                        for j in range(0,range(sap_codes_list)):
+                              if((ter.artikul == sap_codes_list[j]) and (ter.kratkiy_tekst_materiala == kratkiy_texts[j])):
                                     termo_products.append(SAPCODES(material=ter.material,kratkiy_tekst_materiala=ter.kratkiy_tekst_materiala,created_at=ter.created_at))
 
                   print(products)
