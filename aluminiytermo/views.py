@@ -75,12 +75,12 @@ def get_sapcodes(request):
                   
                   for obich in obichniy:
                         if (obich.artikul in sap_codes):
-                              if obich.kratkiy_tekst_materiala == sap_codes[obich.artikul]:
+                              if obich.kratkiy_tekst_materiala.lower() == str(sap_codes[obich.artikul]).lower():
                                     products.append(SAPCODES(material=obich.material,kratkiy_tekst_materiala=obich.kratkiy_tekst_materiala,created_at=obich.created_at))
                   termo_products =[]
                   for ter in termo:
                         if ter.artikul in sap_codes:
-                              if ter.kratkiy_tekst_materiala == sap_codes[ter.artikul]:
+                              if ter.kratkiy_tekst_materiala.lower() == str(sap_codes[ter.artikul]).lower():
                                     termo_products.append(SAPCODES(material=ter.material,kratkiy_tekst_materiala=ter.kratkiy_tekst_materiala,created_at=ter.created_at))
 
                   print(products)
