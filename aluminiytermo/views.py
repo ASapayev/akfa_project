@@ -72,7 +72,7 @@ def get_sapcodes(request):
                   obichniy = AluminiyProduct.objects.filter(artikul__in = sap_codes_list).order_by('section').order_by('counter')
                   termo = AluminiyProductTermo.objects.filter(artikul__icontains = sap_codes_list).order_by('section').order_by('counter')
                   products =[]
-                  
+                  print('sap_codes === ',sap_codes)
                   for obich in obichniy:
                         if (obich.artikul in sap_codes):
                               print(obich.kratkiy_tekst_materiala,'=====',sap_codes[obich.artikul])
