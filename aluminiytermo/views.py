@@ -51,6 +51,9 @@ def upload_for_1301_v22(request):
                   return render(request,'universal/generated_file_1301.html',context)
       return render(request,'universal/main.html')
 
+def get_indices(element, lst):
+    return [i for i, x in enumerate(lst) if x == element]
+
 def get_sapcodes(request):
 
       if request.method =='POST':
@@ -74,13 +77,15 @@ def get_sapcodes(request):
                   products =[]
                   
                   for obich in obichniy:
-                        for j in range(0,len(sap_codes_list)):
-                              if ((obich.artikul == sap_codes_list[j]) and (obich.kratkiy_tekst_materiala == kratkiy_texts[j])):
+                        idexs =get_indices(obich.artikul,sap_codes_list)
+                        for j in idexs:
+                              if obich.kratkiy_tekst_materiala == kratkiy_texts[j]:
                                     products.append(SAPCODES(material=obich.material,kratkiy_tekst_materiala=obich.kratkiy_tekst_materiala,created_at=obich.created_at))
                   termo_products =[]
                   for ter in termo:
-                        for j in range(0,range(sap_codes_list)):
-                              if((ter.artikul == sap_codes_list[j]) and (ter.kratkiy_tekst_materiala == kratkiy_texts[j])):
+                        idexs =get_indices(obich.artikul,sap_codes_list)
+                        for j in indexs:
+                              if ter.kratkiy_tekst_materiala == kratkiy_texts[j]:
                                     termo_products.append(SAPCODES(material=ter.material,kratkiy_tekst_materiala=ter.kratkiy_tekst_materiala,created_at=ter.created_at))
 
                   print(products)
