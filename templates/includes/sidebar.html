@@ -122,6 +122,35 @@
       </div>
     </li>
     {%endif%}
+    {% if user_role == 'moderator'%}
+    <li class="nav-item menu-items">
+      <a class="nav-link" data-toggle="collapse" href="#ui-basics-pvc" aria-expanded="false" aria-controls="ui-basics-pvc">
+        <span class="menu-icon">
+          <i class="mdi mdi-camera-timer"></i>
+        </span>
+        <span class="menu-title">Форм. PVC</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="ui-basics-pvc">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class=""> лам </span> файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">без лам</span> файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">1301</span> файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href=""> Создать характер.</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">Созд. обычный сапкоды</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">Созд. термо сапкоды</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class=""> обыч разл </span> файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо разл</span> файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">Все обычный разловки</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">Все термо разловки</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">Форм. Старый хар обыч</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">Форм. Старый хар термо</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">История обыч. файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">История термо файла</a></li>
+        </ul>
+      </div>
+    </li>
+    {%endif%}
     {% if user_role == 'moderator'  or user_role == 'user1' %}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm" aria-expanded="false" aria-controls="ui-basic-norm">
