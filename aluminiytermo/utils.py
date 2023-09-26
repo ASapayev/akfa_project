@@ -80,7 +80,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
         
         
         ############################ bugalter nazvaniya###
-        if 'ГП' == row['ch_rawmat_type']:
+        if '-7' in row['SAP код S4P 100']:
             
             
             for ii in range(0,3):
@@ -1261,7 +1261,7 @@ def get_cretead_txt_for_1101(datas,elist):
         
         
         ############################ bugalter nazvaniya###
-        if 'ГП' == row['ch_rawmat_type']:
+        if '-7' in row['SAP код S4P 100']:
             
             
             for ii in range(0,3):
