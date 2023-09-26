@@ -4,6 +4,7 @@ from .models import Order
 from django.contrib.auth.decorators import login_required
 import ast
 from accounts.models import User
+from django.core.paginator import Paginator
 
 
 
@@ -16,8 +17,19 @@ def index(request):
     else:
         current_orders = Order.objects.all().order_by('-created_at')
 
+
+    paginator = Paginator(current_orders, 15)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+
+
     context ={
-        'orders':current_orders
+        'orders':page_obj
     }
     return render(request,'dashboard/workers.html',context)
 
