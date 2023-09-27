@@ -1,5 +1,7 @@
 from django.urls import path,re_path
 from . import views
+from aluminiy import views as aluview
+from aluminiytermo import views as alutermoview
 
 urlpatterns = [
     path('norma-base',views.norma_excel,name='norma_excel'),
@@ -36,7 +38,10 @@ urlpatterns = [
     path('downloading-files',views.download, name='download_vi'),
     path('downloading-zip-file',views.download_zip_file, name='download_zip_file'),
     path('norma-delete-all',views.norma_delete_all,name='norma_delete_all'),
-    path('full-update',views.full_update_norma,name='full_update_norma_base')
+    path('full-update',views.full_update_norma,name='full_update_norma_base'),
+    path('simple-razlovka',aluview.upload_razlovka_simple,name='alu_simple_raz'),
+    path('termo-razlovka',alutermoview.upload_razlovka_termo,name='alu_termo_raz'),
+
 
     
 ]
