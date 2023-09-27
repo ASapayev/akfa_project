@@ -479,7 +479,7 @@ def lenght_generate_texcarta(request,id):
                         counter_2 +=1
                 
                 
-                elif (length ==26) or ((kombiniroavniy)and(length ==36)):         
+                elif ((length == 26) or (length == 23) or ((kombiniroavniy)and(length ==36))):         
                     for i7 in range(1,3):
                         if i7 ==1:
                             df_new['ID'][counter_2] ='1'
