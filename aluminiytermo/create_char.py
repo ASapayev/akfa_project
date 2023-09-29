@@ -1418,7 +1418,8 @@ def product_add_second_simple(id):
                                     )
                     
                         
-                else:      
+                else:
+                    print('sap code',df['Артикул'][key])      
                     if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key]).exists():
                         obichniy =AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key])[:1].get()
                         
