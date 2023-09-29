@@ -2686,6 +2686,7 @@ def create_characteristika(items):
     df_charakter =df_charakter.replace('nan','')
     return df_charakter   
 
+
 def char_title_import(items):
     for key,row in items.iterrows():
         characteristik = CharacteristicTitle.objects.filter(sap_код_s4p_100 = row['SAP код S4P 100'])[:1].get()
@@ -3287,7 +3288,7 @@ def characteristika_created_txt_create_1301(datas):
 
     for key , row in datas.iterrows():
         for j in range(0,6):
-            dd2[0].append('01')
+            dd2[0].append('001')
             
         for j in range(0,6):
             if HEADER_1301[j] != 'GOODS_GROUP':
