@@ -474,7 +474,7 @@ def lenght_generate_texcarta(request,id):
                             df_new['UMREZ'][counter_2] = '1'
                             df_new['UMREN'][counter_2] = '1'
                             df_new['USR00'][counter_2] = '1'
-                            df_new['USR01'][counter_2] = texcartatime.upakovka if not isklyuchenie else row['USR01']
+                            df_new['USR01'][counter_2] = texcartatime.upakovka if not isklyuchenie else '0'
                             df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                         counter_2 +=1
                 
@@ -508,7 +508,7 @@ def lenght_generate_texcarta(request,id):
                             df_new['UMREZ'][counter_2] = '1'
                             df_new['UMREN'][counter_2] = '1'
                             df_new['USR00'][counter_2] = '1'
-                            df_new['USR01'][counter_2] = texcartatime.kom_upakovka if not isklyuchenie else row['USR01']
+                            df_new['USR01'][counter_2] = texcartatime.kom_upakovka if not isklyuchenie else '0'
                             df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                         counter_2 +=1
                 
