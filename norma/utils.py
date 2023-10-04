@@ -130,7 +130,7 @@ def create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka,kombinirovann
     df_subdekor.to_excel(writer,index=False,sheet_name ='Subdekor')
     df_kraska.to_excel(writer,index=False,sheet_name ='Kraska')
     df_nakleyka.to_excel(writer,index=False,sheet_name ='Nakleyka')
-    df_kombinirovanniy.to_excel(writer,index=False,sheet_name ='Kombinirovanniy utils')
+    df_kombinirovanniy.to_excel(writer,index=False,sheet_name ='Termo most')
     df_lamplyonka.to_excel(writer,index=False,sheet_name ='Lamination code')
     writer.close()
     return path
