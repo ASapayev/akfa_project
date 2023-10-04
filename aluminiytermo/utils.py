@@ -6660,7 +6660,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 dd2[5].append(row['ch_artikul_old'])
                 if '-7' in row['SAP код S4P 100']:
                     if row['Тип покрытия'] =='Неокрашенный':
-                        qbic ='XXXXXXXXXX'
+                        qbic ='XXXX'
                     elif row['Тип покрытия'] =='Окрашенный':
                         qbic = row['ch_outer_side_pc_id']
                     elif row['Тип покрытия'] =='Анодированный':
@@ -6673,7 +6673,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                     elif row['Тип покрытия'] =='Сублимированный':
                         qbic = row['ch_outer_side_wg_s_id']
                     else:
-                        qbic ='XXXXXXXXXX'
+                        qbic ='XXXX'
                     dd2[5].append(qbic)
                     dd2[5].append('XXXX')
                 else:
