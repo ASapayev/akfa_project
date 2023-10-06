@@ -1791,6 +1791,9 @@ def get_cretead_txt_for_1101(datas,elist):
             umumiy_without_duplicate1201[42].append('X')
             umumiy_without_duplicate1201[43].append('1')
             sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]
+            sap_codee =row['SAP код S4P 100'].split('-')[0]
+            if (sap_codee in zakalka_iskyucheniye):
+                sap_code_simvol ='Z'
             umumiy_without_duplicate1201[44].append(SFSPF1101[sap_code_simvol])
             umumiy_without_duplicate1201[45].append('X')
             umumiy_without_duplicate1201[46].append('')
