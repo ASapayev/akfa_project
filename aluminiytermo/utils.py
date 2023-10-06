@@ -1799,15 +1799,18 @@ def get_cretead_txt_for_1101(datas,elist):
             umumiy_without_duplicate1201[46].append('')
             umumiy_without_duplicate1201[47].append('X')
             umumiy_without_duplicate1201[48].append(row['ch_combination'] + row['Тип покрытия'])
-            if ( (row['Тип покрытия'] =='Ламинированный') and ('-7' in row['SAP код S4P 100']) ):
-                umumiy_without_duplicate1201[49].append('JPL')
-            elif (('-7' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100'])):
-                if row['ch_combination'].lower() == "с термомостом":
-                    umumiy_without_duplicate1201[49].append('JPK')
-                else:
-                    umumiy_without_duplicate1201[49].append('JPG')
+            if (sap_codee in zakalka_iskyucheniye):
+                umumiy_without_duplicate1201[49].append('JPZ')
             else:
-                 umumiy_without_duplicate1201[49].append('JP1')
+                if ( (row['Тип покрытия'] =='Ламинированный') and ('-7' in row['SAP код S4P 100']) ):
+                    umumiy_without_duplicate1201[49].append('JPL')
+                elif (('-7' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100'])):
+                    if row['ch_combination'].lower() == "с термомостом":
+                        umumiy_without_duplicate1201[49].append('JPK')
+                    else:
+                        umumiy_without_duplicate1201[49].append('JPG')
+                else:
+                    umumiy_without_duplicate1201[49].append('JP1')
             
             if row['Тип покрытия'].capitalize() =='Белый':
                 umumiy_without_duplicate1201[50].append('S0')
