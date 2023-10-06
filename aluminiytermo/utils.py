@@ -894,31 +894,31 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
 ########################## end 4.txt ##############################
 ########################## 55.txt ##############################    
-    new_ll_55 =[[],[],[]]
+    # new_ll_55 =[[],[],[]]
     
-    for key , row in datas.iterrows():
-        sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
+    # for key , row in datas.iterrows():
+    #     sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]        
 
-        if sap_code_simvol =='7':
-            if (row['Тип покрытия'] =='Ламинированный'):
-                for i in range(0,len(LGORT['7L'])):
-                    new_ll_55[0].append(row['SAP код S4P 100'])
-                    new_ll_55[1].append(LGORT['7L'][i]['zavod_code'])
-                    new_ll_55[2].append(LGORT['7L'][i]['zavod_sap'])
-            else:
-                for i in range(0,len(LGORT['7'])):
-                    new_ll_55[0].append(row['SAP код S4P 100'])
-                    new_ll_55[1].append(LGORT['7'][i]['zavod_code'])
-                    new_ll_55[2].append(LGORT['7'][i]['zavod_sap'])
+    #     if sap_code_simvol =='7':
+    #         if (row['Тип покрытия'] =='Ламинированный'):
+    #             for i in range(0,len(LGORT['7L'])):
+    #                 new_ll_55[0].append(row['SAP код S4P 100'])
+    #                 new_ll_55[1].append(LGORT['7L'][i]['zavod_code'])
+    #                 new_ll_55[2].append(LGORT['7L'][i]['zavod_sap'])
+    #         else:
+    #             for i in range(0,len(LGORT['7'])):
+    #                 new_ll_55[0].append(row['SAP код S4P 100'])
+    #                 new_ll_55[1].append(LGORT['7'][i]['zavod_code'])
+    #                 new_ll_55[2].append(LGORT['7'][i]['zavod_sap'])
 
-    header55='MATNR\tWERKS\tLGORT\tRAUBE'
-    d55={}
-    d55['MATNR']=new_ll_55[0] 
-    d55['WERKS']=new_ll_55[1] 
-    d55['LGORT']=new_ll_55[2] 
-    d55['RAUBE']=['' for x in new_ll_55[2]] 
-    df55= pd.DataFrame(d55)
-    np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
+    # header55='MATNR\tWERKS\tLGORT\tRAUBE'
+    # d55={}
+    # d55['MATNR']=new_ll_55[0] 
+    # d55['WERKS']=new_ll_55[1] 
+    # d55['LGORT']=new_ll_55[2] 
+    # d55['RAUBE']=['' for x in new_ll_55[2]] 
+    # df55= pd.DataFrame(d55)
+    # np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
     ########################## end 55.txt ##############################
     
     
@@ -1240,9 +1240,15 @@ def get_cretead_txt_for_1101(datas,elist):
     
     dlinniy_text_zero =[[],[],[]]
     buxgalterskiy_naz =[[],[],[],[],[],[],[],[]]
-    
+
+    zakalka_iskyucheniye = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
    
     for key , row in datas.iterrows():
+
+        sap_codee = row['SAP код S4P 100'].split('-')[0]
+
+        if ((sap_codee in zakalka_iskyucheniye) and ('-Z' in row['SAP код S4P 100'])):
+           continue 
 
         if  (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
             continue 
@@ -3664,6 +3670,10 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     zakalka_iskyucheniye = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
    
     for key , row in datas.iterrows():
+        sap_codee = row['SAP код S4P 100'].split('-')[0]
+
+        if ((sap_codee in zakalka_iskyucheniye) and ('-Z' in row['SAP код S4P 100'])):
+           continue 
 
         if  (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
             continue 
@@ -4207,8 +4217,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             umumiy_without_duplicate1201[43].append('1')
             sap_code_simvol =row['SAP код S4P 100'].split('-')[1][0]
             sap_codee =row['SAP код S4P 100'].split('-')[0]
-            # if sap_codee in zakalka_iskyucheniye:
-            #     sap_code_simvol ='Z'
+            if sap_codee in zakalka_iskyucheniye:
+                sap_code_simvol ='Z'
             umumiy_without_duplicate1201[44].append(SFSPF1101[sap_code_simvol])
             umumiy_without_duplicate1201[45].append('X')
             umumiy_without_duplicate1201[46].append('')
