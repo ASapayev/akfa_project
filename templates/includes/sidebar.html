@@ -66,13 +66,21 @@
       </a>
     </li>
     {% if user_role == 'moderator' or user_role == 'user1' %}
+
     <li class="nav-item menu-items">
-      <a class="nav-link" href="{%url 'order' %}">
+      <a class="nav-link" data-toggle="collapse" href="#zayavki" aria-expanded="false" aria-controls="zayavki">
         <span class="menu-icon">
           <i class="mdi mdi-equal-box"></i>
         </span>
         <span class="menu-title">Заявки</span>
+        <i class="menu-arrow"></i>
       </a>
+      <div class="collapse" id="zayavki">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{% url 'order' %}" >ALUMINIY</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'order_pvc' %}">PVC</a></li>
+        </ul>
+      </div>
     </li>
     {%endif%}
     {% if user_role == 'moderator'%}
@@ -133,8 +141,7 @@
       </a>
       <div class="collapse" id="ui-basics-pvc">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class=""> лам </span> файла</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">без лам</span> файла</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{%url 'upload_product_pvc_org' %}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class=""> pvc</span> файла</a></li>
           <li class="nav-item"> <a class="nav-link" href="">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">1301</span> файла</a></li>
           <li class="nav-item"> <a class="nav-link" href=""> Создать характер.</a></li>
           <li class="nav-item"> <a class="nav-link" href="">Созд. обычный сапкоды</a></li>
@@ -241,6 +248,7 @@
           <li class="nav-item"> <a class="nav-link" href="{% url 'show_norm_base' %}">Показать все нормы</a></li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'show_sikl_base' %}">Показать все цикл дата</a></li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'add_norm'%}">Добавить нормы</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'get_raube' %}">Найти Raube</a></li>
           <li class="nav-item"> <a class="nav-link" href="{%url 'full_update_norm' %}">Пол. обнов. базы</a></li>
           <li class="nav-item"> <a class="nav-link text-danger"  onclick="confirm_delete()" style="cursor: pointer;">Пол.удалить. базы</a></li>
           
