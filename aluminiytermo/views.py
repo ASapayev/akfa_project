@@ -134,8 +134,8 @@ def get_raube(request):
             create_folder(f'{MEDIA_ROOT}\\uploads\\norma','raube')
             create_folder(f'{MEDIA_ROOT}\\uploads\\norma\\raube',year)
             path2 = f'{MEDIA_ROOT}\\uploads\\norma\\raube\\{year}\\raube.xlsx'
-            df = pd.DataFrame({'SAP CODE':raube_list[1],'RAUBE':raube_list[0]})
-            df2 = pd.DataFrame({'SAP CODE':raube_list[2]})
+            df = pd.DataFrame({'MATNR':raube_list[1],'WERKS':['1101' for x in raube_list[1]],'RAUBE':raube_list[0]})
+            df2 = pd.DataFrame({'MATNR':raube_list[2]})
 
 
             writer = pd.ExcelWriter(path2, engine='xlsxwriter')
