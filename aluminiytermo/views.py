@@ -127,8 +127,29 @@ def get_raube(request):
                                     raube_list[1].append(ozm)
                         else:
                               raube_list[2].append(ozm)
-                              
-            return JsonResponse({'sap_code':raube_list[1],'raube':raube_list[0],'Does not exists':raube_list[2]})
+
+            # return JsonResponse({'sap_code':raube_list[1],'raube':raube_list[0],'Does not exists':raube_list[2]})
+            now = datetime.now()
+            year =now.strftime("%Y-%B-%d-%H-%M-%S")
+            create_folder(f'{MEDIA_ROOT}\\uploads\\norma','raube')
+            create_folder(f'{MEDIA_ROOT}\\uploads\\norma\\raube',year)
+            path2 = f'{MEDIA_ROOT}\\uploads\\norma\\raube\\{year}\\raube.xlsx'
+            df = pd.DataFrame({'SAP CODE':raube_list[1],'RAUBE':raube_list[0]})
+            df2 = pd.DataFrame({'SAP CODE':raube_list[2]})
+
+
+            writer = pd.ExcelWriter(path2, engine='xlsxwriter')
+            df.to_excel(writer,index=False,sheet_name ='RAUBE')
+            df2.to_excel(writer,index=False,sheet_name ='NOT EXISTS')
+            writer.close()
+
+            files = [File(file=path2,filetype='pvc'),]
+            context ={
+                  'section':'PVC',
+                  'files':files,
+
+            }
+            return render(request,'universal/generated_files.html',context)
       else:
             return render(request,'norma/character_find.html',{'section':'RAUBE','section2':'Найти RAUBE'})
 
