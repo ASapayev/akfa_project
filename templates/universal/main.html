@@ -8,7 +8,15 @@
         <h3 class="page-title"> {{section}} </h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
+            {%if 'work-wast' in request.path%}
+            <li class="breadcrumb-item"><a href="{% url 'download_vi' %}?file_path=C:\\OSPanel\\domains\\akfa_project\\media\\uploads\\shablon\\alu.xlsx">Скачать шаблон</a></li>
+            {%elif 'upload-product-org' in request.path %}
+            <li class="breadcrumb-item"><a href="#">UI Elements alu</a></li>
+            {%elif 'upload-product-termo-org' in request.path %}
+            <li class="breadcrumb-item"><a href="#">UI Elements alu</a></li>
+            {%else%}
             <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            {%endif%}
             <li class="breadcrumb-item active" aria-current="page">{% if link %}<a type="button" href="{{link}}" class="btn btn-success btn-fw" >Скачать</a>{%else%}Buttons{% endif %}</li>
           </ol>
         </nav>
