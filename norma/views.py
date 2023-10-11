@@ -290,16 +290,17 @@ def full_update_norma(request):
     counter = 0
     columns =data['data[3][]']
     for i in range(0,len(columns)):
-        columns[i] = columns[i] + str(i) 
+        columns[i] = columns[i] + str(i)
+        print(columns[i]) 
 
     new_data = []
     for j in range(4,len(data)):
         new_data.append(data[f'data[{j}][]'])
    
     for i in range(0,len(new_data)):
-        if len(new_data[i]) == 173:
+        if len(new_data[i]) == 179:
             new_data[i] += ['','','']
-        # print(i+4,len(new_data[i]))
+        
     df = pd.DataFrame(np.array(new_data),columns=columns)
     df = df.replace('','0')
     # print(columns)
@@ -351,78 +352,85 @@ def full_update_norma(request):
             молярный_скотч_ширина2_мол_скотча_мм = str(row['ширина \r\nмол- скотча/мм40']).strip(),
             молярный_скотч_рас_на_1000_пр_шт2 = str(row['расход на 1000 профиль/шт41']).strip(),
             термомост_1 = str(row['Термомост 42']).strip(),
-            термомост_2 = str(row['Термомост 43']).strip(),
-            термомост_3 = str(row['Термомост 44']).strip(),
-            термомост_4 = str(row['Термомост 45']).strip(),
+            краткий_текст_1 = str(row['Термомост 43']).strip(),
+            термомост_2 = str(row['Термомост 44']).strip(),
+            краткий_текст_2 = str(row['Термомост 45']).strip(),
+            термомост_3 = str(row['Термомост 46']).strip(),
+            краткий_текст_3 = str(row['Термомост 47']).strip(),
+            термомост_4 = str(row['Термомост 48']).strip(),
+            краткий_текст_4 = str(row['Термомост 49']).strip(),
+
             
-            ламинация_верх_a_ширина_ленты_мм = str(row['ширина ленты/мм46']).strip(),
-            лам_верх_a_рас_ленты_на_1000_пр_м2 = str(row['расход ленты на 1000 профилей/м²47']).strip(),
-            ламинация_низ_b_ширина_ленты_мм = str(row['ширина ленты/мм48']).strip(),
-            лам_низ_b_рас_ленты_на_1000_пр_м2 = str(row['расход ленты на 1000 профилей/м²49']).strip(),
+            ламинация_верх_a_ширина_ленты_мм = str(row['ширина ленты/мм50']).strip(),
+            лам_верх_a_рас_ленты_на_1000_пр_м2 = str(row['расход ленты на 1000 профилей/м²51']).strip(),
+            ламинация_низ_b_ширина_ленты_мм = str(row['ширина ленты/мм52']).strip(),
+            лам_низ_b_рас_ленты_на_1000_пр_м2 = str(row['расход ленты на 1000 профилей/м²53']).strip(),
             
-            ламинация_низ_c_ширина_ленты_мм = str(row['ширина ленты/мм50']).strip(),
-            лам_низ_c_рас_ленты_на_1000_пр_м2 = str(row['расход ленты на 1000 профилей/м²51']).strip(),
-            лам_рас_праймера_на_1000_штук_пр_кг = str(row['расход праймера на 1000 штук профилей/кг52']).strip(),
-            лам_рас_клея_на_1000_штук_пр_кг = str(row['расход клея на 1000 штук профилей/кг53']).strip(),
-            лам_рас_уп_материала_мешок_на_1000_пр = str(row['Расход упаковочного материала (мешок) на 1000 профилей54']).strip(),
+            ламинация_низ_c_ширина_ленты_мм = str(row['ширина ленты/мм54']).strip(),
+            лам_низ_c_рас_ленты_на_1000_пр_м2 = str(row['расход ленты на 1000 профилей/м²55']).strip(),
+            лам_рас_праймера_на_1000_штук_пр_кг = str(row['расход праймера на 1000 штук профилей/кг56']).strip(),
+            лам_рас_клея_на_1000_штук_пр_кг = str(row['расход клея на 1000 штук профилей/кг57']).strip(),
+            лам_рас_уп_материала_мешок_на_1000_пр = str(row['Расход упаковочного материала (мешок) на 1000 профилей58']).strip(),
             
 
-            заш_пл_кг_м_akfa_верх_ширина_ленты_мм = str(row['ширина ленты/мм55']).strip(),
-            заш_пл_кг_м_akfa_бк_ст_ширина_ленты_мм = str(row['ширина ленты/мм56']).strip(),
-            кг_м_ak_вр_и_кг_м_ak_бк_ст_рас_лн = str(row['расход ленты на 1000 профилей/м257']).strip(),
-            заш_пл_кг_м_akfa_низ_ширина_ленты_мм = str(row['ширина ленты/мм58']).strip(),
-            заш_пл_кг_м_ak_низ_рас_лн_на_1000_пр_м2 = str(row['расход ленты на 1000 профиль/м259']).strip(),
+            заш_пл_кг_м_akfa_верх_ширина_ленты_мм = str(row['ширина ленты/мм59']).strip(),
+            заш_пл_кг_м_akfa_бк_ст_ширина_ленты_мм = str(row['ширина ленты/мм60']).strip(),
+            кг_м_ak_вр_и_кг_м_ak_бк_ст_рас_лн = str(row['расход ленты на 1000 профилей/м261']).strip(),
+            заш_пл_кг_м_akfa_низ_ширина_ленты_мм = str(row['ширина ленты/мм62']).strip(),
+            заш_пл_кг_м_ak_низ_рас_лн_на_1000_пр_м2 = str(row['расход ленты на 1000 профиль/м263']).strip(),
         
-            заш_пл_кг_м_retpen_верх_ширина_ленты_мм = str(row['ширина ленты/мм60']).strip(),
-            заш_пл_кг_м_retpen_бк_ст_ширина_ленты = str(row['ширина ленты/мм61']).strip(),
-            кг_м_retpen_вр_и_кг_м_retpen_бк_ст_рас = str(row['расход ленты на 1000 профилей/м262']).strip(),
-            заш_пл_кг_м_retpen_низ_ширина_ленты_мм = str(row['ширина ленты/мм63']).strip(),
-            заш_пл_кг_м_retpen_низ_рас  = str(row['расход ленты на 1000 профиль/м264']).strip(),
+            заш_пл_кг_м_retpen_верх_ширина_ленты_мм = str(row['ширина ленты/мм64']).strip(),
+            заш_пл_кг_м_retpen_бк_ст_ширина_ленты = str(row['ширина ленты/мм65']).strip(),
+            кг_м_retpen_вр_и_кг_м_retpen_бк_ст_рас = str(row['расход ленты на 1000 профилей/м266']).strip(),
+            заш_пл_кг_м_retpen_низ_ширина_ленты_мм = str(row['ширина ленты/мм67']).strip(),
+            заш_пл_кг_м_retpen_низ_рас  = str(row['расход ленты на 1000 профиль/м268']).strip(),
             
-            заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм  = str(row['ширина ленты/мм65']).strip(),
-            заш_пл_кг_м_benkam_жл_бк_ст_ширина_лн = str(row['ширина ленты/мм66']).strip(),
-            кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас = str(row['расход ленты на 1000 профилей/м267']).strip(),
-            заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм = str(row['ширина ленты/мм68']).strip(),
-            заш_пл_кг_м_bn_жл_низ_рас = str(row['расход ленты на 1000 профиль/м269']).strip(),
+            заш_пл_кг_м_benkam_жл_вр_ширина_лн_мм  = str(row['ширина ленты/мм69']).strip(),
+            заш_пл_кг_м_benkam_жл_бк_ст_ширина_лн = str(row['ширина ленты/мм70']).strip(),
+            кг_м_bn_жл_вр_и_кг_м_bn_жл_бк_ст_рас = str(row['расход ленты на 1000 профилей/м271']).strip(),
+            заш_пл_кг_м_benkam_жл_низ_ширина_лн_мм = str(row['ширина ленты/мм72']).strip(),
+            заш_пл_кг_м_bn_жл_низ_рас = str(row['расход ленты на 1000 профиль/м273']).strip(),
             
-            заш_пл_кг_м_голд_вр_ширина_лн_мм = str(row['ширина ленты/мм70']).strip(),
-            заш_пл_кг_м_голд_бк_ст_ширина_лн_мм = str(row['ширина ленты/мм71']).strip(),
-            кг_м_голд_вр_и_кг_м_голд_бк_ст_рас = str(row['расход ленты на 1000 профилей/м272']).strip(),
-            заш_пл_кг_м_голд_низ_ширина_лн_мм = str(row['ширина ленты/мм73']).strip(),
-            заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2 = str(row['расход ленты на 1000 профиль/м274']).strip(),
+            заш_пл_кг_м_голд_вр_ширина_лн_мм = str(row['ширина ленты/мм74']).strip(),
+            заш_пл_кг_м_голд_бк_ст_ширина_лн_мм = str(row['ширина ленты/мм75']).strip(),
+            кг_м_голд_вр_и_кг_м_голд_бк_ст_рас = str(row['расход ленты на 1000 профилей/м276']).strip(),
+            заш_пл_кг_м_голд_низ_ширина_лн_мм = str(row['ширина ленты/мм77']).strip(),
+            заш_пл_кг_м_голд_низ_рас_лн_на_1000_пр_м2 = str(row['расход ленты на 1000 профиль/м278']).strip(),
             
-            заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм = str(row['ширина ленты/мм75']).strip(),
-            заш_пл_кг_м_imzo_akfa_бк_ст_ширина_лн = str(row['ширина ленты/мм76']).strip(),
-            кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст = str(row['расход ленты на 1000 профилей/м277']).strip(),
-            заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм = str(row['ширина ленты/мм78']).strip(),
-            заш_пл_кг_м_imzo_ak_низ_рас = str(row['расход ленты на 1000 профиль/м279']).strip(),
+            заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм = str(row['ширина ленты/мм79']).strip(),
+            заш_пл_кг_м_imzo_akfa_бк_ст_ширина_лн = str(row['ширина ленты/мм80']).strip(),
+            кг_м_imzo_ak_вр_и_кг_м_imzo_ak_бк_ст = str(row['расход ленты на 1000 профилей/м281']).strip(),
+            заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм = str(row['ширина ленты/мм82']).strip(),
+            заш_пл_кг_м_imzo_ak_низ_рас = str(row['расход ленты на 1000 профиль/м283']).strip(),
             
-            заш_пл_кг_м_без_бр_вр_ширина_лн_мм = str(row['ширина ленты/мм80']).strip(),
-            заш_пл_кг_м_без_бр_бк_ст_ширина_лн_мм = str(row['ширина ленты/мм81']).strip(),
-            кг_м_без_бр_вр_и_кг_м_без_бр_бк_ст_рас = str(row['расход ленты на 1000 профилей/м282']).strip(),
-            заш_пл_кг_м_без_бр_низ_ширина_лн_мм = str(row['ширина ленты/мм83']).strip(),
-            заш_пл_кг_м_без_бр_низ_рас = str(row['расход ленты на 1000 профиль/м284']).strip(),
+            заш_пл_кг_м_без_бр_вр_ширина_лн_мм = str(row['ширина ленты/мм84']).strip(),
+            заш_пл_кг_м_без_бр_бк_ст_ширина_лн_мм = str(row['ширина ленты/мм85']).strip(),
+            кг_м_без_бр_вр_и_кг_м_без_бр_бк_ст_рас = str(row['расход ленты на 1000 профилей/м286']).strip(),
+            заш_пл_кг_м_без_бр_низ_ширина_лн_мм = str(row['ширина ленты/мм87']).strip(),
+            заш_пл_кг_м_без_бр_низ_рас = str(row['расход ленты на 1000 профиль/м288']).strip(),
             
-            заш_пл_кг_м_eng_верх_ширина_ленты_мм = str(row['ширина ленты/мм85']).strip(),
-            заш_пл_кг_м_eng_бк_ст_ширина_ленты_мм = str(row['ширина ленты/мм86']).strip(),
-            кг_м_eng_вр_и_кг_м_eng_бк_ст_рас = str(row['расход ленты на 1000 профилей/м287']).strip(),
-            заш_пл_кг_м_eng_низ_ширина_ленты_мм = str(row['ширина ленты/мм88']).strip(),
-            заш_пл_кг_м_eng_низ_рас_лн_на_1000_пр = str(row['расход ленты на 1000 профиль/м289']).strip(),
+            заш_пл_кг_м_eng_верх_ширина_ленты_мм = str(row['ширина ленты/мм89']).strip(),
+            заш_пл_кг_м_eng_бк_ст_ширина_ленты_мм = str(row['ширина ленты/мм90']).strip(),
+            кг_м_eng_вр_и_кг_м_eng_бк_ст_рас = str(row['расход ленты на 1000 профилей/м291']).strip(),
+            заш_пл_кг_м_eng_низ_ширина_ленты_мм = str(row['ширина ленты/мм92']).strip(),
+            заш_пл_кг_м_eng_низ_рас_лн_на_1000_пр = str(row['расход ленты на 1000 профиль/м293']).strip(),
             
-            заш_пл_кг_м_eng_qora_вр_ширина_лн_мм = str(row['ширина ленты/мм90']).strip(),
-            заш_пл_кг_м_eng_qora_бк_ст_ширина_лн_мм = str(row['ширина ленты/мм91']).strip(),
-            кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст = str(row['расход ленты на 1000 профилей/м292']).strip(),
-            заш_пл_кг_м_eng_qora_низ_ширина_ленты = str(row['ширина ленты/мм93']).strip(),
-            заш_пл_кг_м_eng_qora_низ_рас = str(row['расход ленты на 1000 профиль/м294']).strip(),
-            уп_пол_лента_ширина_уп_ленты_мм = str(row['ширина упоковочной ленты/мм95']).strip(),
-            уп_пол_лн_рас_уп_лн_на_1000_штук_кг = str(row['расход упоковочной ленты на 1000 штук /кг96']).strip(),
-            бумага_расход_упоковочной_ленты_на_1000_штук_кг = str(row['расход упоковочной ленты на 1000 штук /кг97']).strip(),
+            заш_пл_кг_м_eng_qora_вр_ширина_лн_мм = str(row['ширина ленты/мм94']).strip(),
+            заш_пл_кг_м_eng_qora_бк_ст_ширина_лн_мм = str(row['ширина ленты/мм95']).strip(),
+            кг_м_eng_qora_вр_и_кг_м_eng_qora_бк_ст = str(row['расход ленты на 1000 профилей/м296']).strip(),
+            заш_пл_кг_м_eng_qora_низ_ширина_ленты = str(row['ширина ленты/мм97']).strip(),
+            заш_пл_кг_м_eng_qora_низ_рас = str(row['расход ленты на 1000 профиль/м298']).strip(),
+            уп_пол_лента_ширина_уп_ленты_мм = str(row['ширина упоковочной ленты/мм99']).strip(),
+            уп_пол_лн_рас_уп_лн_на_1000_штук_кг = str(row['расход упоковочной ленты на 1000 штук /кг100']).strip(),
+            бумага_расход_упоковочной_ленты_на_1000_штук_кг = str(row['расход упоковочной ленты на 1000 штук /кг101']).strip(),
 
 
-            расход_скотча_ширина_скотча_мм = str(row['ширина скотча/мм98']).strip(),
-            рас_скотча_рас_скотча_на_1000_штук_шт = str(row['расход скотча на 1000 штук /Шт99']).strip(),
-            упаковка_колво_профилей_в_1_пачке = str(row['Кол-во профилей в 1- пачке100']).strip(),
-            qora_алю_сплав_6064_sap_code = str(row['Алюминиевый сплав 6063101']).strip()
+            расход_скотча_ширина_скотча_мм = str(row['ширина скотча/мм102']).strip(),
+            рас_скотча_рас_скотча_на_1000_штук_шт = str(row['расход скотча на 1000 штук /Шт103']).strip(),
+            упаковка_колво_профилей_в_1_пачке = str(row['Кол-во профилей в 1- пачке104']).strip(),
+            qora_алю_сплав_6064_sap_code = str(row['Алюминиевый сплав 6063105']).strip(),
+            закалка_исключение = str(row['Неокрашенный \r\n7000 ГП106']).strip(),
+            наклейка_исключение = str(row['Наклейка исключения107']).strip(),
             
             )
         
@@ -431,35 +439,35 @@ def full_update_norma(request):
             компонент_2 = row['КОМПОНЕНТ2'],
             компонент_3 = row['КОМПОНЕНТ3'],
             артикул = row['АРТИКУЛ4'],
-            пресс_1_линия_буй = str(row['буй109']).strip(),
-            закалка_1_печь_буй = str(row['буй119']).strip(),	
+            пресс_1_линия_буй = str(row['буй115']).strip(),
+            закалка_1_печь_буй = str(row['буй125']).strip(),	
             
-            покраска_SKM_белый_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)127']).strip(),
-            покраска_SAT_базовый_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)132']).strip(),
-            покраска_горизонтал_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)137']).strip(),
-            покраска_ручная_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)142']).strip(),
+            покраска_SKM_белый_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)133']).strip(),
+            покраска_SAT_базовый_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)138']).strip(),
+            покраска_горизонтал_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)143']).strip(),
+            покраска_ручная_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)148']).strip(),
             
-            вакуум_1_печка_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)153']).strip(),
-            термо_1_линия_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)159']).strip(),
-            наклейка_упаковка_1_линия_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)166']).strip(),
-            ламинат_1_линия_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)174']).strip(),
+            вакуум_1_печка_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)159']).strip(),
+            термо_1_линия_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)165']).strip(),
+            наклейка_упаковка_1_линия_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)172']).strip(),
+            ламинат_1_линия_про_во_в_сутки_буй = str(row['Про-во в сутки\r\n(буй)180']).strip(),
             
-            ekstruziya = str(row['Экструзия (пресс)\r\n 1 буй(сек)111']).strip(),
-            pila = str(row['Пила холодной резки \r\n 1 буй(сек)112']).strip(),
-            strayenie = str(row['Старение\r\n 1 буй(сек)120']).strip(),
-            skm_pokras = str(row['SKM - SKM покраска\r\n 1 буй(сек)128']).strip(),
-            sat_pokras = str(row['SAT - SAT покраска\r\n 1 буй(сек)133']).strip(),
-            gr_pokras = str(row['ГР - ГР покраска\r\n 1 буй(сек)138']).strip(),
-            skm_xim = str(row['SKM Хим. Обработка\r\n 1 буй(сек)143']).strip(),
-            sat_xim = str(row['SAT Хим. Обработка\r\n 1 буй(сек)144']).strip(),
-            gr_xim = str(row['ГР Хим. Обработка\r\n 1 буй(сек)145']).strip(),
-            ruchnoy_pokraska = str(row['Ручная покраска\r\n 1 буй(сек)146']).strip(),
-            sublimat = str(row['Сублимация\r\n 1 буй(сек)154']).strip(),
-            kombinirovan = str(row['Комбинирование \r\n 1 буй(сек)160']).strip(),
-            kom_upakovka = str(row['Комбинированный + Упаковка\r\n 1 буй(сек)161']).strip(),
-            nakleyka = str(row['Наклейка\r\n 1 буй(сек)168']).strip(),
-            upakovka = str(row['Упаковка\r\n 1 буй(сек)169']).strip(),
-            lam_nak_upakovka = str(row['Ламинация + Наклейка + Упаковка\r\nЛаминация + Упаковка\r\n 1 буй(сек)175']).strip()
+            ekstruziya = str(row['Экструзия (пресс)\r\n 1 буй(сек)117']).strip(),
+            pila = str(row['Пила холодной резки \r\n 1 буй(сек)118']).strip(),
+            strayenie = str(row['Старение\r\n 1 буй(сек)126']).strip(),
+            skm_pokras = str(row['SKM - SKM покраска\r\n 1 буй(сек)134']).strip(),
+            sat_pokras = str(row['SAT - SAT покраска\r\n 1 буй(сек)139']).strip(),
+            gr_pokras = str(row['ГР - ГР покраска\r\n 1 буй(сек)144']).strip(),
+            skm_xim = str(row['SKM Хим. Обработка\r\n 1 буй(сек)149']).strip(),
+            sat_xim = str(row['SAT Хим. Обработка\r\n 1 буй(сек)150']).strip(),
+            gr_xim = str(row['ГР Хим. Обработка\r\n 1 буй(сек)151']).strip(),
+            ruchnoy_pokraska = str(row['Ручная покраска\r\n 1 буй(сек)152']).strip(),
+            sublimat = str(row['Сублимация\r\n 1 буй(сек)160']).strip(),
+            kombinirovan = str(row['Комбинирование \r\n 1 буй(сек)166']).strip(),
+            kom_upakovka = str(row['Комбинированный + Упаковка\r\n 1 буй(сек)167']).strip(),
+            nakleyka = str(row['Наклейка\r\n 1 буй(сек)174']).strip(),
+            upakovka = str(row['Упаковка\r\n 1 буй(сек)175']).strip(),
+            lam_nak_upakovka = str(row['Ламинация + Наклейка + Упаковка\r\nЛаминация + Упаковка\r\n 1 буй(сек)181']).strip()
             )
         norma.save()
         texcarta.save()
@@ -1781,7 +1789,7 @@ def kombinirovaniy_process(request,id):
     kleydlyalamp3 =KleyDlyaLamp.objects.get(id=3)
 
     # skotch_dya_laminatsii = SiryoDlyaUpakovki.objects.get(id=2)
-
+    zakalka_iskyucheniye7 = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
 
     for i in range(0,len(df)):
         print(i)
@@ -1789,6 +1797,7 @@ def kombinirovaniy_process(request,id):
             continue
         older_process ={'sapcode':'','kratkiy':''}
         norma_existsE = CheckNormaBase.objects.filter(artikul=df[i][0],kratkiytekst=df[i][1]).exists()
+        
         
         
         if not norma_existsE:
@@ -1986,7 +1995,9 @@ def kombinirovaniy_process(request,id):
         
         if not norma_existsZ:
             if df[i][2] !="":
-                "normadfs"
+                lenghtht = df[i][2].split('-')[0]
+                if lenghtht in zakalka_iskyucheniye7:
+                    continue
                 CheckNormaBase(artikul=df[i][2],kratkiytekst=df[i][3]).save()
 
                 sap_code_zak = df[i][2].split('-')[0]
@@ -4563,15 +4574,100 @@ def kombinirovaniy_process(request,id):
             
          
         
-                           
+                     
         norma_exists7 = CheckNormaBase.objects.filter(artikul=df[i][12],kratkiytekst=df[i][13]).exists()
         if not norma_exists7:
             
             if df[i][12] !="":
                 
                 if (df[i][12].split('-')[1][:1]=='7'):
-                    
-                    
+                    lenghtht = df[i][12].split('-')[0]
+                    if lenghtht in zakalka_iskyucheniye7:
+                        j += 1
+                        df_new['ID'].append('1')
+                        df_new['MATNR'].append(df[i][12])
+                        df_new['WERKS'].append('1101')
+                        df_new['TEXT1'].append(df[i][13])
+                        df_new['STLAL'].append('1')
+                        df_new['STLAN'].append('1')
+                        ztekst ='Упаковка'
+                        df_new['ZTEXT'].append(ztekst)
+                        length = df[i][12].split('-')[0]
+                        
+                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
+                        
+                        
+                        aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
+                        
+                        
+                        mein_percent =((get_legth(df[i][13]))/float(alum_teks.длина_профиля_м))
+                        df_new['STKTX'].append(aliminisi.название)
+                        df_new['BMENG'].append( '1000')
+                        df_new['BMEIN'].append('ШТ')
+                        df_new['STLST'].append('1')
+                        df_new['POSNR'].append('')
+                        df_new['POSTP'].append('')
+                        df_new['MATNR1'].append('')
+                        df_new['TEXT2'].append('')
+                        df_new['MEINS'].append('')
+                        df_new['MENGE'].append('')
+                        df_new['DATUV'].append('01012021')
+                        df_new['PUSTOY'].append('')
+                        df_new['LGORT'].append('')
+                        
+                        for k in range(1,5):
+                            j+=1
+                            df_new['ID'].append('2')
+                            df_new['MATNR'].append('')
+                            df_new['WERKS'].append('')
+                            df_new['TEXT1'].append('')
+                            df_new['STLAL'].append('')
+                            df_new['STLAN'].append('')
+                            df_new['ZTEXT'].append('')
+                            df_new['STKTX'].append('')
+                            df_new['BMENG'].append('')
+                            df_new['BMEIN'].append('')
+                            df_new['STLST'].append('')
+                            df_new['POSNR'].append(k)
+                            df_new['POSTP'].append('L')
+                            
+                            
+                            if k == 1 :
+                                df_new['MATNR1'].append(aliminisi.sap_code_s4q100)
+                                df_new['TEXT2'].append(aliminisi.название)
+                                df_new['MEINS'].append(("%.3f" % (float(alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг)*mein_percent)).replace('.',',')) ##XATO
+                                df_new['MENGE'].append('КГ')
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                            
+                            
+                            if k == 2:
+                                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=4)
+                                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                                df_new['TEXT2'].append(alummm.название)
+                                df_new['MENGE'].append(alummm.еи)
+                                df_new['MEINS'].append(("%.3f" % ((-1)*float(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)*mein_percent)).replace('.',',')) ##XATO
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                            if k == 3:
+                                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=5)
+                                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                                df_new['TEXT2'].append(alummm.название)
+                                df_new['MENGE'].append(alummm.еи)
+                                df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)))*mein_percent) ).replace('.',',')) ##XATO
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                            if k == 4:
+                                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=6)
+                                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                                df_new['TEXT2'].append(alummm.название)
+                                df_new['MENGE'].append(alummm.еи)
+                                df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))*mein_percent) ).replace('.',',')) ##XATO
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                            df_new['LGORT'].append('PS01')
+                        continue
+
                     if '_' in df[i][13]:
                         ddd = df[i][13].split()[2]
                     
@@ -4584,6 +4680,13 @@ def kombinirovaniy_process(request,id):
                     
                     its_lamination = not ((not '_' in df[i][13]) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1]))
                     
+
+
+
+
+
+
+
                     if nakleyka_code =='A01':
                         aluminiy_norma_log = (alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм == alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм and alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм != '0') or ((alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм != alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм)and((alum_teks.заш_пл_кг_м_akfa_верх_ширина_ленты_мм =='0')or(alum_teks.заш_пл_кг_м_akfa_низ_ширина_ленты_мм=='0')))
                         if aluminiy_norma_log:
