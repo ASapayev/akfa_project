@@ -56,7 +56,7 @@ WORK_TYPE_CHOICES_PVC =(
     (3,'SAP CODE CREATING LACKS'),
     (4,'TEXT CREATING'),
     (5,'TEXT CREATING LACKS'),
-    (10,'DONE')
+    (6,'DONE')
 )
 ORDER_TYPE_CHOICES_PVC =(
     (1,'ЛАМ'),

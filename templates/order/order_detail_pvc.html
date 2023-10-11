@@ -1,0 +1,956 @@
+{% extends 'base.html'%}
+
+
+{%block content %}
+<div class="content-wrapper">
+ 
+  <div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Order detail</h4>
+         <p class="text-uppercase">{{order.title}}</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Исполнитель</th>
+                  <th>Заявка №</th>
+                  <th>Created</th>
+                  <th>Work Type</th>
+                  <th>File</th>
+                  <th>Status</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% if order.owner %}
+                <tr>
+                  <td class="text-capitalize">
+                    <div class="d-flex justify-content-start align-items-center">
+                    <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                        class="text-muted small">{{order.owner.username}}</span></p>
+                      <span class="ms-3 me-4">|</span></p>
+                    <a href="#!">
+                      <img src="{{order.owner.userprofile.profile_picture.url}}" alt="avatar"
+                        class="img-fluid rounded-circle me-1" width="35">
+                    </a>
+                    
+                    </div>
+                </td>
+                  <td>{{order.id | order_number_format}}</td>
+                  <td>{{order.created_at |date:"d-m-Y H:i:s"}}</td>
+                  <td><span class="text-info">ON HOLD</span></td> 
+                  <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{pvc_file}}">Download</a></td>
+                  <td><i class="mdi mdi-check-all text-success"></i></td>
+                </tr>
+                {%endif%}
+                {%if user_role == 'moderator' %}
+
+                  {%if order.alumin_wrongs %}
+                  <tr>
+                    <td class="text-capitalize">
+                      <div class="d-flex justify-content-start align-items-center">
+                        <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                            class="text-muted small">{{order.alumin_wrongs.username}}</span></p>
+                          <span class="ms-3 me-4">|</span></p>
+                        <a href="#!">
+                          <img src="{{order.alumin_wrongs.userprofile.profile_picture.url}}" alt="avatar"
+                            class="img-fluid rounded-circle me-1" width="35">
+                        </a>
+                        </div>
+                      
+                      
+                      </td>
+                    <td>{{order.id | order_number_format}}</td>
+                    <td>{{l_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                    <td><span class="text-danger">SAP CODE CREATING LACKS</span></td> 
+                    <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{pvc_lack_file}}">Download</a></td>
+                    {%if status_l == 'on process' %}
+                    <td><label class="badge badge-success">ON PROCESS</label></td>
+                    {%else%}
+                    <td><i class="mdi mdi-check-all text-success"></i></td>
+                    {%endif%}
+                  </tr>
+                  {% endif %}
+                  
+                  {%if order.aluminiy_worker and status_raz == 'done' %}
+                  <tr>
+                    <td class="text-capitalize">
+                      
+                      <div class="d-flex justify-content-start align-items-center">
+                        <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                            class="text-muted small">{{order.aluminiy_worker.username}}</span></p>
+                          <span class="ms-3 me-4">|</span></p>
+                        <a href="#!">
+                          <img src="{{order.aluminiy_worker.userprofile.profile_picture.url}}" alt="avatar"
+                            class="img-fluid rounded-circle me-1" width="35">
+                        </a>
+                        </div>
+                      
+                      </td>
+                    <td>{{order.id | order_number_format}}</td>
+                    <td>{{raz_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                    <td><span class="text-info">SAP CODE CREATING</span></td> 
+                    <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{pvc_razlovka_file.1}}">Download</a></td>
+                    <td><i class="mdi mdi-check-all text-success"></i></td>
+                  </tr>
+                  {%endif%}
+                  
+                  {%if status_zip == 'done' and order.aluminiy_worker %}
+                  <tr>
+                    <td class="text-capitalize">
+                      <div class="d-flex justify-content-start align-items-center">
+                        <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                            class="text-muted small">{{order.aluminiy_worker.username}}</span></p>
+                          <span class="ms-3 me-4">|</span></p>
+                        <a href="#!">
+                          <img src="{{order.aluminiy_worker.userprofile.profile_picture.url}}" alt="avatar"
+                            class="img-fluid rounded-circle me-1" width="35">
+                        </a>
+                        </div>
+                      
+                      </td>
+                    <td>{{order.id | order_number_format}}</td>
+                    <td>{{zip_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                    <td><span class="text-info">TEXT CREATING</span></td> 
+                    <td><a class="text-uppercase" href="{% url 'download_zip_file' %}?file_path={{pvc_razlovka_file.0}}">Download</a></td>
+                    <td><i class="mdi mdi-check-all text-success"></i></td>
+                  </tr>
+                  {%endif%}
+
+                  {%if status_text_l != 'done' and status_raz == 'done' %}
+                  <tr>
+                    <td class="text-capitalize">
+
+                      <div class="d-flex justify-content-start align-items-center">
+                        <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                            class="text-muted small">{{order.aluminiy_worker.username}}</span></p>
+                          <span class="ms-3 me-4">|</span></p>
+                        <a href="#!">
+                          <img src="{{order.aluminiy_worker.userprofile.profile_picture.url}}" alt="avatar"
+                            class="img-fluid rounded-circle me-1" width="35">
+                        </a>
+                        </div>
+
+                    </td>
+                    <td>{{order.id | order_number_format}}</td>
+                    <td>{{raz_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                    <td><span class="text-danger">PRICE NOT EXIST</span></td>
+                    <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{pvc_razlovka_file.1}}">Download</a></td>
+                    <td><label class="badge badge-success">ON PROCESS</label></td>
+                  </tr>
+                  {%endif%}
+                  {%if status_text_l == 'done' and order.alumin_text_wrongs %}
+                  <tr>
+                    <td class="text-capitalize"><div class="d-flex justify-content-start align-items-center">
+                      <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                          class="text-muted small">{{order.alumin_text_wrongs.username}}</span></p>
+                        <span class="ms-3 me-4">|</span></p>
+                      <a href="#!">
+                        <img src="{{order.alumin_text_wrongs.userprofile.profile_picture.url}}" alt="avatar"
+                          class="img-fluid rounded-circle me-1" width="35">
+                      </a>
+                      </div></td>
+                    <td>{{order.id | order_number_format}}</td>
+                    <td>{{text_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                    <td><span class="text-danger">PRICE NOT EXIST DONE</span></td>
+                    <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{pvc_razlovka_file.1}}">Download</a></td>
+                    <td><i class="mdi mdi-check-all text-success"></i></td>
+                  </tr>
+                  {%endif%}
+                
+                {%endif%}
+
+
+                
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%if user_role == 'moderator' %}
+  
+      {%if order.work_type == 1 and order.current_worker == request.user %}
+      <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-dark">
+                  <thead>
+                    <tr>
+                      <th> # </th>
+                      <th > Имя файла </th>
+                      <th > Дата </th>
+                      <th> Исполнитель</th>
+                      <th>Work Type</th>
+                      <th> Действие </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                          <tr>
+                              <td> 1 </td>
+                              {%if is_obichniy == 'yes' %}
+                              <td class="p-1"> {{obichniy_file|split_text}} </td>
+                              {%else%}
+                              <td class="p-1"> {{termo_file|split_text}} </td>
+                              {%endif%}
+                              <td>{{obichniy_date |convert_str_date|date:"d-m-Y H:i:s"}} </td>
+                              <td>
+                                
+                                    <div class="d-flex justify-content-start align-items-center">
+                                      <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                                          class="text-muted small">{{order.current_worker.username}}</span></p>
+                                        <span class="ms-3 me-4">|</span></p>
+                                      <a href="#!">
+                                        <img src="{{order.current_worker.userprofile.profile_picture.url}}" alt="avatar"
+                                          class="img-fluid rounded-circle me-1" width="35">
+                                      </a>
+                                      
+                                    </div>
+                              </td>
+                              <td>
+                                <span class="text-info">SAP CODE CREATING</span>
+                                
+                              </td>
+                              
+                              <td> <a href="{% url 'upload_product_pvc__detail_org' oid %}?order_id={{order.id}}" class="btn btn-outline-success btn-fw">Ген. <span style="color:chocolate;font-weight: 700;">{{type}}</span> файла</a> </td>
+                              
+                          </tr>
+                      
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {%endif%}
+
+      {% if order.work_type == 3 and order.current_worker == request.user %}
+      <h1>{{data}}</h1>
+        {% if ArtikulComponent %}
+        <div class="row ">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Артикул  Компонент</h4>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th>#</th>  
+                        <th>Артикул</th>
+                        <th>Компонент</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {%for char in ArtikulComponent  %}
+                    <tr>
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+                        <td class ='new_char_five' ><input type='text'  id ='artikulfive{{forloop.counter}}' value='{{char}}' required></td>
+                        <td ><input type='text'  id ='komponentfive{{forloop.counter}}' required></td>
+                    </tr>
+                    {% endfor %}
+                    
+                  </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='artikul_component()' id ='char_four'>Готов</button>
+            </div>
+          </div>
+        </div>
+        </div>
+        {% endif %}
+        
+        {% if CharUtilsOne %}
+        <div class="row ">
+            <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                <h4 class="card-title">Character utils one</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Матрица</th>
+                            <th>Артикул</th>
+                            <th>Высота</th>
+                            <th>Ширина</th>
+                            <th>Systems</th>
+                            <th>Действие</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for char in CharUtilsOne%}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td  class ='new_char_one' ><input type='text' id ='matritsa{{forloop.counter}}' value='{{char}}'></td>
+                            <td ><input type='text' name='artikulone' id ='artikulone{{forloop.counter}}' value='{{char}}' ></td>
+                            <td><input type='text' name='height' id ='height{{forloop.counter}}' style="width: 50px;" placeholder='height...' ></td>
+                            <td><input type='text' name='width' id='width{{forloop.counter}}' style="width: 50px;" placeholder='width...'></td>
+                            <td><input type='text'name='systems' id ='systems{{forloop.counter}}' placeholder='Enter systems...'></td>
+                            <td>
+                                <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
+                            </td>
+                        </tr>
+                        {% endfor%}
+                    </tbody>
+                    </table>
+                </div>
+                <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_one()' id ='char_one'>Готов</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if CharUtilsTwo%}
+        <div class="row ">
+            <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                <h4 class="card-title">Character utils two</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Артикул</th>
+                            <th scope="col">Полый или фасонный</th>
+                            <th>Действие</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for char in CharUtilsTwo  %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td id='artikul{{ forloop.counter }}' class ='new_char' >{{char}}</td>
+                            <td>
+                                <select class="form-select form-select-sm"style='width:35%' aria-label="Default select example" id="sel{{ forloop.counter }}">
+                                    <option selected value='Default' >Default</option>
+                                    <option value="Полый">Полый</option>
+                                    <option value="Фасонный">Фасонный</option>    
+                                </select>
+                            </td>
+                            <td>
+                                <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
+                            </td>
+                        </tr>
+                        {% endfor%}
+                    </tbody>
+                    </table>
+                </div>
+                <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_two()' id ='char_two'>Готов</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if BazaProfile%}
+        <div class="row ">
+            <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                <h4 class="card-title">Baza profiles</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Артикул</th>
+                            <th scope="col">Компонент</th>
+                            <th scope="col">Серия</th>
+                            <th scope="col">Старый код</th>
+                            <th scope="col">Product description</th>
+                            <th scope="col">Link</th>
+                            <th scope="col">Действие</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for char in BazaProfile  %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td class ='new_char_two' ><input type='text'  id ='artikultwo{{forloop.counter}}' value='{{char.0}}' required></td>
+                            <td ><input type='text'  id ='komponent{{forloop.counter}}' value='{{char.1}}' required></td>
+                            <td ><input type='text'  id ='seria{{forloop.counter}}'  value='{{char.2}}' required></td>
+                            <td ><input type='text'  id ='stariykod{{forloop.counter}}' value='{{char.3}}' required></td>
+                            <td ><input type='text'  id ='prodesc{{forloop.counter}}' value='{{char.4}}' required></td>
+                            <td ><input type='text'  id ='link{{forloop.counter}}' value='{{char.5}}' required></td>
+                            <td>
+                                <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+                <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='baza_profiley()' id ='char_three'>Готов</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                <div class="card-body">
+                      <a href="" class="btn btn-outline-secondary btn-lg btn-block">Все готов</a>
+                </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                <div class="card-body">
+                      <button type="button" onclick='excel_file_load()' class="btn btn-outline-secondary btn-lg btn-block">Скачать эксель файл</button>
+                </div>
+                </div>
+            </div> -->
+        </div>
+      {%endif%}
+
+        {%if order.work_type == 5 and order.current_worker == request.user %}
+          {%include 'utils/upload_utils.html' %}
+        {%endif%}
+
+        {% if order.work_type == 4 and order.current_worker == request.user %}
+        <div class="page-header">
+          <h3 class="page-title"> {{section}} </h3>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Загруженные файлы</h4>
+              <div class="table-responsive">
+                <table class="table table-dark">
+                  <thead>
+                    <tr>
+                      <th> # </th>
+                      <th > Имя файла </th>
+                      <th> Исполнитель</th>
+                      <th> Действие </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                          <tr>
+                              <td> 1 </td>
+                              <td class="p-1"> {{characteristika_file|split_text}} </td>
+                              <td>
+                                
+                                    <div class="d-flex justify-content-start align-items-center">
+                                      <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                                          class="text-muted small">{{order.current_worker.username}}</span></p>
+                                        <span class="ms-3 me-4">|</span></p>
+                                      <a href="#!">
+                                        <img src="{{order.current_worker.userprofile.profile_picture.url}}" alt="avatar"
+                                          class="img-fluid rounded-circle me-1" width="35">
+                                      </a>
+                                    </div>
+                              </td>
+                              <td> <a href="{{link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">{{type_work}}</span> алюминого файла</a> </td>
+                          </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        {%endif%}
+{%endif%}
+
+    {%if order.work_type == 6 and order.current_worker == request.user and status_norma == 'done' %}
+      <div class="page-header">
+        <h3 class="page-title"> Генерация норма {%if is_obichniy == 'yes' %}обычного{%else%}термо{%endif%} файла </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Загруженные файлы</h4>
+          
+            <div class="table-responsive">
+              <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th> # </th>
+                    <th > Имя файла </th>
+                    <th > Дата </th>
+                    <th> Действие </th>
+                  </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td> 1 </td>
+                            <td class="p-1"> {{file|split_text}} </td>
+                            <td>{%now "SHORT_DATETIME_FORMAT" %} </td>
+                            <td> <a href="{{norma_link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">{%if is_obichniy == 'yes' %}обычного{%else%}термо{%endif%}</span> алюминого файла</a> </td>
+                        </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    {%endif%}
+
+    {%if order.work_type == 6 and status_norma == 'on process' %}
+    <div class="page-header">
+      <h3 class="page-title"> Генерация норма файла </h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Загруженные файлы</h4>
+
+          
+         
+          <div class="table-responsive">
+            <table class="table table-dark">
+              <thead>
+                <tr>
+                  <th> # </th>
+                  <th > Имя файла </th>
+                  <th > Дата </th>
+                  <th> Действие </th>
+                </tr>
+              </thead>
+              <tbody>
+                      <tr>
+                          <td> 1 </td>
+                          <td class="p-1"> {{norma_formula_file|split_text}} </td>
+                          <td>{%now "SHORT_DATETIME_FORMAT" %} </td>
+                          <td> <a href="{{norma_link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">Норма</span> алюминого файла</a> </td>
+                      </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {%endif%}
+
+    {%if order.work_type == 7 and status_norma == 'on process' %}
+      <div class="page-header">
+        <h3 class="page-title"> Генерация норма {%if is_obichniy == 'yes' %}обычного{%else%}термо{%endif%} файла </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Загруженные файлы</h4>
+          
+            <div class="table-responsive">
+              <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th> # </th>
+                    <th > Имя файла </th>
+                    <th > Дата </th>
+                    <th> Действие </th>
+                  </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td> 1 </td>
+                            <td class="p-1"> {{norma_formula_file|split_text}} </td>
+                            <td>{%now "SHORT_DATETIME_FORMAT" %} </td>
+                            <td> <a href="{{norma_link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;"> норма </span> алюминого файла</a> </td>
+                        </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    {%endif%}
+    {%if order.work_type == 8 and status_texcarta == 'on process' %}
+      <div class="page-header">
+        <h3 class="page-title"> Генерация техкарта {%if is_obichniy == 'yes' %}обычного{%else%}термо{%endif%} файла </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Загруженные файлы</h4>
+          
+            <div class="table-responsive">
+              <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th> # </th>
+                    <th > Имя файла </th>
+                    <th > Дата </th>
+                    <th> Действие </th>
+                  </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td> 1 </td>
+                            <td class="p-1"> {{texcarta_file|split_text}} </td>
+                            <td>{%now "SHORT_DATETIME_FORMAT" %} </td>
+                            <td> <a href="{{tex_link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;"> техкарта </span> алюминого файла</a> </td>
+                        </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    {%endif%}
+
+</div>
+
+
+<script>
+
+
+
+  function excel_file_load(){
+  
+      document.body.style.cursor='wait';
+  
+      $.ajax({
+          method: "POST",
+          url: "{% url 'excel_does_not_exists_add_simple' %}"
+          }).done(function( msg ) {
+          document.body.style.cursor='default';
+          if (msg.saved ==true){
+              Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Successfuly saved!',
+                  showConfirmButton: false,
+                  timer: 1500
+                  })
+          
+          }else{
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!'
+                  })
+  
+          }
+      });
+  }
+  
+  function artikul_component(){
+  
+      var new_char = document.querySelectorAll('.new_char_five');
+      var artikul,komponent;
+  
+      var default_exists = false;
+      var elements =[];
+  
+      for(let i=1; i < new_char.length+1; i++){
+          artikul = document.getElementById('artikulfive' + i.toString()).value;
+          komponent = document.getElementById('komponentfive' + i.toString()).value;
+          
+          if (artikul ==''){
+            default_exists = true;
+            break
+            }
+          if (komponent ==''){
+            default_exists = true;
+            break
+            }
+          
+          
+          var element ={
+                'artikul':artikul,
+                'komponent':komponent
+            }
+          elements.push(element);
+            
+          }
+  
+          if (default_exists){
+            Swal.fire({
+                title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
+                showDenyButton: true,
+              })
+            }else{
+              var myJsonelements = JSON.stringify(elements);
+  
+              $.ajax({
+                  method: "POST",
+                  url: "{% url 'artikul_component_aluminiy' %}",
+                  data: {"data":myJsonelements}
+                }).done(function( msg ) {
+                  if (msg.saved ==true){
+                      Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'Successfuly saved!',
+                          showConfirmButton: false,
+                          timer: 1500
+                        })
+                      var btn = document.getElementById('char_four');
+                      btn.setAttribute('disabled','True');
+                      }else{
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Something went wrong!'
+                            })
+  
+                      }
+                  });
+          }        
+  }
+  function baza_profiley(){
+      var new_char = document.querySelectorAll('.new_char_two');
+      var komponent, artikul,seria,stariykod,prodesc,link;
+      var default_exists = false;
+      var elements =[];
+  
+      for(let i=1; i < new_char.length+1; i++){
+          komponent = document.getElementById('komponent' + i.toString()).value;
+          artikul = document.getElementById('artikultwo' + i.toString()).value;
+          seria = document.getElementById('seria' + i.toString()).value;
+          stariykod = document.getElementById('stariykod' + i.toString()).value;
+          prodesc = document.getElementById('prodesc' + i.toString()).value;
+          link = document.getElementById('link' + i.toString()).value;
+          
+          
+          if (seria ==''){
+            default_exists = true;
+            break
+            }
+          
+          if (stariykod ==''){
+            default_exists = true;
+            break
+            }
+          
+          if (prodesc ==''){
+            default_exists = true;
+            break
+            }
+          
+          var element ={
+                'komponent':komponent,
+                'artikul':artikul,
+                'seria':seria,
+                'stariykod':stariykod,
+                'prodesc':prodesc,
+                'link':link
+            }
+          elements.push(element);
+            
+          }
+  
+          if (default_exists){
+            Swal.fire({
+                title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
+                showDenyButton: true,
+              })
+            }else{
+              var myJsonelements = JSON.stringify(elements);
+  
+              $.ajax({
+                  method: "POST",
+                  url: "{% url 'baza_profile_simple' %}",
+                  data: {"data":myJsonelements}
+                }).done(function( msg ) {
+                  if (msg.saved ==true){
+                      Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'Successfuly saved!',
+                          showConfirmButton: false,
+                          timer: 1500
+                        })
+                      var btn = document.getElementById('char_three');
+                      btn.setAttribute('disabled','True');
+                      }else{
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Something went wrong!'
+                            })
+  
+                      }
+                  });
+          }        
+  }
+  
+  function remove_me(elem){
+      elem.parentElement.parentElement.remove()
+  }
+  
+  function create_new_char_one(){
+      var new_char = document.querySelectorAll('.new_char_one');
+      var matritsa, artikul,heigth,width,systems;
+      var default_exists = false;
+      var elements =[];
+  
+      for(let i=1; i < new_char.length+1; i++){
+          matritsa = document.getElementById('matritsa' + i.toString()).value;
+          artikul = document.getElementById('artikulone' + i.toString()).value;
+          heigth = document.getElementById('height' + i.toString()).value;
+          width = document.getElementById('width' + i.toString()).value;
+          systems = document.getElementById('systems' + i.toString()).value;
+          
+          
+          if (heigth ==''){
+            default_exists = true;
+            break
+            }
+          if (width ==''){
+            default_exists = true;
+            break
+            }
+          
+          
+          var element ={
+                'matritsa':matritsa,
+                'artikul':artikul,
+                'heigth':heigth,
+                'width':width,
+                'systems':systems,
+            }
+          elements.push(element);
+            
+          }
+  
+          if (default_exists){
+            Swal.fire({
+                title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
+                showDenyButton: true,
+              })
+            }else{
+              var myJsonelements = JSON.stringify(elements);
+              
+              $.ajax({
+                  method: "POST",
+                  url: "{% url 'add_char_utils_one_simple' %}",
+                  data: {"data":myJsonelements}
+                }).done(function( msg ) {
+                  if (msg.saved ==true){
+                      Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'Successfuly saved!',
+                          showConfirmButton: false,
+                          timer: 1500
+                        })
+                      var btn = document.getElementById('char_one');
+                      btn.setAttribute('disabled','True');
+                      }else{
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Something went wrong!'
+                            })
+  
+                      }
+                  });
+          }        
+  }
+  
+  function create_new_char_two(){
+      var new_char = document.querySelectorAll('.new_char');
+  
+      var selection, value,text,artikul;
+  
+      var default_exists = false;
+      var elements =[];
+  
+      for(let i=1; i < new_char.length+1; i++){
+          artikul = document.getElementById('artikul' + i.toString());
+          selection = document.getElementById('sel' + i.toString());
+          value = selection.value
+          text = selection.options[selection.selectedIndex].text;
+          if (text =='Default'){
+              default_exists = true;
+              break
+          }
+          var element ={
+              'artikul':artikul.innerText,
+              'selection':text
+          }
+          if (elements.includes(element)){
+              continue
+          }else{
+              elements.push(element);
+          }
+          
+      }
+      if (default_exists){
+          Swal.fire({
+              title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
+              showDenyButton: true,
+            })
+      }else{
+          var myJsonelements = JSON.stringify(elements);
+  
+          $.ajax({
+              method: "POST",
+              url: "{% url 'add_char_utils_two_simple' %}",
+              data: {"data":myJsonelements}
+            }).done(function( msg ) {
+              if (msg.saved ==true){
+                  Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'Successfuly saved!',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
+                  var btn = document.getElementById('char_two');
+                  btn.setAttribute('disabled','True');
+                  }else{
+                      Swal.fire({
+                          icon: 'error',
+                          title: 'Oops...',
+                          text: 'Something went wrong!'
+                        })
+  
+                  }
+              });
+      }
+      
+  }
+</script>
+
+
+{% endblock %}

@@ -14,7 +14,7 @@ from datetime import datetime
 import math
 import zipfile
 from imzo.models import ExcelFilesImzo
-from norma.models import ZakalkaIskyuchenie6064
+from norma.models import ZakalkaIskyuchenie6064,Norma
 
 def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     now = datetime.now()
@@ -1241,8 +1241,8 @@ def get_cretead_txt_for_1101(datas,elist):
     dlinniy_text_zero =[[],[],[]]
     buxgalterskiy_naz =[[],[],[],[],[],[],[],[]]
 
-    zakalka_iskyucheniye = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
-   
+    # zakalka_iskyucheniye = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
+    zakalka_iskyucheniye = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
     for key , row in datas.iterrows():
 
         sap_codee = row['SAP код S4P 100'].split('-')[0]
@@ -3007,7 +3007,8 @@ def characteristika_created_txt_create_1301(datas):
     umumiy_without_duplicate1201 =[[] for i in range(0,49)]
     
     
-    zakalka_iskyucheniye = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
+    # zakalka_iskyucheniye = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
+    zakalka_iskyucheniye = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
    
     for key , row in datas.iterrows():
         
@@ -3673,7 +3674,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     dlinniy_text_zero =[[],[],[]]
     buxgalterskiy_naz =[[],[],[],[],[],[],[],[]]
     
-    zakalka_iskyucheniye = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
+    # zakalka_iskyucheniye = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
+    zakalka_iskyucheniye = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
    
     for key , row in datas.iterrows():
         sap_codee = row['SAP код S4P 100'].split('-')[0]

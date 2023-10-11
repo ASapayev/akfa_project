@@ -49,6 +49,10 @@ class Norma(models.Model):
     термомост_2 = models.CharField(max_length = 255,blank=True,null=True)
     термомост_3 = models.CharField(max_length = 255,blank=True,null=True)
     термомост_4 = models.CharField(max_length = 255,blank=True,null=True)
+    краткий_текст_1 = models.CharField(max_length = 255,blank=True,null=True)
+    краткий_текст_2 = models.CharField(max_length = 255,blank=True,null=True)
+    краткий_текст_3 = models.CharField(max_length = 255,blank=True,null=True)
+    краткий_текст_4 = models.CharField(max_length = 255,blank=True,null=True)
     
     ламинация_верх_a_ширина_ленты_мм = models.CharField(max_length = 255,blank=True,null=True)
     лам_верх_a_рас_ленты_на_1000_пр_м2 = models.CharField(max_length = 255,blank=True,null=True)
@@ -122,6 +126,8 @@ class Norma(models.Model):
     qora_алю_сплав_6064_sap_code = models.CharField(max_length = 255,blank=True,null=True)
     бумага_расход_упоковочной_ленты_на_1000_штук_кг =models.CharField(max_length = 255,blank=True,null=True)
     алюминиевый_сплав_6063_при_этом_балвашка = models.CharField(max_length = 255,blank=True,null=True)
+    наклейка_исключение = models.CharField(max_length = 255,blank=True,null=True)
+    закалка_исключение = models.CharField(max_length = 255,blank=True,null=True)
     
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)

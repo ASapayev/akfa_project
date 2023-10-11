@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import pandas as pd
 from .models import AluFileTermo,AluminiyProductTermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour,CharacteristicTitle,BazaProfiley,Characteristika
-from norma.models import NakleykaIskyuchenie
+from norma.models import NakleykaIskyuchenie,Norma
 from aluminiy.models import AluminiyProduct,RazlovkaTermo
 from .forms import FileFormTermo
 from django.db.models import Count,Max
@@ -135,8 +135,10 @@ def product_add_second_termo(id):
         hour =now.strftime("%H HOUR")
         minut =now.strftime("%M")
         
-        nakleyka_iskyucheniye =NakleykaIskyuchenie.objects.all().values_list('sap_code',flat=True)
-        
+        # nakleyka_iskyucheniye =NakleykaIskyuchenie.objects.all().values_list('sap_code',flat=True)
+        nak_norma1 = Norma.objects.filter(наклейка_исключение ='1',артикул='0').values_list('компонент_1',flat=True)
+        nak_norma2 = Norma.objects.filter(Q(наклейка_исключение ='1') & ~Q(артикул='0')).values_list('артикул',flat=True)
+        nakleyka_iskyucheniye = list(nak_norma1) + list(nak_norma2)
         aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
         umumiy_counter={}
         for al in aluminiy_group:

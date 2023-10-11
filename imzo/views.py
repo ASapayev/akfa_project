@@ -12,7 +12,8 @@ from django.http import JsonResponse
 from django.db.models import Q
 from norma.models import Accessuar,CheckNormaBase
 from django.contrib import messages
-from norma.models import ZakalkaIskyuchenie
+from norma.models import ZakalkaIskyuchenie,ZakalkaIskyuchenie6064
+from norma.models import NakleykaIskyuchenie,Norma
 import math
 from order.models import Order
     
@@ -51,9 +52,9 @@ def file_uploadTexcarta_org(request):
   return render(request,'universal/main.html',context)
 
 def imzo_file(request):
-    files = ExcelFilesImzo.objects.filter(generated =False).order_by('-created_at')
-    context ={'files':files}
-    return render(request,'imzo/file_list.html',context)
+    zakalka_iskyucheniye = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
+
+    return JsonResponse({'nakleyka':list(zakalka_iskyucheniye)})
 
 def texcart_file(request):
     files = ExcelFilesImzo.objects.filter(generated =False).order_by('-created_at')
@@ -213,7 +214,8 @@ def lenght_generate_texcarta(request,id):
     counter_2 = 0
 
     in_correct = [[],[]]
-    zakalka_iskyucheniye7 = ZakalkaIskyuchenie.objects.all().values_list('sap_code',flat=True)
+    # zakalka_iskyucheniye7 = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
+    zakalka_iskyucheniye7 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
     for key,row in df.iterrows():
         if row['Дупликат'] == 'No':
             sap_code = row['МАТЕРИАЛ'].split('-')[0]
@@ -390,11 +392,12 @@ def lenght_generate_texcarta(request,id):
                     nak='nan'
                 kombiniroavniy = ('7777' in row['КРАТКИЙ ТЕКСТ']) or ('8888' in row['КРАТКИЙ ТЕКСТ']) or ('3701' in row['КРАТКИЙ ТЕКСТ']) or ('3702' in row['КРАТКИЙ ТЕКСТ'])
                 
-                length =len(row['КРАТКИЙ ТЕКСТ'])
+                length = len(row['КРАТКИЙ ТЕКСТ'])
 
+                
                 if lenghtht in zakalka_iskyucheniye7:
-                    for i7 in range(1,4):
-                        if i7 ==1:
+                    for i7 in range(1,5):
+                        if i7 == 1:
                             df_new['ID'][counter_2] ='1'
                             df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                             df_new['WERKS'][counter_2] ='1101'
@@ -407,16 +410,16 @@ def lenght_generate_texcarta(request,id):
                             df_new['LOSBS'][counter_2] ='99999999'
                         elif i7 == 2:
                             df_new['ID'][counter_2]='2'
-                            df_new['VORNR'][counter_2] =BAZA['E']['VORNR'][0]
-                            df_new['ARBPL'][counter_2] =BAZA['E']['ARBPL'][0]
+                            df_new['VORNR'][counter_2] =BAZA['Z']['VORNR'][0]
+                            df_new['ARBPL'][counter_2] =BAZA['Z']['ARBPL'][0]
                             df_new['WERKS1'][counter_2] ='1101'
                             df_new['STEUS'][counter_2] ='ZK01'
-                            df_new['LTXA1'][counter_2] =BAZA['E']['LTXA1'][0]
-                            df_new['BMSCH'][counter_2] = texcartatime.пресс_1_линия_буй if texcarta_bor else '11111'
-                            df_new['MEINH'][counter_2] =BAZA['E']['MEINH'][0]
+                            df_new['LTXA1'][counter_2] =BAZA['Z']['LTXA1'][0]
+                            df_new['BMSCH'][counter_2] =texcartatime.пресс_1_линия_буй if texcarta_bor else '11111'
+                            df_new['MEINH'][counter_2] =BAZA['Z']['MEINH'][0]
                             df_new['VGW01'][counter_2] ='24'
                             df_new['VGE01'][counter_2] ='STD'
-                            df_new['ACTTYPE_01'][counter_2] =BAZA['E']['ACTTYPE_01'][0]
+                            df_new['ACTTYPE_01'][counter_2] =BAZA['Z']['ACTTYPE_01'][0]
                             df_new['CKSELKZ'][counter_2] ='X'
                             df_new['UMREZ'][counter_2] = '1'
                             df_new['UMREN'][counter_2] = '1'
@@ -425,21 +428,39 @@ def lenght_generate_texcarta(request,id):
                             df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                         elif i7 == 3:
                             df_new['ID'][counter_2]='2'
-                            df_new['VORNR'][counter_2] =BAZA['E']['VORNR'][1]
-                            df_new['ARBPL'][counter_2] =BAZA['E']['ARBPL'][1]
+                            df_new['VORNR'][counter_2] =BAZA['Z']['VORNR'][1]
+                            df_new['ARBPL'][counter_2] =BAZA['Z']['ARBPL'][1]
                             df_new['WERKS1'][counter_2] ='1101'
                             df_new['STEUS'][counter_2] ='ZK01'
-                            df_new['LTXA1'][counter_2] =BAZA['E']['LTXA1'][1]
-                            df_new['BMSCH'][counter_2] = texcartatime.пресс_1_линия_буй if texcarta_bor else '11111'
-                            df_new['MEINH'][counter_2] =BAZA['E']['MEINH'][1]
+                            df_new['LTXA1'][counter_2] =BAZA['Z']['LTXA1'][1]
+                            df_new['BMSCH'][counter_2] =texcartatime.пресс_1_линия_буй if texcarta_bor else '11111'
+                            df_new['MEINH'][counter_2] =BAZA['Z']['MEINH'][1]
                             df_new['VGW01'][counter_2] ='24'
                             df_new['VGE01'][counter_2] ='STD'
-                            df_new['ACTTYPE_01'][counter_2] =BAZA['E']['ACTTYPE_01'][1]
+                            df_new['ACTTYPE_01'][counter_2] =BAZA['Z']['ACTTYPE_01'][1]
                             df_new['CKSELKZ'][counter_2] ='X'
                             df_new['UMREZ'][counter_2] = '1'
                             df_new['UMREN'][counter_2] = '1'
-                            df_new['USR00'][counter_2] ='1'
+                            df_new['USR00'][counter_2] = '1'
                             df_new['USR01'][counter_2] = texcartatime.pila if texcarta_bor else '0'
+                            df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
+                        elif i7 == 4:
+                            df_new['ID'][counter_2]='2'
+                            df_new['VORNR'][counter_2] =BAZA['Z']['VORNR'][2]
+                            df_new['ARBPL'][counter_2] =BAZA['Z']['ARBPL'][2]
+                            df_new['WERKS1'][counter_2] ='1101'
+                            df_new['STEUS'][counter_2] ='ZK01'
+                            df_new['LTXA1'][counter_2] =BAZA['Z']['LTXA1'][2]
+                            df_new['BMSCH'][counter_2] = texcartatime.закалка_1_печь_буй if texcarta_bor else '11111'
+                            df_new['MEINH'][counter_2] =BAZA['Z']['MEINH'][2]
+                            df_new['VGW01'][counter_2] ='24'
+                            df_new['VGE01'][counter_2] ='STD'
+                            df_new['ACTTYPE_01'][counter_2] =BAZA['Z']['ACTTYPE_01'][2]
+                            df_new['CKSELKZ'][counter_2] ='X'
+                            df_new['UMREZ'][counter_2] = '1'
+                            df_new['UMREN'][counter_2] = '1'
+                            df_new['USR00'][counter_2] = '1'
+                            df_new['USR01'][counter_2] = texcartatime.strayenie if texcarta_bor else '0'
                             df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                         counter_2 +=1
                 
