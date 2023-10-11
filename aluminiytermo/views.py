@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import pandas as pd
 from .models import AluFileTermo,AluminiyProductTermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour,CharacteristicTitle,BazaProfiley,Characteristika,CharacteristikaFile
-from norma.models import NakleykaIskyuchenie,Norma
+from norma.models import NakleykaIskyuchenie,Norma,NormaExcelFiles
 from aluminiy.models import AluminiyProduct,RazlovkaTermo,LengthOfProfile,ExchangeValues,Price
 from .forms import FileFormTermo,FileFormChar
 from aluminiy.utils import save_razlovka
