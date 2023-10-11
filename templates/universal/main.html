@@ -15,6 +15,9 @@
             {%elif 'upload-product-termo-org' in request.path %}
             <li class="breadcrumb-item"><a href="#">UI Elements alu</a></li>
             {%else%}
+            {%elif 'for-three-factory' in request.path %}
+            <li class="breadcrumb-item"><a href="/media/uploads/shablon/1301.xlsx">UI Elements alu</a></li>
+            {%else%}
             <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
             {%endif%}
             <li class="breadcrumb-item active" aria-current="page">{% if link %}<a type="button" href="{{link}}" class="btn btn-success btn-fw" >Скачать</a>{%else%}Buttons{% endif %}</li>
