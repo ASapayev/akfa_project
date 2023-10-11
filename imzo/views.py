@@ -215,7 +215,10 @@ def lenght_generate_texcarta(request,id):
 
     in_correct = [[],[]]
     # zakalka_iskyucheniye7 = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
-    zakalka_iskyucheniye7 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
+    # zakalka_iskyucheniye7 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
+    zakalka_iskyucheniye1 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
+    zakalka_iskyucheniye2 = Norma.objects.filter(закалка_исключение ='1').values_list('компонент_1',flat=True)
+    zakalka_iskyucheniye7 =list(zakalka_iskyucheniye1) + list(zakalka_iskyucheniye2)
     for key,row in df.iterrows():
         if row['Дупликат'] == 'No':
             sap_code = row['МАТЕРИАЛ'].split('-')[0]

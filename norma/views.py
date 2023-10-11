@@ -1790,7 +1790,10 @@ def kombinirovaniy_process(request,id):
 
     # skotch_dya_laminatsii = SiryoDlyaUpakovki.objects.get(id=2)
     # zakalka_iskyucheniye7 = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
-    zakalka_iskyucheniye7 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
+    # zakalka_iskyucheniye7 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
+    zakalka_iskyucheniye1 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
+    zakalka_iskyucheniye2 = Norma.objects.filter(закалка_исключение ='1').values_list('компонент_1',flat=True)
+    zakalka_iskyucheniye7 =list(zakalka_iskyucheniye1) + list(zakalka_iskyucheniye2)
 
     for i in range(0,len(df)):
         print(i)
@@ -7848,7 +7851,10 @@ def norma_for_list():
         # nakleyka = NakleykaIskyuchenie.objects.all().values_list('sap_code',flat=True)
         zakalka = ZakalkaIskyuchenie.objects.all().values_list('sap_code',flat=True)
         # zakalka_6064 = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
-        zakalka_6064 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
+        zakalka_iskyucheniye1 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
+        zakalka_iskyucheniye2 = Norma.objects.filter(закалка_исключение ='1').values_list('компонент_1',flat=True)
+        zakalka_6064 =list(zakalka_iskyucheniye1) + list(zakalka_iskyucheniye2)
+        # zakalka_6064 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
         
         return normass,kraskas,accessuar,nakleyka,zakalka,zakalka_6064
 
