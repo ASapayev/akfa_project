@@ -4328,7 +4328,7 @@ def kombinirovaniy_process(request,id):
                     lenghtht = df[i][12].split('-')[0]
                     
                     if lenghtht in zakalka_iskyucheniye7:
-                        
+                        CheckNormaBase(artikul=df[i][12],kratkiytekst=df[i][13]).save()
                         j += 1
                         df_new['ID'].append('1')
                         df_new['MATNR'].append(df[i][12])
