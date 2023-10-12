@@ -3874,7 +3874,7 @@ def kombinirovaniy_process(request,id):
                                 df_new['LGORT'].append('PS09')
                             
                             
-                            if kombininovanniy_utils.termal_bridge1 == kombininovanniy_utils.termal_bridge2:
+                            if kombininovanniy_utils.краткий_текст_1 == kombininovanniy_utils.краткий_текст_2:
                                 j += 1
                                 df_new['ID'].append('2')
                                 df_new['MATNR'].append('')
@@ -3889,8 +3889,8 @@ def kombinirovaniy_process(request,id):
                                 df_new['STLST'].append('')
                                 df_new['POSNR'].append(3)
                                 df_new['POSTP'].append('L')
-                                df_new['MATNR1'].append(kombininovanniy_utils.sap_code1)
-                                df_new['TEXT2'].append(kombininovanniy_utils.termal_bridge1)
+                                df_new['MATNR1'].append(kombininovanniy_utils.термомост_1)
+                                df_new['TEXT2'].append(kombininovanniy_utils.краткий_текст_1)
                                 df_new['MEINS'].append( ("%.3f" % ( length_of_profile * 2 )).replace('.',','))
                                 df_new['MENGE'].append('М')
                                 df_new['DATUV'].append('')
@@ -3911,8 +3911,8 @@ def kombinirovaniy_process(request,id):
                                 df_new['STLST'].append('')
                                 df_new['POSNR'].append(3)
                                 df_new['POSTP'].append('L')
-                                df_new['MATNR1'].append(kombininovanniy_utils.sap_code1)
-                                df_new['TEXT2'].append(kombininovanniy_utils.termal_bridge1)
+                                df_new['MATNR1'].append(kombininovanniy_utils.термомост_1)
+                                df_new['TEXT2'].append(kombininovanniy_utils.краткий_текст_1)
                                 df_new['MEINS'].append(("%.3f" % ( length_of_profile)).replace('.',',')) ##XATO
                                 df_new['MENGE'].append('М')
                                 df_new['DATUV'].append('')
@@ -3933,8 +3933,8 @@ def kombinirovaniy_process(request,id):
                                 df_new['STLST'].append('')
                                 df_new['POSNR'].append(4)
                                 df_new['POSTP'].append('L')
-                                df_new['MATNR1'].append(kombininovanniy_utils.sap_code2)
-                                df_new['TEXT2'].append(kombininovanniy_utils.termal_bridge2)
+                                df_new['MATNR1'].append(kombininovanniy_utils.термомост_2)
+                                df_new['TEXT2'].append(kombininovanniy_utils.краткий_текст_2)
                                 df_new['MEINS'].append(("%.3f" % (length_of_profile)).replace('.',',')) ##XATO
                                 df_new['MENGE'].append('М')
                                 df_new['DATUV'].append('')
@@ -4225,7 +4225,7 @@ def kombinirovaniy_process(request,id):
                                 df_new_duplicate['LGORT'].append('PS09')
                             
                             
-                            if kombininovanniy_utils.termal_bridge1 == kombininovanniy_utils.termal_bridge2:
+                            if kombininovanniy_utils.краткий_текст_1 == kombininovanniy_utils.краткий_текст_2:
                                 j += 1
                                 df_new_duplicate['ID'].append('2')
                                 df_new_duplicate['MATNR'].append('')
@@ -4240,8 +4240,8 @@ def kombinirovaniy_process(request,id):
                                 df_new_duplicate['STLST'].append('')
                                 df_new_duplicate['POSNR'].append(3)
                                 df_new_duplicate['POSTP'].append('L')
-                                df_new_duplicate['MATNR1'].append(kombininovanniy_utils.sap_code1)
-                                df_new_duplicate['TEXT2'].append(kombininovanniy_utils.termal_bridge1)
+                                df_new_duplicate['MATNR1'].append(kombininovanniy_utils.термомост_1)
+                                df_new_duplicate['TEXT2'].append(kombininovanniy_utils.краткий_текст_1)
                                 df_new_duplicate['MEINS'].append( ("%.3f" % ( length_of_profile * 2 )).replace('.',','))
                                 df_new_duplicate['MENGE'].append('М')
                                 df_new_duplicate['DATUV'].append('')
@@ -4262,8 +4262,8 @@ def kombinirovaniy_process(request,id):
                                 df_new_duplicate['STLST'].append('')
                                 df_new_duplicate['POSNR'].append(3)
                                 df_new_duplicate['POSTP'].append('L')
-                                df_new_duplicate['MATNR1'].append(kombininovanniy_utils.sap_code1)
-                                df_new_duplicate['TEXT2'].append(kombininovanniy_utils.termal_bridge1)
+                                df_new_duplicate['MATNR1'].append(kombininovanniy_utils.термомост_1)
+                                df_new_duplicate['TEXT2'].append(kombininovanniy_utils.краткий_текст_1)
                                 df_new_duplicate['MEINS'].append(("%.3f" % ( length_of_profile)).replace('.',',')) ##XATO
                                 df_new_duplicate['MENGE'].append('М')
                                 df_new_duplicate['DATUV'].append('')
@@ -4284,8 +4284,8 @@ def kombinirovaniy_process(request,id):
                                 df_new_duplicate['STLST'].append('')
                                 df_new_duplicate['POSNR'].append(4)
                                 df_new_duplicate['POSTP'].append('L')
-                                df_new_duplicate['MATNR1'].append(kombininovanniy_utils.sap_code2)
-                                df_new_duplicate['TEXT2'].append(kombininovanniy_utils.termal_bridge2)
+                                df_new_duplicate['MATNR1'].append(kombininovanniy_utils.термомост_2)
+                                df_new_duplicate['TEXT2'].append(kombininovanniy_utils.краткий_текст_2)
                                 df_new_duplicate['MEINS'].append(("%.3f" % (length_of_profile)).replace('.',',')) ##XATO
                                 df_new_duplicate['MENGE'].append('М')
                                 df_new_duplicate['DATUV'].append('')
