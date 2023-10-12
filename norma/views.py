@@ -1796,12 +1796,10 @@ def kombinirovaniy_process(request,id):
     zakalka_iskyucheniye7 =list(zakalka_iskyucheniye1) + list(zakalka_iskyucheniye2)
 
     for i in range(0,len(df)):
-        print(i)
         if i in isklyucheniye_ids:
             continue
         older_process ={'sapcode':'','kratkiy':''}
         norma_existsE = CheckNormaBase.objects.filter(artikul=df[i][0],kratkiytekst=df[i][1]).exists()
-        
         
         
         if not norma_existsE:
@@ -2000,363 +1998,102 @@ def kombinirovaniy_process(request,id):
         if not norma_existsZ:
             if df[i][2] !="":
                 lenghtht = df[i][2].split('-')[0]
-                if lenghtht in zakalka_iskyucheniye7:
-                    continue
-                CheckNormaBase(artikul=df[i][2],kratkiytekst=df[i][3]).save()
+                if lenghtht not in zakalka_iskyucheniye7:
+                        
+                    CheckNormaBase(artikul=df[i][2],kratkiytekst=df[i][3]).save()
 
-                sap_code_zak = df[i][2].split('-')[0]
-                older_process['sapcode'] =df[i][2]
-                older_process['kratkiy'] =df[i][3] 
+                    sap_code_zak = df[i][2].split('-')[0]
+                    older_process['sapcode'] =df[i][2]
+                    older_process['kratkiy'] =df[i][3] 
 
-                
-                j+=1
-                if (df[i][2].split('-')[1][:1]=='Z'):
-                    df_new['ID'].append('1')
-                    df_new['MATNR'].append(df[i][2])
-                    df_new['WERKS'].append('1101')
-                    df_new['TEXT1'].append(df[i][3])
-                    df_new['STLAL'].append('1')
-                    df_new['STLAN'].append('1')
-                    if df[i][2].split('-')[1][:1]=='Z':
-                        ztekst ='Экструзия (пресс) + Пила + Старение'
-                    df_new['ZTEXT'].append(ztekst)
-                    length = df[i][2].split('-')[0]
                     
-                    alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
-                    
-                    
-                    aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
-                    
-                    
-                    mein_percent =((get_legth(df[i][3]))/float(alum_teks.длина_профиля_м))
-                    df_new['STKTX'].append(aliminisi.название)
-                    df_new['BMENG'].append( '1000')
-                    df_new['BMEIN'].append('ШТ')
-                    df_new['STLST'].append('1')
-                    df_new['POSNR'].append('')
-                    df_new['POSTP'].append('')
-                    df_new['MATNR1'].append('')
-                    df_new['TEXT2'].append('')
-                    df_new['MEINS'].append('')
-                    df_new['MENGE'].append('')
-                    df_new['DATUV'].append('01012021')
-                    df_new['PUSTOY'].append('')
-                    df_new['LGORT'].append('')
-                    
-                    for k in range(1,5):
-                        j+=1
-                        df_new['ID'].append('2')
-                        df_new['MATNR'].append('')
-                        df_new['WERKS'].append('')
-                        df_new['TEXT1'].append('')
-                        df_new['STLAL'].append('')
-                        df_new['STLAN'].append('')
-                        df_new['ZTEXT'].append('')
-                        df_new['STKTX'].append('')
-                        df_new['BMENG'].append('')
-                        df_new['BMEIN'].append('')
-                        df_new['STLST'].append('')
-                        df_new['POSNR'].append(k)
-                        df_new['POSTP'].append('L')
+                    j+=1
+                    if (df[i][2].split('-')[1][:1]=='Z'):
+                        df_new['ID'].append('1')
+                        df_new['MATNR'].append(df[i][2])
+                        df_new['WERKS'].append('1101')
+                        df_new['TEXT1'].append(df[i][3])
+                        df_new['STLAL'].append('1')
+                        df_new['STLAN'].append('1')
+                        if df[i][2].split('-')[1][:1]=='Z':
+                            ztekst ='Экструзия (пресс) + Пила + Старение'
+                        df_new['ZTEXT'].append(ztekst)
+                        length = df[i][2].split('-')[0]
+                        
+                        alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
                         
                         
-                        if k == 1 :
-                            df_new['MATNR1'].append(aliminisi.sap_code_s4q100)
-                            df_new['TEXT2'].append(aliminisi.название)
-                            df_new['MEINS'].append(("%.3f" % (float(alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг)*mein_percent)).replace('.',',')) ##XATO
-                            df_new['MENGE'].append('КГ')
-                            df_new['DATUV'].append('')
-                            df_new['PUSTOY'].append('')
+                        aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
                         
                         
-                        if k == 2:
-                            alummm = AlyuminniysilindrEkstruziya2.objects.get(id=4)
-                            df_new['MATNR1'].append(alummm.sap_code_s4q100)
-                            df_new['TEXT2'].append(alummm.название)
-                            df_new['MENGE'].append(alummm.еи)
-                            df_new['MEINS'].append(("%.3f" % ((-1)*float(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)*mein_percent)).replace('.',',')) ##XATO
-                            df_new['DATUV'].append('')
-                            df_new['PUSTOY'].append('')
-                        if k == 3:
-                            alummm = AlyuminniysilindrEkstruziya2.objects.get(id=5)
-                            df_new['MATNR1'].append(alummm.sap_code_s4q100)
-                            df_new['TEXT2'].append(alummm.название)
-                            df_new['MENGE'].append(alummm.еи)
-                            df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)))*mein_percent) ).replace('.',',')) ##XATO
-                            df_new['DATUV'].append('')
-                            df_new['PUSTOY'].append('')
-                        if k == 4:
-                            alummm = AlyuminniysilindrEkstruziya2.objects.get(id=6)
-                            df_new['MATNR1'].append(alummm.sap_code_s4q100)
-                            df_new['TEXT2'].append(alummm.название)
-                            df_new['MENGE'].append(alummm.еи)
-                            df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))*mein_percent) ).replace('.',',')) ##XATO
-                            df_new['DATUV'].append('')
-                            df_new['PUSTOY'].append('')
-                            
-                        df_new['LGORT'].append('PS01')
-
-                if sap_code_zak in zakalka_iskyuchenie6064:     
-                    if sap_code_zak not in zakalka_iskyuchenie: 
-                        j+=1
-                        if (df[i][2].split('-')[1][:1]=='Z'):
-                            df_new['ID'].append('1')
-                            df_new['MATNR'].append(df[i][2])
-                            df_new['WERKS'].append('1101')
-                            df_new['TEXT1'].append(df[i][3])
-                            df_new['STLAL'].append('2')
-                            df_new['STLAN'].append('1')
-                            if df[i][2].split('-')[1][:1]=='Z':
-                                ztekst ='Экструзия (пресс) + Пила + Старение'
-                            df_new['ZTEXT'].append(ztekst)
-                            length = df[i][2].split('-')[0]
-                            
-                            alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
-                            
-                            
-                            aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
-                            
-
-
-
-                            mein_percent =((get_legth(df[i][3]))/float(alum_teks.длина_профиля_м))
-                            df_new['STKTX'].append(aliminisi.название)
-                            df_new['BMENG'].append( '1000')
-                            df_new['BMEIN'].append('ШТ')
-                            df_new['STLST'].append('1')
-                            df_new['POSNR'].append('')
-                            df_new['POSTP'].append('')
-                            df_new['MATNR1'].append('')
-                            df_new['TEXT2'].append('')
-                            df_new['MEINS'].append('')
-                            df_new['MENGE'].append('')
-                            df_new['DATUV'].append('01012021')
-                            df_new['PUSTOY'].append('')
-                            df_new['LGORT'].append('')
-                            
-                            for k in range(1,5):
-                                j+=1
-                                df_new['ID'].append('2')
-                                df_new['MATNR'].append('')
-                                df_new['WERKS'].append('')
-                                df_new['TEXT1'].append('')
-                                df_new['STLAL'].append('')
-                                df_new['STLAN'].append('')
-                                df_new['ZTEXT'].append('')
-                                df_new['STKTX'].append('')
-                                df_new['BMENG'].append('')
-                                df_new['BMEIN'].append('')
-                                df_new['STLST'].append('')
-                                df_new['POSNR'].append(k)
-                                df_new['POSTP'].append('L')
-                                
-                                
-                                if k == 1 :
-                                    df_new['MATNR1'].append(aliminisi.sap_code_s4q100)
-                                    df_new['TEXT2'].append(aliminisi.название)
-                                    df_new['MEINS'].append(("%.3f" % (float(alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг)*mein_percent)).replace('.',',')) ##XATO
-                                    df_new['MENGE'].append('КГ')
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                
-                                
-                                if k == 2:
-                                    alummm = AlyuminniysilindrEkstruziya2.objects.get(id=4)
-                                    df_new['MATNR1'].append(alummm.sap_code_s4q100)
-                                    df_new['TEXT2'].append(alummm.название)
-                                    df_new['MENGE'].append(alummm.еи)
-                                    df_new['MEINS'].append(("%.3f" % ((-1)*float(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)*mein_percent)).replace('.',',')) ##XATO
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                if k == 3:
-                                    alummm = AlyuminniysilindrEkstruziya2.objects.get(id=5)
-                                    df_new['MATNR1'].append(alummm.sap_code_s4q100)
-                                    df_new['TEXT2'].append(alummm.название)
-                                    df_new['MENGE'].append(alummm.еи)
-                                    df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)))*mein_percent) ).replace('.',',')) ##XATO
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                if k == 4:
-                                    alummm = AlyuminniysilindrEkstruziya2.objects.get(id=6)
-                                    df_new['MATNR1'].append(alummm.sap_code_s4q100)
-                                    df_new['TEXT2'].append(alummm.название)
-                                    df_new['MENGE'].append(alummm.еи)
-                                    df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))*mein_percent) ).replace('.',',')) ##XATO
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                    
-                                df_new['LGORT'].append('PS01')
-
-                    else:
-                        j+=1
-                        if (df[i][2].split('-')[1][:1]=='Z'):
-                            df_new['ID'].append('1')
-                            df_new['MATNR'].append(df[i][2])
-                            df_new['WERKS'].append('1101')
-                            df_new['TEXT1'].append(df[i][3])
-                            df_new['STLAL'].append('2')
-                            df_new['STLAN'].append('1')
-                            if df[i][2].split('-')[1][:1]=='Z':
-                                ztekst ='Экструзия (пресс) + Пила + Старение'
-                            df_new['ZTEXT'].append(ztekst)
-                            length = df[i][2].split('-')[0]
-                            
-                            alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
-                                
-                            aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
-                            
-                            mein_percent =((get_legth(df[i][3]))/float(alum_teks.длина_профиля_м))
-                            df_new['STKTX'].append(aliminisi.название)
-                            df_new['BMENG'].append( '1000')
-                            df_new['BMEIN'].append('ШТ')
-                            df_new['STLST'].append('1')
-                            df_new['POSNR'].append('')
-                            df_new['POSTP'].append('')
-                            df_new['MATNR1'].append('')
-                            df_new['TEXT2'].append('')
-                            df_new['MEINS'].append('')
-                            df_new['MENGE'].append('')
-                            df_new['DATUV'].append('01012021')
-                            df_new['PUSTOY'].append('')
-                            df_new['LGORT'].append('')
-                            
-                            for k in range(1,5):
-                                j+=1
-                                df_new['ID'].append('2')
-                                df_new['MATNR'].append('')
-                                df_new['WERKS'].append('')
-                                df_new['TEXT1'].append('')
-                                df_new['STLAL'].append('')
-                                df_new['STLAN'].append('')
-                                df_new['ZTEXT'].append('')
-                                df_new['STKTX'].append('')
-                                df_new['BMENG'].append('')
-                                df_new['BMEIN'].append('')
-                                df_new['STLST'].append('')
-                                df_new['POSNR'].append(k)
-                                df_new['POSTP'].append('L')
-                                
-                                
-                                if k == 1 :
-                                    df_new['MATNR1'].append(aliminisi.sap_code_s4q100)
-                                    df_new['TEXT2'].append(aliminisi.название)
-                                    df_new['MEINS'].append(("%.3f" % (float(alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг)*mein_percent)).replace('.',',')) ##XATO
-                                    df_new['MENGE'].append('КГ')
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                
-                                
-                                if k == 2:
-                                    alummm = AlyuminniysilindrEkstruziya2.objects.get(id=4)
-                                    df_new['MATNR1'].append(alummm.sap_code_s4q100)
-                                    df_new['TEXT2'].append(alummm.название)
-                                    df_new['MENGE'].append(alummm.еи)
-                                    df_new['MEINS'].append(("%.3f" % ((-1)*float(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)*mein_percent)).replace('.',',')) ##XATO
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                if k == 3:
-                                    alummm = AlyuminniysilindrEkstruziya2.objects.get(id=5)
-                                    df_new['MATNR1'].append(alummm.sap_code_s4q100)
-                                    df_new['TEXT2'].append(alummm.название)
-                                    df_new['MENGE'].append(alummm.еи)
-                                    df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)))*mein_percent) ).replace('.',',')) ##XATO
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                if k == 4:
-                                    alummm = AlyuminniysilindrEkstruziya2.objects.get(id=6)
-                                    df_new['MATNR1'].append(alummm.sap_code_s4q100)
-                                    df_new['TEXT2'].append(alummm.название)
-                                    df_new['MENGE'].append(alummm.еи)
-                                    df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))*mein_percent) ).replace('.',',')) ##XATO
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                    
-                                df_new['LGORT'].append('PS01')                
-                        j+=1
-                        if (df[i][2].split('-')[1][:1]=='Z'):
-                            df_new['ID'].append('1')
-                            df_new['MATNR'].append(df[i][2])
-                            df_new['WERKS'].append('1101')
-                            df_new['TEXT1'].append(df[i][3])
-                            df_new['STLAL'].append('1')
-                            df_new['STLAN'].append('1')
-                            if df[i][2].split('-')[1][:1]=='Z':
-                                ztekst ='Экструзия (пресс) + Пила + Старение'
-                            df_new['ZTEXT'].append(ztekst)
-                            length = df[i][2].split('-')[0]
-                            
-                            alum_teks = Norma.objects.filter(Q(компонент_1=length)|Q(компонент_2=length)|Q(компонент_3=length)|Q(артикул=length))[:1].get()
-                                
-                            aliminisi =AlyuminniysilindrEkstruziya1.objects.filter(sap_code_s4q100 =alum_teks.qora_алю_сплав_6064_sap_code)[:1].get()
-                            
-                            mein_percent =((get_legth(df[i][3]))/float(alum_teks.длина_профиля_м))
-                            df_new['STKTX'].append(aliminisi.название)
-                            df_new['BMENG'].append( '1000')
-                            df_new['BMEIN'].append('ШТ')
-                            df_new['STLST'].append('1')
-                            df_new['POSNR'].append('')
-                            df_new['POSTP'].append('')
-                            df_new['MATNR1'].append('')
-                            df_new['TEXT2'].append('')
-                            df_new['MEINS'].append('')
-                            df_new['MENGE'].append('')
-                            df_new['DATUV'].append('01012021')
-                            df_new['PUSTOY'].append('')
-                            df_new['LGORT'].append('')
-                            
-                            for k in range(1,5):
-                                j+=1
-                                df_new['ID'].append('2')
-                                df_new['MATNR'].append('')
-                                df_new['WERKS'].append('')
-                                df_new['TEXT1'].append('')
-                                df_new['STLAL'].append('')
-                                df_new['STLAN'].append('')
-                                df_new['ZTEXT'].append('')
-                                df_new['STKTX'].append('')
-                                df_new['BMENG'].append('')
-                                df_new['BMEIN'].append('')
-                                df_new['STLST'].append('')
-                                df_new['POSNR'].append(k)
-                                df_new['POSTP'].append('L')
-                                
-                                
-                                if k == 1 :
-                                    df_new['MATNR1'].append(aliminisi.sap_code_s4q100)
-                                    df_new['TEXT2'].append(aliminisi.название)
-                                    df_new['MEINS'].append(("%.3f" % (float(alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг)*mein_percent)).replace('.',',')) ##XATO
-                                    df_new['MENGE'].append('КГ')
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                
-                                
-                                if k == 2:
-                                    alummm = AlyuminniysilindrEkstruziya2.objects.get(id=4)
-                                    df_new['MATNR1'].append(alummm.sap_code_s4q100)
-                                    df_new['TEXT2'].append(alummm.название)
-                                    df_new['MENGE'].append(alummm.еи)
-                                    df_new['MEINS'].append(("%.3f" % ((-1)*float(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)*mein_percent)).replace('.',',')) ##XATO
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                if k == 3:
-                                    alummm = AlyuminniysilindrEkstruziya2.objects.get(id=5)
-                                    df_new['MATNR1'].append(alummm.sap_code_s4q100)
-                                    df_new['TEXT2'].append(alummm.название)
-                                    df_new['MENGE'].append(alummm.еи)
-                                    df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)))*mein_percent) ).replace('.',',')) ##XATO
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                if k == 4:
-                                    alummm = AlyuminniysilindrEkstruziya2.objects.get(id=6)
-                                    df_new['MATNR1'].append(alummm.sap_code_s4q100)
-                                    df_new['TEXT2'].append(alummm.название)
-                                    df_new['MENGE'].append(alummm.еи)
-                                    df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))*mein_percent) ).replace('.',',')) ##XATO
-                                    df_new['DATUV'].append('')
-                                    df_new['PUSTOY'].append('')
-                                    
-                                df_new['LGORT'].append('PS01')                
+                        mein_percent =((get_legth(df[i][3]))/float(alum_teks.длина_профиля_м))
+                        df_new['STKTX'].append(aliminisi.название)
+                        df_new['BMENG'].append( '1000')
+                        df_new['BMEIN'].append('ШТ')
+                        df_new['STLST'].append('1')
+                        df_new['POSNR'].append('')
+                        df_new['POSTP'].append('')
+                        df_new['MATNR1'].append('')
+                        df_new['TEXT2'].append('')
+                        df_new['MEINS'].append('')
+                        df_new['MENGE'].append('')
+                        df_new['DATUV'].append('01012021')
+                        df_new['PUSTOY'].append('')
+                        df_new['LGORT'].append('')
                         
+                        for k in range(1,5):
+                            j+=1
+                            df_new['ID'].append('2')
+                            df_new['MATNR'].append('')
+                            df_new['WERKS'].append('')
+                            df_new['TEXT1'].append('')
+                            df_new['STLAL'].append('')
+                            df_new['STLAN'].append('')
+                            df_new['ZTEXT'].append('')
+                            df_new['STKTX'].append('')
+                            df_new['BMENG'].append('')
+                            df_new['BMEIN'].append('')
+                            df_new['STLST'].append('')
+                            df_new['POSNR'].append(k)
+                            df_new['POSTP'].append('L')
+                            
+                            
+                            if k == 1 :
+                                df_new['MATNR1'].append(aliminisi.sap_code_s4q100)
+                                df_new['TEXT2'].append(aliminisi.название)
+                                df_new['MEINS'].append(("%.3f" % (float(alum_teks.алю_сп_6063_рас_спа_на_1000_шт_пр_кг)*mein_percent)).replace('.',',')) ##XATO
+                                df_new['MENGE'].append('КГ')
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                            
+                            
+                            if k == 2:
+                                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=4)
+                                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                                df_new['TEXT2'].append(alummm.название)
+                                df_new['MENGE'].append(alummm.еи)
+                                df_new['MEINS'].append(("%.3f" % ((-1)*float(alum_teks.алюминиевый_сплав_6063_при_этом_балвашка)*mein_percent)).replace('.',',')) ##XATO
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                            if k == 3:
+                                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=5)
+                                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                                df_new['TEXT2'].append(alummm.название)
+                                df_new['MENGE'].append(alummm.еи)
+                                df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода1)))*mein_percent) ).replace('.',',')) ##XATO
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                            if k == 4:
+                                alummm = AlyuminniysilindrEkstruziya2.objects.get(id=6)
+                                df_new['MATNR1'].append(alummm.sap_code_s4q100)
+                                df_new['TEXT2'].append(alummm.название)
+                                df_new['MENGE'].append(alummm.еи)
+                                df_new['MEINS'].append(("%.3f" % (((-1)*(float(alum_teks.алю_сплав_6063_при_этом_тех_отхода2)))*mein_percent) ).replace('.',',')) ##XATO
+                                df_new['DATUV'].append('')
+                                df_new['PUSTOY'].append('')
+                                
+                            df_new['LGORT'].append('PS01')
+       
         else:
             normaexist = CheckNormaBase.objects.filter(artikul=df[i][2],kratkiytekst=df[i][3])[:1].get()
             if df[i][2] !="":
@@ -4580,13 +4317,18 @@ def kombinirovaniy_process(request,id):
         
                      
         norma_exists7 = CheckNormaBase.objects.filter(artikul=df[i][12],kratkiytekst=df[i][13]).exists()
+       
         if not norma_exists7:
             
             if df[i][12] !="":
                 
                 if (df[i][12].split('-')[1][:1]=='7'):
+                   
+                    
                     lenghtht = df[i][12].split('-')[0]
+                    
                     if lenghtht in zakalka_iskyucheniye7:
+                        
                         j += 1
                         df_new['ID'].append('1')
                         df_new['MATNR'].append(df[i][12])
@@ -6240,7 +5982,7 @@ def kombinirovaniy_process(request,id):
         
         else:      
             if df[i][12] !="":
-                
+               
                 if (df[i][12].split('-')[1][:1]=='7'):
                     
                     
