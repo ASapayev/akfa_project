@@ -12,8 +12,8 @@ from django.http import JsonResponse
 from django.db.models import Q
 from norma.models import Accessuar,CheckNormaBase
 from django.contrib import messages
-from norma.models import ZakalkaIskyuchenie,ZakalkaIskyuchenie6064
-from norma.models import NakleykaIskyuchenie,Norma
+from norma.models import ZakalkaIskyuchenie
+from norma.models import Norma
 import math
 from order.models import Order
     
@@ -214,8 +214,6 @@ def lenght_generate_texcarta(request,id):
     counter_2 = 0
 
     in_correct = [[],[]]
-    # zakalka_iskyucheniye7 = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
-    # zakalka_iskyucheniye7 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
     zakalka_iskyucheniye1 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
     zakalka_iskyucheniye2 = Norma.objects.filter(закалка_исключение ='1').values_list('компонент_1',flat=True)
     zakalka_iskyucheniye7 =list(zakalka_iskyucheniye1) + list(zakalka_iskyucheniye2)

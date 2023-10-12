@@ -3,7 +3,7 @@ from django.http import Http404,HttpResponse
 import pandas as pd
 import numpy as np
 from django.http import JsonResponse
-from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,TermomostDlyaTermo,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell,KombinirovaniyUtilsInformation,Accessuar,NakleykaIskyuchenie,ZakalkaIskyuchenie,ViFiles,ZakalkaIskyuchenie6064
+from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell,Accessuar,ZakalkaIskyuchenie,ViFiles
 from .forms import NormaFileForm,NormaEditForm,ViFileForm,TexcartaEditForm
 from django.db.models import Q
 from aluminiytermo.models import Characteristika,CharacteristicTitle
@@ -1067,20 +1067,7 @@ def norma_add(request):
         sap_code4 =row['SAP код4']
         termal_bridge4 =row['Thermal bridge № 4']
         
-        KombinirovaniyUtilsInformation(
-            artikul = artikul, 
-            component1 = component1, 
-            component2 = component2, 
-            component3 = component3, 
-            sap_code1 = sap_code1, 
-            termal_bridge1 = termal_bridge1, 
-            sap_code2 = sap_code2, 
-            termal_bridge2 = termal_bridge2, 
-            sap_code3 = sap_code3, 
-            termal_bridge3 = termal_bridge3, 
-            sap_code4 = sap_code4, 
-            termal_bridge4 = termal_bridge4, 
-            ).save()
+       
     
     return JsonResponse({'a':'b'})
     
@@ -1652,7 +1639,7 @@ def kombinirovaniy_process(request,id):
                 
                 if (('-K' in t) and (length[0] not in does_not_exist_norm)):
                     
-                    if not KombinirovaniyUtilsInformation.objects.filter(artikul=length[0]):
+                    if not Norma.objects.filter(Q(артикул=length[0])&~Q(термомост_1='0')).exists():
                         isklyucheniye_ids.append(k)
                         if length[0] not in kombinirovanniy:
                             kombinirovanniy.append(length[0])
@@ -1782,15 +1769,11 @@ def kombinirovaniy_process(request,id):
     j = 0
     
     siryo_dlya_upakovki1 = SiryoDlyaUpakovki.objects.get(id=1)
-    # siryo_dlya_upakovki2 = SiryoDlyaUpakovki.objects.get(id=2)
-
+    
     kleydlyalamp1 =KleyDlyaLamp.objects.get(id=1)
     kleydlyalamp2 =KleyDlyaLamp.objects.get(id=2)
     kleydlyalamp3 =KleyDlyaLamp.objects.get(id=3)
 
-    # skotch_dya_laminatsii = SiryoDlyaUpakovki.objects.get(id=2)
-    # zakalka_iskyucheniye7 = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
-    # zakalka_iskyucheniye7 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
     zakalka_iskyucheniye1 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
     zakalka_iskyucheniye2 = Norma.objects.filter(закалка_исключение ='1').values_list('компонент_1',flat=True)
     zakalka_iskyucheniye7 =list(zakalka_iskyucheniye1) + list(zakalka_iskyucheniye2)
@@ -3781,23 +3764,23 @@ def kombinirovaniy_process(request,id):
                         mein_percent =((get_legth(df[i][11]))/float(alum_teks.длина_профиля_м))
                         
                         artikul = df[i][10].split('-')[0]
-                        kombininovanniy_utils = KombinirovaniyUtilsInformation.objects.get(artikul=artikul)
+                        kombininovanniy_utils = Norma.objects.get(артикул=artikul)
                         dddd =[
                                     {
-                                        'sap_code':kombininovanniy_utils.sap_code1,
-                                        'bridge':kombininovanniy_utils.termal_bridge1
+                                        'sap_code':kombininovanniy_utils.термомост_1,
+                                        'bridge':kombininovanniy_utils.краткий_текст_1
                                     },
                                     {
-                                        'sap_code':kombininovanniy_utils.sap_code1,
-                                        'bridge':kombininovanniy_utils.termal_bridge2
+                                        'sap_code':kombininovanniy_utils.термомост_1,
+                                        'bridge':kombininovanniy_utils.краткий_текст_2
                                     },
                                     {
-                                        'sap_code':kombininovanniy_utils.sap_code3,
-                                        'bridge':kombininovanniy_utils.termal_bridge3
+                                        'sap_code':kombininovanniy_utils.термомост_3,
+                                        'bridge':kombininovanniy_utils.краткий_текст_3
                                     },
                                     {
-                                        'sap_code':kombininovanniy_utils.sap_code4,
-                                        'bridge':kombininovanniy_utils.termal_bridge4
+                                        'sap_code':kombininovanniy_utils.термомост_4,
+                                        'bridge':kombininovanniy_utils.краткий_текст_4
                                     }
                                     ]
                         length_of_profile = get_legth(df[i][11]) * 1000
@@ -4132,23 +4115,23 @@ def kombinirovaniy_process(request,id):
                         mein_percent =((get_legth(df[i][11]))/float(alum_teks.длина_профиля_м))
                         
                         artikul = df[i][10].split('-')[0]
-                        kombininovanniy_utils = KombinirovaniyUtilsInformation.objects.get(artikul=artikul)
+                        kombininovanniy_utils = Norma.objects.get(артикул=artikul)
                         dddd =[
                                     {
-                                        'sap_code':kombininovanniy_utils.sap_code1,
-                                        'bridge':kombininovanniy_utils.termal_bridge1
+                                        'sap_code':kombininovanniy_utils.термомост_1,
+                                        'bridge':kombininovanniy_utils.краткий_текст_1
                                     },
                                     {
-                                        'sap_code':kombininovanniy_utils.sap_code1,
-                                        'bridge':kombininovanniy_utils.termal_bridge2
+                                        'sap_code':kombininovanniy_utils.термомост_1,
+                                        'bridge':kombininovanniy_utils.краткий_текст_2
                                     },
                                     {
-                                        'sap_code':kombininovanniy_utils.sap_code3,
-                                        'bridge':kombininovanniy_utils.termal_bridge3
+                                        'sap_code':kombininovanniy_utils.термомост_3,
+                                        'bridge':kombininovanniy_utils.краткий_текст_3
                                     },
                                     {
-                                        'sap_code':kombininovanniy_utils.sap_code4,
-                                        'bridge':kombininovanniy_utils.termal_bridge4
+                                        'sap_code':kombininovanniy_utils.термомост_4,
+                                        'bridge':kombininovanniy_utils.краткий_текст_4
                                     }
                                     ]
                         length_of_profile = get_legth(df[i][11]) * 1000
@@ -4323,7 +4306,6 @@ def kombinirovaniy_process(request,id):
             if df[i][12] !="":
                 
                 if (df[i][12].split('-')[1][:1]=='7'):
-                   
                     
                     lenghtht = df[i][12].split('-')[0]
                     
@@ -7590,13 +7572,10 @@ def norma_for_list():
         nak_norma2 = Norma.objects.filter(Q(наклейка_исключение ='1') & ~Q(артикул='0')).values_list('артикул',flat=True)
         nakleyka = list(nak_norma1) + list(nak_norma2)
 
-        # nakleyka = NakleykaIskyuchenie.objects.all().values_list('sap_code',flat=True)
         zakalka = ZakalkaIskyuchenie.objects.all().values_list('sap_code',flat=True)
-        # zakalka_6064 = ZakalkaIskyuchenie6064.objects.all().values_list('sap_code',flat=True)
         zakalka_iskyucheniye1 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
         zakalka_iskyucheniye2 = Norma.objects.filter(закалка_исключение ='1').values_list('компонент_1',flat=True)
         zakalka_6064 =list(zakalka_iskyucheniye1) + list(zakalka_iskyucheniye2)
-        # zakalka_6064 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
         
         return normass,kraskas,accessuar,nakleyka,zakalka,zakalka_6064
 

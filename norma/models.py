@@ -218,13 +218,7 @@ class AlyuminniysilindrEkstruziya2(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
-class TermomostDlyaTermo(models.Model):
-    sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
-    название = models.CharField(max_length=255,blank=True,null=True)
-    еи = models.CharField(max_length=255,blank=True,null=True)
-    склад_закупа = models.CharField(max_length=255,blank=True,null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
     
 class SiryoDlyaUpakovki(models.Model):
     sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
@@ -267,21 +261,6 @@ class NormaDontExistInExcell(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     
-class KombinirovaniyUtilsInformation(models.Model):
-    artikul = models.CharField(max_length=255,blank=True,null=True)
-    component1 = models.CharField(max_length=255,blank=True,null=True)
-    component2 = models.CharField(max_length=255,blank=True,null=True)
-    component3 = models.CharField(max_length=255,blank=True,null=True)
-    sap_code1 = models.CharField(max_length=255,blank=True,null=True)
-    termal_bridge1 = models.CharField(max_length=255,blank=True,null=True)
-    sap_code2 = models.CharField(max_length=255,blank=True,null=True)
-    termal_bridge2 = models.CharField(max_length=255,blank=True,null=True)
-    sap_code3 = models.CharField(max_length=255,blank=True,null=True)
-    termal_bridge3 = models.CharField(max_length=255,blank=True,null=True)
-    sap_code4 = models.CharField(max_length=255,blank=True,null=True)
-    termal_bridge4 = models.CharField(max_length=255,blank=True,null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     
 class Accessuar(models.Model):
     sap_code = models.CharField(max_length=255,blank=True,null=True)
@@ -289,18 +268,8 @@ class Accessuar(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-class NakleykaIskyuchenie(models.Model):
-    sap_code = models.CharField(max_length=255,blank=True,null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
 
 class ZakalkaIskyuchenie(models.Model):
-    sap_code = models.CharField(max_length=255,blank=True,null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-class ZakalkaIskyuchenie6064(models.Model):
     sap_code = models.CharField(max_length=255,blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

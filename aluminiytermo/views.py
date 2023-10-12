@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import pandas as pd
 from .models import AluFileTermo,AluminiyProductTermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour,CharacteristicTitle,BazaProfiley,Characteristika,CharacteristikaFile
-from norma.models import NakleykaIskyuchenie,Norma,NormaExcelFiles
+from norma.models import Norma,NormaExcelFiles
 from aluminiy.models import AluminiyProduct,RazlovkaTermo,LengthOfProfile,ExchangeValues,Price
 from .forms import FileFormTermo,FileFormChar
 from aluminiy.utils import save_razlovka
@@ -1252,7 +1252,6 @@ def product_add_second(request,id):
       hour =now.strftime("%H HOUR")
       minut =now.strftime("%M")
       
-      # nakleyka_iskyucheniye =NakleykaIskyuchenie.objects.all().values_list('sap_code',flat=True)
       nak_norma1 = Norma.objects.filter(наклейка_исключение ='1',артикул='0').values_list('компонент_1',flat=True)
       nak_norma2 = Norma.objects.filter(Q(наклейка_исключение ='1') & ~Q(артикул='0')).values_list('артикул',flat=True)
       nakleyka_iskyucheniye = list(nak_norma1) + list(nak_norma2)
@@ -3325,7 +3324,6 @@ def product_add_second_org(request,id):
       hour =now.strftime("%H HOUR")
       minut =now.strftime("%M")
       
-      # nakleyka_iskyucheniye =NakleykaIskyuchenie.objects.all().values_list('sap_code',flat=True)
       nak_norma1 = Norma.objects.filter(наклейка_исключение ='1',артикул='0').values_list('компонент_1',flat=True)
       nak_norma2 = Norma.objects.filter(Q(наклейка_исключение ='1') & ~Q(артикул='0')).values_list('артикул',flat=True)
       nakleyka_iskyucheniye = list(nak_norma1) + list(nak_norma2)
