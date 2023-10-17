@@ -3,8 +3,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import user_passes_test,login_required
 from datetime import datetime
 from config.settings import MEDIA_ROOT
-from .forms import FileFormPVC
-from .models import PVCProduct,PVCFile,ArtikulKomponentPVC
+from .forms import FileFormPVC,FileFormCharPVC
+from .models import PVCProduct,PVCFile,ArtikulKomponentPVC,CameraPvc,AbreviaturaLamination,LengthOfProfilePVC,Characteristika,Price,CharacteristikaFilePVC
 from order.models import OrderPVX
 from accounts.models import User
 import pandas as pd
@@ -14,7 +14,93 @@ import random
 from aluminiy.models import ExchangeValues
 from .utils import create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create
 
-# Create your views here.
+def update_char_title_pvc(request,id):
+    file = CharacteristikaFilePVC.objects.get(id=id).file
+    df = pd.read_excel(f'{MEDIA_ROOT}/{file}','title')
+    df =df.astype(str)
+
+    order_id = request.GET.get('order_id',None)
+    if order_id:
+        order = OrderPVX.objects.get(id = order_id)
+
+    pathzip = characteristika_created_txt_create(df,order_id)
+    fileszip = [File(file=path,filetype='BENKAM') for path in pathzip]
+    if order_id:
+        paths = order.paths
+        zip_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        paths['status_zip'] ='done'
+        paths['zip_created_at'] = zip_created_at
+        paths['pvc_razlovka_file'][0] = pathzip[0]
+        
+
+        order.paths=paths
+        order.work_type = 6
+        order.save()
+        context ={
+                'order':order
+        }
+
+        for key,val in paths.items():
+                context[key] = val
+        return render(request,'order/order_detail_pvc.html',context)
+
+    context = {
+        'files':fileszip,
+        'section':'Формированные файлы'
+        }
+
+    return render(request,'universal/generated_files.html',context)
+      
+
+
+def upload_product_char_pvc(request):
+      if request.method == 'POST':
+            form = FileFormCharPVC(request.POST, request.FILES)
+            if form.is_valid():
+                text = form.save()
+                order_id = request.POST.get('order_id',None)
+                if order_id:
+                    order = OrderPVX.objects.get(id = order_id)
+                    order.work_type = 4
+                    worker = request.POST.get('worker',None)
+                    if worker:
+                            order.current_worker.id = worker
+                    else:
+                            order.current_worker = request.user
+                    paths = order.paths
+                    paths['characteristika_file'] =str(text.file)
+                    paths['status_text_l']='done'
+                    order.paths = paths
+                    order.save()
+                    
+
+                    context ={
+                            'order':order,
+                            'section':'Формированный обычный файлы',
+                            'type_work':'Характеристика',
+                            'link':'/pvc/update-char-title-org/' + str(text.id) +'?order_id=' + str(order.id)
+                    }
+                    for key,val in paths.items():
+                            context[key] = val
+                    return render(request,'order/order_detail_pvc.html',context)
+
+                return redirect('aluminiy_files_char_org')
+            else:
+                  form =FileFormCharPVC()
+                  context ={
+                  'form':form
+                  }
+      form =FileFormCharPVC()
+      context ={
+      'form':form,
+      'section':'Формирование характеристики',
+      'link':'/termo/downloading-characteristika/'
+      }
+      return render(request,'universal/main.html',context)
+
+
+
+
 @login_required(login_url='/accounts/login/')
 def upload_product_org(request):
       if request.method == 'POST':
@@ -70,6 +156,7 @@ class File:
 @login_required(login_url='/accounts/login/')    
 def product_add_second_org(request,id):
     file = PVCFile.objects.get(id=id).file
+
     df = pd.read_excel(f'{MEDIA_ROOT}/{file}',header=4)
     df =df.astype(str)
     
@@ -221,7 +308,7 @@ def product_add_second_org(request,id):
                         umumiy_counter[df['Артикул'][key]+'-7'] += 1
                         max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
                         materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
-                        PVCProduct(artikul = df['Артикул'][key],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kratkiy_tekst_materiala=row['Краткий текст'],material=materiale).save()
+                        PVCProduct(artikul = df['Артикул'][key],section ='7',counter=max_values7,gruppa_materialov='PVCGP',kratkiy_tekst_materiala=row['Краткий текст'],material=materiale).save()
                         df_new['SAP код 7'][key] = materiale
                         
                         artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
@@ -234,7 +321,10 @@ def product_add_second_org(request,id):
                                 q_bic = row['Цвет лам пленки внутри']
                             else:
                                 q_bic = row['Цвет лам пленки снаружи']
-                                 
+                        
+                        surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
+                        amount_in_a_package = CameraPvc.objects.filter(sap_code=df['Артикул'][key])[:1].get().coun_of_lam
+
                         cache_for_cratkiy_text.append({
                                             'kratkiy':row['Краткий текст'],
                                             'sap_code':  materiale,
@@ -253,11 +343,11 @@ def product_add_second_org(request,id):
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
                                             'category' : artikulcomponent.category,
-                                            'material_class' : '',#artikulcomponent.material_class,
-                                            'rawmat_type' : '',#artikulcomponent.rawmat_type,
+                                            'material_class' : 'Готовая продукция',
+                                            'rawmat_type' : 'ГП',
                                             'tnved' : artikulcomponent.tnved,
-                                            'surface_treatment_export' : '',#artikulcomponent.surface_treatment_export,
-                                            'amount_in_a_package' :'',# artikulcomponent.amount_in_a_package,
+                                            'surface_treatment_export' : surface_treatment_export,
+                                            'amount_in_a_package' :amount_in_a_package,
                                             'wms_width' : artikulcomponent.wms_width,
                                             'wms_height' : artikulcomponent.wms_height,
                                             'product_type' : artikulcomponent.product_type,
@@ -266,19 +356,19 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
 
-                                            'id_savdo' : 1,#row[''],
-                                            'klaes' : 1,#row[''],
+                                            # 'id_savdo' : 1,#row[''],
+                                            # 'klaes' : 1,#row[''],
                                             
-                                            'ch_profile_type' : 1,#row[''],
-                                            'kls_wast_length' : 1,#row[''],
-                                            'kls_wast' : 1,#row[''],
-                                            'ch_klaes_optm' : 1,#row[''],
-                                            'goods_group' : 1,#row['']
+                                            # 'ch_profile_type' : 1,#row[''],
+                                            # 'kls_wast_length' : 1,#row[''],
+                                            # 'kls_wast' : 1,#row[''],
+                                            # 'ch_klaes_optm' : 1,#row[''],
+                                            # 'goods_group' : 1,#row['']
                                         })
                 
                 else:
                         materiale = df['Артикул'][key]+"-7{:03d}".format(1)
-                        PVCProduct(artikul = df['Артикул'][key],section ='7',counter=1,gruppa_materialov='ALUGP',kratkiy_tekst_materiala=row['Краткий текст'],material=materiale).save()
+                        PVCProduct(artikul = df['Артикул'][key],section ='7',counter=1,gruppa_materialov='PVCGP',kratkiy_tekst_materiala=row['Краткий текст'],material=materiale).save()
                         df_new['SAP код 7'][key] = materiale
                         umumiy_counter[df['Артикул'][key]+'-7'] = 1
                         
@@ -294,7 +384,10 @@ def product_add_second_org(request,id):
                                 q_bic = row['Цвет лам пленки внутри']
                             else:
                                 q_bic = row['Цвет лам пленки снаружи']
-
+                        
+                        surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
+                        amount_in_a_package = CameraPvc.objects.filter(sap_code =df['Артикул'][key])[:1].get().coun_of_lam
+                              
                         cache_for_cratkiy_text.append(
                                         {
                                             'sap_code':  materiale,
@@ -314,11 +407,11 @@ def product_add_second_org(request,id):
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
                                             'category' : artikulcomponent.category,
-                                            'material_class' : '',#artikulcomponent.material_class,
-                                            'rawmat_type' : '',#artikulcomponent.rawmat_type,
+                                            'material_class' : 'Готовая продукция',
+                                            'rawmat_type' : 'ГП',
                                             'tnved' : artikulcomponent.tnved,
-                                            'surface_treatment_export' :'',# artikulcomponent.surface_treatment_export,
-                                            'amount_in_a_package' : '',#artikulcomponent.amount_in_a_package,
+                                            'surface_treatment_export' :surface_treatment_export,
+                                            'amount_in_a_package' : amount_in_a_package,
                                             'wms_width' : artikulcomponent.wms_width,
                                             'wms_height' : artikulcomponent.wms_height,
                                             'product_type' : artikulcomponent.product_type,
@@ -327,14 +420,14 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
 
-                                            'id_savdo' : 1,#row[''],
-                                            'klaes' : 1,#row[''],
+                                            # 'id_savdo' : 1,#row[''],
+                                            # 'klaes' : 1,#row[''],
                                             
-                                            'ch_profile_type' : 1,#row[''],
-                                            'kls_wast_length' : 1,#row[''],
-                                            'kls_wast' : 1,#row[''],
-                                            'ch_klaes_optm' : 1,#row[''],
-                                            'goods_group' : 1,#row['']
+                                            # 'ch_profile_type' : 1,#row[''],
+                                            # 'kls_wast_length' : 1,#row[''],
+                                            # 'kls_wast' : 1,#row[''],
+                                            # 'ch_klaes_optm' : 1,#row[''],
+                                            # 'goods_group' : 1,#row['']
                                         }
                                     )
                 
@@ -347,7 +440,7 @@ def product_add_second_org(request,id):
                         umumiy_counter[df['Артикул'][key]+'-7'] += 1
                         max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
                         materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
-                        PVCProduct(artikul = df['Артикул'][key],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kratkiy_tekst_materiala=row['Краткий текст'],material=materiale).save()
+                        PVCProduct(artikul = df['Артикул'][key],section ='7',counter=max_values7,gruppa_materialov='PVCGP',kratkiy_tekst_materiala=row['Краткий текст'],material=materiale).save()
                         df_new['SAP код 7'][key] = materiale
                         
                         q_bic = ''
@@ -360,7 +453,10 @@ def product_add_second_org(request,id):
                                 q_bic = row['Цвет лам пленки внутри']
                             else:
                                 q_bic = row['Цвет лам пленки снаружи']
-                                 
+
+                        surface_treatment_export =row['Код цвета основы/Замес']
+                        amount_in_a_package = CameraPvc.objects.filter(sap_code =df['Артикул'][key])[:1].get().coun_of_pvc  
+
                         cache_for_cratkiy_text.append({
                                             'kratkiy':row['Краткий текст'],
                                             'sap_code':  materiale,
@@ -379,11 +475,11 @@ def product_add_second_org(request,id):
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
                                             'category' : artikulcomponent.category,
-                                            'material_class' :'',# artikulcomponent.material_class,
-                                            'rawmat_type' : '',#artikulcomponent.rawmat_type,
+                                            'material_class' :'Готовая продукция',
+                                            'rawmat_type' : 'ГП',
                                             'tnved' : artikulcomponent.tnved,
-                                            'surface_treatment_export' : '',#artikulcomponent.surface_treatment_export,
-                                            'amount_in_a_package' : '',#artikulcomponent.amount_in_a_package,
+                                            'surface_treatment_export' : surface_treatment_export,
+                                            'amount_in_a_package' : amount_in_a_package,
                                             'wms_width' : artikulcomponent.wms_width,
                                             'wms_height' : artikulcomponent.wms_height,
                                             'product_type' : artikulcomponent.product_type,
@@ -392,14 +488,14 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
 
-                                            'id_savdo' : 1,#row[''],
-                                            'klaes' : 1,#row[''],
+                                            # 'id_savdo' : 1,#row[''],
+                                            # 'klaes' : 1,#row[''],
                                             
-                                            'ch_profile_type' : 1,#row[''],
-                                            'kls_wast_length' : 1,#row[''],
-                                            'kls_wast' : 1,#row[''],
-                                            'ch_klaes_optm' : 1,#row[''],
-                                            'goods_group' : 1,#row['']
+                                            # 'ch_profile_type' : 1,#row[''],
+                                            # 'kls_wast_length' : 1,#row[''],
+                                            # 'kls_wast' : 1,#row[''],
+                                            # 'ch_klaes_optm' : 1,#row[''],
+                                            # 'goods_group' : 1,#row['']
                                         })
                         
 
@@ -418,7 +514,7 @@ def product_add_second_org(request,id):
                             umumiy_counter[component+'-L'] += 1
                             max_valuesL = umumiy_counter[ component +'-L']
                             materiale = component+"-L{:03d}".format(max_valuesL)
-                            PVCProduct(artikul =component,section ='L',counter=max_valuesL,gruppa_materialov='ALUPF',kratkiy_tekst_materiala=df_new['Ламинация'][key],material=materiale).save()
+                            PVCProduct(artikul =component,section ='L',counter=max_valuesL,gruppa_materialov='PVCPF',kratkiy_tekst_materiala=df_new['Ламинация'][key],material=materiale).save()
                             df_new['SAP код L'][key]=materiale
                             
                             component2 = materiale.split('-')[0]
@@ -451,11 +547,11 @@ def product_add_second_org(request,id):
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
                                             'category' : artikulcomponent.category,
-                                            'material_class' : '',#artikulcomponent.material_class,
-                                            'rawmat_type' : '',#artikulcomponent.rawmat_type,
+                                            'material_class' : 'Полуфабрикат',
+                                            'rawmat_type' : 'ПФ',
                                             'tnved' : artikulcomponent.tnved,
-                                            'surface_treatment_export' :'',# artikulcomponent.surface_treatment_export,
-                                            'amount_in_a_package' : '',#artikulcomponent.amount_in_a_package,
+                                            'surface_treatment_export' :'',
+                                            'amount_in_a_package' : '',
                                             'wms_width' : artikulcomponent.wms_width,
                                             'wms_height' : artikulcomponent.wms_height,
                                             'product_type' : artikulcomponent.product_type,
@@ -464,20 +560,20 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
 
-                                            'id_savdo' : 1,#row[''],
-                                            'klaes' : 1,#row[''],
+                                            # 'id_savdo' : 1,#row[''],
+                                            # 'klaes' : 1,#row[''],
                                             
-                                            'ch_profile_type' : 1,#row[''],
-                                            'kls_wast_length' : 1,#row[''],
-                                            'kls_wast' : 1,#row[''],
-                                            'ch_klaes_optm' : 1,#row[''],
-                                            'goods_group' : 1,#row['']
+                                            # 'ch_profile_type' : 1,#row[''],
+                                            # 'kls_wast_length' : 1,#row[''],
+                                            # 'kls_wast' : 1,#row[''],
+                                            # 'ch_klaes_optm' : 1,#row[''],
+                                            # 'goods_group' : 1,#row['']
                                             }
                                         )
                     
                     else:
                             materiale = df['Артикул'][key]+"-L{:03d}".format(1)
-                            PVCProduct(artikul =df['Артикул'][key],section ='L',counter=1,gruppa_materialov='ALUPF',kratkiy_tekst_materiala=df_new['Ламинация'][key],material=materiale).save()
+                            PVCProduct(artikul =df['Артикул'][key],section ='L',counter=1,gruppa_materialov='PVCPF',kratkiy_tekst_materiala=df_new['Ламинация'][key],material=materiale).save()
                             df_new['SAP код L'][key]=materiale
                             umumiy_counter[df['Артикул'][key]+'-L'] = 1
                             
@@ -511,11 +607,11 @@ def product_add_second_org(request,id):
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
                                             'category' : artikulcomponent.category,
-                                            'material_class' : '',#artikulcomponent.material_class,
-                                            'rawmat_type' : '',#artikulcomponent.rawmat_type,
-                                            'tnved' : '',#artikulcomponent.tnved,
-                                            'surface_treatment_export' : '',#artikulcomponent.surface_treatment_export,
-                                            'amount_in_a_package' :'',# artikulcomponent.amount_in_a_package,
+                                            'material_class' : 'Полуфабрикат',
+                                            'rawmat_type' : 'ПФ',
+                                            'tnved' : '',
+                                            'surface_treatment_export' : '',
+                                            'amount_in_a_package' :'',
                                             'wms_width' : artikulcomponent.wms_width,
                                             'wms_height' : artikulcomponent.wms_height,
                                             'product_type' : artikulcomponent.product_type,
@@ -524,14 +620,14 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
 
-                                            'id_savdo' : 1,#row[''],
-                                            'klaes' : 1,#row[''],
+                                            # 'id_savdo' : 1,#row[''],
+                                            # 'klaes' : 1,#row[''],
                                             
-                                            'ch_profile_type' : 1,#row[''],
-                                            'kls_wast_length' : 1,#row[''],
-                                            'kls_wast' : 1,#row[''],
-                                            'ch_klaes_optm' : 1,#row[''],
-                                            'goods_group' : 1,#row['']
+                                            # 'ch_profile_type' : 1,#row[''],
+                                            # 'kls_wast_length' : 1,#row[''],
+                                            # 'kls_wast' : 1,#row[''],
+                                            # 'ch_klaes_optm' : 1,#row[''],
+                                            # 'goods_group' : 1,#row['']
                                             }
                                         )
         
@@ -550,14 +646,12 @@ def product_add_second_org(request,id):
             duplicat_list.append([df_new['SAP код E'][key],df_new['Экструзия холодная резка'][key],'E'])
             df_new['SAP код E'][key] = sap_code_e
 
-            # if row['тип закаленности']=='T4':
-            #     exturision_list.append(sap_code_e)
         else:
                 if PVCProduct.objects.filter(artikul =component,section ='E').exists():
                     umumiy_counter[component+'-E'] += 1
                     max_valuesE = umumiy_counter[component+'-E']
                     materiale = component+"-E{:03d}".format(max_valuesE)
-                    PVCProduct(artikul =component,section ='E',counter=max_valuesE,gruppa_materialov='ALUPF',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key],material=materiale).save()
+                    PVCProduct(artikul =component,section ='E',counter=max_valuesE,gruppa_materialov='PVCPF',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key],material=materiale).save()
                     df_new['SAP код E'][key]=materiale
                     
                     artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
@@ -589,11 +683,11 @@ def product_add_second_org(request,id):
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
                                             'category' : artikulcomponent.category,
-                                            'material_class' : '',#artikulcomponent.material_class,
-                                            'rawmat_type' : '',#artikulcomponent.rawmat_type,
-                                            'tnved' : artikulcomponent.tnved,
-                                            'surface_treatment_export' : '',#artikulcomponent.surface_treatment_export,
-                                            'amount_in_a_package' : '',#artikulcomponent.amount_in_a_package,
+                                            'material_class' : 'Полуфабрикат',
+                                            'rawmat_type' : 'ПФ',
+                                            'tnved' : '',
+                                            'surface_treatment_export' : '',
+                                            'amount_in_a_package' : '',
                                             'wms_width' : artikulcomponent.wms_width,
                                             'wms_height' : artikulcomponent.wms_height,
                                             'product_type' : artikulcomponent.product_type,
@@ -602,20 +696,20 @@ def product_add_second_org(request,id):
                                             'export_description':'',
                                             'coating_qbic' : q_bic,
 
-                                            'id_savdo' : 1,#row[''],
-                                            'klaes' : 1,#row[''],
+                                            # 'id_savdo' : 1,#row[''],
+                                            # 'klaes' : 1,#row[''],
                                             
-                                            'ch_profile_type' : 1,#row[''],
-                                            'kls_wast_length' : 1,#row[''],
-                                            'kls_wast' : 1,#row[''],
-                                            'ch_klaes_optm' : 1,#row[''],
-                                            'goods_group' : 1,#row['']
+                                            # 'ch_profile_type' : 1,#row[''],
+                                            # 'kls_wast_length' : 1,#row[''],
+                                            # 'kls_wast' : 1,#row[''],
+                                            # 'ch_klaes_optm' : 1,#row[''],
+                                            # 'goods_group' : 1,#row['']
                                         }
                                 )
                             
                 else: 
                     materiale = component+"-E{:03d}".format(1)
-                    PVCProduct(artikul =component,section ='E',counter=1,gruppa_materialov='ALUPF',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key],material=materiale).save()
+                    PVCProduct(artikul =component,section ='E',counter=1,gruppa_materialov='PVCPF',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key],material=materiale).save()
                     df_new['SAP код E'][key]=materiale
                     umumiy_counter[component+'-E'] = 1
                     
@@ -651,11 +745,11 @@ def product_add_second_org(request,id):
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
                                             'category' : artikulcomponent.category,
-                                            'material_class' : artikulcomponent.material_class,
-                                            'rawmat_type' : artikulcomponent.rawmat_type,
-                                            'tnved' : artikulcomponent.tnved,
-                                            'surface_treatment_export' : artikulcomponent.surface_treatment_export,
-                                            'amount_in_a_package' : artikulcomponent.amount_in_a_package,
+                                            'material_class' : 'Полуфабрикат',
+                                            'rawmat_type' : 'ПФ',
+                                            'tnved' : '',
+                                            'surface_treatment_export' : '',
+                                            'amount_in_a_package' : '',
                                             'wms_width' : artikulcomponent.wms_width,
                                             'wms_height' : artikulcomponent.wms_height,
                                             'product_type' : artikulcomponent.product_type,
@@ -664,14 +758,14 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
 
-                                            'id_savdo' : 1,#row[''],
-                                            'klaes' : 1,#row[''],
+                                            # 'id_savdo' : 1,#row[''],
+                                            # 'klaes' : 1,#row[''],
                                             
-                                            'ch_profile_type' : 1,#row[''],
-                                            'kls_wast_length' : 1,#row[''],
-                                            'kls_wast' : 1,#row[''],
-                                            'ch_klaes_optm' : 1,#row[''],
-                                            'goods_group' : 1,#row['']
+                                            # 'ch_profile_type' : 1,#row[''],
+                                            # 'kls_wast_length' : 1,#row[''],
+                                            # 'kls_wast' : 1,#row[''],
+                                            # 'ch_klaes_optm' : 1,#row[''],
+                                            # 'goods_group' : 1,#row['']
                                         }
                                 )
                     
@@ -679,10 +773,10 @@ def product_add_second_org(request,id):
                     
         
       
-    parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy\\'
+    parent_dir ='{MEDIA_ROOT}\\uploads\\pvc\\'
     
     if not os.path.isdir(parent_dir):
-        create_folder(f'{MEDIA_ROOT}\\uploads\\','aluminiy')
+        create_folder(f'{MEDIA_ROOT}\\uploads\\','pvc')
         
     create_folder(f'{MEDIA_ROOT}\\uploads\\pvc\\',f'{year}')
     create_folder(f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\',f'{month}')
@@ -696,12 +790,12 @@ def product_add_second_org(request,id):
       
             
     if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\pvc-{minut}.xlsx'):
-        path_alu =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\pvc-{minut}.xlsx'
-        path_ramka_norma =f'uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}.xlsx'
+        path_alu =  f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\pvc-{minut}.xlsx'
+        path_ramka_norma =  f'uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}.xlsx'
     else:
         st =random.randint(0,1000)
-        path_alu =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\pvc-{minut}-{st}.xlsx'
-        path_ramka_norma =f'uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}-{st}.xlsx'
+        path_alu =  f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\pvc-{minut}-{st}.xlsx'
+        path_ramka_norma =  f'uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}-{st}.xlsx'
       
 
 
@@ -756,57 +850,50 @@ def product_add_second_org(request,id):
     #                           kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
     #                     ).save()
     
-    #   for key,razlov in df_char.iterrows():
-    #         if not Characteristika.objects.filter(sap_code=razlov['SAP CODE'],kratkiy_text=razlov['KRATKIY TEXT']).exists():
-    #               Characteristika(
-    #                     sap_code =razlov['SAP CODE'],
-    #                     kratkiy_text =razlov['KRATKIY TEXT'],
-    #                     section =razlov['SECTION'],
-    #                     savdo_id =razlov['SAVDO_ID'],
-    #                     savdo_name =razlov['SAVDO_NAME'],
-    #                     export_customer_id =razlov['EXPORT_CUSTOMER_ID'],
-    #                     system =razlov['SYSTEM'],
-    #                     article =razlov['ARTICLE'],
-    #                     length =razlov['LENGTH'],
-    #                     surface_treatment =razlov['SURFACE_TREATMENT'],
-    #                     alloy =razlov['ALLOY'],
-    #                     temper =razlov['TEMPER'],
-    #                     combination =razlov['COMBINATION'],
-    #                     outer_side_pc_id =razlov['OUTER_SIDE_PC_ID'],
-    #                     outer_side_pc_brand =razlov['OUTER_SIDE_PC_BRAND'],
-    #                     inner_side_pc_id =razlov['INNER_SIDE_PC_ID'],
-    #                     inner_side_pc_brand =razlov['INNER_SIDE_PC_BRAND'],
-    #                     outer_side_wg_s_id =razlov['OUTER_SIDE_WG_S_ID'],
-    #                     inner_side_wg_s_id =razlov['INNER_SIDE_WG_S_ID'],
-    #                     outer_side_wg_id =razlov['OUTER_SIDE_WG_ID'],
-    #                     inner_side_wg_id =razlov['INNER_SIDE_WG_ID'],
-    #                     anodization_contact =razlov['ANODIZATION_CONTACT'],
-    #                     anodization_type =razlov['ANODIZATION_TYPE'],
-    #                     anodization_method =razlov['ANODIZATION_METHOD'],
-    #                     print_view =razlov['PRINT_VIEW'],
-    #                     profile_base =razlov['PROFILE_BASE'],
-    #                     width =razlov['WIDTH'],
-    #                     height =razlov['HEIGHT'],
-    #                     category =razlov['CATEGORY'],
-    #                     rawmat_type =razlov['RAWMAT_TYPE'],
-    #                     benkam_id =razlov['BENKAM_ID'],
-    #                     hollow_and_solid =razlov['HOLLOW AND SOLID'],
-    #                     export_description =razlov['EXPORT_DESCRIPTION'],
-    #                     export_description_eng =razlov['EXPORT_DESCRIPTION ENG'],
-    #                     tnved =razlov['TNVED'],
-    #                     surface_treatment_export =razlov['SURFACE_TREATMENT_EXPORT'],
-    #                     wms_width =razlov['WMS_WIDTH'],
-    #                     wms_height =razlov['WMS_HEIGHT'],
-    #                     group_prise =''					
-    #               ).save()
+    for key,razlov in df_char.iterrows():
+        if not Characteristika.objects.filter(sap_code=razlov['SAP CODE'],kratkiy=razlov['KRATKIY TEXT']).exists():
+                Characteristika(
+                    sap_code = razlov['SAP CODE'],
+                    kratkiy=razlov['KRATKIY TEXT'], 
+                    system = razlov['SYSTEM'], 
+                    number_of_chambers = razlov['NUMBER_OF_CHAMBERS'], 
+                    article = razlov['ARTICLE'], 
+                    profile_type_id = razlov['PROFILE_TYPE_ID'], 
+                    length = razlov['LENGTH'], 
+                    surface_treatment = razlov['SURFACE_TREATMENT'], 
+                    outer_side_pc_id = razlov['OUTER_SIDE_PC_ID'], 
+                    outer_side_wg_id = razlov['OUTER_SIDE_WG_ID'], 
+                    inner_side_wg_id = razlov['INNER_SIDE_WG_ID'], 
+                    sealer_color = razlov['SEALER_COLOR'], 
+                    print_view = razlov['PRINT_VIEW'], 
+                    width = razlov['WIDTH'], 
+                    height = razlov['HEIGHT'], 
+                    category = razlov['CATEGORY'], 
+                    material_class = razlov['MATERIAL_CLASS'], 
+                    rawmat_type = razlov['RAWMAT_TYPE'], 
+                    tnved = razlov['TNVED'], 
+                    surface_treatment_export = razlov['SURFACE_TREATMENT_EXPORT'], 
+                    amount_in_a_package = razlov['AMOUNT_IN_A_PACKAGE'], 
+                    wms_width = razlov['WMS_WIDTH'], 
+                    wms_height = razlov['WMS_HEIGHT'], 
+                    product_type = razlov['PRODUCT_TYPE'], 
+                    profile_type = razlov['PROFILE_TYPE'], 
+                    coating_qbic = razlov['COATING_QBIC']		
+                ).save()
+
+        
+        
     
     exchange_value = ExchangeValues.objects.get(id=1)
     price_all_correct = True
       
     for key, row in df_char_title.iterrows():
-        if ArtikulKomponentPVC.objects.filter(artikul = row['article']).exists():
-            pass
-            # artikul_komponent_pvc = ArtikulKomponentPVC.objects.filter(artikul=df['Артикул'][key])[:1].get()
+        if LengthOfProfilePVC.objects.filter(artikul = row['article'],length=row['Длина']).exists():
+            length_of_profile = LengthOfProfilePVC.objects.filter(artikul = row['article'],length=row['Длина'])[:1].get()
+            df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
+            df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
+            price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],zames=row['Код цвета основы/Замес'])[:1].get()
+            df_char_title['Price'][key] = float(price.price.replace(',','.')) * float(str(df_char_title['Общий вес за штуку'][key]).replace(',','.'))  * float(exchange_value.valute.replace(',','.'))
         else:
             price_all_correct = False
 

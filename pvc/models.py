@@ -22,6 +22,7 @@ class PVCFile(models.Model):
 
 class Characteristika(models.Model):
   sap_code =models.CharField(max_length=255,blank=True,null=True)
+  kratkiy =models.CharField(max_length=255,blank=True,null=True)
   system = models.CharField(max_length=255,blank=True,null=True)
   number_of_chambers = models.CharField(max_length=255,blank=True,null=True)
   article = models.CharField(max_length=255,blank=True,null=True)
@@ -72,3 +73,37 @@ class ArtikulKomponentPVC(models.Model):
   updated_at =models.DateTimeField(auto_now=True)
 
 
+class CameraPvc(models.Model):
+  sap_code = models.CharField(max_length = 50,blank=True,null=True)
+  coun_of_lam = models.CharField(max_length = 50,blank=True,null=True)
+  coun_of_pvc = models.CharField(max_length = 50,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
+
+class AbreviaturaLamination(models.Model):
+  abreviatura = models.CharField(max_length = 50,blank=True,null=True)
+  pokritiya = models.CharField(max_length = 50,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
+
+class LengthOfProfilePVC(models.Model):
+  artikul = models.CharField(max_length=100)
+  length = models.CharField(max_length=150)
+  ves_za_shtuk = models.CharField(max_length=150)
+  ves_za_metr = models.CharField(max_length=150)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
+
+class Price(models.Model):
+  tip_pokritiya = models.CharField(max_length=150)
+  price = models.CharField(max_length=150)
+  zames =  models.CharField(max_length=150,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
+
+class CharacteristikaFilePVC(models.Model):
+    file =models.FileField(upload_to='uploads/pvc/downloads/',max_length=500)
+    generated =models.BooleanField(default=False)
+    file_type =models.CharField(max_length=255,blank=True,null=True)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)

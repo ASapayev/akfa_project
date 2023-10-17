@@ -19,5 +19,5 @@ class FileFormChar(forms.ModelForm):
           'class': 'form-control-file'
       })
   class Meta:
-    model =CharacteristikaFile
+    model = CharacteristikaFile
     fields =['file','file_type']

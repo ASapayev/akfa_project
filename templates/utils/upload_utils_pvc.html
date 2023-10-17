@@ -1,0 +1,58 @@
+<div class="page-header">
+<h3 class="page-title"> {{section}} </h3>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+    </ol>
+</nav>
+</div>
+<div class="row">
+<form class="forms-sample" action="{%url 'upload_char_pvc'%}" method="POST" enctype="multipart/form-data">
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+    <div class="card-body">
+        <h4 class="card-title">File upload</h4>
+        <p class="card-description"> Excel file yuklash uchun faqat. </p>
+        <div class="row">
+        <div class="col-md-6">
+        <input type="hidden" name="order_id" value="{{order.id}}">
+        <div class="form-group">
+            {% csrf_token%}
+            <label>File excel</label>
+            <!-- <input type="file" name="" class="file-upload-default"> -->
+            <div class="input-group">
+                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Excel File">
+                <span class="input-group-append">
+                <input class="file-upload-browse btn btn-primary" type="file" name="file"></input>
+                </span>
+            </div>
+
+        </div>
+            <!-- <h4 class="card-title">Исполнитель</h4> -->
+            <p class="card-description">  </p>
+            <!-- <form class="forms-sample" method="POST" enctype="multipart/form-data"> -->
+            <div class="row">
+                <div class="col-md-6"> 
+                {%if workers %}
+                <div class="form-group">
+                    <label>Исполнитель</label>
+                    <select class="form-select" aria-label="Default select example" name="worker">
+                    <option selected value="{{request.user.id}}">{{request.user}}</option>
+                    {%for worker in workers %}
+                    <option value="{{worker.id}}">{{worker}}</option>
+                    {% endfor %}
+                    </select>                   
+                </div>
+                {% endif %}
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                <button class="btn btn-dark">Cancel</button>
+                </div>
+            </div>
+    </div>
+    </div>
+
+    </div>
+</div>
+</form>
+</div>

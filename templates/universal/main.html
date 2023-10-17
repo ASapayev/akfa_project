@@ -16,6 +16,8 @@
             <li class="breadcrumb-item"><a href="/media/uploads/shablon/termo.xlsx"><i class="mdi mdi-folder-download mr-2" > СКАЧАТЬ ШАБЛОН</i></a></li>
             {%elif 'for-three-factory' in request.path %}
             <li class="breadcrumb-item"><a href="/media/uploads/shablon/1301.xlsx"><i class="mdi mdi-folder-download mr-2" > СКАЧАТЬ ШАБЛОН</i></a></li>
+            {%elif 'upload-razlovka' in request.path %}
+            <li class="breadcrumb-item"><a href="/media/uploads/shablon/Razlovka.xlsx"><i class="mdi mdi-folder-download mr-2" > СКАЧАТЬ ШАБЛОН</i></a></li>
             {%else%}
             <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
             {%endif%}
@@ -29,7 +31,11 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">File upload</h4>
+              {%if 'upload-razlovka' in request.path %}
+              <p class="card-description text-warning" > Iltimos fayldagi qatorlarni to'liq holda toldiring! </p>
+              {%else%}
               <p class="card-description"> Excel file yuklash uchun faqat. </p>
+              {%endif%}
               <div class="row">
                 <div class="col-md-6">
                 <div class="form-group">

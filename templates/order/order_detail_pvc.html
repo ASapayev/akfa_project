@@ -47,15 +47,15 @@
                 {%endif%}
                 {%if user_role == 'moderator' %}
 
-                  {%if order.alumin_wrongs %}
+                  {%if order.pvc_wrongs %}
                   <tr>
                     <td class="text-capitalize">
                       <div class="d-flex justify-content-start align-items-center">
                         <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
-                            class="text-muted small">{{order.alumin_wrongs.username}}</span></p>
+                            class="text-muted small">{{order.pvc_wrongs.username}}</span></p>
                           <span class="ms-3 me-4">|</span></p>
                         <a href="#!">
-                          <img src="{{order.alumin_wrongs.userprofile.profile_picture.url}}" alt="avatar"
+                          <img src="{{order.pvc_wrongs.userprofile.profile_picture.url}}" alt="avatar"
                             class="img-fluid rounded-circle me-1" width="35">
                         </a>
                         </div>
@@ -74,16 +74,16 @@
                   </tr>
                   {% endif %}
                   
-                  {%if order.aluminiy_worker and status_raz == 'done' %}
+                  {%if order.pvc_worker and status_raz == 'done' %}
                   <tr>
                     <td class="text-capitalize">
                       
                       <div class="d-flex justify-content-start align-items-center">
                         <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
-                            class="text-muted small">{{order.aluminiy_worker.username}}</span></p>
+                            class="text-muted small">{{order.pvc_worker.username}}</span></p>
                           <span class="ms-3 me-4">|</span></p>
                         <a href="#!">
-                          <img src="{{order.aluminiy_worker.userprofile.profile_picture.url}}" alt="avatar"
+                          <img src="{{order.pvc_worker.userprofile.profile_picture.url}}" alt="avatar"
                             class="img-fluid rounded-circle me-1" width="35">
                         </a>
                         </div>
@@ -97,15 +97,15 @@
                   </tr>
                   {%endif%}
                   
-                  {%if status_zip == 'done' and order.aluminiy_worker %}
+                  {%if status_zip == 'done' and order.pvc_worker %}
                   <tr>
                     <td class="text-capitalize">
                       <div class="d-flex justify-content-start align-items-center">
                         <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
-                            class="text-muted small">{{order.aluminiy_worker.username}}</span></p>
+                            class="text-muted small">{{order.pvc_worker.username}}</span></p>
                           <span class="ms-3 me-4">|</span></p>
                         <a href="#!">
-                          <img src="{{order.aluminiy_worker.userprofile.profile_picture.url}}" alt="avatar"
+                          <img src="{{order.pvc_worker.userprofile.profile_picture.url}}" alt="avatar"
                             class="img-fluid rounded-circle me-1" width="35">
                         </a>
                         </div>
@@ -125,10 +125,10 @@
 
                       <div class="d-flex justify-content-start align-items-center">
                         <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
-                            class="text-muted small">{{order.aluminiy_worker.username}}</span></p>
+                            class="text-muted small">{{order.pvc_worker.username}}</span></p>
                           <span class="ms-3 me-4">|</span></p>
                         <a href="#!">
-                          <img src="{{order.aluminiy_worker.userprofile.profile_picture.url}}" alt="avatar"
+                          <img src="{{order.pvc_worker.userprofile.profile_picture.url}}" alt="avatar"
                             class="img-fluid rounded-circle me-1" width="35">
                         </a>
                         </div>
@@ -419,7 +419,7 @@
       {%endif%}
 
         {%if order.work_type == 5 and order.current_worker == request.user %}
-          {%include 'utils/upload_utils.html' %}
+          {%include 'utils/upload_utils_pvc.html' %}
         {%endif%}
 
         {% if order.work_type == 4 and order.current_worker == request.user %}
@@ -514,127 +514,10 @@
       </div>
     {%endif%}
 
-    {%if order.work_type == 6 and status_norma == 'on process' %}
-    <div class="page-header">
-      <h3 class="page-title"> Генерация норма файла </h3>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Buttons</li>
-        </ol>
-      </nav>
-    </div>
-    <div class="col-lg-12 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Загруженные файлы</h4>
-
-          
-         
-          <div class="table-responsive">
-            <table class="table table-dark">
-              <thead>
-                <tr>
-                  <th> # </th>
-                  <th > Имя файла </th>
-                  <th > Дата </th>
-                  <th> Действие </th>
-                </tr>
-              </thead>
-              <tbody>
-                      <tr>
-                          <td> 1 </td>
-                          <td class="p-1"> {{norma_formula_file|split_text}} </td>
-                          <td>{%now "SHORT_DATETIME_FORMAT" %} </td>
-                          <td> <a href="{{norma_link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">Норма</span> алюминого файла</a> </td>
-                      </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
     
-    {%endif%}
 
-    {%if order.work_type == 7 and status_norma == 'on process' %}
-      <div class="page-header">
-        <h3 class="page-title"> Генерация норма {%if is_obichniy == 'yes' %}обычного{%else%}термо{%endif%} файла </h3>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
-          </ol>
-        </nav>
-      </div>
-      <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Загруженные файлы</h4>
-          
-            <div class="table-responsive">
-              <table class="table table-dark">
-                <thead>
-                  <tr>
-                    <th> # </th>
-                    <th > Имя файла </th>
-                    <th > Дата </th>
-                    <th> Действие </th>
-                  </tr>
-                </thead>
-                <tbody>
-                        <tr>
-                            <td> 1 </td>
-                            <td class="p-1"> {{norma_formula_file|split_text}} </td>
-                            <td>{%now "SHORT_DATETIME_FORMAT" %} </td>
-                            <td> <a href="{{norma_link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;"> норма </span> алюминого файла</a> </td>
-                        </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    {%endif%}
-    {%if order.work_type == 8 and status_texcarta == 'on process' %}
-      <div class="page-header">
-        <h3 class="page-title"> Генерация техкарта {%if is_obichniy == 'yes' %}обычного{%else%}термо{%endif%} файла </h3>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
-          </ol>
-        </nav>
-      </div>
-      <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Загруженные файлы</h4>
-          
-            <div class="table-responsive">
-              <table class="table table-dark">
-                <thead>
-                  <tr>
-                    <th> # </th>
-                    <th > Имя файла </th>
-                    <th > Дата </th>
-                    <th> Действие </th>
-                  </tr>
-                </thead>
-                <tbody>
-                        <tr>
-                            <td> 1 </td>
-                            <td class="p-1"> {{texcarta_file|split_text}} </td>
-                            <td>{%now "SHORT_DATETIME_FORMAT" %} </td>
-                            <td> <a href="{{tex_link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;"> техкарта </span> алюминого файла</a> </td>
-                        </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    {%endif%}
+    
+   
 
 </div>
 

@@ -152,7 +152,7 @@ def characteristika_created_txt_create(datas,order_id):
         umumiy_without_duplicate1203[19].append('EX')
         umumiy_without_duplicate1203[20].append('0')
         umumiy_without_duplicate1203[21].append('E')
-        ss ='D100'
+        ss =''
         sartrr =''
         if gruppa_material =='PVCGP':
             ss ='S400'
@@ -198,7 +198,7 @@ def characteristika_created_txt_create(datas,order_id):
         umumiy_without_duplicate1203[45].append('X')
         umumiy_without_duplicate1203[46].append(LGPRO1203[sap_code_simvol])
         umumiy_without_duplicate1203[47].append('X')
-        umumiy_without_duplicate1203[48].append(row['ch_combination'] + row['Тип покрытия'])
+        umumiy_without_duplicate1203[48].append(row['combination'] + row['Тип покрытия'])
             
         if gruppa_material=='PVCGP':
             #######12D1
@@ -603,10 +603,8 @@ def characteristika_created_txt_create(datas,order_id):
     d1['WERKS']=umumiy_without_duplicate1203[34] 
     d1['BESKZ']=umumiy_without_duplicate1203[7] 
     d1['SPART']=umumiy_without_duplicate1203[8]
-    # d1['BRGEW']=[str(round(float(k1.replace(',','.')),3)).replace('.',',') if isinstance(k1,str) else str(round(k1,3)).replace('.',',') for k1 in (umumiy_without_duplicate1203[9])]
-    # d1['NTGEW']=[str(round(float(k2.replace(',','.')),3)).replace('.',',') for k2 in (umumiy_without_duplicate1203[10])]
-    d1['BRGEW']=umumiy_without_duplicate1203[8]
-    d1['NTGEW']=umumiy_without_duplicate1203[8]
+    d1['BRGEW']=[str(round(float(k1.replace(',','.')),3)).replace('.',',') if isinstance(k1,str) else str(round(k1,3)).replace('.',',') for k1 in (umumiy_without_duplicate1203[9])]
+    d1['NTGEW']=[str(round(float(k2.replace(',','.')),3)).replace('.',',') for k2 in (umumiy_without_duplicate1203[10])]
     d1['GEWEI']=umumiy_without_duplicate1203[11]
     d1['MTPOS_MARA']=umumiy_without_duplicate1203[12]
     
@@ -661,8 +659,7 @@ def characteristika_created_txt_create(datas,order_id):
     d2['BKLAS']=umumiy_without_duplicate[36]
     d2['VPRSV']=umumiy_without_duplicate[37]
     d2['PEINH']=umumiy_without_duplicate[38]
-    # d2['STPRS']=[round(float(n.replace(',','.')),2) for n in (umumiy_without_duplicate[39] )]
-    d2['STPRS']=umumiy_without_duplicate[38]
+    d2['STPRS']=[round(float(n.replace(',','.')),2) for n in (umumiy_without_duplicate[39] )]
     d2['PRCTR']=umumiy_without_duplicate[40] 
     d2['EKALR']=umumiy_without_duplicate[41] 
     d2['HKMAT']=umumiy_without_duplicate[42] 
@@ -1232,13 +1229,13 @@ def create_characteristika_utils(items):
         df[41].append(item['product_type'])
         df[42].append(item['profile_type'])
         df[43].append(item['coating_qbic'])
-        df[44].append(item['id_savdo'])
-        df[45].append(item['klaes'])
-        df[46].append(item['ch_profile_type'])
-        df[47].append(item['kls_wast_length'])
-        df[48].append(item['kls_wast'])
-        df[49].append(item['ch_klaes_optm'])
-        df[50].append(item['goods_group'])
+        # df[44].append(item['id_savdo'])
+        df[45].append('')
+        # df[46].append(item['ch_profile_type'])
+        # df[47].append(item['kls_wast_length'])
+        # df[48].append(item['kls_wast'])
+        # df[49].append(item['ch_klaes_optm'])
+        # df[50].append(item['goods_group'])
         
         
 
@@ -1289,16 +1286,16 @@ def create_characteristika_utils(items):
         'product_type' :df[41],
         'profile_type' :df[42],
         'coating_qbic' :df[43],
-        'id_savdo' :df[44],
-        'klaes' :df[45],
-        'ch_profile_type' :df[46],
-        'kls_wast_length' :df[47],
-        'kls_wast' :df[48],
-        'ch_klaes_optm' :df[49],
-        'goods_group' :df[50],
+        # 'id_savdo' :df[44],
+        # 'klaes' :df[45],
+        # 'ch_profile_type' :df[46],
+        # 'kls_wast_length' :df[47],
+        # 'kls_wast' :df[48],
+        # 'ch_klaes_optm' :df[49],
+        # 'goods_group' :df[50],
         'export_description':df[45],
-        'ch_export_description_eng':df[45],
-        'ch_combination':df[45],
+        'export_description_eng':df[45],
+        'combination':df[45],
         
     }
     df_new = pd.DataFrame(dat)
@@ -1327,7 +1324,8 @@ def create_characteristika(items):
         j+=1
         
         character = Characteristika(
-            sap_code = item['sap_code'], 
+            sap_code = item['sap_code'],
+            kratkiy = item['kratkiy'],
             system = item['system'], 
             number_of_chambers = item['number_of_chambers'], 
             article = item['article'], 
@@ -1351,14 +1349,14 @@ def create_characteristika(items):
             wms_height = item['wms_height'], 
             product_type = item['product_type'], 
             profile_type = item['profile_type'], 
-            coating_qbic = item['coating_qbic'], 
-            id_savdo = item['id_savdo'], 
-            klaes = item['klaes'], 
-            ch_profile_type = item['ch_profile_type'], 
-            kls_wast_length = item['kls_wast_length'], 
-            kls_wast = item['kls_wast'], 
-            ch_klaes_optm = item['ch_klaes_optm'], 
-            goods_group = item['goods_group'] 
+            coating_qbic = item['coating_qbic'] 
+            # id_savdo = item['id_savdo'], 
+            # klaes = item['klaes'], 
+            # ch_profile_type = item['ch_profile_type'], 
+            # kls_wast_length = item['kls_wast_length'], 
+            # kls_wast = item['kls_wast'], 
+            # ch_klaes_optm = item['ch_klaes_optm'], 
+            # goods_group = item['goods_group'] 
             )
         
         character.save()
@@ -1388,13 +1386,13 @@ def create_characteristika(items):
         all_data[22].append(character.product_type)
         all_data[23].append(character.profile_type)
         all_data[24].append(character.coating_qbic)
-        all_data[25].append(character.id_savdo)
-        all_data[26].append(character.klaes)
-        all_data[27].append(character.ch_profile_type)
-        all_data[28].append(character.kls_wast_length)
-        all_data[29].append(character.kls_wast)
-        all_data[30].append(character.ch_klaes_optm)
-        all_data[31].append(character.goods_group)
+        all_data[25].append(character.kratkiy)
+        # all_data[26].append(character.klaes)
+        # all_data[27].append(character.ch_profile_type)
+        # all_data[28].append(character.kls_wast_length)
+        # all_data[29].append(character.kls_wast)
+        # all_data[30].append(character.ch_klaes_optm)
+        # all_data[31].append(character.goods_group)
         
         
 
@@ -1402,6 +1400,7 @@ def create_characteristika(items):
 
     df_new ={
         'SAP CODE':all_data[0],
+        'KRATKIY TEXT':all_data[25],
         'SYSTEM':all_data[1],
         'NUMBER_OF_CHAMBERS':all_data[2],
         'ARTICLE':all_data[3],
@@ -1425,14 +1424,14 @@ def create_characteristika(items):
         'WMS_HEIGHT':all_data[21],
         'PRODUCT_TYPE':all_data[22],
         'PROFILE_TYPE':all_data[23],
-        'COATING_QBIC':all_data[24],
-        'ID_SAVDO':all_data[25],
-        'KLAES':all_data[26],
-        'CH_PROFILE_TYPE':all_data[27],
-        'KLS_WAST_LENGTH':all_data[28],
-        'KLS_WAST':all_data[29],
-        'CH_KLAES_OPTM':all_data[30],
-        'GOODS_GROUP':all_data[31]
+        'COATING_QBIC':all_data[24]
+        # 'ID_SAVDO':all_data[25],
+        # 'KLAES':all_data[26],
+        # 'CH_PROFILE_TYPE':all_data[27],
+        # 'KLS_WAST_LENGTH':all_data[28],
+        # 'KLS_WAST':all_data[29],
+        # 'CH_KLAES_OPTM':all_data[30],
+        # 'GOODS_GROUP':all_data[31]
     }
     
     df_charakter = pd.DataFrame(df_new)
