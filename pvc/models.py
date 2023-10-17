@@ -102,8 +102,19 @@ class Price(models.Model):
   updated_at =models.DateTimeField(auto_now=True)
 
 class CharacteristikaFilePVC(models.Model):
-    file =models.FileField(upload_to='uploads/pvc/downloads/',max_length=500)
-    generated =models.BooleanField(default=False)
-    file_type =models.CharField(max_length=255,blank=True,null=True)
-    created_at =models.DateTimeField(auto_now_add=True)
-    updated_at =models.DateTimeField(auto_now=True)
+  file =models.FileField(upload_to='uploads/pvc/downloads/',max_length=500)
+  generated =models.BooleanField(default=False)
+  file_type =models.CharField(max_length=255,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
+
+
+class RazlovkaPVX(models.Model):
+  esapkode = models.CharField(max_length = 50,blank=True,null=True)
+  ekrat = models.CharField(max_length = 50,blank=True,null=True)
+  lsapkode = models.CharField(max_length = 50,blank=True,null=True)
+  lkrat = models.CharField(max_length = 50,blank=True,null=True)
+  sapkode7 = models.CharField(max_length = 50,blank=True,null=True)
+  krat7 = models.CharField(max_length = 50,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)

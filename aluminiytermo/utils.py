@@ -5889,6 +5889,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         if is_1112 =='on':
             header55 = 'MATNR\tWERKS\tRAUBE'
             df55= pd.DataFrame(datas_1112[8])
+            df55=df55.drop_duplicates()
             np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
     ########################## end 55.txt ##############################
         
@@ -6446,13 +6447,13 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                         new_ll_55[1].append(LGORT['7'][i]['zavod_code'])
                         new_ll_55[2].append(LGORT['7'][i]['zavod_sap'])
 
-        header55='MATNR\tWERKS\tLGORT\tRAUBE'
+        header55='MATNR\tWERKS\tRAUBE'
         d55={}
-        d55['MATNR']=new_ll_55[0] 
-        d55['WERKS']=new_ll_55[1] 
-        d55['LGORT']=new_ll_55[2] 
-        d55['RAUBE']=['' for x in new_ll_55[2]] 
+        d55['MATNR']=[] 
+        d55['WERKS']=[]
+        d55['RAUBE']=[] 
         df55= pd.DataFrame(d55)
+        df55=df55.drop_duplicates()
         np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
     ########################## end 55.txt ##############################
         

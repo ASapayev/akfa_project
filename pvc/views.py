@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from datetime import datetime
 from config.settings import MEDIA_ROOT
 from .forms import FileFormPVC,FileFormCharPVC
-from .models import PVCProduct,PVCFile,ArtikulKomponentPVC,CameraPvc,AbreviaturaLamination,LengthOfProfilePVC,Characteristika,Price,CharacteristikaFilePVC
+from .models import PVCProduct,PVCFile,ArtikulKomponentPVC,CameraPvc,AbreviaturaLamination,LengthOfProfilePVC,Characteristika,Price,CharacteristikaFilePVC,RazlovkaPVX
 from order.models import OrderPVX
 from accounts.models import User
 import pandas as pd
@@ -314,13 +314,11 @@ def product_add_second_org(request,id):
                         artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
                         
                         q_bic = ''
-                        if row['Тип покрытия'] =='Неламинированный':
-                            q_bic = row['Код цвета основы/Замес']
+                        
+                        if row['Цвет лам пленки снаружи'] =='XXXX':
+                            q_bic = row['Цвет лам пленки внутри']
                         else:
-                            if row['Цвет лам пленки снаружи'] =='XXXX':
-                                q_bic = row['Цвет лам пленки внутри']
-                            else:
-                                q_bic = row['Цвет лам пленки снаружи']
+                            q_bic = row['Цвет лам пленки снаружи']
                         
                         surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
                         amount_in_a_package = CameraPvc.objects.filter(sap_code=df['Артикул'][key])[:1].get().coun_of_lam
@@ -444,15 +442,8 @@ def product_add_second_org(request,id):
                         df_new['SAP код 7'][key] = materiale
                         
                         q_bic = ''
+                        q_bic = row['Код цвета основы/Замес']
                         artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
-                        
-                        if row['Тип покрытия'] =='Неламинированный':
-                            q_bic = row['Код цвета основы/Замес']
-                        else:
-                            if row['Цвет лам пленки снаружи'] =='XXXX':
-                                q_bic = row['Цвет лам пленки внутри']
-                            else:
-                                q_bic = row['Цвет лам пленки снаружи']
 
                         surface_treatment_export =row['Код цвета основы/Замес']
                         amount_in_a_package = CameraPvc.objects.filter(sap_code =df['Артикул'][key])[:1].get().coun_of_pvc  
@@ -498,7 +489,65 @@ def product_add_second_org(request,id):
                                             # 'goods_group' : 1,#row['']
                                         })
                         
+                else:
+                    materiale = df['Артикул'][key]+"-7{:03d}".format(1)
+                    PVCProduct(artikul = df['Артикул'][key],section ='7',counter=1,gruppa_materialov='PVCGP',kratkiy_tekst_materiala=row['Краткий текст'],material=materiale).save()
+                    df_new['SAP код 7'][key] = materiale
+                    umumiy_counter[df['Артикул'][key]+'-7'] = 1
+                    
+                    component2 = materiale.split('-')[0]
+                    
+                    artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
+                    
+                    
+                    q_bic = row['Код цвета основы/Замес']
+                    
+                    
+                    surface_treatment_export = row['Код цвета основы/Замес']
+                    amount_in_a_package = CameraPvc.objects.filter(sap_code =df['Артикул'][key])[:1].get().coun_of_pvc
+                            
+                    cache_for_cratkiy_text.append(
+                                    {
+                                        'sap_code':  materiale,
+                                        'kratkiy':row['Краткий текст'],
+                                        'system' : row['Название системы'],
+                                        'number_of_chambers' : row['Количество камер'],
+                                        'article' : row['Артикул'],
+                                        'profile_type_id' : row['Код к компоненту системы'],
+                                        'length' : row['Длина (мм)'],
+                                        'surface_treatment' : row['Тип покрытия'],
+                                        'outer_side_pc_id' : row['Код цвета основы/Замес'],
+                                        'outer_side_wg_id' : row['Цвет лам пленки снаружи'],
+                                        'inner_side_wg_id' : row['Цвет лам пленки внутри'],
+                                        'sealer_color' : row['Цвет резины'],
+                                        'print_view' : row['Надпись наклейки'],
 
+                                        'width' : artikulcomponent.width,
+                                        'height' : artikulcomponent.height,
+                                        'category' : artikulcomponent.category,
+                                        'material_class' : 'Готовая продукция',
+                                        'rawmat_type' : 'ГП',
+                                        'tnved' : artikulcomponent.tnved,
+                                        'surface_treatment_export' :surface_treatment_export,
+                                        'amount_in_a_package' : amount_in_a_package,
+                                        'wms_width' : artikulcomponent.wms_width,
+                                        'wms_height' : artikulcomponent.wms_height,
+                                        'product_type' : artikulcomponent.product_type,
+                                        'profile_type' : artikulcomponent.profile_type,
+                                        'export_description':'',
+
+                                        'coating_qbic' : q_bic,
+
+                                        # 'id_savdo' : 1,#row[''],
+                                        # 'klaes' : 1,#row[''],
+                                        
+                                        # 'ch_profile_type' : 1,#row[''],
+                                        # 'kls_wast_length' : 1,#row[''],
+                                        # 'kls_wast' : 1,#row[''],
+                                        # 'ch_klaes_optm' : 1,#row[''],
+                                        # 'goods_group' : 1,#row['']
+                                    }
+                                )
         
         art = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
 
@@ -800,56 +849,18 @@ def product_add_second_org(request,id):
 
 
 
-    #   for key,razlov in df_new.iterrows():
-    #         if razlov['SAP код 7']!="":
-    #               if not RazlovkaObichniy.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
-    #                     RazlovkaObichniy(
-    #                           esap_code =razlov['SAP код E'],
-    #                           ekratkiy =razlov['Экструзия холодная резка'],
-    #                           zsap_code =razlov['SAP код Z'],
-    #                           zkratkiy =razlov['Печь старения'],
-    #                           psap_code =razlov['SAP код P'],
-    #                           pkratkiy =razlov['Покраска автомат'],
-    #                           ssap_code =razlov['SAP код S'],
-    #                           skratkiy =razlov['Сублимация'],
-    #                           asap_code =razlov['SAP код A'],
-    #                           akratkiy =razlov['Анодировка'],
-    #                           lsap_code =razlov['SAP код L'],
-    #                           lkratkiy =razlov['Ламинация'],
-    #                           nsap_code =razlov['SAP код N'],
-    #                           nkratkiy =razlov['Наклейка'],
-    #                           sap_code7 =razlov['SAP код 7'],
-    #                           kratkiy7 =razlov['U-Упаковка + Готовая Продукция'],
-    #                           fsap_code =razlov['SAP код F'],
-    #                           fkratkiy =razlov['Фабрикация'],
-    #                           sap_code75 =razlov['SAP код 75'],
-    #                           kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
-    #                     ).save()
-    #         elif razlov['SAP код 75']!= '':
-    #               if not RazlovkaObichniy.objects.filter(sap_code75=razlov['SAP код 75'],kratkiy75=razlov['U-Упаковка + Готовая Продукция 75']).exists():
-    #                     RazlovkaObichniy(
-    #                           esap_code =razlov['SAP код E'],
-    #                           ekratkiy =razlov['Экструзия холодная резка'],
-    #                           zsap_code =razlov['SAP код Z'],
-    #                           zkratkiy =razlov['Печь старения'],
-    #                           psap_code =razlov['SAP код P'],
-    #                           pkratkiy =razlov['Покраска автомат'],
-    #                           ssap_code =razlov['SAP код S'],
-    #                           skratkiy =razlov['Сублимация'],
-    #                           asap_code =razlov['SAP код A'],
-    #                           akratkiy =razlov['Анодировка'],
-    #                           lsap_code =razlov['SAP код L'],
-    #                           lkratkiy =razlov['Ламинация'],
-    #                           nsap_code =razlov['SAP код N'],
-    #                           nkratkiy =razlov['Наклейка'],
-    #                           sap_code7 =razlov['SAP код 7'],
-    #                           kratkiy7 =razlov['U-Упаковка + Готовая Продукция'],
-    #                           fsap_code =razlov['SAP код F'],
-    #                           fkratkiy =razlov['Фабрикация'],
-    #                           sap_code75 =razlov['SAP код 75'],
-    #                           kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
-    #                     ).save()
-    
+    for key,razlov in df_new.iterrows():
+        if razlov['SAP код 7']!="":
+                if not RazlovkaPVX.objects.filter(sapkode7=razlov['SAP код 7'],krat7=razlov['U-Упаковка + Готовая Продукция']).exists():
+                    RazlovkaPVX(
+                            esapkode =razlov['SAP код E'],
+                            ekrat =razlov['Экструзия холодная резка'],
+                            lsapkode =razlov['SAP код L'],
+                            lkrat =razlov['Ламинация'], 
+                            sapkode7 =razlov['SAP код 7'],
+                            krat7 =razlov['U-Упаковка + Готовая Продукция']
+                        ).save()
+        
     for key,razlov in df_char.iterrows():
         if not Characteristika.objects.filter(sap_code=razlov['SAP CODE'],kratkiy=razlov['KRATKIY TEXT']).exists():
                 Characteristika(

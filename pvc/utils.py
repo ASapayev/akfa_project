@@ -119,7 +119,7 @@ def characteristika_created_txt_create(datas,order_id):
                 buxgalterskiy_naz[4].append('EN')
                 buxgalterskiy_naz[5].append('0001')
                 buxgalterskiy_naz[6].append('')
-                buxgalterskiy_naz[7].append(row['ch_export_description_eng'])
+                buxgalterskiy_naz[7].append(row['export_description_eng'])
                 
         
         
@@ -197,7 +197,7 @@ def characteristika_created_txt_create(datas,order_id):
         umumiy_without_duplicate1203[44].append(SFSPF1203[sap_code_simvol])
         umumiy_without_duplicate1203[45].append('X')
         umumiy_without_duplicate1203[46].append(LGPRO1203[sap_code_simvol])
-        umumiy_without_duplicate1203[47].append('X')
+        umumiy_without_duplicate1203[47].append('')
         umumiy_without_duplicate1203[48].append(row['combination'] + row['Тип покрытия'])
             
         if gruppa_material=='PVCGP':
@@ -264,7 +264,7 @@ def characteristika_created_txt_create(datas,order_id):
             umumiy_without_duplicate12D1[45].append('X')
             umumiy_without_duplicate12D1[46].append('')
             umumiy_without_duplicate12D1[47].append('X')
-            umumiy_without_duplicate12D1[48].append(row['ch_combination'] + row['Тип покрытия'])
+            umumiy_without_duplicate12D1[48].append(row['combination'] + row['Тип покрытия'])
             
         if gruppa_material=='PVCGP':
             ######12D2
@@ -330,7 +330,7 @@ def characteristika_created_txt_create(datas,order_id):
             umumiy_without_duplicate12D2[45].append('X')
             umumiy_without_duplicate12D2[46].append('')
             umumiy_without_duplicate12D2[47].append('X')
-            umumiy_without_duplicate12D2[48].append(row['ch_combination'] + row['Тип покрытия'])
+            umumiy_without_duplicate12D2[48].append(row['combination'] + row['Тип покрытия'])
             
         if gruppa_material=='PVCGP':
             ######12D3
@@ -396,7 +396,7 @@ def characteristika_created_txt_create(datas,order_id):
             umumiy_without_duplicate12D3[45].append('X')
             umumiy_without_duplicate12D3[46].append('')
             umumiy_without_duplicate12D3[47].append('X')
-            umumiy_without_duplicate12D3[48].append(row['ch_combination'] + row['Тип покрытия'])
+            umumiy_without_duplicate12D3[48].append(row['combination'] + row['Тип покрытия'])
         
         if gruppa_material=='PVCGP':
             ######12D4
@@ -462,7 +462,7 @@ def characteristika_created_txt_create(datas,order_id):
             umumiy_without_duplicate12D4[45].append('X')
             umumiy_without_duplicate12D4[46].append('')
             umumiy_without_duplicate12D4[47].append('X')
-            umumiy_without_duplicate12D4[48].append(row['ch_combination'] + row['Тип покрытия'])
+            umumiy_without_duplicate12D4[48].append(row['combination'] + row['Тип покрытия'])
             
         if gruppa_material=='PVCGP':
             ######12D5
@@ -528,7 +528,7 @@ def characteristika_created_txt_create(datas,order_id):
             umumiy_without_duplicate12D5[45].append('X')
             umumiy_without_duplicate12D5[46].append('')
             umumiy_without_duplicate12D5[47].append('X')
-            umumiy_without_duplicate12D5[48].append(row['ch_combination'] + row['Тип покрытия'])
+            umumiy_without_duplicate12D5[48].append(row['combination'] + row['Тип покрытия'])
             
         
     umumiy_without_duplicate =[[] for i in range(0,49)]
@@ -848,11 +848,11 @@ def characteristika_created_txt_create(datas,order_id):
                     new_ll_55[1].append(LGORT['7'][i]['zavod_code'])
                     new_ll_55[2].append(LGORT['7'][i]['zavod_sap'])
 
-    header55='MATNR\tWERKS\tLGORT\tRAUBE'
+    header55='MATNR\tWERKS\tRAUBE'
     d55={}
     d55['MATNR'] = new_ll_55[0] 
     d55['WERKS'] = new_ll_55[1] 
-    d55['LGORT'] = new_ll_55[2] 
+    # d55['LGORT'] = new_ll_55[2] 
     d55['RAUBE'] = ['' for x in new_ll_55[2]] 
     df55 = pd.DataFrame(d55)
     np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
@@ -923,7 +923,7 @@ def characteristika_created_txt_create(datas,order_id):
         row['width'] =str(row['width']).replace('.0','')
         row['height'] =str(row['height']).replace('.0','')
         
-        if (('-E' in row['SAP код S4P 100']) or ('-Z' in row['SAP код S4P 100']) or ('-P' in row['SAP код S4P 100']) or ('-A' in row['SAP код S4P 100']) or ('-S' in row['SAP код S4P 100'])):
+        if (('-E' in row['SAP код S4P 100'])):
 
             for j in range(0,31):
                 dd2[0].append('001')
