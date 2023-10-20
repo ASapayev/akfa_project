@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from datetime import datetime
 from config.settings import MEDIA_ROOT
 from .forms import FileFormPVC,FileFormCharPVC
-from .models import PVCProduct,PVCFile,ArtikulKomponentPVC,CameraPvc,AbreviaturaLamination,LengthOfProfilePVC,Characteristika,Price,CharacteristikaFilePVC,RazlovkaPVX
+from .models import PVCProduct,PVCFile,ArtikulKomponentPVC,CameraPvc,AbreviaturaLamination,LengthOfProfilePVC,Characteristika,Price,CharacteristikaFilePVC,RazlovkaPVX,BuxgalterskiyNazvaniye
 from order.models import OrderPVX
 from accounts.models import User
 import pandas as pd
@@ -12,7 +12,7 @@ from django.db.models import Count,Max
 import os
 import random 
 from aluminiy.models import ExchangeValues
-from .utils import create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create
+from .utils import create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct
 
 def update_char_title_pvc(request,id):
     file = CharacteristikaFilePVC.objects.get(id=id).file
@@ -153,6 +153,12 @@ class File:
             self.file =file
             self.filetype =filetype
 
+class Buxgalter:
+      def __init__(self,naz_ru,naz_eng,sb):
+            self.naz_ru =naz_ru
+            self.naz_eng =naz_eng
+            self.sb =sb
+
 @login_required(login_url='/accounts/login/')    
 def product_add_second_org(request,id):
     file = PVCFile.objects.get(id=id).file
@@ -170,87 +176,78 @@ def product_add_second_org(request,id):
     order_id = request.GET.get('order_id',None)
       
 
-    #   doesnotexist,correct = check_for_correct(df,filename='aluminiy')
-    #   if not correct:
-    #         context ={
-    #               'CharUtilsOne':doesnotexist[0],
-    #               'CharUtilsTwo':doesnotexist[1],
-    #               'BazaProfile':doesnotexist[2],
-    #               'ArtikulComponent':doesnotexist[3]
-    #         }
-    #         df_char_utils_one = pd.DataFrame({
-    #               'матрица':doesnotexist[0],
-    #               'артикул':doesnotexist[0],
-    #               'высота':['' for i in doesnotexist[0]],
-    #               'ширина':['' for i in doesnotexist[0]],
-    #               'высота_ширина':['' for i in doesnotexist[0]],
-    #               'systems':['' for i in doesnotexist[0]]
-    #               })
-    #         df_char_utils_two =pd.DataFrame({
-    #               'артикул':doesnotexist[1],
-    #               'полый_или_фасонный':['' for i in doesnotexist[1]]
-    #         })
-    #         df_baza_profiley =pd.DataFrame({
-    #               'артикул':[i[0] for i in doesnotexist[2]],
-    #               'серия':[i[1] for i in doesnotexist[2]],
-    #               'старый_код':[i[2] for i in doesnotexist[2]],
-    #               'компонент':[i[3] for i in doesnotexist[2]],
-    #               'product_description':[i[4] for i in doesnotexist[2]],
-    #               'link':[i[5] for i in doesnotexist[2]],
-    #         })
-          
-    #         df_artikul_component =pd.DataFrame({
-    #               'artikul':doesnotexist[3],
-    #               'component':doesnotexist[3],
-    #               'seria':['' for i in doesnotexist[3]],
-    #               'product_description_ru1':['' for i in doesnotexist[3]],
-    #               'product_description_ru':['' for i in doesnotexist[3]],
-    #               'stariy_code_benkam':['' for i in doesnotexist[3]],
-    #               'stariy_code_jomiy':['' for i in doesnotexist[3]],
-    #               'proverka_artikul2':['' for i in doesnotexist[3]],
-    #               'proverka_component2':['' for i in doesnotexist[3]],
-    #               'gruppa_materialov':['' for i in doesnotexist[3]],
-    #               'gruppa_materialov2':['' for i in doesnotexist[3]]
-    #         })
-    #         create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\','Not Exists')
-            
-    #         path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\Not Exists\\Not_Exists.xlsx'
-            
-    #         if os.path.isfile(path_not_exists):
-    #               try:
-    #                     os.remove(path_not_exists)
-    #               except:
-    #                     return render(request,'utils/file_exist_org.html')
-            
-    #         writer = pd.ExcelWriter(path_not_exists, engine='xlsxwriter')
-    #         df_char_utils_one.to_excel(writer,index=False,sheet_name ='character utils one')
-    #         df_char_utils_two.to_excel(writer,index=False,sheet_name ='character utils two')
-    #         df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
-    #         df_artikul_component.to_excel(writer,index=False,sheet_name ='artikul component')
-    #         writer.close()
+    # doesnotexist,correct = check_for_correct(df)
+    # if not correct:
+    #     context ={
+    #             'Abreviation':doesnotexist[0],
+    #             'Camera':doesnotexist[1],
+    #             'ArtikulComponent':doesnotexist[2]
+    #     }
+    #     abreviation = pd.DataFrame({
+    #             'abreviatura':doesnotexist[0],
+    #             'pokritiya':['' for i in doesnotexist[0]]
+    #             })
+    #     camera =pd.DataFrame({
+    #             'sap_code':doesnotexist[1],
+    #             'coun_of_lam':['' for i in doesnotexist[1]],
+    #             'coun_of_pvc':['' for i in doesnotexist[1]]
+    #     })
+        
+    #     df_artikul_component =pd.DataFrame({
+    #             'artikul':doesnotexist[3],
+    #             'component':doesnotexist[3],
+    #             'component2':['' for i in doesnotexist[3]],
+    #             'width':['' for i in doesnotexist[3]],
+    #             'height':['' for i in doesnotexist[3]],
+    #             'category':['' for i in doesnotexist[3]],
+    #             'tnved':['' for i in doesnotexist[3]],
+    #             'wms_width':['' for i in doesnotexist[3]],
+    #             'wms_height':['' for i in doesnotexist[3]],
+    #             'product_type':['' for i in doesnotexist[3]],
+    #             'profile_type':['' for i in doesnotexist[3]]
+    #     })
+    #     create_folder(f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\','Not Exists')
+        
+    #     path_not_exists =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\Not Exists\\Not_Exists.xlsx'
+        
+    #     if os.path.isfile(path_not_exists):
+    #             try:
+    #                 os.remove(path_not_exists)
+    #             except:
+    #                 return render(request,'utils/file_exist_org.html')
+        
+    #     writer = pd.ExcelWriter(path_not_exists, engine='xlsxwriter')
+    #     abreviation.to_excel(writer,index=False,sheet_name ='abreviation')
+    #     camera.to_excel(writer,index=False,sheet_name ='camera')
+    #     df_artikul_component.to_excel(writer,index=False,sheet_name ='artikul component')
+    #     writer.close()
 
-    #         if order_id:
-    #               order = Order.objects.get(id = order_id)
-    #               paths = order.paths
-    #               l_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
-    #               paths['obichniy_lack_file']= path_not_exists
-    #               paths['l_created_at']= l_created_at
-    #               paths['status_l']= 'on process'
-                  
+    #     if order_id:
+    #         order = OrderPVX.objects.get(id = order_id)
+    #         paths = order.paths
+    #         l_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+    #         paths['obichniy_lack_file']= path_not_exists
+    #         paths['l_created_at']= l_created_at
+    #         paths['status_l']= 'on process'
+            
 
-    #               order.paths = paths
-    #               order.alumin_wrongs = request.user
-    #               order.current_worker = request.user
-    #               order.work_type = 3
-    #               order.save()
-    #               context['order'] = order
-    #               paths =  order.paths
-    #               for key,val in paths.items():
-    #                     context[key] = val
-                  
-    #               return render(request,'order/order_detail.html',context)
-    #         # writer.save()
-    #         return render(request,'utils/components.html',context)
+    #         order.paths = paths
+    #         order.pvc_wrongs = request.user
+    #         order.current_worker = request.user
+    #         order.work_type = 3
+    #         order.save()
+    #         context['order'] = order
+    #         paths =  order.paths
+    #         for key,val in paths.items():
+    #             context[key] = val
+            
+    #         return render(request,'order/order_detail_pvc.html',context)
+        
+  
+    
+
+
+
       
     aluminiy_group = PVCProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
     umumiy_counter={}
@@ -294,12 +291,40 @@ def product_add_second_org(request,id):
     exturision_list = []
     
     for key,row in df.iterrows():  
-        
+        row['Длина (мм)'] = str(row['Длина (мм)']).replace('.0','')
         dlina = df['Длина (мм)'][key]
         df_new['U-Упаковка + Готовая Продукция'][key] = df['Краткий текст'][key]
         
+        row['Код лам пленки снаружи'] =str(row['Код лам пленки снаружи']).replace('.0','')
+
+
+        if ((row['Название'] == 'nan') or (row['Название'] == '')):
+            online_savdo_name = ''
+        else:
+            online_savdo_name = row['Название']
+
+        if ((row['Online savdo ID'] == 'nan') or (row['Online savdo ID'] == '')):
+            id_savdo = ''
+        else:
+            id_savdo = row['Online savdo ID']
         
         if df['Тип покрытия'][key] == 'Ламинированный':
+
+            export_description =''
+            if ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] =='NR'):
+                export_description ='Профиль из ПВХ ламинированный'
+            elif ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] !='NR'):
+                export_description ='Профиль из ПВХ ламинированный с уплотнителем'
+            elif ('PDF' not in row['Артикул']) and ( 'L0001' in row['Артикул'] or 'L0002' in row['Артикул']) and (row['Цвет резины'] =='NR'):
+                export_description ='Ламбри из ПВХ ламинированный'
+            elif('L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] =='nan'):
+                export_description ='Подоконник из ПВХ ламинированный'
+
+            if export_description !='':
+                buxgalter_naz = BuxgalterskiyNazvaniye.objects.filter(naz_ru = export_description)[:1].get()
+            else:
+                buxgalter_naz =Buxgalter(naz_ru='',naz_eng='',sb='')
+
             if PVCProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=row['Краткий текст']).exists():
                 df_new['SAP код 7'][key] = PVCProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=row['Краткий текст'])[:1].get().material
                 duplicat_list.append([df_new['SAP код 7'][key],row['Краткий текст'],'7'])
@@ -323,6 +348,8 @@ def product_add_second_org(request,id):
                         surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
                         amount_in_a_package = CameraPvc.objects.filter(sap_code=df['Артикул'][key])[:1].get().coun_of_lam
 
+                        
+                        
                         cache_for_cratkiy_text.append({
                                             'kratkiy':row['Краткий текст'],
                                             'sap_code':  materiale,
@@ -350,11 +377,13 @@ def product_add_second_org(request,id):
                                             'wms_height' : artikulcomponent.wms_height,
                                             'product_type' : artikulcomponent.product_type,
                                             'profile_type' : artikulcomponent.profile_type,
-                                            'export_description':'',
-
+                                            'export_description':buxgalter_naz.naz_ru,
+                                            'export_description_eng':buxgalter_naz.naz_eng,
+                                            'sb':buxgalter_naz.sb,
                                             'coating_qbic' : q_bic,
+                                            'online_savdo_name':online_savdo_name,
+                                            'id_savdo' : id_savdo
 
-                                            # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
                                             
                                             # 'ch_profile_type' : 1,#row[''],
@@ -414,10 +443,13 @@ def product_add_second_org(request,id):
                                             'wms_height' : artikulcomponent.wms_height,
                                             'product_type' : artikulcomponent.product_type,
                                             'profile_type' : artikulcomponent.profile_type,
-                                            'export_description':'',
+                                            'export_description':buxgalter_naz.naz_ru,
+                                            'export_description_eng':buxgalter_naz.naz_eng,
+                                            'sb':buxgalter_naz.sb,
 
                                             'coating_qbic' : q_bic,
-
+                                            'online_savdo_name':online_savdo_name,
+                                            'id_savdo' : id_savdo
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
                                             
@@ -431,6 +463,22 @@ def product_add_second_org(request,id):
                 
             ##### kombirinovanniy
         elif df['Тип покрытия'][key] == 'Неламинированный':
+            
+            export_description =''
+            if ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] =='NR'):
+                export_description ='Профиль из ПВХ'
+            elif ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] !='NR'):
+                export_description ='Профиль из ПВХ с уплотнителем'
+            elif ('PDF' not in row['Артикул']) and ( 'L0001' in row['Артикул'] or 'L0002' in row['Артикул']) and (row['Цвет резины'] =='NR'):
+                export_description ='Ламбри из ПВХ'
+            elif('L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] =='nan'):
+                export_description ='Подоконник из ПВХ'
+            
+            if export_description !='':
+                buxgalter_naz = BuxgalterskiyNazvaniye.objects.filter(naz_ru = export_description)[:1].get()
+            else:
+                buxgalter_naz =Buxgalter(naz_ru='',naz_eng='',sb='')
+
             if PVCProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=row['Краткий текст']).exists():
                 df_new['SAP код 7'][key] = PVCProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=row['Краткий текст'])[:1].get().material
             else: 
@@ -475,9 +523,13 @@ def product_add_second_org(request,id):
                                             'wms_height' : artikulcomponent.wms_height,
                                             'product_type' : artikulcomponent.product_type,
                                             'profile_type' : artikulcomponent.profile_type,
-                                            'export_description':'',
+                                            'export_description':buxgalter_naz.naz_ru,
+                                            'export_description_eng':buxgalter_naz.naz_eng,
+                                            'sb':buxgalter_naz.sb,
 
                                             'coating_qbic' : q_bic,
+                                            'online_savdo_name':online_savdo_name,
+                                            'id_savdo' : id_savdo
 
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
@@ -534,9 +586,13 @@ def product_add_second_org(request,id):
                                         'wms_height' : artikulcomponent.wms_height,
                                         'product_type' : artikulcomponent.product_type,
                                         'profile_type' : artikulcomponent.profile_type,
-                                        'export_description':'',
+                                        'export_description':buxgalter_naz.naz_ru,
+                                        'export_description_eng':buxgalter_naz.naz_eng,
+                                        'sb':buxgalter_naz.sb,
 
                                         'coating_qbic' : q_bic,
+                                        'online_savdo_name':online_savdo_name,
+                                        'id_savdo' : id_savdo
 
                                         # 'id_savdo' : 1,#row[''],
                                         # 'klaes' : 1,#row[''],
@@ -606,9 +662,13 @@ def product_add_second_org(request,id):
                                             'product_type' : artikulcomponent.product_type,
                                             'profile_type' : artikulcomponent.profile_type,
                                             'export_description':'',
+                                            'export_description_eng':'',
+                                            'sb':'',
+                                            
 
                                             'coating_qbic' : q_bic,
-
+                                            'online_savdo_name':'',
+                                            'id_savdo' : ''
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
                                             
@@ -666,8 +726,12 @@ def product_add_second_org(request,id):
                                             'product_type' : artikulcomponent.product_type,
                                             'profile_type' : artikulcomponent.profile_type,
                                             'export_description':'',
+                                            'export_description_eng':'',
+                                            'sb':'',
 
                                             'coating_qbic' : q_bic,
+                                            'online_savdo_name':'',
+                                            'id_savdo' : ''
 
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
@@ -681,8 +745,13 @@ def product_add_second_org(request,id):
                                         )
         
                 
-        
-        df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] +' ' + row['Надпись наклейки']
+        if df['Тип покрытия'][key] == 'Ламинированный':
+            if ((str(row['Код лам пленки внутри']).lower() =='xxxx') or (str(row['Код лам пленки снаружи']).lower() =='xxxx')):
+                df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] +' NR ' + row['Надпись наклейки'] +' 1sd'
+            else:
+                df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] +' NR ' + row['Надпись наклейки']
+        else:
+            df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] +' NR ' + row['Надпись наклейки']
         
         
                     
@@ -713,7 +782,6 @@ def product_add_second_org(request,id):
                             q_bic = row['Цвет лам пленки внутри']
                         else:
                             q_bic = row['Цвет лам пленки снаружи']
-                            
                     cache_for_cratkiy_text.append(
                                         {   
                                             'sap_code':  materiale,
@@ -723,7 +791,7 @@ def product_add_second_org(request,id):
                                             'article' : row['Артикул'],
                                             'profile_type_id' : row['Код к компоненту системы'],
                                             'length' : row['Длина (мм)'],
-                                            'surface_treatment' : row['Тип покрытия'],
+                                            'surface_treatment' : 'Неламинированный',
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
                                             'outer_side_wg_id' : row['Цвет лам пленки снаружи'],
                                             'inner_side_wg_id' : row['Цвет лам пленки внутри'],
@@ -743,7 +811,11 @@ def product_add_second_org(request,id):
                                             'profile_type' : artikulcomponent.profile_type,
 
                                             'export_description':'',
+                                            'export_description_eng':'',
+                                            'sb':'',
                                             'coating_qbic' : q_bic,
+                                            'online_savdo_name':'',
+                                            'id_savdo' : ''
 
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
@@ -774,7 +846,7 @@ def product_add_second_org(request,id):
                             q_bic = row['Цвет лам пленки внутри']
                         else:
                             q_bic = row['Цвет лам пленки снаружи']
-
+                    
                     cache_for_cratkiy_text.append(
                                         {
                                             'sap_code':  materiale,
@@ -784,13 +856,13 @@ def product_add_second_org(request,id):
                                             'article' : row['Артикул'],
                                             'profile_type_id' : row['Код к компоненту системы'],
                                             'length' : row['Длина (мм)'],
-                                            'surface_treatment' : row['Тип покрытия'],
+                                            'surface_treatment' : 'Неламинированный',
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
                                             'outer_side_wg_id' : row['Цвет лам пленки снаружи'],
                                             'inner_side_wg_id' : row['Цвет лам пленки внутри'],
                                             'sealer_color' : row['Цвет резины'],
                                             'print_view' : row['Надпись наклейки'],
-                                            'export_description':'',
+                                            
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
                                             'category' : artikulcomponent.category,
@@ -803,9 +875,13 @@ def product_add_second_org(request,id):
                                             'wms_height' : artikulcomponent.wms_height,
                                             'product_type' : artikulcomponent.product_type,
                                             'profile_type' : artikulcomponent.profile_type,
-
+                                            'export_description':'',
+                                            'export_description_eng':'',
+                                            'sb':'',
 
                                             'coating_qbic' : q_bic,
+                                            'online_savdo_name':'',
+                                            'id_savdo' : ''
 
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
@@ -889,7 +965,9 @@ def product_add_second_org(request,id):
                     wms_height = razlov['WMS_HEIGHT'], 
                     product_type = razlov['PRODUCT_TYPE'], 
                     profile_type = razlov['PROFILE_TYPE'], 
-                    coating_qbic = razlov['COATING_QBIC']		
+                    coating_qbic = razlov['COATING_QBIC'],
+                    online_savdo_name = razlov['ONLINE_SAVDO_NAME'],		
+                    id_savdo = razlov['ID_SAVDO']		
                 ).save()
 
         

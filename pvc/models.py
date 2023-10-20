@@ -48,12 +48,7 @@ class Characteristika(models.Model):
   profile_type = models.CharField(max_length=255,blank=True,null=True)
   coating_qbic = models.CharField(max_length=255,blank=True,null=True)
   id_savdo = models.CharField(max_length=255,blank=True,null=True)
-  klaes = models.CharField(max_length=255,blank=True,null=True)
-  ch_profile_type = models.CharField(max_length=255,blank=True,null=True)
-  kls_wast_length = models.CharField(max_length=255,blank=True,null=True)
-  kls_wast = models.CharField(max_length=255,blank=True,null=True)
-  ch_klaes_optm = models.CharField(max_length=255,blank=True,null=True)
-  goods_group = models.CharField(max_length=255,blank=True,null=True)
+  online_savdo_name = models.CharField(max_length=255,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 
@@ -116,5 +111,12 @@ class RazlovkaPVX(models.Model):
   lkrat = models.CharField(max_length = 50,blank=True,null=True)
   sapkode7 = models.CharField(max_length = 50,blank=True,null=True)
   krat7 = models.CharField(max_length = 50,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
+
+class BuxgalterskiyNazvaniye(models.Model):
+  naz_ru = models.CharField(max_length = 150,blank=True,null=True)
+  naz_eng = models.CharField(max_length = 150,blank=True,null=True)
+  sb = models.CharField(max_length = 150,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)

@@ -4,10 +4,43 @@ from order.models import OrderPVX
 import pandas as pd
 from datetime import datetime
 from config.settings import MEDIA_ROOT
-from .models import ArtikulKomponentPVC
+from .models import ArtikulKomponentPVC,AbreviaturaLamination,CameraPvc,LengthOfProfilePVC
 from .BAZA import *
 import numpy as np
 import zipfile
+
+
+
+def check_for_correct(items):
+    abreviation_list =[]
+    camera =[]
+    component_list =[]
+    
+    
+    for key,row in items.iterrows():
+        artikle = row['Артикул']
+        if items['Тип покрытия'][key] == 'Ламинированный':
+            if not AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи']).exists():
+                if row['Код лам пленки снаружи'] not in abreviation_list:
+                    abreviation_list.append(row['Код лам пленки снаружи'])
+
+           
+        if not CameraPvc.objects.filter(sap_code=row['Артикул']).exists():
+            if artikle not in camera:
+                camera.append(artikle)
+
+        if ArtikulKomponentPVC.objects.filter(artikul=row['Артикул']).exists():
+            continue
+        if row['Артикул'] not in component_list:
+            component_list.append(row['Артикул'])
+                    
+    correct = True
+    char_utils_correct = abreviation_list + camera  + component_list
+    if len(char_utils_correct) >0:
+        correct = False
+       
+    return [ abreviation_list , camera , component_list ] , correct
+
 
 def characteristika_created_txt_create(datas,order_id):
     now = datetime.now()
@@ -56,72 +89,130 @@ def characteristika_created_txt_create(datas,order_id):
 
     for key , row in datas.iterrows():
         if '-L' in row['SAP код S4P 100']:
-            continue
-        # if not ArtikulKomponentPVC.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
-        #     LengthOfProfile(
-        #         artikul = row['ch_article'],
-        #         length = row['Длина'],
-        #         ves_za_shtuk = row['Общий вес за штуку'],
-        #         ves_za_metr = row['Удельный вес за метр']
-        #     ).save()
-        dlinniy_text_zero[0].append('1')
-        dlinniy_text_zero[1].append(row['SAP код S4P 100'])
-        dlinniy_text_zero[2].append(row['Польное наименование SAP'])
-        
-        dlinniy_text_zero[0].append('2')
-        dlinniy_text_zero[1].append(row['SAP код S4P 100'])
-        dlinniy_text_zero[2].append(row['Польное наименование SAP'])
+            continue 
+
+        row['Длина'] = row['Длина'].replace('.0','')
+
+        if not LengthOfProfilePVC.objects.filter(artikul = row['article'],length = row['Длина']).exists():
+            LengthOfProfilePVC(
+                artikul = row['article'],
+                length = row['Длина'],
+                ves_za_shtuk = row['Общий вес за штуку'],
+                ves_za_metr = row['Удельный вес за метр']
+            ).save()
+
+        if '-E' not in row['SAP код S4P 100']:
+            dlinniy_text_zero[0].append('1')
+            dlinniy_text_zero[1].append(row['SAP код S4P 100'])
+            dlinniy_text_zero[2].append(row['Польное наименование SAP'])
+            
+            dlinniy_text_zero[0].append('2')
+            dlinniy_text_zero[1].append(row['SAP код S4P 100'])
+            dlinniy_text_zero[2].append(row['Польное наименование SAP'])
         
         
         ############################ bugalter nazvaniya###
         if '-7' in row['SAP код S4P 100']:
             
-            
             for ii in range(0,3):
                 if ii ==0:
-                    vtweg ='99'
+                    vtweg ='20'
                 elif ii ==1:
                     vtweg ='10'
                 elif ii ==2:
-                    vtweg ='20'
-                    
-                buxgalterskiy_naz[0].append('1')
-                buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
-                buxgalterskiy_naz[2].append('1200')
-                buxgalterskiy_naz[3].append(vtweg)
-                buxgalterskiy_naz[4].append('RU')
-                buxgalterskiy_naz[5].append('0001')
-                buxgalterskiy_naz[6].append('')
-                buxgalterskiy_naz[7].append('')
+                    vtweg ='99'
+
+                if ii == 0: 
+                    buxgalterskiy_naz[0].append('1')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('RU')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append('')
+
+                    buxgalterskiy_naz[0].append('1')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('EN')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append('')
                 
-                buxgalterskiy_naz[0].append('1')
-                buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
-                buxgalterskiy_naz[2].append('1200')
-                buxgalterskiy_naz[3].append(vtweg)
-                buxgalterskiy_naz[4].append('EN')
-                buxgalterskiy_naz[5].append('0001')
-                buxgalterskiy_naz[6].append('')
-                buxgalterskiy_naz[7].append('')
+                    buxgalterskiy_naz[0].append('2')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('RU')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append(row['export_description'])
                 
-                buxgalterskiy_naz[0].append('2')
-                buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
-                buxgalterskiy_naz[2].append('1200')
-                buxgalterskiy_naz[3].append(vtweg)
-                buxgalterskiy_naz[4].append('RU')
-                buxgalterskiy_naz[5].append('0001')
-                buxgalterskiy_naz[6].append('')
-                buxgalterskiy_naz[7].append(row['export_description'])
+                    buxgalterskiy_naz[0].append('2')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('EN')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append(row['export_description_eng'])
                 
-                buxgalterskiy_naz[0].append('2')
-                buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
-                buxgalterskiy_naz[2].append('1200')
-                buxgalterskiy_naz[3].append(vtweg)
-                buxgalterskiy_naz[4].append('EN')
-                buxgalterskiy_naz[5].append('0001')
-                buxgalterskiy_naz[6].append('')
-                buxgalterskiy_naz[7].append(row['export_description_eng'])
+                if ((ii!= 0) and (row['online_savdo_name'] != '')):
+                    buxgalterskiy_naz[0].append('1')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('RU')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append('')
                 
-        
+                    buxgalterskiy_naz[0].append('2')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('RU')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append(row['export_description'])
+                else:
+                    buxgalterskiy_naz[0].append('1')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('RU')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append('')
+
+                    buxgalterskiy_naz[0].append('1')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('EN')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append('')
+                
+                    buxgalterskiy_naz[0].append('2')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('RU')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append(row['export_description'])
+                
+                    buxgalterskiy_naz[0].append('2')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('EN')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append(row['export_description_eng'])
         
         ############################ end bugalter nazvaniya###
         
@@ -136,7 +227,7 @@ def characteristika_created_txt_create(datas,order_id):
         umumiy_without_duplicate1203[3].append('ШТ')
         umumiy_without_duplicate1203[4].append('ZPRF')
         umumiy_without_duplicate1203[5].append(gruppa_material)
-        umumiy_without_duplicate1203[6].append(gruppa_material)
+        umumiy_without_duplicate1203[6].append(row['sb'])
         umumiy_without_duplicate1203[7].append('E')
         umumiy_without_duplicate1203[8].append('02')
         umumiy_without_duplicate1203[9].append(row['Общий вес за штуку'])
@@ -160,7 +251,7 @@ def characteristika_created_txt_create(datas,order_id):
             
         bklast ='0100'
         if gruppa_material =='PVCPF':
-            bklast ='0100'
+            bklast ='0102'
             
             
         umumiy_without_duplicate1203[22].append(ss)
@@ -212,7 +303,7 @@ def characteristika_created_txt_create(datas,order_id):
             else:
                 gruppa_material ='PVCPF'
             umumiy_without_duplicate12D1[5].append(gruppa_material)
-            umumiy_without_duplicate12D1[6].append(gruppa_material)
+            umumiy_without_duplicate12D1[6].append(row['sb'])
             umumiy_without_duplicate12D1[7].append('E')
             umumiy_without_duplicate12D1[8].append('02')
             umumiy_without_duplicate12D1[9].append(row['Общий вес за штуку'])
@@ -278,7 +369,7 @@ def characteristika_created_txt_create(datas,order_id):
             else:
                 gruppa_material ='PVCPF'
             umumiy_without_duplicate12D2[5].append(gruppa_material)
-            umumiy_without_duplicate12D2[6].append(gruppa_material)
+            umumiy_without_duplicate12D2[6].append(row['sb'])
             umumiy_without_duplicate12D2[7].append('E')
             umumiy_without_duplicate12D2[8].append('02')
             umumiy_without_duplicate12D2[9].append(row['Общий вес за штуку'])
@@ -344,7 +435,7 @@ def characteristika_created_txt_create(datas,order_id):
             else:
                 gruppa_material ='PVCPF'
             umumiy_without_duplicate12D3[5].append(gruppa_material)
-            umumiy_without_duplicate12D3[6].append(gruppa_material)
+            umumiy_without_duplicate12D3[6].append(row['sb'])
             umumiy_without_duplicate12D3[7].append('E')
             umumiy_without_duplicate12D3[8].append('02')
             umumiy_without_duplicate12D3[9].append(row['Общий вес за штуку'])
@@ -410,7 +501,7 @@ def characteristika_created_txt_create(datas,order_id):
             else:
                 gruppa_material ='PVCPF'
             umumiy_without_duplicate12D4[5].append(gruppa_material)
-            umumiy_without_duplicate12D4[6].append(gruppa_material)
+            umumiy_without_duplicate12D4[6].append(row['sb'])
             umumiy_without_duplicate12D4[7].append('E')
             umumiy_without_duplicate12D4[8].append('02')
             umumiy_without_duplicate12D4[9].append(row['Общий вес за штуку'])
@@ -476,7 +567,7 @@ def characteristika_created_txt_create(datas,order_id):
             else:
                 gruppa_material ='PVCPF'
             umumiy_without_duplicate12D5[5].append(gruppa_material)
-            umumiy_without_duplicate12D5[6].append(gruppa_material)
+            umumiy_without_duplicate12D5[6].append(row['sb'])
             umumiy_without_duplicate12D5[7].append('E')
             umumiy_without_duplicate12D5[8].append('02')
             umumiy_without_duplicate12D5[9].append(row['Общий вес за штуку'])
@@ -697,21 +788,8 @@ def characteristika_created_txt_create(datas,order_id):
         'LADGR':[],
         'TRAGR':[]
     }
-    VTWEG =['99','10','20']
-    KONDM ={
-        'с термомостоманодированный':'A0',
-        'без термомостаокрашенный':'A1',
-        'без термомостабелый':'A1',
-        'без термомостасублимированный':'A2',
-        'без термомостаанодированный':'A3',
-        'без термомосталаминированный':'A4',
-        'с термомостомламинированный':'A5',
-        'без термомостанеокрашенный':'A6',
-        'с термомостомокрашенный':'A7',
-        'с термомостомбелый':'A7',
-        'с термомостомнеокрашенный':'A8',
-        'с термомостомсублимированный':'A9',
-    }
+    VTWEG = ['99','10','20']
+   
     for i in range(0,3):
         d3['MAKTX'] += umumiy_without_duplicate[13] 
         d3['MEINS'] += umumiy_without_duplicate[14] 
@@ -722,22 +800,24 @@ def characteristika_created_txt_create(datas,order_id):
         d3['VKORG'] += [ 1200 for j in range(0,len(umumiy_without_duplicate[13] ))]
         d3['MTPOS'] += umumiy_without_duplicate[12] 
         d3['VTWEG'] += [ VTWEG[i] for j in range(0,len(umumiy_without_duplicate[13] ))]
-        d3['PRCTR'] += [ '1203' if umumiy_without_duplicate[34][i] =='1203' else '1201' for i in range(0,len(umumiy_without_duplicate[34]))] 
+        d3['PRCTR'] += [ '1203' if umumiy_without_duplicate[34][i] =='1203' else '1203' for i in range(0,len(umumiy_without_duplicate[34]))] 
         d3['MTVFP'] += [ '02' for j in range(0,len(umumiy_without_duplicate[13] ))]
         d3['ALAND'] += [ 'UZ' for j in range(0,len(umumiy_without_duplicate[13]))] 
         d3['TATYP'] += [ 'MWST' for j in range(0,len(umumiy_without_duplicate[13]))] 
         d3['TAXKM'] += [ '1' for j in range(0,len(umumiy_without_duplicate[13]))] 
         d3['VERSG'] += [ '1' for j in range(0,len(umumiy_without_duplicate[13] ))]
         d3['KTGRM'] += [ '01' for j in range(0,len(umumiy_without_duplicate[13]))]
-        d3['KONDM'] += [ '01' for j in range(0,len(umumiy_without_duplicate[13] ))]
-        # if i!=2:
-        #     d3['KONDM'] += [ '01' for j in range(0,len(umumiy_without_duplicate[13] ))]
-        # else:
-        #     d3['KONDM'] += [ '01' if '-7' not in umumiy_without_duplicate[0][x] else KONDM[umumiy_without_duplicate[48][x].lower()] for x in range(0,len(umumiy_without_duplicate[0]))] 
+        if i!=2:
+            d3['KONDM'] +=['01' for x in range(len(umumiy_without_duplicate[6]))]
+        else:
+            d3['KONDM'] +=umumiy_without_duplicate[6]
             
         d3['LADGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))] 
         d3['TRAGR'] += [ '0001' for j in range(0,len(umumiy_without_duplicate[13]))] 
+        
     df3= pd.DataFrame(d3)
+    df3 = df3[(df3['MATNR'].str.contains('-E') & (df3['VTWEG'] =='99')|(~df3['MATNR'].str.contains('-E')))]
+    
     np.savetxt(pathtext3, df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
     ########################## end 3.txt ##############################
         
@@ -750,9 +830,9 @@ def characteristika_created_txt_create(datas,order_id):
     wms_height =[]
     
     for key , row in datas.iterrows():
+        row['Длина'] = (row['Длина']).replace('.0','')
         sap_code_title.append(row['SAP код S4P 100'])
         dlina_title.append(row['Длина'])
-        # obshiy_ves_za_shtuku.append(row['Общий вес за штуку'].replace(',','.'))
         obshiy_ves_za_shtuku.append(1)
         wms_width.append(row['WMS_WIDTH'])
         wms_height.append(row['WMS_HEIGHT'])
@@ -764,43 +844,7 @@ def characteristika_created_txt_create(datas,order_id):
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT['E'][i]['zavod_code'])
                 new_ll[2].append(LGORT['E'][i]['zavod_sap'])
-        if sap_code_simvol =='Z':
-            for i in range(0,len(LGORT['Z'])):
-                new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['Z'][i]['zavod_code'])
-                new_ll[2].append(LGORT['Z'][i]['zavod_sap'])
-        if sap_code_simvol =='P':
-            if (row['Тип покрытия'] =='Ламинированный'):
-                for i in range(0,len(LGORT['PL'])):
-                    new_ll[0].append(row['SAP код S4P 100'])
-                    new_ll[1].append(LGORT['PL'][i]['zavod_code'])
-                    new_ll[2].append(LGORT['PL'][i]['zavod_sap'])
-            else:
-                for i in range(0,len(LGORT['P'])):
-                    new_ll[0].append(row['SAP код S4P 100'])
-                    new_ll[1].append(LGORT['P'][i]['zavod_code'])
-                    new_ll[2].append(LGORT['P'][i]['zavod_sap'])
         
-        if sap_code_simvol =='S':
-            for i in range(0,len(LGORT['S'])):
-                new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['S'][i]['zavod_code'])
-                new_ll[2].append(LGORT['S'][i]['zavod_sap'])
-        if sap_code_simvol =='N':
-            for i in range(0,len(LGORT['N'])):
-                new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['N'][i]['zavod_code'])
-                new_ll[2].append(LGORT['N'][i]['zavod_sap'])
-        if sap_code_simvol =='K':
-            for i in range(0,len(LGORT['K'])):
-                new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['K'][i]['zavod_code'])
-                new_ll[2].append(LGORT['K'][i]['zavod_sap'])
-        if sap_code_simvol =='A':
-            for i in range(0,len(LGORT['A'])):
-                new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['A'][i]['zavod_code'])
-                new_ll[2].append(LGORT['A'][i]['zavod_sap'])
         
         if sap_code_simvol =='7':
             if (row['Тип покрытия'] =='Ламинированный'):
@@ -814,18 +858,14 @@ def characteristika_created_txt_create(datas,order_id):
                     new_ll[1].append(LGORT['7'][i]['zavod_code'])
                     new_ll[2].append(LGORT['7'][i]['zavod_sap'])
         
-        if sap_code_simvol =='F':
-            for i in range(0,len(LGORT['F'])):
-                new_ll[0].append(row['SAP код S4P 100'])
-                new_ll[1].append(LGORT['F'][i]['zavod_code'])
-                new_ll[2].append(LGORT['F'][i]['zavod_sap'])
+       
 
-    header4 = 'MATNR\tWERKS\tLGORT\tRAUBE'
+    header4 = 'MATNR\tWERKS\tLGORT'
     d4={}
     d4['MATNR']= new_ll[0] 
     d4['WERKS']= new_ll[1] 
     d4['LGORT']= new_ll[2] 
-    d4['RAUBE']= ['' for x in new_ll[2]]
+    # d4['RAUBE']= ['' for x in new_ll[2]]
     df4 = pd.DataFrame(d4)
     np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################
@@ -871,11 +911,6 @@ def characteristika_created_txt_create(datas,order_id):
     }
     ED_IZM =['ШТ','М','КГ']
     
-    # sap_code_title =[]
-    # dlina_title =[]
-    # obshiy_ves_za_shtuku =[]
-    # wms_width =[]
-    # wms_height =[]
     ed_iz3 =[]
     for i in range(0,3):
         if i == 0 :
@@ -890,7 +925,6 @@ def characteristika_created_txt_create(datas,order_id):
         d5['sap_code'] += sap_code_title 
         d5['ed_iz1'] += [ i for j in range(0,len(sap_code_title))]
         d5['ed_iz2'] +=['1' if i =='ШТ' else '1000'  for j in range(0,len(sap_code_title)) ]
-        # d5['ed_iz3'] +=['1' if i =='ШТ' elif i=='М' for j in range(0,len(sap_code_title)) ]
         d5['ed_iz4'] +=[j for j in dlina_title ]
         d5['ed_iz5'] +=[j for j in wms_height ]
         d5['ed_iz6'] +=[j for j in wms_width ]
@@ -908,181 +942,107 @@ def characteristika_created_txt_create(datas,order_id):
     
 
     for key , row in datas.iterrows():
-        sap_code = row['SAP код S4P 100'].split('-')[0]
         
-
         row['tnved'] =str(row['tnved']).replace('.0','')
-        row['outer_side_pc_id'] =str(row['outer_side_pc_id']).replace('.0','')
-        row['outer_side_pc_brand'] =''
-        row['inner_side_pc_id'] =''
-        row['inner_side_pc_brand'] =''
-        row['outer_side_wg_s_id'] =''
-        row['inner_side_wg_s_id'] =''
-        row['outer_side_wg_id'] =''
-        row['inner_side_wg_id'] =''
-        row['width'] =str(row['width']).replace('.0','')
-        row['height'] =str(row['height']).replace('.0','')
-        
-        if (('-E' in row['SAP код S4P 100'])):
+        row['amount_in_a_package'] =str(row['amount_in_a_package']).replace('.0','')
+        row['wms_width'] =str(row['wms_width']).replace('.0','')
+        row['wms_height'] =str(row['wms_height']).replace('.0','')
+        row['number_of_chambers'] =str(row['number_of_chambers']).replace('.0','')
+        row['length'] =str(row['length']).replace('.0','')
 
-            for j in range(0,31):
+        if '-7' in row['SAP код S4P 100']:
+            for j in range(0,25):
                 dd2[0].append('001')
-            dd2[0].append('023')
-                
-            for j in range(0,31):
+            
+            for j in range(0,25):
                 if HEADER2[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
-
-                    dd2[1].append('ALUMINIUM_PROFILE')
+                    dd2[1].append('PVC_PROFILE')
                 else:
                     if HEADER2[j] in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT']:
                         dd2[1].append('RAWMAT_TYPE')
                     elif HEADER2[j] =='TNVED':
                         dd2[1].append('TNVED')
-            dd2[1].append('ZPP_023_HALB')
                 
-            for j in range(0,32):
+            for j in range(0,25):
                 dd2[2].append('MARA')
                 
-            for j in range(0,32):
+            for j in range(0,25):
                 dd2[3].append(row['SAP код S4P 100'])
                 
             for j in HEADER2:
                 dd2[4].append(j)
-            dd2[4].append('ZBATCH_NUM')
 
 
-            dd2[5].append('')
-            dd2[5].append('')
             dd2[5].append(row['system'])
-            dd2[5].append(row['SAP код S4P 100'].split('-')[0])
-            dd2[5].append(row['Длина'])
-            dd2[5].append(row['Тип покрытия'])
-            dd2[5].append('')
-            dd2[5].append('')
-            dd2[5].append('')
+            dd2[5].append(row['number_of_chambers'])
+            dd2[5].append(row['article'])
+            dd2[5].append(row['profile_type_id'])
+            dd2[5].append(row['length'])
+            dd2[5].append(row['surface_treatment'])
             dd2[5].append(row['outer_side_pc_id'])
-            dd2[5].append(row['outer_side_pc_brand'])
-            dd2[5].append(row['inner_side_pc_id'])
-            dd2[5].append(row['inner_side_pc_brand'])
-            dd2[5].append(row['outer_side_wg_s_id'])
-            dd2[5].append(row['inner_side_wg_s_id'])
             dd2[5].append(row['outer_side_wg_id'])
             dd2[5].append(row['inner_side_wg_id'])
-        
-            
-            dd2[5].append('С КОНТАКТОМ')
-            
-            dd2[5].append('')
-            dd2[5].append('')
-            dd2[5].append('')
+            dd2[5].append(row['sealer_color'])
+            dd2[5].append(row['print_view'])
             dd2[5].append(row['width'])
             dd2[5].append(row['height'])
             dd2[5].append(row['category'])
+            dd2[5].append(row['material_class'])
             dd2[5].append(row['rawmat_type'])
-            dd2[5].append('')
             dd2[5].append(row['tnved'])
-            dd2[5].append(str(row['surface_treatment_export']).replace('.0',''))
-            dd2[5].append(row['WMS_WIDTH'])
-            dd2[5].append(row['WMS_HEIGHT'])
-            dd2[5].append('')
-            dd2[5].append('XXXX')
+            dd2[5].append(row['surface_treatment_export'])
+            dd2[5].append(row['amount_in_a_package'])
+            dd2[5].append(row['wms_width'])
+            dd2[5].append(row['wms_height'])
+            dd2[5].append(row['product_type'])
+            dd2[5].append(row['profile_type'])
+            dd2[5].append(row['coating_qbic'])
+            dd2[5].append('XXXXX')
         else:
-            
-            for j in range(0,32):
+            for j in range(0,21):
                 dd2[0].append('001')
-                
-            for j in range(0,32):
+            
+            for j in range(0,21):
                 if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
-                    dd2[1].append('ALUMINIUM_PROFILE')
+                    dd2[1].append('PVC_PROFILE')
                 else:
                     if HEADER[j] in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT']:
                         dd2[1].append('RAWMAT_TYPE')
                     elif HEADER[j] =='TNVED':
                         dd2[1].append('TNVED')
-
-            if '-7' in row['SAP код S4P 100']:
-                dd2[0].append('001')
-                dd2[0].append('023')
-                dd2[1].append('QBIC')
-                dd2[1].append('ZPP_023_FERT')
-            else:
-                dd2[0].append('023')
-                dd2[1].append('ZPP_023_HALB')
-
-            for j in range(0,32):
+                
+            for j in range(0,21):
                 dd2[2].append('MARA')
                 
-            for j in range(0,32):
+            for j in range(0,21):
                 dd2[3].append(row['SAP код S4P 100'])
                 
             for j in HEADER:
                 dd2[4].append(j)
 
-            if '-7' in row['SAP код S4P 100']:
-                dd2[2].append('MARA')
-                dd2[2].append('MARA')
-                dd2[3].append(row['SAP код S4P 100'])
-                dd2[3].append(row['SAP код S4P 100'])
-                dd2[4].append('COATING_QBIC')
-                dd2[4].append('ZBATCH_NUM')
-            else:
-                dd2[2].append('MARA')
-                dd2[3].append(row['SAP код S4P 100'])
-                dd2[4].append('ZBATCH_NUM')
 
-            dd2[5].append('')
-            dd2[5].append('')
             dd2[5].append(row['system'])
-            dd2[5].append(row['SAP код S4P 100'].split('-')[0])
-            dd2[5].append(row['Длина'])
-            dd2[5].append(row['Тип покрытия'])
-            dd2[5].append('')
-            dd2[5].append('')
-            dd2[5].append('')
+            dd2[5].append(row['number_of_chambers'])
+            dd2[5].append(row['article'])
+            dd2[5].append(row['profile_type_id'])
+            dd2[5].append(row['length'])
+            dd2[5].append(row['surface_treatment'])
             dd2[5].append(row['outer_side_pc_id'])
-            dd2[5].append(row['outer_side_pc_brand'])
-            dd2[5].append(row['inner_side_pc_id'])
-            dd2[5].append(row['inner_side_pc_brand'])
-            dd2[5].append(row['outer_side_wg_s_id'])
-            dd2[5].append(row['inner_side_wg_s_id'])
-            dd2[5].append(row['outer_side_wg_id'])
-            dd2[5].append(row['inner_side_wg_id'])
-            dd2[5].append('')
-            
-            dd2[5].append('')
-            dd2[5].append('')
+            dd2[5].append('NR')
             dd2[5].append(row['print_view'])
-            dd2[5].append('')
             dd2[5].append(row['width'])
             dd2[5].append(row['height'])
             dd2[5].append(row['category'])
+            dd2[5].append(row['material_class'])
             dd2[5].append(row['rawmat_type'])
-            dd2[5].append('')
             dd2[5].append(row['tnved'])
-            dd2[5].append(str(row['surface_treatment_export']).replace('.0',''))
-            dd2[5].append(row['WMS_WIDTH'])
-            dd2[5].append(row['WMS_HEIGHT'])
-            dd2[5].append('')
-            if '-7' in row['SAP код S4P 100']:
-                if row['Тип покрытия'] =='Неокрашенный':
-                    qbic ='XXXX'
-                elif row['Тип покрытия'] =='Окрашенный':
-                    qbic = row['outer_side_pc_id']
-                elif row['Тип покрытия'] =='Анодированный':
-                    qbic = row['outer_side_pc_id']
-                elif row['Тип покрытия'] =='Ламинированный':
-                    if row['outer_side_wg_id'] =='XXXX':
-                        qbic = row['inner_side_wg_id']
-                    else:
-                        qbic = row['outer_side_wg_id']
-                elif row['Тип покрытия'] =='Сублимированный':
-                    qbic = row['outer_side_wg_s_id']
-                else:
-                    qbic ='XXXX'
-                dd2[5].append(qbic)
-                dd2[5].append('XXXX')
-            else:
-                dd2[5].append('XXXX')
+            dd2[5].append(row['surface_treatment_export'])
+            dd2[5].append(row['amount_in_a_package'])
+            dd2[5].append(row['wms_width'])
+            dd2[5].append(row['wms_height'])
+            dd2[5].append(row['product_type'])
+            dd2[5].append(row['profile_type'])
+
 
     new_date={}       
     new_date['Вид класса'] = dd2[0] 
@@ -1096,7 +1056,7 @@ def characteristika_created_txt_create(datas,order_id):
     
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
-    ddf2 = ddf2.replace('XXXX','')
+    ddf2 = ddf2.replace('XXXXX','')
     ddf2.to_excel(pathtext6,index=False)
 
     file_path =f'{pathzip}.zip'
@@ -1142,34 +1102,6 @@ def create_characteristika_utils(items):
         if '-L' in item['sap_code']:
             continue
         
-        
-        
-        # sap_kode =item['material'].split('-')[0]
-        # baza_profiey = BazaProfiley.objects.filter(Q(артикул=sap_kode)|Q(компонент=sap_kode))[:1].get()
-        
-
-        # if (('-7' in item['material']) or ('-K' in item['material']) or ('-L'  in item['material'])):
-        #     component_name ='Артикул'
-        # else:
-        #     component_name ='Компонент'
-        
-        # if '-7' in item['material']:
-        #     gruppa_material ='PVCGP'
-        # else:
-        #     gruppa_material ='PVCPF'
-        
-        
-
-
-
-        # нумерация_до_sap =''
-
-        # дата_изменение_добавление =''
-        # статус_изменение_добавление=''
-        # ссылки_для_чертежа=''
-        # sap_код_s4p_100=item['material']
-        # короткое_название_sap =item['kratkiy']
-        # польное_наименование_sap = 'Алюминиевый '+baza_profiey.product_description +', '+component_name +' '+sap_kode+', '+item['surface_treatment']+', Длина '+item['length']+' мм, Тип '+item['alloy']+'-'+item['temper']+' '+item['print_view']
         ед_изм ='ШТ'
         альтернативная_ед_изм='КГ'
        
@@ -1191,8 +1123,6 @@ def create_characteristika_utils(items):
         df[4].append(ед_изм)
         df[5].append(альтернативная_ед_изм)
         df[6].append('')
-        # df[7].append(item['section'])
-        # df[8].append('')
         df[9].append(item['length'])
         df[10].append(item['width'])
         df[11].append(item['height'])
@@ -1230,13 +1160,14 @@ def create_characteristika_utils(items):
         df[42].append(item['profile_type'])
         df[43].append(item['coating_qbic'])
         # df[44].append(item['id_savdo'])
-        df[45].append('')
-        # df[46].append(item['ch_profile_type'])
-        # df[47].append(item['kls_wast_length'])
-        # df[48].append(item['kls_wast'])
-        # df[49].append(item['ch_klaes_optm'])
-        # df[50].append(item['goods_group'])
-        
+        df[45].append(item['export_description'])
+        df[46].append(item['export_description_eng'])
+        df[47].append(item['sb'])
+        df[48].append('')
+
+        df[49].append(item['online_savdo_name'])
+        df[50].append(item['id_savdo'])
+
         
 
         
@@ -1286,16 +1217,12 @@ def create_characteristika_utils(items):
         'product_type' :df[41],
         'profile_type' :df[42],
         'coating_qbic' :df[43],
-        # 'id_savdo' :df[44],
-        # 'klaes' :df[45],
-        # 'ch_profile_type' :df[46],
-        # 'kls_wast_length' :df[47],
-        # 'kls_wast' :df[48],
-        # 'ch_klaes_optm' :df[49],
-        # 'goods_group' :df[50],
         'export_description':df[45],
-        'export_description_eng':df[45],
-        'combination':df[45],
+        'export_description_eng':df[46],
+        'sb':df[47],
+        'combination':df[48],
+        'online_savdo_name' :df[49],
+        'id_savdo' :df[50],
         
     }
     df_new = pd.DataFrame(dat)
@@ -1349,14 +1276,9 @@ def create_characteristika(items):
             wms_height = item['wms_height'], 
             product_type = item['product_type'], 
             profile_type = item['profile_type'], 
-            coating_qbic = item['coating_qbic'] 
-            # id_savdo = item['id_savdo'], 
-            # klaes = item['klaes'], 
-            # ch_profile_type = item['ch_profile_type'], 
-            # kls_wast_length = item['kls_wast_length'], 
-            # kls_wast = item['kls_wast'], 
-            # ch_klaes_optm = item['ch_klaes_optm'], 
-            # goods_group = item['goods_group'] 
+            coating_qbic = item['coating_qbic'], 
+            id_savdo = item['id_savdo'], 
+            online_savdo_name = item['online_savdo_name']
             )
         
         character.save()
@@ -1387,8 +1309,8 @@ def create_characteristika(items):
         all_data[23].append(character.profile_type)
         all_data[24].append(character.coating_qbic)
         all_data[25].append(character.kratkiy)
-        # all_data[26].append(character.klaes)
-        # all_data[27].append(character.ch_profile_type)
+        all_data[26].append(character.online_savdo_name)
+        all_data[27].append(character.id_savdo)
         # all_data[28].append(character.kls_wast_length)
         # all_data[29].append(character.kls_wast)
         # all_data[30].append(character.ch_klaes_optm)
@@ -1424,9 +1346,9 @@ def create_characteristika(items):
         'WMS_HEIGHT':all_data[21],
         'PRODUCT_TYPE':all_data[22],
         'PROFILE_TYPE':all_data[23],
-        'COATING_QBIC':all_data[24]
-        # 'ID_SAVDO':all_data[25],
-        # 'KLAES':all_data[26],
+        'COATING_QBIC':all_data[24],
+        'ONLINE_SAVDO_NAME':all_data[26],
+        'ID_SAVDO':all_data[27],
         # 'CH_PROFILE_TYPE':all_data[27],
         # 'KLS_WAST_LENGTH':all_data[28],
         # 'KLS_WAST':all_data[29],

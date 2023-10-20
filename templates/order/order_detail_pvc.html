@@ -270,8 +270,7 @@
         </div>
         </div>
         {% endif %}
-        
-        {% if CharUtilsOne %}
+        {% if Abreviation %}
         <div class="row ">
             <div class="col-12 grid-margin">
             <div class="card">
@@ -291,7 +290,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {%for char in CharUtilsOne%}
+                        {%for char in Abreviation%}
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
                             <td  class ='new_char_one' ><input type='text' id ='matritsa{{forloop.counter}}' value='{{char}}'></td>
@@ -313,7 +312,7 @@
             </div>
         </div>
         {% endif %}
-        {% if CharUtilsTwo%}
+        {% if Camera%}
         <div class="row ">
             <div class="col-12 grid-margin">
             <div class="card">
@@ -355,51 +354,6 @@
             </div>
         </div>
         {% endif %}
-        {% if BazaProfile%}
-        <div class="row ">
-            <div class="col-12 grid-margin">
-            <div class="card">
-                <div class="card-body">
-                <h4 class="card-title">Baza profiles</h4>
-                <div class="table-responsive">
-                    <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Артикул</th>
-                            <th scope="col">Компонент</th>
-                            <th scope="col">Серия</th>
-                            <th scope="col">Старый код</th>
-                            <th scope="col">Product description</th>
-                            <th scope="col">Link</th>
-                            <th scope="col">Действие</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {%for char in BazaProfile  %}
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td class ='new_char_two' ><input type='text'  id ='artikultwo{{forloop.counter}}' value='{{char.0}}' required></td>
-                            <td ><input type='text'  id ='komponent{{forloop.counter}}' value='{{char.1}}' required></td>
-                            <td ><input type='text'  id ='seria{{forloop.counter}}'  value='{{char.2}}' required></td>
-                            <td ><input type='text'  id ='stariykod{{forloop.counter}}' value='{{char.3}}' required></td>
-                            <td ><input type='text'  id ='prodesc{{forloop.counter}}' value='{{char.4}}' required></td>
-                            <td ><input type='text'  id ='link{{forloop.counter}}' value='{{char.5}}' required></td>
-                            <td>
-                                <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                    </table>
-                </div>
-                <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='baza_profiley()' id ='char_three'>Готов</button>
-                </div>
-            </div>
-            </div>
-        </div>
-        {% endif %}
         <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
@@ -408,13 +362,7 @@
                 </div>
                 </div>
             </div>
-            <!-- <div class="col-md-6 grid-margin stretch-card">
-                <div class="card">
-                <div class="card-body">
-                      <button type="button" onclick='excel_file_load()' class="btn btn-outline-secondary btn-lg btn-block">Скачать эксель файл</button>
-                </div>
-                </div>
-            </div> -->
+            
         </div>
       {%endif%}
 
