@@ -1673,7 +1673,7 @@ def product_add_second_simple(id):
                             
                         
                 
-                if row['тип закаленности']!='T4': 
+                if row['тип закаленности']!='T4':
                     if AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['Печь старения'][key]).exists():
                         obichniy = AluminiyProduct.objects.filter(artikul =component,section ='Z',kratkiy_tekst_materiala=df_new['Печь старения'][key])[:1].get()
                         

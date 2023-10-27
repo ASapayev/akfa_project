@@ -2605,8 +2605,9 @@ def product_add_second_org(request,id):
                   'серия':[i[1] for i in doesnotexist[2]],
                   'старый_код':[i[2] for i in doesnotexist[2]],
                   'компонент':[i[3] for i in doesnotexist[2]],
-                  'product_description':[i[4] for i in doesnotexist[2]],
-                  'link':[i[5] for i in doesnotexist[2]],
+                  'type_combination':[i[4] for i in doesnotexist[2]],
+                  'product_description':[i[5] for i in doesnotexist[2]],
+                  'link':[i[6] for i in doesnotexist[2]],
             })
           
             df_artikul_component =pd.DataFrame({
@@ -4854,7 +4855,7 @@ def baza_profile(request):
                   bazaprofiles.delete()
 
       if data:
-            items = [BazaProfiley(компонент =item['komponent'],артикул =item['artikul'],серия=item['seria'],старый_код=item['stariykod'],product_description=item['prodesc'],link = item['link']) for item in ast.literal_eval(data)]
+            items = [BazaProfiley(компонент =item['komponent'],артикул =item['artikul'],серия=item['seria'],старый_код=item['stariykod'],type_combination=item['type_combination'],product_description=item['prodesc'],link = item['link']) for item in ast.literal_eval(data)]
             BazaProfiley.objects.bulk_create(items)
             return JsonResponse({'saved':True})
       else:
@@ -4903,7 +4904,7 @@ def excel_does_not_exists_add(request):
       items =[]
       if df['baza profile'].shape[0] > 0:
             for key,row in df['baza profile'].iterrows():
-                  items.append(BazaProfiley(компонент = row['компонент'],артикул = row['артикул'],серия= row['серия'],старый_код= row['старый_код'],product_description= row['product_description'],link =row['link']))
+                  items.append(BazaProfiley(компонент = row['компонент'],артикул = row['артикул'],серия= row['серия'],старый_код= row['старый_код'],type_combination=row['type_combination'],product_description= row['product_description'],link =row['link']))
             try:
                   BazaProfiley.objects.bulk_create(items)
             except:

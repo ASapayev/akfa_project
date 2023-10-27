@@ -457,6 +457,7 @@
                             <th scope="col">Компонент</th>
                             <th scope="col">Серия</th>
                             <th scope="col">Старый код</th>
+                            <th scope="col">Тип комбинация</th>
                             <th scope="col">Product description</th>
                             <th scope="col">Link</th>
                             <th scope="col">Действие</th>
@@ -471,8 +472,9 @@
                             <td ><input type='text'  id ='komponent{{forloop.counter}}' value='{{char.1}}' required></td>
                             <td ><input type='text'  id ='seria{{forloop.counter}}'  value='{{char.2}}' required></td>
                             <td ><input type='text'  id ='stariykod{{forloop.counter}}' value='{{char.3}}' required></td>
-                            <td ><input type='text'  id ='prodesc{{forloop.counter}}' value='{{char.4}}' required></td>
-                            <td ><input type='text'  id ='link{{forloop.counter}}' value='{{char.5}}' required></td>
+                            <td ><input type='text'  id ='typecombination{{forloop.counter}}' value='{{char.4}}' required></td>
+                            <td ><input type='text'  id ='prodesc{{forloop.counter}}' value='{{char.5}}' required></td>
+                            <td ><input type='text'  id ='link{{forloop.counter}}' value='{{char.6}}' required></td>
                             <td>
                                 <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
                             </td>
@@ -834,6 +836,7 @@
           artikul = document.getElementById('artikultwo' + i.toString()).value;
           seria = document.getElementById('seria' + i.toString()).value;
           stariykod = document.getElementById('stariykod' + i.toString()).value;
+          type_combination = document.getElementById('typecombination' + i.toString()).value;
           prodesc = document.getElementById('prodesc' + i.toString()).value;
           link = document.getElementById('link' + i.toString()).value;
           
@@ -858,6 +861,7 @@
                 'artikul':artikul,
                 'seria':seria,
                 'stariykod':stariykod,
+                'type_combination':type_combination,
                 'prodesc':prodesc,
                 'link':link
             }

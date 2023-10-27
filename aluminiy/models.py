@@ -112,6 +112,8 @@ class LengthOfProfile(models.Model):
 
 class ExchangeValues(models.Model):
   valute = models.CharField(max_length=100)
+  start_data = models.CharField(max_length=15,blank=True,null=True)
+  end_data = models.CharField(max_length=15,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 

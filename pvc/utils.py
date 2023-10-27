@@ -4,7 +4,7 @@ from order.models import OrderPVX
 import pandas as pd
 from datetime import datetime
 from config.settings import MEDIA_ROOT
-from .models import ArtikulKomponentPVC,AbreviaturaLamination,CameraPvc,LengthOfProfilePVC
+from .models import ArtikulKomponentPVC,AbreviaturaLamination,CameraPvc,LengthOfProfilePVC,DliniyText
 from .BAZA import *
 import numpy as np
 import zipfile
@@ -177,7 +177,7 @@ def characteristika_created_txt_create(datas,order_id):
                     buxgalterskiy_naz[5].append('0001')
                     buxgalterskiy_naz[6].append('')
                     buxgalterskiy_naz[7].append(row['export_description'])
-                else:
+                elif ii > 0 :
                     buxgalterskiy_naz[0].append('1')
                     buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
                     buxgalterskiy_naz[2].append('1200')
@@ -1167,6 +1167,15 @@ def create_characteristika_utils(items):
 
         df[49].append(item['online_savdo_name'])
         df[50].append(item['id_savdo'])
+        dlinniy_text =''
+        if item['surface_treatment'].lower()=='неламинированный' and (item['outer_side_wg_id']!='' or item['outer_side_wg_id']!='nan') :
+            dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет '+ item['outer_side_wg_id'] + ', длина ' + item['length'] + ', мм. Тип ' + item['outer_side_pc_id'] +'-'+ item['sealer_color'] +'-'+item['print_view']
+        elif item['surface_treatment'].lower()=='неламинированный' and (item['outer_side_wg_id']=='' or item['outer_side_wg_id']=='nan'):
+            dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет белый, длина ' + item['length'] + ', мм. Тип ' + item['outer_side_pc_id'] +'-'+ item['sealer_color'] +'-'+item['print_view']
+        elif item['surface_treatment'].lower()=='ламинированный':   
+            dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет '+ item['outer_side_wg_id'] +'/'+item['inner_side_wg_id']+ ', длина ' + item['length'] + ', мм. Тип ' + item['outer_side_pc_id'] +'-'+ item['sealer_color'] +'-'+item['print_view']
+
+        df[51].append(dlinniy_text)
 
         
 
@@ -1175,7 +1184,7 @@ def create_characteristika_utils(items):
         'SAP код S4P 100':df[0],
         'Нумерация до SAP':df[1],
         'Короткое название SAP':df[2],
-        'Польное наименование SAP':df[3],
+        'Польное наименование SAP':df[51],
         'Ед, Изм,':df[4],
         'Альтернативная ед, изм':df[5],
         'Коэфициент пересчета':df[6],
@@ -1222,7 +1231,7 @@ def create_characteristika_utils(items):
         'sb':df[47],
         'combination':df[48],
         'online_savdo_name' :df[49],
-        'id_savdo' :df[50],
+        'id_savdo' :df[50]
         
     }
     df_new = pd.DataFrame(dat)

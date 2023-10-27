@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            {%if 'work-wast' in request.path%}
+            <li class="breadcrumb-item"><a href="/media/uploads/shablon/Шаблон_для_DO_1301.xlsx" download><i class="mdi mdi-folder-download mr-2" > СКАЧАТЬ ШАБЛОН</i> </a></li>
+            {%elif 'upload-product-org' in request.path %}
+            <li class="breadcrumb-item"><a href="/media/uploads/shablon/simple.xlsx" download><i class="mdi mdi-folder-download mr-2" > СКАЧАТЬ ШАБЛОН</i></a></li>
+            {%elif 'upload-product-termo-org' in request.path %}
+            <li class="breadcrumb-item"><a href="/media/uploads/shablon/termo.xlsx"><i class="mdi mdi-folder-download mr-2" > СКАЧАТЬ ШАБЛОН</i></a></li>
+            {%elif 'for-three-factory' in request.path %}
+            <li class="breadcrumb-item"><a href="/media/uploads/shablon/1301.xlsx"><i class="mdi mdi-folder-download mr-2" > СКАЧАТЬ ШАБЛОН</i></a></li>
+            {%elif 'upload-razlovka' in request.path %}
+            <li class="breadcrumb-item"><a href="/media/uploads/shablon/Razlovka.xlsx"><i class="mdi mdi-folder-download mr-2" > СКАЧАТЬ ШАБЛОН</i></a></li>
+            {%else%}
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            {%endif%}
+            <li class="breadcrumb-item active" aria-current="page">{% if link %}<a type="button" href="{{link}}" class="btn btn-success btn-fw" >Скачать</a>{%else%}Buttons{% endif %}</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <form class="forms-sample" method="POST" enctype="multipart/form-data">
+        <div class="col-md-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">File upload</h4>
+              <p class="card-description"> Excel file yuklash uchun faqat. </p>
+              <div class="row">
+                <div class="col-md-6">
+                <div class="form-group">
+                  {% csrf_token%}
+                    <label>File excel</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Excel File">
+                      <span class="input-group-append">
+                        <input class="file-upload-browse btn btn-primary" type="file" name="file"></input>
+                      </span>
+                    </div>
+                </div>
+                  <p class="card-description">  </p>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      </div>
+                      <div class="col-md-4">
+                        <button class="btn btn-dark">Cancel</button>
+                      </div>
+                    </div>
+
+              <!-- </form> -->
+            </div>
+          </div>
+        
+          </div>
+        </div>
+        </form>
+      
+      </div>
+      
+    </div>
+   
+  </div>
+{% endblock %}

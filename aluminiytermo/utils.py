@@ -6758,12 +6758,12 @@ def check_for_correct(items,filename='termo'):
                     
             if not BazaProfiley.objects.filter(Q(артикул=artikle)|Q(компонент=artikle)).exists():
                 if artikle not in baza_profiley:
-                    baza_profiley.append([artikle,'','','','',''])
+                    baza_profiley.append([artikle,'','','','','',''])
             else:
                 baza_profile =BazaProfiley.objects.filter(Q(артикул=artikle)|Q(компонент=artikle))[:1].get()
 
                 if baza_profile.link == None:
-                    baza_profiley.append([artikle,baza_profile.серия,baza_profile.старый_код,baza_profile.компонент,baza_profile.product_description,''])
+                    baza_profiley.append([artikle,baza_profile.серия,baza_profile.старый_код,baza_profile.компонент,'',baza_profile.product_description,''])
                     
         if  filename =='termo':   
             if row['Компонент'] !='nan':

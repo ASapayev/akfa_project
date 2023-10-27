@@ -1,0 +1,60 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{% if link %}<a type="button" href="{{link}}" class="btn btn-success btn-fw" >Скачать</a>{%else%}Buttons{% endif %}</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <form class="forms-sample" method="POST" enctype="multipart/form-data">
+        <div class="col-md-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">File upload</h4>
+              <p class="card-description"> Excel file yuklash uchun faqat. </p>
+              <div class="row">
+                <div class="col-md-6">
+                <div class="form-group">
+                  {% csrf_token%}
+                    <label>UPLOAD EXCELL FILES</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Excel File">
+                      <span class="input-group-append">
+                        {{form1.file}}
+                      </span>
+                    </div>
+                    <hr>
+                    
+                </div>
+                  <p class="card-description">  </p>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      </div>
+                      <div class="col-md-4">
+                        <button class="btn btn-dark">Cancel</button>
+                      </div>
+                    </div>
+
+              <!-- </form> -->
+            </div>
+          </div>
+        
+          </div>
+        </div>
+        </form>
+      
+      </div>
+      
+    </div>
+   
+  </div>
+{% endblock %}

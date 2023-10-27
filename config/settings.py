@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'norma',
     'order',
     'pvc',
+    'onlinesavdo',
     
     # 'json_field',
     # "debug_toolbar",

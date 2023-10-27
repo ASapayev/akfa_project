@@ -148,12 +148,6 @@
           <li class="nav-item"> <a class="nav-link" href="">Созд. термо сапкоды</a></li>
           <li class="nav-item"> <a class="nav-link" href="">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class=""> обыч разл </span> файла</a></li>
           <li class="nav-item"> <a class="nav-link" href="">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо разл</span> файла</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Все обычный разловки</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Все термо разловки</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Форм. Старый хар обыч</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Форм. Старый хар термо</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">История обыч. файла</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">История термо файла</a></li>
         </ul>
       </div>
     </li>
@@ -198,6 +192,26 @@
     </li>
     {%endif%}
 
+    {% if user_role == 'moderator'%}
+    <li class="nav-item menu-items">
+      <a class="nav-link" data-toggle="collapse" href="#online_savdo" aria-expanded="false" aria-controls="online_savdo">
+        <span class="menu-icon">
+          <i class="mdi mdi-basket-fill"></i>
+        </span>
+        <span class="menu-title">Онлайн савдо</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="online_savdo">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{% url 'upload_online_savdo' %}" >Созд. Мат (Online)</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'upload_sozdaniye' %}">Созд. Цена (Online)</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{%url 'upload_sozdaniye_sena' %}">Созд. Цена (SAP)</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{%url 'upload_sozdaniye_format' %}">Созд. Цена Форм(SAP)</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{%url 'upload_for_proverka' %}">Проверка</a></li>
+        </ul>
+      </div>
+    </li>
+    {%endif%}
     {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#sena" aria-expanded="false" aria-controls="sena">

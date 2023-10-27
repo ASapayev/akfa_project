@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from datetime import datetime
 from config.settings import MEDIA_ROOT
 from .forms import FileFormPVC,FileFormCharPVC
-from .models import PVCProduct,PVCFile,ArtikulKomponentPVC,CameraPvc,AbreviaturaLamination,LengthOfProfilePVC,Characteristika,Price,CharacteristikaFilePVC,RazlovkaPVX,BuxgalterskiyNazvaniye
+from .models import PVCProduct,PVCFile,ArtikulKomponentPVC,CameraPvc,AbreviaturaLamination,LengthOfProfilePVC,Characteristika,Price,CharacteristikaFilePVC,RazlovkaPVX,BuxgalterskiyNazvaniye,DliniyText
 from order.models import OrderPVX
 from accounts.models import User
 import pandas as pd
@@ -307,6 +307,8 @@ def product_add_second_org(request,id):
             id_savdo = ''
         else:
             id_savdo = row['Online savdo ID']
+
+        dlinniy_text = DliniyText.objects.filter(sap_code =df['Артикул'][key])[:1].get().sap_code
         
         if df['Тип покрытия'][key] == 'Ламинированный':
 
@@ -382,7 +384,8 @@ def product_add_second_org(request,id):
                                             'sb':buxgalter_naz.sb,
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':online_savdo_name,
-                                            'id_savdo' : id_savdo
+                                            'id_savdo' : id_savdo,
+                                            'dlinniy_text':dlinniy_text
 
                                             # 'klaes' : 1,#row[''],
                                             
@@ -449,7 +452,8 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':online_savdo_name,
-                                            'id_savdo' : id_savdo
+                                            'id_savdo' : id_savdo,
+                                            'dlinniy_text':dlinniy_text
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
                                             
@@ -529,7 +533,8 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':online_savdo_name,
-                                            'id_savdo' : id_savdo
+                                            'id_savdo' : id_savdo,
+                                            'dlinniy_text':dlinniy_text
 
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
@@ -592,7 +597,8 @@ def product_add_second_org(request,id):
 
                                         'coating_qbic' : q_bic,
                                         'online_savdo_name':online_savdo_name,
-                                        'id_savdo' : id_savdo
+                                        'id_savdo' : id_savdo,
+                                        'dlinniy_text':dlinniy_text
 
                                         # 'id_savdo' : 1,#row[''],
                                         # 'klaes' : 1,#row[''],
@@ -668,7 +674,8 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':'',
-                                            'id_savdo' : ''
+                                            'id_savdo' : '',
+                                            'dlinniy_text':''
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
                                             
@@ -731,7 +738,8 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':'',
-                                            'id_savdo' : ''
+                                            'id_savdo' : '',
+                                            'dlinniy_text':''
 
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
@@ -815,7 +823,8 @@ def product_add_second_org(request,id):
                                             'sb':'',
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':'',
-                                            'id_savdo' : ''
+                                            'id_savdo' : '',
+                                            'dlinniy_text':''
 
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
@@ -881,7 +890,8 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':'',
-                                            'id_savdo' : ''
+                                            'id_savdo' : '',
+                                            'dlinniy_text':''
 
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
@@ -981,7 +991,8 @@ def product_add_second_org(request,id):
             length_of_profile = LengthOfProfilePVC.objects.filter(artikul = row['article'],length=row['Длина'])[:1].get()
             df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
             df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
-            price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],zames=row['Код цвета основы/Замес'])[:1].get()
+            print(row['Тип покрытия'],row['outer_side_pc_id'])
+            price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],zames=row['outer_side_pc_id'])[:1].get()
             df_char_title['Price'][key] = float(price.price.replace(',','.')) * float(str(df_char_title['Общий вес за штуку'][key]).replace(',','.'))  * float(exchange_value.valute.replace(',','.'))
         else:
             price_all_correct = False
