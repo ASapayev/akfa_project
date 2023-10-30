@@ -6145,6 +6145,15 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 else:
                     dd2[5].append('XXXX')
 
+
+
+        print('0 >> ',len(dd2[0]),len(datas_1112[7]['Вид класса']))
+        print('1 >> ',len(dd2[1]),len(datas_1112[7]['Класс']))
+        print('2 >> ',len(dd2[2]),len(datas_1112[7]['Таблица']))
+        print('3 >> ',len(dd2[3]),len(datas_1112[7]['Объект']))
+        print('4 >> ',len(dd2[4]),len(datas_1112[7]['Имя признака']))
+        print('5 >> ',len(dd2[5]),len(datas_1112[7]['Значение признака']))
+
         new_date={}       
         new_date['Вид класса'] = dd2[0]  + datas_1112[7]['Вид класса']
         new_date['Класс'] = dd2[1] + datas_1112[7]['Класс']
