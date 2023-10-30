@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from datetime import datetime
 from config.settings import MEDIA_ROOT
 from .forms import FileFormPVC,FileFormCharPVC
-from .models import PVCProduct,PVCFile,ArtikulKomponentPVC,CameraPvc,AbreviaturaLamination,LengthOfProfilePVC,Characteristika,Price,CharacteristikaFilePVC,RazlovkaPVX,BuxgalterskiyNazvaniye,DliniyText
+from .models import PVCProduct,PVCFile,ArtikulKomponentPVC,CameraPvc,AbreviaturaLamination,LengthOfProfilePVC,Characteristika,Price,CharacteristikaFilePVC,RazlovkaPVX,BuxgalterskiyNazvaniye,DliniyText,RezinaIsklyucheniye
 from order.models import OrderPVX
 from accounts.models import User
 import pandas as pd
@@ -13,6 +13,11 @@ import os
 import random 
 from aluminiy.models import ExchangeValues
 from .utils import create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct
+
+
+
+
+
 
 def update_char_title_pvc(request,id):
     file = CharacteristikaFilePVC.objects.get(id=id).file
@@ -281,7 +286,7 @@ def product_add_second_org(request,id):
     df_new['SAP код 7']=''
     df_new['U-Упаковка + Готовая Продукция']=''
     
-
+    rezina_iskyuch = RezinaIsklyucheniye.objects.all().values_list('artikul',flat=True)
     
     
     
@@ -617,6 +622,7 @@ def product_add_second_org(request,id):
         if df['Тип покрытия'][key] == 'Ламинированный':      
                 lamtext = row['Код лам пленки снаружи']+"/"+row['Код лам пленки внутри']+' '
                 df_new['Ламинация'][key] = art.component+'-L ' +row['Код цвета основы/Замес'] +' L'+dlina +' ' +lamtext+row['Цвет резины']+' '+ row['Надпись наклейки']
+                
                 if PVCProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][key]).exists():
                     df_new['SAP код L'][key] = PVCProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][key])[:1].get().material
                     duplicat_list.append([df_new['SAP код L'][key],df_new['Ламинация'][key],'L'])
@@ -752,14 +758,17 @@ def product_add_second_org(request,id):
                                             }
                                         )
         
-                
+        if component in rezina_iskyuch:
+            text_nr = ' '
+        else:
+            text_nr = ' NR '
         if df['Тип покрытия'][key] == 'Ламинированный':
             if ((str(row['Код лам пленки внутри']).lower() =='xxxx') or (str(row['Код лам пленки снаружи']).lower() =='xxxx')):
-                df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] +' NR ' + row['Надпись наклейки'] +' 1sd'
+                df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + row['Надпись наклейки'] +' 1sd'
             else:
-                df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] +' NR ' + row['Надпись наклейки']
+                df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + row['Надпись наклейки']
         else:
-            df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] +' NR ' + row['Надпись наклейки']
+            df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + row['Надпись наклейки']
         
         
                     

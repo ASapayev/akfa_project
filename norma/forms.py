@@ -1,6 +1,7 @@
 from django import forms
-from .models import NormaExcelFiles,Norma,ViFiles
+from .models import NormaExcelFiles,Norma,ViFiles,Kraska
 from imzo.models import TexCartaTime
+
 
 
 class NormaFileForm(forms.ModelForm):
@@ -34,4 +35,10 @@ class TexcartaEditForm(forms.ModelForm):
   
   class Meta:
     model = TexCartaTime
+    fields ='__all__'
+
+class KraskaAddForm(forms.ModelForm):
+  
+  class Meta:
+    model = Kraska
     fields ='__all__'

@@ -1,0 +1,120 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+        </nav>
+      </div>
+      <div class="row ">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Лист</h4>
+              <div class="table-responsive">
+                <form method="POST">
+                    {%csrf_token%}
+                <table class="table" style="color: aliceblue;">
+                  <thead>
+                    <tr >
+                      <th  style="color: aliceblue;">
+                        #
+                      </th>
+                      <th  style="color: aliceblue;"> Артикул </th>
+                      <th  style="color: aliceblue;"> Название </th>
+                      <th  style="color: aliceblue;"> Ед.изм </th>
+                      <th  style="color: aliceblue;"> Склад закупа</th>
+                      <th  style="color: aliceblue;"> Бренд краски</th>
+                      <th  style="color: aliceblue;"> Код краски</th>
+                      <th  style="color: aliceblue;"> Тип краски</th>
+                      <th  style="color: aliceblue;"> Код краски в профилях</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr >
+                      <td>
+                        Пример:
+                      </td>
+                      <td>
+                        <span class="pl-2">1300000515</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">RAINBOW RAL 9016</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">КГ</span>
+                      </td>
+                      <td>
+                        <span class="pl-2"></span>
+                      </td>
+                      <td>
+                        <span class="pl-2"></span>
+                      </td>
+                      <td>
+                        <span class="pl-2">9016</span>
+                      </td>
+                      <td>
+                        <span class="pl-2"></span>
+                      </td>
+                      <td>
+                        <span class="pl-2">R9016</span>
+                      </td>
+                    </tr>
+                    <tr >
+                      <td>
+                        1
+                      </td>
+                      <td>
+                        <span class="pl-2">{{form.sap_code_s4q100}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{form.название}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{form.еи}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{form.склад_закупа}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{form.бренд_краски}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{form.код_краски}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{form.тип_краски}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{form.код_краски_в_профилях}}</span>
+                      </td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                
+                <div class="row p-2">
+                    <div class="col-5"></div>
+                    <div class="col-2">
+                        <input type="submit" class=" btn btn-success" value="SAVE">
+                    </div>
+                    <div class="col-5"></div>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+   
+  </div>
+
+
+
+{% endblock %}

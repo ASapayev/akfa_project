@@ -126,3 +126,8 @@ class DliniyText(models.Model):
   product_desc = models.CharField(max_length = 150,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
+
+class RezinaIsklyucheniye(models.Model):
+  artikul = models.CharField(max_length = 150,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)

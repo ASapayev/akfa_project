@@ -41,7 +41,7 @@ urlpatterns = [
     path('full-update',views.full_update_norma,name='full_update_norma_base'),
     path('simple-razlovka',aluview.upload_razlovka_simple,name='alu_simple_raz'),
     path('termo-razlovka',alutermoview.upload_razlovka_termo,name='alu_termo_raz'),
-
+    path('add-kraska',views.add_kraska,name ='add_kraska'),
 
     
 ]

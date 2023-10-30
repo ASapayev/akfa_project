@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from django.http import JsonResponse
 from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell,Accessuar,ZakalkaIskyuchenie,ViFiles
-from .forms import NormaFileForm,NormaEditForm,ViFileForm,TexcartaEditForm
+from .forms import NormaFileForm,NormaEditForm,ViFileForm,TexcartaEditForm,KraskaAddForm
 from django.db.models import Q
 from aluminiytermo.models import Characteristika,CharacteristicTitle
 from config.settings import MEDIA_ROOT
@@ -281,6 +281,22 @@ def norma_delete_all(request):
     norma.delete()
     texcarta.delete()
     return JsonResponse({'msg':True})
+
+def add_kraska(request):
+
+    if request.method == 'POST':
+        form = KraskaAddForm(data=request.POST)
+        if form.is_valid():
+                form.save()
+                return redirect('home')
+    else:
+        form = KraskaAddForm()
+
+    context =  {
+        'form':form
+    }
+    return render(request,'norma/add_kraska.html',context)
+
 
 
 @csrf_exempt

@@ -971,9 +971,9 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
 
     for key , row in datas.iterrows():
         sap_code = row['SAP код S4P 100'].split('-')[0]
-        bazaprofiley_link = BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
+        bazaprofiley = BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get()  
         baza_profile_links[0].append(row['SAP код S4P 100'])
-        baza_profile_links[1].append(bazaprofiley_link)
+        baza_profile_links[1].append(bazaprofiley.link)
 
         row['ch_tnved'] =str(row['ch_tnved']).replace('.0','')
         row['ch_outer_side_pc_id'] =str(row['ch_outer_side_pc_id']).replace('.0','')
@@ -989,11 +989,11 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
         
         if (('-E' in row['SAP код S4P 100']) or ('-Z' in row['SAP код S4P 100']) or ('-P' in row['SAP код S4P 100']) or ('-A' in row['SAP код S4P 100']) or ('-S' in row['SAP код S4P 100'])):
 
-            for j in range(0,31):
+            for j in range(0,32):
                 dd2[0].append('001')
             dd2[0].append('023')
                 
-            for j in range(0,31):
+            for j in range(0,32):
                 if HEADER2[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
 
                     dd2[1].append('ALUMINIUM_PROFILE')
@@ -1004,10 +1004,10 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
                         dd2[1].append('TNVED')
             dd2[1].append('ZPP_023_HALB')
                 
-            for j in range(0,32):
+            for j in range(0,33):
                 dd2[2].append('MARA')
                 
-            for j in range(0,32):
+            for j in range(0,33):
                 dd2[3].append(row['SAP код S4P 100'])
                 
             for j in HEADER2:
@@ -1053,13 +1053,14 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
             dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append(bazaprofiley.type_combination)
             dd2[5].append('XXXX')
         else:
             
-            for j in range(0,32):
+            for j in range(0,33):
                 dd2[0].append('001')
                 
-            for j in range(0,32):
+            for j in range(0,33):
                 if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
                     dd2[1].append('ALUMINIUM_PROFILE')
                 else:
@@ -1077,10 +1078,10 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
                 dd2[0].append('023')
                 dd2[1].append('ZPP_023_HALB')
 
-            for j in range(0,32):
+            for j in range(0,33):
                 dd2[2].append('MARA')
                 
-            for j in range(0,32):
+            for j in range(0,33):
                 dd2[3].append(row['SAP код S4P 100'])
                 
             for j in HEADER:
@@ -1140,6 +1141,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
                 dd2[5].append('XXXX')
             else:
                 dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append(bazaprofiley.type_combination)
 
             if '-7' in row['SAP код S4P 100']:
                 if row['Тип покрытия'] =='Неокрашенный':
@@ -2273,9 +2275,9 @@ def get_cretead_txt_for_1101(datas,elist):
                 continue
 
         sap_code = row['SAP код S4P 100'].split('-')[0]
-        bazaprofiley_link =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
+        bazaprofiley =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get()   
         baza_profile_links[0].append(row['SAP код S4P 100'])
-        baza_profile_links[1].append(bazaprofiley_link)
+        baza_profile_links[1].append(bazaprofiley.link)
 
         row['ch_tnved'] =str(row['ch_tnved']).replace('.0','')
         row['ch_outer_side_pc_id'] =str(row['ch_outer_side_pc_id']).replace('.0','')
@@ -2290,11 +2292,11 @@ def get_cretead_txt_for_1101(datas,elist):
         row['ch_height'] =str(row['ch_height']).replace('.0','')
         
         if '-7' in row['SAP код S4P 100']:
-            for j in range(0,33):
+            for j in range(0,34):
                 dd2[0].append('001')
             dd2[0].append('023')
                 
-            for j in range(0,32):
+            for j in range(0,33):
                 if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
                     dd2[1].append('ALUMINIUM_PROFILE')
                 else:
@@ -2308,10 +2310,10 @@ def get_cretead_txt_for_1101(datas,elist):
             dd2[1].append('QBIC')
             dd2[1].append('ZPP_023_FERT')
         
-            for j in range(0,34):
+            for j in range(0,35):
                 dd2[2].append('MARA')
                 
-            for j in range(0,34):
+            for j in range(0,35):
                 dd2[3].append(row['SAP код S4P 100'])
                 
             for j in HEADER:
@@ -2358,6 +2360,7 @@ def get_cretead_txt_for_1101(datas,elist):
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
             dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append(bazaprofiley.type_combination)
             if row['Тип покрытия'] =='Неокрашенный':
                 qbic ='XXXX'
             elif row['Тип покрытия'] =='Окрашенный':
@@ -2377,11 +2380,11 @@ def get_cretead_txt_for_1101(datas,elist):
             dd2[5].append(qbic)
             dd2[5].append('XXXX')
         else:
-            for j in range(0,32):
+            for j in range(0,33):
                 dd2[0].append('001')
             dd2[0].append('023')
                 
-            for j in range(0,32):
+            for j in range(0,33):
                 if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
                     dd2[1].append('ALUMINIUM_PROFILE')
                 else:
@@ -2390,10 +2393,10 @@ def get_cretead_txt_for_1101(datas,elist):
                     elif HEADER[j] =='TNVED':
                         dd2[1].append('TNVED')
             dd2[1].append('ZPP_023_HALB')
-            for j in range(0,33):
+            for j in range(0,34):
                 dd2[2].append('MARA')
                 
-            for j in range(0,33):
+            for j in range(0,34):
                 dd2[3].append(row['SAP код S4P 100'])
                 
             for j in HEADER:
@@ -2432,6 +2435,7 @@ def get_cretead_txt_for_1101(datas,elist):
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
             dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append(bazaprofiley.type_combination)
             dd2[5].append('XXXX')
 
     new_date={}       
@@ -4716,9 +4720,9 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 continue
 
         sap_code = row['SAP код S4P 100'].split('-')[0]
-        bazaprofiley_link =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
+        bazaprofiley =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get()   
         baza_profile_links[0].append(row['SAP код S4P 100'])
-        baza_profile_links[1].append(bazaprofiley_link)
+        baza_profile_links[1].append(bazaprofiley.link)
 
         row['ch_tnved'] =str(row['ch_tnved']).replace('.0','')
         row['ch_outer_side_pc_id'] =str(row['ch_outer_side_pc_id']).replace('.0','')
@@ -4737,7 +4741,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 dd2[0].append('001')
             dd2[0].append('023')
                 
-            for j in range(0,32):
+            for j in range(0,33):
                 if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
                     dd2[1].append('ALUMINIUM_PROFILE')
                 else:
@@ -4751,10 +4755,10 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             dd2[1].append('QBIC')
             dd2[1].append('ZPP_023_FERT')
         
-            for j in range(0,34):
+            for j in range(0,35):
                 dd2[2].append('MARA')
                 
-            for j in range(0,34):
+            for j in range(0,35):
                 dd2[3].append(row['SAP код S4P 100'])
                 
             for j in HEADER:
@@ -4801,6 +4805,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
             dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append(bazaprofiley.type_combination)
             if row['Тип покрытия'] =='Неокрашенный':
                 qbic ='XXXX'
             elif row['Тип покрытия'] =='Окрашенный':
@@ -4820,11 +4825,11 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             dd2[5].append(qbic)
             dd2[5].append('XXXX')
         else:
-            for j in range(0,32):
+            for j in range(0,33):
                 dd2[0].append('001')
             dd2[0].append('023')
                 
-            for j in range(0,32):
+            for j in range(0,33):
                 if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
                     dd2[1].append('ALUMINIUM_PROFILE')
                 else:
@@ -4833,10 +4838,10 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                     elif HEADER[j] =='TNVED':
                         dd2[1].append('TNVED')
             dd2[1].append('ZPP_023_HALB')
-            for j in range(0,33):
+            for j in range(0,34):
                 dd2[2].append('MARA')
                 
-            for j in range(0,33):
+            for j in range(0,34):
                 dd2[3].append(row['SAP код S4P 100'])
                 
             for j in HEADER:
@@ -4875,6 +4880,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
             dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append(bazaprofiley.type_combination)
             dd2[5].append('XXXX')
 
     new_date={}       
@@ -5950,9 +5956,9 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
 
         for key , row in datas.iterrows():
             sap_code = row['SAP код S4P 100'].split('-')[0]
-            bazaprofiley_link =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
+            bazaprofiley =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get()  
             baza_profile_links[0].append(row['SAP код S4P 100'])
-            baza_profile_links[1].append(bazaprofiley_link)
+            baza_profile_links[1].append(bazaprofiley.link)
 
             row['ch_tnved'] =str(row['ch_tnved']).replace('.0','')
             row['ch_outer_side_pc_id'] =str(row['ch_outer_side_pc_id']).replace('.0','')
@@ -5968,7 +5974,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
             
             if (('-E' in row['SAP код S4P 100']) or ('-Z' in row['SAP код S4P 100']) or ('-P' in row['SAP код S4P 100']) or ('-A' in row['SAP код S4P 100']) or ('-S' in row['SAP код S4P 100'])):
 
-                for j in range(0,31):
+                for j in range(0,32):
                     dd2[0].append('001')
                 dd2[0].append('023')
                     
@@ -5983,10 +5989,10 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                             dd2[1].append('TNVED')
                 dd2[1].append('ZPP_023_HALB')
                     
-                for j in range(0,32):
+                for j in range(0,33):
                     dd2[2].append('MARA')
                     
-                for j in range(0,32):
+                for j in range(0,33):
                     dd2[3].append(row['SAP код S4P 100'])
                     
                 for j in HEADER2:
@@ -6032,13 +6038,14 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 dd2[5].append(row['WMS_WIDTH'])
                 dd2[5].append(row['WMS_HEIGHT'])
                 dd2[5].append(row['ch_artikul_old'])
+                dd2[5].append(bazaprofiley.type_combination)
                 dd2[5].append('XXXX')
             else:
                 
-                for j in range(0,32):
+                for j in range(0,33):
                     dd2[0].append('001')
                     
-                for j in range(0,32):
+                for j in range(0,33):
                     if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
                         dd2[1].append('ALUMINIUM_PROFILE')
                     else:
@@ -6056,10 +6063,10 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                     dd2[0].append('023')
                     dd2[1].append('ZPP_023_HALB')
 
-                for j in range(0,32):
+                for j in range(0,33):
                     dd2[2].append('MARA')
                     
-                for j in range(0,32):
+                for j in range(0,33):
                     dd2[3].append(row['SAP код S4P 100'])
                     
                 for j in HEADER:
@@ -6116,6 +6123,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 dd2[5].append(row['WMS_WIDTH'])
                 dd2[5].append(row['WMS_HEIGHT'])
                 dd2[5].append(row['ch_artikul_old'])
+                dd2[5].append(bazaprofiley.type_combination)
                 if '-7' in row['SAP код S4P 100']:
                     if row['Тип покрытия'] =='Неокрашенный':
                         qbic ='XXXX'
@@ -6506,9 +6514,9 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
 
         for key , row in datas.iterrows():
             sap_code = row['SAP код S4P 100'].split('-')[0]
-            bazaprofiley_link =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get().link   
+            bazaprofiley =BazaProfiley.objects.filter(Q(артикул =sap_code)|Q(компонент=sap_code))[:1].get()  
             baza_profile_links[0].append(row['SAP код S4P 100'])
-            baza_profile_links[1].append(bazaprofiley_link)
+            baza_profile_links[1].append(bazaprofiley.link)
 
             row['ch_tnved'] =str(row['ch_tnved']).replace('.0','')
             row['ch_outer_side_pc_id'] =str(row['ch_outer_side_pc_id']).replace('.0','')
@@ -6524,11 +6532,11 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
             
             if (('-E' in row['SAP код S4P 100']) or ('-Z' in row['SAP код S4P 100']) or ('-P' in row['SAP код S4P 100']) or ('-A' in row['SAP код S4P 100']) or ('-S' in row['SAP код S4P 100'])):
 
-                for j in range(0,31):
+                for j in range(0,32):
                     dd2[0].append('001')
                 dd2[0].append('023')
                     
-                for j in range(0,31):
+                for j in range(0,32):
                     if HEADER2[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
 
                         dd2[1].append('ALUMINIUM_PROFILE')
@@ -6539,10 +6547,10 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                             dd2[1].append('TNVED')
                 dd2[1].append('ZPP_023_HALB')
                     
-                for j in range(0,32):
+                for j in range(0,33):
                     dd2[2].append('MARA')
                     
-                for j in range(0,32):
+                for j in range(0,33):
                     dd2[3].append(row['SAP код S4P 100'])
                     
                 for j in HEADER2:
@@ -6588,13 +6596,14 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 dd2[5].append(row['WMS_WIDTH'])
                 dd2[5].append(row['WMS_HEIGHT'])
                 dd2[5].append(row['ch_artikul_old'])
+                dd2[5].append(bazaprofiley.type_combination)
                 dd2[5].append('XXXX')
             else:
                 
-                for j in range(0,32):
+                for j in range(0,33):
                     dd2[0].append('001')
                     
-                for j in range(0,32):
+                for j in range(0,33):
                     if HEADER[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
                         dd2[1].append('ALUMINIUM_PROFILE')
                     else:
@@ -6612,10 +6621,10 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                     dd2[0].append('023')
                     dd2[1].append('ZPP_023_HALB')
 
-                for j in range(0,32):
+                for j in range(0,33):
                     dd2[2].append('MARA')
                     
-                for j in range(0,32):
+                for j in range(0,33):
                     dd2[3].append(row['SAP код S4P 100'])
                     
                 for j in HEADER:
@@ -6672,6 +6681,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 dd2[5].append(row['WMS_WIDTH'])
                 dd2[5].append(row['WMS_HEIGHT'])
                 dd2[5].append(row['ch_artikul_old'])
+                dd2[5].append(bazaprofiley.type_combination)
                 if '-7' in row['SAP код S4P 100']:
                     if row['Тип покрытия'] =='Неокрашенный':
                         qbic ='XXXX'

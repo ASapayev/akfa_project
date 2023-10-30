@@ -1,5 +1,5 @@
 from django import forms
-from .models import PVCFile,CharacteristikaFilePVC
+from .models import PVCFile,CharacteristikaFilePVC,RezinaIsklyucheniye
 
 
 class FileFormPVC(forms.ModelForm):
@@ -21,3 +21,6 @@ class FileFormCharPVC(forms.ModelForm):
   class Meta:
     model =CharacteristikaFilePVC
     fields =['file','file_type']
+
+
+
