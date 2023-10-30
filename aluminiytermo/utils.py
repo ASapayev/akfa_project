@@ -4737,7 +4737,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
         row['ch_height'] =str(row['ch_height']).replace('.0','')
         
         if '-7' in row['SAP код S4P 100']:
-            for j in range(0,33):
+            for j in range(0,34):
                 dd2[0].append('001')
             dd2[0].append('023')
                 
