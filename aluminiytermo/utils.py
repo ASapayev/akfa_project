@@ -5978,7 +5978,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                     dd2[0].append('001')
                 dd2[0].append('023')
                     
-                for j in range(0,31):
+                for j in range(0,32):
                     if HEADER2[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
 
                         dd2[1].append('ALUMINIUM_PROFILE')
