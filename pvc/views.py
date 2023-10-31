@@ -763,8 +763,14 @@ def product_add_second_org(request,id):
         else:
             text_nr = ' NR '
         if df['Тип покрытия'][key] == 'Ламинированный':
+
+            if 'PDF' in row['Артикул'] or '.G00' in row['Артикул'] or 'PVF.CP.F0001' in row['Артикул']:
+                sd = ''
+            else:
+                sd = +' 1sd'
+                 
             if ((str(row['Код лам пленки внутри']).lower() =='xxxx') or (str(row['Код лам пленки снаружи']).lower() =='xxxx')):
-                df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + row['Надпись наклейки'] +' 1sd'
+                df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + row['Надпись наклейки'] + sd
             else:
                 df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + row['Надпись наклейки']
         else:
