@@ -10,6 +10,7 @@ from accounts.models import User
 import pandas as pd
 from django.db.models import Count,Max
 import os
+from .BAZA import DOP_PROFIL
 import random 
 from aluminiy.models import ExchangeValues
 from .utils import create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct
@@ -764,7 +765,7 @@ def product_add_second_org(request,id):
             text_nr = ' NR '
         if df['Тип покрытия'][key] == 'Ламинированный':
             print('eeeee'*25)
-            if 'PDF' in row['Артикул'] or '.G00' in row['Артикул'] or 'PVF.CP.F0001' in row['Артикул']:
+            if 'PDF' in row['Артикул'] or '.G00' in row['Артикул'] or row['Артикул'] in DOP_PROFIL:
                 sd = 'NT1'
             else:
                 sd = row['Надпись наклейки'] +' 1sd'
