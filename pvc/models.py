@@ -10,6 +10,8 @@ class PVCProduct(models.Model):
   counter =models.IntegerField(default=0)
   gruppa_materialov =models.CharField(max_length=250,blank=True,null=True)
   kratkiy_tekst_materiala =models.CharField(max_length= 250,blank = True, null = True)
+  brutto =models.CharField(max_length=250,blank=True,null=True)
+  netto =models.CharField(max_length= 250,blank = True, null = True)
   created_at =models.DateTimeField(auto_now_add = True)
   updated_at =models.DateTimeField(auto_now = True)
 
