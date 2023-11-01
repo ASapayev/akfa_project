@@ -765,16 +765,15 @@ def product_add_second_org(request,id):
         if df['Тип покрытия'][key] == 'Ламинированный':
             print('eeeee'*25)
             if 'PDF' in row['Артикул'] or '.G00' in row['Артикул'] or 'PVF.CP.F0001' in row['Артикул']:
-                sd = ''
+                sd = ' NT1'
             else:
-                sd = +' 1sd'
+                sd = row['Надпись наклейки'] +' 1sd'
                  
             if ((str(row['Код лам пленки внутри']).lower() =='xxxx') or (str(row['Код лам пленки снаружи']).lower() =='xxxx')):
-                df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + row['Надпись наклейки'] + sd
+                df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + sd
             else:
                 df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr
         else:
-            print('ffffff'*25)
             df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + row['Надпись наклейки']
         
         
@@ -1007,7 +1006,6 @@ def product_add_second_org(request,id):
             length_of_profile = LengthOfProfilePVC.objects.filter(artikul = row['article'],length=row['Длина'])[:1].get()
             df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
             df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
-            print(row['Тип покрытия'],row['outer_side_pc_id'])
             price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],zames=row['outer_side_pc_id'])[:1].get()
             df_char_title['Price'][key] = float(price.price.replace(',','.')) * float(str(df_char_title['Общий вес за штуку'][key]).replace(',','.'))  * float(exchange_value.valute.replace(',','.'))
         else:
