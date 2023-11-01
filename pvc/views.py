@@ -765,7 +765,7 @@ def product_add_second_org(request,id):
         if df['Тип покрытия'][key] == 'Ламинированный':
             print('eeeee'*25)
             if 'PDF' in row['Артикул'] or '.G00' in row['Артикул'] or 'PVF.CP.F0001' in row['Артикул']:
-                sd = ' NT1'
+                sd = 'NT1'
             else:
                 sd = row['Надпись наклейки'] +' 1sd'
                  
