@@ -177,7 +177,7 @@ def characteristika_created_txt_create(datas,order_id):
                     buxgalterskiy_naz[4].append('RU')
                     buxgalterskiy_naz[5].append('0001')
                     buxgalterskiy_naz[6].append('')
-                    buxgalterskiy_naz[7].append(row['export_description'])
+                    buxgalterskiy_naz[7].append(row['online_savdo_name'])
                 elif ii > 0 :
                     buxgalterskiy_naz[0].append('1')
                     buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
