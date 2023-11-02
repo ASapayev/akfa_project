@@ -64,7 +64,8 @@ svet_lam_plenke_POL ={
       'ТЕМНЫЙ ДУБ':'ТЕМНЫЙ ДУБ',
       'GOLD BRUSH':'GOLD BRUSH',
       'X-BRUSH':'X-BRUSH',
-      'Ocean Blue':'Ocean Blue'
+      'Ocean Blue':'Ocean Blue',
+      'Махагон':'МАХАГОН'
 }
 
 svet_lam_plenke_NA ={
@@ -92,7 +93,8 @@ svet_lam_plenke_NA ={
       'ТЕМНЫЙ ДУБ':'НА ТЕМНЫЙ ДУБ',
       'GOLD BRUSH':'НА GOLD BRUSH',
       'X-BRUSH':'НА X-BRUSH',
-      'Ocean Blue':'Ocean Blue'
+      'Ocean Blue':'Ocean Blue',
+      'Махагон':'МАХАГОН'
 }
 
 svet_lam_plenke_VN ={
@@ -120,7 +122,8 @@ svet_lam_plenke_VN ={
       'ТЕМНЫЙ ДУБ':'ВН ТЕМНЫЙ ДУБ',
       'GOLD BRUSH':'ВН GOLD BRUSH',
       'X-BRUSH':'ВН X-BRUSH',
-      'Ocean Blue':'Ocean Blue'
+      'Ocean Blue':'Ocean Blue',
+      'Махагон':'МАХАГОН'
 }
 
 def product_add_second_termo(id):
