@@ -312,9 +312,9 @@ def product_add_second_org(request,id):
         if ((row['Online savdo ID'] == 'nan') or (row['Online savdo ID'] == '')):
             id_savdo = 'XXXXX'
         else:
-            id_savdo = row['Online savdo ID']
+            id_savdo = str(row['Online savdo ID']).replace('.0','')
 
-        dlinniy_text = DliniyText.objects.filter(sap_code =df['Артикул'][key])[:1].get().sap_code
+        dlinniy_text = DliniyText.objects.filter(sap_code =df['Артикул'][key])[:1].get().product_desc
         
         if df['Тип покрытия'][key] == 'Ламинированный':
 

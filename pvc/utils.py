@@ -1168,12 +1168,17 @@ def create_characteristika_utils(items):
         df[49].append(item['online_savdo_name'])
         df[50].append(item['id_savdo'])
         dlinniy_text =''
+        if item['sealer_color'] =='' or item['sealer_color'] =='nan':
+            sealor_color =''
+        else:
+            sealor_color = item['sealer_color'] +'-'
+
         if item['surface_treatment'].lower()=='неламинированный' and (item['outer_side_wg_id']!='' or item['outer_side_wg_id']!='nan') :
-            dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет '+ item['outer_side_wg_id'] + ', длина ' + item['length'] + ', мм. Тип ' + item['outer_side_pc_id'] +'-'+ item['sealer_color'] +'-'+item['print_view']
+            dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет '+ item['outer_side_wg_id'] + ', длина ' + item['length'] + ', мм. Тип ' + item['outer_side_pc_id'] +'-'+ sealor_color +item['print_view']
         elif item['surface_treatment'].lower()=='неламинированный' and (item['outer_side_wg_id']=='' or item['outer_side_wg_id']=='nan'):
-            dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет белый, длина ' + item['length'] + ', мм. Тип ' + item['outer_side_pc_id'] +'-'+ item['sealer_color'] +'-'+item['print_view']
+            dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет белый, длина ' + item['length'] + ', мм. Тип ' + item['outer_side_pc_id'] +'-'+ sealor_color + item['print_view']
         elif item['surface_treatment'].lower()=='ламинированный':   
-            dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет '+ item['outer_side_wg_id'] +'/'+item['inner_side_wg_id']+ ', длина ' + item['length'] + ', мм. Тип ' + item['outer_side_pc_id'] +'-'+ item['sealer_color'] +'-'+item['print_view']
+            dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет '+ item['outer_side_wg_id'] +'/'+item['inner_side_wg_id']+ ', длина ' + item['length'] + ', мм. Тип ' + item['outer_side_pc_id'] +'-'+sealor_color + item['print_view']
 
         df[51].append(dlinniy_text)
 
