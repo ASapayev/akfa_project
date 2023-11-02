@@ -545,10 +545,36 @@ LGORT ={
                 {
                 'zavod_code':'1203',
                 'zavod_sap':'S420'
-                },
+                }
+                ,
                 {
                 'zavod_code':'1203',
                 'zavod_sap':'P230'
+                }
+                ,
+                {
+                'zavod_code':'12D1',
+                'zavod_sap':'D100'
+                }
+                ,
+                {
+                'zavod_code':'12D2',
+                'zavod_sap':'D100'
+                }
+                ,
+                {
+                'zavod_code':'12D3',
+                'zavod_sap':'D100'
+                }
+                ,
+                {
+                'zavod_code':'12D4',
+                'zavod_sap':'D100'
+                }
+                ,
+                {
+                'zavod_code':'12D5',
+                'zavod_sap':'D100'
                 }
                 
             ],            
@@ -580,6 +606,31 @@ LGORT ={
                 {
                 'zavod_code':'1203',
                 'zavod_sap':'P230'
+                }
+                ,
+                {
+                'zavod_code':'12D1',
+                'zavod_sap':'D100'
+                }
+                ,
+                {
+                'zavod_code':'12D2',
+                'zavod_sap':'D100'
+                }
+                ,
+                {
+                'zavod_code':'12D3',
+                'zavod_sap':'D100'
+                }
+                ,
+                {
+                'zavod_code':'12D4',
+                'zavod_sap':'D100'
+                }
+                ,
+                {
+                'zavod_code':'12D5',
+                'zavod_sap':'D100'
                 }
                 
             ],       

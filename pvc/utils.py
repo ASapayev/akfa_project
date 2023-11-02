@@ -114,6 +114,7 @@ def characteristika_created_txt_create(datas,order_id):
         ############################ bugalter nazvaniya###
         if '-7' in row['SAP код S4P 100']:
             
+            print('savdo name >>>>> ',row['online_savdo_name'])
             for ii in range(0,3):
                 if ii ==0:
                     vtweg ='20'
