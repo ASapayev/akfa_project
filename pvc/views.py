@@ -310,7 +310,7 @@ def product_add_second_org(request,id):
             online_savdo_name = row['Название']
 
         if ((row['Online savdo ID'] == 'nan') or (row['Online savdo ID'] == '')):
-            id_savdo = ''
+            id_savdo = 'XXXXX'
         else:
             id_savdo = row['Online savdo ID']
 
@@ -681,7 +681,7 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':'',
-                                            'id_savdo' : '',
+                                            'id_savdo' : id_savdo,
                                             'dlinniy_text':''
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
@@ -745,7 +745,7 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':'',
-                                            'id_savdo' : '',
+                                            'id_savdo' : id_savdo,
                                             'dlinniy_text':''
 
                                             # 'id_savdo' : 1,#row[''],
@@ -839,7 +839,7 @@ def product_add_second_org(request,id):
                                             'sb':'',
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':'',
-                                            'id_savdo' : '',
+                                            'id_savdo' : id_savdo,
                                             'dlinniy_text':''
 
                                             # 'id_savdo' : 1,#row[''],
@@ -906,7 +906,7 @@ def product_add_second_org(request,id):
 
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':'',
-                                            'id_savdo' : '',
+                                            'id_savdo' : id_savdo,
                                             'dlinniy_text':''
 
                                             # 'id_savdo' : 1,#row[''],

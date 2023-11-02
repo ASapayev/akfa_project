@@ -114,7 +114,6 @@ def characteristika_created_txt_create(datas,order_id):
         ############################ bugalter nazvaniya###
         if '-7' in row['SAP код S4P 100']:
             
-            print('savdo name >>>>> ',row['online_savdo_name'])
             for ii in range(0,3):
                 if ii ==0:
                     vtweg ='20'
@@ -927,8 +926,8 @@ def characteristika_created_txt_create(datas,order_id):
         d5['ed_iz1'] += [ i for j in range(0,len(sap_code_title))]
         d5['ed_iz2'] +=['1' if i =='ШТ' else '1000'  for j in range(0,len(sap_code_title)) ]
         d5['ed_iz4'] +=[j for j in dlina_title ]
-        d5['ed_iz5'] +=[j for j in wms_height ]
         d5['ed_iz6'] +=[j for j in wms_width ]
+        d5['ed_iz5'] +=[j for j in wms_height ]
         d5['ed_iz7'] +=[ 'мм' for j in range(0,len(sap_code_title))]
     
    
@@ -973,7 +972,7 @@ def characteristika_created_txt_create(datas,order_id):
             for j in HEADER2:
                 dd2[4].append(j)
 
-
+            id_savdo = row['id_savdo']
             dd2[5].append(row['system'])
             dd2[5].append(row['number_of_chambers'])
             dd2[5].append(row['article'])
@@ -998,7 +997,7 @@ def characteristika_created_txt_create(datas,order_id):
             dd2[5].append(row['product_type'])
             dd2[5].append(row['profile_type'])
             dd2[5].append(row['coating_qbic'])
-            dd2[5].append('XXXXX')
+            dd2[5].append(row['id_savdo'])
         else:
             for j in range(0,21):
                 dd2[0].append('001')
