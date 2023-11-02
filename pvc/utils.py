@@ -926,8 +926,8 @@ def characteristika_created_txt_create(datas,order_id):
         d5['ed_iz1'] += [ i for j in range(0,len(sap_code_title))]
         d5['ed_iz2'] +=['1' if i =='ШТ' else '1000'  for j in range(0,len(sap_code_title)) ]
         d5['ed_iz4'] +=[j for j in dlina_title ]
-        d5['ed_iz6'] +=[j for j in wms_width ]
-        d5['ed_iz5'] +=[j for j in wms_height ]
+        d5['ed_iz5'] +=[j for j in wms_width ]
+        d5['ed_iz6'] +=[j for j in wms_height ]
         d5['ed_iz7'] +=[ 'мм' for j in range(0,len(sap_code_title))]
     
    
