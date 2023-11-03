@@ -47,7 +47,7 @@ def characteristika_created_txt_create(datas,order_id):
     year =now.strftime("%Y")
     month =now.strftime("%B")
     day =now.strftime("%a%d")
-    hour =now.strftime("%H HOUR %S")
+    hour =now.strftime("%H HOUR %M %S")
     minut =now.strftime("%M-%S MINUT")
     if order_id:
         order = OrderPVX.objects.get(id = order_id)

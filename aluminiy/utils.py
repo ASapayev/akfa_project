@@ -19,7 +19,7 @@ def characteristika_created_txt_create_1301_v2(datas):
     year =now.strftime("%Y")
     month =now.strftime("%B")
     day =now.strftime("%a%d")
-    hour =now.strftime("%H HOUR %S")
+    hour =now.strftime("%H HOUR %M %S")
     minut =now.strftime("%M-%S MINUT")
     
     
