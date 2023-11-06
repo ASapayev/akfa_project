@@ -348,12 +348,27 @@ def product_add_second_org(request,id):
                         
                         q_bic = ''
                         
-                        if row['Цвет лам пленки снаружи'] =='XXXX':
-                            q_bic = row['Цвет лам пленки внутри']
+                        if 'подок' in str(row['Название системы']).lower():
+                            outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                            inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
                         else:
-                            q_bic = row['Цвет лам пленки снаружи']
+                            outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
+                            inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
+
+                        if outer_side_wg_id =='XXXX':
+                            surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+                        else:
+                            surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+
                         
-                        surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
+                        if row['Цвет лам пленки снаружи'] =='XXXX':
+                            q_bic = inner_side_wg_id
+                        else:
+                            q_bic = outer_side_wg_id
+
+
+                        
+                        # surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
                         amount_in_a_package = CameraPvc.objects.filter(sap_code=df['Артикул'][key])[:1].get().coun_of_lam
 
                         
@@ -368,11 +383,12 @@ def product_add_second_org(request,id):
                                             'length' : row['Длина (мм)'],
                                             'surface_treatment' : row['Тип покрытия'],
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : row['Цвет лам пленки снаружи'],
-                                            'inner_side_wg_id' : row['Цвет лам пленки внутри'],
+                                            'outer_side_wg_id' : outer_side_wg_id,
+                                            'inner_side_wg_id' : inner_side_wg_id,
                                             'sealer_color' : row['Цвет резины'],
                                             'print_view' : row['Надпись наклейки'],
-
+                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
+                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
                                             'category' : artikulcomponent.category,
@@ -420,8 +436,22 @@ def product_add_second_org(request,id):
                                 q_bic = row['Цвет лам пленки внутри']
                             else:
                                 q_bic = row['Цвет лам пленки снаружи']
+
+                        if 'подок' in str(row['Название системы']).lower():
+                            outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                            inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                        else:
+                            outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
+                            inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
+
+                        if outer_side_wg_id =='XXXX':
+                            surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+                        else:
+                            surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+
                         
-                        surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
+                        
+                        # surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
                         amount_in_a_package = CameraPvc.objects.filter(sap_code =df['Артикул'][key])[:1].get().coun_of_lam
                               
                         cache_for_cratkiy_text.append(
@@ -435,10 +465,12 @@ def product_add_second_org(request,id):
                                             'length' : row['Длина (мм)'],
                                             'surface_treatment' : row['Тип покрытия'],
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : row['Цвет лам пленки снаружи'],
-                                            'inner_side_wg_id' : row['Цвет лам пленки внутри'],
+                                            'outer_side_wg_id' : outer_side_wg_id,
+                                            'inner_side_wg_id' : inner_side_wg_id,
                                             'sealer_color' : row['Цвет резины'],
                                             'print_view' : row['Надпись наклейки'],
+                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
+                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
 
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
@@ -503,6 +535,19 @@ def product_add_second_org(request,id):
                         q_bic = row['Код цвета основы/Замес']
                         artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
 
+                        if 'подок' in str(row['Название системы']).lower():
+                            outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                            inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                        else:
+                            outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
+                            inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
+
+                        # if outer_side_wg_id =='XXXX':
+                        #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+                        # else:
+                        #     surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+
+
                         surface_treatment_export =row['Код цвета основы/Замес']
                         amount_in_a_package = CameraPvc.objects.filter(sap_code =df['Артикул'][key])[:1].get().coun_of_pvc  
 
@@ -516,10 +561,12 @@ def product_add_second_org(request,id):
                                             'length' : row['Длина (мм)'],
                                             'surface_treatment' : row['Тип покрытия'],
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : row['Цвет лам пленки снаружи'],
-                                            'inner_side_wg_id' : row['Цвет лам пленки внутри'],
+                                            'outer_side_wg_id' : outer_side_wg_id,
+                                            'inner_side_wg_id' : inner_side_wg_id,
                                             'sealer_color' : row['Цвет резины'],
                                             'print_view' : row['Надпись наклейки'],
+                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
+                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
 
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
@@ -565,6 +612,18 @@ def product_add_second_org(request,id):
                     
                     q_bic = row['Код цвета основы/Замес']
                     
+                    if 'подок' in str(row['Название системы']).lower():
+                        outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                        inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                    else:
+                        outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
+                        inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
+
+                    # if outer_side_wg_id =='XXXX':
+                    #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+                    # else:
+                    #     surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+
                     
                     surface_treatment_export = row['Код цвета основы/Замес']
                     amount_in_a_package = CameraPvc.objects.filter(sap_code =df['Артикул'][key])[:1].get().coun_of_pvc
@@ -580,11 +639,12 @@ def product_add_second_org(request,id):
                                         'length' : row['Длина (мм)'],
                                         'surface_treatment' : row['Тип покрытия'],
                                         'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                        'outer_side_wg_id' : row['Цвет лам пленки снаружи'],
-                                        'inner_side_wg_id' : row['Цвет лам пленки внутри'],
+                                        'outer_side_wg_id' : outer_side_wg_id,
+                                        'inner_side_wg_id' : inner_side_wg_id,
                                         'sealer_color' : row['Цвет резины'],
                                         'print_view' : row['Надпись наклейки'],
-
+                                        'kod_lam_plen_snar':row['Код лам пленки снаружи'],
+                                        'kod_lam_plen_vnut':row['Код лам пленки внутри'],
                                         'width' : artikulcomponent.width,
                                         'height' : artikulcomponent.height,
                                         'category' : artikulcomponent.category,
@@ -637,6 +697,19 @@ def product_add_second_org(request,id):
                             
                             component2 = materiale.split('-')[0]
                             artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
+
+                            if 'подок' in str(row['Название системы']).lower():
+                                outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                                inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                            else:
+                                outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
+                                inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
+
+                            # if outer_side_wg_id =='XXXX':
+                            #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+                            # else:
+                            #     surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+
                         
                             q_bic = ''
                             if row['Тип покрытия'] =='Неламинированный':
@@ -657,10 +730,12 @@ def product_add_second_org(request,id):
                                             'length' : row['Длина (мм)'],
                                             'surface_treatment' : row['Тип покрытия'],
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : row['Цвет лам пленки снаружи'],
-                                            'inner_side_wg_id' : row['Цвет лам пленки внутри'],
+                                            'outer_side_wg_id' : outer_side_wg_id,
+                                            'inner_side_wg_id' : inner_side_wg_id,
                                             'sealer_color' : row['Цвет резины'],
                                             'print_view' : row['Надпись наклейки'],
+                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
+                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
 
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
@@ -710,6 +785,19 @@ def product_add_second_org(request,id):
                                     q_bic = row['Цвет лам пленки внутри']
                                 else:
                                     q_bic = row['Цвет лам пленки снаружи']
+
+                            if 'подок' in str(row['Название системы']).lower():
+                                outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                                inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                            else:
+                                outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
+                                inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
+
+                            # if outer_side_wg_id =='XXXX':
+                            #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+                            # else:
+                            #     surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+
                            
                                 
                             cache_for_cratkiy_text.append(
@@ -722,10 +810,12 @@ def product_add_second_org(request,id):
                                             'length' : row['Длина (мм)'],
                                             'surface_treatment' : row['Тип покрытия'],
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : row['Цвет лам пленки снаружи'],
-                                            'inner_side_wg_id' : row['Цвет лам пленки внутри'],
+                                            'outer_side_wg_id' : outer_side_wg_id,
+                                            'inner_side_wg_id' : inner_side_wg_id,
                                             'sealer_color' : row['Цвет резины'],
                                             'print_view' : row['Надпись наклейки'],
+                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
+                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
 
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
@@ -764,7 +854,6 @@ def product_add_second_org(request,id):
         else:
             text_nr = ' NR '
         if df['Тип покрытия'][key] == 'Ламинированный':
-            print('eeeee'*25)
             if 'PDF' in row['Артикул'] or '.G00' in row['Артикул'] or row['Артикул'] in DOP_PROFIL:
                 sd = 'NT1'
             else:
@@ -806,6 +895,19 @@ def product_add_second_org(request,id):
                             q_bic = row['Цвет лам пленки внутри']
                         else:
                             q_bic = row['Цвет лам пленки снаружи']
+
+                    if 'подок' in str(row['Название системы']).lower():
+                        outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                        inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                    else:
+                        outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
+                        inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
+
+                    # if outer_side_wg_id =='XXXX':
+                    #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+                    # else:
+                    #     surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+
                     cache_for_cratkiy_text.append(
                                         {   
                                             'sap_code':  materiale,
@@ -817,8 +919,8 @@ def product_add_second_org(request,id):
                                             'length' : row['Длина (мм)'],
                                             'surface_treatment' : 'Неламинированный',
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : row['Цвет лам пленки снаружи'],
-                                            'inner_side_wg_id' : row['Цвет лам пленки внутри'],
+                                            'outer_side_wg_id' : outer_side_wg_id,
+                                            'inner_side_wg_id' : inner_side_wg_id,
                                             'sealer_color' : row['Цвет резины'],
                                             'print_view' : row['Надпись наклейки'],
                                             'width' : artikulcomponent.width,
@@ -833,6 +935,8 @@ def product_add_second_org(request,id):
                                             'wms_height' : artikulcomponent.wms_height,
                                             'product_type' : artikulcomponent.product_type,
                                             'profile_type' : artikulcomponent.profile_type,
+                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
+                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
 
                                             'export_description':'',
                                             'export_description_eng':'',
@@ -872,6 +976,19 @@ def product_add_second_org(request,id):
                         else:
                             q_bic = row['Цвет лам пленки снаружи']
                     
+                    if 'подок' in str(row['Название системы']).lower():
+                        outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                        inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                    else:
+                        outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
+                        inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
+
+                    # if outer_side_wg_id =='XXXX':
+                    #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+                    # else:
+                    #     surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+
+                    
                     cache_for_cratkiy_text.append(
                                         {
                                             'sap_code':  materiale,
@@ -883,10 +1000,12 @@ def product_add_second_org(request,id):
                                             'length' : row['Длина (мм)'],
                                             'surface_treatment' : 'Неламинированный',
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : row['Цвет лам пленки снаружи'],
-                                            'inner_side_wg_id' : row['Цвет лам пленки внутри'],
+                                            'outer_side_wg_id' : outer_side_wg_id,
+                                            'inner_side_wg_id' : inner_side_wg_id,
                                             'sealer_color' : row['Цвет резины'],
                                             'print_view' : row['Надпись наклейки'],
+                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
+                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
                                             
                                             'width' : artikulcomponent.width,
                                             'height' : artikulcomponent.height,
@@ -999,18 +1118,18 @@ def product_add_second_org(request,id):
         
         
     
-    exchange_value = ExchangeValues.objects.get(id=1)
-    price_all_correct = True
+    # exchange_value = ExchangeValues.objects.get(id=1)
+    price_all_correct = False
       
-    for key, row in df_char_title.iterrows():
-        if LengthOfProfilePVC.objects.filter(artikul = row['article'],length=row['Длина']).exists():
-            length_of_profile = LengthOfProfilePVC.objects.filter(artikul = row['article'],length=row['Длина'])[:1].get()
-            df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
-            df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
-            price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],zames=row['outer_side_pc_id'])[:1].get()
-            df_char_title['Price'][key] = float(price.price.replace(',','.')) * float(str(df_char_title['Общий вес за штуку'][key]).replace(',','.'))  * float(exchange_value.valute.replace(',','.'))
-        else:
-            price_all_correct = False
+    # for key, row in df_char_title.iterrows():
+    #     if LengthOfProfilePVC.objects.filter(artikul = row['article'],length=row['Длина']).exists():
+    #         length_of_profile = LengthOfProfilePVC.objects.filter(artikul = row['article'],length=row['Длина'])[:1].get()
+    #         df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
+    #         df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
+    #         price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],zames=row['outer_side_pc_id'])[:1].get()
+    #         df_char_title['Price'][key] = float(price.price.replace(',','.')) * float(str(df_char_title['Общий вес за штуку'][key]).replace(',','.'))  * float(exchange_value.valute.replace(',','.'))
+    #     else:
+    #         price_all_correct = False
 
 
     del df_new['counter']

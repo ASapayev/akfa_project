@@ -4,7 +4,7 @@ from order.models import OrderPVX
 import pandas as pd
 from datetime import datetime
 from config.settings import MEDIA_ROOT
-from .models import ArtikulKomponentPVC,AbreviaturaLamination,CameraPvc,LengthOfProfilePVC,DliniyText
+from .models import ArtikulKomponentPVC,AbreviaturaLamination,CameraPvc,LengthOfProfilePVC,DliniyText,PVCProduct
 from .BAZA import *
 import numpy as np
 import zipfile
@@ -93,13 +93,12 @@ def characteristika_created_txt_create(datas,order_id):
 
         row['Длина'] = row['Длина'].replace('.0','')
 
-        if not LengthOfProfilePVC.objects.filter(artikul = row['article'],length = row['Длина']).exists():
-            LengthOfProfilePVC(
-                artikul = row['article'],
-                length = row['Длина'],
-                ves_za_shtuk = row['Общий вес за штуку'],
-                ves_za_metr = row['Удельный вес за метр']
-            ).save()
+        if PVCProduct.objects.filter( material= row['SAP код S4P 100']).exists():
+            product_pvc = PVCProduct.objects.filter(material = row['SAP код S4P 100'])[:1].get()
+            product_pvc.brutto = row['Brutto']
+            product_pvc.netto = row['Netto']
+            product_pvc.standart_price = row['Price']
+            product_pvc.save()
 
         if '-E' not in row['SAP код S4P 100']:
             dlinniy_text_zero[0].append('1')
@@ -230,8 +229,8 @@ def characteristika_created_txt_create(datas,order_id):
         umumiy_without_duplicate1203[6].append(row['sb'])
         umumiy_without_duplicate1203[7].append('E')
         umumiy_without_duplicate1203[8].append('02')
-        umumiy_without_duplicate1203[9].append(row['Общий вес за штуку'])
-        umumiy_without_duplicate1203[10].append(row['Общий вес за штуку'])
+        umumiy_without_duplicate1203[9].append(row['Brutto'])
+        umumiy_without_duplicate1203[10].append(row['Netto'])
         umumiy_without_duplicate1203[11].append('КГ')
         umumiy_without_duplicate1203[12].append('NORM')
         umumiy_without_duplicate1203[13].append(row['Короткое название SAP'])
@@ -306,8 +305,8 @@ def characteristika_created_txt_create(datas,order_id):
             umumiy_without_duplicate12D1[6].append(row['sb'])
             umumiy_without_duplicate12D1[7].append('E')
             umumiy_without_duplicate12D1[8].append('02')
-            umumiy_without_duplicate12D1[9].append(row['Общий вес за штуку'])
-            umumiy_without_duplicate12D1[10].append(row['Общий вес за штуку'])
+            umumiy_without_duplicate12D1[9].append(row['Brutto'])
+            umumiy_without_duplicate12D1[10].append(row['Netto'])
             umumiy_without_duplicate12D1[11].append('КГ')
             umumiy_without_duplicate12D1[12].append('NORM')
             umumiy_without_duplicate12D1[13].append(row['Короткое название SAP'])
@@ -372,8 +371,8 @@ def characteristika_created_txt_create(datas,order_id):
             umumiy_without_duplicate12D2[6].append(row['sb'])
             umumiy_without_duplicate12D2[7].append('E')
             umumiy_without_duplicate12D2[8].append('02')
-            umumiy_without_duplicate12D2[9].append(row['Общий вес за штуку'])
-            umumiy_without_duplicate12D2[10].append(row['Общий вес за штуку'])
+            umumiy_without_duplicate12D2[9].append(row['Brutto'])
+            umumiy_without_duplicate12D2[10].append(row['Netto'])
             umumiy_without_duplicate12D2[11].append('КГ')
             umumiy_without_duplicate12D2[12].append('NORM')
             umumiy_without_duplicate12D2[13].append(row['Короткое название SAP'])
@@ -438,8 +437,8 @@ def characteristika_created_txt_create(datas,order_id):
             umumiy_without_duplicate12D3[6].append(row['sb'])
             umumiy_without_duplicate12D3[7].append('E')
             umumiy_without_duplicate12D3[8].append('02')
-            umumiy_without_duplicate12D3[9].append(row['Общий вес за штуку'])
-            umumiy_without_duplicate12D3[10].append(row['Общий вес за штуку'])
+            umumiy_without_duplicate12D3[9].append(row['Brutto'])
+            umumiy_without_duplicate12D3[10].append(row['Netto'])
             umumiy_without_duplicate12D3[11].append('КГ')
             umumiy_without_duplicate12D3[12].append('NORM')
             umumiy_without_duplicate12D3[13].append(row['Короткое название SAP'])
@@ -504,8 +503,8 @@ def characteristika_created_txt_create(datas,order_id):
             umumiy_without_duplicate12D4[6].append(row['sb'])
             umumiy_without_duplicate12D4[7].append('E')
             umumiy_without_duplicate12D4[8].append('02')
-            umumiy_without_duplicate12D4[9].append(row['Общий вес за штуку'])
-            umumiy_without_duplicate12D4[10].append(row['Общий вес за штуку'])
+            umumiy_without_duplicate12D4[9].append(row['Brutto'])
+            umumiy_without_duplicate12D4[10].append(row['Netto'])
             umumiy_without_duplicate12D4[11].append('КГ')
             umumiy_without_duplicate12D4[12].append('NORM')
             umumiy_without_duplicate12D4[13].append(row['Короткое название SAP'])
@@ -570,8 +569,8 @@ def characteristika_created_txt_create(datas,order_id):
             umumiy_without_duplicate12D5[6].append(row['sb'])
             umumiy_without_duplicate12D5[7].append('E')
             umumiy_without_duplicate12D5[8].append('02')
-            umumiy_without_duplicate12D5[9].append(row['Общий вес за штуку'])
-            umumiy_without_duplicate12D5[10].append(row['Общий вес за штуку'])
+            umumiy_without_duplicate12D5[9].append(row['Brutto'])
+            umumiy_without_duplicate12D5[10].append(row['Netto'])
             umumiy_without_duplicate12D5[11].append('КГ')
             umumiy_without_duplicate12D5[12].append('NORM')
             umumiy_without_duplicate12D5[13].append(row['Короткое название SAP'])
@@ -973,6 +972,21 @@ def characteristika_created_txt_create(datas,order_id):
                 dd2[4].append(j)
 
             id_savdo = row['id_savdo']
+            # row['kod_lam_plen_snar'] = str(row['kod_lam_plen_snar']).replace('.0','')
+            # row['kod_lam_plen_vnut'] = str(row['kod_lam_plen_vnut']).replace('.0','')
+            # if 'подок' in row['system'].lower():
+            #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_snar'])[:1].get().pokritiya +' п'
+            #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya +' п'
+            # else:
+            #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_snar'])[:1].get().pokritiya
+            #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+
+            # if outer_side_wg_id =='XXXX':
+            #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+            # else:
+            #     surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
+
+
             dd2[5].append(row['system'])
             dd2[5].append(row['number_of_chambers'])
             dd2[5].append(row['article'])
@@ -1093,7 +1107,7 @@ def create_characteristika_utils(items):
         [],[],[],[],[],[],[],[],[],[],
         [],[],[],[],[],[],[],[],[],[],
         [],[],[],[],[],[],[],[],[],[],
-        [],[],[]
+        [],[],[],[],[]
     ]
     
     
@@ -1181,6 +1195,8 @@ def create_characteristika_utils(items):
             dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет '+ item['outer_side_wg_id'] +'/'+item['inner_side_wg_id']+ ', длина ' + item['length'] + ' мм. Тип ' + item['outer_side_pc_id'] +'-'+sealor_color + item['print_view']
 
         df[51].append(dlinniy_text)
+        df[52].append(item['kod_lam_plen_snar'])
+        df[53].append(item['kod_lam_plen_vnut'])
 
         
 
@@ -1199,8 +1215,8 @@ def create_characteristika_utils(items):
         'Ширина':df[10],
         'Высота':df[11],
         'группа материалов':df[12],
-        'Удельный вес за метр':df[13],
-        'Общий вес за штуку':df[14],
+        'Brutto':df[13],
+        'Netto':df[14],
         'Price':df[15],
         'Тип покрытия':df[16],
         'WMS_WIDTH':df[17],
@@ -1236,7 +1252,9 @@ def create_characteristika_utils(items):
         'sb':df[47],
         'combination':df[48],
         'online_savdo_name' :df[49],
-        'id_savdo' :df[50]
+        'id_savdo' :df[50],
+        'kod_lam_plen_snar' :df[52],
+        'kod_lam_plen_vnut' :df[53]
         
     }
     df_new = pd.DataFrame(dat)

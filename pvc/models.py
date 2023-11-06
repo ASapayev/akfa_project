@@ -12,6 +12,7 @@ class PVCProduct(models.Model):
   kratkiy_tekst_materiala =models.CharField(max_length= 250,blank = True, null = True)
   brutto =models.CharField(max_length=250,blank=True,null=True)
   netto =models.CharField(max_length= 250,blank = True, null = True)
+  standart_price = models.CharField(max_length= 250,blank = True, null = True)
   created_at =models.DateTimeField(auto_now_add = True)
   updated_at =models.DateTimeField(auto_now = True)
 
@@ -21,6 +22,8 @@ class PVCFile(models.Model):
   created_at =  models.DateTimeField(auto_now_add=True)
   updated_at =  models.DateTimeField(auto_now=True)
   
+
+
 
 class Characteristika(models.Model):
   sap_code =models.CharField(max_length=255,blank=True,null=True)
