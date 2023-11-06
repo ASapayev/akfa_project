@@ -1143,6 +1143,7 @@ brand_kraski_snaruji_ABC ={
       'T':  'TIGER',
       'B':  'BPC',
       'M':  'MIKROTON',
+      'J':'JOTUN',
       'nan':'',
 }
 
