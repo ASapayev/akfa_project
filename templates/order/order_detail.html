@@ -472,7 +472,14 @@
                             <td ><input type='text'  id ='komponent{{forloop.counter}}' value='{{char.1}}' required></td>
                             <td ><input type='text'  id ='seria{{forloop.counter}}'  value='{{char.2}}' required></td>
                             <td ><input type='text'  id ='stariykod{{forloop.counter}}' value='{{char.3}}' required></td>
-                            <td ><input type='text'  id ='typecombination{{forloop.counter}}' value='{{char.4}}' required></td>
+                            <td >
+                                <select class="form-select" aria-label="Default select example" id ='typecombination{{forloop.counter}}'>
+                                  <option selected></option>
+                                  <option value="Стандарт">Стандарт</option>
+                                  <option value="Термо">Термо</option>
+                                </select>
+                          </td>
+                            <!-- <td ><input type='text'  id ='typecombination{{forloop.counter}}' value='{{char.4}}' required></td> -->
                             <td ><input type='text'  id ='prodesc{{forloop.counter}}' value='{{char.5}}' required></td>
                             <td ><input type='text'  id ='link{{forloop.counter}}' value='{{char.6}}' required></td>
                             <td>
