@@ -1127,7 +1127,7 @@ def create_characteristika_utils(items):
         
         
         ########End Characteristica variables############
-        print(item['sap_code'])
+
        
         df[0].append(item['sap_code'])
         df[1].append('')
@@ -1200,7 +1200,7 @@ def create_characteristika_utils(items):
 
         
 
-        
+    print(df)
     dat = {
         'SAP код S4P 100':df[0],
         'Нумерация до SAP':df[1],
