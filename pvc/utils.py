@@ -1200,7 +1200,6 @@ def create_characteristika_utils(items):
 
         
 
-    print(df[52],df[53])
     dat = {
         'SAP код S4P 100':df[0],
         'Нумерация до SAP':df[1],
@@ -1257,6 +1256,7 @@ def create_characteristika_utils(items):
         'kod_lam_plen_vnut' :df[53]
         
     }
+    print(dat)
     df_new = pd.DataFrame(dat)
     
     
