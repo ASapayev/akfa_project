@@ -1127,6 +1127,7 @@ def product_add_second_org(request,id):
 
     del df_new['counter']
 
+    print(len(df_char_title))
     writer = pd.ExcelWriter(path_alu, engine='xlsxwriter')
     df_new.to_excel(writer,index=False,sheet_name='Schotchik')
     df_char.to_excel(writer,index=False,sheet_name='Characteristika')
