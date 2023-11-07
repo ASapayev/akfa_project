@@ -303,6 +303,7 @@ def product_add_second_org(request,id):
         
         row['Код лам пленки снаружи'] =str(row['Код лам пленки снаружи']).replace('.0','')
         row['Код лам пленки внутри'] =str(row['Код лам пленки внутри']).replace('.0','')
+        row['Количество камер'] =str(row['Количество камер']).replace('.0','')
         
 
         if ((row['Название'] == 'nan') or (row['Название'] == '')):
@@ -948,7 +949,7 @@ def product_add_second_org(request,id):
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':'',
                                             'id_savdo' : id_savdo,
-                                            'dlinniy_text':''
+                                            'dlinniy_text':dlinniy_text
 
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
@@ -1030,7 +1031,7 @@ def product_add_second_org(request,id):
                                             'coating_qbic' : q_bic,
                                             'online_savdo_name':'',
                                             'id_savdo' : id_savdo,
-                                            'dlinniy_text':''
+                                            'dlinniy_text':dlinniy_text
 
                                             # 'id_savdo' : 1,#row[''],
                                             # 'klaes' : 1,#row[''],
@@ -1127,7 +1128,6 @@ def product_add_second_org(request,id):
 
     del df_new['counter']
 
-    print(len(df_char_title))
     writer = pd.ExcelWriter(path_alu, engine='xlsxwriter')
     df_new.to_excel(writer,index=False,sheet_name='Schotchik')
     df_char.to_excel(writer,index=False,sheet_name='Characteristika')
