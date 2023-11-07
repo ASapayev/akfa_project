@@ -1200,7 +1200,7 @@ def create_characteristika_utils(items):
 
         
 
-    print(df)
+    print(df[52],df[53])
     dat = {
         'SAP код S4P 100':df[0],
         'Нумерация до SAP':df[1],
