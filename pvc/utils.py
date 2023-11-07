@@ -1258,7 +1258,6 @@ def create_characteristika_utils(items):
     }
     
     df_new = pd.DataFrame(dat)
-    print(len(df_new))
     
 
     return df_new

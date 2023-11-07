@@ -1066,11 +1066,9 @@ def product_add_second_org(request,id):
             
     if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\pvc-{minut}.xlsx'):
         path_alu =  f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\pvc-{minut}.xlsx'
-        path_ramka_norma =  f'uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}.xlsx'
     else:
         st =random.randint(0,1000)
         path_alu =  f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\pvc-{minut}-{st}.xlsx'
-        path_ramka_norma =  f'uploads\\pvc\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}-{st}.xlsx'
       
 
 
@@ -1122,19 +1120,9 @@ def product_add_second_org(request,id):
 
         
         
-    
-    # exchange_value = ExchangeValues.objects.get(id=1)
     price_all_correct = False
       
-    # for key, row in df_char_title.iterrows():
-    #     if LengthOfProfilePVC.objects.filter(artikul = row['article'],length=row['Длина']).exists():
-    #         length_of_profile = LengthOfProfilePVC.objects.filter(artikul = row['article'],length=row['Длина'])[:1].get()
-    #         df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
-    #         df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
-    #         price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],zames=row['outer_side_pc_id'])[:1].get()
-    #         df_char_title['Price'][key] = float(price.price.replace(',','.')) * float(str(df_char_title['Общий вес за штуку'][key]).replace(',','.'))  * float(exchange_value.valute.replace(',','.'))
-    #     else:
-    #         price_all_correct = False
+    
 
 
     del df_new['counter']
@@ -1175,7 +1163,7 @@ def product_add_second_org(request,id):
                 paths['status_text_l']= 'done'
                 
                 order.paths = paths
-                order.aluminiy_worker = request.user
+                order.pvc_worker = request.user
                 order.current_worker = request.user
                 order.work_type = 6
                 order.save()
