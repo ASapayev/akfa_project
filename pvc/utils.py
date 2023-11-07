@@ -1110,7 +1110,7 @@ def create_characteristika_utils(items):
         [],[],[],[],[]
     ]
     
-    print(len(item))
+    print(len(items))
     
     for item in items:
         if '-L' in item['sap_code']:
