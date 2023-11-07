@@ -1110,7 +1110,6 @@ def create_characteristika_utils(items):
         [],[],[],[],[]
     ]
     
-    print(len(items))
     
     for item in items:
         if '-L' in item['sap_code']:
@@ -1128,6 +1127,7 @@ def create_characteristika_utils(items):
         
         
         ########End Characteristica variables############
+        print(item['sap_code'])
        
         df[0].append(item['sap_code'])
         df[1].append('')
