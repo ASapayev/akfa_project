@@ -858,12 +858,14 @@ def product_add_second_org(request,id):
             text_nr = ' '
         else:
             text_nr = ' NR '
+
+        if 'PDF' in row['Артикул'] or '.G00' in row['Артикул'] or row['Артикул'] in DOP_PROFIL:
+            sd = 'NT1'
+        else:
+            sd = row['Надпись наклейки'] +' 1sd'
+
         if df['Тип покрытия'][key] == 'Ламинированный':
-            if 'PDF' in row['Артикул'] or '.G00' in row['Артикул'] or row['Артикул'] in DOP_PROFIL:
-                sd = 'NT1'
-            else:
-                sd = row['Надпись наклейки'] +' 1sd'
-                 
+            sd = 'NT1'
             if ((str(row['Код лам пленки внутри']).lower() =='xxxx') or (str(row['Код лам пленки снаружи']).lower() =='xxxx')):
                 df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + sd
             else:
