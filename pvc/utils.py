@@ -1256,9 +1256,9 @@ def create_characteristika_utils(items):
         'kod_lam_plen_vnut' :df[53]
         
     }
-    print(dat)
-    df_new = pd.DataFrame(dat)
     
+    df_new = pd.DataFrame(dat)
+    print(len(df_new))
     
 
     return df_new
