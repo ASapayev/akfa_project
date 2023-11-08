@@ -972,20 +972,6 @@ def characteristika_created_txt_create(datas,order_id):
                 dd2[4].append(j)
 
             id_savdo = row['id_savdo']
-            # row['kod_lam_plen_snar'] = str(row['kod_lam_plen_snar']).replace('.0','')
-            # row['kod_lam_plen_vnut'] = str(row['kod_lam_plen_vnut']).replace('.0','')
-            # if 'подок' in row['system'].lower():
-            #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_snar'])[:1].get().pokritiya +' п'
-            #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya +' п'
-            # else:
-            #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_snar'])[:1].get().pokritiya
-            #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
-
-            # if outer_side_wg_id =='XXXX':
-            #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
-            # else:
-            #     surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
-
 
             dd2[5].append(row['system'])
             dd2[5].append(row['number_of_chambers'])

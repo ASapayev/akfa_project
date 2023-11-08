@@ -35,7 +35,7 @@ def update_char_title_pvc(request,id):
         order = OrderPVX.objects.get(id = order_id)
 
     pathzip = characteristika_created_txt_create(df,order_id)
-    fileszip = [File(file=path,filetype='BENKAM') for path in pathzip]
+    fileszip = [FilePVCC(file=path,filetype='BENKAM') for path in pathzip]
     if order_id:
         paths = order.paths
         zip_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -159,7 +159,7 @@ def upload_product_org(request):
       return render(request,'pvc/main.html',context)
 
 
-class File:
+class FilePVCC:
       def __init__(self,file,filetype):
             self.file =file
             self.filetype =filetype
@@ -1144,8 +1144,8 @@ def product_add_second_org(request,id):
         work_type = OrderPVX.objects.get(id = order_id).work_type
         if price_all_correct and  work_type != 5 :
             path = update_char_title_function(df_char_title,order_id)
-            files =[File(file=p,filetype='pvc') for p in path]
-            files.append(File(file=path_alu,filetype='pvc'))
+            files =[FilePVCC(file=p,filetype='pvc') for p in path]
+            files.append(FilePVCC(file=path_alu,filetype='pvc'))
             context ={
                   'files':files,
                   'section':'Формированый обычный файл'
@@ -1177,7 +1177,7 @@ def product_add_second_org(request,id):
                 return render(request,'order/order_detail_pvc.html',context)  
         else:
             
-            file =[File(file = path_alu,filetype='pvc')]
+            file =[FilePVCC(file = path_alu,filetype='pvc')]
             context = {
                   'files':file,
                   'section':'Формированый pvc файл'
