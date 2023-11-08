@@ -7,5 +7,26 @@ urlpatterns = [
     path('upload-product-pvc-detail/<int:id>',views.product_add_second_org,name='upload_product_pvc__detail_org'),
     path('upload-char-pvc',views.upload_product_char_pvc,name='upload_char_pvc'),
     path('update-char-title-org/<int:id>',views.update_char_title_pvc,name='update_char_title_org_pvc'),
+
+
+    ###1
+    path('upload-pvc',views.upload_product_org_pvc,name='upload_online_savdo_pvc'),
+    path('generate-pvc-file/<int:id>',views.create_online,name='generate_online_savdo_pvc'),
+
+    ###2ha
+    path('upload-sozd-pvc',views.upload_sozdaniye,name='upload_sozdaniye_pvc'),
+    path('generate-sozdaniyepvc-file/<int:id>',views.sozdaniya_online_savdo,name='generate_sozdaniye_pvc'),
+
+    ###3
+    path('upload-sozdanipvc-sena',views.upload_sozdaniye_sena,name='upload_sozdaniye_sena_pvc'),
+    path('generate-sozdaniyepvc-sena/<int:id>',views.sozdaniye_sena,name='generate_sozdaniye_sena_pvc'),
+
+    ###4
+    path('upload-sozdanipvc-format',views.upload_sozdaniye_format,name='upload_sozdaniye_format_pvc'),
+    path('generate-sozdaniyepvc-format/<int:id>',views.sozdaniye_sap_format_sena,name='generate_sozdaniye_format_pvc'),
+
+    ###5
+    path('upload-fopvc-proverka',views.upload_for_proverka,name='upload_for_proverka_pvc'),
+    path('generate-proverkapvc-files/<int:id>',views.proverka,name='generate_proverka_files_pvc'),
    
     ]

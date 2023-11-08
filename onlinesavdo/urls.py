@@ -23,7 +23,5 @@ urlpatterns = [
     path('upload-for-proverka',views.upload_for_proverka,name='upload_for_proverka'),
     path('generate-proverka-files/<int:id>',views.proverka,name='generate_proverka_files'),
 
-    # path('upload-product-pvc-detail/<int:id>',views.product_add_second_org,name='upload_product_pvc__detail_org'),
-    # path('upload-char-pvc',views.upload_product_char_pvc,name='upload_char_pvc'),
-    # path('update-char-title-org/<int:id>',views.update_char_title_pvc,name='update_char_title_org_pvc'),
+
     ]
