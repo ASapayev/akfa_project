@@ -1177,9 +1177,12 @@ def create_characteristika_utils(items):
             dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет '+ item['outer_side_wg_id'] + ', длина ' + item['length'] + ' мм. Тип ' + item['outer_side_pc_id'] +'-'+ sealor_color +item['print_view']
         elif item['surface_treatment'].lower()=='неламинированный' and (item['outer_side_wg_id']=='' or item['outer_side_wg_id']=='nan'):
             dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет белый, длина ' + item['length'] + ' мм. Тип ' + item['outer_side_pc_id'] +'-'+ sealor_color + item['print_view']
-        elif item['surface_treatment'].lower()=='ламинированный':   
-            dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет '+ item['outer_side_wg_id'] +'/'+item['inner_side_wg_id']+ ', длина ' + item['length'] + ' мм. Тип ' + item['outer_side_pc_id'] +'-'+sealor_color + item['print_view']
-
+        elif item['surface_treatment'].lower()=='ламинированный':
+            if item['outer_side_wg_id'] != item['inner_side_wg_id']:   
+                dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет '+ item['outer_side_wg_id'] +'/'+item['inner_side_wg_id']+ ', длина ' + item['length'] + ' мм. Тип ' + item['outer_side_pc_id'] +'-'+sealor_color + item['print_view']
+            else:
+                dlinniy_text =item['dlinniy_text'] + ', ' +'артикул ' + item['article'] +', ' + item['surface_treatment'] +', цвет '+ item['outer_side_wg_id'] + ', длина ' + item['length'] + ' мм. Тип ' + item['outer_side_pc_id'] +'-'+sealor_color + item['print_view']
+        
         df[51].append(dlinniy_text)
         df[52].append(item['kod_lam_plen_snar'])
         df[53].append(item['kod_lam_plen_vnut'])
