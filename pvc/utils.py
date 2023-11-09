@@ -158,7 +158,7 @@ def characteristika_created_txt_create(datas,order_id):
                     buxgalterskiy_naz[6].append('')
                     buxgalterskiy_naz[7].append(row['export_description_eng'])
                 
-                if ((ii!= 0) and (row['online_savdo_name'] != '')):
+                if ((ii!= 0) and (row['online_savdo_name'] != '' and row['online_savdo_name'] != 'nan')):
                     buxgalterskiy_naz[0].append('1')
                     buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
                     buxgalterskiy_naz[2].append('1200')
@@ -755,7 +755,7 @@ def characteristika_created_txt_create(datas,order_id):
     d2['HKMAT']=umumiy_without_duplicate[42] 
     d2['LOSGR']=umumiy_without_duplicate[43] 
     d2['SFCPF']=umumiy_without_duplicate[44] 
-    d2['FEVOR']=['' for x in (umumiy_without_duplicate[44])] 
+    d2['FEVOR']=['AP1' for x in (umumiy_without_duplicate[44])] 
     d2['UEETK']=umumiy_without_duplicate[45] 
     d2['LGPRO']=umumiy_without_duplicate[46] 
     d2['AUTO_P_ORD']=umumiy_without_duplicate[47] 
