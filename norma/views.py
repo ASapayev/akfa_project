@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from django.http import JsonResponse
 from .models import Norma,Nakleyka,Kraska,Ximikat,SubDekorPlonka,Skotch,Lamplonka,KleyDlyaLamp,AlyuminniysilindrEkstruziya1,AlyuminniysilindrEkstruziya2,SiryoDlyaUpakovki,ProchiyeSiryoNeno,NormaExcelFiles,CheckNormaBase,NormaDontExistInExcell,Accessuar,ZakalkaIskyuchenie,ViFiles
-from .forms import NormaFileForm,NormaEditForm,ViFileForm,TexcartaEditForm,KraskaAddForm
+from .forms import NormaFileForm,NormaEditForm,ViFileForm,TexcartaEditForm,KraskaAddForm,NakleykaAddForm,LaminationAddForm
 from django.db.models import Q
 from aluminiytermo.models import Characteristika,CharacteristicTitle
 from config.settings import MEDIA_ROOT
@@ -296,6 +296,36 @@ def add_kraska(request):
         'form':form
     }
     return render(request,'norma/add_kraska.html',context)
+
+def add_nakleyka(request):
+
+    if request.method == 'POST':
+        form = NakleykaAddForm(data=request.POST)
+        if form.is_valid():
+                form.save()
+                return redirect('home')
+    else:
+        form = NakleykaAddForm()
+
+    context =  {
+        'form':form
+    }
+    return render(request,'norma/add_nakleyka.html',context)
+
+def add_lamination(request):
+
+    if request.method == 'POST':
+        form = LaminationAddForm(data=request.POST)
+        if form.is_valid():
+                form.save()
+                return redirect('home')
+    else:
+        form = LaminationAddForm()
+
+    context =  {
+        'form':form
+    }
+    return render(request,'norma/add_lamination.html',context)
 
 
 

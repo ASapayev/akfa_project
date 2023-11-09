@@ -216,7 +216,7 @@ def characteristika_created_txt_create(datas,order_id):
         ############################ end bugalter nazvaniya###
         
         if '-7' in row['SAP код S4P 100']:
-                gruppa_material ='PVCGP'
+            gruppa_material ='PVCGP'
         else:
             gruppa_material ='PVCPF'
                 
@@ -825,12 +825,14 @@ def characteristika_created_txt_create(datas,order_id):
     sap_code_title =[]
     dlina_title =[]
     obshiy_ves_za_shtuku =[]
+    netto = []
     wms_width =[]
     wms_height =[]
     
     for key , row in datas.iterrows():
         row['Длина'] = (row['Длина']).replace('.0','')
         sap_code_title.append(row['SAP код S4P 100'])
+        netto.append(float(row['Netto']))
         dlina_title.append(row['Длина'])
         obshiy_ves_za_shtuku.append(1)
         wms_width.append(row['WMS_WIDTH'])
@@ -923,7 +925,7 @@ def characteristika_created_txt_create(datas,order_id):
     for i in ED_IZM:    
         d5['sap_code'] += sap_code_title 
         d5['ed_iz1'] += [ i for j in range(0,len(sap_code_title))]
-        d5['ed_iz2'] +=['1' if i =='ШТ' else '1000'  for j in range(0,len(sap_code_title)) ]
+        d5['ed_iz2'] +=['1' if i =='ШТ' else '1000' if i=='М' else str(netto[j]*1000) for j in range(0,len(sap_code_title)) ]
         d5['ed_iz4'] +=[j for j in dlina_title ]
         d5['ed_iz5'] +=[j for j in wms_width ]
         d5['ed_iz6'] +=[j for j in wms_height ]

@@ -1,5 +1,5 @@
 from django import forms
-from .models import NormaExcelFiles,Norma,ViFiles,Kraska
+from .models import NormaExcelFiles,Norma,ViFiles,Kraska,Nakleyka,Lamplonka
 from imzo.models import TexCartaTime
 
 
@@ -41,4 +41,16 @@ class KraskaAddForm(forms.ModelForm):
   
   class Meta:
     model = Kraska
+    fields ='__all__'
+
+class NakleykaAddForm(forms.ModelForm):
+  
+  class Meta:
+    model = Nakleyka
+    fields ='__all__'
+
+class LaminationAddForm(forms.ModelForm):
+  
+  class Meta:
+    model = Lamplonka
     fields ='__all__'
