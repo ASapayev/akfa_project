@@ -1227,6 +1227,26 @@ LGORT ={
                 ,{
                 'zavod_code':'1201',
                 'zavod_sap':'S420'
+                },
+                {
+                'zavod_code':'12D1',
+                'zavod_sap':'D100'    
+                },
+                {
+                'zavod_code':'12D2',
+                'zavod_sap':'D100'    
+                },
+                {
+                'zavod_code':'12D3',
+                'zavod_sap':'D100'    
+                },
+                {
+                'zavod_code':'12D4',
+                'zavod_sap':'D100'    
+                },
+                {
+                'zavod_code':'12D5',
+                'zavod_sap':'D100'    
                 }
             ],
         '7L':[
@@ -1321,6 +1341,27 @@ LGORT ={
                 ,{
                 'zavod_code':'1201',
                 'zavod_sap':'S420'
+                }
+                ,
+                {
+                'zavod_code':'12D1',
+                'zavod_sap':'D100'    
+                },
+                {
+                'zavod_code':'12D2',
+                'zavod_sap':'D100'    
+                },
+                {
+                'zavod_code':'12D3',
+                'zavod_sap':'D100'    
+                },
+                {
+                'zavod_code':'12D4',
+                'zavod_sap':'D100'    
+                },
+                {
+                'zavod_code':'12D5',
+                'zavod_sap':'D100'    
                 }
             ],
         'K':[
