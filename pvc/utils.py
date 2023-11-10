@@ -931,7 +931,6 @@ def characteristika_created_txt_create(datas,order_id):
         d5['ed_iz6'] +=[j for j in wms_height ]
         d5['ed_iz7'] +=[ 'мм' for j in range(0,len(sap_code_title))]
     
-   
 
     d5['ed_iz3'] = ed_iz3 
     df5 = pd.DataFrame(d5)

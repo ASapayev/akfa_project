@@ -912,56 +912,57 @@ def product_add_second_org(request,id):
                     else:
                         outer_side_wg_id = row['Код лам пленки снаружи']
                         inner_side_wg_id = row['Код лам пленки внутри']
-                   
-                    cache_for_cratkiy_text.append(
-                                        {   
-                                            'sap_code':  materiale,
-                                            'kratkiy':df_new['Экструзия холодная резка'][key],
-                                            'system' : row['Название системы'],
-                                            'number_of_chambers' : row['Количество камер'],
-                                            'article' : row['Артикул'],
-                                            'profile_type_id' : row['Код к компоненту системы'],
-                                            'length' : row['Длина (мм)'],
-                                            'surface_treatment' : 'Неламинированный',
-                                            'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : outer_side_wg_id,
-                                            'inner_side_wg_id' : inner_side_wg_id,
-                                            'sealer_color' : row['Цвет резины'],
-                                            'print_view' : nakleyka,
-                                            'width' : artikulcomponent.width,
-                                            'height' : artikulcomponent.height,
-                                            'category' : artikulcomponent.category,
-                                            'material_class' : 'Полуфабрикат',
-                                            'rawmat_type' : 'ПФ',
-                                            'tnved' : '',
-                                            'surface_treatment_export' : '',
-                                            'amount_in_a_package' : '',
-                                            'wms_width' : artikulcomponent.wms_width,
-                                            'wms_height' : artikulcomponent.wms_height,
-                                            'product_type' : artikulcomponent.product_type,
-                                            'profile_type' : artikulcomponent.profile_type,
-                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
-                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
 
-                                            'export_description':'',
-                                            'export_description_eng':'',
-                                            'sb':'',
-                                            'coating_qbic' : q_bic,
-                                            'online_savdo_name':'',
-                                            'id_savdo' : id_savdo,
-                                            'dlinniy_text':dlinniy_text
+                    if row['Тип покрытия'] !='Неламинированный':
+                        cache_for_cratkiy_text.append(
+                                            {   
+                                                'sap_code':  materiale,
+                                                'kratkiy':df_new['Экструзия холодная резка'][key],
+                                                'system' : row['Название системы'],
+                                                'number_of_chambers' : row['Количество камер'],
+                                                'article' : row['Артикул'],
+                                                'profile_type_id' : row['Код к компоненту системы'],
+                                                'length' : row['Длина (мм)'],
+                                                'surface_treatment' : 'Неламинированный',
+                                                'outer_side_pc_id' : row['Код цвета основы/Замес'],
+                                                'outer_side_wg_id' : outer_side_wg_id,
+                                                'inner_side_wg_id' : inner_side_wg_id,
+                                                'sealer_color' : row['Цвет резины'],
+                                                'print_view' : nakleyka,
+                                                'width' : artikulcomponent.width,
+                                                'height' : artikulcomponent.height,
+                                                'category' : artikulcomponent.category,
+                                                'material_class' : 'Полуфабрикат',
+                                                'rawmat_type' : 'ПФ',
+                                                'tnved' : '',
+                                                'surface_treatment_export' : '',
+                                                'amount_in_a_package' : '',
+                                                'wms_width' : artikulcomponent.wms_width,
+                                                'wms_height' : artikulcomponent.wms_height,
+                                                'product_type' : artikulcomponent.product_type,
+                                                'profile_type' : artikulcomponent.profile_type,
+                                                'kod_lam_plen_snar':row['Код лам пленки снаружи'],
+                                                'kod_lam_plen_vnut':row['Код лам пленки внутри'],
 
-                                            # 'id_savdo' : 1,#row[''],
-                                            # 'klaes' : 1,#row[''],
-                                            
-                                            # 'ch_profile_type' : 1,#row[''],
-                                            # 'kls_wast_length' : 1,#row[''],
-                                            # 'kls_wast' : 1,#row[''],
-                                            # 'ch_klaes_optm' : 1,#row[''],
-                                            # 'goods_group' : 1,#row['']
-                                        }
-                                )
-                            
+                                                'export_description':'',
+                                                'export_description_eng':'',
+                                                'sb':'',
+                                                'coating_qbic' : q_bic,
+                                                'online_savdo_name':'',
+                                                'id_savdo' : id_savdo,
+                                                'dlinniy_text':dlinniy_text
+
+                                                # 'id_savdo' : 1,#row[''],
+                                                # 'klaes' : 1,#row[''],
+                                                
+                                                # 'ch_profile_type' : 1,#row[''],
+                                                # 'kls_wast_length' : 1,#row[''],
+                                                # 'kls_wast' : 1,#row[''],
+                                                # 'ch_klaes_optm' : 1,#row[''],
+                                                # 'goods_group' : 1,#row['']
+                                            }
+                                    )
+                                
                 else: 
                     materiale = component+"-E{:03d}".format(1)
                     PVCProduct(artikul =component,section ='E',counter=1,gruppa_materialov='PVCPF',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key],material=materiale).save()
@@ -992,57 +993,57 @@ def product_add_second_org(request,id):
                     # else:
                     #     surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
 
-                    
-                    cache_for_cratkiy_text.append(
-                                        {
-                                            'sap_code':  materiale,
-                                            'kratkiy':df_new['Экструзия холодная резка'][key],
-                                            'system' : row['Название системы'],
-                                            'number_of_chambers' : row['Количество камер'],
-                                            'article' : row['Артикул'],
-                                            'profile_type_id' : row['Код к компоненту системы'],
-                                            'length' : row['Длина (мм)'],
-                                            'surface_treatment' : 'Неламинированный',
-                                            'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : outer_side_wg_id,
-                                            'inner_side_wg_id' : inner_side_wg_id,
-                                            'sealer_color' : row['Цвет резины'],
-                                            'print_view' : nakleyka,
-                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
-                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
-                                            
-                                            'width' : artikulcomponent.width,
-                                            'height' : artikulcomponent.height,
-                                            'category' : artikulcomponent.category,
-                                            'material_class' : 'Полуфабрикат',
-                                            'rawmat_type' : 'ПФ',
-                                            'tnved' : '',
-                                            'surface_treatment_export' : '',
-                                            'amount_in_a_package' : '',
-                                            'wms_width' : artikulcomponent.wms_width,
-                                            'wms_height' : artikulcomponent.wms_height,
-                                            'product_type' : artikulcomponent.product_type,
-                                            'profile_type' : artikulcomponent.profile_type,
-                                            'export_description':'',
-                                            'export_description_eng':'',
-                                            'sb':'',
+                    if row['Тип покрытия'] !='Неламинированный':
+                        cache_for_cratkiy_text.append(
+                                            {
+                                                'sap_code':  materiale,
+                                                'kratkiy':df_new['Экструзия холодная резка'][key],
+                                                'system' : row['Название системы'],
+                                                'number_of_chambers' : row['Количество камер'],
+                                                'article' : row['Артикул'],
+                                                'profile_type_id' : row['Код к компоненту системы'],
+                                                'length' : row['Длина (мм)'],
+                                                'surface_treatment' : 'Неламинированный',
+                                                'outer_side_pc_id' : row['Код цвета основы/Замес'],
+                                                'outer_side_wg_id' : outer_side_wg_id,
+                                                'inner_side_wg_id' : inner_side_wg_id,
+                                                'sealer_color' : row['Цвет резины'],
+                                                'print_view' : nakleyka,
+                                                'kod_lam_plen_snar':row['Код лам пленки снаружи'],
+                                                'kod_lam_plen_vnut':row['Код лам пленки внутри'],
+                                                
+                                                'width' : artikulcomponent.width,
+                                                'height' : artikulcomponent.height,
+                                                'category' : artikulcomponent.category,
+                                                'material_class' : 'Полуфабрикат',
+                                                'rawmat_type' : 'ПФ',
+                                                'tnved' : '',
+                                                'surface_treatment_export' : '',
+                                                'amount_in_a_package' : '',
+                                                'wms_width' : artikulcomponent.wms_width,
+                                                'wms_height' : artikulcomponent.wms_height,
+                                                'product_type' : artikulcomponent.product_type,
+                                                'profile_type' : artikulcomponent.profile_type,
+                                                'export_description':'',
+                                                'export_description_eng':'',
+                                                'sb':'',
 
-                                            'coating_qbic' : q_bic,
-                                            'online_savdo_name':'',
-                                            'id_savdo' : id_savdo,
-                                            'dlinniy_text':dlinniy_text
+                                                'coating_qbic' : q_bic,
+                                                'online_savdo_name':'',
+                                                'id_savdo' : id_savdo,
+                                                'dlinniy_text':dlinniy_text
 
-                                            # 'id_savdo' : 1,#row[''],
-                                            # 'klaes' : 1,#row[''],
-                                            
-                                            # 'ch_profile_type' : 1,#row[''],
-                                            # 'kls_wast_length' : 1,#row[''],
-                                            # 'kls_wast' : 1,#row[''],
-                                            # 'ch_klaes_optm' : 1,#row[''],
-                                            # 'goods_group' : 1,#row['']
-                                        }
-                                )
-                    
+                                                # 'id_savdo' : 1,#row[''],
+                                                # 'klaes' : 1,#row[''],
+                                                
+                                                # 'ch_profile_type' : 1,#row[''],
+                                                # 'kls_wast_length' : 1,#row[''],
+                                                # 'kls_wast' : 1,#row[''],
+                                                # 'ch_klaes_optm' : 1,#row[''],
+                                                # 'goods_group' : 1,#row['']
+                                            }
+                                    )
+                        
 
                     
         
