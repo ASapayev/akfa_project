@@ -956,7 +956,10 @@ def characteristika_created_txt_create(datas,order_id):
             
             for j in range(0,25):
                 if HEADER2[j] not in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT','TNVED']:
-                    dd2[1].append('PVC_PROFILE')
+                    if HEADER2[j] =='ID_SAVDO':
+                        dd2[1].append('SAVDO')
+                    else:
+                        dd2[1].append('PVC_PROFILE')
                 else:
                     if HEADER2[j] in ['RAWMAT_TYPE','WMS_WIDTH','WMS_HEIGHT']:
                         dd2[1].append('RAWMAT_TYPE')
