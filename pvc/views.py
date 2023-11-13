@@ -1555,6 +1555,7 @@ def sozdaniya_online_savdo(request,id):
     PriceUSD = int(ExchangeValues.objects.get(id = 1).valute)
     for key2,row2 in df1.iterrows():
         result = base[base['name'] ==row2['Название'] ]
+        print(result,'#########'*10)
         data[0].append(result.iloc[0]['id'])
         data[1].append(result.iloc[0]['name'])
         data[2].append(row2['Тип клиента'])
