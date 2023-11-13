@@ -355,20 +355,19 @@ def product_add_second_org(request,id):
                         
                         q_bic = ''
                         
-                        if 'подок' in str(row['Название системы']).lower():
-                            outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
-                            inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
-                        else:
+                        outer_side_wg_id = row['Цвет лам пленки снаружи']
+                        inner_side_wg_id = row['Цвет лам пленки внутри']
+                            
+                        
 
-                            outer_side_wg_id = row['Код лам пленки снаружи']
-                            inner_side_wg_id = row['Код лам пленки внутри']
+                            
                         
                         if row['Код лам пленки снаружи'] ==row['Код лам пленки внутри']:
                             surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
                         elif row['Код лам пленки снаружи'] =='XXXX':
                             surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
                         else:
-                            surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
+                            surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
 
                         
                         if row['Цвет лам пленки снаружи'] =='XXXX':
@@ -446,13 +445,16 @@ def product_add_second_org(request,id):
                                 q_bic = row['Цвет лам пленки внутри']
                             else:
                                 q_bic = row['Цвет лам пленки снаружи']
+                            
+                        outer_side_wg_id = row['Цвет лам пленки снаружи']
+                        inner_side_wg_id = row['Цвет лам пленки внутри']
 
-                        if 'подок' in str(row['Название системы']).lower():
-                            outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
-                            inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
-                        else:
-                            outer_side_wg_id = row['Код лам пленки снаружи']
-                            inner_side_wg_id = row['Код лам пленки внутри']
+                        # if 'подок' in str(row['Название системы']).lower():
+                        #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                        #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                        # else:
+                        #     outer_side_wg_id = row['Код лам пленки снаружи']
+                        #     inner_side_wg_id = row['Код лам пленки внутри']
 
                         if row['Код лам пленки снаружи'] ==row['Код лам пленки внутри']:
                             surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
@@ -547,13 +549,14 @@ def product_add_second_org(request,id):
                         artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
 
 
-
-                        if 'подок' in str(row['Название системы']).lower():
-                            outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
-                            inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
-                        else:
-                            outer_side_wg_id = row['Код лам пленки снаружи']
-                            inner_side_wg_id = row['Код лам пленки внутри']
+                        outer_side_wg_id = ''
+                        inner_side_wg_id = ''
+                        # if 'подок' in str(row['Название системы']).lower():
+                        #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                        #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                        # else:
+                        #     outer_side_wg_id = row['Код лам пленки снаружи']
+                        #     inner_side_wg_id = row['Код лам пленки внутри']
 
                         surface_treatment_export =row['Код цвета основы/Замес']
                         amount_in_a_package = CameraPvc.objects.filter(sap_code =df['Артикул'][key])[:1].get().coun_of_pvc  
@@ -704,12 +707,15 @@ def product_add_second_org(request,id):
                             component2 = materiale.split('-')[0]
                             artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
 
-                            if 'подок' in str(row['Название системы']).lower():
-                                outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
-                                inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
-                            else:
-                                outer_side_wg_id = row['Код лам пленки снаружи']
-                                inner_side_wg_id = row['Код лам пленки внутри']
+                            outer_side_wg_id = row['Цвет лам пленки снаружи']
+                            inner_side_wg_id = row['Цвет лам пленки внутри']
+
+                            # if 'подок' in str(row['Название системы']).lower():
+                            #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                            #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                            # else:
+                            #     outer_side_wg_id = row['Код лам пленки снаружи']
+                            #     inner_side_wg_id = row['Код лам пленки внутри']
                             # if outer_side_wg_id =='XXXX':
                             #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
                             # else:
@@ -790,13 +796,15 @@ def product_add_second_org(request,id):
                                     q_bic = row['Цвет лам пленки внутри']
                                 else:
                                     q_bic = row['Цвет лам пленки снаружи']
+                            outer_side_wg_id = row['Цвет лам пленки снаружи']
+                            inner_side_wg_id = row['Цвет лам пленки внутри']
 
-                            if 'подок' in str(row['Название системы']).lower():
-                                outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
-                                inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
-                            else:
-                                outer_side_wg_id = row['Код лам пленки снаружи']
-                                inner_side_wg_id = row['Код лам пленки внутри']
+                            # if 'подок' in str(row['Название системы']).lower():
+                            #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                            #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                            # else:
+                            #     outer_side_wg_id = row['Код лам пленки снаружи']
+                            #     inner_side_wg_id = row['Код лам пленки внутри']
                             # if outer_side_wg_id =='XXXX':
                             #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
                             # else:
@@ -905,13 +913,16 @@ def product_add_second_org(request,id):
                             q_bic = row['Цвет лам пленки внутри']
                         else:
                             q_bic = row['Цвет лам пленки снаружи']
+                    
+                    outer_side_wg_id = ''
+                    inner_side_wg_id = ''
 
-                    if 'подок' in str(row['Название системы']).lower():
-                        outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
-                        inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
-                    else:
-                        outer_side_wg_id = row['Код лам пленки снаружи']
-                        inner_side_wg_id = row['Код лам пленки внутри']
+                    # if 'подок' in str(row['Название системы']).lower():
+                    #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                    #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                    # else:
+                    #     outer_side_wg_id = row['Код лам пленки снаружи']
+                    #     inner_side_wg_id = row['Код лам пленки внутри']
 
                     if row['Тип покрытия'] !='Неламинированный':
                         cache_for_cratkiy_text.append(
@@ -981,13 +992,16 @@ def product_add_second_org(request,id):
                             q_bic = row['Цвет лам пленки внутри']
                         else:
                             q_bic = row['Цвет лам пленки снаружи']
+                        
+                    outer_side_wg_id = ''
+                    inner_side_wg_id = ''
                     
-                    if 'подок' in str(row['Название системы']).lower():
-                        outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
-                        inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
-                    else:
-                        outer_side_wg_id = row['Код лам пленки снаружи']
-                        inner_side_wg_id = row['Код лам пленки внутри']
+                    # if 'подок' in str(row['Название системы']).lower():
+                    #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
+                    #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
+                    # else:
+                    #     outer_side_wg_id = row['Код лам пленки снаружи']
+                    #     inner_side_wg_id = row['Код лам пленки внутри']
                     # if outer_side_wg_id =='XXXX':
                     #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
                     # else:
