@@ -2186,8 +2186,8 @@ def sozdaniye_sap_format_sena(request,id):
             data[11].append(DATBI)
             data[12].append("")
             data[13].append("")
-            data[14].append("ZUU")
-            data[15].append("")
+            data[14].append("")
+            data[15].append("ZUU")
         
     new_row = {'KSCHL':data[0],	
             'VKORG':data[1],	
@@ -2248,8 +2248,8 @@ def sozdaniye_sap_format_sena(request,id):
             data[10].append(DATAB)
             data[11].append(DATBI)
             data[12].append("")
-            data[13].append("")
-            data[14].append("ZFKN")
+            data[13].append("ZFKN")
+            data[14].append("")
             data[15].append("")
         
     new_row = {'KSCHL':data[0],	
@@ -2312,8 +2312,8 @@ def sozdaniye_sap_format_sena(request,id):
             data[10].append(DATAB)
             data[11].append(DATBI)
             data[12].append("")
-            data[13].append("")
-            data[14].append("ZFDN")
+            data[13].append("ZFDN")
+            data[14].append("")
             data[15].append("")
         
     new_row = {'KSCHL':data[0],	

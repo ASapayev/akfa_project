@@ -530,7 +530,7 @@ def sozdaniye_sena(request,id):
     df1 = pd.read_excel(f'{MEDIA_ROOT}/{path1}',sheet_name='Алюмин Навои Жомий',header= 4)
     base = pd.read_excel(f'{MEDIA_ROOT}/{path2}',sheet_name='Sheet1',header= 2)
     df1 = df1[~df1['Название системы'].isnull()]
-    
+
     now = datetime.now()
     year =now.strftime("%Y")
     month =now.strftime("%B")
@@ -1020,8 +1020,8 @@ def sozdaniye_sap_format_sena(request,id):
             data[11].append(DATBI)
             data[12].append("")
             data[13].append("")
-            data[14].append("ZUU")
-            data[15].append("")
+            data[14].append("")
+            data[15].append("ZUU")
         
     new_row = {'KSCHL':data[0],	
             'VKORG':data[1],	
@@ -1082,8 +1082,8 @@ def sozdaniye_sap_format_sena(request,id):
             data[10].append(DATAB)
             data[11].append(DATBI)
             data[12].append("")
-            data[13].append("")
-            data[14].append("ZFKN")
+            data[13].append("ZFKN")
+            data[14].append("")
             data[15].append("")
         
     new_row = {'KSCHL':data[0],	
@@ -1146,8 +1146,8 @@ def sozdaniye_sap_format_sena(request,id):
             data[10].append(DATAB)
             data[11].append(DATBI)
             data[12].append("")
-            data[13].append("")
-            data[14].append("ZFDN")
+            data[13].append("ZFDN")
+            data[14].append("")
             data[15].append("")
         
     new_row = {'KSCHL':data[0],	
