@@ -1464,6 +1464,7 @@ def round503(n):
 def create_online(request,id):
     file = OnlineSavdoFile.objects.get(id=id).file
     df = pd.read_excel(f'{MEDIA_ROOT}/{file}',sheet_name='Характеристика',header=4)
+    df = df[~df['Название системы'].isnull()]
     df =df.astype(str)
 
     now = datetime.now()
@@ -1524,6 +1525,7 @@ def sozdaniya_online_savdo(request,id):
     path1 = order.paths['path_1']
     path2 = order.paths['path_2']
     df1 = pd.read_excel(f'{MEDIA_ROOT}/{path1}',sheet_name='Характеристика',header= 4)
+    df1 = df1[~df1['Название системы'].isnull()]
     base = pd.read_excel(f'{MEDIA_ROOT}/{path2}',sheet_name='Sheet1',header= 2)
     # df1 = df1.astype(str)
 
@@ -1555,7 +1557,6 @@ def sozdaniya_online_savdo(request,id):
     PriceUSD = int(ExchangeValues.objects.get(id = 1).valute)
     for key2,row2 in df1.iterrows():
         result = base[base['name'] ==row2['Название'] ]
-        print(result,'#########'*10)
         data[0].append(result.iloc[0]['id'])
         data[1].append(result.iloc[0]['name'])
         data[2].append(row2['Тип клиента'])
@@ -1694,6 +1695,7 @@ def sozdaniye_sena(request,id):
     path2 = order.paths['path_2']
     df1 = pd.read_excel(f'{MEDIA_ROOT}/{path1}',sheet_name='Характеристика',header= 4)
     base = pd.read_excel(f'{MEDIA_ROOT}/{path2}',sheet_name='Sheet1',header= 2)
+    df1 = df1[~df1['Название системы'].isnull()]
 
     now = datetime.now()
     year =now.strftime("%Y")
