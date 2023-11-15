@@ -903,8 +903,8 @@ def characteristika_created_txt_create(datas,order_id):
     d5 ={
         'sap_code':[],
         'ed_iz1':[],
-        'ed_iz3':[],
         'ed_iz2':[],
+        'ed_iz3':[],
         'ed_iz4':[],
         'ed_iz5':[],
         'ed_iz6':[],
@@ -919,13 +919,13 @@ def characteristika_created_txt_create(datas,order_id):
         elif i == 1 :
             ed_iz3 += [j for j in dlina_title ]
         elif i == 2 :
-            ed_iz3 += [int(float(j)*1000) for j in obshiy_ves_za_shtuku ]
+            ed_iz3 += [ str(float(netto[j])*1000).replace('.0','') if (float(netto[j])*10000000)%10000 == 0 else str(float(netto[j])) for j in range(0,len(sap_code_title))]
             
     
     for i in ED_IZM:    
         d5['sap_code'] += sap_code_title 
         d5['ed_iz1'] += [ i for j in range(0,len(sap_code_title))]
-        d5['ed_iz2'] +=['1' if i =='ШТ' else '1000' if i=='М' else float(netto[j])*1000 for j in range(0,len(sap_code_title)) ]
+        d5['ed_iz2'] +=['1' if i =='ШТ' else '1000' for j in range(0,len(sap_code_title)) ]
         d5['ed_iz4'] +=[j for j in dlina_title ]
         d5['ed_iz5'] +=[j for j in wms_width ]
         d5['ed_iz6'] +=[j for j in wms_height ]
