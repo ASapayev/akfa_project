@@ -755,7 +755,7 @@ def characteristika_created_txt_create(datas,order_id):
     d2['HKMAT']=umumiy_without_duplicate[42] 
     d2['LOSGR']=umumiy_without_duplicate[43] 
     d2['SFCPF']=umumiy_without_duplicate[44] 
-    d2['FEVOR']=['AP1' for x in (umumiy_without_duplicate[44])] 
+    d2['FEVOR']=['AP1' if x =='1203' else '' for x in (umumiy_without_duplicate[34])] 
     d2['UEETK']=umumiy_without_duplicate[45] 
     d2['LGPRO']=umumiy_without_duplicate[46] 
     d2['AUTO_P_ORD']=umumiy_without_duplicate[47] 
