@@ -1561,6 +1561,7 @@ def sozdaniya_online_savdo(request,id):
         data[1].append(result.iloc[0]['name'])
         data[2].append(row2['Тип клиента'])
         data[3].append("14.08.2023")
+        # data[3].append(datetime(day=14,month=8,year=2023))
         data[4].append(round50(float(row2['Цена с НДС'])/1.12))
         data[5].append(round50(row2['Цена с НДС']))
         data[6].append("UZS")
@@ -1571,8 +1572,11 @@ def sozdaniya_online_savdo(request,id):
     new_row = {'ID' :data[0], 'NAME':data[1], 'CLIENTYPE':data[2],'DATE':data[3],'COST':data[4],'RATE':data[5],'CURRENCY':data[6],'UNIT':data[7]}
 
     new_df =pd.DataFrame(new_row)
+    new_df['DATE'] =pd.to_datetime(new_df.DATE) 
+    new_df['DATE'] = new_df['DATE'].apply(lambda x: x.strftime('%d/%m/%Y'))
 
     new_df.to_excel(pathtext1,index=False)
+
 
     files = [FileG(file=pathtext1,filetype='obichniy')]
     context ={
