@@ -2292,7 +2292,7 @@ def get_cretead_txt_for_1101(datas,elist):
         row['ch_height'] =str(row['ch_height']).replace('.0','')
         
         if '-7' in row['SAP код S4P 100']:
-            for j in range(0,34):
+            for j in range(0,35):
                 dd2[0].append('001')
             dd2[0].append('023')
                 
@@ -2308,17 +2308,19 @@ def get_cretead_txt_for_1101(datas,elist):
            
 
             dd2[1].append('QBIC')
+            dd2[1].append('QBIC')
             dd2[1].append('ZPP_023_FERT')
         
-            for j in range(0,35):
+            for j in range(0,36):
                 dd2[2].append('MARA')
                 
-            for j in range(0,35):
+            for j in range(0,36):
                 dd2[3].append(row['SAP код S4P 100'])
                 
             for j in HEADER:
                 dd2[4].append(j)
             
+            dd2[4].append('AMOUNT_IN_A_PACKAGE')
             dd2[4].append('COATING_QBIC')
             dd2[4].append('ZBATCH_NUM')
 
@@ -2361,6 +2363,13 @@ def get_cretead_txt_for_1101(datas,elist):
             dd2[5].append(row['WMS_HEIGHT'])
             dd2[5].append(row['ch_artikul_old'])
             dd2[5].append(bazaprofiley.type_combination)
+            artikul_for_qbic = row['SAP код S4P 100'].split('-')[0]
+            if Norma.objects.filter(Q(артикул=artikul_for_qbic)&~Q(упаковка_колво_профилей_в_1_пачке ='0')).exists():
+                qbicc = Norma.objects.filter(Q(артикул=artikul_for_qbic)&~Q(упаковка_колво_профилей_в_1_пачке ='0'))[:1].get().упаковка_колво_профилей_в_1_пачке
+                dd2[5].append(qbicc)
+            else:
+                dd2[5].append('XXXX')
+           
             if row['Тип покрытия'] =='Неокрашенный':
                 qbic ='XXXX'
             elif row['Тип покрытия'] =='Окрашенный':
@@ -4737,7 +4746,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
         row['ch_height'] =str(row['ch_height']).replace('.0','')
         
         if '-7' in row['SAP код S4P 100']:
-            for j in range(0,34):
+            for j in range(0,35):
                 dd2[0].append('001')
             dd2[0].append('023')
                 
@@ -4753,17 +4762,19 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
            
 
             dd2[1].append('QBIC')
+            dd2[1].append('QBIC')
             dd2[1].append('ZPP_023_FERT')
         
-            for j in range(0,35):
+            for j in range(0,36):
                 dd2[2].append('MARA')
                 
-            for j in range(0,35):
+            for j in range(0,36):
                 dd2[3].append(row['SAP код S4P 100'])
                 
             for j in HEADER:
                 dd2[4].append(j)
             
+            dd2[4].append('AMOUNT_IN_A_PACKAGE')
             dd2[4].append('COATING_QBIC')
             dd2[4].append('ZBATCH_NUM')
 
@@ -4806,6 +4817,12 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             dd2[5].append(row['WMS_HEIGHT'])
             dd2[5].append(row['ch_artikul_old'])
             dd2[5].append(bazaprofiley.type_combination)
+            artikul_for_qbic = str(row['SAP код S4P 100']).split('-')[0]
+            if Norma.objects.filter(Q(артикул=artikul_for_qbic)&~Q(упаковка_колво_профилей_в_1_пачке ='0')).exists():
+                qbicc = Norma.objects.filter(Q(артикул=artikul_for_qbic)&~Q(упаковка_колво_профилей_в_1_пачке ='0'))[:1].get().упаковка_колво_профилей_в_1_пачке
+                dd2[5].append(qbicc)
+            else:
+                dd2[5].append('XXXX')
             if row['Тип покрытия'] =='Неокрашенный':
                 qbic ='XXXX'
             elif row['Тип покрытия'] =='Окрашенный':

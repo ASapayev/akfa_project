@@ -129,6 +129,7 @@ class Norma(models.Model):
     наклейка_исключение = models.CharField(max_length = 255,blank=True,null=True)
     закалка_исключение = models.CharField(max_length = 255,blank=True,null=True)
     
+    
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
     
