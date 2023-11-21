@@ -1,6 +1,6 @@
 from django.db import models
 from accounts.models import User
-import jsonfield
+
 
 
 STATUS_CHOICES =(
