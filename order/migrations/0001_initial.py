@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import jsonfield.fields
+
 
 
 class Migration(migrations.Migration):
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=150)),
                 ('status', models.SmallIntegerField(choices=[(1, 'ON HOLD'), (2, 'ON PROCESS'), (3, 'CANCEL'), (4, 'DONE')], default=1)),
                 ('work_type', models.SmallIntegerField(choices=[(1, 'SAP CODE CREATING'), (2, 'SAP CODE CREATING LACKS'), (3, 'TEXT CREATING'), (4, 'TEXT CREATING LACKS'), (5, 'NORMA'), (6, 'NORMA CREATING LACKS'), (7, 'TEXCARTA'), (8, 'VI')], default=1)),
-                ('paths', jsonfield.fields.JSONField(default=dict)),
+                ('paths', models.JSONField(blank=True, default=dict, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('alumin_wrongs', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='aluminiy_work_wrong', to=settings.AUTH_USER_MODEL)),
