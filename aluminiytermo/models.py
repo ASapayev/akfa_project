@@ -1,4 +1,6 @@
 from django.db import models
+from accounts.models import User
+from uuid import uuid4
 
 # Create your models here.
 
@@ -147,3 +149,29 @@ class NakleykaCode(models.Model):
     name = models.CharField(max_length=255,blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+MESSAGE_TYPE =(
+    (1,'CHAT'),
+    (2,'ERROR')
+)
+
+class MessageFeedBack(models.Model):
+    uuid = models.UUIDField(default=uuid4,editable=False,unique=True)
+    sender = models.ForeignKey(User,on_delete=models.CASCADE,related_name='messages_sender')
+    receiver = models.ForeignKey(User,on_delete=models.CASCADE,related_name='messages_receiver')
+    message = models.TextField(default='',blank=True,null=True)
+    parent = models.IntegerField(default = 0)
+    last_msg = models.ForeignKey('MessageFeedBack',on_delete=models.CASCADE,blank=True,null=True)
+    accepted = models.BooleanField(default=False)
+    msg_type = models.SmallIntegerField(choices=MESSAGE_TYPE,default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+
+    def encoded_id(self):
+        import base64
+        return base64.b64encode(str(self))
+    
+    def decode_id(self, id):
+        import base64
+        return base64.b64decode(id)

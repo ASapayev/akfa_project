@@ -68,6 +68,40 @@
     {% if user_role == 'moderator' or user_role == 'user1' %}
 
     <li class="nav-item menu-items">
+      <a class="nav-link" data-toggle="collapse" href="#messages" aria-expanded="false" aria-controls="messages">
+        <span class="menu-icon">
+          <i class="mdi mdi-message-reply-text"></i>
+          {%if messages %}
+          <span class="count " style="color: red; font-weight: 700;">{{count}}</span>
+          {%endif%}
+        </span>
+        <span class="menu-title">Xabarlar
+        </span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="messages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> 
+            <a class="nav-link" href="{% url 'create_new_sms' %}" >
+              Muloqot
+              {%if messages%}
+                <span style="font-size: smaller!important;" class="badge bg-success text-dark rounded-pill">{{simple_count}} DEMO</span>
+              {% endif %}
+            </a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link" href="{% url 'sms_list' %}" >
+              Errorlar<span style="font-size: smaller!important;" class="badge bg-danger text-dark rounded-pill">{{errors_count}} new</span>
+            </a>
+          </li>
+          <li class="nav-item"> <a class="nav-link" href="">O'qilganlar</a></li>
+        </ul>
+      </div>
+    </li>
+    {%endif%}
+    {% if user_role == 'moderator' or user_role == 'user1' %}
+
+    <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#zayavki" aria-expanded="false" aria-controls="zayavki">
         <span class="menu-icon">
           <i class="mdi mdi-equal-box"></i>
@@ -83,6 +117,7 @@
       </div>
     </li>
     {%endif%}
+
     {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#del-othod" aria-expanded="false" aria-controls="del-othod">

@@ -40,4 +40,10 @@ path('upload-razlovka-termo',views.upload_razlovka_termo,name='upload_razlovka_t
 path('new',views.upload_for_1301_v22,name='sdf'),
 path('create-construction-v2',views.upload_for_1301_v22, name ='mmmmmmmm' ),
 
+#####################################
+path('sms-list',views.sms_list,name='sms_list'),
+path('sms-detail/<uuid>',views.sms_detail,name='sms_detail'),
+path('create-fake-sms',views.create_fake,name='create_new_sms'),
+path('sms-save',views.sms_save,name='sms_save'),
+
 ]

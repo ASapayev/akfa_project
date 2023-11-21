@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import pandas as pd
-from .models import AluFileTermo,AluminiyProductTermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour,CharacteristicTitle,BazaProfiley,Characteristika,CharacteristikaFile
+from .models import AluFileTermo,AluminiyProductTermo,CharUtilsTwo,CharUtilsOne,CharUtilsThree,CharUtilsFour,CharacteristicTitle,BazaProfiley,Characteristika,CharacteristikaFile,MessageFeedBack
 from norma.models import Norma,NormaExcelFiles
 from aluminiy.models import AluminiyProduct,RazlovkaTermo,LengthOfProfile,ExchangeValues,Price
 from .forms import FileFormTermo,FileFormChar
@@ -27,6 +27,39 @@ from .create_char import product_add_second_termo,product_add_second_simple
 from order.models import Order
 
 now = datetime.now()
+
+def sms_list(request):
+      messages_chat = MessageFeedBack.objects.filter(receiver =request.user,parent = 0,accepted = False).order_by('-created_at')
+      context ={
+            'messages_chat' : messages_chat
+      }
+      return render(request,'chat/message_list.html',context)
+
+
+def sms_detail(request,uuid):
+      try:
+            sms = MessageFeedBack.objects.get(uuid= uuid)
+            sms.accepted =True
+            sms.save()
+            messages_chat = MessageFeedBack.objects.filter(parent=sms.id).order_by('created_at')
+            context ={
+                  'messages_chat':messages_chat,
+                  'sender':sms.sender
+            }
+            MessageFeedBack.objects.filter(parent=sms.id).update(accepted = True)
+            return render(request,'chat/room.html',context)
+      except:
+            return render(request,'404.html')
+      
+def sms_save(request):
+      data = request.data
+      print(data)
+      return JsonResponse({'msg':'Saved successfully','status':201})
+
+def create_fake(request):
+      m = MessageFeedBack(sender = request.user,receiver=request.user)
+      m.save()
+      return JsonResponse({'a':'b'})
 
 class SAPCODES:
       def __init__(self,material,kratkiy_tekst_materiala,created_at):
