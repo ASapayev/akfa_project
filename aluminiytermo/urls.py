@@ -45,5 +45,6 @@ path('sms-list',views.sms_list,name='sms_list'),
 path('sms-detail/<uuid>',views.sms_detail,name='sms_detail'),
 path('create-fake-sms',views.create_fake,name='create_new_sms'),
 path('sms-save',views.sms_save,name='sms_save'),
+path('lobby',views.lobby,name='lobby')
 
 ]

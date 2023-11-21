@@ -61,6 +61,9 @@ def create_fake(request):
       m.save()
       return JsonResponse({'a':'b'})
 
+def lobby(request):
+      return render(request,'chat/lobby.html')
+
 class SAPCODES:
       def __init__(self,material,kratkiy_tekst_materiala,created_at):
             self.material = material

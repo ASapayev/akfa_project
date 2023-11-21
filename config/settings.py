@@ -18,8 +18,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    # 'channels',
-     'sslserver',
+    'channels',
+    'sslserver',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,12 +76,11 @@ TEMPLATES = [
     },
 ]
 
-# ASGI_APPLICATION = 'config.asgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
 
 
 CHANNEL_LAYERS ={
     'default':{
-        # 'BACKEND':'chennels.layers.InMemoryChannelLayer',
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
