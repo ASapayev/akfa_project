@@ -228,8 +228,8 @@ def counter_generated_data(datas,data_type):
   d1['WERKS']=[ 1301 for i in range(0,len(umumiy_without_duplicate[0]))]
   d1['BESKZ']=[ 'E' for i in range(0,len(umumiy_without_duplicate[0]))]
   d1['SPART']=[ '01' if x == 'ALU' else '02' for x in umumiy_without_duplicate[5]]
-  d1['BRGEW']=umumiy_without_duplicate[15]
-  d1['NTGEW']=umumiy_without_duplicate[15]
+  d1['BRGEW']=[str(x).replace('.',',') if '.' in str(x) else str(x) for x in umumiy_without_duplicate[15]]
+  d1['NTGEW']=[str(x).replace('.',',') if '.' in str(x) else str(x) for x in umumiy_without_duplicate[15]]
   d1['GEWEI']=[ 'КГ' for i in range(0,len(umumiy_without_duplicate[0]))]
   d1['MTPOS_MARA']=[ 'NORM' for i in range(0,len(umumiy_without_duplicate[0]))]
   df1= pd.DataFrame(d1)
