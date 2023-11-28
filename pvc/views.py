@@ -330,7 +330,7 @@ def product_add_second_org(request,id):
                 export_description ='Профиль из ПВХ ламинированный'
             elif ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] !='NR'):
                 export_description ='Профиль из ПВХ ламинированный с уплотнителем'
-            elif ('PDF' not in row['Артикул']) and ( 'L0001' in row['Артикул'] or 'L0002' in row['Артикул']) and (row['Цвет резины'] =='NR'):
+            elif ('PDF' not in row['Артикул']) and (row['Цвет резины'] =='NR' or row['Цвет резины'] =='nan') and ( 'L0001' in row['Артикул'] or 'L0002' in row['Артикул']) :
                 export_description ='Ламбри из ПВХ ламинированный'
             elif('L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] =='nan'):
                 export_description ='Подоконник из ПВХ ламинированный'
@@ -524,7 +524,7 @@ def product_add_second_org(request,id):
                 export_description ='Профиль из ПВХ'
             elif ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] !='NR'):
                 export_description ='Профиль из ПВХ с уплотнителем'
-            elif ('PDF' not in row['Артикул']) and ( 'L0001' in row['Артикул'] or 'L0002' in row['Артикул']) and (row['Цвет резины'] =='NR'):
+            elif ('PDF' not in row['Артикул']) and ( 'L0001' in row['Артикул'] or 'L0002' in row['Артикул']) and (row['Цвет резины'] =='NR'  or row['Цвет резины'] =='nan'):
                 export_description ='Ламбри из ПВХ'
             elif('L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] =='nan'):
                 export_description ='Подоконник из ПВХ'
