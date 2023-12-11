@@ -367,6 +367,7 @@ def lenght_generate_texcarta(request,id):
             if ImzoBase.objects.filter(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).exists():
                 continue 
             
+            lenghtht =row['МАТЕРИАЛ'].split('-')[0]
 
             if '-7' in row['МАТЕРИАЛ']:
                 lenghtht =row['МАТЕРИАЛ'].split('-')[0]
