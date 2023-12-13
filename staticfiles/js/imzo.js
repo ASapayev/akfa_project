@@ -31,9 +31,9 @@ for (let i = 1; i <= 4; i++) {
     </td>
     <td style="background-color:#92d050;">
         <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 200px;text-transform: uppercase;">
+            <select class="form-select" aria-label="" style="width: 200px;text-transform: uppercase;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`'>
                 <option selected></option>
-                <option value="1" selected >Неокрашенный</option>
+                <option value="1" >Неокрашенный</option>
                 <option value="2">Белый</option>
                 <option value="3">Окрашенный</option>
                 <option value="4">Ламинированный</option>
@@ -61,23 +61,31 @@ for (let i = 1; i <= 4; i++) {
     </td>
     <td style="background-color:#92d050;">
         <div class="input-group input-group-sm mb-1">
-            
+        <div>
+            <span class =' text-center p-1' style="font-size: small; text-transform: uppercase;" id ='brand_kraski_snaruji` +String(i)+`'></span>
+        </div>
         </div>
     </td>
     
     <td >
         <div class="input-group input-group-sm mb-1">
-        
+        <div>
+            <span class =' text-center p-1' style="font-size: small; text-transform: uppercase;" id ='code_kraski_snaruji` +String(i)+`'></span>
+        </div>
         </div>
     </td>
     <td style="background-color:#92d050;">
         <div class="input-group input-group-sm mb-1">
-            
+        <div>
+            <span class =' text-center p-1' style="font-size: small; text-transform: uppercase;" id ='brand_kraski_vnutri` +String(i)+`'></span>
+        </div>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        
+        <div>
+            <span class =' text-center p-1' style="font-size: small; text-transform: uppercase;" id ='code_kraski_vnutri` +String(i)+`'></span>
+        </div>
         </div>
     </td>
     <td style="background-color:#ddebf7;">
@@ -245,6 +253,8 @@ for (let i = 1; i <= 5; i++) {
     var select_val = $(e.currentTarget).val();
     var nazvaniye_system =$('.nazvaniye_system'+String(i));
     var combination = $('#combination'+String(i));
+    var tip_pokritiya = $('#tip_pokritiya'+String(i));
+    tip_pokritiya.attr("disabled",false);
     nazvaniye_system.text(e.params.data.system);
     combination.text(e.params.data.combination)
     // console.log(e.params.data.combination);
@@ -306,8 +316,53 @@ function get_nakleyka(){
 function clear_artikul(id){
     $('#artikul'+id).val(null).trigger('change');
     $('.nazvaniye_system'+id).text('');
-    var select_nakleyka = $('#nakleyka'+String(i));
+    var tip_pokritiya = $('#tip_pokritiya'+String(id));
+    tip_pokritiya.attr("disabled",true);
+    var select_nakleyka = $('#nakleyka'+String(id));
     select_nakleyka.children("span").remove();
     select_nakleyka.children("select").remove();
 
+}
+
+
+function tip_pokritiya_selected(id,val){
+    var select_nakleyka = $('#nakleyka'+String(id));
+    select_nakleyka.children("span").remove();
+    select_nakleyka.children("select").remove();
+    if(String(val) == '1'){
+        var newDiv = "<span>NT1</span>"; 
+        select_nakleyka.append(newDiv);
+        var combination= $('#combination'+String(id));
+        combination_text = combination.text();
+        if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
+
+            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
+            code_kraski_snaruji.text('MF')
+        }else{
+            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
+            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
+            code_kraski_snaruji.text('MF');
+            code_kraski_vnutri.text('MF');
+
+        }
+
+    }else if(String(val) == '2'){
+        var combination= $('#combination'+String(id));
+        combination_text = combination.text();
+        if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
+
+            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
+            var brand_kraski_vnutri = $('#brand_kraski_snaruji'+String(id))
+            code_kraski_snaruji.text('MF')
+            brand_kraski_vnutri.text('MF')
+        }else{
+            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
+            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
+            var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
+            var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
+            code_kraski_snaruji.text('MF');
+            code_kraski_vnutri.text('MF');
+
+        }
+    }
 }
