@@ -7,7 +7,7 @@ import numpy as np
 import os
 
 
-group_one =['WDC47','WDT65','WDT78']
+group_one =['WDC47','WDT65','WDT78','WDT57','WDT98','SLT65']
 
 def create_folder(parent_dir,directory):
     path =os.path.join(parent_dir,directory)
