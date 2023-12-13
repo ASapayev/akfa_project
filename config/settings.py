@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'order',
     'pvc',
     'onlinesavdo',
+    'client',
     
     # 'json_field',
     # "debug_toolbar",

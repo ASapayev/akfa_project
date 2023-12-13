@@ -15,6 +15,7 @@ urlpatterns = [
     path('order/',include('order.urls')),
     path('pvc/',include('pvc.urls')),
     path('online-savdo/',include('onlinesavdo.urls')),
+    path('client/',include('client.urls'))
     
     # path('__debug__/', include('debug_toolbar.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
