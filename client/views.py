@@ -31,7 +31,7 @@ def shablon_pvc_export_savdo_detail(request):
 
 
 def imzo_artikul_list(request):
-    # if request.is_ajax():
+    
     term = request.GET.get('term',None)
     if term:
         artikules = ArtikulComponent.objects.filter(artikul__icontains = term).values('id','artikul','system','combination','code_nakleyka')
@@ -40,10 +40,10 @@ def imzo_artikul_list(request):
     return JsonResponse(list(artikules),safe=False)
     
     
-    return JsonResponse(list(artikules),safe=False)
+    
 
 def nakleyka_list(request):
-    # if request.is_ajax():
+    
     term = request.GET.get('term',None)
     if term:
         nakleyka_l = Nakleyka.objects.filter(код_наклейки__icontains = term).distinct("код_наклейки").values('id','код_наклейки')
@@ -51,5 +51,4 @@ def nakleyka_list(request):
         nakleyka_l = Nakleyka.objects.all().distinct("код_наклейки").values('id','код_наклейки')
         
     return JsonResponse(list(nakleyka_l),safe=False)
-    # else:
-    #     return JsonResponse({'a':'b'})
+    
