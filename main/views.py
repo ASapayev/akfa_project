@@ -663,7 +663,7 @@ def download(request, id):
           return response
   raise Http404
 
-group_one =['WDC47','WDT65','WDT78']
+group_one =['WDC47','WDT65','WDT78','WDT57','WDT98','SLT65']
 group_two =['FST','FSC','PVF','PDF']
 group_three =['ALU']
 group_four =['PVC']
