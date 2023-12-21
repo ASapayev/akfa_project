@@ -1407,6 +1407,8 @@ def get_cretead_txt_for_1101(datas,elist):
                 umumiy_without_duplicate12D1[50].append('S3')
             elif row['Тип покрытия'].capitalize() =='Ламинированный':
                 umumiy_without_duplicate12D1[50].append('0001')
+            elif row['Тип покрытия'].capitalize() =='Анодированный':
+                umumiy_without_duplicate12D1[50].append('0001')
             
 
 
@@ -1489,6 +1491,8 @@ def get_cretead_txt_for_1101(datas,elist):
                 umumiy_without_duplicate12D2[50].append('S3')
             elif row['Тип покрытия'].capitalize() =='Ламинированный':
                 umumiy_without_duplicate12D2[50].append('0001')
+            elif row['Тип покрытия'].capitalize() =='Анодированный':
+                umumiy_without_duplicate12D1[50].append('0001')
             
 
         if gruppa_material=='ALUGP':
@@ -1569,6 +1573,8 @@ def get_cretead_txt_for_1101(datas,elist):
                 umumiy_without_duplicate12D3[50].append('S3')
             elif row['Тип покрытия'].capitalize() =='Ламинированный':
                 umumiy_without_duplicate12D3[50].append('0001')
+            elif row['Тип покрытия'].capitalize() =='Анодированный':
+                umumiy_without_duplicate12D1[50].append('0001')
            
         
         if gruppa_material=='ALUGP':
@@ -1649,6 +1655,8 @@ def get_cretead_txt_for_1101(datas,elist):
                 umumiy_without_duplicate12D4[50].append('S3')
             elif row['Тип покрытия'].capitalize() =='Ламинированный':
                 umumiy_without_duplicate12D4[50].append('0001')
+            elif row['Тип покрытия'].capitalize() =='Анодированный':
+                umumiy_without_duplicate12D1[50].append('0001')
             
 
         if gruppa_material=='ALUGP':
@@ -1729,6 +1737,8 @@ def get_cretead_txt_for_1101(datas,elist):
                 umumiy_without_duplicate12D5[50].append('S3')
             elif row['Тип покрытия'].capitalize() =='Ламинированный':
                 umumiy_without_duplicate12D5[50].append('0001')
+            elif row['Тип покрытия'].capitalize() =='Анодированный':
+                umumiy_without_duplicate12D1[50].append('0001')
             
 
         if (('-F' not in row['SAP код S4P 100']) and ('-A' not in row['SAP код S4P 100'])):
@@ -1823,6 +1833,8 @@ def get_cretead_txt_for_1101(datas,elist):
                 umumiy_without_duplicate1201[50].append('S3')
             elif row['Тип покрытия'].capitalize() =='Ламинированный':
                 umumiy_without_duplicate1201[50].append('S4')
+            elif row['Тип покрытия'].capitalize() =='Анодированный':
+                umumiy_without_duplicate12D1[50].append('0001')
             
 
     umumiy_without_duplicate =[[] for i in range(0,51)]
