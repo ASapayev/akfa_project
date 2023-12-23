@@ -3550,7 +3550,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['USR01'][counter_2] = ("%.3f" % ((L*1000*3600*float(norma.data['Площадь поверхности 1000шт профилей/м²'].replace(',','.')))/(6000000*bmsch)))
                         
                     counter_2 +=1
-                TexcartaBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
+                TexcartaBase(material = row['МАТЕРИАЛ']).save()
             elif '-S' in row['МАТЕРИАЛ']:
                 for p in range(1,5):
                     for i7 in range(1,3):
@@ -3584,7 +3584,7 @@ def lenght_generate_texcarta(request,id):
                             df_new['USR01'][counter_2] = '12'
                             
                         counter_2 +=1
-                TexcartaBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
+                TexcartaBase(material = row['МАТЕРИАЛ']).save()
             elif '-E' in row['МАТЕРИАЛ']:
                 for t in range(1,7):
                     for i7 in range(1,4):
