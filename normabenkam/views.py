@@ -3636,7 +3636,7 @@ def lenght_generate_texcarta(request,id):
                             df_new['USR01'][counter_2] = '50'
                             
                         counter_2 +=1
-                TexcartaBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()             
+                TexcartaBase(material = row['МАТЕРИАЛ']).save()             
             elif '-Z' in row['МАТЕРИАЛ']:
                 for i7 in range(1,3):
                     if i7 ==1:
@@ -3669,7 +3669,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['USR01'][counter_2] = ("%.3f" % (float(norma.data['Удельный вес профиля кг/м'].replace(',','.')) * float(L) *3600/(12500)))
                         
                     counter_2 +=1
-                TexcartaBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
+                TexcartaBase(material = row['МАТЕРИАЛ']).save()
             elif '-P' in row['МАТЕРИАЛ']:
                 for p in range(1,3):
                     for i in range(1,4):
@@ -3721,7 +3721,7 @@ def lenght_generate_texcarta(request,id):
                             df_new['USR01'][counter_2] ='3'
                             
                         counter_2 +=1        
-                TexcartaBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()
+                TexcartaBase(material = row['МАТЕРИАЛ']).save()
     
     for i in range(0,counter_2):
         df_new['USR01'][i] = df_new['USR01'][i].replace('.',',')
