@@ -159,6 +159,5 @@ class AlyuminniysilindrEkstruziya1(models.Model):
 
 class TexcartaBase(models.Model):
     material =models.CharField(max_length=25)
-    kratkiytekst =models.CharField(max_length=25)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)

@@ -3330,22 +3330,22 @@ def lenght_generate_texcarta(request,id):
             ])
             
             if row['SAP код F']!='' and row['SAP код 75']!='':
-                if not TexcartaBase.objects.filter(material = row['SAP код 75'],kratkiytekst = row['U-Упаковка + Готовая Продукция 75']).exists():
+                if not TexcartaBase.objects.filter(material = row['SAP код 75']).exists():
                     df_list_gp[0].append('1201')
                     df_list_gp[1].append('12017500')
                     df_list_gp[2].append('1')
                     df_list_gp[3].append(row['SAP код 75'])
-                    TexcartaBase(material = row['SAP код 75'],kratkiytekst = row['U-Упаковка + Готовая Продукция 75']).save()
+                    TexcartaBase(material = row['SAP код 75']).save()
             elif row['SAP код K']!='' and row['SAP код 7']!='':   
-                if not TexcartaBase.objects.filter(material = row['SAP код 7'],kratkiytekst = row['U-Упаковка + Готовая Продукция']).exists():
+                if not TexcartaBase.objects.filter(material = row['SAP код 7']).exists():
                     df_list_gp[0].append('1201')
                     df_list_gp[1].append('12017000')
                     df_list_gp[2].append('2')
                     df_list_gp[3].append(row['SAP код 7'])
-                    TexcartaBase(material = row['SAP код 7'],kratkiytekst = row['U-Упаковка + Готовая Продукция']).save()
+                    TexcartaBase(material = row['SAP код 7']).save()
 
             if row['SAP код K'] != '':
-                if not TexcartaBase.objects.filter(material = row['SAP код K'],kratkiytekst = row['K-Комбинирования']).exists():
+                if not TexcartaBase.objects.filter(material = row['SAP код K']).exists():
                     df_list_gp[0].append('1201')
                     df_list_gp[1].append('1201K001')
                     df_list_gp[2].append('1')
@@ -3355,23 +3355,23 @@ def lenght_generate_texcarta(request,id):
                     df_list_gp[1].append('1201K002')
                     df_list_gp[2].append('1')
                     df_list_gp[3].append(row['SAP код K'])
-                    TexcartaBase(material = row['SAP код K'],kratkiytekst = row['K-Комбинирования']).save()
+                    TexcartaBase(material = row['SAP код K']).save()
             
             if row['SAP код N'] != '':
-                if not TexcartaBase.objects.filter(material = row['SAP код N'],kratkiytekst = row['Наклейка']).exists():
+                if not TexcartaBase.objects.filter(material = row['SAP код N']).exists():
                     df_list_gp[0].append('1201')
                     df_list_gp[1].append('1201N000')
                     df_list_gp[2].append('1')
                     df_list_gp[3].append(row['SAP код N'])
-                    TexcartaBase(material = row['SAP код N'],kratkiytekst = row['Наклейка']).save()
+                    TexcartaBase(material = row['SAP код N']).save()
 
             if row['SAP код F'] != '':
-                if not TexcartaBase.objects.filter(material = row['SAP код F'],kratkiytekst = row['Фабрикация']).exists():
+                if not TexcartaBase.objects.filter(material = row['SAP код F']).exists():
                     df_list_gp[0].append('1201')
                     df_list_gp[1].append('1201F001')
                     df_list_gp[2].append('1')
                     df_list_gp[3].append(row['SAP код F'])
-                    TexcartaBase(material = row['SAP код F'],kratkiytekst = row['Фабрикация']).save()
+                    TexcartaBase(material = row['SAP код F']).save()
         else:
             df_list.append([
                 row['SAP код E'],row['Экструзия холодная резка'],
@@ -3386,43 +3386,43 @@ def lenght_generate_texcarta(request,id):
             ])
         
             if row['SAP код N']!='' and row['SAP код 7']!='':
-                if not TexcartaBase.objects.filter(material = row['SAP код 7'],kratkiytekst = row['U-Упаковка + Готовая Продукция']).exists():
+                if not TexcartaBase.objects.filter(material = row['SAP код 7']).exists():
                     df_list_gp[0].append('1201')
                     df_list_gp[1].append('12017601')
                     df_list_gp[2].append('1')
                     df_list_gp[3].append(row['SAP код 7'])
-                    TexcartaBase(material = row['SAP код 7'],kratkiytekst = row['U-Упаковка + Готовая Продукция']).save()
+                    TexcartaBase(material = row['SAP код 7']).save()
             elif row['SAP код N']=='' and row['SAP код 7']!='' :
-                if not TexcartaBase.objects.filter(material = row['SAP код 7'],kratkiytekst = row['U-Упаковка + Готовая Продукция']).exists():
+                if not TexcartaBase.objects.filter(material = row['SAP код 7']).exists():
                     df_list_gp[0].append('1201')
                     df_list_gp[1].append('12017000')
                     df_list_gp[2].append('2')
                     df_list_gp[3].append(row['SAP код 7'])
-                    TexcartaBase(material = row['SAP код 7'],kratkiytekst = row['U-Упаковка + Готовая Продукция']).save()
+                    TexcartaBase(material = row['SAP код 7']).save()
             
             if row['SAP код N'] != '':
-                if not TexcartaBase.objects.filter(material = row['SAP код N'],kratkiytekst = row['Наклейка']).exists():
+                if not TexcartaBase.objects.filter(material = row['SAP код N']).exists():
                     df_list_gp[0].append('1201')
                     df_list_gp[1].append('1201N000')
                     df_list_gp[2].append('1')
                     df_list_gp[3].append(row['SAP код N'])
-                    TexcartaBase(material = row['SAP код N'],kratkiytekst = row['Наклейка']).save()
+                    TexcartaBase(material = row['SAP код N']).save()
 
             if row['SAP код F'] != '':
-                if not TexcartaBase.objects.filter(material = row['SAP код F'],kratkiytekst = row['Фабрикация']).exists():
+                if not TexcartaBase.objects.filter(material = row['SAP код F']).exists():
                     df_list_gp[0].append('1201')
                     df_list_gp[1].append('1201F001')
                     df_list_gp[2].append('1')
                     df_list_gp[3].append(row['SAP код F'])
-                    TexcartaBase(material = row['SAP код F'],kratkiytekst = row['Фабрикация']).save()
+                    TexcartaBase(material = row['SAP код F']).save()
 
             if row['SAP код F']!='' and row['SAP код 75']!='':
-                if not TexcartaBase.objects.filter(material = row['SAP код 75'],kratkiytekst = row['U-Упаковка + Готовая Продукция 75']).exists():
+                if not TexcartaBase.objects.filter(material = row['SAP код 75']).exists():
                     df_list_gp[0].append('1201')
                     df_list_gp[1].append('12017500')
                     df_list_gp[2].append('1')
                     df_list_gp[3].append(row['SAP код 75'])
-                    TexcartaBase(material = row['SAP код 75'],kratkiytekst = row['U-Упаковка + Готовая Продукция 75']).save()
+                    TexcartaBase(material = row['SAP код 75']).save()
 
 
 
@@ -3440,7 +3440,7 @@ def lenght_generate_texcarta(request,id):
 
     counter = 0
     for row in df_list_no_dubl:
-        if not TexcartaBase.objects.filter(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).exists():
+        if not TexcartaBase.objects.filter(material = row['МАТЕРИАЛ']).exists():
             if '-A' in row['МАТЕРИАЛ']:
                 counter +=3
             elif '-S' in row['МАТЕРИАЛ']:
@@ -3492,7 +3492,7 @@ def lenght_generate_texcarta(request,id):
 
     counter_2 = 0
     for row in df_list_no_dubl:
-        if not TexcartaBase.objects.filter(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).exists():
+        if not TexcartaBase.objects.filter(material = row['МАТЕРИАЛ']).exists():
             length = row['МАТЕРИАЛ'].split('-')[0]
             norma = Norma.objects.filter(data__новый__icontains=length)[:1].get()
 
@@ -3791,188 +3791,4 @@ def download_txt(request):
     else:
         return JsonResponse({'msg':'File not found'})
 
-
-def vi_generate(request,id):
-    file = ViFiles.objects.get(id=id).file
-    file_path =f'{MEDIA_ROOT}\\{file}'
-    df_new = pd.read_excel(file_path,sheet_name=['MARA','MAPL','MAST','PLPO','STKO'])
-    df_new['MARA'] =df_new['MARA'].astype(str)
-    df_new['MAPL'] =df_new['MAPL'].astype(str)
-    df_new['MAST'] =df_new['MAST'].astype(str)
-    df_new['PLPO'] =df_new['PLPO'].astype(str)
-    df_new['STKO'] =df_new['STKO'].astype(str)
-
-    df_new['MARA']=df_new['MARA'].replace('nan','')
-    df_new['MAPL']=df_new['MAPL'].replace('nan','')
-    df_new['MAST']=df_new['MAST'].replace('nan','')
-    df_new['PLPO']=df_new['PLPO'].replace('nan','')
-    df_new['STKO']=df_new['STKO'].replace('nan','')
-
-
-
-    
-
-
-
-
-   
-
-    # print(df)
-
-    df_vi = pd.DataFrame()
-    df_vi['WERKS'] = ['1101' for i in df_new['MAST']['Материал']]
-    df_vi['MATNR'] = df_new['MAST']['Материал']
-    df_vi['VERID'] = ["{:04d}".format(int(i)) for i in df_new['MAST']['АльтернСпецификация']]
-    # df_vi['TEXT1'] = df_new['MAST']['Материал']
-    df_vi['BSTMI'] = ['1' for i in df_new['MAST']['Материал']]
-    df_vi['BSTMA'] = ['99999999' for i in df_new['MAST']['Материал']]
-    df_vi['ADATU'] = ['01012023' for i in df_new['MAST']['Материал']]
-    df_vi['BDATU'] = ['31129999' for i in df_new['MAST']['Материал']]
-    df_vi['PLNTY'] = ['N' for i in df_new['MAST']['Материал']]
-    
-    df_vi['ALNAL'] = ['1' for i in df_new['MAST']['Материал']]
-    df_vi['STLAL'] = df_new['MAST']['АльтернСпецификация']
-    df_vi['STLAN'] = ['1' for i in df_new['MAST']['Материал']]
-    df_vi['ELPRO'] = ''
-    df_vi['ALORT'] = ''
-    df_vi['MATNR ALT'] =df_vi['MATNR']+df_vi['STLAL']
-    
-    # find_z =df_vi[df_vi['MATNR'].str.contains("-Z")]
-    # print(find_z)
-    
-
-
-    df_merge1 = pd.DataFrame()
-    df_merge1['Спецификация'] =df_new['MAST']['Спецификация']
-    df_merge1['Материал'] =df_new['MAST']['Материал']
-    df = pd.merge(df_merge1,df_new['STKO'],   how='inner',left_on=['Спецификация'],right_on=['Спецификация'])
-    df['MATNR ALT'] =df['Материал'] +df['АльтернСпецификация']
-    # df_new['STKO'].merge(df_new['MAST'],on='Спецификация', how='inner')
-
-    df_text_alt = pd.DataFrame()
-    df_text_alt['MATNR ALT'] =df['MATNR ALT']
-    df_text_alt['TEXT1'] =df['Текст к альтернативе']
-
-    df_new_vi = pd.merge(df_text_alt,df_vi,   how='inner',left_on=['MATNR ALT'],right_on=['MATNR ALT'])
-
-    # find_z = df_new_vi[df_new_vi['MATNR'].str.contains("-Z")]
-    # print(find_z)
-
-    df_plpo = pd.DataFrame()
-    df_plpo['Материал'] =df_new['MAPL']['Материал']
-    df_plpo['Группа'] =df_new['MAPL']['Группа']
-    df2 = pd.merge(df_plpo,df_new['PLPO'],   how='inner',left_on=['Группа'],right_on=['Группа'])
-
-    df2_filtered =df2[~df2['Краткий текст к операции'].isin(['SKM Хим. обработка', 'ГР Хим. обработка', 'SAT Хим. обработка'])] 
-
-    df2_filtered['MATNR PLPO KRATKIY'] =df2_filtered['Материал']+ df2_filtered['Краткий текст к операции']
-
-    df_new_vi['MATNR PLPO KRATKIY'] =df_new_vi['MATNR'] +df_new_vi['TEXT1']
-    
-
-    # find_z = df_new_vi[df_new_vi['MATNR'].str.contains("-Z")]
-    # print(find_z)
-
-    df_plpo_2 =pd.DataFrame()
-    df_plpo_2['MATNR PLPO KRATKIY'] = df2_filtered['MATNR PLPO KRATKIY']
-    df_plpo_2['PLNNR'] = df2_filtered['Группа']
-
-    
-    df_z = df_plpo[df_plpo['Материал'].str.contains("-Z")]
-    df_z['MATNR'] = df_z['Материал']
-    df_z['PLNNR'] = df_z['Группа']
-    del df_z["Материал"]
-    del df_z["Группа"]
-
-
-    find_z_in_vi = df_new_vi[df_new_vi['MATNR PLPO KRATKIY'].str.contains("-Z")]
-
-
-    df_new_vi_z = pd.merge(df_z,find_z_in_vi,   how='inner',left_on=['MATNR'],right_on=['MATNR'])
-    # print(df_new_vi_z,'vi')
-
-
-
-    df_new_vi2 = pd.merge(df_plpo_2,df_new_vi,   how='inner',left_on=['MATNR PLPO KRATKIY'],right_on=['MATNR PLPO KRATKIY'])
-
-    df_new_vi2 = pd.concat([df_new_vi2, df_new_vi_z])
-    
-
-    ################
-    #algort
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Упаковка']),'ALORT'] = 'PS10'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['SKM - SKM покраска']),'ALORT'] = 'PS04'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['SAT - SAT покраска']),'ALORT'] = 'PS05'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['ГР - ГР покраска']),'ALORT'] = 'PS06'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['SKM - Ручная покраска']),'ALORT'] = 'PS07'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['SAT - Ручная покраска']),'ALORT'] = 'PS07'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['ГР - Ручная покраска']),'ALORT'] = 'PS07'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Алю. цилиндр. пруток 6063-1 178мм HM']),'ALORT'] = 'PS03'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Алю. цилиндр. пруток 6063-1 102мм HM']),'ALORT'] = 'PS03'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Сублимация - 7777']),'ALORT'] = 'PS08'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Сублимация - 8888']),'ALORT'] = 'PS08'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Алю. цилиндр. пруток 6063-1 A7 178мм HM']),'ALORT'] = 'PS03'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Алю. цилиндр. пруток 6063-1 A7 102мм HM']),'ALORT'] = 'PS03'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Сублимация - 3701']),'ALORT'] = 'PS08'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Ламинация + Наклейка + Упаковка']),'ALORT'] = 'PS11'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Ламинация + Упаковка']),'ALORT'] = 'PS11'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Комбинированный + Упаковка']),'ALORT'] = 'PS09'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Комбинирование']),'ALORT'] = 'PS09'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Сублимация - 3702']),'ALORT'] = 'PS03'
-    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Наклейка']),'ALORT'] = 'PS10'
-    
-
-
-    ####################
-
-    df_4_filter =df_new_vi2[df_new_vi2['VERID'].isin(['0004'])]
-    df_5_filter =df_new_vi2[df_new_vi2['VERID'].isin(['0005'])]
-    df_6_filter =df_new_vi2[df_new_vi2['VERID'].isin(['0006'])]
-
-    df_pere_prisvoeniye_4 = pd.DataFrame({'MATNR':df_4_filter['MATNR'],'WERKS':['1101' for i in df_4_filter['MATNR']],'PLNNR':df_4_filter['PLNNR'],'VORNR':['010' for i in df_4_filter['MATNR']],'PLNFL':['0010' for i in df_4_filter['MATNR']]})
-    df_pere_prisvoeniye_5 = pd.DataFrame({'MATNR':df_5_filter['MATNR'],'WERKS':['1101' for i in df_5_filter['MATNR']],'PLNNR':df_5_filter['PLNNR'],'VORNR':['010' for i in df_5_filter['MATNR']],'PLNFL':['0010' for i in df_5_filter['MATNR']]})
-    df_pere_prisvoeniye_6 = pd.DataFrame({'MATNR':df_6_filter['MATNR'],'WERKS':['1101' for i in df_6_filter['MATNR']],'PLNNR':df_6_filter['PLNNR'],'VORNR':['010' for i in df_6_filter['MATNR']],'PLNFL':['0010' for i in df_6_filter['MATNR']]})
-    
-    del df_new_vi2["MATNR PLPO KRATKIY"]
-    del df_new_vi2["MATNR ALT"]
-
-    columnsTitles = ['WERKS', 'MATNR', 'VERID','TEXT1','BSTMI','BSTMA','ADATU','BDATU','PLNTY','PLNNR','ALNAL','STLAL','STLAN','ELPRO','ALORT']
-    df_new_vi2 = df_new_vi2.reindex(columns=columnsTitles)
-    
-
-    df_new_vi2 = df_new_vi2.drop_duplicates()
-    df_pere_prisvoeniye_4 = df_pere_prisvoeniye_4.drop_duplicates()
-    df_pere_prisvoeniye_5 = df_pere_prisvoeniye_5.drop_duplicates()
-    df_pere_prisvoeniye_6 = df_pere_prisvoeniye_6.drop_duplicates()
-
-    now = datetime.now()
-    year =now.strftime("%Y")
-    month =now.strftime("%B")
-    day =now.strftime("%a%d")
-    hour =now.strftime("%H HOUR")
-    minut =now.strftime("%d-%B-%Y %H-%M-%S")    
-                 
-            
-    create_folder(f'{MEDIA_ROOT}\\uploads\\','vi')
-    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\',f'{year}')
-    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\',f'{month}')
-    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\',day)
-    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\',hour)
-    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}',minut)
-
-    path =f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}\\{minut}\\ВИ.xlsx'
-    
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
-    df_new_vi2.to_excel(writer,index=False,sheet_name ='ВИ')
-    df_pere_prisvoeniye_4.to_excel(writer,index=False,sheet_name ='4')
-    df_pere_prisvoeniye_5.to_excel(writer,index=False,sheet_name ='5')
-    df_pere_prisvoeniye_6.to_excel(writer,index=False,sheet_name ='6')
-    writer.close()
-
-    files =[File(file =path,filetype='vi')]
-    context ={
-        'section':'ВИ',
-        'files':files
-    }
-    return render(request,'universal/generated_files.html',context)
 
