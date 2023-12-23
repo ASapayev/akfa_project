@@ -3102,11 +3102,7 @@ def kombinirovaniy_process(request,id):
 
     writer = pd.ExcelWriter(path, engine='xlsxwriter')
     dff.to_excel(writer,index=False,sheet_name ='Norma')
-    try:
-        dff_duplicate =pd.DataFrame(df_new_duplicate)
-        dff_duplicate.to_excel(writer,index=False,sheet_name ='EXISTS')
-    except:
-        pass
+    
     
     writer.close()
 
