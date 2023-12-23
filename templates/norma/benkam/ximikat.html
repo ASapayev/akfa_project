@@ -1,0 +1,141 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            
+            <li class="breadcrumb-item active" aria-current="page">{% if link %}<a type="button" href="{{link}}" class="btn btn-success btn-fw" >Скачать</a>{%else%}Buttons{% endif %}</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Химикаты</h4>
+                <!-- <p class="card-description"> Add class <code>.table-bordered</code> -->
+                </p>
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th> # </th>
+                        <th> Name </th>
+                        <th> Chemetal 7400 </th>
+                        <th> Alufinish </th>
+                        <th> Chemetal 7406 </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {%for ximikat in ximikats%}
+                        <tr>
+                            <td> {{forloop.counter}} </td>
+                            <td>{{ximikat.название}} </td>
+                            <td>
+                                <div class="form-check form-check-success">
+                                    <label class="form-check-label">
+                                      <input type="checkbox" class="form-check-input" id="chemetal7400{{ximikat.id}}" {%if ximikat.chemetal7400 == 1 %}checked {%else%}{%endif%}>
+                                    </label>
+                                </div>
+                               
+                            <td>
+                                <div class="form-check form-check-success">
+                                    <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" id="alufinish{{ximikat.id}}" {% if ximikat.alufinish == 1 %}checked {%else%}{%endif%}></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-check form-check-success">
+                                    <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" id="chemetal7406{{ximikat.id}}" {% if ximikat.chemetal7406 == 1 %}checked {%else%}{%endif%}></label>
+                                </div>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                  </table>
+                  <div class="d-flex justify-content-center p-2" ><button type="button" onclick="ximikat_save()" class="btn btn-inverse-success btn-fw">Save</button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+      </div>
+      
+    </div>
+   
+  </div>
+  <script>
+    
+    function ximikat_save(){
+        var ids ='{{ids}}'
+        ids = ids.replace(/'/g, '"')
+        ids = JSON.parse(ids)
+        data = []
+        for(let i=0; i<ids.length;i++){
+            console.log(ids[i])
+            var chemtal7400 = document.getElementById('chemetal7400'+ids[i])
+            var alufinish = document.getElementById('alufinish'+ids[i])
+            var chemetal7406 = document.getElementById('chemetal7406'+ids[i])
+            var chem1 = 0
+            var alu = 0
+            var chem2 = 0
+            if(chemtal7400.checked){
+                chem1 =1
+            }
+            if(alufinish.checked){
+                alu =1
+            }
+            if(chemetal7406.checked){
+                chem2 =1
+            }
+            data.push([ids[i],chem1,alu,chem2])
+
+        }
+        // console.log(ids)
+        Swal.fire({
+            showDenyButton: true,
+            confirmButtonText: 'Save',
+            denyButtonText: 'Cancel',
+            }).then((result) => {
+            if (result.isConfirmed) {
+            
+                $.ajax({
+                            method: "POST",
+                            url: "{%url 'ximikat_save'%}",
+                            data:JSON.stringify(data),
+                            
+                        }).done(function( msg ) {
+                            
+                            if (msg.msg ==true){
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: msg.text,
+                                    showConfirmButton: false,
+                                    timer: 1000
+                                })
+                            
+                                }else{
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: msg.text
+                                    })
+            
+                                }
+                            });
+            } else if (result.isDenied) {
+                Swal.fire('!!!', 'Canceled', 'info')
+            }
+            })
+    }
+  </script>
+{% endblock %}

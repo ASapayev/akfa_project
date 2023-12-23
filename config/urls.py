@@ -12,10 +12,11 @@ urlpatterns = [
     path('alu/',include('aluminiy.urls')),
     path('termo/',include('aluminiytermo.urls')),
     path('norma/',include('norma.urls')),
+    path('norma-benkam/',include('normabenkam.urls')),
     path('order/',include('order.urls')),
     path('pvc/',include('pvc.urls')),
     path('online-savdo/',include('onlinesavdo.urls')),
-    path('client/',include('client.urls'))
+    path('client/',include('client.urls')),
     
     # path('__debug__/', include('debug_toolbar.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

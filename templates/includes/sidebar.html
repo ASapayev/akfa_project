@@ -187,27 +187,43 @@
       </div>
     </li>
     {%endif%}
-    {% if user_role == 'moderator'  or user_role == 'user1' %}
-    <li class="nav-item menu-items">
-      <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm" aria-expanded="false" aria-controls="ui-basic-norm">
-        <span class="menu-icon">
-          <i class="mdi mdi-bowling"></i>
-        </span>
-        <span class="menu-title">Форм. нормы</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="ui-basic-norm">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо</span> файла</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">обыч</span> файла</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_list_termo_org'%}">История термо файлов</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_list_org'%}">История обычный файлов</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'alu_simple_raz' %}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class=""> обыч разл </span> файла</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{%url 'alu_termo_raz' %}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо разл</span> файла</a></li>
-          
-        </ul>
-      </div>
-    </li>
+    {% if user_role == 'moderator'  or user_role == 'user1' or user_role == 'only_razlovka'%}
+      <li class="nav-item menu-items">
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm" aria-expanded="false" aria-controls="ui-basic-norm">
+          <span class="menu-icon">
+            <i class="mdi mdi-bowling"></i>
+          </span>
+          <span class="menu-title">Форм. нормы</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="ui-basic-norm">
+          <ul class="nav flex-column sub-menu">
+            {%if user_role == 'moderator'%}
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо</span> файла</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">обыч</span> файла</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_list_termo_org'%}">История термо файлов</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_list_org'%}">История обычный файлов</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'alu_simple_raz' %}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class=""> обыч разл </span> файла</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{%url 'alu_termo_raz' %}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо разл</span> файла</a></li>
+            {%endif%}
+            {%if user_role == 'only_razlovka'%}
+            <li class="nav-item"> <a class="nav-link" href="{% url 'full_update_norm_benkam'%}"><span style="color:chocolate;font-weight: 500; padding: 5px;" class="">Норма</span>расход</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'full_update_termomost_benkam'%}"><span style="color:chocolate;font-weight: 500; padding: 5px;" class="">Норма</span>термомост</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_org_benkam'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">обыч</span> файла</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org_benkam'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо</span> файла</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'ximikat'%}">Химикаты покраска</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'anod_list'%}">Аноды</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org_benkam'%}?type=texcarta">Техкарта заг.</a></li>
+            <li class="nav-item"> <a class="nav-link" href="">Краска</a></li>
+            <li class="nav-item"> <a class="nav-link" href="">Сублимация</a></li>
+            <li class="nav-item"> <a class="nav-link" href="">Наклейка</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{%url 'norma_delete_all_benkam'%}"><span style="color: #ff0e0e;font-weight: 500; padding: 5px;" class="">Удалить База</span></a></li>
+            <li class="nav-item"> <a class="nav-link" href="{%url 'termomost_delete_all_benkam'%}"><span style="color: #ff0e0e;font-weight: 500; padding: 5px;" class="">Удалить термомост</span></a></li>
+            {%endif%}
+            
+          </ul>
+        </div>
+      </li>
     {%endif%}
     {% if user_role == 'moderator' or user_role == 'user1' %}
     <li class="nav-item menu-items">

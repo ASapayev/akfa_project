@@ -278,7 +278,6 @@ def lenght_generate_texcarta(request,id):
                 if texcartatime.kombinirovan == '0' :
                     in_correct[0].append(row['МАТЕРИАЛ'])
                     in_correct[1].append('Kombinirovanniy Secund 0)')
-
             if '-7' in row['МАТЕРИАЛ']:
 
                 lenghtht =row['МАТЕРИАЛ'].split('-')[0]
@@ -307,8 +306,7 @@ def lenght_generate_texcarta(request,id):
                 if ((length ==36) or (length ==30)):    
                     if texcartatime.lam_nak_upakovka == '0' :
                         in_correct[0].append(row['МАТЕРИАЛ'])
-                        in_correct[1].append('Laminatsiya + Nakleyka + Upakovka Secund 0)')
-                        
+                        in_correct[1].append('Laminatsiya + Nakleyka + Upakovka Secund 0)')                    
             if '-P' in row['МАТЕРИАЛ']:
                 if texcartatime.покраска_SKM_белый_про_во_в_сутки_буй =='0':
                     in_correct[0].append(row['МАТЕРИАЛ'])

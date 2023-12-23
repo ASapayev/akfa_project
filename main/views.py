@@ -176,10 +176,10 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     return [path1201,path1101],[df_termo_1201,df_obichniy_1201,df_yoqlari_1201]
   
   if ((zavod1201 and not zavod1201) or ((not zavod1101) and (not zavod1101))):
-    termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
-    obichniy_razlovka =[ raz[:-2] for raz in obichniy_razlovka]
-    df_termo_1201 = pd.DataFrame(termo_razlovka,columns=['ID','PARENT ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция','SAP код Ф','Фабрикация','SAP код 75','U-Упаковка + Готовая Продукция 75'])#,'CREATED DATE','UPDATED DATE'
-    df_obichniy_1201 = pd.DataFrame(obichniy_razlovka,columns=['ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код L','Ламинация','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция','SAP код Ф','Фабрикация','SAP код 75','U-Упаковка + Готовая Продукция 75'])#,'CREATED DATE','UPDATED DATE'
+    termo_razlovka =[ raz[2:16]+ raz[18:-2] for raz in termo_razlovka]
+    obichniy_razlovka =[ raz[1:11]+ raz[13:-2] for raz in obichniy_razlovka]
+    df_termo_1201 = pd.DataFrame(termo_razlovka,columns=['SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код 7','U-Упаковка + Готовая Продукция','SAP код F','Фабрикация','SAP код 75','U-Упаковка + Готовая Продукция 75'])#,'CREATED DATE','UPDATED DATE'
+    df_obichniy_1201 = pd.DataFrame(obichniy_razlovka,columns=['SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция','SAP код F','Фабрикация','SAP код 75','U-Упаковка + Готовая Продукция 75'])#,'CREATED DATE','UPDATED DATE'
     df_yoqlari_1201 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
     now =datetime.now()
     minut =now.strftime('%M-%S')

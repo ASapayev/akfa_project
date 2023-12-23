@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'pvc',
     'onlinesavdo',
     'client',
+    'normabenkam',
     
     # 'json_field',
     # "debug_toolbar",
