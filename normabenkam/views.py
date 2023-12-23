@@ -2017,7 +2017,7 @@ def kombinirovaniy_process(request,id):
                             df_new['POSTP'].append('L')
                             df_new['MATNR1'].append(anodirovka_dict[header_anodirovki])
                             df_new['TEXT2'].append(header_anodirovki)
-                            df_new['MENGE'].append('М2')
+                            df_new['MENGE'].append('КГ')
                             df_new['MEINS'].append( ("%.3f" % (float(val)*mein_percent)).replace('.',','))
                             df_new['DATUV'].append('')
                             df_new['PUSTOY'].append('')
