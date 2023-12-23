@@ -2606,10 +2606,7 @@ def kombinirovaniy_process(request,id):
                         df_new['MENGE'].append('ШТ')
                         df_new['DATUV'].append('')
                         df_new['PUSTOY'].append('')
-                        if 'NT1' in df[i][15]:
-                            df_new['LGORT'].append('P170')
-                        else:
-                            df_new['LGORT'].append('P070')
+                        df_new['LGORT'].append('P170')
                                 
                             
                         
@@ -2856,10 +2853,10 @@ def kombinirovaniy_process(request,id):
                         df_new['MENGE'].append('ШТ')
                         df_new['DATUV'].append('')
                         df_new['PUSTOY'].append('')
-                        if 'NT1' in df[i][13]:
-                            df_new['LGORT'].append('P170')
-                        else:
+                        if df[i][10] !='':
                             df_new['LGORT'].append('P070')
+                        else:
+                            df_new['LGORT'].append('P170')
                                 
                             
                         
