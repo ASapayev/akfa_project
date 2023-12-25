@@ -822,6 +822,11 @@ def split_text(value):
     else:
       return txt
     
+@register.filter(name='split_sapcode')
+def split_sapcode(value):
+    txt =str(value).split('-')[0]
+    return txt
+    
 @register.filter(name='order_number_format')
 def order_number_format(value):
   return "A{:05d}".format(value)

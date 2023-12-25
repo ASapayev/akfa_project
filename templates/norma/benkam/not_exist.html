@@ -47,7 +47,7 @@
                         <span class="pl-2">{{norm.xato}}</span>
                       </td>
                       <td>
-                        <span class="pl-2">{{norm.sap_code}}</span>
+                        <span class="pl-2">{{norm.sap_code | split_sapcode}}</span>
                       </td>
                     </tr>
                     {%endfor%}
