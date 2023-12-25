@@ -40,6 +40,10 @@ urlpatterns = [
     path('add-anod',views.add_anod,name='add_anod'),
     path('download-txt',views.download_txt,name='download_txt'),
     path('generate-texcarta/<int:id>',views.lenght_generate_texcarta,name='generate_texcarta'),
+    path('delete-texcarta',views.delete_texcarta,name='delete_texcarta'),
+    path('bulk-delete-texcarta',views.bulk_delete_texcarta,name='bulk_delete_texcarta'),
+    path('delete-texcarta/<int:id>',views.delete_texcarta_one,name='delete_texcarta_one'),
+
     
 
 

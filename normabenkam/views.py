@@ -3349,4 +3349,39 @@ def download_txt(request):
     else:
         return JsonResponse({'msg':'File not found'})
 
+@csrf_exempt
+def bulk_delete_texcarta(request):
+    ids = request.POST.get('ids',None)
+    if ids:
+        ids = ids.split(',')
+        for id in ids:
+            texcartaa= TexcartaBase.objects.get(id=id)
+            texcartaa.delete()
+    return JsonResponse({'msg':True})
 
+@csrf_exempt
+def delete_texcarta_one(request,id):
+    if request.method =="POST":
+        texcartaa= TexcartaBase.objects.get(id=int(id))
+        texcartaa.delete()
+        return JsonResponse({'msg':True})
+    else:
+        return JsonResponse({'msg':False})
+
+def delete_texcarta(request):
+
+    products = TexcartaBase.objects.all()
+
+    paginator = Paginator(products, 25)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+    context ={
+        'section':'Техкарта база',
+        'products':page_obj,
+    }
+    return render(request,'norma/benkam/delete_texcarta.html',context)
