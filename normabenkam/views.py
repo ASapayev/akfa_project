@@ -759,6 +759,8 @@ def full_update_termomost(request):
         data['type']='termo'
         form = NormaFileForm(data, request.FILES)
         if form.is_valid():
+            temomostt =Termomost.objects.all()
+            temomostt.delete()
             form_file = form.save()
             file = form_file.file
             path =f'{MEDIA_ROOT}/{file}'
@@ -786,6 +788,8 @@ def full_update_norm(request):
         data['type']='termo'
         form = NormaFileForm(data, request.FILES)
         if form.is_valid():
+            normaa =Norma.objects.all()
+            normaa.delete()
             form_file = form.save()
             file = form_file.file
             path =f'{MEDIA_ROOT}/{file}'
