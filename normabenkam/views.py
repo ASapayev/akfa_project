@@ -3368,10 +3368,13 @@ def delete_texcarta_one(request,id):
     else:
         return JsonResponse({'msg':False})
 
+def delete_anod(request,id):
+    anod = Anod.objects.get(id=id)
+    anod.delete()
+    return redirect('anod_list')
+
 def delete_texcarta(request):
-
     products = TexcartaBase.objects.all().order_by('-created_at')
-
     paginator = Paginator(products, 25)
 
     if request.GET.get('page') != None:

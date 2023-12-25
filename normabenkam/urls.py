@@ -43,6 +43,7 @@ urlpatterns = [
     path('delete-texcarta',views.delete_texcarta,name='delete_texcarta'),
     path('bulk-delete-texcarta',views.bulk_delete_texcarta,name='bulk_delete_texcarta'),
     path('delete-texcarta/<int:id>',views.delete_texcarta_one,name='delete_texcarta_one'),
+    path('deletele-anod/<int:id>',views.delete_anod,name='delete_anod'),
 
     
 
