@@ -3370,7 +3370,7 @@ def delete_texcarta_one(request,id):
 
 def delete_texcarta(request):
 
-    products = TexcartaBase.objects.all()
+    products = TexcartaBase.objects.all().order_by('-created_at')
 
     paginator = Paginator(products, 25)
 
