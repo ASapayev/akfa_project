@@ -31,9 +31,9 @@ urlpatterns = [
     path('simple-razlovka',aluview.upload_razlovka_simple,name='alu_simple_raz_benkam'),
     path('norma-delete-org',views.norma_delete_org,name='norma-delete-org_benkam'),
     path('termo-razlovka',alutermoview.upload_razlovka_termo,name='alu_termo_raz_benkam'),
-    path('add-kraska',views.add_kraska,name ='add_kraska_benkam'),
-    path('add-nakleyka',views.add_nakleyka,name ='add_nakleyka_benkam'),
-    path('add-lamination',views.add_lamination,name ='add_lamination_benkam'),
+    
+    
+    
     path('ximikat',views.ximikat,name ='ximikat'),
     path('ximikat-save',views.ximikat_save,name='ximikat_save'),
     path('anod-list',views.anod_list,name='anod_list'),
@@ -45,7 +45,18 @@ urlpatterns = [
     path('delete-texcarta/<int:id>',views.delete_texcarta_one,name='delete_texcarta_one'),
     path('deletele-anod/<int:id>',views.delete_anod,name='delete_anod'),
 
-    
+
+    path('kraska-list',views.kraska_list,name='kraska_list'),
+    path('add-kraska',views.add_kraska,name ='add_kraska_benkam'),
+    path('deletele-kraska/<int:id>',views.kraska_anod,name='delete_kraska'),
+
+    path('nakleyka-list',views.nakleyka_list,name ='nakleyka_list_benkam'),
+    path('add-nakleyka',views.add_nakleyka,name ='add_nakleyka_benkam'),
+    path('deletele-nakleyka/<int:id>',views.nakleyka_del,name='delete_nakleyka'),
+   
+    path('sublimatsiya-list',views.sublimatsiya_list,name ='sublimatsiya_list_benkam'),
+    path('add-sublimation',views.add_sublimation_benkam,name ='add_sublimation_benkam'),
+     path('deletele-sublimatsiya/<int:id>',views.sublimatsiya_del,name='delete_sublimatsiya'),
 
 
 

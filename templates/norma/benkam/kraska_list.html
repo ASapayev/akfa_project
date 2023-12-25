@@ -1,0 +1,75 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            
+                <li class="breadcrumb-item"><a href="{% url 'add_kraska_benkam' %}" class="btn btn bg-success">Добавить краска</a></li>
+                
+                <li class="breadcrumb-item active" aria-current="page">{% if link %}<a type="button" href="{{link}}" class="btn btn-success btn-fw" >Скачать</a>{%else%}Buttons{% endif %}</li>
+            </ol>
+        </nav>
+      </div>
+      <div class="row ">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Лист</h4>
+              <div class="table-responsive">
+                
+                <table class="table" style="color: aliceblue;">
+                  <thead>
+                    <tr >
+                      <th  style="color: aliceblue;">
+                        #
+                      </th>
+                      <th  style="color: aliceblue;"> Сап код </th>
+                      <th  style="color: aliceblue;"> Название </th>
+                      <th  style="color: aliceblue;"> Код краски в профилей </th>
+                      <th  style="color: aliceblue;"> Действие </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                   {%for kras in kraska%}
+                    <tr >
+                      <td>
+                        {{forloop.counter}}
+                      </td>
+                      <td>
+                        <span class="pl-2">{{kras.sap_code_s4q100}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{kras.название}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{kras.код_краски_в_профилях}}</span>
+                      </td>
+                      <td>
+                        <a class="btn btn-warning" href="{%url 'delete_kraska' kras.id%}" onclick="return confirm('Rostdan ham o\'chirmoqchimisiz?')">Delete</a>
+                      </td>
+                    </td>
+                    </tr>
+                    {%endfor%}
+                  </tbody>
+                </table>
+                
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+   
+  </div>
+
+
+
+{% endblock %}

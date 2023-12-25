@@ -1,7 +1,7 @@
 from django import forms
-from norma.models import NormaExcelFiles,Norma,ViFiles,Kraska,Nakleyka,Lamplonka
+from norma.models import NormaExcelFiles,Norma,ViFiles,Lamplonka
 from imzo.models import TexCartaTime
-from .models import Anod
+from .models import Anod,Kraska,Nakleyka,SubDekorPlonka
 
 
 
@@ -55,8 +55,8 @@ class NakleykaAddForm(forms.ModelForm):
     model = Nakleyka
     fields ='__all__'
 
-class LaminationAddForm(forms.ModelForm):
+class SublimationAddForm(forms.ModelForm):
   
   class Meta:
-    model = Lamplonka
+    model = SubDekorPlonka
     fields ='__all__'

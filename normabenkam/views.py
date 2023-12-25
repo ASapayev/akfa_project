@@ -5,7 +5,7 @@ import numpy as np
 from django.http import JsonResponse
 from .models import AlyuminniysilindrEkstruziya1,SubDekorPlonka,Skotch,Ximikat,Kraska,Norma,Anod,Nakleyka,Termomost,TexcartaBase
 from norma.models import NormaExcelFiles,CheckNormaBase,Accessuar,ZakalkaIskyuchenie,ViFiles
-from .forms import NormaFileForm,NormaEditForm,ViFileForm,TexcartaEditForm,KraskaAddForm,NakleykaAddForm,LaminationAddForm,AnodForm
+from .forms import NormaFileForm,NormaEditForm,ViFileForm,TexcartaEditForm,KraskaAddForm,NakleykaAddForm,SublimationAddForm,AnodForm
 from django.db.models import Q
 from aluminiytermo.models import Characteristika,CharacteristicTitle
 from config.settings import MEDIA_ROOT,BASE_DIR
@@ -322,7 +322,7 @@ def add_kraska(request):
         form = KraskaAddForm(data=request.POST)
         if form.is_valid():
                 form.save()
-                return redirect('home')
+                return redirect('kraska_list')
     else:
         form = KraskaAddForm()
 
@@ -339,6 +339,30 @@ def anod_list(request):
     }
     return render(request,'norma/benkam/anod_list.html',context)
 
+def nakleyka_list(request):
+
+    nakleyka = Nakleyka.objects.all().order_by('-created_at')
+    context =  {
+        'nakleyka':nakleyka
+    }
+    return render(request,'norma/benkam/nakleyka_list.html',context)
+
+def sublimatsiya_list(request):
+
+    sumlimatsiya = SubDekorPlonka.objects.all().order_by('-created_at')
+    context =  {
+        'sumlimatsiya':sumlimatsiya
+    }
+    return render(request,'norma/benkam/sumlimatsiya_list.html',context)
+
+def kraska_list(request):
+
+    kraska = Kraska.objects.all().order_by('-created_at')
+    context =  {
+        'kraska':kraska
+    }
+    return render(request,'norma/benkam/kraska_list.html',context)
+
 def add_anod(request):
 
     if request.method == 'POST':
@@ -354,35 +378,36 @@ def add_anod(request):
     }
     return render(request,'norma/benkam/add_anod.html',context)
 
+
 def add_nakleyka(request):
 
     if request.method == 'POST':
         form = NakleykaAddForm(data=request.POST)
         if form.is_valid():
                 form.save()
-                return redirect('home')
+                return redirect('nakleyka_list_benkam')
     else:
         form = NakleykaAddForm()
 
     context =  {
         'form':form
     }
-    return render(request,'norma/add_nakleyka.html',context)
+    return render(request,'norma/benkam/add_nakleyka.html',context)
 
-def add_lamination(request):
+def add_sublimation_benkam(request):
 
     if request.method == 'POST':
-        form = LaminationAddForm(data=request.POST)
+        form = SublimationAddForm(data=request.POST)
         if form.is_valid():
                 form.save()
-                return redirect('home')
+                return redirect('sublimatsiya_list_benkam')
     else:
-        form = LaminationAddForm()
+        form = SublimationAddForm()
 
     context =  {
         'form':form
     }
-    return render(request,'norma/add_lamination.html',context)
+    return render(request,'norma/benkam/add_sublimation.html',context)
 
 
 
@@ -3372,6 +3397,21 @@ def delete_anod(request,id):
     anod = Anod.objects.get(id=id)
     anod.delete()
     return redirect('anod_list')
+
+def kraska_anod(request,id):
+    kraska = Kraska.objects.get(id=id)
+    kraska.delete()
+    return redirect('kraska_list')
+
+def nakleyka_del(request,id):
+    nakleyka = Nakleyka.objects.get(id=id)
+    nakleyka.delete()
+    return redirect('nakleyka_list_benkam')
+
+def sublimatsiya_del(request,id):
+    sub = SubDekorPlonka.objects.get(id=id)
+    sub.delete()
+    return redirect('sublimatsiya_list_benkam')
 
 def delete_texcarta(request):
     products = TexcartaBase.objects.all().order_by('-created_at')

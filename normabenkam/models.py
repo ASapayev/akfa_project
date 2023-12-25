@@ -26,7 +26,7 @@ class Nakleyka(models.Model):
 class Kraska(models.Model):
     sap_code_s4q100 = models.CharField(max_length=255,blank=True,null=True)
     название = models.CharField(max_length=255,blank=True,null=True)
-    еи = models.CharField(max_length=255,blank=True,null=True)
+    еи = models.CharField(max_length=255,blank=True,null=True,default='КГ')
     склад_закупа = models.CharField(max_length=255,blank=True,null=True)
     бренд_краски = models.CharField(max_length=255,blank=True,null=True)
     код_краски = models.CharField(max_length=255,blank=True,null=True)
