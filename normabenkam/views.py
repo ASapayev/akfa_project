@@ -1005,7 +1005,7 @@ def kombinirovaniy_process(request,id):
             if df[i][0] != '':
                 length = df[i][0].split('-')[0]
                 if not Norma.objects.filter(data__новый__icontains=length).exists():
-                    does_not_exist_norm.append(Xatolar(section='Норма расход',xato='norma',sap_code=df[i][0]))
+                    does_not_exist_norm.append(Xatolar(section='Норма расход',xato='norma rasxod yo\'q',sap_code=df[i][0]))
                     continue
                 splav_code = df[i][1].split()[0][:2]
                 splav_list = AlyuminniysilindrEkstruziya1.objects.filter(название__icontains ='60'+splav_code).exists()
@@ -1027,29 +1027,29 @@ def kombinirovaniy_process(request,id):
                 mein = alum_teks.data['Суб. Декор. плёнка расход на 1000 профиль/м²']
                 subdecorplonka = SubDekorPlonka.objects.filter(код_декор_пленки = sublimatsiya_code, ширина_декор_пленки_мм = code_ss).exists()
                 if not subdecorplonka:
-                    does_not_exist_norm.append(Xatolar(section='Сублимация декор',xato=sublimatsiya_code,sap_code=df[i][6]))
+                    does_not_exist_norm.append(Xatolar(section='Сублимация декор',xato=sublimatsiya_code +' ' + code_ss +' bazada yo\'q',sap_code=df[i][6]))
             
             if df[i][10] != '':
                 length = df[i][10].split('-')[0]
                 alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
                 if (alum_teks.data['верх ширина ленты/мм'] =='0' and alum_teks.data['низ ширина ленты/мм'] == '0'):
-                    does_not_exist_norm.append(Xatolar(section='Наклейка',xato=0,sap_code=df[i][10]))
+                    does_not_exist_norm.append(Xatolar(section='Наклейка',xato='bazada qiymati 0',sap_code=df[i][10]))
             if df[i][12] != '':
                 length = df[i][12].split('-')[0]
                 if not Norma.objects.filter(data__новый__icontains=length).exists():
-                    does_not_exist_norm.append(Xatolar(section='Норма расход',xato='norma',sap_code=df[i][12]))
+                    does_not_exist_norm.append(Xatolar(section='Норма расход',xato='bazada yo\'q',sap_code=df[i][12]))
                     continue
                 artikul = df[i][12].split('-')[0]
                 termomostrlar = Termomost.objects.filter(data__Артикул__icontains=artikul).exists()
                 if not termomostrlar:
-                    does_not_exist_norm.append(Xatolar(section='Термомост',xato='термомост',sap_code=df[i][12]))
+                    does_not_exist_norm.append(Xatolar(section='Термомост',xato='termomost bazada yo\'q',sap_code=df[i][12]))
             
     else:
         for i in range(0,len(df)):
             if df[i][0] != '':
                 length = df[i][0].split('-')[0]
                 if not Norma.objects.filter(data__новый__icontains=length).exists():
-                    does_not_exist_norm.append(Xatolar(section='Норма расход',xato='norma',sap_code=df[i][0]))
+                    does_not_exist_norm.append(Xatolar(section='Норма расход',xato='bazada yo\'q',sap_code=df[i][0]))
                     continue
                 splav_code = df[i][1].split()[0][:2]
                 splav_list = AlyuminniysilindrEkstruziya1.objects.filter(название__icontains ='60'+splav_code).exists()
@@ -1070,13 +1070,13 @@ def kombinirovaniy_process(request,id):
                 mein = alum_teks.data['Суб. Декор. плёнка расход на 1000 профиль/м²']
                 subdecorplonka = SubDekorPlonka.objects.filter(код_декор_пленки = sublimatsiya_code, ширина_декор_пленки_мм = code_ss).exists()
                 if not subdecorplonka:
-                    does_not_exist_norm.append(Xatolar(section='Сублимация декор',xato=sublimatsiya_code +' ' + code_ss,sap_code=df[i][6]))
+                    does_not_exist_norm.append(Xatolar(section='Сублимация декор',xato=sublimatsiya_code +' ' + code_ss+' bazada yo\'q',sap_code=df[i][6]))
             
             if df[i][10] != '':
                 length = df[i][10].split('-')[0]
                 alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
                 if (alum_teks.data['верх ширина ленты/мм'] =='0' and alum_teks.data['низ ширина ленты/мм'] == '0'):
-                    does_not_exist_norm.append(Xatolar(section='Наклейка',xato=0,sap_code=df[i][10]))
+                    does_not_exist_norm.append(Xatolar(section='Наклейка',xato='bazada qiymati 0',sap_code=df[i][10]))
             
                     
 
