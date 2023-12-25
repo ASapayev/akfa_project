@@ -26,7 +26,7 @@
         </nav>
       </div>
       <div class="row">
-        <form class="forms-sample" method="POST" enctype="multipart/form-data">
+        <form class="forms-sample" method="POST" enctype="multipart/form-data" id="form">
         <div class="col-md-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
@@ -88,8 +88,12 @@
                         </div>
                       </div>
                       {% endif %}
-                      <div class="col-md-4" id="submit_btn">
-                        <button type="submit" class="btn btn-primary mr-2" >Submit</button>
+                      <div class="col-md-4" >
+                        <button type="submit" class="btn btn-primary mr-2" onclick="submitForm()" id="submit_btn">Submit</button>
+                        <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
+                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                    Loading...
+                        </button>
                       </div>
                       <div class="col-md-4">
                         <button class="btn btn-dark">Cancel</button>
@@ -111,16 +115,12 @@
   </div>
 
   <script>
-    function spinner_add(){
-     var parent = document.getElementById('submit_btn')
-     parent.removeChild(parent.firstChild);
-     console.log(parent)
-     console.log('aaaaaaaaaaaa')
-     var btn =`<button class="btn btn-primary" type="button" disabled>
-             <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-             Loading...
-           </button>`
-     parent.appendChild(btn)
+    function submitForm(){
+       var submit_btn = document.getElementById('submit_btn')
+       var upload_btn = document.getElementById('upload_btn')
+       upload_btn.style.display ='block';
+       submit_btn.style.display ='none';
     }
+    
  </script>
 {% endblock %}

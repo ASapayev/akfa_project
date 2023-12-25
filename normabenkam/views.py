@@ -797,6 +797,7 @@ def full_update_norm(request):
             }
             df = df.astype(str)
             df = df.replace('nan','0')
+            df = df.replace('0.0','0')
             
             columns = df.columns
             for key, row in df.iterrows():
