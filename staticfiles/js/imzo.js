@@ -74,6 +74,7 @@ for (let i = 1; i <= 5; i++) {
         </div>
         </div>
     </td>
+    
     <td style="background-color:#92d050;">
         <div class="input-group input-group-sm mb-1">
         <div>
@@ -81,13 +82,58 @@ for (let i = 1; i <= 5; i++) {
         </div>
         </div>
     </td>
+    
     <td >
         <div class="input-group input-group-sm mb-1">
+        <div>
+            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_kraski_vnutri` +String(i)+`'></span>
+        </div>
+        </div>
+    </td>
+    
+    <td style="background-color:#ddebf7;">
+        <div class="input-group input-group-sm mb-1">    
+        <select class="form-select" aria-label="" style="width: 245px;" onchange="svet_dekplonka_snaruji_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_snaruji`+String(i)+`' disabled>
+            <option  value="0" selected></option>
+            <option value="Золотой Дуб 7777" >7777</option>
+            <option value="Махагон 3701">3701</option>
+            <option value="3D 3702">3702</option>
+            <option value="Дуб мокко">8888</option>
+            <option value="Шеф. сер. дуб">9999</option>
+            <option value="XXXX">XXXX</option>
+        </select>
+        </div>
+    </td>
+    <td style="background-color:#92d050;">
+        <div class="input-group input-group-sm mb-1">
             <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_kraski_vnutri` +String(i)+`'></span>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span>
             </div>
         </div>
     </td>
+    <td style="background-color:#ddebf7;">
+        <div class="input-group input-group-sm mb-1">    
+        <select class="form-select" aria-label="" style="width: 245px;" onchange="svet_dekplonka_vnutri_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_vnutri`+String(i)+`'>
+            <option  value="0" selected></option>
+            <option value="Золотой Дуб 7777" >7777</option>
+            <option value="Махагон 3701">3701</option>
+            <option value="3D 3702">3702</option>
+            <option value="Дуб мокко">8888</option>
+            <option value="Шеф. сер. дуб">9999</option>
+            <option value="XXXX">XXXX</option>
+        </select>
+        </div>
+    </td>
+    <td style="background-color:#92d050;">
+        <div class="input-group input-group-sm mb-1">
+            <div>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`'></span>
+            </div>
+        </div>
+    </td>
+
+    
+
     <td style="background-color:#ddebf7;">
         <div class="input-group input-group-sm mb-1">    
         <select class="form-select" aria-label="" style="width: 245px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
@@ -468,7 +514,7 @@ function tip_pokritiya_selected(id,val){
 
         select_nakleyka.children("span").remove();
         select_nakleyka.children("select").remove();
-        const newDiv = "<select class ='kod_nakleyki' style='text-transform: uppercase; width: 70px; required''></select>"
+        const newDiv = "<select class ='kod_nakleyki' style='text-transform: uppercase; width: 70px;' required></select>"
         select_nakleyka.append(newDiv)
         get_nakleyka()
     }else if(String(val) == '3' || String(val) == '4'){
@@ -528,7 +574,60 @@ function tip_pokritiya_selected(id,val){
 
 
     }else if(String(val) == '5'){
+        var brands =`<select required class="form-select form-select-sm text-center"  style="width:55px;" id='brand_k_snaruji`+String(id)+`' >
+        <option  value="0" selected></option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="R">R</option>
+        <option value="T">T</option>
+        <option value="J">J</option>
+        <option value="P">P</option>
+        <option value="M">M</option>
+        </select>` 
+        var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
+        brand_kraski_snaruji.append(brands)
+        var code_kras_snaruji =`<input type="text" class="form-control " id ='code_kraski_snar' aria-describedby="inputGroup-sizing-sm" style="width:100px;" required>`
+        var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
+        code_kraski_snaruji.append(code_kras_snaruji);
+        select_nakleyka.children("span").remove();
+        select_nakleyka.children("select").remove();
+        const newDiv = "<select class ='kod_nakleyki' style='text-transform: uppercase; width: 70px;' required></select>"
+        select_nakleyka.append(newDiv)
+        get_nakleyka()
 
+        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
+            var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;" id='brand_k_vnutri`+String(id)+`' required>
+                <option  value="0" selected></option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="R">R</option>
+                <option value="T">T</option>
+                <option value="J">J</option>
+                <option value="P">P</option>
+                <option value="M">M</option>
+            </select>`
+            var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id));
+            brand_kraski_vnutri.append(brands)
+
+            var code_kras_vnut =`<input type="text" class="form-control " id ='code_kraski_vnut' aria-describedby="inputGroup-sizing-sm" style="width:100px;" required>`
+            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
+            code_kraski_vnutri.append(code_kras_vnut)
+
+
+        }else{
+
+        }
+
+        if (String(val) == '5'){
+            var svet_lamplonka_snaruji = $('#svet_dekplonka_snaruji'+String(id));
+            svet_lamplonka_snaruji.attr("disabled",false);
+
+            if(combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
+                var svet_lamplonka_vnutri = $('#svet_dekplonka_vnutri'+String(id));
+                svet_lamplonka_vnutri.attr("disabled",false);
+
+            }
+        } 
     }
 }
 

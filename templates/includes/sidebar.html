@@ -198,7 +198,7 @@
         </a>
         <div class="collapse" id="ui-basic-norm">
           <ul class="nav flex-column sub-menu">
-            {%if user_role == 'moderator'%}
+            {%if user_role == 'moderator' or user_role == 'user1' %}
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо</span> файла</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">обыч</span> файла</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_list_termo_org'%}">История термо файлов</a></li>
