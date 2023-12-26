@@ -334,9 +334,9 @@ def counter_generated_data(datas,data_type):
   
   d5 ={}
   d5['del_otxod_sap_code']=umumiy_without_duplicate[2]
+  d5['naz_ed_iz']=[ 'М' for i in range(0,len(umumiy_without_duplicate[0]))]
   d5['ed_iz1']=[ 1000 for i in range(0,len(umumiy_without_duplicate[0]))]
   d5['ed_iz2']=excel_txt5
-  d5['naz_ed_iz']=[ 'M' for i in range(0,len(umumiy_without_duplicate[0]))]
   df5= pd.DataFrame(d5)
   np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
   
