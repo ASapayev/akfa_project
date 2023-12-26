@@ -1327,7 +1327,7 @@ def kombinirovaniy_process(request,id):
                 norma_exists.append({df[i][4]:df[i][5]})
                 if (df[i][4].split('-')[1][:1]=='P'):
                     kraska_code = df[i][5].split()[-1]
-                    kraskas = Kraska.objects.filter(код_краски = kraska_code)[:1].get()
+                    kraskas = Kraska.objects.filter(код_краски_в_профилях = kraska_code)[:1].get()
                     for p in range(0,3):    
                         j+=1
                         df_new['ID'].append('1')
