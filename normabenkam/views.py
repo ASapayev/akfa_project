@@ -1039,7 +1039,7 @@ def kombinirovaniy_process(request,id):
             
             if df[i][4] != '':
                 kraska_code = df[i][5].split()[-1]
-                kraskas = Kraska.objects.filter(код_краски = kraska_code).exists()
+                kraskas = Kraska.objects.filter(код_краски_в_профилях = kraska_code).exists()
                 if not kraskas:
                     does_not_exist_norm.append(Xatolar(section='Краска',xato=kraska_code,sap_code=df[i][4]))
 
