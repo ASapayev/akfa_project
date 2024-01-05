@@ -4154,7 +4154,7 @@ def product_add_second_org(request,id):
                                     export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                               else:       
                                     export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                              print(export_description,' artikul =',artikle)
+                              
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                               
