@@ -36,7 +36,8 @@
 
 
             <section class="topics-detail-section section-padding" id="topics-detail">
-                <form>
+                <form method="POST" >
+                    {%csrf_token%}
                 <div class="container " style="overflow: scroll;">
                         <table class="table " >
                             <thead>

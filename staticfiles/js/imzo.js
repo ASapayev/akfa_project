@@ -26,13 +26,13 @@ for (let i = 1; i <= 5; i++) {
     
     <td >
         <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
+            <input type="text" class="form-control "  onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
         </div>
     </td>
     <td style="background-color:#92d050;">
         <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 200px;text-transform: uppercase;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
-                <option  value="0" selected></option>
+                <option  selected></option>
                 <option value="1" >Неокрашенный</option>
                 <option value="2">Белый</option>
                 <option value="3">Окрашенный</option>
@@ -44,12 +44,21 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td style="background-color:#92d050;">
         <div class="input-group input-group-sm mb-1">
-            
+       
+        <select class="form-select" aria-label="" style="width: 75px;"  disabled id='splav`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <option  value="" selected ></option>
+            <option value="1" >63</option>
+        </select>
+        
         </div>
     </td>
     <td style="background-color:#92d050;">
         <div class="input-group input-group-sm mb-1">
-            
+        <select class="form-select" aria-label="" style="width: 30px;"  disabled id='tip_zakalyonnosti`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <option  value="" selected></option>
+            <option value="1" >T4</option>
+            <option value="2" >T6</option>
+        </select>
         </div>
     </td>
     <td style="background-color:#92d050;">
@@ -94,7 +103,7 @@ for (let i = 1; i <= 5; i++) {
     <td style="background-color:#ddebf7;">
         <div class="input-group input-group-sm mb-1">    
         <select class="form-select" aria-label="" style="width: 245px;" onchange="svet_dekplonka_snaruji_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_snaruji`+String(i)+`' disabled>
-            <option  value="0" selected></option>
+            <option  value="" selected></option>
             <option value="Золотой Дуб 7777" >7777</option>
             <option value="Махагон 3701">3701</option>
             <option value="3D 3702">3702</option>
@@ -113,8 +122,8 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td style="background-color:#ddebf7;">
         <div class="input-group input-group-sm mb-1">    
-        <select class="form-select" aria-label="" style="width: 245px;" onchange="svet_dekplonka_vnutri_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_vnutri`+String(i)+`'>
-            <option  value="0" selected></option>
+        <select class="form-select" aria-label="" style="width: 245px;" onchange="svet_dekplonka_vnutri_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_vnutri`+String(i)+`' disabled>
+            <option  value="" selected></option>
             <option value="Золотой Дуб 7777" >7777</option>
             <option value="Махагон 3701">3701</option>
             <option value="3D 3702">3702</option>
@@ -127,7 +136,7 @@ for (let i = 1; i <= 5; i++) {
     <td style="background-color:#92d050;">
         <div class="input-group input-group-sm mb-1">
             <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`'></span>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span>
             </div>
         </div>
     </td>
@@ -137,7 +146,7 @@ for (let i = 1; i <= 5; i++) {
     <td style="background-color:#ddebf7;">
         <div class="input-group input-group-sm mb-1">    
         <select class="form-select" aria-label="" style="width: 245px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
-            <option  value="0" selected></option>
+            <option  value="" selected></option>
             <option value="2036" >Золотой дуб</option>
             <option value="2048">Дуб мокко</option>
             <option value="2007">Красный орех</option>
@@ -173,7 +182,7 @@ for (let i = 1; i <= 5; i++) {
     <td style="background-color:#ddebf7;">
         <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 245px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
-                <option  value="0" selected></option>
+                <option  value="" selected></option>
                 <option value="2036" >Золотой дуб</option>
             <option value="2048">Дуб мокко</option>
             <option value="2007">Красный орех</option>
@@ -207,32 +216,45 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td style="background-color:#ddebf7;">
         <div class="input-group input-group-sm mb-1">
-            
+        <div id='anod`+String(i)+`'></div>            
         </div>
     </td> 
     <td style="background-color:#ddebf7;">
         <div class="input-group input-group-sm mb-1">
-            
+        <div id='anod_vnutr`+String(i)+`'></div>            
+        </div>
         </div>
     </td> 
     <td style="background-color:#ddebf7;">
         <div class="input-group input-group-sm mb-1">
-           
+        <select class="form-select" aria-label="" style="width: 30px;"  disabled id='contactnost_anodirovki`+String(i)+`'>
+            <option  value="" selected></option>
+            <option value="1" >YC</option>
+            <option value="2">NC</option>
+        </select>
         </div>
     </td>
     <td style="background-color:#92d050;">
         <div class="input-group input-group-sm mb-1">
-            
+        <div>
+            <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id='tip_anodirovki`+String(i)+`'></span>
+        </div>
         </div>
     </td>
     <td style="background-color:#92d050;">
         <div class="input-group input-group-sm mb-1">
-            
+        <div>
+            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='sposob_anodirovki`+String(i)+`'></span>
+        </div>
         </div>
     </td>
     <td style="background-color:#92d050;">
         <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
-            
+        <span id='nakleyka_nt`+String(i)+`' style='display:none'>NT1</span>
+        <span id='nakleyka_org`+String(i)+`' style='display:none'></span>
+        <div id='nakleyka_select`+String(i)+`' style='display:none'>
+            <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;'></select>
+        </div>
         </div>
     </td>
     <td style="background-color:#92d050;">
@@ -262,7 +284,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td style="background-color:#92d050;">
         <div class="input-group input-group-sm mb-1">
-           
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
         </div>
     </td>
     <td >
@@ -312,7 +334,7 @@ table.append(text)
 
 
 
-for (let i = 1; i <= 5; i++) {
+for (let i = 1; i <= 6; i++) {
     $('#artikul'+String(i)).select2({
         ajax: {
             url: "/client/imzo-artikul-list",
@@ -350,40 +372,46 @@ for (let i = 1; i <= 5; i++) {
     var nazvaniye_system =$('.nazvaniye_system'+String(i));
     var combination = $('#combination'+String(i));
     var tip_pokritiya = $('#tip_pokritiya'+String(i));
-    tip_pokritiya.val('0').change();
+    // tip_pokritiya.val('').change();
     tip_pokritiya.attr("disabled",false);
     nazvaniye_system.text(e.params.data.system);
     combination.text(e.params.data.combination)
 
     var nakleyka_kode = e.params.data.code_nakleyka
     
-    var select_nakleyka = $('#nakleyka'+String(i))
-  
     
     
+    
+    
+    var nakleyka_nt1 = $('#nakleyka_nt'+String(i))
+    var nakleyka_org =$('#nakleyka_org'+String(i));
+    var nakleyka_select = $('#nakleyka_select'+String(i));
+
+    var length = $('#length'+String(i));
+    length.attr('required',true)
+    var splav = $('#splav'+String(i));
+    splav.attr('required',true)
+    var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(i));
+    tip_zakalyonnosti.attr('required',true)
+
+    nakleyka_org.text("")
     if (nakleyka_kode =='NT1'){
-        select_nakleyka.children("span").remove();
-        select_nakleyka.children("select").remove();
-        var newDiv = "<span>NT1</span>"; 
-        select_nakleyka.append(newDiv)
+        nakleyka_nt1.css('display','block')
+        nakleyka_org.css('display','none')
+        nakleyka_select.css('display','none')
     }
     else if( nakleyka_kode !=''){
-        select_nakleyka.children("span").remove();
-        select_nakleyka.children("select").remove();
-        if (nakleyka_kode ==undefined){
-            var newDiv = "<span></span>"; 
-        }else{
-            var newDiv = "<span>" + nakleyka_kode + "</span>"; 
-
-        }
-        select_nakleyka.append(newDiv)
+        nakleyka_org.text(nakleyka_kode)
+        nakleyka_nt1.css('display','none')
+        nakleyka_org.css('display','block')
+        nakleyka_select.css('display','none')
     }        
     else{
-        select_nakleyka.children("span").remove();
-        select_nakleyka.children("select").remove();
-        const newDiv = "<select class ='kod_nakleyki' style='text-transform: uppercase; width: 70px;'' required></select>"
-        select_nakleyka.append(newDiv)
-        get_nakleyka()
+        nakleyka_nt1.css('display','none')
+        nakleyka_org.css('display','none')
+        nakleyka_select.css('display','block')
+        nakleyka_select.attr('required',true)
+        get_nakleyka(String(i))
     }
     
     
@@ -393,10 +421,11 @@ for (let i = 1; i <= 5; i++) {
 
 }
 
+data_base = {}
 
 
-function get_nakleyka(){
-    $('.kod_nakleyki').select2({
+function get_nakleyka(i){
+    $('.kod_nakleyki'+i).select2({
         ajax: {
             url: "/client/nakleyka-list",
             dataType: 'json',
@@ -411,6 +440,37 @@ function get_nakleyka(){
 }
 
 
+function get_anod(termo=false){
+    $('.kod_anod_snar').select2({
+        ajax: {
+            url: "/client/anod-list",
+            dataType: 'json',
+            processResults: function(data){
+                return {results: $.map(data, function(item){
+                    return {id:item.id,text:item.code_sveta,tip_anod:item.tip_anod,sposob_anod:item.sposob_anod}
+                })
+            };
+            }
+        }
+        });
+    if (termo){
+        $('.kod_anod_vnutri').select2({
+            ajax: {
+                url: "/client/anod-list",
+                dataType: 'json',
+                processResults: function(data){
+                    return {results: $.map(data, function(item){
+                        return {id:item.id,text:item.code_sveta,tip_anod:item.tip_anod,sposob_anod:item.sposob_anod}
+                    })
+                };
+                }
+            }
+            });
+    }
+}
+
+
+
 function clear_artikul(id){
     $('#artikul'+id).val(null).trigger('change');
     $('.nazvaniye_system'+id).text('');
@@ -420,6 +480,8 @@ function clear_artikul(id){
     var select_nakleyka = $('#nakleyka'+String(id));
     select_nakleyka.children("span").remove();
     select_nakleyka.children("select").remove();
+    var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
+    kratkiy_tekst.text("");
 
     var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
     var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
@@ -429,6 +491,10 @@ function clear_artikul(id){
     code_kraski_vnutri.text("");
     brand_kraski_vnutri.text("");
     brand_kraski_snaruji.text("");
+
+    var dlina =$('#length'+String(id));
+    dlina.val('');
+    dlina.attr("disabled",true);
 
     var combination= $('#combination'+String(id));
     combination.text("");
@@ -445,20 +511,44 @@ function clear_artikul(id){
     var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
     code_lamplonka_vnutri.text("")
 
+    var nakleyka_nt1 = $('#nakleyka_nt'+String(id))
+    var nakleyka_org =$('#nakleyka_org'+String(id));
+    var nakleyka_select = $('#nakleyka_select'+String(id));
+    nakleyka_nt1.css('display','none');
+    nakleyka_org.css('display','none');
+    nakleyka_select.css('display','none');
+
+
+    var splav = $('#splav'+String(id));
+    splav.val('0').change();
+    splav.attr("disabled",true);
+    var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
+    tip_zakalyonnosti.val('0').change();
+    tip_zakalyonnosti.attr("disabled",true);
 
 }
 
 
 function tip_pokritiya_selected(id,val){
     
-    var select_nakleyka = $('#nakleyka'+String(id));
-    select_nakleyka.children("span").remove();
-    select_nakleyka.children("select").remove();
+
+    var select_anod_snar = $('#anod'+String(id));
+    select_anod_snar.children("span").remove();
+    select_anod_snar.children("select").remove();
+
+    var dlina =$('#length'+String(id));
+    dlina.attr("disabled",false);
+
+    var select_anod_vnut = $('#anod_vnutr'+String(id));
+    select_anod_vnut.children("span").remove();
+    select_anod_vnut.children("select").remove();
     
     var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
     var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
     var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
     var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
+    var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
+    kratkiy_tekst.text("");
     code_kraski_snaruji.text("");
     code_kraski_vnutri.text("");
     brand_kraski_vnutri.text("");
@@ -478,9 +568,53 @@ function tip_pokritiya_selected(id,val){
     var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
     code_lamplonka_vnutri.text("")
 
+    var svet_dekplonka_snaruji = $('#svet_dekplonka_snaruji'+String(id));
+    svet_dekplonka_snaruji.val('0').change();
+    svet_dekplonka_snaruji.attr("disabled",true);
+    var code_dekplonka_snaruji = $('#code_dekplonka_snaruji'+String(id));
+    code_dekplonka_snaruji.text("")
+
+    var svet_dekplonka_vnutri = $('#svet_dekplonka_vnutri'+String(id));
+    svet_dekplonka_vnutri.val('0').change();
+    svet_dekplonka_vnutri.attr("disabled",true);
+    var code_dekplonka_vnutri = $('#code_dekplonka_vnutri'+String(id));
+    code_dekplonka_vnutri.text("")
+
+    var code_svet_anodirovki_vnutri = $('#code_svet_anodirovki_vnutri'+String(id));
+    code_svet_anodirovki_vnutri.val('0').change();
+    code_svet_anodirovki_vnutri.attr("disabled",true);
+    
+    var contactnost_anodirovki = $('#contactnost_anodirovki'+String(id));
+    contactnost_anodirovki.val('0').change();
+    contactnost_anodirovki.attr("disabled",true);
+
+
+    var splav = $('#splav'+String(id));
+    // splav.val().change();
+    splav.attr("disabled",false);
+    var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
+    // tip_zakalyonnosti.val('0').change();
+    tip_zakalyonnosti.attr("disabled",false);
+
+
+
+
+
+    var tip_anodirovki =$('#tip_anodirovki'+String(id));
+    var sposob_anodirovki = $('#sposob_anodirovki'+String(id));
+    
+    tip_anodirovki.text("");
+    sposob_anodirovki.text("")
+    var nakleyka_nt1 = $('#nakleyka_nt'+String(id))
+    var nakleyka_org =$('#nakleyka_org'+String(id));
+    var nakleyka_select = $('#nakleyka_select'+String(id));
+
     if(String(val) == '1'){
-        var newDiv = "<span>NT1</span>"; 
-        select_nakleyka.append(newDiv);
+        data_base [id] = new Neokrashenniy()
+        nakleyka_nt1.css('display','block');
+        nakleyka_org.css('display','none');
+        nakleyka_select.css('display','none');
+
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
 
             var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
@@ -494,7 +628,8 @@ function tip_pokritiya_selected(id,val){
         }
 
     }else if(String(val) == '2'){
-        
+        data_base [id] = new Beliy()
+
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
             var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
             var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
@@ -512,14 +647,33 @@ function tip_pokritiya_selected(id,val){
 
         }
 
-        select_nakleyka.children("span").remove();
-        select_nakleyka.children("select").remove();
-        const newDiv = "<select class ='kod_nakleyki' style='text-transform: uppercase; width: 70px;' required></select>"
-        select_nakleyka.append(newDiv)
-        get_nakleyka()
-    }else if(String(val) == '3' || String(val) == '4'){
         
-        var brands =`<select required class="form-select form-select-sm text-center"  style="width:55px;" id='brand_k_snaruji`+String(id)+`' >
+        
+        var nakleyka_kode = nakleyka_org.text()
+        if (nakleyka_kode !=''){
+            nakleyka_nt1.css('display','none');
+            nakleyka_org.css('display','block');
+            nakleyka_select.css('display','none');
+        }else{
+            nakleyka_nt1.css('display','none');
+            nakleyka_org.css('display','none');
+            nakleyka_select.css('display','block');
+            get_nakleyka(id)
+        }
+            
+        
+        
+    }else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
+
+        if(String(val) == '3'){
+            data_base [id] = new Okrashenniy()
+        }else if(String(val) == '4'){
+            data_base [id] = new Laminatsiya()
+        }else if(String(val) == '5'){
+            data_base [id] = new Sublimatsiya()
+        } 
+        
+        var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;" id='brand_k_snaruji`+String(id)+`' required>
         <option  value="0" selected></option>
         <option value="A">A</option>
         <option value="B">B</option>
@@ -534,11 +688,19 @@ function tip_pokritiya_selected(id,val){
         var code_kras_snaruji =`<input type="text" class="form-control " id ='code_kraski_snar' aria-describedby="inputGroup-sizing-sm" style="width:100px;" required>`
         var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
         code_kraski_snaruji.append(code_kras_snaruji);
-        select_nakleyka.children("span").remove();
-        select_nakleyka.children("select").remove();
-        const newDiv = "<select class ='kod_nakleyki' style='text-transform: uppercase; width: 70px;' required></select>"
-        select_nakleyka.append(newDiv)
-        get_nakleyka()
+        
+        var nakleyka_kode = nakleyka_org.text()
+        if (nakleyka_kode !=''){
+            nakleyka_nt1.css('display','none');
+            nakleyka_org.css('display','block');
+            nakleyka_select.css('display','none');
+        }else{
+            nakleyka_nt1.css('display','none');
+            nakleyka_org.css('display','none');
+            nakleyka_select.css('display','block');
+            get_nakleyka(id)
+        }
+       
 
         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
             var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;" id='brand_k_vnutri`+String(id)+`' required>
@@ -564,73 +726,90 @@ function tip_pokritiya_selected(id,val){
         if (String(val) == '4'){
             var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
             svet_lamplonka_snaruji.attr("disabled",false);
+            svet_lamplonka_snaruji.attr("required",true);
+            var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
+            svet_lamplonka_vnutri.attr("disabled",false);
+            svet_lamplonka_vnutri.attr("required",true);
 
-            if(combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
-                var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
-                svet_lamplonka_vnutri.attr("disabled",false);
-
-            }
-        }
-
-
-    }else if(String(val) == '5'){
-        var brands =`<select required class="form-select form-select-sm text-center"  style="width:55px;" id='brand_k_snaruji`+String(id)+`' >
-        <option  value="0" selected></option>
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="R">R</option>
-        <option value="T">T</option>
-        <option value="J">J</option>
-        <option value="P">P</option>
-        <option value="M">M</option>
-        </select>` 
-        var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-        brand_kraski_snaruji.append(brands)
-        var code_kras_snaruji =`<input type="text" class="form-control " id ='code_kraski_snar' aria-describedby="inputGroup-sizing-sm" style="width:100px;" required>`
-        var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-        code_kraski_snaruji.append(code_kras_snaruji);
-        select_nakleyka.children("span").remove();
-        select_nakleyka.children("select").remove();
-        const newDiv = "<select class ='kod_nakleyki' style='text-transform: uppercase; width: 70px;' required></select>"
-        select_nakleyka.append(newDiv)
-        get_nakleyka()
-
-        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
-            var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;" id='brand_k_vnutri`+String(id)+`' required>
-                <option  value="0" selected></option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="R">R</option>
-                <option value="T">T</option>
-                <option value="J">J</option>
-                <option value="P">P</option>
-                <option value="M">M</option>
-            </select>`
-            var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id));
-            brand_kraski_vnutri.append(brands)
-
-            var code_kras_vnut =`<input type="text" class="form-control " id ='code_kraski_vnut' aria-describedby="inputGroup-sizing-sm" style="width:100px;" required>`
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            code_kraski_vnutri.append(code_kras_vnut)
-
-
-        }else{
-
+            
         }
 
         if (String(val) == '5'){
+            
             var svet_lamplonka_snaruji = $('#svet_dekplonka_snaruji'+String(id));
             svet_lamplonka_snaruji.attr("disabled",false);
-
-            if(combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
+            svet_lamplonka_snaruji.attr("required",true);
+           
+            if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
                 var svet_lamplonka_vnutri = $('#svet_dekplonka_vnutri'+String(id));
                 svet_lamplonka_vnutri.attr("disabled",false);
-
+                svet_lamplonka_vnutri.attr("required",true);
             }
-        } 
+            
+        }
+
+
+    }else if(String(val) == '6'){
+        data_base [id] = new Anodirovka()
+        const newDiv = `<select class="form-select kod_anod_snar" aria-label="" style="width: 100px;" onchange="code_svet_anodirovki_snaruji_selected(`+String(id)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(id)+`' required></select>`
+        select_anod_snar.append(newDiv)  
+
+        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
+            const newDiv = `<select class="form-select kod_anod_vnutri" aria-label="" style="width: 100px;"   id='code_svet_anodirovki_vnutr`+String(id)+`' required></select>`
+            select_anod_vnut.append(newDiv) 
+            get_anod(termo=true)
+        }else{
+            get_anod()
+            
+        }
+
+        var code_svet_anodirovki_vnutri = $('#code_svet_anodirovki_vnutri'+String(id));
+        code_svet_anodirovki_vnutri.attr("disabled",false);
+        code_svet_anodirovki_vnutri.attr("required",true);
+
+        var contactnost_anodirovki = $('#contactnost_anodirovki'+String(id));
+        contactnost_anodirovki.attr("disabled",false);
+        contactnost_anodirovki.attr("required",true);
+
+        
+        var nakleyka_kode = nakleyka_org.text()
+        if (nakleyka_kode !=''){
+            nakleyka_nt1.css('display','none');
+            nakleyka_org.css('display','block');
+            nakleyka_select.css('display','none');
+        }else{
+            nakleyka_nt1.css('display','none');
+            nakleyka_org.css('display','none');
+            nakleyka_select.css('display','block');
+            get_nakleyka(id)
+        }
+        
+        
     }
 }
 
+
+
+
+
+
+
+
+
+
+function code_svet_anodirovki_snaruji_selected(id,val){
+    $("#code_svet_anodirovki_snaruji"+String(id)).on("select2:select", function (e) { 
+    
+        var tip_anodirovki =$('#tip_anodirovki'+String(id));
+        var sposob_anodirovki = $('#sposob_anodirovki'+String(id));
+       
+        tip_anodirovki.text(e.params.data.tip_anod);
+        sposob_anodirovki.text(e.params.data.sposob_anod)
+    
+    
+    })
+
+}
 
 function svet_lamplonka_snaruji_selected(id,val){
     var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
@@ -639,4 +818,189 @@ function svet_lamplonka_snaruji_selected(id,val){
 function svet_lamplonka_vnutri_selected(id,val){
     var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
     code_lamplonka_vnutri.text(String(val))
+}
+
+
+function svet_dekplonka_snaruji_selected(id,val){
+    var code_dekplonka_snaruji = $('#code_dekplonka_snaruji'+String(id));
+    code_dekplonka_snaruji.text(String(val))
+}
+function svet_dekplonka_vnutri_selected(id,val){
+    var code_dekplonka_vnutri = $('#code_dekplonka_vnutri'+String(id));
+    code_dekplonka_vnutri.text(String(val))
+}
+
+
+
+class Neokrashenniy{
+    constructor(id=NaN, splav=NaN,tip_zak=NaN,dlina=NaN,kod_kraska_sn=NaN,kod_nakleyki=NaN,is_termo=false) {
+      this.id = id;
+      this.splav = splav;
+      this.tip_zak = tip_zak;
+      this.dlina = dlina;
+      this.kod_kraska_sn = kod_kraska_sn;
+      this.kod_nakleyki = kod_nakleyki;
+      this.is_termo = is_termo;
+    }
+
+    get_kratkiy_tekst(){
+        if(!this.is_termo){
+            if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki){
+                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki
+            }else{
+                return 'XXXXXXXX'
+            }
+        }
+    }
+  }
+
+class Okrashenniy{
+    constructor(id=NaN, splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,kod_kraska_sn=NaN,kod_nakleyki=NaN,is_termo=false) {
+      this.id = id;
+      this.splav = splav;
+      this.tip_zak = tip_zak;
+      this.dlina = dlina;
+      this.brend_kraska_sn = brend_kraska_sn;
+      this.kod_kraska_sn = kod_kraska_sn;
+      this.kod_nakleyki = kod_nakleyki;
+      this.is_termo = is_termo;
+    }
+    get_kratkiy_tekst(){
+        if(!this.is_termo){
+            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
+                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki
+            }else{
+                return 'XXXXXXXX'
+            }
+        }
+    }
+  }
+
+class Beliy{
+    constructor(id=NaN, splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,kod_kraska_sn=NaN,kod_nakleyki=NaN,is_termo=false) {
+      this.id = id;
+      this.splav = splav;
+      this.tip_zak = tip_zak;
+      this.dlina = dlina;
+      this.brend_kraska_sn = brend_kraska_sn;
+      this.kod_kraska_sn = kod_kraska_sn;
+      this.kod_nakleyki = kod_nakleyki;
+      this.is_termo = is_termo;
+    }
+
+    get_kratkiy_tekst(){
+        if(!this.is_termo){
+            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
+                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki
+            }else{
+                return 'XXXXXXXX'
+            }
+        }
+    }
+  }
+class Sublimatsiya{
+    constructor(id=NaN, splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,kod_kraska_sn=NaN,kod_dekor_sn=NaN,kod_nakleyki=NaN,is_termo=false) {
+      this.id = id;
+      this.splav = splav;
+      this.tip_zak = tip_zak;
+      this.dlina = dlina;
+      this.brend_kraska_sn = brend_kraska_sn;
+      this.kod_kraska_sn = kod_kraska_sn;
+      this.kod_dekor_sn = kod_dekor_sn;
+      this.kod_nakleyki = kod_nakleyki;
+      this.is_termo = is_termo;
+    }
+
+    get_kratkiy_tekst(){
+        if(!this.is_termo){
+            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki){
+                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki
+            }else{
+                return 'XXXXXXXX'
+            }
+        }
+    }
+  }
+class Laminatsiya{
+    constructor(id=NaN, splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,kod_kraska_sn=NaN,kod_lam_sn=NaN,kod_lam_vn=NaN,kod_nakleyki=NaN,is_termo=false) {
+      this.id = id;
+      this.splav = splav;
+      this.tip_zak = tip_zak;
+      this.dlina = dlina;
+      this.brend_kraska_sn = brend_kraska_sn;
+      this.kod_kraska_sn = kod_kraska_sn;
+      this.kod_lam_sn = kod_lam_sn;
+      this.kod_lam_vn = kod_lam_vn;
+      this.kod_nakleyki = kod_nakleyki;
+      this.is_termo = is_termo;
+    }
+    get_kratkiy_tekst(){
+        if(!this.is_termo){
+            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki){
+                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki
+            }else{
+                return 'XXXXXXXX'
+            }
+        }
+    }
+  }
+class Anodirovka{
+    constructor(id=NaN, splav=NaN,tip_zak,dlina=NaN,kod_anod_sn=NaN,kod_nakleyki=NaN,is_termo=false) {
+      this.id = id;
+      this.splav = splav;
+      this.tip_zak = tip_zak;
+      this.dlina = dlina;
+      this.kod_anod_sn = kod_anod_sn;
+      this.kod_nakleyki = kod_nakleyki;
+      this.is_termo = is_termo;
+    }
+
+    get_kratkiy_tekst(){
+        if(!this.is_termo){
+            if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_nakleyki){
+                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +' ' +this.kod_nakleyki
+            }else{
+                return 'XXXXXXXX'
+            }
+        }
+    }
+  }
+
+
+
+function create_kratkiy_tekst(id){
+    var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
+    var combination= $('#combination'+String(id));
+    combination_text = combination.text();
+    var val = $('#tip_pokritiya'+String(id)).val();
+    if(String(val) == '1'){
+            
+            var dlina = $('#length'+String(id));
+            if(dlina.val()!=''){
+                data_base[id].dlina = dlina.val();
+            }
+            
+            var splav = $('#splav'+String(id));
+            if(splav.val()!='0' && splav.val()!=''){
+                data_base[id].splav = splav.val();
+            }
+
+            var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
+            if(tip_zakalyonnosti.val()!='0' && tip_zakalyonnosti.val()!=''){
+                data_base[id].tip_zak = tip_zakalyonnosti.val();
+            }
+            
+        
+         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА')
+            {
+                
+            }
+            else
+            {
+
+            }
+        var text =data_base[id].get_kratkiy_tekst()
+        kratkiy_tekst.text(text)
+
+        }
 }

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from aluminiy.models import ArtikulComponent
 from norma.models import Nakleyka
+from .models import Anod
 
 # Create your views here.
 
@@ -9,7 +10,13 @@ def index(request):
     return render(request,'client/index.html')
 
 def shablon_imzo_detail(request):
-    return render(request,'client/shablonlar/aluminiy_imzo.html')
+    if request.method =='POST':
+        context ={
+            'link':'https://mdm.akfagroup.com/'
+        }
+        return render(request,'client/created_link.html',context)
+    else:
+        return render(request,'client/shablonlar/aluminiy_imzo.html')
 
 def shablon_savdo_detail(request):
     return render(request,'client/shablonlar/aluminiy_savdo.html')
@@ -51,4 +58,12 @@ def nakleyka_list(request):
         nakleyka_l = Nakleyka.objects.all().distinct("код_наклейки").values('id','код_наклейки')
         
     return JsonResponse(list(nakleyka_l),safe=False)
-    
+
+def anod_list(request):
+    term = request.GET.get('term',None)
+    if term:
+        anod_l = Anod.objects.filter(code_sveta__icontains = term).distinct("code_sveta").values('id','code_sveta','tip_anod','sposob_anod')
+    else:
+        anod_l = Anod.objects.all().distinct("code_sveta").values('id','code_sveta','tip_anod','sposob_anod')
+        
+    return JsonResponse(list(anod_l),safe=False)

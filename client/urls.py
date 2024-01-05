@@ -13,5 +13,7 @@ urlpatterns = [
     ################## APIS ################
     path('imzo-artikul-list',views.imzo_artikul_list,name='imzo_artikul_list'),
     path('nakleyka-list',views.nakleyka_list,name='nakleyka_list'),
+
+    path('anod-list',views.anod_list,name='anod_list'),
     
 ]
