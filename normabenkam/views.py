@@ -1249,7 +1249,9 @@ def kombinirovaniy_process(request,id):
                             df_new['LGORT'].append('PS02')
         
         else:
-            pass
+            if df[i][0] !="":
+                older_process['sapcode'] =df[i][0]
+                older_process['kratkiy'] =df[i][1]
                     
         norma_z =[]
         
@@ -1310,7 +1312,9 @@ def kombinirovaniy_process(request,id):
                 older_process['kratkiy'] =df[i][3] 
        
         else:
-            pass        
+            if df[i][2] !="":
+                older_process['sapcode'] =df[i][2]
+                older_process['kratkiy'] =df[i][3]        
         
         sklad ={
             'sklad_pokraski':['Chemetal + 7400','Alufinish','Chemetal + 7406'],
@@ -1436,14 +1440,15 @@ def kombinirovaniy_process(request,id):
                         df_new['PUSTOY'].append('')
                         df_new['LGORT'].append('PS05')
                     
-                    
-                                
                 older_process['sapcode'] =df[i][4]
-                older_process['kratkiy'] =df[i][5]
+                older_process['kratkiy'] =df[i][5]   
+                                
+                
         
         else:
-            pass
-            
+            if df[i][4] !="":
+                older_process['sapcode'] =df[i][4]
+                older_process['kratkiy'] =df[i][5] 
         
         if {df[i][6]:df[i][7]} not in norma_exists:
             if df[i][6] !="":
@@ -1527,8 +1532,9 @@ def kombinirovaniy_process(request,id):
                 older_process['kratkiy'] =df[i][7]
         
         else:
-            pass
-        
+            if df[i][6] !="":
+                older_process['sapcode'] =df[i][6]
+                older_process['kratkiy'] =df[i][7]
             
        
         if {df[i][8]:df[i][9]} not in norma_exists:
@@ -1620,8 +1626,9 @@ def kombinirovaniy_process(request,id):
                 older_process['kratkiy'] =df[i][9]
         
         else:
-            pass
-        
+            if df[i][8] !="":
+                older_process['sapcode'] =df[i][8]
+                older_process['kratkiy'] =df[i][9]
             
         
         if {df[i][10]:df[i][11]} not in norma_exists:
@@ -1899,8 +1906,9 @@ def kombinirovaniy_process(request,id):
                 older_process['kratkiy'] =df[i][11]
         
         else:
-            pass
-            
+            if df[i][10] !="":
+                older_process['sapcode'] =df[i][10]
+                older_process['kratkiy'] =df[i][11]
         if product_type =='termo':
 
             if {df[i][12]:df[i][13]} not in norma_exists:
@@ -2144,8 +2152,9 @@ def kombinirovaniy_process(request,id):
                     older_process['kratkiy'] =df[i][13]
             
             else:
-                pass
-            
+                if df[i][12] !="":
+                    older_process['sapcode'] =df[i][12]
+                    older_process['kratkiy'] =df[i][13]
             
         
             if {df[i][14]:df[i][15]} not in norma_exists:
@@ -2207,8 +2216,9 @@ def kombinirovaniy_process(request,id):
                     
             
             else:      
-                pass
-
+                if df[i][14] !="":
+                    older_process['sapcode'] =df[i][14]
+                    older_process['kratkiy'] =df[i][15]
         
             
             if {df[i][16]:df[i][17]} not in norma_exists:
@@ -2328,8 +2338,9 @@ def kombinirovaniy_process(request,id):
                     
             
             else:      
-                pass
-            
+                if df[i][16] !="":
+                    older_process['sapcode'] =df[i][16]
+                    older_process['kratkiy'] =df[i][17]
         
 
             if {df[i][18]:df[i][19]} not in norma_exists:
@@ -2391,7 +2402,9 @@ def kombinirovaniy_process(request,id):
                     
             
             else:      
-                pass
+                if df[i][18] !="":
+                    older_process['sapcode'] =df[i][18]
+                    older_process['kratkiy'] =df[i][19]
         else:  
             
         
@@ -2457,8 +2470,9 @@ def kombinirovaniy_process(request,id):
                     
             
             else:      
-                pass
-
+                if df[i][12] !="":
+                    older_process['sapcode'] =df[i][12]
+                    older_process['kratkiy'] =df[i][13]
         
             
             if {df[i][14]:df[i][15]} not in norma_exists:
@@ -2578,8 +2592,9 @@ def kombinirovaniy_process(request,id):
                     
             
             else:      
-                pass
-            
+                if df[i][14] !="":
+                    older_process['sapcode'] =df[i][14]
+                    older_process['kratkiy'] =df[i][15]
         
 
             if {df[i][16]:df[i][17]} not in norma_exists:
@@ -2641,8 +2656,9 @@ def kombinirovaniy_process(request,id):
                     
             
             else:      
-                pass  
-
+                if df[i][16] !="":
+                    older_process['sapcode'] =df[i][16]
+                    older_process['kratkiy'] =df[i][17]
             
         
     now = datetime.now()
