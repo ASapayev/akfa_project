@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'onlinesavdo',
     'client',
     'normabenkam',
-    
+    'accessuar',
     # 'json_field',
     # "debug_toolbar",
 ]

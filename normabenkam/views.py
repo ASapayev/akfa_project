@@ -1062,10 +1062,6 @@ def kombinirovaniy_process(request,id):
                 if (alum_teks.data['верх ширина ленты/мм'] =='0' and alum_teks.data['низ ширина ленты/мм'] == '0'):
                     does_not_exist_norm.append(Xatolar(section='Наклейка',xato='bazada qiymati 0',sap_code=df[i][10]))
             if df[i][12] != '':
-                # length = df[i][12].split('-')[0]
-                # if not Norma.objects.filter(data__новый__icontains=length).exists():
-                #     does_not_exist_norm.append(Xatolar(section='Норма расход',xato='bazada yo\'q',sap_code=df[i][12]))
-                #     continue
                 artikul = df[i][12].split('-')[0]
                 termomostrlar = Termomost.objects.filter(data__Артикул__icontains=artikul).exists()
                 if not termomostrlar:
