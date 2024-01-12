@@ -652,7 +652,7 @@ def read_and_write(request,id):
   return render(request,'result_excel.html',context)
 
 
-
+@login_required(login_url='/accounts/login/')
 def download(request, id):
   path =str(ExcelFiles.objects.get(id=id).file)
   file_path = os.path.join(settings.MEDIA_ROOT, path)
@@ -713,6 +713,7 @@ def lenght_generate(request,id):
 
   return render(request,'generated_file.html',context)
 
+@login_required(login_url='/accounts/login/')
 def lenght_generate_org(request,id):
   file = ExcelFiles.objects.get(id=id).file
   counter =0
@@ -760,7 +761,7 @@ def lenght_generate_org(request,id):
 
   return render(request,'universal/generated_files.html',context)
 
-
+@login_required(login_url='/accounts/login/')
 def delete_file(request,id):
   file =get_object_or_404(ExcelFiles,id=id)
   a=request.GET.get('generated',None)
@@ -773,6 +774,7 @@ def delete_file(request,id):
   file.delete()
   return redirect('file_list')
 
+@login_required(login_url='/accounts/login/')
 def open_folder_path_in_explorer(request):
   path =request.GET.get('path',None)
   path = os.path.normpath(path)
@@ -788,7 +790,7 @@ def open_folder_path_in_explorer(request):
   return JsonResponse({'msg':True})
   
 
-
+@login_required(login_url='/accounts/login/')
 def show_list_history(request):
   files =ExcelFiles.objects.filter(generated=False).order_by('-created_at')
   context ={
