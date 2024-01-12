@@ -224,6 +224,7 @@ def round502(n):
 def round503(n):
     return round(n * 2, -2) // 2
 
+@login_required(login_url='/accounts/login/')
 def create_online(request,id):
     file = OnlineSavdoFile.objects.get(id=id).file
     df = pd.read_excel(f'{MEDIA_ROOT}/{file}',sheet_name='Алюмин Навои Жомий',header=4)
@@ -303,6 +304,7 @@ def create_online(request,id):
     return render(request,'universal/generated_files.html',context)
 
 
+@login_required(login_url='/accounts/login/')
 def sozdaniya_online_savdo(request,id):
     order = OnlineSavdoOrder.objects.get(id = id)
     path1 = order.paths['path_1']
@@ -523,6 +525,7 @@ zavod = {
     'ZAVOD ALUMIN NAVOIY':'1200'
 }
 
+@login_required(login_url='/accounts/login/')
 def sozdaniye_sena(request,id):
     order = OnlineSavdoOrder.objects.get(id = id)
     path1 = order.paths['path_1']
@@ -761,7 +764,7 @@ def sozdaniye_sena(request,id):
     }
     return render(request,'universal/generated_files.html',context)
 
-
+@login_required(login_url='/accounts/login/')
 def sozdaniye_sap_format_sena(request,id):
     order = OnlineSavdoOrder.objects.get(id = id)
     path1 = order.paths['path_1']
@@ -1188,7 +1191,7 @@ def sozdaniye_sap_format_sena(request,id):
     return render(request,'online_savdo/zip_file_download.html',context)
   
    
-
+@login_required(login_url='/accounts/login/')
 def proverka(request,id):
     order = OnlineSavdoOrder.objects.get(id = id)
     path1 = order.paths['path_1']

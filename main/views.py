@@ -315,7 +315,7 @@ def get_ready_ozmka(request,id):
 def index(request):
   return render(request,'index.html')
 
-
+@login_required(login_url='/accounts/login/')
 def show_list(request):
   search =request.GET.get('search',None)
   if search:
@@ -351,7 +351,7 @@ def show_list(request):
 
   # products =products
 
-
+@login_required(login_url='/accounts/login/')
 def file_upload(request):
   
   if request.method == 'POST':
@@ -366,6 +366,7 @@ def file_upload(request):
       }
   return render(request,'excel_form.html',context)
 
+@login_required(login_url='/accounts/login/')
 def file_upload_org(request):
   if request.method == 'POST':
     form = FileForm(request.POST, request.FILES)
@@ -379,7 +380,7 @@ def file_upload_org(request):
       }
   return render(request,'excel_form.html',context)
 
-
+@login_required(login_url='/accounts/login/')
 def file_upload_for_get_ozmka(request):
   if request.method =='POST':
     ozmk = request.POST.get('ozmk',None)
@@ -408,6 +409,7 @@ def file_upload_for_get_ozmka(request):
 #   res = download_bs64([data,]'CHARACTERISTIKA')
 #   return res
 
+@login_required(login_url='/accounts/login/')
 def file_upload_for_get_ozmka_org(request):
   if request.method =='POST':
     ozmk = request.POST.get('ozmk',None)
@@ -449,24 +451,26 @@ def file_upload_for_get_ozmka_org(request):
 
 
     
-
+@login_required(login_url='/accounts/login/')
 def file_list(request):
   files = ExcelFiles.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files}
   return render(request,'file_list.html',context)
 
 
+@login_required(login_url='/accounts/login/')
 def file_list_org(request):
   files = ExcelFiles.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files}
   return render(request,'delovoy_otxod/file_list.html',context)
 
-
+@login_required(login_url='/accounts/login/')
 def file_list_ozmka(request):
   files = ExcelFilesOzmka.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files}
   return render(request,'file_list_ozmka.html',context)
 
+@login_required(login_url='/accounts/login/')
 def import_file(request,id):
   file = ExcelFiles.objects.get(id=id).file
   file_path =f'{MEDIA_ROOT}\\{file}'
@@ -493,7 +497,7 @@ def import_file(request,id):
   
 
 
-
+@login_required(login_url='/accounts/login/')
 def read_and_write(request,id):
   file = ExcelFiles.objects.get(id=id).file
   file_path =f'{MEDIA_ROOT}\\{file}'
@@ -669,6 +673,7 @@ group_three =['ALU']
 group_four =['PVC']
 
 
+@login_required(login_url='/accounts/login/')
 def lenght_generate(request,id):
   file = ExcelFiles.objects.get(id=id).file
   counter =0

@@ -27,6 +27,7 @@ from pathlib import Path
 from django.db.models.functions import Trim
 import ast
 import math
+from django.contrib.auth.decorators import login_required
 
 class File:
       def __init__(self,file,filetype,id):
@@ -34,6 +35,7 @@ class File:
             self.filetype =filetype
             self.id = id
 
+@login_required(login_url='/accounts/login/')
 def vi_generate(request,id):
     file = ViFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -218,7 +220,7 @@ def vi_generate(request,id):
     }
     return render(request,'universal/generated_files.html',context)
 
-
+@login_required(login_url='/accounts/login/')
 def download(request):
   file_path = request.GET.get('file_path',None)
   if file_path:
@@ -229,7 +231,7 @@ def download(request):
             return response
   raise Http404
 
-
+@login_required(login_url='/accounts/login/')
 def download_zip_file(request):
     file_path = request.GET.get('file_path',None)
     if file_path and '[' in file_path:
@@ -247,7 +249,7 @@ def download_zip_file(request):
         return response
     return response
         
-    
+@login_required(login_url='/accounts/login/')   
 def vi_file(request):
     files = ViFiles.objects.all().order_by('-created_at')
     context ={
@@ -258,7 +260,7 @@ def vi_file(request):
         }
     return render(request,'universal/file_list.html',context)
 
-
+@login_required(login_url='/accounts/login/')
 def file_vi_upload_org(request):
       
     if request.method == 'POST':
@@ -276,24 +278,28 @@ def file_vi_upload_org(request):
 
 
 @csrf_exempt
+@login_required(login_url='/accounts/login/')
 def delete_norm(request, id):
     norma = Norma.objects.get(id= id)
     norma.delete()
     return JsonResponse({'msg':True,'text':'Deleted successfully'})
 
 @csrf_exempt
+@login_required(login_url='/accounts/login/')
 def norma_delete_all(request):
     norma = Norma.objects.all()
     norma.delete()
     return JsonResponse({'msg':True})
 
 @csrf_exempt
+@login_required(login_url='/accounts/login/')
 def termomost_delete_all(request):
     termomost = Termomost.objects.all()
     termomost.delete()
     return JsonResponse({'msg':True})
 
 @csrf_exempt
+@login_required(login_url='/accounts/login/')
 def ximikat_save(request):
     data = dict(request.POST)
     for key,val in data.items():
@@ -308,6 +314,7 @@ def ximikat_save(request):
     
     return JsonResponse({'msg':True})
 
+@login_required(login_url='/accounts/login/')
 def ximikat(request):
     ximikats = Ximikat.objects.all().order_by('id')
     context = {
@@ -316,6 +323,7 @@ def ximikat(request):
     } 
     return render(request,'norma/benkam/ximikat.html',context)
 
+@login_required(login_url='/accounts/login/')
 def add_kraska(request):
 
     if request.method == 'POST':
@@ -331,6 +339,7 @@ def add_kraska(request):
     }
     return render(request,'norma/add_kraska.html',context)
 
+@login_required(login_url='/accounts/login/')
 def anod_list(request):
 
     anods = Anod.objects.all()
@@ -339,6 +348,7 @@ def anod_list(request):
     }
     return render(request,'norma/benkam/anod_list.html',context)
 
+@login_required(login_url='/accounts/login/')
 def nakleyka_list(request):
 
     nakleyka = Nakleyka.objects.all().order_by('-created_at')
@@ -347,6 +357,7 @@ def nakleyka_list(request):
     }
     return render(request,'norma/benkam/nakleyka_list.html',context)
 
+@login_required(login_url='/accounts/login/')
 def sublimatsiya_list(request):
 
     sumlimatsiya = SubDekorPlonka.objects.all().order_by('-created_at')
@@ -355,6 +366,7 @@ def sublimatsiya_list(request):
     }
     return render(request,'norma/benkam/sumlimatsiya_list.html',context)
 
+@login_required(login_url='/accounts/login/')
 def kraska_list(request):
 
     kraska = Kraska.objects.all().order_by('-created_at')
@@ -363,6 +375,7 @@ def kraska_list(request):
     }
     return render(request,'norma/benkam/kraska_list.html',context)
 
+@login_required(login_url='/accounts/login/')
 def add_anod(request):
 
     if request.method == 'POST':
@@ -378,7 +391,7 @@ def add_anod(request):
     }
     return render(request,'norma/benkam/add_anod.html',context)
 
-
+@login_required(login_url='/accounts/login/')
 def add_nakleyka(request):
 
     if request.method == 'POST':
@@ -394,6 +407,8 @@ def add_nakleyka(request):
     }
     return render(request,'norma/benkam/add_nakleyka.html',context)
 
+
+@login_required(login_url='/accounts/login/')
 def add_sublimation_benkam(request):
 
     if request.method == 'POST':
@@ -412,6 +427,7 @@ def add_sublimation_benkam(request):
 
 
 @csrf_exempt
+@login_required(login_url='/accounts/login/')
 def full_update_norma(request):
     data = dict(request.POST)
 
@@ -607,6 +623,7 @@ def full_update_norma(request):
     return JsonResponse({'msg':True,'text':'Full updated'})
 
 
+@login_required(login_url='/accounts/login/')
 def edit_norm(request,id):
     norma = Norma.objects.get( id = id)
 
@@ -623,6 +640,7 @@ def edit_norm(request,id):
     }
     return render(request,'norma/norma_crud/edit.html',context)
 
+@login_required(login_url='/accounts/login/')
 def edit_sikl(request,id):
     norma = TexCartaTime.objects.get( id = id)
 
@@ -640,6 +658,7 @@ def edit_sikl(request,id):
     return render(request,'norma/norma_crud/edit_sikl_data.html',context)
 
 @csrf_exempt
+@login_required(login_url='/accounts/login/')
 def add_norm_post(request):   
     data = dict(request.POST)
 
@@ -775,9 +794,11 @@ def add_norm_post(request):
     
     return JsonResponse({'msg':True,'text':"Successfuly saved!"})
 
+@login_required(login_url='/accounts/login/')
 def add_norm(request):
     return render(request,'norma/norma_crud/add.html')
 
+@login_required(login_url='/accounts/login/')
 def full_update_termomost(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -807,6 +828,7 @@ def full_update_termomost(request):
 
     return render(request,'norma/benkam/main.html')
 
+@login_required(login_url='/accounts/login/')
 def full_update_norm(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -837,7 +859,7 @@ def full_update_norm(request):
 
     return render(request,'norma/benkam/main.html')
 
-
+@login_required(login_url='/accounts/login/')
 def show_norm_base(request):
     search_text = request.GET.get('search',None)
 
@@ -862,6 +884,7 @@ def show_norm_base(request):
     return render(request,'norma/norma_crud/show_list.html',context)
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def show_sikl_base(request):
     search_text = request.GET.get('search',None)
 
@@ -892,7 +915,7 @@ def show_sikl_base(request):
     
 
 
-
+@login_required(login_url='/accounts/login/')
 def file_upload_termo_org(request): 
     if request.method == 'POST':
         type_r = request.POST.get('type_r',None)
@@ -920,6 +943,8 @@ def file_upload_termo_org(request):
  
     return render(request,'universal/main.html',context)
 
+
+@login_required(login_url='/accounts/login/')
 def file_upload_org(request): 
   if request.method == 'POST':
     data = request.POST.copy()
