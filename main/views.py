@@ -820,7 +820,6 @@ def home(request):
       currency['EUR'] =r
     if r['Ccy'] =='GBP':
       currency['GBP'] =r
-  print(currency)
   
   return render(request,'home.html',{'data':currency})
 
