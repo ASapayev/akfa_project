@@ -19,6 +19,8 @@ from .utils import counter_generated_data
 import subprocess,sys,os
 import json
 from aluminiytermo.utils import zip
+import requests as rq
+
 FILEBROWSER_PATH = os.path.join(os.getenv('WINDIR'), 'explorer.exe')
 
 
@@ -806,7 +808,21 @@ def show_list_history(request):
 
 @login_required(login_url='/accounts/login/')
 def home(request):
-  return render(request,'home.html')
+  res = rq.get('https://cbu.uz/uz/arkhiv-kursov-valyut/json/')
+  # print(res.json())
+  currency ={}
+  for r in res.json():
+    if r['Ccy'] =='USD':
+      currency['USD'] =r
+    if r['Ccy'] =='RUB':
+      currency['RUB'] =r
+    if r['Ccy'] =='EUR':
+      currency['EUR'] =r
+    if r['Ccy'] =='GBP':
+      currency['GBP'] =r
+  print(currency)
+  
+  return render(request,'home.html',{'data':currency})
 
 
 @register.filter(name='split_text')
