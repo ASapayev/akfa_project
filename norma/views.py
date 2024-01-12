@@ -9,6 +9,7 @@ from django.db.models import Q
 from aluminiytermo.models import Characteristika,CharacteristicTitle
 from config.settings import MEDIA_ROOT
 from .utils import excelgenerate,create_csv_file,create_folder
+from django.contrib.auth.decorators import login_required
 import os
 from aluminiytermo.views import File
 from imzo.models import TexCartaTime
@@ -23,6 +24,7 @@ from django.utils.text import slugify
 from pathlib import Path 
 from django.db.models.functions import Trim
 
+@login_required(login_url='/accounts/login/')
 def vi_generate(request,id):
     file = ViFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -207,7 +209,7 @@ def vi_generate(request,id):
     }
     return render(request,'universal/generated_files.html',context)
 
-
+@login_required(login_url='/accounts/login/')
 def download(request):
   file_path = request.GET.get('file_path',None)
   if file_path:
@@ -218,7 +220,7 @@ def download(request):
             return response
   raise Http404
 
-
+@login_required(login_url='/accounts/login/')
 def download_zip_file(request):
     file_path = request.GET.get('file_path',None)
     if file_path and '[' in file_path:
@@ -236,7 +238,7 @@ def download_zip_file(request):
         return response
     return response
         
-    
+@login_required(login_url='/accounts/login/')
 def vi_file(request):
     files = ViFiles.objects.all().order_by('-created_at')
     context ={
@@ -247,7 +249,7 @@ def vi_file(request):
         }
     return render(request,'universal/file_list.html',context)
 
-
+@login_required(login_url='/accounts/login/')
 def file_vi_upload_org(request):
       
     if request.method == 'POST':
@@ -265,6 +267,7 @@ def file_vi_upload_org(request):
 
 
 @csrf_exempt
+@login_required(login_url='/accounts/login/')
 def delete_norm(request, id):
     norma = Norma.objects.get(id= id)
     if TexCartaTime.objects.filter(компонент_1 =norma.компонент_1,компонент_2=norma.компонент_2,компонент_3=norma.компонент_3,артикул=norma.артикул).exists():
@@ -275,6 +278,7 @@ def delete_norm(request, id):
     return JsonResponse({'msg':True,'text':'Deleted successfully'})
 
 @csrf_exempt
+@login_required(login_url='/accounts/login/')
 def norma_delete_all(request):
     norma = Norma.objects.all()
     texcarta = TexCartaTime.objects.all()
@@ -282,6 +286,7 @@ def norma_delete_all(request):
     texcarta.delete()
     return JsonResponse({'msg':True})
 
+@login_required(login_url='/accounts/login/')
 def add_kraska(request):
 
     if request.method == 'POST':
@@ -297,6 +302,7 @@ def add_kraska(request):
     }
     return render(request,'norma/add_kraska.html',context)
 
+@login_required(login_url='/accounts/login/')
 def add_nakleyka(request):
 
     if request.method == 'POST':
@@ -312,6 +318,7 @@ def add_nakleyka(request):
     }
     return render(request,'norma/add_nakleyka.html',context)
 
+@login_required(login_url='/accounts/login/')
 def add_lamination(request):
 
     if request.method == 'POST':
@@ -330,6 +337,7 @@ def add_lamination(request):
 
 
 @csrf_exempt
+@login_required(login_url='/accounts/login/')
 def full_update_norma(request):
     data = dict(request.POST)
 
@@ -524,7 +532,7 @@ def full_update_norma(request):
 
     return JsonResponse({'msg':True,'text':'Full updated'})
 
-
+@login_required(login_url='/accounts/login/')
 def edit_norm(request,id):
     norma = Norma.objects.get( id = id)
 
@@ -541,6 +549,7 @@ def edit_norm(request,id):
     }
     return render(request,'norma/norma_crud/edit.html',context)
 
+@login_required(login_url='/accounts/login/')
 def edit_sikl(request,id):
     norma = TexCartaTime.objects.get( id = id)
 
@@ -558,6 +567,7 @@ def edit_sikl(request,id):
     return render(request,'norma/norma_crud/edit_sikl_data.html',context)
 
 @csrf_exempt
+@login_required(login_url='/accounts/login/')
 def add_norm_post(request):   
     data = dict(request.POST)
 
@@ -693,15 +703,18 @@ def add_norm_post(request):
     
     return JsonResponse({'msg':True,'text':"Successfuly saved!"})
 
+@login_required(login_url='/accounts/login/')
 def add_norm(request):
     return render(request,'norma/norma_crud/add.html')
 
+@login_required(login_url='/accounts/login/')
 def full_update_norm(request):
     return render(request,'norma/norma_crud/update.html')
 
+@login_required(login_url='/accounts/login/')
 def index(request):
     return render(request,'norma/index.html')
-
+@login_required(login_url='/accounts/login/')
 def show_norm_base(request):
     search_text = request.GET.get('search',None)
 
@@ -726,6 +739,7 @@ def show_norm_base(request):
     return render(request,'norma/norma_crud/show_list.html',context)
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def show_sikl_base(request):
     search_text = request.GET.get('search',None)
 
@@ -750,6 +764,7 @@ def show_sikl_base(request):
     return render(request,'norma/norma_crud/show_list_sikl_data.html',context)
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def norma_excel(request):
     # df = pd.read_excel('c:\OSPanel\domains\\Norma22.xlsx','Общий')
     df = pd.read_excel('C:\\OpenServer\\domains\\Norma22.xlsx','Общий')
@@ -1059,7 +1074,7 @@ def norma_excel(request):
         
     return redirect('index')
 
-    
+@login_required(login_url='/accounts/login/')   
 def receipt_all(request):
     df = pd.read_excel('C:\\OpenServer\\domains\\Наклейка.xlsx','Наклейка')
     df =df.astype(str)
@@ -1094,7 +1109,7 @@ def receipt_all(request):
     
     return JsonResponse({'Hammasi bo\'ldi':'ok'})
 
-
+@login_required(login_url='/accounts/login/')
 def norma_add(request):
     df = pd.read_excel('c:\\Users\\Acer\\Desktop\\Копия Thermo profilesййй2.xlsx','Лист1')
     df =df.astype(str)
@@ -1117,7 +1132,7 @@ def norma_add(request):
     
     return JsonResponse({'a':'b'})
     
-
+@login_required(login_url='/accounts/login/')
 def file_upload(request): 
   if request.method == 'POST':
     form = NormaFileForm(request.POST, request.FILES)
@@ -1131,6 +1146,7 @@ def file_upload(request):
       }
   return render(request,'norma/excel_form.html',context)
 
+@login_required(login_url='/accounts/login/')
 def file_upload_termo_org(request): 
   if request.method == 'POST':
     data = request.POST.copy()
@@ -1146,6 +1162,7 @@ def file_upload_termo_org(request):
       }
   return render(request,'universal/main.html',context)
 
+@login_required(login_url='/accounts/login/')
 def file_upload_org(request): 
   if request.method == 'POST':
     data = request.POST.copy()
@@ -1161,11 +1178,13 @@ def file_upload_org(request):
       }
   return render(request,'universal/main.html',context)
 
+@login_required(login_url='/accounts/login/')
 def file_list(request):
     files = NormaExcelFiles.objects.filter(generated =False).order_by('-created_at')
     context ={'files':files}
     return render(request,'norma/file_list.html',context)
 
+@login_required(login_url='/accounts/login/')
 def file_list_org(request):
     files = NormaExcelFiles.objects.filter(generated =False,type='simple').order_by('-created_at')
     context ={'files':files,
@@ -1176,6 +1195,7 @@ def file_list_org(request):
               }
     return render(request,'universal/file_list_norma.html',context)
 
+@login_required(login_url='/accounts/login/')
 def file_list_termo_org(request):
     files = NormaExcelFiles.objects.filter(generated =False,type='termo').order_by('-created_at')
     context ={'files':files,
@@ -1195,6 +1215,7 @@ def get_legth(lengg):
     return (float(hh)/1000) 
 
 
+@login_required(login_url='/accounts/login/')
 def kombinirovaniy_process(request,id):
     file = NormaExcelFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -7557,7 +7578,7 @@ def kombinirovaniy_process(request,id):
       }
     return render(request,'universal/generated_files.html',context)
   
-
+@login_required(login_url='/accounts/login/')
 def generatenewexceldata(request):
     path1 =os.path.join(os.path.expanduser("~/Desktop/generate"),'data.xlsx')
     df0 = pd.read_excel(path1,'baza1')
@@ -7568,6 +7589,7 @@ def generatenewexceldata(request):
     
     return JsonResponse({'File':'Genarated!!'})
 
+@login_required(login_url='/accounts/login/')
 def remove_whitespace(request):
     normas = Norma.objects.all()
     
@@ -7582,6 +7604,7 @@ def remove_whitespace(request):
     return JsonResponse({'a':'b'})
 
 
+@login_required(login_url='/accounts/login/')
 def nakleyka_duplicate_del(request):
     nakleykas = Nakleyka.objects.all()
       
@@ -7626,11 +7649,12 @@ def norma_for_list():
         return normass,kraskas,accessuar,nakleyka,zakalka,zakalka_6064
 
 
-
+@login_required(login_url='/accounts/login/')
 def norma_update(request):
     normalar = Norma.objects.all()[:50]
     return render(request,'norma/norma_crud/update.html',{'normas':normalar})
 
+@login_required(login_url='/accounts/login/')
 def norma_delete(request):
     if request.method =='POST':
         ozmk =request.POST.get('ozmk',None)
@@ -7642,7 +7666,8 @@ def norma_delete(request):
         return render(request,'norma/norma_find.html')
     else:
         return render(request,'norma/norma_find.html')
-    
+
+@login_required(login_url='/accounts/login/') 
 def find_characteristics(request):
     all_data = [ [] for i in range(38)]
     does_not_exists = []
@@ -7754,7 +7779,8 @@ def find_characteristics(request):
         return render(request,'norma/find_characteristics.html')
     else:
         return render(request,'norma/find_characteristics.html')
-    
+
+@login_required(login_url='/accounts/login/')  
 def find_characteristics_org(request):
     all_data = [ [] for i in range(38)]
     does_not_exists = []
@@ -7870,7 +7896,8 @@ def find_characteristics_org(request):
         return render(request,'universal/generated_files.html',context)
     else:
         return render(request,'norma/character_find.html',{'section':'Характеристики','section2':'Найти Характеристики'})
-    
+
+@login_required(login_url='/accounts/login/') 
 def norma_delete_org(request):
     if request.method =='POST':
         ozmk =request.POST.get('ozmk',None)

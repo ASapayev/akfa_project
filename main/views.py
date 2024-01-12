@@ -25,7 +25,7 @@ FILEBROWSER_PATH = os.path.join(os.getenv('WINDIR'), 'explorer.exe')
 
 now = datetime.now()
 
-
+@login_required(login_url='/accounts/login/')
 def work_wast(request):
   if request.method == 'POST':
     form = FileForm(request.POST, request.FILES)
@@ -218,7 +218,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     return [path1101,''],[df_termo_1101,df_obichniy_1101,df_yoqlari_1101]
 
 
-
+@login_required(login_url='/accounts/login/')
 def get_ready_ozmka(request,id):
   file = ExcelFilesOzmka.objects.get(id=id).file
   file_path =f'{MEDIA_ROOT}\\{file}'

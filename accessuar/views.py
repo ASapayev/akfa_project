@@ -4,6 +4,7 @@ from .forms import AccessuarFileForm
 from .models import AccessuarFiles,Norma
 import pandas as pd
 from .utils import get_norma_df
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -12,7 +13,7 @@ class File:
         self.file = file
 
 
-
+@login_required(login_url='/accounts/login/')
 def get_accessuar_sapcode(request):
     if request.method =='POST':
         ozmk = request.POST.get('ozmk',None)
@@ -31,7 +32,7 @@ def get_accessuar_sapcode(request):
 
 
 
-
+@login_required(login_url='/accounts/login/')
 def full_update_norm(request):
     if request.method == 'POST':
         data = request.POST.copy()

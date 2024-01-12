@@ -3,12 +3,14 @@ from django.http import JsonResponse
 from aluminiy.models import ArtikulComponent
 from norma.models import Nakleyka
 from .models import Anod
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
+@login_required(login_url='/accounts/login/')
 def index(request):
     return render(request,'client/index.html')
 
+@login_required(login_url='/accounts/login/')
 def shablon_imzo_detail(request):
     if request.method =='POST':
         context ={
@@ -18,25 +20,28 @@ def shablon_imzo_detail(request):
     else:
         return render(request,'client/shablonlar/aluminiy_imzo.html')
 
+@login_required(login_url='/accounts/login/')
 def shablon_savdo_detail(request):
     return render(request,'client/shablonlar/aluminiy_savdo.html')
 
-
+@login_required(login_url='/accounts/login/')
 def shablon_export_detail(request):
     return render(request,'client/shablonlar/aluminiy_export.html')
 
+@login_required(login_url='/accounts/login/')
 def shablon_pvc_export_detail(request):
     return render(request,'client/shablonlar/pvc_imzo.html')
 
 
-
+@login_required(login_url='/accounts/login/')
 def shablon_pvc_savdo_detail(request):
     return render(request,'client/shablonlar/pvc_savdo.html')
 
+@login_required(login_url='/accounts/login/')
 def shablon_pvc_export_savdo_detail(request):
     return render(request,'client/shablonlar/pvc_export.html')
 
-
+@login_required(login_url='/accounts/login/')
 def imzo_artikul_list(request):
     
     term = request.GET.get('term',None)
@@ -48,7 +53,7 @@ def imzo_artikul_list(request):
     
     
     
-
+@login_required(login_url='/accounts/login/')
 def nakleyka_list(request):
     
     term = request.GET.get('term',None)
@@ -59,6 +64,7 @@ def nakleyka_list(request):
         
     return JsonResponse(list(nakleyka_l),safe=False)
 
+@login_required(login_url='/accounts/login/')
 def anod_list(request):
     term = request.GET.get('term',None)
     if term:
