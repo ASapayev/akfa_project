@@ -2582,7 +2582,7 @@ def product_add_second(request,id):
       
       return redirect('upload_product')
 
-@login_required(login_url='/accounts/login/')    
+# @login_required(login_url='/accounts/login/')    
 def product_add_second_org(request,id):
       file = AluFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
