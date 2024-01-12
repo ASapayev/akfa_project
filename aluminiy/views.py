@@ -544,7 +544,7 @@ def aluminiy_group(request):
       
       return JsonResponse({'data':umumiy})
 
-@login_required(login_url='/accounts/login/')
+
 def update_char_title_function(df_title,df_t4,order_id,file_type='aluminiy'):
       df = df_title
       df_extrusion = df_t4
@@ -2582,7 +2582,7 @@ def product_add_second(request,id):
       
       return redirect('upload_product')
 
-# @login_required(login_url='/accounts/login/')    
+@login_required(login_url='/accounts/login/')    
 def product_add_second_org(request,id):
       file = AluFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
