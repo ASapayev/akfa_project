@@ -47,7 +47,7 @@ for (let i = 1; i <= 5; i++) {
        
         <select class="form-select" aria-label="" style="width: 75px;"  disabled id='splav`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
             <option  value="" selected ></option>
-            <option value="1" >63</option>
+            <option value="63" >63</option>
         </select>
         
         </div>
@@ -56,8 +56,8 @@ for (let i = 1; i <= 5; i++) {
         <div class="input-group input-group-sm mb-1">
         <select class="form-select" aria-label="" style="width: 30px;"  disabled id='tip_zakalyonnosti`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
             <option  value="" selected></option>
-            <option value="1" >T4</option>
-            <option value="2" >T6</option>
+            <option value="T4" >T4</option>
+            <option value="T6" >T6</option>
         </select>
         </div>
     </td>
@@ -973,23 +973,25 @@ function create_kratkiy_tekst(id){
     var combination= $('#combination'+String(id));
     combination_text = combination.text();
     var val = $('#tip_pokritiya'+String(id)).val();
+    var dlina = $('#length'+String(id));
+    if(dlina.val()!=''){
+        data_base[id].dlina = dlina.val();
+    }
+    
+    var splav = $('#splav'+String(id));
+    if(splav.val()!='0' && splav.val()!=''){
+        data_base[id].splav = splav.val();
+    }
+
+    var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
+    if(tip_zakalyonnosti.val()!='0' && tip_zakalyonnosti.val()!=''){
+        data_base[id].tip_zak = tip_zakalyonnosti.val();
+    }
+
     if(String(val) == '1'){
             
-            var dlina = $('#length'+String(id));
-            if(dlina.val()!=''){
-                data_base[id].dlina = dlina.val();
-            }
-            
-            var splav = $('#splav'+String(id));
-            if(splav.val()!='0' && splav.val()!=''){
-                data_base[id].splav = splav.val();
-            }
-
-            var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
-            if(tip_zakalyonnosti.val()!='0' && tip_zakalyonnosti.val()!=''){
-                data_base[id].tip_zak = tip_zakalyonnosti.val();
-            }
-            
+            data_base[id].kod_kraska_sn = 'MF'
+            data_base[id].kod_nakleyki = 'NT1'
         
          if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА')
             {
@@ -999,8 +1001,9 @@ function create_kratkiy_tekst(id){
             {
 
             }
-        var text =data_base[id].get_kratkiy_tekst()
-        kratkiy_tekst.text(text)
 
-        }
+    }
+
+    var text =data_base[id].get_kratkiy_tekst()
+    kratkiy_tekst.text(text)
 }
