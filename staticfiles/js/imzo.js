@@ -854,28 +854,6 @@ class Neokrashenniy{
     }
   }
 
-class Okrashenniy{
-    constructor(id=NaN, splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,kod_kraska_sn=NaN,kod_nakleyki=NaN,is_termo=false) {
-      this.id = id;
-      this.splav = splav;
-      this.tip_zak = tip_zak;
-      this.dlina = dlina;
-      this.brend_kraska_sn = brend_kraska_sn;
-      this.kod_kraska_sn = kod_kraska_sn;
-      this.kod_nakleyki = kod_nakleyki;
-      this.is_termo = is_termo;
-    }
-    get_kratkiy_tekst(){
-        if(!this.is_termo){
-            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
-                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
-        }
-    }
-  }
-
 class Beliy{
     constructor(id=NaN, splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,kod_kraska_sn=NaN,kod_nakleyki=NaN,is_termo=false) {
       this.id = id;
@@ -898,6 +876,30 @@ class Beliy{
         }
     }
   }
+
+class Okrashenniy{
+    constructor(id=NaN, splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,kod_kraska_sn=NaN,kod_nakleyki=NaN,is_termo=false) {
+      this.id = id;
+      this.splav = splav;
+      this.tip_zak = tip_zak;
+      this.dlina = dlina;
+      this.brend_kraska_sn = brend_kraska_sn;
+      this.kod_kraska_sn = kod_kraska_sn;
+      this.kod_nakleyki = kod_nakleyki;
+      this.is_termo = is_termo;
+    }
+    get_kratkiy_tekst(){
+        if(!this.is_termo){
+            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
+                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki
+            }else{
+                return 'XXXXXXXX'
+            }
+        }
+    }
+  }
+
+
 class Sublimatsiya{
     constructor(id=NaN, splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,kod_kraska_sn=NaN,kod_dekor_sn=NaN,kod_nakleyki=NaN,is_termo=false) {
       this.id = id;
@@ -993,15 +995,33 @@ function create_kratkiy_tekst(id){
             data_base[id].kod_kraska_sn = 'MF'
             data_base[id].kod_nakleyki = 'NT1'
         
-         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА')
+         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА')
             {
                 
             }
-            else
+
+    }else if(String(val) == '2'){
+        data_base[id].brend_kraska_sn ='R'
+        data_base[id].code_kraski_snaruji ='9016'
+
+        var nakleyka_nt1 = document.getElementById('nakleyka_nt'+String(id))
+        var nakleyka_org = document.getElementById('nakleyka_org'+String(id))
+        var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
+        var style_nt1 = window.getComputedStyle(nakleyka_nt1);
+        var style_org = window.getComputedStyle(nakleyka_org);
+        var style_select = window.getComputedStyle(nakleyka_select);
+
+        var displayValue_nt1 = style_nt1.getPropertyValue('display');
+        var displayValue_org = style_org.getPropertyValue('display');
+        var displayValue_select = style_select.getPropertyValue('display');
+        console.log(displayValue_nt1)
+        console.log(displayValue_org)
+        console.log(displayValue_select)
+
+        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА')
             {
-
+                
             }
-
     }
 
     var text =data_base[id].get_kratkiy_tekst()
