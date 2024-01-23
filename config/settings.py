@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # 'json_field',
     # "debug_toolbar",
 ]
+SRF_COOKIE_SECURE =True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,6 +60,8 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 10242880
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 1024000
 
 ROOT_URLCONF = 'config.urls'
+
+SESSION_COOKIE_SECURE=True
 
 
 TEMPLATES = [
