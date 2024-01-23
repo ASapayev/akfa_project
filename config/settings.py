@@ -13,7 +13,7 @@ SECRET_KEY = config('SECRET_KEY')
 # DEBUG = config('DEBUG')
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://mdm.akfagroup.com/','https://mdm.akfagroup.com','www.mdm.akfagroup.com/','www.mdm.akfagroup.com']
+ALLOWED_HOSTS = ['mdm.akfagroup.com','https://mdm.akfagroup.com/','https://mdm.akfagroup.com','www.mdm.akfagroup.com/','www.mdm.akfagroup.com']
 
 
 # Application definition
