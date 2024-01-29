@@ -1657,7 +1657,7 @@ def kombinirovaniy_process(request,id):
                 
                 norma_exists.append({df[i][10]:df[i][11]})
                 if (df[i][10].split('-')[1][:1]=='N'):
-                    
+                   
                     length = df[i][10].split('-')[0]
                     alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
                     mein_percent =((get_legth(df[i][11]))/6)
@@ -1679,7 +1679,7 @@ def kombinirovaniy_process(request,id):
                             meinss1 = meinss
                         else:
                             nakleyka_width = alum_teks.data['низ ширина ленты/мм']
-                            nakleyka_shirinas = list(Nakleyka.objects.filter(код_наклейки = nakleyka_code,ширина__lte = str(nakleyka_width)).distinct('ширина').values('ширина'))
+                            nakleyka_shirinas = list(Nakleyka.objects.filter(код_наклейки = nakleyka_code).distinct('ширина').values('ширина'))
                             
                             nakleyka_shirinas =[float(val['ширина']) for val in nakleyka_shirinas]
                             nakleyka_shirinas.sort()
@@ -1701,13 +1701,16 @@ def kombinirovaniy_process(request,id):
                             
 
                     elif (alum_teks.data['низ ширина ленты/мм'] =='0' or alum_teks.data['низ ширина ленты/мм'] =='0.0') and alum_teks.data['верх ширина ленты/мм'] !='0':
+                       
                         meinss = float(alum_teks.data['верх расход ленты на 1000 профиль/м2'])
                         if Nakleyka.objects.filter(код_наклейки = nakleyka_code,ширина= alum_teks.data['верх ширина ленты/мм'].replace('.0','')).exists():
+                            
                             nakleyka_result3 = Nakleyka.objects.filter(код_наклейки = nakleyka_code,ширина= alum_teks.data['верх ширина ленты/мм'].replace('.0',''))[:1].get()
                             meinss3 = meinss
                         else:
+                           
                             nakleyka_width = alum_teks.data['верх ширина ленты/мм']
-                            nakleyka_shirinas = list(Nakleyka.objects.filter(код_наклейки = nakleyka_code,ширина__lte = str(nakleyka_width)).distinct('ширина').values('ширина'))
+                            nakleyka_shirinas = list(Nakleyka.objects.filter(код_наклейки = nakleyka_code).distinct('ширина').values('ширина'))
                             nakleyka_shirinas =[float(val['ширина']) for val in nakleyka_shirinas]
                             nakleyka_shirinas.sort()
                             
@@ -1727,9 +1730,10 @@ def kombinirovaniy_process(request,id):
                                     break
 
                     elif alum_teks.data['низ ширина ленты/мм'] !='0' and alum_teks.data['низ ширина ленты/мм'] !='0.0' and alum_teks.data['верх ширина ленты/мм'] !='0' and alum_teks.data['верх ширина ленты/мм'] !='0.0':
+                       
                         meinss_niz = float(alum_teks.data['низ расход ленты на 1000 профиль/м2'])
                         meinss_verx = float(alum_teks.data['верх расход ленты на 1000 профиль/м2'])
-                        print(alum_teks.data['новый'])
+                        
                         if Nakleyka.objects.filter(код_наклейки = nakleyka_code,ширина= alum_teks.data['низ ширина ленты/мм'].replace('.0','')).exists():
                             nakleyka_result1 = Nakleyka.objects.filter(код_наклейки = nakleyka_code,ширина= alum_teks.data['низ ширина ленты/мм'].replace('.0',''))[:1].get()
                             meinss1 = meinss_niz
@@ -1786,6 +1790,7 @@ def kombinirovaniy_process(request,id):
                         print('nakleyka razmer not')
                               
                     if nakleyka_result1 or nakleyka_result2 or nakleyka_result3 or nakleyka_result4:
+                        print(df[i][10],df[i][11],'>>>>>>>>666666')
                         j+=1
                         if (df[i][10].split('-')[1][:1]=='N'):
                             df_new['ID'].append('1')

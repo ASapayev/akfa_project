@@ -325,6 +325,8 @@ def generate_sap_code_price(sapcodes):
         for j in range(0,len(sapcodes[i]['components'])):
             if sapcodes[i]['components'][j][0] in siryo_menge:
                 sapcodes_copy[i]['components'][j][3] = (float(siryo_menge[sapcodes[i]['components'][j][0]]) )
+                print('*'*25,sapcodes[i]['components'][j][0],sapcodes_copy[i]['components'][j])
+                print('*'*25,siryo_menge[sapcodes[i]['components'][j][0]],sapcodes_copy[i]['components'][j][4])
                 sapcodes_copy[i]['components'][j][5] =(float(siryo_menge[sapcodes[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][4]))
                 value += float(siryo_menge[sapcodes[i]['components'][j][0]])
                 component_count += 1
