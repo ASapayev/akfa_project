@@ -343,14 +343,14 @@ def generate_sap_code_price(sapcodes):
                         if siryo_price[sapcodes[i]['components'][j][0]] !='0' and siryo_price[sapcodes[i]['components'][j][0]] !='0.0':
                             # if  sapcodes_copy[i]['components'][j][0] =='ASM.458.CLJ-0006':
                             #     print(sapcodes_copy[i]['components'][j][0],'&'*25)
-                            sapcodes_copy[i]['components'][j][7] =(float(siryo_price[sapcodes[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][6]))/1000
-                            price += (float(siryo_price[sapcodes[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][6]))
+                            sapcodes_copy[i]['components'][j][7] =(float(siryo_price[sapcodes[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][6]))
+                            price += (float(siryo_price[sapcodes[i]['components'][j][0]].replace(',','.')) * float(sapcodes_copy[i]['components'][j][6].replace(',','.')))
                         else:
                             # if  sapcodes_copy[i]['components'][j][0] =='ASM.458.CLJ-0006':
                             #     print(sapcodes_copy[i]['components'][j][0],'@'*25)
                             sapcodes_copy[i]['components'][j][8] = sapcodes_copy[i]['components'][j][3]
-                            sapcodes_copy[i]['components'][j][7] = float(siryo_menge[sapcodes_copy[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][4])/1000
-                            price += float(siryo_menge[sapcodes_copy[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][4])
+                            sapcodes_copy[i]['components'][j][7] = float(siryo_menge[sapcodes_copy[i]['components'][j][0]].replace(',','.')) * float(sapcodes_copy[i]['components'][j][6].replace(',','.'))
+                            price += float(siryo_menge[sapcodes_copy[i]['components'][j][0]].replace(',','.')) * float(sapcodes_copy[i]['components'][j][6].replace(',','.'))
                     else:
                         if sapcodes[i]['sap_code']=='APF.015.P53-PA01':
                             print(sapcodes[i]['components'][j][0],'^^^^^^^1111111111111111111')
