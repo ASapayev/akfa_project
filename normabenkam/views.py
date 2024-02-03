@@ -1790,7 +1790,7 @@ def kombinirovaniy_process(request,id):
                         print('nakleyka razmer not')
                               
                     if nakleyka_result1 or nakleyka_result2 or nakleyka_result3 or nakleyka_result4:
-                        print(df[i][10],df[i][11],'>>>>>>>>666666')
+                        
                         j+=1
                         if (df[i][10].split('-')[1][:1]=='N'):
                             df_new['ID'].append('1')
