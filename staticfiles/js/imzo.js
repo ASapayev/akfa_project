@@ -253,7 +253,7 @@ for (let i = 1; i <= 5; i++) {
         <span id='nakleyka_nt`+String(i)+`' style='display:none'>NT1</span>
         <span id='nakleyka_org`+String(i)+`' style='display:none'></span>
         <div id='nakleyka_select`+String(i)+`' style='display:none'>
-            <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;'></select>
+            <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
         </div>
         </div>
     </td>
@@ -477,9 +477,9 @@ function clear_artikul(id){
     var tip_pokritiya = $('#tip_pokritiya'+String(id));
     tip_pokritiya.val('0').change();
     tip_pokritiya.attr("disabled",true);
-    var select_nakleyka = $('#nakleyka'+String(id));
-    select_nakleyka.children("span").remove();
-    select_nakleyka.children("select").remove();
+    // var select_nakleyka = $('#nakleyka'+String(id));
+    // select_nakleyka.children("span").remove();
+    // select_nakleyka.children("select").remove();
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
     kratkiy_tekst.text("");
 
@@ -491,6 +491,8 @@ function clear_artikul(id){
     code_kraski_vnutri.text("");
     brand_kraski_vnutri.text("");
     brand_kraski_snaruji.text("");
+
+
 
     var dlina =$('#length'+String(id));
     dlina.val('');
@@ -572,13 +574,13 @@ function tip_pokritiya_selected(id,val){
     svet_dekplonka_snaruji.val('0').change();
     svet_dekplonka_snaruji.attr("disabled",true);
     var code_dekplonka_snaruji = $('#code_dekplonka_snaruji'+String(id));
-    code_dekplonka_snaruji.text("")
+    code_dekplonka_snaruji.text("");
 
     var svet_dekplonka_vnutri = $('#svet_dekplonka_vnutri'+String(id));
     svet_dekplonka_vnutri.val('0').change();
     svet_dekplonka_vnutri.attr("disabled",true);
     var code_dekplonka_vnutri = $('#code_dekplonka_vnutri'+String(id));
-    code_dekplonka_vnutri.text("")
+    code_dekplonka_vnutri.text("");
 
     var code_svet_anodirovki_vnutri = $('#code_svet_anodirovki_vnutri'+String(id));
     code_svet_anodirovki_vnutri.val('0').change();
@@ -590,10 +592,8 @@ function tip_pokritiya_selected(id,val){
 
 
     var splav = $('#splav'+String(id));
-    // splav.val().change();
     splav.attr("disabled",false);
     var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
-    // tip_zakalyonnosti.val('0').change();
     tip_zakalyonnosti.attr("disabled",false);
 
 
@@ -610,7 +610,7 @@ function tip_pokritiya_selected(id,val){
     var nakleyka_select = $('#nakleyka_select'+String(id));
 
     if(String(val) == '1'){
-        data_base [id] = new Neokrashenniy()
+        data_base[id] = new Neokrashenniy()
         nakleyka_nt1.css('display','block');
         nakleyka_org.css('display','none');
         nakleyka_select.css('display','none');
@@ -628,7 +628,7 @@ function tip_pokritiya_selected(id,val){
         }
 
     }else if(String(val) == '2'){
-        data_base [id] = new Beliy()
+        data_base[id] = new Beliy()
 
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
             var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
@@ -661,19 +661,17 @@ function tip_pokritiya_selected(id,val){
             get_nakleyka(id)
         }
             
-        
-        
     }else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
 
         if(String(val) == '3'){
-            data_base [id] = new Okrashenniy()
+            data_base[id] = new Okrashenniy()
         }else if(String(val) == '4'){
-            data_base [id] = new Laminatsiya()
+            data_base[id] = new Laminatsiya()
         }else if(String(val) == '5'){
-            data_base [id] = new Sublimatsiya()
+            data_base[id] = new Sublimatsiya()
         } 
         
-        var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;" id='brand_k_snaruji`+String(id)+`' required>
+        var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;" id='brand_k_snaruji`+String(id)+`'  onchange="create_kratkiy_tekst(`+String(id)+`)" required>
         <option  value="0" selected></option>
         <option value="A">A</option>
         <option value="B">B</option>
@@ -685,7 +683,7 @@ function tip_pokritiya_selected(id,val){
         </select>` 
         var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
         brand_kraski_snaruji.append(brands)
-        var code_kras_snaruji =`<input type="text" class="form-control " id ='code_kraski_snar' aria-describedby="inputGroup-sizing-sm" style="width:100px;" required>`
+        var code_kras_snaruji =`<input type="text" class="form-control " id ='code_kraski_snar`+String(id)+`' aria-describedby="inputGroup-sizing-sm" style="width:100px;"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
         var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
         code_kraski_snaruji.append(code_kras_snaruji);
         
@@ -736,21 +734,21 @@ function tip_pokritiya_selected(id,val){
 
         if (String(val) == '5'){
             
-            var svet_lamplonka_snaruji = $('#svet_dekplonka_snaruji'+String(id));
-            svet_lamplonka_snaruji.attr("disabled",false);
-            svet_lamplonka_snaruji.attr("required",true);
+            var svet_dekplonka_snaruji = $('#svet_dekplonka_snaruji'+String(id));
+            svet_dekplonka_snaruji.attr("disabled",false);
+            svet_dekplonka_snaruji.attr("required",true);
            
             if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
-                var svet_lamplonka_vnutri = $('#svet_dekplonka_vnutri'+String(id));
-                svet_lamplonka_vnutri.attr("disabled",false);
-                svet_lamplonka_vnutri.attr("required",true);
+                var svet_dekplonka_vnutri = $('#svet_dekplonka_vnutri'+String(id));
+                svet_dekplonka_vnutri.attr("disabled",false);
+                svet_dekplonka_vnutri.attr("required",true);
             }
             
         }
-
+        
 
     }else if(String(val) == '6'){
-        data_base [id] = new Anodirovka()
+        data_base[id] = new Anodirovka()
         const newDiv = `<select class="form-select kod_anod_snar" aria-label="" style="width: 100px;" onchange="code_svet_anodirovki_snaruji_selected(`+String(id)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(id)+`' required></select>`
         select_anod_snar.append(newDiv)  
 
@@ -785,7 +783,10 @@ function tip_pokritiya_selected(id,val){
         }
         
         
+        
     }
+
+    create_kratkiy_tekst(id);
 }
 
 
@@ -814,20 +815,34 @@ function code_svet_anodirovki_snaruji_selected(id,val){
 function svet_lamplonka_snaruji_selected(id,val){
     var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
     code_lamplonka_snaruji.text(String(val))
+    if (val !=''){
+        create_kratkiy_tekst(id);
+    }
+
 }
 function svet_lamplonka_vnutri_selected(id,val){
     var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
-    code_lamplonka_vnutri.text(String(val))
+    code_lamplonka_vnutri.text(String(val));
+    if (val !=''){
+        create_kratkiy_tekst(id);
+    }
 }
 
 
 function svet_dekplonka_snaruji_selected(id,val){
     var code_dekplonka_snaruji = $('#code_dekplonka_snaruji'+String(id));
     code_dekplonka_snaruji.text(String(val))
+   
+    if (val !=''){
+        create_kratkiy_tekst(id);
+    }
 }
 function svet_dekplonka_vnutri_selected(id,val){
     var code_dekplonka_vnutri = $('#code_dekplonka_vnutri'+String(id));
-    code_dekplonka_vnutri.text(String(val))
+    code_dekplonka_vnutri.text(String(val));
+    if (val !=''){
+        create_kratkiy_tekst(id);
+    }
 }
 
 
@@ -868,6 +883,7 @@ class Beliy{
 
     get_kratkiy_tekst(){
         if(!this.is_termo){
+
             if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
                 return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki
             }else{
@@ -890,6 +906,7 @@ class Okrashenniy{
     }
     get_kratkiy_tekst(){
         if(!this.is_termo){
+            console.log(this.brend_kraska_sn,this.kod_kraska_sn,this.kod_nakleyki)
             if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
                 return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki
             }else{
@@ -1002,11 +1019,12 @@ function create_kratkiy_tekst(id){
 
     }else if(String(val) == '2'){
         data_base[id].brend_kraska_sn ='R'
-        data_base[id].code_kraski_snaruji ='9016'
+        data_base[id].kod_kraska_sn ='9016'
 
         var nakleyka_nt1 = document.getElementById('nakleyka_nt'+String(id))
         var nakleyka_org = document.getElementById('nakleyka_org'+String(id))
         var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
+        
         var style_nt1 = window.getComputedStyle(nakleyka_nt1);
         var style_org = window.getComputedStyle(nakleyka_org);
         var style_select = window.getComputedStyle(nakleyka_select);
@@ -1014,14 +1032,100 @@ function create_kratkiy_tekst(id){
         var displayValue_nt1 = style_nt1.getPropertyValue('display');
         var displayValue_org = style_org.getPropertyValue('display');
         var displayValue_select = style_select.getPropertyValue('display');
-        console.log(displayValue_nt1)
-        console.log(displayValue_org)
-        console.log(displayValue_select)
+        
+        if(displayValue_nt1 != 'none'){
+            data_base[id].kod_nakleyki = nakleyka_nt1.innerText;
+        }else if(displayValue_org != 'none'){
+            data_base[id].kod_nakleyki = nakleyka_org.innerText;
+        }else if(displayValue_select != 'none'){
+           
+            const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
+
+            if(spanTextbox.innerText !=''){
+                data_base[id].kod_nakleyki = spanTextbox.innerText;
+            }
+
+        }
+        
 
         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА')
             {
                 
             }
+    }
+    else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
+        
+        var brend_kraska_sn = $('#brand_k_snaruji'+String(id))
+        if(brend_kraska_sn.val() != '0' && brend_kraska_sn.val()  != undefined){
+            data_base[id].brend_kraska_sn =brend_kraska_sn.val();
+        }
+        
+        var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+        if(code_kraski_snaruji.val() != '0' && code_kraski_snaruji.val()  != undefined){
+            data_base[id].kod_kraska_sn =code_kraski_snaruji.val();
+        }
+        // data_base[id].kod_kraska_sn =code_kraski_snaruji.val();
+       
+
+        var nakleyka_nt1 = document.getElementById('nakleyka_nt'+String(id))
+        var nakleyka_org = document.getElementById('nakleyka_org'+String(id))
+        var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
+        
+        var style_nt1 = window.getComputedStyle(nakleyka_nt1);
+        var style_org = window.getComputedStyle(nakleyka_org);
+        var style_select = window.getComputedStyle(nakleyka_select);
+
+        var displayValue_nt1 = style_nt1.getPropertyValue('display');
+        var displayValue_org = style_org.getPropertyValue('display');
+        var displayValue_select = style_select.getPropertyValue('display');
+        
+        if(displayValue_nt1 != 'none'){
+            data_base[id].kod_nakleyki = nakleyka_nt1.innerText;
+        }else if(displayValue_org != 'none'){
+            data_base[id].kod_nakleyki = nakleyka_org.innerText;
+        }else if(displayValue_select != 'none'){
+           
+            const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
+
+            if(spanTextbox.innerText != ''){
+                data_base[id].kod_nakleyki = spanTextbox.innerText;
+            }
+        }
+
+       
+        if(String(val) == '4'){
+            
+            var code_lamplonka_snaruji = document.getElementById('code_lamplonka_snaruji'+String(id)).innerText;
+            
+            if(code_lamplonka_snaruji !=''){
+                data_base[id].kod_lam_sn =code_lamplonka_snaruji;
+            }
+            
+            var code_lamplonka_vnutri = document.getElementById('code_lamplonka_vnutri'+String(id)).innerText;
+           
+
+            if(code_lamplonka_vnutri !=''){
+                data_base[id].kod_lam_vn =code_lamplonka_vnutri;
+            }
+        }
+        if(String(val) == '5'){
+            var selectElement = document.getElementById('svet_dekplonka_snaruji'+String(id)).value;
+
+            var selectedIndex = selectElement.selectedIndex;
+
+            // Get the text content of the selected option
+            var selectedOption = selectElement.options[selectedIndex];
+            var selectedText = selectedOption.textContent;
+
+
+            console.log(selectedText)
+            data_base[id].kod_dekor_sn =selectedText;
+            // svet_dekplonka_snaruji.attr("disabled",false);
+            // svet_dekplonka_snaruji.attr("required",true);
+        }
+
+    }else if(String(val) == '6'){
+        
     }
 
     var text =data_base[id].get_kratkiy_tekst()

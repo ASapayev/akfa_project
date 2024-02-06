@@ -3638,7 +3638,7 @@ def product_add_second_org(request,id):
                                                       'export_customer_id':row['Код заказчика экспорт если експорт'],
                                                       'system':row['Название системы'],
                                                       'article':artikle,
-                                                      'length':dlina,
+                                                      'length':df['Длина (мм)'][key],
                                                       'surface_treatment':row['Тип покрытия'],
                                                       'alloy':row['Сплав'],
                                                       'temper':row['тип закаленности'],

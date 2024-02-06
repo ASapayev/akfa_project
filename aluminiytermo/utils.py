@@ -2862,6 +2862,7 @@ def create_characteristika_utils(items):
         df[3].append(characteristik.sap_код_s4p_100)
         df[4].append(characteristik.нумерация_до_sap)
         df[5].append(characteristik.короткое_название_sap)
+
         df[6].append(characteristik.польное_наименование_sap)
         df[7].append(characteristik.ед_изм)
         df[8].append(characteristik.альтернативная_ед_изм)
@@ -2869,6 +2870,7 @@ def create_characteristika_utils(items):
         df[10].append(characteristik.участок)
         df[11].append(characteristik.альтернативный_участок)
         df[12].append(characteristik.длина)
+        
         df[13].append(characteristik.ширина)
         df[14].append(characteristik.высота)
         df[15].append(characteristik.группа_материалов)
