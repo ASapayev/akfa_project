@@ -1625,7 +1625,7 @@ def product_add_second_simple(id):
                                 if row['Код наклейки'] != 'NT1':
                                         df_new['Наклейка'][key]= df_new['Анодировка'][key] +' ' + row['Код наклейки'].replace('.0','')
                         else:
-                        pass
+                                pass
                         
                         
                         
