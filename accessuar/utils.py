@@ -2,6 +2,8 @@ from config.settings import MEDIA_ROOT
 from datetime import datetime
 import pandas as pd
 from .models import Norma,TexcartaBase
+from aluminiy.models import ExchangeValues
+
 
 def get_norma_df(ozmk) ->list:
     df_new ={
@@ -230,7 +232,7 @@ def lenght_generate_texcarta(ozmks) -> list:
     df_new['USR00']=''
     df_new['USR01']=''
     
-
+    exchange_value = ExchangeValues.objects.get(id=1)
 
     counter_2 = 0
     for ozmk in ozmks:
@@ -281,7 +283,7 @@ def lenght_generate_texcarta(ozmks) -> list:
                     df_new['MEINH'][counter_2] ='ST'
                     df_new['VGW01'][counter_2] ='1'
                     df_new['VGE01'][counter_2] ='S'
-                    df_new['VGW03'][counter_2]=''
+                    df_new['VGW03'][counter_2]="%.3f" % ((float(norma.data['price'])*1000)/exchange_value)
                     df_new['VGE03'][counter_2]='ZUS'
                     df_new['ACTTYPE_01'][counter_2] ='200130'
                     df_new['CKSELKZ'][counter_2] =''

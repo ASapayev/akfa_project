@@ -227,10 +227,10 @@ for (let i = 1; i <= 5; i++) {
     </td> 
     <td style="background-color:#ddebf7;">
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 30px;"  disabled id='contactnost_anodirovki`+String(i)+`'>
-            <option  value="" selected></option>
-            <option value="1" >YC</option>
-            <option value="2">NC</option>
+        <select class="form-select" aria-label="" style="width: 30px;"  disabled id='contactnost_anodirovki`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <option  value=""></option>
+            <option value="YC" >YC</option>
+            <option value="NC">NC</option>
         </select>
         </div>
     </td>
@@ -533,7 +533,6 @@ function clear_artikul(id){
 
 function tip_pokritiya_selected(id,val){
     
-
     var select_anod_snar = $('#anod'+String(id));
     select_anod_snar.children("span").remove();
     select_anod_snar.children("select").remove();
@@ -587,7 +586,9 @@ function tip_pokritiya_selected(id,val){
     code_svet_anodirovki_vnutri.attr("disabled",true);
     
     var contactnost_anodirovki = $('#contactnost_anodirovki'+String(id));
-    contactnost_anodirovki.val('0').change();
+    if(data_base[id]){
+        contactnost_anodirovki.val('0').change();
+    }
     contactnost_anodirovki.attr("disabled",true);
 
 
@@ -803,12 +804,15 @@ function code_svet_anodirovki_snaruji_selected(id,val){
     
         var tip_anodirovki =$('#tip_anodirovki'+String(id));
         var sposob_anodirovki = $('#sposob_anodirovki'+String(id));
-       
+        console.log(e.params.data.text)
         tip_anodirovki.text(e.params.data.tip_anod);
         sposob_anodirovki.text(e.params.data.sposob_anod)
     
     
-    })
+    });
+    if (val !=''){
+        create_kratkiy_tekst(id);
+    }
 
 }
 
@@ -861,7 +865,7 @@ class Neokrashenniy{
     get_kratkiy_tekst(){
         if(!this.is_termo){
             if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki){
-                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki
+                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'  ' +this.kod_nakleyki
             }else{
                 return 'XXXXXXXX'
             }
@@ -885,7 +889,7 @@ class Beliy{
         if(!this.is_termo){
 
             if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
-                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki
+                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki
             }else{
                 return 'XXXXXXXX'
             }
@@ -908,7 +912,7 @@ class Okrashenniy{
         if(!this.is_termo){
             console.log(this.brend_kraska_sn,this.kod_kraska_sn,this.kod_nakleyki)
             if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
-                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki
+                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki
             }else{
                 return 'XXXXXXXX'
             }
@@ -933,7 +937,7 @@ class Sublimatsiya{
     get_kratkiy_tekst(){
         if(!this.is_termo){
             if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki){
-                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki
+                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + '  ' +this.kod_nakleyki
             }else{
                 return 'XXXXXXXX'
             }
@@ -956,7 +960,7 @@ class Laminatsiya{
     get_kratkiy_tekst(){
         if(!this.is_termo){
             if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki){
-                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki
+                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki
             }else{
                 return 'XXXXXXXX'
             }
@@ -964,20 +968,21 @@ class Laminatsiya{
     }
   }
 class Anodirovka{
-    constructor(id=NaN, splav=NaN,tip_zak,dlina=NaN,kod_anod_sn=NaN,kod_nakleyki=NaN,is_termo=false) {
+    constructor(id=NaN, splav=NaN,tip_zak,dlina=NaN,kod_anod_sn=NaN,kod_nakleyki=NaN,contactnost_anod=NaN,is_termo=false) {
       this.id = id;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
       this.kod_anod_sn = kod_anod_sn;
       this.kod_nakleyki = kod_nakleyki;
+      this.contactnost_anod = contactnost_anod;
       this.is_termo = is_termo;
     }
 
     get_kratkiy_tekst(){
         if(!this.is_termo){
-            if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_nakleyki){
-                return this.splav + ' ' + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +' ' +this.kod_nakleyki
+            if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_nakleyki && this.contactnost_anod){
+                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn + '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki
             }else{
                 return 'XXXXXXXX'
             }
@@ -1109,23 +1114,61 @@ function create_kratkiy_tekst(id){
             }
         }
         if(String(val) == '5'){
-            var selectElement = document.getElementById('svet_dekplonka_snaruji'+String(id)).value;
+            var selectElement = document.getElementById('svet_dekplonka_snaruji'+String(id));
 
             var selectedIndex = selectElement.selectedIndex;
+            if(selectedIndex !=-1){
 
-            // Get the text content of the selected option
-            var selectedOption = selectElement.options[selectedIndex];
-            var selectedText = selectedOption.textContent;
+                var selectedOption = selectElement.options[selectedIndex];
+                var selectedText = selectedOption.textContent;
+                data_base[id].kod_dekor_sn =selectedText;
+            }
 
 
-            console.log(selectedText)
-            data_base[id].kod_dekor_sn =selectedText;
             // svet_dekplonka_snaruji.attr("disabled",false);
             // svet_dekplonka_snaruji.attr("required",true);
         }
 
     }else if(String(val) == '6'){
+        var nakleyka_nt1 = document.getElementById('nakleyka_nt'+String(id))
+        var nakleyka_org = document.getElementById('nakleyka_org'+String(id))
+        var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
         
+        var style_nt1 = window.getComputedStyle(nakleyka_nt1);
+        var style_org = window.getComputedStyle(nakleyka_org);
+        var style_select = window.getComputedStyle(nakleyka_select);
+
+        var displayValue_nt1 = style_nt1.getPropertyValue('display');
+        var displayValue_org = style_org.getPropertyValue('display');
+        var displayValue_select = style_select.getPropertyValue('display');
+        
+        if(displayValue_nt1 != 'none'){
+            data_base[id].kod_nakleyki = nakleyka_nt1.innerText;
+        }else if(displayValue_org != 'none'){
+            console.log(nakleyka_org);
+            data_base[id].kod_nakleyki = nakleyka_org.innerText;
+        }else if(displayValue_select != 'none'){
+           
+            const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
+
+            if(spanTextbox.innerText !=''){
+                data_base[id].kod_nakleyki = spanTextbox.innerText;
+            }
+
+        }
+
+        var anod_sn = document.getElementById("anod"+String(id))
+        const spanTextbox = anod_sn.querySelector('span[role="textbox"]');
+        if(spanTextbox.innerText !=''){
+            data_base[id].kod_anod_sn = spanTextbox.innerText;
+        }
+        
+        var contactnost_anodirovki = $('#contactnost_anodirovki'+String(id));
+        if(contactnost_anodirovki.val()!='0' && contactnost_anodirovki.val()!=''){
+            data_base[id].contactnost_anod = contactnost_anodirovki.val();
+        }
+        console.log(contactnost_anodirovki);
+
     }
 
     var text =data_base[id].get_kratkiy_tekst()
