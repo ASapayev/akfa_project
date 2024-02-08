@@ -102,7 +102,7 @@ for (let i = 1; i <= 5; i++) {
     
     <td style="background-color:#ddebf7;">
         <div class="input-group input-group-sm mb-1">    
-        <select class="form-select" aria-label="" style="width: 245px;" onchange="svet_dekplonka_snaruji_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_snaruji`+String(i)+`' disabled>
+        <select class="form-select" aria-label="" style="width: 100px;" onchange="svet_dekplonka_snaruji_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_snaruji`+String(i)+`' disabled>
             <option  value="" selected></option>
             <option value="Золотой Дуб 7777" >7777</option>
             <option value="Махагон 3701">3701</option>
