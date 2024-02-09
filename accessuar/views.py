@@ -87,6 +87,37 @@ def full_update_siryo(request):
 
 
 @login_required(login_url='/accounts/login/')
+def full_update_texcarta(request):
+    if request.method == 'POST':
+        data = request.POST.copy()
+        data['type']='termo'
+        form = AccessuarFileForm(data, request.FILES)
+        if form.is_valid():
+            form_file = form.save()
+            file = form_file.file
+            path =f'{MEDIA_ROOT}/{file}'
+            
+            df = pd.read_excel(path,header=0)
+            
+            df = df.astype(str)
+            df = df.replace('nan','0')
+            df = df.replace('0.0','0')
+            for key,row in df.iterrows():
+                norma_exists = Norma.objects.filter(data__sap_code__icontains =row['SAPCODE']).exists()
+                if norma_exists:
+                    norma = Norma.objects.filter(data__sap_code__icontains =row['SAPCODE'])[:1].get()
+                    arbpl = []
+                    if row['ARBPL1'] !='0':
+                        arbpl.append(row['ARBPL1'])
+                    if row['ARBPL2'] !='0':
+                        arbpl.append(row['ARBPL2'])
+                    if row['ARBPL3'] !='0':
+                        arbpl.append(row['ARBPL3'])
+                    norma.data['ARBPL'] = arbpl
+                    norma.save()
+    return render(request,'norma/benkam/main.html')
+
+@login_required(login_url='/accounts/login/')
 def full_update_norm(request):
     if request.method == 'POST':
         data = request.POST.copy()

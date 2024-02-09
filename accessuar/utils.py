@@ -232,75 +232,61 @@ def lenght_generate_texcarta(ozmks) -> list:
     df_new['USR00']=''
     df_new['USR01']=''
     
-    exchange_value = ExchangeValues.objects.get(id=1)
+    exchange_value = float(ExchangeValues.objects.get(id=1).valute)
 
     counter_2 = 0
+    not_exists =[]
     for ozmk in ozmks:
         if not TexcartaBase.objects.filter(material = ozmk).exists():
            
             norma = Norma.objects.filter(data__sap_code__icontains=ozmk)[:1].get()
-
-            for i in range(1,4):
-                if i ==1:
-                    df_new['ID'][counter_2] ='1'
-                    df_new['MATNR'][counter_2] = ozmk
-                    df_new['WERKS'][counter_2] ='1201'
-                    df_new['STTAG'][counter_2] ='01012022'
-                    df_new['PLNAL'][counter_2] ='1'
-                    df_new['KTEXT'][counter_2] = norma.data['kratkiy_tekst']
-                    df_new['VERWE'][counter_2] ='1'
-                    df_new['STATU'][counter_2] ='4'
-                    df_new['LOSVN'][counter_2] ='1'
-                    df_new['LOSBS'][counter_2] ='99999999'
-                elif i == 2:
-                    df_new['ID'][counter_2]='2'
-                    df_new['VORNR'][counter_2] ='0010'
-                    df_new['ARBPL'][counter_2] ='1201A902'
-                    df_new['WERKS1'][counter_2] ='1201'
-                    df_new['STEUS'][counter_2] ='ZK01'
-                    df_new['LTXA1'][counter_2] =norma.data['kratkiy_tekst']
-                    df_new['BMSCH'][counter_2] = ''
-                    df_new['MEINH'][counter_2] ='M2'
-                    df_new['VGW01'][counter_2] ='1'
-                    df_new['VGE01'][counter_2] ='STD'
-                    df_new['VGW03'][counter_2]=''
-                    df_new['VGE03'][counter_2]='ZUS'
-                    df_new['ACTTYPE_01'][counter_2] ='200130'
-                    df_new['CKSELKZ'][counter_2] ='X'
-                    df_new['UMREZ'][counter_2] = '1000'
-                    df_new['UMREN'][counter_2] = ''
-                    df_new['USR00'][counter_2] = '1'
-                    df_new['USR01'][counter_2] = ''#("%.3f" % ((L*1000*3600*float(norma.data['Площадь поверхности 1000шт профилей/м²'].replace(',','.')))/(6000000*bmsch)))
-                    
-                elif i == 3:
-                    df_new['ID'][counter_2]='2'
-                    df_new['VORNR'][counter_2] ='0020'
-                    df_new['ARBPL'][counter_2] ='1201A901'
-                    df_new['WERKS1'][counter_2] ='1201'
-                    df_new['STEUS'][counter_2] ='ZK01'
-                    df_new['LTXA1'][counter_2] =norma.data['kratkiy_tekst']
-                    df_new['BMSCH'][counter_2] = '1000'
-                    df_new['MEINH'][counter_2] ='ST'
-                    df_new['VGW01'][counter_2] ='1'
-                    df_new['VGE01'][counter_2] ='S'
-                    df_new['VGW03'][counter_2]="%.3f" % ((float(norma.data['price'])*1000)/exchange_value)
-                    df_new['VGE03'][counter_2]='ZUS'
-                    df_new['ACTTYPE_01'][counter_2] ='200130'
-                    df_new['CKSELKZ'][counter_2] =''
-                    df_new['UMREZ'][counter_2] = '1000'
-                    df_new['UMREN'][counter_2] = '1000'
-                    df_new['USR00'][counter_2] = '1'
-                    df_new['USR01'][counter_2] = ''#("%.3f" % ((L*1000*3600*float(norma.data['Площадь поверхности 1000шт профилей/м²'].replace(',','.')))/(6000000*bmsch)))
-                    
-                counter_2 +=1
-            TexcartaBase(material = ozmk).save()
+            if 'ARBPL' in norma.data:
+                len_arbpl =len(norma.data['ARBPL'])
+                price = ((float(norma.data['price'])*1000)/exchange_value)/len_arbpl
+                for i in range(1,len_arbpl+2):
+                    if i ==1:
+                        df_new['ID'][counter_2] ='1'
+                        df_new['MATNR'][counter_2] = ozmk
+                        df_new['WERKS'][counter_2] ='4501'
+                        df_new['STTAG'][counter_2] ='01012023'
+                        df_new['PLNAL'][counter_2] ='1'
+                        df_new['KTEXT'][counter_2] = norma.data['kratkiy_tekst']
+                        df_new['VERWE'][counter_2] ='1'
+                        df_new['STATU'][counter_2] ='4'
+                        df_new['LOSVN'][counter_2] ='1'
+                        df_new['LOSBS'][counter_2] ='99999999'
+                    else:
+                        df_new['ID'][counter_2]='2'
+                        df_new['VORNR'][counter_2] =f'00{i-1}0'
+                        df_new['ARBPL'][counter_2] =norma.data['ARBPL'][i-2]
+                        df_new['WERKS1'][counter_2] ='4501'
+                        df_new['STEUS'][counter_2] ='ZK01'
+                        df_new['LTXA1'][counter_2] =norma.data['kratkiy_tekst']
+                        df_new['BMSCH'][counter_2] = '1000'
+                        df_new['MEINH'][counter_2] ='ST'
+                        df_new['VGW01'][counter_2] ='24'
+                        df_new['VGE01'][counter_2] ='STD'
+                        df_new['VGW03'][counter_2]="%.3f" % price
+                        df_new['VGE03'][counter_2]='ZUS'
+                        df_new['ACTTYPE_01'][counter_2] ='200096'
+                        df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = '1'
+                        df_new['UMREN'][counter_2] = '1'
+                        df_new['USR00'][counter_2] = '1'
+                        df_new['USR01'][counter_2] = '1'#("%.3f" % ((L*1000*3600*float(norma.data['Площадь поверхности 1000шт профилей/м²'].replace(',','.')))/(6000000*bmsch)))
+                        
+                    counter_2 +=1
+                TexcartaBase(material = ozmk).save()
+            else:
+                not_exists.append(ozmk)
             
     for i in range(0,counter_2):
         df_new['USR01'][i] = df_new['USR01'][i].replace('.',',')
 
     df_new=df_new.replace('nan','')
 
-    
+    not_exist_df = pd.DataFrame({'SAP CODE':not_exists})
+
     del df_new["counter"]
         
     from datetime import datetime
@@ -325,6 +311,7 @@ def lenght_generate_texcarta(ozmks) -> list:
     path2 =f'{MEDIA_ROOT}\\uploads\\texcarta_accessuar\\{year}\\{month}\\{day}\\{hour}\\Texcarta_{s2}.xlsx'
     writer = pd.ExcelWriter(path2, engine='xlsxwriter')
     df_new.to_excel(writer,index=False,sheet_name ='TEXCARTA')
+    not_exist_df.to_excel(writer,index=False,sheet_name ='NOT EXISTS')
     writer.close()
 
    
