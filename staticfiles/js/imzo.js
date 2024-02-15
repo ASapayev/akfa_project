@@ -480,8 +480,12 @@ function clear_artikul(id){
     // var select_nakleyka = $('#nakleyka'+String(id));
     // select_nakleyka.children("span").remove();
     // select_nakleyka.children("select").remove();
-    var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
-    kratkiy_tekst.text("");
+    delete data_base[id]
+
+    var kratkiy_tekst = document.getElementById('kratkiy_tekst'+String(id));
+    console.log(kratkiy_tekst)
+    kratkiy_tekst.innerText="";
+    console.log(data_base)
 
     var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
     var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
@@ -527,7 +531,9 @@ function clear_artikul(id){
     var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
     tip_zakalyonnosti.val('0').change();
     tip_zakalyonnosti.attr("disabled",true);
-
+    // console.log(data_base)
+    // console.log(typeof(data_base))
+    
 }
 
 
@@ -1045,6 +1051,9 @@ class Anodirovka{
 
 
 function create_kratkiy_tekst(id){
+    if(!data_base[id]){
+        console.log('salom')
+    }else{
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
     var combination= $('#combination'+String(id));
     combination_text = combination.text();
@@ -1055,13 +1064,17 @@ function create_kratkiy_tekst(id){
     }
     
     var splav = $('#splav'+String(id));
-    if(splav.val()!='0' && splav.val()!=''){
-        data_base[id].splav = splav.val();
+    if(splav){
+        if(splav.val()!='0' && splav.val()!=''){
+            data_base[id].splav = splav.val();
+        }
     }
 
     var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
-    if(tip_zakalyonnosti.val()!='0' && tip_zakalyonnosti.val()!=''){
-        data_base[id].tip_zak = tip_zakalyonnosti.val();
+    if(tip_zakalyonnosti){
+        if(tip_zakalyonnosti.val()!='0' && tip_zakalyonnosti.val()!=''){
+            data_base[id].tip_zak = tip_zakalyonnosti.val();
+        }
     }
 
     if(String(val) == '1'){
@@ -1273,4 +1286,6 @@ function create_kratkiy_tekst(id){
 
     var text =data_base[id].get_kratkiy_tekst()
     kratkiy_tekst.text(text)
+
+    }
 }
