@@ -1248,15 +1248,19 @@ function create_kratkiy_tekst(id){
         var anod_sn = document.getElementById("anod"+String(id))
         const spanTextbox1 = anod_sn.querySelector('span[role="textbox"]');
         console.log(spanTextbox1)
-        if(spanTextbox1.innerText !='' && spanTextbox1){
-            data_base[id].kod_anod_sn = spanTextbox1.innerText;
+        if(spanTextbox1){
+            if(spanTextbox1.innerText !='' ){
+                data_base[id].kod_anod_sn = spanTextbox1.innerText;
+            }
         }
         if(combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
             data_base[id].is_termo =true;
             var anod_sn = document.getElementById("anod_vnutr"+String(id))
             const spanTextbox2 = anod_sn.querySelector('span[role="textbox"]');
-            if(spanTextbox2.innerText !='' && spanTextbox2){
-                data_base[id].kod_anod_vn = spanTextbox2.innerText;
+            if(spanTextbox2){
+                if(spanTextbox2.innerText !=''){
+                    data_base[id].kod_anod_vn = spanTextbox2.innerText;
+                }
             }
         }
         
