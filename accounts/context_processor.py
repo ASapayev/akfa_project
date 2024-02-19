@@ -14,6 +14,7 @@ ROLE_CHOICES ={
     3:'user2',
     4:'only_razlovka',
     5:'user_accessuar',
+    6:'razlovka',
 }
 
 def get_user_role(request):
