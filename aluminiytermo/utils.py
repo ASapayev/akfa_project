@@ -3063,8 +3063,8 @@ def characteristika_created_txt_create_1301(datas):
 
         umumiy_without_duplicate1201[8].append(spart)
 
-        umumiy_without_duplicate1201[9].append(row['BRGEW'].replace('.',','))
-        umumiy_without_duplicate1201[10].append(row['NTGEW'].replace('.',','))
+        umumiy_without_duplicate1201[9].append(str(row['BRGEW']).replace('.',','))
+        umumiy_without_duplicate1201[10].append(str(row['NTGEW']).replace('.',','))
         umumiy_without_duplicate1201[11].append('КГ')
         umumiy_without_duplicate1201[12].append('NORM')
         umumiy_without_duplicate1201[13].append(row['MAKTX'])
