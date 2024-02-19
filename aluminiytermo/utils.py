@@ -3050,7 +3050,7 @@ def characteristika_created_txt_create_1301(datas):
         umumiy_without_duplicate1201[3].append('ШТ')
         umumiy_without_duplicate1201[4].append('ZPRF')
 
-        if row['MATKL'] =='PVCGP':
+        if 'PVC' in row['MATKL']:
             spart ='02'
             dispo ='102'
         else:
@@ -3063,8 +3063,8 @@ def characteristika_created_txt_create_1301(datas):
 
         umumiy_without_duplicate1201[8].append(spart)
 
-        umumiy_without_duplicate1201[9].append('')
-        umumiy_without_duplicate1201[10].append('')
+        umumiy_without_duplicate1201[9].append(row['BRGEW'])
+        umumiy_without_duplicate1201[10].append(row['NTGEW'])
         umumiy_without_duplicate1201[11].append('')
         umumiy_without_duplicate1201[12].append('NORM')
         umumiy_without_duplicate1201[13].append(row['MAKTX'])
