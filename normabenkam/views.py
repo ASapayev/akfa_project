@@ -2280,15 +2280,19 @@ def kombinirovaniy_process(request,id):
                             delta_L = L - n * Lk
                             meins1= int(1000/n)
 
-                            tex_otxod = (-1000)*(float(alum_teks1) + float(alum_teks2) + float(alum_teks3))*delta_L
+                            tex_otxod = (-meins1)*(float(alum_teks1) + float(alum_teks2) + float(alum_teks3))*delta_L
                         else:
                             L = ((get_legth(older_process['kratkiy'])))
                             Lk= ((get_legth(df[i][17])))
                             n = int(L/Lk)
                             delta_L = L - n * Lk
                             meins1= int(1000/n)
-                            alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
-                            tex_otxod = (-1000)*float(alum_teks.data['Удельный вес профиля кг/м'])*delta_L
+                            if Norma.objects.filter(data__новый__icontains=length).exists():
+                                alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
+                            else:
+                                length = older_process['sapcode'].split('-')[0]
+                                alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
+                            tex_otxod = (-meins1)*float(alum_teks.data['Удельный вес профиля кг/м'])*delta_L
 
                         df_new['ID'].append('1')
                         df_new['MATNR'].append(df[i][16])
@@ -2534,14 +2538,13 @@ def kombinirovaniy_process(request,id):
                             delta_L = L - n * Lk
                             meins1= int(1000/n)
 
-                            tex_otxod = (-1000)*(float(alum_teks1) + float(alum_teks2) + float(alum_teks3))*delta_L
+                            tex_otxod = (-meins1)*(float(alum_teks1) + float(alum_teks2) + float(alum_teks3))*delta_L
                         else:
                             L = ((get_legth(older_process['kratkiy'])))
                             Lk= ((get_legth(df[i][15])))
                             n = int(L/Lk)
                             delta_L = L - n * Lk
                             meins1= int(1000/n)
-                            print(length,'<<<<<<<<<<<<<')
                             if Norma.objects.filter(data__новый__icontains=length).exists():
                                 alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
                             else:
