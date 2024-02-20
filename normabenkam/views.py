@@ -2542,7 +2542,12 @@ def kombinirovaniy_process(request,id):
                             delta_L = L - n * Lk
                             meins1= int(1000/n)
                             print(length,'<<<<<<<<<<<<<')
-                            alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
+                            if Norma.objects.filter(data__новый__icontains=length).exists():
+                                alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
+                            else:
+                                length = older_process['sapcode'].split('-')[0]
+                                alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
+
                             tex_otxod = (-1000)*float(alum_teks.data['Удельный вес профиля кг/м'])*delta_L
 
                         df_new['ID'].append('1')
