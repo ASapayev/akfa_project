@@ -2701,7 +2701,7 @@ def kombinirovaniy_process(request,id):
     month =now.strftime("%B")
     day =now.strftime("%a%d")
     hour =now.strftime("%H HOUR")
-    minut =now.strftime("%d-%B-%Y %H-%M")    
+    minut =now.strftime("%d.%m.%Y_%H.%M")    
                  
             
     create_folder(f'{MEDIA_ROOT}\\uploads','norma')
@@ -2712,7 +2712,7 @@ def kombinirovaniy_process(request,id):
             
             
     
-    path =f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\{month}\\{day}\\{hour}\\NORMA-{minut}-{product_type}.xlsx'
+    path =f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\{month}\\{day}\\{hour}\\SP_{minut}.xlsx'
     
 
     meins7 = []
@@ -3384,7 +3384,7 @@ def lenght_generate_texcarta(request,id):
     create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta_benkam\\{year}\\{month}',day)
     create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta_benkam\\{year}\\{month}\\{day}',hour)
     
-    path7 =f'{MEDIA_ROOT}\\uploads\\texcarta_benkam\\{year}\\{month}\\{day}\\{hour}\\TK_PRISVOENIYE_{s2}.txt'
+    path7 =f'{MEDIA_ROOT}\\uploads\\texcarta_benkam\\{year}\\{month}\\{day}\\{hour}\\TK_PRISVOENIYE_{s2}.xlsx'
     tk_prisvoeniye ={}
     header ='WERKS\tPLNNR\tPLNAL_02\tMATNR_02'
     tk_prisvoeniye['WERKS']=df_list_gp[0]
@@ -3395,7 +3395,8 @@ def lenght_generate_texcarta(request,id):
     
     df_tk_prisvoeniye= pd.DataFrame(tk_prisvoeniye)
     
-    np.savetxt(path7, df_tk_prisvoeniye.values,fmt='%s', delimiter="\t",header=header,comments='',encoding='ansi')
+    df_tk_prisvoeniye.to_excel(path7,index=False)
+    # np.savetxt(path7, df_tk_prisvoeniye.values,fmt='%s', delimiter="\t",header=header,comments='',encoding='ansi')
 
 
     path2 =f'{MEDIA_ROOT}\\uploads\\texcarta_benkam\\{year}\\{month}\\{day}\\{hour}\\TK_{s2}.xlsx'
