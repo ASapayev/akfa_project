@@ -1190,7 +1190,7 @@ def kombinirovaniy_process(request,id):
     norma_exists= []
 
     for i in range(0,len(df)):
-        
+        print(i)
         older_process ={'sapcode':'','kratkiy':''}
         
         if {df[i][0]:df[i][1]} not in norma_exists:
