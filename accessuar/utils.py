@@ -280,6 +280,7 @@ def lenght_generate_texcarta(ozmks) -> list:
                 else:
                     not_exists.append(ozmk)
             else:
+                not_exists.append(ozmk)
                 print(ozmk)
             
     for i in range(0,counter_2):
