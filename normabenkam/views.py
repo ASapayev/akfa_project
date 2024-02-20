@@ -2541,6 +2541,7 @@ def kombinirovaniy_process(request,id):
                             n = int(L/Lk)
                             delta_L = L - n * Lk
                             meins1= int(1000/n)
+                            print(length,'<<<<<<<<<<<<<')
                             alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
                             tex_otxod = (-1000)*float(alum_teks.data['Удельный вес профиля кг/м'])*delta_L
 

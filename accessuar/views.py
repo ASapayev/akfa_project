@@ -356,8 +356,9 @@ def generate_sap_code_price(sapcodes):
         for j in range(0,len(sapcodes[i]['components'])):
             if sapcodes[i]['components'][j][0] in siryo_menge:
                 sapcodes_copy[i]['components'][j][3] = (float(siryo_menge[sapcodes[i]['components'][j][0]]) )
-                # print('*'*25,sapcodes[i]['components'][j][0],sapcodes_copy[i]['components'][j])
-                # print('*'*25,siryo_menge[sapcodes[i]['components'][j][0]],sapcodes_copy[i]['components'][j][4])
+                # if 'APF.001.STK-KL06' ==sapcodes[i]['components'][j][0]:
+                #     print('*'*25,sapcodes[i]['components'][j][0],sapcodes_copy[i]['components'][j])
+                #     print('*'*25,siryo_menge[sapcodes[i]['components'][j][0]],sapcodes_copy[i]['components'][j][4])
                 sapcodes_copy[i]['components'][j][5] =(float(siryo_menge[sapcodes[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][4]))
                 value += float(siryo_menge[sapcodes[i]['components'][j][0]])
                 component_count += 1
@@ -383,24 +384,26 @@ def generate_sap_code_price(sapcodes):
                             sapcodes_copy[i]['components'][j][7] = float(siryo_menge[sapcodes_copy[i]['components'][j][0]].replace(',','.')) * float(sapcodes_copy[i]['components'][j][6].replace(',','.'))
                             price += float(siryo_menge[sapcodes_copy[i]['components'][j][0]].replace(',','.')) * float(sapcodes_copy[i]['components'][j][6].replace(',','.'))
                     else:
-                        if sapcodes[i]['sap_code']=='APF.015.P53-PA01':
-                            print(sapcodes[i]['components'][j][0],'^^^^^^^1111111111111111111')
+                        # if sapcodes[i]['sap_code']=='APF.015.P53-PA01':
+                        #     print(sapcodes[i]['components'][j][0],'^^^^^^^1111111111111111111')
                         if siryo_price[sapcodes[i]['components'][j][0]] !='0' and siryo_price[sapcodes[i]['components'][j][0]] !='0.0':
-                            if  sapcodes_copy[i]['sap_code'] =='APF.015.P53-PA01':
-                                print(sapcodes_copy[i]['components'][j][0],'@'*25)
+                            # if  sapcodes_copy[i]['sap_code'] =='APF.001.STK-KL06':
+                            #     print(sapcodes_copy[i]['components'][j][0],'@'*25)
                             sapcodes_copy[i]['components'][j][7] =(float(siryo_price[sapcodes[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][4]))/1000
                             price += (float(siryo_price[sapcodes[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][4]))/1000
-                            if  sapcodes_copy[i]['sap_code'] =='APF.015.P53-PA01':
-                                print('price>>>>>',sapcodes[i]['components'][j][0],price,float(siryo_price[sapcodes[i]['components'][j][0]]),float(sapcodes_copy[i]['components'][j][4]))
+                            # if  sapcodes_copy[i]['sap_code'] =='APF.001.STK-KL06':
+                            #     print('price>>>>>',sapcodes[i]['components'][j][0],price,float(siryo_price[sapcodes[i]['components'][j][0]]),float(sapcodes_copy[i]['components'][j][4]))
                         else:
-                            # if  sapcodes_copy[i]['components'][j][0] =='APF.015.P53-PA01':
+                            # if  sapcodes_copy[i]['components'][j][0] =='APF.001.STK-KL06':
                             #     print(sapcodes_copy[i]['components'][j][0],'&'*25)
                             sapcodes_copy[i]['components'][j][8] = sapcodes_copy[i]['components'][j][3]
                             sapcodes_copy[i]['components'][j][7] = float(siryo_menge[sapcodes_copy[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][4])/1000
                             price += float(siryo_menge[sapcodes_copy[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][4])/1000
+                            # if  sapcodes_copy[i]['sap_code'] =='APF.001.STK-KL06':
+                            #     print('price>>>>>',sapcodes[i]['components'][j][0],price,float(siryo_price[sapcodes[i]['components'][j][0]]),float(sapcodes_copy[i]['components'][j][4]))
         
-        if sapcodes[i]['sap_code']=='APF.015.P53-PA01':
-            print(sapcodes[i]['components'],'<<<<<<<<',component_count,price)
+        # if sapcodes[i]['sap_code']=='APF.015.P53-PA01':
+        #     print(sapcodes[i]['components'],'<<<<<<<<',component_count,price)
 
         if component_count == len(sapcodes[i]['components']):
             sapcodes_copy[i]['ves_corredted'] = True

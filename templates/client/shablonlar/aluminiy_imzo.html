@@ -36,7 +36,7 @@
 
 
             <section class="topics-detail-section section-padding" id="topics-detail">
-                <form method="POST" >
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
                     {%csrf_token%}
                 <div class="container " style="overflow: scroll;">
                         <table class="table " >
@@ -90,9 +90,24 @@
                         
                 </div>
                 <div class="container ">
-                    <div class="d-flex justify-content-center p-2">
-                        <input type="button" class="btn btn-warning " value="Add Column" onclick="add_column()" ><span class="m-1" ></span>
-                        <input type="submit" class="btn btn-primary" value="Accept"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-start p-2">
+                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-center p-2">
+                                <input type="button" class="btn btn-success " value="Готов" onclick="ready_all()" id="ready_btn"><span class="m-1" ></span>
+                                <!-- <input type="button" class="btn btn-warning " value="Изменить" onclick="edit_all()" id="edit_btn" style="display: none;"><span class="m-1" ></span> -->
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-end p-2">
+                                <input type="submit" class="btn btn-primary" value="Загрузить" style="display: none;" id="zagruzka_file">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 </form>
             </section>

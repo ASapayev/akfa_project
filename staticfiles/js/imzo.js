@@ -1716,5 +1716,45 @@ function add_column(){
         });
 
     }
-    clear_artikul(sizeee + 1);
+    // clear_artikul(sizeee + 1);
+}
+
+function ready_all(){
+
+    var form = document.getElementById('basic_form');
+    var fields = form.querySelectorAll('[required]');
+    var isValid = true;
+
+    fields.forEach(function(field) {
+        if (!field.value.trim()) {
+            isValid = false;
+            return;
+        }
+    });
+
+    if (!isValid) {
+        alert('Please fill in all required fields.');
+    } else {
+
+        var add_column_btn = $('#add_column_btn')
+        add_column_btn.css('display','none')
+        
+        var ready_btn = $('#ready_btn')
+        ready_btn.css('display','none') 
+
+
+        var zagruzka_file = $('#zagruzka_file')
+        zagruzka_file.css('display','block')
+        // form.submit(); // Submit the form if all required fields are filled
+    }
+
+
+
+    
+    //////////////////////////////////////
+    
+    // var edit_btn = $('#edit_btn')
+    // edit_btn.css('display','block')
+    
+   
 }
