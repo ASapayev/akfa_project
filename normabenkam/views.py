@@ -2548,7 +2548,7 @@ def kombinirovaniy_process(request,id):
                                 length = older_process['sapcode'].split('-')[0]
                                 alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
 
-                            tex_otxod = (-1000)*float(alum_teks.data['Удельный вес профиля кг/м'])*delta_L
+                            tex_otxod = (-meins1)*float(alum_teks.data['Удельный вес профиля кг/м'])*delta_L
 
                         df_new['ID'].append('1')
                         df_new['MATNR'].append(df[i][14])
