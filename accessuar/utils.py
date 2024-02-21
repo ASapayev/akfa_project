@@ -35,7 +35,7 @@ def get_norma_df(ozmk) ->list:
     for norm in normalar:
         df_new['ID'].append('1')
         df_new['MATNR'].append(norm.data['sap_code'])
-        df_new['WERKS'].append('1201')
+        df_new['WERKS'].append('4501')
         df_new['TEXT1'].append(norm.data['kratkiy_tekst'])
         df_new['STLAL'].append('1')
         df_new['STLAN'].append('1')
@@ -121,7 +121,7 @@ def get_norma_price(ozmk) ->list:
     for norm in normalar:
         df_new['ID'].append('1')
         df_new['MATNR'].append(norm.data['sap_code'])
-        df_new['WERKS'].append('1201')
+        df_new['WERKS'].append('4501')
         df_new['TEXT1'].append(norm.data['kratkiy_tekst'])
         df_new['STLAL'].append('1')
         df_new['STLAN'].append('1')
