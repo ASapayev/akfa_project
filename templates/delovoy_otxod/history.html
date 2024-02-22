@@ -31,13 +31,18 @@
                 </thead>
                 <tbody>
                     {%for file in files%}
-                        <tr>
+                    <!-- data ={
+                      'excel_file_path':file.file,
+                      'zip_file_path':zip_path,
+                      'created_at':file.created_at
+                  
+                    } -->
+                          <tr>
                             <td> {{ forloop.counter }} </td>
-                            <td class="p-1"> {{file.file|cut:'uploads/delovoyotxod/downloads/'|truncatechars:15}} </td>
-                            <td> </td>
-                            <td> <button type="button" class="btn btn-outline-success btn-fw" onclick="myFunction('alu','{{file.id}}')">Ген. ALU. файла</button> </td>
-                            <td> <button type="button" class="btn btn-outline-info btn-fw" onclick="myFunction('pvc','{{file.id}}')">Ген. PVC файла</button> </td>
-                        </tr>
+                            <td class="p-1"> {{file.data.excel_file_path|cut:'uploads/delovoyotxod/downloads/'|slice:"-40:"}} </td>
+                            <td ><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{file.data.excel_file_path}}">Download</a></td>
+                            <td ><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{file.data.zip_file_path}}"> TEXT FILES</a></td>
+                          </tr>
                     {% endfor %}
                 </tbody>
               </table>

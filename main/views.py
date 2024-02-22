@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 import pandas as pd
-from .models import Product,ExcelFiles,ExcelFilesOzmka
+from .models import Product,ExcelFiles,ExcelFilesOzmka,OrderDelovoyOtxod
 from django.core.paginator import Paginator
 from django.http import JsonResponse,HttpResponse,Http404
 import re
@@ -722,9 +722,10 @@ def lenght_generate(request,id):
 
 @login_required(login_url='/accounts/login/')
 def lenght_generate_org(request,id):
-  file = ExcelFiles.objects.get(id=id).file
+  file = ExcelFiles.objects.get(id=id)
+  
   counter =0
-  file_path =f'{MEDIA_ROOT}\\{file}'
+  file_path =f'{MEDIA_ROOT}\\{file.file}'
   df_org = pd.read_excel(file_path)
   new_liss = []
   data_type = request.GET.get('type',None)
@@ -761,6 +762,15 @@ def lenght_generate_org(request,id):
   # files = ExcelFiles.objects.filter(id__in=file_ids)
   files = [File(file=f'{zip_path}.zip',filetype='delovoy'),]
   zip(zip_path,zip_path)
+  data ={
+    'excel_file_path':f'{MEDIA_ROOT}/' + str(file.file),
+    'zip_file_path':f'{zip_path}.zip',
+    'created_at':str(file.created_at)
+
+  }
+  print(data)
+  order_delov = OrderDelovoyOtxod(data = data)
+  order_delov.save()
   context={
     'files':files,
     'section':'Деловой отход файлы'
@@ -799,7 +809,7 @@ def open_folder_path_in_explorer(request):
 
 @login_required(login_url='/accounts/login/')
 def show_list_history(request):
-  files =ExcelFiles.objects.filter(generated=False).order_by('-created_at')
+  files =OrderDelovoyOtxod.objects.all().order_by('-created_at')
   context ={
     'files':files
   }

@@ -232,6 +232,16 @@ def full_update_norm(request):
             data_kl = generate_datas(df_new_kl,['Нумерация до SAPПокраска + Нанесение логотипа (гравировка)','Покраска + Нанесение логотипа (гравировка)','БЕИПокраска + Нанесение логотипа (гравировка)','Вес плановыйПокраска + Нанесение логотипа (гравировка)','Вес фактическийПокраска + Нанесение логотипа (гравировка)'],'-K')
             data_kl = generate_sap_code_price(data_kl)
 
+            df_new_an = pd.DataFrame()
+            df_new_an['Нумерация до SAPПокраска + Нанесение логотипа (гравировка)'] = df['Нумерация до SAPПокраска + Нанесение логотипа (гравировка)']
+            df_new_an['Покраска + Нанесение логотипа (гравировка)'] = df['Покраска + Нанесение логотипа (гравировка)']
+            df_new_an['БЕИПокраска + Нанесение логотипа (гравировка)'] = df['БЕИПокраска + Нанесение логотипа (гравировка)']
+            df_new_an['Вес плановыйПокраска + Нанесение логотипа (гравировка)'] = df['Вес плановыйПокраска + Нанесение логотипа (гравировка)']
+            df_new_an['Вес фактическийПокраска + Нанесение логотипа (гравировка)'] = df['Вес фактическийПокраска + Нанесение логотипа (гравировка)']
+
+            data_an = generate_datas(df_new_an,['Нумерация до SAPПокраска + Нанесение логотипа (гравировка)','Покраска + Нанесение логотипа (гравировка)','БЕИПокраска + Нанесение логотипа (гравировка)','Вес плановыйПокраска + Нанесение логотипа (гравировка)','Вес фактическийПокраска + Нанесение логотипа (гравировка)'],'-AN')
+            data_an = generate_sap_code_price(data_an)
+
 
             df_new_sk = pd.DataFrame()
             df_new_sk['Нумерация до SAPШтамповка + Заготовка +Упк'] = df['Нумерация до SAPШтамповка + Заготовка +Упк']
@@ -275,7 +285,7 @@ def full_update_norm(request):
             data_gp = generate_datas(df_new_gp,['Нумерация до SAPСборка + Упк','Сборка + Упк','БЕИСборка + Упк','Вес плановыйСборка + Упк','Вес фактическийСборка + Упк'],'-7')
             data_gp = generate_sap_code_price(data_gp)
             
-            data_list =data_gp + data_zg + data_tp + data_sk + data_kl + data_vs + data_sn + data_ru + data_gz + data_mo + data_pc +data_pa + data_la_lc
+            data_list =data_gp + data_zg + data_tp + data_sk + data_kl + data_an + data_vs + data_sn + data_ru + data_gz + data_mo + data_pc +data_pa + data_la_lc
             instances_to_create = [Norma(data=data) for data in data_list]
             Norma.objects.bulk_create(instances_to_create)
 
