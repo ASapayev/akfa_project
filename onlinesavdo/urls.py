@@ -23,5 +23,8 @@ urlpatterns = [
     path('upload-for-proverka',views.upload_for_proverka,name='upload_for_proverka'),
     path('generate-proverka-files/<int:id>',views.proverka,name='generate_proverka_files'),
 
+    ###online savdo 
+    path('upload-for-proverka',views.upload_file_for_preparing,name='upload_for_proverka'),
+    # path('generate-proverka-files/<int:id>',views.proverka,name='generate_proverka_files'),
 
     ]

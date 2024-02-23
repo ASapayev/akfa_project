@@ -140,6 +140,32 @@ def upload_sozdaniye_format(request):
     return render(request,'online_savdo/sena_format.html',context)
 
 @login_required(login_url='/accounts/login/')
+def upload_file_for_preparing(request):
+    if request.method == 'POST':
+        form1 = FileForm(request.POST, request.FILES)
+        if form1.is_valid():
+            new_order1 = form1.save()
+            online_savdo_order = OnlineSavdoOrder()
+            online_savdo_order.paths = { 
+                        'path_1' : str(new_order1.file)
+                    }
+            online_savdo_order.save()
+
+            files = [File(id=online_savdo_order.id,file = 'EXCELL FILES',filetype = 'savdo',created_at=datetime.now())]
+            context ={
+                'files':files,
+                'link':'generate-sozdaniye-format/'
+            }
+            return render(request,'online_savdo/file_list.html',context)
+    else:
+        form1 = FileForm()
+        context ={
+            'form1':form1,
+            'section':'Формирование'
+        }
+    return render(request,'online_savdo/sena_format.html',context)
+
+@login_required(login_url='/accounts/login/')
 def upload_for_proverka(request):
     if request.method == 'POST':
         form1 = FileForm(request.POST, request.FILES)
