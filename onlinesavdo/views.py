@@ -140,6 +140,51 @@ def upload_sozdaniye_format(request):
     return render(request,'online_savdo/sena_format.html',context)
 
 @login_required(login_url='/accounts/login/')
+def merging_files(request,id):
+    file = OnlineSavdoFile.objects.get(id=id).file
+    df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
+   
+    df =df.astype(str)
+    df = df.replace('nan','')
+    df['SAP CODE']= ''
+    df['KRATKIY TEXT']= ''
+
+    for key,row in df.iterrows():
+        if key ==1:
+            df.at[0,'SAP CODE'] ='12345566'
+            df.at[0,'KRATKIY TEXT'] ='MAXIMUM-GOODS'
+        
+        if (row[df.columns[0]]=='Id'):
+            df.at[key,'SAP CODE'] = 'SAP CODE'
+            df.at[key,'KRATKIY TEXT'] = 'KRATKIY TEXT'
+
+        if (row[df.columns[0]]!='Id') and (row[df.columns[0]]!=''):
+            df.at[key,'SAP CODE'] = key
+            df.at[key,'KRATKIY TEXT'] = key
+           
+    zagolovok = list(df.columns)
+    desired_order = zagolovok[:2] + zagolovok[-2:] +zagolovok[2:-2]
+    
+    df = df[desired_order]
+
+    for i, col in enumerate(df.columns):
+        if 'Unnamed: ' in col or 'SAP CODE' in col or 'KRATKIY TEXT' in col:
+            df = df.rename(columns={col: ''})
+    
+   
+    now =datetime.now()
+    minut =now.strftime('%M-%S')
+    pathtext1=f'{MEDIA_ROOT}/uploads/online_savdo/downloads/savdo_{minut}.xlsx'
+    df.to_excel(pathtext1,index=False)
+    files = [FileG(file=pathtext1,filetype='obichniy')]
+    context = {
+        'files':files
+    }
+    return render(request,'universal/generated_files.html',context)
+
+
+
+@login_required(login_url='/accounts/login/')
 def upload_file_for_preparing(request):
     if request.method == 'POST':
         form1 = FileForm(request.POST, request.FILES)
@@ -151,10 +196,10 @@ def upload_file_for_preparing(request):
                     }
             online_savdo_order.save()
 
-            files = [File(id=online_savdo_order.id,file = 'EXCELL FILES',filetype = 'savdo',created_at=datetime.now())]
+            files = [File(id=new_order1.id,file = 'EXCELL FILES',filetype = 'savdo',created_at=datetime.now())]
             context ={
                 'files':files,
-                'link':'generate-sozdaniye-format/'
+                'link':'generate-merging-files/'
             }
             return render(request,'online_savdo/file_list.html',context)
     else:

@@ -24,7 +24,7 @@ urlpatterns = [
     path('generate-proverka-files/<int:id>',views.proverka,name='generate_proverka_files'),
 
     ###online savdo 
-    path('upload-for-proverka',views.upload_file_for_preparing,name='upload_file_for_preparing'),
-    # path('generate-proverka-files/<int:id>',views.proverka,name='generate_proverka_files'),
+    path('upload-for-merging',views.upload_file_for_preparing,name='upload_file_for_preparing'),
+    path('generate-merging-files/<int:id>',views.merging_files,name='merging_files'),
 
     ]
