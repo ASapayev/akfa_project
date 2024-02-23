@@ -73,7 +73,7 @@ def get_norma_df(ozmk) ->list:
             df_new['MATNR1'].append(comp[0])
             df_new['TEXT2'].append(comp[1])
             df_new['MEINS'].append(comp[2]) 
-            df_new['MENGE'].append(comp[4])
+            df_new['MENGE'].append(str(comp[4]).replace('.',','))
             df_new['DATUV'].append('')
             df_new['PUSTOY'].append('')   
             df_new['LGORT'].append('PS02')
