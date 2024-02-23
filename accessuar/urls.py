@@ -12,6 +12,8 @@ urlpatterns = [
     path('get-price',views.get_accessuar_sapcode_narx,name='get_accessuar_sapcode_narx'),
 
     path('get-texcarta',views.get_accessuar_sapcode_texcarta,name='get_accessuar_sapcode_texcarta'), 
+    path('get-delete',views.texcarta_delete,name='texcarta_delete'), 
+
 
 ]
 

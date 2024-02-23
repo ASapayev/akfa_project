@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from config.settings import MEDIA_ROOT,BASE_DIR
 from .forms import AccessuarFileForm
-from .models import AccessuarFiles,Norma,Siryo
+from .models import AccessuarFiles,Norma,Siryo,TexcartaBase
 import pandas as pd
 from .utils import get_norma_df,get_norma_price,create_folder,lenght_generate_texcarta
 from django.contrib.auth.decorators import login_required
@@ -11,6 +11,12 @@ from django.contrib.auth.decorators import login_required
 class File:
     def __init__(self,file):
         self.file = file
+
+
+def texcarta_delete(request):
+    texcarta = TexcartaBase.objects.all()
+    texcarta.delete()
+    return redirect('home')
 
 
 @login_required(login_url='/accounts/login/')
