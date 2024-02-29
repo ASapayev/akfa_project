@@ -559,7 +559,6 @@ function clear_artikul(id){
 function tip_pokritiya_selected(id,val){
 
     var element33 = document.getElementById("table_tr"+id);
-    // console.log(element33,'eeellemme')
     element33.style.backgroundColor='white';
     
     
@@ -643,12 +642,12 @@ function tip_pokritiya_selected(id,val){
 
 
     var splav = $('#splav'+String(id));
-    console.log(splav,'splavvvv')
+    // console.log(splav,'splavvvv')
     splav.attr("disabled",false);
-    splav.css("border-color",'#fc2003');
+    splav.css("border-color","#fc2003");
     var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
     tip_zakalyonnosti.attr("disabled",false);
-    tip_zakalyonnosti.css("border-color",'#fc2003');
+    tip_zakalyonnosti.css("border-color","#fc2003");
 
 
 
@@ -666,12 +665,10 @@ function tip_pokritiya_selected(id,val){
     if(String(val) == '1'){
         data_base[id] = new Neokrashenniy()
         nakleyka_nt1.css('display','block');
-        // nakleyka_nt1.css('di','block');
         nakleyka_org.css('display','none');
         nakleyka_select.css('display','none');
 
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
-
             var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
             code_kraski_snaruji.text('MF')
         }else{
@@ -679,12 +676,10 @@ function tip_pokritiya_selected(id,val){
             var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
             code_kraski_snaruji.text('MF');
             code_kraski_vnutri.text('MF');
-
         }
 
     }else if(String(val) == '2'){
         data_base[id] = new Beliy()
-
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
             var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
             var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
@@ -699,7 +694,6 @@ function tip_pokritiya_selected(id,val){
             code_kraski_snaruji.text('9016');
             brand_kraski_vnutri.text('R');
             code_kraski_vnutri.text('9016');
-
         }
 
         
@@ -1137,7 +1131,8 @@ function create_kratkiy_tekst(id){
     
     var splav = $('#splav'+String(id));
     if(splav){
-        if(splav.val()!='0' && splav.val()!=''){
+        if(splav.val()!='0' && splav.val()!='' && splav.val()!=null){
+            console.log(splav.val())
             splav.css("border-color",'#dedad9');
             data_base[id].splav = splav.val();
         }

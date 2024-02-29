@@ -389,45 +389,57 @@ def generate_sap_code_price(sapcodes):
                     sapcodes_copy[i]['components'][j][8] = float(siryo_price[sapcodes[i]['components'][j][0]])
                     if '-7' in sapcodes[i]['sap_code']:
                         if siryo_price[sapcodes[i]['components'][j][0]] !='0' and siryo_price[sapcodes[i]['components'][j][0]] !='0.0':
-                            # if  sapcodes_copy[i]['components'][j][0] =='ASM.458.CLJ-0006':
+                            # if  sapcodes_copy[i]['components'][j][0] =='APF.091.MSK-TP01':
                             #     print(sapcodes_copy[i]['components'][j][0],'&'*25)
                             sapcodes_copy[i]['components'][j][7] =(float(siryo_price[sapcodes[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][6]))
                             price += (float(siryo_price[sapcodes[i]['components'][j][0]].replace(',','.')) * float(sapcodes_copy[i]['components'][j][6].replace(',','.')))
+                            # if  sapcodes_copy[i]['sap_code'] =='ACS.091.MSK-7002':
+                            #     print('price>>>>>',sapcodes[i]['components'][j][0],price,float(siryo_price[sapcodes[i]['components'][j][0]]),float(sapcodes_copy[i]['components'][j][6]))
                         else:
-                            # if  sapcodes_copy[i]['components'][j][0] =='ASM.458.CLJ-0006':
+                            # if  sapcodes_copy[i]['components'][j][0] =='APF.091.MSK-TP01':
                             #     print(sapcodes_copy[i]['components'][j][0],'@'*25)
                             sapcodes_copy[i]['components'][j][8] = sapcodes_copy[i]['components'][j][3]
                             sapcodes_copy[i]['components'][j][7] = float(siryo_menge[sapcodes_copy[i]['components'][j][0]].replace(',','.')) * float(sapcodes_copy[i]['components'][j][6].replace(',','.'))
                             price += float(siryo_menge[sapcodes_copy[i]['components'][j][0]].replace(',','.')) * float(sapcodes_copy[i]['components'][j][6].replace(',','.'))
+                            # if  sapcodes_copy[i]['sap_code'] =='ACS.091.MSK-7002':
+                            #     print('price>>>>>',sapcodes[i]['components'][j][0],price,float(siryo_price[sapcodes[i]['components'][j][0]]),float(sapcodes_copy[i]['components'][j][6]))
                     else:
-                        # if sapcodes[i]['sap_code']=='APF.015.P53-PA01':
+                        # if sapcodes[i]['sap_code']=='APF.091.MSK-TP01':
                         #     print(sapcodes[i]['components'][j][0],'^^^^^^^1111111111111111111')
                         if siryo_price[sapcodes[i]['components'][j][0]] !='0' and siryo_price[sapcodes[i]['components'][j][0]] !='0.0':
-                            # if  sapcodes_copy[i]['sap_code'] =='APF.001.STK-KL06':
+                            # if  sapcodes_copy[i]['sap_code'] =='APF.091.MSK-TP01':
                             #     print(sapcodes_copy[i]['components'][j][0],'@'*25)
                             sapcodes_copy[i]['components'][j][7] =(float(siryo_price[sapcodes[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][4]))/1000
                             price += (float(siryo_price[sapcodes[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][4]))/1000
-                            # if  sapcodes_copy[i]['sap_code'] =='APF.001.STK-KL06':
+                            # if  sapcodes_copy[i]['sap_code'] =='APF.091.MSK-TP01':
                             #     print('price>>>>>',sapcodes[i]['components'][j][0],price,float(siryo_price[sapcodes[i]['components'][j][0]]),float(sapcodes_copy[i]['components'][j][4]))
                         else:
-                            # if  sapcodes_copy[i]['components'][j][0] =='APF.001.STK-KL06':
+                            # if  sapcodes_copy[i]['components'][j][0] =='APF.091.MSK-TP01':
                             #     print(sapcodes_copy[i]['components'][j][0],'&'*25)
                             sapcodes_copy[i]['components'][j][8] = sapcodes_copy[i]['components'][j][3]
                             sapcodes_copy[i]['components'][j][7] = float(siryo_menge[sapcodes_copy[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][4])/1000
                             price += float(siryo_menge[sapcodes_copy[i]['components'][j][0]]) * float(sapcodes_copy[i]['components'][j][4])/1000
-                            # if  sapcodes_copy[i]['sap_code'] =='APF.001.STK-KL06':
+                            # if  sapcodes_copy[i]['sap_code'] =='APF.091.MSK-TP01':
                             #     print('price>>>>>',sapcodes[i]['components'][j][0],price,float(siryo_price[sapcodes[i]['components'][j][0]]),float(sapcodes_copy[i]['components'][j][4]))
         
-        # if sapcodes[i]['sap_code']=='APF.015.P53-PA01':
+        # if sapcodes[i]['sap_code']=='ACS.091.MSK-7002':
         #     print(sapcodes[i]['components'],'<<<<<<<<',component_count,price)
 
         if component_count == len(sapcodes[i]['components']):
+            if sapcodes[i]['sap_code']=='APF.091.MSK-TP01':
+                print(sapcodes[i]['components'],'yyy<<<<<<<<',component_count,price)
             sapcodes_copy[i]['ves_corredted'] = True
             sapcodes_copy[i]['price'] = price
             if Siryo.objects.filter(data__sap_code =sapcodes[i]['sap_code']).exists():
+                if sapcodes[i]['sap_code']=='APF.091.MSK-TP01':
+                    print(sapcodes[i]['components'],'existsss<<<<<<<<',component_count,price)
                 siryo = Siryo.objects.filter(data__sap_code =sapcodes[i]['sap_code'])[:1].get()
                 siryo.data['price'] = price
+                siryo.save()
+                
             else:
+                if sapcodes[i]['sap_code']=='APF.091.MSK-TP01':
+                    print(sapcodes[i]['components'],'newwwyyy<<<<<<<<',component_count,price)
                 Siryo(
                     data ={'sap_code':sapcodes[i]['sap_code'],'menge':value,'price':price}
                 ).save()
