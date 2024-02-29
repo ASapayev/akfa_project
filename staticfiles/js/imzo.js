@@ -77,9 +77,9 @@ for (let i = 1; i <= 5; i++) {
     </td>
     
     <td >
-        <div class="input-group input-group-sm mb-1" style="width: 90px;">
+        <div class="input-group input-group-sm mb-1" style="width: 100px;">
         <div>
-            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase;width: 90px;" id ='code_kraski_snaruji` +String(i)+`'></span>
+            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase;width: 100px;" id ='code_kraski_snaruji` +String(i)+`'></span>
         </div>
         </div>
     </td>
@@ -93,9 +93,9 @@ for (let i = 1; i <= 5; i++) {
     </td>
     
     <td >
-        <div class="input-group input-group-sm mb-1">
+        <div class="input-group input-group-sm mb-1" style="width: 100px;">
         <div>
-            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_kraski_vnutri` +String(i)+`'></span>
+            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase; width:100px" id ='code_kraski_vnutri` +String(i)+`'></span>
         </div>
         </div>
     </td>
