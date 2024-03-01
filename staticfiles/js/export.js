@@ -95,7 +95,7 @@ for (let i = 1; i <= 5; i++) {
     <td >
         <div class="input-group input-group-sm mb-1" style="width: 100px;">
         <div>
-            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase; width:100px" id ='code_kraski_vnutri` +String(i)+`' ></span>
+            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase; width:100px" id ='code_kraski_vnutri` +String(i)+`'></span>
         </div>
         </div>
     </td>
@@ -116,7 +116,7 @@ for (let i = 1; i <= 5; i++) {
     <td >
         <div class="input-group input-group-sm mb-1">
             <div>
-                <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span></em>
+            <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span></em>
             </div>
         </div>
     </td>
@@ -136,7 +136,7 @@ for (let i = 1; i <= 5; i++) {
     <td >
         <div class="input-group input-group-sm mb-1">
             <div>
-            <em><span class =' text-center ' style="font-size: 10px; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span></em>
+            <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span></em>
             </div>
         </div>
     </td>
@@ -274,6 +274,11 @@ for (let i = 1; i <= 5; i++) {
     </td> 
     <td >
         <div class="input-group input-group-sm mb-1">
+            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
             
         </div>
     </td> 
@@ -282,11 +287,7 @@ for (let i = 1; i <= 5; i++) {
            
         </div>
     </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
-        </div>
-    </td>
+   
     <td >
         <div class="input-group input-group-sm mb-1">
            
@@ -379,7 +380,7 @@ for (let i = 1; i <= 6; i++) {
 
     var nakleyka_kode = e.params.data.code_nakleyka
     
-    $('.select2-selection__rendered').css('font-size', '15px');
+    $('.select2-selection__rendered').css('font-size', '15 px');
     
     
     
@@ -739,7 +740,7 @@ function tip_pokritiya_selected(id,val){
         var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
        
         brand_kraski_snaruji.append(brands)
-        var code_kras_snaruji =`<input type="text"  class="form-control " id ='code_kraski_snar`+String(id)+`' aria-describedby="inputGroup-sizing-sm" style="width: 65px;border-color: red;height:30px"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
+        var code_kras_snaruji =`<input type="text"  class="form-control " id ='code_kraski_snar`+String(id)+`' aria-describedby="inputGroup-sizing-sm" style="width:65px; height:30px;border-color: red;"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
         // var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
         code_kraski_snaruji.append(code_kras_snaruji);
         code_kraski_snaruji.css("border-color",'#fc2003')
@@ -779,7 +780,7 @@ function tip_pokritiya_selected(id,val){
             var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id));
             brand_kraski_vnutri.append(brands)
 
-            var code_kras_vnut =`<input type="text" class="form-control " style='border-color:#fc2003;width:65px; height:30px' id ='code_kraski_vnut`+String(id)+`' aria-describedby="inputGroup-sizing-sm"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
+            var code_kras_vnut =`<input type="text" class="form-control " style='border-color:#fc2003; width:65px; height:30px' id ='code_kraski_vnut`+String(id)+`' aria-describedby="inputGroup-sizing-sm"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
             var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
             code_kraski_vnutri.append(code_kras_vnut)
 
@@ -927,7 +928,6 @@ function svet_dekplonka_vnutri_selected(id,val){
     code_dekplonka_vnutri.text(String(val));
     var selectElement = document.getElementById('svet_dekplonka_vnutri'+String(id));
     selectElement.style.borderColor='red';
-    console.log(selectElement)
     create_kratkiy_tekst(id);
 }
 
@@ -1251,20 +1251,14 @@ function create_kratkiy_tekst(id){
                 }
 
                 var code_kraski_vnut = $('#code_kraski_vnut'+String(id))
-                a1=code_kraski_vnut.val() != '0'
-                a2=code_kraski_vnut.val() != undefined
-                a3=code_kraski_vnut.val() != ''
-                console.log(a1,a2,a3)
-                if((code_kraski_vnut.val() != '0') && (code_kraski_vnut.val()  != undefined)&&code_kraski_vnut.val()!=''){
-                    console.log(code_kraski_vnut.val(),'vnuttttrrrr')
+                if(code_kraski_vnut.val() != '0' && code_kraski_vnut.val()  != undefined && code_kraski_vnut.val()  != ''){
                     code_kraski_vnut.css("border-color",'#dedad9');
                     data_base[id].kod_kraska_vn =code_kraski_vnut.val();
                 }else{
-                    console.log(code_kraski_vnut.val(),'sssssssss')
                     code_kraski_vnut.css("border-color",'red');
                     data_base[id].kod_kraska_vn =NaN;
                 }
-                
+
                 data_base[id].is_termo =true;
                 
             }
@@ -1550,7 +1544,7 @@ function add_column(){
     <td >
         <div class="input-group input-group-sm mb-1" style="width: 100px;">
         <div>
-            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase; width:100px" id ='code_kraski_vnutri` +String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)"></span>
+            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase; width:100px" id ='code_kraski_vnutri` +String(i)+`'></span>
         </div>
         </div>
     </td>
@@ -1729,6 +1723,11 @@ function add_column(){
     </td> 
     <td >
         <div class="input-group input-group-sm mb-1">
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
             
         </div>
     </td> 
@@ -1737,11 +1736,7 @@ function add_column(){
            
         </div>
     </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
-        </div>
-    </td>
+    
     <td >
         <div class="input-group input-group-sm mb-1">
            

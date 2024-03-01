@@ -8,7 +8,7 @@ for (let i = 1; i <= 5; i++) {
     <td >
         <div class="input-group input-group-sm mb-1">
             <div>
-                <button type="button" class="btn btn-warning" onclick="clear_artikul(`+String(i)+`)" style="font-size: 12px;">Очистить</button>     
+                <button type="button" class="btn btn-warning" onclick="artukil_clear(`+String(i)+`)" style="font-size: 12px;">Очистить</button>     
             </div>
         </div>
     </td>
@@ -116,7 +116,7 @@ for (let i = 1; i <= 5; i++) {
     <td >
         <div class="input-group input-group-sm mb-1">
             <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span>
+            <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span></em>
             </div>
         </div>
     </td>
@@ -136,7 +136,7 @@ for (let i = 1; i <= 5; i++) {
     <td >
         <div class="input-group input-group-sm mb-1">
             <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span>
+            <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span></em>
             </div>
         </div>
     </td>
@@ -267,16 +267,17 @@ for (let i = 1; i <= 5; i++) {
             
         </div>
     </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
-        </div>
-    </td>
+    
     <td >
         <div class="input-group input-group-sm mb-1">
             
         </div>
     </td> 
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
+        </div>
+    </td>
     <td >
         <div class="input-group input-group-sm mb-1">
             
@@ -556,6 +557,10 @@ function clear_artikul(id){
     
 }
 
+function artukil_clear(id){
+    $('#artikul'+id).val(null).trigger('change');
+    clear_artikul(id)
+}
 
 
 function tip_pokritiya_selected(id,val){
@@ -735,7 +740,7 @@ function tip_pokritiya_selected(id,val){
         var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
        
         brand_kraski_snaruji.append(brands)
-        var code_kras_snaruji =`<input type="text"  class="form-control " id ='code_kraski_snar`+String(id)+`' aria-describedby="inputGroup-sizing-sm" style="width: 100px;border-color: red;"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
+        var code_kras_snaruji =`<input type="text"  class="form-control " id ='code_kraski_snar`+String(id)+`' aria-describedby="inputGroup-sizing-sm" style="border-color: red;width:65px; height:30px"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
         // var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
         code_kraski_snaruji.append(code_kras_snaruji);
         code_kraski_snaruji.css("border-color",'#fc2003')
@@ -775,7 +780,7 @@ function tip_pokritiya_selected(id,val){
             var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id));
             brand_kraski_vnutri.append(brands)
 
-            var code_kras_vnut =`<input type="text" class="form-control " style='border-color:#fc2003' id ='code_kraski_vnut`+String(id)+`' aria-describedby="inputGroup-sizing-sm" style="width:100px;" onchange="create_kratkiy_tekst(`+String(id)+`)" required>`
+            var code_kras_vnut =`<input type="text" class="form-control " style='border-color:#fc2003;width:65px; height:30px' id ='code_kraski_vnut`+String(id)+`' aria-describedby="inputGroup-sizing-sm"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
             var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
             code_kraski_vnutri.append(code_kras_vnut)
 
@@ -1246,7 +1251,7 @@ function create_kratkiy_tekst(id){
                 }
 
                 var code_kraski_vnut = $('#code_kraski_vnut'+String(id))
-                if(code_kraski_vnut.val() != '0' && code_kraski_vnut.val()  != undefined){
+                if(code_kraski_vnut.val() != '0' && code_kraski_vnut.val()  != undefined && code_kraski_vnut.val()  != ''){
                     code_kraski_vnut.css("border-color",'#dedad9');
                     data_base[id].kod_kraska_vn =code_kraski_vnut.val();
                 }else{
@@ -1452,7 +1457,7 @@ function add_column(){
     <td >
         <div class="input-group input-group-sm mb-1">
             <div>
-                <button type="button" class="btn btn-warning" onclick="clear_artikul(`+String(i)+`)" style="font-size: 12px;">Очистить</button>     
+                <button type="button" class="btn btn-warning" onclick="artukil_clear(`+String(i)+`)" style="font-size: 12px;">Очистить</button>     
             </div>
         </div>
     </td>
@@ -1560,7 +1565,7 @@ function add_column(){
     <td >
         <div class="input-group input-group-sm mb-1">
             <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span>
+            <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span></em>
             </div>
         </div>
     </td>
@@ -1580,7 +1585,7 @@ function add_column(){
     <td >
         <div class="input-group input-group-sm mb-1">
             <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span>
+            <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span></em>
             </div>
         </div>
     </td>
@@ -1718,6 +1723,11 @@ function add_column(){
     </td> 
     <td >
         <div class="input-group input-group-sm mb-1">
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
             
         </div>
     </td> 
@@ -1726,11 +1736,7 @@ function add_column(){
            
         </div>
     </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
-        </div>
-    </td>
+    
     <td >
         <div class="input-group input-group-sm mb-1">
            
