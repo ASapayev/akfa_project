@@ -39,62 +39,63 @@
             <section class="topics-detail-section section-padding" id="topics-detail">
                 <form method="POST" id="basic_form" onsubmit="return validateForm()">
                     {%csrf_token%}
-                <div class="container " style="overflow: scroll;">
+                <div style="overflow: scroll;">
                     
                     <table class="table table-sm" >
                         <thead>
                           <tr>
-                            <th scope="col">Название системы</th>
-                            <th scope="col">Артикул</th>
-                            <th scope="col">Длина (мм)</th>
-                            <th scope="col">Тип покрытия</th>
-                            <th scope="col">Сплав</th>
-                            <th scope="col">тип закаленности</th>
-                            <th scope="col">Комбинация</th>
-                            <th scope="col">Бренд краски снаружи</th>
-                            <th scope="col">Код краски снаружи</th>
-                            <th scope="col">Бренд краски внутри</th>
-                            <th scope="col">Код краски внутри</th>
-                            <th scope="col">Код декор пленки снаружи</th>
-                            <th scope="col">Цвет декор пленки снаружи</th>
-                            <th scope="col">Код декор пленки внутри</th>
-                            <th scope="col">Цвет декор пленки внутри</th>
-                            <th scope="col">Код лам пленки снаружи</th>
-                            <th scope="col">Цвет лам пленки снаружи</th>
-                            <th scope="col">Код лам пленки внутри</th>
-                            <th scope="col">Цвет лам пленки внутри</th>
-                            <th scope="col">Код цвета анодировки снаружи</th>
-                            <th scope="col">Код цвета анодировки внутри</th>
-                            <th scope="col">Контактность анодировки</th>
-                            <th scope="col">Тип анодировки</th>
-                            <th scope="col">Способ анодировки</th>
-                            <th scope="col">Код наклейки</th>
-                            <th scope="col">Надпись наклейки</th>
-                            <th scope="col">База профилей</th>
-                            <th scope="col">Группа материалов</th>
-                            <th scope="col">Краткий текст товара</th>
-                            <th scope="col" >SAP Код вручную (вставляется вручную)</th>
-                            <th scope="col" >Краткий текст товара (вставляется вручную)</th>
-                            <th scope="col">Место для комментариев</th>
-                            <th scope="col">Завод</th>
-                            <th scope="col">Статус</th>
-                            <th scope="col">ONLINE ID</th>
-                            <th scope="col">Название</th>
-                            <th scope="col">Цвет продукта</th>
-                            <th scope="col">Группа закупок</th>
-                            <th scope="col">Группа</th>
-                            <th scope="col">Тип</th>
-                            <th scope="col">Сегмент</th>
-                            <th scope="col">Бухгалтерский товары</th>
-                            <th scope="col">Бухгалтерский учет</th>
-                            <th scope="col">Базовый единица</th>
-                            <th scope="col">Альтернативный единица</th>
-                            <th scope="col">Стоимость базовой единицы</th>
-                            <th scope="col">Альтер. стоимость единицы</th>
-                            <th scope="col">Статус</th>
-                            <th scope="col">Завод</th>
-                            <th scope="col">Акфа дилерда очиш керак</th>
-                            <th scope="col">Тип клиента</th>
+                            <th scope="col" style="font-size: 14px;" >Действие</th>
+                            <th scope="col" style="font-size: 14px;">Название системы</th>
+                            <th scope="col" style="font-size: 14px;">Артикул</th>
+                            <th scope="col" style="font-size: 14px;">Длина (мм)</th>
+                            <th scope="col" style="font-size: 14px;">Тип покрытия</th>
+                            <th scope="col" style="font-size: 14px;">Сплав</th>
+                            <th scope="col" style="font-size: 14px;">тип закаленности</th>
+                            <th scope="col" style="font-size: 14px;">Комбинация</th>
+                            <th scope="col" style="font-size: 14px;">Бренд краски снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Код краски снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Бренд краски внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код краски внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код декор пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Цвет декор пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Код декор пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Цвет декор пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Цвет лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Код лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Цвет лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код цвета анодировки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Код цвета анодировки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Контактность анодировки</th>
+                            <th scope="col" style="font-size: 14px;">Тип анодировки</th>
+                            <th scope="col" style="font-size: 14px;">Способ анодировки</th>
+                            <th scope="col" style="font-size: 14px;">Код наклейки</th>
+                            <th scope="col" style="font-size: 14px;">Надпись наклейки</th>
+                            <th scope="col" style="font-size: 14px;">База профилей</th>
+                            <th scope="col" style="font-size: 14px;">Группа материалов</th>
+                            <th scope="col" style="font-size: 14px;">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px;" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;">Место для комментариев</th>
+                            <th scope="col" style="font-size: 14px;">Завод</th>
+                            <th scope="col" style="font-size: 14px;">Статус</th>
+                            <th scope="col" style="font-size: 14px;">ONLINE ID</th>
+                            <th scope="col" style="font-size: 14px;">Название</th>
+                            <th scope="col" style="font-size: 14px;">Цвет продукта</th>
+                            <th scope="col" style="font-size: 14px;">Группа закупок</th>
+                            <th scope="col" style="font-size: 14px;">Группа</th>
+                            <th scope="col" style="font-size: 14px;">Тип</th>
+                            <th scope="col" style="font-size: 14px;">Сегмент</th>
+                            <th scope="col" style="font-size: 14px;">Бухгалтерский товары</th>
+                            <th scope="col" style="font-size: 14px;">Бухгалтерский учет</th>
+                            <th scope="col" style="font-size: 14px;">Базовый единица</th>
+                            <th scope="col" style="font-size: 14px;">Альтернативный единица</th>
+                            <th scope="col" style="font-size: 14px;">Стоимость базовой единицы</th>
+                            <th scope="col" style="font-size: 14px;">Альтер. стоимость единицы</th>
+                            <th scope="col" style="font-size: 14px;">Статус</th>
+                            <th scope="col" style="font-size: 14px;">Завод</th>
+                            <th scope="col" style="font-size: 14px;">Акфа дилерда очиш керак</th>
+                            <th scope="col" style="font-size: 14px;">Тип клиента</th>
                           </tr>
                         </thead>
                         <tbody id="table-artikul">

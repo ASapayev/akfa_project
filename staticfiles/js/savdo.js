@@ -8,18 +8,18 @@ for (let i = 1; i <= 5; i++) {
     <td >
         <div class="input-group input-group-sm mb-1">
             <div>
-                <button type="button" class="btn btn-warning" onclick="clear_artikul(`+String(i)+`)">Очистить</button>     
+                <button type="button" class="btn btn-warning" onclick="clear_artikul(`+String(i)+`)" style="font-size: 12px;">Очистить</button>     
             </div>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-            <div><span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;"></span></div>
+            <div><span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;" style="font-size: 12px;"></span></div>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-            <select class=" form-control" style="background-color:#ddebf7; width: 160px; font-size:10px" id="artikul`+String(i)+`"></select>
+            <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px" id="artikul`+String(i)+`" onchange='clear_artikul(`+String(i)+`)'></select>
         </div>
     </td>
     
@@ -269,6 +269,11 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
             
         </div>
     </td> 
@@ -282,11 +287,7 @@ for (let i = 1; i <= 5; i++) {
            
         </div>
     </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
-        </div>
-    </td>
+    
     <td >
         <div class="input-group input-group-sm mb-1">
            
@@ -372,6 +373,7 @@ for (let i = 1; i <= 6; i++) {
     var nazvaniye_system =$('.nazvaniye_system'+String(i));
     var combination = $('#combination'+String(i));
     var tip_pokritiya = $('#tip_pokritiya'+String(i));
+    
     // tip_pokritiya.val('').change();
     tip_pokritiya.attr("disabled",false);
     nazvaniye_system.text(e.params.data.system);
@@ -475,7 +477,7 @@ function get_anod(termo=false){
 function clear_artikul(id){
     var table_tr =$('#table_tr'+id);
     // table_tr.remove()
-    $('#artikul'+id).val(null).trigger('change');
+    // $('#artikul'+id).val(null).trigger('change');
     $('.nazvaniye_system'+id).text('');
     var tip_pokritiya = $('#tip_pokritiya'+String(id));
     tip_pokritiya.val('0').change();
@@ -1445,326 +1447,326 @@ function add_column(){
     
     for (let i = sizeee + 1; i < sizeee+2; i++) {
         text +=`
-        <tr >
-                                    
-        <td style=";">
-            <div class="input-group input-group-sm mb-1">
-                <div>
-                    <button type="button" class="btn btn-warning" onclick="clear_artikul(`+String(i)+`)">Очистить</button>     
-                </div>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <div><span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;"></span></div>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <select class=" form-control" style="background-color:#ddebf7; width: 200px;" id="artikul`+String(i)+`"></select>
-            </div>
-        </td>
-        
-        
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <input type="text" class="form-control "  onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 200px;text-transform: uppercase;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
-                    <option  selected></option>
-                    <option value="1" >Неокрашенный</option>
-                    <option value="2">Белый</option>
-                    <option value="3">Окрашенный</option>
-                    <option value="4">Ламинированный</option>
-                    <option value="5">Сублимированный</option>
-                    <option value="6">Анодированный</option>
-                </select>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-        
-            <select class="form-select" aria-label="" style="width: 75px;"  disabled id='splav`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
-                <option  value="" selected ></option>
-                <option value="63" >63</option>
-            </select>
-            
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 30px;"  disabled id='tip_zakalyonnosti`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
-                <option  value="" selected></option>
-                <option value="T4" >T4</option>
-                <option value="T6" >T6</option>
-            </select>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1" style="font-size: small; text-transform: uppercase; width:130px">
-                <div>
-                    <span class =' text-center pl-1' style="font-size: small; text-transform: uppercase;" id ='combination` +String(i)+`'></span>
-                </div>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
+    <tr id='table_tr` +String(i)+`' >
+                                
+    <td >
+        <div class="input-group input-group-sm mb-1">
             <div>
-                <span class =' text-center' style="font-size: small;font-weight: bold; text-transform: uppercase;" id ='brand_kraski_snaruji` +String(i)+`'></span>
+                <button type="button" class="btn btn-warning" onclick="clear_artikul(`+String(i)+`)" style="font-size: 12px;">Очистить</button>     
             </div>
-            </div>
-        </td>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <div><span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;" style="font-size: 12px;"></span></div>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <select class=" form-control" style="background-color:#ddebf7; width: 140px; font-size:10px" id="artikul`+String(i)+`"  onchange='clear_artikul(`+String(i)+`)'></select>
+        </div>
+    </td>
+    
+    
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <input type="text" class="form-control "  onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 165px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
+                <option  selected></option>
+                <option value="1" >Неокрашенный</option>
+                <option value="2">Белый</option>
+                <option value="3">Окрашенный</option>
+                <option value="4">Ламинированный</option>
+                <option value="5">Сублимированный</option>
+                <option value="6">Анодированный</option>
+              </select>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1" style="width: 60px;">
+       
+        <select class="form-select" aria-label="" style="width: 50px;"  disabled id='splav`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <option  value="" selected ></option>
+            <option value="63" >63</option>
+        </select>
         
-        <td >
-            <div class="input-group input-group-sm mb-1">
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1"  style="width: 60px;">
+        <select class="form-select" aria-label="" style="width: 50px;!important"  disabled id='tip_zakalyonnosti`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <option  value="" selected></option>
+            <option value="T4" >T4</option>
+            <option value="T6" >T6</option>
+        </select>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1" style="font-size: small; text-transform: uppercase; width:130px">
             <div>
-                <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_kraski_snaruji` +String(i)+`'></span>
+                <span class =' text-center pl-1' style="font-size: small; text-transform: uppercase;" id ='combination` +String(i)+`'></span>
             </div>
-            </div>
-        </td>
-        
-        <td >
-            <div class="input-group input-group-sm mb-1">
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1" >
+        <div>
+            <span class =' text-center' style="font-size: small;font-weight: bold; text-transform: uppercase;" id ='brand_kraski_snaruji` +String(i)+`'></span>
+        </div>
+        </div>
+    </td>
+    
+    <td >
+        <div class="input-group input-group-sm mb-1" style="width: 100px;">
+        <div>
+            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase;width: 100px;" id ='code_kraski_snaruji` +String(i)+`'></span>
+        </div>
+        </div>
+    </td>
+    
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <div>
+            <span class =' text-center' style="font-size: small;font-weight: bold; text-transform: uppercase;" id ='brand_kraski_vnutri` +String(i)+`'></span>
+        </div>
+        </div>
+    </td>
+    
+    <td >
+        <div class="input-group input-group-sm mb-1" style="width: 100px;">
+        <div>
+            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase; width:100px" id ='code_kraski_vnutri` +String(i)+`'></span>
+        </div>
+        </div>
+    </td>
+    
+    <td >
+        <div class="input-group input-group-sm mb-1">    
+        <select class="form-select" aria-label="" style="width: 75px;" onchange="svet_dekplonka_snaruji_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_snaruji`+String(i)+`' disabled>
+            <option  value="" selected></option>
+            <option value="Золотой Дуб 7777" >7777</option>
+            <option value="Махагон 3701">3701</option>
+            <option value="3D 3702">3702</option>
+            <option value="Дуб мокко">8888</option>
+            <option value="Шеф. сер. дуб">9999</option>
+            <option value="XXXX">XXXX</option>
+        </select>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
             <div>
-                <span class =' text-center' style="font-size: small;font-weight: bold; text-transform: uppercase;" id ='brand_kraski_vnutri` +String(i)+`'></span>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span>
             </div>
-            </div>
-        </td>
-        
-        <td >
-            <div class="input-group input-group-sm mb-1">
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1"  >    
+        <select class="form-select" aria-label="" style="width: 75px;" onchange="svet_dekplonka_vnutri_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_vnutri`+String(i)+`' disabled>
+            <option  value="" selected></option>
+            <option value="Золотой Дуб 7777" >7777</option>
+            <option value="Махагон 3701">3701</option>
+            <option value="3D 3702">3702</option>
+            <option value="Дуб мокко">8888</option>
+            <option value="Шеф. сер. дуб">9999</option>
+            <option value="XXXX">XXXX</option>
+        </select>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
             <div>
-                <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_kraski_vnutri` +String(i)+`'></span>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span>
             </div>
-            </div>
-        </td>
-        
-        <td >
-            <div class="input-group input-group-sm mb-1">    
-            <select class="form-select" aria-label="" style="width: 100px;" onchange="svet_dekplonka_snaruji_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_snaruji`+String(i)+`' disabled>
-                <option  value="" selected></option>
-                <option value="Золотой Дуб 7777" >7777</option>
-                <option value="Махагон 3701">3701</option>
-                <option value="3D 3702">3702</option>
-                <option value="Дуб мокко">8888</option>
-                <option value="Шеф. сер. дуб">9999</option>
-                <option value="XXXX">XXXX</option>
-            </select>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span>
-                </div>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">    
-            <select class="form-select" aria-label="" style="width: 100px;" onchange="svet_dekplonka_vnutri_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_vnutri`+String(i)+`' disabled>
-                <option  value="" selected></option>
-                <option value="Золотой Дуб 7777" >7777</option>
-                <option value="Махагон 3701">3701</option>
-                <option value="3D 3702">3702</option>
-                <option value="Дуб мокко">8888</option>
-                <option value="Шеф. сер. дуб">9999</option>
-                <option value="XXXX">XXXX</option>
-            </select>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span>
-                </div>
-            </div>
-        </td>
+        </div>
+    </td>
 
-        
+    
 
-        <td >
-            <div class="input-group input-group-sm mb-1">    
-            <select class="form-select" aria-label="" style="width: 245px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
+    <td >
+        <div class="input-group input-group-sm mb-1">    
+        <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
+            <option  value="" selected></option>
+            <option value="2036" >Золотой дуб</option>
+            <option value="2048">Дуб мокко</option>
+            <option value="2007">Красный орех</option>
+            <option value="2012">Орех</option>
+            <option value="3086">Шеффелдский дуб серый</option>
+            <option value="1012">Алюкс антрацит</option>
+            <option value="3001">Терновый дуб</option>
+            <option value="3002">Шеф Альпийский дуб</option>
+            <option value="3003">Гранитовый шеф дуб</option>
+            <option value="3042">Дерево бальза</option>
+            <option value="3062">Грецкий орех</option>
+            <option value="3043">Вишня амаретто</option>
+            <option value="3059">Орех терра</option>
+            <option value="3058">Грецкий орех амаретто</option>
+            <option value="3077">Винчестер</option>
+            <option value="3081">Шеффелдский дуб светлый</option>
+            <option value="3094">Орех Ребраун</option>
+            <option value="1004">Метбраш платин</option>
+            <option value="1005">Метбраш серый кварц</option>
+            <option value="1006">Метбраш серый антрацит</option>
+            <option value="XXXX">XXXX</option>
+        </select>
+        </div>
+    </td>
+    
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <div>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;" id ='code_lamplonka_snaruji` +String(i)+`'></span>
+            </div>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
                 <option  value="" selected></option>
                 <option value="2036" >Золотой дуб</option>
-                <option value="2048">Дуб мокко</option>
-                <option value="2007">Красный орех</option>
-                <option value="2012">Орех</option>
-                <option value="3086">Шеффелдский дуб серый</option>
-                <option value="1012">Алюкс антрацит</option>
-                <option value="3001">Терновый дуб</option>
-                <option value="3002">Шеф Альпийский дуб</option>
-                <option value="3003">Гранитовый шеф дуб</option>
-                <option value="3042">Дерево бальза</option>
-                <option value="3062">Грецкий орех</option>
-                <option value="3043">Вишня амаретто</option>
-                <option value="3059">Орех терра</option>
-                <option value="3058">Грецкий орех амаретто</option>
-                <option value="3077">Винчестер</option>
-                <option value="3081">Шеффелдский дуб светлый</option>
-                <option value="3094">Орех Ребраун</option>
-                <option value="1004">Метбраш платин</option>
-                <option value="1005">Метбраш серый кварц</option>
-                <option value="1006">Метбраш серый антрацит</option>
-                <option value="XXXX">XXXX</option>
+            <option value="2048">Дуб мокко</option>
+            <option value="2007">Красный орех</option>
+            <option value="2012">Орех</option>
+            <option value="3086">Шеффелдский дуб серый</option>
+            <option value="1012">Алюкс антрацит</option>
+            <option value="3001">Терновый дуб</option>
+            <option value="3002">Шеф Альпийский дуб</option>
+            <option value="3003">Гранитовый шеф дуб</option>
+            <option value="3042">Дерево бальза</option>
+            <option value="3062">Грецкий орех</option>
+            <option value="3043">Вишня амаретто</option>
+            <option value="3059">Орех терра</option>
+            <option value="3058">Грецкий орех амаретто</option>
+            <option value="3077">Винчестер</option>
+            <option value="3081">Шеффелдский дуб светлый</option>
+            <option value="3094">Орех Ребраун</option>
+            <option value="1004">Метбраш платин</option>
+            <option value="1005">Метбраш серый кварц</option>
+            <option value="1006">Метбраш серый антрацит</option>
+            <option value="XXXX">XXXX</option>
             </select>
-            </div>
-        </td>
-        
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='code_lamplonka_snaruji` +String(i)+`'></span>
-                </div>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 245px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
-                    <option  value="" selected></option>
-                    <option value="2036" >Золотой дуб</option>
-                <option value="2048">Дуб мокко</option>
-                <option value="2007">Красный орех</option>
-                <option value="2012">Орех</option>
-                <option value="3086">Шеффелдский дуб серый</option>
-                <option value="1012">Алюкс антрацит</option>
-                <option value="3001">Терновый дуб</option>
-                <option value="3002">Шеф Альпийский дуб</option>
-                <option value="3003">Гранитовый шеф дуб</option>
-                <option value="3042">Дерево бальза</option>
-                <option value="3062">Грецкий орех</option>
-                <option value="3043">Вишня амаретто</option>
-                <option value="3059">Орех терра</option>
-                <option value="3058">Грецкий орех амаретто</option>
-                <option value="3077">Винчестер</option>
-                <option value="3081">Шеффелдский дуб светлый</option>
-                <option value="3094">Орех Ребраун</option>
-                <option value="1004">Метбраш платин</option>
-                <option value="1005">Метбраш серый кварц</option>
-                <option value="1006">Метбраш серый антрацит</option>
-                <option value="XXXX">XXXX</option>
-                </select>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id='code_lamplonka_vnutri`+String(i)+`'></span>
-                </div>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            <div id='anod`+String(i)+`'></div>            
-            </div>
-        </td> 
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            <div id='anod_vnutr`+String(i)+`'></div>            
-            </div>
-            </div>
-        </td> 
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 30px;"  disabled id='contactnost_anodirovki`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
-                <option  value=""></option>
-                <option value="YC" >YC</option>
-                <option value="NC">NC</option>
-            </select>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
             <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id='tip_anodirovki`+String(i)+`'></span>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%" id='code_lamplonka_vnutri`+String(i)+`'></span>
             </div>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            <div>
-                <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='sposob_anodirovki`+String(i)+`'></span>
-            </div>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
-            <span id='nakleyka_nt`+String(i)+`' style='display:none'>NT1</span>
-            <span id='nakleyka_org`+String(i)+`' style='display:none'></span>
-            <div id='nakleyka_select`+String(i)+`' style='display:none'>
-                <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
-            </div>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                
-            </div>
-        </td> 
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                
-            </div>
-        </td> 
-        <td >
-            <div class="input-group input-group-sm mb-1">
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1" style="width: 75px;">
+        <div id='anod`+String(i)+`' class='anood'  style="width: 75px;" ></div>            
+        </div>
+    </td> 
+    <td >
+        <div class="input-group input-group-sm mb-1" style="width: 75px;">
+        <div id='anod_vnutr`+String(i)+`'  style="width: 75px;"></div>            
+        </div>
+        </div>
+    </td> 
+    <td >
+        <div class="input-group input-group-sm mb-1" style="width: 60px;">
+        <select class="form-select" aria-label=""   disabled id='contactnost_anodirovki`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <option  value=""></option>
+            <option value="YC" >YC</option>
+            <option value="NC">NC</option>
+        </select>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <div>
+            <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id='tip_anodirovki`+String(i)+`'></span>
+        </div>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <div>
+            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='sposob_anodirovki`+String(i)+`'></span>
+        </div>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
+        <span id='nakleyka_nt`+String(i)+`' style='display:none;padding-left:35%'>NT1</span>
+        <span id='nakleyka_org`+String(i)+`' style='display:none;padding-left:35%'></span>
+        <div id='nakleyka_select`+String(i)+`' style='display:none;padding-left:35%'>
+            <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
+        </div>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
             
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
             
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
             
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
+        </div>
+    </td> 
+    <td >
+        <div class="input-group input-group-sm mb-1">
             
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            
-            </div>
-        </td>
-        </tr>`
+        </div>
+    </td> 
+    <td >
+        <div class="input-group input-group-sm mb-1">
+           
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+           
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+           
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+           
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+           
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+           
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+           
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+           
+        </div>
+    </td>
+    </tr>`
     }
 
 
@@ -1811,11 +1813,17 @@ function add_column(){
         
         $("#artikul"+String(i)).on("select2:select", function (e) { 
         var select_val = $(e.currentTarget).val();
+        console.log(select_val)
         var nazvaniye_system =$('.nazvaniye_system'+String(i));
         var combination = $('#combination'+String(i));
         var tip_pokritiya = $('#tip_pokritiya'+String(i));
         // tip_pokritiya.val('').change();
-        tip_pokritiya.attr("disabled",false);
+        console.log(tip_pokritiya)
+        if(select_val!=''){
+
+            tip_pokritiya.attr("disabled",false);
+            
+        }
         nazvaniye_system.text(e.params.data.system);
         combination.text(e.params.data.combination)
 
@@ -1904,3 +1912,7 @@ function ready_all(){
     
    
 }
+
+
+
+
