@@ -26,7 +26,7 @@ for (let i = 1; i <= 5; i++) {
     
     <td >
         <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
+            <input type="text" class="form-control "  style='width:50px' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
         </div>
     </td>
     <td >
@@ -1470,7 +1470,7 @@ function add_column(){
     
     <td >
         <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
+            <input type="text" class="form-control "  style='width:50px' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
         </div>
     </td>
     <td >
