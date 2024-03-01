@@ -37,902 +37,94 @@
 
 
             <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
                 <div class="container " style="overflow: scroll;">
                     
-                    <table class="table " >
+                    <table class="table table-sm" >
                         <thead>
                           <tr>
-                            <th scope="col" style="background-color:#ffff00;">Название системы</th>
-                            <th scope="col" style="background-color:#ffff00;">Артикул</th>
-                            <th scope="col" style="background-color:#ffff00;">Длина (мм)</th>
-                            <th scope="col" style="background-color:#ffff00;">Тип покрытия</th>
-                            <th scope="col" style="background-color:#ffff00;">Сплав</th>
-                            <th scope="col" style="background-color:#ffff00;">тип закаленности</th>
-                            <th scope="col" style="background-color:#ffff00;">Комбинация</th>
-                            <th scope="col" style="background-color:#ffff00;">Бренд краски снаружи</th>
-                            <th scope="col" style="background-color:#ffff00;">Код краски снаружи</th>
-                            <th scope="col" style="background-color:#ffff00;">Бренд краски внутри</th>
-                            <th scope="col" style="background-color:#ffff00;">Код краски внутри</th>
-                            <th scope="col" style="background-color:#ffff00;">Код декор пленки снаружи</th>
-                            <th scope="col" style="background-color:#ffff00;">Цвет декор пленки снаружи</th>
-                            <th scope="col" style="background-color:#ffff00;">Код декор пленки внутри</th>
-                            <th scope="col" style="background-color:#ffff00;">Цвет декор пленки внутри</th>
-                            <th scope="col" style="background-color:#ffff00;">Код лам пленки снаружи</th>
-                            <th scope="col" style="background-color:#ffff00;">Цвет лам пленки снаружи</th>
-                            <th scope="col" style="background-color:#ffff00;">Код лам пленки внутри</th>
-                            <th scope="col" style="background-color:#ffff00;">Цвет лам пленки внутри</th>
-                            <th scope="col" style="background-color:#ffff00;">Код цвета анодировки снаружи</th>
-                            <th scope="col" style="background-color:#ffff00;">Код цвета анодировки внутри</th>
-                            <th scope="col" style="background-color:#ffff00;">Контактность анодировки</th>
-                            <th scope="col" style="background-color:#ffff00;">Тип анодировки</th>
-                            <th scope="col" style="background-color:#ffff00;">Способ анодировки</th>
-                            <th scope="col" style="background-color:#ffff00;">Код наклейки</th>
-                            <th scope="col" style="background-color:#ffff00;">Надпись наклейки</th>
-                            <th scope="col" style="background-color:#ffff00;">База профилей</th>
-                            <th scope="col" style="background-color:#ffff00;">Группа материалов</th>
-                            <th scope="col" style="background-color:#ffff00;">Краткий текст товара</th>
-                            <th scope="col" style="background-color:#ffff00; ">SAP Код вручную (вставляется вручную)</th>
-                            <th scope="col" style="background-color:#ffff00; ">Краткий текст товара (вставляется вручную)</th>
-                            <th scope="col" style="background-color:#ffff00;">Место для комментариев</th>
-                            <th scope="col" style="background-color:#ffff00;">Завод</th>
-                            <th scope="col" style="background-color:#ffff00;">Статус</th>
-                            <th scope="col" style="background-color:#ffff00;">ONLINE ID</th>
-                            <th scope="col" style="background-color:#ffff00;">Название</th>
-                            <th scope="col" style="background-color:#bfbfbf;">Цвет продукта</th>
-                            <th scope="col" style="background-color:#ffff00;">Группа закупок</th>
-                            <th scope="col" style="background-color:#ffff00;">Группа</th>
-                            <th scope="col" style="background-color:#bfbfbf;">Тип</th>
-                            <th scope="col" style="background-color:#ffff00;">Сегмент</th>
-                            <th scope="col" style="background-color:#bfbfbf;">Бухгалтерский товары</th>
-                            <th scope="col" style="background-color:#bfbfbf;">Бухгалтерский учет</th>
-                            <th scope="col" style="background-color:#bfbfbf;">Базовый единица</th>
-                            <th scope="col" style="background-color:#bfbfbf;">Альтернативный единица</th>
-                            <th scope="col" style="background-color:#bfbfbf;">Стоимость базовой единицы</th>
-                            <th scope="col" style="background-color:#bfbfbf;">Альтер. стоимость единицы</th>
-                            <th scope="col" style="background-color:#bfbfbf;">Статус</th>
-                            <th scope="col" style="background-color:#ffff00;">Завод</th>
-                            <th scope="col" style="background-color:#ffff00;">Акфа дилерда очиш керак</th>
-                            <th scope="col" style="background-color:#ffff00;">Тип клиента</th>
+                            <th scope="col">Название системы</th>
+                            <th scope="col">Артикул</th>
+                            <th scope="col">Длина (мм)</th>
+                            <th scope="col">Тип покрытия</th>
+                            <th scope="col">Сплав</th>
+                            <th scope="col">тип закаленности</th>
+                            <th scope="col">Комбинация</th>
+                            <th scope="col">Бренд краски снаружи</th>
+                            <th scope="col">Код краски снаружи</th>
+                            <th scope="col">Бренд краски внутри</th>
+                            <th scope="col">Код краски внутри</th>
+                            <th scope="col">Код декор пленки снаружи</th>
+                            <th scope="col">Цвет декор пленки снаружи</th>
+                            <th scope="col">Код декор пленки внутри</th>
+                            <th scope="col">Цвет декор пленки внутри</th>
+                            <th scope="col">Код лам пленки снаружи</th>
+                            <th scope="col">Цвет лам пленки снаружи</th>
+                            <th scope="col">Код лам пленки внутри</th>
+                            <th scope="col">Цвет лам пленки внутри</th>
+                            <th scope="col">Код цвета анодировки снаружи</th>
+                            <th scope="col">Код цвета анодировки внутри</th>
+                            <th scope="col">Контактность анодировки</th>
+                            <th scope="col">Тип анодировки</th>
+                            <th scope="col">Способ анодировки</th>
+                            <th scope="col">Код наклейки</th>
+                            <th scope="col">Надпись наклейки</th>
+                            <th scope="col">База профилей</th>
+                            <th scope="col">Группа материалов</th>
+                            <th scope="col">Краткий текст товара</th>
+                            <th scope="col" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col">Место для комментариев</th>
+                            <th scope="col">Завод</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col">ONLINE ID</th>
+                            <th scope="col">Название</th>
+                            <th scope="col">Цвет продукта</th>
+                            <th scope="col">Группа закупок</th>
+                            <th scope="col">Группа</th>
+                            <th scope="col">Тип</th>
+                            <th scope="col">Сегмент</th>
+                            <th scope="col">Бухгалтерский товары</th>
+                            <th scope="col">Бухгалтерский учет</th>
+                            <th scope="col">Базовый единица</th>
+                            <th scope="col">Альтернативный единица</th>
+                            <th scope="col">Стоимость базовой единицы</th>
+                            <th scope="col">Альтер. стоимость единицы</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col">Завод</th>
+                            <th scope="col">Акфа дилерда очиш керак</th>
+                            <th scope="col">Тип клиента</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr >
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
+                        <tbody id="table-artikul">
                             
-                            
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-                            
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-                            
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;"  aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                          </tr>
-                          <tr >
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            
-                            
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-                            
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-                            
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;"  aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                          </tr>
-                          <tr >
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            
-                            
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-                            
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            
-                            <td style="background-color:#ddebf7;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#ddebf7;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td> 
-                            
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#92d050;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#92d050;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;"  aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td style="background-color:#bfbfbf;">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " style="background-color:#bfbfbf;" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                            <td >
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control " aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </td>
-                          </tr>
-                          
-                          
-                          
-                          
-                         
                         </tbody>
                     </table>
                   
-                    <!-- <div class="row">
-
-                        <div class="col-lg-8 col-12 m-auto">
-                            <h3 class="mb-4">Introduction to Web Design</h3>
-
-                            <p>So how can you stand out, do something unique and interesting, build an online business, and get paid enough to change life. Please visit TemplateMo website to download free website templates.</p>
-
-                            <p><strong>There are so many ways to make money online</strong>. Below are several platforms you can use to find success. Keep in mind that there is no one path everyone can take. If that were the case, everyone would have a million dollars.</p>
-
-                            <blockquote>
-                                Freelancing your skills isn’t going to make you a millionaire overnight.
-                            </blockquote>
-
-                            <div class="row my-4">
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <img src="images/businesswoman-using-tablet-analysis.jpg" class="topics-detail-block-image img-fluid">
-                                </div>
-
-                                <div class="col-lg-6 col-md-6 col-12 mt-4 mt-lg-0 mt-md-0">
-                                    <img src="images/colleagues-working-cozy-office-medium-shot.jpg" class="topics-detail-block-image img-fluid">
-                                </div>
-                            </div>
-
-                            <p>Most people start with freelancing skills they already have as a side hustle to build up income. This extra cash can be used for a vacation, to boost up savings, investing, build business.</p>
-                        </div>
-
-                    </div> -->
+                    
                 </div>
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-start p-2">
+                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-center p-2">
+                                <input type="button" class="btn btn-success " value="Готов" onclick="ready_all()" id="ready_btn"><span class="m-1" ></span>
+                                <!-- <input type="button" class="btn btn-warning " value="Изменить" onclick="edit_all()" id="edit_btn" style="display: none;"><span class="m-1" ></span> -->
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-end p-2">
+                                <input type="submit" class="btn btn-primary" value="Загрузить" style="display: none;" id="zagruzka_file">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
             </section>
 
 
@@ -960,4 +152,13 @@
                 </div>
             </section>
         </main>
+{%endblock%}
+
+{%block java_script%}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script> 
+
+<link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
+<script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
+<script src="{% static 'js/savdo.js'%}"></script>
+
 {%endblock%}

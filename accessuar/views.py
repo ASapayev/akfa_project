@@ -426,20 +426,20 @@ def generate_sap_code_price(sapcodes):
         #     print(sapcodes[i]['components'],'<<<<<<<<',component_count,price)
 
         if component_count == len(sapcodes[i]['components']):
-            if sapcodes[i]['sap_code']=='APF.091.MSK-TP01':
-                print(sapcodes[i]['components'],'yyy<<<<<<<<',component_count,price)
+            # if sapcodes[i]['sap_code']=='APF.091.MSK-TP01':
+            #     print(sapcodes[i]['components'],'yyy<<<<<<<<',component_count,price)
             sapcodes_copy[i]['ves_corredted'] = True
             sapcodes_copy[i]['price'] = price
             if Siryo.objects.filter(data__sap_code =sapcodes[i]['sap_code']).exists():
-                if sapcodes[i]['sap_code']=='APF.091.MSK-TP01':
-                    print(sapcodes[i]['components'],'existsss<<<<<<<<',component_count,price)
+                # if sapcodes[i]['sap_code']=='APF.091.MSK-TP01':
+                #     print(sapcodes[i]['components'],'existsss<<<<<<<<',component_count,price)
                 siryo = Siryo.objects.filter(data__sap_code =sapcodes[i]['sap_code'])[:1].get()
                 siryo.data['price'] = price
                 siryo.save()
                 
             else:
-                if sapcodes[i]['sap_code']=='APF.091.MSK-TP01':
-                    print(sapcodes[i]['components'],'newwwyyy<<<<<<<<',component_count,price)
+                # if sapcodes[i]['sap_code']=='APF.091.MSK-TP01':
+                #     print(sapcodes[i]['components'],'newwwyyy<<<<<<<<',component_count,price)
                 Siryo(
                     data ={'sap_code':sapcodes[i]['sap_code'],'menge':value,'price':price}
                 ).save()
