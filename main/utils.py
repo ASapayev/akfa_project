@@ -42,7 +42,7 @@ def counter_generated_data(datas,data_type):
 
   new_data = []
   excel_txt5 =[]
-  new_excel_txt5 =[]
+  vess_excel_txt5 =[]
   for dat in datas:
     sap_code_materials =dat['sap_code']
     ktartkiy_tekst_materiala =dat['text']
@@ -74,6 +74,7 @@ def counter_generated_data(datas,data_type):
           umumiy = umumiy_dict(product,umumiy,duplicate='Yes')
         else:
           excel_txt5.append(da['lenn'])
+          vess_excel_txt5.append(((float(ves_gp)/lenn)*float(da['lenn'])))
           for i in range(1,10000):
             if not i in number_list:
               ################product save..
@@ -108,6 +109,7 @@ def counter_generated_data(datas,data_type):
       counter_list=[]
       for da in dat['data']:
         excel_txt5.append(da['lenn'])
+        vess_excel_txt5.append(((float(ves_gp)/lenn)*float(da['lenn'])))
         product =Product(
                 sap_code_materials =sap_code_materials ,
                 ktartkiy_tekst_materiala =ktartkiy_tekst_materiala,
@@ -334,9 +336,15 @@ def counter_generated_data(datas,data_type):
   
   d5 ={}
   d5['del_otxod_sap_code']=umumiy_without_duplicate[2] + umumiy_without_duplicate[2]
-  d5['naz_ed_iz']=[ 'М' for i in range(0,len(umumiy_without_duplicate[0]))] + [ 'КГ' for i in range(0,len(umumiy_without_duplicate[0]))]
   d5['ed_iz1']=[ 1000 for i in range(0,len(umumiy_without_duplicate[0]))] + [ 1000 for i in range(0,len(umumiy_without_duplicate[0]))]
-  d5['ed_iz2']=excel_txt5 + excel_txt5
+  # d5['ed_iz2']=excel_txt5 + excel_txt5
+  d5['ed_iz2']= excel_txt5 + [int(float(x) * 1000) for x in vess_excel_txt5]
+  d5['naz_ed_iz']=[ 'М' for i in range(0,len(umumiy_without_duplicate[0]))] + [ 'КГ' for i in range(0,len(umumiy_without_duplicate[0]))]
+  
+  print(len(d5['del_otxod_sap_code']))
+  print(len(d5['ed_iz1']))
+  print(len(d5['ed_iz2']))
+  print(len(d5['naz_ed_iz']))
   df5= pd.DataFrame(d5)
   np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
   
