@@ -57,7 +57,7 @@ def get_norma_df(ozmk) ->list:
         k = 0
         for comp in norm.data['components']:
             if '-7' in norm.data['sap_code']:
-                meins = ('%0.3f' %  float(float(comp[6])*1000)).replace('.',',')
+                meins = ('%0.3f' %  float(float(str(comp[6]).replace(',','.'))*1000)).replace('.',',')
             else:
                 meins =str('%0.3f' % float(comp[4])).replace('.',',')
 
