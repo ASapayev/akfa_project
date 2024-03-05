@@ -55,6 +55,40 @@ def get_norma_df(ozmk) ->list:
         df_new['PUSTOY'].append('')
         df_new['LGORT'].append('')
         k = 0
+        if '-7' in norm.data['sap_code']:
+            lgort =''
+        else:
+            if '-LA' in norm.data['sap_code']:
+                lgort ='PL01'
+            elif '-LC' in norm.data['sap_code']:
+                lgort ='PL01'
+            elif '-PA' in norm.data['sap_code']:
+                lgort ='PL02'
+            elif '-PC' in norm.data['sap_code']:
+                lgort ='PL03'
+            elif '-MO' in norm.data['sap_code']:
+                lgort ='PL04'
+            elif '-GZ' in norm.data['sap_code']:
+                lgort ='PL06'
+            elif '-VS' in norm.data['sap_code']:
+                lgort ='PL05'
+            elif '-RU' in norm.data['sap_code']:
+                lgort ='PS01'
+            elif '-SN' in norm.data['sap_code']:
+                lgort ='PS03'
+            elif '-SK' in norm.data['sap_code']:
+                lgort ='PS03'
+            elif '-KL' in norm.data['sap_code']:
+                lgort ='PS02'
+            elif '-ZG' in norm.data['sap_code']:
+                lgort ='PS05'
+            elif '-TP' in norm.data['sap_code']:
+                lgort ='PS04'
+            else:
+                lgort =''
+
+            
+
         for comp in norm.data['components']:
             if '-7' in norm.data['sap_code']:
                 meins = ('%0.3f' %  float(float(str(comp[6]).replace(',','.'))*1000)).replace('.',',')
@@ -81,7 +115,7 @@ def get_norma_df(ozmk) ->list:
             df_new['MENGE'].append(comp[2])
             df_new['DATUV'].append('')
             df_new['PUSTOY'].append('')   
-            df_new['LGORT'].append('PS02')
+            df_new['LGORT'].append(lgort)
     
     
     now =datetime.now()

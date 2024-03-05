@@ -39,9 +39,9 @@
             <section class="topics-detail-section section-padding" id="topics-detail">
                 <form method="POST" id="basic_form" onsubmit="return validateForm()">
                     {%csrf_token%}
-                <div style="overflow: scroll;">
+                <div style="overflow: scroll;" id="table-container">
                     
-                    <table class="table table-sm" >
+                    <table class="table table-sm" id="my-table">
                         <thead>
                           <tr>
                             <th scope="col" style="font-size: 14px;">Действие</th>
