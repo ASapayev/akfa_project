@@ -264,7 +264,6 @@ def lenght_generate_texcarta(ozmks) -> list:
     df_new['VGE01']=''
     df_new['VGW03']=''
     df_new['VGE03']=''
-    df_new['ACTTYPE_01']=''
     df_new['CKSELKZ']=''
     df_new['UMREZ']=""
     df_new['UMREN']=''
@@ -307,7 +306,6 @@ def lenght_generate_texcarta(ozmks) -> list:
                             df_new['VGE01'][counter_2] ='STD'
                             df_new['VGW03'][counter_2]="%.3f" % price
                             df_new['VGE03'][counter_2]='ZUS'
-                            df_new['ACTTYPE_01'][counter_2] ='200096'
                             df_new['CKSELKZ'][counter_2] ='X'
                             df_new['UMREZ'][counter_2] = '1'
                             df_new['UMREN'][counter_2] = '1'
