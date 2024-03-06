@@ -91,7 +91,7 @@ def get_norma_df(ozmk) ->list:
 
         for comp in norm.data['components']:
             if '-7' in norm.data['sap_code']:
-                meins = ('%0.3f' %  float(float(str(comp[6]).replace(',','.'))*1000)).replace('.',',')
+                meins = str(('%0.3f' %  float(float(str(comp[6]).replace(',','.'))*1000)).replace('.',','))
             else:
                 meins =str('%0.3f' % float(comp[4])).replace('.',',')
 
@@ -111,7 +111,7 @@ def get_norma_df(ozmk) ->list:
             df_new['POSTP'].append('L')
             df_new['MATNR1'].append(comp[0])
             df_new['TEXT2'].append(comp[1])
-            df_new['MEINS'].append(meins) 
+            df_new['MEINS'].append(meins.replace(',000','') if meins[-4:]==',000' else meins ) 
             df_new['MENGE'].append(comp[2])
             df_new['DATUV'].append('')
             df_new['PUSTOY'].append('')   
