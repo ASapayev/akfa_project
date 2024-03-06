@@ -264,6 +264,7 @@ def lenght_generate_texcarta(ozmks) -> list:
     df_new['VGE01']=''
     df_new['VGW03']=''
     df_new['VGE03']=''
+    df_new['ACTTYPE_01']=''
     df_new['CKSELKZ']=''
     df_new['UMREZ']=""
     df_new['UMREN']=''
