@@ -5642,6 +5642,8 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         buxgalterskiy_t['POS']=buxgalterskiy_naz[6] + datas_1112[0]['POS']
         buxgalterskiy_t['LTEXT']=buxgalterskiy_naz[7] + datas_1112[0]['LTEXT']
         
+
+        
         df_bug_text= pd.DataFrame(buxgalterskiy_t)
         
         np.savetxt(pathtext8, df_bug_text.values,fmt='%s', delimiter="\t",header=header_buxgalter,comments='',encoding='ansi')

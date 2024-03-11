@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from config.settings import MEDIA_ROOT,BASE_DIR
 from .forms import AccessuarFileForm
-from .models import AccessuarFiles,Norma,Siryo,TexcartaBase
+from .models import AccessuarFiles,Norma,Siryo,TexcartaBase,DataForText
 import pandas as pd
 from .utils import get_norma_df,get_norma_price,create_folder,lenght_generate_texcarta
 from django.contrib.auth.decorators import login_required
@@ -88,6 +88,32 @@ def full_update_siryo(request):
                 Siryo(
                     data ={'sap_code':row['SAPCODE'],'menge':row['NARX'],'price':'0'}
                 ).save()
+
+    return render(request,'norma/benkam/main.html')
+
+@login_required(login_url='/accounts/login/')
+def update_text_base(request):
+    if request.method == 'POST':
+        data = request.POST.copy()
+        form = AccessuarFileForm(data, request.FILES)
+        if form.is_valid():
+            form_file = form.save()
+            file = form_file.file
+            path =f'{MEDIA_ROOT}/{file}'
+            df = pd.read_excel(path,header=0)
+            DataForText.objects.all().delete()
+            df = df.astype(str)
+            df = df.replace('nan','')
+            colums_name = list(df.columns)
+            data =[]
+            for key,row in df.iterrows():
+                dat ={}
+                for col in colums_name:
+                    dat[col] = row[col]
+                data.append(dat)
+            
+            items =[DataForText(data=dat) for dat in data]
+            DataForText.objects.bulk_create(items)
 
     return render(request,'norma/benkam/main.html')
 
