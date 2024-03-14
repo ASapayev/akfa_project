@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from aluminiy.models import ArtikulComponent
+from pvc.models import ArtikulKomponentPVC 
 from norma.models import Nakleyka
 from .models import Anod
 from django.contrib.auth.decorators import login_required
@@ -49,6 +50,17 @@ def imzo_artikul_list(request):
         artikules = ArtikulComponent.objects.filter(artikul__icontains = term).values('id','artikul','system','combination','code_nakleyka')
     else:
         artikules = ArtikulComponent.objects.all()[:50].values('id','artikul','system','combination','code_nakleyka')
+    return JsonResponse(list(artikules),safe=False)
+
+
+@login_required(login_url='/accounts/login/')
+def pvc_artikul_list(request):
+    
+    term = request.GET.get('term',None)
+    if term:
+        artikules = ArtikulKomponentPVC.objects.filter(artikul__icontains = term).values('id','artikul','system','combination','code_nakleyka')
+    else:
+        artikules = ArtikulKomponentPVC.objects.all()[:50].values('id','artikul','system','combination','code_nakleyka')
     return JsonResponse(list(artikules),safe=False)
     
     
