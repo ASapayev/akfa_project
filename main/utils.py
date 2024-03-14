@@ -335,16 +335,19 @@ def counter_generated_data(datas,data_type):
   np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\4.txt', df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
   
   d5 ={}
-  d5['del_otxod_sap_code']=umumiy_without_duplicate[2] + umumiy_without_duplicate[2]
-  d5['ed_iz1']=[ 1000 for i in range(0,len(umumiy_without_duplicate[0]))] + [ 1000 for i in range(0,len(umumiy_without_duplicate[0]))]
-  # d5['ed_iz2']=excel_txt5 + excel_txt5
-  d5['ed_iz2']= excel_txt5 + [int(float(x) * 1000) for x in vess_excel_txt5]
-  d5['naz_ed_iz']=[ 'М' for i in range(0,len(umumiy_without_duplicate[0]))] + [ 'КГ' for i in range(0,len(umumiy_without_duplicate[0]))]
+  if data_name=='PVC':
+    d5['del_otxod_sap_code']=umumiy_without_duplicate[2] + umumiy_without_duplicate[2]
+    d5['ed_iz1']=[ 1000 for i in range(0,len(umumiy_without_duplicate[0]))] + [ 1000 for i in range(0,len(umumiy_without_duplicate[0]))]
+    # d5['ed_iz2']=excel_txt5 + excel_txt5
+    d5['ed_iz2']= excel_txt5 + [int(float(x) * 1000) for x in vess_excel_txt5]
+    d5['naz_ed_iz']=[ 'М' for i in range(0,len(umumiy_without_duplicate[0]))] + [ 'КГ' for i in range(0,len(umumiy_without_duplicate[0]))]
+  else:
+    d5['del_otxod_sap_code']=umumiy_without_duplicate[2] + umumiy_without_duplicate[2]
+    d5['naz_ed_iz']=[ 'М' for i in range(0,len(umumiy_without_duplicate[0]))] + [ 'КГ' for i in range(0,len(umumiy_without_duplicate[0]))]
+    d5['ed_iz1']=[ 1000 for i in range(0,len(umumiy_without_duplicate[0]))] + [ 1000 for i in range(0,len(umumiy_without_duplicate[0]))]
+    d5['ed_iz2']= excel_txt5 + [int(float(x) * 1000) for x in vess_excel_txt5]
   
-  print(len(d5['del_otxod_sap_code']))
-  print(len(d5['ed_iz1']))
-  print(len(d5['ed_iz2']))
-  print(len(d5['naz_ed_iz']))
+ 
   df5= pd.DataFrame(d5)
   np.savetxt(f'{MEDIA_ROOT}\\uploads\\delovoyotxod\\{year}\\{month}\\{day}\\{hour}\\{minut}\\Единицы изм.txt', df5.values, fmt='%s', delimiter="\t",encoding='ansi')
   

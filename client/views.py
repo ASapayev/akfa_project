@@ -58,7 +58,7 @@ def pvc_artikul_list(request):
     
     term = request.GET.get('term',None)
     if term:
-        artikules = ArtikulKomponentPVC.objects.filter(artikul__icontains = term).values('id','artikul','system','combination','code_nakleyka')
+        artikules = ArtikulKomponentPVC.objects.filter(artikul__icontains = term).values('id','artikul','component','component2','category','profile_type','nazvaniye_sistem','')
     else:
         artikules = ArtikulKomponentPVC.objects.all()[:50].values('id','artikul','system','combination','code_nakleyka')
     return JsonResponse(list(artikules),safe=False)
