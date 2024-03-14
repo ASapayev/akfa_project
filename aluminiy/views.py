@@ -2786,8 +2786,8 @@ def product_add_second_org(request,id):
             if df['Длина при выходе из пресса'][key] != 'nan':
                   dlina = df['Длина при выходе из пресса'][key].replace('.0','')
                         
-                  df_new['Фабрикация'][key]=fabrikatsiya_sap_kod(df['Краткий текст товара'][key],df['Длина (мм)'][key])
-                  df_new['U-Упаковка + Готовая Продукция 75'][key]=fabrikatsiya_sap_kod(df['Краткий текст товара'][key],df['Длина (мм)'][key])
+                  df_new['Фабрикация'][key]=df['Краткий текст товара'][key]
+                  df_new['U-Упаковка + Готовая Продукция 75'][key]=df['Краткий текст товара'][key]
                   
                   
                   if df['Тип покрытия'][key] == 'Ламинированный':
