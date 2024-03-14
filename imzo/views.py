@@ -171,14 +171,16 @@ def lenght_generate_texcarta(request,id):
     counter = 0
     for key,row in df.iterrows():
         if not ImzoBase.objects.filter(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).exists():
-            if '-7' in row['МАТЕРИАЛ'] or '-K' in row['МАТЕРИАЛ'] or '-N' in row['МАТЕРИАЛ'] or '-S' in row['МАТЕРИАЛ']:
+            if '-7' in row['МАТЕРИАЛ'] or '-N' in row['МАТЕРИАЛ'] or '-S' in row['МАТЕРИАЛ']:
                 counter +=2
             elif '-P' in row['МАТЕРИАЛ']:
-                counter +=15
+                counter +=17
             elif '-Z' in row['МАТЕРИАЛ']:
                 counter +=4
             elif '-E' in row['МАТЕРИАЛ']:
                 counter +=3
+            elif '-K' in row['МАТЕРИАЛ']:
+                counter +=4
         else:
             df['Дупликат'][key]='Yes'
 
@@ -584,37 +586,76 @@ def lenght_generate_texcarta(request,id):
                         counter_2 +=1                
             
             elif '-K' in row['МАТЕРИАЛ']:
-                for i7 in range(1,3):
-                    if i7 ==1:
-                        df_new['ID'][counter_2] ='1'
-                        df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
-                        df_new['WERKS'][counter_2] ='1101'
-                        df_new['STTAG'][counter_2] ='01012023'
-                        df_new['PLNAL'][counter_2] ='1'
-                        df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
-                        df_new['VERWE'][counter_2] ='1'
-                        df_new['STATU'][counter_2] ='4'
-                        df_new['LOSVN'][counter_2] ='1'
-                        df_new['LOSBS'][counter_2] ='99999999'
-                    elif i7 == 2:
-                        df_new['ID'][counter_2]='2'
-                        df_new['VORNR'][counter_2] =BAZA['K']['VORNR'][0]
-                        df_new['ARBPL'][counter_2] =BAZA['K']['ARBPL'][0]
-                        df_new['WERKS1'][counter_2] ='1101'
-                        df_new['STEUS'][counter_2] ='ZK01'
-                        df_new['LTXA1'][counter_2] =BAZA['K']['LTXA1'][0]
-                        df_new['BMSCH'][counter_2] =texcartatime.термо_1_линия_про_во_в_сутки_буй if texcarta_bor else '11111'
-                        df_new['MEINH'][counter_2] =BAZA['K']['MEINH'][0]
-                        df_new['VGW01'][counter_2] ='24'
-                        df_new['VGE01'][counter_2] ='STD'
-                        df_new['ACTTYPE_01'][counter_2] =BAZA['K']['ACTTYPE_01'][0]
-                        df_new['CKSELKZ'][counter_2] ='X'
-                        df_new['UMREZ'][counter_2] = '1'
-                        df_new['UMREN'][counter_2] = '1'
-                        df_new['USR00'][counter_2] = '1'
-                        df_new['USR01'][counter_2] = texcartatime.kombinirovan if texcarta_bor else '0'
-                        df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
-                    counter_2 +=1
+                
+                for jk in range(1,3):
+                    if jk==1:
+                        for i7 in range(1,3):
+                            if i7 ==1:
+                                df_new['ID'][counter_2] ='1'
+                                df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                                df_new['WERKS'][counter_2] ='1101'
+                                df_new['STTAG'][counter_2] ='01012023'
+                                df_new['PLNAL'][counter_2] ='1'
+                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                df_new['VERWE'][counter_2] ='1'
+                                df_new['STATU'][counter_2] ='4'
+                                df_new['LOSVN'][counter_2] ='1'
+                                df_new['LOSBS'][counter_2] ='99999999'
+                            elif i7 == 2:
+                                df_new['ID'][counter_2]='2'
+                                df_new['VORNR'][counter_2] =BAZA['K']['VORNR'][0]
+                                df_new['ARBPL'][counter_2] =BAZA['K']['ARBPL'][0]
+                                df_new['WERKS1'][counter_2] ='1101'
+                                df_new['STEUS'][counter_2] ='ZK01'
+                                df_new['LTXA1'][counter_2] =BAZA['K']['LTXA1'][0]
+                                df_new['BMSCH'][counter_2] =texcartatime.термо_1_линия_про_во_в_сутки_буй if texcarta_bor else '11111'
+                                df_new['MEINH'][counter_2] =BAZA['K']['MEINH'][0]
+                                df_new['VGW01'][counter_2] ='24'
+                                df_new['VGE01'][counter_2] ='STD'
+                                df_new['ACTTYPE_01'][counter_2] =BAZA['K']['ACTTYPE_01'][0]
+                                df_new['CKSELKZ'][counter_2] ='X'
+                                df_new['UMREZ'][counter_2] = '1'
+                                df_new['UMREN'][counter_2] = '1'
+                                df_new['USR00'][counter_2] = '1'
+                                df_new['USR01'][counter_2] = texcartatime.kombinirovan if texcarta_bor else '0'
+                                df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
+                            counter_2 +=1
+                    
+                    elif jk==2:
+                        
+                        for i7 in range(1,3):
+                            if i7 ==1:
+                                df_new['ID'][counter_2] ='1'
+                                df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                                df_new['WERKS'][counter_2] ='1101'
+                                df_new['STTAG'][counter_2] ='01012023'
+                                df_new['PLNAL'][counter_2] ='1'
+                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ'] +' / PS12'
+                                df_new['VERWE'][counter_2] ='1'
+                                df_new['STATU'][counter_2] ='4'
+                                df_new['LOSVN'][counter_2] ='1'
+                                df_new['LOSBS'][counter_2] ='99999999'
+                            elif i7 == 2:
+                                df_new['ID'][counter_2]='2'
+                                df_new['VORNR'][counter_2] =BAZA['K']['VORNR'][0]
+                                df_new['ARBPL'][counter_2] ='1101TRZ1'
+                                df_new['WERKS1'][counter_2] ='1101'
+                                df_new['STEUS'][counter_2] ='ZK01'
+                                df_new['LTXA1'][counter_2] ='Без работ'
+                                df_new['BMSCH'][counter_2] ='1'
+                                df_new['MEINH'][counter_2] =BAZA['K']['MEINH'][0]
+                                df_new['VGW01'][counter_2] =''
+                                df_new['VGE01'][counter_2] =''
+                                df_new['ACTTYPE_01'][counter_2] =''
+                                df_new['CKSELKZ'][counter_2] =''
+                                df_new['UMREZ'][counter_2] = ''
+                                df_new['UMREN'][counter_2] = ''
+                                df_new['USR00'][counter_2] = ''
+                                df_new['USR01'][counter_2] = ''
+                                df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
+                            counter_2 +=1
+                    
+                
             elif '-N' in row['МАТЕРИАЛ']:
                 for i7 in range(1,3):
                     if i7 ==1:
@@ -802,7 +843,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
                     counter_2 +=1
             elif '-P' in row['МАТЕРИАЛ']:
-                for p in range(1,7):
+                for p in range(1,8):
                     if p ==1:
                         ## SKM -SKM покраска
                         for i in range(1,3):
@@ -1050,6 +1091,39 @@ def lenght_generate_texcarta(request,id):
                                 df_new['USR00'][counter_2] = '1'
                                 df_new['USR01'][counter_2] =texcartatime.ruchnoy_pokraska if texcarta_bor else '0'
                                 df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
+                            counter_2 +=1
+                    elif p == 7:
+                        for i in range(1,3):
+                            if i ==1:
+                                df_new['ID'][counter_2] ='1'
+                                df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                                df_new['WERKS'][counter_2] ='1101'
+                                df_new['STTAG'][counter_2] ='01012023'
+                                df_new['PLNAL'][counter_2] ='1'
+                                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']+' / ' + 'PS12'
+                                df_new['VERWE'][counter_2] ='1'
+                                df_new['STATU'][counter_2] ='4'
+                                df_new['LOSVN'][counter_2] ='1'
+                                df_new['LOSBS'][counter_2] ='99999999'
+                            elif i == 2:
+                                df_new['ID'][counter_2]='2'
+                                df_new['VORNR'][counter_2] ='0010'
+                                df_new['ARBPL'][counter_2] ='1101TRZ1'
+                                df_new['WERKS1'][counter_2] ='1101'
+                                df_new['STEUS'][counter_2] ='ZK01'
+                                df_new['LTXA1'][counter_2] ='Без работ'
+                                df_new['BMSCH'][counter_2] ='1'
+                                df_new['MEINH'][counter_2] ='ST'
+                                df_new['VGW01'][counter_2] ='0'
+                                df_new['VGE01'][counter_2] =''
+                                df_new['ACTTYPE_01'][counter_2] =''
+                                df_new['CKSELKZ'][counter_2] =''
+                                df_new['UMREZ'][counter_2] = ''
+                                df_new['UMREN'][counter_2] = ''
+                                df_new['USR00'][counter_2] = ''
+                                df_new['USR01'][counter_2] = ''
+                                df_new['SAP CODE'][counter_2]=row['МАТЕРИАЛ']
+                            
                             counter_2 +=1
     
             ImzoBase(material = row['МАТЕРИАЛ'],kratkiytekst = row['КРАТКИЙ ТЕКСТ']).save()

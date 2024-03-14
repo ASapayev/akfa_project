@@ -1,7 +1,6 @@
 {% extends 'client/base.html'%}
 {%load static%}
 {%block content%}
-            
 
             <header class="site-header d-flex flex-column justify-content-center align-items-center">
                 <div class="container">
@@ -37,53 +36,75 @@
 
 
             <section class="topics-detail-section section-padding" id="topics-detail">
-                <div class="container " style="overflow: scroll;">
-                    
-                    <table class="table " >
-                        <thead>
-                          <tr>
-                            <th scope="col" style="font-size: 14px;" >Действие</th>
-                            <th scope="col" style="font-size: 14px;" >Название системы</th>
-                            <th scope="col" style="font-size: 14px;" >Артикул</th>
-                            <th scope="col" style="font-size: 14px;" >Длина (мм)</th>
-                            <th scope="col" style="font-size: 14px;" >Тип покрытия</th>
-                            <th scope="col" style="font-size: 14px;" >Сплав</th>
-                            <th scope="col" style="font-size: 14px;" >тип закаленности</th>
-                            <th scope="col" style="font-size: 14px;" >Комбинация</th>
-                            <th scope="col" style="font-size: 14px;" >Бренд краски снаружи</th>
-                            <th scope="col" style="font-size: 14px;" >Код краски снаружи</th>
-                            <th scope="col" style="font-size: 14px;" >Бренд краски внутри</th>
-                            <th scope="col" style="font-size: 14px;" >Код краски внутри</th>
-                            <th scope="col" style="font-size: 14px;" >Код декор пленки снаружи</th>
-                            <th scope="col" style="font-size: 14px;" >Цвет декор пленки снаружи</th>
-                            <th scope="col" style="font-size: 14px;" >Код декор пленки внутри</th>
-                            <th scope="col" style="font-size: 14px;" >Цвет декор пленки внутри</th>
-                            <th scope="col" style="font-size: 14px;" >Код лам пленки снаружи</th>
-                            <th scope="col" style="font-size: 14px;" >Цвет лам пленки снаружи</th>
-                            <th scope="col" style="font-size: 14px;" >Код лам пленки внутри</th>
-                            <th scope="col" style="font-size: 14px;" >Цвет лам пленки внутри</th>
-                            <th scope="col" style="font-size: 14px;" >Код цвета анодировки снаружи</th>
-                            <th scope="col" style="font-size: 14px;" >Код цвета анодировки внутри</th>
-                            <th scope="col" style="font-size: 14px;" >Контактность анодировки</th>
-                            <th scope="col" style="font-size: 14px;" >Тип анодировки</th>
-                            <th scope="col" style="font-size: 14px;" >Способ анодировки</th>
-                            <th scope="col" style="font-size: 14px;" >Код наклейки</th>
-                            <th scope="col" style="font-size: 14px;" >Надпись наклейки</th>
-                            <th scope="col" style="font-size: 14px;" >База профилей</th>
-                            <th scope="col" style="font-size: 14px;" >Группа материалов</th>
-                            <th scope="col" style="font-size: 14px;" >Краткий текст товара</th>
-                            <th scope="col" style="font-size: 14px;" >SAP Код вручную (вставляется вручную)</th>
-                            <th scope="col" style="font-size: 14px;" >Краткий текст товара (вставляется вручную)</th>
-                            <th scope="col" style="font-size: 14px;" >Место для комментариев</th>
-                            <th scope="col" style="font-size: 14px;" >Длина профилья при выходе с пресса</th>
-                          </tr>
-                        </thead>
-                        <tbody id="table-artikul">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div class="" style="overflow: scroll;">
+                        <table class="table table-sm" >
+                            <thead>
+                            <tr>
+                                <th scope="col" style="font-size: 14px;">Действие</th>
+                                <th scope="col" style="font-size: 14px;" >Название системы</th>
+                                <th scope="col" style="font-size: 14px;" >Артикул</th>
+                                <th scope="col" style="font-size: 14px;" >Длина (мм)</th>
+                                <th scope="col" style="font-size: 14px;" >Тип покрытия</th>
+                                <th scope="col" style="font-size: 14px;" >Сплав</th>
+                                <th scope="col" style="font-size: 14px;" >тип закаленности</th>
+                                <th scope="col" style="font-size: 14px;" >Комбинация</th>
+                                <th scope="col" style="font-size: 14px;" >Бренд краски снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Код краски снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Бренд краски внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Код краски внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Код декор пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Цвет декор пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Код декор пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Цвет декор пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Цвет лам пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Код лам пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Цвет лам пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Код лам пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Код цвета анодировки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Код цвета анодировки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Контактность анодировки</th>
+                                <th scope="col" style="font-size: 14px;" >Тип анодировки</th>
+                                <th scope="col" style="font-size: 14px;" >Способ анодировки</th>
+                                <th scope="col" style="font-size: 14px;" >Код наклейки</th>
+                                <th scope="col" style="font-size: 14px;" >Надпись наклейки</th>
+                                <th scope="col" style="font-size: 14px;" >База профилей</th>
+                                <th scope="col" style="font-size: 14px;" >Группа материалов</th>
+                                <th scope="col" style="font-size: 14px;" >Краткий текст товара</th>
+                                <th scope="col" style="font-size: 14px;" >SAP Код вручную (вставляется вручную)</th>
+                                <th scope="col" style="font-size: 14px;" >Краткий текст товара (вставляется вручную)</th>
+                                
+                                <th scope="col" style="font-size: 14px;" >Место для комментариев</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-artikul">
                             
-                        </tbody>
-                    </table>
-                  
+                            </tbody>
+                        </table>
+                        
                 </div>
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-start p-2">
+                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-center p-2">
+                                <input type="button" class="btn btn-success " value="Готов" onclick="ready_all()" id="ready_btn"><span class="m-1" ></span>
+                                <!-- <input type="button" class="btn btn-warning " value="Изменить" onclick="edit_all()" id="edit_btn" style="display: none;"><span class="m-1" ></span> -->
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-end p-2">
+                                <input type="submit" class="btn btn-primary" value="Загрузить" style="display: none;" id="zagruzka_file">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
             </section>
 
 
@@ -111,7 +132,10 @@
                 </div>
             </section>
         </main>
+        
 {%endblock%}
+
+
 
 {%block java_script%}
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script> 
