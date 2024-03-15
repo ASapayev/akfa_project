@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from aluminiy.models import ArtikulComponent
-from pvc.models import ArtikulKomponentPVC 
+from pvc.models import ArtikulKomponentPVC ,NakleykaPvc
 from norma.models import Nakleyka
 from .models import Anod
 from django.contrib.auth.decorators import login_required
@@ -58,9 +58,9 @@ def pvc_artikul_list(request):
     
     term = request.GET.get('term',None)
     if term:
-        artikules = ArtikulKomponentPVC.objects.filter(artikul__icontains = term).values('id','artikul','component','component2','category','profile_type','nazvaniye_sistem','')
+        artikules = ArtikulKomponentPVC.objects.filter(artikul__icontains = term).values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component')
     else:
-        artikules = ArtikulKomponentPVC.objects.all()[:50].values('id','artikul','system','combination','code_nakleyka')
+        artikules = ArtikulKomponentPVC.objects.all()[:50].values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component')
     return JsonResponse(list(artikules),safe=False)
     
     
@@ -73,6 +73,17 @@ def nakleyka_list(request):
         nakleyka_l = Nakleyka.objects.filter(код_наклейки__icontains = term).distinct("код_наклейки").values('id','код_наклейки')
     else:
         nakleyka_l = Nakleyka.objects.all().distinct("код_наклейки").values('id','код_наклейки')
+        
+    return JsonResponse(list(nakleyka_l),safe=False)
+
+@login_required(login_url='/accounts/login/')
+def nakleyka_list_pvc(request):
+    
+    term = request.GET.get('term',None)
+    if term:
+        nakleyka_l = NakleykaPvc.objects.filter(name__icontains = term).distinct("name").values('id','name','nadpis')
+    else:
+        nakleyka_l = NakleykaPvc.objects.all().distinct("name").values('id','name','nadpis')
         
     return JsonResponse(list(nakleyka_l),safe=False)
 
