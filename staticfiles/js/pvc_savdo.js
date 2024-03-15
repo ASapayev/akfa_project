@@ -322,6 +322,13 @@ for (let i = 1; i <= 5; i++) {
         </div>
     </td>
     <td >
+        <div class="input-group input-group-sm mb-1">
+            <div>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%" id='svet_rezin`+String(i)+`'></span>
+            </div>
+        </div>
+    </td>
+    <td >
         <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
         <span id='nakleyka_nt`+String(i)+`' style='display:none;padding-left:35%'>NT1</span>
         <span id='nakleyka_org`+String(i)+`' style='display:none;padding-left:35%'></span>
