@@ -618,9 +618,13 @@ def product_add_second_org(request,id):
         art = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
 
         component = df['Артикул'][key]
-        if df['Тип покрытия'][key] == 'Ламинированный':      
-                lamtext = row['Код лам пленки снаружи']+"/"+row['Код лам пленки внутри']+' '
-                df_new['Ламинация'][key] = art.component+'-L ' +row['Код цвета основы/Замес'] +' L'+dlina +' ' +lamtext+row['Цвет резины']+' '+ row['Надпись наклейки']
+        if df['Тип покрытия'][key] == 'Ламинированный':
+                if row['Цвет резины']!='nan':   
+                    lamtext = row['Код лам пленки снаружи']+"/"+row['Код лам пленки внутри']+' '+row['Цвет резины']
+                else:
+                    lamtext = row['Код лам пленки снаружи']+"/"+row['Код лам пленки внутри']
+                    
+                df_new['Ламинация'][key] = art.component+'-L ' +row['Код цвета основы/Замес'] +' L'+dlina +' ' +lamtext+' '+ row['Надпись наклейки']
                 
                 if PVCProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][key]).exists():
                     df_new['SAP код L'][key] = PVCProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][key])[:1].get().material
