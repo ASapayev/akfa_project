@@ -1,14 +1,17 @@
 class Laminatsiya{
     constructor(id=NaN, 
-        sap_code=NaN,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN,
-        dlina=NaN,kod_lam_sn=NaN,kod_lam_vn=NaN,kod_nakleyki=NaN,is_termo=false,is_active=false) {
+        artikul=NaN,sap_code=NaN,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN,
+        kod_svet_zames=NaN,dlina=NaN,kod_lam_sn=NaN,kod_lam_vn=NaN,kod_nakleyki=NaN,kod_svet_rezini=NaN,is_iklyuch=false,is_active=false) {
       
       this.id = id;
+      this.artikul = artikul;
       this.dlina = dlina;
       this.kod_lam_sn = kod_lam_sn;
       this.kod_lam_vn = kod_lam_vn;
       this.kod_nakleyki = kod_nakleyki;
-      this.is_termo = is_termo;
+      this.kod_svet_rezini = kod_svet_rezini;
+      this.kod_svet_zames = kod_svet_zames;
+      this.is_iklyuch = is_iklyuch;
       this.is_active = is_active;
 
       this.sap_code = sap_code;
@@ -25,77 +28,72 @@ class Laminatsiya{
       this.zavod = zavod;
     }
     get_kratkiy_tekst(){
-        if(!this.is_termo){
-            if(this.dlina && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki){
+        if(this.is_iklyuch){
 
+            if(this.dlina && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && this.kod_svet_zames){
+    
                 if(this.is_active){
                     if (this.online_id && this.nazvaniye_ruchnoy){
-
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
+    
+                        return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_nakleyki,'accept':true}
                     }else{
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
+                        return {'text':this.artikul+ '  ' + this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
                     }
-
+    
                 }else{
-
+    
                     if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
     
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
+                        return {'text':this.artikul+ '  ' + this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
                     }else{
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
+                        return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
                     }
                 } 
-
+    
             }else{
                 return {'text':'XXXXXXXX','accept':false}
             }
         }else{
-            if(this.dlina && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki){
 
-
+            if(this.dlina && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && this.kod_svet_rezini && kod_svet_zames){
+    
                 if(this.is_active){
                     if (this.online_id && this.nazvaniye_ruchnoy){
-
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
-                    }else{
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
     
+                        return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_svet_rezini +'  '+this.kod_nakleyki,'accept':true}
+                    }else{
+                        return {'text':this.artikul+ '  ' + this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':false}
                     }
-
+    
                 }else{
-
+    
                     if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
     
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
+                        return {'text':this.artikul+ '  ' + this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':true}
                     }else{
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
-    
+                        return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':false}
                     }
                 } 
-
-
+    
             }else{
                 return {'text':'XXXXXXXX','accept':false}
             }
         }
+       
+       
     }
   }
 class NoLaminatsiya{
     constructor(id=NaN, 
-        sap_code=NaN,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN,
-        splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_lam_sn=NaN,kod_lam_vn=NaN,kod_nakleyki=NaN,is_termo=false,is_active=false) {
+        artikul=NaN,sap_code=NaN,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN,
+        kod_svet_rezini=NaN,dlina=NaN,kod_svet_zames=NaN,is_iklyuch=NaN,kod_nakleyki=NaN,is_termo=false,is_active=false) {
       this.id = id;
-      this.splav = splav;
-      this.tip_zak = tip_zak;
-      this.dlina = dlina;
-      this.brend_kraska_sn = brend_kraska_sn;
-      this.brend_kraska_vn = brend_kraska_vn;
-      this.kod_kraska_sn = kod_kraska_sn;
-      this.kod_kraska_vn = kod_kraska_vn;
-      this.kod_lam_sn = kod_lam_sn;
-      this.kod_lam_vn = kod_lam_vn;
+      this.artikul = artikul;
+      this.kod_svet_zames=kod_svet_zames;
       this.kod_nakleyki = kod_nakleyki;
-      this.is_termo = is_termo;
+      this.dlina = dlina;
+      this.kod_svet_rezini = kod_svet_rezini;
+      this.is_iklyuch = is_iklyuch;
       this.is_active = is_active;
 
       this.sap_code = sap_code;
@@ -112,59 +110,66 @@ class NoLaminatsiya{
       this.zavod = zavod;
     }
     get_kratkiy_tekst(){
-        if(!this.is_termo){
-            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki){
-
+        if(this.is_iklyuch){
+            if(this.dlina && this.kod_svet_zames && this.kod_nakleyki){
+    
                 if(this.is_active){
                     if (this.online_id && this.nazvaniye_ruchnoy){
-
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
-                    }else{
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
-                    }
-
-                }else{
-
-                    if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
     
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
+                       
+                        return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' +this.kod_nakleyki,'accept':true}
                     }else{
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
+                        
+                        return {'text':this.artikul+ '  ' + this.kod_svet_zames + ' L' + this.dlina +'  ' +this.kod_nakleyki,'accept':false}
+                    }
+                    
+                }else{
+                    
+                    if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
+                        
+                        
+                        return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' +this.kod_nakleyki,'accept':true}
+                    }else{
+                        
+                        return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' +this.kod_nakleyki,'accept':false}
                     }
                 } 
-
+    
             }else{
                 return {'text':'XXXXXXXX','accept':false}
             }
+
         }else{
-            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki){
 
-
+            if(this.kod_svet_rezini && this.dlina && this.kod_svet_zames && this.kod_nakleyki){
+    
                 if(this.is_active){
                     if (this.online_id && this.nazvaniye_ruchnoy){
-
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
-                    }else{
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
     
+                       
+                        return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':true}
+                    }else{
+                        
+                        return {'text':this.artikul+ '  ' + this.kod_svet_zames + ' L' + this.dlina +'  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':false}
                     }
-
+                    
                 }else{
-
-                    if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
-    
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
+                    
+                    if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
+                        
+                        
+                        return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':true}
                     }else{
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
-    
+                        
+                        return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':false}
                     }
                 } 
-
-
+    
             }else{
                 return {'text':'XXXXXXXX','accept':false}
             }
         }
+        
     }
   }
 
@@ -175,8 +180,7 @@ text =""
 
 for (let i = 1; i <= 5; i++) {
     text +=`
-    <tr id='table_tr` +String(i)+`' >
-                                
+    <tr id='table_tr` +String(i)+`' >                   
     <td >
         <div class="input-group input-group-sm mb-1">
             
@@ -202,6 +206,8 @@ for (let i = 1; i <= 5; i++) {
         <div class="input-group input-group-sm mb-1">
             <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " disabled id="artikul`+String(i)+`" onchange='clear_artikul(`+String(i)+`)'></select>
         </div>
+        <span style='display:none' id='artikul_pvc` +String(i)+`'></span>
+        <span style='display:none' id='iskyucheniye` +String(i)+`'></span>
     </td>
     
     
@@ -398,7 +404,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
-        <div id='nakleyka_select`+String(i)+`' class='nak_select'style='display:none;'>
+        <div id='nakleyka_select`+String(i)+`' class='nak_select`+String(i)+`' style='display:none;'>
             <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
         </div>
         </div>
@@ -475,13 +481,9 @@ for (let i = 1; i <= 5; i++) {
     <td >
         <div class="input-group input-group-sm mb-1">
         <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-        <option  selected></option>
+        <option  value='' selected></option>
         <option   value="LAM">LAM</option>
-        <option   value="Anod">Anod</option>
-        <option   value="COLOUR">COLOUR</option>
-        <option   value="VAKUM &amp; 3D">VAKUM &amp; 3D</option>
         <option   value="WHITE">WHITE</option>
-        <option   value="Без цвета">Без цвета</option>
       </select>
         </div>
     </td>
@@ -489,50 +491,50 @@ for (let i = 1; i <= 5; i++) {
         <div class="input-group input-group-sm mb-1">
         <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
         <option  selected></option>
-        <option value="Kabina">Kabina</option>
-        <option value="Alumin WHITE (B.N)">Alumin WHITE (B.N)</option>
-        <option value="Aksessuar Import (SAP)">Aksessuar Import (SAP)</option>
-        <option value="Alumin VAKUM (B.N)">Alumin VAKUM (B.N)</option>
-        <option value="Metal">Metal</option>
-        <option value="Aksessuar UZ Tapoich">Aksessuar UZ Tapoich</option>
-        <option value="Alumin COLOUR (Navoiy)">Alumin COLOUR (Navoiy)</option>
-        <option value="Alumin VAKUM (Navoiy)">Alumin VAKUM (Navoiy)</option>
-        <option value="Alumin WHITE (Navoiy)">Alumin WHITE (Navoiy)</option>
-        <option value="Alumin Anod (Navoiy)">Alumin Anod (Navoiy)</option>
         <option value="PVX OQ (Navoiy)">PVX OQ (Navoiy)</option>
-        <option value="Butilchita">Butilchita</option>
-        <option value="Aksessuar Rezina">Aksessuar Rezina</option>
-        <option value="Radiator">Radiator</option>
-        <option value="Aksessuar UZ">Aksessuar UZ</option>
-        <option value="Alucobond">Alucobond</option>
-        <option value="VITYAJNOYE USTROYSTVA">VITYAJNOYE USTROYSTVA</option>
-        <option value="Aksessuar Import">Aksessuar Import</option>
-        <option value="Radiator (IMPORT)">Radiator (IMPORT)</option>
-        <option value="Radiator SAP (IMPORT)">Radiator SAP (IMPORT)</option>
         <option value="PVX LAM (Navoiy)">PVX LAM (Navoiy)</option>
-        <option value="Rezina Tpv">Rezina Tpv</option>
-        <option value="Granula">Granula</option>
-        <option value="Granit">Granit</option>
-        <option value="Setka">Setka</option>
-        <option value="Kraska">Kraska</option>
-        <option value="Gazoblok">Gazoblok</option>
-        <option value="Paket">Paket</option>
-        <option value="Alumin Lam">Alumin Lam</option>
-        <option value="Alumin COLOUR">Alumin COLOUR</option>
-        <option value="Alumin VAKUM">Alumin VAKUM</option>
-        <option value="Alumin WHITE">Alumin WHITE</option>
-        <option value="Radiator (Panel) AKFA (UZ)">Radiator (Panel) AKFA (UZ)</option>
-        <option value="Radiator (Panel) ROYAL (UZ)">Radiator (Panel) ROYAL (UZ)</option>
-        <option value="Radiator (Panel) Lider Line (UZ)" >Radiator (Panel) Lider Line (UZ)"</option>
         </select>
         </div>
     </td>
     <td >
-        <div class="input-group input-group-sm mb-1" id='group`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'>
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+        <div class="input-group input-group-sm mb-1"  >
+        <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
             <option  selected></option>
-            <option value="Сырье">Сырье</option>
-            <option value="Готовый продукт">Готовый продукт</option>
+            <option value="5200 QVT PVC (NAVOIY)">5200 QVT PVC (NAVOIY)</option>
+            <option value="5200 QVT PVC RETPEN (NAVOIY)">5200 QVT PVC RETPEN (NAVOIY)</option>
+            <option value="5200 TRIO PVC (NAVOIY)">5200 TRIO PVC (NAVOIY)</option>
+            <option value="5800 ENGELBERG PVC (NAVOIY)">5800 ENGELBERG PVC (NAVOIY)</option>
+            <option value="5800 QVT PVC (NAVOIY)">5800 QVT PVC (NAVOIY)</option>
+            <option value="5800 TRIO PVC (NAVOIY)">5800 TRIO PVC (NAVOIY)</option>
+            <option value="6000 AGROMIR (NAVOIY)">6000 AGROMIR (NAVOIY)</option>
+            <option value="6000 EKO PVC (NAVOIY)">6000 EKO PVC (NAVOIY)</option>
+            <option value="6000 EKO PVC RETPEN (NAVOIY)">6000 EKO PVC RETPEN (NAVOIY)</option>
+            <option value="6000 QVT ALUTEX (NAVOIY)">6000 QVT ALUTEX (NAVOIY)</option>
+            <option value="6000 QVT PVC (NAVOIY)">6000 QVT PVC (NAVOIY)</option>
+            <option value="6000 QVT PVC RETPEN (NAVOIY)">6000 QVT PVC RETPEN (NAVOIY)</option>
+            <option value="6000 TRIO PVC (NAVOIY)">6000 TRIO PVC (NAVOIY)</option>
+            <option value="7000 AKFA (NAVOIY)">7000 AKFA (NAVOIY)</option>
+            <option value="7000 ENGELBERG PVC (NAVOIY)">7000 ENGELBERG PVC (NAVOIY)</option>
+            <option value="KONYUSHNYA">KONYUSHNYA</option>
+            <option value="LAM 5200 TRIO PVC (NAVOIY)">LAM 5200 TRIO PVC (NAVOIY)</option>
+            <option value="LAM 5800 ENGELBERG PVC">LAM 5800 ENGELBERG PVC</option>
+            <option value="LAM 5800 TRIO PVC (NAVOIY)">LAM 5800 TRIO PVC (NAVOIY)</option>
+            <option value="LAM 6000 QVT ALUTEX">LAM 6000 QVT ALUTEX</option>
+            <option value="LAM 6000 QVT PVC (NAVOIY)">LAM 6000 QVT PVC (NAVOIY)</option>
+            <option value="LAM 6000 QVT PVC RETPEN (NAVOIY)">LAM 6000 QVT PVC RETPEN (NAVOIY)</option>
+            <option value="LAM 6000 TRIO ALUTEX">LAM 6000 TRIO ALUTEX</option>
+            <option value="LAM 6000 TRIO PVC (NAVOIY)">LAM 6000 TRIO PVC (NAVOIY)</option>
+            <option value="LAM 7000 AKFA (NAVOIY)">LAM 7000 AKFA (NAVOIY)</option>
+            <option value="LAM 7000 ENGELBERG PVC (NAVOIY)">LAM 7000 ENGELBERG PVC (NAVOIY)</option>
+            <option value="LAM 7600 ENGELBERG PVC (NAVOIY)">LAM 7600 ENGELBERG PVC (NAVOIY)</option>
+            <option value="LAM LAMBRI PVC (NAVOIY)">LAM LAMBRI PVC (NAVOIY)</option>
+            <option value="LAM OTKOS Prof. (NAVOIY)">LAM OTKOS Prof. (NAVOIY)</option>
+            <option value="LAM Sendvich Panel">LAM Sendvich Panel</option>
+            <option value="LAMBRI PVC (NAVOIY)">LAMBRI PVC (NAVOIY)</option>
+            <option value="PODOKONNIK (LAM) (NAVOIY)">PODOKONNIK (LAM) (NAVOIY)</option>
+            <option value="PODOKONNIK (LAM) (RETPEN)">PODOKONNIK (LAM) (RETPEN)</option>
+            <option value="PODOKONNIK (OQ) (NAVOIY)">PODOKONNIK (OQ) (NAVOIY)</option>
+            <option value="PODOKONNIK (OQ) (RETPEN)">PODOKONNIK (OQ) (RETPEN)</option>
         </select>
         </div>
     </td>
@@ -1036,7 +1038,11 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;" id='zavod_name`+String(i)+`'></span>
+        <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;" id='zavod_name`+String(i)+`'>ZAVOD PVS NAVOIY</span>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
         </div>
     </td>
     <td >
@@ -1044,9 +1050,9 @@ for (let i = 1; i <= 5; i++) {
         
         </div>
     </td>
-    <td >
+    <td style="display: none;" >
         <div class="input-group input-group-sm mb-1">
-        
+        <span id="is_active`+String(i)+`" style="display: none;"></span>
         </div>
     </td>
     </tr>`
@@ -1068,7 +1074,7 @@ for (let i = 1; i <= 6; i++) {
             dataType: 'json',
             processResults: function(data){
                 return {results: $.map(data, function(item){
-                    return {id:item.id,text:item.artikul,system:item.nazvaniye_sistem,camera:item.camera,kod_k_component:item.kod_k_component}
+                    return {id:item.id,text:item.artikul,component:item.component2,system:item.nazvaniye_sistem,camera:item.camera,kod_k_component:item.kod_k_component,iskyucheniye:item.iskyucheniye}
                 })
             };
             }
@@ -1099,9 +1105,13 @@ for (let i = 1; i <= 6; i++) {
         var nazvaniye_system =$('.nazvaniye_system'+String(i));
         var camera = $('#camera'+String(i));
         var kod_komponent = $('#kod_komponent'+String(i));
+        var artikul_pvc = $('#artikul_pvc'+String(i));
+        var iskyucheniye = $('#iskyucheniye'+String(i));
         var tip_pokritiya = $('#tip_pokritiya'+String(i));
         tip_pokritiya.attr("disabled",false);
         nazvaniye_system.text(e.params.data.system);
+        artikul_pvc.text(e.params.data.component);
+        iskyucheniye.text(e.params.data.iskyucheniye);
         camera.text(e.params.data.camera)
         kod_komponent.text(e.params.data.kod_k_component)
         
@@ -1150,7 +1160,10 @@ function create(i){
     artikul.attr('disabled',false)
 
     var status_first =$('#status'+i);
-    status_first.val('Пассивный')
+    status_first.val('Активный')
+
+    var is_active =$('#is_active'+i);
+    is_active.text('Пассивный')
     // status_first.attr('disabled',true)
 
     var tip =$('#tip'+i);
@@ -1180,6 +1193,9 @@ function activate(i){
     create_btn.attr('disabled',true)
     var status_first =$('#status'+i);
     status_first.val('Активный')
+
+    var is_active =$('#is_active'+i);
+    is_active.text('Активный')
     // status_first.attr('disabled',true)
 
 }
@@ -1376,6 +1392,8 @@ function tip_pokritiya_selected(id,val){
     
   
 
+    var nadpis_nakleyki = $('#nadpis_nakleyki'+String(id));
+    nadpis_nakleyki.text('');
     var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
     svet_lamplonka_snaruji.val('0').change();
     svet_lamplonka_snaruji.attr("disabled",true);
@@ -1399,30 +1417,50 @@ function tip_pokritiya_selected(id,val){
     get_nakleyka(id)
 
     var status_first = $('#status'+String(id))
+    var is_active = $('#is_active'+String(id))
     
     var svet_product_val =''
+    var gruppa_zakupok =''
     
+    var iskyucheniye =$('#iskyucheniye'+id).text()
     
     if(String(val) == '1'){
         var kod_svet_zames = $('#kod_svet_zames'+String(id));
         kod_svet_zames.attr("disabled",false);
         kod_svet_zames.css("border-color",'#fc2003');
         data_base[id] = new NoLaminatsiya()
+        var artikul_pvc = $('#artikul_pvc'+String(id));
+        data_base[id].artikul= artikul_pvc.text()
 
-        svet_product_val = 'NO LAM'  
+        svet_product_val = 'WHITE' 
+        gruppa_zakupok ='PVX OQ (Navoiy)' 
         var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
         kod_svet_rezini.val('')
         kod_svet_rezini.css('display','block');
-       
-            
+        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
+        spanss.style.borderColor='red';
+        
+        if(iskyucheniye =='1'){
+            data_base[id].is_iklyuch=true
+            kod_svet_rezini.css('border-color','#dedad9')
+        }else{
+            data_base[id].is_iklyuch=false
+        }
+        
     }else if(String(val) == '2'){
-
+        
         data_base[id] = new Laminatsiya()
-        svet_product_val ='LAM'
+        var artikul_pvc = $('#artikul_pvc'+String(id));
+        data_base[id].artikul= artikul_pvc.text()
 
+        svet_product_val ='LAM'
+        gruppa_zakupok ='PVX LAM (Navoiy)' 
+        
         var kod_svet_zames = $('#kod_svet_zames'+String(id));
         kod_svet_zames.attr("disabled",false);
         kod_svet_zames.css("border-color",'#fc2003');
+        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
+        spanss.style.borderColor='red';
 
         var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
         kod_svet_rezini.val('')
@@ -1436,12 +1474,20 @@ function tip_pokritiya_selected(id,val){
         svet_lamplonka_vnutri.attr("disabled",false);
         svet_lamplonka_vnutri.attr("required",true);
         svet_lamplonka_vnutri.css("border-color",'#fc2003');
+
+        if(iskyucheniye =='1'){
+            data_base[id].is_iklyuch=true
+        }else{
+            data_base[id].is_iklyuch=false
+        }
     }
     
 
 
-    if(status_first.val()=='Активный' && String(val) != ''){
-        console.log(status_first.val())
+    if(is_active.text()=='Активный' && String(val) != ''){
+        
+        var svet_product =$('#svet_product'+id);
+        
         
         data_base[id].is_active=true
 
@@ -1506,8 +1552,9 @@ function tip_pokritiya_selected(id,val){
         stoimost_alter.css('border-color','#dedad9')
         segment.css('border-color','#dedad9')
         buxgalter_tovar.css('border-color','#dedad9')
-    }else if(status_first.val()=='Пассивный' && String(val) != ''){
-        console.log(status_first.val())
+
+    }else if(is_active.text()=='Пассивный' && String(val) != ''){
+       
         var svet_product =$('#svet_product'+id);
         var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
         var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
@@ -1527,7 +1574,7 @@ function tip_pokritiya_selected(id,val){
         var segment =$('#segment'+id);
         var buxgalter_tovar =$('#buxgalter_tovar'+id);
         
-        svet_product.val(svet_product_val)
+        
         
         
         buxgalter_uchot.val('Килограмм')
@@ -1553,7 +1600,10 @@ function tip_pokritiya_selected(id,val){
         segment.css('display','block')
         buxgalter_tovar.css('display','block')
         
-        status.val('Пассивный')
+        svet_product.val(svet_product_val)
+        tip.val('Готовый продукт')
+        group_zakup.val(gruppa_zakupok)
+        status.val('Активный')
         // status.attr('disabled',true)
 
         online_savdo_id.css('border-color','#dedad9')
@@ -1615,113 +1665,120 @@ function create_kratkiy_tekst(id){
         if(kod_svet_zames){
             if(kod_svet_zames.val()!='0' && kod_svet_zames.val()!='' && kod_svet_zames.val()!=null){
                 kod_svet_zames.css("border-color",'#dedad9');
+                data_base[id].kod_svet_zames = kod_svet_zames.val()
             }else{
+                data_base[id].kod_svet_zames = NaN;
                 kod_svet_zames.css("border-color",'red');
             }
         }
     
     }
+    var iskyucheniye =$('iskyucheniye' +id)
 
-    var kod_svet_rezini =$('#kod_svet_rezini' + id);
-    if(kod_svet_rezini.val()!=''){
-        var svet_rezin =$('#svet_rezin' + id);
-        svet_rezin.text(kod_svet_rezini.val())
-        kod_svet_rezini.css('border-color','#dedad9')
+    if(iskyucheniye =='1'){
+        var kod_svet_rezini =$('#kod_svet_rezini' + id);
+        if(kod_svet_rezini.val()!=''){
+            var svet_rezin =$('#svet_rezin' + id);
+            var selectedText = $("#kod_svet_rezini"+id + " option:selected").text();
+            svet_rezin.text(kod_svet_rezini.val())
+            kod_svet_rezini.css('border-color','#dedad9')
+            data_base[id].kod_svet_rezini =selectedText;
+        }else{
+            var svet_rezin =$('#svet_rezin' + id);
+            svet_rezin.text('')
+            data_base[id].kod_svet_rezini = NaN
+        }
+        
     }else{
-        var svet_rezin =$('#svet_rezin' + id);
-        svet_rezin.text('')
-        kod_svet_rezini.css('border-color','red')
+        
+        var kod_svet_rezini =$('#kod_svet_rezini' + id);
+        if(kod_svet_rezini.val()!=''){
+            var svet_rezin =$('#svet_rezin' + id);
+            var selectedText = $("#kod_svet_rezini"+id + " option:selected").text();
+            svet_rezin.text(kod_svet_rezini.val())
+            kod_svet_rezini.css('border-color','#dedad9')
+            data_base[id].kod_svet_rezini =selectedText;
+        }else{
+            var svet_rezin =$('#svet_rezin' + id);
+            svet_rezin.text('')
+            kod_svet_rezini.css('border-color','red')
+            data_base[id].kod_svet_rezini = NaN
+        }
     }
+
 
     
 
     if(String(val) == '1'){
-        data_base[id].brend_kraska_sn ='R'
-        data_base[id].kod_kraska_sn ='9016'
-
+       
        var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
         
         const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
-        const spanss =document.querySelector('.nak_select .select2-container .select2-selection--single')
+        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
     
-
+        console.log(spanTextbox.innerText,'ffffffff')
         if(spanTextbox.innerText !=''){
+            console.log('dddddddddd343434')
             spanss.style.borderColor='#dedad9';
-            nakleyka_select.style.borderBlockColor='#dedad9'
+            // nakleyka_select.style.borderBlockColor='#dedad9'
             data_base[id].kod_nakleyki = spanTextbox.innerText;
             
         }else{
+            // spanss.style.borderColor='red';
+            // nakleyka_select.style.borderBlockColor='red'
             data_base[id].kod_nakleyki = NaN
-            spanss.style.borderColor='red';
-            nakleyka_select.style.borderBlockColor='red'
 
         }
 
-        
-        
-
-        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА')
-            {
-                data_base[id].is_termo = true
-            }
+       
     }
     else if(String(val) == '2'){
        
 
 
-        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА')
-            {
-                data_base[id].is_termo =true;   
-            }
-
-
-
        var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
        const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
-       const spanss =document.querySelector('.nak_select .select2-container .select2-selection--single')
+       const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
     
-
+       console.log(spanTextbox.innerText,'ffffffff222')
        if(spanTextbox.innerText !=''){
-            var ss=$('#nakleyka_select'+String(id)+' .select2-selection .select2-selection--single')
+            
             spanss.style.borderColor='#dedad9';
-            nakleyka_select.style.borderBlockColor='#dedad9'
+            // nakleyka_select.style.borderBlockColor='#dedad9'
             data_base[id].kod_nakleyki = spanTextbox.innerText;
         
         }else{
             spanss.style.borderColor='red';
             data_base[id].kod_nakleyki = NaN
-            nakleyka_select.style.borderBlockColor='red'
+            // nakleyka_select.style.borderBlockColor='red'
 
         }
 
         
-
-       
-        if(String(val) == '2'){
             
-            var code_lamplonka_snaruji = document.getElementById('code_lamplonka_snaruji'+String(id))//.innerText;
-            
-            if(code_lamplonka_snaruji.innerText !=''){
-                var svet_lamplonka_snaruji = document.getElementById('svet_lamplonka_snaruji'+String(id))//.innerText;
-                svet_lamplonka_snaruji.style.borderColor='#dedad9';
-                data_base[id].kod_lam_sn =code_lamplonka_snaruji.innerText;;
-            }else{
-                data_base[id].kod_lam_sn =NaN;
-            }
-            
-            var code_lamplonka_vnutri = document.getElementById('code_lamplonka_vnutri'+String(id));
-           
-
-            if(code_lamplonka_vnutri.innerText !=''){
-                var svet_lamplonka_vnutri = document.getElementById('svet_lamplonka_vnutri'+String(id))//.innerText;
-                svet_lamplonka_vnutri.style.borderColor='#dedad9';
-                
-                data_base[id].kod_lam_vn =code_lamplonka_vnutri.innerText;
-            }else{
-                data_base[id].kod_lam_vn =NaN;
-            }
-
+        var code_lamplonka_snaruji = document.getElementById('code_lamplonka_snaruji'+String(id))//.innerText;
+        
+        if(code_lamplonka_snaruji.innerText !=''){
+            var svet_lamplonka_snaruji = document.getElementById('svet_lamplonka_snaruji'+String(id))//.innerText;
+            svet_lamplonka_snaruji.style.borderColor='#dedad9';
+            data_base[id].kod_lam_sn =code_lamplonka_snaruji.innerText;;
+        }else{
+            data_base[id].kod_lam_sn =NaN;
         }
+        
+        var code_lamplonka_vnutri = document.getElementById('code_lamplonka_vnutri'+String(id));
+        
+
+        if(code_lamplonka_vnutri.innerText !=''){
+            var svet_lamplonka_vnutri = document.getElementById('svet_lamplonka_vnutri'+String(id))//.innerText;
+            svet_lamplonka_vnutri.style.borderColor='#dedad9';
+            
+            data_base[id].kod_lam_vn =code_lamplonka_vnutri.innerText;
+        }else{
+            data_base[id].kod_lam_vn =NaN;
+        }
+
+        
         
 
     }
@@ -1743,8 +1800,9 @@ function create_kratkiy_tekst(id){
         var zavod =$('#zavod'+id);
         
         
-        var status_first =$('#status'+id)
-        if(status_first.val()=='Активный'){
+        var is_active =$('#is_active'+id)
+        
+        if(is_active.text()=='Активный'){
             
             if(sap_code_ruchnoy.val()!=''){
                 data_base[id].sap_code = sap_code_ruchnoy.val();
