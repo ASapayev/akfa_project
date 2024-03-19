@@ -13,7 +13,7 @@ def index(request):
     return render(request,'client/index.html')
 
 def waiter(request):
-    time.sleep(10)
+    time.sleep(600)
     return JsonResponse({'aa':'dfdfsf'})
 
 @login_required(login_url='/accounts/login/')
