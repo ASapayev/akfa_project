@@ -11,6 +11,9 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     return render(request,'client/index.html')
 
+def waiter(request):
+    return JsonResponse({'aa':'dfdfsf'})
+
 @login_required(login_url='/accounts/login/')
 def shablon_imzo_detail(request):
     if request.method =='POST':

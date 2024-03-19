@@ -17,5 +17,6 @@ urlpatterns = [
     path('nakleyka-list-pvc',views.nakleyka_list_pvc,name='nakleyka_list_pvc'),
 
     path('anod-list',views.anod_list,name='anod_list'),
+    path('wait',views.waiter,name='wait'),
     
 ]

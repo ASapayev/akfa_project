@@ -198,8 +198,6 @@ for (let i = 1; i <= 5; i++) {
         <div class="input-group input-group-sm mb-1">
             
             <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="create(`+String(i)+`)" id='create_btn`+String(i)+`' >Создание</button>
-            <button type="button" class="btn btn-info btn-sm" onclick="activate(`+String(i)+`)" id='activate_btn`+String(i)+`'>Активация</button>
             <button type="button" class="btn btn-warning btn-sm gradient-buttons" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`'>Очистить</button>
             </div>
                 
@@ -217,7 +215,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-            <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " disabled id="artikul`+String(i)+`" onchange='clear_artikul(`+String(i)+`)'></select>
+            <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " id="artikul`+String(i)+`" onchange='clear_artikul(`+String(i)+`)'></select>
         </div>
         <span style='display:none' id='artikul_pvc` +String(i)+`'></span>
         <span style='display:none' id='iskyucheniye` +String(i)+`'></span>
@@ -1161,56 +1159,13 @@ function get_nakleyka(i){
 }
 
 
-function create(i){
-    
-    var artikul = $('#artikul'+i)
-    
-    artikul.attr('disabled',false)
 
-    var status_first =$('#status'+i);
-    status_first.val('Активный')
 
-    var is_active =$('#is_active'+i);
-    is_active.text('Пассивный')
-    // status_first.attr('disabled',true)
 
-    var tip =$('#tip'+i);
-    tip.val('Готовый продукт')
-    
-
-    var activate_btn =$('#activate_btn'+i);
-    activate_btn.attr('disabled',true)
-    var create_btn =$('#create_btn'+i);
-    create_btn.attr('disabled',true)
-    
-   
-
+function artukil_clear(id){
+    $('#artikul'+id).val(null).trigger('change');
+    clear_artikul(id)
 }
-
-function activate(i){
-    // data_base[i] = new OnlineSavdo()
-
-    var artikul = $('#artikul'+i)
-    
-    artikul.attr('disabled',false)
-
-
-    var activate_btn =$('#activate_btn'+i);
-    var create_btn =$('#create_btn'+i);
-    activate_btn.attr('disabled',true)
-    create_btn.attr('disabled',true)
-    var status_first =$('#status'+i);
-    status_first.val('Активный')
-
-    var is_active =$('#is_active'+i);
-    is_active.text('Активный')
-    // status_first.attr('disabled',true)
-
-}
-
-
-
-
 
 
 
@@ -1286,114 +1241,6 @@ function clear_artikul(id){
     
 }
 
-function artukil_clear(id){
-    $('#artikul'+id).val(null).trigger('change');
-    clear_artikul(id)
-    $('#artikul'+id).attr('disabled',true)
-
-    var status_first = $('#status'+String(id))
-   
-    status_first.val('Активный')
-
-    var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
-    var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
-    var online_savdo_id =$('#online_savdo_id'+id);
-    var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id);
-
-
-    var svet_product =$('#svet_product'+id);
-    var group_zakup =$('#group_zakup'+id);
-    var group =$('#group'+id);
-    var tip =$('#tip'+id);
-    var bazoviy_edin =$('#bazoviy_edin'+id);
-    var status =$('#status'+id);
-    var zavod =$('#zavod'+id);
-    var buxgalter_uchot =$('#buxgalter_uchot'+id);
-    var alter_edin =$('#alter_edin'+id);
-    var stoimost_baza =$('#stoimost_baza'+id);
-    var stoimost_alter =$('#stoimost_alter'+id);
-    var segment =$('#segment'+id);
-    var buxgalter_tovar =$('#buxgalter_tovar'+id);
-    var comment =$('#comment'+id);
-    var obshiy_ves_shtuku =$('#obshiy_ves_shtuku'+id);
-    var pickupdate =$('#pickupdate'+id);
-    var sena_c_nds =$('#sena_c_nds'+id);
-    var sena_bez_nds =$('#sena_bez_nds'+id);
-    
-    comment.css('display','none')
-    obshiy_ves_shtuku.css('display','none')
-    pickupdate.css('display','none')
-    sena_c_nds.css('display','none')
-    sena_bez_nds.css('display','none')
-    // var zavod_name =$('#zavod_name'+id)
-    // zavod_name.text('')
-
-
-    svet_product.css('display','none')
-    group_zakup.css('display','none')
-    group.css('display','none')
-    tip.css('display','none')
-    bazoviy_edin.css('display','none')
-    status.css('display','none')
-    zavod.css('display','none')
-    buxgalter_uchot.css('display','none')
-    alter_edin.css('display','none')
-    stoimost_baza.css('display','none')
-    stoimost_alter.css('display','none')
-    segment.css('display','none')
-    buxgalter_tovar.css('display','none')
-    sap_code_ruchnoy.css('display','none')
-    kratkiy_tekst_ruchnoy.css('display','none')
-    online_savdo_id.css('display','none')
-    online_savdo_id.css('border-color','red')
-    nazvaniye_ruchnoy.css('display','none')
-    nazvaniye_ruchnoy.css('border-color','red')
-
-
-    svet_product.css('border-color','red')
-    group_zakup.css('border-color','red')
-    group.css('border-color','red')
-    tip.css('border-color','red')
-    bazoviy_edin.css('border-color','red')
-    status.css('border-color','red')
-    zavod.css('border-color','red')
-    pickupdate.css('border-color','red')
-    sena_c_nds.css('border-color','red')
-    sena_bez_nds.css('border-color','red')
-
-    
-    sap_code_ruchnoy.val('')
-    kratkiy_tekst_ruchnoy.val('')
-    online_savdo_id.val('')
-    nazvaniye_ruchnoy.val('')
-    svet_product.val('')
-    group_zakup.val('')
-    group.val('')
-    tip.val('')
-    bazoviy_edin.val('')
-    status.val('Активный')
-    // zavod.val('')
-    buxgalter_uchot.val('')
-    alter_edin.val('')
-    stoimost_baza.val('')
-    stoimost_alter.val('')
-    segment.val('')
-    buxgalter_tovar.val('')
-    comment.val('')
-    obshiy_ves_shtuku.val('')
-    pickupdate.val('')
-    sena_c_nds.val('')
-    sena_bez_nds.val('')
-    
-    var create_btn =$('#create_btn'+id);
-    var activate_btn =$('#activate_btn'+id);
-
-    create_btn.attr('disabled',false)
-    activate_btn.attr('disabled',false)
-
-
-
-}
 
 
 function tip_pokritiya_selected(id,val){
