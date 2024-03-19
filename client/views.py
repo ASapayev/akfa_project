@@ -5,6 +5,7 @@ from pvc.models import ArtikulKomponentPVC ,NakleykaPvc
 from norma.models import Nakleyka
 from .models import Anod
 from django.contrib.auth.decorators import login_required
+import time
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -12,6 +13,7 @@ def index(request):
     return render(request,'client/index.html')
 
 def waiter(request):
+    time.sleep(10)
     return JsonResponse({'aa':'dfdfsf'})
 
 @login_required(login_url='/accounts/login/')
