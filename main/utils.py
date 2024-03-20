@@ -191,13 +191,24 @@ def counter_generated_data(datas,data_type):
   if len(excel_txt5) > 0:
     new_d=[[] for i in range(0,6)]
     for i in range(0,len(umumiy_without_duplicate[2])):
-      new_d[0]+=['001' for j in range(0,9)]
-      new_d[1]+=['KLAES_REST' for j in range(0,6)]
-      new_d[1]+=['KLAES_PP' for j in range(0,3)]
-      new_d[2]+=['MARA' for j in range(0,9)]
-      new_d[3]+=[ umumiy_without_duplicate[2][i] for j in range(0,9)]
-      new_d[4]+=['KLAES','KLS_LENGTH','CH_PROFILE_TYPE','KLS_INNER_ID','KLS_INNER_COL','KLS_COLOR','KLS_WAST','KLS_WAST_LENGTH','CH_KLAES_OPTM']
-      new_d[5]+=[umumiy_without_duplicate[4][i],excel_txt5[i],umumiy_without_duplicate[5][i],umumiy_without_duplicate[9][i],umumiy_without_duplicate[10][i],umumiy_without_duplicate[11][i],umumiy_without_duplicate[6][i],umumiy_without_duplicate[7][i],umumiy_without_duplicate[8][i]]
+      if data_name=='ALU':
+        new_d[0]+=['001' for j in range(0,10)]
+        new_d[1]+=['KLAES_REST' for j in range(0,6)]
+        new_d[1]+=['KLAES_PP' for j in range(0,3)]
+        new_d[1]+=['GOODS_GROUP',]
+        new_d[2]+=['MARA' for j in range(0,10)]
+        new_d[3]+=[ umumiy_without_duplicate[2][i] for j in range(0,10)]
+        new_d[4]+=['KLAES','KLS_LENGTH','CH_PROFILE_TYPE','KLS_INNER_ID','KLS_INNER_COL','KLS_COLOR','KLS_WAST','KLS_WAST_LENGTH','CH_KLAES_OPTM','GOODS_GROUP']
+        new_d[5]+=[umumiy_without_duplicate[4][i],excel_txt5[i],umumiy_without_duplicate[5][i],umumiy_without_duplicate[9][i],umumiy_without_duplicate[10][i],umumiy_without_duplicate[11][i],umumiy_without_duplicate[6][i],umumiy_without_duplicate[7][i],umumiy_without_duplicate[8][i],'QLIK_ALU_DO']
+      else:
+        new_d[0]+=['001' for j in range(0,10)]
+        new_d[1]+=['KLAES_REST' for j in range(0,6)]
+        new_d[1]+=['KLAES_PP' for j in range(0,3)]
+        new_d[1]+=['GOODS_GROUP',]
+        new_d[2]+=['MARA' for j in range(0,10)]
+        new_d[3]+=[ umumiy_without_duplicate[2][i] for j in range(0,10)]
+        new_d[4]+=['KLAES','KLS_LENGTH','CH_PROFILE_TYPE','KLS_INNER_ID','KLS_INNER_COL','KLS_COLOR','KLS_WAST','KLS_WAST_LENGTH','CH_KLAES_OPTM','GOODS_GROUP']
+        new_d[5]+=[umumiy_without_duplicate[4][i],excel_txt5[i],umumiy_without_duplicate[5][i],umumiy_without_duplicate[9][i],umumiy_without_duplicate[10][i],umumiy_without_duplicate[11][i],umumiy_without_duplicate[6][i],umumiy_without_duplicate[7][i],umumiy_without_duplicate[8][i],'QLIK_PVC_DO']
   
     dd2['Вид класса'] = new_d[0]
     dd2['Класс'] = new_d[1]
