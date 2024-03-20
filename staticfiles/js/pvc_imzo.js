@@ -2,12 +2,16 @@ class Laminatsiya{
     constructor(id=NaN, 
         comment=NaN,
         goods_group=NaN,
+        sena=NaN,
+        klaes_id=NaN,
         artikul=NaN,sap_code=NaN,krat=NaN,nazvaniye_ruchnoy=NaN,
         kod_svet_zames=NaN,dlina=NaN,kod_lam_sn=NaN,kod_lam_vn=NaN,kod_nakleyki=NaN,kod_svet_rezini=NaN,is_iklyuch=false,is_active=false) {
       
       this.id = id;
       this.artikul = artikul;
       this.dlina = dlina;
+      this.sena = sena;
+      this.klaes_id = klaes_id;
       this.kod_lam_sn = kod_lam_sn;
       this.kod_lam_vn = kod_lam_vn;
       this.kod_nakleyki = kod_nakleyki;
@@ -23,19 +27,34 @@ class Laminatsiya{
       this.nazvaniye_ruchnoy = nazvaniye_ruchnoy;
     }
     get_kratkiy_tekst(){
+        console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini)
         if(this.is_iklyuch){
-            if(this.dlina && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && this.kod_svet_zames && this.goods_group){
-    
-                return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_nakleyki,'accept':true} 
+            
+            console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'isklyuch')
+            if(this.dlina && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && this.kod_svet_zames){
+                console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'isklyuch1')
+                if(this.goods_group && this.sena && this.klaes_id){
+                    console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'isklyuch2')
+                    return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_nakleyki,'accept':true} 
+                }else{
+                    console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'isklyuch3')
+                    return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_nakleyki,'accept':false} 
+                }
     
             }else{
                 return {'text':'XXXXXXXX','accept':false}
             }
         }else{
-            console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_rezini , this.kod_svet_zames , this.goods_group)
-            if(this.dlina && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && this.kod_svet_rezini && this.kod_svet_zames && this.goods_group){
-    
-                return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_svet_rezini +'  '+this.kod_nakleyki,'accept':true} 
+            console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'000000')
+            if(this.dlina && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && this.kod_svet_rezini && this.kod_svet_zames){
+                console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'ee1')
+                if(this.goods_group && this.sena && this.klaes_id){
+                    console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'ffsdfs33333sfffff')
+                    return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_svet_rezini +'  '+this.kod_nakleyki,'accept':true} 
+                }else{
+                    console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'77777777')
+                    return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_svet_rezini +'  '+this.kod_nakleyki,'accept':false} 
+                }
     
             }else{
                 return {'text':'XXXXXXXX','accept':false}
@@ -48,6 +67,8 @@ class Laminatsiya{
 class NoLaminatsiya{
     constructor(id=NaN,
         comment=NaN,
+        sena=NaN,
+        klaes_id=NaN,
         goods_group=NaN,
         artikul=NaN,sap_code=NaN,krat=NaN,nazvaniye_ruchnoy=NaN,
         kod_svet_rezini=NaN,dlina=NaN,kod_svet_zames=NaN,is_iklyuch=NaN,kod_nakleyki=NaN,is_active=false) {
@@ -56,6 +77,8 @@ class NoLaminatsiya{
       this.kod_svet_zames=kod_svet_zames;
       this.kod_nakleyki = kod_nakleyki;
       this.dlina = dlina;
+      this.sena = sena;
+      this.klaes_id = klaes_id;
       this.kod_svet_rezini = kod_svet_rezini;
       this.goods_group = goods_group;
       this.comment = comment;
@@ -69,9 +92,13 @@ class NoLaminatsiya{
     }
     get_kratkiy_tekst(){
         if(this.is_iklyuch){
-            if(this.dlina && this.kod_svet_zames && this.kod_nakleyki && this.goods_group){
-    
-                return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' +this.kod_nakleyki,'accept':true} 
+            if(this.dlina && this.kod_svet_zames && this.kod_nakleyki){
+                if(this.goods_group && this.sena && this.klaes_id){
+                    return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' +this.kod_nakleyki,'accept':true} 
+                }else{
+                    return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' +this.kod_nakleyki,'accept':false} 
+
+                }
     
             }else{
                 return {'text':'XXXXXXXX','accept':false}
@@ -79,9 +106,13 @@ class NoLaminatsiya{
 
         }else{
 
-            if(this.kod_svet_rezini && this.dlina && this.kod_svet_zames && this.kod_nakleyki && this.goods_group){
-    
-                return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':true}
+            if(this.kod_svet_rezini && this.dlina && this.kod_svet_zames && this.kod_nakleyki){
+                if(this.goods_group && this.sena && this.klaes_id){
+                    return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':true}
+                }else{
+                    return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':false}
+
+                }
     
             }else{
                 return {'text':'XXXXXXXX','accept':false}
@@ -346,7 +377,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='tex_name`+String(i)+`'></span>
+        <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id='tex_name`+String(i)+`'></span>
         </div>
     </td>
     <td >
@@ -372,6 +403,16 @@ for (let i = 1; i <= 5; i++) {
         <div class="input-group input-group-sm mb-1">
        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px; border-color:red"  id='sena`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px; border-color:red"  id='klaes_id`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+        </div>
     </td>
    `
   }
@@ -459,7 +500,7 @@ function get_nakleyka(i){
             dataType: 'json',
             processResults: function(data){
                 return {results: $.map(data, function(item){
-                    return {id:item.id,text:item.nadpis,nadpis:item.name}
+                    return {id:item.name,text:item.nadpis,nadpis:item.name}
                 })
             };
             }
@@ -528,6 +569,14 @@ function clear_artikul(id){
 
 
 
+    
+    var sena =$('#sena'+String(id));
+    sena.val('');
+    sena.css('display','none');
+    var klaes_id =$('#klaes_id'+String(id));
+    klaes_id.val('');
+    klaes_id.css('display','none');
+
     var sap_code_ruchnoy =$('#sap_code_ruchnoy'+String(id));
     sap_code_ruchnoy.val('');
     sap_code_ruchnoy.css('display','none');
@@ -595,6 +644,12 @@ function tip_pokritiya_selected(id,val){
     var comment =$('#comment'+String(id));
     comment.css('display','block');;
     comment.val('');
+    var sena =$('#sena'+String(id));
+    sena.css('display','block');;
+    sena.val('');
+    var klaes_id =$('#klaes_id'+String(id));
+    klaes_id.css('display','block');;
+    klaes_id.val('');
 
     
    
@@ -633,6 +688,13 @@ function tip_pokritiya_selected(id,val){
     var iskyucheniye =$('#iskyucheniye'+id).text()
     
     if(String(val) == '1'){
+        var goods_group = $('#goods_group'+String(id));
+        goods_group.val('')
+        goods_group.css('display','block');
+        var tex_name = $('#tex_name'+String(id));
+        tex_name.val('')
+        tex_name.css('display','block');
+
         var nazvaniye_svet_zames = $('#nazvaniye_svet_zames'+String(id));
         nazvaniye_svet_zames.attr("disabled",false);
         nazvaniye_svet_zames.css("border-color",'#fc2003');
@@ -667,6 +729,9 @@ function tip_pokritiya_selected(id,val){
         var goods_group = $('#goods_group'+String(id));
         goods_group.val('')
         goods_group.css('display','block');
+        var tex_name = $('#tex_name'+String(id));
+        tex_name.val('')
+        tex_name.css('display','block');
 
         var nazvaniye_svet_zames = $('#nazvaniye_svet_zames'+String(id));
         nazvaniye_svet_zames.attr("disabled",false);
@@ -741,6 +806,8 @@ function create_kratkiy_tekst(id){
     combination_text = combination.text();
     var val = $('#tip_pokritiya'+String(id)).val();
     var dlina = $('#length'+String(id));
+    var sena = $('#sena'+String(id));
+    var klaes_id = $('#klaes_id'+String(id));
 
     
     if(dlina.val()!=''){
@@ -749,6 +816,20 @@ function create_kratkiy_tekst(id){
     }else{
         dlina.css("border-color",'red');
         data_base[id].dlina = NaN;
+    }
+    if(sena.val()!=''){
+        sena.css("border-color",'#dedad9');
+        data_base[id].sena = sena.val();
+    }else{
+        sena.css("border-color",'red');
+        data_base[id].sena = NaN;
+    }
+    if(klaes_id.val()!=''){
+        klaes_id.css("border-color",'#dedad9');
+        data_base[id].klaes_id = klaes_id.val();
+    }else{
+        klaes_id.css("border-color",'red');
+        data_base[id].klaes_id = NaN;
     }
     
     var nazvaniye_svet_zames = $('#nazvaniye_svet_zames'+String(id));
@@ -762,19 +843,18 @@ function create_kratkiy_tekst(id){
         }
     }
     var goods_group = $('#goods_group'+String(id));
-    if(goods_group){
-        if(goods_group.val()!='0' && goods_group.val()!='' && goods_group.val()!=null){
-            goods_group.css("border-color",'#dedad9');
-            var tex_name = $('#tex_name'+String(id));
-            tex_name.text(goods_group.val())
-            data_base[id].goods_group = goods_group.val()
-        }else{
-            data_base[id].goods_group = NaN;
-            var tex_name = $('#tex_name'+String(id));
-            tex_name.text('')
-            goods_group.css("border-color",'red');
-        }
+    if(goods_group.val()!='0' && goods_group.val()!='' && goods_group.val()!=null){
+        goods_group.css("border-color",'#dedad9');
+        var tex_name = $('#tex_name'+String(id));
+        tex_name.text(goods_group.val())
+        data_base[id].goods_group = goods_group.val()
+    }else{
+        data_base[id].goods_group = NaN;
+        var tex_name = $('#tex_name'+String(id));
+        tex_name.text('')
+        goods_group.css("border-color",'red');
     }
+    
     
     
     var iskyucheniye =$('#iskyucheniye' +id).text()
@@ -815,23 +895,15 @@ function create_kratkiy_tekst(id){
     
 
     if(String(val) == '1'){
-       
-       var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
-        
-        const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
+
         const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-    
-        var nakk= $('#nadpis_nakleyki'+id)
-        if(spanTextbox.innerText !=''){
+        var value_nak= document.querySelector('.kod_nakleyki'+String(id))
+        if(value_nak.value !=''){
             spanss.style.borderColor='#dedad9';
-            // nakleyka_select.style.borderBlockColor='#dedad9'
-            data_base[id].kod_nakleyki = nakk.text();
+            data_base[id].kod_nakleyki = value_nak.value;
             
         }else{
-            // spanss.style.borderColor='red';
-            // nakleyka_select.style.borderBlockColor='red'
             data_base[id].kod_nakleyki = NaN
-
         }
 
        
@@ -839,22 +911,15 @@ function create_kratkiy_tekst(id){
     else if(String(val) == '2'){
        
 
-
-       var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
-       const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-    
-       var nakk= $('#nadpis_nakleyki'+id)
-       if(spanTextbox.innerText !=''){
-            
+       var value_nak= document.querySelector('.kod_nakleyki'+String(id))
+       if(value_nak.value !=''){
             spanss.style.borderColor='#dedad9';
-            // nakleyka_select.style.borderBlockColor='#dedad9'
-            data_base[id].kod_nakleyki = nakk.text();
+            data_base[id].kod_nakleyki = value_nak.value;
         
         }else{
             spanss.style.borderColor='red';
             data_base[id].kod_nakleyki = NaN
-            // nakleyka_select.style.borderBlockColor='red'
 
         }
 
