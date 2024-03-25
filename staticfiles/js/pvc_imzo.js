@@ -714,6 +714,7 @@ function tip_pokritiya_selected(id,val){
         
         if(iskyucheniye =='1'){
             data_base[id].is_iklyuch=true
+            kod_svet_rezini.css('display','none')
             kod_svet_rezini.css('border-color','#dedad9')
         }else{
             data_base[id].is_iklyuch=false
@@ -741,7 +742,7 @@ function tip_pokritiya_selected(id,val){
 
         var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
         kod_svet_rezini.val('')
-        kod_svet_rezini.css('display','block');
+        
 
         var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
         svet_lamplonka_snaruji.attr("disabled",false);
@@ -754,8 +755,10 @@ function tip_pokritiya_selected(id,val){
 
         if(iskyucheniye =='1'){
             data_base[id].is_iklyuch=true
+            kod_svet_rezini.css('display','none')
         }else{
             data_base[id].is_iklyuch=false
+            kod_svet_rezini.css('display','block');
         }
     }
     

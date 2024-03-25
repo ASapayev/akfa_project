@@ -1,11 +1,8 @@
 class Laminatsiya{
     constructor(id=NaN, 
-        comment=NaN,
-        pickupdate=NaN,
-        sena_c_nds=NaN,
-        sena_bez_nds=NaN,
+        sena_export=NaN,
         artikul=NaN,sap_code=NaN,krat=NaN,nazvaniye_ruchnoy=NaN,
-        kod_svet_zames=NaN,dlina=NaN,kod_lam_sn=NaN,kod_lam_vn=NaN,kod_nakleyki=NaN,kod_svet_rezini=NaN,is_iklyuch=false,is_active=false) {
+        kod_svet_zames=NaN,dlina=NaN,kod_lam_sn=NaN,kod_lam_vn=NaN,kod_nakleyki=NaN,kod_svet_rezini=NaN,is_iklyuch=false) {
       
       this.id = id;
       this.artikul = artikul;
@@ -15,7 +12,7 @@ class Laminatsiya{
       this.kod_nakleyki = kod_nakleyki;
       this.kod_svet_rezini = kod_svet_rezini;
       this.kod_svet_zames = kod_svet_zames;
-      this.comment = comment;
+      this.sena_export = sena_export;
       this.is_iklyuch = is_iklyuch;
       this.sap_code = sap_code;
       this.krat = krat;
@@ -25,14 +22,22 @@ class Laminatsiya{
     get_kratkiy_tekst(){
         if(this.is_iklyuch){
             if(this.dlina && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && this.kod_svet_zames){
-                return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_nakleyki,'accept':true}
+                if(this.sena_export){
+                    return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_nakleyki,'accept':true}
+                }else{
+                    return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_nakleyki,'accept':false}
+                }
             }else{
                 return {'text':'XXXXXXXX','accept':false}
             }
         }else{
 
             if(this.dlina && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && this.kod_svet_rezini && this.kod_svet_zames){
-                return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_svet_rezini +'  '+this.kod_nakleyki,'accept':true} 
+                if(this.sena_export){
+                    return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_svet_rezini +'  '+this.kod_nakleyki,'accept':true} 
+                }else{
+                    return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_svet_rezini +'  '+this.kod_nakleyki,'accept':false} 
+                }
             }else{
                 return {'text':'XXXXXXXX','accept':false}
             }
@@ -43,7 +48,7 @@ class Laminatsiya{
   }
 class NoLaminatsiya{
     constructor(id=NaN,
-        comment=NaN, 
+        sena_export=NaN, 
         artikul=NaN,sap_code=NaN,krat=NaN,nazvaniye_ruchnoy=NaN,
         kod_svet_rezini=NaN,dlina=NaN,kod_svet_zames=NaN,is_iklyuch=NaN,kod_nakleyki=NaN) {
       this.id = id;
@@ -52,7 +57,7 @@ class NoLaminatsiya{
       this.kod_nakleyki = kod_nakleyki;
       this.dlina = dlina;
       this.kod_svet_rezini = kod_svet_rezini;
-      this.comment = comment;
+      this.sena_export = sena_export;
       this.is_iklyuch = is_iklyuch;
       this.sap_code = sap_code;
       this.krat = krat;     
@@ -62,7 +67,11 @@ class NoLaminatsiya{
     get_kratkiy_tekst(){
         if(this.is_iklyuch){
             if(this.dlina && this.kod_svet_zames && this.kod_nakleyki){
-                return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' +this.kod_nakleyki,'accept':true}
+                if(this.sena_export){
+                    return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' +this.kod_nakleyki,'accept':true}
+                }else{
+                    return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' +this.kod_nakleyki,'accept':false}
+                }
             }else{
                 return {'text':'XXXXXXXX','accept':false}
             }
@@ -70,7 +79,11 @@ class NoLaminatsiya{
         }else{
 
             if(this.kod_svet_rezini && this.dlina && this.kod_svet_zames && this.kod_nakleyki){
-                return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':true}
+                if(this.sena_export){
+                    return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':true}
+                }else{
+                    return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':false}
+                }
             }else{
                 return {'text':'XXXXXXXX','accept':false}
             }
@@ -348,6 +361,11 @@ for (let i = 1; i <= 5; i++) {
     
     <td >
         <div class="input-group input-group-sm mb-1">
+        <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px;border-color:red;"  id='sena_export`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+       </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
        </div>
     </td>
@@ -486,10 +504,7 @@ function clear_artikul(id){
     
     kod_svet_rezini.val('')
     kod_svet_rezini.css('display','none')
-       
-    // var select_nakleyka = $('#nakleyka'+String(id));
-    // select_nakleyka.children("span").remove();
-    // select_nakleyka.children("select").remove();
+
     delete data_base[id]
 
     var kratkiy_tekst = document.getElementById('kratkiy_tekst'+String(id));
@@ -533,9 +548,10 @@ function clear_artikul(id){
     var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+String(id));
     kratkiy_tekst_ruchnoy.val('');
     kratkiy_tekst_ruchnoy.css('display','none');
-    var comment =$('#comment'+String(id));
-    comment.val('');
-    comment.css('display','none');
+    var sena_export =$('#sena_export'+String(id));
+    sena_export.val('');
+    sena_export.css('border-color','red');
+    sena_export.css('display','none');
    
    
    
@@ -589,9 +605,9 @@ function tip_pokritiya_selected(id,val){
     var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+String(id));
     kratkiy_tekst_ruchnoy.css('display','block');
     kratkiy_tekst_ruchnoy.val('');
-    var comment =$('#comment'+String(id));
-    comment.css('display','block');;
-    comment.val('');
+    var sena_export =$('#sena_export'+String(id));
+    sena_export.css('display','block');;
+    sena_export.val('');
 
     var nakleyka_select = $('#nakleyka_select'+String(id));
     nakleyka_select.css('display','block');
@@ -621,6 +637,7 @@ function tip_pokritiya_selected(id,val){
         
         if(iskyucheniye =='1'){
             data_base[id].is_iklyuch=true
+            kod_svet_rezini.css('display','none');
             kod_svet_rezini.css('border-color','#dedad9')
         }else{
             data_base[id].is_iklyuch=false
@@ -643,7 +660,6 @@ function tip_pokritiya_selected(id,val){
 
         var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
         kod_svet_rezini.val('')
-        kod_svet_rezini.css('display','block');
 
         var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
         svet_lamplonka_snaruji.attr("disabled",false);
@@ -656,8 +672,10 @@ function tip_pokritiya_selected(id,val){
 
         if(iskyucheniye =='1'){
             data_base[id].is_iklyuch=true
+            kod_svet_rezini.css('display','none');
         }else{
             data_base[id].is_iklyuch=false
+            kod_svet_rezini.css('display','block');
         }
     }
     
@@ -696,35 +714,42 @@ function create_kratkiy_tekst(id){
     if(!data_base[id]){
         console.log('salom')
     }else{
-    var obj_name = data_base[id].constructor.name
     
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
     var combination= $('#combination'+String(id));
     combination_text = combination.text();
     var val = $('#tip_pokritiya'+String(id)).val();
     var dlina = $('#length'+String(id));
-
-    if(obj_name != 'OnlineSavdo'){
-        if(dlina.val()!=''){
-            dlina.css("border-color",'#dedad9');
-            data_base[id].dlina = dlina.val();
-        }else{
-            dlina.css("border-color",'red');
-            data_base[id].dlina = NaN;
-        }
-       
-        var kod_svet_zames = $('#kod_svet_zames'+String(id));
-        if(kod_svet_zames){
-            if(kod_svet_zames.val()!='0' && kod_svet_zames.val()!='' && kod_svet_zames.val()!=null){
-                kod_svet_zames.css("border-color",'#dedad9');
-                data_base[id].kod_svet_zames = kod_svet_zames.val()
-            }else{
-                data_base[id].kod_svet_zames = NaN;
-                kod_svet_zames.css("border-color",'red');
-            }
-        }
+    var sena_export = $('#sena_export'+String(id));
     
+    if(dlina.val()!=''){
+        dlina.css("border-color",'#dedad9');
+        data_base[id].dlina = dlina.val();
+    }else{
+        dlina.css("border-color",'red');
+        data_base[id].dlina = NaN;
     }
+
+    if(sena_export.val()!=''){
+        sena_export.css("border-color",'#dedad9');
+        data_base[id].sena_export = sena_export.val();
+    }else{
+        sena_export.css("border-color",'red');
+        data_base[id].sena_export = NaN;
+    }
+    
+    var kod_svet_zames = $('#kod_svet_zames'+String(id));
+    if(kod_svet_zames){
+        if(kod_svet_zames.val()!='0' && kod_svet_zames.val()!='' && kod_svet_zames.val()!=null){
+            kod_svet_zames.css("border-color",'#dedad9');
+            data_base[id].kod_svet_zames = kod_svet_zames.val()
+        }else{
+            data_base[id].kod_svet_zames = NaN;
+            kod_svet_zames.css("border-color",'red');
+        }
+    }
+    
+    
     var iskyucheniye =$('#iskyucheniye' +id).text()
 
     if(iskyucheniye =='1'){
