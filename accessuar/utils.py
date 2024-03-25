@@ -302,7 +302,7 @@ def lenght_generate_texcarta(ozmks) -> list:
                             df_new['STEUS'][counter_2] ='ZK01'
                             df_new['LTXA1'][counter_2] =norma.data['kratkiy_tekst']
                             df_new['BMSCH'][counter_2] = '1000'
-                            df_new['MEINH'][counter_2] ='ST'
+                            df_new['MEINH'][counter_2] ='ST' if 'ACS' in ozmk else 'KG' 
                             df_new['VGW01'][counter_2] ='24'
                             df_new['VGE01'][counter_2] ='STD'
                             df_new['VGW03'][counter_2]="%.3f" % price
