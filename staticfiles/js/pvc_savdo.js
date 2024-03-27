@@ -1158,7 +1158,6 @@ for (let i = 1; i <= 6; i++) {
 
 
 data_base = {}
-data_base['columns']= 5
 
 
 function get_nakleyka(i){

@@ -431,7 +431,7 @@ for (let i = 1; i <= 6; i++) {
 }
 
 data_base = {}
-data_base['columns']= 5
+
 
 
 function get_nakleyka(i){
@@ -1643,9 +1643,11 @@ function create_kratkiy_tekst(id){
     var text =data_base[id].get_kratkiy_tekst()
     console.log(text)
     if(text != 'XXXXXXXX'){
+        data_base[id].full =true
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','#2de319')
     }else{
+        data_base[id].full =false
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','white')
 
@@ -2097,41 +2099,34 @@ function add_column(){
 }
 
 function ready_all(){
-
-    var form = document.getElementById('basic_form');
-    var fields = form.querySelectorAll('[required]');
-    var isValid = true;
-
-    // fields.forEach(function(field) {
-    //     if (!field.value.trim()) {
-    //         isValid = false;
-    //         return;
-    //     }
-    // });
-
-    if (!isValid) {
-        alert('Please fill in all required fields.');
-    } else {
-
-        var add_column_btn = $('#add_column_btn')
-        add_column_btn.css('display','none')
-        
-        var ready_btn = $('#ready_btn')
-        ready_btn.css('display','none') 
-
-
-        var zagruzka_file = $('#zagruzka_file')
-        zagruzka_file.css('display','block')
-        // form.submit(); // Submit the form if all required fields are filled
+    var all_correct = true;
+    var data_empty = false
+    if (Object.keys(data_base).length === 0) {
+        data_empty = true
     }
 
+    console.log(data_base)
+    for (var key in data_base) {
+        if (data_base.hasOwnProperty(key)) { 
+            var value = data_base[key];
+            if(!value.full){
+                all_correct=false
+            }
+        }
+    }
 
+    if (!data_empty && all_correct){
+        console.log('aaaaaa')
+        // generate url
+    }else{
+        if(!data_empty && !all_correct){
+            Swal.fire({
+                icon: 'error',
+                title: 'Malumotlar to\'liq emas!!!',
+                text: 'Itimos malumotlarni to\'ldiring.',
+            });
+        }
+    }
 
-    
-    //////////////////////////////////////
-    
-    // var edit_btn = $('#edit_btn')
-    // edit_btn.css('display','block')
-    
    
 }

@@ -359,7 +359,6 @@ table.append(text)
 
 
 data_base = {}
-data_base['columns']= 5
 
 
 

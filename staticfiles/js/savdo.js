@@ -1557,7 +1557,6 @@ for (let i = 1; i <= 6; i++) {
 }
 
 data_base = {}
-data_base['columns']= 5
 
 
 function get_nakleyka(i){
@@ -3900,12 +3899,6 @@ function ready_all(){
     var fields = form.querySelectorAll('[required]');
     var isValid = true;
 
-    // fields.forEach(function(field) {
-    //     if (!field.value.trim()) {
-    //         isValid = false;
-    //         return;
-    //     }
-    // });
 
     if (!isValid) {
         alert('Please fill in all required fields.');
