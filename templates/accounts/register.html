@@ -17,8 +17,39 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+    <link rel="shortcut icon" href="{% static 'assets/images/logo2.png' %}" />
   </head>
+  <style>
+    .card{
+      background-color: transparent;
+      backdrop-filter: blur(18px);
+    }
+    .card .card-title {
+      color: rgba(0,0,0,.7);
+    }
+    .form-group label {
+      color: rgba(0,0,0,.9);
+    }
+    .form-control{
+      background-color: transparent;
+      color:rgba(0,0,0,.9);
+      border-color: rgba(0,0,0,.2);
+    }
+    .form-control:focus{
+      background: transparent;
+      color: rgba(0,0,0,.7);
+    }
+    .form-control::content{
+      background: transparent;
+      color: rgba(0,0,0,.7);
+    }
+    input{
+      background: transparent;
+    }
+    body{
+      background: #fff;
+    }
+  </style>
   <body>
     <div class="container-scroller">
       <div class="container-fluid page-body-wrapper full-page-wrapper">
