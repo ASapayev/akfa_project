@@ -17,6 +17,7 @@ def login(request):
       auth.login(request,user)
       return redirect('home')
     else:
+      request.session['login_failed'] = True
       messages.info(request,'Password or e-mail incorrect!')
       return redirect('login')
   return render(request,'accounts/login.html')
