@@ -961,6 +961,7 @@ function svet_dekplonka_vnutri_selected(id,val){
 class Neokrashenniy{
     constructor(
                 id=NaN, 
+                full=false, 
                 splav=NaN,
                 tip_zak=NaN,
                 dlina=NaN,
@@ -971,6 +972,7 @@ class Neokrashenniy{
                 ) 
         {
         this.id = id;
+        this.full = full;
         this.splav = splav;
         this.tip_zak = tip_zak;
         this.dlina = dlina;
@@ -999,10 +1001,11 @@ class Neokrashenniy{
   }
 
 class Beliy{
-    constructor(id=NaN, splav=NaN,tip_zak=NaN,tex_name=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_nakleyki=NaN,
+    constructor(id=NaN, full=false,splav=NaN,tip_zak=NaN,tex_name=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_nakleyki=NaN,
         
         is_termo=false) {
         this.id = id;
+        this.full = full;
         this.splav = splav;
         this.tip_zak = tip_zak;
         this.dlina = dlina;
@@ -1035,10 +1038,11 @@ class Beliy{
   }
 
 class Okrashenniy{
-    constructor(id=NaN, splav=NaN,tip_zak=NaN,tex_name=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,
+    constructor(id=NaN, full=false,splav=NaN,tip_zak=NaN,tex_name=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,
        
         kod_kraska_vn=NaN,kod_nakleyki=NaN,is_termo=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
@@ -1069,10 +1073,11 @@ class Okrashenniy{
 
   
 class Sublimatsiya{
-    constructor(id=NaN, splav=NaN,tip_zak=NaN,tex_name=NaN,
+    constructor(id=NaN, full=false,splav=NaN,tip_zak=NaN,tex_name=NaN,
         
         dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_dekor_sn=NaN,kod_dekor_vn=NaN,kod_nakleyki=NaN,is_termo=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
@@ -1103,10 +1108,11 @@ class Sublimatsiya{
     }
   }
 class Laminatsiya{
-    constructor(id=NaN, splav=NaN,tip_zak=NaN,tex_name=NaN,
+    constructor(id=NaN, full=false,splav=NaN,tip_zak=NaN,tex_name=NaN,
        
         dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_lam_sn=NaN,kod_lam_vn=NaN,kod_nakleyki=NaN,is_termo=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
@@ -1137,9 +1143,10 @@ class Laminatsiya{
     }
   }
 class Anodirovka{
-    constructor(id=NaN, splav=NaN,tip_zak=NaN,tex_name=NaN,
+    constructor(id=NaN, full=false,splav=NaN,tip_zak=NaN,tex_name=NaN,
         dlina=NaN,kod_anod_sn=NaN,kod_anod_vn=NaN,kod_nakleyki=NaN,contactnost_anod=NaN,is_termo=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
@@ -1488,13 +1495,14 @@ function create_kratkiy_tekst(id){
     }
 
     var text =data_base[id].get_kratkiy_tekst()
-    console.log(text)
     if(text != 'XXXXXXXX'){
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','#2de319')
+        data_base[id].full =true
     }else{
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','white')
+        data_base[id].full =false
 
     }
     kratkiy_tekst.text(text)

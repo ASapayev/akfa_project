@@ -1,10 +1,12 @@
 class Laminatsiya{
     constructor(id=NaN, 
+        full=false,
         sena_export=NaN,
         artikul=NaN,sap_code=NaN,krat=NaN,nazvaniye_ruchnoy=NaN,
         kod_svet_zames=NaN,dlina=NaN,kod_lam_sn=NaN,kod_lam_vn=NaN,kod_nakleyki=NaN,kod_svet_rezini=NaN,is_iklyuch=false) {
       
       this.id = id;
+      this.full = full;
       this.artikul = artikul;
       this.dlina = dlina;
       this.kod_lam_sn = kod_lam_sn;
@@ -48,10 +50,12 @@ class Laminatsiya{
   }
 class NoLaminatsiya{
     constructor(id=NaN,
+        full=false,
         sena_export=NaN, 
         artikul=NaN,sap_code=NaN,krat=NaN,nazvaniye_ruchnoy=NaN,
         kod_svet_rezini=NaN,dlina=NaN,kod_svet_zames=NaN,is_iklyuch=NaN,kod_nakleyki=NaN) {
       this.id = id;
+      this.full = full;
       this.artikul = artikul;
       this.kod_svet_zames=kod_svet_zames;
       this.kod_nakleyki = kod_nakleyki;
@@ -870,13 +874,15 @@ function create_kratkiy_tekst(id){
 
 
     var data =data_base[id].get_kratkiy_tekst()
-    console.log(data.text,data.accept)
+    // console.log(data.text,data.accept)
     if(data.accept){
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','#2de319')
+        data_base[id].full =true
     }else{
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','white')
+        data_base[id].full =false
 
     }
     

@@ -182,26 +182,26 @@ for (let i = 1; i <= 5; i++) {
             <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
                 <option  value="" selected></option>
                 <option value="2036" >Золотой дуб</option>
-            <option value="2048">Дуб мокко</option>
-            <option value="2007">Красный орех</option>
-            <option value="2012">Орех</option>
-            <option value="3086">Шеффелдский дуб серый</option>
-            <option value="1012">Алюкс антрацит</option>
-            <option value="3001">Терновый дуб</option>
-            <option value="3002">Шеф Альпийский дуб</option>
-            <option value="3003">Гранитовый шеф дуб</option>
-            <option value="3042">Дерево бальза</option>
-            <option value="3062">Грецкий орех</option>
-            <option value="3043">Вишня амаретто</option>
-            <option value="3059">Орех терра</option>
-            <option value="3058">Грецкий орех амаретто</option>
-            <option value="3077">Винчестер</option>
-            <option value="3081">Шеффелдский дуб светлый</option>
-            <option value="3094">Орех Ребраун</option>
-            <option value="1004">Метбраш платин</option>
-            <option value="1005">Метбраш серый кварц</option>
-            <option value="1006">Метбраш серый антрацит</option>
-            <option value="XXXX">XXXX</option>
+                <option value="2048">Дуб мокко</option>
+                <option value="2007">Красный орех</option>
+                <option value="2012">Орех</option>
+                <option value="3086">Шеффелдский дуб серый</option>
+                <option value="1012">Алюкс антрацит</option>
+                <option value="3001">Терновый дуб</option>
+                <option value="3002">Шеф Альпийский дуб</option>
+                <option value="3003">Гранитовый шеф дуб</option>
+                <option value="3042">Дерево бальза</option>
+                <option value="3062">Грецкий орех</option>
+                <option value="3043">Вишня амаретто</option>
+                <option value="3059">Орех терра</option>
+                <option value="3058">Грецкий орех амаретто</option>
+                <option value="3077">Винчестер</option>
+                <option value="3081">Шеффелдский дуб светлый</option>
+                <option value="3094">Орех Ребраун</option>
+                <option value="1004">Метбраш платин</option>
+                <option value="1005">Метбраш серый кварц</option>
+                <option value="1006">Метбраш серый антрацит</option>
+                <option value="XXXX">XXXX</option>
             </select>
         </div>
     </td>
@@ -1010,6 +1010,7 @@ function svet_dekplonka_vnutri_selected(id,val){
 class Neokrashenniy{
     constructor(
                 id=NaN, 
+                full=false, 
                 splav=NaN,
                 tip_zak=NaN,
                 dlina=NaN,
@@ -1025,6 +1026,7 @@ class Neokrashenniy{
                 ) 
         {
         this.id = id;
+        this.full = full;
         this.splav = splav;
         this.tex_name = tex_name;
         this.tip_zak = tip_zak;
@@ -1059,7 +1061,7 @@ class Neokrashenniy{
   }
 
 class Beliy{
-    constructor(id=NaN, splav=NaN,tip_zak=NaN,tex_name=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_nakleyki=NaN,
+    constructor(id=NaN, full=false, splav=NaN,tip_zak=NaN,tex_name=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_nakleyki=NaN,
         klaes_id=NaN,
         klaes_nazvaniye=NaN,
         kod_sveta=NaN,
@@ -1067,6 +1069,7 @@ class Beliy{
         is_termo=false) {
         this.id = id;
         this.splav = splav;
+        this.full = full;
         this.tip_zak = tip_zak;
         this.tex_name = tex_name;
         this.dlina = dlina;
@@ -1102,13 +1105,14 @@ class Beliy{
   }
 
 class Okrashenniy{
-    constructor(id=NaN, splav=NaN,tip_zak=NaN,tex_name=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,
+    constructor(id=NaN, full=false,splav=NaN,tip_zak=NaN,tex_name=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,
         klaes_id=NaN,
         klaes_nazvaniye=NaN,
         kod_sveta=NaN,
         kratkiy_klaes=NaN,
         kod_kraska_vn=NaN,kod_nakleyki=NaN,is_termo=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.tex_name = tex_name;
@@ -1144,13 +1148,14 @@ class Okrashenniy{
 
   
 class Sublimatsiya{
-    constructor(id=NaN, splav=NaN,tip_zak=NaN,tex_name=NaN,
+    constructor(id=NaN,full=false, splav=NaN,tip_zak=NaN,tex_name=NaN,
         klaes_id=NaN,
         klaes_nazvaniye=NaN,
         kod_sveta=NaN,
         kratkiy_klaes=NaN,
         dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_dekor_sn=NaN,kod_dekor_vn=NaN,kod_nakleyki=NaN,is_termo=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
@@ -1186,13 +1191,14 @@ class Sublimatsiya{
     }
   }
 class Laminatsiya{
-    constructor(id=NaN, splav=NaN,tip_zak=NaN,tex_name=NaN,
+    constructor(id=NaN,full=false, splav=NaN,tip_zak=NaN,tex_name=NaN,
         klaes_id=NaN,
         klaes_nazvaniye=NaN,
         kod_sveta=NaN,
         kratkiy_klaes=NaN,
         dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_lam_sn=NaN,kod_lam_vn=NaN,kod_nakleyki=NaN,is_termo=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
@@ -1227,13 +1233,14 @@ class Laminatsiya{
     }
   }
 class Anodirovka{
-    constructor(id=NaN, splav=NaN,tip_zak=NaN,tex_name=NaN,
+    constructor(id=NaN, full=false,splav=NaN,tip_zak=NaN,tex_name=NaN,
         klaes_id=NaN,
         klaes_nazvaniye=NaN,
         kod_sveta=NaN,
         kratkiy_klaes=NaN,
         dlina=NaN,kod_anod_sn=NaN,kod_anod_vn=NaN,kod_nakleyki=NaN,contactnost_anod=NaN,is_termo=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.tex_name = tex_name;

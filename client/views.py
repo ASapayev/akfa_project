@@ -32,10 +32,22 @@ def shablon_savdo_detail(request):
 def shablon_export_detail(request):
     return render(request,'client/shablonlar/aluminiy_export.html')
 
+
+@login_required(login_url='/accounts/login/')
+def shablon_acs_export_detail(request):
+    return render(request,'client/shablonlar/accessuar_imzo.html')
+
+@login_required(login_url='/accounts/login/')
+def shablon_acs_savdo_detail(request):
+    return render(request,'client/shablonlar/accessuar_savdo.html')
+
+@login_required(login_url='/accounts/login/')
+def shablon_acs_export_savdo_detail(request):
+    return render(request,'client/shablonlar/accessuar_export.html')
+
 @login_required(login_url='/accounts/login/')
 def shablon_pvc_export_detail(request):
     return render(request,'client/shablonlar/pvc_imzo.html')
-
 
 @login_required(login_url='/accounts/login/')
 def shablon_pvc_savdo_detail(request):

@@ -118,7 +118,7 @@ You can, and should, use a `<label>` with Select2, just like any other `<select>
 
 Select2 will try to match the width of the original element as closely as possible. Sometimes this isn't perfect, in which case you may manually set the `width` [configuration option](/configuration):
 
-<table class="table table-striped table-bordered">
+<table class="table table-light table-bordered">
   <thead>
     <tr>
       <th>Value</th>

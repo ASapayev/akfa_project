@@ -1,0 +1,133 @@
+{% extends 'client/base.html'%}
+{%load static%}
+{%block content%}
+            
+
+            <header class="site-header d-flex flex-column justify-content-center align-items-center">
+                <div class="container">
+                    <div class="row justify-content-center align-items-center">
+
+                        <div class="col-lg-5 col-12 mb-5">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">Homepage</a></li>
+
+                                    <li class="breadcrumb-item active" aria-current="page">Web Design</li>
+                                </ol>
+                            </nav>
+
+                            <h2 class="text-white">Introduction to <br> Web Design 101</h2>
+
+                            <div class="d-flex align-items-center mt-5">
+                                <a href="#topics-detail" class="btn custom-btn custom-border-btn smoothscroll me-4">Read More</a>
+
+                                <a href="#top" class="custom-icon bi-bookmark smoothscroll"></a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5 col-12">
+                            <div class="topics-detail-block bg-white shadow-lg">
+                                <img src="{% static 'assets/images/topics/undraw_Remote_design_team_re_urdx.png'%}" class="topics-detail-block-image img-fluid">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+
+
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;">Действие</th>
+                            <th scope="col" style="font-size: 14px;">Дата добавления цены</th>
+                            <th scope="col" style="font-size: 14px;">Цена за БЕИ</th>
+                            <th scope="col" style="font-size: 14px;">Online savdo ID</th>
+                            <th scope="col" style="font-size: 14px;">Название</th>
+                            <th scope="col" style="font-size: 14px;">Цвет продукта</th>
+                            <th scope="col" style="font-size: 14px;">Группа закупок</th>
+                            <th scope="col" style="font-size: 14px;">Группа</th>
+                            <th scope="col" style="font-size: 14px;">Тип</th>
+                            <th scope="col" style="font-size: 14px;">Сегмент</th>
+                            <th scope="col" style="font-size: 14px;">Бухгал товары</th>
+                            <th scope="col" style="font-size: 14px;">Бухгалтерский учет</th>
+                            <th scope="col" style="font-size: 14px;">Базовый единица</th>
+                            <th scope="col" style="font-size: 14px;">Альтер единица</th>
+                            <th scope="col" style="font-size: 14px;">Стмость баз едн</th>
+                            <th scope="col" style="font-size: 14px;">Альтер. стоимость единицы</th>
+                            <th scope="col" style="font-size: 14px;">Статус</th>
+                            <th scope="col" style="font-size: 14px;">Завод</th>
+                            <th scope="col" style="font-size: 14px;">Тип клиента</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-start p-2">
+                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-center p-2">
+                                <input type="button" class="btn btn-success " value="Готов" onclick="ready_all()" id="ready_btn"><span class="m-1" ></span>
+                                <!-- <input type="button" class="btn btn-warning " value="Изменить" onclick="edit_all()" id="edit_btn" style="display: none;"><span class="m-1" ></span> -->
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-end p-2">
+                                <input type="submit" class="btn btn-primary" value="Загрузить" style="display: none;" id="zagruzka_file">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </section>
+
+
+            <section class="section-padding section-bg">
+                <div class="container">
+                    <div class="row justify-content-center">
+
+                        <div class="col-lg-5 col-12">
+                            <img src="images/rear-view-young-college-student.jpg" class="newsletter-image img-fluid" alt="">
+                        </div>
+
+                        <div class="col-lg-5 col-12 subscribe-form-wrap d-flex justify-content-center align-items-center">
+                            <form class="custom-form subscribe-form" action="#" method="post" role="form">
+                                <h4 class="mb-4 pb-2">Get Newsletter</h4>
+
+                                <input type="email" name="subscribe-email" id="subscribe-email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email Address" required="">
+
+                                <div class="col-lg-12 col-12">
+                                    <button type="submit" class="form-control">Subscribe</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+{%endblock%}
+
+{%block java_script%}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script> 
+
+<link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
+<script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
+<script src="{% static 'js/accessuar_savdo.js'%}"></script>
+
+{%endblock%}

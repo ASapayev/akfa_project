@@ -1,7 +1,9 @@
 
 class OnlineSavdo{
-    constructor(id=NaN, sap_code=NaN,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN) {
+    constructor(id=NaN, full=false, sap_code=NaN,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN) {
         this.id = id;
+        this.full = full;
+
         this.sap_code = sap_code;
         this.krat = krat;
         this.online_id = online_id;
@@ -27,9 +29,10 @@ class OnlineSavdo{
 
 class Neokrashenniy{
     constructor(id=NaN, 
-        sap_code=NaN,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN,
+        sap_code=NaN,full=false,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN,
         splav=NaN,tip_zak=NaN,dlina=NaN,kod_kraska_sn=NaN,kod_nakleyki=NaN,kod_kraska_vn=NaN,is_termo=false,is_active=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
@@ -102,10 +105,12 @@ class Neokrashenniy{
   }
 
 class Beliy{
-    constructor(id=NaN, 
+    constructor(id=NaN,
+        full=false, 
         sap_code=NaN,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN,
         splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_nakleyki=NaN,is_termo=false,is_active=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
@@ -193,10 +198,12 @@ class Beliy{
   }
 
 class Okrashenniy{
-    constructor(id=NaN, 
+    constructor(id=NaN,
+        full=false, 
         sap_code=NaN,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN,
         splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_nakleyki=NaN,is_termo=false,is_active=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
@@ -282,9 +289,11 @@ class Okrashenniy{
 
 class Sublimatsiya{
     constructor(id=NaN, 
+        full=false,
         sap_code=NaN,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN,
         splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_dekor_sn=NaN,kod_dekor_vn=NaN,kod_nakleyki=NaN,is_termo=false,is_active=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
@@ -373,9 +382,11 @@ class Sublimatsiya{
   }
 class Laminatsiya{
     constructor(id=NaN, 
+        full=false,
         sap_code=NaN,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN,
         splav=NaN,tip_zak=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_lam_sn=NaN,kod_lam_vn=NaN,kod_nakleyki=NaN,is_termo=false,is_active=false) {
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
@@ -460,10 +471,12 @@ class Laminatsiya{
   }
 class Anodirovka {
     constructor(id=NaN, 
+        full=false,
         sap_code=NaN,krat=NaN,online_id=NaN,nazvaniye_ruchnoy=NaN,svet_product=NaN,group_zakup=NaN,group=NaN,tip=NaN,bazoviy_edin=NaN,status_online=NaN,zavod=NaN,
         splav=NaN,tip_zak=NaN,dlina=NaN,kod_anod_sn=NaN,kod_anod_vn=NaN,kod_nakleyki=NaN,contactnost_anod=NaN,is_termo=false,is_active) {
         
       this.id = id;
+      this.full = full;
       this.splav = splav;
       this.tip_zak = tip_zak;
       this.dlina = dlina;
@@ -2856,13 +2869,14 @@ function create_kratkiy_tekst(id){
 
 
     var data =data_base[id].get_kratkiy_tekst()
-    console.log(data.text,data.accept)
     if(data.accept){
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','#2de319')
+        data_base[id].full=true
     }else{
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','white')
+        data_base[id].full=false
 
     }
     
