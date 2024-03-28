@@ -3,13 +3,13 @@ from django.http import JsonResponse
 from aluminiy.models import ArtikulComponent
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc
 from norma.models import Nakleyka
-from .models import Anod
+from .models import Anod,Order
 from django.contrib.auth.decorators import login_required
 import time
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
-from accounts.decorators import customer_only
+from accounts.decorators import customer_only,moderator_only
 
 
 
@@ -20,19 +20,43 @@ class OrderSaveView(APIView):
         return Response(['hello',])    
     
     def post(self, request):
-        print(dict(request.data))
-        print(dict(request.data)['data'])
-        return Response(['hello',])    
+        data = dict(request.data)
+        try:
+            order = Order(data = data['data'],owner=request.user,order_type =data['order_type'])
+            order.save()
+            msg = 'Ordered successfully!'
+            stat = 201
+            return Response({'msg':msg,'status':stat,'order_id':order.id})    
+        except:
+            msg ='Something went wrong.'
+            stat =300
+            return Response({'msg':msg,'status':stat,'order_id':None})    
 
 
-# Create your views here.
+@login_required(login_url='/accounts/login/')
+@moderator_only
+def moderator_check(request,id):
+    order = Order.objects.get(id = id)
+    context ={
+        'order':order
+    }
+    return render(request,'client/moderator/index.html',context)
+
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def order_update(request,id):
+    return render(request,'client/customer/index.html')
+
+
+
+
+
+#################
 @login_required(login_url='/accounts/login/')
 @customer_only
 def index(request):
     return render(request,'client/index.html')
-
-
-
 
 @login_required(login_url='/accounts/login/')
 @customer_only

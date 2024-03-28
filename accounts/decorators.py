@@ -40,3 +40,12 @@ def customer_only(view_func):
         else:
             return HttpResponse('You are not authorized to view this page.')
     return wrapper_func
+
+def moderator_only(view_func):
+    def wrapper_func(request, *args, **kwargs):
+        role = request.user.role
+        if role =='moderator':
+            return view_func(request, *args, **kwargs)
+        else:
+            return HttpResponse('You are not authorized to view this page.')
+    return wrapper_func
