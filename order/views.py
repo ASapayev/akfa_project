@@ -11,7 +11,7 @@ from django.core.paginator import Paginator
 @login_required(login_url='/accounts/login/')
 def index(request):
     user = request.user
-    if user.role == 2:
+    if user.role == 'user1':
         current_orders = Order.objects.filter(work_type__gte = 6).order_by('-created_at')
 
     else:
@@ -64,7 +64,7 @@ def order_detail(request,id):
     paths =  order.paths
     
     if order.work_type == 5:
-        workers = User.objects.filter(role = 1)
+        workers = User.objects.filter(role = 'moderator')
         context['workers'] =workers
 
     for key,val in paths.items():
@@ -81,7 +81,7 @@ def order_detail_pvc(request,id):
     paths =  order.paths
     
     if order.work_type == 5:
-        workers = User.objects.filter(role = 1)
+        workers = User.objects.filter(role =  'moderator')
         context['workers'] =workers
 
     for key,val in paths.items():

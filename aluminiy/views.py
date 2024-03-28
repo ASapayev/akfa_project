@@ -4687,7 +4687,7 @@ def product_add_second_org(request,id):
                   for key,val in paths.items():
                         context2[key] = val
 
-                  workers = User.objects.filter(role = 1,is_active =True)
+                  workers = User.objects.filter(role = 'moderator',is_active =True)
                   context2['workers'] = workers
 
                   return render(request,'order/order_detail.html',context2)

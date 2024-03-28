@@ -434,7 +434,7 @@ def file_upload_for_get_ozmka_org(request):
       ozmks =ozmk.split()
       path,df = get_ozmka(ozmks,z1101,z1201)
       res = download_bs64(df,'RAZLOVKA')
-      if request.user.role ==2:
+      if request.user.role =='user1':
         return res
       files = [File(file=p,filetype='simple') for p in path]
       context ={

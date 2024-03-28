@@ -602,7 +602,7 @@ def upload_product_org(request):
                   return redirect('order_detail',id=order.id)
             else:
                   form =FileFormTermo()
-                  workers = User.objects.filter(role = 1)
+                  workers = User.objects.filter(role = 'moderator')
                   print(workers)
                   context ={
                   'form':form,
@@ -611,7 +611,7 @@ def upload_product_org(request):
                   }
                   return render(request,'universal/main.html',context)
       form =FileFormTermo()
-      workers = User.objects.filter(role = 1)
+      workers = User.objects.filter(role = 'moderator')
       context ={
       'form':form,
       'section':'Формирование сапкода термо',
@@ -5655,7 +5655,7 @@ def product_add_second_org(request,id):
                   for key,val in paths.items():
                         context2[key] = val
 
-                  workers = User.objects.filter(role = 1,is_active =True)
+                  workers = User.objects.filter(role = 'moderator',is_active =True)
                   context2['workers'] = workers
 
                   return render(request,'order/order_detail.html',context2)
