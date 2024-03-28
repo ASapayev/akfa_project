@@ -11,6 +11,7 @@ from accounts.models import User
 from .models import OnlineSavdoOrder,OnlineSavdoFile
 import os
 from .utils import create_folder,zip
+from accounts.decorators import allowed_users
 
 
 
@@ -28,6 +29,7 @@ class FileG:
         self.filetype =filetype
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_product_org(request):
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
@@ -48,6 +50,7 @@ def upload_product_org(request):
     return render(request,'online_savdo/main.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_sozdaniye(request):
     if request.method == 'POST':
         for f in request.FILES.getlist('file'):
@@ -82,6 +85,7 @@ def upload_sozdaniye(request):
     return render(request,'online_savdo/sozdaniye_online_savdo.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_sozdaniye_sena(request):
     if request.method == 'POST':
         form_savdo = FileForm(request.POST, request.FILES)
@@ -114,6 +118,7 @@ def upload_sozdaniye_sena(request):
     return render(request,'online_savdo/sena.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_sozdaniye_format(request):
     if request.method == 'POST':
         form1 = FileForm(request.POST, request.FILES)
@@ -140,6 +145,7 @@ def upload_sozdaniye_format(request):
     return render(request,'online_savdo/sena_format.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def merging_files(request,id):
     file = OnlineSavdoFile.objects.get(id=id).file
     df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
@@ -185,6 +191,7 @@ def merging_files(request,id):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_file_for_preparing(request):
     if request.method == 'POST':
         form1 = FileForm(request.POST, request.FILES)
@@ -211,6 +218,7 @@ def upload_file_for_preparing(request):
     return render(request,'online_savdo/sena_format.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_for_proverka(request):
     if request.method == 'POST':
         form1 = FileForm(request.POST, request.FILES)
@@ -296,6 +304,7 @@ def round503(n):
     return round(n * 2, -2) // 2
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def create_online(request,id):
     file = OnlineSavdoFile.objects.get(id=id).file
     df = pd.read_excel(f'{MEDIA_ROOT}/{file}',sheet_name='Алюмин Навои Жомий',header=4)
@@ -376,6 +385,7 @@ def create_online(request,id):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def sozdaniya_online_savdo(request,id):
     order = OnlineSavdoOrder.objects.get(id = id)
     path1 = order.paths['path_1']
@@ -597,6 +607,7 @@ zavod = {
 }
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def sozdaniye_sena(request,id):
     order = OnlineSavdoOrder.objects.get(id = id)
     path1 = order.paths['path_1']
@@ -836,6 +847,7 @@ def sozdaniye_sena(request,id):
     return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def sozdaniye_sap_format_sena(request,id):
     order = OnlineSavdoOrder.objects.get(id = id)
     path1 = order.paths['path_1']
@@ -1263,6 +1275,7 @@ def sozdaniye_sap_format_sena(request,id):
   
    
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def proverka(request,id):
     order = OnlineSavdoOrder.objects.get(id = id)
     path1 = order.paths['path_1']

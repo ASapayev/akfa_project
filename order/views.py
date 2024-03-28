@@ -5,10 +5,11 @@ from django.contrib.auth.decorators import login_required
 import ast
 from accounts.models import User
 from django.core.paginator import Paginator
-
+from accounts.decorators import allowed_users
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def index(request):
     user = request.user
     if user.role == 'user1':
@@ -34,6 +35,7 @@ def index(request):
     return render(request,'dashboard/workers.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def index_pvc(request):
     current_orders = OrderPVX.objects.all().order_by('-created_at')
 
@@ -55,6 +57,7 @@ def index_pvc(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def order_detail(request,id):
     order = Order.objects.get(id = id)
     
@@ -72,6 +75,7 @@ def order_detail(request,id):
     return render(request,'order/order_detail.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def order_detail_pvc(request,id):
     order = OrderPVX.objects.get(id = id)
     
@@ -90,6 +94,7 @@ def order_detail_pvc(request,id):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def order_delete(request,id):
     order = Order.objects.get(id = id)
     order.delete()
@@ -97,6 +102,7 @@ def order_delete(request,id):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def order_delete_pvc(request,id):
     order = OrderPVX.objects.get(id = id)
     order.delete()
@@ -104,6 +110,7 @@ def order_delete_pvc(request,id):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def status_change_to_done(request,id):
     order = Order.objects.get(id = id)
     order.work_type =10
@@ -111,6 +118,7 @@ def status_change_to_done(request,id):
     return redirect('order')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def status_change_to_done_pvc(request,id):
     order = OrderPVX.objects.get(id = id)
     order.work_type =6

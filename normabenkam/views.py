@@ -28,6 +28,7 @@ from django.db.models.functions import Trim
 import ast
 import math
 from django.contrib.auth.decorators import login_required
+from accounts.decorators import allowed_users
 
 class File:
       def __init__(self,file,filetype,id):
@@ -36,6 +37,7 @@ class File:
             self.id = id
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def vi_generate(request,id):
     file = ViFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -221,6 +223,7 @@ def vi_generate(request,id):
     return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def download(request):
   file_path = request.GET.get('file_path',None)
   if file_path:
@@ -232,6 +235,7 @@ def download(request):
   raise Http404
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def download_zip_file(request):
     file_path = request.GET.get('file_path',None)
     if file_path and '[' in file_path:
@@ -249,7 +253,8 @@ def download_zip_file(request):
         return response
     return response
         
-@login_required(login_url='/accounts/login/')   
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])   
 def vi_file(request):
     files = ViFiles.objects.all().order_by('-created_at')
     context ={
@@ -261,6 +266,7 @@ def vi_file(request):
     return render(request,'universal/file_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def file_vi_upload_org(request):
       
     if request.method == 'POST':
@@ -279,6 +285,7 @@ def file_vi_upload_org(request):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def delete_norm(request, id):
     norma = Norma.objects.get(id= id)
     norma.delete()
@@ -286,6 +293,7 @@ def delete_norm(request, id):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def norma_delete_all(request):
     norma = Norma.objects.all()
     norma.delete()
@@ -293,6 +301,7 @@ def norma_delete_all(request):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def termomost_delete_all(request):
     termomost = Termomost.objects.all()
     termomost.delete()
@@ -300,6 +309,7 @@ def termomost_delete_all(request):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def ximikat_save(request):
     data = dict(request.POST)
     for key,val in data.items():
@@ -315,6 +325,7 @@ def ximikat_save(request):
     return JsonResponse({'msg':True})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def ximikat(request):
     ximikats = Ximikat.objects.all().order_by('id')
     context = {
@@ -324,6 +335,7 @@ def ximikat(request):
     return render(request,'norma/benkam/ximikat.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def add_kraska(request):
 
     if request.method == 'POST':
@@ -340,6 +352,7 @@ def add_kraska(request):
     return render(request,'norma/add_kraska.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def anod_list(request):
 
     anods = Anod.objects.all()
@@ -349,6 +362,7 @@ def anod_list(request):
     return render(request,'norma/benkam/anod_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def nakleyka_list(request):
 
     nakleyka = Nakleyka.objects.all().order_by('-created_at')
@@ -358,6 +372,7 @@ def nakleyka_list(request):
     return render(request,'norma/benkam/nakleyka_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def sublimatsiya_list(request):
 
     sumlimatsiya = SubDekorPlonka.objects.all().order_by('-created_at')
@@ -367,6 +382,7 @@ def sublimatsiya_list(request):
     return render(request,'norma/benkam/sumlimatsiya_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def kraska_list(request):
 
     kraska = Kraska.objects.all().order_by('-created_at')
@@ -376,6 +392,7 @@ def kraska_list(request):
     return render(request,'norma/benkam/kraska_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def add_anod(request):
 
     if request.method == 'POST':
@@ -392,6 +409,7 @@ def add_anod(request):
     return render(request,'norma/benkam/add_anod.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def add_nakleyka(request):
 
     if request.method == 'POST':
@@ -409,6 +427,7 @@ def add_nakleyka(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def add_sublimation_benkam(request):
 
     if request.method == 'POST':
@@ -428,6 +447,7 @@ def add_sublimation_benkam(request):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def full_update_norma(request):
     data = dict(request.POST)
 
@@ -624,6 +644,7 @@ def full_update_norma(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def edit_norm(request,id):
     norma = Norma.objects.get( id = id)
 
@@ -641,6 +662,7 @@ def edit_norm(request,id):
     return render(request,'norma/norma_crud/edit.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def edit_sikl(request,id):
     norma = TexCartaTime.objects.get( id = id)
 
@@ -659,6 +681,7 @@ def edit_sikl(request,id):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def add_norm_post(request):   
     data = dict(request.POST)
 
@@ -795,10 +818,12 @@ def add_norm_post(request):
     return JsonResponse({'msg':True,'text':"Successfuly saved!"})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def add_norm(request):
     return render(request,'norma/norma_crud/add.html')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def full_update_termomost(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -829,6 +854,7 @@ def full_update_termomost(request):
     return render(request,'norma/benkam/main.html')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def full_update_norm(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -860,6 +886,7 @@ def full_update_norm(request):
     return render(request,'norma/benkam/main.html')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def show_norm_base(request):
     search_text = request.GET.get('search',None)
 
@@ -885,6 +912,7 @@ def show_norm_base(request):
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def show_sikl_base(request):
     search_text = request.GET.get('search',None)
 
@@ -916,6 +944,7 @@ def show_sikl_base(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def file_upload_termo_org(request): 
     if request.method == 'POST':
         type_r = request.POST.get('type_r',None)
@@ -945,6 +974,7 @@ def file_upload_termo_org(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def file_upload_org(request): 
   if request.method == 'POST':
     data = request.POST.copy()
@@ -961,7 +991,8 @@ def file_upload_org(request):
   return render(request,'universal/main.html',context)
 
 
-
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def file_list_org(request):
     files = NormaExcelFiles.objects.filter(generated =False,type='simple').order_by('-created_at')
     context ={'files':files,
@@ -972,6 +1003,9 @@ def file_list_org(request):
               }
     return render(request,'universal/file_list_norma.html',context)
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def file_list_termo_org(request):
     files = NormaExcelFiles.objects.filter(generated =False,type='termo').order_by('-created_at')
     
@@ -997,6 +1031,9 @@ def get_legth(lengg):
     return (float(hh)/1000) 
 
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def kombinirovaniy_process(request,id):
     file = NormaExcelFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -2767,6 +2804,9 @@ def round503(n):
         return int(n/10)*10
     return 
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def norma_delete(request):
     return 
 
@@ -2807,7 +2847,9 @@ def norma_for_list():
 
 
     
-  
+ 
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka']) 
 def find_characteristics_org(request):
     all_data = [ [] for i in range(38)]
     does_not_exists = []
@@ -2923,7 +2965,10 @@ def find_characteristics_org(request):
         return render(request,'universal/generated_files.html',context)
     else:
         return render(request,'norma/character_find.html',{'section':'Характеристики','section2':'Найти Характеристики'})
-    
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])    
 def norma_delete_org(request):
     if request.method =='POST':
         ozmk =request.POST.get('ozmk',None)
@@ -2937,6 +2982,9 @@ def norma_delete_org(request):
         return render(request,'delete_/delete_norm.html')
     
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def lenght_generate_texcarta(request,id):
     file = NormaExcelFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -3416,6 +3464,9 @@ def lenght_generate_texcarta(request,id):
     return render(request,'norma/benkam/generated_files_texcarta.html',context)
 
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def download_txt(request):
     file_path = request.GET.get('file_path',None)
     if file_path:
@@ -3429,6 +3480,8 @@ def download_txt(request):
         return JsonResponse({'msg':'File not found'})
 
 @csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def bulk_delete_texcarta(request):
     ids = request.POST.get('ids',None)
     if ids:
@@ -3439,6 +3492,8 @@ def bulk_delete_texcarta(request):
     return JsonResponse({'msg':True})
 
 @csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def delete_texcarta_one(request,id):
     if request.method =="POST":
         texcartaa= TexcartaBase.objects.get(id=int(id))
@@ -3447,26 +3502,41 @@ def delete_texcarta_one(request,id):
     else:
         return JsonResponse({'msg':False})
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def delete_anod(request,id):
     anod = Anod.objects.get(id=id)
     anod.delete()
     return redirect('anod_list')
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def kraska_anod(request,id):
     kraska = Kraska.objects.get(id=id)
     kraska.delete()
     return redirect('kraska_list')
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def nakleyka_del(request,id):
     nakleyka = Nakleyka.objects.get(id=id)
     nakleyka.delete()
     return redirect('nakleyka_list_benkam')
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def sublimatsiya_del(request,id):
     sub = SubDekorPlonka.objects.get(id=id)
     sub.delete()
     return redirect('sublimatsiya_list_benkam')
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def delete_texcarta(request):
     products = TexcartaBase.objects.all().order_by('-created_at')
     paginator = Paginator(products, 25)
