@@ -17,14 +17,17 @@ from norma.models import Norma
 import math
 from order.models import Order
 from django.contrib.auth.decorators import login_required
+from accounts.decorators import allowed_users
     
 # Create your views here.
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def index(request):
     return render(request,'imzo/index.html')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def file_uploadImzo(request):
       
   if request.method == 'POST':
@@ -40,6 +43,7 @@ def file_uploadImzo(request):
   return render(request,'imzo/excel_form.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def file_uploadTexcarta_org(request):
       
   if request.method == 'POST':
@@ -55,6 +59,7 @@ def file_uploadTexcarta_org(request):
   return render(request,'universal/main.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def imzo_file(request):
     zakalka_iskyucheniye = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
 
@@ -62,6 +67,7 @@ def imzo_file(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def texcart_file(request):
     files = ExcelFilesImzo.objects.filter(generated =False).order_by('-created_at')
     context ={
@@ -73,6 +79,7 @@ def texcart_file(request):
     return render(request,'universal/file_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def texcartaupload(request):
     
     # df = pd.read_excel('C:\\OSPanel\\domains\\БазаTexcarta.xlsx','Лист1')
@@ -160,6 +167,7 @@ def texcartaupload(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def lenght_generate_texcarta(request,id):
     file = ExcelFilesImzo.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -1211,6 +1219,7 @@ def lenght_generate_texcarta(request,id):
     return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def delete_tex(request):
     texx =[
         
@@ -1250,6 +1259,7 @@ def delete_tex(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def tex_delete(request):
     if request.method =='POST':
         ozmk =request.POST.get('tex',None)
@@ -1263,6 +1273,7 @@ def tex_delete(request):
         return render(request,'imzo/tex_find.html')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def tex_delete_org(request):
     if request.method =='POST':
         ozmk =request.POST.get('ozmk',None)

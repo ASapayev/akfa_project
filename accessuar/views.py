@@ -5,6 +5,7 @@ from .models import AccessuarFiles,Norma,Siryo,TexcartaBase,DataForText
 import pandas as pd
 from .utils import get_norma_df,get_norma_price,create_folder,lenght_generate_texcarta
 from django.contrib.auth.decorators import login_required
+from accounts.decorators import allowed_users
 
 
 
@@ -12,7 +13,8 @@ class File:
     def __init__(self,file):
         self.file = file
 
-
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def texcarta_delete(request):
     texcarta = TexcartaBase.objects.all()
     texcarta.delete()
@@ -20,6 +22,7 @@ def texcarta_delete(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def get_accessuar_sapcode(request):
     if request.method =='POST':
         ozmk = request.POST.get('ozmk',None)
@@ -37,6 +40,7 @@ def get_accessuar_sapcode(request):
         return render(request,'norma/accessuar/norma_sapcode.html')
     
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def get_accessuar_sapcode_narx(request):
     if request.method =='POST':
         ozmk = request.POST.get('ozmk',None)
@@ -54,6 +58,7 @@ def get_accessuar_sapcode_narx(request):
         return render(request,'norma/accessuar/norma_sapcode.html')
     
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def get_accessuar_sapcode_texcarta(request):
     if request.method =='POST':
         ozmk = request.POST.get('ozmk',None)
@@ -72,6 +77,7 @@ def get_accessuar_sapcode_texcarta(request):
     
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def full_update_siryo(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -92,6 +98,7 @@ def full_update_siryo(request):
     return render(request,'norma/benkam/main.html')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def update_text_base(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -119,6 +126,7 @@ def update_text_base(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def full_update_texcarta(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -150,6 +158,7 @@ def full_update_texcarta(request):
     return render(request,'norma/benkam/main.html')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def full_update_norm(request):
     if request.method == 'POST':
         data = request.POST.copy()

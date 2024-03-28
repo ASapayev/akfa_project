@@ -26,10 +26,12 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from .create_char import product_add_second_termo,product_add_second_simple
 from order.models import Order
 from django.contrib.auth.decorators import login_required
+from accounts.decorators import allowed_users
 
 now = datetime.now()
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def sms_list(request):
       messages_chat = MessageFeedBack.objects.filter(receiver =request.user,parent = 0,accepted = False).order_by('-created_at')
       context ={
@@ -39,6 +41,7 @@ def sms_list(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def sms_detail(request,uuid):
       try:
             sms = MessageFeedBack.objects.get(uuid= uuid)
@@ -54,19 +57,22 @@ def sms_detail(request,uuid):
       except:
             return render(request,'404.html')
 
-@login_required(login_url='/accounts/login/')      
+@login_required(login_url='/accounts/login/') 
+@allowed_users(allowed_roles=['admin','moderator'])     
 def sms_save(request):
       data = request.data
       print(data)
       return JsonResponse({'msg':'Saved successfully','status':201})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def create_fake(request):
       m = MessageFeedBack(sender = request.user,receiver=request.user)
       m.save()
       return JsonResponse({'a':'b'})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def lobby(request):
       return render(request,'chat/lobby.html')
 
@@ -79,6 +85,7 @@ class SAPCODES:
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_for_1301_v22(request):
       if request.method == 'POST':
             form = FileFormTermo(request.POST, request.FILES)
@@ -97,6 +104,7 @@ def get_indices(element, lst):
     return [i for i, x in enumerate(lst) if x == element]
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def get_sapcodes(request):
 
       if request.method =='POST':
@@ -142,6 +150,7 @@ def get_sapcodes(request):
       return render(request,'norma/search_sapcode.html',{'section':'SAPCODE','section2':'Найти SAPCODE'})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def get_raube(request):
       raube_list =[[],[],[]]
 
@@ -198,6 +207,7 @@ def get_raube(request):
             return render(request,'norma/character_find.html',{'section':'RAUBE','section2':'Найти RAUBE'})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def create_txt_for_1101(request):
       
       if request.method =='POST':
@@ -360,6 +370,7 @@ def create_txt_for_1101(request):
       return render(request,'universal/create_text.html')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def show_list_simple_sapcodes(request):
 
       search =request.GET.get('search',None)
@@ -416,6 +427,7 @@ def show_list_simple_sapcodes(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def character_extras(request):
       df = pd.read_excel('C:\\OSPanel\\domains\\char.xlsx','Лист1')
       for key, row in df.iterrows():
@@ -464,6 +476,7 @@ def character_extras(request):
       return JsonResponse({'a':'b'})
       
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def downloading_characteristika(request):
       simple_list = Characteristika.objects.all().values_list('sap_code','kratkiy_text','section','savdo_id','savdo_name','export_customer_id','system','article','length','surface_treatment','alloy','temper','combination','outer_side_pc_id','outer_side_pc_brand','inner_side_pc_id','inner_side_pc_brand','outer_side_wg_s_id','inner_side_wg_s_id','outer_side_wg_id','inner_side_wg_id','anodization_contact','anodization_type','anodization_method','print_view','profile_base','width','height','category','rawmat_type','benkam_id','hollow_and_solid','export_description','export_description_eng','tnved','surface_treatment_export','wms_width','wms_height','group_prise')
       data = pd.DataFrame(np.array(list(simple_list)),columns=['SAP CODE','KRATKIY TEXT','SECTION','SAVDO_ID','SAVDO_NAME','EXPORT_CUSTOMER_ID','SYSTEM','ARTICLE','LENGTH','SURFACE_TREATMENT','ALLOY','TEMPER','COMBINATION','OUTER_SIDE_PC_ID','OUTER_SIDE_PC_BRAND','INNER_SIDE_PC_ID','INNER_SIDE_PC_BRAND','OUTER_SIDE_WG_S_ID','INNER_SIDE_WG_S_ID','OUTER_SIDE_WG_ID','INNER_SIDE_WG_ID','ANODIZATION_CONTACT','ANODIZATION_TYPE','ANODIZATION_METHOD','PRINT_VIEW','PROFILE_BASE','WIDTH','HEIGHT','CATEGORY','RAWMAT_TYPE','BENKAM_ID','HOLLOW AND SOLID','EXPORT_DESCRIPTION','EXPORT_DESCRIPTION ENG','TNVED','SURFACE_TREATMENT_EXPORT','WMS_WIDTH','WMS_HEIGHT','GROUP PRIZE'])
@@ -473,6 +486,7 @@ def downloading_characteristika(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def  create_characteristika_force(request,id):
       termo =request.GET.get('termo',None)
       if termo:
@@ -483,11 +497,13 @@ def  create_characteristika_force(request,id):
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def index(request):
       return render(request,'aluminiy/index.html')
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def aluminiy_productbases(request):
       df = pd.read_excel('c:\\OpenServer\\domains\\База термо.XLSX','Лист1')
       print(df.shape)
@@ -517,6 +533,7 @@ def aluminiy_productbases(request):
       return JsonResponse({'converted':'a'})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def alu_product_base(request):
       df = pd.read_excel('C:\\OpenServer\\domains\\Aluminiy_baza.xlsx','Лист1') 
       for i in range(0,13197):
@@ -567,6 +584,7 @@ def alu_product_base(request):
       return JsonResponse({'converted':'a'})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_product_org(request):
       if request.method == 'POST':
             form = FileFormTermo(request.POST, request.FILES)
@@ -620,6 +638,7 @@ def upload_product_org(request):
       return render(request,'universal/main.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_for_char_termo(request):
       if request.method == 'POST':
             form = FileFormTermo(request.POST, request.FILES)
@@ -636,6 +655,7 @@ def upload_for_char_termo(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def char_files_org_termo(request):
   files = AluFileTermo.objects.filter(generated =False).order_by('-created_at')[:1]
   context ={'files':files,'section':'Формированный термо файлы','type':'ТЕРМО','link':'/termo/character-force/','char':True,'char_type':'termo'}
@@ -643,6 +663,7 @@ def char_files_org_termo(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_for_1301(request):
       if request.method == 'POST':
             form = FileFormTermo(request.POST, request.FILES)
@@ -659,6 +680,7 @@ def upload_for_1301(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_razlovka_termo(request):
       if request.method == 'POST':
             form = FileFormTermo(request.POST, request.FILES)
@@ -676,6 +698,7 @@ def upload_razlovka_termo(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_product_char(request):
       if request.method == 'POST':
             form = FileFormChar(request.POST, request.FILES)
@@ -722,6 +745,7 @@ def upload_product_char(request):
       return render(request,'universal/main.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_product(request):
       if request.method == 'POST':
             form = FileFormTermo(request.POST, request.FILES)
@@ -743,18 +767,21 @@ def upload_product(request):
       return render(request,'excel_form.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def aluminiy_files(request):
       files = AluFileTermo.objects.filter(generated =False).order_by('-created_at')
       context ={'files':files}
       return render(request,'termo/alu_file_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def aluminiy_files_org(request):
       files = AluFileTermo.objects.filter(generated =False).order_by('-created_at')
       context ={'files':files,'section':'Формированный термо файлы','type':'TERMO','link':'/termo/alumtermo/add/'}
       return render(request,'universal/file_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def aluminiy_files_char_org(request):
       files = CharacteristikaFile.objects.all().order_by('-created_at')
       text =str(files[0].file).split('/')[-1]
@@ -766,12 +793,14 @@ def aluminiy_files_char_org(request):
       return render(request,'universal/file_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def aluminiy_files_termo_char_title(request):
       files = AluFileTermo.objects.filter(file_type ='title')
       context ={'files':files}
       return render(request,'termo/alu_file_list_char_title.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def aluminiy_group(request):
       aluminiy_group =AluminiyProductTermo.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
       #   print(aluminiy_group)
@@ -784,8 +813,10 @@ def aluminiy_group(request):
             umumiy[ al['artikul'] + '-' + al['section'] ] = al['total_max']
       print('aa   ')
       return JsonResponse({'data':umumiy})
+
 import glob
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def razlovkatermo_save(request):
       
       dir_path = f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\**\*alumin*.*'
@@ -1001,6 +1032,7 @@ def razlovkatermo_save(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def add_characteristika_utils(request):
       df1 = pd.read_excel('c:\\OpenServer\\domains\\WMS&TMS.xlsx')
       df1 = df1.astype(str)
@@ -1050,6 +1082,7 @@ def add_characteristika_utils(request):
       return JsonResponse({'a':'b'})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def base_profile(request):
       df1 = pd.read_excel('c:\\OpenServer\\domains\\BASA PROFIL.xlsx')
       df1 = df1.astype(str)
@@ -1074,6 +1107,7 @@ class File:
             self.filetype =filetype
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def update_char_title(request,id):
       file = CharacteristikaFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}','title')
@@ -1121,6 +1155,7 @@ def update_char_title(request,id):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def add_char_utils_two(request):
       data = request.POST.get('data',None)
       if data:
@@ -1132,6 +1167,7 @@ def add_char_utils_two(request):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def add_char_utils_one(request):
       data = request.POST.get('data',None)
       if data:
@@ -1143,6 +1179,7 @@ def add_char_utils_one(request):
       
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def baza_profile(request):
       data = request.POST.get('data',None)
       if data:
@@ -1154,6 +1191,7 @@ def baza_profile(request):
       
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def excel_does_not_exists_add(request):
       now = datetime.now()
       year =now.strftime("%Y")
@@ -1325,6 +1363,7 @@ svet_lam_plenke_VN ={
 }
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def product_add_second(request,id):
       file = AluFileTermo.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
@@ -3397,6 +3436,7 @@ def product_add_second(request,id):
       return redirect('upload_product_termo')
                   
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def product_add_second_org(request,id):
       file = AluFileTermo.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')

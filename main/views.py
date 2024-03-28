@@ -223,7 +223,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator',''])
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def get_ready_ozmka(request,id):
   file = ExcelFilesOzmka.objects.get(id=id).file
   file_path =f'{MEDIA_ROOT}\\{file}'
@@ -317,10 +317,12 @@ def get_ready_ozmka(request,id):
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def index(request):
   return render(request,'index.html')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def show_list(request):
   search =request.GET.get('search',None)
   if search:
@@ -357,6 +359,7 @@ def show_list(request):
   # products =products
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def file_upload(request):
   
   if request.method == 'POST':
@@ -372,6 +375,7 @@ def file_upload(request):
   return render(request,'excel_form.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def file_upload_org(request):
   if request.method == 'POST':
     form = FileForm(request.POST, request.FILES)
@@ -386,6 +390,7 @@ def file_upload_org(request):
   return render(request,'excel_form.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def file_upload_for_get_ozmka(request):
   if request.method =='POST':
     ozmk = request.POST.get('ozmk',None)
@@ -415,6 +420,7 @@ def file_upload_for_get_ozmka(request):
 #   return res
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def file_upload_for_get_ozmka_org(request):
   if request.method =='POST':
     ozmk = request.POST.get('ozmk',None)
@@ -457,6 +463,7 @@ def file_upload_for_get_ozmka_org(request):
 
     
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def file_list(request):
   files = ExcelFiles.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files}
@@ -464,18 +471,21 @@ def file_list(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def file_list_org(request):
   files = ExcelFiles.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files}
   return render(request,'delovoy_otxod/file_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def file_list_ozmka(request):
   files = ExcelFilesOzmka.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files}
   return render(request,'file_list_ozmka.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def import_file(request,id):
   file = ExcelFiles.objects.get(id=id).file
   file_path =f'{MEDIA_ROOT}\\{file}'
@@ -503,6 +513,7 @@ def import_file(request,id):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def read_and_write(request,id):
   file = ExcelFiles.objects.get(id=id).file
   file_path =f'{MEDIA_ROOT}\\{file}'
@@ -662,6 +673,7 @@ def read_and_write(request,id):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def download(request, id):
   path =str(ExcelFiles.objects.get(id=id).file)
   file_path = os.path.join(settings.MEDIA_ROOT, path)
@@ -679,6 +691,7 @@ group_four =['PVC']
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def lenght_generate(request,id):
   file = ExcelFiles.objects.get(id=id).file
   counter =0
@@ -724,6 +737,7 @@ def lenght_generate(request,id):
   return render(request,'generated_file.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def lenght_generate_org(request,id):
   file = ExcelFiles.objects.get(id=id)
   
@@ -782,6 +796,7 @@ def lenght_generate_org(request,id):
   return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def delete_file(request,id):
   file =get_object_or_404(ExcelFiles,id=id)
   a=request.GET.get('generated',None)
@@ -795,6 +810,7 @@ def delete_file(request,id):
   return redirect('file_list')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def open_folder_path_in_explorer(request):
   path =request.GET.get('path',None)
   path = os.path.normpath(path)
@@ -811,6 +827,7 @@ def open_folder_path_in_explorer(request):
   
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def show_list_history(request):
   files =OrderDelovoyOtxod.objects.all().order_by('-created_at')
   context ={

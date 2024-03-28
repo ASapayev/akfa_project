@@ -9,6 +9,7 @@ import time
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
+from accounts.decorators import customer_only
 
 
 
@@ -26,6 +27,7 @@ class OrderSaveView(APIView):
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
+@customer_only
 def index(request):
     return render(request,'client/index.html')
 
@@ -33,6 +35,7 @@ def index(request):
 
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_imzo_detail(request):
     if request.method =='POST':
         context ={
@@ -43,39 +46,48 @@ def shablon_imzo_detail(request):
         return render(request,'client/shablonlar/aluminiy_imzo.html')
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_savdo_detail(request):
     return render(request,'client/shablonlar/aluminiy_savdo.html')
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_export_detail(request):
     return render(request,'client/shablonlar/aluminiy_export.html')
 
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_acs_export_detail(request):
     return render(request,'client/shablonlar/accessuar_imzo.html')
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_acs_savdo_detail(request):
     return render(request,'client/shablonlar/accessuar_savdo.html')
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_acs_export_savdo_detail(request):
     return render(request,'client/shablonlar/accessuar_export.html')
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_pvc_export_detail(request):
     return render(request,'client/shablonlar/pvc_imzo.html')
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_pvc_savdo_detail(request):
     return render(request,'client/shablonlar/pvc_savdo.html')
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_pvc_export_savdo_detail(request):
     return render(request,'client/shablonlar/pvc_export.html')
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def imzo_artikul_list(request):
     
     term = request.GET.get('term',None)
@@ -87,6 +99,7 @@ def imzo_artikul_list(request):
 
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def pvc_artikul_list(request):
     
     term = request.GET.get('term',None)
@@ -99,6 +112,7 @@ def pvc_artikul_list(request):
     
     
 @login_required(login_url='/accounts/login/')
+@customer_only
 def nakleyka_list(request):
     
     term = request.GET.get('term',None)
@@ -110,6 +124,7 @@ def nakleyka_list(request):
     return JsonResponse(list(nakleyka_l),safe=False)
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def nakleyka_list_pvc(request):
     
     term = request.GET.get('term',None)
@@ -121,6 +136,7 @@ def nakleyka_list_pvc(request):
     return JsonResponse(list(nakleyka_l),safe=False)
 
 @login_required(login_url='/accounts/login/')
+@customer_only
 def anod_list(request):
     term = request.GET.get('term',None)
     if term:

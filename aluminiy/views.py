@@ -26,9 +26,11 @@ from io import BytesIO as IO
 from accounts.models import User
 from django.urls import reverse
 from norma.models import NormaExcelFiles
+from accounts.decorators import allowed_users
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator',])
 def upload_for_1301_v22(request):
       if request.method == 'POST':
             form = FileFormTermo(request.POST, request.FILES)
@@ -44,6 +46,7 @@ def upload_for_1301_v22(request):
       return render(request,'universal/main.html')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator',])
 def add_length_profile(request):
 
       if request.method == 'POST':
@@ -60,6 +63,7 @@ def add_length_profile(request):
       return render(request,'price/add.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator',])
 def edit_currency(request):
 
       length_of_profile = ExchangeValues.objects.get(id =1)
@@ -78,6 +82,7 @@ def edit_currency(request):
       return render(request,'price/currency_update.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator',])
 def profile_edit(request,id):
 
       length_of_profile = LengthOfProfile.objects.get(id = id)
@@ -97,6 +102,7 @@ def profile_edit(request,id):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator',])
 def delete_length_profile(request,id):
       profile_length = LengthOfProfile.objects.get(id = id)
       profile_length.delete()
@@ -104,6 +110,7 @@ def delete_length_profile(request,id):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator',])
 def bulk_delete_length_profile(request):
       ids = request.POST.get('ids',None)
       if ids:
@@ -113,6 +120,7 @@ def bulk_delete_length_profile(request):
       return JsonResponse({'msg':True})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator',])
 def show_price_profile(request):
 
       search = request.GET.get('search',None)
@@ -144,6 +152,7 @@ class File:
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
 def upload_razlovka_simple(request):
       if request.method == 'POST':
             form = FileForm(request.POST, request.FILES)
@@ -161,6 +170,7 @@ def upload_razlovka_simple(request):
       return render(request,'universal/main.html')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
 def download_all_razlovki(request):
       file_type = request.GET.get('type',None)
       if file_type =='simple':
@@ -202,6 +212,7 @@ def download_all_razlovki(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
 def show_razlovki(request):
      
       search_text = request.GET.get('search',None)
@@ -255,6 +266,7 @@ def show_razlovki(request):
       return render(request,'universal/show_razlovki.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
 def show_razlovki_termo(request):
       search_text = request.GET.get('search',None)
 
@@ -303,6 +315,7 @@ def show_razlovki_termo(request):
       return render(request,'universal/show_razlovki.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
 def save_razlovka2(request):
       df = pd.read_excel('c:\\OpenServer\\domains\\Razlovka.xlsx','Лист1')
       # df = pd.read_excel('C:\\OSPanel\\domains\\Razlovka.xlsx','Лист1')
@@ -315,10 +328,12 @@ def save_razlovka2(request):
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
 def index(request):
       return render(request,'aluminiy/index.html')
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
 def artikul_and_companent(request):
       df = pd.read_excel('c:\\OpenServer\\domains\\new_component.xlsx','Лист1')
       for i in range(0,3750):
@@ -351,6 +366,7 @@ def artikul_and_companent(request):
       return JsonResponse({'converted':'a'})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
 def aluminiy_productbases(request):
   df = pd.read_excel('c:\\OpenServer\\domains\\Новая база2.XLSX','без термо')
   
@@ -377,6 +393,7 @@ def aluminiy_productbases(request):
   return JsonResponse({'converted':'a'})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
 def alu_product_base(request):
   df = pd.read_excel('C:\\OpenServer\\domains\\Aluminiy_baza.xlsx','Лист1') 
   
@@ -428,6 +445,7 @@ def alu_product_base(request):
   return JsonResponse({'converted':'a'})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def upload_product(request):
   if request.method == 'POST':
     form = FileForm(request.POST, request.FILES)
@@ -443,6 +461,7 @@ def upload_product(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_for_char(request):
       if request.method == 'POST':
             form = FileForm(request.POST, request.FILES)
@@ -459,6 +478,7 @@ def upload_for_char(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def upload_product_org(request):
       if request.method == 'POST':
             form = FileForm(request.POST, request.FILES)
@@ -516,24 +536,28 @@ def upload_product_org(request):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def aluminiy_files(request):
   files = AluFile.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files}
   return render(request,'aluminiy/alu_file_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def char_files_org(request):
   files = AluFile.objects.filter(generated =False).order_by('-created_at')[:1]
   context ={'files':files,'section':'Формированный обычный файлы','type':'ОБЫЧНЫЙ','link':'/termo/character-force/','char':True,'char_type':'simple'}
   return render(request,'universal/file_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def aluminiy_files_org(request):
   files = AluFile.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files,'section':'Формированный обычный файлы','type':'ОБЫЧНЫЙ','link':'/alu/alum-org/add/'}
   return render(request,'universal/file_list.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def aluminiy_group(request):
       aluminiy_group =AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
       
@@ -555,6 +579,7 @@ def update_char_title_function(df_title,df_t4,order_id,file_type='aluminiy'):
       return pathzip
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def update_char_title(request,id):
       file = CharacteristikaFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}','title')
@@ -573,6 +598,7 @@ def update_char_title(request,id):
       return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def aluminiy_files_simple_char_title(request):
       files = AluFile.objects.filter(file_type ='title')
       context ={'files':files}
@@ -709,6 +735,7 @@ svet_lam_plenke_VN ={
 }
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def product_add_second(request,id):
       file = AluFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
@@ -2601,7 +2628,8 @@ def product_add_second(request,id):
       
       return redirect('upload_product')
 
-@login_required(login_url='/accounts/login/')    
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])    
 def product_add_second_org(request,id):
       file = AluFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
@@ -4697,6 +4725,8 @@ def product_add_second_org(request,id):
                   
 import glob
 
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def razlovka_save(request):
       
       dir_path = f'{MEDIA_ROOT}\\uploads\\aluminiy\\**\*alumin*.*'
@@ -4862,8 +4892,11 @@ def razlovka_save(request):
                         ).save()
       
       return JsonResponse({'a':'b'})
+
+
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
 def add_char_utils_two(request):
       data = request.POST.get('data',None)
       
@@ -4876,6 +4909,7 @@ def add_char_utils_two(request):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
 def add_char_utils_one(request):
       data = request.POST.get('data',None)
       print(data)
@@ -4888,6 +4922,7 @@ def add_char_utils_one(request):
       
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
 def baza_profile(request):
       data = request.POST.get('data',None)
       for item in ast.literal_eval(data):
@@ -4904,6 +4939,7 @@ def baza_profile(request):
       
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
 def artikul_component(request):
       data = request.POST.get('data',None)
       if data:
@@ -4915,6 +4951,7 @@ def artikul_component(request):
       
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
 def excel_does_not_exists_add(request):
       now = datetime.now()
       year =now.strftime("%Y")
@@ -4968,6 +5005,7 @@ def excel_does_not_exists_add(request):
  
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
 def duplicate_correct(request):
       df = pd.read_excel(f'{MEDIA_ROOT}\\example.xlsx')
       for key,row in df.iterrows():
@@ -4984,6 +5022,7 @@ def duplicate_correct(request):
       return JsonResponse({'a':'b'})
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
 def show_list_simple_sapcodes(request):
       search =request.GET.get('search',None)
       if search:
@@ -5038,6 +5077,7 @@ def show_list_simple_sapcodes(request):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
 def delete_sap_code(request,id):
       if request.method =='POST':
             file_type = request.POST.get('type',None)
@@ -5071,6 +5111,7 @@ def delete_sap_code(request,id):
       
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
 def sap_code_bulk_delete(request):
       if request.method =='POST':
             file_type = request.POST.get('type',None)
