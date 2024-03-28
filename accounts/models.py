@@ -55,7 +55,7 @@ class User(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True,blank=True,null=True)
     email = models.EmailField(max_length=50, unique=True,blank=True,null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
-    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICE, blank=True, null=True)
+    role = models.CharField(max_length=15, blank=True, null=True)
 
     # required fields
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -81,15 +81,6 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
-    def get_role(self):
-      if self.role == 1:
-        user_role ='Staff'
-      elif self.role == 2:
-        user_role ='Student'
-      else:
-        user_role ='Admin'
-    #   print(self.role)
-      return user_role
     
     
 
