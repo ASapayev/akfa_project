@@ -26,7 +26,9 @@ def admin_only(view_func):
         role = request.user.role
         if role =='customer':
             return redirect('client_index')
-        if role =='admin':
+        elif role =='admin':
+            return view_func(request, *args, **kwargs)
+        elif role =='moderator':
             return view_func(request, *args, **kwargs)
     return wrapper_func
 
