@@ -20,6 +20,7 @@ import subprocess,sys,os
 import json
 from aluminiytermo.utils import zip
 import requests as rq
+from accounts.decorators import unauthenticated_user,allowed_users,admin_only
 
 FILEBROWSER_PATH = os.path.join(os.getenv('WINDIR'), 'explorer.exe')
 
@@ -28,6 +29,7 @@ FILEBROWSER_PATH = os.path.join(os.getenv('WINDIR'), 'explorer.exe')
 now = datetime.now()
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def work_wast(request):
   if request.method == 'POST':
     form = FileForm(request.POST, request.FILES)
@@ -221,6 +223,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
 
 
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator',''])
 def get_ready_ozmka(request,id):
   file = ExcelFilesOzmka.objects.get(id=id).file
   file_path =f'{MEDIA_ROOT}\\{file}'
@@ -817,6 +820,7 @@ def show_list_history(request):
 
 
 @login_required(login_url='/accounts/login/')
+@admin_only
 def home(request):
   res = rq.get('https://cbu.uz/uz/arkhiv-kursov-valyut/json/')
   # print(res.json())

@@ -496,7 +496,7 @@ def upload_product_org(request):
                   return redirect('order_detail',id=order.id)
             else:
                   form =FileFormTermo()
-                  workers = User.objects.filter(role = 1)
+                  workers = User.objects.filter(role = 'moderator')
                   
                   context ={
                   'form':form,
@@ -506,7 +506,7 @@ def upload_product_org(request):
                   return render(request,'universal/main.html',context)
       else:
             form =FileForm()
-            workers = User.objects.filter(role = 1)
+            workers = User.objects.filter(role = 'moderator')
             context ={
             'form':form,
             'section':'Формирование сапкода обычный',

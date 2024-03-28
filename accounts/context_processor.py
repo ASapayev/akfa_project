@@ -8,14 +8,7 @@ def user_profile(request):
         user_profile = None
     return {'user_profile':user_profile}
 
-ROLE_CHOICES ={
-    1:'moderator',
-    2:'user1',
-    3:'user2',
-    4:'only_razlovka',
-    5:'user_accessuar',
-    6:'razlovka',
-}
+
 
 def get_user_role(request):
     if request.user.is_authenticated:

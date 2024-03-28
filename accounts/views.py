@@ -3,7 +3,7 @@ from django.contrib import messages,auth
 from .models import User,UserProfile
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm,AccountForm
-from .decorators import unauthenticated_user
+from .decorators import unauthenticated_user,allowed_users
 
 # Create your views here.
 @unauthenticated_user
@@ -47,6 +47,7 @@ def registerUser(request):
     return render(request,'accounts/register.html')
   
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','only_razlovka','user_accessuar','razlovka'])
 def myAccount(request):
   user = request.user
   user_profile =  UserProfile.objects.get(user = user)
