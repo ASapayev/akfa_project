@@ -11,6 +11,7 @@
                 <div class="" style="overflow: scroll;">
                         <table class="table table-sm" >
                             <thead>
+                                {% csrf_token %}
                             <tr>
                                 <th scope="col" style="font-size: 14px;">Действие</th>
                                 <th scope="col" style="font-size: 14px;" >Название системы</th>
@@ -91,5 +92,73 @@
 <link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
 <script src="{% static 'js/imzo.js'%}"></script>
+<script>
+
+    function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+    function ready_all(){
+    var all_correct = true;
+    var data_empty = false
+    if (Object.keys(data_base).length === 0) {
+        data_empty = true
+    }
+
+    console.log(data_base)
+    for (var key in data_base) {
+        if (data_base.hasOwnProperty(key)) { 
+            var value = data_base[key];
+            if(!value.full){
+                all_correct=false
+            }
+        }
+    }
+
+    if (!data_empty && all_correct){
+        var url = "order-save"
+        var csrfToken = getCSRFToken();
+        var postData = {
+            'a': 'b',
+        }
+        $.ajax({
+            type: 'POST',
+            url: url,
+            headers: { "X-CSRFToken": csrfToken },
+            data: postData,
+        }).done(function (res) {
+            console.log(res)
+            // WON'T REDIRECT
+        });
+            
+    }else{
+        var url = "order-save"
+        var csrfToken = getCSRFToken();
+        var html_text = document.getElementById('table-artikul').innerHTML
+
+        var postData = {
+            'data': String(html_text),
+        }
+        $.ajax({
+            type: 'POST',
+            url: url,
+            headers: { "X-CSRFToken": csrfToken },
+            data: postData,
+        }).done(function (res) {
+            console.log(res)
+            // WON'T REDIRECT
+        });
+        if(!data_empty && !all_correct){
+            Swal.fire({
+                icon: 'error',
+                title: 'Malumotlar to\'liq emas!!!',
+                text: 'Itimos malumotlarni to\'ldiring.',
+            });
+        }
+    }
+
+   
+}
+</script>
 
 {%endblock%}

@@ -2098,35 +2098,3 @@ function add_column(){
     // clear_artikul(sizeee + 1);
 }
 
-function ready_all(){
-    var all_correct = true;
-    var data_empty = false
-    if (Object.keys(data_base).length === 0) {
-        data_empty = true
-    }
-
-    console.log(data_base)
-    for (var key in data_base) {
-        if (data_base.hasOwnProperty(key)) { 
-            var value = data_base[key];
-            if(!value.full){
-                all_correct=false
-            }
-        }
-    }
-
-    if (!data_empty && all_correct){
-        console.log('aaaaaa')
-        // generate url
-    }else{
-        if(!data_empty && !all_correct){
-            Swal.fire({
-                icon: 'error',
-                title: 'Malumotlar to\'liq emas!!!',
-                text: 'Itimos malumotlarni to\'ldiring.',
-            });
-        }
-    }
-
-   
-}

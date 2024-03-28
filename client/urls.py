@@ -28,7 +28,7 @@ urlpatterns = [
 
     ################ Order ###########
 
-    # path()
+    path('order-save',views.OrderSaveView.as_view(),name='order_save'),
    
     
 ]

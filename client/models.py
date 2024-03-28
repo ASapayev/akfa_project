@@ -14,7 +14,7 @@ class Anod(models.Model):
 class Order(models.Model):
     data = models.JSONField(default=dict)
     owner = models.ForeignKey(User, on_delete=models.CASCADE,related_name='owner')
-    checker = models.ForeignKey(User,on_delete=models.CASCADE,related_name='checker')
+    checker = models.ForeignKey(User,on_delete=models.CASCADE,related_name='checker',blank=True,null=True)
     status = models.SmallIntegerField(default=0)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)

@@ -6,11 +6,29 @@ from norma.models import Nakleyka
 from .models import Anod
 from django.contrib.auth.decorators import login_required
 import time
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+
+
+
+class OrderSaveView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        return Response(['hello',])    
+    
+    def post(self, request):
+        print(dict(request.data))
+        print(dict(request.data)['data'])
+        return Response(['hello',])    
+
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def index(request):
     return render(request,'client/index.html')
+
 
 
 

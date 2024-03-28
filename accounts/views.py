@@ -3,13 +3,12 @@ from django.contrib import messages,auth
 from .models import User,UserProfile
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm,AccountForm
-
+from .decorators import unauthenticated_user
 
 # Create your views here.
+@unauthenticated_user
 def login(request):
-  if request.user.is_authenticated:
-    return redirect('home')
-  elif request.method =='POST':
+  if request.method =='POST':
     email =request.POST.get('email',None)
     password =request.POST.get('password',None)
     user = auth.authenticate(email=email,password=password)
@@ -27,6 +26,8 @@ def logout(request):
   messages.info(request,'you are logged out.')
   return redirect('login')
 
+
+@unauthenticated_user
 def registerUser(request):
   if request.method =='POST':
     username = request.POST.get('username')
