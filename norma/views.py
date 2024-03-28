@@ -212,7 +212,7 @@ def vi_generate(request,id):
     return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1'])
+@allowed_users(allowed_roles=['admin','moderator','user1','user_accessuar'])
 def download(request):
   file_path = request.GET.get('file_path',None)
   if file_path:
@@ -224,7 +224,7 @@ def download(request):
   raise Http404
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1'])
+@allowed_users(allowed_roles=['admin','moderator','user1','user_accessuar'])
 def download_zip_file(request):
     file_path = request.GET.get('file_path',None)
     if file_path and '[' in file_path:
