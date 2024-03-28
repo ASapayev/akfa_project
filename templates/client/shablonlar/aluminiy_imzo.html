@@ -55,7 +55,9 @@
                             </tr>
                             </thead>
                             <tbody id="table-artikul">
-                            
+                                <tr style="display: none;">
+                                    <td id="json_data"></td>
+                                </tr>
                             </tbody>
                         </table>
                         
@@ -105,7 +107,6 @@
         data_empty = true
     }
 
-    console.log(data_base)
     for (var key in data_base) {
         if (data_base.hasOwnProperty(key)) { 
             var value = data_base[key];
@@ -117,9 +118,12 @@
 
     if (!data_empty && all_correct){
         var url = "order-save"
+        var tr_storage = document.getElementById('json_data'); 
+        var json_data = JSON.stringify(data_base)
+        console.log()
         var csrfToken = getCSRFToken();
         var postData = {
-            'a': 'b',
+            'data': 'b',
         }
         $.ajax({
             type: 'POST',
@@ -135,7 +139,9 @@
         var url = "order-save"
         var csrfToken = getCSRFToken();
         var html_text = document.getElementById('table-artikul').innerHTML
-
+        var tr_storage = document.getElementById('json_data'); 
+        var json_data = JSON.stringify(data_base)
+        console.log(json_data,'dd')
         var postData = {
             'data': String(html_text),
         }
