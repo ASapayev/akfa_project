@@ -135,6 +135,7 @@
             headers: { "X-CSRFToken": csrfToken },
             data: postData,
         }).done(function (res) {
+            console.log(res)
             if (res.status ==201){
                 var url_check ='{{request.get_host}}/client/order-check/'+res.order_id
                 var tbody = $('#basic_form')
