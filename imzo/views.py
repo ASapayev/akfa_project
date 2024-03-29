@@ -22,12 +22,12 @@ from accounts.decorators import allowed_users
 # Create your views here.
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def index(request):
     return render(request,'imzo/index.html')
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def file_uploadImzo(request):
       
   if request.method == 'POST':
@@ -79,7 +79,7 @@ def texcart_file(request):
     return render(request,'universal/file_list.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def texcartaupload(request):
     
     # df = pd.read_excel('C:\\OSPanel\\domains\\БазаTexcarta.xlsx','Лист1')
@@ -167,7 +167,7 @@ def texcartaupload(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def lenght_generate_texcarta(request,id):
     file = ExcelFilesImzo.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -1219,7 +1219,7 @@ def lenght_generate_texcarta(request,id):
     return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def delete_tex(request):
     texx =[
         
@@ -1259,7 +1259,7 @@ def delete_tex(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def tex_delete(request):
     if request.method =='POST':
         ozmk =request.POST.get('tex',None)
@@ -1273,7 +1273,7 @@ def tex_delete(request):
         return render(request,'imzo/tex_find.html')
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def tex_delete_org(request):
     if request.method =='POST':
         ozmk =request.POST.get('ozmk',None)

@@ -691,7 +691,7 @@ group_four =['PVC']
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def lenght_generate(request,id):
   file = ExcelFiles.objects.get(id=id).file
   counter =0
@@ -737,7 +737,7 @@ def lenght_generate(request,id):
   return render(request,'generated_file.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def lenght_generate_org(request,id):
   file = ExcelFiles.objects.get(id=id)
   
@@ -796,7 +796,7 @@ def lenght_generate_org(request,id):
   return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def delete_file(request,id):
   file =get_object_or_404(ExcelFiles,id=id)
   a=request.GET.get('generated',None)
@@ -810,7 +810,7 @@ def delete_file(request,id):
   return redirect('file_list')
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def open_folder_path_in_explorer(request):
   path =request.GET.get('path',None)
   path = os.path.normpath(path)
@@ -827,7 +827,7 @@ def open_folder_path_in_explorer(request):
   
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def show_list_history(request):
   files =OrderDelovoyOtxod.objects.all().order_by('-created_at')
   context ={
