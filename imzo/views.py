@@ -43,7 +43,7 @@ def file_uploadImzo(request):
   return render(request,'imzo/excel_form.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def file_uploadTexcarta_org(request):
       
   if request.method == 'POST':
@@ -59,7 +59,7 @@ def file_uploadTexcarta_org(request):
   return render(request,'universal/main.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def imzo_file(request):
     zakalka_iskyucheniye = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
 
@@ -67,7 +67,7 @@ def imzo_file(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def texcart_file(request):
     files = ExcelFilesImzo.objects.filter(generated =False).order_by('-created_at')
     context ={
