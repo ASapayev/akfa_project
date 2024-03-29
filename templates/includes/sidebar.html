@@ -400,7 +400,8 @@ function confirm_delete() {
 
 Swal.fire({
   showDenyButton: true,
-  confirmButtonText: 'Norma hammasini rosdan o\'chirmoqchimisiz?',
+  text:'Norma hammasini rosdan o\'chirmoqchimisiz?',
+  confirmButtonText: 'Ha',
   denyButtonText: `Yo'q`,
 }).then((result) => {
   if (result.isConfirmed) {

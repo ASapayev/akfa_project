@@ -49,6 +49,16 @@ def order_update(request,id):
     return render(request,'client/customer/index.html')
 
 
+@login_required(login_url='/accounts/login/')
+@customer_only
+def order_list(request):
+    orders = Order.objects.filter(owner = request.user).order_by('-created_at')
+    context ={
+        
+    }
+    return render(request,'client/customer/order_list.html')
+
+
 
 
 

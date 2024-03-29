@@ -134,7 +134,8 @@ function bulk_delete(ids){
   
   Swal.fire({
         showDenyButton: true,
-        confirmButtonText: 'SAP codelar o\'chirilsinmi?Ha',
+        text:'SAP codelar o\'chirilsinmi?',
+        confirmButtonText: 'Ha',
         denyButtonText: `Yo'q`,
       }).then((result) => {
         if (result.isConfirmed) {
@@ -162,7 +163,8 @@ function delete_sapcode(elem,id){
     
     Swal.fire({
         showDenyButton: true,
-        confirmButtonText: 'SAP codeni o\'chirilsinmi?Ha',
+        text:'SAP codeni o\'chirilsinmi?',
+        confirmButtonText: 'Ha',
         denyButtonText: `Yo'q`,
       }).then((result) => {
         if (result.isConfirmed) {

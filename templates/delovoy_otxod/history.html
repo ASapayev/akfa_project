@@ -57,21 +57,22 @@
   <script>
     function myFunction(typ,file_id) {
       if(typ =='alu'){
-        text ='Aluminiyni generatsiya qilyapsizmi? Ha bolsa tugmani bosing'
+        text ='Aluminiyni generatsiya qilyapsizmi?'
         loc = 'len-gen-org/'+file_id+'?type=alu'
     }else{
         loc = 'len-gen-org/'+file_id+'?type=pvc'
-        text ='PVCni generatsiya qilyapsizmi? Ha bolsa tugmani bosing'
+        text ='PVCni generatsiya qilyapsizmi?'
   
       }
       Swal.fire({
         showDenyButton: true,
-        confirmButtonText: text,
+        text:text,
+        confirmButtonText: 'Ha',
         denyButtonText: `Yo'q`,
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          Swal.fire('Ishag tushdi...', '', 'success')
+          Swal.fire('Ishga tushdi...', '', 'success')
           window.location.href=loc
         } else if (result.isDenied) {
           Swal.fire('Chuchvara otmen!!!', '', 'info')
