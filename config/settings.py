@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
+DEBUG = os.environ.get("DEBUG")
 
 
 ALLOWED_HOSTS = ['127.0.0.1','mdm.akfagroup.com','https://mdm.akfagroup.com/','https://mdm.akfagroup.com','www.mdm.akfagroup.com/','www.mdm.akfagroup.com','http://10.7.4.48','10.7.4.48','https://10.7.4.48']
