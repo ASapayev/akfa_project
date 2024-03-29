@@ -22,7 +22,7 @@ class OrderSaveView(APIView):
     def post(self, request):
         data = dict(request.data)
         try:
-            order = Order(data = data['data'],owner=request.user,order_type =data['order_type'])
+            order = Order(data = {'table':data['data'][0],'name':data['name'][0]},owner=request.user,order_type =data['order_type'])
             order.save()
             msg = 'Ordered successfully!'
             stat = 201
@@ -54,9 +54,9 @@ def order_update(request,id):
 def order_list(request):
     orders = Order.objects.filter(owner = request.user).order_by('-created_at')
     context ={
-        
+        'orders':orders
     }
-    return render(request,'client/customer/order_list.html')
+    return render(request,'client/customer/order_list.html',context)
 
 
 

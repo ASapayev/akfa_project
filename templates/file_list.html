@@ -73,20 +73,7 @@
       loc = 'len-gen/'+file_id+'?type=pvc'
 
     }
-    Swal.fire({
-      text: text,
-      showDenyButton: true,
-      confirmButtonText: 'Ha',
-      denyButtonText: `Yo'q`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire('Ishga tushdi...', '', 'success')
-        window.location.href=loc
-      } else if (result.isDenied) {
-        Swal.fire('Chuchvara otmen!!!', '', 'info')
-      }
-    })
+    window.location.href=loc
   }
 </script>
 

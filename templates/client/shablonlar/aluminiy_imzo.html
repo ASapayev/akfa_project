@@ -130,6 +130,7 @@
         var postData = {
             'data': String(html_text),
             'order_type':'alu_imzo',
+            'name':'IMZO'
         }
         $.ajax({
             type: 'POST',
@@ -139,7 +140,7 @@
         }).done(function (res) {
             console.log(res)
             if (res.status ==201){
-                Swal.fire('Qabul qilindi tushdi...', '', 'success')
+                Swal.fire('Qabul qilindi...', '', 'success')
                 var url_check ='{{request.get_host}}/client/order-check/'+res.order_id
                 var tbody = $('#basic_form')
                 tbody.remove()
@@ -181,7 +182,7 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Malumotlar to\'liq emas!!!',
-                text: 'Itimos malumotlarni to\'ldiring.',
+                text: 'Itimos ma\'lumotlarni to\'ldiring.',
             });
         }
     }
