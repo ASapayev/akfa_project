@@ -92,7 +92,7 @@
                     <td>{{order.id | order_number_format}}</td>
                     <td>{{raz_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
                     <td><span class="text-info">SAP CODE CREATING</span></td> 
-                    <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={%if is_obichniy == 'yes' %}{{obichniy_razlovka_file.1}}{%else%}{{termo_razlovka_file.1}}{%endif%}">Download</a></td>
+                    <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path=C:\Openserver\domains\akfa_project\media\{%if is_obichniy == 'yes' %}{{obichniy_razlovka_file.1}}{%else%}{{termo_razlovka_file.1}}{%endif%}">Download</a></td>
                     <td><i class="mdi mdi-check-all text-success"></i></td>
                   </tr>
                   {%endif%}
