@@ -10,7 +10,7 @@
                         <thead class="thead-light">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Order name</th>
                             <th scope="col">Owner</th>
                             <th scope="col">Checker</th>
                             <th scope="col">Status</th>
@@ -33,15 +33,53 @@
                                         
                                     </td>
                                     <td>{{order.created_at|date:"d-m-Y H:i"}}</td>
-                                    <td><a href="" class="btn btn-warning btn-sm" style="display: none;"><i class="bi bi-pen-fill"></i> Edit</a><a href="" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> See</a></td>
+                                    <td><a href="" class="btn btn-warning btn-sm" style="display: none;"><i class="bi bi-pen-fill"></i> Edit</a><a href="{%url 'order_see' order.id %}" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> See</a></td>
                                 </tr>
                             {%endfor%}
                         </tbody>
                     </table>
+                    <div class="container">
+                        <div class="d-flex justify-content-between">
+                            <div class="pagination p-2">
+                              <span class="step-links">
+                                <ul class="pagination"  >
+                                    {% if orders.has_previous %}
+                                    <li class="page-item" ><a class="page-link"   href="?page={{ orders.previous_page_number }}{%if search%}&search={{search}}{%endif%}">Previous</a></li>
+                                        {% if orders.number > 3 %}
+                                            <li class="page-item"><a class="page-link" href="?page=1{%if search%}&search={{search}}{%endif%}">1</a></li>
+                                            {% if orders.number > 4 %}
+                                            <li class="page-item" > <span style="color: black;">...</span></li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                    
+                                    {% for num in orders.paginator.page_range %}
+                                        {% if orders.number == num %}
+                                            <li class="page-item"><a class="page-link"   href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                                        {% elif num > orders.number|add:'-3' and num < orders.number|add:'3' %}
+                                            <li class="page-item"><a class="page-link"   href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                    
+                                    {% if orders.has_next %}
+                                        {% if orders.number < orders.paginator.num_pages|add:'-3' %}
+                                        <li class="page-item"   > <span style="color: black;">...</span></li>
+                                        <li class="page-item"><a class="page-link"    href="?page={{ orders.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ orders.paginator.num_pages }}</a></li>
+                                        {% elif orders.number < orders.paginator.num_pages|add:'-2' %}
+                                        <li class="page-item"><a class="page-link"   href="?page={{ orders.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ orders.paginator.num_pages }}</a></li>
+                                        {% endif %}
+                                        
+                                        <li class="page-item"><a class="page-link"   href="?page={{ orders.next_page_number }}{%if search%}&search={{search}}{%endif%}">Next Page »</a></li>
+                                       
+                                    {% endif %}
+                                  </ul>
+                              </span>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </div>
 
-           
         </main>
         
 {%endblock%}

@@ -56,11 +56,13 @@
                                 <th scope="col" style="font-size: 14px;" >Место для комментариев</th>
                             </tr>
                             </thead>
+                           
                             <tbody id="table-artikul">
                                 <tr style="display: none;">
                                     <td id="json_data"></td>
                                 </tr>
                             </tbody>
+                           
                         </table>
                         
                 </div>
@@ -120,15 +122,16 @@
 
     if (!data_empty && all_correct){
         
-        var tr_storage = document.getElementById('json_data'); 
+        // var tr_storage = document.getElementById('json_data'); 
         var json_data = JSON.stringify(data_base)
-        tr_storage.innerText =json_data
+        // tr_storage.innerText =json_data
         
-        var html_text = document.getElementById('table-artikul').innerHTML
+        // var html_text = document.getElementById('table-artikul').innerHTML
+        // var html_text = document.querySelector('#table-artikul').outerHTML;
         var url = "order-save"
         var csrfToken = getCSRFToken();
         var postData = {
-            'data': String(html_text),
+            'data': json_data,
             'order_type':'alu_imzo',
             'name':'IMZO'
         }

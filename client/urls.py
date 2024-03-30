@@ -31,6 +31,7 @@ urlpatterns = [
     path('order-save',views.OrderSaveView.as_view(),name='order_save'),
     path('order-check/<int:id>',views.moderator_check,name='order_check'),
     path('order-update/<int:id>',views.order_update,name='order_update'),
+    path('order-see/<int:id>',views.order_see,name='order_see'),
     path('order-list',views.order_list,name='client_order_list'),
    
     

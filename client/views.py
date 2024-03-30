@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import JsonResponse
 from aluminiy.models import ArtikulComponent
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc
@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from accounts.decorators import customer_only,moderator_only
+from django.core.paginator import Paginator
 
 
 
@@ -20,17 +21,18 @@ class OrderSaveView(APIView):
         return Response(['hello',])    
     
     def post(self, request):
-        data = dict(request.data)
-        try:
-            order = Order(data = {'table':data['data'][0],'name':data['name'][0]},owner=request.user,order_type =data['order_type'])
-            order.save()
-            msg = 'Ordered successfully!'
-            stat = 201
-            return Response({'msg':msg,'status':stat,'order_id':order.id})    
-        except:
-            msg ='Something went wrong.'
-            stat =300
-            return Response({'msg':msg,'status':stat,'order_id':None})    
+        data = request.data
+        print(data.data)
+        # try:
+        #     order = Order(data = {'table':data['data'][0],'name':data['name'][0]},owner=request.user,order_type =data['order_type'])
+        #     order.save()
+        #     msg = 'Ordered successfully!'
+        #     stat = 201
+        #     return Response({'msg':msg,'status':stat,'order_id':order.id})    
+        # except:
+        #     msg ='Something went wrong.'
+        #     stat =300
+        return Response({'msg':msg,'status':stat,'order_id':None})    
 
 
 @login_required(login_url='/accounts/login/')
@@ -51,10 +53,28 @@ def order_update(request,id):
 
 @login_required(login_url='/accounts/login/')
 @customer_only
+def order_see(request,id):
+    order = get_object_or_404(Order,id=id)
+    context ={
+        'items':order
+    }
+    return render(request,'client/customer/imzo_see.html',context)
+
+
+@login_required(login_url='/accounts/login/')
+@customer_only
 def order_list(request):
     orders = Order.objects.filter(owner = request.user).order_by('-created_at')
+    paginator = Paginator(orders, 15)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
     context ={
-        'orders':orders
+        'orders':page_obj
     }
     return render(request,'client/customer/order_list.html',context)
 

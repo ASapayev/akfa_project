@@ -1244,6 +1244,7 @@ brand_kraski_snaruji_ABC ={
       'B':  'BPC',
       'M':  'MIKROTON',
       'J':'JOTUN',
+      'C':'Caesar',
       'nan':'',
 }
 

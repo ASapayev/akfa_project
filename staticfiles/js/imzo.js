@@ -1009,7 +1009,10 @@ function svet_dekplonka_vnutri_selected(id,val){
 
 class Neokrashenniy{
     constructor(
-                id=NaN, 
+                id=NaN,
+                nazvaniye_system=NaN,
+                artikul=NaN,
+                tip_pokritiya=NaN, 
                 full=false, 
                 splav=NaN,
                 tip_zak=NaN,
