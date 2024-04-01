@@ -189,7 +189,7 @@ def nakleyka_list_pvc(request):
     return JsonResponse(list(nakleyka_l),safe=False)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
+@customer_only
 def anod_list(request):
     term = request.GET.get('term',None)
     if term:

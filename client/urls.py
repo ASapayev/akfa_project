@@ -24,7 +24,7 @@ urlpatterns = [
     path('nakleyka-list',views.nakleyka_list,name='nakleyka_list'),
     path('nakleyka-list-pvc',views.nakleyka_list_pvc,name='nakleyka_list_pvc'),
 
-    path('anod-list',views.anod_list,name='client_anod_list'),
+    path('client-anod-list',views.anod_list,name='client_anod_list'),
 
     ################ Order ###########
 

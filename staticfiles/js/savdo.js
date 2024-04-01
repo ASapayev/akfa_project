@@ -1651,7 +1651,7 @@ function scrollToTd(tdIndex=30) {
 function get_anod(termo=false){
     $('.kod_anod_snar').select2({
         ajax: {
-            url: "/client/anod-list",
+            url: "/client/client-anod-list",
             dataType: 'json',
             processResults: function(data){
                 return {results: $.map(data, function(item){
@@ -1664,7 +1664,7 @@ function get_anod(termo=false){
     if (termo){
         $('.kod_anod_vnutri').select2({
             ajax: {
-                url: "/client/anod-list",
+                url: "/client/client-anod-list",
                 dataType: 'json',
                 processResults: function(data){
                     return {results: $.map(data, function(item){
