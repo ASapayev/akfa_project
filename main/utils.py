@@ -61,7 +61,7 @@ def counter_generated_data(datas,data_type):
         kls_wast_length=2000
       
       if dat['dlina_del_otxod'] == 600:
-        kls_wast_length = 600
+        kls_wast_length = 500
 
       num_kls_wat =1900005948
     elif ch_profile_type =='PVC':
