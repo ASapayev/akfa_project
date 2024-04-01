@@ -9,8 +9,9 @@ import time
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
-from accounts.decorators import customer_only,moderator_only
+from accounts.decorators import customer_only,moderator_only,allowed_users
 from django.core.paginator import Paginator
+import json
 
 
 
@@ -21,18 +22,16 @@ class OrderSaveView(APIView):
         return Response(['hello',])    
     
     def post(self, request):
-        data = request.data
-        print(data.data)
-        # try:
-        #     order = Order(data = {'table':data['data'][0],'name':data['name'][0]},owner=request.user,order_type =data['order_type'])
-        #     order.save()
-        #     msg = 'Ordered successfully!'
-        #     stat = 201
-        #     return Response({'msg':msg,'status':stat,'order_id':order.id})    
-        # except:
-        #     msg ='Something went wrong.'
-        #     stat =300
-        return Response({'msg':msg,'status':stat,'order_id':None})    
+        data = request.data.get('data',None)
+        name = request.data.get('name',None)
+        res = json.loads(data)
+        
+        try:
+            order = Order(data = {'name':name,'data':res},owner=request.user,order_type =data['order_type'])
+            order.save()
+            return Response({'msg':'Ordered successfully!','status':201,'order_id':order.id})    
+        except:
+            return Response({'msg':'Something went wrong.','status':300,'order_id':None})    
 
 
 @login_required(login_url='/accounts/login/')
@@ -190,7 +189,7 @@ def nakleyka_list_pvc(request):
     return JsonResponse(list(nakleyka_l),safe=False)
 
 @login_required(login_url='/accounts/login/')
-@customer_only
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def anod_list(request):
     term = request.GET.get('term',None)
     if term:

@@ -680,7 +680,7 @@ def upload_for_1301(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def upload_razlovka_termo(request):
       if request.method == 'POST':
             form = FileFormTermo(request.POST, request.FILES)
