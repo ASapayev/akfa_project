@@ -749,31 +749,46 @@ def lenght_generate_org(request,id):
   for key ,row in df_org.iterrows():
     new = row['Краткий текст материала'].split()
     # print(new)
-    chast =1
-    if row['SAP код'][:5] in group_one:
-      chast =1
-    elif (row['SAP код'][:2] =='FW') or (row['SAP код'][:3] in group_two):
-      continue
-    else:
-      
-      if data_type and (data_type =='alu'):
-        chast = 4
-      elif data_type and (data_type =='pvc'):
-        chast =3
-    new_generated_data =[]
-    for i in range(0,len(new)):
-      if new[i].startswith('L'):
-        nn=new[i].replace('L','')
-        if nn.isdigit():
+    if data_type and (data_type =='alu') and int(row['Длина Дел.отхода'])==600:
+      new_generated_data =[]
+      for i in range(0,len(new)):
+        if new[i].startswith('L'):
+          nn=new[i].replace('L','')
           lenn=int(nn)
-          length =int(int(nn)/500)
-          for j in range(chast,length):
-            new[i] =f'WL{j*500}'
+          for j in range(6,10):
+            new[i] =f'WL{j*100}'
             s=' '.join(new)
-            new_generated_data.append({'sap_del_cod':s,'lenn':int(j*500)})
+            new_generated_data.append({'sap_del_cod':s,'lenn':int(j*100)})
             counter+=1
-    pr={'sena':row['Цена'],'length':lenn,'ves_gp':row['Вес за ШТ'],'kls_color':row['KLS_COLOR'],'kls_inner_color':row['KLS_INNER_COL'],'kls_inner_id':row['KLS_INNER_ID'],'ch_profile_type':row['Гр.мат'][len(row['Гр.мат'])-3:],'id_claes':row['KLAES ID'],'sap_code':row['SAP код'],'sap_code_krat':row['SAP код'].split('-')[0],'text':row['Краткий текст материала'],'data':new_generated_data}
-    new_liss.append(pr)
+      pr={'sena':row['Цена'],'length':lenn,'ves_gp':row['Вес за ШТ'],'kls_color':row['KLS_COLOR'],'kls_inner_color':row['KLS_INNER_COL'],'kls_inner_id':row['KLS_INNER_ID'],'ch_profile_type':row['Гр.мат'][len(row['Гр.мат'])-3:],'id_claes':row['KLAES ID'],'sap_code':row['SAP код'],'sap_code_krat':row['SAP код'].split('-')[0],'text':row['Краткий текст материала'],'dlina_del_otxod':row['Длина Дел.отхода'],'data':new_generated_data}
+      new_liss.append(pr)
+
+    else:
+      chast =1
+      if row['SAP код'][:5] in group_one:
+        chast =1
+      elif (row['SAP код'][:2] =='FW') or (row['SAP код'][:3] in group_two):
+        continue
+      else:
+        
+        if data_type and (data_type =='alu'):
+          chast = 4
+        elif data_type and (data_type =='pvc'):
+          chast =3
+      new_generated_data =[]
+      for i in range(0,len(new)):
+        if new[i].startswith('L'):
+          nn=new[i].replace('L','')
+          if nn.isdigit():
+            lenn=int(nn)
+            length =int(int(nn)/500)
+            for j in range(chast,length):
+              new[i] =f'WL{j*500}'
+              s=' '.join(new)
+              new_generated_data.append({'sap_del_cod':s,'lenn':int(j*500)})
+              counter+=1
+      pr={'sena':row['Цена'],'length':lenn,'ves_gp':row['Вес за ШТ'],'kls_color':row['KLS_COLOR'],'kls_inner_color':row['KLS_INNER_COL'],'kls_inner_id':row['KLS_INNER_ID'],'ch_profile_type':row['Гр.мат'][len(row['Гр.мат'])-3:],'id_claes':row['KLAES ID'],'sap_code':row['SAP код'],'sap_code_krat':row['SAP код'].split('-')[0],'text':row['Краткий текст материала'],'dlina_del_otxod':row['Длина Дел.отхода'],'data':new_generated_data}
+      new_liss.append(pr)
   # print(new_liss)
   file_ids,zip_path  = counter_generated_data(new_liss,data_type)
   # files = ExcelFiles.objects.filter(id__in=file_ids)
