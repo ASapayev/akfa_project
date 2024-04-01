@@ -36,7 +36,7 @@ urlpatterns = [
     
     path('ximikat',views.ximikat,name ='ximikat'),
     path('ximikat-save',views.ximikat_save,name='ximikat_save'),
-    path('anod-list',views.anod_list,name='anod_list'),
+    path('benkam-anod-list',views.anod_list,name='anod_list'),
     path('add-anod',views.add_anod,name='add_anod'),
     path('download-txt',views.download_txt,name='download_txt'),
     path('generate-texcarta/<int:id>',views.lenght_generate_texcarta,name='generate_texcarta'),
