@@ -1,0 +1,596 @@
+{% extends 'client/base.html'%}
+{%load static%}
+{%block content%}
+
+         
+
+            {%if items.order_type == 'alu_imzo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div class="" style="overflow: scroll;">
+                        <table class="table table-sm" >
+                            <thead>
+                                {% csrf_token %}
+                            <tr>
+                                <th scope="col" style="font-size: 14px;">Действие</th>
+                                <th scope="col" style="font-size: 14px;" >Название системы</th>
+                                <th scope="col" style="font-size: 14px;" >Артикул</th>
+                                <th scope="col" style="font-size: 14px;" >Длина (мм)</th>
+                                <th scope="col" style="font-size: 14px;" >Тип покрытия</th>
+                                <th scope="col" style="font-size: 14px;" >Сплав</th>
+                                <th scope="col" style="font-size: 14px;" >тип закаленности</th>
+                                <th scope="col" style="font-size: 14px;" >Комбинация</th>
+                                <th scope="col" style="font-size: 14px;" >Бренд краски снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Код краски снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Бренд краски внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Код краски внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Код декор пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Цвет декор пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Код декор пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Цвет декор пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Цвет лам пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Код лам пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Цвет лам пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Код лам пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Код цвета анодировки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Код цвета анодировки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Контактность анодировки</th>
+                                <th scope="col" style="font-size: 14px;" >Тип анодировки</th>
+                                <th scope="col" style="font-size: 14px;" >Способ анодировки</th>
+                                <th scope="col" style="font-size: 14px;" >Код наклейки</th>
+                                <th scope="col" style="font-size: 14px;" >Надпись наклейки</th>
+                                <th scope="col" style="font-size: 14px;" >База профилей</th>
+                                <th scope="col" style="font-size: 14px;" >GOODS_GROUP</th>
+                                <th scope="col" style="font-size: 14px;" >Tex_name</th>
+                                <th scope="col" style="font-size: 14px;" >Группа материалов</th>
+                                <th scope="col" style="font-size: 14px;" >Краткий текст товара</th>
+                                <th scope="col" style="font-size: 14px;" >SAP Код вручную (вставляется вручную)</th>
+                                <th scope="col" style="font-size: 14px;" >Краткий текст товара (вставляется вручную)</th>
+                                <th scope="col" style="font-size: 14px;" >KLAES ID</th>
+                                <th scope="col" style="font-size: 14px;" >KLAES название</th>
+                                <th scope="col" style="font-size: 14px;" >Код Цвета</th>
+                                <th scope="col" style="font-size: 14px;" >Краткий код Klaes</th>
+                                <th scope="col" style="font-size: 14px;" >Место для комментариев</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-artikul">
+                                
+                            </tbody>
+                        </table>
+                        
+                </div>
+                </form>
+            </section>
+            {%endif%}
+
+            {%if items.order_type == 'alu_savdo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;">Действие</th>
+                            <th scope="col" style="font-size: 14px;">Название системы</th>
+                            <th scope="col" style="font-size: 14px;">Артикул</th>
+                            <th scope="col" style="font-size: 14px;">Длина (мм)</th>
+                            <th scope="col" style="font-size: 14px;">Тип покрытия</th>
+                            <th scope="col" style="font-size: 14px;">Сплав</th>
+                            <th scope="col" style="font-size: 14px;">тип закаленности</th>
+                            <th scope="col" style="font-size: 14px;">Комбинация</th>
+                            <th scope="col" style="font-size: 14px;">Бренд краски снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Код краски снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Бренд краски внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код краски внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код декор пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Цвет декор пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Код декор пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Цвет декор пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Цвет лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Код лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Цвет лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код цвета анодировки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Код цвета анодировки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Контактность анодировки</th>
+                            <th scope="col" style="font-size: 14px;">Тип анодировки</th>
+                            <th scope="col" style="font-size: 14px;">Способ анодировки</th>
+                            <th scope="col" style="font-size: 14px;">Код наклейки</th>
+                            <th scope="col" style="font-size: 14px;">Надпись наклейки</th>
+                            <th scope="col" style="font-size: 14px;">База профилей</th>
+                            <th scope="col" style="font-size: 14px;">Группа материалов</th>
+                            <th scope="col" style="font-size: 14px;">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px;" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;">Место для комментариев</th>
+                            <th scope="col" style="font-size: 14px;">Завод</th>
+                            <th scope="col" style="font-size: 14px;">ONLINE ID</th>
+                            <th scope="col" style="font-size: 14px;">Название</th>
+                            <th scope="col" style="font-size: 14px;">Цвет продукта</th>
+                            <th scope="col" style="font-size: 14px;">Группа закупок</th>
+                            <th scope="col" style="font-size: 14px;">Группа</th>
+                            <th scope="col" style="font-size: 14px;">Тип</th>
+                            <th scope="col" style="font-size: 14px;">Сегмент</th>
+                            <th scope="col" style="font-size: 14px;">Бухгалтерский товары</th>
+                            <th scope="col" style="font-size: 14px;">Бухгалтерский учет</th>
+                            <th scope="col" style="font-size: 14px;">Базовый единица</th>
+                            <th scope="col" style="font-size: 14px;">Альтернативный единица</th>
+                            <th scope="col" style="font-size: 14px;">Стоимость базовой единицы</th>
+                            <th scope="col" style="font-size: 14px;">Альтер. стоимость единицы</th>
+                            <th scope="col" style="font-size: 14px;">Статус</th>
+                            <th scope="col" style="font-size: 14px;">Завод</th>
+                            <th scope="col" style="font-size: 14px;">Акфа дилерда очиш керак</th>
+                            <th scope="col" style="font-size: 14px;">Тип клиента</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-start p-2">
+                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-end p-2">
+                                <span  class="btn btn-primary" value="" id="zagruzka_file" onclick="ready_all()">Загрузить</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </section>
+            {%endif%}
+
+            {%if items.order_type == 'alu_export'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div class="" style="overflow: scroll;">
+                        <table class="table table-sm" >
+                            <thead>
+                            <tr>
+                                <th scope="col" style="font-size: 14px;">Действие</th>
+                                <th scope="col" style="font-size: 14px;" >Название системы</th>
+                                <th scope="col" style="font-size: 14px;" >Артикул</th>
+                                <th scope="col" style="font-size: 14px;" >Длина (мм)</th>
+                                <th scope="col" style="font-size: 14px;" >Тип покрытия</th>
+                                <th scope="col" style="font-size: 14px;" >Сплав</th>
+                                <th scope="col" style="font-size: 14px;" >тип закаленности</th>
+                                <th scope="col" style="font-size: 14px;" >Комбинация</th>
+                                <th scope="col" style="font-size: 14px;" >Бренд краски снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Код краски снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Бренд краски внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Код краски внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Код декор пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Цвет декор пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Код декор пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Цвет декор пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Цвет лам пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Код лам пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Цвет лам пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Код лам пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Код цвета анодировки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" >Код цвета анодировки внутри</th>
+                                <th scope="col" style="font-size: 14px;" >Контактность анодировки</th>
+                                <th scope="col" style="font-size: 14px;" >Тип анодировки</th>
+                                <th scope="col" style="font-size: 14px;" >Способ анодировки</th>
+                                <th scope="col" style="font-size: 14px;" >Код наклейки</th>
+                                <th scope="col" style="font-size: 14px;" >Надпись наклейки</th>
+                                <th scope="col" style="font-size: 14px;" >База профилей</th>
+                                <th scope="col" style="font-size: 14px;" >Группа материалов</th>
+                                <th scope="col" style="font-size: 14px;" >Краткий текст товара</th>
+                                <th scope="col" style="font-size: 14px;" >SAP Код вручную (вставляется вручную)</th>
+                                <th scope="col" style="font-size: 14px;" >Краткий текст товара (вставляется вручную)</th>
+                                
+                                <th scope="col" style="font-size: 14px;" >Место для комментариев</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-artikul">
+                            
+                            </tbody>
+                        </table>
+                        
+                </div>
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-start p-2">
+                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-end p-2">
+                                <span  class="btn btn-primary" value="" id="zagruzka_file" onclick="ready_all()">Загрузить</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </section>
+            {%endif%}
+
+            {%if items.order_type == 'pvc_imzo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;">Действие</th>
+                            <th scope="col" style="font-size: 14px;">Название системы</th>
+                            <th scope="col" style="font-size: 14px;">Количество камер</th>
+                            <th scope="col" style="font-size: 14px;">Артикул</th>
+                            <th scope="col" style="font-size: 14px;">Код к компоненту системы</th>
+                            <th scope="col" style="font-size: 14px;">Тип покрытия</th>
+                            <th scope="col" style="font-size: 14px;">Названия цвет основы/Замес</th>
+                            <th scope="col" style="font-size: 14px;">Код цвета основы/Замес</th>
+                            <th scope="col" style="font-size: 14px;">Длина (мм)</th>
+                            <th scope="col" style="font-size: 14px;">Цвет лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Код лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Цвет лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Цвет резины</th>
+                            <th scope="col" style="font-size: 14px;">Код цвет резины</th>
+                            <th scope="col" style="font-size: 14px;">Надпись наклейки</th>
+                            <th scope="col" style="font-size: 14px;">Код наклейки</th>
+                            <th scope="col" style="font-size: 14px;">GOODS_GROUP</th>
+                            <th scope="col" style="font-size: 14px;">Tex_name</th>
+                            <th scope="col" style="font-size: 14px;">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px;" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;">Место для комментариев</th>
+                            <th scope="col" style="font-size: 14px;">Цена</th>
+                            <th scope="col" style="font-size: 14px;">Клайс ID</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-start p-2">
+                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-end p-2">
+                                <span  class="btn btn-primary" value="" id="zagruzka_file" onclick="ready_all()">Загрузить</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </section>
+            {%endif%}
+
+            {%if items.order_type == 'pvc_savdo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;">Действие</th>
+                            <th scope="col" style="font-size: 14px;">Название системы</th>
+                            <th scope="col" style="font-size: 14px;">Количество камер</th>
+                            <th scope="col" style="font-size: 14px;">Артикул</th>
+                            <th scope="col" style="font-size: 14px;">Код к компоненту системы</th>
+                            <th scope="col" style="font-size: 14px;">Тип покрытия</th>
+                            <th scope="col" style="font-size: 14px;">Код цвета основы/Замес</th>
+                            <th scope="col" style="font-size: 14px;">Длина (мм)</th>
+                            <th scope="col" style="font-size: 14px;">Цвет лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Код лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Цвет лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код цвет резины</th>
+                            <th scope="col" style="font-size: 14px;">Цвет резины</th>
+                            <th scope="col" style="font-size: 14px;">Код наклейки</th>
+                            <th scope="col" style="font-size: 14px;">Надпись наклейки</th>
+                            <th scope="col" style="font-size: 14px;">Группа материалов</th>
+                            <th scope="col" style="font-size: 14px;">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px;" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;">Место для комментариев</th>
+                            <th scope="col" style="font-size: 14px;">Дата добавление цены</th>
+                            <th scope="col" style="font-size: 14px;">Цена с НДС</th>
+                            <th scope="col" style="font-size: 14px;">Цена без НДС</th>
+                            
+                            <th scope="col" style="font-size: 14px;">Online savdo ID</th>
+                            <th scope="col" style="font-size: 14px;">Название</th>
+                            <th scope="col" style="font-size: 14px;">Цвет продукта</th>
+                            <th scope="col" style="font-size: 14px;">Группа закупок</th>
+                            <th scope="col" style="font-size: 14px;">Группа</th>
+                            <th scope="col" style="font-size: 14px;">Тип</th>
+                            <th scope="col" style="font-size: 14px;">Сегмент</th>
+                            <th scope="col" style="font-size: 14px;">Бухгал товары</th>
+                            <th scope="col" style="font-size: 14px;">Бухгалтерский учет</th>
+                            <th scope="col" style="font-size: 14px;">Базовый единица</th>
+                            <th scope="col" style="font-size: 14px;">Альтер единица</th>
+                            <th scope="col" style="font-size: 14px;">Стмость баз едн</th>
+                            <th scope="col" style="font-size: 14px;">Альтер. стоимость единицы</th>
+                            <th scope="col" style="font-size: 14px;">Статус</th>
+                            <th scope="col" style="font-size: 14px;">Завод</th>
+                            <th scope="col" style="font-size: 14px;">Акфа дилерда очиш керак</th>
+                            <th scope="col" style="font-size: 14px;">Тип клиента</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-start p-2">
+                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-end p-2">
+                                <span  class="btn btn-primary" value="" id="zagruzka_file" onclick="ready_all()">Загрузить</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </section>
+            {%endif%}
+            {%if items.order_type == 'pvc_export'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;">Действие</th>
+                            <th scope="col" style="font-size: 14px;">Название системы</th>
+                            <th scope="col" style="font-size: 14px;">Количество камер</th>
+                            <th scope="col" style="font-size: 14px;">Артикул</th>
+                            <th scope="col" style="font-size: 14px;">Код к компоненту системы</th>
+                            <th scope="col" style="font-size: 14px;">Тип покрытия</th>
+                            <th scope="col" style="font-size: 14px;">Код цвета основы/Замес</th>
+                            <th scope="col" style="font-size: 14px;">Длина (мм)</th>
+                            <th scope="col" style="font-size: 14px;">Цвет лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Код лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;">Цвет лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;">Код цвет резины</th>
+                            <th scope="col" style="font-size: 14px;">Цвет резины</th>
+                            <th scope="col" style="font-size: 14px;">Код наклейки</th>
+                            <th scope="col" style="font-size: 14px;">Надпись наклейки</th>
+                            <th scope="col" style="font-size: 14px;">Группа материалов</th>
+                            <th scope="col" style="font-size: 14px;">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px;" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;">Цена</th>
+                            <th scope="col" style="font-size: 14px;">Место для комментариев</th>
+                           
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-start p-2">
+                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-end p-2">
+                                <span  class="btn btn-primary" value="" id="zagruzka_file" onclick="ready_all()">Загрузить</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </section>
+            {%endif%}
+            {%if items.order_type == 'acs_imzo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;">Действие</th>
+                            <th scope="col" style="font-size: 14px;">SAP код</th>
+                            <th scope="col" style="font-size: 14px;">Название товаров (40 симвлов)</th>
+                            <th scope="col" style="font-size: 14px;">Полное название товара</th>
+                            <th scope="col" style="font-size: 14px;">Цена материала (СУМ)</th>
+                            <th scope="col" style="font-size: 14px;">Базовая единица измерения</th>
+                            <th scope="col" style="font-size: 14px;">GOODS_GROUP</th>
+                            <th scope="col" style="font-size: 14px;">TEX_NAME</th>
+                            <th scope="col" style="font-size: 14px;">Коеффициент пересчета</th>
+                            <th scope="col" style="font-size: 14px;">Альтернативная единица измерения</th>
+                            <th scope="col" style="font-size: 14px;">ID KLAES</th>
+                            <th scope="col" style="font-size: 14px;">Группма Материалов</th>
+                            <th scope="col" style="font-size: 14px;">Комментария</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-start p-2">
+                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-end p-2">
+                                <span  class="btn btn-primary" value="" id="zagruzka_file" onclick="ready_all()">Загрузить</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </section>
+            {%endif%}
+            {%if items.order_type == 'acs_savdo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;">Действие</th>
+                            <th scope="col" style="font-size: 14px;">Дата добавления цены</th>
+                            <th scope="col" style="font-size: 14px;">Цена за БЕИ</th>
+                            <th scope="col" style="font-size: 14px;">Online savdo ID</th>
+                            <th scope="col" style="font-size: 14px;">Название</th>
+                            <th scope="col" style="font-size: 14px;">Цвет продукта</th>
+                            <th scope="col" style="font-size: 14px;">Группа закупок</th>
+                            <th scope="col" style="font-size: 14px;">Группа</th>
+                            <th scope="col" style="font-size: 14px;">Тип</th>
+                            <th scope="col" style="font-size: 14px;">Сегмент</th>
+                            <th scope="col" style="font-size: 14px;">Бухгал товары</th>
+                            <th scope="col" style="font-size: 14px;">Бухгалтерский учет</th>
+                            <th scope="col" style="font-size: 14px;">Базовый единица</th>
+                            <th scope="col" style="font-size: 14px;">Альтер единица</th>
+                            <th scope="col" style="font-size: 14px;">Стмость баз едн</th>
+                            <th scope="col" style="font-size: 14px;">Альтер. стоимость единицы</th>
+                            <th scope="col" style="font-size: 14px;">Статус</th>
+                            <th scope="col" style="font-size: 14px;">Завод</th>
+                            <th scope="col" style="font-size: 14px;">Тип клиента</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-start p-2">
+                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-end p-2">
+                                <span  class="btn btn-primary" value="" id="zagruzka_file" onclick="ready_all()">Загрузить</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </section>
+            {%endif%}
+            {%if items.order_type == 'acs_export'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;">Действие</th>
+                            <th scope="col" style="font-size: 14px;">SAP код</th>
+                            <th scope="col" style="font-size: 14px;">Название товаров (40 симвлов)</th>
+                            <th scope="col" style="font-size: 14px;">Полное название товара</th>
+                            <th scope="col" style="font-size: 14px;">Цена материала (СУМ)</th>
+                            <th scope="col" style="font-size: 14px;">Базовая единица измерения</th>
+                            <th scope="col" style="font-size: 14px;">Коеффициент пересчета</th>
+                            <th scope="col" style="font-size: 14px;">Альтернативная единица измерения</th>
+                            <th scope="col" style="font-size: 14px;">Группма Материалов</th>
+                            <th scope="col" style="font-size: 14px;">Комментария</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-start p-2">
+                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-end p-2">
+                                <span  class="btn btn-primary" value="" id="zagruzka_file" onclick="ready_all()">Загрузить</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </section>
+            {%endif%}
+
+           
+        </main>
+        <div style="display: none;">
+                {{ items.data|json_script:"items-data" }}
+                <h1 id="order_type">{{items.order_type}}</h1>
+        </div>
+{%endblock%}
+
+{%block java_script%}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script> 
+
+<link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
+<script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
+<script  type="text/javascript" src="{% static 'js/saw/update.js'%}"></script>
+{%endblock%}
+
+

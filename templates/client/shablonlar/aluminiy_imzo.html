@@ -58,9 +58,6 @@
                             </thead>
                            
                             <tbody id="table-artikul">
-                                <tr style="display: none;">
-                                    <td id="json_data"></td>
-                                </tr>
                             </tbody>
                            
                         </table>
@@ -121,13 +118,7 @@
     }
 
     if (!data_empty && all_correct){
-        
-        // var tr_storage = document.getElementById('json_data'); 
         var json_data = JSON.stringify(data_base)
-        // tr_storage.innerText =json_data
-        
-        // var html_text = document.getElementById('table-artikul').innerHTML
-        // var html_text = document.querySelector('#table-artikul').outerHTML;
         var url = "order-save"
         var csrfToken = getCSRFToken();
         var postData = {

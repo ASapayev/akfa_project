@@ -27,11 +27,15 @@ urlpatterns = [
     path('client-anod-list',views.anod_list,name='client_anod_list'),
 
     ################ Order ###########
-
-    path('order-save',views.OrderSaveView.as_view(),name='order_save'),
+        ######moderator#####
+    path('order-list-check',views.order_list_for_moderator,name='order_list_for_moderator'),
     path('order-check/<int:id>',views.moderator_check,name='order_check'),
+
+
+        #######customer######
+    path('order-save',views.OrderSaveView.as_view(),name='order_save'),
     path('order-update/<int:id>',views.order_update,name='order_update'),
-    path('order-see/<int:id>',views.order_see,name='order_see'),
+    path('customer-order-detail/<int:id>',views.order_detail,name='customer_order_detail'),
     path('order-list',views.order_list,name='client_order_list'),
    
     

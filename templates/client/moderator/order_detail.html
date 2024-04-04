@@ -1,0 +1,603 @@
+{% extends 'base.html'%}
+{%load static %}
+
+{% block content %}
+            <div class="mt-4"></div>
+            {%if order_type == 'alu_imzo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div class="" style="overflow: scroll;">
+                        <table class="table table-sm  table-bordered table-light ">
+                            <thead>
+                                {% csrf_token %}
+                            <tr>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Название системы</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Артикул</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Длина (мм)</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Тип покрытия</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Сплав</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >тип закаленности</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Комбинация</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Бренд краски снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код краски снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Бренд краски внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код краски внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код декор пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Цвет декор пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код декор пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Цвет декор пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Цвет лам пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код лам пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Цвет лам пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код лам пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код цвета анодировки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код цвета анодировки внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Контактность анодировки</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Тип анодировки</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Способ анодировки</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код наклейки</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Надпись наклейки</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >База профилей</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >GOODS_GROUP</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Tex_name</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Группа материалов</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Краткий текст товара</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >KLAES ID</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >KLAES название</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код Цвета</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Краткий код Klaes</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Место для комментариев</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-artikul">
+                                
+                            </tbody>
+                        </table>
+                        
+                </div>
+                </form>
+            </section>
+            {%endif%}
+
+            {%if order_type == 'alu_savdo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm  table-bordered table-light">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Название системы</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Артикул</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Длина (мм)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Тип покрытия</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Сплав</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">тип закаленности</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Комбинация</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Бренд краски снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код краски снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Бренд краски внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код краски внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код декор пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет декор пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код декор пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет декор пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код цвета анодировки снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код цвета анодировки внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Контактность анодировки</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Тип анодировки</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Способ анодировки</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код наклейки</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Надпись наклейки</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">База профилей</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Группа материалов</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Место для комментариев</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Завод</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">ONLINE ID</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Название</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет продукта</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Группа закупок</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Группа</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Тип</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Сегмент</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Бухгалтерский товары</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Бухгалтерский учет</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Базовый единица</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Альтернативный единица</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Стоимость базовой единицы</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Альтер. стоимость единицы</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Статус</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Завод</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Акфа дилерда очиш керак</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Тип клиента</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+            </form>
+            </section>
+            {%endif%}
+
+            {%if order_type == 'alu_export'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div class="" style="overflow: scroll;">
+                        <table class="table table-sm  table-bordered table-light">
+                            <thead>
+                            <tr>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Название системы</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Артикул</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Длина (мм)</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Тип покрытия</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Сплав</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >тип закаленности</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Комбинация</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Бренд краски снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код краски снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Бренд краски внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код краски внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код декор пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Цвет декор пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код декор пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Цвет декор пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Цвет лам пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код лам пленки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Цвет лам пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код лам пленки внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код цвета анодировки снаружи</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код цвета анодировки внутри</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Контактность анодировки</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Тип анодировки</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Способ анодировки</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Код наклейки</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Надпись наклейки</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >База профилей</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Группа материалов</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Краткий текст товара</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                                
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Место для комментариев</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-artikul">
+                            
+                            </tbody>
+                        </table>
+                        
+                </div>
+                
+                </form>
+            </section>
+            {%endif%}
+
+            {%if order_type == 'pvc_imzo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm  table-bordered table-light">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Название системы</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Количество камер</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Артикул</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код к компоненту системы</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Тип покрытия</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Названия цвет основы/Замес</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код цвета основы/Замес</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Длина (мм)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет резины</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код цвет резины</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Надпись наклейки</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код наклейки</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">GOODS_GROUP</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Tex_name</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Место для комментариев</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цена</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Клайс ID</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                
+            </form>
+            </section>
+            {%endif%}
+
+            {%if order_type == 'pvc_savdo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm  table-bordered table-light">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Название системы</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Количество камер</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Артикул</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код к компоненту системы</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Тип покрытия</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код цвета основы/Замес</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Длина (мм)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код цвет резины</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет резины</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код наклейки</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Надпись наклейки</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Группа материалов</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Место для комментариев</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Дата добавление цены</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цена с НДС</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цена без НДС</th>
+                            
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Online savdo ID</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Название</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет продукта</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Группа закупок</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Группа</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Тип</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Сегмент</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Бухгал товары</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Бухгалтерский учет</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Базовый единица</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Альтер единица</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Стмость баз едн</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Альтер. стоимость единицы</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Статус</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Завод</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Акфа дилерда очиш керак</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Тип клиента</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'pvc_export'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm  table-bordered table-light">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Название системы</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Количество камер</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Артикул</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код к компоненту системы</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Тип покрытия</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код цвета основы/Замес</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Длина (мм)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код цвет резины</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет резины</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Код наклейки</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Надпись наклейки</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Группа материалов</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цена</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Место для комментариев</th>
+                           
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'acs_imzo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm  table-bordered table-light">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">SAP код</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Название товаров (40 симвлов)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Полное название товара</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цена материала (СУМ)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Базовая единица измерения</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">GOODS_GROUP</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">TEX_NAME</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Коеффициент пересчета</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Альтернативная единица измерения</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">ID KLAES</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Группма Материалов</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Комментария</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'acs_savdo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm  table-bordered table-light">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Дата добавления цены</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цена за БЕИ</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Online savdo ID</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Название</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цвет продукта</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Группа закупок</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Группа</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Тип</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Сегмент</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Бухгал товары</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Бухгалтерский учет</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Базовый единица</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Альтер единица</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Стмость баз едн</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Альтер. стоимость единицы</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Статус</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Завод</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Тип клиента</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'acs_export'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm  table-bordered table-light" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">SAP код</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Название товаров (40 симвлов)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Полное название товара</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Цена материала (СУМ)</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Базовая единица измерения</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Коеффициент пересчета</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Альтернативная единица измерения</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Группма Материалов</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Комментария</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+                
+                </form>
+            </section>
+            {%endif%}
+
+            <hr>
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Чат</h4>
+
+                            <div class="col-md-12 p-2" style="background-color: #fafbfc;{%if status == 1 %}display:none;{%endif%}">
+                                {%for order_detail in order_details %}
+                                    {%if status != 1 %}
+                                        <div class="d-flex justify-content-start col-md-12"><i class="bi bi-person-bounding-box"></i> <h4 class="ml-2">{{order_detail.owner}}</h4></div>
+                                        {%if order_detail.message != '' %}
+                                            <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
+                                                <p>{{order_detail.message}}</p>
+                                            </div>
+                                        {%endif%}
+
+                                        {%if order_detail.file %}
+                                        <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
+                                            <p ><a class="link-opacity-100" href="{{order_detail.file.url}}"><i class="bi bi-file-earmark-arrow-down"></i> File link</a></p>
+                                        </div>
+                                        {%endif%}
+                                        <hr>
+                                    {%endif%}
+                                {% endfor %}
+                            </div>
+
+                            <form class="forms-sample mt-2" method="POST" enctype="multipart/form-data">
+                                {%csrf_token%}
+                              <div class="form-group col-2" >
+                                <label for="exampleSelectGender">Статус</label>
+                                <select class="form-control" id="exampleSelectGender" name="status" onchange="status_change(this.value)">
+                                  <option style="color:#3dc8b9" value="1" {%if status == '1' %} selected {%endif%}>Открыто</option>
+                                  <option value="10023" style="color: #5cb85c;" {%if status == '10023' %} selected {%endif%}>Выполнено</option>
+                                  <option value="10063" style="color: #f0ad4e;" {%if status == '10063' %} selected {%endif%}>Работа ведется</option>
+                                  <option value="10081" style="color:#292b2c" {%if status == '10081' %} selected {%endif%}>На паузе</option>
+                                  <option value="10083" style="color: #f0ad4e;" {%if status == '10083' %} selected {%endif%}>Согласование</option>
+                                  <option value="10082" style="color:#d9534f" {%if status == '10082' %} selected {%endif%}>Отменено</option>
+                                  <option value="10084" style="color: #f0ad4e;" {%if status == '10084' %} selected {%endif%}>Доработка заявителем</option>
+                                </select>
+                              </div>
+                              <div class="form-group col-3">
+                                <label>Загрузка файла</label>
+                                <div class="input-group col-xs-12">
+                                    
+                                    <span class="input-group-append">
+                                        <input type="file" name="file" class="file-upload-browse btn btn-primary" value="Upload" >
+                                        
+                                  </span>
+                                </div>
+                              </div>
+                              
+                              <div class="form-group col-8">
+                                <label for="exampleTextarea1" id="examplelabel">Сообщение</label>
+                                <textarea class="form-control " id="exampleTextarea1" name="message" rows="4"></textarea>
+                                </div>
+                              <button type="submit" class="btn btn-primary mr-2">Отправить</button>
+                              <button class="btn btn-dark">Отменить</button>
+                            </form>
+                          </div>
+                    </div>
+                </div>
+            </div>
+           
+        </main>
+
+<script  type="text/javascript">
+    order_items ='{{ data|escapejs  }}'
+    text =""
+    var jsonData = JSON.parse(order_items).data;
+    i = 0
+var order_type ='{{order_type}}'
+
+var order ={
+            'alu_imzo':[ 'nazvaniye_system','base_artikul','dlina','tip_pokritiya','splav','tip_zak','combination','brend_kraska_sn','kod_kraska_sn','brend_kraska_vn','kod_kraska_vn','kod_dekor_sn','svet_dekplonka_snaruji','kod_dekor_vn','svet_dekplonka_vnutri','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','kod_anod_sn','kod_anod_vn','contactnost_anod','tip_anod','sposob_anod','kod_nakleyki','nadpis_nakleyki','baza_profiley','goods_group','tex_name','gruppa_materialov','kratkiy_tekst','sap_code_ruchnoy','kratkiy_text_ruchnoy','klaes_id','klaes_nazvaniye','kod_sveta','kratkiy_klaes','comment',],
+            'alu_savdo':['nazvaniye_system','base_artikul=','dlina','tip_pokritiya','splav','tip_zak','combination','brend_kraska_sn','kod_kraska_sn','brend_kraska_vn','kod_kraska_vn','kod_dekor_sn','svet_dekplonka_snaruji','kod_dekor_vn','svet_dekplonka_vnutri','kod_lam_sn','svet_lamplonka_snaruji','kod_lam_vn','svet_lamplonka_vnutri','kod_anod_sn','kod_anod_vn','contactnost_anod','tip_anod','sposob_anod','kod_nakleyki','nadpis_nakleyki','baza_profiley','gruppa_materialov','kratkiy_tekst','sap_code','krat','comment','zavod','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod_name','diller','tip_clienta'],
+            'alu_export':['nazvaniye_system','base_artikul','dlina','tip_pokritiya','splav','tip_zak','combination','brend_kraska_sn','kod_kraska_sn','brend_kraska_vn','kod_kraska_vn','kod_dekor_sn','svet_dekplonka_snaruji','kod_dekor_vn','svet_dekplonka_vnutri','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','kod_anod_sn','kod_anod_vn','contactnost_anod','tip_anod','sposob_anod','kod_nakleyki','nadpis_nakleyki','baza_profiley','gruppa_materialov','kratkiy_tekst','sap_code_ruchnoy','kratkiy_text_ruchnoy','comment',],
+            'pvc_imzo':['nazvaniye_sistem','camera','base_artikul','kod_k_component','tip_pokritiya','kod_svet_zames','dlina','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','svet_rezin','kod_svet_rezini','nadpis_nakleyki','kod_nakleyki','goods_group','tex_name','kratkiy_tekst','sap_code','krat','comment','sena','klaes_id'],
+            'pvc_savdo':['comment','pickupdate','diller','tip_clenta','sena_c_nds','sena_bez_nds','artikul','sap_code','krat','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','bazoviy_edin','status_online','zavod','kod_svet_zames','dlina','kod_lam_sn','kod_lam_vn','kod_nakleyki','kod_svet_rezini'],
+            'pvc_export':['nazvaniye_sistem','camera','base_artikul','kod_k_component','tip_pokritiya','kod_svet_zames','dlina','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','kod_svet_rezini','svet_rezin','kod_nakleyki','nadpis_nakleyki','gruppa_materialov','kratkiy_tekst','sap_code','krat','sena_export','nazvaniye_ruchnoy'],
+            'acs_imzo':['sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','goods_group','tex_name','koefitsiyent','alternativ_edin','id_klaes','gruppa_materialov','comment'],
+            'acs_savdo':['pickupdate','sena_za_bei','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta'],
+            'acs_export':[ 'sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','koefitsiyent','alternativ_edin','gruppa_materialov','comment']
+            }
+for (var key in jsonData) {
+    i += 1
+        text2=''
+        for (var i = 0; i < order[order_type].length; i++) {
+            var key2 = order[order_type][i];
+            text2+=`<td class="text-center" style='background-color:white'>
+                       
+                            <span class ='`+key2 +String(i)+`'style="text-transform: uppercase;font-size: 16px;" class="text-center"></span>
+                        
+                    </td>
+                    `
+        }
+        text +=`
+                <tr id='table_tr` +String(i)+`'  >
+                                            
+                    `+text2+`
+                </tr>`
+    
+    
+}
+
+
+
+var table = $('#table-artikul')
+
+table.append(text)
+i = 0
+for (var key in jsonData) {
+    i += 1
+    set_values(jsonData[key],String(i),order[order_type])
+    
+}
+
+
+function set_values(base,i,order){
+    for (var i = 0; i < order.length; i++) {
+        var key = order[i];
+        if(base[key]){
+            var va2 =$('.'+key+i)
+            va2.text(base[key])
+        }
+    }
+}
+
+
+function status_change(val){
+    if(val ==10084 || val ==10081){
+        var textarea =$('#exampleTextarea1')
+        textarea.addClass('mustbe_red')
+        textarea.attr('required',true)
+    }else{
+        textarea.attr('required',false)
+        var textarea =$('#exampleTextarea1')
+        textarea.removeClass('mustbe_red')
+    }
+}
+</script>
+
+{%endblock%}
+
+
+

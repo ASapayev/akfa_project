@@ -84,7 +84,7 @@
                         
                         <div class="col-md-6">
                             <div class="d-flex justify-content-end p-2">
-                                <input type="submit" class="btn btn-primary" value="Загрузить" id="zagruzka_file" onclick="ready_all()">
+                                <span  class="btn btn-primary" value="" id="zagruzka_file" onclick="ready_all()">Загрузить</span>
                             </div>
                         </div>
                     </div>
@@ -103,5 +103,93 @@
 <link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
 <script src="{% static 'js/savdo.js'%}"></script>
+<script>
 
+    function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+    function ready_all(){
+    var all_correct = true;
+    var data_empty = false
+    if (Object.keys(data_base).length === 0) {
+        data_empty = true
+    }
+
+    for (var key in data_base) {
+        if (data_base.hasOwnProperty(key)) { 
+            var value = data_base[key];
+            if(!value.full){
+                all_correct=false
+            }
+        }
+    }
+
+    if (!data_empty && all_correct){
+        var json_data = JSON.stringify(data_base)
+        var url = "order-save"
+        var csrfToken = getCSRFToken();
+        var postData = {
+            'data': json_data,
+            'order_type':'alu_savdo',
+            'name':'SAVDO'
+        }
+        $.ajax({
+            type: 'POST',
+            url: url,
+            headers: { "X-CSRFToken": csrfToken },
+            data: postData,
+        }).done(function (res) {
+            console.log(res)
+            if (res.status ==201){
+                Swal.fire('Qabul qilindi...', '', 'success')
+                var url_check ='{{request.get_host}}/client/order-check/'+res.order_id
+                var tbody = $('#basic_form')
+                tbody.remove()
+                var add_link =document.getElementById('topics-detail')
+                text =`<div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-8 col-12 mx-auto">
+                            <h1 class="text-white text-center">Akfa. Group. NSI</h1>
+
+                            <h3 class="text-center">Линк</h3>
+
+                            
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bi-send" id="basic-addon1">
+                                        
+                                    </span>
+
+                                    <input name="keyword" type="text" class="form-control" id="keyword" placeholder="Link ..." aria-label="Search" value='`+url_check+`'>
+
+                                    <button type="submit" class="form-control" style='background-color:#19B5FE'>Copy</button>
+                                </div>
+                            
+                        </div>
+
+                    </div>
+                </div>`
+                add_link.innerHTML= text
+
+            }else{
+                console.log('aa')
+            }
+            // WON'T REDIRECT
+        });
+            
+    }else{
+        
+        if(!data_empty && !all_correct){
+            Swal.fire({
+                icon: 'error',
+                title: 'Malumotlar to\'liq emas!!!',
+                text: 'Itimos ma\'lumotlarni to\'ldiring.',
+            });
+        }
+    }
+
+   
+}
+</script>
 {%endblock%}

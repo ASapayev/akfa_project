@@ -15,7 +15,16 @@ class Order(models.Model):
     data = models.JSONField(default=dict)
     owner = models.ForeignKey(User, on_delete=models.CASCADE,related_name='owner')
     checker = models.ForeignKey(User,on_delete=models.CASCADE,related_name='checker',blank=True,null=True)
-    status = models.SmallIntegerField(default=0)
+    status = models.SmallIntegerField(default=1)
     order_type = models.CharField(max_length =20,blank=True,null=True)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)
+
+class OrderDetail(models.Model):
+    order = models.ForeignKey(Order,on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField(default='',blank=True)
+    status = models.SmallIntegerField(default=1)
+    file = models.FileField(upload_to='client/order/',blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)

@@ -743,7 +743,8 @@ function tip_pokritiya_selected(id,val){
     var nakleyka_select = $('#nakleyka_select'+String(id));
 
     if(String(val) == '1'){
-        data_base[id] = new Neokrashenniy()
+        data_base[id] = new BasePokritiya()
+        data_base[id].id = 1 
         nakleyka_nt1.css('display','block');
         nakleyka_org.css('display','none');
         nakleyka_select.css('display','none');
@@ -759,7 +760,8 @@ function tip_pokritiya_selected(id,val){
         }
 
     }else if(String(val) == '2'){
-        data_base[id] = new Beliy()
+        data_base[id] = new BasePokritiya()
+        data_base[id].id = 2 
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
             var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
             var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
@@ -793,11 +795,14 @@ function tip_pokritiya_selected(id,val){
     }else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
 
         if(String(val) == '3'){
-            data_base[id] = new Okrashenniy()
+            data_base[id] = new BasePokritiya()
+            data_base[id].id = 3 
         }else if(String(val) == '4'){
-            data_base[id] = new Laminatsiya()
+            data_base[id] = new BasePokritiya()
+            data_base[id].id = 4 
         }else if(String(val) == '5'){
-            data_base[id] = new Sublimatsiya()
+            data_base[id] = new BasePokritiya()
+            data_base[id].id = 5 
         } 
         
         var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;border-color:#fc2003" id='brand_k_snaruji`+String(id)+`'  onchange="create_kratkiy_tekst(`+String(id)+`)" required>
@@ -891,7 +896,8 @@ function tip_pokritiya_selected(id,val){
         
 
     }else if(String(val) == '6'){
-        data_base[id] = new Anodirovka()
+        data_base[id] = new BasePokritiya()
+        data_base[id].id = 6 
         const newDiv = `<select class="form-select kod_anod_snar" aria-label="" style="width: 100px; border-color:#fc2003;!important" onchange="code_svet_anodirovki_snaruji_selected(`+String(id)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(id)+`' required></select>`
         select_anod_snar.append(newDiv) 
 
@@ -1006,276 +1012,184 @@ function svet_dekplonka_vnutri_selected(id,val){
 }
 
 
-
-class Neokrashenniy{
+class BasePokritiya{
     constructor(
-                id=NaN,
-                nazvaniye_system=NaN,
-                artikul=NaN,
-                tip_pokritiya=NaN, 
-                full=false, 
-                splav=NaN,
-                tip_zak=NaN,
-                dlina=NaN,
-                kod_kraska_sn=NaN,
-                kod_nakleyki=NaN,
-                kod_kraska_vn=NaN,
-                tex_name=NaN,
-                klaes_id=NaN,
-                klaes_nazvaniye=NaN,
-                kod_sveta=NaN,
-                kratkiy_klaes=NaN,
-                is_termo=false
-                ) 
-        {
-        this.id = id;
-        this.full = full;
-        this.splav = splav;
-        this.tex_name = tex_name;
-        this.tip_zak = tip_zak;
-        this.dlina = dlina;
-        this.kod_kraska_sn = kod_kraska_sn;
-        this.kod_kraska_vn = kod_kraska_vn;
-        this.kod_nakleyki = kod_nakleyki;
-        this.is_termo = is_termo;
-        this.klaes_id=klaes_id;
-        this.klaes_nazvaniye=klaes_nazvaniye;
-        this.kod_sveta=kod_sveta;
-        this.kratkiy_klaes=kratkiy_klaes;
-        }
-
-    get_kratkiy_tekst(){
-        if(!this.is_termo){
-            console.log(this.tex_name,this.klaes_id,this.klaes_nazvaniye,this.kod_sveta,this.kratkiy_klaes)
-            if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
-                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'  ' +this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
-        }else{
-            console.log(this.tex_name,this.klaes_id,this.klaes_nazvaniye,this.kod_sveta,this.kratkiy_klaes)
-            if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
-                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+'  ' +this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
-        }
-    }
-  }
-
-class Beliy{
-    constructor(id=NaN, full=false, splav=NaN,tip_zak=NaN,tex_name=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_nakleyki=NaN,
+        full=false, 
+        id=NaN,
+        nazvaniye_system=NaN,
+        base_artikul=NaN,
+        dlina=NaN,
+        tip_pokritiya=NaN,
+        splav=NaN,
+        tip_zak=NaN,
+        combination=NaN,
+        brend_kraska_sn=NaN,
+        kod_kraska_sn=NaN,
+        brend_kraska_vn=NaN,
+        kod_kraska_vn=NaN,
+        kod_dekor_sn=NaN,
+        svet_dekplonka_snaruji=NaN,
+        kod_dekor_vn=NaN,
+        svet_dekplonka_vnutri=NaN,
+        svet_lamplonka_snaruji=NaN,
+        kod_lam_sn=NaN,
+        svet_lamplonka_vnutri=NaN,
+        kod_lam_vn=NaN,
+        kod_anod_sn=NaN,
+        kod_anod_vn=NaN,
+        contactnost_anod=NaN,
+        tip_anod=NaN,
+        sposob_anod=NaN,
+        kod_nakleyki=NaN,
+        nadpis_nakleyki=NaN,
+        baza_profiley=NaN,
+        goods_group=NaN,
+        tex_name=NaN,
+        gruppa_materialov=NaN,
+        kratkiy_tekst=NaN,
+        sap_code_ruchnoy=NaN,
+        kratkiy_text_ruchnoy=NaN,
         klaes_id=NaN,
         klaes_nazvaniye=NaN,
         kod_sveta=NaN,
         kratkiy_klaes=NaN,
+        comment=NaN,
         is_termo=false) {
-        this.id = id;
-        this.splav = splav;
-        this.full = full;
-        this.tip_zak = tip_zak;
-        this.tex_name = tex_name;
-        this.dlina = dlina;
-        this.brend_kraska_sn = brend_kraska_sn;
-        this.brend_kraska_vn = brend_kraska_vn;
-        this.kod_kraska_sn = kod_kraska_sn;
-        this.kod_kraska_vn = kod_kraska_vn;
-        this.kod_nakleyki = kod_nakleyki;
-        this.is_termo = is_termo;
-        this.klaes_id=klaes_id;
-        this.klaes_nazvaniye=klaes_nazvaniye;
-        this.kod_sveta=kod_sveta;
-        this.kratkiy_klaes=kratkiy_klaes;
+            this.full=full;
+            this.id =id;
+            this.nazvaniye_system =nazvaniye_system;
+            this.base_artikul =base_artikul;
+            this.dlina =dlina;
+            this.tip_pokritiya =tip_pokritiya;
+            this.splav =splav;
+            this.tip_zak =tip_zak;
+            this.combination =combination;
+            this.brend_kraska_sn =brend_kraska_sn;
+            this.kod_kraska_sn =kod_kraska_sn;
+            this.brend_kraska_vn =brend_kraska_vn;
+            this.kod_kraska_vn =kod_kraska_vn;
+            this.kod_dekor_sn =kod_dekor_sn;
+            this.svet_dekplonka_snaruji =svet_dekplonka_snaruji;
+            this.kod_dekor_vn =kod_dekor_vn;
+            this.svet_dekplonka_vnutri =svet_dekplonka_vnutri;
+            this.svet_lamplonka_snaruji =svet_lamplonka_snaruji;
+            this.kod_lam_sn =kod_lam_sn;
+            this.svet_lamplonka_vnutri =svet_lamplonka_vnutri;
+            this.kod_lam_vn =kod_lam_vn;
+            this.kod_anod_sn =kod_anod_sn;
+            this.kod_anod_vn =kod_anod_vn;
+            this.contactnost_anod =contactnost_anod;
+            this.tip_anod =tip_anod;
+            this.sposob_anod =sposob_anod;
+            this.kod_nakleyki =kod_nakleyki;
+            this.nadpis_nakleyki =nadpis_nakleyki;
+            this.baza_profiley =baza_profiley;
+            this.goods_group =goods_group;
+            this.tex_name =tex_name;
+            this.gruppa_materialov =gruppa_materialov;
+            this.kratkiy_tekst =kratkiy_tekst;
+            this.sap_code_ruchnoy =sap_code_ruchnoy;
+            this.kratkiy_text_ruchnoy =kratkiy_text_ruchnoy;
+            this.klaes_id =klaes_id;
+            this.klaes_nazvaniye =klaes_nazvaniye;
+            this.kod_sveta =kod_sveta;
+            this.kratkiy_klaes =kratkiy_klaes;
+            this.comment =comment;
+            this.is_termo= is_termo;
     }
 
+
     get_kratkiy_tekst(){
-        if(!this.is_termo){
+        switch(this.id){
+            case 1: if(!this.is_termo){
+                if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'  ' +this.kod_nakleyki
+                }else{
+                    return 'XXXXXXXX'
+                }
+                }else{
+                    console.log(this.tex_name,this.klaes_id,this.klaes_nazvaniye,this.kod_sveta,this.kratkiy_klaes)
+                    if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+'  ' +this.kod_nakleyki
+                    }else{
+                        return 'XXXXXXXX'
+                    }
+                }
+                break;
+            case 2: if(!this.is_termo){
 
-            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
-                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
-        }else{
-
-            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
-                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
+                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki
+                }else{
+                    return 'XXXXXXXX'
+                }
+                }else{
+        
+                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki
+                    }else{
+                        return 'XXXXXXXX'
+                    }
+                } break;
+            case 3:if(!this.is_termo){
+                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki
+                }else{
+                    return 'XXXXXXXX'
+                }
+                }else{
+                    console.log(this.splav,this.tip_zak,this.dlina,this.brend_kraska_sn,this.brend_kraska_vn,this.kod_kraska_sn,this.kod_kraska_vn,this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes)
+                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
+                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki
+                    }else{
+                        return 'XXXXXXXX'
+                    }
+                }break;
+            case 4:if(!this.is_termo){
+                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki
+                }else{
+                    return 'XXXXXXXX'
+                }
+                }else{
+                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki
+                    }else{
+                        return 'XXXXXXXX'
+                    }
+                }break;
+            case 5:if(!this.is_termo){
+                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + '  ' +this.kod_nakleyki
+                }else{
+                    return 'XXXXXXXX'
+                }
+                }else{
+                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn && this.tex_name && this.kod_nakleyki && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + '  ' +this.kod_nakleyki
+                    }else{
+                        return 'XXXXXXXX'
+                    }
+                }break;
+            case 6:if(!this.is_termo){
+                if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_nakleyki && this.contactnost_anod && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn + '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki
+                }else{
+                    return 'XXXXXXXX'
+                }
+                }else{
+                    if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_anod_vn && this.kod_nakleyki && this.contactnost_anod && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki
+                    }else{
+                        return 'XXXXXXXX'
+                    }
+        
+                }break;
         }
+        
     }
   }
 
-class Okrashenniy{
-    constructor(id=NaN, full=false,splav=NaN,tip_zak=NaN,tex_name=NaN,dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,
-        klaes_id=NaN,
-        klaes_nazvaniye=NaN,
-        kod_sveta=NaN,
-        kratkiy_klaes=NaN,
-        kod_kraska_vn=NaN,kod_nakleyki=NaN,is_termo=false) {
-      this.id = id;
-      this.full = full;
-      this.splav = splav;
-      this.tip_zak = tip_zak;
-      this.tex_name = tex_name;
-      this.dlina = dlina;
-      this.brend_kraska_sn = brend_kraska_sn;
-      this.brend_kraska_vn = brend_kraska_vn;
-      this.kod_kraska_sn = kod_kraska_sn;
-      this.kod_kraska_vn = kod_kraska_vn;
-      this.kod_nakleyki = kod_nakleyki;
-      this.klaes_id=klaes_id;
-        this.klaes_nazvaniye=klaes_nazvaniye;
-        this.kod_sveta=kod_sveta;
-        this.kratkiy_klaes=kratkiy_klaes;
-      this.is_termo = is_termo;
-    }
-    get_kratkiy_tekst(){
-        if(!this.is_termo){
-            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
-                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
-        }else{
-            console.log(this.splav,this.tip_zak,this.dlina,this.brend_kraska_sn,this.brend_kraska_vn,this.kod_kraska_sn,this.kod_kraska_vn,this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes)
-            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
-                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
-        }
-    }
-  }
-
-  
-class Sublimatsiya{
-    constructor(id=NaN,full=false, splav=NaN,tip_zak=NaN,tex_name=NaN,
-        klaes_id=NaN,
-        klaes_nazvaniye=NaN,
-        kod_sveta=NaN,
-        kratkiy_klaes=NaN,
-        dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_dekor_sn=NaN,kod_dekor_vn=NaN,kod_nakleyki=NaN,is_termo=false) {
-      this.id = id;
-      this.full = full;
-      this.splav = splav;
-      this.tip_zak = tip_zak;
-      this.dlina = dlina;
-      this.tex_name = tex_name;
-      this.brend_kraska_sn = brend_kraska_sn;
-      this.brend_kraska_vn = brend_kraska_vn;
-      this.kod_kraska_sn = kod_kraska_sn;
-      this.kod_kraska_vn = kod_kraska_vn;
-      this.kod_dekor_sn = kod_dekor_sn;
-      this.kod_dekor_vn = kod_dekor_vn;
-      this.kod_nakleyki = kod_nakleyki;
-      this.is_termo = is_termo;
-      this.klaes_id=klaes_id;
-        this.klaes_nazvaniye=klaes_nazvaniye;
-        this.kod_sveta=kod_sveta;
-        this.kratkiy_klaes=kratkiy_klaes;
-    }
-
-    get_kratkiy_tekst(){
-        if(!this.is_termo){
-            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
-                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + '  ' +this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
-        }else{
-            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn && this.tex_name && this.kod_nakleyki && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
-                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + '  ' +this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
-        }
-    }
-  }
-class Laminatsiya{
-    constructor(id=NaN,full=false, splav=NaN,tip_zak=NaN,tex_name=NaN,
-        klaes_id=NaN,
-        klaes_nazvaniye=NaN,
-        kod_sveta=NaN,
-        kratkiy_klaes=NaN,
-        dlina=NaN,brend_kraska_sn=NaN,brend_kraska_vn=NaN,kod_kraska_sn=NaN,kod_kraska_vn=NaN,kod_lam_sn=NaN,kod_lam_vn=NaN,kod_nakleyki=NaN,is_termo=false) {
-      this.id = id;
-      this.full = full;
-      this.splav = splav;
-      this.tip_zak = tip_zak;
-      this.dlina = dlina;
-      this.tex_name = tex_name;
-      this.brend_kraska_sn = brend_kraska_sn;
-      this.brend_kraska_vn = brend_kraska_vn;
-      this.kod_kraska_sn = kod_kraska_sn;
-      this.kod_kraska_vn = kod_kraska_vn;
-      this.kod_lam_sn = kod_lam_sn;
-      this.kod_lam_vn = kod_lam_vn;
-      this.kod_nakleyki = kod_nakleyki;
-      this.is_termo = is_termo;
-      this.klaes_id=klaes_id;
-      this.klaes_nazvaniye=klaes_nazvaniye;
-      this.kod_sveta=kod_sveta;
-      this.kratkiy_klaes=kratkiy_klaes;
-    }
-    get_kratkiy_tekst(){
-        if(!this.is_termo){
-            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
-                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
-        }else{
-            if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
-                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
-        }
-    }
-  }
-class Anodirovka{
-    constructor(id=NaN, full=false,splav=NaN,tip_zak=NaN,tex_name=NaN,
-        klaes_id=NaN,
-        klaes_nazvaniye=NaN,
-        kod_sveta=NaN,
-        kratkiy_klaes=NaN,
-        dlina=NaN,kod_anod_sn=NaN,kod_anod_vn=NaN,kod_nakleyki=NaN,contactnost_anod=NaN,is_termo=false) {
-      this.id = id;
-      this.full = full;
-      this.splav = splav;
-      this.tip_zak = tip_zak;
-      this.tex_name = tex_name;
-      this.dlina = dlina;
-      this.kod_anod_sn = kod_anod_sn;
-      this.kod_anod_vn = kod_anod_vn;
-      this.kod_nakleyki = kod_nakleyki;
-      this.contactnost_anod = contactnost_anod;
-      this.is_termo = is_termo;
-      this.klaes_id=klaes_id;
-        this.klaes_nazvaniye=klaes_nazvaniye;
-        this.kod_sveta=kod_sveta;
-        this.kratkiy_klaes=kratkiy_klaes;
-    }
-
-    get_kratkiy_tekst(){
-        if(!this.is_termo){
-            if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_nakleyki && this.contactnost_anod && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
-                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn + '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
-        }else{
-            if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_anod_vn && this.kod_nakleyki && this.contactnost_anod && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
-                return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki
-            }else{
-                return 'XXXXXXXX'
-            }
-
-        }
-    }
-  }
 
 
 
@@ -1464,11 +1378,9 @@ function create_kratkiy_tekst(id){
                 a3=code_kraski_vnut.val() != ''
                 console.log(a1,a2,a3)
                 if((code_kraski_vnut.val() != '0') && (code_kraski_vnut.val()  != undefined)&&code_kraski_vnut.val()!=''){
-                    console.log(code_kraski_vnut.val(),'vnuttttrrrr')
                     code_kraski_vnut.css("border-color",'#dedad9');
                     data_base[id].kod_kraska_vn =code_kraski_vnut.val();
                 }else{
-                    console.log(code_kraski_vnut.val(),'sssssssss')
                     code_kraski_vnut.css("border-color",'red');
                     data_base[id].kod_kraska_vn =NaN;
                 }
@@ -1644,7 +1556,7 @@ function create_kratkiy_tekst(id){
     }
 
     var text =data_base[id].get_kratkiy_tekst()
-    console.log(text)
+    
     if(text != 'XXXXXXXX'){
         data_base[id].full =true
         var table_tr =$('#table_tr'+id);
@@ -1663,14 +1575,12 @@ function create_kratkiy_tekst(id){
 function add_column(){
         
     text =""
-    var sizee = Object.keys(data_base).length;
-    console.log(sizee)
     var sizeee = $('#table-artikul tr').length;
     
     for (let i = sizeee + 1; i < sizeee+2; i++) {
         text +=`
         <tr id='table_tr` +String(i)+`' >
-                                    
+                                
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
@@ -1848,26 +1758,26 @@ function add_column(){
                 <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
                     <option  value="" selected></option>
                     <option value="2036" >Золотой дуб</option>
-                <option value="2048">Дуб мокко</option>
-                <option value="2007">Красный орех</option>
-                <option value="2012">Орех</option>
-                <option value="3086">Шеффелдский дуб серый</option>
-                <option value="1012">Алюкс антрацит</option>
-                <option value="3001">Терновый дуб</option>
-                <option value="3002">Шеф Альпийский дуб</option>
-                <option value="3003">Гранитовый шеф дуб</option>
-                <option value="3042">Дерево бальза</option>
-                <option value="3062">Грецкий орех</option>
-                <option value="3043">Вишня амаретто</option>
-                <option value="3059">Орех терра</option>
-                <option value="3058">Грецкий орех амаретто</option>
-                <option value="3077">Винчестер</option>
-                <option value="3081">Шеффелдский дуб светлый</option>
-                <option value="3094">Орех Ребраун</option>
-                <option value="1004">Метбраш платин</option>
-                <option value="1005">Метбраш серый кварц</option>
-                <option value="1006">Метбраш серый антрацит</option>
-                <option value="XXXX">XXXX</option>
+                    <option value="2048">Дуб мокко</option>
+                    <option value="2007">Красный орех</option>
+                    <option value="2012">Орех</option>
+                    <option value="3086">Шеффелдский дуб серый</option>
+                    <option value="1012">Алюкс антрацит</option>
+                    <option value="3001">Терновый дуб</option>
+                    <option value="3002">Шеф Альпийский дуб</option>
+                    <option value="3003">Гранитовый шеф дуб</option>
+                    <option value="3042">Дерево бальза</option>
+                    <option value="3062">Грецкий орех</option>
+                    <option value="3043">Вишня амаретто</option>
+                    <option value="3059">Орех терра</option>
+                    <option value="3058">Грецкий орех амаретто</option>
+                    <option value="3077">Винчестер</option>
+                    <option value="3081">Шеффелдский дуб светлый</option>
+                    <option value="3094">Орех Ребраун</option>
+                    <option value="1004">Метбраш платин</option>
+                    <option value="1005">Метбраш серый кварц</option>
+                    <option value="1006">Метбраш серый антрацит</option>
+                    <option value="XXXX">XXXX</option>
                 </select>
             </div>
         </td>

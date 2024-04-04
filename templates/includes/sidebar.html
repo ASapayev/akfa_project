@@ -66,7 +66,7 @@
       </a>
     </li>
     
-    {% if user_role == 'moderator' or user_role == 'user1' %}
+    {% if user_role == 'moderator' %}
 
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#zayavki" aria-expanded="false" aria-controls="zayavki">
@@ -78,6 +78,7 @@
       </a>
       <div class="collapse" id="zayavki">
         <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{% url 'order_list_for_moderator' %}" >Новые</a></li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'order' %}" >ALUMINIY</a></li>
           <li class="nav-item"> <a class="nav-link" href="{%url 'order_pvc'%}">PVC</a></li>
           <li class="nav-item"> <a class="nav-link" href="{%url 'client_index'%}">Client</a></li>
