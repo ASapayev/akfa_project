@@ -395,8 +395,8 @@ def generate_sap_code_price(sapcodes):
     siryo_menge ={}
     siryo_price ={}
     for siryo in siryolar:
-        siryo_menge[f'{siryo.data["sap_code"]}']=str(siryo.data["menge"])
-        siryo_price[f'{siryo.data["sap_code"]}']=str(siryo.data["price"])
+        siryo_menge[f'{siryo.data["sap_code"]}']=str(siryo.data["menge"]).replace("\xa0", "")
+        siryo_price[f'{siryo.data["sap_code"]}']=str(siryo.data["price"]).replace("\xa0", "")
 
 
 

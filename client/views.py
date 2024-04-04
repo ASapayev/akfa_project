@@ -74,6 +74,7 @@ def moderator_check(request,id):
             form.save()
             order_details = OrderDetail.objects.filter(order = order)
             context ={
+                'status_name':STATUSES[str(order.status)],
                 'status':str(order.status),
                 'order_type':order.order_type,
                 'data':json.dumps(order.data),
@@ -86,6 +87,7 @@ def moderator_check(request,id):
         order = Order.objects.get(id = id)
         order_details = OrderDetail.objects.filter(order = order)
         context ={
+            'status_name':STATUSES[str(order.status)],
             'status':str(order.status),
             'order_type':order.order_type,
             'data':json.dumps(order.data),
@@ -99,6 +101,18 @@ def moderator_check(request,id):
 def order_update(request,id):
     return render(request,'client/customer/update.html')
 
+STATUSES ={
+    '1':'Открыто',
+    '4':'Пере-открыто',
+    '10023':'Выполнено',
+    '10063':'Работа ведется',
+    '10081':'На паузе',
+    '10083':'Согласование',
+    '10084':'Доработка',
+    '10082':'Отменено',
+    '10063':'Работа ведется'
+
+}
 
 @login_required(login_url='/accounts/login/')
 @customer_only
@@ -116,6 +130,7 @@ def order_detail(request,id):
             form.save()
             order_details = OrderDetail.objects.filter(order = order)
             context ={
+                'status_name':STATUSES[str(order.status)],
                 'status':str(order.status),
                 'order_type':order.order_type,
                 'data':order.data,
@@ -128,6 +143,7 @@ def order_detail(request,id):
         order = Order.objects.get(id = id)
         order_details = OrderDetail.objects.filter(order = order)
         context ={
+            'status_name':STATUSES[str(order.status)],
             'status':str(order.status),
             'order_type':order.order_type,
             'data':order.data,
