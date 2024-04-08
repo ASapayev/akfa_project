@@ -1,11 +1,11 @@
 class BasePokritiya{
     constructor(
         full=false,
-        id=NaN,
+        id=NaN,//done
         nazvaniye_system=NaN,
         base_artikul=NaN, 
         dlina=NaN,
-        tip_pokritiya=NaN,
+        tip_pokritiya=NaN,//done
         splav=NaN,
         tip_zak=NaN,
         combination=NaN,
@@ -37,80 +37,83 @@ class BasePokritiya{
         zavod=NaN,
         online_id=NaN,
         nazvaniye_ruchnoy=NaN,
-        svet_product=NaN,
+        svet_product=NaN,//done
         group_zakup=NaN,
         group=NaN,
-        tip=NaN,
+        tip=NaN,//done
         segment=NaN,
         buxgalter_tovar=NaN,
-        buxgalter_uchot=NaN,
-        bazoviy_edin=NaN,
-        alter_edin=NaN,
-        stoimost_baza=NaN,
+        buxgalter_uchot=NaN,//done
+        bazoviy_edin=NaN,//done
+        alter_edin=NaN,//done
+        stoimost_baza=NaN,//done
         stoimost_alter=NaN,
         status_online=NaN,
         zavod_name=NaN,
         diller=NaN,
         tip_clienta=NaN, 
         is_termo=false,
-        is_active=false
+        is_active=false,
+        status_name =NaN
         ) {
             this.full=full;
-            this.id=id;
-            this.nazvaniye_system=nazvaniye_system;
-            this.base_artikul=base_artikul;
-            this.dlina=dlina;
-            this.tip_pokritiya=tip_pokritiya;
-            this.splav=splav;
-            this.tip_zak=tip_zak;
-            this.combination=combination;
-            this.brend_kraska_sn=brend_kraska_sn;
-            this.kod_kraska_sn=kod_kraska_sn;
-            this.brend_kraska_vn=brend_kraska_vn;
-            this.kod_kraska_vn=kod_kraska_vn;
-            this.kod_dekor_sn=kod_dekor_sn;
-            this.svet_dekplonka_snaruji=svet_dekplonka_snaruji;
-            this.kod_dekor_vn=kod_dekor_vn;
-            this.svet_dekplonka_vnutri=svet_dekplonka_vnutri;
-            this.kod_lam_sn=kod_lam_sn;
-            this.svet_lamplonka_snaruji=svet_lamplonka_snaruji;
-            this.kod_lam_vn=kod_lam_vn;
-            this.svet_lamplonka_vnutri=svet_lamplonka_vnutri;
-            this.kod_anod_sn=kod_anod_sn;
-            this.kod_anod_vn=kod_anod_vn;
-            this.contactnost_anod=contactnost_anod;
-            this.tip_anod=tip_anod;
-            this.sposob_anod=sposob_anod;
-            this.kod_nakleyki=kod_nakleyki;
+            this.id=id;//done
+            this.nazvaniye_system=nazvaniye_system;//done
+            this.base_artikul=base_artikul;//done
+            this.dlina=dlina;//done
+            this.tip_pokritiya=tip_pokritiya;//done
+            this.splav=splav;//done
+            this.tip_zak=tip_zak;//done
+            this.combination=combination;//done
+            this.brend_kraska_sn=brend_kraska_sn;//done
+            this.kod_kraska_sn=kod_kraska_sn;//done
+            this.brend_kraska_vn=brend_kraska_vn;//done
+            this.kod_kraska_vn=kod_kraska_vn;//done
+            this.kod_dekor_sn=kod_dekor_sn;//done
+            this.svet_dekplonka_snaruji=svet_dekplonka_snaruji;//done
+            this.kod_dekor_vn=kod_dekor_vn;//done
+            this.svet_dekplonka_vnutri=svet_dekplonka_vnutri;//done
+            this.kod_lam_sn=kod_lam_sn;//done
+            this.svet_lamplonka_snaruji=svet_lamplonka_snaruji;//done
+            this.kod_lam_vn=kod_lam_vn;//done
+            this.svet_lamplonka_vnutri=svet_lamplonka_vnutri;//done
+            this.kod_anod_sn=kod_anod_sn;//done
+            this.kod_anod_vn=kod_anod_vn;//done
+            this.contactnost_anod=contactnost_anod;//done
+            this.tip_anod=tip_anod;//done
+            this.sposob_anod=sposob_anod;//done
+            this.kod_nakleyki=kod_nakleyki;//done
             this.nadpis_nakleyki=nadpis_nakleyki;
             this.baza_profiley=baza_profiley;
             this.gruppa_materialov=gruppa_materialov;
-            this.kratkiy_tekst=kratkiy_tekst;
-            this.sap_code=sap_code;
-            this.krat=krat;
+            this.kratkiy_tekst=kratkiy_tekst;//done
+            this.sap_code=sap_code;//done
+            this.krat=krat;//done
             this.comment=comment;
-            this.zavod=zavod;
-            this.online_id=online_id;
-            this.nazvaniye_ruchnoy=nazvaniye_ruchnoy;
-            this.svet_product=svet_product;
-            this.group_zakup=group_zakup;
-            this.group=group;
-            this.tip=tip;
-            this.segment=segment;
-            this.buxgalter_tovar=buxgalter_tovar;
-            this.buxgalter_uchot=buxgalter_uchot;
-            this.bazoviy_edin=bazoviy_edin;
-            this.alter_edin=alter_edin;
-            this.stoimost_baza=stoimost_baza;
-            this.stoimost_alter=stoimost_alter;
-            this.status_online=status_online;
-            this.zavod_name=zavod_name;
+            this.zavod=zavod;//done
+            this.online_id=online_id;//done
+            this.nazvaniye_ruchnoy=nazvaniye_ruchnoy;//done
+            this.svet_product=svet_product;//done
+            this.group_zakup=group_zakup;//done
+            this.group=group;//done
+            this.tip=tip;//done
+            this.segment=segment;//done
+            this.buxgalter_tovar=buxgalter_tovar;//done
+            this.buxgalter_uchot=buxgalter_uchot;//done
+            this.bazoviy_edin=bazoviy_edin;//done
+            this.alter_edin=alter_edin;//done
+            this.stoimost_baza=stoimost_baza;//done
+            this.stoimost_alter=stoimost_alter;//done
+            this.status_online=status_online;//done
+            this.zavod_name=zavod_name;//done
             this.diller=diller;
             this.tip_clienta=tip_clienta;
-            this.is_termo=is_termo;
-            this.is_active=is_active;
+            this.is_termo=is_termo;//done
+            this.is_active=is_active;//done
+            this.status_name=status_name;//done
     }
     get_kratkiy_tekst(){
+        this.group='NAAAAN'
         switch(this.id){
             case 1:  if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki){
@@ -1804,12 +1807,13 @@ function tip_pokritiya_selected(id,val){
     if(String(val) == '1'){
         data_base[id] = new BasePokritiya()
         data_base[id].id = 1
+        data_base[id].tip_pokritiya = 'Неокрашенный'
         nakleyka_nt1.css('display','block');
         nakleyka_org.css('display','none');
         nakleyka_select.css('display','none');
         
         svet_product_val = 'Без цвета'
-
+       
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
             var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
             code_kraski_snaruji.text('MF')
@@ -1823,7 +1827,7 @@ function tip_pokritiya_selected(id,val){
     }else if(String(val) == '2'){
         data_base[id] = new BasePokritiya()
         data_base[id].id = 2
-
+        data_base[id].tip_pokritiya = 'Белый'
         svet_product_val = 'WHITE'
 
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
@@ -1861,14 +1865,17 @@ function tip_pokritiya_selected(id,val){
         if(String(val) == '3'){
             data_base[id] = new BasePokritiya()
             data_base[id].id = 3
+            data_base[id].tip_pokritiya = 'Окрашенный'
             svet_product_val ='COLOUR'
         }else if(String(val) == '4'){
             data_base[id] = new BasePokritiya()
+            data_base[id].tip_pokritiya = 'Ламинированный'
             data_base[id].id = 4
             svet_product_val ='LAM'
         }else if(String(val) == '5'){
             data_base[id] = new BasePokritiya()
             data_base[id].id = 5
+            data_base[id].tip_pokritiya = 'Сублимированный'
             svet_product_val ='VAKUM & 3D'
         } 
         
@@ -1965,6 +1972,7 @@ function tip_pokritiya_selected(id,val){
     }else if(String(val) == '6'){
         data_base[id] = new BasePokritiya()
         data_base[id].id = 6
+        data_base[id].tip_pokritiya = 'Анодированный'
         svet_product_val ='Anod'
         const newDiv = `<select class="form-select kod_anod_snar" aria-label="" style="width: 100px; border-color:#fc2003;!important" onchange="code_svet_anodirovki_snaruji_selected(`+String(id)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(id)+`' required></select>`
         select_anod_snar.append(newDiv) 
@@ -2009,6 +2017,15 @@ function tip_pokritiya_selected(id,val){
         
     }
     
+    if(String(val) != ''){
+        var base_artikul =$('#select2-artikul'+id+'-container')
+        var nazvaniye_system =$('#nazvaniye_system'+id).text()
+        var combination =$('#combination'+id).text()
+        data_base[id].nazvaniye_system = nazvaniye_system;
+        data_base[id].combination = combination;
+        data_base[id].base_artikul = base_artikul.text()
+        console.log(base_artikul.text(),'arrarrarar')
+    }
 
 
     if(status_first.val()=='Активный' && String(val) != ''){
@@ -2058,6 +2075,7 @@ function tip_pokritiya_selected(id,val){
 
 
         status.val('Активный')
+        data_base[id].status_name='Активный'
         // status.attr('disabled',true)
 
         sap_code_ruchnoy.css('border-color','#dedad9')
@@ -2099,7 +2117,12 @@ function tip_pokritiya_selected(id,val){
         var buxgalter_tovar =$('#buxgalter_tovar'+id);
         
         svet_product.val(svet_product_val)
-        
+        data_base[id].svet_product=svet_product_val
+        data_base[id].tip='Готовый продукт'
+        data_base[id].buxgalter_uchot='Килограмм'
+        data_base[id].bazoviy_edin='Штука'
+        data_base[id].alter_edin='Килограмм'
+        data_base[id].stoimost_baza='1'
         
         buxgalter_uchot.val('Килограмм')
         bazoviy_edin.val('Штука')
@@ -2125,6 +2148,7 @@ function tip_pokritiya_selected(id,val){
         buxgalter_tovar.css('display','block')
         
         status.val('Пассивный')
+        data_base[id].status_name='Пассивный'
         // status.attr('disabled',true)
 
         online_savdo_id.css('border-color','#dedad9')
@@ -2209,37 +2233,37 @@ function create_kratkiy_tekst(id){
     var val = $('#tip_pokritiya'+String(id)).val();
     var dlina = $('#length'+String(id));
 
-    if(obj_name != 'OnlineSavdo'){
-        if(dlina.val()!=''){
-            dlina.css("border-color",'#dedad9');
-            data_base[id].dlina = dlina.val();
-        }else{
-            dlina.css("border-color",'red');
-            data_base[id].dlina = NaN;
-        }
-        
-        var splav = $('#splav'+String(id));
-        if(splav){
-            if(splav.val()!='0' && splav.val()!='' && splav.val()!=null){
-                splav.css("border-color",'#dedad9');
-                data_base[id].splav = splav.val();
-            }else{
-                splav.css("border-color",'red');
-                data_base[id].splav = NaN;
-            }
-        }
     
-        var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
-        if(tip_zakalyonnosti){
-            if(tip_zakalyonnosti.val()!='0' && tip_zakalyonnosti.val()!='' && tip_zakalyonnosti.val()!=null){
-                tip_zakalyonnosti.css("border-color",'#dedad9');
-                data_base[id].tip_zak = tip_zakalyonnosti.val();
-            }else{
-                tip_zakalyonnosti.css("border-color",'red');
-                data_base[id].tip_zak = NaN;
-            }
+    if(dlina.val()!=''){
+        dlina.css("border-color",'#dedad9');
+        data_base[id].dlina = dlina.val();
+    }else{
+        dlina.css("border-color",'red');
+        data_base[id].dlina = NaN;
+    }
+    
+    var splav = $('#splav'+String(id));
+    if(splav){
+        if(splav.val()!='0' && splav.val()!='' && splav.val()!=null){
+            splav.css("border-color",'#dedad9');
+            data_base[id].splav = splav.val();
+        }else{
+            splav.css("border-color",'red');
+            data_base[id].splav = NaN;
         }
     }
+
+    var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
+    if(tip_zakalyonnosti){
+        if(tip_zakalyonnosti.val()!='0' && tip_zakalyonnosti.val()!='' && tip_zakalyonnosti.val()!=null){
+            tip_zakalyonnosti.css("border-color",'#dedad9');
+            data_base[id].tip_zak = tip_zakalyonnosti.val();
+        }else{
+            tip_zakalyonnosti.css("border-color",'red');
+            data_base[id].tip_zak = NaN;
+        }
+    }
+    
 
     if(String(val) == '1'){
             
@@ -2376,8 +2400,12 @@ function create_kratkiy_tekst(id){
             if(code_lamplonka_snaruji.innerText !=''){
                 var svet_lamplonka_snaruji = document.getElementById('svet_lamplonka_snaruji'+String(id))//.innerText;
                 svet_lamplonka_snaruji.style.borderColor='#dedad9';
-                data_base[id].kod_lam_sn =code_lamplonka_snaruji.innerText;;
+                data_base[id].kod_lam_sn =code_lamplonka_snaruji.innerText;
+                var svet_lamplonka_sn = $('#svet_lamplonka_snaruji'+String(id)+' option:selected').text()
+                data_base[id].svet_lamplonka_snaruji =svet_lamplonka_sn;
+                
             }else{
+                data_base[id].svet_lamplonka_snaruji =NaN;
                 data_base[id].kod_lam_sn =NaN;
             }
             
@@ -2389,7 +2417,10 @@ function create_kratkiy_tekst(id){
                 svet_lamplonka_vnutri.style.borderColor='#dedad9';
                 
                 data_base[id].kod_lam_vn =code_lamplonka_vnutri.innerText;
+                var svet_lamplonka_vn = $('#svet_lamplonka_vnutri'+String(id)+' option:selected').text()
+                data_base[id].svet_lamplonka_vnutri =svet_lamplonka_vn;
             }else{
+                data_base[id].svet_lamplonka_vnutri =NaN;
                 data_base[id].kod_lam_vn =NaN;
             }
 
@@ -2404,12 +2435,16 @@ function create_kratkiy_tekst(id){
                 var selectedText = selectedOption.textContent;
                 
                 if (selectedText!=''){
+                    var svet_dekplonka_sn =$('#code_dekplonka_snaruji'+id+' option:selected').text()
+                    data_base[id].svet_dekplonka_snaruji =svet_dekplonka_sn;
                     data_base[id].kod_dekor_sn =selectedText;
                 }else{
                     selectElement.style.borderColor='red';
+                    data_base[id].svet_dekplonka_snaruji =NaN;
                     data_base[id].kod_dekor_sn =NaN;
                 }
             }else{
+                data_base[id].svet_dekplonka_snaruji =NaN;
                 data_base[id].kod_dekor_sn =NaN;
             }
 
@@ -2424,12 +2459,16 @@ function create_kratkiy_tekst(id){
                     var selectedText = selectedOption.textContent;
                     data_base[id].kod_dekor_vn =selectedText;
                     if (selectedText!=''){
+                        var svet_dekplonka_vn =$('#code_dekplonka_vnutri'+id +' option:selected').text()
+                        data_base[id].svet_dekplonka_vnutri =svet_dekplonka_vn;
                         data_base[id].kod_dekor_vn =selectedText;
                     }else{
                         selectElement.style.borderColor='red';
+                        data_base[id].svet_dekplonka_vnutri =NaN;
                         data_base[id].kod_dekor_vn =NaN;
                     }
                 }else{
+                    data_base[id].svet_dekplonka_vnutri =NaN;
                     selectElement.style.borderColor='red';
                     data_base[id].kod_dekor_vn =NaN;
                 }
@@ -2486,11 +2525,17 @@ function create_kratkiy_tekst(id){
             const spanTextbox2 = anod_sn.querySelector('span[role="textbox"]');
             if(spanTextbox2){
                 if(spanTextbox2.innerText !=''){
+                    var tip_anodirovki = $('#tip_anodirovki'+String(id)).text()
+                    var sposob_anodirovki = $('#sposob_anodirovki'+String(id)).text()
                     spanTextbox2.style.borderColor='#dedad9';
                     data_base[id].kod_anod_vn = spanTextbox2.innerText;
+                    data_base[id].tip_anod = tip_anodirovki;
+                    data_base[id].sposob_anod = sposob_anodirovki;
                 }else{
                     spanTextbox2.style.borderColor='red';
                     data_base[id].kod_anod_vn = NaN;
+                    data_base[id].tip_anod = NaN;
+                    data_base[id].sposob_anod = NaN;
                 }
             }
         }
@@ -2503,7 +2548,6 @@ function create_kratkiy_tekst(id){
 
             var contactnost_anodirovki = $('#contactnost_anodirovki'+String(id));
             contactnost_anodirovki.css("border-color",'red');
-            console.log(contactnost_anodirovki)
             data_base[id].contactnost_anod = NaN;
         }
 
@@ -2524,11 +2568,60 @@ function create_kratkiy_tekst(id){
         var bazoviy_edin =$('#bazoviy_edin'+id);
         var status =$('#status'+id);
         var zavod =$('#zavod'+id);
+
+        var segment =$('#segment'+id);
+        var buxgalter_tovar =$('#buxgalter_tovar'+id);
+        var buxgalter_uchot =$('#buxgalter_uchot'+id);
+        var alter_edin =$('#alter_edin'+id);
+        var stoimost_baza =$('#stoimost_baza'+id);
+        var stoimost_alter =$('#stoimost_alter'+id);
         
         
         var status_first =$('#status'+id)
         if(status_first.val()=='Активный'){
             
+            if(stoimost_alter.val()!=''){
+                data_base[id].stoimost_alter = stoimost_alter.val();
+                
+            }else{
+                data_base[id].stoimost_alter = NaN;
+                
+            }
+            if(stoimost_baza.val()!=''){
+                data_base[id].stoimost_baza = stoimost_baza.val();
+                
+            }else{
+                data_base[id].stoimost_baza = NaN;
+                
+            }
+            if(alter_edin.val()!=''){
+                data_base[id].alter_edin = alter_edin.val();
+                
+            }else{
+                data_base[id].alter_edin = NaN;
+                
+            }
+            if(buxgalter_uchot.val()!=''){
+                data_base[id].buxgalter_uchot = buxgalter_uchot.val();
+                
+            }else{
+                data_base[id].buxgalter_uchot = NaN;
+                
+            }
+            if(buxgalter_tovar.val()!=''){
+                data_base[id].buxgalter_tovar = buxgalter_tovar.val();
+                
+            }else{
+                data_base[id].buxgalter_tovar = NaN;
+                
+            }
+            if(segment.val()!=''){
+                data_base[id].segment = segment.val();
+                
+            }else{
+                data_base[id].segment = NaN;
+                
+            }
             if(sap_code_ruchnoy.val()!=''){
                 data_base[id].sap_code = sap_code_ruchnoy.val();
                 
@@ -2603,18 +2696,63 @@ function create_kratkiy_tekst(id){
                 
             }
             if(zavod.val()!=''){
-                
+                var zavod1 =$('#zavod'+id +' option:selected').text();
                 var zavod_name =$('#zavod_name'+id)
+
                 zavod_name.text(zavod.val())
-                data_base[id].zavod = zavod.val();
+                data_base[id].zavod = zavod1;
+                data_base[id].zavod_name = zavod.val();
             }else{
                 var zavod_name =$('#zavod_name'+id)
                 zavod_name.text('')
                 data_base[id].zavod =NaN;
+                data_base[id].zavod_name =NaN;
                 
                 
             }
         }else{
+            if(stoimost_alter.val()!=''){
+                data_base[id].stoimost_alter = stoimost_alter.val();
+                
+            }else{
+                data_base[id].stoimost_alter = NaN;
+                
+            }
+            if(stoimost_baza.val()!=''){
+                data_base[id].stoimost_baza = stoimost_baza.val();
+                
+            }else{
+                data_base[id].stoimost_baza = NaN;
+                
+            }
+            if(alter_edin.val()!=''){
+                data_base[id].alter_edin = alter_edin.val();
+                
+            }else{
+                data_base[id].alter_edin = NaN;
+                
+            }
+             if(buxgalter_uchot.val()!=''){
+                data_base[id].buxgalter_uchot = buxgalter_uchot.val();
+                
+            }else{
+                data_base[id].buxgalter_uchot = NaN;
+                
+            }
+            if(buxgalter_tovar.val()!=''){
+                data_base[id].buxgalter_tovar = buxgalter_tovar.val();
+                
+            }else{
+                data_base[id].buxgalter_tovar = NaN;
+                
+            }
+            if(segment.val()!=''){
+                data_base[id].segment = segment.val();
+                
+            }else{
+                data_base[id].segment = NaN;
+                
+            }
             if(sap_code_ruchnoy.val()!=''){
                 data_base[id].sap_code = sap_code_ruchnoy.val();
                 sap_code_ruchnoy.css('border-color','#dedad9')
@@ -2715,10 +2853,12 @@ function create_kratkiy_tekst(id){
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','#2de319')
         data_base[id].full=true
+        data_base[id].kratkiy_tekst=data.text
     }else{
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','white')
         data_base[id].full=false
+        data_base[id].kratkiy_tekst=NaN
 
     }
     

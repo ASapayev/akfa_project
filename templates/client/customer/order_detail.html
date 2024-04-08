@@ -43,9 +43,9 @@
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >GOODS_GROUP</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Tex_name</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Группа материалов</th>
-                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Краткий текст товара</th>
+                                <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
-                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                                <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >KLAES ID</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >KLAES название</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Код Цвета</th>
@@ -67,10 +67,10 @@
             <section class="topics-detail-section section-padding" id="topics-detail">
                 <form method="POST" id="basic_form" onsubmit="return validateForm()">
                     {%csrf_token%}
-                <div style="overflow: scroll;" id="table-container">
+                <div style="overflow: scroll;width: auto;" id="table-container">
                     
-                    <table class="table table-sm table-light table-bordered" id="my-table">
-                        <thead>
+                    <table class="table table-sm table-light table-bordered" id="my-table"  style="display: inline; table-layout: fixed;">
+                        <thead >
                           <tr>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название системы</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
@@ -100,9 +100,9 @@
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Надпись наклейки</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">База профилей</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группа материалов</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Место для комментариев</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Завод</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">ONLINE ID</th>
@@ -124,7 +124,7 @@
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Тип клиента</th>
                           </tr>
                         </thead>
-                        <tbody id="table-artikul">
+                        <tbody id="table-artikul" style="width: auto!important;">
                             
                         </tbody>
                     </table>
@@ -172,9 +172,9 @@
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Надпись наклейки</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >База профилей</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Группа материалов</th>
-                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Краткий текст товара</th>
+                                <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
-                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                                <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
                                 
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Место для комментариев</th>
                             </tr>
@@ -217,9 +217,9 @@
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код наклейки</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">GOODS_GROUP</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Tex_name</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle">Краткий текст товара</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Место для комментариев</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Клайс ID</th>
@@ -263,9 +263,9 @@
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код наклейки</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Надпись наклейки</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группа материалов</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px; min-width: 300px;" class="align-middle">Краткий текст товара</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Место для комментариев</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Дата добавление цены</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена с НДС</th>
@@ -327,9 +327,9 @@
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код наклейки</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Надпись наклейки</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группа материалов</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle">Краткий текст товара</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Место для комментариев</th>
                            

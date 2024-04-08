@@ -41,7 +41,7 @@ class OrderSaveView(APIView):
 @login_required(login_url='/accounts/login/')
 @moderator_only
 def order_list_for_moderator(request):
-    orders = Order.objects.all()
+    orders = Order.objects.all().order_by('-created_at')
 
     paginator = Paginator(orders, 15)
 
