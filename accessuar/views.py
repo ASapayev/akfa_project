@@ -160,10 +160,10 @@ def full_update_texcarta(request):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def create_new_norma(request):
-    pass
+    return render(request,'norma/accessuar/create.html')
 
 
-    
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def full_update_norm(request):

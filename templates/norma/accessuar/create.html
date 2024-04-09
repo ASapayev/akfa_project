@@ -1,0 +1,401 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col-lg-12  stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Создание</h4>
+
+            <div class="table-responsive">
+              <table class="table table-stripe">
+                
+                <thead>
+                  <tr>
+                    
+                    <th> # </th>
+                    
+                    <th> Сапкод </th>
+                    
+                    <th> Литё Алюмин.2 шт / Литё Цинк 1 шт </th>
+                    
+                    <th> Литейный пресс машины мини Ал. 9 шт </th>
+                    
+                    <th>Литейный пресс машины мини Цинк 6 шт</th>
+                    
+                    <th>Мех. Обработка 20 шт</th>
+                    
+                    <th>Гальванизация</th>
+                    
+                    <th>Резка + Упк</th>
+                    
+                    <th>Штамповка</th>
+                    
+                    <th>Вибро.Голтовка 8 шт и Сушка</th>
+                    
+                    <th>Покраска + Нанесение логотипа (гравировка)</th>
+                    
+                    <th>Штамповка + Заготовка +Упк</th>
+                    
+                    <th>Термопласт автомат 7 шт + Упк</th>
+                    
+                    <th>Заготовка и Упковка</th>
+                    
+                    <th>Сборка + Упк</th>
+                    
+                  </tr>
+                </thead>
+                <tbody id="table_header">
+                   <tr class="tr_chek">
+                      <td>1</td>
+                      <td >
+                        <div class="form-group">
+                          <label></label>
+                          <input type="text" class="form-control form-control-sm" placeholder="Sap code" aria-label="Sapcode" style="width: 120px;">
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek" onchange="show_btn()" id="val1">  <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek" onchange="show_btn()" id="val2">  <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek" onchange="show_btn()" id="val3">  <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek" onchange="show_btn()" id="val4">  <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek" onchange="show_btn()" id="val5">  <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek" onchange="show_btn()" id="val6">  <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek" onchange="show_btn()" id="val7">  <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek" onchange="show_btn()" id="val8">  <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek" onchange="show_btn()" id="val9"> <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek" onchange="show_btn()" id="val10"> <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek"  onchange="show_btn()" id="val11"> <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek"  onchange="show_btn()" id="val12"> <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek"  onchange="show_btn()" id="val13"> <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      
+                   </tr>
+                   
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="d-flex ">
+              <div class="p-2"> <button  class="btn btn-primary mb-2 mt-2 add_btn" onclick="add_new()"><i class="bi bi-plus-circle"></i>Новый</button></div>
+             
+              <div class="ml-auto p-2" > <button  class="btn btn-secondary mb-2 mt-2 create_btn" onclick="show_tables()" style="display: none;"><i class="bi bi-check"></i>Готов</button></div>
+            </div>
+            <hr>
+            <div class="table-responsive" >
+              <table class="table table-light" id="basic_table">
+                
+              </table>
+            </div>
+            <div class="d-flex "  >
+              <div class="ml-auto p-2" > <button  class="btn btn-success mb-2 mt-2 save_btn" style="display: none;"><i class="bi bi-list-check"></i>Сохранить</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+   
+  </div>
+  <script>
+    var checker =[];
+
+    function show_btn(){
+      var create_btn = $('.create_btn');
+      create_btn.css('display','block');
+    }
+
+    function add_new(){
+      var checker_count = document.querySelectorAll('.chek')
+      var tr_chek_count = document.querySelectorAll('.tr_chek').length+1;
+      text =`<tr class ='tr_chek'>
+                      <td>${tr_chek_count}</td>
+                      <td >
+                        <div class="form-group">
+                          <label></label>
+                          <input type="text" class="form-control form-control-sm" placeholder="Sap code" aria-label="Sapcode" style="width: 120px;">
+                        </div>
+                      </td>
+                      
+             `
+      for(let i=checker_count.length+1; i<=checker_count.length + 13; i++){
+        text +=`<td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek" id="val${i}">  <i class="input-helper"></i></label>
+                        </div>
+                </td>`
+      }
+      text+='</tr>'
+
+
+      var table_header =$('#table_header')
+      table_header.append(text)
+    }
+
+
+    function show_tables(){
+      
+      var checkbox = document.querySelectorAll('.chek')
+      checkbox.forEach((elem)=>{
+        elem.setAttribute('disabled',true)
+      })
+      var tr_chek_count = document.querySelectorAll('.tr_chek').length;
+      var group_cheker =[];
+      for(let i =1; i<=tr_chek_count*13; i++){
+       var check = document.getElementById('val'+i);
+       if(i%13 ==0){
+        group_cheker.push(check.checked)
+        checker.push(group_cheker);
+        group_cheker =[];
+       }else{
+        group_cheker.push(check.checked)
+       } 
+      }
+      var is_cheked = false
+      for(let r =0; r<=tr_chek_count-1; r++){
+        for(let t=0; t<13; t++){
+          console.log(checker[r][t])
+          if(checker[r][t]){
+            is_cheked =true
+          }
+        }
+      }
+      if(is_cheked){
+        var create_btn = $('.create_btn');
+          create_btn.css('display','none');
+        var add_btn = $('.add_btn');
+          add_btn.css('display','none');
+        var save_btn = $('.save_btn');
+          save_btn.css('display','block');
+        create_input_fileds(tr_chek_count);
+      }else{
+        // Swal();
+        alert('Iltimos toldiring!')
+      }
+
+    }
+
+    var names =[
+      'Литё Алюмин.2 шт / Литё Цинк 1 шт',
+      'Литейный пресс машины мини Ал. 9 шт',
+      'Литейный пресс машины мини Цинк 6 шт',
+      'Мех. Обработка 20 шт',
+      'Гальванизация',
+      'Резка + Упк',
+      'Штамповка',
+      'Вибро.Голтовка 8 шт и Сушка',
+      'Покраска + Нанесение логотипа (гравировка)',
+      'Штамповка + Заготовка +Упк',
+      'Термопласт автомат 7 шт + Упк',
+      'Заготовка и Упковка',
+      'Сборка + Упк',
+      
+    ]
+
+    
+
+    function create_input_fileds(number_sapcodes){
+      var all_text =''
+      for(let i= 1; i<=number_sapcodes; i++){
+        var header =''
+        header +=`<thead>
+                  <tr><th style="background-color:orange"><i class="bi bi-arrows-expand" style='cursor:pointer' onclick="status_change(${i},'show')" id='shower${i}'></i> <i class="bi bi-arrows-collapse" style='display:none;cursor:pointer' onclick="status_change(${i},'hide')" id='hider${i}'></i></th>
+                    `
+        for(let l=0; l<13; l++){
+          if(checker[i-1][l]){
+            header +=`
+                    <th style="background-color: blanchedalmond;">Нумерация до SAP</th>
+                    <th style="background-color: blanchedalmond;">${names[l]}</th>
+                    <th style="background-color: blanchedalmond;">БЕИ</th>
+                    <th style="background-color: blanchedalmond;">Количество</th>
+                    <th style="background-color: blanchedalmond;">Вес фактический</th>
+                    <th style="background-color: blanchedalmond;">Вес плановый</th>`
+          }
+          
+        }
+               
+        header +=`  </tr>
+                </thead>
+               `
+        
+        var text =''
+        text +=' <tbody >'
+        for(let t = 1; t<=15; t++){
+          var k = 1;
+          if(t !=1){
+              display ='style="display:none"';
+            }else{
+              display ='';
+            }
+          if(t!=1){
+            text +=`
+                  <tr ${display} id ='tr_${i}'>
+                    <td style='padding:5px;' >
+                      ${t}
+                    </td>
+                    `
+                  }else{
+              text +=`
+                    <tr ${display}>
+                      <td style='padding:5px;' >
+                        ${t}
+                      </td>
+                      `
+
+            }
+              for(let j=1; j<= 13; j++){
+                if(checker[i-1][j-1]){
+
+                  text +=`
+                          <td style='padding:5px;'>
+                              <input type="text" id='id_${i}${t}${k}' class="form-control form-control-sm" placeholder="..."  style="width: 120px; ">
+                          </td>`
+                  k += 1;
+                  text +=`             
+                          <td style='padding:5px;'>
+                              <input type="text" id='id_${i}${t}${k}' class="form-control form-control-sm" placeholder="..."  style="width: 250px;">
+                          </td>`
+                  k += 1;
+                  text +=`
+                          <td style='padding:5px;'>
+                              <input type="text" id='id_${i}${t}${k}' class="form-control form-control-sm" placeholder="..."  style="width: 50px;">
+                          </td>`
+                  k += 1;
+                  text +=` <td style='padding:5px;'>
+                              <input type="text" id='id_${i}${t}${k}' class="form-control form-control-sm" placeholder="..."  style="width: 50px;">
+                          </td>`
+                  k += 1;
+                  text +=`<td style='padding:5px;'>
+                              <input type="text" id='id_${i}${t}${k}' class="form-control form-control-sm" placeholder="..."  style="width: 100px;">
+                          </td>`
+                  k += 1;
+                  text +=`<td style='padding:5px;'>
+                                  <input type="text" id='id_${i}${t}${k}' class="form-control form-control-sm" placeholder="..."  style="width: 100px;">
+                          </td>
+                        `
+                  k += 1;       
+                }
+                }
+            
+          text +='</tr>'
+        }
+        text +='</tbody>'
+        
+        all_text +=header + text
+      }
+     
+
+      var basic_tbody = document.getElementById('basic_table')
+      basic_tbody.innerHTML = all_text;
+    }
+
+  //anodirovka(VS03)
+  //usluga termoplast (VS01-VS02)
+
+
+    function status_change(i,status){
+      console.log(status)
+      var shower =$('#shower'+i)
+      var hider =$('#hider'+i)
+
+      var trs = document.querySelectorAll('#tr_'+i)
+      if(status=='show'){
+        shower.css('display','none');
+        hider.css('display','block');
+        trs.forEach((elem)=>{
+          elem.removeAttribute('style');
+        })
+      }else{
+        shower.css('display','block');
+        hider.css('display','none');
+        trs.forEach((elem)=>{
+          elem.style.display='none';
+        })
+
+      }
+    }
+  
+    function save_all(){
+      var tr_chek_count = document.querySelectorAll('.tr_chek').length;
+      
+    }
+  
+  
+  </script>
+ 
+{% endblock %}
