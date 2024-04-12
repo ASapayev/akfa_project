@@ -84,6 +84,8 @@ def get_norma_df(ozmk) ->list:
                 lgort ='PS05'
             elif '-TP' in norm.data['sap_code']:
                 lgort ='PS04'
+            elif '-AN' in norm.data['sap_code']:
+                lgort ='VS03'
             else:
                 lgort =''
 

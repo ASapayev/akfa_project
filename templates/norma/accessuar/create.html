@@ -37,6 +37,11 @@
                     <th>Мех. Обработка 20 шт</th>
                     
                     <th>Гальванизация</th>
+
+                    <th>Анодировка(VS03)</th>
+
+                    <th>Услуга термопласт (VS01-VS02)</th>
+                    
                     
                     <th>Резка + Упк</th>
                     
@@ -62,7 +67,7 @@
                       <td >
                         <div class="form-group">
                           <label></label>
-                          <input type="text" class="form-control form-control-sm" placeholder="Sap code" aria-label="Sapcode" style="width: 120px;">
+                          <input type="text" class="form-control form-control-sm" placeholder="Sap code" aria-label="Sapcode" style="width: 160px;">
                         </div>
                       </td>
                       <td >
@@ -143,6 +148,18 @@
                             <input type="checkbox" class="form-check-input chek"  onchange="show_btn()" id="val13"> <i class="input-helper"></i></label>
                         </div>
                       </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek"  onchange="show_btn()" id="val14"> <i class="input-helper"></i></label>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input chek"  onchange="show_btn()" id="val15"> <i class="input-helper"></i></label>
+                        </div>
+                      </td>
                       
                    </tr>
                    
@@ -151,27 +168,69 @@
               
             </div>
             <div class="d-flex ">
-              <div class="p-2"> <button  class="btn btn-primary mb-2 mt-2 add_btn" onclick="add_new()"><i class="bi bi-plus-circle"></i>Новый</button></div>
+              <div class="p-2"> <button  class="btn btn-primary mb-2 mt-2 add_btn" onclick="add_new()"><i class="bi bi-plus-circle"></i>Добавить</button></div>
              
               <div class="ml-auto p-2" > <button  class="btn btn-secondary mb-2 mt-2 create_btn" onclick="show_tables()" style="display: none;"><i class="bi bi-check"></i>Готов</button></div>
             </div>
             <hr>
+            {%csrf_token%}
             <div class="table-responsive" >
               <table class="table table-light" id="basic_table">
                 
               </table>
             </div>
             <div class="d-flex "  >
-              <div class="ml-auto p-2" > <button  class="btn btn-success mb-2 mt-2 save_btn" style="display: none;"><i class="bi bi-list-check"></i>Сохранить</button></div>
+              <div class="ml-auto p-2" > <button  class="btn btn-success mb-2 mt-2 save_btn" style="display: none;" onclick="save_all()"><i class="bi bi-list-check"></i>Сохранить</button></div>
             </div>
           </div>
         </div>
       </div>
-      
+      <!-- <textarea id="myTextArea" rows="4" cols="50">Paste Excel data here...</textarea>
+    <button onclick="pasteFromClipboard()">Paste from Clipboard</button> -->
     </div>
    
   </div>
   <script>
+        function handlePaste(event) {
+    // Check if Ctrl+V is pressed
+          if (event.ctrlKey && event.key === 'v') {
+              // Get the clipboard data
+              navigator.clipboard.readText().then(clipboardData => {
+                  // Split clipboard data into rows
+                  const rows = clipboardData.split('\n');
+
+                  // Get all input fields
+                  const inputs = document.querySelectorAll('.dataInput');
+
+                  // Find the index of the currently focused input field
+                  const focusedIndex = Array.from(inputs).indexOf(document.activeElement);
+
+                  // Index to track current input element
+                  let inputIndex = focusedIndex >= 0 ? focusedIndex : 0;
+
+                  // Loop through rows
+                  rows.forEach(row => {
+                      // Split row data into columns
+                      const columns = row.split('\t'); // Assuming tab-separated data
+
+                      // Loop through columns
+                      columns.forEach(column => {
+                          // Set value of current input element
+                          if (inputIndex < inputs.length) {
+                              inputs[inputIndex].value = column.trim();
+                              inputIndex++;
+                          }
+                      });
+                  });
+              }).catch(error => {
+                  console.error('Failed to read clipboard data:', error);
+              });
+          }
+      }
+
+// Attach keydown event listener to the entire document
+      document.addEventListener('keydown', handlePaste);
+
     var checker =[];
 
     function show_btn(){
@@ -187,12 +246,12 @@
                       <td >
                         <div class="form-group">
                           <label></label>
-                          <input type="text" class="form-control form-control-sm" placeholder="Sap code" aria-label="Sapcode" style="width: 120px;">
+                          <input type="text" class="form-control form-control-sm" placeholder="Sap code" aria-label="Sapcode" style="width: 160px;">
                         </div>
                       </td>
                       
              `
-      for(let i=checker_count.length+1; i<=checker_count.length + 13; i++){
+      for(let i=checker_count.length+1; i<=checker_count.length + 15; i++){
         text +=`<td >
                         <div class="form-check">
                           <label class="form-check-label">
@@ -216,9 +275,9 @@
       })
       var tr_chek_count = document.querySelectorAll('.tr_chek').length;
       var group_cheker =[];
-      for(let i =1; i<=tr_chek_count*13; i++){
+      for(let i =1; i<=tr_chek_count*15; i++){
        var check = document.getElementById('val'+i);
-       if(i%13 ==0){
+       if(i%15 ==0){
         group_cheker.push(check.checked)
         checker.push(group_cheker);
         group_cheker =[];
@@ -228,8 +287,8 @@
       }
       var is_cheked = false
       for(let r =0; r<=tr_chek_count-1; r++){
-        for(let t=0; t<13; t++){
-          console.log(checker[r][t])
+        for(let t=0; t<15; t++){
+          // console.log(checker[r][t])
           if(checker[r][t]){
             is_cheked =true
           }
@@ -256,6 +315,8 @@
       'Литейный пресс машины мини Цинк 6 шт',
       'Мех. Обработка 20 шт',
       'Гальванизация',
+      'Анодировка(VS03)',
+      'Услуга термопласт (VS01-VS02)',
       'Резка + Упк',
       'Штамповка',
       'Вибро.Голтовка 8 шт и Сушка',
@@ -276,7 +337,7 @@
         header +=`<thead>
                   <tr><th style="background-color:orange"><i class="bi bi-arrows-expand" style='cursor:pointer' onclick="status_change(${i},'show')" id='shower${i}'></i> <i class="bi bi-arrows-collapse" style='display:none;cursor:pointer' onclick="status_change(${i},'hide')" id='hider${i}'></i></th>
                     `
-        for(let l=0; l<13; l++){
+        for(let l=0; l<15; l++){
           if(checker[i-1][l]){
             header +=`
                     <th style="background-color: blanchedalmond;">Нумерация до SAP</th>
@@ -318,34 +379,34 @@
                       `
 
             }
-              for(let j=1; j<= 13; j++){
+              for(let j=1; j<= 15; j++){
                 if(checker[i-1][j-1]){
 
                   text +=`
                           <td style='padding:5px;'>
-                              <input type="text" id='id_${i}${t}${k}' class="form-control form-control-sm" placeholder="..."  style="width: 120px; ">
+                              <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 160px; ">
                           </td>`
                   k += 1;
                   text +=`             
                           <td style='padding:5px;'>
-                              <input type="text" id='id_${i}${t}${k}' class="form-control form-control-sm" placeholder="..."  style="width: 250px;">
+                              <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 320px;">
                           </td>`
                   k += 1;
                   text +=`
                           <td style='padding:5px;'>
-                              <input type="text" id='id_${i}${t}${k}' class="form-control form-control-sm" placeholder="..."  style="width: 50px;">
+                              <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 50px;">
                           </td>`
                   k += 1;
                   text +=` <td style='padding:5px;'>
-                              <input type="text" id='id_${i}${t}${k}' class="form-control form-control-sm" placeholder="..."  style="width: 50px;">
+                              <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 50px;">
                           </td>`
                   k += 1;
                   text +=`<td style='padding:5px;'>
-                              <input type="text" id='id_${i}${t}${k}' class="form-control form-control-sm" placeholder="..."  style="width: 100px;">
+                              <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 100px;">
                           </td>`
                   k += 1;
                   text +=`<td style='padding:5px;'>
-                                  <input type="text" id='id_${i}${t}${k}' class="form-control form-control-sm" placeholder="..."  style="width: 100px;">
+                                  <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 100px;">
                           </td>
                         `
                   k += 1;       
@@ -364,12 +425,9 @@
       basic_tbody.innerHTML = all_text;
     }
 
-  //anodirovka(VS03)
-  //usluga termoplast (VS01-VS02)
-
+  
 
     function status_change(i,status){
-      console.log(status)
       var shower =$('#shower'+i)
       var hider =$('#hider'+i)
 
@@ -389,10 +447,84 @@
 
       }
     }
-  
+    
+    var profile_type ={
+      0:'-LA/LC',
+      1:'-PA',
+      2:'-PC',
+      3:'-MO',
+      4:'-GZ',
+      5:'-AN',
+      6:'6',
+
+      7:'-RU',
+      8:'-SN',
+      9:'-VS',
+      10:'-KL',
+      11:'-SK',
+      12:'-TP',
+      13:'-ZG',
+      14:'-7',
+    }
+    
+    function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
     function save_all(){
-      var tr_chek_count = document.querySelectorAll('.tr_chek').length;
-      
+      var data = []
+      var tr_chek_count = document.querySelectorAll('.tr_chek').length;// i =table
+      for(let i = 1; i<=tr_chek_count; i++){
+        var partial_data =[]
+          k = 1
+          for(let z= 0; z < 15; z++){
+            if(checker[i-1][z]){
+              partial_data.push(profile_type[z])
+              for(let t = 1; t <= 15; t++){
+                var row_data =[];
+                for(let g=k*6-5; g <= k*6; g++){
+                  var elem = $('#id_'+i+'_'+t+'_'+g);
+                  if(elem.val !=''){
+                    row_data.push(elem.val())
+                  }else{
+                    row_data.push('0')
+                  }
+                }
+                partial_data.push(row_data)
+              }
+              k += 1
+            }
+          }
+        data.push(partial_data)
+      }
+      var csrfToken = getCSRFToken();
+
+      $.ajax({
+      method: "POST",
+      url: "{% url 'create_new_post' %}",
+      headers: { "X-CSRFToken": csrfToken },
+      data:JSON.stringify(data)
+    }).done(function( msg ) {
+      document.body.style.cursor='default';
+      if (msg.saved ==true){
+          Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Successfuly saved!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          
+          }else{
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!'
+                })
+
+          }
+      });
+
     }
   
   

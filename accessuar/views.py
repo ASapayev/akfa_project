@@ -6,6 +6,9 @@ import pandas as pd
 from .utils import get_norma_df,get_norma_price,create_folder,lenght_generate_texcarta
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
+from django.http import JsonResponse
+import json
+import numpy as np
 
 
 
@@ -156,6 +159,48 @@ def full_update_texcarta(request):
                     norma.data['ARBPL'] = arbpl
                     norma.save()
     return render(request,'norma/benkam/main.html')
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def create_norma_post(request):
+
+    data = list(request.POST.keys())[0]
+    items = json.loads(data)
+    name_of_type =''
+    all_data =[]
+    new_data = []
+    for item in items:
+        for val in item:
+            if isinstance(val,str):
+                if len(new_data) > 0 and name_of_type !='':
+                    # new_data = [sublist for sublist in new_data if any(sublist)]
+                    df = pd.DataFrame(np.array(new_data),columns=['SAP CODE','KRATKIY TEXT','BEI','COUNT','FACT','PLAN'])
+                    data_gp = generate_datas(df,['SAP CODE','KRATKIY TEXT','BEI','PLAN','FACT'],name_of_type)
+                    data_gp = generate_sap_code_price(data_gp)
+                    all_data +=data_gp
+                    new_data = []
+                name_of_type = val
+            else:
+                new_data.append(val)
+        if len(new_data) > 0 and name_of_type !='':
+            # new_data = [sublist for sublist in new_data if any(sublist)]
+            df = pd.DataFrame(np.array(new_data),columns=['SAP CODE','KRATKIY TEXT','BEI','COUNT','FACT','PLAN'])
+            
+            data_gp = generate_datas(df,['SAP CODE','KRATKIY TEXT','BEI','PLAN','FACT'],name_of_type)
+            data_gp = generate_sap_code_price(data_gp)
+            all_data +=data_gp
+            new_data = []
+        # print(new_data)
+        
+        
+    data_list = all_data 
+    print(data_list)
+        # df_duplicates =pd.DataFrame(np.array([['','','']]),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
+
+    # instances_to_create = [Norma(data=data) for data in data_list]
+    # Norma.objects.bulk_create(instances_to_create)
+    return JsonResponse({'a':'b'})
+
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
@@ -363,29 +408,36 @@ def generate_datas(df,names,type_profile) -> list:
 
             for i in range(1,25):
                 if type_profile =='-LA/LC':
-                    if df.iloc[key + i][names[0]] != '0' and '-LA' not in df.iloc[key + i][names[0]] and '-LC' not in df.iloc[key + i][names[0]] and '-7' not in df.iloc[key + i][names[0]] and df.iloc[key + i][names[1]] != '0':
-                        component_name =df.iloc[key + i][names[0]]
-                        component_value =df.iloc[key + i][names[1]]
-                        component_menge =df.iloc[key + i][names[2]]
-                        component_ves =df.iloc[key + i][names[3]]   
-                        component_fakt =df.iloc[key + i][names[4]]   
-                        components.append([component_name,component_value,component_menge,'0',component_ves,'0',component_fakt,'0','0'])
-                        
-                        component_sap_codes.append(df.iloc[key + i][names[0]])
-                    else:
+                    try:
+                        if df.iloc[key + i][names[0]] != '0' and '-LA' not in df.iloc[key + i][names[0]] and '-LC' not in df.iloc[key + i][names[0]] and '-7' not in df.iloc[key + i][names[0]] and df.iloc[key + i][names[1]] != '0':
+                            component_name =df.iloc[key + i][names[0]]
+                            component_value =df.iloc[key + i][names[1]]
+                            component_menge =df.iloc[key + i][names[2]]
+                            component_ves =df.iloc[key + i][names[3]]   
+                            component_fakt =df.iloc[key + i][names[4]]   
+                            components.append([component_name,component_value,component_menge,'0',component_ves,'0',component_fakt,'0','0'])
+                            component_sap_codes.append(df.iloc[key + i][names[0]])
+                        else:
+                            break
+                    except IndexError:
                         break
+                    
                 else:
-                    if df.iloc[key + i][names[0]] != '0' and type_profile not in df.iloc[key + i][names[0]] and '-7' not in df.iloc[key + i][names[0]] and df.iloc[key + i][names[1]] != '0':
-                        component_name =df.iloc[key + i][names[0]]
-                        component_value =df.iloc[key + i][names[1]]
-                        component_menge =df.iloc[key + i][names[2]]
-                        component_ves =df.iloc[key + i][names[3]]  
-                        component_fakt =df.iloc[key + i][names[4]]  
-                        components.append([component_name,component_value,component_menge,'0',component_ves,'0',component_fakt,'0','0'])
-                        
-                        component_sap_codes.append(df.iloc[key + i][names[0]])
-                    else:
+                    try:
+                        if df.iloc[key + i][names[0]] != '0' and type_profile not in df.iloc[key + i][names[0]] and '-7' not in df.iloc[key + i][names[0]] and df.iloc[key + i][names[1]] != '0':
+                            component_name =df.iloc[key + i][names[0]]
+                            component_value =df.iloc[key + i][names[1]]
+                            component_menge =df.iloc[key + i][names[2]]
+                            component_ves =df.iloc[key + i][names[3]]  
+                            component_fakt =df.iloc[key + i][names[4]]  
+                            components.append([component_name,component_value,component_menge,'0',component_ves,'0',component_fakt,'0','0'])
+                            
+                            component_sap_codes.append(df.iloc[key + i][names[0]])
+                        else:
+                            break
+                    except IndexError:
                         break
+                    
             collected_data['component_sapcodes'] = component_sap_codes
             collected_data['components'] = components
             all_data.append(collected_data)

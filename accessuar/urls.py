@@ -10,7 +10,7 @@ urlpatterns = [
     path('upload-text-base',views.update_text_base,name='update_text_base'),
 
 
-    path('create-new',views.create_new_norma,name='create_new'),
+    
 
     path('get-norma',views.get_accessuar_sapcode,name='get_accessuar_sapcode'), 
     path('get-price',views.get_accessuar_sapcode_narx,name='get_accessuar_sapcode_narx'),
@@ -21,6 +21,10 @@ urlpatterns = [
 
 
     path('generating-text',views.texcarta_delete,name='texcarta_delete'), 
+
+    ###################new ##############
+    path('create-new',views.create_new_norma,name='create_new'),
+    path('create-post',views.create_norma_post,name='create_new_post'),
 
 ]
 
