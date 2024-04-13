@@ -8,7 +8,7 @@
         <h3 class="page-title"> {{section}} </h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item"><a href="{%url 'full_update_norm_accessuar' %}">Загрузка файла</a></li>
             <li class="breadcrumb-item active" aria-current="page">Buttons</li>
           </ol>
         </nav>
@@ -455,8 +455,7 @@
       3:'-MO',
       4:'-GZ',
       5:'-AN',
-      6:'6',
-
+      6:'-TP',
       7:'-RU',
       8:'-SN',
       9:'-VS',
@@ -485,6 +484,7 @@
                 for(let g=k*6-5; g <= k*6; g++){
                   var elem = $('#id_'+i+'_'+t+'_'+g);
                   if(elem.val !=''){
+                  console.log('val=',elem.val(),'#######')
                     row_data.push(elem.val())
                   }else{
                     row_data.push('0')
@@ -514,14 +514,15 @@
               showConfirmButton: false,
               timer: 1500
             })
-          
+            
+            window.location.href='/accessuar/create-new'
           }else{
-              Swal.fire({
-                  icon: 'error',
-                  title: 'Oops...',
-                  text: 'Something went wrong!'
-                })
-
+            Swal.fire({
+              icon: 'error',
+              title: 'Hamma sapcodelar mavjud!',
+              text: 'Iltimos boshqatdan tekshirib chiqing!'
+            })
+            
           }
       });
 

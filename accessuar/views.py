@@ -3,11 +3,12 @@ from config.settings import MEDIA_ROOT,BASE_DIR
 from .forms import AccessuarFileForm
 from .models import AccessuarFiles,Norma,Siryo,TexcartaBase,DataForText
 import pandas as pd
-from .utils import get_norma_df,get_norma_price,create_folder,lenght_generate_texcarta
+from .utils import get_norma_df,get_norma_price,create_folder,lenght_generate_texcarta,get_sapcodes
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
 from django.http import JsonResponse
 import json
+from django.core.paginator import Paginator
 import numpy as np
 
 
@@ -78,6 +79,108 @@ def get_accessuar_sapcode_texcarta(request):
     else:
         return render(request,'norma/accessuar/norma_sapcode.html')
     
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def delete_sapcode(request,id):
+    norm = Norma.objects.get(id = id)
+    norm.delete()
+    return JsonResponse({'status':201})
+
+profile_type ={
+      '-LC':0,
+      '-LA':0,
+      '-PA':1,
+      '-PC':2,
+      '-MO':3,
+      '-GZ':4,
+      '-AN':5,
+      '-TP':6,
+      '-RU':7,
+      '-SN':8,
+      '-VS':9,
+      '-KL':10,
+      '-SK':11,
+      '-TP':12,
+      '-ZG':13,
+      '-7':14,
+    }
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def edit_sapcode(request,id):
+   
+    if request.method =='POST':
+        data = list(request.POST.keys())[0]
+        items = json.loads(data)
+        name_of_type =''
+        all_data =[]
+        new_data = []
+        for item in items:
+            for val in item:
+                if isinstance(val,str):
+                    if len(new_data) > 0 and name_of_type !='':
+                        df = pd.DataFrame(np.array(new_data),columns=['SAP CODE','KRATKIY TEXT','BEI','COUNT','FACT','PLAN'])
+                        data_gp = generate_datas(df,['SAP CODE','KRATKIY TEXT','BEI','PLAN','FACT'],name_of_type)
+                        data_gp = generate_sap_code_price(data_gp)
+                        
+                        all_data +=data_gp
+                        new_data = []
+                    name_of_type = val
+                else:
+                    if val[0] != '':
+                        new_data.append(val)
+            if len(new_data) > 0 and name_of_type !='':
+                df = pd.DataFrame(np.array(new_data),columns=['SAP CODE','KRATKIY TEXT','BEI','COUNT','FACT','PLAN'])
+                
+                data_gp = generate_datas(df,['SAP CODE','KRATKIY TEXT','BEI','PLAN','FACT'],name_of_type)
+                data_gp = generate_sap_code_price(data_gp)
+                all_data +=data_gp
+                new_data = []
+        data_list = all_data
+        if len(data_list) > 0:
+            for dat in data_list:
+                norma = Norma.objects.get(data__sap_code = dat['sap_code'],data__kratkiy_tekst=dat['kratkiy_tekst'])
+                norma.data =dat
+                norma.save()
+            return JsonResponse({'saved':True,'status':201})
+        else:
+            return JsonResponse({'saved':False,'status':301})
+    else:
+        norm = Norma.objects.get(id = id)
+        normalar = get_sapcodes([norm.data['sap_code'],])
+        checker =[False for i in range(1 , 16)]
+        
+        context ={
+            'checker':checker,
+        }
+        print(normalar)
+
+    return render(request,'norma/accessuar/edit.html',context)
+
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def show_sapcodes(request):
+    search = request.GET.get('search',None)
+    if search:
+        norma = Norma.objects.filter(data__sap_code__icontains =search)
+    else:
+        norma = Norma.objects.filter(data__sap_code__icontains ='-7')
+
+    paginator = Paginator(norma, 25)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+    context ={
+        'products':page_obj
+    }
+    return render(request,'norma/accessuar/list_sapcodes.html',context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
@@ -173,17 +276,17 @@ def create_norma_post(request):
         for val in item:
             if isinstance(val,str):
                 if len(new_data) > 0 and name_of_type !='':
-                    # new_data = [sublist for sublist in new_data if any(sublist)]
                     df = pd.DataFrame(np.array(new_data),columns=['SAP CODE','KRATKIY TEXT','BEI','COUNT','FACT','PLAN'])
                     data_gp = generate_datas(df,['SAP CODE','KRATKIY TEXT','BEI','PLAN','FACT'],name_of_type)
                     data_gp = generate_sap_code_price(data_gp)
+                    
                     all_data +=data_gp
                     new_data = []
                 name_of_type = val
             else:
-                new_data.append(val)
+                if val[0] != '':
+                    new_data.append(val)
         if len(new_data) > 0 and name_of_type !='':
-            # new_data = [sublist for sublist in new_data if any(sublist)]
             df = pd.DataFrame(np.array(new_data),columns=['SAP CODE','KRATKIY TEXT','BEI','COUNT','FACT','PLAN'])
             
             data_gp = generate_datas(df,['SAP CODE','KRATKIY TEXT','BEI','PLAN','FACT'],name_of_type)
@@ -193,13 +296,16 @@ def create_norma_post(request):
         # print(new_data)
         
         
-    data_list = all_data 
-    print(data_list)
+    data_list = [dat for dat in all_data if not Norma.objects.filter(data__sap_code=dat['sap_code']).exists()] 
+    # print(data_list)
         # df_duplicates =pd.DataFrame(np.array([['','','']]),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
-
-    # instances_to_create = [Norma(data=data) for data in data_list]
-    # Norma.objects.bulk_create(instances_to_create)
-    return JsonResponse({'a':'b'})
+    print(data_list)
+    if len(data_list)>0:
+        instances_to_create = [Norma(data=data) for data in data_list]
+        Norma.objects.bulk_create(instances_to_create)
+        return JsonResponse({'saved':True,'status':201})
+    else:
+        return JsonResponse({'saved':False,'status':301})
 
 
 @login_required(login_url='/accounts/login/')

@@ -1,0 +1,304 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col-lg-12  stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Изменить</h4>
+            <hr>
+            {%csrf_token%}
+            <div class="table-responsive" >
+              <table class="table table-light" id="basic_table">
+                
+              </table>
+            </div>
+            <div class="d-flex "  >
+              <div class="ml-auto p-2" > <button  class="btn btn-success mb-2 mt-2 save_btn" style="display: none;" onclick="save_all()"><i class="bi bi-list-check"></i>Сохранить</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+  <script>
+    function handlePaste(event) {
+    
+          if (event.ctrlKey && event.key === 'v') {
+              // Get the clipboard data
+              navigator.clipboard.readText().then(clipboardData => {
+                  // Split clipboard data into rows
+                  const rows = clipboardData.split('\n');
+
+                  // Get all input fields
+                  const inputs = document.querySelectorAll('.dataInput');
+
+                  // Find the index of the currently focused input field
+                  const focusedIndex = Array.from(inputs).indexOf(document.activeElement);
+
+                  // Index to track current input element
+                  let inputIndex = focusedIndex >= 0 ? focusedIndex : 0;
+
+                  // Loop through rows
+                  rows.forEach(row => {
+                      // Split row data into columns
+                      const columns = row.split('\t'); // Assuming tab-separated data
+
+                      // Loop through columns
+                      columns.forEach(column => {
+                          // Set value of current input element
+                          if (inputIndex < inputs.length) {
+                              inputs[inputIndex].value = column.trim();
+                              inputIndex++;
+                          }
+                      });
+                  });
+              }).catch(error => {
+                  console.error('Failed to read clipboard data:', error);
+              });
+          }
+      }
+
+      document.addEventListener('keydown', handlePaste);
+
+    var checker =[[],[]];
+
+
+    var names =[
+      'Литё Алюмин.2 шт / Литё Цинк 1 шт',
+      'Литейный пресс машины мини Ал. 9 шт',
+      'Литейный пресс машины мини Цинк 6 шт',
+      'Мех. Обработка 20 шт',
+      'Гальванизация',
+      'Анодировка(VS03)',
+      'Услуга термопласт (VS01-VS02)',
+      'Резка + Упк',
+      'Штамповка',
+      'Вибро.Голтовка 8 шт и Сушка',
+      'Покраска + Нанесение логотипа (гравировка)',
+      'Штамповка + Заготовка +Упк',
+      'Термопласт автомат 7 шт + Упк',
+      'Заготовка и Упковка',
+      'Сборка + Упк',
+      
+    ]
+
+      
+
+    function create_input_fileds(){
+        var all_text =''
+      
+        var header =''
+        header +=`<thead>
+                <tr><th style="background-color:orange"><i class="bi bi-arrows-expand" style='cursor:pointer' onclick="status_change(1,'show')" id='shower1'></i> <i class="bi bi-arrows-collapse" style='display:none;cursor:pointer' onclick="status_change(1,'hide')" id='hider1'></i></th>
+                    `
+        for(let i =0; i<=14; i++){
+
+            for(let l=0; l<15; l++){
+            if(checker[i-1][l]){
+                header +=`
+                        <th style="background-color: blanchedalmond;">Нумерация до SAP</th>
+                        <th style="background-color: blanchedalmond;">${names[l]}</th>
+                        <th style="background-color: blanchedalmond;">БЕИ</th>
+                        <th style="background-color: blanchedalmond;">Количество</th>
+                        <th style="background-color: blanchedalmond;">Вес фактический</th>
+                        <th style="background-color: blanchedalmond;">Вес плановый</th>`
+            }
+            
+            }
+            header +=`  </tr>
+                    </thead>
+                `
+            
+            var text =''
+            text +=' <tbody >'
+            for(let t = 1; t<=15; t++){
+            var k = 1;
+            if(t !=1){
+                display ='style="display:none"';
+                }else{
+                display ='';
+                }
+            if(t!=1){
+                text +=`
+                    <tr ${display} id ='tr_${i}'>
+                        <td style='padding:5px;' >
+                        ${t}
+                        </td>
+                        `
+                    }else{
+                text +=`
+                        <tr ${display}>
+                        <td style='padding:5px;' >
+                            ${t}
+                        </td>
+                        `
+    
+                }
+                for(let j=1; j<= 15; j++){
+                    if(checker[i-1][j-1]){
+    
+                    text +=`
+                            <td style='padding:5px;'>
+                                <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 160px; ">
+                            </td>`
+                    k += 1;
+                    text +=`             
+                            <td style='padding:5px;'>
+                                <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 320px;">
+                            </td>`
+                    k += 1;
+                    text +=`
+                            <td style='padding:5px;'>
+                                <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 50px;">
+                            </td>`
+                    k += 1;
+                    text +=` <td style='padding:5px;'>
+                                <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 50px;">
+                            </td>`
+                    k += 1;
+                    text +=`<td style='padding:5px;'>
+                                <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 100px;">
+                            </td>`
+                    k += 1;
+                    text +=`<td style='padding:5px;'>
+                                    <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 100px;">
+                            </td>
+                            `
+                    k += 1;       
+                    }
+                    }
+                
+            text +='</tr>'
+            }
+            text +='</tbody>'
+            
+            all_text +=header + text
+        }
+            
+      
+     
+
+      var basic_tbody = document.getElementById('basic_table')
+      basic_tbody.innerHTML = all_text;
+    }
+
+  
+
+    function status_change(i,status){
+      var shower =$('#shower'+i)
+      var hider =$('#hider'+i)
+
+      var trs = document.querySelectorAll('#tr_'+i)
+      if(status=='show'){
+        shower.css('display','none');
+        hider.css('display','block');
+        trs.forEach((elem)=>{
+          elem.removeAttribute('style');
+        })
+      }else{
+        shower.css('display','block');
+        hider.css('display','none');
+        trs.forEach((elem)=>{
+          elem.style.display='none';
+        })
+
+      }
+    }
+    
+    var profile_type ={
+      0:'-LA/LC',
+      1:'-PA',
+      2:'-PC',
+      3:'-MO',
+      4:'-GZ',
+      5:'-AN',
+      6:'6',
+
+      7:'-RU',
+      8:'-SN',
+      9:'-VS',
+      10:'-KL',
+      11:'-SK',
+      12:'-TP',
+      13:'-ZG',
+      14:'-7',
+    }
+    
+    function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+    function save_all(){
+      var data = []
+      var tr_chek_count = document.querySelectorAll('.tr_chek').length;// i =table
+      for(let i = 1; i<=tr_chek_count; i++){
+        var partial_data =[]
+          k = 1
+          for(let z= 0; z < 15; z++){
+            if(checker[i-1][z]){
+              partial_data.push(profile_type[z])
+              for(let t = 1; t <= 15; t++){
+                var row_data =[];
+                for(let g=k*6-5; g <= k*6; g++){
+                  var elem = $('#id_'+i+'_'+t+'_'+g);
+                  if(elem.val !=''){
+                    row_data.push(elem.val())
+                  }else{
+                    row_data.push('0')
+                  }
+                }
+                partial_data.push(row_data)
+              }
+              k += 1
+            }
+          }
+        data.push(partial_data)
+      }
+      var csrfToken = getCSRFToken();
+
+      $.ajax({
+      method: "POST",
+      url: "{% url 'create_new_post' %}",
+      headers: { "X-CSRFToken": csrfToken },
+      data:JSON.stringify(data)
+    }).done(function( msg ) {
+      document.body.style.cursor='default';
+      if (msg.saved ==true){
+          Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Successfuly saved!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            
+            window.location.href='/accessuar/create-new'
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!'
+            })
+            
+          }
+      });
+
+    }
+  
+  
+  </script>
+ 
+{% endblock %}
