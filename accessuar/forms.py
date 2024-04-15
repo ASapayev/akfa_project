@@ -1,5 +1,5 @@
 from django import forms
-from .models import AccessuarFiles
+from .models import AccessuarFiles,Siryo
 
 
 class AccessuarFileForm(forms.ModelForm):
@@ -11,3 +11,5 @@ class AccessuarFileForm(forms.ModelForm):
   class Meta:
     model = AccessuarFiles
     fields =['file','type']
+
+

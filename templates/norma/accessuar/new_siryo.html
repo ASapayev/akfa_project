@@ -1,0 +1,115 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+        </nav>
+      </div>
+      <div class="row ">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Лист</h4>
+              <div class="table-responsive">
+                <form method="POST">
+                    {%csrf_token%}
+                <table class="table" >
+                  <thead>
+                    <tr >
+                      <th  >
+                        #
+                      </th>
+                      <th  > Артикул </th>
+                      <th  > MENGE </th>
+                    
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    
+                    <tr >
+                      <td>
+                        1
+                      </td>
+                      <td>
+                        <div class="input-group input-group-sm mb-3">
+                            
+                            <input type="text" class="form-control" aria-label="Small" id ='artikul' aria-describedby="inputGroup-sizing-sm">
+                          </div>
+                      </td>
+                      <td>
+                        <div class="input-group input-group-sm mb-3">
+                            
+                            <input type="text" class="form-control" aria-label="Small" id='menge' aria-describedby="inputGroup-sizing-sm">
+                          </div>
+                      </td>
+                     
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                
+                <div class="row p-2">
+                    <div class="col-5"></div>
+                    <div class="col-2">
+                        <a  class=" btn btn-success" onclick="add()">SAVE</a>
+                    </div>
+                    <div class="col-5"></div>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+   
+  </div>
+
+<script>
+    function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+    function add(){
+        var artikul =$('#artikul');
+        var menge =$('#menge');
+        var csrfToken = getCSRFToken();
+        data ={
+            'artikul':artikul.val(),
+            'menge':menge.val(),
+        }
+        $.ajax({
+            method: "POST",
+            url: "{% url 'new_siryo_acs' %}",
+            headers: { "X-CSRFToken": csrfToken },
+            data:JSON.stringify(data)
+            }).done(function( msg ) {
+            document.body.style.cursor='default';
+            if (msg.saved ==true){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Successfuly saved!',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
+                    
+                    window.location.href='/accessuar/siryo-list'
+                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Bu siryo mavjud!',
+                    text: 'Iltimos boshqatdan tekshirib chiqing!'
+                    })
+                    
+                }
+            });
+    }
+</script>
+
+{% endblock %}

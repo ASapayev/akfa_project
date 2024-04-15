@@ -1,13 +1,14 @@
 from django.shortcuts import render,redirect
 from config.settings import MEDIA_ROOT,BASE_DIR
 from .forms import AccessuarFileForm
-from .models import AccessuarFiles,Norma,Siryo,TexcartaBase,DataForText
+from .models import Norma,Siryo,TexcartaBase,DataForText
 import pandas as pd
 from .utils import get_norma_df,get_norma_price,create_folder,lenght_generate_texcarta,get_sapcodes
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
 from django.http import JsonResponse
 import json
+from django.db.models import Q
 from django.core.paginator import Paginator
 import numpy as np
 from .serializers import NormaSerializers
@@ -110,6 +111,13 @@ def get_accessuar_sapcode_texcarta(request):
     else:
         return render(request,'norma/accessuar/norma_sapcode.html')
     
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def delete_siryo(request,id):
+    norm = Siryo.objects.get(id = id)
+    norm.delete()
+    return JsonResponse({'status':201})
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
@@ -300,6 +308,67 @@ def edit_sapcode(request,id):
         }
 
     return render(request,'norma/accessuar/edit.html',context)
+
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def siryo_list(request):
+    search = request.GET.get('search',None)
+    if search:
+        norma = Siryo.objects.filter(data__sap_code__icontains =search).order_by('-updated_at')
+    else:
+        norma = Siryo.objects.filter(Q(data__sap_code__startswith ='ASM')|Q(data__sap_code__startswith ='1')).order_by('-updated_at')
+
+    paginator = Paginator(norma, 25)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+    context ={
+        'products':page_obj
+    }
+    return render(request,'norma/accessuar/siryo_list.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def update_siryo(request,id):
+    siryo = Siryo.objects.get(id = id)
+    if request.method == 'POST':
+        data = list(request.POST.keys())[0]
+        items = json.loads(data)
+        siryo.data ={'sap_code':items['artikul'],'menge':items['menge'],'price':'0'}
+        siryo.save()
+        return JsonResponse({'saved':True,'status':201})
+    context ={
+        'siryo':siryo
+    }
+    return render(request,'norma/accessuar/update_siryo.html',context)
+        
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def new_siryo(request):
+    if request.method == 'POST':
+        data = list(request.POST.keys())[0]
+        items = json.loads(data)
+        if not Siryo.objects.filter(data__sap_code__icontains =items['artikul']).exists():
+            siryo =Siryo(
+                data ={'sap_code':items['artikul'],'menge':items['menge'],'price':'0'}
+                    )
+            siryo.save()
+            return JsonResponse({'saved':True,'status':201})
+        else:
+            return JsonResponse({'saved':False,'status':301})
+
+       
+        
+
+    return render(request,'norma/accessuar/new_siryo.html')
+
 
 
 
