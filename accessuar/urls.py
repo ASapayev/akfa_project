@@ -27,6 +27,8 @@ urlpatterns = [
     path('create-post',views.create_norma_post,name='create_new_post'),
     path('show-sapcodes',views.show_sapcodes,name='show_sapcodes_acs'),
     path('edit-sapcode/<int:id>',views.edit_sapcode,name='edit_sapcode_acs'),
+    path('copy-sapcode/<int:id>',views.copy_sapcode,name='copy_sapcode_acs'),
+    path('check-sapcode',views.check_sapcode,name='check_acs'),
 
     path('delete-sapcode/<int:id>',views.delete_sapcode,name='delete_sapcode_acs'),
 

@@ -28,6 +28,36 @@ def texcarta_delete(request):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def check_sapcode(request):
+    if request.method =='POST':
+        ozmk = request.POST.get('ozmk',None)
+          
+        if ozmk:
+            ozmks =ozmk.split()
+            norma_exists = []
+            example_exists = []
+            new = []
+            for ozm in ozmks:
+                if Norma.objects.filter(data__sap_code__icontains = ozm).exists():
+                    norma_exists.append(ozm)
+                else:
+                    new.append(ozm)
+
+                if Norma.objects.filter(data__sap_code__icontains = ozm.split('-')[0]).exists():
+                    norm = Norma.objects.filter(data__sap_code__icontains = ozm.split('-')[0])[:1].get()
+                    example_exists.append([ozm,norm.data['sap_code'],norm.id])
+
+            context ={
+                'norma_exists':norma_exists,
+                'example_exists':example_exists,
+                'new':new
+            }
+            return render(request,'norma/accessuar/check.html',context)
+    else:
+        return render(request,'norma/accessuar/norma_sapcode.html')
+    
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def get_accessuar_sapcode(request):
     if request.method =='POST':
         ozmk = request.POST.get('ozmk',None)
@@ -108,8 +138,89 @@ profile_type ={
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def copy_sapcode(request,id):
+    if request.method =='POST':
+        data = list(request.POST.keys())[0]
+        items = json.loads(data)
+        name_of_type =''
+        all_data =[]
+        new_data = []
+        for item in items:
+            for val in item:
+                if isinstance(val,str):
+                    if len(new_data) > 0 and name_of_type !='':
+                        df = pd.DataFrame(np.array(new_data),columns=['SAP CODE','KRATKIY TEXT','BEI','COUNT','FACT','PLAN'])
+                        data_gp = generate_datas(df,['SAP CODE','KRATKIY TEXT','BEI','PLAN','FACT'],name_of_type)
+                        data_gp = generate_sap_code_price(data_gp)
+                        
+                        all_data +=data_gp
+                        new_data = []
+                    name_of_type = val
+                else:
+                    if val[0] != '':
+                        new_data.append(val)
+            if len(new_data) > 0 and name_of_type !='':
+                df = pd.DataFrame(np.array(new_data),columns=['SAP CODE','KRATKIY TEXT','BEI','COUNT','FACT','PLAN'])
+                
+                data_gp = generate_datas(df,['SAP CODE','KRATKIY TEXT','BEI','PLAN','FACT'],name_of_type)
+                data_gp = generate_sap_code_price(data_gp)
+                all_data +=data_gp
+                new_data = []
+        data_list = [dat for dat in all_data if not Norma.objects.filter(data__sap_code=dat['sap_code']).exists()] 
+    
+        if len(data_list)>0:
+            instances_to_create = [Norma(data=data) for data in data_list]
+            Norma.objects.bulk_create(instances_to_create)
+            return JsonResponse({'saved':True,'status':201})
+        else:
+            return JsonResponse({'saved':False,'status':301})
+    else:
+        norm = Norma.objects.get(id = id)
+        normalar = get_sapcodes([norm.data['sap_code'],])
+        checker =[False for i in range(0 , 15)]
+        datas = {
+            '-LA/LC':[],
+            '-PA':[],
+            '-PC':[],
+            '-MO':[],
+            '-GZ':[],
+            '-AN':[],
+            '-TP':[],
+            '-RU':[],
+            '-SN':[],
+            '-VS':[],
+            '-KL':[],
+            '-SK':[],
+            '-TP':[],
+            '-ZG':[],
+            '-7':[],
+        }
+        for norma in normalar:
+            index =norma.data['sap_code'].find('-')
+            profile_t =''
+            if '-7' in norma.data['sap_code'][index:index+3]:
+                profile_t ='-7'
+            else:
+                if '-LA' in norma.data['sap_code'][index:index+3] or '-LC' in norma.data['sap_code'][index:index+3]:
+                    profile_t = '-LA/LC'
+                else:
+                    profile_t = norma.data['sap_code'][index:index+3]
+
+            checker[profile_type[profile_t]] = True
+            dat = NormaSerializers(norma , many=False).data
+            datas[profile_t].append(dat)
+
+        context ={
+            'checker':json.dumps(checker),
+            'data':json.dumps(datas),
+            'id':id
+        }
+
+    return render(request,'norma/accessuar/copy.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def edit_sapcode(request,id):
-   
     if request.method =='POST':
         data = list(request.POST.keys())[0]
         items = json.loads(data)
@@ -197,9 +308,9 @@ def edit_sapcode(request,id):
 def show_sapcodes(request):
     search = request.GET.get('search',None)
     if search:
-        norma = Norma.objects.filter(data__sap_code__icontains =search)
+        norma = Norma.objects.filter(data__sap_code__icontains =search).order_by('-updated_at')
     else:
-        norma = Norma.objects.filter(data__sap_code__icontains ='-7')
+        norma = Norma.objects.filter(data__sap_code__icontains ='-7').order_by('-updated_at')
 
     paginator = Paginator(norma, 25)
 
@@ -569,10 +680,12 @@ def full_update_norm(request):
 def generate_datas(df,names,type_profile) -> list:
     all_data = []
     sap_codesss = []
+    print(df)
     for key,row in df.iterrows():
         if type_profile =='-LA/LC':
             conditon = ('-LA' in row[names[0]] or '-LC' in row[names[0]] or '-7' in row[names[0]]) and row[names[0]] not in sap_codesss
         else:
+            print( row[names[0]],names[0])
             conditon = (type_profile in row[names[0]]  or '-7' in row[names[0]])and('-75' not in row[names[0]]) and row[names[0]] not in sap_codesss
         
         if conditon:

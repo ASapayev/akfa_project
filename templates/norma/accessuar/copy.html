@@ -240,7 +240,7 @@
             var sap_code1 = $('#id_1_'+k +'_'+l);
               sap_code1.val(sap_code);
               sap_code1.css('background','yellow');
-              sap_code1.attr('disabled',true);
+              // sap_code1.attr('disabled',true);
             l += 1;
             var kratkiy_tekst1 = $('#id_1_'+k +'_'+l);
             kratkiy_tekst1.val(kratkiy_tekst);
@@ -347,7 +347,7 @@
       console.log(data,'#########')
       $.ajax({
       method: "POST",
-      url: "/accessuar/edit-sapcode/" +id,
+      url: "/accessuar/copy-sapcode/" +id,
       headers: { "X-CSRFToken": csrfToken },
       data:JSON.stringify(data)
     }).done(function( msg ) {
