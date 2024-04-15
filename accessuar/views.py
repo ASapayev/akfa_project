@@ -10,6 +10,7 @@ from django.http import JsonResponse
 import json
 from django.core.paginator import Paginator
 import numpy as np
+from .serializers import NormaSerializers
 
 
 
@@ -88,8 +89,7 @@ def delete_sapcode(request,id):
     return JsonResponse({'status':201})
 
 profile_type ={
-      '-LC':0,
-      '-LA':0,
+      '-LA/LC':0,
       '-PA':1,
       '-PC':2,
       '-MO':3,
@@ -140,7 +140,7 @@ def edit_sapcode(request,id):
         data_list = all_data
         if len(data_list) > 0:
             for dat in data_list:
-                norma = Norma.objects.get(data__sap_code = dat['sap_code'],data__kratkiy_tekst=dat['kratkiy_tekst'])
+                norma = Norma.objects.get(data__sap_code = dat['sap_code'])
                 norma.data =dat
                 norma.save()
             return JsonResponse({'saved':True,'status':201})
@@ -149,12 +149,44 @@ def edit_sapcode(request,id):
     else:
         norm = Norma.objects.get(id = id)
         normalar = get_sapcodes([norm.data['sap_code'],])
-        checker =[False for i in range(1 , 16)]
-        
-        context ={
-            'checker':checker,
+        checker =[False for i in range(0 , 15)]
+        datas = {
+            '-LA/LC':[],
+            '-PA':[],
+            '-PC':[],
+            '-MO':[],
+            '-GZ':[],
+            '-AN':[],
+            '-TP':[],
+            '-RU':[],
+            '-SN':[],
+            '-VS':[],
+            '-KL':[],
+            '-SK':[],
+            '-TP':[],
+            '-ZG':[],
+            '-7':[],
         }
-        print(normalar)
+        for norma in normalar:
+            index =norma.data['sap_code'].find('-')
+            profile_t =''
+            if '-7' in norma.data['sap_code'][index:index+3]:
+                profile_t ='-7'
+            else:
+                if '-LA' in norma.data['sap_code'][index:index+3] or '-LC' in norma.data['sap_code'][index:index+3]:
+                    profile_t = '-LA/LC'
+                else:
+                    profile_t = norma.data['sap_code'][index:index+3]
+
+            checker[profile_type[profile_t]] = True
+            dat = NormaSerializers(norma , many=False).data
+            datas[profile_t].append(dat)
+
+        context ={
+            'checker':json.dumps(checker),
+            'data':json.dumps(datas),
+            'id':id
+        }
 
     return render(request,'norma/accessuar/edit.html',context)
 
@@ -300,6 +332,48 @@ def create_norma_post(request):
     # print(data_list)
         # df_duplicates =pd.DataFrame(np.array([['','','']]),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
     print(data_list)
+    if len(data_list)>0:
+        instances_to_create = [Norma(data=data) for data in data_list]
+        Norma.objects.bulk_create(instances_to_create)
+        return JsonResponse({'saved':True,'status':201})
+    else:
+        return JsonResponse({'saved':False,'status':301})
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def update_norma_post(request,id):
+
+    data = list(request.POST.keys())[0]
+    items = json.loads(data)
+    name_of_type =''
+    all_data =[]
+    new_data = []
+    for item in items:
+        for val in item:
+            if isinstance(val,str):
+                if len(new_data) > 0 and name_of_type !='':
+                    df = pd.DataFrame(np.array(new_data),columns=['SAP CODE','KRATKIY TEXT','BEI','COUNT','FACT','PLAN'])
+                    data_gp = generate_datas(df,['SAP CODE','KRATKIY TEXT','BEI','PLAN','FACT'],name_of_type)
+                    data_gp = generate_sap_code_price(data_gp)
+                    
+                    all_data +=data_gp
+                    new_data = []
+                name_of_type = val
+            else:
+                if val[0] != '':
+                    new_data.append(val)
+        if len(new_data) > 0 and name_of_type !='':
+            df = pd.DataFrame(np.array(new_data),columns=['SAP CODE','KRATKIY TEXT','BEI','COUNT','FACT','PLAN'])
+            
+            data_gp = generate_datas(df,['SAP CODE','KRATKIY TEXT','BEI','PLAN','FACT'],name_of_type)
+            data_gp = generate_sap_code_price(data_gp)
+            all_data +=data_gp
+            new_data = []
+        # print(new_data)
+        
+        
+    data_list = [dat for dat in all_data if not Norma.objects.filter(data__sap_code=dat['sap_code']).exists()] 
+  
     if len(data_list)>0:
         instances_to_create = [Norma(data=data) for data in data_list]
         Norma.objects.bulk_create(instances_to_create)
@@ -509,6 +583,10 @@ def generate_datas(df,names,type_profile) -> list:
             collected_data['ves_corredted'] = False
             collected_data['kratkiy_tekst'] =row[names[1]]
             collected_data['price'] ='0'
+            collected_data['bei'] =row[names[2]]
+            collected_data['kolichestvo'] ='1'
+            collected_data['planoviy'] =row[names[3]]
+            collected_data['fact'] =row[names[4]]
 
             component_sap_codes = []
 

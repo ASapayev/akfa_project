@@ -262,7 +262,7 @@ def product_add_second_org(request,id):
         if df['Тип покрытия'][key] == 'Ламинированный':
 
             export_description =''
-            if ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] =='NR'):
+            if ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and ((row['Цвет резины'] =='NR') or(row['Цвет резины'] =='nan')):
                 export_description ='Профиль из ПВХ ламинированный'
             elif ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] !='NR'):
                 export_description ='Профиль из ПВХ ламинированный с уплотнителем'

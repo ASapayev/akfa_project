@@ -25,7 +25,7 @@
               </table>
             </div>
             <div class="d-flex "  >
-              <div class="ml-auto p-2" > <button  class="btn btn-success mb-2 mt-2 save_btn" style="display: none;" onclick="save_all()"><i class="bi bi-list-check"></i>Сохранить</button></div>
+              <div class="ml-auto p-2" > <button  class="btn btn-success mb-2 mt-2 save_btn"  onclick="save_all()"><i class="bi bi-list-check"></i>Сохранить</button></div>
             </div>
           </div>
         </div>
@@ -75,7 +75,23 @@
 
     var checker =[[],[]];
 
-
+    var profile_type ={
+      0:'-LA/LC',
+      1:'-PA',
+      2:'-PC',
+      3:'-MO',
+      4:'-GZ',
+      5:'-AN',
+      6:'-TP',
+      7:'-RU',
+      8:'-SN',
+      9:'-VS',
+      10:'-KL',
+      11:'-SK',
+      12:'-TP',
+      13:'-ZG',
+      14:'-7',
+    }
     var names =[
       'Литё Алюмин.2 шт / Литё Цинк 1 шт',
       'Литейный пресс машины мини Ал. 9 шт',
@@ -96,106 +112,179 @@
     ]
 
       
-
+    
     function create_input_fileds(){
         var all_text =''
-      
+        var dataArray =  '{{checker| safe}}'
+        var checker = JSON.parse(dataArray)
+
         var header =''
         header +=`<thead>
                 <tr><th style="background-color:orange"><i class="bi bi-arrows-expand" style='cursor:pointer' onclick="status_change(1,'show')" id='shower1'></i> <i class="bi bi-arrows-collapse" style='display:none;cursor:pointer' onclick="status_change(1,'hide')" id='hider1'></i></th>
                     `
         for(let i =0; i<=14; i++){
 
-            for(let l=0; l<15; l++){
-            if(checker[i-1][l]){
+          if(checker[i]){
                 header +=`
                         <th style="background-color: blanchedalmond;">Нумерация до SAP</th>
-                        <th style="background-color: blanchedalmond;">${names[l]}</th>
+                        <th style="background-color: blanchedalmond;">${names[i]}</th>
                         <th style="background-color: blanchedalmond;">БЕИ</th>
                         <th style="background-color: blanchedalmond;">Количество</th>
                         <th style="background-color: blanchedalmond;">Вес фактический</th>
                         <th style="background-color: blanchedalmond;">Вес плановый</th>`
-            }
             
             }
-            header +=`  </tr>
-                    </thead>
+          }
+        header +=`  </tr>
+                </thead>
+            `
+        
+        var text =''
+        text +=' <tbody >'
+          
+          for(let i=1; i<=15; i++){
+            if(i==1){
+              text +=`<tr>
+                    <td style='padding:5px;' >${i}</td>
+                     `
+            } else{
+
+              text +=`<tr style="display:none" id ='tr_1'>
+                <td style='padding:5px;' >${i}</td>
                 `
-            
-            var text =''
-            text +=' <tbody >'
-            for(let t = 1; t<=15; t++){
-            var k = 1;
-            if(t !=1){
-                display ='style="display:none"';
-                }else{
-                display ='';
-                }
-            if(t!=1){
-                text +=`
-                    <tr ${display} id ='tr_${i}'>
-                        <td style='padding:5px;' >
-                        ${t}
-                        </td>
-                        `
-                    }else{
-                text +=`
-                        <tr ${display}>
-                        <td style='padding:5px;' >
-                            ${t}
-                        </td>
-                        `
-    
-                }
-                for(let j=1; j<= 15; j++){
-                    if(checker[i-1][j-1]){
-    
-                    text +=`
-                            <td style='padding:5px;'>
-                                <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 160px; ">
-                            </td>`
-                    k += 1;
-                    text +=`             
-                            <td style='padding:5px;'>
-                                <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 320px;">
-                            </td>`
-                    k += 1;
-                    text +=`
-                            <td style='padding:5px;'>
-                                <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 50px;">
-                            </td>`
-                    k += 1;
-                    text +=` <td style='padding:5px;'>
-                                <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 50px;">
-                            </td>`
-                    k += 1;
-                    text +=`<td style='padding:5px;'>
-                                <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 100px;">
-                            </td>`
-                    k += 1;
-                    text +=`<td style='padding:5px;'>
-                                    <input type="text" id='id_${i}_${t}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 100px;">
-                            </td>
-                            `
-                    k += 1;       
-                    }
-                    }
-                
-            text +='</tr>'
             }
-            text +='</tbody>'
+            var k = 1;
+            for(let t = 0; t<15; t++){
+              if(checker[t]){
+          
+    
+                text +=`
+                        
+                        <td style='padding:5px;'>
+                            <input type="text" id='id_1_${i}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 160px; ">
+                        </td>`
+                k += 1;
+                text +=`             
+                        <td style='padding:5px;'>
+                            <input type="text" id='id_1_${i}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 320px;">
+                        </td>`
+                k += 1;
+                text +=`
+                        <td style='padding:5px;'>
+                            <input type="text" id='id_1_${i}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 50px;">
+                        </td>`
+                k += 1;
+                text +=` <td style='padding:5px;'>
+                            <input type="text" id='id_1_${i}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 50px;">
+                        </td>`
+                k += 1;
+                text +=`<td style='padding:5px;'>
+                            <input type="text" id='id_1_${i}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 100px;">
+                        </td>`
+                k += 1;
+                text +=`<td style='padding:5px;'>
+                                <input type="text" id='id_1_${i}_${k}' class="form-control form-control-sm dataInput" oninput="focusNextRow(this)" placeholder="..."  style="width: 100px;">
+                        </td>
+                        `
+                k += 1;       
+                
+              }
+                
             
-            all_text +=header + text
+              }
+            
+            text +='</tr>'
         }
-            
+    
+
+      text +='</tbody>'
       
+      all_text +=header + text
+  
+      
+
      
 
       var basic_tbody = document.getElementById('basic_table')
       basic_tbody.innerHTML = all_text;
     }
 
-  
+    create_input_fileds()
+
+
+
+    function put_datas(){
+      var  json_datas ='{{data|safe}}';
+      var datas = JSON.parse(json_datas);
+      var dataArray =  '{{checker| safe}}'
+      var checker = JSON.parse(dataArray)
+
+      var l =1;
+      var counter = 0
+      for(let i=0; i<=14; i++){//row
+        if(checker[i]){
+          profiles = datas[profile_type[i]];
+
+          // console.log(profiles)
+          var k = 1;
+          for(let j =0; j<profiles.length; j++){
+            l = (counter + 1) * 6 - 5
+            var profile = profiles[j].data;
+            var sap_code = profile.sap_code;
+            var kratkiy_tekst = profile.kratkiy_tekst;
+            var bei = profile.bei;
+            var kolichestvo = profile.kolichestvo;
+            var planoviy = profile.planoviy;
+            var fact = profile.fact;
+            var components = profile.components;
+            var sap_code1 = $('#id_1_'+k +'_'+l);
+              sap_code1.val(sap_code);
+              sap_code1.css('background','yellow');
+              sap_code1.attr('disabled',true);
+            l += 1;
+            var kratkiy_tekst1 = $('#id_1_'+k +'_'+l);
+            kratkiy_tekst1.val(kratkiy_tekst);
+            kratkiy_tekst1.css('background','yellow');
+            l += 1;
+            var  bei1 = $('#id_1_'+k +'_'+l);
+            bei1.val(bei);
+            l += 1;
+            var  kolichestvo1 = $('#id_1_'+k +'_'+l);
+            kolichestvo1.val(kolichestvo);
+            l += 1;
+            var  fact1 = $('#id_1_'+k +'_'+l);
+            fact1.val(fact)
+            l += 1;
+            var  planoviy1 = $('#id_1_'+k +'_'+l);
+            planoviy1.val(planoviy);
+            l += 1;
+            for(let comp = 0; comp < components.length; comp++){
+              l = (counter + 1) * 6 - 5
+              k += 1
+              $('#id_1_'+k +'_'+l).val(components[comp][0]);
+              l += 1
+              $('#id_1_'+k +'_'+l).val(components[comp][1]);
+              l += 1
+              $('#id_1_'+k +'_'+l).val(components[comp][2]);
+              l += 1
+              $('#id_1_'+k +'_'+l).val('1');
+              l += 1
+              $('#id_1_'+k +'_'+l).val(components[comp][6]);
+              l += 1
+              $('#id_1_'+k +'_'+l).val(components[comp][4]);
+              l += 1
+
+            }
+            k+=1
+
+          }
+          
+          counter += 1
+
+        }
+      }
+    }
+    put_datas()
 
     function status_change(i,status){
       var shower =$('#shower'+i)
@@ -218,24 +307,7 @@
       }
     }
     
-    var profile_type ={
-      0:'-LA/LC',
-      1:'-PA',
-      2:'-PC',
-      3:'-MO',
-      4:'-GZ',
-      5:'-AN',
-      6:'6',
-
-      7:'-RU',
-      8:'-SN',
-      9:'-VS',
-      10:'-KL',
-      11:'-SK',
-      12:'-TP',
-      13:'-ZG',
-      14:'-7',
-    }
+    
     
     function getCSRFToken() {
         return $('input[name=csrfmiddlewaretoken]').val();
@@ -244,34 +316,34 @@
     function save_all(){
       var data = []
       var tr_chek_count = document.querySelectorAll('.tr_chek').length;// i =table
-      for(let i = 1; i<=tr_chek_count; i++){
+     
         var partial_data =[]
-          k = 1
-          for(let z= 0; z < 15; z++){
-            if(checker[i-1][z]){
-              partial_data.push(profile_type[z])
-              for(let t = 1; t <= 15; t++){
-                var row_data =[];
-                for(let g=k*6-5; g <= k*6; g++){
-                  var elem = $('#id_'+i+'_'+t+'_'+g);
-                  if(elem.val !=''){
-                    row_data.push(elem.val())
-                  }else{
-                    row_data.push('0')
-                  }
+        k = 1
+        for(let z= 0; z < 15; z++){
+          if(checker[z]){
+            partial_data.push(profile_type[z])
+            for(let t = 1; t <= 15; t++){
+              var row_data =[];
+              for(let g=k*6-5; g <= k*6; g++){
+                var elem = $('#id_1_'+t+'_'+g);
+                if(elem.val !=''){
+                  row_data.push(elem.val())
+                }else{
+                  row_data.push('0')
                 }
-                partial_data.push(row_data)
               }
-              k += 1
+              partial_data.push(row_data)
             }
+            k += 1
           }
+        }
         data.push(partial_data)
-      }
+      
       var csrfToken = getCSRFToken();
-
+      var id ='{{id}}'
       $.ajax({
       method: "POST",
-      url: "{% url 'create_new_post' %}",
+      url: "/accessuar/edit-sapcode/" +id,
       headers: { "X-CSRFToken": csrfToken },
       data:JSON.stringify(data)
     }).done(function( msg ) {

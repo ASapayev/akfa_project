@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 import time
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import authentication, permissions
+from rest_framework import permissions
 from accounts.decorators import customer_only,moderator_only,allowed_users
 from django.core.paginator import Paginator
 import json
