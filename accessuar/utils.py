@@ -282,7 +282,10 @@ def lenght_generate_texcarta(ozmks) -> list:
             if  Norma.objects.filter(data__sap_code__icontains=ozmk).exists():
                 norma = Norma.objects.filter(data__sap_code__icontains=ozmk)[:1].get()
                 if 'ARBPL' in norma.data:
-                    len_arbpl =len(norma.data['ARBPL'])
+                    for ar in norma.data['ARBPL']:
+                        if ar !='':
+                            len_arbpl += 1
+                    # len_arbpl =len(norma.data['ARBPL'])
                     price = ((float(norma.data['price'])*1000)/exchange_value)/len_arbpl
                     for i in range(1,len_arbpl+2):
                         if i ==1:
