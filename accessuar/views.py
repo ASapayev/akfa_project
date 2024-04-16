@@ -114,6 +114,21 @@ def get_accessuar_sapcode_texcarta(request):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def delete_texcarta(request,id):
+    norm = Norma.objects.get(id = id)
+    data = norm.data
+    # print(data,'++'*20)
+    if 'ARBPL' in data:
+        del data['ARBPL']
+    if 'LGORD' in data:
+        del data['LGORD']
+    norm.data = data
+    norm.save()
+    return JsonResponse({'status':201})
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def delete_siryo(request,id):
     norm = Siryo.objects.get(id = id)
     norm.delete()
@@ -313,6 +328,29 @@ def edit_sapcode(request,id):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def texcarta_list(request):
+    search = request.GET.get('search',None)
+    if search:
+        norma = Norma.objects.filter(Q(data__sap_code__icontains =search)&Q(data__has_key='ARBPL')&Q(data__has_key='LGORD')).order_by('-updated_at')
+    else:
+        norma = Norma.objects.filter(Q(data__has_key='ARBPL')&Q(data__has_key='LGORD')).order_by('-updated_at')
+        
+
+    paginator = Paginator(norma, 25)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+    context ={
+        'products':page_obj
+    }
+    return render(request,'norma/accessuar/texcarta_list.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def siryo_list(request):
     search = request.GET.get('search',None)
     if search:
@@ -335,6 +373,24 @@ def siryo_list(request):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def update_texcarta(request,id):
+    norma = Norma.objects.get(id = id)
+    if request.method == 'POST':
+        data = list(request.POST.keys())[0]
+        items = json.loads(data)
+        json_data = norma.data
+        json_data['ARBPL'] = [items['arbpl1'],items['arbpl2'],items['arbpl3']]
+        json_data['LGORD'] = items['lgord']
+        norma.data =json_data
+        norma.save()
+        return JsonResponse({'saved':True,'status':201})
+    context ={
+        'norma':norma
+    }
+    return render(request,'norma/accessuar/update_texcarta.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def update_siryo(request,id):
     siryo = Siryo.objects.get(id = id)
     if request.method == 'POST':
@@ -349,6 +405,27 @@ def update_siryo(request,id):
     return render(request,'norma/accessuar/update_siryo.html',context)
         
 
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
+def new_texcarta(request):
+    if request.method == 'POST':
+        data = list(request.POST.keys())[0]
+        items = json.loads(data)
+        if not Norma.objects.filter(Q(data__sap_code__icontains =items['artikul'])&Q(data__has_key ='ARBPL')&Q(data__has_key ='LGORD')).exists():
+            if Norma.objects.filter(data__sap_code__icontains =items['artikul']).exists():
+                norma = Norma.objects.get(data__sap_code__icontains =items['artikul'])
+                json_data = norma.data
+                json_data['ARBPL'] = [items['arbpl1'],items['arbpl2'],items['arbpl3']]
+                json_data['LGORD'] = items['lgord']
+                norma.data =json_data
+                norma.save()
+                return JsonResponse({'saved':True,'status':201})
+            else:
+                return JsonResponse({'saved':False,'status':404})
+        else:
+            return JsonResponse({'saved':False,'status':301})
+    return render(request,'norma/accessuar/new_texcarta.html')
+        
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def new_siryo(request):

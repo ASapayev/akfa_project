@@ -29,12 +29,16 @@ urlpatterns = [
     path('edit-sapcode/<int:id>',views.edit_sapcode,name='edit_sapcode_acs'),
     path('copy-sapcode/<int:id>',views.copy_sapcode,name='copy_sapcode_acs'),
     path('check-sapcode',views.check_sapcode,name='check_acs'),
-
+            #####Siryo #######
     path('siryo-list',views.siryo_list,name='siryo_acs'),
     path('delete-siryo/<int:id>',views.delete_siryo,name='delete_siryo_acs'),
     path('new-siryo',views.new_siryo,name='new_siryo_acs'),
     path('update-siryo/<int:id>',views.update_siryo,name='update_siryo_acs'),
-
+            #####Rabochiy mesto #########
+    path('texcarta-list',views.texcarta_list,name='texcarta_acs'),
+    path('delete-texcarta-data/<int:id>',views.delete_texcarta,name='delete_texcarta'),
+    path('new-texcarta',views.new_texcarta,name='new_texcarta_acs'),
+    path('update-texcarta/<int:id>',views.update_texcarta,name='update_texcarta_acs'),
 
 
     path('delete-sapcode/<int:id>',views.delete_sapcode,name='delete_sapcode_acs'),
