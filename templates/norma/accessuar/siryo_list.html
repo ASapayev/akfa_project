@@ -29,6 +29,7 @@
                         #
                       </th>
                       <th  > SAP CODE </th>
+                      <th  > KRATKIY TEXT </th>
                       <th  > MENGE</th>
                       <th  > CREATED DATE </th>
                       <th  > Действие </th>
@@ -44,6 +45,9 @@
                       </td>
                       <td>
                         <span class="pl-2">{{profile.data.sap_code}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data.kratkiy_text}}</span>
                       </td>
                       <td>{{profile.data.menge}} </td>
                       <td> {{profile.created_at |date:"d-m-Y H:i"}} </td>

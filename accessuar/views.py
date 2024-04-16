@@ -396,7 +396,7 @@ def update_siryo(request,id):
     if request.method == 'POST':
         data = list(request.POST.keys())[0]
         items = json.loads(data)
-        siryo.data ={'sap_code':items['artikul'],'menge':items['menge'],'price':'0'}
+        siryo.data ={'sap_code':items['artikul'],'kratkiy_text':items['kratkiy_text'],'menge':items['menge'],'price':'0'}
         siryo.save()
         return JsonResponse({'saved':True,'status':201})
     context ={
@@ -434,7 +434,7 @@ def new_siryo(request):
         items = json.loads(data)
         if not Siryo.objects.filter(data__sap_code__icontains =items['artikul']).exists():
             siryo =Siryo(
-                data ={'sap_code':items['artikul'],'menge':items['menge'],'price':'0'}
+                data ={'sap_code':items['artikul'],'kratkiy_text':items['kratkiy_text'],'menge':items['menge'],'price':'0'}
                     )
             siryo.save()
             return JsonResponse({'saved':True,'status':201})
@@ -487,7 +487,7 @@ def full_update_siryo(request):
             df = pd.read_excel(path,header=0,sheet_name='Сырьё')
             for key,row in df.iterrows():
                 Siryo(
-                    data ={'sap_code':row['SAPCODE'],'menge':row['NARX'],'price':'0'}
+                    data ={'sap_code':row['SAPCODE'],'kratkiy_text':row['KRATKIY TEXT'],'menge':row['NARX'],'price':'0'}
                 ).save()
 
     return render(request,'norma/benkam/main.html')
@@ -549,6 +549,7 @@ def full_update_texcarta(request):
                     if row['ARBPL3'] !='0':
                         arbpl.append(row['ARBPL3'])
                     norma.data['ARBPL'] = arbpl
+                    norma.data['LGORD'] = row['LGORD']
                     norma.save()
     return render(request,'norma/benkam/main.html')
 

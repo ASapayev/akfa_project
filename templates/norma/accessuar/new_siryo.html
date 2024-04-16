@@ -28,7 +28,8 @@
                       <th  >
                         #
                       </th>
-                      <th  > Артикул </th>
+                      <th  > SAP CODE </th>
+                      <th  > KRATKIY TEXT </th>
                       <th  > MENGE </th>
                     
                     </tr>
@@ -44,6 +45,12 @@
                         <div class="input-group input-group-sm mb-3">
                             
                             <input type="text" class="form-control" aria-label="Small" id ='artikul' aria-describedby="inputGroup-sizing-sm">
+                          </div>
+                      </td>
+                      <td>
+                        <div class="input-group input-group-sm mb-3">
+                            
+                            <input type="text" class="form-control" aria-label="Small" id='kratkiy_text' aria-describedby="inputGroup-sizing-sm">
                           </div>
                       </td>
                       <td>
@@ -82,10 +89,12 @@
     }
     function add(){
         var artikul =$('#artikul');
+        var kratkiy_text =$('#kratkiy_text');
         var menge =$('#menge');
         var csrfToken = getCSRFToken();
         data ={
             'artikul':artikul.val(),
+            'kratkiy_text':kratkiy_text.val(),
             'menge':menge.val(),
         }
         $.ajax({
