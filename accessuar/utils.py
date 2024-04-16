@@ -282,6 +282,7 @@ def lenght_generate_texcarta(ozmks) -> list:
             if  Norma.objects.filter(data__sap_code__icontains=ozmk).exists():
                 norma = Norma.objects.filter(data__sap_code__icontains=ozmk)[:1].get()
                 if 'ARBPL' in norma.data:
+                    len_arbpl = 0
                     for ar in norma.data['ARBPL']:
                         if ar !='':
                             len_arbpl += 1
