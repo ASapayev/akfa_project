@@ -284,12 +284,12 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type="text" class="form-control "  style='width:90px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="sap_code_ruchnoy`+String(i)+`"  >           
+        <input type="text" class="form-control "  style='width:90px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="sap_code_ruchnoy`+String(i)+`"  onchange="create_kratkiy_tekst(`+String(i)+`)">           
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type="text" class="form-control "  style='width:220px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="kratkiy_text_ruchnoy`+String(i)+`"  >
+        <input type="text" class="form-control "  style='width:220px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="kratkiy_text_ruchnoy`+String(i)+`" onchange="create_kratkiy_tekst(`+String(i)+`)" >
         </div>
     </td>
     
@@ -649,17 +649,7 @@ function tip_pokritiya_selected(id,val){
     code_svet_anodirovki_vnutri.css("border-color",'#dedad9');
 
     // console.log(,'eeeee')
-    if(String(val) !=''){
-
-        
-        var sap_code_ruchnoy =$('#sap_code_ruchnoy'+String(id))
-        var kratkiy_text_ruchnoy =$('#kratkiy_text_ruchnoy'+String(id))
     
-        kratkiy_text_ruchnoy.val('')
-        sap_code_ruchnoy.val('')
-        sap_code_ruchnoy.css('display','block')
-        kratkiy_text_ruchnoy.css('display','block')
-    }
     
     var contactnost_anodirovki = $('#contactnost_anodirovki'+String(id));
     if(data_base[id]){
@@ -695,6 +685,7 @@ function tip_pokritiya_selected(id,val){
     if(String(val) == '1'){
         data_base[id] = new BasePokritiya()
         data_base[id].id = 1;
+        data_base[id].tip_pokritiya = 'Неокрашенный' 
 
         nakleyka_nt1.css('display','block');
         nakleyka_org.css('display','none');
@@ -713,6 +704,7 @@ function tip_pokritiya_selected(id,val){
     }else if(String(val) == '2'){
         data_base[id] = new BasePokritiya()
         data_base[id].id = 2;
+        data_base[id].tip_pokritiya = 'Белый'
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
             var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
             var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
@@ -748,12 +740,15 @@ function tip_pokritiya_selected(id,val){
         if(String(val) == '3'){
             data_base[id] = new BasePokritiya()
             data_base[id].id = 3;
+            data_base[id].tip_pokritiya = 'Окрашенный'
         }else if(String(val) == '4'){
             data_base[id] = new BasePokritiya()
             data_base[id].id = 4;
+            data_base[id].tip_pokritiya = 'Ламинированный'
         }else if(String(val) == '5'){
             data_base[id] = new BasePokritiya()
             data_base[id].id = 5;
+            data_base[id].tip_pokritiya = 'Сублимированный'
         } 
         
         var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;border-color:#fc2003" id='brand_k_snaruji`+String(id)+`'  onchange="create_kratkiy_tekst(`+String(id)+`)" required>
@@ -849,6 +844,7 @@ function tip_pokritiya_selected(id,val){
     }else if(String(val) == '6'){
         data_base[id] = new BasePokritiya()
         data_base[id].id = 6;
+        data_base[id].tip_pokritiya = 'Анодированный'
         const newDiv = `<select class="form-select kod_anod_snar" aria-label="" style="width: 100px; border-color:#fc2003;!important" onchange="code_svet_anodirovki_snaruji_selected(`+String(id)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(id)+`' required></select>`
         select_anod_snar.append(newDiv) 
 
@@ -890,6 +886,28 @@ function tip_pokritiya_selected(id,val){
         
         
         
+    }
+    if(String(val) !=''){
+
+        var nazvaniye_system =$('.nazvaniye_system'+id)
+        var splav =$('#splav'+id)
+        var tip_zakalyonnosti =$('#tip_zakalyonnosti'+id)
+        var combination =$('#combination'+id)
+        var base_artikul =$('#select2-artikul'+id+'-container')
+        
+        data_base[id].base_artikul = base_artikul.text()
+        data_base[id].nazvaniye_system = nazvaniye_system.text()
+        data_base[id].splav = splav.val()
+        data_base[id].tip_zakalyonnosti = tip_zakalyonnosti.val()
+        data_base[id].combination = combination.text()
+
+        var sap_code_ruchnoy =$('#sap_code_ruchnoy'+String(id))
+        var kratkiy_text_ruchnoy =$('#kratkiy_text_ruchnoy'+String(id))
+    
+        kratkiy_text_ruchnoy.val('')
+        sap_code_ruchnoy.val('')
+        sap_code_ruchnoy.css('display','block')
+        kratkiy_text_ruchnoy.css('display','block')
     }
     
     create_kratkiy_tekst(id);
@@ -964,39 +982,39 @@ function svet_dekplonka_vnutri_selected(id,val){
 
 class BasePokritiya{
     constructor(
-        full=false,
-        id=NaN,
-        nazvaniye_system=NaN,
-        base_artikul=NaN,
-        dlina=NaN,
-        tip_pokritiya=NaN,
-        splav=NaN,
-        tip_zak=NaN,
-        combination=NaN,
-        brend_kraska_sn=NaN,
-        kod_kraska_sn=NaN,
-        brend_kraska_vn=NaN,
-        kod_kraska_vn=NaN,
-        kod_dekor_sn=NaN,
-        svet_dekplonka_snaruji=NaN,
-        kod_dekor_vn=NaN,
-        svet_dekplonka_vnutri=NaN,
-        svet_lamplonka_snaruji=NaN,
-        kod_lam_sn=NaN,
-        svet_lamplonka_vnutri=NaN,
-        kod_lam_vn=NaN,
-        kod_anod_sn=NaN,
-        kod_anod_vn=NaN,
-        contactnost_anod=NaN,
-        tip_anod=NaN,
-        sposob_anod=NaN,
-        kod_nakleyki=NaN,
+        full=false,//done
+        id=NaN,//done
+        nazvaniye_system=NaN,//done
+        base_artikul=NaN,//done
+        dlina=NaN,//done
+        tip_pokritiya=NaN,//done
+        splav=NaN,//done
+        tip_zak=NaN,//done
+        combination=NaN,//done
+        brend_kraska_sn=NaN,//done
+        kod_kraska_sn=NaN,//done
+        brend_kraska_vn=NaN,//done
+        kod_kraska_vn=NaN,//done
+        kod_dekor_sn=NaN,//done
+        svet_dekplonka_snaruji=NaN,//done
+        kod_dekor_vn=NaN,//done
+        svet_dekplonka_vnutri=NaN,//done
+        svet_lamplonka_snaruji=NaN,//done
+        kod_lam_sn=NaN,//done
+        svet_lamplonka_vnutri=NaN,//done
+        kod_lam_vn=NaN,//done
+        kod_anod_sn=NaN,//done 1425
+        kod_anod_vn=NaN,//done
+        contactnost_anod=NaN,//done
+        tip_anod=NaN,//done
+        sposob_anod=NaN,//done
+        kod_nakleyki=NaN,//done
         nadpis_nakleyki=NaN,
         baza_profiley=NaN,
         gruppa_materialov=NaN,
-        kratkiy_tekst=NaN,
-        sap_code_ruchnoy=NaN,
-        kratkiy_text_ruchnoy=NaN,
+        kratkiy_tekst=NaN,//done
+        sap_code_ruchnoy=NaN,//done
+        kratkiy_text_ruchnoy=NaN,//done
         comment=NaN,
         is_termo=false
         ) {
@@ -1149,6 +1167,26 @@ function create_kratkiy_tekst(id){
         data_base[id].dlina = NaN;
     }
 
+    var sap_code_ruchnoy = $('#sap_code_ruchnoy'+String(id));
+   
+    
+    if(sap_code_ruchnoy.val()!='0' && sap_code_ruchnoy.val()!='' && sap_code_ruchnoy.val()!=null){
+        
+        data_base[id].sap_code_ruchnoy = sap_code_ruchnoy.val();
+    }else{
+        
+        data_base[id].sap_code_ruchnoy = NaN;
+    }
+    
+    var kratkiy_text_ruchnoy = $('#kratkiy_text_ruchnoy'+String(id));
+   
+    if(kratkiy_text_ruchnoy.val()!='0' && kratkiy_text_ruchnoy.val()!='' && kratkiy_text_ruchnoy.val()!=null){
+        
+        data_base[id].kratkiy_text_ruchnoy = kratkiy_text_ruchnoy.val();
+    }else{
+        
+        data_base[id].kratkiy_text_ruchnoy = NaN;
+    }
     
     
     var splav = $('#splav'+String(id));
@@ -1264,13 +1302,11 @@ function create_kratkiy_tekst(id){
                 a1=code_kraski_vnut.val() != '0'
                 a2=code_kraski_vnut.val() != undefined
                 a3=code_kraski_vnut.val() != ''
-                console.log(a1,a2,a3)
                 if((code_kraski_vnut.val() != '0') && (code_kraski_vnut.val()  != undefined)&&code_kraski_vnut.val()!=''){
-                    console.log(code_kraski_vnut.val(),'vnuttttrrrr')
+                    
                     code_kraski_vnut.css("border-color",'#dedad9');
                     data_base[id].kod_kraska_vn =code_kraski_vnut.val();
                 }else{
-                    console.log(code_kraski_vnut.val(),'sssssssss')
                     code_kraski_vnut.css("border-color",'red');
                     data_base[id].kod_kraska_vn =NaN;
                 }
@@ -1315,8 +1351,11 @@ function create_kratkiy_tekst(id){
                 var svet_lamplonka_snaruji = document.getElementById('svet_lamplonka_snaruji'+String(id))//.innerText;
                 svet_lamplonka_snaruji.style.borderColor='#dedad9';
                 data_base[id].kod_lam_sn =code_lamplonka_snaruji.innerText;;
+                var code_lamplonka_sn = $('#svet_lamplonka_snaruji'+String(id)+' option:selected').text()
+                data_base[id].svet_lamplonka_snaruji= code_lamplonka_sn;
             }else{
                 data_base[id].kod_lam_sn =NaN;
+                data_base[id].svet_lamplonka_snaruji= NaN;
             }
             
             var code_lamplonka_vnutri = document.getElementById('code_lamplonka_vnutri'+String(id));
@@ -1325,10 +1364,12 @@ function create_kratkiy_tekst(id){
             if(code_lamplonka_vnutri.innerText !=''){
                 var svet_lamplonka_vnutri = document.getElementById('svet_lamplonka_vnutri'+String(id))//.innerText;
                 svet_lamplonka_vnutri.style.borderColor='#dedad9';
-                
+                var code_lamplonka_vn = $('#svet_lamplonka_vnutri'+String(id)+' option:selected').text()
+                data_base[id].svet_lamplonka_vnutri= code_lamplonka_vn;
                 data_base[id].kod_lam_vn =code_lamplonka_vnutri.innerText;
             }else{
                 data_base[id].kod_lam_vn =NaN;
+                data_base[id].svet_lamplonka_vnutri= NaN;
             }
 
         }
@@ -1342,9 +1383,12 @@ function create_kratkiy_tekst(id){
                 var selectedText = selectedOption.textContent;
                 
                 if (selectedText!=''){
+                    var svet_dekplonka_snaruji = $('#code_dekplonka_snaruji'+id).text()
                     data_base[id].kod_dekor_sn =selectedText;
+                    data_base[id].svet_dekplonka_snaruji =svet_dekplonka_snaruji;
                 }else{
                     selectElement.style.borderColor='red';
+                    data_base[id].svet_dekplonka_snaruji =NaN;
                     data_base[id].kod_dekor_sn =NaN;
                 }
             }else{
@@ -1362,14 +1406,18 @@ function create_kratkiy_tekst(id){
                     var selectedText = selectedOption.textContent;
                     data_base[id].kod_dekor_vn =selectedText;
                     if (selectedText!=''){
+                        var svet_dekplonka_vnutri = $('#code_dekplonka_vnutri'+id).text()
+                        data_base[id].svet_dekplonka_vnutri =svet_dekplonka_vnutri;
                         data_base[id].kod_dekor_vn =selectedText;
                     }else{
                         selectElement.style.borderColor='red';
                         data_base[id].kod_dekor_vn =NaN;
+                        data_base[id].svet_dekplonka_vnutri =NaN;
                     }
                 }else{
                     selectElement.style.borderColor='red';
                     data_base[id].kod_dekor_vn =NaN;
+                    data_base[id].svet_dekplonka_vnutri =NaN;
                 }
             }
             // this.kod_dekor_sn && this.kod_dekor_vn
@@ -1409,10 +1457,16 @@ function create_kratkiy_tekst(id){
         if(spanTextbox1){
             if(spanTextbox1.innerText !='' ){
                 spanss.style.borderColor='#dedad9';
+                var tip_anodirovki = $('#tip_anodirovki'+String(id)).text()
+                var sposob_anodirovki = $('#sposob_anodirovki'+String(id)).text()
+                data_base[id].tip_anod = tip_anodirovki;
+                data_base[id].sposob_anod = sposob_anodirovki;
                 data_base[id].kod_anod_sn = spanTextbox1.innerText;
             }else{
                 spanss.style.borderColor='red';
                 data_base[id].kod_anod_sn = NaN;
+                data_base[id].tip_anod = NaN;
+                data_base[id].sposob_anod = NaN;
             }
         }
         if(combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
@@ -1450,10 +1504,12 @@ function create_kratkiy_tekst(id){
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','#2de319')
         data_base[id].full =true
+        data_base[id].kratkiy_tekst =text
     }else{
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','white')
         data_base[id].full =false
+        data_base[id].kratkiy_tekst =text
 
     }
     kratkiy_tekst.text(text)

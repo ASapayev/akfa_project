@@ -189,7 +189,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value="Aldoks">Aldoks</option>
             <option value="Стандарт">Стандарт</option>
@@ -208,7 +208,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
             <option value='Термоуплотненный алюминиевый профиль (N)'>Термоуплотненный алюминиевый профиль (N)</option>
@@ -218,7 +218,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option  value="Штука">Штука</div>
             <option  value="Килограмм">Килограмм</div>
@@ -246,7 +246,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`'  required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option vlaue="Штука">Штука</div>
             <option vlaue="Килограмм">Килограмм</div>
@@ -260,12 +260,12 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_baza`+String(i)+`'  ></input>
+        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_baza`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_alter`+String(i)+`'  ></input>
+        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
         </div>
     </td>
     <td >

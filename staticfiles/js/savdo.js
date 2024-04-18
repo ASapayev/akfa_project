@@ -826,7 +826,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value="Aldoks">Aldoks</option>
             <option value="Стандарт">Стандарт</option>
@@ -845,7 +845,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
             <option value='Otvetka 153 (oq)'>Otvetka 153 (oq)</option>
@@ -1254,7 +1254,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option  value="Штука">Штука</div>
             <option  value="Килограмм">Килограмм</div>
@@ -1282,7 +1282,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`'  required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option vlaue="Штука">Штука</div>
             <option vlaue="Килограмм">Килограмм</div>
@@ -1296,12 +1296,12 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;" id='stoimost_baza`+String(i)+`'  ></input>
+        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;" id='stoimost_baza`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none" id='stoimost_alter`+String(i)+`'  ></input>
+        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
         </div>
     </td>
     <td >
@@ -2019,12 +2019,13 @@ function tip_pokritiya_selected(id,val){
     
     if(String(val) != ''){
         var base_artikul =$('#select2-artikul'+id+'-container')
-        var nazvaniye_system =$('#nazvaniye_system'+id).text()
+        var nazvaniye_system = $('.nazvaniye_system'+id).text()
         var combination =$('#combination'+id).text()
         data_base[id].nazvaniye_system = nazvaniye_system;
         data_base[id].combination = combination;
         data_base[id].base_artikul = base_artikul.text()
-        console.log(base_artikul.text(),'arrarrarar')
+
+        console.log(base_artikul.text(),'arrarrarar',nazvaniye_system,'sd')
     }
 
 
@@ -2225,7 +2226,6 @@ function create_kratkiy_tekst(id){
     if(!data_base[id]){
         console.log('salom')
     }else{
-    var obj_name = data_base[id].constructor.name
     
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
     var combination= $('#combination'+String(id));
@@ -2568,6 +2568,7 @@ function create_kratkiy_tekst(id){
         var bazoviy_edin =$('#bazoviy_edin'+id);
         var status =$('#status'+id);
         var zavod =$('#zavod'+id);
+        // var zavod =$('#zavod_name'+id);
 
         var segment =$('#segment'+id);
         var buxgalter_tovar =$('#buxgalter_tovar'+id);
@@ -2579,7 +2580,6 @@ function create_kratkiy_tekst(id){
         
         var status_first =$('#status'+id)
         if(status_first.val()=='Активный'){
-            
             if(stoimost_alter.val()!=''){
                 data_base[id].stoimost_alter = stoimost_alter.val();
                 
@@ -2698,7 +2698,7 @@ function create_kratkiy_tekst(id){
             if(zavod.val()!=''){
                 var zavod1 =$('#zavod'+id +' option:selected').text();
                 var zavod_name =$('#zavod_name'+id)
-
+                
                 zavod_name.text(zavod.val())
                 data_base[id].zavod = zavod1;
                 data_base[id].zavod_name = zavod.val();
@@ -2824,16 +2824,22 @@ function create_kratkiy_tekst(id){
                 data_base[id].status_online =NaN;
                 status.css('border-color','red')
             }
+
+            
             if(zavod.val()!=''){
                 zavod.css('border-color','#dedad9')
+                var zavod1 =$('#zavod'+id +' option:selected').text();
                 var zavod_name =$('#zavod_name'+id)
+
                 zavod_name.text(zavod.val())
-                data_base[id].zavod = zavod.val();
+                data_base[id].zavod = zavod1;
+                data_base[id].zavod_name = zavod.val();
             }else{
                 var zavod_name =$('#zavod_name'+id)
                 zavod_name.text('')
                 data_base[id].zavod =NaN;
-                
+                data_base[id].zavod_name =NaN;
+
                 zavod.css('border-color','red')
             }
 

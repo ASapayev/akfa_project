@@ -1,37 +1,56 @@
 class BasePokritiya{
     constructor(
-        id=NaN, 
-        full=false,
-        comment=NaN,
-        pickupdate=NaN,
-        diller=NaN,
-        tip_clenta=NaN,
-        sena_c_nds=NaN,
-        sena_bez_nds=NaN,
-        artikul=NaN,
-        sap_code=NaN,
-        krat=NaN,
-        online_id=NaN,
-        nazvaniye_ruchnoy=NaN,
-        svet_product=NaN,
-        group_zakup=NaN,
-        group=NaN,
-        tip=NaN,
-        bazoviy_edin=NaN,
-        status_online=NaN,
-        zavod=NaN,
-        kod_svet_zames=NaN,
-        dlina=NaN,
-        kod_lam_sn=NaN,
-        kod_lam_vn=NaN,
-        kod_nakleyki=NaN,
-        kod_svet_rezini=NaN,
-        is_iklyuch=false,
+        id=NaN,//done 
+        full=false,//done
+        nazvaniye_sistem=NaN,
+        camera =NaN,
+        base_artikul=NaN,
+        kod_k_component=NaN,
+        tip_pokritiya =NaN,
+        kod_svet_zames=NaN,//done
+        dlina=NaN,//done
+        svet_lamplonka_snaruji=NaN,
+        kod_lam_sn=NaN,//done
+        svet_lamplonka_vnutri=NaN,
+        kod_lam_vn=NaN,//done
+        kod_svet_rezini=NaN,//done
+        svet_rezin =NaN,
+        kod_nakleyki=NaN,//done
+        nadpis_nakleyki=NaN,
+        gruppa_materialov=NaN,
+        kratkiy_tekst=NaN,
+        sap_code=NaN,//done
+        krat=NaN,//done
+        comment=NaN,//done
+        pickupdate=NaN,//done
+        sena_c_nds=NaN,//done
+        sena_bez_nds=NaN,//done
+        online_id=NaN,//done
+        nazvaniye_ruchnoy=NaN,//done
+        svet_product=NaN,//done
+        group_zakup=NaN,//done
+        group=NaN,//done
+        tip=NaN,//done
+        segment=NaN,
+        buxgalter_tovar=NaN,
+        buxgalter_uchot=NaN,
+        bazoviy_edin=NaN,//done
+        alter_edin=NaN,
+        stoimost_baza=NaN,
+        stoimost_alter=NaN,
+        status_online=NaN,//done
+        zavod_name=NaN,//done
+        diller=NaN,//done
+        tip_clenta=NaN,//done
+        artikul=NaN,//done
+
+        is_iklyuch=false,//done
         is_active=false
         ) {
       
       this.id = id;
       this.full = full;
+      this.base_artikul = base_artikul;
       this.artikul = artikul;
       this.dlina = dlina;
       this.diller = diller;
@@ -41,6 +60,7 @@ class BasePokritiya{
       this.kod_nakleyki = kod_nakleyki;
       this.kod_svet_rezini = kod_svet_rezini;
       this.kod_svet_zames = kod_svet_zames;
+      this.gruppa_materialov = gruppa_materialov;
       this.comment = comment;
       this.pickupdate = pickupdate;
       this.sena_c_nds = sena_c_nds;
@@ -59,7 +79,7 @@ class BasePokritiya{
       this.tip = tip;
       this.bazoviy_edin = bazoviy_edin;
       this.status_online = status_online;
-      this.zavod = zavod;
+      this.zavod_name = zavod_name;
     }
     get_kratkiy_tekst(){
         switch(this.id){
@@ -543,7 +563,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value="Aldoks">Aldoks</option>
             <option value="Стандарт">Стандарт</option>
@@ -562,7 +582,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
             <option value='Otvetka 153 (oq)'>Otvetka 153 (oq)</option>
@@ -971,7 +991,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option  value="Штука">Штука</div>
             <option  value="Килограмм">Килограмм</div>
@@ -999,7 +1019,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`'  required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option vlaue="Штука">Штука</div>
             <option vlaue="Килограмм">Килограмм</div>
@@ -1013,12 +1033,12 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_baza`+String(i)+`'  ></input>
+        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_baza`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_alter`+String(i)+`'  ></input>
+        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
         </div>
     </td>
     <td >
@@ -1524,6 +1544,10 @@ function tip_pokritiya_selected(id,val){
         }
     }
     
+    if(String(val) != ''){
+        var base_artikul =$('#select2-artikul'+id+'-container')
+        data_base[id].base_artikul = base_artikul.text()
+    }
 
 
     if(is_active.text()=='Активный' && String(val) != ''){
@@ -1709,7 +1733,6 @@ function create_kratkiy_tekst(id){
     if(!data_base[id]){
         console.log('salom')
     }else{
-    var obj_name = data_base[id].constructor.name
     
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
     var combination= $('#combination'+String(id));

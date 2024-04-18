@@ -920,7 +920,7 @@ function tip_pokritiya_selected(id,val){
     }
     
     if(String(val) !=''){
-        var nazvaniye_system =$('#nazvaniye_system'+id)
+        var nazvaniye_system =$('.nazvaniye_system'+id)
         var splav =$('#splav'+id)
         var tip_zakalyonnosti =$('#tip_zakalyonnosti'+id)
         var combination =$('#combination'+id)
@@ -1157,8 +1157,7 @@ class BasePokritiya{
                     return 'XXXXXXXX'
                 }
                 }else{
-                    console.log(this.splav,this.tip_zak,this.dlina,this.brend_kraska_sn,this.brend_kraska_vn,this.kod_kraska_sn,this.kod_kraska_vn,this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes)
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
+                   if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
                         return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki
                     }else{
                         return 'XXXXXXXX'
