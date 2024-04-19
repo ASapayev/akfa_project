@@ -2025,7 +2025,6 @@ function tip_pokritiya_selected(id,val){
         data_base[id].combination = combination;
         data_base[id].base_artikul = base_artikul.text()
 
-        console.log(base_artikul.text(),'arrarrarar',nazvaniye_system,'sd')
     }
 
 
@@ -2420,8 +2419,8 @@ function create_kratkiy_tekst(id){
                 var svet_lamplonka_vn = $('#svet_lamplonka_vnutri'+String(id)+' option:selected').text()
                 data_base[id].svet_lamplonka_vnutri =svet_lamplonka_vn;
             }else{
-                data_base[id].svet_lamplonka_vnutri =NaN;
-                data_base[id].kod_lam_vn =NaN;
+                data_base[id].svet_lamplonka_vnutri = NaN;
+                data_base[id].kod_lam_vn = NaN;
             }
 
         }
