@@ -147,7 +147,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1" style='width:150px;'>
-            <span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
+            <span id ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
         </div>
     </td>
     <td >
@@ -467,7 +467,7 @@ for (let i = 1; i <= 6; i++) {
     
     $("#artikul"+String(i)).on("select2:select", function (e) { 
         var select_val = $(e.currentTarget).val();
-        var nazvaniye_system =$('.nazvaniye_system'+String(i));
+        var nazvaniye_system =$('#nazvaniye_system'+String(i));
         var camera = $('#camera'+String(i));
         var kod_komponent = $('#kod_komponent'+String(i));
         var artikul_pvc = $('#artikul_pvc'+String(i));
@@ -531,7 +531,7 @@ function artukil_clear(id){
 
 function clear_artikul(id){
     var table_tr =$('#table_tr'+id);
-    $('.nazvaniye_system'+id).text('');
+    $('#nazvaniye_system'+id).text('');
     var tip_pokritiya = $('#tip_pokritiya'+String(id));
     tip_pokritiya.val('0').change();
     tip_pokritiya.attr("disabled",true);
@@ -774,7 +774,7 @@ function tip_pokritiya_selected(id,val){
     if(String(val) != ''){
         var base_artikul =$('#select2-artikul'+id+'-container')
         data_base[id].base_artikul = base_artikul.text()
-        var nazvaniye_system = $('.nazvaniye_system'+id).text()
+        var nazvaniye_system = $('#nazvaniye_system'+id).text()
         var camera =$('#camera'+id).text()
         var kod_komponent =$('#kod_komponent'+id).text()
         data_base[id].nazvaniye_system = nazvaniye_system;
