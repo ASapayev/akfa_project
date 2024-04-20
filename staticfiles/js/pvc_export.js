@@ -23,7 +23,7 @@ class BasePokritiya{
         krat=NaN,//done
         sena_export=NaN,//done
         comment=NaN,//done
-        artikul=NaN,
+        artikul=NaN,//done
         is_iklyuch=false
         ) {
       
