@@ -1,15 +1,15 @@
 class BasePokritiya{
     constructor(
         id=NaN, //done
-        sapcode=NaN,
-        nazvaniye_tovarov=NaN,
+        sapcode=NaN,//done
+        nazvaniye_tovarov=NaN,//done
         polnoye_nazvaniye=NaN,//done
         sena_materiala=NaN,//done
         bazoviy_edinitsa=NaN,//done
-        koefitsiyent=NaN,
-        alternativ_edin=NaN,
-        gruppa_materialov=NaN,
-        comment=NaN,
+        koefitsiyent=NaN,//done
+        alternativ_edin=NaN,//done
+        gruppa_materialov=NaN,//done
+        comment=NaN,//done
         full=false//done
         ) {
       
