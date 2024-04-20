@@ -193,7 +193,7 @@
   <script>
         function handlePaste(event) {
     // Check if Ctrl+V is pressed
-          if (event.ctrlKey && event.key === 'v') {
+          if (event.ctrlKey && event.key === 'v' || event.ctrlKey && event.key === 'V' || event.ctrlKey && event.key === 'м' || event.ctrlKey && event.key === 'М') {
               // Get the clipboard data
               navigator.clipboard.readText().then(clipboardData => {
                   // Split clipboard data into rows
