@@ -576,6 +576,8 @@ def create_norma_post(request):
                 name_of_type = val
             else:
                 if val[0] != '':
+                    val[4] = val[4].reaplace(',','.')
+                    val[5]= val[5].reaplace(',','.')
                     new_data.append(val)
         if len(new_data) > 0 and name_of_type !='':
             df = pd.DataFrame(np.array(new_data),columns=['SAP CODE','KRATKIY TEXT','BEI','COUNT','FACT','PLAN'])
