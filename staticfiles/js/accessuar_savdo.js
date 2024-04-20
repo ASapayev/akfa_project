@@ -1,25 +1,25 @@
 class BasePokritiya{
     constructor(
-        full=false,
-        id=NaN, 
-        pickupdate=NaN,
-        sena_za_bei=NaN,
-        online_id=NaN,
-        nazvaniye_ruchnoy=NaN,
-        svet_product=NaN,
-        group_zakup=NaN,
-        group=NaN,
-        tip=NaN,
-        segment=NaN,
-        buxgalter_tovar=NaN,
-        buxgalter_uchot=NaN,
-        bazoviy_edin=NaN,
-        alter_edin=NaN,
-        stoimost_baza=NaN,
-        stoimost_alter=NaN,
-        status_online=NaN,
-        zavod=NaN,
-        tip_clenta=NaN,
+        full=false,//done
+        id=NaN, //done
+        pickupdate=NaN,//done
+        sena_za_bei=NaN,//done
+        online_id=NaN,//done
+        nazvaniye_ruchnoy=NaN,//done
+        svet_product=NaN,//done
+        group_zakup=NaN,//done
+        group=NaN,//done
+        tip=NaN,//done
+        segment=NaN,//done
+        buxgalter_tovar=NaN,//done
+        buxgalter_uchot=NaN,//done
+        bazoviy_edin=NaN,//done
+        alter_edin=NaN,//done
+        stoimost_baza=NaN,//done
+        stoimost_alter=NaN,//done
+        status_online=NaN,//done
+        zavod=NaN,//done
+        tip_clenta=NaN,//done
         is_active=false,
         ) {
       
@@ -685,6 +685,47 @@ function create_kratkiy_tekst(id){
         
         
         var is_active =$('#is_active'+id)
+        var segment =$('#segment'+id)
+        var buxgalter_tovar =$('#buxgalter_tovar'+id)
+        var buxgalter_uchot =$('#buxgalter_uchot'+id)
+        var alter_edin =$('#alter_edin'+id)
+        var stoimost_baza =$('#stoimost_baza'+id)
+        var stoimost_alter =$('#stoimost_alter'+id)
+
+        if(stoimost_alter.val()!=''){
+            data_base[id].stoimost_alter = stoimost_alter.val();
+        }else{
+            data_base[id].stoimost_alter = NaN;
+        }
+        if(stoimost_baza.val()!=''){
+            data_base[id].stoimost_baza = stoimost_baza.val();
+        }else{
+            data_base[id].stoimost_baza = NaN;
+        }
+        if(alter_edin.val()!=''){
+            data_base[id].alter_edin = alter_edin.val();
+        }else{
+            data_base[id].alter_edin = NaN;
+        }
+        if(buxgalter_uchot.val()!=''){
+            data_base[id].buxgalter_uchot = buxgalter_uchot.val();
+        }else{
+            data_base[id].buxgalter_uchot = NaN;
+        }
+        if(buxgalter_tovar.val()!=''){
+            data_base[id].buxgalter_tovar = buxgalter_tovar.val();
+        }else{
+            data_base[id].buxgalter_tovar = NaN;
+        }
+        if(segment.val()!=''){
+            data_base[id].segment = segment.val();
+        }else{
+            data_base[id].segment = NaN;
+        }
+
+
+
+
         
         if(is_active.text()=='Активный'){
 

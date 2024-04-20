@@ -1,19 +1,19 @@
 class BasePokritiya{
     constructor(
-        full=false,
-        id=NaN, 
-        sapcode=NaN,
-        nazvaniye_tovarov=NaN,
-        polnoye_nazvaniye=NaN,
-        sena_materiala=NaN,
-        bazoviy_edinitsa=NaN,
-        goods_group=NaN,
-        tex_name=NaN,
-        koefitsiyent=NaN,
-        alternativ_edin=NaN,
-        id_klaes=NaN,
-        gruppa_materialov=NaN,
-        comment=NaN,
+        full=false,//done
+        id=NaN, //done
+        sapcode=NaN,//done
+        nazvaniye_tovarov=NaN,//done
+        polnoye_nazvaniye=NaN,//done
+        sena_materiala=NaN,//done
+        bazoviy_edinitsa=NaN,//done
+        goods_group=NaN,//done
+        tex_name=NaN,//done
+        koefitsiyent=NaN,//done
+        alternativ_edin=NaN,//done
+        id_klaes=NaN,//done
+        gruppa_materialov=NaN,//done
+        comment=NaN,//done
         
         ) {
       
@@ -213,20 +213,66 @@ function create_kratkiy_tekst(id){
     var sena_materiala =$('#sena_materiala'+id);
     var bazoviy_edinitsa =$('#bazoviy_edinitsa'+id);
     var goods_group =$('#goods_group'+id);
+
+    var sapcode =$('#sapcode'+id);
+    var nazvaniye_tovarov =$('#nazvaniye_tovarov'+id);
+    var koefitsiyent =$('#koefitsiyent'+id);
+    var alternativ_edin =$('#alternativ_edin'+id);
+    var id_klaes =$('#id_klaes'+id);
+    var gruppa_materialov =$('#gruppa_materialov'+id);
+    var comment =$('#comment'+id);
     
    
         
         
+    if(comment.val()!=''){
+        data_base[id].comment = comment.val();
+    }else{
+        data_base[id].comment =NaN;
+    }
+    if(gruppa_materialov.val()!=''){
+        data_base[id].gruppa_materialov = gruppa_materialov.val();
+    }else{
+        data_base[id].gruppa_materialov =NaN;
+    }
+    if(id_klaes.val()!=''){
+        data_base[id].id_klaes = id_klaes.val();
+    }else{
+        data_base[id].id_klaes =NaN;
+    }
+    if(alternativ_edin.val()!=''){
+        data_base[id].alternativ_edin = alternativ_edin.val();
+    }else{
+        data_base[id].alternativ_edin =NaN;
+    }
+    if(koefitsiyent.val()!=''){
+        data_base[id].koefitsiyent = koefitsiyent.val();
+    }else{
+        data_base[id].koefitsiyent =NaN;
+    }
+    if(nazvaniye_tovarov.val()!=''){
+        data_base[id].nazvaniye_tovarov = nazvaniye_tovarov.val();
+    }else{
+        data_base[id].nazvaniye_tovarov =NaN;
+    }
+    if(sapcode.val()!=''){
+        data_base[id].sapcode = sapcode.val();
+    }else{
+        data_base[id].sapcode =NaN;
+    }
+
+
+
     var polnoye_nazvaniye =$('#polnoye_nazvaniye'+id)
+
     if(polnoye_nazvaniye.val()!=''){
         polnoye_nazvaniye.css('border-color','#dedad9')
         data_base[id].polnoye_nazvaniye = polnoye_nazvaniye.val();
     }else{
         polnoye_nazvaniye.css('border-color','red')
         data_base[id].polnoye_nazvaniye =NaN;
-        
-        
     }
+
     var sena_materiala =$('#sena_materiala'+id)
     if(sena_materiala.val()!=''){
         sena_materiala.css('border-color','#dedad9')
@@ -249,8 +295,10 @@ function create_kratkiy_tekst(id){
     }
     var goods_group =$('#goods_group'+id)
     if(goods_group.val()!=''){
+        var goods_group_sel =$('#goods_group'+id +' option:selected').text()
         goods_group.css('border-color','#dedad9')
-        data_base[id].goods_group = goods_group.val();
+        data_base[id].goods_group = goods_group_sel;
+        data_base[id].tex_name = goods_group.val();
         var tex_name =$('#tex_name'+id);
         tex_name.text(goods_group.val())
     }else{
@@ -258,6 +306,7 @@ function create_kratkiy_tekst(id){
         tex_name.text('')
         goods_group.css('border-color','red')
         data_base[id].goods_group =NaN;
+        data_base[id].tex_name =NaN;
         
         
     }

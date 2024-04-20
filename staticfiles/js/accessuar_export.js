@@ -1,16 +1,16 @@
 class BasePokritiya{
     constructor(
-        id=NaN, 
+        id=NaN, //done
         sapcode=NaN,
         nazvaniye_tovarov=NaN,
-        polnoye_nazvaniye=NaN,
-        sena_materiala=NaN,
-        bazoviy_edinitsa=NaN,
+        polnoye_nazvaniye=NaN,//done
+        sena_materiala=NaN,//done
+        bazoviy_edinitsa=NaN,//done
         koefitsiyent=NaN,
         alternativ_edin=NaN,
         gruppa_materialov=NaN,
         comment=NaN,
-        full=false
+        full=false//done
         ) {
       
         this.id = id;
@@ -28,7 +28,6 @@ class BasePokritiya{
 
     }
     get_kratkiy_tekst(){
-            console.log(this.polnoye_nazvaniye , this.sena_materiala , this.bazoviy_edinitsa)
                 if (this.polnoye_nazvaniye && this.sena_materiala && this.bazoviy_edinitsa){
                     return {'text':'','accept':true}
                 }else{
@@ -180,20 +179,56 @@ function create_kratkiy_tekst(id){
     
     console.log(data_base[id])
         
-    // var sapcode =$('#sapcode'+id);
-    // var nazvaniye_tovarov =$('#nazvaniye_tovarov'+id);
+    var sapcode =$('#sapcode'+id);
+    var nazvaniye_tovarov =$('#nazvaniye_tovarov'+id);
 
     var polnoye_nazvaniye =$('#polnoye_nazvaniye'+id);
     var sena_materiala =$('#sena_materiala'+id);
     var bazoviy_edinitsa =$('#bazoviy_edinitsa'+id);
     
 
-    // var koefitsiyent =$('#koefitsiyent'+id);
-    // var alternativ_edin =$('#alternativ_edin'+id);
-    // var id_klaes =$('#id_klaes'+id);
-    // var gruppa_materialov =$('#gruppa_materialov'+id);
-    // var comment =$('#comment'+id);
-        
+    var koefitsiyent =$('#koefitsiyent'+id);
+    var alternativ_edin =$('#alternativ_edin'+id);
+    var id_klaes =$('#id_klaes'+id);
+    var gruppa_materialov =$('#gruppa_materialov'+id);
+    var comment =$('#comment'+id);
+    
+    if(gruppa_materialov.val()!=''){
+        data_base[id].gruppa_materialov = gruppa_materialov.val();
+    }else{
+        data_base[id].gruppa_materialov =NaN;
+    }
+    if(id_klaes.val()!=''){
+        data_base[id].id_klaes = id_klaes.val();
+    }else{
+        data_base[id].id_klaes =NaN;
+    }
+    
+    if(alternativ_edin.val()!=''){
+        data_base[id].alternativ_edin = alternativ_edin.val();
+    }else{
+        data_base[id].alternativ_edin =NaN;
+    }
+    if(koefitsiyent.val()!=''){
+        data_base[id].koefitsiyent = koefitsiyent.val();
+    }else{
+        data_base[id].koefitsiyent =NaN;
+    }
+    if(nazvaniye_tovarov.val()!=''){
+        data_base[id].nazvaniye_tovarov = nazvaniye_tovarov.val();
+    }else{
+        data_base[id].nazvaniye_tovarov =NaN;
+    }
+    if(sapcode.val()!=''){
+        data_base[id].sapcode = sapcode.val();
+    }else{
+        data_base[id].sapcode =NaN;
+    }
+    if(comment.val()!=''){
+        data_base[id].comment = comment.val();
+    }else{
+        data_base[id].comment =NaN;
+    }
         
     var polnoye_nazvaniye =$('#polnoye_nazvaniye'+id)
     if(polnoye_nazvaniye.val()!=''){

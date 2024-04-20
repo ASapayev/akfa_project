@@ -72,10 +72,20 @@
     function ready_all(){
         var all_correct = true;
         var data_empty = false
+        var dattt_len  = Object.keys(data_base).length
+        console.log(dattt_len,'ddddddddsaf')
+        console.log(data_base,'base')
+        for(let k =1; k<=dattt_len; k++){
+            if(data_base[k].polnoye_nazvaniye && data_base[k].sena_materiala && data_base[k].bazoviy_edinitsa){
+                continue;
+            }else{
+                delete data_base[k]
+            }
+        }
         if (Object.keys(data_base).length === 0) {
             data_empty = true
         }
-        console.log(data_base)
+        console.log(data_base,'dddd')
         for (var key in data_base) {
             if (data_base.hasOwnProperty(key)) { 
                 var value = data_base[key];
