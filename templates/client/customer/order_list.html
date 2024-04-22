@@ -38,7 +38,7 @@
                                         
                                     </td>
                                     <td>{{order.created_at|date:"d-m-Y H:i"}}</td>
-                                    <td><a href="" class="btn btn-warning btn-sm" style="display: none;"><i class="bi bi-pen-fill"></i> Edit</a><a href="{%url 'customer_order_detail' order.id %}" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> Detail</a></td>
+                                    <td><a href="{%url 'order_update' order.id %}" class="btn btn-warning btn-sm" ><i class="bi bi-pen-fill"></i> Edit</a><a href="{%url 'customer_order_detail' order.id %}" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> Detail</a></td>
                                 </tr>
                             {%endfor%}
                         </tbody>
