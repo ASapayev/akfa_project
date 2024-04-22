@@ -1327,9 +1327,9 @@ for (var key in jsonData) {
   
   
   
-  var table = $('#table-artikul')
-  
-  table.append(text)
+var table = $('#table-artikul')
+
+table.append(text)
   
 
 i=0
@@ -1425,6 +1425,12 @@ for (var key in jsonData) {
 
 data_base = {}
 
+for(var key1 in jsonData){
+    data_base[key1] = new BasePokritiya()
+    for(var key2 in jsonData[key1]){
+        data_base[key1][key2] = jsonData[key1][key2]
+    }
+}
 
 function get_nakleyka(i){
     $('.kod_nakleyki'+i).select2({

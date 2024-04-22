@@ -42,6 +42,13 @@ data_base = {}
 
 var jsonData = JSON.parse(document.getElementById('items-data').textContent).data;
 
+for(var key1 in jsonData){
+    data_base[key1] = new BasePokritiya()
+    for(var key2 in jsonData[key1]){
+        data_base[key1][key2] = jsonData[key1][key2]
+    }
+}
+
 i = 0
 var order_type =$('#order_type').text()
 for (var key in jsonData) {

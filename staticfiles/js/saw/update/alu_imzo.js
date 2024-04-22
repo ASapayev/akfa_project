@@ -607,6 +607,13 @@ for (var key in jsonData) {
 
 data_base = {}
 
+for(var key1 in jsonData){
+    data_base[key1] = new BasePokritiya()
+    for(var key2 in jsonData[key1]){
+        data_base[key1][key2] = jsonData[key1][key2]
+    }
+}
+
 
 
 function get_nakleyka(i){
@@ -700,7 +707,6 @@ function clear_artikul(id){
     dlina.css("border-color",'#dedad9');
 
     var combination= document.getElementById('combination'+String(id));
-    console.log(combination,'dddd',combination.innerText)
     combination.innerText='';
     // combination.text("");
 
@@ -1152,7 +1158,6 @@ function code_svet_anodirovki_snaruji_selected(id,val){
     
         var tip_anodirovki =$('#tip_anodirovki'+String(id));
         var sposob_anodirovki = $('#sposob_anodirovki'+String(id));
-        console.log(e.params.data.text);
         tip_anodirovki.text(e.params.data.tip_anod);
         sposob_anodirovki.text(e.params.data.sposob_anod);
 
@@ -1201,7 +1206,6 @@ function svet_dekplonka_vnutri_selected(id,val){
     code_dekplonka_vnutri.text(String(val));
     var selectElement = document.getElementById('svet_dekplonka_vnutri'+String(id));
     selectElement.style.borderColor='red';
-    console.log(selectElement)
     create_kratkiy_tekst(id);
 }
 
