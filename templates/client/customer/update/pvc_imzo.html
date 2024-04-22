@@ -1,0 +1,177 @@
+{% extends 'client/base.html'%}
+{%load static%}
+{%block content%}
+
+         
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название системы</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Количество камер</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код к компоненту системы</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Тип покрытия</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Названия цвет основы/Замес</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код цвета основы/Замес</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Длина (мм)</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цвет лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код лам пленки снаружи</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цвет лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код лам пленки внутри</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цвет резины</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код цвет резины</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Надпись наклейки</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код наклейки</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">GOODS_GROUP</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Tex_name</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Место для комментариев</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Клайс ID</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            
+
+            <section class="explore-section " id="section_2">
+                <div class="container">
+
+                        <div class="col-12 text-center">
+                            <h3 class="mb-4">Чат </h3>
+                        </div>
+
+                   
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="col-md-12 p-2" style="background-color: #fafbfc;{%if status == 1 %}display:none;{%endif%}">
+                                        {%for order_detail in order_details %}
+                                            {%if request.user == order_detail.owner %}
+                                                {%if status != 1 %}
+                                                <div class="bg-white">
+                                                    <div class="d-flex justify-content-start col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
+                                                    {%if order_detail.message != '' %}
+                                                        <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
+                                                            <p>{{order_detail.message}}</p>
+                                                        </div>
+                                                    {%endif%}
+
+                                                    {%if order_detail.file %}
+                                                    <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
+                                                        <p ><a class="link-opacity-100" href="{{order_detail.file.url}}"><i class="bi bi-file-earmark-arrow-down"></i> File link</a></p>
+                                                    </div>
+                                                    {%endif%}
+                                                </div>
+                                                    <hr>
+                                                {%endif%}
+                                            {%else%}
+                                                    {%if status != 1 %}
+                                                    <div class="bg-white">
+                                                        <div class="d-flex justify-content-end col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
+                                                        {%if order_detail.message != '' %}
+                                                            <div class="d-flex justify-content-end col-md-12 pl-5" style="color:rgba(0,0,0,.6);">
+                                                                <p style="padding-left: 40%;">{{order_detail.message}}</p>
+                                                            </div>
+                                                        {%endif%}
+
+                                                        {%if order_detail.file %}
+                                                        <div class="d-flex justify-content-end col-md-12" style="color:rgba(0,0,0,.6);">
+                                                            <p ><a class="link-opacity-100" href="{{order_detail.file.url}}"><i class="bi bi-file-earmark-arrow-down"></i> File link</a></p>
+                                                        </div>
+                                                        {%endif%}
+                                                    </div>
+                                                        <hr>
+                                                    {%endif%}
+
+                                            {%endif%}
+
+                                                
+
+                                        {% endfor %}
+                                    </div>
+
+                                    <form class="forms-sample " method="POST" enctype="multipart/form-data">
+                                        {%csrf_token%}
+                                    <div class="form-group col-2" >
+                                        <label for="exampleSelectGender">Статус : {{status_name}}</label>
+                                        {%if status == '10084' or status == '10083'%}
+                                            <select class="form-control" id="exampleSelectGender" name="status" onchange="status_change(this.value)">
+                                                <option value="0" ></option>
+                                                <option value="10082" style="color:#d9534f" >Отменено</option>
+                                                {%if status == '10084'%}
+                                                    <option value="10085" style="color:#d9534f" >Исправлено</option>
+                                                    {%endif%}
+                                                {%if status == '10083'%}
+                                                    <option value="10063" style="color: #f0ad4e;" >Работа ведется</option>
+                                                {%endif%}
+                                            </select>
+                                        {%endif%}
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label>Загрузка файла</label>
+                                        <div class="input-group col-xs-12">
+                                            
+                                            <span class="input-group-append">
+                                                <input type="file" name="file" class="file-upload-browse btn btn-primary" value="Upload" >
+                                                
+                                        </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group col-8">
+                                        <label for="exampleTextarea1" id="examplelabel">Сообщение</label>
+                                        <textarea class="form-control " id="exampleTextarea1" name="message" rows="4"></textarea>
+                                        </div>
+                                    <button type="submit" class="btn btn-primary mr-2">Отправить</button>
+                                    <button class="btn btn-dark">Отменить</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+           
+        </main>
+        <div style="display: none;">
+                {{ data|json_script:"items-data" }}
+                <h1 id="order_type">{{order_type}}</h1>
+        </div>
+{%endblock%}
+
+{%block java_script%}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script> 
+
+<link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
+<script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
+<script  type="text/javascript" src="{% static 'js/saw/update/pvc_imzo.js'%}"></script>
+
+<script>
+
+
+
+</script>
+{%endblock%}
+
+

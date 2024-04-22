@@ -94,13 +94,6 @@ def moderator_check(request,id):
             'order_details':order_details
         }
         return render(request,'client/moderator/order_detail.html',context)
-
-
-@login_required(login_url='/accounts/login/')
-@customer_only
-def order_update(request,id):
-    return render(request,'client/customer/update.html')
-
 STATUSES ={
     '1':'Открыто',
     '4':'Пере-открыто',
@@ -113,6 +106,45 @@ STATUSES ={
     '10063':'Работа ведется'
 
 }
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def order_update(request,id):
+    if request.method =='POST':
+        data =request.POST.copy()
+        owner =request.user
+        order = Order.objects.get(id=id)
+        order.status = data.get('status',1)
+        order.save()
+        data['owner'] = owner
+        data['order'] = order
+        form = OrderFileForm(data,request.FILES)
+        if form.is_valid():
+            form.save()
+            order_details = OrderDetail.objects.filter(order = order)
+            context ={
+                'status_name':STATUSES[str(order.status)],
+                'status':str(order.status),
+                'order_type':order.order_type,
+                'data':order.data,
+                'order_details':order_details
+            }
+            return render(request,'client/customer/update.html',context)
+        else:
+            return JsonResponse({'form':form.errors})
+    else:
+        order = Order.objects.get(id = id)
+        order_details = OrderDetail.objects.filter(order = order)
+        context ={
+            'status_name':STATUSES[str(order.status)],
+            'status':str(order.status),
+            'order_type':order.order_type,
+            'data':order.data,
+            'order_details':order_details
+        }
+    return render(request,f'client/customer/update/{order.order_type}.html',context)
+
+
 
 @login_required(login_url='/accounts/login/')
 @customer_only
