@@ -175,8 +175,18 @@ class BasePokritiya{
     }
   }
 
+
 text =""
 var jsonData = JSON.parse(document.getElementById('items-data').textContent).data;
+
+data_base = {}
+
+for(var key1 in jsonData){
+    data_base[key1] = new BasePokritiya()
+    for(var key2 in jsonData[key1]){
+        data_base[key1][key2] = jsonData[key1][key2]
+    }
+}
 
 i = 0
 var order_type =$('#order_type').text()
@@ -185,6 +195,7 @@ var order_type =$('#order_type').text()
 
 for (var key in jsonData) {
     i += 1
+
     text +=`
     <tr id='table_tr` +String(i)+`' >
                                 
@@ -195,7 +206,8 @@ for (var key in jsonData) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-            <select class=" form-control" style="background-color:#ddebf7; width: 140px; font-size:10px" id="artikul`+String(i)+`"  onchange='clear_artikul(`+String(i)+`)'></select>
+            <select class=" form-control" style="background-color:#ddebf7; width: 140px; font-size:10px" id="artikul`+String(i)+`"  onchange='clear_artikul(`+String(i)+`)'>
+            </select>
         </div>
     </td>
     
@@ -547,76 +559,162 @@ for (var key in jsonData) {
             params: {
                 data: data
             }
+            });
         });
-    });
-    
-    
-    $("#artikul"+String(i)).on("select2:select", function (e) { 
-    var select_val = $(e.currentTarget).val();
-    var nazvaniye_system =$('.nazvaniye_system'+String(i));
-    var combination = $('#combination'+String(i));
-    var tip_pokritiya = $('#tip_pokritiya'+String(i));
-    // tip_pokritiya.val('').change();
-    tip_pokritiya.attr("disabled",false);
-    nazvaniye_system.text(e.params.data.system);
-    combination.text(e.params.data.combination)
+        // artikulSelect.val('RLC58.V0001').trigger('change');
+    console.log(artikulSelect,'second333333')
+    // console.log(jsonData[i]['base_artikul'],'pppasdasd')
+    // // console.log(i)
+    // console.log($("#artikul"+String(i)))
+    // console.log($("#artikul"+String(i)).val())
+    // console.log($("#artikul"+String(i)).length)
 
-    var nakleyka_kode = e.params.data.code_nakleyka
+    // $("#artikul"+String(i)).val('RLC58.V0001').trigger("change");
+    // $('#artikul'+i).val('RLC58.V0001').trigger('change');
+    // $("#artikul"+String(i)).on("select2:select", function (e) { 
+    // // var select_val = $(e.currentTarget).val();
+    //     console.log(e.currentTarget,'terget')
+    // var nazvaniye_system =$('.nazvaniye_system'+String(i));
+    // var combination = $('#combination'+String(i));
+    // var tip_pokritiya = $('#tip_pokritiya'+String(i));
+    // // tip_pokritiya.val('').change();
+    // tip_pokritiya.attr("disabled",false);
+    // if(e.params){
+    //     nazvaniye_system.text(e.params.data.system);
+    //     combination.text(e.params.data.combination)
     
-    $('.select2-selection__rendered').css('font-size', '15px');
+    //     var nakleyka_kode = e.params.data.code_nakleyka
+    // }else{
+    //     console.log(e)
+    //     nazvaniye_system.text(e);
+    //     combination.text(e)
     
-    
-    
-    var nakleyka_nt1 = $('#nakleyka_nt'+String(i))
-    var nakleyka_org =$('#nakleyka_org'+String(i));
-    var nakleyka_select = $('#nakleyka_select'+String(i));
+    //     var nakleyka_kode = e
 
-    var length = $('#length'+String(i));
-    length.attr('required',true)
-    var splav = $('#splav'+String(i));
-    splav.attr('required',true)
-    var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(i));
-    tip_zakalyonnosti.attr('required',true)
+    // }
+    
+    // $('.select2-selection__rendered').css('font-size', '15px');
+    
+    
+    
+    // var nakleyka_nt1 = $('#nakleyka_nt'+String(i))
+    // var nakleyka_org =$('#nakleyka_org'+String(i));
+    // var nakleyka_select = $('#nakleyka_select'+String(i));
 
-    nakleyka_org.text("")
-    if (nakleyka_kode =='NT1'){
-        nakleyka_nt1.css('display','block')
-        nakleyka_org.css('display','none')
-        nakleyka_select.css('display','none')
-    }
-    else if( nakleyka_kode !=''){
-        nakleyka_org.text(nakleyka_kode)
-        nakleyka_nt1.css('display','none')
-        nakleyka_org.css('display','block')
-        nakleyka_select.css('display','none')
-    }        
-    else{
-        nakleyka_nt1.css('display','none')
-        nakleyka_org.css('display','none')
-        nakleyka_select.css('display','block')
-        nakleyka_select.attr('required',true)
-        get_nakleyka(String(i))
-    }
+    // var length = $('#length'+String(i));
+    // length.attr('required',true)
+    // var splav = $('#splav'+String(i));
+    // splav.attr('required',true)
+    // var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(i));
+    // tip_zakalyonnosti.attr('required',true)
+
+    // nakleyka_org.text("")
+    // if (nakleyka_kode =='NT1'){
+    //     nakleyka_nt1.css('display','block')
+    //     nakleyka_org.css('display','none')
+    //     nakleyka_select.css('display','none')
+    // }
+    // else if( nakleyka_kode !=''){
+    //     nakleyka_org.text(nakleyka_kode)
+    //     nakleyka_nt1.css('display','none')
+    //     nakleyka_org.css('display','block')
+    //     nakleyka_select.css('display','none')
+    // }        
+    // else{
+    //     nakleyka_nt1.css('display','none')
+    //     nakleyka_org.css('display','none')
+    //     nakleyka_select.css('display','block')
+    //     nakleyka_select.attr('required',true)
+    //     get_nakleyka(String(i))
+    // }
     
     
     
-    // console.log(e.params.data.system)
-    });
+    // // console.log(e.params.data.system)
+    // });
 
 }
 
-data_base = {}
 
-for(var key1 in jsonData){
-    data_base[key1] = new BasePokritiya()
-    for(var key2 in jsonData[key1]){
-        data_base[key1][key2] = jsonData[key1][key2]
-    }
-}
+// for(var key1 in jsonData){
+//     for(var key2 in jsonData[key1]){
+//         if(key2 =='base_artikul'){
+//             $("#artikul"+String(i)).data("system",jsonData[key1]['nazvaniye_system']);
+//             $("#artikul"+String(i)).data("combination",jsonData[key1]['combination']);
+//             $("#artikul"+String(i)).data("code_nakleyka",jsonData[key1]['kod_nakleyki']);
+//             $("#artikul"+String(i)).trigger("select2:select");
+//             $("#artikul"+String(key1)).val(jsonData[key1][key2]).trigger("change");
+//             console.log('position 111')
+//             $("#artikul"+String(i)).on("select2:select", function (e) { 
+//                 // var select_val = $(e.currentTarget).val();
+//                     console.log(e.currentTarget,'terget')
+//                 var nazvaniye_system =$('.nazvaniye_system'+String(i));
+//                 var combination = $('#combination'+String(i));
+//                 var tip_pokritiya = $('#tip_pokritiya'+String(i));
+//                 // tip_pokritiya.val('').change();
+//                 tip_pokritiya.attr("disabled",false);
+//                 if(e.params){
+//                     nazvaniye_system.text(e.params.data.system);
+//                     combination.text(e.params.data.combination)
+                
+//                     var nakleyka_kode = e.params.data.code_nakleyka
+//                 }else{
+//                     console.log(e)
+//                     nazvaniye_system.text(e);
+//                     combination.text(e)
+                
+//                     var nakleyka_kode = e
+            
+//                 }
+                
+//                 $('.select2-selection__rendered').css('font-size', '15px');
+                
+                
+                
+//                 var nakleyka_nt1 = $('#nakleyka_nt'+String(i))
+//                 var nakleyka_org =$('#nakleyka_org'+String(i));
+//                 var nakleyka_select = $('#nakleyka_select'+String(i));
+            
+//                 var length = $('#length'+String(i));
+//                 length.attr('required',true)
+//                 var splav = $('#splav'+String(i));
+//                 splav.attr('required',true)
+//                 var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(i));
+//                 tip_zakalyonnosti.attr('required',true)
+            
+//                 nakleyka_org.text("")
+//                 if (nakleyka_kode =='NT1'){
+//                     nakleyka_nt1.css('display','block')
+//                     nakleyka_org.css('display','none')
+//                     nakleyka_select.css('display','none')
+//                 }
+//                 else if( nakleyka_kode !=''){
+//                     nakleyka_org.text(nakleyka_kode)
+//                     nakleyka_nt1.css('display','none')
+//                     nakleyka_org.css('display','block')
+//                     nakleyka_select.css('display','none')
+//                 }        
+//                 else{
+//                     nakleyka_nt1.css('display','none')
+//                     nakleyka_org.css('display','none')
+//                     nakleyka_select.css('display','block')
+//                     nakleyka_select.attr('required',true)
+//                     get_nakleyka(String(i))
+//                 }
+                
+                
+                
+//                 // console.log(e.params.data.system)
+//                 });
+            
+//         }
+//     }
+// }
 
 
 
 function get_nakleyka(i){
+    console.log('nakleyka')
     $('.kod_nakleyki'+i).select2({
         ajax: {
             url: "/client/nakleyka-list",
@@ -633,6 +731,7 @@ function get_nakleyka(i){
 
 
 function get_anod(termo=false){
+    console.log('anod')
     $('.kod_anod_snar').select2({
         ajax: {
             url: "/client/client-anod-list",
@@ -661,496 +760,491 @@ function get_anod(termo=false){
     }
 }
 
+function clear_artikul(id){}
 
 
-function clear_artikul(id){
-    var table_tr =$('#table_tr'+id);
-    // table_tr.remove()
-    // $('#artikul'+id).val(null).trigger('change');
-    $('.nazvaniye_system'+id).text('');
-    var tip_pokritiya = $('#tip_pokritiya'+String(id));
-    tip_pokritiya.val('0').change();
-    tip_pokritiya.attr("disabled",true);
-    // var select_nakleyka = $('#nakleyka'+String(id));
-    // select_nakleyka.children("span").remove();
-    // select_nakleyka.children("select").remove();
-    delete data_base[id]
+// function clear_artikul(id){
+//     console.log('clear_artikul')
+//     var table_tr =$('#table_tr'+id);
+//     // table_tr.remove()
+//     // $('#artikul'+id).val(null).trigger('change');
+//     $('.nazvaniye_system'+id).text('');
+//     var tip_pokritiya = $('#tip_pokritiya'+String(id));
+//     tip_pokritiya.val('0').change();
+//     tip_pokritiya.attr("disabled",true);
+//     // var select_nakleyka = $('#nakleyka'+String(id));
+//     // select_nakleyka.children("span").remove();
+//     // select_nakleyka.children("select").remove();
+//     // delete data_base[id]
 
-    var kratkiy_tekst = document.getElementById('kratkiy_tekst'+String(id));
-    kratkiy_tekst.innerText="";
+//     var kratkiy_tekst = document.getElementById('kratkiy_tekst'+String(id));
+//     kratkiy_tekst.innerText="";
 
 
     
     
-    table_tr.css('background-color','white')
+//     table_tr.css('background-color','white')
     
 
-    var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-    var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-    var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
-    var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-    code_kraski_snaruji.text("");
-    code_kraski_vnutri.text("");
-    brand_kraski_vnutri.text("");
-    brand_kraski_snaruji.text("");
+//     var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
+//     var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
+//     var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
+//     var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
+//     code_kraski_snaruji.text("");
+//     code_kraski_vnutri.text("");
+//     brand_kraski_vnutri.text("");
+//     brand_kraski_snaruji.text("");
 
-    code_kraski_snaruji.css("border-color",'#dedad9');
-    code_kraski_vnutri.css("border-color",'#dedad9');
-    brand_kraski_vnutri.css("border-color",'#dedad9');
-    brand_kraski_snaruji.css("border-color",'#dedad9');
+//     code_kraski_snaruji.css("border-color",'#dedad9');
+//     code_kraski_vnutri.css("border-color",'#dedad9');
+//     brand_kraski_vnutri.css("border-color",'#dedad9');
+//     brand_kraski_snaruji.css("border-color",'#dedad9');
 
 
 
-    var dlina =$('#length'+String(id));
-    dlina.val('');
-    dlina.attr("disabled",true);
-    dlina.css("border-color",'#dedad9');
+//     var dlina =$('#length'+String(id));
+//     dlina.val('');
+//     dlina.attr("disabled",true);
+//     dlina.css("border-color",'#dedad9');
 
-    var combination= document.getElementById('combination'+String(id));
-    combination.innerText='';
-    // combination.text("");
+//     var combination= document.getElementById('combination'+String(id));
+//     combination.innerText='';
+//     // combination.text("");
 
-    var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
-    svet_lamplonka_snaruji.val('0').change();
-    svet_lamplonka_snaruji.attr("disabled",true);
-    svet_lamplonka_snaruji.css("border-color",'#dedad9');
-    var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
-    code_lamplonka_snaruji.text("")
+//     var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
+//     svet_lamplonka_snaruji.val('0').change();
+//     svet_lamplonka_snaruji.attr("disabled",true);
+//     svet_lamplonka_snaruji.css("border-color",'#dedad9');
+//     var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
+//     code_lamplonka_snaruji.text("")
     
 
-    var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
-    svet_lamplonka_vnutri.val('0').change();
-    svet_lamplonka_vnutri.attr("disabled",true);
-    svet_lamplonka_vnutri.css("border-color",'#dedad9');
-    var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
-    code_lamplonka_vnutri.text("")
+//     var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
+//     svet_lamplonka_vnutri.val('0').change();
+//     svet_lamplonka_vnutri.attr("disabled",true);
+//     svet_lamplonka_vnutri.css("border-color",'#dedad9');
+//     var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
+//     code_lamplonka_vnutri.text("")
 
-    var nakleyka_nt1 = $('#nakleyka_nt'+String(id))
-    var nakleyka_org =$('#nakleyka_org'+String(id));
-    var nakleyka_select = $('#nakleyka_select'+String(id));
-    nakleyka_nt1.css('display','none');
-    nakleyka_org.css('display','none');
-    nakleyka_select.css('display','none');
+//     var nakleyka_nt1 = $('#nakleyka_nt'+String(id))
+//     var nakleyka_org =$('#nakleyka_org'+String(id));
+//     var nakleyka_select = $('#nakleyka_select'+String(id));
+//     nakleyka_nt1.css('display','none');
+//     nakleyka_org.css('display','none');
+//     nakleyka_select.css('display','none');
 
 
-    var splav = $('#splav'+String(id));
-    // splav.val('0').change();
-    splav.attr("disabled",true);
-    splav.css("border-color",'#dedad9');
-    var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
-    // tip_zakalyonnosti.val('0').change();
-    tip_zakalyonnosti.attr("disabled",true);
-    tip_zakalyonnosti.css("border-color",'#dedad9');
-    // console.log(data_base)
-    // console.log(typeof(data_base))
+//     var splav = $('#splav'+String(id));
+//     // splav.val('0').change();
+//     splav.attr("disabled",true);
+//     splav.css("border-color",'#dedad9');
+//     var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
+//     // tip_zakalyonnosti.val('0').change();
+//     tip_zakalyonnosti.attr("disabled",true);
+//     tip_zakalyonnosti.css("border-color",'#dedad9');
+//     // console.log(data_base)
+//     // console.log(typeof(data_base))
     
-}
+// }
 
-function artukil_clear(id){
-    $('#artikul'+id).val(null).trigger('change');
-    clear_artikul(id)
-    var goods_group = $('#goods_group'+String(id));
-    var tex_name = $('#tex_name'+String(id));
-    var id_klaes =$('#id_klaes'+String(id))
-    var klaes_nazvaniye =$('#klaes_nazvaniye'+String(id))
-    var code_sveta =$('#code_sveta'+String(id))
-    var klaes_kratkiy =$('#klaes_kratkiy'+String(id))
-    var sap_code_ruchnoy =$('#sap_code_ruchnoy'+String(id))
-    var kratkiy_text_ruchnoy =$('#kratkiy_text_ruchnoy'+String(id))
+// function artukil_clear(id){
+//     console.log('artikul_clear')
+//     // $('#artikul'+id).val(null).trigger('change');
+//     clear_artikul(id)
+//     var goods_group = $('#goods_group'+String(id));
+//     var tex_name = $('#tex_name'+String(id));
+//     var id_klaes =$('#id_klaes'+String(id))
+//     var klaes_nazvaniye =$('#klaes_nazvaniye'+String(id))
+//     var code_sveta =$('#code_sveta'+String(id))
+//     var klaes_kratkiy =$('#klaes_kratkiy'+String(id))
+//     var sap_code_ruchnoy =$('#sap_code_ruchnoy'+String(id))
+//     var kratkiy_text_ruchnoy =$('#kratkiy_text_ruchnoy'+String(id))
 
-    tex_name.text('')
-    kratkiy_text_ruchnoy.val('')
-    sap_code_ruchnoy.val('')
-    goods_group.val('0').change();
-    id_klaes.val('')
-    klaes_nazvaniye.val('')
-    code_sveta.val('')
-    klaes_kratkiy.val('')
-    goods_group.css('border-color','red')
-    id_klaes.css('border-color','red')
-    klaes_nazvaniye.css('border-color','red')
-    code_sveta.css('border-color','red')
-    klaes_kratkiy.css('border-color','red')
-    kratkiy_text_ruchnoy.css('display','none')
-    sap_code_ruchnoy.css('display','none')
-    goods_group.css('display','none')
-    id_klaes.css('display','none')
-    klaes_nazvaniye.css('display','none')
-    code_sveta.css('display','none')
-    klaes_kratkiy.css('display','none')
-}
+//     tex_name.text('')
+//     kratkiy_text_ruchnoy.val('')
+//     sap_code_ruchnoy.val('')
+//     goods_group.val('0').change();
+//     id_klaes.val('')
+//     klaes_nazvaniye.val('')
+//     code_sveta.val('')
+//     klaes_kratkiy.val('')
+//     goods_group.css('border-color','red')
+//     id_klaes.css('border-color','red')
+//     klaes_nazvaniye.css('border-color','red')
+//     code_sveta.css('border-color','red')
+//     klaes_kratkiy.css('border-color','red')
+//     kratkiy_text_ruchnoy.css('display','none')
+//     sap_code_ruchnoy.css('display','none')
+//     goods_group.css('display','none')
+//     id_klaes.css('display','none')
+//     klaes_nazvaniye.css('display','none')
+//     code_sveta.css('display','none')
+//     klaes_kratkiy.css('display','none')
+// }
 
 
-function tip_pokritiya_selected(id,val){
-
-    var element33 = document.getElementById("table_tr"+id);
-    element33.style.backgroundColor='white';
+// function tip_pokritiya_selected(id,val){
+//     console.log('tip_pokr',data_base[id].id)
+//     var element33 = document.getElementById("table_tr"+id);
+//     element33.style.backgroundColor='white';
 
     
     
-    var select_anod_snar = $('#anod'+String(id));
-    select_anod_snar.children("span").css('display','none');
-    select_anod_snar.children("select").remove();
+//     var select_anod_snar = $('#anod'+String(id));
+//     select_anod_snar.children("span").css('display','none');
+//     select_anod_snar.children("select").remove();
 
-    var dlina =$('#length'+String(id));
-    dlina.attr("disabled",false);
-    dlina.css("border-color",'#fc2003');
+//     var dlina =$('#length'+String(id));
+//     dlina.attr("disabled",false);
+//     dlina.css("border-color",'#fc2003');
 
-    var select_anod_vnut = $('#anod_vnutr'+String(id));
-    select_anod_vnut.children("span").css('display','none');
-    select_anod_vnut.children("select").remove();
+//     var select_anod_vnut = $('#anod_vnutr'+String(id));
+//     select_anod_vnut.children("span").css('display','none');
+//     select_anod_vnut.children("select").remove();
     
-    var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-    var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-    var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
-    var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-    var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
-    kratkiy_tekst.text("");
-    code_kraski_snaruji.text("");
-    code_kraski_vnutri.text("");
-    brand_kraski_vnutri.text("");
-    brand_kraski_snaruji.text("");
+//     var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
+//     var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
+//     var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
+//     var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
+//     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
+//     kratkiy_tekst.text("");
+//     code_kraski_snaruji.text("");
+//     code_kraski_vnutri.text("");
+//     brand_kraski_vnutri.text("");
+//     brand_kraski_snaruji.text("");
 
-    code_kraski_snaruji.css("border-color",'#dedad9');
-    code_kraski_vnutri.css("border-color",'#dedad9');
-    brand_kraski_vnutri.css("border-color",'#dedad9');
-    brand_kraski_snaruji.css("border-color",'#dedad9');
+//     code_kraski_snaruji.css("border-color",'#dedad9');
+//     code_kraski_vnutri.css("border-color",'#dedad9');
+//     brand_kraski_vnutri.css("border-color",'#dedad9');
+//     brand_kraski_snaruji.css("border-color",'#dedad9');
 
 
-    var combination= $('#combination'+String(id));
-    combination_text = combination.text();
+//     var combination= $('#combination'+String(id));
+//     combination_text = combination.text();
   
 
     
 
 
 
-    var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
-    svet_lamplonka_snaruji.val('0').change();
-    svet_lamplonka_snaruji.attr("disabled",true);
-    svet_lamplonka_snaruji.css("border-color",'#dedad9');
-    var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
-    code_lamplonka_snaruji.text("")
-    code_lamplonka_snaruji.css("border-color",'#dedad9');
+//     var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
+//     svet_lamplonka_snaruji.val('0').change();
+//     svet_lamplonka_snaruji.attr("disabled",true);
+//     svet_lamplonka_snaruji.css("border-color",'#dedad9');
+//     var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
+//     code_lamplonka_snaruji.text("")
+//     code_lamplonka_snaruji.css("border-color",'#dedad9');
 
-    var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
-    svet_lamplonka_vnutri.val('0').change();
-    svet_lamplonka_vnutri.attr("disabled",true);
-    svet_lamplonka_vnutri.css("border-color",'#dedad9');
-    var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
-    code_lamplonka_vnutri.text("")
-    code_lamplonka_vnutri.css("border-color",'#dedad9');
+//     var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
+//     svet_lamplonka_vnutri.val('0').change();
+//     svet_lamplonka_vnutri.attr("disabled",true);
+//     svet_lamplonka_vnutri.css("border-color",'#dedad9');
+//     var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
+//     code_lamplonka_vnutri.text("")
+//     code_lamplonka_vnutri.css("border-color",'#dedad9');
 
-    var svet_dekplonka_snaruji = $('#svet_dekplonka_snaruji'+String(id));
-    svet_dekplonka_snaruji.val('0').change();
-    svet_dekplonka_snaruji.attr("disabled",true);
-    svet_dekplonka_snaruji.css("border-color",'#dedad9');
+//     var svet_dekplonka_snaruji = $('#svet_dekplonka_snaruji'+String(id));
+//     svet_dekplonka_snaruji.val('0').change();
+//     svet_dekplonka_snaruji.attr("disabled",true);
+//     svet_dekplonka_snaruji.css("border-color",'#dedad9');
 
-    var code_dekplonka_snaruji = $('#code_dekplonka_snaruji'+String(id));
-    code_dekplonka_snaruji.text("");
-    code_dekplonka_snaruji.css("border-color",'#dedad9');
+//     var code_dekplonka_snaruji = $('#code_dekplonka_snaruji'+String(id));
+//     code_dekplonka_snaruji.text("");
+//     code_dekplonka_snaruji.css("border-color",'#dedad9');
 
-    var svet_dekplonka_vnutri = $('#svet_dekplonka_vnutri'+String(id));
-    svet_dekplonka_vnutri.val('0').change();
-    svet_dekplonka_vnutri.attr("disabled",true);
-    svet_dekplonka_vnutri.css("border-color",'#dedad9');
-    var code_dekplonka_vnutri = $('#code_dekplonka_vnutri'+String(id));
-    code_dekplonka_vnutri.text("");
-    code_dekplonka_vnutri.css("border-color",'#dedad9');
+//     var svet_dekplonka_vnutri = $('#svet_dekplonka_vnutri'+String(id));
+//     svet_dekplonka_vnutri.val('0').change();
+//     svet_dekplonka_vnutri.attr("disabled",true);
+//     svet_dekplonka_vnutri.css("border-color",'#dedad9');
+//     var code_dekplonka_vnutri = $('#code_dekplonka_vnutri'+String(id));
+//     code_dekplonka_vnutri.text("");
+//     code_dekplonka_vnutri.css("border-color",'#dedad9');
 
-    var code_svet_anodirovki_vnutri = $('#code_svet_anodirovki_vnutri'+String(id));
-    code_svet_anodirovki_vnutri.val('0').change();
-    code_svet_anodirovki_vnutri.attr("disabled",true);
-    code_svet_anodirovki_vnutri.css("border-color",'#dedad9');
+//     var code_svet_anodirovki_vnutri = $('#code_svet_anodirovki_vnutri'+String(id));
+//     code_svet_anodirovki_vnutri.val('0').change();
+//     code_svet_anodirovki_vnutri.attr("disabled",true);
+//     code_svet_anodirovki_vnutri.css("border-color",'#dedad9');
 
-    // console.log(,'eeeee')
+//     // console.log(,'eeeee')
     
     
-    var contactnost_anodirovki = $('#contactnost_anodirovki'+String(id));
-    if(data_base[id]){
-        contactnost_anodirovki.val('0').change();
-    }
-    contactnost_anodirovki.attr("disabled",true);
-    contactnost_anodirovki.css("border-color",'#dedad9');
+//     var contactnost_anodirovki = $('#contactnost_anodirovki'+String(id));
+//     if(data_base[id]){
+//         contactnost_anodirovki.val('0').change();
+//     }
+//     contactnost_anodirovki.attr("disabled",true);
+//     contactnost_anodirovki.css("border-color",'#dedad9');
 
 
-    var splav = $('#splav'+String(id));
-    // console.log(splav,'splavvvv')
-    splav.attr("disabled",false);
-    splav.css("border-color","#fc2003");
-    var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
-    tip_zakalyonnosti.attr("disabled",false);
-    tip_zakalyonnosti.css("border-color","#fc2003");
+//     var splav = $('#splav'+String(id));
+//     // console.log(splav,'splavvvv')
+//     splav.attr("disabled",false);
+//     splav.css("border-color","#fc2003");
+//     var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
+//     tip_zakalyonnosti.attr("disabled",false);
+//     tip_zakalyonnosti.css("border-color","#fc2003");
 
 
 
 
 
-    var tip_anodirovki =$('#tip_anodirovki'+String(id));
-    var sposob_anodirovki = $('#sposob_anodirovki'+String(id));
+//     var tip_anodirovki =$('#tip_anodirovki'+String(id));
+//     var sposob_anodirovki = $('#sposob_anodirovki'+String(id));
     
-    tip_anodirovki.text("");
-    sposob_anodirovki.text("")
-    var nakleyka_nt1 = $('#nakleyka_nt'+String(id))
-    var nakleyka_org =$('#nakleyka_org'+String(id));
-    var nakleyka_select = $('#nakleyka_select'+String(id));
+//     tip_anodirovki.text("");
+//     sposob_anodirovki.text("")
+//     var nakleyka_nt1 = $('#nakleyka_nt'+String(id))
+//     var nakleyka_org =$('#nakleyka_org'+String(id));
+//     var nakleyka_select = $('#nakleyka_select'+String(id));
 
-    if(String(val) == '1'){
-        data_base[id] = new BasePokritiya()
-        data_base[id].id = 1 
-        data_base[id].tip_pokritiya = 'Неокрашенный' 
-        nakleyka_nt1.css('display','block');
-        nakleyka_org.css('display','none');
-        nakleyka_select.css('display','none');
+//     if(String(val) == '1'){
+//         // data_base[id] = new BasePokritiya()
+//         data_base[id].id = 1 
+//         data_base[id].tip_pokritiya = 'Неокрашенный' 
+//         nakleyka_nt1.css('display','block');
+//         nakleyka_org.css('display','none');
+//         nakleyka_select.css('display','none');
 
-        if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
-            code_kraski_snaruji.text('MF')
-        }else{
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            code_kraski_snaruji.text('MF');
-            code_kraski_vnutri.text('MF');
-        }
+//         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
+//             var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
+//             code_kraski_snaruji.text('MF')
+//         }else{
+//             var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
+//             var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
+//             code_kraski_snaruji.text('MF');
+//             code_kraski_vnutri.text('MF');
+//         }
 
-    }else if(String(val) == '2'){
-        data_base[id] = new BasePokritiya()
-        data_base[id].id = 2 
-        data_base[id].tip_pokritiya = 'Белый'
-        if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
-            var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-            code_kraski_snaruji.text('9016')
-            brand_kraski_snaruji.text('R')
-        }else{
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
-            var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-            brand_kraski_snaruji.text('R');
-            code_kraski_snaruji.text('9016');
-            brand_kraski_vnutri.text('R');
-            code_kraski_vnutri.text('9016');
-        }
+//     }else if(String(val) == '2'){
+//         // data_base[id] = new BasePokritiya()
+//         data_base[id].id = 2 
+//         data_base[id].tip_pokritiya = 'Белый'
+//         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
+//             var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
+//             var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
+//             code_kraski_snaruji.text('9016')
+//             brand_kraski_snaruji.text('R')
+//         }else{
+//             var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
+//             var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
+//             var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
+//             var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
+//             brand_kraski_snaruji.text('R');
+//             code_kraski_snaruji.text('9016');
+//             brand_kraski_vnutri.text('R');
+//             code_kraski_vnutri.text('9016');
+//         }
 
         
         
-        var nakleyka_kode = nakleyka_org.text()
-        if (nakleyka_kode !=''){
-            nakleyka_nt1.css('display','none');
-            nakleyka_org.css('display','block');
-            nakleyka_select.css('display','none');
-        }else{
-            nakleyka_nt1.css('display','none');
-            nakleyka_org.css('display','none');
-            nakleyka_select.css('display','block');
-            get_nakleyka(id)
-        }
+//         var nakleyka_kode = nakleyka_org.text()
+//         if (nakleyka_kode !=''){
+//             nakleyka_nt1.css('display','none');
+//             nakleyka_org.css('display','block');
+//             nakleyka_select.css('display','none');
+//         }else{
+//             nakleyka_nt1.css('display','none');
+//             nakleyka_org.css('display','none');
+//             nakleyka_select.css('display','block');
+//             get_nakleyka(id)
+//         }
             
-    }else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
+//     }else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
 
-        if(String(val) == '3'){
-            data_base[id] = new BasePokritiya()
-            data_base[id].id = 3 
-            data_base[id].tip_pokritiya = 'Окрашенный'
-        }else if(String(val) == '4'){
-            data_base[id] = new BasePokritiya()
-            data_base[id].id = 4 
-            data_base[id].tip_pokritiya = 'Ламинированный'
-        }else if(String(val) == '5'){
-            data_base[id] = new BasePokritiya()
-            data_base[id].id = 5 
-            data_base[id].tip_pokritiya = 'Сублимированный'
-        } 
+//         if(String(val) == '3'){
+//             data_base[id] = new BasePokritiya()
+//             data_base[id].id = 3 
+//             data_base[id].tip_pokritiya = 'Окрашенный'
+//         }else if(String(val) == '4'){
+//             // data_base[id] = new BasePokritiya()
+//             data_base[id].id = 4 
+//             data_base[id].tip_pokritiya = 'Ламинированный'
+//         }else if(String(val) == '5'){
+//             // data_base[id] = new BasePokritiya()
+//             data_base[id].id = 5 
+//             data_base[id].tip_pokritiya = 'Сублимированный'
+//         } 
         
-        var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;border-color:#fc2003" id='brand_k_snaruji`+String(id)+`'  onchange="create_kratkiy_tekst(`+String(id)+`)" required>
-        <option  value="0" selected></option>
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="R">R</option>
-        <option value="T">T</option>
-        <option value="J">J</option>
-        <option value="P">P</option>
-        <option value="M">M</option>
-        </select>` 
-        var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
+//         var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;border-color:#fc2003" id='brand_k_snaruji`+String(id)+`'  onchange="create_kratkiy_tekst(`+String(id)+`)" required>
+//         <option  value="0" selected></option>
+//         <option value="A">A</option>
+//         <option value="B">B</option>
+//         <option value="R">R</option>
+//         <option value="T">T</option>
+//         <option value="J">J</option>
+//         <option value="P">P</option>
+//         <option value="M">M</option>
+//         </select>` 
+//         var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
        
-        brand_kraski_snaruji.append(brands)
-        var code_kras_snaruji =`<input type="text"  class="form-control " id ='code_kraski_snar`+String(id)+`' aria-describedby="inputGroup-sizing-sm" style="width: 65px;border-color: red;height:30px"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
-        // var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-        code_kraski_snaruji.append(code_kras_snaruji);
-        code_kraski_snaruji.css("border-color",'#fc2003')
+//         brand_kraski_snaruji.append(brands)
+//         var code_kras_snaruji =`<input type="text"  class="form-control " id ='code_kraski_snar`+String(id)+`' aria-describedby="inputGroup-sizing-sm" style="width: 65px;border-color: red;height:30px"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
+//         // var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
+//         code_kraski_snaruji.append(code_kras_snaruji);
+//         code_kraski_snaruji.css("border-color",'#fc2003')
         
-        // var code_kraski_snaruji = document.getElementById('code_kraski_snaruji'+String(id));
-        // console.log(code_kraski_snaruji)
-        // if(code_kraski_snaruji){
-        //     code_kraski_snaruji.style.borderColor='red';
-        // } 
-        // var code_kraski_snar =$('#code_kraski_snaruji'+String(id))
-        // code_kraski_snar.css("border-color",'#fc2003');
+//         // var code_kraski_snaruji = document.getElementById('code_kraski_snaruji'+String(id));
+//         // console.log(code_kraski_snaruji)
+//         // if(code_kraski_snaruji){
+//         //     code_kraski_snaruji.style.borderColor='red';
+//         // } 
+//         // var code_kraski_snar =$('#code_kraski_snaruji'+String(id))
+//         // code_kraski_snar.css("border-color",'#fc2003');
         
-        var nakleyka_kode = nakleyka_org.text()
-        if (nakleyka_kode !=''){
-            nakleyka_nt1.css('display','none');
-            nakleyka_org.css('display','block');
-            nakleyka_select.css('display','none');
-        }else{
-            nakleyka_nt1.css('display','none');
-            nakleyka_org.css('display','none');
-            nakleyka_select.css('display','block');
-            get_nakleyka(id)
-        }
+//         var nakleyka_kode = nakleyka_org.text()
+//         if (nakleyka_kode !=''){
+//             nakleyka_nt1.css('display','none');
+//             nakleyka_org.css('display','block');
+//             nakleyka_select.css('display','none');
+//         }else{
+//             nakleyka_nt1.css('display','none');
+//             nakleyka_org.css('display','none');
+//             nakleyka_select.css('display','block');
+//             get_nakleyka(id)
+//         }
        
 
-        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
-            var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;border-color:#fc2003" id='brand_k_vnutri`+String(id)+`' onchange="create_kratkiy_tekst(`+String(id)+`)" required>
-                <option  value="0" selected></option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="R">R</option>
-                <option value="T">T</option>
-                <option value="J">J</option>
-                <option value="P">P</option>
-                <option value="M">M</option>
-            </select>`
-            var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id));
-            brand_kraski_vnutri.append(brands)
+//         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
+//             var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;border-color:#fc2003" id='brand_k_vnutri`+String(id)+`' onchange="create_kratkiy_tekst(`+String(id)+`)" required>
+//                 <option  value="0" selected></option>
+//                 <option value="A">A</option>
+//                 <option value="B">B</option>
+//                 <option value="R">R</option>
+//                 <option value="T">T</option>
+//                 <option value="J">J</option>
+//                 <option value="P">P</option>
+//                 <option value="M">M</option>
+//             </select>`
+//             var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id));
+//             brand_kraski_vnutri.append(brands)
 
-            var code_kras_vnut =`<input type="text" class="form-control " style='border-color:#fc2003;width:65px; height:30px' id ='code_kraski_vnut`+String(id)+`' aria-describedby="inputGroup-sizing-sm"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            code_kraski_vnutri.append(code_kras_vnut)
+//             var code_kras_vnut =`<input type="text" class="form-control " style='border-color:#fc2003;width:65px; height:30px' id ='code_kraski_vnut`+String(id)+`' aria-describedby="inputGroup-sizing-sm"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
+//             var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
+//             code_kraski_vnutri.append(code_kras_vnut)
 
 
-        }
+//         }
 
-        if (String(val) == '4'){
-            var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
-            svet_lamplonka_snaruji.attr("disabled",false);
-            svet_lamplonka_snaruji.attr("required",true);
-            svet_lamplonka_snaruji.css("border-color",'#fc2003');
-            var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
-            svet_lamplonka_vnutri.attr("disabled",false);
-            svet_lamplonka_vnutri.attr("required",true);
-            svet_lamplonka_vnutri.css("border-color",'#fc2003');
+//         if (String(val) == '4'){
+//             var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
+//             svet_lamplonka_snaruji.attr("disabled",false);
+//             svet_lamplonka_snaruji.attr("required",true);
+//             svet_lamplonka_snaruji.css("border-color",'#fc2003');
+//             var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
+//             svet_lamplonka_vnutri.attr("disabled",false);
+//             svet_lamplonka_vnutri.attr("required",true);
+//             svet_lamplonka_vnutri.css("border-color",'#fc2003');
 
             
-        }
+//         }
 
-        if (String(val) == '5'){
+//         if (String(val) == '5'){
             
-            var svet_dekplonka_snaruji = $('#svet_dekplonka_snaruji'+String(id));
-            svet_dekplonka_snaruji.attr("disabled",false);
-            svet_dekplonka_snaruji.attr("required",true);
-            svet_dekplonka_snaruji.css("border-color",'#fc2003');
+//             var svet_dekplonka_snaruji = $('#svet_dekplonka_snaruji'+String(id));
+//             svet_dekplonka_snaruji.attr("disabled",false);
+//             svet_dekplonka_snaruji.attr("required",true);
+//             svet_dekplonka_snaruji.css("border-color",'#fc2003');
            
-            if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
-                var svet_dekplonka_vnutri = $('#svet_dekplonka_vnutri'+String(id));
-                svet_dekplonka_vnutri.attr("disabled",false);
-                svet_dekplonka_vnutri.attr("required",true);
-                svet_dekplonka_vnutri.css("border-color",'#fc2003');
-            }
+//             if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
+//                 var svet_dekplonka_vnutri = $('#svet_dekplonka_vnutri'+String(id));
+//                 svet_dekplonka_vnutri.attr("disabled",false);
+//                 svet_dekplonka_vnutri.attr("required",true);
+//                 svet_dekplonka_vnutri.css("border-color",'#fc2003');
+//             }
             
-        }
+//         }
         
 
-    }else if(String(val) == '6'){
-        data_base[id] = new BasePokritiya()
-        data_base[id].id = 6 
-        data_base[id].tip_pokritiya = 'Анодированный'
-        const newDiv = `<select class="form-select kod_anod_snar" aria-label="" style="width: 100px; border-color:#fc2003;!important" onchange="code_svet_anodirovki_snaruji_selected(`+String(id)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(id)+`' required></select>`
-        select_anod_snar.append(newDiv) 
+//     }else if(String(val) == '6'){
+//         // data_base[id] = new BasePokritiya()
+//         data_base[id].id = 6 
+//         data_base[id].tip_pokritiya = 'Анодированный'
+//         const newDiv = `<select class="form-select kod_anod_snar" aria-label="" style="width: 100px; border-color:#fc2003;!important" onchange="code_svet_anodirovki_snaruji_selected(`+String(id)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(id)+`' required></select>`
+//         select_anod_snar.append(newDiv) 
 
-        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
-            const newDiv = `<select class="form-select kod_anod_vnutri" aria-label="" style="width: 100px;border-color:#fc2003" onchange="create_kratkiy_tekst(`+String(id)+`)"  id='code_svet_anodirovki_vnutr`+String(id)+`' required></select>`
-            select_anod_vnut.append(newDiv) 
-            get_anod(termo=true)
+//         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
+//             const newDiv = `<select class="form-select kod_anod_vnutri" aria-label="" style="width: 100px;border-color:#fc2003" onchange="create_kratkiy_tekst(`+String(id)+`)"  id='code_svet_anodirovki_vnutr`+String(id)+`' required></select>`
+//             select_anod_vnut.append(newDiv) 
+//             get_anod(termo=true)
 
-            var code_svet_anodirovki_vnutri = $('#code_svet_anodirovki_vnutri'+String(id));
-            code_svet_anodirovki_vnutri.attr("disabled",false);
-            code_svet_anodirovki_vnutri.attr("required",true);
-            code_svet_anodirovki_vnutri.css("border-color",'#fc2003');
+//             var code_svet_anodirovki_vnutri = $('#code_svet_anodirovki_vnutri'+String(id));
+//             code_svet_anodirovki_vnutri.attr("disabled",false);
+//             code_svet_anodirovki_vnutri.attr("required",true);
+//             code_svet_anodirovki_vnutri.css("border-color",'#fc2003');
 
-        }else{
-            get_anod()
+//         }else{
+//             get_anod()
             
-        }
+//         }
 
         
 
-        var contactnost_anodirovki = $('#contactnost_anodirovki'+String(id));
-        console.log(contactnost_anodirovki)
-        contactnost_anodirovki.attr("disabled",false);
-        contactnost_anodirovki.attr("required",true);
-        contactnost_anodirovki.css("border-color",'red');
+//         var contactnost_anodirovki = $('#contactnost_anodirovki'+String(id));
+       
+//         contactnost_anodirovki.attr("disabled",false);
+//         contactnost_anodirovki.attr("required",true);
+//         contactnost_anodirovki.css("border-color",'red');
 
         
-        var nakleyka_kode = nakleyka_org.text()
-        if (nakleyka_kode !=''){
-            nakleyka_nt1.css('display','none');
-            nakleyka_org.css('display','block');
-            nakleyka_select.css('display','none');
-        }else{
-            nakleyka_nt1.css('display','none');
-            nakleyka_org.css('display','none');
-            nakleyka_select.css('display','block');
-            get_nakleyka(id)
-        }
+//         var nakleyka_kode = nakleyka_org.text()
+//         if (nakleyka_kode !=''){
+//             nakleyka_nt1.css('display','none');
+//             nakleyka_org.css('display','block');
+//             nakleyka_select.css('display','none');
+//         }else{
+//             nakleyka_nt1.css('display','none');
+//             nakleyka_org.css('display','none');
+//             nakleyka_select.css('display','block');
+//             get_nakleyka(id)
+//         }
         
         
         
-    }
+//     }
     
-    if(String(val) !=''){
-        var nazvaniye_system =$('.nazvaniye_system'+id)
-        var splav =$('#splav'+id)
-        var tip_zakalyonnosti =$('#tip_zakalyonnosti'+id)
-        var combination =$('#combination'+id)
-        var base_artikul =$('#select2-artikul'+id+'-container')
+//     if(String(val) !=''){
+//         var nazvaniye_system =$('.nazvaniye_system'+id)
+//         var splav =$('#splav'+id)
+//         var tip_zakalyonnosti =$('#tip_zakalyonnosti'+id)
+//         var combination =$('#combination'+id)
+//         var base_artikul =$('#select2-artikul'+id+'-container')
         
-        data_base[id].base_artikul = base_artikul.text()
-        data_base[id].nazvaniye_system = nazvaniye_system.text()
-        data_base[id].splav = splav.val()
-        data_base[id].tip_zakalyonnosti = tip_zakalyonnosti.val()
-        data_base[id].combination = combination.text()
+//         data_base[id].base_artikul = base_artikul.text()
+//         data_base[id].nazvaniye_system = nazvaniye_system.text()
+//         data_base[id].splav = splav.val()
+//         data_base[id].tip_zakalyonnosti = tip_zakalyonnosti.val()
+//         data_base[id].combination = combination.text()
         
 
-        var goods_group = $('#goods_group'+String(id));
-        goods_group.val('0').change();
-        goods_group.css('display','block')
-        var id_klaes =$('#id_klaes'+String(id))
-        var klaes_nazvaniye =$('#klaes_nazvaniye'+String(id))
-        var code_sveta =$('#code_sveta'+String(id))
-        var klaes_kratkiy =$('#klaes_kratkiy'+String(id))
-        var sap_code_ruchnoy =$('#sap_code_ruchnoy'+String(id))
-        var kratkiy_text_ruchnoy =$('#kratkiy_text_ruchnoy'+String(id))
+//         var goods_group = $('#goods_group'+String(id));
+//         goods_group.val('0').change();
+//         goods_group.css('display','block')
+//         var id_klaes =$('#id_klaes'+String(id))
+//         var klaes_nazvaniye =$('#klaes_nazvaniye'+String(id))
+//         var code_sveta =$('#code_sveta'+String(id))
+//         var klaes_kratkiy =$('#klaes_kratkiy'+String(id))
+//         var sap_code_ruchnoy =$('#sap_code_ruchnoy'+String(id))
+//         var kratkiy_text_ruchnoy =$('#kratkiy_text_ruchnoy'+String(id))
     
-        kratkiy_text_ruchnoy.val('')
-        sap_code_ruchnoy.val('')
-        id_klaes.val('')
-        klaes_nazvaniye.val('')
-        code_sveta.val('')
-        klaes_kratkiy.val('')
-        id_klaes.css('border-color','red')
-        klaes_nazvaniye.css('border-color','red')
-        code_sveta.css('border-color','red')
-        klaes_kratkiy.css('border-color','red')
-        id_klaes.css('display','block')
-        klaes_nazvaniye.css('display','block')
-        code_sveta.css('display','block')
-        klaes_kratkiy.css('display','block')
-        sap_code_ruchnoy.css('display','block')
-        kratkiy_text_ruchnoy.css('display','block')
-    }
-    create_kratkiy_tekst(id);
-}
-
-
-
-
-
-
-
-
+//         kratkiy_text_ruchnoy.val('')
+//         sap_code_ruchnoy.val('')
+//         id_klaes.val('')
+//         klaes_nazvaniye.val('')
+//         code_sveta.val('')
+//         klaes_kratkiy.val('')
+//         id_klaes.css('border-color','red')
+//         klaes_nazvaniye.css('border-color','red')
+//         code_sveta.css('border-color','red')
+//         klaes_kratkiy.css('border-color','red')
+//         id_klaes.css('display','block')
+//         klaes_nazvaniye.css('display','block')
+//         code_sveta.css('display','block')
+//         klaes_kratkiy.css('display','block')
+//         sap_code_ruchnoy.css('display','block')
+//         kratkiy_text_ruchnoy.css('display','block')
+//     }
+//     create_kratkiy_tekst(id);
+// }
 
 
 function code_svet_anodirovki_snaruji_selected(id,val){
@@ -1210,16 +1304,14 @@ function svet_dekplonka_vnutri_selected(id,val){
 }
 
 
-
-
-
-
-
 function create_kratkiy_tekst(id){
-    
+    console.log('create_krat')
     if(!data_base[id]){
         console.log('salom')
     }else{
+        console.log(id,'sddsdddddddddd')
+        console.log($("#artikul"+String(id)))
+        // $("#artikul"+String(id)).val('RLC58.V0001').trigger("change");
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
     var combination= $('#combination'+String(id));
     combination_text = combination.text();
@@ -1241,11 +1333,10 @@ function create_kratkiy_tekst(id){
     var klaes_kratkiy =$('#klaes_kratkiy'+String(id))
    
     if(id_klaes.val()!=''){
-        console.log('ddddddddd')
+        
         id_klaes.css("border-color",'#dedad9');
         data_base[id].klaes_id = id_klaes.val();
     }else{
-        console.log('gggggggggg')
         id_klaes.css("border-color",'red');
         data_base[id].klaes_id = NaN;
     }
@@ -1288,7 +1379,7 @@ function create_kratkiy_tekst(id){
     }
     
     var sap_code_ruchnoy = $('#sap_code_ruchnoy'+String(id));
-    console.log(sap_code_ruchnoy.val())
+
     
     if(sap_code_ruchnoy.val()!='0' && sap_code_ruchnoy.val()!='' && sap_code_ruchnoy.val()!=null){
         
@@ -1299,7 +1390,7 @@ function create_kratkiy_tekst(id){
     }
     
     var kratkiy_text_ruchnoy = $('#kratkiy_text_ruchnoy'+String(id));
-    console.log(kratkiy_text_ruchnoy.val())
+
     if(kratkiy_text_ruchnoy.val()!='0' && kratkiy_text_ruchnoy.val()!='' && kratkiy_text_ruchnoy.val()!=null){
         
         data_base[id].kratkiy_text_ruchnoy = kratkiy_text_ruchnoy.val();

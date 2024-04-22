@@ -1,6 +1,7 @@
 
 text =""
 var jsonData = JSON.parse(document.getElementById('items-data').textContent).data;
+console.log(jsonData,'eeeeeeeeeeeeeeeee')
 
 i = 0
 var order_type =$('#order_type').text()

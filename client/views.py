@@ -178,7 +178,7 @@ def order_detail(request,id):
             'status_name':STATUSES[str(order.status)],
             'status':str(order.status),
             'order_type':order.order_type,
-            'data':order.data,
+            'data':json.dumps(order.data),
             'order_details':order_details
         }
         return render(request,'client/customer/order_detail.html',context)
