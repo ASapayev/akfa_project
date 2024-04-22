@@ -1,0 +1,152 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <form >
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"> <input type="search" class="form-control" placeholder="Search sapcode" name="search"></li>
+              <li class="breadcrumb-item " aria-current="page"><button class="btn btn-success " type="submit">Search</button></li>
+            </ul>
+          </form>
+        </nav>
+      </div>
+      <div class="row ">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Лист</h4>
+              <div class="table-responsive">
+                <table class="table" >
+                    {%csrf_token%}
+                  <thead>
+                    <tr >
+                      <th  >
+                        #
+                      </th>
+                      <th  > SAP CODE </th>
+                      <th  > KRATKIY TEXT</th>
+                      <th  > CREATED DATE </th>
+                      <th  > Действие </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for profile in products %}
+                    <tr >
+                      <td>
+                        <div class="form-check form-check-muted m-0">
+                          {{forloop.counter}}
+                        </div>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data.sap_code}}</span>
+                      </td>
+                      <td>{{profile.data.kratkiy_tekst}} </td>
+                      <td> {{profile.created_at |date:"d-m-Y H:i"}} </td>
+                      <td>
+                        <a class="btn btn-warning btn-sm" style="cursor: pointer;" href="{%url 'edit_sapcode_acs' profile.id %}"><i class="bi bi-pen"></i>Edit</a>
+                        <a class="btn btn-primary btn-sm" style="cursor: pointer;"  href="{%url 'copy_sapcode_acs' profile.id %}"><i class="bi bi-file-earmark"></i>Copy</a>
+                        <a class="btn btn-danger btn-sm" style="cursor: pointer;" onclick="delete_sapcode(this,'{{profile.id}}')" id ="delete_btn"><i class="bi bi-trash"></i>Delete</a>
+                      </td>
+                    </tr>
+                    {%endfor%}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+   
+  </div>
+  
+  <div class="container">
+    <div class="d-flex justify-content-between">
+        <div class="pagination p-2">
+          <span class="step-links">
+            <ul class="pagination"  style="background-color: azure;">
+                {% if products.has_previous %}
+                <li class="page-item" ><a class="page-link"  style="background-color: azure;" href="?page={{ products.previous_page_number }}{%if search%}&search={{search}}{%endif%}">Previous</a></li>
+                    {% if products.number > 3 %}
+                        <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page=1{%if search%}&search={{search}}{%endif%}">1</a></li>
+                        {% if products.number > 4 %}
+                        <li class="page-item"  style="background-color: azure;"> <span style="color: black;">...</span></li>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+
+                {% for num in products.paginator.page_range %}
+                    {% if products.number == num %}
+                        <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                    {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                        <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if products.has_next %}
+                    {% if products.number < products.paginator.num_pages|add:'-3' %}
+                    <li class="page-item"  style="background-color: azure;" > <span style="color: black;">...</span></li>
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;"  href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                    {% elif products.number < products.paginator.num_pages|add:'-2' %}
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                    {% endif %}
+                    
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ products.next_page_number }}{%if search%}&search={{search}}{%endif%}">Next Page »</a></li>
+                   
+                {% endif %}
+              </ul>
+          </span>
+        </div>
+    </div>
+  </div>
+
+  
+<script>
+
+function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+
+
+
+function delete_sapcode(elem,id){
+    
+    Swal.fire({
+        showDenyButton: true,
+        text:'SAP CODEni o\'chirmoqchimisiz?',
+        confirmButtonText: 'Ha',
+        denyButtonText: `Yo'q`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var url ="/accessuar/delete-sapcode/" + id;
+          var csrfToken = getCSRFToken();
+          $.ajax({
+                method:'POST',
+                url: url,
+                headers: { "X-CSRFToken": csrfToken }
+            }).done(function() {
+              remove_me(elem)
+            });
+
+        } else if (result.isDenied) {
+          Swal.fire('Otmenen!!!', 'ok', 'info')
+        }
+      })
+
+  }
+
+function remove_me(elem){
+elem.parentElement.parentElement.remove()
+}
+ 
+  
+ 
+</script>
+{% endblock %}

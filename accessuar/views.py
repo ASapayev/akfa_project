@@ -22,10 +22,19 @@ class File:
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
 def texcarta_delete(request):
-    texcarta = TexcartaBase.objects.all()
-    texcarta.delete()
-    return redirect('home')
-
+    
+    if request.method =='POST':
+        ozmk = request.POST.get('ozmk',None)
+          
+        if ozmk:
+            ozmks =ozmk.split()
+            for ozm in ozmks:
+                if TexcartaBase.objects.filter(material = ozm).exists():
+                    texcarta = TexcartaBase.objects.filter(material = ozm)[:1].get()
+                    texcarta.delete()
+            return render(request,'norma/accessuar/norma_sapcode.html')
+    else:
+        return render(request,'norma/accessuar/norma_sapcode.html')
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user_accessuar'])
@@ -445,6 +454,7 @@ def new_siryo(request):
         
 
     return render(request,'norma/accessuar/new_siryo.html')
+
 
 
 
