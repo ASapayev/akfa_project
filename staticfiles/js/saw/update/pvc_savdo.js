@@ -226,40 +226,6 @@ for(var key1 in jsonData){
 
 
 
-// function fetchAndAddOptions(i) {
-//     // Make a GET request to fetch data from the server
-//     $.ajax({
-//         url: "/client/pvc-artikul-list-simple",  // Replace with your server endpoint URL
-//         type: "GET",
-//         dataType: "json",
-//         success: function(data) {
-//             // Clear existing options
-//             $('#artikul'+i).empty();
-            
-//             // Add a placeholder option
-//             $('#artikul'+i).append($('<option>', {
-//                 value: '',
-//                 text: 'Select an option'
-//             }));
-            
-//             // Loop through the data and add options dynamically
-//             $.each(data, function(index, item) {
-//                 $('#artikul'+i).append($('<option>', {
-//                     value: item.id,   // Adjust according to your data structure
-//                     text: item.text      // Adjust according to your data structure
-//                 }));
-//             });
-//         },
-//         error: function(xhr, status, error) {
-//             console.error("Failed to fetch data:", error);
-//         }
-//     });
-// }
-
-// Call the function to fetch and add options when the document is ready
-
-
-
 
 
 i = 0
@@ -270,7 +236,7 @@ text +=`
 <tr id='table_tr` +String(i)+`' >                   
 <td >
     <div class="input-group input-group-sm mb-1" style='width:150px;'>
-        <span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
+        <span id='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
     </div>
 </td>
 <td >
@@ -282,10 +248,10 @@ text +=`
     <input type="text" id="searchInput` +String(i)+`" class=" form-control pb-1" style='width:150px' placeholder="Search for options">
     <div class="input-group input-group-sm mb-1">
     <select id="mySelect` +String(i)+`"  class=" form-control" style='display:none' multiple="multiple" ></select>
-        <!--<select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px "  id="artikul`+String(i)+`" onchange='clear_artikul(`+String(i)+`)'></select> -->
     </div>
     <span style='display:none' id='artikul_pvc` +String(i)+`'></span>
     <span style='display:none' id='iskyucheniye` +String(i)+`'></span>
+    <span style='display:none' id='component` +String(i)+`'></span>
 </td>
 
 
@@ -481,10 +447,9 @@ text +=`
     </div>
 </td>
 <td >
-    <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
-    <div id='nakleyka_select`+String(i)+`' class='nak_select`+String(i)+`' style='display:none;'>
-        <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
-    </div>
+    <input type="text" id="nakleykaInput` +String(i)+`" class=" form-control pb-1" style='width:150px' placeholder="Search for options">
+    <div class="input-group input-group-sm mb-1">
+    <select id="nakleykaSelect` +String(i)+`"  class=" form-control" style='display:none' multiple="multiple" ></select>
     </div>
 </td>
 <td >
@@ -1148,12 +1113,11 @@ table.append(text)
 i = 0
 
 
-function custom_select2(older_val=NaN,selector=NaN,input_selector=NaN,url=NaN,data=NaN){
+function custom_select2(older_val=NaN,i,nam=NaN,selector=NaN,input_selector=NaN,url=NaN,data=NaN){
     if(older_val!=NaN){
         $(input_selector).val(older_val)
-        console.log(data)
         for(var key in data){
-            console.log(key,data[key])
+           $('#'+key +i).text(data[key])
         }
 
         $(input_selector).on('input', function() {
@@ -1173,7 +1137,7 @@ function custom_select2(older_val=NaN,selector=NaN,input_selector=NaN,url=NaN,da
                         }
                         $(selector).append($('<option>', {
                             value: item.id,
-                            text: item.artikul
+                            text: item[nam]
                         }));
                     });
                 },
@@ -1195,1197 +1159,1158 @@ function custom_select2(older_val=NaN,selector=NaN,input_selector=NaN,url=NaN,da
 
 for(var key in jsonData){
     i+=1
-    console.log(jsonData,'dd111')
     data ={
-        // 'component':jsonData['component'],
-        // 'category':jsonData['category'],
+        'component':'komponent_qoy',
+        'artikul_pvc':jsonData[key]['basic_artikul'],
         'nazvaniye_system':jsonData[key]['nazvaniye_system'],
         'camera':jsonData[key]['camera'],
-        'kod_k_component':jsonData[key]['kod_k_component'],
+        'kod_komponent':jsonData[key]['kod_k_component'],
         'iskyucheniye':jsonData[key]['iskyucheniye']
     }
-    custom_select2(jsonData[i]['base_artikul'],'#mySelect'+i,'#searchInput'+i, url= '/client/pvc-artikul-list',data=data)    
+    custom_select2(jsonData[i]['base_artikul'],i,nam='artikul','#mySelect'+i,'#searchInput'+i, url= '/client/pvc-artikul-list',data=data)    
+
+    if(jsonData[i]['id']){
+        $('#tip_pokritiya' +i).attr('disabled',false)
+        $('#tip_pokritiya' +i).val(jsonData[i]['id'])
+    }
+    if(jsonData[i]['kod_svet_zames']){
+        $('#kod_svet_zames' +i).attr('disabled',false)
+        $('#kod_svet_zames' +i).val(jsonData[i]['kod_svet_zames'])
+    }
+    if(jsonData[i]['dlina']){
+        $('#length' +i).attr('disabled',false)
+        $('#length' +i).val(jsonData[i]['dlina'])
+    }
+    if(jsonData[i]['svet_lamplonka_snaruji']){
+        $('#svet_lamplonka_snaruji' +i).attr('disabled',false)
+        $('#svet_lamplonka_snaruji' +i).val(jsonData[i]['kod_lam_sn'])
+        $('#code_lamplonka_snaruji' +i).text(jsonData[i]['kod_lam_sn'])
+    }
+    if(jsonData[i]['svet_lamplonka_vnutri']){
+        $('#svet_lamplonka_vnutri' +i).attr('disabled',false)
+        $('#svet_lamplonka_vnutri' +i).val(jsonData[i]['kod_lam_vn'])
+        $('#code_lamplonka_vnutri' +i).text(jsonData[i]['kod_lam_vn'])
+    }
+    if(jsonData[i]['kod_svet_rezini']){
+        $('#kod_svet_rezini' +i).css('display','block')
+        $('#kod_svet_rezini' +i).css('border-color','#dedad9')
+        $('#kod_svet_rezini' +i).val(jsonData[i]['svet_rezin'])
+        $('#svet_rezin' +i).text(jsonData[i]['svet_rezin'])
+    }
+    data ={
+        'nadpis_nakleyki':jsonData[i]['nadpis_nakleyki']
+    }
+    custom_select2(jsonData[i]['kod_nakleyki'],i,nam='name','#nakleykaSelect'+i,'#nakleykaInput'+i, url= '/client/nakleyka-list-pvc',data=data)
+
+    if(jsonData[i]['kratkiy_tekst']){
+        $('#kratkiy_tekst' +i).text(jsonData[i]['kratkiy_tekst'])
+    }
+   
+    $('#sap_code_ruchnoy' +i).css('display','block')
+    $('#sap_code_ruchnoy' +i).val(jsonData[i]['sap_code'])
+
+    $('#kratkiy_tekst_ruchnoy' +i).css('display','block')
+    $('#kratkiy_tekst_ruchnoy' +i).val(jsonData[i]['krat'])
+
+    $('#comment' +i).css('display','block')
+    $('#comment' +i).val(jsonData[i]['comment'])
+
+    $('#pickupdate' +i).css('border-color','#dedad9')
+    $('#pickupdate' +i).css('display','block')
+    $('#pickupdate' +i).val(jsonData[i]['pickupdate'])
+
+    $('#sena_c_nds' +i).css('border-color','#dedad9')
+    $('#sena_c_nds' +i).css('display','block')
+    $('#sena_c_nds' +i).val(jsonData[i]['sena_c_nds'])
+
+    $('#sena_bez_nds' +i).css('border-color','#dedad9')
+    $('#sena_bez_nds' +i).css('display','block')
+    $('#sena_bez_nds' +i).val(jsonData[i]['sena_bez_nds'])
+
+    $('#online_savdo_id' +i).css('border-color','#dedad9')
+    $('#online_savdo_id' +i).css('display','block')
+    $('#online_savdo_id' +i).val(jsonData[i]['online_id'])
+
+    $('#nazvaniye_ruchnoy' +i).css('border-color','#dedad9')
+    $('#nazvaniye_ruchnoy' +i).css('display','block')
+    $('#nazvaniye_ruchnoy' +i).val(jsonData[i]['nazvaniye_ruchnoy'])
+
+    $('#svet_product' +i).css('border-color','#dedad9')
+    $('#svet_product' +i).css('display','block')
+    $('#svet_product' +i).val(jsonData[i]['svet_product'])
+
+    $('#group_zakup' +i).css('border-color','#dedad9')
+    $('#group_zakup' +i).css('display','block')
+    $('#group_zakup' +i).val(jsonData[i]['group_zakup'])
+
+    $('#group' +i).css('border-color','#dedad9')
+    $('#group' +i).css('display','block')
+    $('#group' +i).val(jsonData[i]['group'])
+
+    $('#tip' +i).css('border-color','#dedad9')
+    $('#tip' +i).css('display','block')
+    $('#tip' +i).val(jsonData[i]['tip'])
+
+    $('#segment' +i).css('border-color','#dedad9')
+    $('#segment' +i).css('display','block')
+    $('#segment' +i).val(jsonData[i]['segment'])
+
+    $('#buxgalter_tovar' +i).css('border-color','#dedad9')
+    $('#buxgalter_tovar' +i).css('display','block')
+    $('#buxgalter_tovar' +i).val(jsonData[i]['buxgalter_tovar'])
+
+    $('#buxgalter_uchot' +i).css('border-color','#dedad9')
+    $('#buxgalter_uchot' +i).css('display','block')
+    $('#buxgalter_uchot' +i).val(jsonData[i]['buxgalter_uchot'])
+
+    $('#bazoviy_edin' +i).css('border-color','#dedad9')
+    $('#bazoviy_edin' +i).css('display','block')
+    $('#bazoviy_edin' +i).val(jsonData[i]['bazoviy_edin'])
+
+    $('#alter_edin' +i).css('border-color','#dedad9')
+    $('#alter_edin' +i).css('display','block')
+    $('#alter_edin' +i).val(jsonData[i]['alter_edin'])
+
+    $('#stoimost_baza' +i).css('border-color','#dedad9')
+    $('#stoimost_baza' +i).css('display','block')
+    $('#stoimost_baza' +i).val(jsonData[i]['stoimost_baza'])
+    
+    $('#stoimost_alter' +i).css('border-color','#dedad9')
+    $('#stoimost_alter' +i).css('display','block')
+    $('#stoimost_alter' +i).val(jsonData[i]['stoimost_alter'])
+
+    $('#status' +i).css('border-color','#dedad9')
+    $('#status' +i).css('display','block')
+    $('#status' +i).val(jsonData[i]['status_online'])
+
+    $('#zavod_name' +i).css('border-color','#dedad9')
+    $('#zavod_name' +i).css('display','block')
+    $('#zavod_name' +i).val(jsonData[i]['zavod_name'])
+
+    $('#diller' +i).css('border-color','#dedad9')
+    $('#diller' +i).css('display','block')
+    $('#diller' +i).val(jsonData[i]['diller'])
+
+    $('#tip_clenta' +i).css('border-color','#dedad9')
+    $('#tip_clenta' +i).css('display','block')
+    $('#tip_clenta' +i).val(jsonData[i]['tip_clenta'])
+    
+
+}
+
+
+
+
+
+
+
+function get_nakleyka(i){
+    $('.kod_nakleyki'+i).select2({
+        ajax: {
+            url: "/client/nakleyka-list-pvc",
+            dataType: 'json',
+            processResults: function(data){
+                return {results: $.map(data, function(item){
+                    return {id:item.id,text:item.name,nadpis:item.nadpis}
+                })
+            };
+            }
+        }
+        });
+        $(".kod_nakleyki"+String(i)).on("select2:select", function (e) { 
+            var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i));
+            nadpis_nakleyki.text(e.params.data.nadpis);
+            
+            })
+}
+
+
+
+function clear_artikul(id){
+    var table_tr =$('#table_tr'+id);
+    $('.nazvaniye_system'+id).text('');
+    var tip_pokritiya = $('#tip_pokritiya'+String(id));
+    tip_pokritiya.val('0').change();
+    tip_pokritiya.attr("disabled",true);
+    var camera = $('#camera'+String(id));
+    var kod_komponent = $('#kod_komponent'+String(id));
+    var kod_svet_zames = $('#kod_svet_zames'+String(id));
+    var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
+    var svet_rezini = $('#svet_rezin'+String(id));
+    var nakleyka_select = $('.kod_nakleyki'+String(id))
+    nakleyka_select.val(null).trigger('change');
+    var nakleyka_select_org = document.getElementById('nakleyka_select'+String(id))
+    nakleyka_select_org.style.display='none';
+
+    camera.text('')
+    kod_komponent.text('')
+    svet_rezini.text('')
+    kod_svet_zames.val('')
+    kod_svet_zames.attr('disabled',true)
+    kod_svet_zames.css('border-color','#dedad9')
+    
+    kod_svet_rezini.val('')
+    kod_svet_rezini.css('display','none')
+       
+    // var select_nakleyka = $('#nakleyka'+String(id));
+    // select_nakleyka.children("span").remove();
+    // select_nakleyka.children("select").remove();
+    delete data_base[id]
+
+    var kratkiy_tekst = document.getElementById('kratkiy_tekst'+String(id));
+    kratkiy_tekst.innerText="";
+
+
+    
+    
+    table_tr.css('background-color','white')
+    
+
+
+
+
+    var dlina =$('#length'+String(id));
+    dlina.val('');
+    dlina.attr("disabled",true);
+    dlina.css("border-color",'#dedad9');
+
+    var combination= $('#combination'+String(id));
+    combination.text("");
+
+    var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
+    svet_lamplonka_snaruji.val('0').change();
+    svet_lamplonka_snaruji.attr("disabled",true);
+    svet_lamplonka_snaruji.css("border-color",'#dedad9');
+    var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
+    code_lamplonka_snaruji.text("")
+    
+
+    var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
+    svet_lamplonka_vnutri.val('0').change();
+    svet_lamplonka_vnutri.attr("disabled",true);
+    svet_lamplonka_vnutri.css("border-color",'#dedad9');
+    var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
+    code_lamplonka_vnutri.text("")
+
+   
+   
+   
     
 }
 
-// const inputField = document.getElementById('searchInput'+i);
-// inputField.addEventListener('blur', function() {
-//     const selectElement = document.getElementById('mySelect'+i);
+function artukil_clear(id){
+    $('#artikul'+id).val(null).trigger('change');
+    clear_artikul(id)
+    $('#artikul'+id).attr('disabled',true)
 
-//     let eventTriggered = false;
-    
-//     selectElement.addEventListener('change', function() {
-//         eventTriggered = true;
-//         console.log('Change event triggered');
-//     });
-    
-//     selectElement.addEventListener('input', function() {
-//         eventTriggered = true;
-//     });
-    
-//     if (eventTriggered) {
-//         console.log('pressed')
-//     }else{
-//         // var selectedValue = $('#mySelect'+i).find('option:selected').text();
-//         // console.log(selectedValue,'vallll')
-//         // $('#searchInput'+i).val(selectedValue)
-//         // selectElement.style.display='none';
-//     }
-// });
-
-// for (var key in jsonData) {
-//     i+=1
-//     $('#artikul'+String(i)).select2({
-//         ajax: {
-//             url: "/client/pvc-artikul-list",
-//             dataType: 'json',
-//             processResults: function(data){
-//                 return {results: $.map(data, function(item){
-//                     return {id:item.id,text:item.artikul,component:item.component2,system:item.nazvaniye_sistem,camera:item.camera,kod_k_component:item.kod_k_component,iskyucheniye:item.iskyucheniye}
-//                 })
-//             };
-//             }
-//         }
-//         });
-    
-//         $('#artikul'+i).select2({
-//             ajax: {
-//                 url: "/client/pvc-artikul-list",
-//                 dataType: 'json',
-//                 processResults: function(data) {
-//                     return {
-//                         results: $.map(data, function(item) {
-//                             return { id: item.id, text: item.artikul };
-//                         })
-//                     };
-//                 }
-//             }
-//         });
-//     }
-
-//     var artikulSelect = $('#artikul1');
-//     artikulSelect.val('PT3.60.A0004').trigger('change')
-//     console.log(artikulSelect.val())
-function clear_artikul(id){
-
-    }
-    
-    
-//     var artikulSelect = $('#artikul'+String(i));
-//     $.ajax({
-//         type: 'GET',
-//         url: "/client/pvc-artikul-list"
-//     }).then(function (data) {
-//         var option = new Option(data.artikul, data.id, true, true);
-//         artikulSelect.append(option).trigger('change');
-    
-//         artikulSelect.trigger({
-//             type: 'select2:select',
-//             params: {
-//                 data: data
-//             }
-//         });
-//     });
-    
-    
-//     $("#artikul"+String(i)).on("select2:select", function (e) { 
-//         var select_val = $(e.currentTarget).val();
-//         var nazvaniye_system =$('.nazvaniye_system'+String(i));
-//         var camera = $('#camera'+String(i));
-//         var kod_komponent = $('#kod_komponent'+String(i));
-//         var artikul_pvc = $('#artikul_pvc'+String(i));
-//         var iskyucheniye = $('#iskyucheniye'+String(i));
-//         var tip_pokritiya = $('#tip_pokritiya'+String(i));
-//         tip_pokritiya.attr("disabled",false);
-//         nazvaniye_system.text(e.params.data.system);
-//         artikul_pvc.text(e.params.data.component);
-//         iskyucheniye.text(e.params.data.iskyucheniye);
-//         camera.text(e.params.data.camera)
-//         kod_komponent.text(e.params.data.kod_k_component)
-        
-       
-//         var nakleyka_select = $('#nakleyka_select'+String(i));
-
-//         var length = $('#length'+String(i));
-//         length.attr('required',true)
-//         nakleyka_select.css('display','block')
-//         nakleyka_select.attr('required',true)
-//         get_nakleyka(String(i))
-        
-//     });
-
-// }
-
-
-
-
-
-// function get_nakleyka(i){
-//     $('.kod_nakleyki'+i).select2({
-//         ajax: {
-//             url: "/client/nakleyka-list-pvc",
-//             dataType: 'json',
-//             processResults: function(data){
-//                 return {results: $.map(data, function(item){
-//                     return {id:item.id,text:item.name,nadpis:item.nadpis}
-//                 })
-//             };
-//             }
-//         }
-//         });
-//         $(".kod_nakleyki"+String(i)).on("select2:select", function (e) { 
-//             var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i));
-//             nadpis_nakleyki.text(e.params.data.nadpis);
-            
-//             })
-// }
-
-
-// function create(i){
-    
-//     var artikul = $('#artikul'+i)
-    
-//     artikul.attr('disabled',false)
-
-//     var status_first =$('#status'+i);
-//     status_first.val('Активный')
-
-//     var is_active =$('#is_active'+i);
-//     is_active.text('Пассивный')
-//     // status_first.attr('disabled',true)
-
-//     var tip =$('#tip'+i);
-//     tip.val('Готовый продукт')
-    
-
-//     var activate_btn =$('#activate_btn'+i);
-//     activate_btn.attr('disabled',true)
-//     var create_btn =$('#create_btn'+i);
-//     create_btn.attr('disabled',true)
-    
+    var status_first = $('#status'+String(id))
    
+    status_first.val('Активный')
 
-// }
+    var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
+    var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
+    var online_savdo_id =$('#online_savdo_id'+id);
+    var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id);
 
-// function activate(i){
-//     // data_base[i] = new OnlineSavdo()
 
-//     var artikul = $('#artikul'+i)
+    var svet_product =$('#svet_product'+id);
+    var group_zakup =$('#group_zakup'+id);
+    var group =$('#group'+id);
+    var tip =$('#tip'+id);
+    var bazoviy_edin =$('#bazoviy_edin'+id);
+    var status =$('#status'+id);
+    var zavod =$('#zavod'+id);
+    var buxgalter_uchot =$('#buxgalter_uchot'+id);
+    var alter_edin =$('#alter_edin'+id);
+    var stoimost_baza =$('#stoimost_baza'+id);
+    var stoimost_alter =$('#stoimost_alter'+id);
+    var segment =$('#segment'+id);
+    var buxgalter_tovar =$('#buxgalter_tovar'+id);
+    var comment =$('#comment'+id);
+    var obshiy_ves_shtuku =$('#obshiy_ves_shtuku'+id);
+    var pickupdate =$('#pickupdate'+id);
+    var sena_c_nds =$('#sena_c_nds'+id);
+    var sena_bez_nds =$('#sena_bez_nds'+id);
+    var diller =$('#diller'+id);
+    var tip_clenta =$('#tip_clenta'+id);
     
-//     artikul.attr('disabled',false)
+    comment.css('display','none')
+    obshiy_ves_shtuku.css('display','none')
+    pickupdate.css('display','none')
+    sena_c_nds.css('display','none')
+    sena_bez_nds.css('display','none')
+    diller.css('display','none')
+    tip_clenta.css('display','none')
+    // var zavod_name =$('#zavod_name'+id)
+    // zavod_name.text('')
 
 
-//     var activate_btn =$('#activate_btn'+i);
-//     var create_btn =$('#create_btn'+i);
-//     activate_btn.attr('disabled',true)
-//     create_btn.attr('disabled',true)
-//     var status_first =$('#status'+i);
-//     status_first.val('Активный')
-
-//     var is_active =$('#is_active'+i);
-//     is_active.text('Активный')
-//     // status_first.attr('disabled',true)
-
-// }
-
-
-
-
-
-
-
-// function clear_artikul(id){
-//     var table_tr =$('#table_tr'+id);
-//     $('.nazvaniye_system'+id).text('');
-//     var tip_pokritiya = $('#tip_pokritiya'+String(id));
-//     tip_pokritiya.val('0').change();
-//     tip_pokritiya.attr("disabled",true);
-//     var camera = $('#camera'+String(id));
-//     var kod_komponent = $('#kod_komponent'+String(id));
-//     var kod_svet_zames = $('#kod_svet_zames'+String(id));
-//     var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
-//     var svet_rezini = $('#svet_rezin'+String(id));
-//     var nakleyka_select = $('.kod_nakleyki'+String(id))
-//     nakleyka_select.val(null).trigger('change');
-//     var nakleyka_select_org = document.getElementById('nakleyka_select'+String(id))
-//     nakleyka_select_org.style.display='none';
-
-//     camera.text('')
-//     kod_komponent.text('')
-//     svet_rezini.text('')
-//     kod_svet_zames.val('')
-//     kod_svet_zames.attr('disabled',true)
-//     kod_svet_zames.css('border-color','#dedad9')
-    
-//     kod_svet_rezini.val('')
-//     kod_svet_rezini.css('display','none')
-       
-//     // var select_nakleyka = $('#nakleyka'+String(id));
-//     // select_nakleyka.children("span").remove();
-//     // select_nakleyka.children("select").remove();
-//     delete data_base[id]
-
-//     var kratkiy_tekst = document.getElementById('kratkiy_tekst'+String(id));
-//     kratkiy_tekst.innerText="";
+    svet_product.css('display','none')
+    group_zakup.css('display','none')
+    group.css('display','none')
+    tip.css('display','none')
+    bazoviy_edin.css('display','none')
+    status.css('display','none')
+    zavod.css('display','none')
+    buxgalter_uchot.css('display','none')
+    alter_edin.css('display','none')
+    stoimost_baza.css('display','none')
+    stoimost_alter.css('display','none')
+    segment.css('display','none')
+    buxgalter_tovar.css('display','none')
+    sap_code_ruchnoy.css('display','none')
+    kratkiy_tekst_ruchnoy.css('display','none')
+    online_savdo_id.css('display','none')
+    online_savdo_id.css('border-color','red')
+    nazvaniye_ruchnoy.css('display','none')
+    nazvaniye_ruchnoy.css('border-color','red')
 
 
-    
-    
-//     table_tr.css('background-color','white')
-    
-
-
-
-
-//     var dlina =$('#length'+String(id));
-//     dlina.val('');
-//     dlina.attr("disabled",true);
-//     dlina.css("border-color",'#dedad9');
-
-//     var combination= $('#combination'+String(id));
-//     combination.text("");
-
-//     var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
-//     svet_lamplonka_snaruji.val('0').change();
-//     svet_lamplonka_snaruji.attr("disabled",true);
-//     svet_lamplonka_snaruji.css("border-color",'#dedad9');
-//     var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
-//     code_lamplonka_snaruji.text("")
-    
-
-//     var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
-//     svet_lamplonka_vnutri.val('0').change();
-//     svet_lamplonka_vnutri.attr("disabled",true);
-//     svet_lamplonka_vnutri.css("border-color",'#dedad9');
-//     var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
-//     code_lamplonka_vnutri.text("")
-
-   
-   
-   
-    
-// }
-
-// function artukil_clear(id){
-//     $('#artikul'+id).val(null).trigger('change');
-//     clear_artikul(id)
-//     $('#artikul'+id).attr('disabled',true)
-
-//     var status_first = $('#status'+String(id))
-   
-//     status_first.val('Активный')
-
-//     var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
-//     var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
-//     var online_savdo_id =$('#online_savdo_id'+id);
-//     var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id);
-
-
-//     var svet_product =$('#svet_product'+id);
-//     var group_zakup =$('#group_zakup'+id);
-//     var group =$('#group'+id);
-//     var tip =$('#tip'+id);
-//     var bazoviy_edin =$('#bazoviy_edin'+id);
-//     var status =$('#status'+id);
-//     var zavod =$('#zavod'+id);
-//     var buxgalter_uchot =$('#buxgalter_uchot'+id);
-//     var alter_edin =$('#alter_edin'+id);
-//     var stoimost_baza =$('#stoimost_baza'+id);
-//     var stoimost_alter =$('#stoimost_alter'+id);
-//     var segment =$('#segment'+id);
-//     var buxgalter_tovar =$('#buxgalter_tovar'+id);
-//     var comment =$('#comment'+id);
-//     var obshiy_ves_shtuku =$('#obshiy_ves_shtuku'+id);
-//     var pickupdate =$('#pickupdate'+id);
-//     var sena_c_nds =$('#sena_c_nds'+id);
-//     var sena_bez_nds =$('#sena_bez_nds'+id);
-//     var diller =$('#diller'+id);
-//     var tip_clenta =$('#tip_clenta'+id);
-    
-//     comment.css('display','none')
-//     obshiy_ves_shtuku.css('display','none')
-//     pickupdate.css('display','none')
-//     sena_c_nds.css('display','none')
-//     sena_bez_nds.css('display','none')
-//     diller.css('display','none')
-//     tip_clenta.css('display','none')
-//     // var zavod_name =$('#zavod_name'+id)
-//     // zavod_name.text('')
-
-
-//     svet_product.css('display','none')
-//     group_zakup.css('display','none')
-//     group.css('display','none')
-//     tip.css('display','none')
-//     bazoviy_edin.css('display','none')
-//     status.css('display','none')
-//     zavod.css('display','none')
-//     buxgalter_uchot.css('display','none')
-//     alter_edin.css('display','none')
-//     stoimost_baza.css('display','none')
-//     stoimost_alter.css('display','none')
-//     segment.css('display','none')
-//     buxgalter_tovar.css('display','none')
-//     sap_code_ruchnoy.css('display','none')
-//     kratkiy_tekst_ruchnoy.css('display','none')
-//     online_savdo_id.css('display','none')
-//     online_savdo_id.css('border-color','red')
-//     nazvaniye_ruchnoy.css('display','none')
-//     nazvaniye_ruchnoy.css('border-color','red')
-
-
-//     svet_product.css('border-color','red')
-//     group_zakup.css('border-color','red')
-//     group.css('border-color','red')
-//     tip.css('border-color','red')
-//     bazoviy_edin.css('border-color','red')
-//     status.css('border-color','red')
-//     zavod.css('border-color','red')
-//     pickupdate.css('border-color','red')
-//     sena_c_nds.css('border-color','red')
-//     sena_bez_nds.css('border-color','red')
-//     tip_clenta.css('border-color','red')
+    svet_product.css('border-color','red')
+    group_zakup.css('border-color','red')
+    group.css('border-color','red')
+    tip.css('border-color','red')
+    bazoviy_edin.css('border-color','red')
+    status.css('border-color','red')
+    zavod.css('border-color','red')
+    pickupdate.css('border-color','red')
+    sena_c_nds.css('border-color','red')
+    sena_bez_nds.css('border-color','red')
+    tip_clenta.css('border-color','red')
 
     
-//     diller.val('')
-//     tip_clenta.val('')
-//     sap_code_ruchnoy.val('')
-//     kratkiy_tekst_ruchnoy.val('')
-//     online_savdo_id.val('')
-//     nazvaniye_ruchnoy.val('')
-//     svet_product.val('')
-//     group_zakup.val('')
-//     group.val('')
-//     tip.val('')
-//     bazoviy_edin.val('')
-//     status.val('Активный')
-//     // zavod.val('')
-//     buxgalter_uchot.val('')
-//     alter_edin.val('')
-//     stoimost_baza.val('')
-//     stoimost_alter.val('')
-//     segment.val('')
-//     buxgalter_tovar.val('')
-//     comment.val('')
-//     obshiy_ves_shtuku.val('')
-//     pickupdate.val('')
-//     sena_c_nds.val('')
-//     sena_bez_nds.val('')
+    diller.val('')
+    tip_clenta.val('')
+    sap_code_ruchnoy.val('')
+    kratkiy_tekst_ruchnoy.val('')
+    online_savdo_id.val('')
+    nazvaniye_ruchnoy.val('')
+    svet_product.val('')
+    group_zakup.val('')
+    group.val('')
+    tip.val('')
+    bazoviy_edin.val('')
+    status.val('Активный')
+    // zavod.val('')
+    buxgalter_uchot.val('')
+    alter_edin.val('')
+    stoimost_baza.val('')
+    stoimost_alter.val('')
+    segment.val('')
+    buxgalter_tovar.val('')
+    comment.val('')
+    obshiy_ves_shtuku.val('')
+    pickupdate.val('')
+    sena_c_nds.val('')
+    sena_bez_nds.val('')
     
-//     var create_btn =$('#create_btn'+id);
-//     var activate_btn =$('#activate_btn'+id);
+    var create_btn =$('#create_btn'+id);
+    var activate_btn =$('#activate_btn'+id);
 
-//     create_btn.attr('disabled',false)
-//     activate_btn.attr('disabled',false)
-
-
-
-// }
+    create_btn.attr('disabled',false)
+    activate_btn.attr('disabled',false)
 
 
-// function tip_pokritiya_selected(id,val){
 
-//     var element33 = document.getElementById("table_tr"+id);
-//     element33.style.backgroundColor='white';
+}
+
+
+function tip_pokritiya_selected(id,val){
+
+    var element33 = document.getElementById("table_tr"+id);
+    element33.style.backgroundColor='white';
     
 
-//     var dlina =$('#length'+String(id));
-//     dlina.attr("disabled",false);
-//     dlina.css("border-color",'#fc2003');
+    var dlina =$('#length'+String(id));
+    dlina.attr("disabled",false);
+    dlina.css("border-color",'#fc2003');
 
     
 
     
    
-//     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
-//     kratkiy_tekst.text("");
+    var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
+    kratkiy_tekst.text("");
 
 
     
   
 
-//     var nadpis_nakleyki = $('#nadpis_nakleyki'+String(id));
-//     nadpis_nakleyki.text('');
-//     var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
-//     svet_lamplonka_snaruji.val('0').change();
-//     svet_lamplonka_snaruji.attr("disabled",true);
-//     svet_lamplonka_snaruji.css("border-color",'#dedad9');
-//     var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
-//     code_lamplonka_snaruji.text("")
-//     code_lamplonka_snaruji.css("border-color",'#dedad9');
+    var nadpis_nakleyki = $('#nadpis_nakleyki'+String(id));
+    nadpis_nakleyki.text('');
+    var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
+    svet_lamplonka_snaruji.val('0').change();
+    svet_lamplonka_snaruji.attr("disabled",true);
+    svet_lamplonka_snaruji.css("border-color",'#dedad9');
+    var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
+    code_lamplonka_snaruji.text("")
+    code_lamplonka_snaruji.css("border-color",'#dedad9');
 
-//     var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
-//     svet_lamplonka_vnutri.val('0').change();
-//     svet_lamplonka_vnutri.attr("disabled",true);
-//     svet_lamplonka_vnutri.css("border-color",'#dedad9');
-//     var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
-//     code_lamplonka_vnutri.text("")
-//     code_lamplonka_vnutri.css("border-color",'#dedad9');
-
-    
-
-//     var nakleyka_select = $('#nakleyka_select'+String(id));
-//     nakleyka_select.css('display','block');
-//     get_nakleyka(id)
+    var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
+    svet_lamplonka_vnutri.val('0').change();
+    svet_lamplonka_vnutri.attr("disabled",true);
+    svet_lamplonka_vnutri.css("border-color",'#dedad9');
+    var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
+    code_lamplonka_vnutri.text("")
+    code_lamplonka_vnutri.css("border-color",'#dedad9');
 
     
-//     var is_active = $('#is_active'+String(id))
+
+    var nakleyka_select = $('#nakleyka_select'+String(id));
+    nakleyka_select.css('display','block');
+    get_nakleyka(id)
+
     
-//     var svet_product_val =''
-//     var gruppa_zakupok =''
+    var is_active = $('#is_active'+String(id))
     
-//     var iskyucheniye =$('#iskyucheniye'+id).text()
+    var svet_product_val =''
+    var gruppa_zakupok =''
     
-//     if(String(val) == '1'){
-//         var kod_svet_zames = $('#kod_svet_zames'+String(id));
-//         kod_svet_zames.attr("disabled",false);
-//         kod_svet_zames.css("border-color",'#fc2003');
-//         data_base[id] = new BasePokritiya()
-//         data_base[id].id = 1;
-//         data_base[id].tip_pokritiya = 'Неламинированный';
-        
-//         var artikul_pvc = $('#artikul_pvc'+String(id));
-//         data_base[id].artikul= artikul_pvc.text()
-
-//         svet_product_val = 'WHITE' 
-//         gruppa_zakupok ='PVX OQ (Navoiy)' 
-//         var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
-//         kod_svet_rezini.val('')
-
-//         var diller =$('#diller'+id)
-//         var tip_clenta =$('#tip_clenta'+id)
-//         diller.css('display','block')
-//         tip_clenta.css('display','block')
-
-//         const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-//         spanss.style.borderColor='red';
-        
-//         if(iskyucheniye =='1'){
-//             data_base[id].is_iklyuch=true
-//             kod_svet_rezini.css('display','none');
-//             kod_svet_rezini.css('border-color','#dedad9')
-//         }else{
-//             data_base[id].is_iklyuch=false
-//             kod_svet_rezini.css('display','block');
-//         }
-        
-//     }else if(String(val) == '2'){
-        
-//         data_base[id] = new BasePokritiya()
-//         data_base[id].id = 2;
-//         data_base[id].tip_pokritiya = 'Ламинированный';
-//         var artikul_pvc = $('#artikul_pvc'+String(id));
-//         data_base[id].artikul= artikul_pvc.text()
-
-//         svet_product_val ='LAM'
-//         gruppa_zakupok ='PVX LAM (Navoiy)' 
-        
-//         var kod_svet_zames = $('#kod_svet_zames'+String(id));
-//         kod_svet_zames.attr("disabled",false);
-//         kod_svet_zames.css("border-color",'#fc2003');
-//         const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-//         spanss.style.borderColor='red';
-
-//         var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
-//         kod_svet_rezini.val('')
-//         var diller =$('#diller'+id)
-//         var tip_clenta =$('#tip_clenta'+id)
-//         diller.css('display','block')
-//         tip_clenta.css('display','block')
-
-//         var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
-//         svet_lamplonka_snaruji.attr("disabled",false);
-//         svet_lamplonka_snaruji.attr("required",true);
-//         svet_lamplonka_snaruji.css("border-color",'#fc2003');
-//         var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
-//         svet_lamplonka_vnutri.attr("disabled",false);
-//         svet_lamplonka_vnutri.attr("required",true);
-//         svet_lamplonka_vnutri.css("border-color",'#fc2003');
-
-//         if(iskyucheniye =='1'){
-//             kod_svet_rezini.css('display','none');
-//             data_base[id].is_iklyuch=true
-//         }else{
-//             kod_svet_rezini.css('display','block');
-//             data_base[id].is_iklyuch=false
-//         }
-//     }
+    var iskyucheniye =$('#iskyucheniye'+id).text()
     
-//     if(String(val) != ''){
-//         var base_artikul =$('#select2-artikul'+id+'-container')
-//         data_base[id].base_artikul = base_artikul.text()
-//         var nazvaniye_system = $('.nazvaniye_system'+id).text()
-//         var camera =$('#camera'+id).text()
-//         var kod_komponent =$('#kod_komponent'+id).text()
-//         data_base[id].nazvaniye_system = nazvaniye_system;
-//         data_base[id].camera = camera;
-//         data_base[id].kod_k_component = kod_komponent;
-//     }
+    if(String(val) == '1'){
+        var kod_svet_zames = $('#kod_svet_zames'+String(id));
+        kod_svet_zames.attr("disabled",false);
+        kod_svet_zames.css("border-color",'#fc2003');
+        data_base[id].id = 1;
+        data_base[id].tip_pokritiya = 'Неламинированный';
+        
+        var artikul_pvc = $('#artikul_pvc'+String(id));
+        data_base[id].artikul= artikul_pvc.text()
+
+        svet_product_val = 'WHITE' 
+        gruppa_zakupok ='PVX OQ (Navoiy)' 
+        var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
+        kod_svet_rezini.val('')
+
+        var diller =$('#diller'+id)
+        var tip_clenta =$('#tip_clenta'+id)
+        diller.css('display','block')
+        tip_clenta.css('display','block')
+
+        const nakleyka =$('#nakleykaInput'+id)
+        if(nakleyka.val()==''){
+            nakleyka.css('border-color','red')
+        }
+        
+        if(iskyucheniye =='1'){
+            data_base[id].is_iklyuch=true
+            kod_svet_rezini.css('display','none');
+            kod_svet_rezini.css('border-color','#dedad9')
+        }else{
+            data_base[id].is_iklyuch=false
+            kod_svet_rezini.css('display','block');
+        }
+        
+    }else if(String(val) == '2'){
+        data_base[id].id = 2;
+        data_base[id].tip_pokritiya = 'Ламинированный';
+        var artikul_pvc = $('#artikul_pvc'+String(id));
+        data_base[id].artikul= artikul_pvc.text()
+
+        svet_product_val ='LAM'
+        gruppa_zakupok ='PVX LAM (Navoiy)' 
+        
+        var kod_svet_zames = $('#kod_svet_zames'+String(id));
+        kod_svet_zames.attr("disabled",false);
+        kod_svet_zames.css("border-color",'#fc2003');
+        const nakleyka =$('#nakleykaInput'+id)
+        if(nakleyka.val()==''){
+            nakleyka.css('border-color','red')
+        }
+
+        var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
+        kod_svet_rezini.val('')
+        var diller =$('#diller'+id)
+        var tip_clenta =$('#tip_clenta'+id)
+        diller.css('display','block')
+        tip_clenta.css('display','block')
+
+        var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
+        svet_lamplonka_snaruji.attr("disabled",false);
+        svet_lamplonka_snaruji.attr("required",true);
+        svet_lamplonka_snaruji.css("border-color",'#fc2003');
+        var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
+        svet_lamplonka_vnutri.attr("disabled",false);
+        svet_lamplonka_vnutri.attr("required",true);
+        svet_lamplonka_vnutri.css("border-color",'#fc2003');
+
+        if(iskyucheniye =='1'){
+            kod_svet_rezini.css('display','none');
+            data_base[id].is_iklyuch=true
+        }else{
+            kod_svet_rezini.css('display','block');
+            data_base[id].is_iklyuch=false
+        }
+    }
+    
+    if(String(val) != ''){
+        var base_artikul =$('#select2-artikul'+id+'-container')
+        data_base[id].base_artikul = base_artikul.text()
+        var nazvaniye_system = $('.nazvaniye_system'+id).text()
+        var camera =$('#camera'+id).text()
+        var kod_komponent =$('#kod_komponent'+id).text()
+        data_base[id].nazvaniye_system = nazvaniye_system;
+        data_base[id].camera = camera;
+        data_base[id].kod_k_component = kod_komponent;
+    }
 
 
-//     if(is_active.text()=='Активный' && String(val) != ''){
+    if(is_active.text()=='Активный' && String(val) != ''){
         
-//         var svet_product =$('#svet_product'+id);
+        var svet_product =$('#svet_product'+id);
         
         
-//         data_base[id].is_active=true
+        data_base[id].is_active=true
 
-//         var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
-//         var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
-//         var online_savdo_id =$('#online_savdo_id'+id);
-//         var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id);
-//         var svet_product =$('#svet_product'+id);
-//         var group_zakup =$('#group_zakup'+id);
-//         var group =$('#group'+id);
-//         var tip =$('#tip'+id);
-//         var bazoviy_edin =$('#bazoviy_edin'+id);
-//         var status =$('#status'+id);
-//         var zavod =$('#zavod'+id);
-//         var buxgalter_uchot =$('#buxgalter_uchot'+id);
-//         var alter_edin =$('#alter_edin'+id);
-//         var stoimost_baza =$('#stoimost_baza'+id);
-//         var stoimost_alter =$('#stoimost_alter'+id);
-//         var segment =$('#segment'+id);
-//         var buxgalter_tovar =$('#buxgalter_tovar'+id);
-//         var comment =$('#comment'+id);
-//         var pickupdate =$('#pickupdate'+id);
-//         var sena_c_nds =$('#sena_c_nds'+id);
-//         var sena_bez_nds =$('#sena_bez_nds'+id);
-//         comment.css('display','block')
-//         pickupdate.css('display','block')
-//         sena_c_nds.css('display','block')
-//         sena_bez_nds.css('display','block')
+        var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
+        var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
+        var online_savdo_id =$('#online_savdo_id'+id);
+        var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id);
+        var svet_product =$('#svet_product'+id);
+        var group_zakup =$('#group_zakup'+id);
+        var group =$('#group'+id);
+        var tip =$('#tip'+id);
+        var bazoviy_edin =$('#bazoviy_edin'+id);
+        var status =$('#status'+id);
+        var zavod =$('#zavod'+id);
+        var buxgalter_uchot =$('#buxgalter_uchot'+id);
+        var alter_edin =$('#alter_edin'+id);
+        var stoimost_baza =$('#stoimost_baza'+id);
+        var stoimost_alter =$('#stoimost_alter'+id);
+        var segment =$('#segment'+id);
+        var buxgalter_tovar =$('#buxgalter_tovar'+id);
+        var comment =$('#comment'+id);
+        var pickupdate =$('#pickupdate'+id);
+        var sena_c_nds =$('#sena_c_nds'+id);
+        var sena_bez_nds =$('#sena_bez_nds'+id);
+        comment.css('display','block')
+        pickupdate.css('display','block')
+        sena_c_nds.css('display','block')
+        sena_bez_nds.css('display','block')
         
         
         
         
-//         sap_code_ruchnoy.css('display','block')
-//         kratkiy_tekst_ruchnoy.css('display','block')
-//         online_savdo_id.css('display','block')
-//         nazvaniye_ruchnoy.css('display','block')
-//         svet_product.css('display','block')
-//         group_zakup.css('display','block')
-//         group.css('display','block')
-//         tip.css('display','block')
-//         bazoviy_edin.css('display','block')
-//         status.css('display','block')
-//         zavod.css('display','block')
-//         buxgalter_uchot.css('display','block')
-//         alter_edin.css('display','block')
-//         stoimost_baza.css('display','block')
-//         stoimost_alter.css('display','block')
-//         segment.css('display','block')
-//         buxgalter_tovar.css('display','block')
+        sap_code_ruchnoy.css('display','block')
+        kratkiy_tekst_ruchnoy.css('display','block')
+        online_savdo_id.css('display','block')
+        nazvaniye_ruchnoy.css('display','block')
+        svet_product.css('display','block')
+        group_zakup.css('display','block')
+        group.css('display','block')
+        tip.css('display','block')
+        bazoviy_edin.css('display','block')
+        status.css('display','block')
+        zavod.css('display','block')
+        buxgalter_uchot.css('display','block')
+        alter_edin.css('display','block')
+        stoimost_baza.css('display','block')
+        stoimost_alter.css('display','block')
+        segment.css('display','block')
+        buxgalter_tovar.css('display','block')
 
 
-//         status.val('Активный')
-//         // status.attr('disabled',true)
+        status.val('Активный')
+        // status.attr('disabled',true)
 
-//         sap_code_ruchnoy.css('border-color','#dedad9')
-//         kratkiy_tekst_ruchnoy.css('border-color','#dedad9')
-//         online_savdo_id.css('border-color','#dedad9')
-//         nazvaniye_ruchnoy.css('border-color','#dedad9')
-//         svet_product.css('border-color','#dedad9')
-//         group_zakup.css('border-color','#dedad9')
-//         group.css('border-color','#dedad9')
-//         tip.css('border-color','#dedad9')
-//         bazoviy_edin.css('border-color','#dedad9')
-//         status.css('border-color','#dedad9')
-//         zavod.css('border-color','#dedad9')
-//         buxgalter_uchot.css('border-color','#dedad9')
-//         alter_edin.css('border-color','#dedad9')
-//         stoimost_baza.css('border-color','#dedad9')
-//         stoimost_alter.css('border-color','#dedad9')
-//         segment.css('border-color','#dedad9')
-//         buxgalter_tovar.css('border-color','#dedad9')
-//         comment.css('border-color','#dedad9')
-//         pickupdate.css('border-color','#dedad9')
-//         sena_c_nds.css('border-color','#dedad9')
-//         sena_bez_nds.css('border-color','#dedad9')
+        sap_code_ruchnoy.css('border-color','#dedad9')
+        kratkiy_tekst_ruchnoy.css('border-color','#dedad9')
+        online_savdo_id.css('border-color','#dedad9')
+        nazvaniye_ruchnoy.css('border-color','#dedad9')
+        svet_product.css('border-color','#dedad9')
+        group_zakup.css('border-color','#dedad9')
+        group.css('border-color','#dedad9')
+        tip.css('border-color','#dedad9')
+        bazoviy_edin.css('border-color','#dedad9')
+        status.css('border-color','#dedad9')
+        zavod.css('border-color','#dedad9')
+        buxgalter_uchot.css('border-color','#dedad9')
+        alter_edin.css('border-color','#dedad9')
+        stoimost_baza.css('border-color','#dedad9')
+        stoimost_alter.css('border-color','#dedad9')
+        segment.css('border-color','#dedad9')
+        buxgalter_tovar.css('border-color','#dedad9')
+        comment.css('border-color','#dedad9')
+        pickupdate.css('border-color','#dedad9')
+        sena_c_nds.css('border-color','#dedad9')
+        sena_bez_nds.css('border-color','#dedad9')
 
-//     }else if(is_active.text()=='Пассивный' && String(val) != ''){
+    }else if(is_active.text()=='Пассивный' && String(val) != ''){
        
-//         var svet_product =$('#svet_product'+id);
-//         var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
-//         var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
-//         var online_savdo_id =$('#online_savdo_id'+id);
-//         var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id);
-//         var svet_product =$('#svet_product'+id);
-//         var group_zakup =$('#group_zakup'+id);
-//         var group =$('#group'+id);
-//         var tip =$('#tip'+id);
-//         var bazoviy_edin =$('#bazoviy_edin'+id);
-//         var status =$('#status'+id);
-//         var zavod =$('#zavod'+id);
-//         var buxgalter_uchot =$('#buxgalter_uchot'+id);
-//         var alter_edin =$('#alter_edin'+id);
-//         var stoimost_baza =$('#stoimost_baza'+id);
-//         var stoimost_alter =$('#stoimost_alter'+id);
-//         var segment =$('#segment'+id);
-//         var buxgalter_tovar =$('#buxgalter_tovar'+id);
-//         var comment =$('#comment'+id);
-//         var obshiy_ves_shtuku =$('#obshiy_ves_shtuku'+id);
-//         var pickupdate =$('#pickupdate'+id);
-//         var sena_c_nds =$('#sena_c_nds'+id);
-//         var sena_bez_nds =$('#sena_bez_nds'+id);
-//         comment.css('display','block')
-//         obshiy_ves_shtuku.css('display','block')
-//         pickupdate.css('display','block')
-//         sena_c_nds.css('display','block')
-//         sena_bez_nds.css('display','block')
+        var svet_product =$('#svet_product'+id);
+        var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
+        var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
+        var online_savdo_id =$('#online_savdo_id'+id);
+        var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id);
+        var svet_product =$('#svet_product'+id);
+        var group_zakup =$('#group_zakup'+id);
+        var group =$('#group'+id);
+        var tip =$('#tip'+id);
+        var bazoviy_edin =$('#bazoviy_edin'+id);
+        var status =$('#status'+id);
+        var zavod =$('#zavod'+id);
+        var buxgalter_uchot =$('#buxgalter_uchot'+id);
+        var alter_edin =$('#alter_edin'+id);
+        var stoimost_baza =$('#stoimost_baza'+id);
+        var stoimost_alter =$('#stoimost_alter'+id);
+        var segment =$('#segment'+id);
+        var buxgalter_tovar =$('#buxgalter_tovar'+id);
+        var comment =$('#comment'+id);
+        var obshiy_ves_shtuku =$('#obshiy_ves_shtuku'+id);
+        var pickupdate =$('#pickupdate'+id);
+        var sena_c_nds =$('#sena_c_nds'+id);
+        var sena_bez_nds =$('#sena_bez_nds'+id);
+        comment.css('display','block')
+        obshiy_ves_shtuku.css('display','block')
+        pickupdate.css('display','block')
+        sena_c_nds.css('display','block')
+        sena_bez_nds.css('display','block')
         
         
         
-//         buxgalter_uchot.val('Килограмм')
-//         bazoviy_edin.val('Штука')
-//         alter_edin.val('Килограмм')
-//         stoimost_baza.val('1')
+        buxgalter_uchot.val('Килограмм')
+        bazoviy_edin.val('Штука')
+        alter_edin.val('Килограмм')
+        stoimost_baza.val('1')
         
         
 
-//         sap_code_ruchnoy.css('display','block')
-//         kratkiy_tekst_ruchnoy.css('display','block')
-//         online_savdo_id.css('display','block')
-//         nazvaniye_ruchnoy.css('display','block')
-//         svet_product.css('display','block')
-//         group_zakup.css('display','block')
-//         group.css('display','block')
-//         tip.css('display','block')
-//         bazoviy_edin.css('display','block')
-//         status.css('display','block')
-//         zavod.css('display','block')
-//         buxgalter_uchot.css('display','block')
-//         alter_edin.css('display','block')
-//         stoimost_baza.css('display','block')
-//         stoimost_alter.css('display','block')
-//         segment.css('display','block')
-//         buxgalter_tovar.css('display','block')
+        sap_code_ruchnoy.css('display','block')
+        kratkiy_tekst_ruchnoy.css('display','block')
+        online_savdo_id.css('display','block')
+        nazvaniye_ruchnoy.css('display','block')
+        svet_product.css('display','block')
+        group_zakup.css('display','block')
+        group.css('display','block')
+        tip.css('display','block')
+        bazoviy_edin.css('display','block')
+        status.css('display','block')
+        zavod.css('display','block')
+        buxgalter_uchot.css('display','block')
+        alter_edin.css('display','block')
+        stoimost_baza.css('display','block')
+        stoimost_alter.css('display','block')
+        segment.css('display','block')
+        buxgalter_tovar.css('display','block')
         
-//         svet_product.val(svet_product_val)
-//         tip.val('Готовый продукт')
-//         group_zakup.val(gruppa_zakupok)
-//         status.val('Активный')
-//         // status.attr('disabled',true)
+        svet_product.val(svet_product_val)
+        tip.val('Готовый продукт')
+        group_zakup.val(gruppa_zakupok)
+        status.val('Активный')
+        // status.attr('disabled',true)
 
-//         online_savdo_id.css('border-color','#dedad9')
-//         tip_clenta.css('border-color','#dedad9')
+        online_savdo_id.css('border-color','#dedad9')
+        tip_clenta.css('border-color','#dedad9')
 
-//     }
+    }
     
-//     create_kratkiy_tekst(id);
-// }
+    create_kratkiy_tekst(id);
+}
 
 
 
-// function svet_lamplonka_snaruji_selected(id,val){
-//     var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
-//     code_lamplonka_snaruji.text(String(val))
+function svet_lamplonka_snaruji_selected(id,val){
+    var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
+    code_lamplonka_snaruji.text(String(val))
     
-//     var svet_lamplonka_snaruji = document.getElementById('svet_lamplonka_snaruji'+String(id))
-//     svet_lamplonka_snaruji.style.borderColor='red';
-//     // data_base[id].kod_lam_sn =NaN;
-//     create_kratkiy_tekst(id);
+    var svet_lamplonka_snaruji = document.getElementById('svet_lamplonka_snaruji'+String(id))
+    svet_lamplonka_snaruji.style.borderColor='red';
+    // data_base[id].kod_lam_sn =NaN;
+    create_kratkiy_tekst(id);
     
 
-// }
-// function svet_lamplonka_vnutri_selected(id,val){
-//     var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
-//     code_lamplonka_vnutri.text(String(val));
-//     var svet_lamplonka_vnutri = document.getElementById('svet_lamplonka_vnutri'+String(id))
-//     svet_lamplonka_vnutri.style.borderColor='red';
-//     create_kratkiy_tekst(id);
+}
+function svet_lamplonka_vnutri_selected(id,val){
+    var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
+    code_lamplonka_vnutri.text(String(val));
+    var svet_lamplonka_vnutri = document.getElementById('svet_lamplonka_vnutri'+String(id))
+    svet_lamplonka_vnutri.style.borderColor='red';
+    create_kratkiy_tekst(id);
     
-// }
+}
 
 
 
 
 
-// function create_kratkiy_tekst(id){
+function create_kratkiy_tekst(id){
     
-//     if(!data_base[id]){
-//         console.log('salom')
-//     }else{
+    if(!data_base[id]){
+        console.log('salom')
+    }else{
     
-//     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
-//     var combination= $('#combination'+String(id));
-//     combination_text = combination.text();
-//     var val = $('#tip_pokritiya'+String(id)).val();
-//     var dlina = $('#length'+String(id));
+    var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
+    var combination= $('#combination'+String(id));
+    combination_text = combination.text();
+    var val = $('#tip_pokritiya'+String(id)).val();
+    var dlina = $('#length'+String(id));
 
    
-//     if(dlina.val()!=''){
-//         dlina.css("border-color",'#dedad9');
-//         data_base[id].dlina = dlina.val();
-//     }else{
-//         dlina.css("border-color",'red');
-//         data_base[id].dlina = NaN;
-//     }
+    if(dlina.val()!=''){
+        dlina.css("border-color",'#dedad9');
+        data_base[id].dlina = dlina.val();
+    }else{
+        dlina.css("border-color",'red');
+        data_base[id].dlina = NaN;
+    }
     
-//     var kod_svet_zames = $('#kod_svet_zames'+String(id));
-//     if(kod_svet_zames){
-//         if(kod_svet_zames.val()!='0' && kod_svet_zames.val()!='' && kod_svet_zames.val()!=null){
-//             kod_svet_zames.css("border-color",'#dedad9');
-//             data_base[id].kod_svet_zames = kod_svet_zames.val()
-//         }else{
-//             data_base[id].kod_svet_zames = NaN;
-//             kod_svet_zames.css("border-color",'red');
-//         }
-//     }
+    var kod_svet_zames = $('#kod_svet_zames'+String(id));
+    if(kod_svet_zames.val()!=''){
+        if(kod_svet_zames.val()!='0' && kod_svet_zames.val()!='' && kod_svet_zames.val()!=null){
+            kod_svet_zames.css("border-color",'#dedad9');
+            data_base[id].kod_svet_zames = kod_svet_zames.val()
+        }else{
+            console.log('sssaaaaa')
+            data_base[id].kod_svet_zames = NaN;
+            kod_svet_zames.css("border-color",'red');
+        }
+    }
     
     
-//     var iskyucheniye =$('#iskyucheniye' +id).text()
+    var iskyucheniye =$('#iskyucheniye' +id).text()
 
-//     if(iskyucheniye =='1'){
+    if(iskyucheniye =='1'){
 
-//         var kod_svet_rezini =$('#kod_svet_rezini' + id);
-//         if(kod_svet_rezini.val()!=''){
-//             var svet_rezin =$('#svet_rezin' + id);
-//             var selectedText = $("#kod_svet_rezini"+id + " option:selected").text();
-//             svet_rezin.text(kod_svet_rezini.val())
-//             kod_svet_rezini.css('border-color','#dedad9')
-//             data_base[id].kod_svet_rezini =selectedText;
-//             data_base[id].svet_rezin =kod_svet_rezini.val();
-//         }else{
-//             var svet_rezin =$('#svet_rezin' + id);
-//             svet_rezin.text('')
-//             data_base[id].kod_svet_rezini = NaN
-//             data_base[id].svet_rezin = NaN;
-//         }
+        var kod_svet_rezini =$('#kod_svet_rezini' + id);
+        if(kod_svet_rezini.val()!=''){
+            var svet_rezin =$('#svet_rezin' + id);
+            var selectedText = $("#kod_svet_rezini"+id + " option:selected").text();
+            svet_rezin.text(kod_svet_rezini.val())
+            kod_svet_rezini.css('border-color','#dedad9')
+            data_base[id].kod_svet_rezini =selectedText;
+            data_base[id].svet_rezin =kod_svet_rezini.val();
+        }else{
+            var svet_rezin =$('#svet_rezin' + id);
+            svet_rezin.text('')
+            data_base[id].kod_svet_rezini = NaN
+            data_base[id].svet_rezin = NaN;
+        }
         
-//     }else{
+    }else{
         
-//         var kod_svet_rezini =$('#kod_svet_rezini' + id);
-//         if(kod_svet_rezini.val()!=''){
-//             var svet_rezin =$('#svet_rezin' + id);
-//             var selectedText = $("#kod_svet_rezini"+id + " option:selected").text();
-//             svet_rezin.text(kod_svet_rezini.val())
-//             kod_svet_rezini.css('border-color','#dedad9')
-//             data_base[id].kod_svet_rezini =selectedText;
-//             data_base[id].svet_rezin =kod_svet_rezini.val();
-//         }else{
-//             var svet_rezin =$('#svet_rezin' + id);
-//             svet_rezin.text('')
-//             kod_svet_rezini.css('border-color','red')
-//             data_base[id].kod_svet_rezini = NaN
-//             data_base[id].svet_rezin = NaN;
-//         }
-//     }
+        var kod_svet_rezini =$('#kod_svet_rezini' + id);
+        if(kod_svet_rezini.val()!=''){
+            var svet_rezin =$('#svet_rezin' + id);
+            var selectedText = $("#kod_svet_rezini"+id + " option:selected").text();
+            svet_rezin.text(kod_svet_rezini.val())
+            kod_svet_rezini.css('border-color','#dedad9')
+            data_base[id].kod_svet_rezini =selectedText;
+            data_base[id].svet_rezin =kod_svet_rezini.val();
+        }else{
+            var svet_rezin =$('#svet_rezin' + id);
+            svet_rezin.text('')
+            kod_svet_rezini.css('border-color','red')
+            data_base[id].kod_svet_rezini = NaN
+            data_base[id].svet_rezin = NaN;
+        }
+    }
 
 
     
 
-//     if(String(val) == '1'){
+    if(String(val) == '1'){
        
-//        var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
+        var nakleyka_select = $('#nakleykaInput'+String(id))
         
-//         const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
-//         const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-    
-//         if(spanTextbox.innerText !=''){
-//             var nadpis_nakleyki = $('#nadpis_nakleyki'+id)
-//             spanss.style.borderColor='#dedad9';
-//             // nakleyka_select.style.borderBlockColor='#dedad9'
-//             data_base[id].kod_nakleyki = spanTextbox.innerText;
-//             data_base[id].nadpis_nakleyki = nadpis_nakleyki.text();
+        if(nakleyka_select.val() !=''){
+            var nadpis_nakleyki = $('#nadpis_nakleyki'+id)
+            nadpis_nakleyki.css('border-color','#dedad9');
+            // nakleyka_select.style.borderBlockColor='#dedad9'
+            data_base[id].kod_nakleyki = nakleyka_select.val()
+            data_base[id].nadpis_nakleyki = nadpis_nakleyki.text();
             
-//         }else{
-//             // spanss.style.borderColor='red';
-//             // nakleyka_select.style.borderBlockColor='red'
-//             data_base[id].nadpis_nakleyki = NaN;
-//             data_base[id].kod_nakleyki = NaN
+        }else{
+            // spanss.style.borderColor='red';
+            // nakleyka_select.style.borderBlockColor='red'
+            data_base[id].nadpis_nakleyki = NaN;
+            data_base[id].kod_nakleyki = NaN
 
-//         }
+        }
 
        
-//     }
-//     else if(String(val) == '2'){
+    }
+    else if(String(val) == '2'){
        
 
 
-//        var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
-//        const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
-//        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-    
-//        if(spanTextbox.innerText !=''){
-//             var nadpis_nakleyki = $('#nadpis_nakleyki'+id)
-//             spanss.style.borderColor='#dedad9';
-//             // nakleyka_select.style.borderBlockColor='#dedad9'
-//             data_base[id].kod_nakleyki = spanTextbox.innerText;
-//             data_base[id].nadpis_nakleyki = nadpis_nakleyki.text();
+        var nakleyka_select = $('#nakleykaInput'+String(id))
         
-//         }else{
-//             spanss.style.borderColor='red';
-//             data_base[id].kod_nakleyki = NaN
-//             data_base[id].nadpis_nakleyki = NaN;
-//             // nakleyka_select.style.borderBlockColor='red'
+        if(nakleyka_select.val() !=''){
+            var nadpis_nakleyki = $('#nadpis_nakleyki'+id)
+            nadpis_nakleyki.css('border-color','#dedad9');
+            data_base[id].kod_nakleyki = nakleyka_select.val()
+            data_base[id].nadpis_nakleyki = nadpis_nakleyki.text();
+            
+        }else{
+            data_base[id].nadpis_nakleyki = NaN;
+            data_base[id].kod_nakleyki = NaN
 
-//         }
+        }
 
         
             
-//         var code_lamplonka_snaruji = document.getElementById('code_lamplonka_snaruji'+String(id))//.innerText;
+        var code_lamplonka_snaruji = document.getElementById('code_lamplonka_snaruji'+String(id))//.innerText;
         
-//         if(code_lamplonka_snaruji.innerText !=''){
-//             $('#svet_lamplonka_snaruji'+String(id)).css('border-color','#dedad9');//.innerText;
-//             var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id)+' option:selected')//.innerText;
-//             data_base[id].kod_lam_sn = code_lamplonka_snaruji.innerText;
-//             data_base[id].svet_lamplonka_snaruji = svet_lamplonka_snaruji.text();
-//         }else{
-//             $('#svet_lamplonka_snaruji'+String(id)).css('border-color','red');//.innerText;
-//             data_base[id].kod_lam_sn = NaN;
-//             data_base[id].svet_lamplonka_snaruji = NaN;
-//         }
+        if(code_lamplonka_snaruji.innerText !=''){
+            $('#svet_lamplonka_snaruji'+String(id)).css('border-color','#dedad9');//.innerText;
+            var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id)+' option:selected')//.innerText;
+            data_base[id].kod_lam_sn = code_lamplonka_snaruji.innerText;
+            data_base[id].svet_lamplonka_snaruji = svet_lamplonka_snaruji.text();
+        }else{
+            $('#svet_lamplonka_snaruji'+String(id)).css('border-color','red');//.innerText;
+            data_base[id].kod_lam_sn = NaN;
+            data_base[id].svet_lamplonka_snaruji = NaN;
+        }
         
-//         var code_lamplonka_vnutri = document.getElementById('code_lamplonka_vnutri'+String(id));
+        var code_lamplonka_vnutri = document.getElementById('code_lamplonka_vnutri'+String(id));
+        
+        if(code_lamplonka_vnutri.innerText !=''){
+            $('#svet_lamplonka_vnutri'+String(id)).css('border-color','#dedad9');//.innerText;
+            var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id)+' option:selected')//.innerText;
+            data_base[id].kod_lam_vn =code_lamplonka_vnutri.innerText;
+            data_base[id].svet_lamplonka_vnutri =svet_lamplonka_vnutri.text();
+        }else{
+            $('#svet_lamplonka_vnutri'+String(id)).css('border-color','red');//.innerText;
+            data_base[id].kod_lam_vn =NaN;
+        }
+
+        
         
 
-//         if(code_lamplonka_vnutri.innerText !=''){
-//             $('#svet_lamplonka_vnutri'+String(id)).css('border-color','#dedad9');//.innerText;
-//             var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id)+' option:selected')//.innerText;
-//             data_base[id].kod_lam_vn =code_lamplonka_vnutri.innerText;
-//             data_base[id].svet_lamplonka_vnutri =svet_lamplonka_vnutri.text();
-//         }else{
-//             $('#svet_lamplonka_vnutri'+String(id)).css('border-color','red');//.innerText;
-//             data_base[id].kod_lam_vn =NaN;
-//         }
+    }
 
+
+
+    if(String(val) != ''){
+
+        var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
+        var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
+        var online_savdo_id =$('#online_savdo_id'+id);
+        var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id);
+        var svet_product =$('#svet_product'+id);
+        var group_zakup =$('#group_zakup'+id);
+        var group =$('#group'+id);
+        var tip =$('#tip'+id);
+        var bazoviy_edin =$('#bazoviy_edin'+id);
+        var status =$('#status'+id);
+        var zavod =$('#zavod_name'+id);
+        var nazvaniye_system =$('.nazvaniye_system'+id).text();
         
-        
-
-//     }
-
-
-
-//     if(String(val) != ''){
-
-//         var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
-//         var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
-//         var online_savdo_id =$('#online_savdo_id'+id);
-//         var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id);
-//         var svet_product =$('#svet_product'+id);
-//         var group_zakup =$('#group_zakup'+id);
-//         var group =$('#group'+id);
-//         var tip =$('#tip'+id);
-//         var bazoviy_edin =$('#bazoviy_edin'+id);
-//         var status =$('#status'+id);
-//         var zavod =$('#zavod_name'+id);
-//         var nazvaniye_system =$('.nazvaniye_system'+id).text();
-        
-//         var segment =$('#segment'+id).val();
-//         var buxgalter_tovar =$('#buxgalter_tovar'+id).val();
-//         var buxgalter_uchot =$('#buxgalter_uchot'+id).val();
-//         var alter_edin =$('#alter_edin'+id).val();
-//         var stoimost_baza =$('#stoimost_baza'+id).val();
-//         var stoimost_alter =$('#stoimost_alter'+id).val();
+        var segment =$('#segment'+id).val();
+        var buxgalter_tovar =$('#buxgalter_tovar'+id).val();
+        var buxgalter_uchot =$('#buxgalter_uchot'+id).val();
+        var alter_edin =$('#alter_edin'+id).val();
+        var stoimost_baza =$('#stoimost_baza'+id).val();
+        var stoimost_alter =$('#stoimost_alter'+id).val();
        
-//         if(nazvaniye_system!=''){
-//             data_base[id].nazvaniye_system = nazvaniye_system;
-//         }else{
-//             data_base[id].nazvaniye_system = NaN;
-//         }
-//         if(stoimost_alter!=''){
-//             data_base[id].stoimost_alter = stoimost_alter;
-//         }else{
-//             data_base[id].stoimost_alter = NaN;
-//         }
-//         if(stoimost_baza!=''){
-//             data_base[id].stoimost_baza = stoimost_baza;
-//         }else{
-//             data_base[id].stoimost_baza = NaN;
-//         }
-//         if(alter_edin!=''){
-//             data_base[id].alter_edin = alter_edin;
-//         }else{
-//             data_base[id].alter_edin = NaN;
-//         }
-//         if(buxgalter_uchot!=''){
-//             data_base[id].buxgalter_uchot = buxgalter_uchot;
-//         }else{
-//             data_base[id].buxgalter_uchot = NaN;
-//         }
-//         if(segment!=''){
-//             data_base[id].segment = segment;
-//         }else{
-//             data_base[id].segment = NaN;
-//         }
-//         if(buxgalter_tovar!=''){
-//             data_base[id].buxgalter_tovar = buxgalter_tovar;
-//         }else{
-//             data_base[id].buxgalter_tovar = NaN;
-//         }
+        if(nazvaniye_system!=''){
+            data_base[id].nazvaniye_system = nazvaniye_system;
+        }else{
+            data_base[id].nazvaniye_system = NaN;
+        }
+        if(stoimost_alter!=''){
+            data_base[id].stoimost_alter = stoimost_alter;
+        }else{
+            data_base[id].stoimost_alter = NaN;
+        }
+        if(stoimost_baza!=''){
+            data_base[id].stoimost_baza = stoimost_baza;
+        }else{
+            data_base[id].stoimost_baza = NaN;
+        }
+        if(alter_edin!=''){
+            data_base[id].alter_edin = alter_edin;
+        }else{
+            data_base[id].alter_edin = NaN;
+        }
+        if(buxgalter_uchot!=''){
+            data_base[id].buxgalter_uchot = buxgalter_uchot;
+        }else{
+            data_base[id].buxgalter_uchot = NaN;
+        }
+        if(segment!=''){
+            data_base[id].segment = segment;
+        }else{
+            data_base[id].segment = NaN;
+        }
+        if(buxgalter_tovar!=''){
+            data_base[id].buxgalter_tovar = buxgalter_tovar;
+        }else{
+            data_base[id].buxgalter_tovar = NaN;
+        }
 
 
-//         var comment =$('#comment'+id);
-//         var pickupdate =$('#pickupdate'+id);
-//         var sena_c_nds =$('#sena_c_nds'+id);
-//         var sena_bez_nds =$('#sena_bez_nds'+id);
-//         var diller =$('#diller'+id)
-//         var tip_clenta =$('#tip_clenta'+id)
+        var comment =$('#comment'+id);
+        var pickupdate =$('#pickupdate'+id);
+        var sena_c_nds =$('#sena_c_nds'+id);
+        var sena_bez_nds =$('#sena_bez_nds'+id);
+        var diller =$('#diller'+id)
+        var tip_clenta =$('#tip_clenta'+id)
         
         
-//         var is_active =$('#is_active'+id)
+        var is_active =$('#is_active'+id)
         
-//         if(is_active.text()=='Активный'){
+        if(is_active.text()=='Активный'){
 
-//             if(tip_clenta.val()!=''){
-//                 data_base[id].tip_clenta = tip_clenta.val();
-//                 tip_clenta.css('border-color','#dedad9')
-//             }else{
-//                 tip_clenta.css('border-color','#dedad9')
-//                 data_base[id].tip_clenta = NaN;
-//             }
-//             if(diller.val()!=''){
-//                 data_base[id].diller = diller.val();
-//                 diller.css('border-color','#dedad9')
-//             }else{
-//                 data_base[id].diller = NaN;
-//             }
+            if(tip_clenta.val()!=''){
+                data_base[id].tip_clenta = tip_clenta.val();
+                tip_clenta.css('border-color','#dedad9')
+            }else{
+                tip_clenta.css('border-color','#dedad9')
+                data_base[id].tip_clenta = NaN;
+            }
+            if(diller.val()!=''){
+                data_base[id].diller = diller.val();
+                diller.css('border-color','#dedad9')
+            }else{
+                data_base[id].diller = NaN;
+            }
 
-//             if(sena_bez_nds.val()!=''){
-//                 data_base[id].sena_bez_nds = sena_bez_nds.val();
-//                 sena_bez_nds.css('border-color','#dedad9')
-//             }else{
-//                 data_base[id].sena_bez_nds = NaN;
-//             }
-//             if(sena_c_nds.val()!=''){
-//                 data_base[id].sena_c_nds = sena_c_nds.val();
-//                 sena_c_nds.css('border-color','#dedad9')
-//             }else{
-//                 data_base[id].sena_c_nds = NaN;
-//             }
-//             if(pickupdate.val()!=''){
-//                 data_base[id].pickupdate = pickupdate.val();
-//                 pickupdate.css('border-color','#dedad9')
-//             }else{
-//                 data_base[id].pickupdate = NaN;
-//             }
+            if(sena_bez_nds.val()!=''){
+                data_base[id].sena_bez_nds = sena_bez_nds.val();
+                sena_bez_nds.css('border-color','#dedad9')
+            }else{
+                data_base[id].sena_bez_nds = NaN;
+            }
+            if(sena_c_nds.val()!=''){
+                data_base[id].sena_c_nds = sena_c_nds.val();
+                sena_c_nds.css('border-color','#dedad9')
+            }else{
+                data_base[id].sena_c_nds = NaN;
+            }
+            if(pickupdate.val()!=''){
+                data_base[id].pickupdate = pickupdate.val();
+                pickupdate.css('border-color','#dedad9')
+            }else{
+                data_base[id].pickupdate = NaN;
+            }
             
-//             if(comment.val()!=''){
-//                 data_base[id].comment = comment.val();
-//                 comment.css('border-color','#dedad9')
-//             }else{
-//                 data_base[id].comment = NaN;
-//             }
+            if(comment.val()!=''){
+                data_base[id].comment = comment.val();
+                comment.css('border-color','#dedad9')
+            }else{
+                data_base[id].comment = NaN;
+            }
             
-//             if(sap_code_ruchnoy.val()!=''){
-//                 data_base[id].sap_code = sap_code_ruchnoy.val();
+            if(sap_code_ruchnoy.val()!=''){
+                data_base[id].sap_code = sap_code_ruchnoy.val();
                 
-//             }else{
-//                 data_base[id].sap_code = NaN;
+            }else{
+                data_base[id].sap_code = NaN;
                 
-//             }
-//             if(kratkiy_tekst_ruchnoy.val()!=''){
-//                 data_base[id].krat = kratkiy_tekst_ruchnoy.val();
+            }
+            if(kratkiy_tekst_ruchnoy.val()!=''){
+                data_base[id].krat = kratkiy_tekst_ruchnoy.val();
                
-//             }else{
-//                 data_base[id].krat = NaN;
+            }else{
+                data_base[id].krat = NaN;
                 
-//             }
-//             if(online_savdo_id.val()!=''){
-//                 online_savdo_id.css('border-color','#dedad9')
-//                 data_base[id].online_id = online_savdo_id.val();
-//             }else{
-//                 data_base[id].online_id = NaN;
-//                 online_savdo_id.css('border-color','red')
-//             }
-//             if(nazvaniye_ruchnoy.val()!=''){
-//                 nazvaniye_ruchnoy.css('border-color','#dedad9')
-//                 data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
-//             }else{
-//                 data_base[id].nazvaniye_ruchnoy =NaN;
-//                 nazvaniye_ruchnoy.css('border-color','red')
-//             }
+            }
+            if(online_savdo_id.val()!=''){
+                online_savdo_id.css('border-color','#dedad9')
+                data_base[id].online_id = online_savdo_id.val();
+            }else{
+                data_base[id].online_id = NaN;
+                online_savdo_id.css('border-color','red')
+            }
+            if(nazvaniye_ruchnoy.val()!=''){
+                nazvaniye_ruchnoy.css('border-color','#dedad9')
+                data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
+            }else{
+                data_base[id].nazvaniye_ruchnoy =NaN;
+                nazvaniye_ruchnoy.css('border-color','red')
+            }
     
     
-//             if(svet_product.val()!=''){
+            if(svet_product.val()!=''){
                 
-//                 data_base[id].svet_product = svet_product.val();
-//             }else{
-//                 data_base[id].svet_product =NaN;
+                data_base[id].svet_product = svet_product.val();
+            }else{
+                data_base[id].svet_product =NaN;
                
-//             }
-//             if(group_zakup.val()!=''){
+            }
+            if(group_zakup.val()!=''){
                 
-//                 data_base[id].group_zakup = group_zakup.val();
-//             }else{
-//                 data_base[id].group_zakup =NaN;
+                data_base[id].group_zakup = group_zakup.val();
+            }else{
+                data_base[id].group_zakup =NaN;
                 
-//             }
-//             if(group.val()!=''){
+            }
+            if(group.val()!=''){
                 
-//                 data_base[id].group = group.val();
-//             }else{
-//                 data_base[id].group =NaN;
+                data_base[id].group = group.val();
+            }else{
+                data_base[id].group =NaN;
                 
-//             }
-//             if(tip.val()!=''){
+            }
+            if(tip.val()!=''){
                 
-//                 data_base[id].tip = tip.val();
-//             }else{
-//                 data_base[id].tip =NaN;
+                data_base[id].tip = tip.val();
+            }else{
+                data_base[id].tip =NaN;
                 
-//             }
-//             if(bazoviy_edin.val()!=''){
+            }
+            if(bazoviy_edin.val()!=''){
                 
-//                 data_base[id].bazoviy_edin = bazoviy_edin.val();
-//             }else{
-//                 data_base[id].bazoviy_edin =NaN;
+                data_base[id].bazoviy_edin = bazoviy_edin.val();
+            }else{
+                data_base[id].bazoviy_edin =NaN;
                 
-//             }
+            }
             
-//             if(status.val()!=''){
+            if(status.val()!=''){
                 
-//                 data_base[id].status_online = status.val();
-//             }else{
-//                 data_base[id].status_online =NaN;
+                data_base[id].status_online = status.val();
+            }else{
+                data_base[id].status_online =NaN;
                 
-//             }
-//             if(zavod.val()!=''){
+            }
+            if(zavod.val()!=''){
                 
-//                 var zavod_name =$('#zavod_name'+id)
-//                 zavod_name.text(zavod.val())
-//                 data_base[id].zavod = zavod.val();
-//             }else{
-//                 var zavod_name =$('#zavod_name'+id)
-//                 zavod_name.text('')
-//                 data_base[id].zavod =NaN;
+                var zavod_name =$('#zavod_name'+id)
+                zavod_name.text(zavod.val())
+                data_base[id].zavod = zavod.val();
+            }else{
+                var zavod_name =$('#zavod_name'+id)
+                zavod_name.text('')
+                data_base[id].zavod =NaN;
                 
                 
-//             }
-//         }else{
-//             if(tip_clenta.val()!=''){
-//                 data_base[id].tip_clenta = tip_clenta.val();
-//                 tip_clenta.css('border-color','#dedad9')
-//             }else{
-//                 tip_clenta.css('border-color','red')
-//                 data_base[id].tip_clenta = NaN;
-//             }
-//             if(diller.val()!=''){
-//                 data_base[id].diller = diller.val();
-//                 diller.css('border-color','#dedad9')
-//             }else{
-//                 data_base[id].diller = NaN;
-//             }
-//             if(sena_bez_nds.val()!=''){
-//                 data_base[id].sena_bez_nds = sena_bez_nds.val();
-//                 sena_bez_nds.css('border-color','#dedad9')
-//             }else{
-//                 sena_bez_nds.css('border-color','red')
-//                 data_base[id].sena_bez_nds = NaN;
-//             }
+            }
+        }else{
+            if(tip_clenta.val()!=''){
+                data_base[id].tip_clenta = tip_clenta.val();
+                tip_clenta.css('border-color','#dedad9')
+            }else{
+                tip_clenta.css('border-color','red')
+                data_base[id].tip_clenta = NaN;
+            }
+            if(diller.val()!=''){
+                data_base[id].diller = diller.val();
+                diller.css('border-color','#dedad9')
+            }else{
+                data_base[id].diller = NaN;
+            }
+            if(sena_bez_nds.val()!=''){
+                data_base[id].sena_bez_nds = sena_bez_nds.val();
+                sena_bez_nds.css('border-color','#dedad9')
+            }else{
+                sena_bez_nds.css('border-color','red')
+                data_base[id].sena_bez_nds = NaN;
+            }
 
-//             if(sena_c_nds.val()!=''){
-//                 data_base[id].sena_c_nds = sena_c_nds.val();
-//                 sena_c_nds.css('border-color','#dedad9')
-//             }else{
-//                 sena_c_nds.css('border-color','red')
-//                 data_base[id].sena_c_nds = NaN;
-//             }
-//             if(pickupdate.val()!=''){
-//                 data_base[id].pickupdate = pickupdate.val();
-//                 pickupdate.css('border-color','#dedad9')
-//             }else{
-//                 pickupdate.css('border-color','red')
-//                 data_base[id].pickupdate = NaN;
-//             }
+            if(sena_c_nds.val()!=''){
+                data_base[id].sena_c_nds = sena_c_nds.val();
+                sena_c_nds.css('border-color','#dedad9')
+            }else{
+                sena_c_nds.css('border-color','red')
+                data_base[id].sena_c_nds = NaN;
+            }
+            if(pickupdate.val()!=''){
+                data_base[id].pickupdate = pickupdate.val();
+                pickupdate.css('border-color','#dedad9')
+            }else{
+                pickupdate.css('border-color','red')
+                data_base[id].pickupdate = NaN;
+            }
             
-//             if(comment.val()!=''){
-//                 data_base[id].comment = comment.val();
-//                 comment.css('border-color','#dedad9')
-//             }else{
-//                 data_base[id].comment = NaN;
-//             }
+            if(comment.val()!=''){
+                data_base[id].comment = comment.val();
+                comment.css('border-color','#dedad9')
+            }else{
+                data_base[id].comment = NaN;
+            }
 
-//             if(sap_code_ruchnoy.val()!=''){
-//                 data_base[id].sap_code = sap_code_ruchnoy.val();
-//                 sap_code_ruchnoy.css('border-color','#dedad9')
-//             }else{
-//                 data_base[id].sap_code = NaN;
-//             }
+            if(sap_code_ruchnoy.val()!=''){
+                data_base[id].sap_code = sap_code_ruchnoy.val();
+                sap_code_ruchnoy.css('border-color','#dedad9')
+            }else{
+                data_base[id].sap_code = NaN;
+            }
 
 
-//             if(kratkiy_tekst_ruchnoy.val()!=''){
-//                 data_base[id].krat = kratkiy_tekst_ruchnoy.val();
-//                 kratkiy_tekst_ruchnoy.css('border-color','#dedad9')
-//             }else{
-//                 data_base[id].krat = NaN;
-//             }
-//             if(online_savdo_id.val()!=''){
+            if(kratkiy_tekst_ruchnoy.val()!=''){
+                data_base[id].krat = kratkiy_tekst_ruchnoy.val();
+                kratkiy_tekst_ruchnoy.css('border-color','#dedad9')
+            }else{
+                data_base[id].krat = NaN;
+            }
+            if(online_savdo_id.val()!=''){
                 
-//                 data_base[id].online_id = online_savdo_id.val();
-//             }else{
-//                 data_base[id].online_id = NaN;
+                data_base[id].online_id = online_savdo_id.val();
+            }else{
+                data_base[id].online_id = NaN;
                 
-//             }
-//             if(nazvaniye_ruchnoy.val()!=''){
-//                 nazvaniye_ruchnoy.css('border-color','#dedad9')
-//                 data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
-//             }else{
-//                 data_base[id].nazvaniye_ruchnoy =NaN;
-//                 nazvaniye_ruchnoy.css('border-color','red')
-//             }
+            }
+            if(nazvaniye_ruchnoy.val()!=''){
+                nazvaniye_ruchnoy.css('border-color','#dedad9')
+                data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
+            }else{
+                data_base[id].nazvaniye_ruchnoy =NaN;
+                nazvaniye_ruchnoy.css('border-color','red')
+            }
     
     
-//             if(svet_product.val()!=''){
-//                 svet_product.css('border-color','#dedad9')
-//                 data_base[id].svet_product = svet_product.val();
-//             }else{
-//                 data_base[id].svet_product =NaN;
-//                 svet_product.css('border-color','red')
-//             }
-//             if(group_zakup.val()!=''){
-//                 group_zakup.css('border-color','#dedad9')
-//                 data_base[id].group_zakup = group_zakup.val();
-//             }else{
-//                 data_base[id].group_zakup =NaN;
-//                 group_zakup.css('border-color','red')
-//             }
-//             if(group.val()!=''){
-//                 group.css('border-color','#dedad9')
-//                 data_base[id].group = group.val();
-//             }else{
-//                 data_base[id].group =NaN;
-//                 group.css('border-color','red')
-//             }
-//             if(tip.val()!=''){
-//                 tip.css('border-color','#dedad9')
-//                 data_base[id].tip = tip.val();
-//             }else{
-//                 data_base[id].tip =NaN;
-//                 tip.css('border-color','red')
-//             }
-//             if(bazoviy_edin.val()!=''){
-//                 bazoviy_edin.css('border-color','#dedad9')
-//                 data_base[id].bazoviy_edin = bazoviy_edin.val();
-//             }else{
-//                 data_base[id].bazoviy_edin =NaN;
-//                 bazoviy_edin.css('border-color','red')
-//             }
+            if(svet_product.val()!=''){
+                svet_product.css('border-color','#dedad9')
+                data_base[id].svet_product = svet_product.val();
+            }else{
+                data_base[id].svet_product =NaN;
+                svet_product.css('border-color','red')
+            }
+            if(group_zakup.val()!=''){
+                group_zakup.css('border-color','#dedad9')
+                data_base[id].group_zakup = group_zakup.val();
+            }else{
+                data_base[id].group_zakup =NaN;
+                group_zakup.css('border-color','red')
+            }
+            if(group.val()!=''){
+                group.css('border-color','#dedad9')
+                data_base[id].group = group.val();
+            }else{
+                data_base[id].group =NaN;
+                group.css('border-color','red')
+            }
+            if(tip.val()!=''){
+                tip.css('border-color','#dedad9')
+                data_base[id].tip = tip.val();
+            }else{
+                data_base[id].tip =NaN;
+                tip.css('border-color','red')
+            }
+            if(bazoviy_edin.val()!=''){
+                bazoviy_edin.css('border-color','#dedad9')
+                data_base[id].bazoviy_edin = bazoviy_edin.val();
+            }else{
+                data_base[id].bazoviy_edin =NaN;
+                bazoviy_edin.css('border-color','red')
+            }
             
-//             if(status.val()!=''){
-//                 status.css('border-color','#dedad9')
-//                 data_base[id].status_online = status.val();
-//             }else{
-//                 data_base[id].status_online =NaN;
-//                 status.css('border-color','red')
-//             }
-//             if(zavod.val()!=''){
-//                 zavod.css('border-color','#dedad9')
-//                 var zavod_name =$('#zavod_name'+id)
-//                 zavod_name.text(zavod.val())
-//                 data_base[id].zavod = zavod.val();
-//             }else{
-//                 var zavod_name =$('#zavod_name'+id)
-//                 zavod_name.text('')
-//                 data_base[id].zavod =NaN;
+            if(status.val()!=''){
+                status.css('border-color','#dedad9')
+                data_base[id].status_online = status.val();
+            }else{
+                data_base[id].status_online =NaN;
+                status.css('border-color','red')
+            }
+            if(zavod.val()!=''){
+                zavod.css('border-color','#dedad9')
+                var zavod_name =$('#zavod_name'+id)
+                zavod_name.text(zavod.val())
+                data_base[id].zavod = zavod.val();
+            }else{
+                var zavod_name =$('#zavod_name'+id)
+                zavod_name.text('')
+                data_base[id].zavod =NaN;
                 
-//                 zavod.css('border-color','red')
-//             }
+                zavod.css('border-color','red')
+            }
 
-//         }
+        }
         
-//     }
+    }
 
 
 
@@ -2394,25 +2319,25 @@ function clear_artikul(id){
 
 
 
-//     var data = data_base[id].get_kratkiy_tekst()
+    var data = data_base[id].get_kratkiy_tekst()
 
-//     if(data.accept){
-//         var table_tr =$('#table_tr'+id);
-//         table_tr.css('background-color','#2de319')
-//         data_base[id].full=true
-//         data_base[id].kratkiy_tekst = data.text
-//     }else{
-//         var table_tr =$('#table_tr'+id);
-//         table_tr.css('background-color','white')
-//         data_base[id].kratkiy_tekst = NaN;
-//         data_base[id].full=false
+    if(data.accept){
+        var table_tr =$('#table_tr'+id);
+        table_tr.css('background-color','#2de319')
+        data_base[id].full=true
+        data_base[id].kratkiy_tekst = data.text
+    }else{
+        var table_tr =$('#table_tr'+id);
+        table_tr.css('background-color','white')
+        data_base[id].kratkiy_tekst = NaN;
+        data_base[id].full=false
 
-//     }
+    }
     
-//     kratkiy_tekst.text(data.text)
+    kratkiy_tekst.text(data.text)
 
-//     }
-// }
+    }
+}
 
 
 
