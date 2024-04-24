@@ -111,7 +111,7 @@ class BasePokritiya{
 
 
   text =""
-  var jsonData = JSON.parse(document.getElementById('items-data').textContent).data;
+  var jsonData = JSON.parse(JSON.parse(document.getElementById('items-data').textContent)).data;
   
   i = 0
   var order_type =$('#order_type').text()

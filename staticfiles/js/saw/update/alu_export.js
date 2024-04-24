@@ -1,6 +1,6 @@
 
 text =""
-var jsonData = JSON.parse(document.getElementById('items-data').textContent).data;
+var jsonData = JSON.parse(JSON.parse(document.getElementById('items-data').textContent)).data;
 
 i = 0
 var order_type =$('#order_type').text()
@@ -297,9 +297,7 @@ for (var key in jsonData) {
         </div>
     </td>
     </tr>`
-  }
-
-
+}
 
 var table = $('#table-artikul')
 
@@ -420,7 +418,6 @@ function get_nakleyka(i){
         });
 }
 
-
 function get_anod(termo=false){
     $('.kod_anod_snar').select2({
         ajax: {
@@ -449,8 +446,6 @@ function get_anod(termo=false){
             });
     }
 }
-
-
 
 function clear_artikul(id){
     var table_tr =$('#table_tr'+id);
@@ -569,7 +564,6 @@ function artukil_clear(id){
     code_sveta.css('display','none')
     klaes_kratkiy.css('display','none')
 }
-
 
 function tip_pokritiya_selected(id,val){
 
@@ -918,15 +912,6 @@ function tip_pokritiya_selected(id,val){
     create_kratkiy_tekst(id);
 }
 
-
-
-
-
-
-
-
-
-
 function code_svet_anodirovki_snaruji_selected(id,val){
     $("#code_svet_anodirovki_snaruji"+String(id)).on("select2:select", function (e) { 
     
@@ -1148,9 +1133,7 @@ class BasePokritiya{
                 }break;
         }
     }
-  }
-
-
+}
 
 function create_kratkiy_tekst(id){
     

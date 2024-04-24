@@ -2,7 +2,38 @@
 {%load static%}
 {%block content%}
 
-         
+         <style>
+            .custom-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.selected-option {
+  border: 1px solid #ccc;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.options-list {
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.options-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.options-list li:hover {
+  background-color: #f0f0f0;
+}
+         </style>
             <section class="topics-detail-section section-padding" id="topics-detail">
                 <form method="POST" id="basic_form" onsubmit="return validateForm()">
                     {%csrf_token%}
@@ -86,13 +117,14 @@
                                         {%for order_detail in order_details %}
                                             {%if request.user == order_detail.owner %}
                                                 {%if status != 1 %}
+                                                {%if order_detail.message != '' %}
                                                 <div class="bg-white">
                                                     <div class="d-flex justify-content-start col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
-                                                    {%if order_detail.message != '' %}
+                                                    
                                                         <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
                                                             <p>{{order_detail.message}}</p>
                                                         </div>
-                                                    {%endif%}
+                                                   
 
                                                     {%if order_detail.file %}
                                                     <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
@@ -102,15 +134,17 @@
                                                 </div>
                                                     <hr>
                                                 {%endif%}
+                                                {%endif%}
                                             {%else%}
                                                     {%if status != 1 %}
+                                                    {%if order_detail.message != '' %}
                                                     <div class="bg-white">
                                                         <div class="d-flex justify-content-end col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
-                                                        {%if order_detail.message != '' %}
+                                                       
                                                             <div class="d-flex justify-content-end col-md-12 pl-5" style="color:rgba(0,0,0,.6);">
                                                                 <p style="padding-left: 40%;">{{order_detail.message}}</p>
                                                             </div>
-                                                        {%endif%}
+                                                        
 
                                                         {%if order_detail.file %}
                                                         <div class="d-flex justify-content-end col-md-12" style="color:rgba(0,0,0,.6);">
@@ -119,6 +153,7 @@
                                                         {%endif%}
                                                     </div>
                                                         <hr>
+                                                    {%endif%}
                                                     {%endif%}
 
                                             {%endif%}

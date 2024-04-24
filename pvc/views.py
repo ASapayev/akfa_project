@@ -822,6 +822,14 @@ def product_add_second_org(request,id):
                 nakleyka ='NT1'
                 df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr +'NT1'
         else:
+            if component in rezina_iskyuch:
+                text_nr = ' '
+            elif row['Цвет резины'] =='' :
+                text_nr = ' '
+            else:
+                rez =row['Цвет резины']
+                text_nr = f' {rez} '
+
             nakleyka = row['Надпись наклейки']
             df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + row['Надпись наклейки']
         

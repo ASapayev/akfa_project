@@ -40,7 +40,7 @@ class BasePokritiya{
 text =""
 data_base = {}
 
-var jsonData = JSON.parse(document.getElementById('items-data').textContent).data;
+var jsonData = JSON.parse(JSON.parse(document.getElementById('items-data').textContent)).data;
 
 for(var key1 in jsonData){
     data_base[key1] = new BasePokritiya()

@@ -66,6 +66,7 @@ def moderator_check(request,id):
         owner =request.user
         order = Order.objects.get(id=id)
         order.status = data.get('status',1)
+        order.checker = request.user
         order.save()
         data['owner'] = owner
         data['order'] = order
@@ -126,10 +127,10 @@ def order_update(request,id):
                 'status_name':STATUSES[str(order.status)],
                 'status':str(order.status),
                 'order_type':order.order_type,
-                'data':order.data,
+                'data':json.dumps(order.data),
                 'order_details':order_details
             }
-            return render(request,'client/customer/update.html',context)
+            return render(request,f'client/customer/update/{order.order_type}.html',context)
         else:
             return JsonResponse({'form':form.errors})
     else:
@@ -139,7 +140,7 @@ def order_update(request,id):
             'status_name':STATUSES[str(order.status)],
             'status':str(order.status),
             'order_type':order.order_type,
-            'data':order.data,
+            'data':json.dumps(order.data),
             'order_details':order_details
         }
     return render(request,f'client/customer/update/{order.order_type}.html',context)
@@ -165,7 +166,7 @@ def order_detail(request,id):
                 'status_name':STATUSES[str(order.status)],
                 'status':str(order.status),
                 'order_type':order.order_type,
-                'data':order.data,
+                'data':json.dumps(order.data),
                 'order_details':order_details
             }
             return render(request,'client/customer/order_detail.html',context)
@@ -174,7 +175,7 @@ def order_detail(request,id):
     else:
         order = Order.objects.get(id = id)
         order_details = OrderDetail.objects.filter(order = order)
-        context ={
+        context = {
             'status_name':STATUSES[str(order.status)],
             'status':str(order.status),
             'order_type':order.order_type,
@@ -287,6 +288,8 @@ def pvc_artikul_list(request):
     else:
         artikules = ArtikulKomponentPVC.objects.all()[:50].values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component','iskyucheniye')
     return JsonResponse(list(artikules),safe=False)
+
+
     
     
     
