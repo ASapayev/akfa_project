@@ -112,6 +112,35 @@ STATUSES ={
 @customer_only
 def order_update(request,id):
     if request.method =='POST':
+        order = Order.objects.get(id=id)
+        data = request.POST.get('data',None)
+        name = request.POST.get('name',None)
+        res = json.loads(data)
+        try:
+            # order.data = Order(data = {'name':name,'data':res})
+            order.data ={'name':name,'data':res}
+            order.save()
+            return JsonResponse({'status':201})
+        except:
+            return JsonResponse({'status':405})
+       
+    else:
+        order = Order.objects.get(id = id)
+        order_details = OrderDetail.objects.filter(order = order)
+        context ={
+            'status_name':STATUSES[str(order.status)],
+            'status':str(order.status),
+            'order_type':order.order_type,
+            'data':json.dumps(order.data),
+            'order_details':order_details,
+            'id':order.id   
+        }
+    return render(request,f'client/customer/update/{order.order_type}.html',context)
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def detail_order_update(request,id):
+    if request.method =='POST':
         data =request.POST.copy()
         owner =request.user
         order = Order.objects.get(id=id)
@@ -128,8 +157,9 @@ def order_update(request,id):
                 'status':str(order.status),
                 'order_type':order.order_type,
                 'data':json.dumps(order.data),
-                'order_details':order_details
-            }
+                'order_details':order_details,
+                'id':order.id            
+                }
             return render(request,f'client/customer/update/{order.order_type}.html',context)
         else:
             return JsonResponse({'form':form.errors})
@@ -141,7 +171,8 @@ def order_update(request,id):
             'status':str(order.status),
             'order_type':order.order_type,
             'data':json.dumps(order.data),
-            'order_details':order_details
+            'order_details':order_details,
+            'id':order.id   
         }
     return render(request,f'client/customer/update/{order.order_type}.html',context)
 

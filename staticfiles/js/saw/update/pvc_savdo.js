@@ -43,6 +43,7 @@ class BasePokritiya{
         diller = NaN,//done
         tip_clenta = NaN,//done
         artikul = NaN,//done
+        component =NaN,
 
         is_iklyuch = false,//done
         is_active = false
@@ -90,6 +91,7 @@ class BasePokritiya{
             this.diller = diller;//done
             this.tip_clenta = tip_clenta;//done
             this.artikul = artikul;//done
+          
     
             this.is_iklyuch = is_iklyuch;//done
             this.is_active = is_active;
@@ -100,6 +102,7 @@ class BasePokritiya{
                 if(this.dlina && this.kod_svet_zames && this.kod_nakleyki){
         
                     if(this.is_active){
+                        console.log('uuuuuuuu',this.online_id , this.nazvaniye_ruchnoy)
                         if (this.online_id && this.nazvaniye_ruchnoy){
         
                            
@@ -110,6 +113,7 @@ class BasePokritiya{
                         }
                         
                     }else{
+                        console.log(this.tip_clenta , this.sena_bez_nds , this.sena_c_nds , this.pickupdate , this.nazvaniye_ruchnoy , this.svet_product , this.group_zakup , this.group , this.tip , this.bazoviy_edin , this.status_online)
                         
                         if (this.tip_clenta && this.sena_bez_nds && this.sena_c_nds && this.pickupdate && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
                             
@@ -215,16 +219,17 @@ text =""
 var jsonData = JSON.parse(JSON.parse(document.getElementById('items-data').textContent)).data;
 
 data_base = {}
-
+console.log(jsonData,'ddddddddddddd')
 for(var key1 in jsonData){
     data_base[key1] = new BasePokritiya()
     for(var key2 in jsonData[key1]){
+        
         data_base[key1][key2] = jsonData[key1][key2]
     }
 }
 
 
-
+console.log(data_base,'firdffgdfgdfgdfgggggggg')
 
 
 
@@ -1104,7 +1109,6 @@ text +=`
 }
 
 
-
 var table = $('#table-artikul')
 
 table.append(text)
@@ -1113,7 +1117,7 @@ table.append(text)
 i = 0
 
 
-function custom_select2(older_val=NaN,i,nam=NaN,selector=NaN,input_selector=NaN,url=NaN,data=NaN){
+function custom_select2(type_selection=NaN,older_val=NaN,i,nam=NaN,selector=NaN,input_selector=NaN,url=NaN,data=NaN){
     if(older_val!=NaN){
         $(input_selector).val(older_val)
         for(var key in data){
@@ -1132,11 +1136,8 @@ function custom_select2(older_val=NaN,i,nam=NaN,selector=NaN,input_selector=NaN,
                     $(selector).empty();
                     $.each(data, function(index, item) {
                         
-                        for(var key in item){
-                                console.log(key,item[key])
-                        }
-                        $(selector).append($('<option>', {
-                            value: item.id,
+                        $(selector).append($(`<option>`, {
+                            value: JSON.stringify(item),
                             text: item[nam]
                         }));
                     });
@@ -1150,9 +1151,32 @@ function custom_select2(older_val=NaN,i,nam=NaN,selector=NaN,input_selector=NaN,
         
         $(selector).on('change', function() {
             var selectedValue = $(this).find('option:selected').text();
+            var value = JSON.parse($(this).val())
+            console.log(value)
             $(this).css('display', 'none');
+            if (type_selection.indexOf('artikul_alu') !== -1) {
+                data_base[i].base_artikul =selectedValue
+            }
+            if (type_selection.indexOf('artikul_pvc') !== -1) {
+                data_base[i].base_artikul =selectedValue
+                data_base[i].nazvaniye_system = value['nazvaniye_sistem']
+                data_base[i].camera = value['camera']
+                data_base[i].kod_k_component = value['kod_k_component']
+                data_base[i].artikul = value['component']
+    
+                $('#nazvaniye_system'+i).text(value['nazvaniye_sistem'])
+                $('#camera'+i).text(value['camera'])
+                $('#kod_komponent'+i).text(value['kod_k_component'])
+            }
+            if (type_selection.indexOf('nak') !== -1) {
+                data_base[i].kod_nakleyki = selectedValue
+                data_base[i].nadpis_nakleyki = value['nadpis']
+                $('#nadpis_nakleyki'+i).text(value['nadpis'])
+            }
+            // ######## dovomi bor
             $(input_selector).val(selectedValue)
         });
+        create_kratkiy_tekst(i)
     }
 }
 
@@ -1160,14 +1184,14 @@ function custom_select2(older_val=NaN,i,nam=NaN,selector=NaN,input_selector=NaN,
 for(var key in jsonData){
     i+=1
     data ={
-        'component':'komponent_qoy',
-        'artikul_pvc':jsonData[key]['basic_artikul'],
+        'component':jsonData[key]['artikul'],
+        'artikul_pvc':jsonData[key]['base_artikul'],
         'nazvaniye_system':jsonData[key]['nazvaniye_system'],
         'camera':jsonData[key]['camera'],
         'kod_komponent':jsonData[key]['kod_k_component'],
-        'iskyucheniye':jsonData[key]['iskyucheniye']
+        'iskyucheniye':jsonData[key]['is_iklyuch']
     }
-    custom_select2(jsonData[i]['base_artikul'],i,nam='artikul','#mySelect'+i,'#searchInput'+i, url= '/client/pvc-artikul-list',data=data)    
+    custom_select2(type_selection='artikul_pvc',jsonData[i]['base_artikul'],i,nam='artikul','#mySelect'+i,'#searchInput'+i, url= '/client/pvc-artikul-list',data=data)    
 
     if(jsonData[i]['id']){
         $('#tip_pokritiya' +i).attr('disabled',false)
@@ -1200,7 +1224,7 @@ for(var key in jsonData){
     data ={
         'nadpis_nakleyki':jsonData[i]['nadpis_nakleyki']
     }
-    custom_select2(jsonData[i]['kod_nakleyki'],i,nam='name','#nakleykaSelect'+i,'#nakleykaInput'+i, url= '/client/nakleyka-list-pvc',data=data)
+    custom_select2(type_selection='nakleyka',jsonData[i]['kod_nakleyki'],i,nam='name','#nakleykaSelect'+i,'#nakleykaInput'+i, url= '/client/nakleyka-list-pvc',data=data)
 
     if(jsonData[i]['kratkiy_tekst']){
         $('#kratkiy_tekst' +i).text(jsonData[i]['kratkiy_tekst'])
@@ -1576,7 +1600,7 @@ function tip_pokritiya_selected(id,val){
         data_base[id].tip_pokritiya = 'Неламинированный';
         
         var artikul_pvc = $('#artikul_pvc'+String(id));
-        data_base[id].artikul= artikul_pvc.text()
+        data_base[id].base_artikul= artikul_pvc.text()
 
         svet_product_val = 'WHITE' 
         gruppa_zakupok ='PVX OQ (Navoiy)' 
@@ -1606,7 +1630,7 @@ function tip_pokritiya_selected(id,val){
         data_base[id].id = 2;
         data_base[id].tip_pokritiya = 'Ламинированный';
         var artikul_pvc = $('#artikul_pvc'+String(id));
-        data_base[id].artikul= artikul_pvc.text()
+        data_base[id].base_artikul= artikul_pvc.text()
 
         svet_product_val ='LAM'
         gruppa_zakupok ='PVX LAM (Navoiy)' 
@@ -1644,16 +1668,7 @@ function tip_pokritiya_selected(id,val){
         }
     }
     
-    if(String(val) != ''){
-        var base_artikul =$('#select2-artikul'+id+'-container')
-        data_base[id].base_artikul = base_artikul.text()
-        var nazvaniye_system = $('.nazvaniye_system'+id).text()
-        var camera =$('#camera'+id).text()
-        var kod_komponent =$('#kod_komponent'+id).text()
-        data_base[id].nazvaniye_system = nazvaniye_system;
-        data_base[id].camera = camera;
-        data_base[id].kod_k_component = kod_komponent;
-    }
+    
 
 
     if(is_active.text()=='Активный' && String(val) != ''){
@@ -1845,8 +1860,21 @@ function create_kratkiy_tekst(id){
     combination_text = combination.text();
     var val = $('#tip_pokritiya'+String(id)).val();
     var dlina = $('#length'+String(id));
+    var artikul_pvc = $('#artikul_pvc'+String(id));
+    var component = $('#component'+String(id));
 
-   
+    if(artikul_pvc.text()!=''){
+        data_base[id].artikul = component.text();
+    }else{
+        data_base[id].artikul = NaN;
+    }
+    if(artikul_pvc.text()!=''){
+        artikul_pvc.css("border-color",'#dedad9');
+        data_base[id].base_artikul = artikul_pvc.val();
+    }else{
+        artikul_pvc.css("border-color",'red');
+        data_base[id].base_artikul = NaN;
+    }
     if(dlina.val()!=''){
         dlina.css("border-color",'#dedad9');
         data_base[id].dlina = dlina.val();
@@ -2320,14 +2348,16 @@ function create_kratkiy_tekst(id){
 
 
     var data = data_base[id].get_kratkiy_tekst()
-
+    console.log(data_base[id],'111')
+    console.log(data,'2222222222')
+    console.log(data.accept,'33333333333')
     if(data.accept){
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','#2de319')
-        data_base[id].full=true
+        data_base[id].full = true
         data_base[id].kratkiy_tekst = data.text
     }else{
-        var table_tr =$('#table_tr'+id);
+        var table_tr = $('#table_tr'+id);
         table_tr.css('background-color','white')
         data_base[id].kratkiy_tekst = NaN;
         data_base[id].full=false
