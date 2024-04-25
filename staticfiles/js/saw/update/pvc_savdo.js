@@ -210,29 +210,7 @@ class BasePokritiya{
     }
   }
 
-  var required_fields ={
-
-    '1':{
-        'is_iklyuch':{
-            'is_active':['dlina','kod_svet_zames','kod_nakleyki','online_id','nazvaniye_ruchnoy'],
-            'no_active':['dlina','kod_svet_zames','kod_nakleyki','tip_clenta','sena_bez_nds','sena_c_nds','pickupdate','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','bazoviy_edin','status_online']
-        },
-        'no_iklyuch':{
-            'is_active':['kod_svet_rezini','dlina','kod_svet_zames','kod_nakleyki','online_id','nazvaniye_ruchnoy'],
-            'no_active':['kod_svet_rezini','dlina','kod_svet_zames','kod_nakleyki','tip_clenta','sena_bez_nds','sena_c_nds','pickupdate','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','bazoviy_edin','status_online']
-        }
-    },
-    '2':{
-        'is_iklyuch':{
-            'is_active':['dlina','kod_lam_vn','kod_lam_sn','kod_nakleyki','kod_svet_zames','online_id','nazvaniye_ruchnoy'],
-            'no_active':['dlina','kod_lam_vn','kod_lam_sn','kod_nakleyki','kod_svet_zames','tip_clenta','sena_bez_nds','sena_c_nds','pickupdate','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','bazoviy_edin','status_online']
-        },
-        'no_iklyuch':{
-            'is_active':['dlina','kod_lam_vn','kod_lam_sn','kod_nakleyki','kod_svet_rezini','kod_svet_zames','online_id','nazvaniye_ruchnoy'],
-            'no_active':['dlina','kod_lam_vn','kod_lam_sn','kod_nakleyki','kod_svet_rezini','kod_svet_zames','tip_clenta','sena_bez_nds','sena_c_nds','pickupdate','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','bazoviy_edin','status_online']
-        }
-    }
-}
+  
 text =""
  
 var jsonData = JSON.parse(JSON.parse(document.getElementById('items-data').textContent)).data;
