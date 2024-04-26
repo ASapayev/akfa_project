@@ -93,6 +93,16 @@ class BasePokritiya{
   text =""
   var jsonData = JSON.parse(JSON.parse(document.getElementById('items-data').textContent)).data;
   
+  data_base = {}
+
+  for(var key1 in jsonData){
+    data_base[key1] = new BasePokritiya()
+    for(var key2 in jsonData[key1]){
+        data_base[key1][key2] = jsonData[key1][key2]
+    }
+    }
+
+
   i = 0
   var order_type =$('#order_type').text()
   for (var key in jsonData) {
@@ -100,27 +110,27 @@ class BasePokritiya{
     text +=`
     <tr id='table_tr` +String(i)+`' >                   
     <td >
-    <input  style='display:none;border-color:red; line-height:15px' type="date" class="form-control" id="pickupdate`+String(i)+`" onchange='create_kratkiy_tekst(`+String(i)+`)'> 
+    <input  style=' line-height:15px' type="date" class="form-control" id="pickupdate`+String(i)+`" onchange='create_kratkiy_tekst(`+String(i)+`)'> 
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px " id='sena_za_bei`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+        <input type='text' class=" form-control " style=" width: 75px; font-size:10px;height:32px " id='sena_za_bei`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px " id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+        <input type='text' class=" form-control " style=" width: 75px; font-size:10px;height:32px " id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <textarea   rows='1' class=" form-control " style="border-color:red; width: 220px; font-size:10px; display:none; height:32px" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+        <textarea   rows='1' class=" form-control " style=" width: 220px; font-size:10px;  height:32px" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
     </td>
     
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+        <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; "  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
         <option  selected></option>
         <option   value="LAM">LAM</option>
         <option   value="Anod">Anod</option>
@@ -133,7 +143,7 @@ class BasePokritiya{
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+        <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  " id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
         <option  selected></option>
         <option value="Granit">Granit</option>
         <option value="Radiator SAP (IMPORT)">Radiator SAP (IMPORT)</option>
@@ -161,7 +171,7 @@ class BasePokritiya{
     </td>
     <td >
         <div class="input-group input-group-sm mb-1"  >
-        <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+        <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; "  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
             <option  selected></option>
             <option value="5200 QVT PVC (NAVOIY)">5200 QVT PVC (NAVOIY)</option>
             <option value="5200 QVT PVC RETPEN (NAVOIY)">5200 QVT PVC RETPEN (NAVOIY)</option>
@@ -170,7 +180,7 @@ class BasePokritiya{
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; "  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
             <option  selected></option>
             <option value="Сырье">Сырье</option>
             <option value="Готовый продукт">Готовый продукт</option>
@@ -179,7 +189,7 @@ class BasePokritiya{
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; " id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value="Aldoks">Aldoks</option>
             <option value="Стандарт">Стандарт</option>
@@ -198,7 +208,7 @@ class BasePokritiya{
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; " id='buxgalter_tovar`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
             <option value='Термоуплотненный алюминиевый профиль (N)'>Термоуплотненный алюминиевый профиль (N)</option>
@@ -222,7 +232,7 @@ class BasePokritiya{
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; " id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option vlaue="Штука">Штука</div>
             <option vlaue="Килограмм">Килограмм</div>
@@ -250,17 +260,17 @@ class BasePokritiya{
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_baza`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
+        <input type='text' class=" form-control " style="width: 75px; font-size:10px; height:32px" id='stoimost_baza`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
+        <input type='text' class=" form-control " style="width: 75px; font-size:10px; height:32px" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; " id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value="Активный">Активный</option>
             <option value="Пассивный">Пассивный</option>
@@ -269,7 +279,7 @@ class BasePokritiya{
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='zavod_name`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; " id='zavod_name`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value="ZAVOD BUTIL">ZAVOD BUTIL</option>
             <option value="IMPORT">IMPORT</option>
@@ -295,7 +305,7 @@ class BasePokritiya{
     
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; " id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value="AKFA">AKFA</option>
             <option value="IMZO">IMZO</option>
@@ -325,16 +335,94 @@ table.append(text)
 
 
 
+i = 0
 
-
-data_base = {}
-
-for(var key1 in jsonData){
-    data_base[key1] = new BasePokritiya()
-    for(var key2 in jsonData[key1]){
-        data_base[key1][key2] = jsonData[key1][key2]
+for(var key in jsonData){
+    i+=1
+    
+    if(jsonData[i]['pickupdate']){
+        $('#pickupdate'+i).css('border-color','#dedad9')
+        $('#pickupdate' +i).val(jsonData[i]['pickupdate'])
     }
+    if(jsonData[i]['sena_za_bei']){
+        $('#sena_za_bei'+i).css('border-color','#dedad9')
+        $('#sena_za_bei' +i).val(jsonData[i]['sena_za_bei'])
+    }
+    if(jsonData[i]['online_id']){
+        $('#online_savdo_id'+i).css('border-color','#dedad9')
+        $('#online_savdo_id' +i).val(jsonData[i]['online_id'])
+    }
+    if(jsonData[i]['nazvaniye_ruchnoy']){
+        $('#nazvaniye_ruchnoy'+i).css('border-color','#dedad9')
+        $('#nazvaniye_ruchnoy' +i).val(jsonData[i]['nazvaniye_ruchnoy'])
+    }
+    if(jsonData[i]['svet_product']){
+        $('#svet_product'+i).css('border-color','#dedad9')
+        $('#svet_product' +i).val(jsonData[i]['svet_product'])
+    }
+    if(jsonData[i]['group_zakup']){
+        $('#group_zakup'+i).css('border-color','#dedad9')
+        $('#group_zakup' +i).val(jsonData[i]['group_zakup'])
+    }
+    if(jsonData[i]['group']){
+        $('#group'+i).css('border-color','#dedad9')
+        $('#group' +i).val(jsonData[i]['group'])
+    }
+    if(jsonData[i]['tip']){
+        $('#tip'+i).css('border-color','#dedad9')
+        $('#tip' +i).val(jsonData[i]['tip'])
+    }
+    if(jsonData[i]['segment']){
+        $('#segment'+i).css('border-color','#dedad9')
+        $('#segment' +i).val(jsonData[i]['segment'])
+    }
+    if(jsonData[i]['buxgalter_tovar']){
+        $('#buxgalter_tovar'+i).css('border-color','#dedad9')
+        $('#buxgalter_tovar' +i).val(jsonData[i]['buxgalter_tovar'])
+    }
+    if(jsonData[i]['buxgalter_uchot']){
+        $('#buxgalter_uchot'+i).css('border-color','#dedad9')
+        $('#buxgalter_uchot' +i).val(jsonData[i]['buxgalter_uchot'])
+    }
+    
+    if(jsonData[i]['bazoviy_edin']){
+        $('#bazoviy_edin'+i).css('border-color','#dedad9')
+        $('#bazoviy_edin' +i).val(jsonData[i]['bazoviy_edin'])
+    }
+    if(jsonData[i]['alter_edin']){
+        $('#alter_edin'+i).css('border-color','#dedad9')
+        $('#alter_edin' +i).val(jsonData[i]['alter_edin'])
+    }
+    if(jsonData[i]['stoimost_baza']){
+        $('#stoimost_baza'+i).css('border-color','#dedad9')
+        $('#stoimost_baza' +i).val(jsonData[i]['stoimost_baza'])
+    }
+    if(jsonData[i]['stoimost_alter']){
+        $('#stoimost_alter'+i).css('border-color','#dedad9')
+        $('#stoimost_alter' +i).val(jsonData[i]['stoimost_alter'])
+    }
+    if(jsonData[i]['status_online']){
+        $('#status'+i).css('border-color','#dedad9')
+        $('#status' +i).val(jsonData[i]['status_online'])
+    }
+    if(jsonData[i]['zavod']){
+        $('#zavod_name'+i).css('border-color','#dedad9')
+        $('#zavod_name' +i).val(jsonData[i]['zavod'])
+    }
+    if(jsonData[i]['tip_clenta']){
+        $('#tip_clenta'+i).css('border-color','#dedad9')
+        $('#tip_clenta' +i).val(jsonData[i]['tip_clenta'])
+    }
+    if(jsonData[i]['is_active']){
+        $('#is_active'+i).css('border-color','#dedad9')
+        $('#is_active' +i).text('Активный')
+    }else{
+        $('#is_active'+i).css('border-color','#dedad9')
+        $('#is_active' +i).text('Пассивный')
+    }
+
 }
+
 
 
 function create(id){

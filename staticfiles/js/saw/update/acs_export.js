@@ -116,7 +116,43 @@ table.append(text)
 
 
 
+i = 0
 
+for(var key in jsonData){
+    i+=1
+    
+    if(jsonData[i]['sapcode']){
+        $('#sapcode' +i).val(jsonData[i]['sapcode'])
+    }
+    if(jsonData[i]['nazvaniye_tovarov']){
+        $('#nazvaniye_tovarov' +i).val(jsonData[i]['nazvaniye_tovarov'])
+    }
+    if(jsonData[i]['polnoye_nazvaniye']){
+        $('#polnoye_nazvaniye'+i).css('border-color','#dedad9')
+        $('#polnoye_nazvaniye' +i).val(jsonData[i]['polnoye_nazvaniye'])
+    }
+    if(jsonData[i]['sena_materiala']){
+        $('#sena_materiala'+i).css('border-color','#dedad9')
+        $('#sena_materiala' +i).val(jsonData[i]['sena_materiala'])
+    }
+    if(jsonData[i]['bazoviy_edinitsa']){
+        $('#bazoviy_edinitsa'+i).css('border-color','#dedad9')
+        $('#bazoviy_edinitsa' +i).val(jsonData[i]['bazoviy_edinitsa'])
+    }
+    if(jsonData[i]['koefitsiyent']){
+        $('#koefitsiyent' +i).val(jsonData[i]['koefitsiyent'])
+    }
+    if(jsonData[i]['alternativ_edin']){
+        $('#alternativ_edin' +i).val(jsonData[i]['alternativ_edin'])
+    }
+    if(jsonData[i]['gruppa_materialov']){
+        $('#gruppa_materialov' +i).val(jsonData[i]['gruppa_materialov'])
+    }
+    if(jsonData[i]['comment']){
+        $('#comment' +i).val(jsonData[i]['comment'])
+    }
+
+}
 
 
 

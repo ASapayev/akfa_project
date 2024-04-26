@@ -1207,6 +1207,14 @@ for(var key in jsonData){
     }
     custom_select2(type_selection='artikul_pvc',jsonData[i]['base_artikul'],i,nam='artikul','#mySelect'+i,'#searchInput'+i, url= '/client/pvc-artikul-list',data=data)    
 
+    if(jsonData[i]['is_iklyuch']){
+        $('#iskyucheniye'+i).css('border-color','#dedad9')
+        $('#iskyucheniye' +i).text('1')
+    }else{
+        $('#iskyucheniye'+i).css('border-color','#dedad9')
+        $('#iskyucheniye' +i).text('0')
+    }
+
     if(jsonData[i]['id']){
         // $('#tip_pokritiya' +i).attr('disabled',false)
         $('#tip_pokritiya' +i).val(jsonData[i]['id'])
@@ -1332,6 +1340,14 @@ for(var key in jsonData){
     $('#tip_clenta' +i).css('border-color','#dedad9')
     $('#tip_clenta' +i).css('display','block')
     $('#tip_clenta' +i).val(jsonData[i]['tip_clenta'])
+
+    if(jsonData[i]['is_active']){
+        $('#is_active'+i).css('border-color','#dedad9')
+        $('#is_active' +i).text('Активный')
+    }else{
+        $('#is_active'+i).css('border-color','#dedad9')
+        $('#is_active' +i).text('Пассивный')
+    }
     // create_kratkiy_tekst(i)
 }
 
