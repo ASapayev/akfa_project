@@ -37,7 +37,9 @@
                   
                     
                 </div>
-               
+                <div>
+                    <a  class=" btn btn-success m-2 btn-sm" onclick="ready_all()">Сохранить</a>
+                   </div>
                
             </form>
             </section>
@@ -166,8 +168,64 @@
 
 <script>
 
+    function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
 
+    function ready_all(){
+    var all_correct = true;
+    var data_empty = false
+    if (Object.keys(data_base).length === 0) {
+        data_empty = true
+    }
 
+    for (var key in data_base) {
+        if (data_base.hasOwnProperty(key)) { 
+            var value = data_base[key];
+            if(!value.full){
+                all_correct=false
+            }
+        }
+    }
+
+    if (!data_empty && all_correct){
+        var json_data = JSON.stringify(data_base)
+        var url = "/client/order-update/"+'{{id}}'
+        var csrfToken = getCSRFToken();
+        var postData = {
+            'data': json_data,
+            'order_type':'pvc_savdo',
+            'name':'PVC SAVDO'
+        }
+        $.ajax({
+            type: 'POST',
+            url: url,
+            headers: { "X-CSRFToken": csrfToken },
+            data: postData,
+        }).done(function (res) {
+            console.log(res)
+            if (res.status ==201){
+                Swal.fire('Muvaafaqiyatli o\'zgartirildi.', '', 'success')
+
+            }else{
+                console.log('aa')
+            }
+            // WON'T REDIRECT
+        });
+            
+    }else{
+        
+        if(!data_empty && !all_correct){
+            Swal.fire({
+                icon: 'error',
+                title: 'Malumotlar to\'liq emas!!!',
+                text: 'Itimos ma\'lumotlarni to\'ldiring.',
+            });
+        }
+    }
+
+   
+}
 </script>
 {%endblock%}
 

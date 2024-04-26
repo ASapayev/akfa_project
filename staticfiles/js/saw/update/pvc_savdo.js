@@ -1594,9 +1594,9 @@ function tip_pokritiya_selected(id,val){
 
     
 
-    var nakleyka_select = $('#nakleyka_select'+String(id));
-    nakleyka_select.css('display','block');
-    get_nakleyka(id)
+    // var nakleyka_select = $('#nakleyka_select'+String(id));
+    // nakleyka_select.css('display','block');
+    // get_nakleyka(id)
 
     
     var is_active = $('#is_active'+String(id))
@@ -2357,10 +2357,8 @@ function create_kratkiy_tekst(id){
 
     
 
-    console.log(data_base[id],'dddddddddddddddddd')
-
     var data = data_base[id].get_kratkiy_tekst()
-    console.log(data)
+
     if(data.accept){
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','#2de319')
