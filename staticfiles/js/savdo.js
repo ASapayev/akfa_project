@@ -2319,7 +2319,7 @@ function create_kratkiy_tekst(id){
     else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
         
         var brend_kraska_sn = $('#brand_k_snaruji'+String(id))
-        if(brend_kraska_sn.val() != '0' && brend_kraska_sn.val()  != undefined){
+        if(brend_kraska_sn.val() != '0' && brend_kraska_sn.val()  != undefined && brend_kraska_sn.val()  !=null){
             brend_kraska_sn.css("border-color",'#dedad9');
             data_base[id].brend_kraska_sn =brend_kraska_sn.val();
         }else{
@@ -2328,7 +2328,7 @@ function create_kratkiy_tekst(id){
         }
         
         var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
-        if(code_kraski_snaruji.val() != '0' && code_kraski_snaruji.val()  != undefined && code_kraski_snaruji.val() != ''){
+        if(code_kraski_snaruji.val() != '0' && code_kraski_snaruji.val()  != undefined && code_kraski_snaruji.val() != '' && code_kraski_snaruji.val()  !=null){
             code_kraski_snaruji.css("border-color",'#dedad9');
             data_base[id].kod_kraska_sn =code_kraski_snaruji.val();
         }else{
@@ -2343,7 +2343,7 @@ function create_kratkiy_tekst(id){
             {
 
                 var brend_kraska_vn = $('#brand_k_vnutri'+String(id))
-                if(brend_kraska_vn.val() != '0' && brend_kraska_vn.val()  != undefined){
+                if(brend_kraska_vn.val() != '0' && brend_kraska_vn.val()  != undefined && brend_kraska_vn.val()  != null){
                     brend_kraska_vn.css("border-color",'#dedad9');
                     data_base[id].brend_kraska_vn =brend_kraska_vn.val();
                 }else{
@@ -2352,7 +2352,7 @@ function create_kratkiy_tekst(id){
                 }
 
                 var code_kraski_vnut = $('#code_kraski_vnut'+String(id))
-                if(code_kraski_vnut.val() != '0' && code_kraski_vnut.val()  != undefined && code_kraski_vnut.val()  != ''){
+                if(code_kraski_vnut.val() != '0' && code_kraski_vnut.val()  != undefined && code_kraski_vnut.val()  != '' && code_kraski_vnut.val()  !=null){
                     code_kraski_vnut.css("border-color",'#dedad9');
                     data_base[id].kod_kraska_vn =code_kraski_vnut.val();
                 }else{

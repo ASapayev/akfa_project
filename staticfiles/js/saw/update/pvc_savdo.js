@@ -1900,8 +1900,6 @@ function create_kratkiy_tekst(id){
     combination_text = combination.text();
     var val = $('#tip_pokritiya'+String(id)).val();
     var dlina = $('#length'+String(id));
-    var artikul_pvc = $('#artikul_pvc'+String(id));
-    var component = $('#component'+String(id));
   
 
     if(dlina.val()!=''){
