@@ -1497,7 +1497,6 @@ for(var key in jsonData){
         $('#code_kraski_vnut' +i).attr('disabled',false)
         $('#code_kraski_vnut' +i).val(jsonData[i]['kod_kraska_vn'])
     }
-    console.log(jsonData[i]['svet_dekplonka_snaruji'],'dfggg')
     if(jsonData[i]['kod_dekor_sn'] && jsonData[i]['kod_dekor_sn']!='null'){
         $('#svet_dekplonka_snaruji' +i).css('border-color','#dedad9')
         $('#svet_dekplonka_snaruji' +i).attr('disabled',false)
