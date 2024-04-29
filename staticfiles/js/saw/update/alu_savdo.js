@@ -671,13 +671,13 @@ for (var key in jsonData) {
         </div>
     </td>
     <td >
-        <input type="text" id="searchInputanod_sn` +String(i)+`" class=" form-control pb-1" style='width:150px' placeholder="Search for options">
+        <input type="text" id="searchInputanod_sn` +String(i)+`" class=" form-control pb-1" style='width:150px;display:none' placeholder="Search for options">
         <div class="input-group input-group-sm mb-1">
         <select id="mySelectanod_sn` +String(i)+`"  class=" form-control" style='display:none' multiple="multiple" ></select>
         </div>
     </td> 
     <td >
-        <input type="text" id="searchInputanod_vn` +String(i)+`" class=" form-control pb-1" style='width:150px' placeholder="Search for options">
+        <input type="text" id="searchInputanod_vn` +String(i)+`" class=" form-control pb-1" style='width:150px;display:none' placeholder="Search for options">
         <div class="input-group input-group-sm mb-1">
         <select id="mySelectanod_vn` +String(i)+`"  class=" form-control" style='display:none' multiple="multiple" ></select>
         </div>
@@ -706,7 +706,7 @@ for (var key in jsonData) {
         </div>
     </td>
     <td >
-        <input type="text" id="nakleykaInput` +String(i)+`" class=" form-control pb-1" style='width:150px' placeholder="Search for options">
+        <input type="text" id="nakleykaInput` +String(i)+`" class=" form-control pb-1" style='width:150px;display:none' placeholder="Search for options">
         <div class="input-group input-group-sm mb-1">
         <select id="nakleykaSelect` +String(i)+`"  class=" form-control" style='display:none' multiple="multiple" ></select>
         </div>
@@ -1362,8 +1362,10 @@ i = 0
 function custom_select2(type_selection=NaN,older_val=NaN,i,nam=NaN,selector=NaN,input_selector=NaN,url=NaN,data=NaN){
     if(older_val!=NaN){
         $(input_selector).val(older_val)
+        $(input_selector).css('display','block')
         for(var key in data){
            $('#'+key +i).text(data[key])
+           $('#'+key +i).css('display','block')
         }
         $(input_selector).on('input', function() {
             var searchValue = $(this).val().trim();
@@ -1451,8 +1453,9 @@ for(var key in jsonData){
         'nazvaniye_system':jsonData[key]['nazvaniye_system'],
         'combination':jsonData[key]['combination'],
     }
+    if(jsonData[i]['base_artikul']){
     custom_select2(type_selection='artikul_alu',jsonData[i]['base_artikul'],i,nam='artikul','#mySelect'+i,'#searchInput'+i, url= '/client/imzo-artikul-list',data=data)    
-
+    }
     if(jsonData[i]['dlina'] && jsonData[i]['dlina']!='null'){
         $('#length' +i).css('border-color','#dedad9')
         $('#length' +i).attr('disabled',false)
@@ -1494,6 +1497,7 @@ for(var key in jsonData){
         $('#code_kraski_vnut' +i).attr('disabled',false)
         $('#code_kraski_vnut' +i).val(jsonData[i]['kod_kraska_vn'])
     }
+    console.log(jsonData[i]['svet_dekplonka_snaruji'],'dfggg')
     if(jsonData[i]['kod_dekor_sn'] && jsonData[i]['kod_dekor_sn']!='null'){
         $('#svet_dekplonka_snaruji' +i).css('border-color','#dedad9')
         $('#svet_dekplonka_snaruji' +i).attr('disabled',false)
@@ -1522,11 +1526,14 @@ for(var key in jsonData){
         'tip_anodirovki':jsonData[i]['tip_anod'],
         'sposob_anodirovki':jsonData[i]['sposob_anod'],
     }
+
+    if(jsonData[i]['kod_anod_sn']&& String(jsonData[i]['kod_anod_sn'])!='null'){
     custom_select2(type_selection='anod_sn',jsonData[i]['kod_anod_sn'],i,nam='code_sveta','#mySelectanod_sn'+i,'#searchInputanod_sn'+i, url= '/client/client-anod-list',data=data)
-    
+    }
     data ={}
+    if(jsonData[i]['kod_anod_vn']){
     custom_select2(type_selection='anod_vn',jsonData[i]['kod_anod_vn'],i,nam='code_sveta','#mySelectanod_vn'+i,'#searchInputanod_vn'+i, url= '/client/client-anod-list',data=data)
-    
+    }
     if(jsonData[i]['contactnost_anod']){
         $('#contactnost_anodirovki' +i).attr('disabled',false)
         $('#contactnost_anodirovki' +i).val(jsonData[i]['contactnost_anod'])
@@ -1536,8 +1543,9 @@ for(var key in jsonData){
     data ={
         'nadpis_nakleyki':jsonData[i]['nadpis_nakleyki']
     }
+    if(jsonData[i]['kod_nakleyki']){
     custom_select2(type_selection='nakleyka',jsonData[i]['kod_nakleyki'],i,nam='код_наклейки','#nakleykaSelect'+i,'#nakleykaInput'+i, url= '/client/nakleyka-list',data=data)
-    
+    }
     
     // usdifksjdfjskfjsjdf
 
@@ -1577,7 +1585,6 @@ for(var key in jsonData){
         $('#comment' +i).attr('disabled',false)
         $('#comment' +i).val(jsonData[i]['comment'])
     }
-    console.log(jsonData[i]['zavod'],'zavod')
     if(jsonData[i]['zavod']){
         $('#zavod' +i).css('display','block')
         $('#zavod' +i).css('border-color','#dedad9')

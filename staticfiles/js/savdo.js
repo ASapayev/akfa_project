@@ -2434,7 +2434,7 @@ function create_kratkiy_tekst(id){
                 var selectedText = selectedOption.textContent;
                 
                 if (selectedText!=''){
-                    var svet_dekplonka_sn =$('#code_dekplonka_snaruji'+id+' option:selected').text()
+                    var svet_dekplonka_sn =$('#code_dekplonka_snaruji'+id).text()
                     data_base[id].svet_dekplonka_snaruji =svet_dekplonka_sn;
                     data_base[id].kod_dekor_sn =selectedText;
                 }else{
@@ -2458,7 +2458,7 @@ function create_kratkiy_tekst(id){
                     var selectedText = selectedOption.textContent;
                     data_base[id].kod_dekor_vn =selectedText;
                     if (selectedText!=''){
-                        var svet_dekplonka_vn =$('#code_dekplonka_vnutri'+id +' option:selected').text()
+                        var svet_dekplonka_vn =$('#code_dekplonka_vnutri'+id).text()
                         data_base[id].svet_dekplonka_vnutri =svet_dekplonka_vn;
                         data_base[id].kod_dekor_vn =selectedText;
                     }else{
