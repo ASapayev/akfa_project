@@ -1527,11 +1527,11 @@ for(var key in jsonData){
     }
 
     if(jsonData[i]['kod_anod_sn']&& String(jsonData[i]['kod_anod_sn'])!='null'){
-    custom_select2(type_selection='anod_sn',jsonData[i]['kod_anod_sn'],i,nam='code_sveta','#mySelectanod_sn'+i,'#searchInputanod_sn'+i, url= '/client/client-anod-list',data=data)
+        custom_select2(type_selection='anod_sn',jsonData[i]['kod_anod_sn'],i,nam='code_sveta','#mySelectanod_sn'+i,'#searchInputanod_sn'+i, url= '/client/client-anod-list',data=data)
     }
     data ={}
     if(jsonData[i]['kod_anod_vn']){
-    custom_select2(type_selection='anod_vn',jsonData[i]['kod_anod_vn'],i,nam='code_sveta','#mySelectanod_vn'+i,'#searchInputanod_vn'+i, url= '/client/client-anod-list',data=data)
+        custom_select2(type_selection='anod_vn',jsonData[i]['kod_anod_vn'],i,nam='code_sveta','#mySelectanod_vn'+i,'#searchInputanod_vn'+i, url= '/client/client-anod-list',data=data)
     }
     if(jsonData[i]['contactnost_anod']){
         $('#contactnost_anodirovki' +i).attr('disabled',false)
@@ -1543,7 +1543,7 @@ for(var key in jsonData){
         'nadpis_nakleyki':jsonData[i]['nadpis_nakleyki']
     }
     if(jsonData[i]['kod_nakleyki']){
-    custom_select2(type_selection='nakleyka',jsonData[i]['kod_nakleyki'],i,nam='код_наклейки','#nakleykaSelect'+i,'#nakleykaInput'+i, url= '/client/nakleyka-list',data=data)
+        custom_select2(type_selection='nakleyka',jsonData[i]['kod_nakleyki'],i,nam='код_наклейки','#nakleykaSelect'+i,'#nakleykaInput'+i, url= '/client/nakleyka-list',data=data)
     }
     
     // usdifksjdfjskfjsjdf
