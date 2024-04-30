@@ -14,8 +14,64 @@ from django.core.paginator import Paginator
 import json
 from .forms import OrderFileForm
 from django.db.models import Q
+from accounts.models import User
+from django.views.decorators.csrf import csrf_exempt
+import websocket
 
 
+@csrf_exempt
+def user_message_receive(request):
+    websocket_url ='ws://54.210.252.107:8001/ws/messages/'
+    if request.method =='POST':
+        data = dict(request.POST)
+        chat_id = 0
+        message_id =0
+        user_id =1
+        text =''
+        owner =3
+       
+        
+
+        if 'chat_id' in data:
+            chat_id = data['chat_id'][0]
+        if 'message_id' in data:
+            message_id = data['message_id'][0]
+        if 'user_id' in data:
+            user_id = data['user_id'][0]
+            user=''
+            user.save()
+        if 'text' in data:
+            text = data['text'][0]
+        
+        data ={
+            'chat_id':chat_id,
+            'message_id':message_id,
+            'user_id':user_id,
+            'text':text,
+            'msg_type':data['msg_type'][0],
+            'owner':owner,
+            'image':str(user.image),
+            'username':user.first_name,
+        }
+        print(data,'<<<<<<'*10)
+        websocket_url +=str(user.operator.id)+'/'
+        print(websocket_url)
+        send_message_to_websocket(websocket_url,data=data)
+        
+        return JsonResponse({'message':'Successfully saved!'})
+
+    else:
+        return JsonResponse({'msg':'GET method not allowed!'})
+
+
+def send_message_to_websocket(websocket_url,data):
+    print(websocket_url)
+    ws = websocket.WebSocket()
+    ws.connect(websocket_url)
+    ws.send(json.dumps(data))
+    response = ws.recv()
+    # print(response)
+    ws.close()
 
 class OrderSaveView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -41,6 +97,25 @@ class OrderSaveView(APIView):
 
 @login_required(login_url='/accounts/login/')
 @moderator_only
+def order_list_for_zavod(request):
+    orders = Order.objects.filter(Q(checker = request.user)|(Q(partner = request.user)&Q(status=10083))).order_by('-created_at')
+
+    paginator = Paginator(orders, 15)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+
+    context ={
+        'orders':page_obj
+    }
+    return render(request,'client/moderator/order_list.html',context)
+@login_required(login_url='/accounts/login/')
+
+@moderator_only
 def order_list_for_moderator(request):
     orders = Order.objects.all().order_by('-created_at')
 
@@ -62,10 +137,15 @@ def order_list_for_moderator(request):
 @login_required(login_url='/accounts/login/')
 @moderator_only
 def moderator_check(request,id):
+    users = User.objects.all()
     if request.method =='POST':
         data =request.POST.copy()
         owner =request.user
+        partner_id = data.get('user_id',None)
         order = Order.objects.get(id=id)
+        if partner_id and partner_id !='':
+            partner = User.objects.get(id = int(partner_id))
+            order.partner =partner
         order.status = data.get('status',1)
         order.checker = request.user
         order.save()
@@ -75,12 +155,15 @@ def moderator_check(request,id):
         if form.is_valid():
             form.save()
             order_details = OrderDetail.objects.filter(order = order)
+            
             context ={
                 'status_name':STATUSES[str(order.status)],
                 'status':str(order.status),
                 'order_type':order.order_type,
                 'data':json.dumps(order.data),
-                'order_details':order_details
+                'order_details':order_details,
+                'users':users,
+                'partner':order.partner
             }
             return render(request,'client/moderator/order_detail.html',context)
         else:
@@ -93,10 +176,12 @@ def moderator_check(request,id):
             'status':str(order.status),
             'order_type':order.order_type,
             'data':json.dumps(order.data),
-            'order_details':order_details
+            'order_details':order_details,
+            'users':users,
+            'partner':order.partner
         }
         return render(request,'client/moderator/order_detail.html',context)
-STATUSES ={
+STATUSES =  {
     '1':'Открыто',
     '4':'Пере-открыто',
     '10023':'Выполнено',

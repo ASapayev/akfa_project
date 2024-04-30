@@ -466,14 +466,14 @@
                                 {%for order_detail in order_details %}
                                     {%if request.user == order_detail.owner %}
                                         {%if status != 1 %}
-                                        {%if order_detail.message != '' %}
+                                        {%if order_detail.message != '' or order_detail.file %}
                                         <div class="bg-white">
                                             <div class="d-flex justify-content-start col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
-                                            
+                                            {%if order_detail.message != ''%}
                                                 <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
                                                     <p>{{order_detail.message}}</p>
                                                 </div>
-                                           
+                                            {%endif%}
 
                                             {%if order_detail.file %}
                                             <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
@@ -486,14 +486,14 @@
                                         {%endif%}
                                     {%else%}
                                             {%if status != 1 %}
-                                            {%if order_detail.message != '' %}
+                                            {%if order_detail.message != '' or order_detail.file %}
                                             <div class="bg-white">
                                                 <div class="d-flex justify-content-end col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
-                                               
+                                                {%if order_detail.message != ''%}
                                                     <div class="d-flex justify-content-end col-md-12 pl-5" style="color:rgba(0,0,0,.6);">
                                                         <p style="padding-left: 40%;">{{order_detail.message}}</p>
                                                     </div>
-                                                
+                                                {%endif%}
 
                                                 {%if order_detail.file %}
                                                 <div class="d-flex justify-content-end col-md-12" style="color:rgba(0,0,0,.6);">
@@ -524,6 +524,15 @@
                                   <option value="10083" style="color: #f0ad4e;" {%if status == '10083' %} selected {%endif%}>Согласование</option>
                                   <option value="10082" style="color:#d9534f" {%if status == '10082' %} selected {%endif%}>Отменено</option>
                                   <option value="10084" style="color: #f0ad4e;" {%if status == '10084' %} selected {%endif%}>Доработка заявителем</option>
+                                </select>
+                              </div>
+                              <div class="form-group col-3" id ='user_list' style="display: {%if status == '10083' %}block{%else%}none{%endif%};">
+                                <label for="exampleSelectGenderr">User</label>
+                                <select class="form-control" id="users" name="user_id" >
+                                  <option style="color:#3dc8b9" value="" >Select user</option>
+                                  {%for user in users%}
+                                    <option style="color:#3dc8b9" {%if user == partner %} selected {%endif%}value="{{user.id}}">{{user}}</option>
+                                  {%endfor%}
                                 </select>
                               </div>
                               <div class="form-group col-3">
@@ -616,6 +625,18 @@ function set_values(base,i,order){
 
 
 function status_change(val){
+    if(val == 10083){
+        var user_list =$('#user_list')
+        user_list.css('display','block')
+        var users =$('#users')
+        users.attr('required',true)
+    }else{
+        var user_list =$('#user_list')
+        user_list.css('display','none')
+        var users =$('#users')
+        users.attr('required',false)
+    } 
+
     if(val ==10084 || val ==10081){
         var textarea =$('#exampleTextarea1')
         textarea.addClass('mustbe_red')

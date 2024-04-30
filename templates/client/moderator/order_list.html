@@ -77,6 +77,7 @@
                     <th scope="col">Order name</th>
                     <th scope="col">Owner</th>
                     <th scope="col">Checker</th>
+                    <!-- <th scope="col" >Time</th> -->
                     <th scope="col">Status</th>
                     <th scope="col">Created</th>
                     <th scope="col">Options</th>
@@ -89,6 +90,11 @@
                     <td>{{order.data.name}}</td>
                     <td>{{order.owner}}</td>
                     <td>{%if order.checker %}{{order.checker}}{%endif%}</td>
+                    <!-- <td>
+                      <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td> -->
                     <td>
                         
                       {%if order.status|stringformat:"d" == '1' %}<span class="badge badge-primary" value="1"   >Открыто</span>{%endif%}

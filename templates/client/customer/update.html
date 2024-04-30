@@ -475,6 +475,7 @@
                                         {%for order_detail in order_details %}
                                             {%if request.user == order_detail.owner %}
                                                 {%if status != 1 %}
+                                                {%if order_detail.message != '' or order_detail.file %}
                                                 <div class="bg-white">
                                                     <div class="d-flex justify-content-start col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
                                                     {%if order_detail.message != '' %}
@@ -491,8 +492,10 @@
                                                 </div>
                                                     <hr>
                                                 {%endif%}
+                                                {%endif%}
                                             {%else%}
                                                     {%if status != 1 %}
+                                                    {%if order_detail.message != '' or order_detail.file %}
                                                     <div class="bg-white">
                                                         <div class="d-flex justify-content-end col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
                                                         {%if order_detail.message != '' %}
@@ -508,6 +511,7 @@
                                                         {%endif%}
                                                     </div>
                                                         <hr>
+                                                    {%endif%}
                                                     {%endif%}
 
                                             {%endif%}
