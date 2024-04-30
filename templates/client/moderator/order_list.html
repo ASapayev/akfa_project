@@ -166,4 +166,13 @@
       </div>
   </div>
 </div>
+<script>
+  let url =`ws://${window.location.host}/ws/messages/3/`
+  const chatSocket = new WebSocket(url)
+
+  chatSocket.onmessage = function(e){
+    let data =JSON.parse(e.data)
+    console.log('DATA',data)
+  }
+</script>
 {% endblock %}
