@@ -94,7 +94,7 @@
                       {%if order.status|stringformat:"d" == '1' %}<span class="badge badge-primary" value="1"   >Открыто</span>{%endif%}
                       {%if order.status|stringformat:"d" == '10023' %} <span value="10023" class="badge badge-success" >Выполнено</span>{%endif%}
                       {%if order.status|stringformat:"d" == '10063' %}<span value="10063" class="badge badge-warning"   >Работа ведется</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10081' %} <span value="10081" class="badge badge-dark" >На паузе</span>{%endif%}
+                      {%if order.status|stringformat:"d" == '10081' %} <span value="10081" class="badge badge-secondary" >На паузе</span>{%endif%}
                       {%if order.status|stringformat:"d" == '10083' %} <span value="10083" class="badge badge-warning"  >Согласование</span>{%endif%}
                       {%if order.status|stringformat:"d" == '10082' %}<span value="10082" class="badge badge-danger"  >Отменено</span>{%endif%}
                       {%if order.status|stringformat:"d" == '10084' %}<span value="10084" class="badge badge-warning" >Доработка заявителем</span>{%endif%}

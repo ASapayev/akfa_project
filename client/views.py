@@ -13,6 +13,7 @@ from accounts.decorators import customer_only,moderator_only,allowed_users
 from django.core.paginator import Paginator
 import json
 from .forms import OrderFileForm
+from django.db.models import Q
 
 
 
@@ -221,7 +222,7 @@ def order_detail(request,id):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def order_list(request):
-    orders = Order.objects.filter(owner = request.user).order_by('-created_at')
+    orders = Order.objects.filter(Q(owner = request.user)|(Q(partner = request.user)&Q(status=10083))).order_by('-created_at')
     paginator = Paginator(orders, 15)
 
     if request.GET.get('page') != None:
