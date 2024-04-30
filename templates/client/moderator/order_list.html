@@ -91,13 +91,13 @@
                     <td>{%if order.checker %}{{order.checker}}{%endif%}</td>
                     <td>
                         
-                      {%if order.status|stringformat:"d" == '1' %}<span style="color:#3dc8b9" value="1"   >Открыто</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10023' %} <span value="10023" style="color: #5cb85c;"  >Выполнено</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10063' %}<span value="10063" style="color: #f0ad4e;"   >Работа ведется</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10081' %} <span value="10081" style="color:#292b2c"  >На паузе</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10083' %} <span value="10083" style="color: #f0ad4e;"   >Согласование</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10082' %}<span value="10082" style="color:#d9534f"  >Отменено</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10084' %}<span value="10084" style="color: #f0ad4e;"  >Доработка заявителем</span>{%endif%}
+                      {%if order.status|stringformat:"d" == '1' %}<span class="badge badge-primary" value="1"   >Открыто</span>{%endif%}
+                      {%if order.status|stringformat:"d" == '10023' %} <span value="10023" class="badge badge-success" >Выполнено</span>{%endif%}
+                      {%if order.status|stringformat:"d" == '10063' %}<span value="10063" class="badge badge-warning"   >Работа ведется</span>{%endif%}
+                      {%if order.status|stringformat:"d" == '10081' %} <span value="10081" class="badge badge-dark" >На паузе</span>{%endif%}
+                      {%if order.status|stringformat:"d" == '10083' %} <span value="10083" class="badge badge-warning"  >Согласование</span>{%endif%}
+                      {%if order.status|stringformat:"d" == '10082' %}<span value="10082" class="badge badge-danger"  >Отменено</span>{%endif%}
+                      {%if order.status|stringformat:"d" == '10084' %}<span value="10084" class="badge badge-warning" >Доработка заявителем</span>{%endif%}
                         
                     </td>
                     <td>{{order.created_at|date:"d-m-Y H:i"}}</td>

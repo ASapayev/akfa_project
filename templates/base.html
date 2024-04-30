@@ -132,7 +132,7 @@
   {%block style_content%}
   {%endblock%}
  </style>
-  <body >
+  <body id="base_body">
     <div class="container-scroller" >
       <!-- partial:partials/_sidebar.html -->
       {% include 'includes/sidebar.html' %}
@@ -162,7 +162,16 @@
     {% endblock %}
 
     
-
+    <script>
+      function show_menu(){
+        var bodyElement = document.getElementById('base_body')
+        if (bodyElement.classList.contains("sidebar-icon-only")) {
+          bodyElement.classList.remove("sidebar-icon-only");
+        } else {
+          bodyElement.classList.add("sidebar-icon-only");
+        }
+      }
+    </script>
     <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
