@@ -2,7 +2,7 @@
 {%load static%}
 
 {% block content %}
-<script src="{% static 'eventsource.min.js' %}"></script>
+<script src="{% static 'eventsource.js' %}"></script>
 <script src="{% static 'reconnecting-eventsource.js' %}"></script>
 <div class="content-wrapper">
  
@@ -176,14 +176,18 @@
   //   let data =JSON.parse(e.data)
   //   console.log('DATA',data)
   // }
-  var es = new ReconnectingEventSource('/events/');
 
-  es.addEventListener('message', function (e) {
-      console.log(e.data);
-  }, false);
 
-  es.addEventListener('stream-reset', function (e) {
-      // ... client fell behind, reinitialize ...
-  }, false);
+
+  // $$$$$$$
+  // var es = new ReconnectingEventSource('/events/');
+
+  // es.addEventListener('message', function (e) {
+  //     console.log(e.data);
+  // }, false);
+
+  // es.addEventListener('stream-reset', function (e) {
+  //     // ... client fell behind, reinitialize ...
+  // }, false);
 </script>
 {% endblock %}
