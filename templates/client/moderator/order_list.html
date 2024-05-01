@@ -2,8 +2,7 @@
 {%load static%}
 
 {% block content %}
-<script src="{% static 'eventsource.js' %}"></script>
-<script src="{% static 'reconnecting-eventsource.js' %}"></script>
+
 <div class="content-wrapper">
  
   <div class="row">
@@ -168,6 +167,8 @@
       </div>
   </div>
 </div>
+<script src="{% static 'eventsource.js' %}"></script>
+<script src="{% static 'reconnecting-eventsource.js' %}"></script>
 <script>
   // let url =`ws://${window.location.host}/ws/messages/3/`
   // const chatSocket = new WebSocket(url)
