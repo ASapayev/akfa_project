@@ -1,7 +1,9 @@
 {% extends 'base.html'%}
-
+{%load static%}
 
 {% block content %}
+<script src="{% static 'django_eventstream/eventsource.min.js' %}"></script>
+<script src="{% static 'django_eventstream/reconnecting-eventsource.js' %}"></script>
 <div class="content-wrapper">
  
   <div class="row">
@@ -167,12 +169,21 @@
   </div>
 </div>
 <script>
-  let url =`ws://${window.location.host}/ws/messages/3/`
-  const chatSocket = new WebSocket(url)
+  // let url =`ws://${window.location.host}/ws/messages/3/`
+  // const chatSocket = new WebSocket(url)
 
-  chatSocket.onmessage = function(e){
-    let data =JSON.parse(e.data)
-    console.log('DATA',data)
-  }
+  // chatSocket.onmessage = function(e){
+  //   let data =JSON.parse(e.data)
+  //   console.log('DATA',data)
+  // }
+  var es = new ReconnectingEventSource('/events/');
+
+  es.addEventListener('message', function (e) {
+      console.log(e.data);
+  }, false);
+
+  es.addEventListener('stream-reset', function (e) {
+      // ... client fell behind, reinitialize ...
+  }, false);
 </script>
 {% endblock %}

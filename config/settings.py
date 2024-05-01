@@ -20,6 +20,7 @@ ALLOWED_HOSTS = ['127.0.0.1','mdm.akfagroup.com','https://mdm.akfagroup.com/','h
 
 INSTALLED_APPS = [
     "daphne",
+    "django_eventstream",
     'channels',
     'sslserver',
     'django.contrib.admin',
@@ -64,6 +65,7 @@ ROOT_URLCONF = 'config.urls'
 
 SESSION_COOKIE_SECURE=True
 
+EVENTSTREAM_STORAGE_CLASS = 'django_eventstream.storage.DjangoModelStorage'
 
 TEMPLATES = [
     {

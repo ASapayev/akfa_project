@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path,include
+import django_eventstream
 # from django.conf.urls import handler404, handler500
 
 urlpatterns = [
@@ -19,6 +20,8 @@ urlpatterns = [
     path('client/',include('client.urls')),
     path('accessuar/',include('accessuar.urls')),
     
+
+   path("events/", include(django_eventstream.urls), {"channels": ["test"]}),
     # path('__debug__/', include('debug_toolbar.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 # if settings.DEBUG:

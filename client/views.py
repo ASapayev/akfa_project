@@ -17,7 +17,13 @@ from django.db.models import Q
 from accounts.models import User
 from django.views.decorators.csrf import csrf_exempt
 import websocket
+from django_eventstream import send_event
 
+
+
+def test(request):
+    send_event("test", "message", {"text": "hello world"})
+    return JsonResponse({'a':'b'})
 
 @csrf_exempt
 def user_message_receive(request):
