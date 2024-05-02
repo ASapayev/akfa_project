@@ -134,7 +134,7 @@
         }).done(function (res) {
             console.log(res)
             if (res.status ==201){
-                Swal.fire('Qabul qilindi...', '', 'success')
+                // Swal.fire('Qabul qilindi...', '', 'success')
                 var url_check ='{{request.get_host}}/client/order-check/'+res.order_id
                 var tbody = $('#basic_form')
                 tbody.remove()
@@ -173,11 +173,11 @@
     }else{
         
         if(!data_empty && !all_correct){
-            Swal.fire({
-                icon: 'error',
-                title: 'Malumotlar to\'liq emas!!!',
-                text: 'Itimos ma\'lumotlarni to\'ldiring.',
-            });
+            // Swal.fire({
+            //     icon: 'error',
+            //     title: 'Malumotlar to\'liq emas!!!',
+            //     text: 'Itimos ma\'lumotlarni to\'ldiring.',
+            // });
         }
     }
 

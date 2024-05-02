@@ -36,12 +36,13 @@
                                         {%if order.status|stringformat:"d" == '10083' %} <span value="10083" class="badge badge-warning"   >Согласование</span>{%endif%}
                                         {%if order.status|stringformat:"d" == '10082' %}<span value="10082" class="badge badge-danger"  >Отменено</span>{%endif%}
                                         {%if order.status|stringformat:"d" == '10084' %}<span value="10084" class="badge badge-warning"  >Доработка заявителем</span>{%endif%}
+                                        {%if order.status|stringformat:"d" == '10085' %}<span value="10084" class="badge badge-warning"  >Исправлено</span>{%endif%}
                                         
                                     </td>
                                     <td>{{order.created_at|date:"d-m-Y H:i"}}</td>
-                                    <td>{%if order.status|stringformat:"d" == '10081' or order.status|stringformat:"d" == '10084'%}<a href="{%url 'order_update' order.id %}" class="btn btn-warning btn-sm" ><i class="bi bi-pen-fill"></i> Edit</a>{%endif%}
+                                    <td>{%if order.status|stringformat:"d" == '10081' or order.status|stringformat:"d" == '10084'%}<a href="{%url 'order_update_all' order.id %}" class="btn btn-warning btn-sm" ><i class="bi bi-pen-fill"></i> Edit</a>{%endif%}
                                         {%if order.status|stringformat:"d" == '10083' and order.partner %}
-                                            {%if order.status|stringformat:"d" == '10083' and order.partner == request.user %}<a href="{%url 'order_update' order.id %}" class="btn btn-warning btn-sm" ><i class="bi bi-pen-fill"></i> Edit</a>{%endif%}
+                                            {%if order.status|stringformat:"d" == '10083' and order.partner == request.user %}<a href="{%url 'order_update_all' order.id %}" class="btn btn-warning btn-sm" ><i class="bi bi-pen-fill"></i> Edit</a>{%endif%}
                                         {%endif%}
                                         <a href="{%url 'customer_order_detail' order.id %}" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> Detail</a></td>
                                 </tr>
@@ -89,8 +90,22 @@
                     </div>
                 </section>
             </div>
-            <a href="{%url 'test'%}">TEST ALLL</a>
         </main>
+
+<script src="{% static 'js/eventsource.js' %}"></script>
+<script src="{% static 'js/reconnecting-eventsource.js' %}"></script>
+<script>
+  
+  var es = new ReconnectingEventSource('/events/');
+
+  es.addEventListener('message', function (e) {
+      console.log(e.data);
+  }, false);
+
+  es.addEventListener('stream-reset', function (e) {
+      // ... client fell behind, reinitialize ...
+  }, false);
+</script>
         
 {%endblock%}
 

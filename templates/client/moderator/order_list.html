@@ -105,6 +105,7 @@
                       {%if order.status|stringformat:"d" == '10083' %} <span value="10083" class="badge badge-warning"  >Согласование</span>{%endif%}
                       {%if order.status|stringformat:"d" == '10082' %}<span value="10082" class="badge badge-danger"  >Отменено</span>{%endif%}
                       {%if order.status|stringformat:"d" == '10084' %}<span value="10084" class="badge badge-warning" >Доработка заявителем</span>{%endif%}
+                      {%if order.status|stringformat:"d" == '10085' %}<span value="10084" class="badge badge-warning"  >Исправлено</span>{%endif%}
                         
                     </td>
                     <td>{{order.created_at|date:"d-m-Y H:i"}}</td>
@@ -170,17 +171,7 @@
 <script src="{% static 'js/eventsource.js' %}"></script>
 <script src="{% static 'js/reconnecting-eventsource.js' %}"></script>
 <script>
-  // let url =`ws://${window.location.host}/ws/messages/3/`
-  // const chatSocket = new WebSocket(url)
-
-  // chatSocket.onmessage = function(e){
-  //   let data =JSON.parse(e.data)
-  //   console.log('DATA',data)
-  // }
-
-
-
-  // $$$$$$$
+  
   var es = new ReconnectingEventSource('/events/');
 
   es.addEventListener('message', function (e) {

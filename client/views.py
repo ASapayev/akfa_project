@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from django.http import JsonResponse
 from aluminiy.models import ArtikulComponent
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc
@@ -96,6 +96,14 @@ class OrderSaveView(APIView):
             order.save()
             order_detail = OrderDetail(order=order,owner=request.user)
             order_detail.save()
+            send_event("test", "message", {
+                                        "id":order.id,
+                                        "order_name" : name,
+                                        "owner" : str(request.user),
+                                        "checker":None,
+                                        "status":"1",
+                                        "created_at":order.created_at
+                                        })
             return Response({'msg':'Ordered successfully!','status':201,'order_id':order.id})    
         except:
             return Response({'msg':'Something went wrong.','status':300,'order_id':None})    
@@ -161,17 +169,15 @@ def moderator_check(request,id):
         if form.is_valid():
             form.save()
             order_details = OrderDetail.objects.filter(order = order)
-            
-            context ={
-                'status_name':STATUSES[str(order.status)],
-                'status':str(order.status),
-                'order_type':order.order_type,
-                'data':json.dumps(order.data),
-                'order_details':order_details,
-                'users':users,
-                'partner':order.partner
-            }
-            return render(request,'client/moderator/order_detail.html',context)
+            send_event("test", "message", {
+                                        "id":order.id,
+                                        "order_name" : order.data['name'],
+                                        "owner" : str(owner),
+                                        "checker":None,
+                                        "status":str(order.status),
+                                        "created_at":order.created_at
+                                        })
+            return redirect('order_list_for_moderator')
         else:
             return JsonResponse({'form':form.errors})
     else:
@@ -196,9 +202,47 @@ STATUSES =  {
     '10083':'Согласование',
     '10084':'Доработка',
     '10082':'Отменено',
-    '10063':'Работа ведется'
+    '10063':'Работа ведется',
+    '10085':'Исправлено'
 
 }
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def order_update_all(request,id):
+    if request.method =='POST':
+        data =request.POST.copy()
+        owner =request.user
+        order = Order.objects.get(id=id)
+        order.status = data.get('status',1)
+        order.save()
+        data['owner'] = owner
+        data['order'] = order
+        form = OrderFileForm(data,request.FILES)
+        if form.is_valid():
+            form.save()
+            order_details = OrderDetail.objects.filter(order = order)
+            send_event("test", "message", {
+                                        "id":order.id,
+                                        "order_name" : order.data['name'],
+                                        "owner" : None,
+                                        "checker":None,
+                                        "status":str(order.status),
+                                        "created_at":order.created_at
+                                        })
+            return redirect('client_order_list')
+    else:
+        order = Order.objects.get(id = id)
+        order_details = OrderDetail.objects.filter(order = order)
+        context ={
+            'status_name':STATUSES[str(order.status)],
+            'status':str(order.status),
+            'order_type':order.order_type,
+            'data':json.dumps(order.data),
+            'order_details':order_details,
+            'id':order.id   
+        }
+    return render(request,f'client/customer/update/{order.order_type}.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
@@ -208,6 +252,7 @@ def order_update(request,id):
         data = request.POST.get('data',None)
         name = request.POST.get('name',None)
         res = json.loads(data)
+        
         try:
             # order.data = Order(data = {'name':name,'data':res})
             order.data ={'name':name,'data':res}
@@ -252,6 +297,14 @@ def detail_order_update(request,id):
                 'order_details':order_details,
                 'id':order.id            
                 }
+            send_event("test", "message", {
+                                        "id":order.id,
+                                        "order_name" : order.data['name'],
+                                        "owner" : None,
+                                        "checker":None,
+                                        "status":str(order.status),
+                                        "created_at":order.created_at
+                                        })
             return render(request,f'client/customer/update/{order.order_type}.html',context)
         else:
             return JsonResponse({'form':form.errors})
