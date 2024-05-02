@@ -295,7 +295,7 @@ for (let i = 1; i <= 10; i++) {
     
     <td >
         <div class="input-group input-group-sm mb-1">
-           
+        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
     </td>
     </tr>`
@@ -1015,7 +1015,7 @@ class BasePokritiya{
         kratkiy_tekst=NaN,//done
         sap_code_ruchnoy=NaN,//done
         kratkiy_text_ruchnoy=NaN,//done
-        comment=NaN,
+        comment=NaN,//done
         is_termo=false
         ) {
 
@@ -1156,6 +1156,15 @@ function create_kratkiy_tekst(id){
     var combination= $('#combination'+String(id));
     combination_text = combination.text();
     var val = $('#tip_pokritiya'+String(id)).val();
+    var comment =$('#comment'+id);
+
+    if(comment.val()!=''){
+        data_base[id].comment = comment.val();
+        comment.css('border-color','#dedad9')
+    }else{
+        data_base[id].comment = NaN;
+    }
+
 
 
     var dlina = $('#length'+String(id));
@@ -1810,7 +1819,7 @@ function add_column(){
        
         <td >
             <div class="input-group input-group-sm mb-1">
-               
+            <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
             </div>
         </td>
         </tr>`

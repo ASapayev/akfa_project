@@ -328,7 +328,7 @@ for (let i = 1; i <= 10; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-           
+        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
     </td>
     </tr>`
@@ -1287,7 +1287,14 @@ function create_kratkiy_tekst(id){
     var combination= $('#combination'+String(id));
     combination_text = combination.text();
     var val = $('#tip_pokritiya'+String(id)).val();
+    var comment =$('#comment'+id);
 
+    if(comment.val()!=''){
+        data_base[id].comment = comment.val();
+        comment.css('border-color','#dedad9')
+    }else{
+        data_base[id].comment = NaN;
+    }
 
     var dlina = $('#length'+String(id));
     if(dlina.val()!=''){
@@ -1685,7 +1692,6 @@ function create_kratkiy_tekst(id){
 
     
     var data =data_base[id].get_kratkiy_tekst()
-    // console.log(data,'dddddddaassasfas')
     if(data.accept){
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','#2de319')
@@ -2035,7 +2041,7 @@ function add_column(){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-               
+            <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
             </div>
         </td>
         </tr>`
