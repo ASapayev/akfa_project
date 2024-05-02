@@ -1,7 +1,7 @@
 
 text =""
 
-for (let i = 1; i <= 5; i++) {
+for (let i = 1; i <= 10; i++) {
     text +=`
     <tr id='table_tr` +String(i)+`' >
                                 
@@ -310,7 +310,7 @@ table.append(text)
 
 
 
-for (let i = 1; i <= 6; i++) {
+for (let i = 1; i <= 10; i++) {
     $('#artikul'+String(i)).select2({
         ajax: {
             url: "/client/imzo-artikul-list",
@@ -1061,83 +1061,83 @@ class BasePokritiya{
             case 1:if(!this.is_termo){
            
                 if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki ){
-                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'  ' +this.kod_nakleyki
+                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':true}
                 }else{
-                    return 'XXXXXXXX'
+                    return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
                     if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
-                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+'  ' +this.kod_nakleyki
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':true}
                     }else{
-                        return 'XXXXXXXX'
+                        return {'text':'XXXXXXXX','accept':false}
                     }
                 }break;
             case 2:if(!this.is_termo){
 
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki ){
-                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki
+                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':true}
                 }else{
-                    return 'XXXXXXXX'
+                    return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
         
                     if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki ){
-                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':true}
                     }else{
-                        return 'XXXXXXXX'
+                        return {'text':'XXXXXXXX','accept':false}
                     }
                 }break;
             case 3: if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
-                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki
+                    return  {'text': this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':true}
                 }else{
-                    return 'XXXXXXXX'
+                    return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
                 
                     if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
-                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':true}
                     }else{
-                        return 'XXXXXXXX'
+                        return {'text':'XXXXXXXX','accept':false}
                     }
                 }break;
             case 4: if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki ){
-                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki
+                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
                 }else{
-                    return 'XXXXXXXX'
+                    return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
                     if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki ){
-                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
                     }else{
-                        return 'XXXXXXXX'
+                        return {'text':'XXXXXXXX','accept':false}
                     }
                 }break;
             case 5:if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki){
-                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + '  ' +this.kod_nakleyki
+                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + '  ' +this.kod_nakleyki,'accept':true}
                 }else{
-                    return 'XXXXXXXX'
+                    return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
                     if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn){
-                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + '  ' +this.kod_nakleyki
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + '  ' +this.kod_nakleyki,'accept':true}
                     }else{
-                        return 'XXXXXXXX'
+                        return {'text':'XXXXXXXX','accept':false}
                     }
                 }break;
             case 6:if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_nakleyki && this.contactnost_anod){
-                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn + '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki
+                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn + '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki,'accept':true}
                 }else{
-                    return 'XXXXXXXX'
+                    return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
                     if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_anod_vn && this.kod_nakleyki && this.contactnost_anod){
-                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki,'accept':true}
                     }else{
-                        return 'XXXXXXXX'
+                        return {'text':'XXXXXXXX','accept':false}
                     }
         
                 }break;
@@ -1499,21 +1499,20 @@ function create_kratkiy_tekst(id){
 
     }
 
-    var text =data_base[id].get_kratkiy_tekst()
-    if(text != 'XXXXXXXX'){
+    var data =data_base[id].get_kratkiy_tekst()
+    if(data.accept){
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','#2de319')
-        data_base[id].full =true
-        data_base[id].kratkiy_tekst =text
+        data_base[id].full=true
+        data_base[id].kratkiy_tekst=data.text
     }else{
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','white')
-        data_base[id].full =false
-        data_base[id].kratkiy_tekst =text
+        data_base[id].full=false
+        data_base[id].kratkiy_tekst=NaN
 
     }
-    kratkiy_tekst.text(text)
-
+    kratkiy_tekst.text(data.text)
     }
 }
 

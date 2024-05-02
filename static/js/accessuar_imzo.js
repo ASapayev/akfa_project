@@ -47,7 +47,7 @@ class BasePokritiya{
 text =""
 data_base = {}
 
-for (let i = 1; i <= 5; i++) {
+for (let i = 1; i <= 10; i++) {
     data_base[i] = new BasePokritiya()
     text +=`
     <tr id='table_tr` +String(i)+`' >                   

@@ -112,7 +112,7 @@ class BasePokritiya{
 
 text =""
 
-for (let i = 1; i <= 5; i++) {
+for (let i = 1; i <= 10; i++) {
     text +=`
     <tr id='table_tr` +String(i)+`' >                   
     <td >
@@ -396,7 +396,7 @@ table.append(text)
 
 
 
-for (let i = 1; i <= 6; i++) {
+for (let i = 1; i <= 10; i++) {
     $('#artikul'+String(i)).select2({
         ajax: {
             url: "/client/pvc-artikul-list",

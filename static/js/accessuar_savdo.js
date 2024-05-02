@@ -95,7 +95,7 @@ class BasePokritiya{
 
 text =""
 
-for (let i = 1; i <= 5; i++) {
+for (let i = 1; i <= 10; i++) {
     text +=`
     <tr id='table_tr` +String(i)+`' >                   
     <td >
