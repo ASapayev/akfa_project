@@ -18,6 +18,10 @@ urlpatterns = [
     path('shablon-acs-savdo-detail',views.shablon_acs_savdo_detail,name='shablon_acs_savdo_detail'),
     path('shablon-acs-export-detail',views.shablon_acs_export_savdo_detail,name='shablon_acs_export_savdo_detail'),
 
+
+    ######AKP###############
+    path('shablon-akp-savdo-detail',views.shablon_akp_savdo_detail,name='shablon_akp_savdo_detail'),
+
     ################## APIS ################
     path('imzo-artikul-list',views.imzo_artikul_list,name='imzo_artikul_list'),
     path('pvc-artikul-list',views.pvc_artikul_list,name='pvc_artikul_list'),

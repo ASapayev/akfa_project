@@ -434,6 +434,11 @@ def shablon_pvc_export_detail(request):
 
 @login_required(login_url='/accounts/login/')
 @customer_only
+def shablon_akp_savdo_detail(request):
+    return render(request,'client/shablonlar/akp_savdo.html')
+
+@login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_pvc_savdo_detail(request):
     return render(request,'client/shablonlar/pvc_savdo.html')
 
