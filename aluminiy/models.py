@@ -123,5 +123,13 @@ class ExchangeValues(models.Model):
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 
+class AluProfilesData(models.Model):
+    data = models.JSONField(null=True,blank=True,default=dict)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)
 
-
+class AluFileBazaprofiles(models.Model):
+  file =models.FileField(upload_to='uploads/aluminiy/downloads/',max_length=500)
+  file_type =models.CharField(max_length=255,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)

@@ -2,10 +2,10 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 import pandas as pd
 from django.core.paginator import Paginator
-from .models import ArtikulComponent,AluminiyProduct,AluFile,RazlovkaObichniy,RazlovkaTermo,Price,LengthOfProfile,ExchangeValues
+from .models import ArtikulComponent,AluminiyProduct,AluFile,RazlovkaObichniy,RazlovkaTermo,Price,LengthOfProfile,ExchangeValues,AluProfilesData
 from aluminiytermo.models import AluminiyProductTermo,CharacteristikaFile
 from aluminiytermo.views import *
-from .forms import FileForm,LengthOfProfilwForm,ExchangeValueForm
+from .forms import FileForm,LengthOfProfilwForm,ExchangeValueForm,FileFormBazaprofiley
 from django.db.models import Max
 import zipfile
 from config.settings import MEDIA_ROOT
@@ -737,6 +737,62 @@ svet_lam_plenke_VN ={
       'Матовый белый':'ВН МАТОВЫЙ БЕЛЫЙ',
       'Матовый чёрный':'ВН МАТОВЫЙ ЧЁРНЫЙ',
 }
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
+def list_bazaprofiley(request):
+      columns =  AluProfilesData.objects.filter(data__has_key ='columns')[:1].get().data['columns']
+      search = request.GET.get('search',None)
+      if search:
+            profiles = AluProfilesData.objects.filter(Q(data__Компонент__icontains =search)|Q(data__Артикул__icontains =search)).order_by('-created_at')
+      else:
+            profiles = AluProfilesData.objects.all().order_by('-created_at')
+
+      paginator = Paginator(profiles, 25)
+
+      if request.GET.get('page') != None:
+            page_number = request.GET.get('page')
+      else:
+            page_number=1
+
+      page_obj = paginator.get_page(page_number)
+      context ={
+            'products':page_obj,
+            'columns':columns
+      }
+      return render(request,'aluminiy/list_sapcodes.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
+def full_update_bazaprofiley(request):
+      if request.method == 'POST':
+            data = request.POST.copy()
+            form = FileFormBazaprofiley(data, request.FILES)
+            if form.is_valid():
+                  form_file = form.save()
+                  file = form_file.file
+                  path =f'{MEDIA_ROOT}/{file}'
+                  
+                  df = pd.read_excel(path,sheet_name='ОС')
+                  df = df.astype(str)
+                  df = df.replace('nan','0')
+                  df = df.replace('0.0','0')
+                  
+                  columns = df.columns
+                  print(columns)
+            
+                  AluProfilesData(data ={'columns':list(columns)}).save()
+                  for key, row in df.iterrows():
+                        norma_dict = {}
+                        for col in columns:
+                              norma_dict[col]=row[col]
+                        AluProfilesData(data =norma_dict).save()
+
+            return redirect('list_bazaprofiley')
+      else:
+            return render(request,'norma/benkam/main.html')
+
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])

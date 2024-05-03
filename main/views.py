@@ -890,6 +890,12 @@ def split_text(value):
     else:
       return txt
     
+@register.filter(name='get_dynamic_key')
+def get_dynamic_key(data, key):
+    if data.get(key, "") =='0':
+      return ''
+    return data.get(key, "") 
+
 @register.filter(name='split_sapcode')
 def split_sapcode(value):
     txt =str(value).split('-')[0]

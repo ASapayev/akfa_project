@@ -143,7 +143,7 @@ class BazaProfiley(models.Model):
     link = models.CharField(max_length=400,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
-    
+
     
 class NakleykaCode(models.Model):
     name = models.CharField(max_length=255,blank=True,null=True)

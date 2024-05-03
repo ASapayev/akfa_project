@@ -42,4 +42,8 @@ path('add-length-profile',views.add_length_profile,name='add_length_profile'),
 path('edit-currency',views.edit_currency,name='edit_currency'),
 path('create-construction',views.upload_for_1301_v22,name='create_construction'),
 
+
+path('upload-bazaprofiles',views.full_update_bazaprofiley,name='full_update_bazaprofiley'),
+path('list-bazaprofile',views.list_bazaprofiley,name='list_bazaprofiley')
+
 ]
