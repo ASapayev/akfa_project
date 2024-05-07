@@ -893,7 +893,7 @@ function create(i){
     status_first.css('display','block')
     status_first.val('Активный')
 
-
+    
 
     var is_active =$('#is_active'+i);
     is_active.text('Пассивный')
@@ -918,6 +918,7 @@ function create(i){
     data_base[i].buxgalter_uchot ='Килограмм'
     data_base[i].bazoviy_edin ='Штука'
     data_base[i].alter_edin ='Квадратный метр'
+    data_base[i].zavod_name ='ZAVOD ALUCOBOND'
     buxgalter_uchot.val('Килограмм')
     bazoviy_edin.val('Штука')
     alter_edin.val('Квадратный метр')
@@ -1021,12 +1022,6 @@ function activate(i){
     data_base[i].segment ='Пустой'
     data_base[i].is_active = true
 
-    data_base[i].buxgalter_uchot ='Килограмм'
-    data_base[i].bazoviy_edin ='Штука'
-    data_base[i].alter_edin ='Квадратный метр'
-    buxgalter_uchot.val('Килограмм')
-    bazoviy_edin.val('Штука')
-    alter_edin.val('Квадратный метр')
 
     data_base[i].zavod_name ='ZAVOD ALUCOBOND'
 
@@ -1192,7 +1187,7 @@ function create_kratkiy_tekst(id){
         var alter_edin = $('#alter_edin'+id)
         var diller = $('#diller'+id)
         var tip_clenta = $('#tip_clenta'+id)
-        var status_first =$('#status'+id);
+        var status_online =$('#status'+id);
         var is_active =$('#is_active'+id);
         console.log(mikron.val())
     
@@ -1341,14 +1336,13 @@ function create_kratkiy_tekst(id){
             }else{
                 data_base[id].tip_clenta = NaN;
             }
-            if(status_first.val()!=''){
-                data_base[id].status_first = status_first.val();
+            if(status_online.val()!=''){
+                data_base[id].status_online = status_online.val();
             }else{
-                data_base[id].status_first = NaN;
+                data_base[id].status_online = NaN;
             }
     
            
-
 
           
         }else{
@@ -1435,10 +1429,10 @@ function create_kratkiy_tekst(id){
                 tip_clenta.css('border-color','red')
                 data_base[id].tip_clenta = NaN;
             }
-            if(status_first.val()!=''){
-                data_base[id].status_first = status_first.val();
+            if(status_online.val()!=''){
+                data_base[id].status_online = status_online.val();
             }else{
-                data_base[id].status_first = NaN;
+                data_base[id].status_online = NaN;
             }
     
     
