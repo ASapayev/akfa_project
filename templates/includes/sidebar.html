@@ -156,7 +156,7 @@
       </div>
     </li>
     {%endif%}
-    {% if user_role == 'moderator'  or user_role == 'user1' or user_role == 'only_razlovka'%}
+    {% if user_role == 'moderator'  or user_role == 'user1' or user_role == 'only_razlovka' or user_role == 'razlovka'%}
       <li class="nav-item menu-items">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm" aria-expanded="false" aria-controls="ui-basic-norm">
           <span class="menu-icon">
@@ -174,6 +174,10 @@
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_list_org'%}">История обычный файлов</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'alu_simple_raz' %}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class=""> обыч разл </span> файла</a></li>
             <li class="nav-item"> <a class="nav-link" href="{%url 'alu_termo_raz' %}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо разл</span> файла</a></li>
+            {%endif%}
+            {%if user_role == 'razlovka' %}
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо</span> файла</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">обыч</span> файла</a></li>
             {%endif%}
             {%if user_role == 'only_razlovka'%}
             <li class="nav-item"> <a class="nav-link" href="{% url 'full_update_norm_benkam'%}"><span style="color:chocolate;font-weight: 500; padding: 5px;" class="">Норма</span>расход</a></li>
@@ -377,7 +381,7 @@
       </a>
     </li>
     {%endif%}
-    {% if user_role == 'moderator' or user_role == 'user1'%}
+    {% if user_role == 'moderator' or user_role == 'user1' or user_role == 'razlovka'%}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'norma-delete-org' %}">
         <span class="menu-icon">

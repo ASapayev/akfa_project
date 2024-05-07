@@ -944,7 +944,7 @@ def show_sikl_base(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','razlovka'])
 def file_upload_termo_org(request): 
     if request.method == 'POST':
         type_r = request.POST.get('type_r',None)
@@ -1005,7 +1005,7 @@ def file_list_org(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','razlovka'])
 def file_list_termo_org(request):
     files = NormaExcelFiles.objects.filter(generated =False,type='termo').order_by('-created_at')
     

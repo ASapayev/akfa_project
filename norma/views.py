@@ -1189,7 +1189,7 @@ def file_upload_termo_org(request):
   return render(request,'universal/main.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1'])
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
 def file_upload_org(request): 
   if request.method == 'POST':
     data = request.POST.copy()
@@ -1213,7 +1213,7 @@ def file_list(request):
     return render(request,'norma/file_list.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1'])
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
 def file_list_org(request):
     files = NormaExcelFiles.objects.filter(generated =False,type='simple').order_by('-created_at')
     context ={'files':files,
@@ -1225,7 +1225,7 @@ def file_list_org(request):
     return render(request,'universal/file_list_norma.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1'])
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
 def file_list_termo_org(request):
     files = NormaExcelFiles.objects.filter(generated =False,type='termo').order_by('-created_at')
     context ={'files':files,
@@ -1246,7 +1246,7 @@ def get_legth(lengg):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1'])
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
 def kombinirovaniy_process(request,id):
     file = NormaExcelFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'

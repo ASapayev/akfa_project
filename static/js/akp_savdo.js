@@ -193,7 +193,6 @@ for (let i = 1; i <= 10; i++) {
     <tr id='table_tr` +String(i)+`' >                   
     <td >
         <div class="input-group input-group-sm mb-1">
-            
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-secondary btn-sm" onclick="create(`+String(i)+`)" id='create_btn`+String(i)+`' >Создание</button>
                 <button type="button" class="btn btn-info btn-sm" onclick="activate(`+String(i)+`)" id='activate_btn`+String(i)+`'>Активация</button>
@@ -203,235 +202,105 @@ for (let i = 1; i <= 10; i++) {
         </div>
     </td>
     <td >
-        <div class="input-group input-group-sm mb-1" style='width:150px;'>
-            <span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
-        </div>
+    <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='tip_pokritiya`+String(i)+`' required>
+        <option  selected ></option>
+        <option value="AKFA" >AKFA</option>
+        <option value="ROYAL" >ROYAL</option>
+    </select>
     </td>
     <td >
-        <div class="input-group input-group-sm mb-1">
-            <b><span id='camera` +String(i)+`'style="text-transform: uppercase; font-size:12px;padding-left:5px"></span></b>
-        </div>
+    <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='tip_pokritiya`+String(i)+`' required>
+        <option  selected ></option>
+        <option value="180" >180</option>
+        <option value="210">210</option>
+        <option value="250">250</option>
+        <option value="400">400</option>
+        <option value="700">700</option>
+    </select>
     </td>
     <td >
-        <div class="input-group input-group-sm mb-1">
-            <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " disabled id="artikul`+String(i)+`" onchange='clear_artikul(`+String(i)+`)'></select>
-        </div>
-        <span style='display:none' id='artikul_pvc` +String(i)+`'></span>
-        <span style='display:none' id='iskyucheniye` +String(i)+`'></span>
+    <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='tip_pokritiya`+String(i)+`' required>
+        <option  selected ></option>
+        <option value="X1">X1</option>
+        <option value="X2">X2</option>
+    </select>
     </td>
     
     
     <td >
-        <div class="input-group input-group-sm mb-1">
-            <b><span  id ='kod_komponent` +String(i)+`'style="text-transform: uppercase;font-size: 12px;padding-left:5px;"></span></b>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
-                <option  selected ></option>
-                <option value="1" >Неламинированный</option>
-                <option value="2" >Ламинированный</option>
-              </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" style="width: 70px;">
-       
-        <select class="form-select" aria-label="" style="width: 70px;"  disabled id='kod_svet_zames`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
-            <option  value="" selected ></option>
-            <option value="F8" >F8</option>
-            <option value="PE" >PE</option>
-            <option value="N1" >N1</option>
-            <option value="EG1" >EG1</option>
-            <option value="LE" >LE</option>
-            <option value="BR1" >BR1</option>
-            <option value="WT7" >WT7</option>
-            <option value="BR10" >BR10</option>
-            <option value="W6" >W6</option>
-            <option value="N2" >N2</option>
+        <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='tip_pokritiya`+String(i)+`' required>
+            <option  selected ></option>
+            <option value="X1">X1</option>
+            <option value="X2">X2</option>
         </select>
-        
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <option value="Глянцево-Белый">771</option>
+        <option value="Металлик">772</option>
+        <option value="Глянцево-Молочный">773</option>
+        <option value="Дуб Мокко">777</option>
+        <option value="Золотой дуб ламинат">778</option>
+        <option value="Глянцево-Коричневый">779</option>
+        <option value="Белый матовый">780</option>
+        <option value="Мокрый асфальт">782</option>
+        <option value="Тёмно Серый">784</option>
+        <option value="Жемчуг">806</option>
+        <option value="Каштан">807</option>
+        <option value="Орех">808</option>
+        <option value="Светло-Зелёный">776</option>
+        <option value="Глянцево-Чёрный">781</option>
+        <option value="Тёмно-Синий">783</option>
+        <option value="Красный">785</option>
+        <option value="Мис">703</option>
+        <option value="Травертин">803</option>
+        <option value="З/Д Белый">800</option>
+        <option value="З/Д Серый">801</option>
+        <option value="Мрамор">802</option>
+        <option value="Чёрный мрамор">804</option>
+        <option value="Silver">809</option>
+        <option value="Белый мрамор">810</option>
+        <option value="Серый матовый">786</option>
+        <option value="Чёрный матовый">787</option>
+        <option value="Светло Серый">790</option>
+        <option value="Жёлтый матовый">789</option>
+        <option value="Cиний Mатовый">788</option>
+        <option value="Светло Серый">790</option>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control " style='width:50px' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;" id ='code_lamplonka_snaruji` +String(i)+`'></span>
         </div>
+    </td>
+    <td >
+    <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='tip_pokritiya`+String(i)+`' required>
+        <option  selected ></option>
+        <option value="A1">A1</option>
+        <option value="A2">A2</option>
+    </select>
     </td>
 
     <td >
-        <div class="input-group input-group-sm mb-1">    
-        <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
-            <option  value="" selected></option>
-            <option value="0027">Золотой дуб IW</option>
-            <option value="0300">Дуб мокко IW</option>
-            <option value="0549">Красный Орех IW</option>
-            <option value="0550">Орех IW</option>
-            <option value="1004">Мет платин</option>
-            <option value="1005">Мет серый кварц</option>
-            <option value="1006">Мет серый антрацит</option>
-            <option value="1012">Алюкс антрацит</option>
-            <option value="1015">АЛЮКС БЕЛЫЙ АЛЮМИН</option>
-            <option value="1016">Алюкс серый алюмин</option>
-            <option value="2007">Красный орех</option>
-            <option value="2012">Орех</option>
-            <option value="2025">Светлый дуб</option>
-            <option value="2036">Золотой дуб</option>
-            <option value="2048">Дуб мокко</option>
-            <option value="3001">Терновый дуб солод</option>
-            <option value="3002">Шеф Альпийский дуб</option>
-            <option value="3003">Гранитовый шеф дуб</option>
-            <option value="3042">Дерево бальза</option>
-            <option value="3043">Вишня амаретто</option>
-            <option value="3059">Орех терра</option>
-            <option value="3062">Грецкий орех</option>
-            <option value="3077">Винчестер</option>
-            <option value="3081">Шеф дуб светлый</option>
-            <option value="3083">Сантана</option>
-            <option value="3086">ШЕФ ДУБ СЕРЫЙ</option>
-            <option value="3091">Шеф дуб</option>
-            <option value="3094">Орех Ребраун</option>
-            <option value="4687">Кенсингтон серый</option>
-            <option value="5057">Бриллиантвейс</option>
-            <option value="6700">Темный дуб</option>
-            <option value="5F00">Шеф дуб серый LG</option>
-            <option value="A508">Антрацит сер ADO п</option>
-            <option value="EL01">Золотой дуб Элезго</option>
-            <option value="EL02">Горный Элезго</option>
-            <option value="KC01">Горный KCC</option>
-            <option value="S103">Красный орех ADO п</option>
-            <option value="S141">Дуб мокко ADO п</option>
-            <option value="S150">Золотой дуб ADO п</option>
-            <option value="S500">Золотой дуб ADO</option>
-            <option value="S508">Антрацит серый ADO</option>
-            <option value="S541">Дуб мокко ADO</option>
-            <option value="5003">Темный Антрацит</option>
-            <option value="S513">Красный орех ADO</option>
-            <option value="S540">Золотой дуб S540</option>
-            <option value="5F01">Шеф дуб сер 5F01</option>
-            <option value="1022">Ocean Blue</option>
-            <option value="ASA1128">ASA1128</option>
-            <option value="6030">МАТОВЫЙ БЕЛЫЙ</option>
-            <option value="6062">МАТОВЫЙ ЧЁРНЫЙ</option>
-            <option value="2509">АНТРАЦИТ СЕРЫЙ LG</option>
-            <option value="9252">Винчестер Renolit</option>
-            <option value="XXXX">XXXX</option>
-        </select>
+        <div class="input-group input-group-sm mb-1">
+        
+            <input type='text' class=" form-control " style=" width: 110px; font-size:10px; display:none; height:32px" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+
         </div>
+       
     </td>
     
     <td >
         <div class="input-group input-group-sm mb-1">
-            <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;" id ='code_lamplonka_snaruji` +String(i)+`'></span>
-            </div>
+        
+            <input type='text' class=" form-control " style=" width: 110px; font-size:10px; display:none; height:32px" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+
         </div>
     </td>
     <td >
-        <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
-                <option  value="" selected></option>
-                <option value="0027">Золотой дуб IW</option>
-                <option value="0300">Дуб мокко IW</option>
-                <option value="0549">Красный Орех IW</option>
-                <option value="0550">Орех IW</option>
-                <option value="1004">Мет платин</option>
-                <option value="1005">Мет серый кварц</option>
-                <option value="1006">Мет серый антрацит</option>
-                <option value="1012">Алюкс антрацит</option>
-                <option value="1015">АЛЮКС БЕЛЫЙ АЛЮМИН</option>
-                <option value="1016">Алюкс серый алюмин</option>
-                <option value="2007">Красный орех</option>
-                <option value="2012">Орех</option>
-                <option value="2025">Светлый дуб</option>
-                <option value="2036">Золотой дуб</option>
-                <option value="2048">Дуб мокко</option>
-                <option value="3001">Терновый дуб солод</option>
-                <option value="3002">Шеф Альпийский дуб</option>
-                <option value="3003">Гранитовый шеф дуб</option>
-                <option value="3042">Дерево бальза</option>
-                <option value="3043">Вишня амаретто</option>
-                <option value="3059">Орех терра</option>
-                <option value="3062">Грецкий орех</option>
-                <option value="3077">Винчестер</option>
-                <option value="3081">Шеф дуб светлый</option>
-                <option value="3083">Сантана</option>
-                <option value="3086">ШЕФ ДУБ СЕРЫЙ</option>
-                <option value="3091">Шеф дуб</option>
-                <option value="3094">Орех Ребраун</option>
-                <option value="4687">Кенсингтон серый</option>
-                <option value="5057">Бриллиантвейс</option>
-                <option value="6700">Темный дуб</option>
-                <option value="5F00">Шеф дуб серый LG</option>
-                <option value="A508">Антрацит сер ADO п</option>
-                <option value="EL01">Золотой дуб Элезго</option>
-                <option value="EL02">Горный Элезго</option>
-                <option value="KC01">Горный KCC</option>
-                <option value="S103">Красный орех ADO п</option>
-                <option value="S141">Дуб мокко ADO п</option>
-                <option value="S150">Золотой дуб ADO п</option>
-                <option value="S500">Золотой дуб ADO</option>
-                <option value="S508">Антрацит серый ADO</option>
-                <option value="S541">Дуб мокко ADO</option>
-                <option value="5003">Темный Антрацит</option>
-                <option value="S513">Красный орех ADO</option>
-                <option value="S540">Золотой дуб S540</option>
-                <option value="5F01">Шеф дуб сер 5F01</option>
-                <option value="1022">Ocean Blue</option>
-                <option value="ASA1128">ASA1128</option>
-                <option value="6030">МАТОВЫЙ БЕЛЫЙ</option>
-                <option value="6062">МАТОВЫЙ ЧЁРНЫЙ</option>
-                <option value="2509">АНТРАЦИТ СЕРЫЙ LG</option>
-                <option value="9252">Винчестер Renolit</option>
-                <option value="XXXX">XXXX</option>
-            </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%" id='code_lamplonka_vnutri`+String(i)+`'></span>
-            </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" style="width: 60px;">
-        <select class="form-select" aria-label="" style="width: 50px;border-color:red;display:none"   id='kod_svet_rezini`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
-            <option  value="" selected ></option>
-            <option value="Чёрная резина" >BR</option>
-            <option value="Серая резина" >GR</option>
-            <option value="Без резины" >NR</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            
-                <span class =' text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;" id='svet_rezin`+String(i)+`'></span>
-            
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
-        <div id='nakleyka_select`+String(i)+`' class='nak_select`+String(i)+`' style='display:none;'>
-            <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
-        </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            
-                <span class ='text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;padding:5px" id='nadpis_nakleyki`+String(i)+`'></span>
-            
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" >PVCGP</span>
-            </div>
-        </div>
+    <div class="input-group input-group-sm mb-1">
+         <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%" id='code_lamplonka_vnutri`+String(i)+`'>AKPGP</span>
+    </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
@@ -483,90 +352,42 @@ for (let i = 1; i <= 10; i++) {
     
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-        <option  value='' selected></option>
-        <option   value="LAM">LAM</option>
-        <option   value="WHITE">WHITE</option>
-      </select>
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='svet_product`+String(i)+`'>Colour</span>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-        <option  selected></option>
-        <option value="PVX OQ (Navoiy)">PVX OQ (Navoiy)</option>
-        <option value="PVX LAM (Navoiy)">PVX LAM (Navoiy)</option>
-        </select>
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='group_zakup`+String(i)+`'>Alucobond</span>
         </div>
     </td>
     <td >
-        <div class="input-group input-group-sm mb-1"  >
-        <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+        <div class="input-group input-group-sm mb-1">
+        <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;" id='group`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
-            <option value="5200 QVT PVC (NAVOIY)">5200 QVT PVC (NAVOIY)</option>
-            <option value="5200 QVT PVC RETPEN (NAVOIY)">5200 QVT PVC RETPEN (NAVOIY)</option>
-            <option value="5200 TRIO PVC (NAVOIY)">5200 TRIO PVC (NAVOIY)</option>
-            <option value="5800 ENGELBERG PVC (NAVOIY)">5800 ENGELBERG PVC (NAVOIY)</option>
-            <option value="5800 QVT PVC (NAVOIY)">5800 QVT PVC (NAVOIY)</option>
-            <option value="5800 TRIO PVC (NAVOIY)">5800 TRIO PVC (NAVOIY)</option>
-            <option value="6000 AGROMIR (NAVOIY)">6000 AGROMIR (NAVOIY)</option>
-            <option value="6000 EKO PVC (NAVOIY)">6000 EKO PVC (NAVOIY)</option>
-            <option value="6000 EKO PVC RETPEN (NAVOIY)">6000 EKO PVC RETPEN (NAVOIY)</option>
-            <option value="6000 QVT ALUTEX (NAVOIY)">6000 QVT ALUTEX (NAVOIY)</option>
-            <option value="6000 QVT PVC (NAVOIY)">6000 QVT PVC (NAVOIY)</option>
-            <option value="6000 QVT PVC RETPEN (NAVOIY)">6000 QVT PVC RETPEN (NAVOIY)</option>
-            <option value="6000 TRIO PVC (NAVOIY)">6000 TRIO PVC (NAVOIY)</option>
-            <option value="7000 AKFA (NAVOIY)">7000 AKFA (NAVOIY)</option>
-            <option value="7000 ENGELBERG PVC (NAVOIY)">7000 ENGELBERG PVC (NAVOIY)</option>
-            <option value="KONYUSHNYA">KONYUSHNYA</option>
-            <option value="LAM 5200 TRIO PVC (NAVOIY)">LAM 5200 TRIO PVC (NAVOIY)</option>
-            <option value="LAM 5800 ENGELBERG PVC">LAM 5800 ENGELBERG PVC</option>
-            <option value="LAM 5800 TRIO PVC (NAVOIY)">LAM 5800 TRIO PVC (NAVOIY)</option>
-            <option value="LAM 6000 QVT ALUTEX">LAM 6000 QVT ALUTEX</option>
-            <option value="LAM 6000 QVT PVC (NAVOIY)">LAM 6000 QVT PVC (NAVOIY)</option>
-            <option value="LAM 6000 QVT PVC RETPEN (NAVOIY)">LAM 6000 QVT PVC RETPEN (NAVOIY)</option>
-            <option value="LAM 6000 TRIO ALUTEX">LAM 6000 TRIO ALUTEX</option>
-            <option value="LAM 6000 TRIO PVC (NAVOIY)">LAM 6000 TRIO PVC (NAVOIY)</option>
-            <option value="LAM 7000 AKFA (NAVOIY)">LAM 7000 AKFA (NAVOIY)</option>
-            <option value="LAM 7000 ENGELBERG PVC (NAVOIY)">LAM 7000 ENGELBERG PVC (NAVOIY)</option>
-            <option value="LAM 7600 ENGELBERG PVC (NAVOIY)">LAM 7600 ENGELBERG PVC (NAVOIY)</option>
-            <option value="LAM LAMBRI PVC (NAVOIY)">LAM LAMBRI PVC (NAVOIY)</option>
-            <option value="LAM OTKOS Prof. (NAVOIY)">LAM OTKOS Prof. (NAVOIY)</option>
-            <option value="LAM Sendvich Panel">LAM Sendvich Panel</option>
-            <option value="LAMBRI PVC (NAVOIY)">LAMBRI PVC (NAVOIY)</option>
-            <option value="PODOKONNIK (LAM) (NAVOIY)">PODOKONNIK (LAM) (NAVOIY)</option>
-            <option value="PODOKONNIK (LAM) (RETPEN)">PODOKONNIK (LAM) (RETPEN)</option>
-            <option value="PODOKONNIK (OQ) (NAVOIY)">PODOKONNIK (OQ) (NAVOIY)</option>
-            <option value="PODOKONNIK (OQ) (RETPEN)">PODOKONNIK (OQ) (RETPEN)</option>
+            <option value="Bez Nakleyka"> Nakleyka</option>
+            <option value="Bez Nakleyka TR"> Nakleyka TR</option>
+            <option value="Engelberg (40 MIKRON)">Engelberg (40 MIKRON)</option>
+            <option value="IBOARD 35 (21mk) (1.22x2.44mm)">IBOARD 35 (21mk) (1.22x2.44mm)</option>
+            <option value="IBOARD CH (18mk)">IBOARD CH (18mk)</option>
+            <option value="Iboard (Negaryuchiy)">Iboard (Negaryuchiy)</option>
+            <option value="IBOARD TR (25mk)">IBOARD TR (25mk)</option>
+            <option value="Ne Standart Alucobond">Ne Standart Alucobond</option>
+            <option value="ROYAL 33 (21mk) (1.22*2.44mm)">ROYAL 33 (21mk) (1.22*2.44mm)</option>
+            <option value="ROYAL CH (25mk)">ROYAL CH (25mk)</option>
+            <option value="ROYAL TR (25mk)">ROYAL TR (25mk)</option>
+            <option value="IBOARD CH (21mk)">IBOARD CH (21mk)</option>
+            <option value="IB_Nestandart (Kg)">IB_Nestandart (Kg)</option>
         </select>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
-            <option  selected></option>
-            <option value="Сырье">Сырье</option>
-            <option value="Готовый продукт">Готовый продукт</option>
-        </select>
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='tip`+String(i)+`'>ГП</span>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value="Aldoks">Aldoks</option>
-            <option value="Стандарт">Стандарт</option>
-            <option value="Премиум">Премиум</option>
-            <option value="Аксессуар">Аксессуар</option>
-            <option value="Falcon">Falcon</option>
-            <option value="Mebel">Mebel</option>
-            <option value="RETPEN 8-10%">RETPEN 8-10%</option>
-            <option value="RETPEN 10-12%">RETPEN 10-12%</option>
-            <option value="RETPEN 17%">RETPEN 17%</option>
-            <option value="Аксессуар 2">Аксессуар 2</option>
-            <option value="Podokonnik EKO">Podokonnik EKO</option>
-            <option value="Alumin arzon">Alumin arzon</option>
-        </select>
+            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='segment`+String(i)+`'>ГП</span>
         </div>
     </td>
     <td >
@@ -1022,16 +843,6 @@ for (let i = 1; i <= 10; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_baza`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
         <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value="Активный">Активный</option>
@@ -1041,7 +852,7 @@ for (let i = 1; i <= 10; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;" id='zavod_name`+String(i)+`'>ZAVOD PVS NAVOIY</span>
+        <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;" id='zavod_name`+String(i)+`'>ZAVOD ALUCOBOND/span>
         </div>
     </td>
     <td >
@@ -1077,68 +888,6 @@ var table = $('#table-artikul')
 table.append(text)
 
 
-
-
-for (let i = 1; i <= 10; i++) {
-    $('#artikul'+String(i)).select2({
-        ajax: {
-            url: "/client/pvc-artikul-list",
-            dataType: 'json',
-            processResults: function(data){
-                return {results: $.map(data, function(item){
-                    return {id:item.id,text:item.artikul,component:item.component2,system:item.nazvaniye_sistem,camera:item.camera,kod_k_component:item.kod_k_component,iskyucheniye:item.iskyucheniye}
-                })
-            };
-            }
-        }
-        });
-    
-    
-    
-    var artikulSelect = $('#artikul'+String(i));
-    $.ajax({
-        type: 'GET',
-        url: "/client/pvc-artikul-list"
-    }).then(function (data) {
-        var option = new Option(data.artikul, data.id, true, true);
-        artikulSelect.append(option).trigger('change');
-    
-        artikulSelect.trigger({
-            type: 'select2:select',
-            params: {
-                data: data
-            }
-        });
-    });
-    
-    
-    $("#artikul"+String(i)).on("select2:select", function (e) { 
-        var select_val = $(e.currentTarget).val();
-        var nazvaniye_system =$('.nazvaniye_system'+String(i));
-        var camera = $('#camera'+String(i));
-        var kod_komponent = $('#kod_komponent'+String(i));
-        var artikul_pvc = $('#artikul_pvc'+String(i));
-        var iskyucheniye = $('#iskyucheniye'+String(i));
-        var tip_pokritiya = $('#tip_pokritiya'+String(i));
-        tip_pokritiya.attr("disabled",false);
-        nazvaniye_system.text(e.params.data.system);
-        artikul_pvc.text(e.params.data.component);
-        iskyucheniye.text(e.params.data.iskyucheniye);
-        camera.text(e.params.data.camera)
-        kod_komponent.text(e.params.data.kod_k_component)
-        
-       
-        var nakleyka_select = $('#nakleyka_select'+String(i));
-
-        var length = $('#length'+String(i));
-        length.attr('required',true)
-        nakleyka_select.css('display','block')
-        nakleyka_select.attr('required',true)
-        get_nakleyka(String(i))
-        
-    });
-
-}
 
 
 
@@ -1408,319 +1157,8 @@ function artukil_clear(id){
 }
 
 
-function tip_pokritiya_selected(id,val){
-
-    var element33 = document.getElementById("table_tr"+id);
-    element33.style.backgroundColor='white';
-    
-
-    var dlina =$('#length'+String(id));
-    dlina.attr("disabled",false);
-    dlina.css("border-color",'#fc2003');
-
-    
-
-    
-   
-    var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
-    kratkiy_tekst.text("");
 
 
-    
-  
-
-    var nadpis_nakleyki = $('#nadpis_nakleyki'+String(id));
-    nadpis_nakleyki.text('');
-    var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
-    svet_lamplonka_snaruji.val('0').change();
-    svet_lamplonka_snaruji.attr("disabled",true);
-    svet_lamplonka_snaruji.css("border-color",'#dedad9');
-    var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
-    code_lamplonka_snaruji.text("")
-    code_lamplonka_snaruji.css("border-color",'#dedad9');
-
-    var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
-    svet_lamplonka_vnutri.val('0').change();
-    svet_lamplonka_vnutri.attr("disabled",true);
-    svet_lamplonka_vnutri.css("border-color",'#dedad9');
-    var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
-    code_lamplonka_vnutri.text("")
-    code_lamplonka_vnutri.css("border-color",'#dedad9');
-
-    
-
-    var nakleyka_select = $('#nakleyka_select'+String(id));
-    nakleyka_select.css('display','block');
-    get_nakleyka(id)
-
-    
-    var is_active = $('#is_active'+String(id))
-    
-    var svet_product_val =''
-    var gruppa_zakupok =''
-    
-    var iskyucheniye =$('#iskyucheniye'+id).text()
-    
-    if(String(val) == '1'){
-        var kod_svet_zames = $('#kod_svet_zames'+String(id));
-        kod_svet_zames.attr("disabled",false);
-        kod_svet_zames.css("border-color",'#fc2003');
-        data_base[id] = new BasePokritiya()
-        data_base[id].id = 1;
-        data_base[id].tip_pokritiya = 'Неламинированный';
-        
-        var artikul_pvc = $('#artikul_pvc'+String(id));
-        data_base[id].artikul= artikul_pvc.text()
-
-        svet_product_val = 'WHITE' 
-        gruppa_zakupok ='PVX OQ (Navoiy)' 
-        var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
-        kod_svet_rezini.val('')
-
-        var diller =$('#diller'+id)
-        var tip_clenta =$('#tip_clenta'+id)
-        diller.css('display','block')
-        tip_clenta.css('display','block')
-
-        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-        spanss.style.borderColor='red';
-        
-        if(iskyucheniye =='1'){
-            data_base[id].is_iklyuch=true
-            kod_svet_rezini.css('display','none');
-            kod_svet_rezini.css('border-color','#dedad9')
-        }else{
-            data_base[id].is_iklyuch=false
-            kod_svet_rezini.css('display','block');
-        }
-        
-    }else if(String(val) == '2'){
-        
-        data_base[id] = new BasePokritiya()
-        data_base[id].id = 2;
-        data_base[id].tip_pokritiya = 'Ламинированный';
-        var artikul_pvc = $('#artikul_pvc'+String(id));
-        data_base[id].artikul= artikul_pvc.text()
-
-        svet_product_val ='LAM'
-        gruppa_zakupok ='PVX LAM (Navoiy)' 
-        
-        var kod_svet_zames = $('#kod_svet_zames'+String(id));
-        kod_svet_zames.attr("disabled",false);
-        kod_svet_zames.css("border-color",'#fc2003');
-        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-        spanss.style.borderColor='red';
-
-        var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
-        kod_svet_rezini.val('')
-        var diller =$('#diller'+id)
-        var tip_clenta =$('#tip_clenta'+id)
-        diller.css('display','block')
-        tip_clenta.css('display','block')
-
-        var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
-        svet_lamplonka_snaruji.attr("disabled",false);
-        svet_lamplonka_snaruji.attr("required",true);
-        svet_lamplonka_snaruji.css("border-color",'#fc2003');
-        var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
-        svet_lamplonka_vnutri.attr("disabled",false);
-        svet_lamplonka_vnutri.attr("required",true);
-        svet_lamplonka_vnutri.css("border-color",'#fc2003');
-
-        if(iskyucheniye =='1'){
-            kod_svet_rezini.css('display','none');
-            data_base[id].is_iklyuch=true
-        }else{
-            kod_svet_rezini.css('display','block');
-            data_base[id].is_iklyuch=false
-        }
-    }
-    
-    if(String(val) != ''){
-        var base_artikul =$('#select2-artikul'+id+'-container')
-        data_base[id].base_artikul = base_artikul.text()
-        var nazvaniye_system = $('.nazvaniye_system'+id).text()
-        var camera =$('#camera'+id).text()
-        var kod_komponent =$('#kod_komponent'+id).text()
-        data_base[id].nazvaniye_system = nazvaniye_system;
-        data_base[id].camera = camera;
-        data_base[id].kod_k_component = kod_komponent;
-    }
-
-
-    if(is_active.text()=='Активный' && String(val) != ''){
-        
-        var svet_product =$('#svet_product'+id);
-        
-        
-        data_base[id].is_active=true
-
-        var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
-        var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
-        var online_savdo_id =$('#online_savdo_id'+id);
-        var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id);
-        var svet_product =$('#svet_product'+id);
-        var group_zakup =$('#group_zakup'+id);
-        var group =$('#group'+id);
-        var tip =$('#tip'+id);
-        var bazoviy_edin =$('#bazoviy_edin'+id);
-        var status =$('#status'+id);
-        var zavod =$('#zavod'+id);
-        var buxgalter_uchot =$('#buxgalter_uchot'+id);
-        var alter_edin =$('#alter_edin'+id);
-        var stoimost_baza =$('#stoimost_baza'+id);
-        var stoimost_alter =$('#stoimost_alter'+id);
-        var segment =$('#segment'+id);
-        var buxgalter_tovar =$('#buxgalter_tovar'+id);
-        var comment =$('#comment'+id);
-        var pickupdate =$('#pickupdate'+id);
-        var sena_c_nds =$('#sena_c_nds'+id);
-        var sena_bez_nds =$('#sena_bez_nds'+id);
-        comment.css('display','block')
-        pickupdate.css('display','block')
-        sena_c_nds.css('display','block')
-        sena_bez_nds.css('display','block')
-        
-        
-        
-        
-        sap_code_ruchnoy.css('display','block')
-        kratkiy_tekst_ruchnoy.css('display','block')
-        online_savdo_id.css('display','block')
-        nazvaniye_ruchnoy.css('display','block')
-        svet_product.css('display','block')
-        group_zakup.css('display','block')
-        group.css('display','block')
-        tip.css('display','block')
-        bazoviy_edin.css('display','block')
-        status.css('display','block')
-        zavod.css('display','block')
-        buxgalter_uchot.css('display','block')
-        alter_edin.css('display','block')
-        stoimost_baza.css('display','block')
-        stoimost_alter.css('display','block')
-        segment.css('display','block')
-        buxgalter_tovar.css('display','block')
-
-
-        status.val('Активный')
-        // status.attr('disabled',true)
-
-        sap_code_ruchnoy.css('border-color','#dedad9')
-        kratkiy_tekst_ruchnoy.css('border-color','#dedad9')
-        online_savdo_id.css('border-color','#dedad9')
-        nazvaniye_ruchnoy.css('border-color','#dedad9')
-        svet_product.css('border-color','#dedad9')
-        group_zakup.css('border-color','#dedad9')
-        group.css('border-color','#dedad9')
-        tip.css('border-color','#dedad9')
-        bazoviy_edin.css('border-color','#dedad9')
-        status.css('border-color','#dedad9')
-        zavod.css('border-color','#dedad9')
-        buxgalter_uchot.css('border-color','#dedad9')
-        alter_edin.css('border-color','#dedad9')
-        stoimost_baza.css('border-color','#dedad9')
-        stoimost_alter.css('border-color','#dedad9')
-        segment.css('border-color','#dedad9')
-        buxgalter_tovar.css('border-color','#dedad9')
-        comment.css('border-color','#dedad9')
-        pickupdate.css('border-color','#dedad9')
-        sena_c_nds.css('border-color','#dedad9')
-        sena_bez_nds.css('border-color','#dedad9')
-
-    }else if(is_active.text()=='Пассивный' && String(val) != ''){
-       
-        var svet_product =$('#svet_product'+id);
-        var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
-        var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
-        var online_savdo_id =$('#online_savdo_id'+id);
-        var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id);
-        var svet_product =$('#svet_product'+id);
-        var group_zakup =$('#group_zakup'+id);
-        var group =$('#group'+id);
-        var tip =$('#tip'+id);
-        var bazoviy_edin =$('#bazoviy_edin'+id);
-        var status =$('#status'+id);
-        var zavod =$('#zavod'+id);
-        var buxgalter_uchot =$('#buxgalter_uchot'+id);
-        var alter_edin =$('#alter_edin'+id);
-        var stoimost_baza =$('#stoimost_baza'+id);
-        var stoimost_alter =$('#stoimost_alter'+id);
-        var segment =$('#segment'+id);
-        var buxgalter_tovar =$('#buxgalter_tovar'+id);
-        var comment =$('#comment'+id);
-        var obshiy_ves_shtuku =$('#obshiy_ves_shtuku'+id);
-        var pickupdate =$('#pickupdate'+id);
-        var sena_c_nds =$('#sena_c_nds'+id);
-        var sena_bez_nds =$('#sena_bez_nds'+id);
-        comment.css('display','block')
-        obshiy_ves_shtuku.css('display','block')
-        pickupdate.css('display','block')
-        sena_c_nds.css('display','block')
-        sena_bez_nds.css('display','block')
-        
-        
-        
-        buxgalter_uchot.val('Килограмм')
-        bazoviy_edin.val('Штука')
-        alter_edin.val('Килограмм')
-        stoimost_baza.val('1')
-        
-        
-
-        sap_code_ruchnoy.css('display','block')
-        kratkiy_tekst_ruchnoy.css('display','block')
-        online_savdo_id.css('display','block')
-        nazvaniye_ruchnoy.css('display','block')
-        svet_product.css('display','block')
-        group_zakup.css('display','block')
-        group.css('display','block')
-        tip.css('display','block')
-        bazoviy_edin.css('display','block')
-        status.css('display','block')
-        zavod.css('display','block')
-        buxgalter_uchot.css('display','block')
-        alter_edin.css('display','block')
-        stoimost_baza.css('display','block')
-        stoimost_alter.css('display','block')
-        segment.css('display','block')
-        buxgalter_tovar.css('display','block')
-        
-        svet_product.val(svet_product_val)
-        tip.val('Готовый продукт')
-        group_zakup.val(gruppa_zakupok)
-        status.val('Активный')
-        // status.attr('disabled',true)
-
-        online_savdo_id.css('border-color','#dedad9')
-        tip_clenta.css('border-color','#dedad9')
-
-    }
-    
-    create_kratkiy_tekst(id);
-}
-
-
-
-function svet_lamplonka_snaruji_selected(id,val){
-    var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
-    code_lamplonka_snaruji.text(String(val))
-    
-    var svet_lamplonka_snaruji = document.getElementById('svet_lamplonka_snaruji'+String(id))
-    svet_lamplonka_snaruji.style.borderColor='red';
-    // data_base[id].kod_lam_sn =NaN;
-    create_kratkiy_tekst(id);
-    
-
-}
-function svet_lamplonka_vnutri_selected(id,val){
-    var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
-    code_lamplonka_vnutri.text(String(val));
-    var svet_lamplonka_vnutri = document.getElementById('svet_lamplonka_vnutri'+String(id))
-    svet_lamplonka_vnutri.style.borderColor='red';
-    create_kratkiy_tekst(id);
-    
-}
 
 
 
@@ -2280,7 +1718,7 @@ function add_column(){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 165px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
+                <select class="form-select" aria-label="" style="width: 165px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='tip_pokritiya`+String(i)+`' required>
                     <option  selected></option>
                     <option value="1" >Неокрашенный</option>
                     <option value="2">Белый</option>
