@@ -1,0 +1,124 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <form >
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><button class="btn btn-success " >Elemt</button></li>
+              <li class="breadcrumb-item " aria-current="page"><button class="btn btn-success " >Ui</button></li>
+            </ul>
+          </form>
+        </nav>
+      </div>
+      <div class="row ">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Лист</h4>
+              <div class="table-responsive">
+                <table class="table table-bordered" >
+                    {%csrf_token%}
+                  <thead>
+                    <tr >
+                      <th  >
+                        #
+                      </th>
+                      {%for column in columns%}
+                      <th  > {{column}} </th>
+                      {%endfor%}
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr >
+                      <td>
+                        <div class="form-check form-check-muted m-0">
+                         1
+                        </div>
+                      </td>
+                      {% for key in columns %}
+                      <td>
+                        <input type="text" id="{{key}}" value="{{product.data|get_dynamic_key:key}}">
+                      </td>
+                      {% endfor %}
+                      
+                      
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-success" onclick="save_sapcode('{{product.id}}')">SAVE</button>
+      
+    </div>
+   
+  </div>
+  
+
+  
+<script>
+
+function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+
+
+
+function save_sapcode(id){
+    var columns ={{ json_column|safe }}
+    // console.log(columns)
+    // var columns = JSON.parse(columns_st)
+
+    var data = {}
+    for(key in columns){
+      col = columns[key]
+      col =col.replace(/\n/g, '')
+      var val = document.getElementById(col).value
+      data[col] = val
+      
+    }
+    console.log(data)
+    Swal.fire({
+        showDenyButton: true,
+        text:'SAP CODEni o\'zgartirmoqchimisiz?',
+        confirmButtonText: 'Ha',
+        denyButtonText: `Yo'q`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var url ="/alu/edit-bazaprofile/" + id;
+          var csrfToken = getCSRFToken();
+          $.ajax({
+                method:'POST',
+                url: url,
+                headers: { "X-CSRFToken": csrfToken },
+                data:{'data':JSON.stringify(data)}
+            }).done(function(msg) {
+              if(msg.msg){
+                Swal.fire('Saved', 'ok', 'success')
+              }else{
+                Swal.fire('Something went wrong', 'ok', 'info')
+              }
+            });
+
+        } else if (result.isDenied) {
+          Swal.fire('Otmenen!!!', 'ok', 'info')
+        }
+      })
+
+  }
+
+ 
+  
+ 
+</script>
+{% endblock %}
