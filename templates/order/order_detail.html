@@ -336,6 +336,7 @@
                         <th>Артикул</th>
                         <th>Компонент</th>
                         <th>Product description - RUS</th>
+                        <th>Старый Код</th>
                         <th>Комбинация</th>
                         <th>Тип Комбинация</th>
                         <th>Тип профиля</th>
@@ -364,6 +365,7 @@
                         <td class ='new_char_five' ><input type='text'  id ='artikul{{forloop.counter}}' value='{{char}}'></td>
                         <td class ='new_char_five' ><input type='text'  id ='komponent{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='description{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='stariy_kod{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='kombinatsiya{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='tip_combination{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='tip_profilya{{forloop.counter}}' ></td>
@@ -672,6 +674,7 @@
           komponent = $('#komponent'+ String(i)).val();
           description = $('#description'+ String(i)).val();
           kombinatsiya = $('#kombinatsiya'+ String(i)).val();
+          stariy_kod = $('#stariy_kod'+ String(i)).val();
           tip_combination = $('#tip_combination'+ String(i)).val();
           tip_profilya = $('#tip_profilya'+ String(i)).val();
           visota = $('#visota'+ String(i)).val();
@@ -690,6 +693,10 @@
             break
             }
           if (description ==''){
+            default_exists = true;
+            break
+            }
+          if (stariy_kod ==''){
             default_exists = true;
             break
             }
@@ -744,6 +751,7 @@
             'Артикул' : artikul, 
             'Компонент' : komponent, 
             'Product description - RUS' : description, 
+            'Старый Код' : stariy_kod, 
             'Комбинация' : kombinatsiya, 
             'Тип Комбинация' : tip_combination, 
             'Тип профиля' : tip_profilya, 
@@ -757,7 +765,7 @@
             'Ссылка для чертежей' : link, 
             'Объем':visota +'x'+shirina,
             }
-          if (element['system']){
+          if (element['Высота']&&element['Ширина']){
             elements.push(element);
           } 
             
