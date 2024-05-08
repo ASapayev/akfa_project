@@ -742,26 +742,29 @@ svet_lam_plenke_VN ={
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
 def list_bazaprofiley(request):
-      columns =  AluProfilesData.objects.filter(data__has_key ='columns')[:1].get().data['columns']
-      search = request.GET.get('search',None)
-      if search:
-            profiles = AluProfilesData.objects.filter(Q(data__Компонент__icontains =search)|Q(data__Артикул__icontains =search)).order_by('-created_at')
+      if  AluProfilesData.objects.filter(data__has_key ='columns').exists():
+            columns =  AluProfilesData.objects.filter(data__has_key ='columns')[:1].get().data['columns']
+            search = request.GET.get('search',None)
+            if search:
+                  profiles = AluProfilesData.objects.filter(Q(data__Компонент__icontains =search)|Q(data__Артикул__icontains =search)).order_by('-created_at')
+            else:
+                  profiles = AluProfilesData.objects.all().order_by('-created_at')
+
+            paginator = Paginator(profiles, 25)
+
+            if request.GET.get('page') != None:
+                  page_number = request.GET.get('page')
+            else:
+                  page_number=1
+
+            page_obj = paginator.get_page(page_number)
+            context ={
+                  'products':page_obj,
+                  'columns':columns
+            }
+            return render(request,'aluminiy/list_sapcodes.html',context)
       else:
-            profiles = AluProfilesData.objects.all().order_by('-created_at')
-
-      paginator = Paginator(profiles, 25)
-
-      if request.GET.get('page') != None:
-            page_number = request.GET.get('page')
-      else:
-            page_number=1
-
-      page_obj = paginator.get_page(page_number)
-      context ={
-            'products':page_obj,
-            'columns':columns
-      }
-      return render(request,'aluminiy/list_sapcodes.html',context)
+            return JsonResponse({'message':'Baza Profiley bosh'})
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
