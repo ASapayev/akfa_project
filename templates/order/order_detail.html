@@ -321,7 +321,7 @@
 
       {% if order.work_type == 3 and order.current_worker == request.user %}
       <h1>{{data}}</h1>
-        {% if ArtikulComponent %}
+        {% if AluProflesData %}
         <div class="row ">
         <div class="col-12 grid-margin">
           <div class="card">
@@ -332,19 +332,51 @@
                   <thead>
                     <tr>
                         <th>#</th>  
+                        <th>Система</th>
                         <th>Артикул</th>
                         <th>Компонент</th>
+                        <th>Product description - RUS</th>
+                        <th>Комбинация</th>
+                        <th>Тип Комбинация</th>
+                        <th>Тип профиля</th>
+                        <th>Высота</th>
+                        <th>Ширина</th>
+                        <th>П/Ф</th>
+                        <th>Без наклейки</th>
+                        <th>Код наклейки</th>
+                        <th>Удел.вес за м</th>
+                        <th>BAZA</th>
+                        <th>Ссылка для чертежей</th>
+
+                        <!-- <th>Объем</th> -->
+                        <!-- <th>Старый Код</th> -->
+                        <!-- <th>Старый Код BENKAM</th> -->
                       
                     </tr>
                   </thead>
                   <tbody>
-                    {%for char in ArtikulComponent  %}
+                    {%for char in AluProflesData  %}
                     <tr>
                         <td>
                             {{ forloop.counter }}
                         </td>
-                        <td class ='new_char_five' ><input type='text'  id ='artikulfive{{forloop.counter}}' value='{{char}}' required></td>
-                        <td ><input type='text'  id ='komponentfive{{forloop.counter}}' required></td>
+                        <td class ='new_char_five' ><input type='text'  id ='system{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='artikul{{forloop.counter}}' value='{{char}}'></td>
+                        <td class ='new_char_five' ><input type='text'  id ='komponent{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='description{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='kombinatsiya{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='tip_combination{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='tip_profilya{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='visota{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='shirina{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='pol_fason{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='bez_nakleyki{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='kod_nakleyki{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='udal_ves{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='baza{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='link{{forloop.counter}}' ></td>
+
+                        <!-- <td class ='new_char_five' ><input type='text'  id ='obyom{{forloop.counter}}' ></td> -->
                     </tr>
                     {% endfor %}
                     
@@ -358,144 +390,7 @@
         </div>
         {% endif %}
         
-        {% if CharUtilsOne %}
-        <div class="row ">
-            <div class="col-12 grid-margin">
-            <div class="card">
-                <div class="card-body">
-                <h4 class="card-title">Character utils one</h4>
-                <div class="table-responsive">
-                    <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Матрица</th>
-                            <th>Артикул</th>
-                            <th>Высота</th>
-                            <th>Ширина</th>
-                            <th>Systems</th>
-                            <th>Действие</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {%for char in CharUtilsOne%}
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td  class ='new_char_one' ><input type='text' id ='matritsa{{forloop.counter}}' value='{{char}}'></td>
-                            <td ><input type='text' name='artikulone' id ='artikulone{{forloop.counter}}' value='{{char}}' ></td>
-                            <td><input type='text' name='height' id ='height{{forloop.counter}}' style="width: 50px;" placeholder='height...' ></td>
-                            <td><input type='text' name='width' id='width{{forloop.counter}}' style="width: 50px;" placeholder='width...'></td>
-                            <td><input type='text'name='systems' id ='systems{{forloop.counter}}' placeholder='Enter systems...'></td>
-                            <td>
-                                <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
-                            </td>
-                        </tr>
-                        {% endfor%}
-                    </tbody>
-                    </table>
-                </div>
-                <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_one()' id ='char_one'>Готов</button>
-                </div>
-            </div>
-            </div>
-        </div>
-        {% endif %}
-        {% if CharUtilsTwo%}
-        <div class="row ">
-            <div class="col-12 grid-margin">
-            <div class="card">
-                <div class="card-body">
-                <h4 class="card-title">Character utils two</h4>
-                <div class="table-responsive">
-                    <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Артикул</th>
-                            <th scope="col">Полый или фасонный</th>
-                            <th>Действие</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {%for char in CharUtilsTwo  %}
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td id='artikul{{ forloop.counter }}' class ='new_char' >{{char}}</td>
-                            <td>
-                                <select class="form-select form-select-sm"style='width:35%' aria-label="Default select example" id="sel{{ forloop.counter }}">
-                                    <option selected value='Default' >Default</option>
-                                    <option value="Полый">Полый</option>
-                                    <option value="Фасонный">Фасонный</option>    
-                                </select>
-                            </td>
-                            <td>
-                                <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
-                            </td>
-                        </tr>
-                        {% endfor%}
-                    </tbody>
-                    </table>
-                </div>
-                <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='create_new_char_two()' id ='char_two'>Готов</button>
-                </div>
-            </div>
-            </div>
-        </div>
-        {% endif %}
-        {% if BazaProfile%}
-        <div class="row ">
-            <div class="col-12 grid-margin">
-            <div class="card">
-                <div class="card-body">
-                <h4 class="card-title">Baza profiles</h4>
-                <div class="table-responsive">
-                    <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Артикул</th>
-                            <th scope="col">Компонент</th>
-                            <th scope="col">Серия</th>
-                            <th scope="col">Старый код</th>
-                            <th scope="col">Тип комбинация</th>
-                            <th scope="col">Product description</th>
-                            <th scope="col">Link</th>
-                            <th scope="col">Действие</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {%for char in BazaProfile  %}
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td class ='new_char_two' ><input type='text'  id ='artikultwo{{forloop.counter}}' value='{{char.0}}' required></td>
-                            <td ><input type='text'  id ='komponent{{forloop.counter}}' value='{{char.1}}' required></td>
-                            <td ><input type='text'  id ='seria{{forloop.counter}}'  value='{{char.2}}' required></td>
-                            <td ><input type='text'  id ='stariykod{{forloop.counter}}' value='{{char.3}}' required></td>
-                            <td >
-                                <select class="form-select" aria-label="Default select example" id ='typecombination{{forloop.counter}}'>
-                                  <option selected></option>
-                                  <option value="Стандарт">Стандарт</option>
-                                  <option value="Термо">Термо</option>
-                                </select>
-                          </td>
-                            <!-- <td ><input type='text'  id ='typecombination{{forloop.counter}}' value='{{char.4}}' required></td> -->
-                            <td ><input type='text'  id ='prodesc{{forloop.counter}}' value='{{char.5}}' required></td>
-                            <td ><input type='text'  id ='link{{forloop.counter}}' value='{{char.6}}' required></td>
-                            <td>
-                                <div class="badge badge-outline-danger" onclick="remove_me(this)">Remove</div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                    </table>
-                </div>
-                <button type="button" class="btn btn-outline-success btn-lg mt-3" onclick ='baza_profiley()' id ='char_three'>Готов</button>
-                </div>
-            </div>
-            </div>
-        </div>
-        {% endif %}
+        
         <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
@@ -504,13 +399,6 @@
                 </div>
                 </div>
             </div>
-            <!-- <div class="col-md-6 grid-margin stretch-card">
-                <div class="card">
-                <div class="card-body">
-                      <button type="button" onclick='excel_file_load()' class="btn btn-outline-secondary btn-lg btn-block">Скачать эксель файл</button>
-                </div>
-                </div>
-            </div> -->
         </div>
       {%endif%}
 
@@ -771,30 +659,107 @@
   function artikul_component(){
   
       var new_char = document.querySelectorAll('.new_char_five');
-      var artikul,komponent;
-  
+      var system,artikul,komponent,description,kombinatsiya;
+      var tip_combination,tip_profilya,visota,shirina,pol_fason,bez_nakleyki;
+      var kod_nakleyki,udal_ves,baza,link;
+
       var default_exists = false;
       var elements =[];
   
       for(let i=1; i < new_char.length+1; i++){
-          artikul = document.getElementById('artikulfive' + i.toString()).value;
-          komponent = document.getElementById('komponentfive' + i.toString()).value;
-          
-          if (artikul ==''){
+          system = $('#system'+ String(i)).val();
+          artikul = $('#artikul'+ String(i)).val();
+          komponent = $('#komponent'+ String(i)).val();
+          description = $('#description'+ String(i)).val();
+          kombinatsiya = $('#kombinatsiya'+ String(i)).val();
+          tip_combination = $('#tip_combination'+ String(i)).val();
+          tip_profilya = $('#tip_profilya'+ String(i)).val();
+          visota = $('#visota'+ String(i)).val();
+          shirina = $('#shirina'+ String(i)).val();
+          pol_fason = $('#pol_fason'+ String(i)).val();
+          bez_nakleyki = $('#bez_nakleyki'+ String(i)).val();
+          kod_nakleyki = $('#kod_nakleyki'+ String(i)).val();
+          udal_ves = $('#udal_ves'+ String(i)).val();
+          baza = $('#baza'+ String(i)).val();
+          link = $('#link'+ String(i)).val();
+         
+
+
+          if (system ==''){
             default_exists = true;
             break
             }
-          if (komponent ==''){
+          if (description ==''){
+            default_exists = true;
+            break
+            }
+          if (kombinatsiya ==''){
+            default_exists = true;
+            break
+            }
+          if (tip_combination ==''){
+            default_exists = true;
+            break
+            }
+          if (tip_profilya ==''){
+            default_exists = true;
+            break
+            }
+          if (visota ==''){
+            default_exists = true;
+            break
+            }
+          if (shirina ==''){
+            default_exists = true;
+            break
+            }
+          if (pol_fason ==''){
+            default_exists = true;
+            break
+            }
+          if (bez_nakleyki ==''){
+            default_exists = true;
+            break
+            }
+          if (kod_nakleyki ==''){
+            default_exists = true;
+            break
+            }
+          if (udal_ves ==''){
+            default_exists = true;
+            break
+            }
+          if (baza ==''){
+            default_exists = true;
+            break
+            }
+          if (link ==''){
             default_exists = true;
             break
             }
           
           
           var element ={
-                'artikul':artikul,
-                'komponent':komponent
+            'Система' : system, 
+            'Артикул' : artikul, 
+            'Компонент' : komponent, 
+            'Product description - RUS' : description, 
+            'Комбинация' : kombinatsiya, 
+            'Тип Комбинация' : tip_combination, 
+            'Тип профиля' : tip_profilya, 
+            'Высота' : visota, 
+            'Ширина' : shirina, 
+            'П/Ф' : pol_fason, 
+            'Без наклейки' : bez_nakleyki, 
+            'Код наклейки' : kod_nakleyki, 
+            'Удел.вес за м' : udal_ves, 
+            'BAZA' : baza, 
+            'Ссылка для чертежей' : link, 
+            'Объем':visota +'x'+shirina,
             }
-          elements.push(element);
+          if (element['system']){
+            elements.push(element);
+          } 
             
           }
   
@@ -832,222 +797,12 @@
                   });
           }        
   }
-  function baza_profiley(){
-      var new_char = document.querySelectorAll('.new_char_two');
-      var komponent, artikul,seria,stariykod,prodesc,link;
-      var default_exists = false;
-      var elements =[];
-  
-      for(let i=1; i < new_char.length+1; i++){
-          komponent = document.getElementById('komponent' + i.toString()).value;
-          artikul = document.getElementById('artikultwo' + i.toString()).value;
-          seria = document.getElementById('seria' + i.toString()).value;
-          stariykod = document.getElementById('stariykod' + i.toString()).value;
-          type_combination = document.getElementById('typecombination' + i.toString()).value;
-          prodesc = document.getElementById('prodesc' + i.toString()).value;
-          link = document.getElementById('link' + i.toString()).value;
-          
-          
-          if (seria ==''){
-            default_exists = true;
-            break
-            }
-          
-          if (stariykod ==''){
-            default_exists = true;
-            break
-            }
-          
-          if (prodesc ==''){
-            default_exists = true;
-            break
-            }
-          
-          var element ={
-                'komponent':komponent,
-                'artikul':artikul,
-                'seria':seria,
-                'stariykod':stariykod,
-                'type_combination':type_combination,
-                'prodesc':prodesc,
-                'link':link
-            }
-          elements.push(element);
-            
-          }
-  
-          if (default_exists){
-            Swal.fire({
-                title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
-                showDenyButton: true,
-              })
-            }else{
-              var myJsonelements = JSON.stringify(elements);
-  
-              $.ajax({
-                  method: "POST",
-                  url: "{% url 'baza_profile_simple' %}",
-                  data: {"data":myJsonelements}
-                }).done(function( msg ) {
-                  if (msg.saved ==true){
-                      Swal.fire({
-                          position: 'top-end',
-                          icon: 'success',
-                          title: 'Successfuly saved!',
-                          showConfirmButton: false,
-                          timer: 1500
-                        })
-                      var btn = document.getElementById('char_three');
-                      btn.setAttribute('disabled','True');
-                      }else{
-                          Swal.fire({
-                              icon: 'error',
-                              title: 'Oops...',
-                              text: 'Something went wrong!'
-                            })
-  
-                      }
-                  });
-          }        
-  }
-  
+ 
   function remove_me(elem){
       elem.parentElement.parentElement.remove()
   }
   
-  function create_new_char_one(){
-      var new_char = document.querySelectorAll('.new_char_one');
-      var matritsa, artikul,heigth,width,systems;
-      var default_exists = false;
-      var elements =[];
   
-      for(let i=1; i < new_char.length+1; i++){
-          matritsa = document.getElementById('matritsa' + i.toString()).value;
-          artikul = document.getElementById('artikulone' + i.toString()).value;
-          heigth = document.getElementById('height' + i.toString()).value;
-          width = document.getElementById('width' + i.toString()).value;
-          systems = document.getElementById('systems' + i.toString()).value;
-          
-          
-          if (heigth ==''){
-            default_exists = true;
-            break
-            }
-          if (width ==''){
-            default_exists = true;
-            break
-            }
-          
-          
-          var element ={
-                'matritsa':matritsa,
-                'artikul':artikul,
-                'heigth':heigth,
-                'width':width,
-                'systems':systems,
-            }
-          elements.push(element);
-            
-          }
-  
-          if (default_exists){
-            Swal.fire({
-                title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
-                showDenyButton: true,
-              })
-            }else{
-              var myJsonelements = JSON.stringify(elements);
-              
-              $.ajax({
-                  method: "POST",
-                  url: "{% url 'add_char_utils_one_simple' %}",
-                  data: {"data":myJsonelements}
-                }).done(function( msg ) {
-                  if (msg.saved ==true){
-                      Swal.fire({
-                          position: 'top-end',
-                          icon: 'success',
-                          title: 'Successfuly saved!',
-                          showConfirmButton: false,
-                          timer: 1500
-                        })
-                      var btn = document.getElementById('char_one');
-                      btn.setAttribute('disabled','True');
-                      }else{
-                          Swal.fire({
-                              icon: 'error',
-                              title: 'Oops...',
-                              text: 'Something went wrong!'
-                            })
-  
-                      }
-                  });
-          }        
-  }
-  
-  function create_new_char_two(){
-      var new_char = document.querySelectorAll('.new_char');
-  
-      var selection, value,text,artikul;
-  
-      var default_exists = false;
-      var elements =[];
-  
-      for(let i=1; i < new_char.length+1; i++){
-          artikul = document.getElementById('artikul' + i.toString());
-          selection = document.getElementById('sel' + i.toString());
-          value = selection.value
-          text = selection.options[selection.selectedIndex].text;
-          if (text =='Default'){
-              default_exists = true;
-              break
-          }
-          var element ={
-              'artikul':artikul.innerText,
-              'selection':text
-          }
-          if (elements.includes(element)){
-              continue
-          }else{
-              elements.push(element);
-          }
-          
-      }
-      if (default_exists){
-          Swal.fire({
-              title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
-              showDenyButton: true,
-            })
-      }else{
-          var myJsonelements = JSON.stringify(elements);
-  
-          $.ajax({
-              method: "POST",
-              url: "{% url 'add_char_utils_two_simple' %}",
-              data: {"data":myJsonelements}
-            }).done(function( msg ) {
-              if (msg.saved ==true){
-                  Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Successfuly saved!',
-                      showConfirmButton: false,
-                      timer: 1500
-                    })
-                  var btn = document.getElementById('char_two');
-                  btn.setAttribute('disabled','True');
-                  }else{
-                      Swal.fire({
-                          icon: 'error',
-                          title: 'Oops...',
-                          text: 'Something went wrong!'
-                        })
-  
-                  }
-              });
-      }
-      
-  }
 </script>
 
 

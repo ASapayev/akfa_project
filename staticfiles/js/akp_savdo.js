@@ -1449,7 +1449,7 @@ function create_kratkiy_tekst(id){
 
     var data = data_base[id].get_kratkiy_tekst()
 
-    console.log(data)
+    
     if(data.accept){
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','#2de319')

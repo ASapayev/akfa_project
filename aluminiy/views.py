@@ -2708,68 +2708,67 @@ def product_add_second_org(request,id):
       doesnotexist,correct = check_for_correct(df,filename='aluminiy')
       if not correct:
             context ={
-                  'CharUtilsOne':doesnotexist[0],
-                  'CharUtilsTwo':doesnotexist[1],
-                  'BazaProfile':doesnotexist[2],
-                  'ArtikulComponent':doesnotexist[3]
+                  'AluProflesData':doesnotexist,
+                  'filename':'aluminiy'
             }
-            df_char_utils_one = pd.DataFrame({
-                  'матрица':doesnotexist[0],
-                  'артикул':doesnotexist[0],
-                  'высота':['' for i in doesnotexist[0]],
-                  'ширина':['' for i in doesnotexist[0]],
-                  'высота_ширина':['' for i in doesnotexist[0]],
-                  'systems':['' for i in doesnotexist[0]]
-                  })
-            df_char_utils_two =pd.DataFrame({
-                  'артикул':doesnotexist[1],
-                  'полый_или_фасонный':['' for i in doesnotexist[1]]
-            })
-            df_baza_profiley =pd.DataFrame({
-                  'артикул':[i[0] for i in doesnotexist[2]],
-                  'серия':[i[1] for i in doesnotexist[2]],
-                  'старый_код':[i[2] for i in doesnotexist[2]],
-                  'компонент':[i[3] for i in doesnotexist[2]],
-                  'type_combination':[i[4] for i in doesnotexist[2]],
-                  'product_description':[i[5] for i in doesnotexist[2]],
-                  'link':[i[6] for i in doesnotexist[2]],
-            })
+            # df_char_utils_one = pd.DataFrame({
+            #       'матрица':doesnotexist[0],
+            #       'артикул':doesnotexist[0],
+            #       'высота':['' for i in doesnotexist[0]],
+            #       'ширина':['' for i in doesnotexist[0]],
+            #       'высота_ширина':['' for i in doesnotexist[0]],
+            #       'systems':['' for i in doesnotexist[0]]
+            #       })
+            # df_char_utils_two =pd.DataFrame({
+            #       'артикул':doesnotexist[1],
+            #       'полый_или_фасонный':['' for i in doesnotexist[1]]
+            # })
+            # df_baza_profiley =pd.DataFrame({
+            #       'артикул':[i[0] for i in doesnotexist[2]],
+            #       'серия':[i[1] for i in doesnotexist[2]],
+            #       'старый_код':[i[2] for i in doesnotexist[2]],
+            #       'компонент':[i[3] for i in doesnotexist[2]],
+            #       'type_combination':[i[4] for i in doesnotexist[2]],
+            #       'product_description':[i[5] for i in doesnotexist[2]],
+            #       'link':[i[6] for i in doesnotexist[2]],
+            # })
           
-            df_artikul_component =pd.DataFrame({
-                  'artikul':doesnotexist[3],
-                  'component':doesnotexist[3],
-                  'seria':['' for i in doesnotexist[3]],
-                  'product_description_ru1':['' for i in doesnotexist[3]],
-                  'product_description_ru':['' for i in doesnotexist[3]],
-                  'stariy_code_benkam':['' for i in doesnotexist[3]],
-                  'stariy_code_jomiy':['' for i in doesnotexist[3]],
-                  'proverka_artikul2':['' for i in doesnotexist[3]],
-                  'proverka_component2':['' for i in doesnotexist[3]],
-                  'gruppa_materialov':['' for i in doesnotexist[3]],
-                  'gruppa_materialov2':['' for i in doesnotexist[3]]
-            })
-            create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\','Not Exists')
+            # df_artikul_component =pd.DataFrame({
+            #       'artikul':doesnotexist[3],
+            #       'component':doesnotexist[3],
+            #       'seria':['' for i in doesnotexist[3]],
+            #       'product_description_ru1':['' for i in doesnotexist[3]],
+            #       'product_description_ru':['' for i in doesnotexist[3]],
+            #       'stariy_code_benkam':['' for i in doesnotexist[3]],
+            #       'stariy_code_jomiy':['' for i in doesnotexist[3]],
+            #       'proverka_artikul2':['' for i in doesnotexist[3]],
+            #       'proverka_component2':['' for i in doesnotexist[3]],
+            #       'gruppa_materialov':['' for i in doesnotexist[3]],
+            #       'gruppa_materialov2':['' for i in doesnotexist[3]]
+            # })
+            # create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\','Not Exists')
             
-            path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\Not Exists\\Not_Exists.xlsx'
+            # path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\Not Exists\\Not_Exists.xlsx'
             
-            if os.path.isfile(path_not_exists):
-                  try:
-                        os.remove(path_not_exists)
-                  except:
-                        return render(request,'utils/file_exist_org.html')
+            # if os.path.isfile(path_not_exists):
+            #       try:
+            #             os.remove(path_not_exists)
+            #       except:
+            #             return render(request,'utils/file_exist_org.html')
             
-            writer = pd.ExcelWriter(path_not_exists, engine='xlsxwriter')
-            df_char_utils_one.to_excel(writer,index=False,sheet_name ='character utils one')
-            df_char_utils_two.to_excel(writer,index=False,sheet_name ='character utils two')
-            df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
-            df_artikul_component.to_excel(writer,index=False,sheet_name ='artikul component')
-            writer.close()
+            # writer = pd.ExcelWriter(path_not_exists, engine='xlsxwriter')
+            # df_char_utils_one.to_excel(writer,index=False,sheet_name ='character utils one')
+            # df_char_utils_two.to_excel(writer,index=False,sheet_name ='character utils two')
+            # df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
+            # df_artikul_component.to_excel(writer,index=False,sheet_name ='artikul component')
+            # writer.close()
 
             if order_id:
                   order = Order.objects.get(id = order_id)
                   paths = order.paths
                   l_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
-                  paths['obichniy_lack_file']= path_not_exists
+                  paths['obichniy_lack_file']= ''
+                  # paths['obichniy_lack_file']= path_not_exists
                   paths['l_created_at']= l_created_at
                   paths['status_l']= 'on process'
                   
@@ -2858,14 +2857,15 @@ def product_add_second_org(request,id):
             
             
             
-            product_exists = ArtikulComponent.objects.filter(artikul=row['Артикул']).exists()
+            product_exists = AluProfilesData.objects.filter(data__Артикул=row['Артикул']).exists()
             if row['Код декор пленки снаружи'] !='nan' and '.0' in row['Код декор пленки снаружи']:
                   df['Код декор пленки снаружи'][key] =df['Код декор пленки снаружи'][key].replace('.0','')
             
             if product_exists:
-                  component = ArtikulComponent.objects.filter(artikul=row['Артикул'])[:1].get().component
+                  component = AluProfilesData.objects.filter(data__Артикул=row['Артикул'])[:1].get().data['Компонент']
+                  print(component)
             else:
-                  if ArtikulComponent.objects.filter(component=row['Артикул']).exists():
+                  if  AluProfilesData.objects.filter(data__Компонент=row['Артикул']).exists():
                         component = row['Артикул']
                         termo = True
                   else:
@@ -2928,9 +2928,9 @@ def product_add_second_org(request,id):
                               AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][key],material=materiale).save()
                               df_new['SAP код F'][key]=materiale
                               component2 = materiale.split('-')[0]
-                             
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid =aluprofiles.data['П/Ф']
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -2945,7 +2945,6 @@ def product_add_second_org(request,id):
                                     export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -2976,8 +2975,8 @@ def product_add_second_org(request,id):
                                                 'width':'1-1000',
                                                 'height':'1-1000',
                                                 'rawmat_type':'ПФ',
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -2988,8 +2987,9 @@ def product_add_second_org(request,id):
                               df_new['SAP код F'][key]=materiale
                               umumiy_counter[df['Артикул'][key]+'-F'] = 1
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -3004,7 +3004,7 @@ def product_add_second_org(request,id):
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()
                               
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -3035,8 +3035,8 @@ def product_add_second_org(request,id):
                                                 'width':'1-1000',
                                                 'height':'1-1000',
                                                 'rawmat_type':'ПФ',
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -3064,8 +3064,10 @@ def product_add_second_org(request,id):
                               
                              
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
+
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid =aluprofiles.data['П/Ф']
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -3080,7 +3082,7 @@ def product_add_second_org(request,id):
                               
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                               surface_treatment_export=''
                               if row['Тип покрытия'].lower() =='неокрашенный':
@@ -3135,8 +3137,8 @@ def product_add_second_org(request,id):
                                                 'export_description_eng':export_description_eng.bux_name_eng,
                                                 'tnved':export_description_eng.tnved,
                                                 'surface_treatment_export':surface_treatment_export,# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -3148,8 +3150,9 @@ def product_add_second_org(request,id):
                               umumiy_counter[df['Артикул'][key]+'-75'] = 1
                               
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid =aluprofiles.data['П/Ф']
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -3164,7 +3167,7 @@ def product_add_second_org(request,id):
                               
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                               surface_treatment_export=''
                               if row['Тип покрытия'].lower() =='неокрашенный':
@@ -3219,8 +3222,8 @@ def product_add_second_org(request,id):
                                                 'export_description_eng':export_description_eng.bux_name_eng,
                                                 'tnved':export_description_eng.tnved,
                                                 'surface_treatment_export':surface_treatment_export,# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -3238,9 +3241,10 @@ def product_add_second_org(request,id):
                               df_new['SAP код 7'][key] = materiale
                               
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
-                              
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid =aluprofiles.data['П/Ф']
+
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
                               else:
@@ -3254,7 +3258,7 @@ def product_add_second_org(request,id):
                               
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                               surface_treatment_export=''
                               if row['Тип покрытия'].lower() =='неокрашенный':
@@ -3308,8 +3312,8 @@ def product_add_second_org(request,id):
                                                 'export_description_eng':export_description_eng.bux_name_eng,
                                                 'tnved':export_description_eng.tnved,
                                                 'surface_treatment_export':surface_treatment_export,# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                 'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -3321,9 +3325,10 @@ def product_add_second_org(request,id):
                               umumiy_counter[df['Артикул'][key]+'-7'] = 1
                              
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
-                              
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid =aluprofiles.data['П/Ф']
+
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
                               else:
@@ -3337,7 +3342,7 @@ def product_add_second_org(request,id):
                               
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                               surface_treatment_export=''
                               if row['Тип покрытия'].lower() =='неокрашенный':
@@ -3392,8 +3397,8 @@ def product_add_second_org(request,id):
                                                 'export_description_eng':export_description_eng.bux_name_eng,
                                                 'tnved':export_description_eng.tnved,
                                                 'surface_treatment_export':surface_treatment_export,# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -3415,9 +3420,10 @@ def product_add_second_org(request,id):
                               df_new['SAP код L'][key]=materiale
                              
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
-                              
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']
+
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
                               else:
@@ -3432,7 +3438,7 @@ def product_add_second_org(request,id):
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -3468,9 +3474,9 @@ def product_add_second_org(request,id):
                                                 # 'export_description':export_description,
                                                 # 'export_description_eng':export_description_eng.bux_name_eng,
                                                 # 'tnved':export_description_eng.tnved,
-                                                # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                 # 'surface_treatment_export':row['Название системы'],# GP da kerak
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -3481,9 +3487,10 @@ def product_add_second_org(request,id):
                               umumiy_counter[df['Артикул'][key]+'-L'] = 1
                              
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
-                              
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']
+
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
                               else:
@@ -3495,11 +3502,10 @@ def product_add_second_org(request,id):
                               else:       
                                     export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                               
-                              print(export_description)
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -3536,8 +3542,8 @@ def product_add_second_org(request,id):
                                                 # 'export_description_eng':export_description_eng.bux_name_eng,
                                                 # 'tnved':export_description_eng.tnved,
                                                 # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -3597,6 +3603,7 @@ def product_add_second_org(request,id):
 
                   if row['тип закаленности']=='T4':
                         exturision_list.append(sap_code_e)
+                  # print('sap kodde ee=> ',sap_code_e)
             else:
                   if AluminiyProduct.objects.filter(artikul =component,section ='E').exists():
                         # max_valuesE = AluminiyProduct.objects.filter(artikul =component,section ='E').values('section').annotate(total_max=Max('counter'))[0]['total_max']
@@ -3610,9 +3617,10 @@ def product_add_second_org(request,id):
                               exturision_list.append(materiale)
 
                         component2 = materiale.split('-')[0]
-                        artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                        hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
-                              
+                        aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                        artikle = aluprofiles.data['Артикул']
+                        hollow_and_solid = aluprofiles.data['П/Ф']   
+
                         if row['Тип покрытия'].lower() == 'сублимированный':
                               tip_poktitiya ='с декоративным покрытием'
                         else:
@@ -3627,8 +3635,8 @@ def product_add_second_org(request,id):
                         export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                         
-                        width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
-                        
+                        # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                        # print(materiale,'cap koddd')
                               
                         cache_for_cratkiy_text.append(
                                           {'material':materiale,
@@ -3664,8 +3672,8 @@ def product_add_second_org(request,id):
                                           # 'export_description_eng':export_description_eng.bux_name_eng,
                                           # 'tnved':export_description_eng.tnved,
                                           # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                          'wms_width':width_and_height.ширина,
-                                          'wms_height':width_and_height.высота,
+                                          'wms_width':aluprofiles.data['Ширина'],
+                                          'wms_height':aluprofiles.data['Высота'],
                                           'group_prise': export_description_eng.group_price,
                                           }
                                     )
@@ -3677,9 +3685,9 @@ def product_add_second_org(request,id):
                         umumiy_counter[component+'-E'] = 1
                         
                         component2 = materiale.split('-')[0]
-                        artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                        hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
-                              
+                        aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                        artikle = aluprofiles.data['Артикул']
+                        hollow_and_solid = aluprofiles.data['П/Ф']
                         if row['Тип покрытия'].lower() == 'сублимированный':
                               tip_poktitiya ='с декоративным покрытием'
                         else:
@@ -3695,7 +3703,7 @@ def product_add_second_org(request,id):
                               
                         
                         
-                        width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                        # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                         
                               
                         cache_for_cratkiy_text.append(
@@ -3732,8 +3740,8 @@ def product_add_second_org(request,id):
                                           # 'export_description_eng':export_description_eng.bux_name_eng,
                                           # 'tnved':export_description_eng.tnved,
                                           # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                          'wms_width':width_and_height.ширина,
-                                          'wms_height':width_and_height.высота,
+                                         'wms_width':aluprofiles.data['Ширина'],
+                                          'wms_height':aluprofiles.data['Высота'],
                                           'group_prise': export_description_eng.group_price,
                                           }
                                     )
@@ -3758,9 +3766,9 @@ def product_add_second_org(request,id):
                               
                               
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
-                                    
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']     
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
                               else:
@@ -3775,7 +3783,7 @@ def product_add_second_org(request,id):
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -3812,8 +3820,9 @@ def product_add_second_org(request,id):
                                                 # 'export_description_eng':export_description_eng.bux_name_eng,
                                                 # 'tnved':export_description_eng.tnved,
                                                 # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
+                                                
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -3825,9 +3834,10 @@ def product_add_second_org(request,id):
                               umumiy_counter[ component +'-Z'] = 1
                             
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
-                                    
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']
+
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
                               else:
@@ -3842,7 +3852,7 @@ def product_add_second_org(request,id):
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -3879,8 +3889,9 @@ def product_add_second_org(request,id):
                                                 # 'export_description_eng':export_description_eng.bux_name_eng,
                                                 # 'tnved':export_description_eng.tnved,
                                                 # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
+                                                
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -3911,9 +3922,10 @@ def product_add_second_org(request,id):
                               df_new['SAP код P'][key]=materiale
                               
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
-                              
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']
+
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
                               else:
@@ -3928,7 +3940,7 @@ def product_add_second_org(request,id):
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -3965,8 +3977,8 @@ def product_add_second_org(request,id):
                                                 # 'export_description_eng':export_description_eng.bux_name_eng,
                                                 # 'tnved':export_description_eng.tnved,
                                                 # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -3979,9 +3991,9 @@ def product_add_second_org(request,id):
                               umumiy_counter[component+'-P'] = 1
                               
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
-                              
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
                               else:
@@ -3995,7 +4007,7 @@ def product_add_second_org(request,id):
                               
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -4032,8 +4044,8 @@ def product_add_second_org(request,id):
                                                 # 'export_description_eng':export_description_eng.bux_name_eng,
                                                 # 'tnved':export_description_eng.tnved,
                                                 # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -4059,8 +4071,9 @@ def product_add_second_org(request,id):
                               df_new['SAP код S'][key]=materiale
                               
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -4076,7 +4089,7 @@ def product_add_second_org(request,id):
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -4113,8 +4126,8 @@ def product_add_second_org(request,id):
                                                 # 'export_description_eng':export_description_eng.bux_name_eng,
                                                 # 'tnved':export_description_eng.tnved,
                                                 # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -4126,8 +4139,9 @@ def product_add_second_org(request,id):
                               umumiy_counter[component+'-S'] = 1
                             
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -4143,7 +4157,7 @@ def product_add_second_org(request,id):
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -4180,8 +4194,8 @@ def product_add_second_org(request,id):
                                                 # 'export_description_eng':export_description_eng.bux_name_eng,
                                                 # 'tnved':export_description_eng.tnved,
                                                 # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -4208,8 +4222,9 @@ def product_add_second_org(request,id):
                               df_new['SAP код A'][key]=materiale
                             
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -4225,7 +4240,7 @@ def product_add_second_org(request,id):
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -4262,8 +4277,8 @@ def product_add_second_org(request,id):
                                                 # 'export_description_eng':export_description_eng.bux_name_eng,
                                                 # 'tnved':export_description_eng.tnved,
                                                 # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -4274,8 +4289,9 @@ def product_add_second_org(request,id):
                               umumiy_counter[component+'-A'] = 1
                              
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -4291,7 +4307,7 @@ def product_add_second_org(request,id):
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -4328,8 +4344,8 @@ def product_add_second_org(request,id):
                                                 # 'export_description_eng':export_description_eng.bux_name_eng,
                                                 # 'tnved':export_description_eng.tnved,
                                                 # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -4366,8 +4382,9 @@ def product_add_second_org(request,id):
                               df_new['SAP код N'][key]=materiale
                         
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -4383,7 +4400,7 @@ def product_add_second_org(request,id):
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -4421,8 +4438,8 @@ def product_add_second_org(request,id):
                                                 # 'export_description_eng':export_description_eng.bux_name_eng,
                                                 # 'tnved':export_description_eng.tnved,
                                                 # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -4433,8 +4450,9 @@ def product_add_second_org(request,id):
                               umumiy_counter[component+'-N'] = 1
                              
                               component2 = materiale.split('-')[0]
-                              artikle = ArtikulComponent.objects.get(Q(artikul=component2)|Q(component=component2)).artikul
-                              hollow_and_solid =CharUtilsTwo.objects.filter(артикул = artikle)[:1].get().полый_или_фасонный
+                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                              artikle = aluprofiles.data['Артикул']
+                              hollow_and_solid = aluprofiles.data['П/Ф']
                               
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -4450,7 +4468,7 @@ def product_add_second_org(request,id):
                               export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                               
                               
-                              width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
+                              # width_and_height = CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle))[:1].get()
                               
                                     
                               cache_for_cratkiy_text.append(
@@ -4487,8 +4505,8 @@ def product_add_second_org(request,id):
                                                 # 'export_description_eng':export_description_eng.bux_name_eng,
                                                 # 'tnved':export_description_eng.tnved,
                                                 # 'surface_treatment_export':row['Название системы'],# GP da kerak
-                                                'wms_width':width_and_height.ширина,
-                                                'wms_height':width_and_height.высота,
+                                                'wms_width':aluprofiles.data['Ширина'],
+                                                'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 }
                                           )
@@ -5002,12 +5020,13 @@ def baza_profile(request):
 @allowed_users(allowed_roles=['admin','moderator']) 
 def artikul_component(request):
       data = request.POST.get('data',None)
+      datas = json.loads(data)
       if data:
-            items = [ArtikulComponent(artikul =item['artikul'],component =item['komponent']) for item in ast.literal_eval(data)]
-            ArtikulComponent.objects.bulk_create(items)
+            items = [AluProfilesData(data =item) for item in datas]
+            AluProfilesData.objects.bulk_create(items)
             return JsonResponse({'saved':True})
-      else:
-            return JsonResponse({'saved':False})
+      return JsonResponse({'saved':False})
+      
       
 @csrf_exempt
 @login_required(login_url='/accounts/login/')

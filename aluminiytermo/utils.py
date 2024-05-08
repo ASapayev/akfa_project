@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101,LGORT_1101,HEADER2,LGORT_1301,HEADER_1301
 from django.shortcuts import render
-from aluminiy.models import ArtikulComponent,LengthOfProfile,RazlovkaTermo
+from aluminiy.models import ArtikulComponent,LengthOfProfile,RazlovkaTermo,AluProfilesData
 from datetime import datetime
 import math
 import zipfile
@@ -2757,7 +2757,8 @@ def create_characteristika_utils(items):
         
         
         sap_kode =item['material'].split('-')[0]
-        baza_profiey = BazaProfiley.objects.filter(Q(артикул=sap_kode)|Q(компонент=sap_kode))[:1].get()
+        # baza_profiey = BazaProfiley.objects.filter(Q(артикул=sap_kode)|Q(компонент=sap_kode))[:1].get()
+        baza_profiey = AluProfilesData.objects.filter(Q(data__Артикул=sap_kode)|Q(data__Компонент=sap_kode))[:1].get()
         
 
         if (('-7' in item['material']) or ('-K' in item['material']) or ('-L'  in item['material'])):
@@ -2776,7 +2777,7 @@ def create_characteristika_utils(items):
         sap_код_s4p_100=item['material']
         нумерация_до_sap =''
         короткое_название_sap =item['kratkiy']
-        польное_наименование_sap = 'Алюминиевый '+baza_profiey.product_description +', '+component_name +' '+sap_kode+', '+item['surface_treatment']+', Длина '+item['length']+' мм, Тип '+item['alloy']+'-'+item['temper']+' '+item['print_view']
+        польное_наименование_sap = 'Алюминиевый '+baza_profiey.data['Product description - RUS'] +', '+component_name +' '+sap_kode+', '+item['surface_treatment']+', Длина '+item['length']+' мм, Тип '+item['alloy']+'-'+item['temper']+' '+item['print_view']
         ед_изм ='ШТ'
         альтернативная_ед_изм='КГ'
         коэфициент_пересчета =''
@@ -2912,8 +2913,7 @@ def create_characteristika_utils(items):
         df[50].append(ch_tnved)
         df[51].append(ch_surface_treatment_export)
         sap_kode =item['material'].split('-')[0]
-        old_artikul = BazaProfiley.objects.filter(Q(артикул=sap_kode)|Q(компонент=sap_kode))[:1].get()
-        df[52].append(old_artikul.старый_код)
+        df[52].append(baza_profiey.data['Старый Код'])
 
         
     dat = {
@@ -6785,59 +6785,26 @@ def anodirovaka_check(items,data):
 
 
 def check_for_correct(items,filename='termo'):
-    char_utils_one =[]
-    char_utils_two =[]
-    baza_profiley =[]
-    component_list =[]
-    
+    aluprofile = []
     
     for key,row in items.iterrows():
         if row['Артикул'] !='nan':
             artikle =row['Артикул']
-            if not CharUtilsTwo.objects.filter(артикул = artikle).exists():
-                if artikle not in char_utils_two:
-                    char_utils_two.append(artikle)
-                
-            if not CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle)).exists():
-                if artikle not in char_utils_one:
-                    char_utils_one.append(artikle)
-                    
-            if not BazaProfiley.objects.filter(Q(артикул=artikle)|Q(компонент=artikle)).exists():
-                if artikle not in baza_profiley:
-                    baza_profiley.append([artikle,'','','','','',''])
-            else:
-                baza_profile =BazaProfiley.objects.filter(Q(артикул=artikle)|Q(компонент=artikle))[:1].get()
-
-                if baza_profile.link == None:
-                    baza_profiley.append([artikle,baza_profile.серия,baza_profile.старый_код,baza_profile.компонент,'',baza_profile.product_description,''])
+            if not AluProfilesData.objects.filter(data__Артикул__icontains =artikle).exists():
+                aluprofile.append(artikle)
+            
                     
         if  filename =='termo':   
             if row['Компонент'] !='nan':
                 artikle =row['Компонент']
-                if not CharUtilsTwo.objects.filter(артикул = artikle).exists():
-                    if artikle not in char_utils_two:
-                        char_utils_two.append(artikle)
-                    
-                if not CharUtilsOne.objects.filter(Q(матрица = artikle) | Q(артикул = artikle)).exists():
-                    if artikle not in char_utils_one:
-                        char_utils_one.append(artikle)
-                    
-                if not BazaProfiley.objects.filter(Q(артикул=artikle)|Q(компонент=artikle)).exists():
-                    if artikle not in baza_profiley:
-                        baza_profiley.append(artikle)
-                        
-        else:
-            if ArtikulComponent.objects.filter(artikul=row['Артикул']).exists():
-                continue
-            if row['Артикул'] not in component_list:
-                component_list.append(row['Артикул'])
+                if not AluProfilesData.objects.filter(data__Компонент__icontains =artikle).exists():
+                    aluprofile.append(artikle)
                     
     correct = True
-    char_utils_correct =char_utils_one + char_utils_two + baza_profiley + component_list
-    if len(char_utils_correct) >0:
+    if len(aluprofile) >0:
         correct = False
        
-    return [ char_utils_one , char_utils_two , baza_profiley,component_list ] , correct
+    return aluprofile , correct
 
 
 def  create_all(request,df_char_title):
