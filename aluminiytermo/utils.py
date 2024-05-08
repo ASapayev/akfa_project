@@ -6791,14 +6791,24 @@ def check_for_correct(items,filename='termo'):
         if row['Артикул'] !='nan':
             artikle =row['Артикул']
             if not AluProfilesData.objects.filter(data__Артикул__icontains =artikle).exists():
-                aluprofile.append(artikle)
+                if artikle not in aluprofile:
+                    aluprofile.append(artikle)
+            else:
+                bazaprof = AluProfilesData.objects.filter(data__Артикул__icontains =artikle)[:1].get()
+                for key, val in bazaprof.data.items():
+                    if key =='Артикул' or key =='Компонент':
+                        continue
+                    else:
+                        if val=='' and artikle not in aluprofile:
+                            aluprofile.append(artikle)
             
                     
         if  filename =='termo':   
             if row['Компонент'] !='nan':
                 artikle =row['Компонент']
                 if not AluProfilesData.objects.filter(data__Компонент__icontains =artikle).exists():
-                    aluprofile.append(artikle)
+                    if artikle not in aluprofile:
+                        aluprofile.append(artikle)
                     
     correct = True
     if len(aluprofile) >0:
