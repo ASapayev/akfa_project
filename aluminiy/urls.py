@@ -44,6 +44,7 @@ path('create-construction',views.upload_for_1301_v22,name='create_construction')
 
 
 path('upload-bazaprofiles',views.full_update_bazaprofiley,name='full_update_bazaprofiley'),
-path('list-bazaprofile',views.list_bazaprofiley,name='list_bazaprofiley')
+path('list-bazaprofile',views.list_bazaprofiley,name='list_bazaprofiley'),
+path('delete-bazaprofile/<int:id>',views.delete_bazaprofiley,name='delete_bazaprofiley')
 
 ]

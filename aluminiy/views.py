@@ -741,6 +741,13 @@ svet_lam_plenke_VN ={
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
+def delete_bazaprofiley(request,id):
+      baza_profile = AluProfilesData.objects.get(id =id)
+      baza_profile.delete()
+      return JsonResponse({'msg':True})
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def list_bazaprofiley(request):
       if  AluProfilesData.objects.filter(data__has_key ='columns').exists():
             columns =  AluProfilesData.objects.filter(data__has_key ='columns')[:1].get().data['columns']

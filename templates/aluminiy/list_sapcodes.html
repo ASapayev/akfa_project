@@ -31,6 +31,7 @@
                       {%for column in columns%}
                       <th  > {{column}} </th>
                       {%endfor%}
+                      <th>Options</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -46,6 +47,10 @@
                         {{profile.data|get_dynamic_key:key}}
                       </td>
                       {% endfor %}
+                      <td>
+                        <a onclick="delete_sapcode(this,'{{profile.id}}')" class ='btn btn-danger'><i class="bi bi-trash"></i>Delete</a>
+                        <a href="{%url 'delete_bazaprofiley' profile.id %}" class="btn btn-warning"><i class="bi bi-pen"></i>Edit</a>
+                      </td>
                       
                     </tr>
                     {%endfor%}
@@ -120,7 +125,7 @@ function delete_sapcode(elem,id){
         denyButtonText: `Yo'q`,
       }).then((result) => {
         if (result.isConfirmed) {
-          var url ="/accessuar/delete-sapcode/" + id;
+          var url ="/alu/delete-bazaprofile/" + id;
           var csrfToken = getCSRFToken();
           $.ajax({
                 method:'POST',
