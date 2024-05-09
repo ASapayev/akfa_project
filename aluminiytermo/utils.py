@@ -6789,9 +6789,10 @@ def check_for_correct(items,filename='termo'):
     
     for key,row in items.iterrows():
         if row['Артикул'] !='nan':
+            print('usloviya1')
             artikle =row['Артикул']
             if not AluProfilesData.objects.filter(data__Артикул__icontains =artikle).exists():
-                if artikle not in aluprofile:
+                if [artikle,'new'] not in aluprofile:
                     aluprofile.append([artikle,'new'])
             else:
                 bazaprof = AluProfilesData.objects.filter(data__Артикул__icontains =artikle)[:1].get()
@@ -6799,15 +6800,16 @@ def check_for_correct(items,filename='termo'):
                     if key =='Артикул' or key =='Компонент' or key =='Код наклейки' :
                         continue
                     else:
-                        if val=='' and artikle not in aluprofile:
+                        if val=='' and [artikle,'old'] not in aluprofile:
                             aluprofile.append([artikle,'old'])
             
                     
         if  filename =='termo':   
             if row['Компонент'] !='nan':
+                print('usloviya2')
                 artikle =row['Компонент']
                 if not AluProfilesData.objects.filter(data__Компонент__icontains =artikle).exists():
-                    if artikle not in aluprofile:
+                    if [artikle,'new'] not in aluprofile:
                         aluprofile.append([artikle,'new'])
                 else:
                     bazaprof = AluProfilesData.objects.filter(Q(data__Артикул__icontains =artikle)|Q(data__Компонент=artikle))[:1].get()
@@ -6815,13 +6817,12 @@ def check_for_correct(items,filename='termo'):
                         if key =='Артикул' or key =='Компонент' or key =='Код наклейки' :
                             continue
                         else:
-                            if val=='' and artikle not in aluprofile:
+                            if val=='' and [artikle,'old'] not in aluprofile:
                                 aluprofile.append([artikle,'old'])
                     
     correct = True
     if len(aluprofile) >0:
         correct = False
-       
     return aluprofile , correct
 
 

@@ -47,5 +47,6 @@ path('upload-bazaprofiles',views.full_update_bazaprofiley,name='full_update_baza
 path('list-bazaprofile',views.list_bazaprofiley,name='list_bazaprofiley'),
 path('delete-bazaprofile/<int:id>',views.delete_bazaprofiley,name='delete_bazaprofiley'),
 path('edit-bazaprofile/<int:id>',views.edit_bazaprofiley,name='edit_bazaprofiley'),
+path('get-bazaprofile',views.get_bazaprofiley,name='get_bazaprofiley'),
 
 ]

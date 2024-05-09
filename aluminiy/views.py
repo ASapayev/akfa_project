@@ -741,6 +741,36 @@ svet_lam_plenke_VN ={
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
+def get_bazaprofiley(request):
+      data = request.GET.get('data')
+      datas = json.loads(data)
+      baza_profile = AluProfilesData.objects.filter(Q(data__Артикул=datas['artikul'])|Q(data__Компонент =datas['artikul']))[:1].get().data
+      artikul ={
+            'system' : baza_profile['Система'],
+            'artikul' :  baza_profile['Артикул'],
+            'komponent' :  baza_profile['Компонент'],
+            'description' :  baza_profile['Product description - RUS'],
+            'kombinatsiya' :  baza_profile['Комбинация'],
+            'stariy_kod' :  baza_profile['Старый Код'],
+            'tip_combination' :  baza_profile['Тип Комбинация'],
+            'tip_profilya' :  baza_profile['Тип профиля'],
+            'visota' :  baza_profile['Высота'],
+            'shirina' :  baza_profile['Ширина'],
+            'pol_fason' :  baza_profile['Полый и Фасонный'],
+            'bez_nakleyki' :  baza_profile['Без наклейки'],
+            'kod_nakleyki' :  baza_profile['Код наклейки'],
+            'udal_ves' :  baza_profile['Удел.вес за м'],
+            'baza' :  baza_profile['BAZA'],
+            'link' :  baza_profile['Ссылка для чертежей'],
+      }
+      return JsonResponse({"msg":True,'saved':True,'artikul':artikul})
+
+
+
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def edit_bazaprofiley(request,id):
       if request.method =='POST':
             json_data = request.POST.get('data',None)

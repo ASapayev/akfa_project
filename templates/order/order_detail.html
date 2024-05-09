@@ -357,7 +357,7 @@
                   </thead>
                   <tbody>
                     {%for char in AluProflesData  %}
-                    <tr>
+                    <tr class="tr_all">
                         <td>
                             {{ forloop.counter }}
                         </td>
@@ -629,6 +629,8 @@
 
 
 
+
+
   function excel_file_load(){
   
       document.body.style.cursor='wait';
@@ -810,7 +812,59 @@
       elem.parentElement.parentElement.remove()
   }
   
+  function put_bazas(){
+    var lenth_of_profiles = document.querySelectorAll('.tr_all')
+    
+    for(let i=1; i<=lenth_of_profiles.length; i++){
+      var element = $('#artikul'+i)
+      var status = element.attr('data-status')
+     
+      if(status =='old'){
+              $.ajax({
+                  method: "GET",
+                  url: "{% url 'get_bazaprofiley' %}",
+                  data: {"data":JSON.stringify({"artikul":element.val()})}
+                }).done(function( msg ) {
+                  if (msg.saved ==true){
+                    console.log(msg)
+                    system = $('#system'+ String(i)).val(msg.artikul['system']);
+                    artikul = $('#artikul'+ String(i)).val(msg.artikul['artikul']);
+                    komponent = $('#komponent'+ String(i)).val(msg.artikul['komponent']);
+                    description = $('#description'+ String(i)).val(msg.artikul['description']);
+                    kombinatsiya = $('#kombinatsiya'+ String(i)).val(msg.artikul['kombinatsiya']);
+                    stariy_kod = $('#stariy_kod'+ String(i)).val(msg.artikul['stariy_kod']);
+                    tip_combination = $('#tip_combination'+ String(i)).val(msg.artikul['tip_combination']);
+                    tip_profilya = $('#tip_profilya'+ String(i)).val(msg.artikul['tip_profilya']);
+                    visota = $('#visota'+ String(i)).val(msg.artikul['visota']);
+                    shirina = $('#shirina'+ String(i)).val(msg.artikul['shirina']);
+                    pol_fason = $('#pol_fason'+ String(i)).val(msg.artikul['pol_fason']);
+                    bez_nakleyki = $('#bez_nakleyki'+ String(i)).val(msg.artikul['bez_nakleyki']);
+                    kod_nakleyki = $('#kod_nakleyki'+ String(i)).val(msg.artikul['kod_nakleyki']);
+                    udal_ves = $('#udal_ves'+ String(i)).val(msg.artikul['udal_ves']);
+                    baza = $('#baza'+ String(i)).val(msg.artikul['baza']);
+                    link = $('#link'+ String(i)).val(msg.artikul['link']);
+                      }else{
+                          
   
+                      }
+                  });
+      }
+    }
+
+    // new_char.forEach(function(element) {
+    // console.log(element)
+    // var dataStatus = element.getAttribute('data-status');
+    
+    // console.log(dataStatus); 
+   
+    // });
+
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    // Call the function to retrieve 'data-status' attributes after the page has loaded
+    put_bazas()
+});
 </script>
 
 
