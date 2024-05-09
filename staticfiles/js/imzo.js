@@ -350,7 +350,7 @@ for (let i = 1; i <= 6; i++) {
             dataType: 'json',
             processResults: function(data){
                 return {results: $.map(data, function(item){
-                    return {id:item.id,text:item.artikul,system:item.system,combination:item.combination,code_nakleyka:item.code_nakleyka}
+                    return {id:item.id,text:item.data['Артикул'],system:item.data['Система'],combination:item.data['Комбинация'],code_nakleyka:item.data['Код наклейки']}
                 })
             };
             }
@@ -364,7 +364,7 @@ for (let i = 1; i <= 6; i++) {
         type: 'GET',
         url: "/client/imzo-artikul-list"
     }).then(function (data) {
-        var option = new Option(data.artikul, data.id, true, true);
+        var option = new Option(data.data['Артикул'], data.id, true, true);
         artikulSelect.append(option).trigger('change');
     
         artikulSelect.trigger({
@@ -483,15 +483,10 @@ function get_anod(termo=false){
 
 function clear_artikul(id){
     var table_tr =$('#table_tr'+id);
-    // table_tr.remove()
-    // $('#artikul'+id).val(null).trigger('change');
     $('.nazvaniye_system'+id).text('');
     var tip_pokritiya = $('#tip_pokritiya'+String(id));
     tip_pokritiya.val('0').change();
     tip_pokritiya.attr("disabled",true);
-    // var select_nakleyka = $('#nakleyka'+String(id));
-    // select_nakleyka.children("span").remove();
-    // select_nakleyka.children("select").remove();
     delete data_base[id]
 
     var kratkiy_tekst = document.getElementById('kratkiy_tekst'+String(id));

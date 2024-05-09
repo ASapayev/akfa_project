@@ -1347,7 +1347,7 @@ for (let i = 1; i <= 6; i++) {
             dataType: 'json',
             processResults: function(data){
                 return {results: $.map(data, function(item){
-                    return {id:item.id,text:item.artikul,system:item.system,combination:item.combination,code_nakleyka:item.code_nakleyka}
+                    return {id:item.id,text:item.data['Артикул'],system:item.data['Система'],combination:item.data['Комбинация'],code_nakleyka:item.data['Код наклейки']}
                 })
             };
             }
@@ -1361,7 +1361,7 @@ for (let i = 1; i <= 6; i++) {
         type: 'GET',
         url: "/client/imzo-artikul-list"
     }).then(function (data) {
-        var option = new Option(data.artikul, data.id, true, true);
+        var option = new Option(data.data['Артикул'], data.id, true, true);
         artikulSelect.append(option).trigger('change');
     
         artikulSelect.trigger({

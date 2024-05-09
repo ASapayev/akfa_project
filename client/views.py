@@ -453,9 +453,9 @@ def imzo_artikul_list(request):
     
     term = request.GET.get('term',None)
     if term:
-        artikules = AluProfilesData.objects.filter(artikul__icontains = term).values('id','artikul','system','combination','code_nakleyka')
+        artikules = AluProfilesData.objects.filter(artikul__icontains = term).values('id','data')
     else:
-        artikules = AluProfilesData.objects.all()[:50].values('id','artikul','system','combination','code_nakleyka')
+        artikules = AluProfilesData.objects.all()[:50].values('id','data')
     return JsonResponse(list(artikules),safe=False)
 
 
