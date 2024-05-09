@@ -5059,8 +5059,14 @@ def artikul_component(request):
       data = request.POST.get('data',None)
       datas = json.loads(data)
       if data:
-            items = [AluProfilesData(data =item) for item in datas]
-            AluProfilesData.objects.bulk_create(items)
+            for dat in datas:
+                  if AluProfilesData.objects.filter(Q(data__Артикул=dat['Артикул'])|Q(data__Компонент=dat['Компонент'])).exists():
+                        baza = AluProfilesData.objects.filter(Q(data__Артикул=dat['Артикул'])&Q(data__Компонент=dat['Компонент']))[:1].get()
+                        baza.data = dat
+                        baza.save()
+                  else:
+                        baza = AluProfilesData(data =dat)
+                        baza.save()
             return JsonResponse({'saved':True})
       return JsonResponse({'saved':False})
       
