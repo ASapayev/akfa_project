@@ -3106,12 +3106,14 @@ def artikul_component(request):
       datas = json.loads(data)
       if data:
             for dat in datas:
-                  print(dat)
+                  print(dat['Артикул'])
                   if AluProfilesData.objects.filter(Q(data__Артикул=dat['Артикул'])|Q(data__Компонент=dat['Компонент'])).exists():
+                        print('1111')
                         baza = AluProfilesData.objects.filter(Q(data__Артикул=dat['Артикул'])&Q(data__Компонент=dat['Компонент']))[:1].get()
                         baza.data = dat
                         baza.save()
                   else:
+                        print('2222')
                         baza = AluProfilesData(data =dat)
                         baza.save()
             return JsonResponse({'saved':True})
