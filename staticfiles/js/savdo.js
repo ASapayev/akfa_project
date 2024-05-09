@@ -695,7 +695,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-            
+            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='nadpis_nakleyki`+String(i)+`'></span>
         </div>
     </td>
     <td >
@@ -703,7 +703,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     
     <td >
-        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='group_materialov`+String(i)+`'>ALUGP</span>   
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='gruppa_materialov`+String(i)+`'>ALUGP</span>   
     </td> 
     <td >
         <div class="input-group input-group-sm mb-1">
@@ -2020,6 +2020,18 @@ function tip_pokritiya_selected(id,val){
         data_base[id].nazvaniye_system = nazvaniye_system;
         data_base[id].combination = combination;
         data_base[id].base_artikul = base_artikul.text()
+        var baza_profiley =$('#baza_profiley'+id)
+        var gruppa_materialov =$('#gruppa_materialov'+id)
+        var comment =$('#comment'+id)
+        data_base[id].baza_profiley = baza_profiley.text()
+        data_base[id].gruppa_materialov = gruppa_materialov.text()
+        data_base[id].comment = comment.val()
+        
+        var nadpis_nakleyki =$('#nadpis_nakleyki'+id)
+        
+        if(nadpis_nakleyki!=''){
+            data_base[id].nadpis_nakleyki = nadpis_nakleyki.text()
+        }
 
     }
 

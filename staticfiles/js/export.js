@@ -429,14 +429,14 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-            
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='nadpis_nakleyki`+String(i)+`'></span>
         </div>
     </td>
     <td >
     <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='baza_profiley`+String(i)+`'></span>
     </td>
     <td >
-        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='group_materialov`+String(i)+`'>ALUGP</span>   
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='gruppa_materialov`+String(i)+`'>ALUGP</span>   
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
@@ -456,7 +456,7 @@ for (let i = 1; i <= 5; i++) {
     
     <td >
         <div class="input-group input-group-sm mb-1">
-            <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+            <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
     </td>
     </tr>`
@@ -1057,6 +1057,18 @@ function tip_pokritiya_selected(id,val){
         var tip_zakalyonnosti =$('#tip_zakalyonnosti'+id)
         var combination =$('#combination'+id)
         var base_artikul =$('#select2-artikul'+id+'-container')
+        var baza_profiley =$('#baza_profiley'+id)
+        var gruppa_materialov =$('#gruppa_materialov'+id)
+        var comment =$('#comment'+id)
+        data_base[id].baza_profiley = baza_profiley.text()
+        data_base[id].gruppa_materialov = gruppa_materialov.text()
+        data_base[id].comment = comment.val()
+        
+        var nadpis_nakleyki =$('#nadpis_nakleyki'+id)
+        
+        if(nadpis_nakleyki!=''){
+            data_base[id].nadpis_nakleyki = nadpis_nakleyki.text()
+        }
         
         data_base[id].base_artikul = base_artikul.text()
         data_base[id].nazvaniye_system = nazvaniye_system.text()
