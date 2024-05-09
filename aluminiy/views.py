@@ -3108,7 +3108,7 @@ def artikul_component(request):
       if data:
             for dat in datas:
                   print(dat['Артикул'])
-                  if AluProfilesData.objects.filter(Q(data__Артикул=dat['Артикул'])|Q(data__Компонент=dat['Компонент'])).exists():
+                  if AluProfilesData.objects.filter(Q(data__Артикул=dat['Артикул'])&Q(data__Компонент=dat['Компонент'])).exists():
                         print('1111')
                         baza = AluProfilesData.objects.filter(Q(data__Артикул=dat['Артикул'])&Q(data__Компонент=dat['Компонент']))[:1].get()
                         baza.data = dat
