@@ -279,11 +279,12 @@ def create_txt_for_1101(request):
                             all_correct = False
                             does_not_exists.append([artikul,'НЕТ ВЕС'])
 
+                        sap_code = sap_code.split('-')[0]
                         if AluProfilesData.objects.filter(Q(data__Артикул =sap_code)|Q(data__Компонент=sap_code)).exists():
                               stariy_code = AluProfilesData.objects.filter(Q(data__Артикул =sap_code)|Q(data__Компонент=sap_code))[:1].get()
                         else:
                             all_correct = False
-                            does_not_exists.append([artikul,'НЕТ СТАРЫЙ КОД (Baza Profiley)'])
+                            does_not_exists.append([artikul,'НЕТ АРТИКУЛ ИЛИ КОМПОНЕНТ (Baza Profiley)'])
                         
                         
                         
