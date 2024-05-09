@@ -3797,7 +3797,7 @@ def product_add_second_org(request,id):
                                     artikle = materiale.split('-')[0]
                               
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф']
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный']
                                     
                                     
                                     if row['Тип покрытия'].lower() == 'сублимированный':
@@ -3883,7 +3883,7 @@ def product_add_second_org(request,id):
                                     artikle = materiale.split('-')[0]
                               
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф']
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный']
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -3974,7 +3974,7 @@ def product_add_second_org(request,id):
                                     artikle = str(materiale).split('-')[0]
                                    
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф']
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный']
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -4060,7 +4060,7 @@ def product_add_second_org(request,id):
                                     artikle = materiale.split('-')[0]
                               
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф']
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный']
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -4167,7 +4167,7 @@ def product_add_second_org(request,id):
                               
                               
                               aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                              hollow_and_solid = aluprofiles.data['П/Ф']   
+                              hollow_and_solid = aluprofiles.data['Полый и Фасонный']   
 
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -4239,7 +4239,7 @@ def product_add_second_org(request,id):
                               artikle = materiale.split('-')[0]
                               
                               aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                              hollow_and_solid = aluprofiles.data['П/Ф'] 
+                              hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
 
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -4313,7 +4313,7 @@ def product_add_second_org(request,id):
                                     artikle = materiale.split('-')[0]
                                     
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф'] 
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -4380,7 +4380,7 @@ def product_add_second_org(request,id):
                                     artikle = materiale.split('-')[0]
                                     
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф'] 
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
                                 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -4508,7 +4508,7 @@ def product_add_second_org(request,id):
                               artikle = materiale.split('-')[0]
                               
                               aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                              hollow_and_solid = aluprofiles.data['П/Ф'] 
+                              hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
 
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -4576,7 +4576,7 @@ def product_add_second_org(request,id):
                               artikle = materiale.split('-')[0]
                               
                               aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                              hollow_and_solid = aluprofiles.data['П/Ф'] 
+                              hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
 
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -4656,7 +4656,7 @@ def product_add_second_org(request,id):
                                     
                                     artikle = materiale.split('-')[0]
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф']    
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный']    
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -4722,7 +4722,7 @@ def product_add_second_org(request,id):
                                     umumiy_counter_termo[ component +'-Z'] = 1
                                     artikle = materiale.split('-')[0]
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф'] 
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
     
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -4809,7 +4809,7 @@ def product_add_second_org(request,id):
                                     artikle = materiale.split('-')[0]
                               
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф'] 
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -4880,7 +4880,7 @@ def product_add_second_org(request,id):
                                     artikle = materiale.split('-')[0]
                               
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф'] 
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -4963,7 +4963,7 @@ def product_add_second_org(request,id):
                                     artikle = materiale.split('-')[0]
                               
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф'] 
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -5032,7 +5032,7 @@ def product_add_second_org(request,id):
                                     artikle = materiale.split('-')[0]
                               
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф'] 
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -5115,7 +5115,7 @@ def product_add_second_org(request,id):
                                     artikle = materiale.split('-')[0]
                               
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф'] 
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -5181,7 +5181,7 @@ def product_add_second_org(request,id):
                                     umumiy_counter_termo[component+'-A'] = 1
                                     artikle = materiale.split('-')[0]
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф'] 
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -5277,7 +5277,7 @@ def product_add_second_org(request,id):
                                     artikle = materiale.split('-')[0]
                               
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф'] 
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -5344,7 +5344,7 @@ def product_add_second_org(request,id):
                                     artikle = materiale.split('-')[0]
                               
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
-                                    hollow_and_solid = aluprofiles.data['П/Ф'] 
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный'] 
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
