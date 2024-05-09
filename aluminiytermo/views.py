@@ -279,8 +279,8 @@ def create_txt_for_1101(request):
                             all_correct = False
                             does_not_exists.append([artikul,'НЕТ ВЕС'])
 
-                        if BazaProfiley.objects.filter(Q(артикул=artikul)|Q(компонент=artikul)).exists():
-                              stariy_code = BazaProfiley.objects.filter(Q(артикул=artikul)|Q(компонент=artikul))[:1].get()
+                        if AluProfilesData.objects.filter(Q(data__Артикул =sap_code)|Q(data__Компонент=sap_code)).exists():
+                              stariy_code = AluProfilesData.objects.filter(Q(data__Артикул =sap_code)|Q(data__Компонент=sap_code))[:1].get()
                         else:
                             all_correct = False
                             does_not_exists.append([artikul,'НЕТ СТАРЫЙ КОД (Baza Profiley)'])
@@ -316,7 +316,7 @@ def create_txt_for_1101(request):
                               character_dict['Price'].append(price_org)
                               
 
-                              baza_profiey = BazaProfiley.objects.filter(Q(артикул=artikul)|Q(компонент=artikul))[:1].get()
+                              baza_profiey = AluProfilesData.objects.filter(Q(data__Артикул =sap_code)|Q(data__Компонент=sap_code))[:1].get()
         
 
                               if (('-7' in sap_code) or ('-K' in sap_code) or ('-L'  in sap_code)):
@@ -353,7 +353,7 @@ def create_txt_for_1101(request):
                               character_dict['ch_profile_base'].append(character_txt.profile_base)
                               character_dict['ch_category'].append(character_txt.category)
                               character_dict['ch_surface_treatment_export'].append(character_txt.surface_treatment_export)
-                              character_dict['ch_artikul_old'].append(stariy_code.старый_код)
+                              character_dict['ch_artikul_old'].append(stariy_code.data['Старый Код'])
                         
                   df = pd.DataFrame(character_dict)
                   path = get_cretead_txt_for_1201(df,elist,does_not_exists)

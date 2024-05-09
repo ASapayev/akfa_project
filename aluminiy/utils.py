@@ -1,5 +1,5 @@
 
-from .models import RazlovkaObichniy,RazlovkaTermo
+from .models import RazlovkaObichniy,RazlovkaTermo,AluProfilesData
 
 import os
 from aluminiytermo.models import CharacteristicTitle
@@ -285,7 +285,7 @@ def create_characteristika_utils(items):
         if '-L' in item['material']:
             continue
         sap_kode =item['material'].split('-')[0]
-        baza_profiey = BazaProfiley.objects.filter(Q(артикул=sap_kode)|Q(компонент=sap_kode))[:1].get()
+        baza_profiey = AluProfilesData.objects.filter(Q(data_Артикул=sap_kode)|Q(data__Компонент=sap_kode))[:1].get()
         
         if '-7' in item['material']:
             component_name ='Артикул'
@@ -303,7 +303,7 @@ def create_characteristika_utils(items):
         sap_код_s4p_100=item['material']
         нумерация_до_sap =''
         короткое_название_sap =item['kratkiy'],
-        польное_наименование_sap =  'Алюминиевый '+baza_profiey.product_description +', '+component_name +' '+sap_kode+', '+item['surface_treatment']+', Длина '+item['length']+' мм, Тип '+item['alloy']+'-'+item['temper']+' '+item['print_view']
+        польное_наименование_sap =  'Алюминиевый '+baza_profiey.data['Product description - RUS'] +', '+component_name +' '+sap_kode+', '+item['surface_treatment']+', Длина '+item['length']+' мм, Тип '+item['alloy']+'-'+item['temper']+' '+item['print_view']
         ед_изм ='ШТ'
         альтернативная_ед_изм='КГ'
         коэфициент_пересчета =''

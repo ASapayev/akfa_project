@@ -1,4 +1,169 @@
+class BasePokritiya{
+    constructor(
+        full=false,//done
+        id=NaN,//done
+        nazvaniye_system=NaN,//done
+        base_artikul=NaN,//done
+        dlina=NaN,//done
+        tip_pokritiya=NaN,//done
+        splav=NaN,//done
+        tip_zak=NaN,//done
+        combination=NaN,//done
+        brend_kraska_sn=NaN,//done
+        kod_kraska_sn=NaN,//done
+        brend_kraska_vn=NaN,//done
+        kod_kraska_vn=NaN,//done
+        kod_dekor_sn=NaN,//done
+        svet_dekplonka_snaruji=NaN,//done
+        kod_dekor_vn=NaN,//done
+        svet_dekplonka_vnutri=NaN,//done
+        svet_lamplonka_snaruji=NaN,//done
+        kod_lam_sn=NaN,//done
+        svet_lamplonka_vnutri=NaN,//done
+        kod_lam_vn=NaN,//done
+        kod_anod_sn=NaN,//done 1425
+        kod_anod_vn=NaN,//done
+        contactnost_anod=NaN,//done
+        tip_anod=NaN,//done
+        sposob_anod=NaN,//done
+        kod_nakleyki=NaN,//done
+        nadpis_nakleyki=NaN,
+        baza_profiley=NaN,
+        gruppa_materialov=NaN,
+        kratkiy_tekst=NaN,//done
+        sap_code_ruchnoy=NaN,//done
+        kratkiy_text_ruchnoy=NaN,//done
+        comment=NaN,
+        is_termo=false
+        ) {
 
+        this.full=full;
+        this.id=id;
+        this.nazvaniye_system=nazvaniye_system;
+        this.base_artikul=base_artikul;
+        this.dlina=dlina;
+        this.tip_pokritiya=tip_pokritiya;
+        this.splav=splav;
+        this.tip_zak=tip_zak;
+        this.combination=combination;
+        this.brend_kraska_sn=brend_kraska_sn;
+        this.kod_kraska_sn=kod_kraska_sn;
+        this.brend_kraska_vn=brend_kraska_vn;
+        this.kod_kraska_vn=kod_kraska_vn;
+        this.kod_dekor_sn=kod_dekor_sn;
+        this.svet_dekplonka_snaruji=svet_dekplonka_snaruji;
+        this.kod_dekor_vn=kod_dekor_vn;
+        this.svet_dekplonka_vnutri=svet_dekplonka_vnutri;
+        this.svet_lamplonka_snaruji=svet_lamplonka_snaruji;
+        this.kod_lam_sn=kod_lam_sn;
+        this.svet_lamplonka_vnutri=svet_lamplonka_vnutri;
+        this.kod_lam_vn=kod_lam_vn;
+        this.kod_anod_sn=kod_anod_sn;
+        this.kod_anod_vn=kod_anod_vn;
+        this.contactnost_anod=contactnost_anod;
+        this.tip_anod=tip_anod;
+        this.sposob_anod=sposob_anod;
+        this.kod_nakleyki=kod_nakleyki;
+        this.nadpis_nakleyki=nadpis_nakleyki;
+        this.baza_profiley=baza_profiley;
+        this.gruppa_materialov=gruppa_materialov;
+        this.kratkiy_tekst=kratkiy_tekst;
+        this.sap_code_ruchnoy=sap_code_ruchnoy;
+        this.kratkiy_text_ruchnoy=kratkiy_text_ruchnoy;
+        this.comment=comment;
+        this.is_termo=is_termo;
+      
+    }
+    get_kratkiy_tekst(){
+        switch(this.id){
+            case 1:if(!this.is_termo){
+           
+                if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki ){
+                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'  ' +this.kod_nakleyki
+                }else{
+                    return 'XXXXXXXX'
+                }
+                }else{
+                    if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
+                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+'  ' +this.kod_nakleyki
+                    }else{
+                        return 'XXXXXXXX'
+                    }
+                }break;
+            case 2:if(!this.is_termo){
+
+                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki ){
+                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki
+                }else{
+                    return 'XXXXXXXX'
+                }
+                }else{
+        
+                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki ){
+                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki
+                    }else{
+                        return 'XXXXXXXX'
+                    }
+                }break;
+            case 3: if(!this.is_termo){
+                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
+                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki
+                }else{
+                    return 'XXXXXXXX'
+                }
+                }else{
+                
+                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
+                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki
+                    }else{
+                        return 'XXXXXXXX'
+                    }
+                }break;
+            case 4: if(!this.is_termo){
+                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki ){
+                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki
+                }else{
+                    return 'XXXXXXXX'
+                }
+                }else{
+                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki ){
+                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki
+                    }else{
+                        return 'XXXXXXXX'
+                    }
+                }break;
+            case 5:if(!this.is_termo){
+                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki){
+                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + '  ' +this.kod_nakleyki
+                }else{
+                    return 'XXXXXXXX'
+                }
+                }else{
+                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn){
+                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + '  ' +this.kod_nakleyki
+                    }else{
+                        return 'XXXXXXXX'
+                    }
+                }break;
+            case 6:if(!this.is_termo){
+                if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_nakleyki && this.contactnost_anod){
+                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn + '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki
+                }else{
+                    return 'XXXXXXXX'
+                }
+                }else{
+                    if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_anod_vn && this.kod_nakleyki && this.contactnost_anod){
+                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki
+                    }else{
+                        return 'XXXXXXXX'
+                    }
+        
+                }break;
+        }
+    }
+  }
+
+  
 text =""
 
 for (let i = 1; i <= 5; i++) {
@@ -980,170 +1145,6 @@ function svet_dekplonka_vnutri_selected(id,val){
     create_kratkiy_tekst(id);
 }
 
-class BasePokritiya{
-    constructor(
-        full=false,//done
-        id=NaN,//done
-        nazvaniye_system=NaN,//done
-        base_artikul=NaN,//done
-        dlina=NaN,//done
-        tip_pokritiya=NaN,//done
-        splav=NaN,//done
-        tip_zak=NaN,//done
-        combination=NaN,//done
-        brend_kraska_sn=NaN,//done
-        kod_kraska_sn=NaN,//done
-        brend_kraska_vn=NaN,//done
-        kod_kraska_vn=NaN,//done
-        kod_dekor_sn=NaN,//done
-        svet_dekplonka_snaruji=NaN,//done
-        kod_dekor_vn=NaN,//done
-        svet_dekplonka_vnutri=NaN,//done
-        svet_lamplonka_snaruji=NaN,//done
-        kod_lam_sn=NaN,//done
-        svet_lamplonka_vnutri=NaN,//done
-        kod_lam_vn=NaN,//done
-        kod_anod_sn=NaN,//done 1425
-        kod_anod_vn=NaN,//done
-        contactnost_anod=NaN,//done
-        tip_anod=NaN,//done
-        sposob_anod=NaN,//done
-        kod_nakleyki=NaN,//done
-        nadpis_nakleyki=NaN,
-        baza_profiley=NaN,
-        gruppa_materialov=NaN,
-        kratkiy_tekst=NaN,//done
-        sap_code_ruchnoy=NaN,//done
-        kratkiy_text_ruchnoy=NaN,//done
-        comment=NaN,
-        is_termo=false
-        ) {
-
-        this.full=full;
-        this.id=id;
-        this.nazvaniye_system=nazvaniye_system;
-        this.base_artikul=base_artikul;
-        this.dlina=dlina;
-        this.tip_pokritiya=tip_pokritiya;
-        this.splav=splav;
-        this.tip_zak=tip_zak;
-        this.combination=combination;
-        this.brend_kraska_sn=brend_kraska_sn;
-        this.kod_kraska_sn=kod_kraska_sn;
-        this.brend_kraska_vn=brend_kraska_vn;
-        this.kod_kraska_vn=kod_kraska_vn;
-        this.kod_dekor_sn=kod_dekor_sn;
-        this.svet_dekplonka_snaruji=svet_dekplonka_snaruji;
-        this.kod_dekor_vn=kod_dekor_vn;
-        this.svet_dekplonka_vnutri=svet_dekplonka_vnutri;
-        this.svet_lamplonka_snaruji=svet_lamplonka_snaruji;
-        this.kod_lam_sn=kod_lam_sn;
-        this.svet_lamplonka_vnutri=svet_lamplonka_vnutri;
-        this.kod_lam_vn=kod_lam_vn;
-        this.kod_anod_sn=kod_anod_sn;
-        this.kod_anod_vn=kod_anod_vn;
-        this.contactnost_anod=contactnost_anod;
-        this.tip_anod=tip_anod;
-        this.sposob_anod=sposob_anod;
-        this.kod_nakleyki=kod_nakleyki;
-        this.nadpis_nakleyki=nadpis_nakleyki;
-        this.baza_profiley=baza_profiley;
-        this.gruppa_materialov=gruppa_materialov;
-        this.kratkiy_tekst=kratkiy_tekst;
-        this.sap_code_ruchnoy=sap_code_ruchnoy;
-        this.kratkiy_text_ruchnoy=kratkiy_text_ruchnoy;
-        this.comment=comment;
-        this.is_termo=is_termo;
-      
-    }
-    get_kratkiy_tekst(){
-        switch(this.id){
-            case 1:if(!this.is_termo){
-           
-                if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki ){
-                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'  ' +this.kod_nakleyki
-                }else{
-                    return 'XXXXXXXX'
-                }
-                }else{
-                    if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
-                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+'  ' +this.kod_nakleyki
-                    }else{
-                        return 'XXXXXXXX'
-                    }
-                }break;
-            case 2:if(!this.is_termo){
-
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki ){
-                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki
-                }else{
-                    return 'XXXXXXXX'
-                }
-                }else{
-        
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki ){
-                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki
-                    }else{
-                        return 'XXXXXXXX'
-                    }
-                }break;
-            case 3: if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
-                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki
-                }else{
-                    return 'XXXXXXXX'
-                }
-                }else{
-                
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
-                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki
-                    }else{
-                        return 'XXXXXXXX'
-                    }
-                }break;
-            case 4: if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki ){
-                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki
-                }else{
-                    return 'XXXXXXXX'
-                }
-                }else{
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki ){
-                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki
-                    }else{
-                        return 'XXXXXXXX'
-                    }
-                }break;
-            case 5:if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki){
-                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + '  ' +this.kod_nakleyki
-                }else{
-                    return 'XXXXXXXX'
-                }
-                }else{
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn){
-                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + '  ' +this.kod_nakleyki
-                    }else{
-                        return 'XXXXXXXX'
-                    }
-                }break;
-            case 6:if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_nakleyki && this.contactnost_anod){
-                    return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn + '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki
-                }else{
-                    return 'XXXXXXXX'
-                }
-                }else{
-                    if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_anod_vn && this.kod_nakleyki && this.contactnost_anod){
-                        return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki
-                    }else{
-                        return 'XXXXXXXX'
-                    }
-        
-                }break;
-        }
-    }
-  }
 
 
 
