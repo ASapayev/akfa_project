@@ -325,7 +325,7 @@ def create_txt_for_1101(request):
                               else:
                                     component_name ='Компонент'
 
-                              польное_наименование_sap = 'Алюминиевый '+baza_profiey.product_description +', '+component_name +' '+artikul+', '+character_txt.surface_treatment+', Длина '+character_txt.length+' мм, Тип '+character_txt.alloy+'-'+character_txt.temper+' '+character_txt.print_view
+                              польное_наименование_sap = 'Алюминиевый '+baza_profiey.data['Product description - RUS'] +', '+component_name +' '+artikul+', '+character_txt.surface_treatment+', Длина '+character_txt.length+' мм, Тип '+character_txt.alloy+'-'+character_txt.temper+' '+character_txt.print_view
 
 
                               character_dict['Польное наименование SAP'].append(польное_наименование_sap)
