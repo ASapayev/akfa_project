@@ -433,14 +433,10 @@ for (let i = 1; i <= 5; i++) {
         </div>
     </td>
     <td >
-        <div class="input-group input-group-sm mb-1">
-            
-        </div>
+    <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='baza_profiley`+String(i)+`'></span>
     </td>
     <td >
-        <div class="input-group input-group-sm mb-1">
-           
-        </div>
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='group_materialov`+String(i)+`'>ALUGP</span>   
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
@@ -460,7 +456,7 @@ for (let i = 1; i <= 5; i++) {
     
     <td >
         <div class="input-group input-group-sm mb-1">
-           
+            <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
     </td>
     </tr>`
@@ -482,7 +478,7 @@ for (let i = 1; i <= 6; i++) {
             dataType: 'json',
             processResults: function(data){
                 return {results: $.map(data, function(item){
-                    return {id:item.id,text:item.data['Артикул'],system:item.data['Система'],combination:item.data['Комбинация'],code_nakleyka:item.data['Код наклейки']}
+                    return {id:item.id,text:item.data['Артикул'],system:item.data['Система'],combination:item.data['Комбинация'],code_nakleyka:item.data['Код наклейки'],baza_profiley:item.data['BAZA']}
                 })
             };
             }
@@ -513,10 +509,12 @@ for (let i = 1; i <= 6; i++) {
     var nazvaniye_system =$('.nazvaniye_system'+String(i));
     var combination = $('#combination'+String(i));
     var tip_pokritiya = $('#tip_pokritiya'+String(i));
+    var baza_profiley = $('#baza_profiley'+String(i));
     // tip_pokritiya.val('').change();
     tip_pokritiya.attr("disabled",false);
     nazvaniye_system.text(e.params.data.system);
     combination.text(e.params.data.combination)
+    baza_profiley.text(e.params.data.baza_profiley)
 
     var nakleyka_kode = e.params.data.code_nakleyka
     

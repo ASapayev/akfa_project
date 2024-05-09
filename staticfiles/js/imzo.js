@@ -461,9 +461,8 @@ for (let i = 1; i <= 5; i++) {
         </div>
     </td> 
     <td >
-        <div class="input-group input-group-sm mb-1">
         <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='group_materialov`+String(i)+`'>ALUGP</span>
-        </div>
+       
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
@@ -502,7 +501,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-           
+            <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
     </td>
     </tr>`
