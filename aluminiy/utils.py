@@ -1,6 +1,6 @@
 
-from .models import ArtikulComponent,RazlovkaObichniy,RazlovkaTermo
-from aluminiytermo.models import BazaProfiley
+from .models import RazlovkaObichniy,RazlovkaTermo
+
 import os
 from aluminiytermo.models import CharacteristicTitle
 from django.db.models import Q
@@ -268,8 +268,6 @@ def fabrikatsiya_sap_kod(sap_kod,length):
             new[i]=f'L{length}'
     return ' '.join(new)
 
-def do_exist(artikules):
-    return ArtikulComponent.objects.filter(artikul__in=artikules).count() == len(artikules)
 
 def create_folder(parent_dir,directory):
     path =os.path.join(parent_dir,directory)

@@ -77,22 +77,9 @@ class Characteristika(models.Model):
     updated_at =models.DateTimeField(auto_now=True)
 
 
-class CharUtilsOne(models.Model):
-    матрица =models.CharField(max_length=255,blank=True,null=True) 
-    артикул =models.CharField(max_length=255,blank=True,null=True) 
-    высота =models.CharField(max_length=255,blank=True,null=True) 
-    ширина =models.CharField(max_length=255,blank=True,null=True) 
-    высота_ширина =models.CharField(max_length=255,blank=True,null=True) 
-    systems =models.CharField(max_length=255,blank=True,null=True) 
-    created_at =models.DateTimeField(auto_now_add=True)
-    updated_at =models.DateTimeField(auto_now=True)
 
-class CharUtilsTwo(models.Model):
-    артикул =models.CharField(max_length=255,blank=True,null=True) 
-    полый_или_фасонный =models.CharField(max_length=255,blank=True,null=True) 
-    created_at =models.DateTimeField(auto_now_add=True)
-    updated_at =models.DateTimeField(auto_now=True)
-    
+
+
     
 class CharUtilsThree(models.Model):
     bux_name_rus =models.CharField(max_length=255,blank=True,null=True) 
@@ -133,16 +120,7 @@ class CharacteristicTitle(models.Model):
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
     
-class BazaProfiley(models.Model):
-    артикул =models.CharField(max_length=255,blank=True,null=True)
-    серия =models.CharField(max_length=255,blank=True,null=True)
-    старый_код =models.CharField(max_length=255,blank=True,null=True)
-    компонент =models.CharField(max_length=255,blank=True,null=True)
-    type_combination =models.CharField(max_length=100,blank=True,null=True)
-    product_description =models.CharField(max_length=255,blank=True,null=True)
-    link = models.CharField(max_length=400,blank=True,null=True)
-    created_at =models.DateTimeField(auto_now_add=True)
-    updated_at =models.DateTimeField(auto_now=True)
+
 
     
 class NakleykaCode(models.Model):

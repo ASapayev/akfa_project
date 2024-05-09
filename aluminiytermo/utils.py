@@ -1,5 +1,5 @@
 import os
-from .models import Characteristika,CharacteristicTitle,NakleykaCode,BazaProfiley,CharUtilsOne,CharUtilsTwo,CharUtilsThree
+from .models import Characteristika,CharacteristicTitle,NakleykaCode,CharUtilsThree
 import random
 from django.db.models import Count,Q
 from datetime import datetime
@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101,LGORT_1101,HEADER2,LGORT_1301,HEADER_1301
 from django.shortcuts import render
-from aluminiy.models import ArtikulComponent,LengthOfProfile,RazlovkaTermo,AluProfilesData
+from aluminiy.models import LengthOfProfile,RazlovkaTermo,AluProfilesData
 from datetime import datetime
 import math
 import zipfile

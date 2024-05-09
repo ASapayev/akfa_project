@@ -2,14 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
-class ArtikulComponent(models.Model):
-  artikul = models.CharField(max_length=250,blank=True,null=True)
-  component =models.CharField(max_length=250,blank=True,null=True)
-  system = models.CharField(max_length=100,blank=True,null=True)
-  combination = models.CharField(max_length=100,blank=True,null=True)
-  code_nakleyka = models.CharField(max_length=100,blank=True,null=True)
-  baza_profile = models.CharField(max_length=50,blank=True,null=True)
   
 
   

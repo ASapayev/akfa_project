@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.http import JsonResponse
-from aluminiy.models import ArtikulComponent
+from aluminiy.models import AluProfilesData
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc
 from norma.models import Nakleyka
 from .models import Anod,Order,OrderDetail
@@ -453,9 +453,9 @@ def imzo_artikul_list(request):
     
     term = request.GET.get('term',None)
     if term:
-        artikules = ArtikulComponent.objects.filter(artikul__icontains = term).values('id','artikul','system','combination','code_nakleyka')
+        artikules = AluProfilesData.objects.filter(artikul__icontains = term).values('id','artikul','system','combination','code_nakleyka')
     else:
-        artikules = ArtikulComponent.objects.all()[:50].values('id','artikul','system','combination','code_nakleyka')
+        artikules = AluProfilesData.objects.all()[:50].values('id','artikul','system','combination','code_nakleyka')
     return JsonResponse(list(artikules),safe=False)
 
 
