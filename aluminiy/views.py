@@ -3104,6 +3104,7 @@ def razlovka_save(request):
 def artikul_component(request):
       data = request.POST.get('data',None)
       datas = json.loads(data)
+      print(datas)
       if data:
             for dat in datas:
                   print(dat['Артикул'])
