@@ -362,7 +362,7 @@
                             {{ forloop.counter }}
                         </td>
                         <td class ='new_char_five' ><input type='text'  id ='system{{forloop.counter}}' ></td>
-                        <td class ='new_char_five' ><input type='text'  id ='artikul{{forloop.counter}}' value='{{char}}'></td>
+                        <td class ='new_char_five' ><input type='text'  id ='artikul{{forloop.counter}}' value='{{char.0}}' data-status="{{char.1}}"></td>
                         <td class ='new_char_five' ><input type='text'  id ='komponent{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='description{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='stariy_kod{{forloop.counter}}' ></td>
@@ -757,7 +757,7 @@
             'Тип профиля' : tip_profilya, 
             'Высота' : visota, 
             'Ширина' : shirina, 
-            'П/Ф' : pol_fason, 
+            'Полый и Фасонный' : pol_fason, 
             'Без наклейки' : bez_nakleyki, 
             'Код наклейки' : kod_nakleyki, 
             'Удел.вес за м' : udal_ves, 

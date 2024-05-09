@@ -6792,7 +6792,7 @@ def check_for_correct(items,filename='termo'):
             artikle =row['Артикул']
             if not AluProfilesData.objects.filter(data__Артикул__icontains =artikle).exists():
                 if artikle not in aluprofile:
-                    aluprofile.append(artikle)
+                    aluprofile.append([artikle,'new'])
             else:
                 bazaprof = AluProfilesData.objects.filter(data__Артикул__icontains =artikle)[:1].get()
                 for key, val in bazaprof.data.items():
@@ -6800,7 +6800,7 @@ def check_for_correct(items,filename='termo'):
                         continue
                     else:
                         if val=='' and artikle not in aluprofile:
-                            aluprofile.append(artikle)
+                            aluprofile.append([artikle,'old'])
             
                     
         if  filename =='termo':   
@@ -6808,7 +6808,7 @@ def check_for_correct(items,filename='termo'):
                 artikle =row['Компонент']
                 if not AluProfilesData.objects.filter(data__Компонент__icontains =artikle).exists():
                     if artikle not in aluprofile:
-                        aluprofile.append(artikle)
+                        aluprofile.append([artikle,'new'])
                 else:
                     bazaprof = AluProfilesData.objects.filter(Q(data__Артикул__icontains =artikle)|Q(data__Компонент=artikle))[:1].get()
                     for key, val in bazaprof.data.items():
@@ -6816,7 +6816,7 @@ def check_for_correct(items,filename='termo'):
                             continue
                         else:
                             if val=='' and artikle not in aluprofile:
-                                aluprofile.append(artikle)
+                                aluprofile.append([artikle,'old'])
                     
     correct = True
     if len(aluprofile) >0:
