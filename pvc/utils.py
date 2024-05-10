@@ -919,7 +919,7 @@ def characteristika_created_txt_create(datas,order_id):
         elif i == 1 :
             ed_iz3 += [j for j in dlina_title ]
         elif i == 2 :
-            ed_iz3 += [ str(float(netto[j])*1000).replace('.0','') if (float(netto[j])*10000000)%10000 == 0 else str(float(netto[j])*1000).replace('.0','') for j in range(0,len(sap_code_title))]
+            ed_iz3 += [ (round(float(netto[j])*1000))  for j in range(0,len(sap_code_title))]
             
     
     for i in ED_IZM:    
