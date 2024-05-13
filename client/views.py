@@ -2,7 +2,6 @@ from django.shortcuts import render,get_object_or_404,redirect
 from django.http import JsonResponse
 from aluminiy.models import AluProfilesData,AluFile
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc
-from norma.models import Nakleyka
 from .models import Anod,Order,OrderDetail
 from django.contrib.auth.decorators import login_required
 import time
@@ -19,7 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 import websocket
 from django_eventstream import send_event
 import pandas as pd
-from aluminiytermo.models import ArtikulComponent,AluFileTermo
+from aluminiytermo.models import ArtikulComponent,AluFileTermo,NakleykaCode
 import os
 from config.settings import MEDIA_ROOT
 from datetime import datetime
@@ -724,7 +723,12 @@ def shablon_imzo_detail(request):
         }
         return render(request,'client/created_link.html',context)
     else:
-        return render(request,'client/shablonlar/aluminiy_imzo.html')
+        # nakleyka_list = [{'name':nak.name,'nadpis':nak.nadpis} for  nak in NakleykaCode.objects.all()]
+        nakleyka_list = NakleykaCode.objects.all()
+        context ={
+            'nakleyka_list': nakleyka_list
+        }
+        return render(request,'client/shablonlar/aluminiy_imzo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
@@ -805,9 +809,9 @@ def nakleyka_list(request):
     
     term = request.GET.get('term',None)
     if term:
-        nakleyka_l = Nakleyka.objects.filter(код_наклейки__icontains = term).distinct("код_наклейки").values('id','код_наклейки')
+        nakleyka_l = NakleykaCode.objects.filter(name__icontains = term).distinct("name").values('id','name','nadpis')
     else:
-        nakleyka_l = Nakleyka.objects.all().distinct("код_наклейки").values('id','код_наклейки')
+        nakleyka_l = NakleykaCode.objects.all().distinct("name").values('id','name','nadpis')
         
     return JsonResponse(list(nakleyka_l),safe=False)
 

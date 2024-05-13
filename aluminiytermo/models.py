@@ -125,6 +125,7 @@ class CharacteristicTitle(models.Model):
     
 class NakleykaCode(models.Model):
     name = models.CharField(max_length=255,blank=True,null=True)
+    nadpis = models.CharField(max_length=255,blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

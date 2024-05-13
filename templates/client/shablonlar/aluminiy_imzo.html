@@ -81,9 +81,16 @@
                 </form>
             </section>
 
-
-           
+            <div  style="display: none;">
+                <select class="form-select" style="color: black; width: 80px; display: none;" id ='nakleyka_list'>
+                    <option value=""></option>
+                    {% for nak in nakleyka_list %}
+                    <option value="{{nak.name}}" data-nadpis="{{nak.nadpis}}">{{nak.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
         </main>
+
         
 {%endblock%}
 
