@@ -733,12 +733,20 @@ def shablon_imzo_detail(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_savdo_detail(request):
-    return render(request,'client/shablonlar/aluminiy_savdo.html')
+    nakleyka_list = NakleykaCode.objects.all()
+    context ={
+        'nakleyka_list': nakleyka_list
+    }
+    return render(request,'client/shablonlar/aluminiy_savdo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_export_detail(request):
-    return render(request,'client/shablonlar/aluminiy_export.html')
+    nakleyka_list = NakleykaCode.objects.all()
+    context ={
+        'nakleyka_list': nakleyka_list
+    }
+    return render(request,'client/shablonlar/aluminiy_export.html',context)
 
 
 @login_required(login_url='/accounts/login/')
