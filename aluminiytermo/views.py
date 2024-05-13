@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import pandas as pd
-from .models import AluFileTermo,AluminiyProductTermo,CharUtilsThree,CharUtilsFour,CharacteristicTitle,Characteristika,CharacteristikaFile,MessageFeedBack
+from .models import AluFileTermo,AluminiyProductTermo,CharUtilsThree,CharUtilsFour,CharacteristicTitle,Characteristika,CharacteristikaFile,MessageFeedBack,ArtikulComponent
 from norma.models import Norma,NormaExcelFiles
 from aluminiy.models import AluminiyProduct,RazlovkaTermo,LengthOfProfile,ExchangeValues,Price,AluProfilesData
 from .forms import FileFormTermo,FileFormChar
@@ -26,6 +26,7 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from order.models import Order
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
+from aluminiy.forms import FileFormBazaprofiley
 
 now = datetime.now()
 
@@ -489,11 +490,6 @@ def downloading_characteristika(request):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
 def  create_characteristika_force(request,id):
-      termo =request.GET.get('termo',None)
-      if termo:
-            product_add_second_termo(id)
-      else:
-            product_add_second_simple(id)
       return redirect('home')
 
 # Create your views here.
@@ -1084,7 +1080,39 @@ def update_char_title(request,id):
             }
 
       return render(request,'universal/generated_files.html',context)
-      
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
+def full_artikul_component(request):
+      if request.method == 'POST':
+            data = request.POST.copy()
+            form = FileFormBazaprofiley(data, request.FILES)
+            if form.is_valid():
+                  form_file = form.save()
+                  file = form_file.file
+                  path =f'{MEDIA_ROOT}/{file}'
+                  
+                  df = pd.read_excel(path)
+                  df = df.astype(str)
+                  df = df.replace('nan','0')
+                  df = df.replace('0.0','0')
+                  
+                  columns = df.columns
+                  print(columns)
+            
+                  ArtikulComponent(data ={'columns':list(columns)}).save()
+                  for key, row in df.iterrows():
+                        norma_dict = {}
+                        for col in columns:
+                              norma_dict[col]=row[col]
+                        ArtikulComponent(data =norma_dict).save()
+
+            return redirect('list_bazaprofiley')
+      else:
+            return render(request,'norma/benkam/main.html')
+
+
 
       
 

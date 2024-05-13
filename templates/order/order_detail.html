@@ -366,12 +366,23 @@
                         <td class ='new_char_five' ><input type='text'  id ='komponent{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='description{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='stariy_kod{{forloop.counter}}' ></td>
-                        <td class ='new_char_five' ><input type='text'  id ='kombinatsiya{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' >
+                          <select class="form-select" aria-label=""    id ='kombinatsiya{{forloop.counter}}'  >
+                            <option value="" ></option>
+                            <option  value="Без термомоста">Без термомоста</option>
+                            <option value="С термомостом">С термомостом</option>
+                          </select>
                         <td class ='new_char_five' ><input type='text'  id ='tip_combination{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='tip_profilya{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='visota{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='shirina{{forloop.counter}}' ></td>
-                        <td class ='new_char_five' ><input type='text'  id ='pol_fason{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' >
+                          <select class="form-select" aria-label=""    id ='pol_fason{{forloop.counter}}'  >
+                            <option value="" ></option>
+                            <option  value="Полый">Полый</option>
+                            <option value="Фасонный">Фасонный</option>
+                          </select>
+                        </td>
                         <td class ='new_char_five' ><input type='text'  id ='bez_nakleyki{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='kod_nakleyki{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='udal_ves{{forloop.counter}}' ></td>

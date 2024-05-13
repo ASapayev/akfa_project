@@ -153,3 +153,8 @@ class MessageFeedBack(models.Model):
     def decode_id(self, id):
         import base64
         return base64.b64decode(id)
+    
+class ArtikulComponent(models.Model):
+    data = models.JSONField(null=True,blank=True,default=dict)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)

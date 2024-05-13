@@ -31,9 +31,12 @@ urlpatterns = [
     path('client-anod-list',views.anod_list,name='client_anod_list'),
 
     ################ Order ###########
+
         ######moderator#####
     path('order-list-check',views.order_list_for_moderator,name='order_list_for_moderator'),
     path('order-check/<int:id>',views.moderator_check,name='order_check'),
+    path('order-convert/<int:id>',views.moderator_convert,name='order_convert'),
+    
 
 
         #######customer######
