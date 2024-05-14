@@ -628,13 +628,13 @@ for (let i = 1; i <= 6; i++) {
     var combination = $('#combination'+String(i));
     var tip_pokritiya = $('#tip_pokritiya'+String(i));
     var baza_profiley = $('#baza_profiley'+String(i));
+    baza_profiley.text(e.params.data.baza_profiley)
     
     
     // tip_pokritiya.val('').change();
     tip_pokritiya.attr("disabled",false);
     nazvaniye_system.text(e.params.data.system);
     combination.text(e.params.data.combination)
-    baza_profiley.text(e.params.data.baza_profiley)
 
     var nakleyka_kode = e.params.data.code_nakleyka
     
@@ -2019,6 +2019,8 @@ function add_column(){
         var nazvaniye_system =$('.nazvaniye_system'+String(i));
         var combination = $('#combination'+String(i));
         var tip_pokritiya = $('#tip_pokritiya'+String(i));
+        var baza_profiley = $('#baza_profiley'+String(i));
+        baza_profiley.text(e.params.data.baza_profiley)
         // tip_pokritiya.val('').change();
         if(select_val!=''){
 
@@ -2043,34 +2045,34 @@ function add_column(){
         tip_zakalyonnosti.attr('required',true)
 
         var nakleyka = $('#nakleyka'+String(i))
-    var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i))
-   
-    if (nakleyka_kode =='NT1'){
-        nakleyka.css('display','block')
-        nakleyka.val('NT1')
-        nadpis_nakleyki.text('Без наклейки')
-    }
-    else if( nakleyka_kode !=''){
-        var nakleyka_codd = $('#nakleyka_codd'+String(i))
-        nakleyka_codd.text(nakleyka_kode)
-        nakleyka.css('display','block')
-        nakleyka.val(nakleyka_kode)
-        var selectedOption = $('#nakleyka'+String(i)).find('option:selected');
+        var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i))
+    
+        if (nakleyka_kode =='NT1'){
+            nakleyka.css('display','block')
+            nakleyka.val('NT1')
+            nadpis_nakleyki.text('Без наклейки')
+        }
+        else if( nakleyka_kode !=''){
+            var nakleyka_codd = $('#nakleyka_codd'+String(i))
+            nakleyka_codd.text(nakleyka_kode)
+            nakleyka.css('display','block')
+            nakleyka.val(nakleyka_kode)
+            var selectedOption = $('#nakleyka'+String(i)).find('option:selected');
 
-        var nadpisValue = selectedOption.data('nadpis');
-        nadpis_nakleyki.text(nadpisValue)
+            var nadpisValue = selectedOption.data('nadpis');
+            nadpis_nakleyki.text(nadpisValue)
 
-    }        
-    else{
+        }        
+        else{
 
-        nakleyka.val('')
-    }
-        
-        
-        // console.log(e.params.data.system)
-        });
+            nakleyka.val('')
+        }
+            
+            
+            // console.log(e.params.data.system)
+            });
 
-    }
+        }
     // clear_artikul(sizeee + 1);
 }
 

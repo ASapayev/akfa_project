@@ -381,8 +381,35 @@ def json_to_excel(datas):
                 df_termo['Длина при выходе из пресса'][k_termo] = ''
                 k_termo += 1
                 lenth_of_component = ArtikulComponent.objects.filter(data__artikul =data['base_artikul']).count()
+
+                
+            
+           
+               
+           
+                 
+
                 for i in range(1,lenth_of_component+1):
                     if i == 1:
+                        print(data['id'])
+                        if data['id'] ==1:
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' + data['kod_kraska_sn'] + ' ' + data['kod_nakleyki']
+                                
+                        elif data['id'] ==2:    
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_sn'] + data['kod_kraska_sn'] + ' ' + data['kod_nakleyki']
+                        
+                        elif data['id'] ==3:    
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_sn'] + data['kod_kraska_sn'] + ' ' + data['kod_nakleyki']
+                    
+                        elif data['id'] ==4:    
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_sn'] + data['kod_kraska_sn'] + '_' +data['kod_lam_sn']+ ' ' + data['kod_nakleyki']
+                        
+                        elif data['id'] ==5:    
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_sn'] + data['kod_kraska_sn'] + '_' +data['kod_dekor_sn']+ ' ' + data['kod_nakleyki']
+                        
+                        elif data['id'] ==6:    
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['kod_anod_sn'] +' ' +data['contactnost_anod']+ ' ' + data['kod_nakleyki']
+            
                         component = ArtikulComponent.objects.get(data__artikul =data['base_artikul'],data__counter = '1')
                         df_termo['Название системы'][k_termo] = data['nazvaniye_system']
                         df_termo['Артикул'][k_termo] = ''
@@ -413,12 +440,30 @@ def json_to_excel(datas):
                         df_termo['Надпись наклейки'][k_termo] = data['nadpis_nakleyki']
                         df_termo['База профилей'][k_termo] = data['baza_profiley']
                         df_termo['Группа материалов'][k_termo] = data['gruppa_materialov']
-                        df_termo['Краткий текст товара'][k_termo] = data['kratkiy_tekst']
+                        df_termo['Краткий текст товара'][k_termo] = kratkiy_text_component
                         df_termo['SAP Код вручную (вставится вручную)'][k_termo] = ''
                         df_termo['Краткий текст товара (вставится вручную)'][k_termo] = ''
                         df_termo['Длина при выходе из пресса'][k_termo] = ''
                         k_termo += 1
                     if i == 2:
+                        if data['id'] ==1:
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' + data['kod_kraska_vn'] + ' ' + data['kod_nakleyki']
+                                
+                        elif data['id'] ==2:    
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_vn']+ data['kod_kraska_vn'] + ' ' + data['kod_nakleyki']
+                        
+                        elif data['id'] ==3:    
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' + data['brend_kraska_vn']+ data['kod_kraska_vn'] + ' ' + data['kod_nakleyki']
+                    
+                        elif data['id'] ==4:    
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_vn']+ data['kod_kraska_vn'] +'_' +data['kod_lam_vn']+ ' ' + data['kod_nakleyki']
+                        
+                        elif data['id'] ==5:    
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_vn']+ data['kod_kraska_vn'] +'_' +data['kod_dekor_vn']+ ' ' + data['kod_nakleyki']
+                        
+                        elif data['id'] ==6:    
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['kod_anod_vn'] + ' ' +data['contactnost_anod']+ ' ' + data['kod_nakleyki']
+            
                         component = ArtikulComponent.objects.get(data__artikul =data['base_artikul'],data__counter = '2')
                         df_termo['Название системы'][k_termo] = data['nazvaniye_system']
                         df_termo['Артикул'][k_termo] = ''
@@ -449,7 +494,7 @@ def json_to_excel(datas):
                         df_termo['Надпись наклейки'][k_termo] = data['nadpis_nakleyki']
                         df_termo['База профилей'][k_termo] = data['baza_profiley']
                         df_termo['Группа материалов'][k_termo] = data['gruppa_materialov']
-                        df_termo['Краткий текст товара'][k_termo] = data['kratkiy_tekst']
+                        df_termo['Краткий текст товара'][k_termo] = kratkiy_text_component
                         df_termo['SAP Код вручную (вставится вручную)'][k_termo] = ''
                         df_termo['Краткий текст товара (вставится вручную)'][k_termo] = ''
                         df_termo['Длина при выходе из пресса'][k_termo] = ''
@@ -491,6 +536,8 @@ def json_to_excel(datas):
     del df_simple['counter']
     del df_termo['counter']
     return df_simple,df_termo,correct,artikul_list
+
+
 
 @login_required(login_url='/accounts/login/')
 @moderator_only

@@ -3724,8 +3724,8 @@ function add_column(){
                 dataType: 'json',
                 processResults: function(data){
                     return {results: $.map(data, function(item){
-                        return {id:item.id,text:item.artikul,system:item.system,combination:item.combination,code_nakleyka:item.code_nakleyka}
-                    })
+                        return {id:item.id,text:item.data['Артикул'],system:item.data['Система'],combination:item.data['Комбинация'],code_nakleyka:item.data['Код наклейки'],baza_profiley:item.data['BAZA']}
+               })
                 };
                 }
             }
@@ -3738,7 +3738,7 @@ function add_column(){
             type: 'GET',
             url: "/client/imzo-artikul-list"
         }).then(function (data) {
-            var option = new Option(data.artikul, data.id, true, true);
+            var option = new Option(data.data['Артикул'], data.id, true, true);
             artikulSelect.append(option).trigger('change');
         
             artikulSelect.trigger({
@@ -3756,6 +3756,8 @@ function add_column(){
         var nazvaniye_system =$('.nazvaniye_system'+String(i));
         var combination = $('#combination'+String(i));
         var tip_pokritiya = $('#tip_pokritiya'+String(i));
+        var baza_profiley = $('#baza_profiley'+String(i));
+        baza_profiley.text(e.params.data.baza_profiley)
         // tip_pokritiya.val('').change();
         console.log(tip_pokritiya)
         if(select_val!=''){
@@ -3772,9 +3774,7 @@ function add_column(){
         
         
         
-        var nakleyka_nt1 = $('#nakleyka_nt'+String(i))
-        var nakleyka_org =$('#nakleyka_org'+String(i));
-        var nakleyka_select = $('#nakleyka_select'+String(i));
+        
 
         var length = $('#length'+String(i));
         length.attr('required',true)
@@ -3783,32 +3783,36 @@ function add_column(){
         var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(i));
         tip_zakalyonnosti.attr('required',true)
 
-        nakleyka_org.text("")
+        var nakleyka = $('#nakleyka'+String(i))
+        var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i))
+    
         if (nakleyka_kode =='NT1'){
-            nakleyka_nt1.css('display','block')
-            nakleyka_org.css('display','none')
-            nakleyka_select.css('display','none')
+            nakleyka.css('display','block')
+            nakleyka.val('NT1')
+            nadpis_nakleyki.text('Без наклейки')
         }
         else if( nakleyka_kode !=''){
-            nakleyka_org.text(nakleyka_kode)
-            nakleyka_nt1.css('display','none')
-            nakleyka_org.css('display','block')
-            nakleyka_select.css('display','none')
+            var nakleyka_codd = $('#nakleyka_codd'+String(i))
+            nakleyka_codd.text(nakleyka_kode)
+            nakleyka.css('display','block')
+            nakleyka.val(nakleyka_kode)
+            var selectedOption = $('#nakleyka'+String(i)).find('option:selected');
+
+            var nadpisValue = selectedOption.data('nadpis');
+            nadpis_nakleyki.text(nadpisValue)
+
         }        
         else{
-            nakleyka_nt1.css('display','none')
-            nakleyka_org.css('display','none')
-            nakleyka_select.css('display','block')
-            nakleyka_select.attr('required',true)
-            get_nakleyka(String(i))
-        }
-        
-        
-        
-        // console.log(e.params.data.system)
-        });
 
-    }
+            nakleyka.val('')
+        }
+            
+            
+            
+            // console.log(e.params.data.system)
+            });
+
+        }
     // clear_artikul(sizeee + 1);
 }
 
