@@ -67,9 +67,9 @@ class BasePokritiya{
             case 1: if(this.is_iklyuch){
                 if(this.dlina && this.kod_svet_zames && this.kod_nakleyki){
                     if(this.goods_group && this.sena && this.klaes_id){
-                        return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' +this.kod_nakleyki,'accept':true} 
+                        return {'text':this.artikul + ' '+ this.kod_svet_zames + ' L' + this.dlina +' ' +this.kod_nakleyki,'accept':true} 
                     }else{
-                        return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  ' +this.kod_nakleyki,'accept':false} 
+                        return {'text':this.artikul + ' '+ this.kod_svet_zames + ' L' + this.dlina +' ' +this.kod_nakleyki,'accept':false} 
     
                     }
         
@@ -81,9 +81,9 @@ class BasePokritiya{
         
                     if(this.kod_svet_rezini && this.dlina && this.kod_svet_zames && this.kod_nakleyki){
                         if(this.goods_group && this.sena && this.klaes_id){
-                            return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':true}
+                            return {'text':this.artikul + ' '+ this.kod_svet_zames + ' L' + this.dlina +' '+this.kod_svet_rezini +' ' +this.kod_nakleyki,'accept':true}
                         }else{
-                            return {'text':this.artikul + '  '+ this.kod_svet_zames + ' L' + this.dlina +'  '+this.kod_svet_rezini +'  ' +this.kod_nakleyki,'accept':false}
+                            return {'text':this.artikul + ' '+ this.kod_svet_zames + ' L' + this.dlina +' '+this.kod_svet_rezini +' ' +this.kod_nakleyki,'accept':false}
         
                         }
             
@@ -98,10 +98,10 @@ class BasePokritiya{
                     console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'isklyuch1')
                     if(this.goods_group && this.sena && this.klaes_id){
                         console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'isklyuch2')
-                        return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_nakleyki,'accept':true} 
+                        return {'text':this.artikul + ' '+this.kod_svet_zames + ' L' + this.dlina +' ' + this.kod_lam_sn+'/'+this.kod_lam_vn + ' '+this.kod_nakleyki,'accept':true} 
                     }else{
                         console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'isklyuch3')
-                        return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_nakleyki,'accept':false} 
+                        return {'text':this.artikul + ' '+this.kod_svet_zames + ' L' + this.dlina +' ' + this.kod_lam_sn+'/'+this.kod_lam_vn + ' '+this.kod_nakleyki,'accept':false} 
                     }
         
                 }else{
@@ -113,10 +113,10 @@ class BasePokritiya{
                         console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'ee1')
                         if(this.goods_group && this.sena && this.klaes_id){
                             console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'ffsdfs33333sfffff')
-                            return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_svet_rezini +'  '+this.kod_nakleyki,'accept':true} 
+                            return {'text':this.artikul + ' '+this.kod_svet_zames + ' L' + this.dlina +' ' + this.kod_lam_sn+'/'+this.kod_lam_vn + ' '+this.kod_svet_rezini +' '+this.kod_nakleyki,'accept':true} 
                         }else{
                             console.log(this.dlina , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki , this.kod_svet_zames,this.kod_svet_rezini,'77777777')
-                            return {'text':this.artikul + '  '+this.kod_svet_zames + ' L' + this.dlina +'  ' + this.kod_lam_sn+'/'+this.kod_lam_vn + '  '+this.kod_svet_rezini +'  '+this.kod_nakleyki,'accept':false} 
+                            return {'text':this.artikul + ' '+this.kod_svet_zames + ' L' + this.dlina +' ' + this.kod_lam_sn+'/'+this.kod_lam_vn + ' '+this.kod_svet_rezini +' '+this.kod_nakleyki,'accept':false} 
                         }
             
                     }else{

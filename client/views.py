@@ -391,24 +391,23 @@ def json_to_excel(datas):
 
                 for i in range(1,lenth_of_component+1):
                     if i == 1:
-                        print(data['id'])
                         if data['id'] ==1:
-                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' + data['kod_kraska_sn'] + ' ' + data['kod_nakleyki']
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L' + data['dlina'] + ' ' + data['kod_kraska_sn'] + ' ' + data['kod_nakleyki']
                                 
                         elif data['id'] ==2:    
-                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_sn'] + data['kod_kraska_sn'] + ' ' + data['kod_nakleyki']
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L' + data['dlina'] + ' ' +data['brend_kraska_sn'] + data['kod_kraska_sn'] + ' ' + data['kod_nakleyki']
                         
                         elif data['id'] ==3:    
-                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_sn'] + data['kod_kraska_sn'] + ' ' + data['kod_nakleyki']
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L' + data['dlina'] + ' ' +data['brend_kraska_sn'] + data['kod_kraska_sn'] + ' ' + data['kod_nakleyki']
                     
                         elif data['id'] ==4:    
-                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_sn'] + data['kod_kraska_sn'] + '_' +data['kod_lam_sn']+ ' ' + data['kod_nakleyki']
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L' + data['dlina'] + ' ' +data['brend_kraska_sn'] + data['kod_kraska_sn'] + '_' +data['kod_lam_sn']+ ' ' + data['kod_nakleyki']
                         
                         elif data['id'] ==5:    
-                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_sn'] + data['kod_kraska_sn'] + '_' +data['kod_dekor_sn']+ ' ' + data['kod_nakleyki']
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L' + data['dlina'] + ' ' +data['brend_kraska_sn'] + data['kod_kraska_sn'] + '_' +data['kod_dekor_sn']+ ' ' + data['kod_nakleyki']
                         
                         elif data['id'] ==6:    
-                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['kod_anod_sn'] +' ' +data['contactnost_anod']+ ' ' + data['kod_nakleyki']
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L' + data['dlina'] + ' ' +data['kod_anod_sn'] +' ' +data['contactnost_anod']+ ' ' + data['kod_nakleyki']
             
                         component = ArtikulComponent.objects.get(data__artikul =data['base_artikul'],data__counter = '1')
                         df_termo['Название системы'][k_termo] = data['nazvaniye_system']
@@ -447,22 +446,22 @@ def json_to_excel(datas):
                         k_termo += 1
                     if i == 2:
                         if data['id'] ==1:
-                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' + data['kod_kraska_vn'] + ' ' + data['kod_nakleyki']
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L' + data['dlina'] + ' ' + data['kod_kraska_vn'] + ' ' + data['kod_nakleyki']
                                 
                         elif data['id'] ==2:    
-                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_vn']+ data['kod_kraska_vn'] + ' ' + data['kod_nakleyki']
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L' + data['dlina'] + ' ' +data['brend_kraska_vn']+ data['kod_kraska_vn'] + ' ' + data['kod_nakleyki']
                         
                         elif data['id'] ==3:    
-                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' + data['brend_kraska_vn']+ data['kod_kraska_vn'] + ' ' + data['kod_nakleyki']
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L' + data['dlina'] + ' ' + data['brend_kraska_vn']+ data['kod_kraska_vn'] + ' ' + data['kod_nakleyki']
                     
                         elif data['id'] ==4:    
-                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_vn']+ data['kod_kraska_vn'] +'_' +data['kod_lam_vn']+ ' ' + data['kod_nakleyki']
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L' + data['dlina'] + ' ' +data['brend_kraska_vn']+ data['kod_kraska_vn'] +'_' +data['kod_lam_vn']+ ' ' + data['kod_nakleyki']
                         
                         elif data['id'] ==5:    
-                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['brend_kraska_vn']+ data['kod_kraska_vn'] +'_' +data['kod_dekor_vn']+ ' ' + data['kod_nakleyki']
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L' + data['dlina'] + ' ' +data['brend_kraska_vn']+ data['kod_kraska_vn'] +'_' +data['kod_dekor_vn']+ ' ' + data['kod_nakleyki']
                         
                         elif data['id'] ==6:    
-                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L ' + data['dlina'] + ' ' +data['kod_anod_vn'] + ' ' +data['contactnost_anod']+ ' ' + data['kod_nakleyki']
+                            kratkiy_text_component = data['splav'] + data['tip_zak'] + ' L' + data['dlina'] + ' ' +data['kod_anod_vn'] + ' ' +data['contactnost_anod']+ ' ' + data['kod_nakleyki']
             
                         component = ArtikulComponent.objects.get(data__artikul =data['base_artikul'],data__counter = '2')
                         df_termo['Название системы'][k_termo] = data['nazvaniye_system']
