@@ -2811,8 +2811,12 @@ function add_column(){
     var sizeee = $('#table-artikul tr').length;
     
     for (let i = sizeee + 1; i < sizeee+2; i++) {
-        text +=`
-        <tr id='table_tr` +String(i)+`' >
+        nakleyki = nakleyka_list.replace('nakleyka_list',"nakleyka"+String(i))
+   
+    nakleyki = nakleyki.replace('onchange=""','onchange="create_kratkiy_tekst('+String(i)+')"')
+   
+    text +=`
+    <tr id='table_tr` +String(i)+`' >
                                 
     <td >
         <div class="input-group input-group-sm mb-1">
@@ -2833,6 +2837,7 @@ function add_column(){
     <td >
         <div class="input-group input-group-sm mb-1">
             <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " disabled id="artikul`+String(i)+`" onchange='clear_artikul(`+String(i)+`)'></select>
+            <span style='display:none' id ='nakleyka_codd` +String(i)+`'></span>
         </div>
     </td>
     
@@ -3061,30 +3066,22 @@ function add_column(){
         </div>
         </div>
     </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
-        <span id='nakleyka_nt`+String(i)+`' style='display:none;padding-left:35%'>NT1</span>
-        <span id='nakleyka_org`+String(i)+`' style='display:none;padding-left:35%'></span>
-        <div id='nakleyka_select`+String(i)+`' style='display:none;padding-left:35%'>
-            <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
-        </div>
-        </div>
+    <td >`
+    text +=nakleyki
+
+    text += `
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-            
+            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='nadpis_nakleyki`+String(i)+`'></span>
         </div>
     </td>
     <td >
-        <div class="input-group input-group-sm mb-1">
-            
-        </div>
+    <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='baza_profiley`+String(i)+`'></span>
     </td>
     
     <td >
-        <div class="input-group input-group-sm mb-1">
-            
-        </div>
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='gruppa_materialov`+String(i)+`'>ALUGP</span>   
     </td> 
     <td >
         <div class="input-group input-group-sm mb-1">
@@ -3106,7 +3103,7 @@ function add_column(){
     
     <td >
         <div class="input-group input-group-sm mb-1">
-           
+            <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
     </td>
     <td >
@@ -3203,7 +3200,7 @@ function add_column(){
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value="Aldoks">Aldoks</option>
             <option value="Стандарт">Стандарт</option>
@@ -3222,7 +3219,7 @@ function add_column(){
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
             <option value='Otvetka 153 (oq)'>Otvetka 153 (oq)</option>
@@ -3631,7 +3628,7 @@ function add_column(){
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option  value="Штука">Штука</div>
             <option  value="Килограмм">Килограмм</div>
@@ -3659,7 +3656,7 @@ function add_column(){
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`'  required>
+        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option vlaue="Штука">Штука</div>
             <option vlaue="Килограмм">Килограмм</div>
@@ -3673,12 +3670,12 @@ function add_column(){
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;" id='stoimost_baza`+String(i)+`'  ></input>
+        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;" id='stoimost_baza`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none" id='stoimost_alter`+String(i)+`'  ></input>
+        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
         </div>
     </td>
     <td >
@@ -3701,12 +3698,10 @@ function add_column(){
         </div>
     </td>
     <td >
-        <div class="input-group input-group-sm mb-1">
         
-        </div>
     </td>
-    </tr>`
-    }
+    </tr>`    
+}
 
 
 
