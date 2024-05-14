@@ -1084,6 +1084,22 @@ def update_char_title(request,id):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
+def save_artikul_component(request):
+      if request.method == 'POST':
+            json_data = request.POST.get('data')
+            datas = json.loads(json_data)
+            for data in datas:
+                  data1 ={"artikul":data['artikul'], "counter": data['counter'], "component": data['component']}
+                  data2 ={"artikul":data['artikul2'], "counter": data['counter2'], "component": data['component2']}
+                  ArtikulComponent(data = data1).save()
+                  ArtikulComponent(data = data2).save()
+            return JsonResponse({'status':201})
+      else:
+            return JsonResponse({'status':401})
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def full_artikul_component(request):
       if request.method == 'POST':
             data = request.POST.copy()

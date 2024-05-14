@@ -14,6 +14,7 @@ path('razlovka-termo',views.razlovkatermo_save,name='razlovka-save'),
 path('character-force/<int:id>',views.create_characteristika_force, name='cretecharacteristika'),
 
 path('update-artikul-component',views.full_artikul_component,name='update_artikul_component'),#artikul component download
+path('save-artikul-component',views.save_artikul_component,name='save_artikul_component'),#artikul component download
 
 
 path('upload-product-termo-org',views.upload_product_org,name='upload_product_termo_org'),
@@ -34,6 +35,8 @@ path('for-three-factory',views.upload_for_1301,name='upload_for_1301'),
 path('upload-razlovka-termo',views.upload_razlovka_termo,name='upload_razlovka_termo'),
 path('new',views.upload_for_1301_v22,name='sdf'),
 path('create-construction-v2',views.upload_for_1301_v22, name ='mmmmmmmm' ),
+
+
 
 #####################################
 path('sms-list',views.sms_list,name='sms_list'),

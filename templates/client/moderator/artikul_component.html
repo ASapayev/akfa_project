@@ -1,0 +1,125 @@
+{% extends 'base.html'%}
+{%load static %}
+
+{% block content %}
+            <div class="mt-4"></div>
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <table class="table table-sm" id="my-table">
+                    <thead>
+                      <tr>
+                        <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Counter</th>
+                        <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Artikul</th>
+                        <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Component</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {%csrf_token%}
+                        {%for artikul in artikules %}
+                          <tr class="tr_art">
+                            <td ><input type="text" class="form-control "  style='width:50px;height: 35px;'  aria-describedby="inputGroup-sizing-sm"  id="counter1_{{forloop.counter}}" ></td>
+                            <td ><input type="text" class="form-control "  style='width:150px'  aria-describedby="inputGroup-sizing-sm"  id="artikul1_{{forloop.counter}}" value="{{artikul}}" ></td>
+                            <td ><input type="text" class="form-control "  style='width:150px'  aria-describedby="inputGroup-sizing-sm"  id="component1_{{forloop.counter}}"  ></td>
+                          </tr> 
+                          <tr>
+                            <td ><input type="text" class="form-control "  style='width:50px'  aria-describedby="inputGroup-sizing-sm"  id="counter2_{{forloop.counter}}" ></td>
+                            <td ><input type="text" class="form-control "  style='width:150px'  aria-describedby="inputGroup-sizing-sm"  id="artikul2_{{forloop.counter}}" value="{{artikul}}" ></td>
+                            <td ><input type="text" class="form-control "  style='width:150px'  aria-describedby="inputGroup-sizing-sm"  id="component2_{{forloop.counter}}"  ></td>
+                          </tr> 
+                        {%endfor%} 
+                    </tbody>
+                </table>
+                <div class="p-1">
+                    <a  class="btn btn-success" onclick="artikul_save()">Save</a>
+                </div>
+            </section>
+
+           
+        </main>
+<script>
+
+    function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+
+    function artikul_save(){
+        var all_td =$('.tr_art').length
+        console.log(all_td)
+        correct = true
+        data = []
+        for(let i =1; i <= all_td; i++){
+            datas = {}
+            var counter = $('#counter1_'+String(i)).val()
+            var artikul = $('#artikul1_'+String(i)).val()
+            var component = $('#component1_'+String(i)).val()
+            var counter2 = $('#counter2_'+String(i)).val()
+            var artikul2 = $('#artikul2_'+String(i)).val()
+            var component2 = $('#component2_'+String(i)).val()
+            
+            if(counter!=''){
+                datas['counter'] = counter;
+            }else{
+                correct =false
+            }
+            if(artikul!=''){
+                datas['artikul'] = artikul;
+            }else{
+                correct =false
+            }
+            if(component!=''){
+                datas['component'] = component;
+            }else{
+                correct =false
+            }
+            if(counter2!=''){
+                datas['counter2'] = counter2;
+            }else{
+                correct =false
+            }
+            if(artikul2!=''){
+                datas['artikul2'] = artikul2;
+            }else{
+                correct =false
+            }
+            if(component2!=''){
+                datas['component2'] = component2;
+            }else{
+                correct =false
+            }
+            data.push(datas)
+        }
+        if(correct){
+            var json_data = JSON.stringify(data)
+            var url = "{%url 'save_artikul_component' %}"
+            var csrfToken = getCSRFToken();
+            var postData = {
+                'data': json_data
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                headers: { "X-CSRFToken": csrfToken },
+                data: postData,
+            }).done(function (res) {
+                if (res.status ==201){
+                    Swal.fire('Qabul qilindi...', '', 'success')               
+                    location.reload();
+                }else{
+                    console.log('aa')
+                }
+                // WON'T REDIRECT
+            });
+        }else{
+            Swal.fire('Malumotlar to\'liq emas iltimos to\'ldiring.', '', 'info')   
+        }
+
+        
+
+    }
+</script>
+
+{%endblock%}
+
+
+

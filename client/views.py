@@ -177,7 +177,14 @@ def moderator_convert(request,id):
     name = order.data['name']
     rand_string = id_generator()
     if 'ALUMINIY' in name:
-        df_simple, df_termo = json_to_excel(datas)
+        df_simple, df_termo , correct, artikul_list = json_to_excel(datas)
+
+        if not correct:
+            context ={
+                'artikules':artikul_list
+            }
+            return render(request,'client/moderator/artikul_component.html',context)
+
         path_alu_termo = f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\downloads\\SHABLON_{rand_string}.xlsx'
         path_alu_simple = f'{MEDIA_ROOT}\\uploads\\aluminiy\\downloads\\SHABLON_{rand_string}.xlsx'
         
@@ -322,6 +329,19 @@ def json_to_excel(datas):
     df_simple['Краткий текст товара (вставится вручную)'] =''
     df_simple['Длина при выходе из пресса'] =''
     df_simple['Код заказчика экспорт если експорт'] =''
+    correct = True
+    artikul_list = []
+    for key1,data in datas.items():
+        if data['is_termo']:
+            lenth_of_component = ArtikulComponent.objects.filter(data__artikul =data['base_artikul']).count()
+            if lenth_of_component <2:
+                if data['base_artikul'] not in artikul_list :
+                    artikul_list.append(data['base_artikul'])
+                correct = False
+    if not correct:
+        return df_simple,df_termo,correct,artikul_list 
+    
+
     k_termo = 0
     k_simple = 0
     for key1,data in datas.items():
@@ -470,7 +490,7 @@ def json_to_excel(datas):
                 k_simple+=1
     del df_simple['counter']
     del df_termo['counter']
-    return df_simple,df_termo
+    return df_simple,df_termo,correct,artikul_list
 
 @login_required(login_url='/accounts/login/')
 @moderator_only
