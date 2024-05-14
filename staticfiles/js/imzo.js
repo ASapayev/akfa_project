@@ -1391,7 +1391,7 @@ function create_kratkiy_tekst(id){
             data_base[id].kod_nakleyki = NaN;
             nadpis_nakleyki.text('')
             nakleyka.css('border-color','red')
-        }
+        } 
         
 
         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА')

@@ -41,7 +41,7 @@
                   <td>{{order.id | order_number_format}}</td>
                   <td>{{order.created_at |date:"d-m-Y H:i:s"}}</td>
                   <td><span class="text-info">ON HOLD</span></td> 
-                  <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{obichniy_file}}">Download</a></td>
+                  <td>{%if type == 'ТЕРМО' %}<a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{termo_file}}">Download</a>{%else%}<a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{obichniy_file}}">Download</a>{%endif%}</td>
                   <td><i class="mdi mdi-check-all text-success"></i></td>
                 </tr>
                 {%endif%}

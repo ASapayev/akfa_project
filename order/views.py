@@ -72,6 +72,7 @@ def order_detail(request,id):
 
     for key,val in paths.items():
         context[key] = val
+    print(context)
     return render(request,'order/order_detail.html',context)
 
 @login_required(login_url='/accounts/login/')
