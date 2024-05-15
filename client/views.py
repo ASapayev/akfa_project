@@ -456,7 +456,7 @@ def json_to_excel(datas):
                 df_termo['Краткий текст товара'][k_termo] = data['kratkiy_tekst']
                 df_termo['SAP Код вручную (вставится вручную)'][k_termo] = ''
                 df_termo['Краткий текст товара (вставится вручную)'][k_termo] = ''
-                df_termo['Длина при выходе из пресса'][k_termo] = ''
+                df_termo['Длина при выходе из пресса'][k_termo] = data['dilina_pressa']
                 k_termo += 1
                 lenth_of_component = ArtikulComponent.objects.filter(data__artikul =data['base_artikul']).count()
 
@@ -520,7 +520,7 @@ def json_to_excel(datas):
                         df_termo['Краткий текст товара'][k_termo] = kratkiy_text_component
                         df_termo['SAP Код вручную (вставится вручную)'][k_termo] = ''
                         df_termo['Краткий текст товара (вставится вручную)'][k_termo] = ''
-                        df_termo['Длина при выходе из пресса'][k_termo] = ''
+                        df_termo['Длина при выходе из пресса'][k_termo] = data['dilina_pressa']
                         k_termo += 1
                     if i == 2:
                         if data['id'] ==1:
@@ -574,7 +574,7 @@ def json_to_excel(datas):
                         df_termo['Краткий текст товара'][k_termo] = kratkiy_text_component
                         df_termo['SAP Код вручную (вставится вручную)'][k_termo] = ''
                         df_termo['Краткий текст товара (вставится вручную)'][k_termo] = ''
-                        df_termo['Длина при выходе из пресса'][k_termo] = ''
+                        df_termo['Длина при выходе из пресса'][k_termo] = data['dilina_pressa']
                         k_termo += 1
             else:
                 df_simple['Название системы'][k_simple] = data['nazvaniye_system']
@@ -608,7 +608,7 @@ def json_to_excel(datas):
                 df_simple['Краткий текст товара'][k_simple] = data['kratkiy_tekst']
                 df_simple['SAP Код вручную (вставится вручную)'][k_simple] = ''
                 df_simple['Краткий текст товара (вставится вручную)'][k_simple] =''
-                df_simple['Длина при выходе из пресса'][k_simple] = ''
+                df_simple['Длина при выходе из пресса'][k_simple] = data['dilina_pressa']
                 k_simple+=1
     del df_simple['counter']
     del df_termo['counter']

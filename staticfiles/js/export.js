@@ -34,6 +34,7 @@ class BasePokritiya{
         sap_code_ruchnoy=NaN,//done
         kratkiy_text_ruchnoy=NaN,//done
         comment=NaN,
+        dilina_pressa =NaN,
         is_termo=false
         ) {
 
@@ -71,6 +72,7 @@ class BasePokritiya{
         this.sap_code_ruchnoy=sap_code_ruchnoy;
         this.kratkiy_text_ruchnoy=kratkiy_text_ruchnoy;
         this.comment=comment;
+        this.dilina_pressa =dilina_pressa;
         this.is_termo=is_termo;
       
     }
@@ -462,6 +464,11 @@ for (let i = 1; i <= 5; i++) {
     <td >
         <div class="input-group input-group-sm mb-1">
             <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <input type="text" class="form-control "  style='width:90px;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  >    
         </div>
     </td>
     </tr>`
@@ -1146,6 +1153,13 @@ function create_kratkiy_tekst(id){
         dlina.css("border-color",'red');
         data_base[id].dlina = NaN;
     }
+    var dilina_pressa = $('#dilina_pressa'+String(id));
+    if(dilina_pressa.val()!=''){
+        dilina_pressa.css("border-color",'#dedad9');
+        data_base[id].dilina_pressa = dilina_pressa.val();
+    }else{
+        data_base[id].dilina_pressa = NaN;
+    }
 
     var sap_code_ruchnoy = $('#sap_code_ruchnoy'+String(id));
    
@@ -1770,6 +1784,11 @@ function add_column(){
     <td >
         <div class="input-group input-group-sm mb-1">
             <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <input type="text" class="form-control "  style='width:90px;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  >    
         </div>
     </td>
     </tr>`

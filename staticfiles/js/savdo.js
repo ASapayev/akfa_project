@@ -34,6 +34,7 @@ class BasePokritiya{
         sap_code=NaN,
         krat=NaN,
         comment=NaN,
+        dilina_pressa =NaN,
         zavod=NaN,
         online_id=NaN,
         nazvaniye_ruchnoy=NaN,
@@ -90,6 +91,7 @@ class BasePokritiya{
             this.sap_code=sap_code;//done
             this.krat=krat;//done
             this.comment=comment;
+            this.dilina_pressa =dilina_pressa;
             this.zavod=zavod;//done
             this.online_id=online_id;//done
             this.nazvaniye_ruchnoy=nazvaniye_ruchnoy;//done
@@ -731,6 +733,11 @@ for (let i = 1; i <= 5; i++) {
     <td >
         <div class="input-group input-group-sm mb-1">
             <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <input type="text" class="form-control "  style='width:90px;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  >    
         </div>
     </td>
     <td >
@@ -2199,6 +2206,13 @@ function create_kratkiy_tekst(id){
         dlina.css("border-color",'red');
         data_base[id].dlina = NaN;
     }
+    var dilina_pressa = $('#dilina_pressa'+String(id));
+    if(dilina_pressa.val()!=''){
+        dilina_pressa.css("border-color",'#dedad9');
+        data_base[id].dilina_pressa = dilina_pressa.val();
+    }else{
+        data_base[id].dilina_pressa = NaN;
+    }
     
     var splav = $('#splav'+String(id));
     if(splav){
@@ -3108,6 +3122,11 @@ function add_column(){
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
+        <input type="text" class="form-control "  style='width:90px;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  >    
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
         <select class="form-select" aria-label="" style="width: 90px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;border-color:red;" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='zavod`+String(i)+`' required>
             <option  selected></option>
             <option value="ZAVOD ALUMIN NAVOIY" >Benkam</option>
@@ -3700,7 +3719,7 @@ function add_column(){
     <td >
         
     </td>
-    </tr>`    
+    </tr>` 
 }
 
 
