@@ -180,8 +180,12 @@ class Buxgalter:
 @allowed_users(allowed_roles=['admin','moderator'])    
 def product_add_second_org(request,id):
     file = PVCFile.objects.get(id=id).file
-
-    df = pd.read_excel(f'{MEDIA_ROOT}/{file}',header=4)
+    print(file)
+    if 'SHABLON' in str(file):
+        df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
+    else:
+        df = pd.read_excel(f'{MEDIA_ROOT}/{file}',header=4)
+    
     df =df.astype(str)
     
     now = datetime.now()

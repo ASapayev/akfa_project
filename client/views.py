@@ -303,6 +303,8 @@ def json_to_excel_pvc(datas):
     df_pvc['Краткий текст'] = ''
     df_pvc['SAP Код вручную (вставится вручную)'] = ''
     df_pvc['Краткий текст товара (вставится вручную)'] = ''
+    df_pvc['Online savdo ID'] = ''
+    df_pvc['Название'] = ''
     
     k = 0
     for key1,data in datas.items():
@@ -325,6 +327,9 @@ def json_to_excel_pvc(datas):
         df_pvc['Краткий текст'][k] = data['kratkiy_tekst']
         df_pvc['SAP Код вручную (вставится вручную)'][k] = data['sap_code']
         df_pvc['Краткий текст товара (вставится вручную)'][k] = data['krat']
+        if 'online_id' in data:
+            df_pvc['Online savdo ID'][k] = data['online_id']
+            df_pvc['Название'][k] = data['nazvaniye_ruchnoy']
         k+=1
 
    
