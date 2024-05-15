@@ -40,6 +40,7 @@ class BasePokritiya{
         kod_sveta=NaN,
         kratkiy_klaes=NaN,
         comment=NaN,
+        dilina_pressa =NaN,
         is_termo=false) {
             this.full=full;
             this.id =id;
@@ -81,6 +82,7 @@ class BasePokritiya{
             this.kod_sveta =kod_sveta;
             this.kratkiy_klaes =kratkiy_klaes;
             this.comment =comment;
+            this.dilina_pressa =dilina_pressa;
             this.is_termo= is_termo;
     }
 
@@ -88,13 +90,15 @@ class BasePokritiya{
     get_kratkiy_tekst(){
         switch(this.id){
             case 1: if(!this.is_termo){
+                // console.log('termoooo')
                 if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
                     return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'  ' +this.kod_nakleyki
                 }else{
                     return 'XXXXXXXX'
                 }
                 }else{
-                    console.log(this.tex_name,this.klaes_id,this.klaes_nazvaniye,this.kod_sveta,this.kratkiy_klaes)
+                    console.log('termooooooem3444')
+                    console.log(this.splav ,this.tip_zak ,this.dlina ,this.kod_kraska_sn ,this.kod_kraska_vn ,this.kod_nakleyki ,this.tex_name ,this.klaes_id ,this.klaes_nazvaniye ,this.kod_sveta ,this.kratkiy_klaes)
                     if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki && this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
                         return this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+'  ' +this.kod_nakleyki
                     }else{
@@ -527,6 +531,11 @@ for (var key in jsonData) {
            
         </div>
     </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <input type="text" class="form-control "  style='width:220px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="dilina_pressa`+String(i)+`" onchange="create_kratkiy_tekst(`+String(i)+`)" >
+        </div>
+    </td>
     </tr>`
 }
 
@@ -557,11 +566,17 @@ function custom_select2(type_selection=NaN,older_val=NaN,i,nam=NaN,selector=NaN,
                 success: function(data) {
                     $(selector).empty();
                     $.each(data, function(index, item) {
-                        
-                        $(selector).append($(`<option>`, {
-                            value: JSON.stringify(item),
-                            text: item[nam]
-                        }));
+                        if (type_selection.indexOf('nak') !== -1) {
+                            $(selector).append($(`<option>`, {
+                                value: JSON.stringify(item),
+                                text: item[nam]
+                            }));
+                        }else{
+                            $(selector).append($(`<option>`, {
+                                value: JSON.stringify(item),
+                                text: item.data[nam]
+                            }));
+                        }
                     });
                 },
                 error: function(xhr, status, error) {
@@ -573,22 +588,31 @@ function custom_select2(type_selection=NaN,older_val=NaN,i,nam=NaN,selector=NaN,
         $(selector).on('change', function() {
             var selectedValue = $(this).find('option:selected').text();
             var value = JSON.parse($(this).val())
+            console.log(value)
             $(this).css('display', 'none');
             
             if (type_selection.indexOf('artikul_alu') !== -1) {
                 data_base[i].base_artikul =selectedValue
-                data_base[i].nazvaniye_system = value['system']
-                data_base[i].combination = value['combination']
+                data_base[i].nazvaniye_system = value.data['Система']
+                data_base[i].combination = value.data['Комбинация']
+                if(String(value.data['Комбинация']).toUpperCase() =='С ТЕРМОМОСТОМ'){
+                    data_base[i].is_termo = true
+                }else{
+                    data_base[i].is_termo = false
+                }
 
-                if(value['code_nakleyka']!=''){
-                    data_base[i].kod_nakleyki = value['code_nakleyka']
-                    $('#nakleykaInput'+i).val(value['code_nakleyka'])
+                data_base[i].baza_profiley = value.data['BAZA']
+                $('#baza_profiley'+i).text(value.data['BAZA'])
+
+                if(value.data['Код наклейки']!=''){
+                    data_base[i].kod_nakleyki = value.data['Код наклейки']
+                    $('#nakleykaInput'+i).val(value.data['Код наклейки'])
                 }else{
                     data_base[i].kod_nakleyki = NaN
                     $('#nakleykaInput'+i).val('')
                 }
-                $('#nazvaniye_system'+i).text(value['iskyucheniye'])
-                $('#combination'+i).text(value['combination'])
+                $('#nazvaniye_system'+i).text(value.data['Система'])
+                $('#combination'+i).text(value.data['Комбинация'])
 
             }
             if (type_selection.indexOf('anod_sn') !== -1) {
@@ -635,11 +659,12 @@ for(var key in jsonData){
         'combination':jsonData[key]['combination'],
     }
     if(jsonData[i]['base_artikul']){
-        custom_select2(type_selection='artikul_alu',jsonData[i]['base_artikul'],i,nam='artikul','#mySelect'+i,'#searchInput'+i, url= '/client/imzo-artikul-list',data=data)    
+        custom_select2(type_selection='artikul_alu',jsonData[i]['base_artikul'],i,nam='Артикул','#mySelect'+i,'#searchInput'+i, url= '/client/imzo-artikul-list',data=data)    
     }
 
     if(jsonData[i]['dlina'] && jsonData[i]['dlina']!='null'){
         $('#length' +i).css('border-color','#dedad9')
+        $('#length' +i).css('display','block')
         $('#length' +i).attr('disabled',false)
         $('#length' +i).val(jsonData[i]['dlina'])
     }
@@ -651,43 +676,52 @@ for(var key in jsonData){
     if(jsonData[i]['splav'] && jsonData[i]['splav']!='null'){
         $('#splav' +i).css('border-color','#dedad9')
         $('#splav' +i).attr('disabled',false)
+        $('#splav' +i).css('display','block')
         $('#splav' +i).val(jsonData[i]['splav'])
     }
     if(jsonData[i]['tip_zak'] && jsonData[i]['tip_zak']!='null'){
         $('#tip_zakalyonnosti' +i).css('border-color','#dedad9')
         $('#tip_zakalyonnosti' +i).attr('disabled',false)
+        $('#tip_zakalyonnosti' +i).css('display','block')
         $('#tip_zakalyonnosti' +i).val(jsonData[i]['tip_zak'])
     }
     if(jsonData[i]['brend_kraska_sn']  && String(jsonData[i]['brend_kraska_sn'])!='null'){
         $('#brand_k_snaruji' +i).css('border-color','#dedad9')
         $('#brand_k_snaruji' +i).attr('disabled',false)
+        $('#brand_k_snaruji' +i).css('display','block')
         $('#brand_k_snaruji' +i).val(jsonData[i]['brend_kraska_sn'])
     }
+    console.log(jsonData[i]['kod_kraska_sn'],'kraskaaa')
     if(jsonData[i]['kod_kraska_sn'] && jsonData[i]['kod_kraska_sn']!='null'){
         $('#code_kraski_snar' +i).css('border-color','#dedad9')
         $('#code_kraski_snar' +i).attr('disabled',false)
+        $('#code_kraski_snar' +i).css('display','block')
         $('#code_kraski_snar' +i).val(jsonData[i]['kod_kraska_sn'])
     }
 
     if(jsonData[i]['brend_kraska_vn'] && jsonData[i]['brend_kraska_vn']!='null'){
         $('#brand_k_vnutri' +i).css('border-color','#dedad9')
         $('#brand_k_vnutri' +i).attr('disabled',false)
+        $('#brand_k_vnutri' +i).css('display','block')
         $('#brand_k_vnutri' +i).val(jsonData[i]['brend_kraska_vn'])
     }
     if(jsonData[i]['kod_kraska_vn'] && jsonData[i]['kod_kraska_vn']!='null'){
         $('#code_kraski_vnut' +i).css('border-color','#dedad9')
         $('#code_kraski_vnut' +i).attr('disabled',false)
+        $('#code_kraski_vnut' +i).css('display','block')
         $('#code_kraski_vnut' +i).val(jsonData[i]['kod_kraska_vn'])
     }
     if(jsonData[i]['kod_dekor_sn'] && jsonData[i]['kod_dekor_sn']!='null'){
         $('#svet_dekplonka_snaruji' +i).css('border-color','#dedad9')
         $('#svet_dekplonka_snaruji' +i).attr('disabled',false)
+        $('#svet_dekplonka_snaruji' +i).css('display','block')
         $('#svet_dekplonka_snaruji' +i).val(jsonData[i]['svet_dekplonka_snaruji'])
         $('#code_dekplonka_snaruji' +i).text(jsonData[i]['svet_dekplonka_snaruji'])
     }
     if(jsonData[i]['kod_dekor_vn'] && jsonData[i]['kod_dekor_vn']!='null'){
         $('#svet_dekplonka_vnutri' +i).css('border-color','#dedad9')
         $('#svet_dekplonka_vnutri' +i).attr('disabled',false)
+        $('#svet_dekplonka_vnutri' +i).css('display','block')
         $('#svet_dekplonka_vnutri' +i).val(jsonData[i]['svet_dekplonka_vnutri'])
         $('#code_dekplonka_vnutri' +i).text(jsonData[i]['svet_dekplonka_snaruji'])
     }
@@ -695,11 +729,13 @@ for(var key in jsonData){
     if(jsonData[i]['svet_lamplonka_snaruji'] && jsonData[i]['svet_lamplonka_snaruji']!='null'){
         $('#svet_lamplonka_snaruji' +i).attr('disabled',false)
         $('#svet_lamplonka_snaruji' +i).val(jsonData[i]['kod_lam_sn'])
+        $('#svet_lamplonka_snaruji' +i).css('display','block')
         $('#code_lamplonka_snaruji' +i).text(jsonData[i]['kod_lam_sn'])
     }
     if(jsonData[i]['svet_lamplonka_vnutri'] && jsonData[i]['svet_lamplonka_vnutri']!='null'){
         $('#svet_lamplonka_vnutri' +i).attr('disabled',false)
         $('#svet_lamplonka_vnutri' +i).val(jsonData[i]['kod_lam_vn'])
+        $('#svet_lamplonka_vnutri' +i).css('display','block')
         $('#code_lamplonka_vnutri' +i).text(jsonData[i]['kod_lam_vn'])
     }
 
@@ -724,7 +760,7 @@ for(var key in jsonData){
         'nadpis_nakleyki':jsonData[i]['nadpis_nakleyki']
     }
     if(jsonData[i]['kod_nakleyki']){
-        custom_select2(type_selection='nakleyka',jsonData[i]['kod_nakleyki'],i,nam='код_наклейки','#nakleykaSelect'+i,'#nakleykaInput'+i, url= '/client/nakleyka-list',data=data)
+        custom_select2(type_selection='nakleyka',jsonData[i]['kod_nakleyki'],i,nam='name','#nakleykaSelect'+i,'#nakleykaInput'+i, url= '/client/nakleyka-list',data=data)
     }
     
     // usdifksjdfjskfjsjdf
@@ -804,6 +840,12 @@ for(var key in jsonData){
         $('#comment' +i).attr('disabled',false)
         $('#comment' +i).val(jsonData[i]['comment'])
     }
+    if(jsonData[i]['dilina_pressa']){
+        $('#dilina_pressa' +i).css('display','block')
+        $('#dilina_pressa' +i).css('border-color','#dedad9')
+        $('#dilina_pressa' +i).attr('disabled',false)
+        $('#dilina_pressa' +i).val(jsonData[i]['dilina_pressa'])
+    }
     
     // create_kratkiy_tekst(i)
 }
@@ -817,7 +859,7 @@ function get_nakleyka(i){
             dataType: 'json',
             processResults: function(data){
                 return {results: $.map(data, function(item){
-                    return {id:item.id,text:item.код_наклейки}
+                    return {id:item.id,text:item.data['name']}
                 })
             };
             }
@@ -1412,7 +1454,15 @@ function create_kratkiy_tekst(id){
     var combination= $('#combination'+String(id));
     combination_text = combination.text();
     var val = $('#tip_pokritiya'+String(id)).val();
+    var dilina_pressa = $('#dilina_pressa'+String(id));
 
+    
+    if(dilina_pressa.val()!=''){
+        dilina_pressa.css("border-color",'#dedad9');
+        data_base[id].dilina_pressa = dilina_pressa.val();
+    }else{
+        data_base[id].dilina_pressa = NaN;
+    }
 
     var dlina = $('#length'+String(id));
     if(dlina.val()!=''){

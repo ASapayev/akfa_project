@@ -219,7 +219,7 @@
     if (Object.keys(data_base).length === 0) {
         data_empty = true
     }
-
+    console.log(data_base)
     for (var key in data_base) {
         if (data_base.hasOwnProperty(key)) { 
             var value = data_base[key];
@@ -246,7 +246,7 @@
         }).done(function (res) {
             console.log(res)
             if (res.status ==201){
-                // Swal.fire('Muvaafaqiyatli o\'zgartirildi.', '', 'success')
+                Swal.fire('Muvaafaqiyatli o\'zgartirildi.', '', 'success')
 
             }else{
                 console.log('aa')
@@ -255,13 +255,13 @@
         });
             
     }else{
-        
+        console.log(data_empty,all_correct)
         if(!data_empty && !all_correct){
-            // Swal.fire({
-            //     icon: 'error',
-            //     title: 'Malumotlar to\'liq emas!!!',
-            //     text: 'Itimos ma\'lumotlarni to\'ldiring.',
-            // });
+            Swal.fire({
+                icon: 'error',
+                title: 'Malumotlar to\'liq emas!!!',
+                text: 'Itimos ma\'lumotlarni to\'ldiring.',
+            });
         }
     }
 
