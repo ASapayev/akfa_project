@@ -195,11 +195,8 @@
                   <tbody>
                           <tr>
                               <td> 1 </td>
-                              {%if is_obichniy == 'yes' %}
-                              <td class="p-1"> {{obichniy_file|split_text}} </td>
-                              {%else%}
-                              <td class="p-1"> {{termo_file|split_text}} </td>
-                              {%endif%}
+                              <td class="p-1"> {{pvc_file|split_text}} </td>
+                              
                               <td>{{obichniy_date |convert_str_date|date:"d-m-Y H:i:s"}} </td>
                               <td>
                                 

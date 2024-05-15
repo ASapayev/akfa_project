@@ -129,7 +129,7 @@ def upload_product_org(request):
                   if worker_id:
                         o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
                         paths ={
-                                    'termo_file':f'{MEDIA_ROOT}\\{new_order.file}',
+                                    'pvc_file':f'{MEDIA_ROOT}\\{new_order.file}',
                                     'oid':new_order.id,
                                     'obichniy_date':o_created_at,
                                     'is_obichniy':'yes',
@@ -263,13 +263,13 @@ def product_add_second_org(request,id):
         if df['Тип покрытия'][key] == 'Ламинированный':
 
             export_description =''
-            if ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and ((row['Цвет резины'] =='NR') or(row['Цвет резины'] =='nan')):
+            if ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and ((row['Код резины'] =='NR') or(row['Код резины'] =='nan')):
                 export_description ='Профиль из ПВХ ламинированный'
-            elif ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] !='NR'):
+            elif ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Код резины'] !='NR'):
                 export_description ='Профиль из ПВХ ламинированный с уплотнителем'
-            elif ('PDF' not in row['Артикул']) and (row['Цвет резины'] =='NR' or row['Цвет резины'] =='nan') and ( 'L0001' in row['Артикул'] or 'L0002' in row['Артикул']) :
+            elif ('PDF' not in row['Артикул']) and (row['Код резины'] =='NR' or row['Код резины'] =='nan') and ( 'L0001' in row['Артикул'] or 'L0002' in row['Артикул']) :
                 export_description ='Ламбри из ПВХ ламинированный'
-            elif('L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] =='nan'):
+            elif('L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Код резины'] =='nan'):
                 export_description ='Подоконник из ПВХ ламинированный'
 
             if export_description !='':
@@ -331,8 +331,8 @@ def product_add_second_org(request,id):
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
                                             'outer_side_wg_id' : outer_side_wg_id,
                                             'inner_side_wg_id' : inner_side_wg_id,
-                                            'sealer_color' : row['Цвет резины'],
-                                            'print_view' : row['Надпись наклейки'],
+                                            'sealer_color' : row['Код резины'],
+                                            'print_view' : row['Код наклейки'],
                                             'kod_lam_plen_snar':row['Код лам пленки снаружи'],
                                             'kod_lam_plen_vnut':row['Код лам пленки внутри'],
                                             'width' : artikulcomponent.width,
@@ -418,8 +418,8 @@ def product_add_second_org(request,id):
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
                                             'outer_side_wg_id' : outer_side_wg_id,
                                             'inner_side_wg_id' : inner_side_wg_id,
-                                            'sealer_color' : row['Цвет резины'],
-                                            'print_view' : row['Надпись наклейки'],
+                                            'sealer_color' : row['Код резины'],
+                                            'print_view' : row['Код наклейки'],
                                             'kod_lam_plen_snar':row['Код лам пленки снаружи'],
                                             'kod_lam_plen_vnut':row['Код лам пленки внутри'],
 
@@ -457,13 +457,13 @@ def product_add_second_org(request,id):
             ##### kombirinovanniy
         elif df['Тип покрытия'][key] == 'Неламинированный':
             export_description =''
-            if ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] =='NR'):
+            if ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Код резины'] =='NR'):
                 export_description ='Профиль из ПВХ'
-            elif ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] !='NR'):
+            elif ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Код резины'] !='NR'):
                 export_description ='Профиль из ПВХ с уплотнителем'
-            elif ('PDF' not in row['Артикул']) and ( 'L0001' in row['Артикул'] or 'L0002' in row['Артикул']) and (row['Цвет резины'] =='NR'  or row['Цвет резины'] =='nan'):
+            elif ('PDF' not in row['Артикул']) and ( 'L0001' in row['Артикул'] or 'L0002' in row['Артикул']) and (row['Код резины'] =='NR'  or row['Код резины'] =='nan'):
                 export_description ='Ламбри из ПВХ'
-            elif('L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Цвет резины'] =='nan'):
+            elif('L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Код резины'] =='nan'):
                 export_description ='Подоконник из ПВХ'
             
             if export_description !='':
@@ -510,8 +510,8 @@ def product_add_second_org(request,id):
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
                                             'outer_side_wg_id' : outer_side_wg_id,
                                             'inner_side_wg_id' : inner_side_wg_id,
-                                            'sealer_color' : row['Цвет резины'],
-                                            'print_view' : row['Надпись наклейки'],
+                                            'sealer_color' : row['Код резины'],
+                                            'print_view' : row['Код наклейки'],
                                             'kod_lam_plen_snar':row['Код лам пленки снаружи'],
                                             'kod_lam_plen_vnut':row['Код лам пленки внутри'],
 
@@ -587,8 +587,8 @@ def product_add_second_org(request,id):
                                         'outer_side_pc_id' : row['Код цвета основы/Замес'],
                                         'outer_side_wg_id' : outer_side_wg_id,
                                         'inner_side_wg_id' : inner_side_wg_id,
-                                        'sealer_color' : row['Цвет резины'],
-                                        'print_view' : row['Надпись наклейки'],
+                                        'sealer_color' : row['Код резины'],
+                                        'print_view' : row['Код наклейки'],
                                         'kod_lam_plen_snar':row['Код лам пленки снаружи'],
                                         'kod_lam_plen_vnut':row['Код лам пленки внутри'],
                                         'width' : artikulcomponent.width,
@@ -627,12 +627,12 @@ def product_add_second_org(request,id):
 
         component = df['Артикул'][key]
         if df['Тип покрытия'][key] == 'Ламинированный':
-                if row['Цвет резины']!='nan':   
-                    lamtext = row['Код лам пленки снаружи']+"/"+row['Код лам пленки внутри']+' '+row['Цвет резины']
+                if row['Код резины']!='nan':   
+                    lamtext = row['Код лам пленки снаружи']+"/"+row['Код лам пленки внутри']+' '+row['Код резины']
                 else:
                     lamtext = row['Код лам пленки снаружи']+"/"+row['Код лам пленки внутри']
                     
-                df_new['Ламинация'][key] = art.component+'-L ' +row['Код цвета основы/Замес'] +' L'+dlina +' ' +lamtext+' '+ row['Надпись наклейки']
+                df_new['Ламинация'][key] = art.component+'-L ' +row['Код цвета основы/Замес'] +' L'+dlina +' ' +lamtext+' '+ row['Код наклейки']
                 
                 if PVCProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][key]).exists():
                     df_new['SAP код L'][key] = PVCProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][key])[:1].get().material
@@ -684,8 +684,8 @@ def product_add_second_org(request,id):
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
                                             'outer_side_wg_id' : outer_side_wg_id,
                                             'inner_side_wg_id' : inner_side_wg_id,
-                                            'sealer_color' : row['Цвет резины'],
-                                            'print_view' : row['Надпись наклейки'],
+                                            'sealer_color' : row['Код резины'],
+                                            'print_view' : row['Код наклейки'],
                                             'kod_lam_plen_snar':row['Код лам пленки снаружи'],
                                             'kod_lam_plen_vnut':row['Код лам пленки внутри'],
 
@@ -765,8 +765,8 @@ def product_add_second_org(request,id):
                                             'outer_side_pc_id' : row['Код цвета основы/Замес'],
                                             'outer_side_wg_id' : outer_side_wg_id,
                                             'inner_side_wg_id' : inner_side_wg_id,
-                                            'sealer_color' : row['Цвет резины'],
-                                            'print_view' : row['Надпись наклейки'],
+                                            'sealer_color' : row['Код резины'],
+                                            'print_view' : row['Код наклейки'],
                                             'kod_lam_plen_snar':row['Код лам пленки снаружи'],
                                             'kod_lam_plen_vnut':row['Код лам пленки внутри'],
 
@@ -814,8 +814,8 @@ def product_add_second_org(request,id):
                 sd = 'NT1'
                 nakleyka ='NT1'
             else:
-                nakleyka = row['Надпись наклейки']
-                sd = row['Надпись наклейки'] +' 1sd'
+                nakleyka = row['Код наклейки']
+                sd = row['Код наклейки'] +' 1sd'
 
             if ((str(row['Код лам пленки внутри']).lower() =='xxxx') or (str(row['Код лам пленки снаружи']).lower() =='xxxx')):
                 df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + sd
@@ -825,14 +825,14 @@ def product_add_second_org(request,id):
         else:
             if component in rezina_iskyuch:
                 text_nr = ' '
-            elif row['Цвет резины'] =='' :
+            elif row['Код резины'] =='' :
                 text_nr = ' '
             else:
-                rez =row['Цвет резины']
+                rez =row['Код резины']
                 text_nr = f' {rez} '
 
-            nakleyka = row['Надпись наклейки']
-            df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + row['Надпись наклейки']
+            nakleyka = row['Код наклейки']
+            df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + row['Код наклейки']
         
         
                     
@@ -887,7 +887,7 @@ def product_add_second_org(request,id):
                                                 'outer_side_pc_id' : row['Код цвета основы/Замес'],
                                                 'outer_side_wg_id' : outer_side_wg_id,
                                                 'inner_side_wg_id' : inner_side_wg_id,
-                                                'sealer_color' : row['Цвет резины'],
+                                                'sealer_color' : row['Код резины'],
                                                 'print_view' : nakleyka,
                                                 'width' : artikulcomponent.width,
                                                 'height' : artikulcomponent.height,
@@ -970,7 +970,7 @@ def product_add_second_org(request,id):
                                                 'outer_side_pc_id' : row['Код цвета основы/Замес'],
                                                 'outer_side_wg_id' : outer_side_wg_id,
                                                 'inner_side_wg_id' : inner_side_wg_id,
-                                                'sealer_color' : row['Цвет резины'],
+                                                'sealer_color' : row['Код резины'],
                                                 'print_view' : nakleyka,
                                                 'kod_lam_plen_snar':row['Код лам пленки снаружи'],
                                                 'kod_lam_plen_vnut':row['Код лам пленки внутри'],

@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.http import JsonResponse
 from aluminiy.models import AluProfilesData,AluFile
-from pvc.models import ArtikulKomponentPVC ,NakleykaPvc
+from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile
 from .models import Anod,Order,OrderDetail
 from django.contrib.auth.decorators import login_required
 import time
@@ -23,6 +23,7 @@ import os
 from config.settings import MEDIA_ROOT
 from datetime import datetime
 from order.models import Order as BaseOrder
+from order.models import OrderPVX as BaseOrderPvc
 import string
 import random
 from django.core.files import File
@@ -250,12 +251,84 @@ def moderator_convert(request,id):
             order = BaseOrder(title = name,owner=request.user,current_worker_id= request.user.id,aluminiy_worker_id =request.user.id,paths=paths,order_type =2)
             order.save()
         return redirect('order')
-    elif name =='ALUMINIY SAVDO':
-        pass
+    elif 'PVC' in name:
+        df_pvc = json_to_excel_pvc(datas)
+        path_pvc = f'{MEDIA_ROOT}\\uploads\\pvc\\downloads\\SHABLON_{rand_string}.xlsx'
+        df_pvc.to_excel(path_pvc, index = False)
+        title = name
+        oid = save_file_to_model(path_pvc,PVCFile())
+        o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
+        paths ={
+                    'pvc_file':path_pvc,
+                    'oid':oid,
+                    'obichniy_date':o_created_at,
+                    'is_obichniy':'yes',
+                    'type':'PVC',
+                    'status_l':'on hold',
+                    'status_raz':'on hold',
+                    'status_zip':'on hold',
+                    'status_norma':'on hold',
+                    'status_text_l':'on hold',
+                    'status_norma_lack':'on hold',
+                    'status_texcarta':'on hold',
+                }
+            
+        order = BaseOrderPvc(title = name,owner=request.user,current_worker_id= request.user.id,pvc_worker_id =request.user.id,paths=paths,order_type =2)
+        order.save()
+        return redirect('order_detail_pvc',id=order.id)
     elif name =='ALUMINIY EXPORT':
         pass
 
+def json_to_excel_pvc(datas):
+    df_pvc  = pd.DataFrame()
+
+    df_pvc['counter'] =['' for x in range(0,len(datas)+4)]
+
+    df_pvc['Название системы'] = ''
+    df_pvc['Количество камер'] = ''
+    df_pvc['Артикул'] = ''
+    df_pvc['Код к компоненту системы'] = ''
+    df_pvc['Тип покрытия'] = ''
+    df_pvc['Код цвета основы/Замес'] = ''
+    df_pvc['Длина (мм)'] = ''
+    df_pvc['Цвет лам пленки снаружи'] = ''
+    df_pvc['Код лам пленки снаружи'] = ''
+    df_pvc['Цвет лам пленки внутри'] = ''
+    df_pvc['Код лам пленки внутри'] = ''
+    df_pvc['Код резины'] = ''
+    df_pvc['Цвет резины'] = ''
+    df_pvc['Код наклейки'] = ''
+    df_pvc['Надпись наклейки'] = ''
+    df_pvc['Группа материалов'] = ''
+    df_pvc['Краткий текст'] = ''
+    df_pvc['SAP Код вручную (вставится вручную)'] = ''
+    df_pvc['Краткий текст товара (вставится вручную)'] = ''
     
+    k = 0
+    for key1,data in datas.items():
+        df_pvc['Название системы'][k] = data['nazvaniye_system']
+        df_pvc['Количество камер'][k] = data['camera']
+        df_pvc['Артикул'][k] = data['base_artikul']
+        df_pvc['Код к компоненту системы'][k] = data['kod_k_component']
+        df_pvc['Тип покрытия'][k] = data['tip_pokritiya']
+        df_pvc['Код цвета основы/Замес'][k] = data['kod_svet_zames']
+        df_pvc['Длина (мм)'][k] = data['dlina']
+        df_pvc['Цвет лам пленки снаружи'][k] = data['svet_lamplonka_snaruji']
+        df_pvc['Код лам пленки снаружи'][k] = data['kod_lam_sn']
+        df_pvc['Цвет лам пленки внутри'][k] = data['svet_lamplonka_vnutri']
+        df_pvc['Код лам пленки внутри'][k] = data['kod_lam_vn']
+        df_pvc['Код резины'][k] = data['kod_svet_rezini']
+        df_pvc['Цвет резины'][k] = data['svet_rezin']
+        df_pvc['Код наклейки'][k] = data['kod_nakleyki']
+        df_pvc['Надпись наклейки'][k] = data['nadpis_nakleyki']
+        df_pvc['Группа материалов'][k] = 'PVCGP'
+        df_pvc['Краткий текст'][k] = data['kratkiy_tekst']
+        df_pvc['SAP Код вручную (вставится вручную)'][k] = data['sap_code']
+        df_pvc['Краткий текст товара (вставится вручную)'][k] = data['krat']
+        k+=1
+
+   
+    return df_pvc
 
 def json_to_excel(datas):
     df_termo  = pd.DataFrame()
@@ -535,6 +608,8 @@ def json_to_excel(datas):
     del df_simple['counter']
     del df_termo['counter']
     return df_simple,df_termo,correct,artikul_list
+
+
 
 
 
