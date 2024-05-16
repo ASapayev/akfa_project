@@ -1208,7 +1208,7 @@ def file_upload(request):
   return render(request,'norma/excel_form.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1'])
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
 def file_upload_termo_org(request): 
   if request.method == 'POST':
     data = request.POST.copy()
