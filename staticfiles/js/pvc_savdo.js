@@ -2090,18 +2090,9 @@ function create_kratkiy_tekst(id){
                 data_base[id].status_online =NaN;
                 
             }
-            if(zavod.val()!=''){
-                
-                var zavod_name =$('#zavod_name'+id)
-                zavod_name.text(zavod.val())
-                data_base[id].zavod = zavod.val();
-            }else{
-                var zavod_name =$('#zavod_name'+id)
-                zavod_name.text('')
-                data_base[id].zavod =NaN;
-                
-                
-            }
+            
+            data_base[id].zavod_name = 'ZAVOD PVS NAVOIY';
+            
         }else{
             if(tip_clenta.val()!=''){
                 data_base[id].tip_clenta = tip_clenta.val();
@@ -2219,19 +2210,7 @@ function create_kratkiy_tekst(id){
                 data_base[id].status_online =NaN;
                 status.css('border-color','red')
             }
-            if(zavod.val()!=''){
-                zavod.css('border-color','#dedad9')
-                var zavod_name =$('#zavod_name'+id)
-                zavod_name.text(zavod.val())
-                data_base[id].zavod = zavod.val();
-            }else{
-                var zavod_name =$('#zavod_name'+id)
-                zavod_name.text('')
-                data_base[id].zavod =NaN;
-                
-                zavod.css('border-color','red')
-            }
-
+            data_base[id].zavod_name = 'ZAVOD PVS NAVOIY';
         }
         
     }
