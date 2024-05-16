@@ -1251,7 +1251,7 @@ def file_list(request):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
 def file_list_org(request):
-    files = NormaExcelFiles.objects.filter(generated =False,type='simple').order_by('-created_at')
+    files = NormaExcelFiles.objects.filter(generated =False,type='simple').order_by('-created_at')[:50]
     context ={'files':files,
               'link':'/norma/process-combinirovanniy/',
               'section':'Генерация норма обычного файла',
@@ -1263,7 +1263,7 @@ def file_list_org(request):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
 def file_list_termo_org(request):
-    files = NormaExcelFiles.objects.filter(generated =False,type='termo').order_by('-created_at')
+    files = NormaExcelFiles.objects.filter(generated =False,type='termo').order_by('-created_at')[:50]
     context ={'files':files,
               'link':'/norma/process-combinirovanniy/',
               'section':'Генерация норма термо файла',
