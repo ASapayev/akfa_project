@@ -127,34 +127,10 @@
             console.log(res)
             if (res.status ==201){
                 Swal.fire('Qabul qilindi...', '', 'success')
-                var url_check ='{{request.get_host}}/client/order-check/'+res.order_id
-                var tbody = $('#basic_form')
-                tbody.remove()
-                var add_link =document.getElementById('topics-detail')
-                text =`<div class="container">
-                    <div class="row">
-
-                        <div class="col-lg-8 col-12 mx-auto">
-                            <h1 class="text-white text-center">Akfa. Group. NSI</h1>
-
-                            <h3 class="text-center">Линк</h3>
-
-                            
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text bi-send" id="basic-addon1">
-                                        
-                                    </span>
-
-                                    <input name="keyword" type="text" class="form-control" id="keyword" placeholder="Link ..." aria-label="Search" value='`+url_check+`'>
-
-                                    <button type="submit" class="form-control" style='background-color:#19B5FE'>Copy</button>
-                                </div>
-                            
-                        </div>
-
-                    </div>
-                </div>`
-                add_link.innerHTML= text
+                setTimeout(function() {
+                    var url = '{%url "client_order_list" %}';
+                    window.location.href = url;
+                }, 1000);
 
             }else{
                 console.log('aa')
