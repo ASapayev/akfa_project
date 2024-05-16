@@ -11,6 +11,9 @@ from config.settings import MEDIA_ROOT
 from .utils import excelgenerate,create_csv_file,create_folder
 from django.contrib.auth.decorators import login_required
 import os
+from django.urls import reverse
+import random
+import string
 from aluminiytermo.views import File
 from imzo.models import TexCartaTime
 from order.models import Order
@@ -327,6 +330,39 @@ def add_nakleyka(request):
         'form':form
     }
     return render(request,'norma/add_nakleyka.html',context)
+
+def id_generator(size=10, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1'])
+def nakleyka_download(request):
+    rand_string = id_generator()
+    file_path =f'{MEDIA_ROOT}\\uploads\\norma\\downloads\\NAKLEYKA_{rand_string}.xlsx'
+    naklaykas = Nakleyka.objects.all().values_list('sap_code_s4q100','название','еи','склад_закупа','код_наклейки','название_наклейки','ширина','еи_ширины','тип_клея')
+    df = pd.DataFrame(np.array(naklaykas),columns=['Сап код','Название','Един.изм','Склад закупа','Код наклейки','Название наклейки','Ширина','Ед.Изм ширина','Тип клея'])
+    df.to_excel(file_path,index=False)
+    return redirect(reverse('download_vi')+ f'?file_path={file_path}')
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1'])
+def lamination_download(request):
+    rand_string = id_generator()
+    file_path =f'{MEDIA_ROOT}\\uploads\\norma\\downloads\\LAMINATION_{rand_string}.xlsx'
+    lams = Lamplonka.objects.all().values_list('sap_code_s4q100','название','еи','склад_закупа','код_лам_пленки')
+    df = pd.DataFrame(np.array(lams),columns=['Сап код','Название','Един.изм','Склад закупа','Код лампленки'])
+    df.to_excel(file_path,index=False)
+    return redirect(reverse('download_vi')+ f'?file_path={file_path}')
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1'])
+def kraska_download(request):
+    rand_string = id_generator()
+    file_path =f'{MEDIA_ROOT}\\uploads\\norma\\downloads\\KRASKA_{rand_string}.xlsx'
+    kraka = Kraska.objects.all().values_list('sap_code_s4q100','название','еи','склад_закупа','бренд_краски','код_краски','тип_краски','код_краски_в_профилях')
+    df = pd.DataFrame(np.array(kraka),columns=['Сап код','Название','Един.изм','Склад закупа','Бренд краски','Код краски','Тип краски','Код краски в профилях'])
+    df.to_excel(file_path,index=False)
+    return redirect(reverse('download_vi')+ f'?file_path={file_path}')
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user1'])

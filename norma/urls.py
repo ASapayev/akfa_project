@@ -44,6 +44,9 @@ urlpatterns = [
     path('add-kraska',views.add_kraska,name ='add_kraska'),
     path('add-nakleyka',views.add_nakleyka,name ='add_nakleyka'),
     path('add-lamination',views.add_lamination,name ='add_lamination'),
+    path('nakleyka-download',views.nakleyka_download,name='nakleyka_download'),
+    path('lamination-download',views.lamination_download,name='lamination_download'),
+    path('kraska-download',views.kraska_download,name='kraska_download'),
 
     
 ]

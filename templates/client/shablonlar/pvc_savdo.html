@@ -133,7 +133,6 @@
             headers: { "X-CSRFToken": csrfToken },
             data: postData,
         }).done(function (res) {
-            console.log(res)
             if (res.status ==201){
                 Swal.fire('Qabul qilindi...', '', 'success')
                 setTimeout(function() {
