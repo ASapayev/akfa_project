@@ -394,7 +394,7 @@
       </a>
     </li>
     {%endif%}
-    {% if user_role == 'moderator' or user_role == 'user1' %}
+    {% if user_role == 'moderator' or user_role == 'user1' or user_role == 'razlovka'%}
     <li class="nav-item menu-items">
       <a class="nav-link" href="{% url 'tex-delete-org' %}">
         <span class="menu-icon">

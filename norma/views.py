@@ -7972,7 +7972,7 @@ def find_characteristics_org(request):
         return render(request,'norma/character_find.html',{'section':'Характеристики','section2':'Найти Характеристики'})
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1']) 
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka']) 
 def norma_delete_org(request):
     if request.method =='POST':
         ozmk =request.POST.get('ozmk',None)

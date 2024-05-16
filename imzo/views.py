@@ -1411,7 +1411,7 @@ def tex_delete(request):
         return render(request,'imzo/tex_find.html')
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1'])
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
 def tex_delete_org(request):
     if request.method =='POST':
         ozmk =request.POST.get('ozmk',None)
