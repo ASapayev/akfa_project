@@ -2924,6 +2924,8 @@ def sap_code_bulk_delete(request):
     else:
         return JsonResponse({'msg':False})
     
+    
+    
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator']) 
