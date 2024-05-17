@@ -36,6 +36,7 @@ path('length-profile-edit/<int:id>',views.profile_edit,name='edit_profile_length
 path('add-length-profile',views.add_length_profile,name='add_length_profile'),
 path('edit-currency',views.edit_currency,name='edit_currency'),
 path('create-construction',views.upload_for_1301_v22,name='create_construction'),
+path('edit-sapcode/<int:id>',views.edit_sapcodes_simple,name='edit_sapcodes_simple'),
 
 
 path('upload-bazaprofiles',views.full_update_bazaprofiley,name='full_update_bazaprofiley'),

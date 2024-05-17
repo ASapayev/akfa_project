@@ -58,9 +58,13 @@
         if(section == 'PVC сапкод'){
             var url = "/pvc/edit-sapcode/"+id
             var url2 = '{%url "show_sapcodes_pvc" %}'
-        }else{
+          }else if(section =='ALU сапкод'){
+          var url = "/alu/edit-sapcode/"+id
+          var url2 = '{%url "show_simple_sapcodes" %}'
+            
+        }
+        else{
             var url = "/pvc/edit-sapcode/"+id
-            var url2 = '{%url "show_simple_sapcodes" %}'
         }
         var csrfToken = getCSRFToken();
         var postData = {

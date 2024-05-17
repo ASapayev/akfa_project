@@ -53,6 +53,9 @@
                         {%if section == 'PVC сапкоды' %}
                         <a class='btn btn-warning' href="{%url 'edit_sapcode_pvc' profile.id %}"><i class="bi bi-pen"></i>Edit</a>
                         {%endif%}
+                        {%if section == 'Обычный сапкоды' %}
+                        <a class='btn btn-warning' href="{%url 'edit_sapcodes_simple' profile.id %}"><i class="bi bi-pen"></i>Edit</a>
+                        {%endif%}
                       </td>
                     </tr>
                     {%endfor%}

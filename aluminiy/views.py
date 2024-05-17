@@ -81,6 +81,69 @@ def edit_currency(request):
       }
       return render(request,'price/currency_update.html',context)
 
+@csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
+def edit_sapcodes_simple(request,id):
+      sapcode_org = AluminiyProduct.objects.get(id=id)
+      if request.method =='POST':
+            kratkiy = request.POST.get('kratkiy')
+            if RazlovkaObichniy.objects.filter(
+                  (Q(esap_code =sapcode_org.material)&Q(ekratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(zsap_code =sapcode_org.material)&Q(zkratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(psap_code =sapcode_org.material)&Q(pkratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(ssap_code =sapcode_org.material)&Q(skratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(asap_code =sapcode_org.material)&Q(akratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(lsap_code =sapcode_org.material)&Q(lkratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(nsap_code =sapcode_org.material)&Q(nkratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(sap_code7 = sapcode_org.material)&Q(kratkiy7 = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(fsap_code = sapcode_org.material)&Q(fkratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(sap_code75 = sapcode_org.material)&Q(kratkiy75 = sapcode_org.kratkiy_tekst_materiala))
+                  ).exists:
+                 
+                  razlovka = RazlovkaObichniy.objects.filter(
+                  (Q(esap_code =sapcode_org.material)&Q(ekratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(zsap_code =sapcode_org.material)&Q(zkratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(psap_code =sapcode_org.material)&Q(pkratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(ssap_code =sapcode_org.material)&Q(skratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(asap_code =sapcode_org.material)&Q(akratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(lsap_code =sapcode_org.material)&Q(lkratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(nsap_code =sapcode_org.material)&Q(nkratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(sap_code7 = sapcode_org.material)&Q(kratkiy7 = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(fsap_code = sapcode_org.material)&Q(fkratkiy = sapcode_org.kratkiy_tekst_materiala))|
+                  (Q(sap_code75 = sapcode_org.material)&Q(kratkiy75 = sapcode_org.kratkiy_tekst_materiala))
+                  )[:1].get()
+                  if '-E' in sapcode_org.material:
+                        razlovka.ekratkiy = kratkiy
+                  if '-Z' in sapcode_org.material:
+                        razlovka.zkratkiy =kratkiy
+                  if '-P' in sapcode_org.material:
+                        razlovka.pkratkiy =kratkiy
+                  if '-S' in sapcode_org.material:
+                        razlovka.skratkiy =kratkiy
+                  if '-A' in sapcode_org.material:
+                        razlovka.akratkiy =kratkiy
+                  if '-L' in sapcode_org.material:
+                        razlovka.lkratkiy =kratkiy
+                  if '-N' in sapcode_org.material:
+                        razlovka.nkratkiy =kratkiy
+                  if '-7' in sapcode_org.material:
+                        if '-75' in sapcode_org.material:
+                              razlovka.kratkiy75 =kratkiy
+                        else:
+                              razlovka.kratkiy7 =kratkiy
+                  
+                  razlovka.save()
+            sapcode_org.kratkiy_tekst_materiala = kratkiy
+            sapcode_org.save()
+            return JsonResponse({'status':201})
+      else:
+            context ={
+                  'sapcode':sapcode_org,
+                  'section':'ALU сапкод'
+            }
+            return render(request,'pvc/edit.html',context)
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator',])
 def profile_edit(request,id):
