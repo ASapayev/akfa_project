@@ -3153,6 +3153,7 @@ def duplicate_correct(request):
 
 
 
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator']) 
 def show_list_simple_sapcodes(request):

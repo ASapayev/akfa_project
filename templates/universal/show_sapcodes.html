@@ -49,7 +49,10 @@
                       <td>{{profile.kratkiy_tekst_materiala}} </td>
                       <td> {{profile.created_at |date:"d-m-Y H:i"}} </td>
                       <td>
-                        <div class="badge badge-outline-danger" style="cursor: pointer;" onclick="delete_sapcode(this,'{{profile.id}}')" id ="delete_btn">Delete</div>
+                        <a class='btn btn-danger' onclick="delete_sapcode(this,'{{profile.id}}')"><i class="bi bi-trash"></i>Delete</a>
+                        {%if section == 'PVC сапкоды' %}
+                        <a class='btn btn-warning' href="{%url 'edit_sapcode_pvc' profile.id %}"><i class="bi bi-pen"></i>Edit</a>
+                        {%endif%}
                       </td>
                     </tr>
                     {%endfor%}

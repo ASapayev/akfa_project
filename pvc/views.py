@@ -2924,8 +2924,46 @@ def sap_code_bulk_delete(request):
     else:
         return JsonResponse({'msg':False})
     
+
     
-    
+@csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
+def edit_sapcode(request,id):
+    sapcode_org = PVCProduct.objects.get(id=id)
+    if request.method =='POST':
+        kratkiy = request.POST.get('kratkiy')
+        
+       
+        if RazlovkaPVX.objects.filter(
+            (Q(esapkode = sapcode_org.material)&Q(ekrat = sapcode_org.kratkiy_tekst_materiala))
+            |(Q(lsapkode = sapcode_org.material)&Q(lkrat = sapcode_org.kratkiy_tekst_materiala))
+            |(Q(sapkode7 =sapcode_org.material )&Q(krat7=sapcode_org.kratkiy_tekst_materiala))).exists:
+            print(sapcode_org.material,sapcode_org.kratkiy_tekst_materiala)
+            razlovka = RazlovkaPVX.objects.filter(
+                (Q(esapkode = sapcode_org.material)&Q(ekrat = sapcode_org.kratkiy_tekst_materiala))
+                |(Q(lsapkode = sapcode_org.material)&Q(lkrat = sapcode_org.kratkiy_tekst_materiala))
+                |(Q(sapkode7 =sapcode_org.material )&Q(krat7=sapcode_org.kratkiy_tekst_materiala))
+                )[:1].get()
+            if '-E' in sapcode_org.material:
+                razlovka.ekrat =kratkiy
+            if '-L' in sapcode_org.material:
+                razlovka.lkrat =kratkiy
+            if '-7' in sapcode_org.material:
+                razlovka.krat7 =kratkiy
+            
+            razlovka.save()
+        sapcode_org.kratkiy_tekst_materiala = kratkiy
+        sapcode_org.save()
+        return JsonResponse({'status':201})
+    else:
+        context ={
+            'sapcode':sapcode_org,
+            'section':'PVC сапкод'
+        }
+        return render(request,'pvc/edit.html',context)
+
+
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator']) 
