@@ -70,6 +70,7 @@ def characteristika_created_txt_create(datas,order_id):
     pathtext5 =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\Единицы изм.txt'
     pathtext6 =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\Лист в C 3.xlsx'
     pathtext7 =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\Длинный текс.txt'
+    pathtextsavdo =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\Длинный текс савдо.txt'
     pathtext8 =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\Бух название SDLONGTEXT.txt'
     pathtext9 =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
     pathzip =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC'
@@ -84,6 +85,7 @@ def characteristika_created_txt_create(datas,order_id):
     umumiy_without_duplicate12D5 =[[] for i in range(0,49)]
     
     dlinniy_text_zero =[[],[],[]]
+    dlinniy_text_savdo =[[],[],[]]
     buxgalterskiy_naz =[[],[],[],[],[],[],[],[]]
     
 
@@ -112,6 +114,14 @@ def characteristika_created_txt_create(datas,order_id):
         
         ############################ bugalter nazvaniya###
         if '-7' in row['SAP код S4P 100']:
+
+            dlinniy_text_savdo[0].append('1')
+            dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
+            dlinniy_text_savdo[2].append(row['online_savdo_name'])
+            
+            dlinniy_text_savdo[0].append('2')
+            dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
+            dlinniy_text_savdo[2].append(row['online_savdo_name'])
             
             for ii in range(0,3):
                 if ii ==0:
@@ -675,6 +685,23 @@ def characteristika_created_txt_create(datas,order_id):
     df_dlinniy_text = pd.DataFrame(dlinniy_t)
     
     np.savetxt(pathtext7, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
+        
+        
+    ########################## end Длинный текс.txt ##############################
+    ########################## Длинный текс savdo.txt ##############################
+    #dlinniy_text_zero
+    dlinniy_t ={}
+    header_dlinniy ='\tBISMT\t\t\t\tTEXT'
+    dlinniy_t['ID']=dlinniy_text_savdo[0] 
+    dlinniy_t['BISMT']=dlinniy_text_savdo[1] 
+    dlinniy_t['RU']=['Z' for x in (dlinniy_text_savdo[1])] 
+    dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_savdo[1])]
+    dlinniy_t['sa']=['' for x in (dlinniy_text_savdo[1])]
+    dlinniy_t['TEXT']=dlinniy_text_savdo[2]
+    
+    df_dlinniy_text = pd.DataFrame(dlinniy_t)
+    
+    np.savetxt(pathtextsavdo, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
         
         
     ########################## end Длинный текс.txt ##############################
