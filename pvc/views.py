@@ -2853,10 +2853,13 @@ def proverka(request,id):
 @allowed_users(allowed_roles=['admin','moderator']) 
 def show_list_simple_sapcodes_pvc(request):
     search =request.GET.get('search',None)
+    
     if search:
         try:
             try:
-                f_date = datetime.strptime(search,'%m.%d.%Y %H:%M')
+               
+                f_date = datetime.strptime(search,'%d-%m-%Y %H:%M')
+                
                 products = PVCProduct.objects.filter(
                         created_at__year =f_date.year,
                         created_at__month =f_date.month,
@@ -2865,7 +2868,8 @@ def show_list_simple_sapcodes_pvc(request):
                         created_at__minute =f_date.minute
                 )
             except:
-                f_date = datetime.strptime(search,'%m.%d.%Y')
+                
+                f_date = datetime.strptime(search,'%d-%m-%Y')
                 products = PVCProduct.objects.filter(
                         created_at__year =f_date.year,
                         created_at__month =f_date.month,
@@ -2873,6 +2877,7 @@ def show_list_simple_sapcodes_pvc(request):
                 )
                   
         except:
+                
                 products = PVCProduct.objects.filter(
                     Q(material__icontains=search)
                     |Q(artikul__icontains=search)
@@ -2881,6 +2886,7 @@ def show_list_simple_sapcodes_pvc(request):
                     |Q(kratkiy_tekst_materiala__icontains=search)
                     ).order_by('-created_at')
     else:
+        
         products =PVCProduct.objects.all().order_by('-created_at')
                   
     paginator = Paginator(products, 25)
