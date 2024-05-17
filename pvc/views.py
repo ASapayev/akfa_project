@@ -9,10 +9,12 @@ from order.models import OrderPVX
 from accounts.models import User
 from aluminiy.models import LengthOfProfile,ExchangeValues
 import pandas as pd
-from django.db.models import Count,Max
+from django.db.models import Count,Max,Q
 from onlinesavdo.models import OnlineSavdoFile,OnlineSavdoOrder
 from onlinesavdo.forms import FileForm,FileForm2
 from onlinesavdo.utils import zip
+from django.core.paginator import Paginator
+from django.http import JsonResponse
 import os
 from .BAZA import DOP_PROFIL
 from functools import partial
@@ -1216,6 +1218,23 @@ class FileG:
         self.file =file
         self.filetype =filetype
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
+def upload_new_product_pvc(request):
+    if request.method == 'POST':
+        form = FileForm(request.POST, request.FILES)
+        if form.is_valid():
+                new_order = form.save()
+                
+                return render(request,'online_savdo/file_list.html',context)
+    else:
+        form =FileForm()
+        context ={
+        'form':form,
+        'section':'Формирование сапкода обычный'
+        }
+    return render(request,'online_savdo/main.html',context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator']) 
@@ -2829,5 +2848,96 @@ def proverka(request,id):
     }
     return render(request,'online_savdo/zip_file_download.html',context)
 
- 
 
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
+def show_list_simple_sapcodes_pvc(request):
+    search =request.GET.get('search',None)
+    if search:
+        try:
+            try:
+                f_date = datetime.strptime(search,'%m.%d.%Y %H:%M')
+                products = PVCProduct.objects.filter(
+                        created_at__year =f_date.year,
+                        created_at__month =f_date.month,
+                        created_at__day =f_date.day,
+                        created_at__hour =f_date.hour,
+                        created_at__minute =f_date.minute
+                )
+            except:
+                f_date = datetime.strptime(search,'%m.%d.%Y')
+                products = PVCProduct.objects.filter(
+                        created_at__year =f_date.year,
+                        created_at__month =f_date.month,
+                        created_at__day =f_date.day
+                )
+                  
+        except:
+                products = PVCProduct.objects.filter(
+                    Q(material__icontains=search)
+                    |Q(artikul__icontains=search)
+                    |Q(section__icontains=search)
+                    |Q(gruppa_materialov__icontains=search)
+                    |Q(kratkiy_tekst_materiala__icontains=search)
+                    ).order_by('-created_at')
+    else:
+        products =PVCProduct.objects.all().order_by('-created_at')
+                  
+    paginator = Paginator(products, 25)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+
+    context ={
+        'section':'PVC сапкоды',
+        'products':page_obj,
+        'search':search,
+        'type':'simple'
+
+    }
+    return render(request,'universal/show_sapcodes.html',context)
+
+@csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
+def sap_code_bulk_delete(request):
+    if request.method =='POST':
+        ids = request.POST.get('ids',None)
+        if ids:
+            ids = ids.split(',')
+            
+            for id in ids:
+                sapcode = PVCProduct.objects.get(id=id)
+                if Characteristika.objects.filter(sap_code=sapcode.material).exists():
+                    character =Characteristika.objects.filter(sap_code=sapcode.material).order_by('-created_at')[:1].get()
+                    character.delete()
+                if '-7' in sapcode.material:
+                    if RazlovkaPVX.objects.filter(sapkode7 = sapcode.material).exists():
+                            RazlovkaPVX.objects.get(sapkode7 = sapcode.material).delete()
+                sapcode.delete()
+
+        return JsonResponse({'msg':True})
+    else:
+        return JsonResponse({'msg':False})
+    
+@csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
+def delete_sap_code(request,id):
+    if request.method =='POST':
+        sapcode = PVCProduct.objects.get(id=id)
+        if Characteristika.objects.filter(sap_code=sapcode.material).exists():
+            character =Characteristika.objects.filter(sap_code=sapcode.material).order_by('-created_at')[:1].get()
+            character.delete()
+        if '-7' in sapcode.material:
+            if RazlovkaPVX.objects.filter(sapkode7 = sapcode.material).exists():
+                    RazlovkaPVX.objects.get(sapkode7 = sapcode.material).delete()
+        sapcode.delete()
+
+        return JsonResponse({'msg':True})
+    else:
+        return JsonResponse({'msg':False})

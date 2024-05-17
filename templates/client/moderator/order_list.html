@@ -81,6 +81,9 @@
                     <!-- <th scope="col" >Time</th> -->
                     <th scope="col">Status</th>
                     <th scope="col">Created</th>
+                    <th scope="col">1101</th>
+                    <th scope="col">1201</th>
+                    <th scope="col">Join</th>
                     <th scope="col">Options</th>
                 </tr>
               </thead>
@@ -109,7 +112,28 @@
                         
                     </td>
                     <td>{{order.created_at|date:"d-m-Y H:i"}}</td>
-                    <td>{%if order.status|stringformat:"d" == '10023' %}<a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" ><i class="bi bi-pen"></i> Convert</a>{%endif%}<a href="{%url 'order_check' order.id %}" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> See</a></td>
+                    <td>
+                        {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1101_{{forloop.counter}}"> <i class="input-helper" ></i></label>
+                        </div>
+                        {%endif%}
+                    </td>
+                    <td>
+                      {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1201_{{forloop.counter}}">  <i class="input-helper"></i></label>
+                        </div>
+                      {%endif%}
+                    </td>
+                    <td>
+                      {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="join_{{forloop.counter}}">  <i class="input-helper"></i></label>
+                        </div>
+                      {%endif%}
+                    </td>
+                    <td>{%if order.status|stringformat:"d" == '10023' %}<a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Convert</a>{%endif%}<a href="{%url 'order_check' order.id %}" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> See</a></td>
                 </tr>
             {%endfor%}
               </tbody>
@@ -171,6 +195,37 @@
 <script src="{% static 'js/eventsource.js' %}"></script>
 <script src="{% static 'js/reconnecting-eventsource.js' %}"></script>
 <script>
+
+  function status_set(elem,i){
+    var link = $('#link'+i)
+    var status_1101 = document.getElementById('1101_'+i)
+    var status_1201 = document.getElementById('1201_'+i)
+    var status_join = document.getElementById('join_'+i)
+    href = link.attr('href')
+
+    if(status_1101.checked){
+      name_1101 ='on'
+    }else{
+      name_1101 ='off'
+    }
+    if(status_1201.checked){
+      name_1201 ='on'
+    }else{
+      name_1201 ='off'
+    }
+    if(status_join.checked){
+      name_join ='on'
+    }else{
+      name_join ='off'
+    }
+    var indexOfComma = href.indexOf("?");
+    if (indexOfComma !== -1) { 
+      var href = href.substring(0, indexOfComma);
+    }
+
+    href +='?for1101='+name_1101+'&for1201='+name_1201+'&for1112='+name_join
+    link.attr('href',href)
+  }
   
   var es = new ReconnectingEventSource('/events/');
 

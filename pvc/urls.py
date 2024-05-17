@@ -7,6 +7,9 @@ urlpatterns = [
     path('upload-product-pvc-detail/<int:id>',views.product_add_second_org,name='upload_product_pvc__detail_org'),
     path('upload-char-pvc',views.upload_product_char_pvc,name='upload_char_pvc'),
     path('update-char-title-org/<int:id>',views.update_char_title_pvc,name='update_char_title_org_pvc'),
+    path('show-sapcodes',views.show_list_simple_sapcodes_pvc,name='show_sapcodes_pvc'),
+    path('bulk-delete-sapcodes',views.sap_code_bulk_delete,name='sap_code_bulk_delete_pvc'),
+    path('delete-sapcode/<int:id>',views.delete_sap_code,name='delete_sap_code_pvc'),
 
 
     ###1

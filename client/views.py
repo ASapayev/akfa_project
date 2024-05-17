@@ -196,10 +196,10 @@ def moderator_convert(request,id):
         if not is_column_empty_simple:
             df_simple.to_excel(path_alu_simple, index = False)
             oid = save_file_to_model(path_alu_simple,AluFile())
-            is_1101 = request.POST.get('for1101','off')
-            is_1201 = request.POST.get('for1201','off')
-            is_1112 = request.POST.get('for1112','off')
-
+            is_1101 = request.GET.get('for1101','off')
+            is_1201 = request.GET.get('for1201','off')
+            is_1112 = request.GET.get('for1112','off')
+            print(is_1101,is_1201,is_1112,'sstttatus')
             o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
             paths ={
                         'obichniy_file':path_alu_simple,
@@ -226,9 +226,10 @@ def moderator_convert(request,id):
         if not is_column_empty_termo:
             df_termo.to_excel(path_alu_termo, index = False)
             oid = save_file_to_model(path_alu_termo,AluFileTermo())
-            is_1101 = request.POST.get('for1101','off')
-            is_1201 = request.POST.get('for1201','off')
-            is_1112 = request.POST.get('for1112','off')
+            is_1101 = request.GET.get('for1101','off')
+            is_1201 = request.GET.get('for1201','off')
+            is_1112 = request.GET.get('for1112','off')
+            print(is_1101,is_1201,is_1112,'sstttatus')
             o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
             paths ={
                     'termo_file':path_alu_termo,

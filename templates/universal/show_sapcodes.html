@@ -132,6 +132,15 @@ function bulk_delete(ids){
     ids.push(selected_chek[i].value)
     // console.log(selected_chek[i].value);
   }
+
+  var section ='{{section}}'
+  if(section == 'PVC сапкоды'){
+    var url ='{% url "sap_code_bulk_delete_pvc" %}'
+  }else{
+    var url ='{% url "bulk_delete_sapkode" %}'
+
+  }
+  console.log(section)
   
   Swal.fire({
         showDenyButton: true,
@@ -140,7 +149,6 @@ function bulk_delete(ids){
         denyButtonText: `Yo'q`,
       }).then((result) => {
         if (result.isConfirmed) {
-          var url ="{% url 'bulk_delete_sapkode' %}";
           console.log(ids);
           $.ajax({
                 method:'POST',
@@ -161,6 +169,14 @@ function bulk_delete(ids){
 
 
 function delete_sapcode(elem,id){
+  
+  var section ='{{section}}'
+  if(section == 'PVC сапкоды'){
+    var url ='/pvc/delete-sapcode/' +id
+  }else{
+    var url ='/alu/delete-sapcode/' +id
+
+  }
     
     Swal.fire({
         showDenyButton: true,
@@ -169,7 +185,6 @@ function delete_sapcode(elem,id){
         denyButtonText: `Yo'q`,
       }).then((result) => {
         if (result.isConfirmed) {
-          var url ="/alu/delete-sapcode/" + id;
           $.ajax({
                 method:'POST',
                 url: url,

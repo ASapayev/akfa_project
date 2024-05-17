@@ -32,14 +32,14 @@ urlpatterns = [
 
     ################ Order ###########
 
-        ######moderator#####
+    ###### Moderator #####
     path('order-list-check',views.order_list_for_moderator,name='order_list_for_moderator'),
     path('order-check/<int:id>',views.moderator_check,name='order_check'),
     path('order-convert/<int:id>',views.moderator_convert,name='order_convert'),
     
 
 
-        #######customer######
+    ####### Customer ######
     path('order-save',views.OrderSaveView.as_view(),name='order_save'),
     path('detail-order-update/<int:id>',views.detail_order_update,name='detail_order_update'),
     path('order-update-all/<int:id>',views.order_update_all,name='order_update_all'),
