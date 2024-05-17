@@ -2866,7 +2866,7 @@ def show_list_simple_sapcodes_pvc(request):
                         created_at__day =f_date.day,
                         created_at__hour =f_date.hour,
                         created_at__minute =f_date.minute
-                )
+                ).order_by('-created_at')
             except:
                 
                 f_date = datetime.strptime(search,'%d-%m-%Y')
@@ -2874,7 +2874,7 @@ def show_list_simple_sapcodes_pvc(request):
                         created_at__year =f_date.year,
                         created_at__month =f_date.month,
                         created_at__day =f_date.day
-                )
+                ).order_by('-created_at')
                   
         except:
                 
