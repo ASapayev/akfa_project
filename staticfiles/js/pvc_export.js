@@ -957,77 +957,145 @@ function add_column(){
     
     for (let i = sizeee + 1; i < sizeee+2; i++) {
         text +=`
-        <tr id='table_tr` +String(i)+`' >                   
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                
-                <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-warning btn-sm gradient-buttons" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`'>Очистить</button>
-                </div>
-                    
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1" style='width:150px;'>
-                <span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <b><span id='camera` +String(i)+`'style="text-transform: uppercase; font-size:12px;padding-left:5px"></span></b>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " id="artikul`+String(i)+`" onchange='clear_artikul(`+String(i)+`)'></select>
-            </div>
-            <span style='display:none' id='artikul_pvc` +String(i)+`'></span>
-            <span style='display:none' id='iskyucheniye` +String(i)+`'></span>
-        </td>
-        
-        
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <b><span  id ='kod_komponent` +String(i)+`'style="text-transform: uppercase;font-size: 12px;padding-left:5px;"></span></b>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
-                    <option  selected ></option>
-                    <option value="1" >Неламинированный</option>
-                    <option value="2" >Ламинированный</option>
-                  </select>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1" style="width: 70px;">
-           
-            <select class="form-select" aria-label="" style="width: 70px;"  disabled id='kod_svet_zames`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
-                <option  value="" selected ></option>
-                <option value="F8" >F8</option>
-                <option value="PE" >PE</option>
-                <option value="N1" >N1</option>
-                <option value="EG1" >EG1</option>
-                <option value="LE" >LE</option>
-                <option value="BR1" >BR1</option>
-                <option value="WT7" >WT7</option>
-                <option value="BR10" >BR10</option>
-                <option value="W6" >W6</option>
-                <option value="N2" >N2</option>
-            </select>
+    <tr id='table_tr` +String(i)+`' >                   
+    <td >
+        <div class="input-group input-group-sm mb-1">
             
+            <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-warning btn-sm gradient-buttons" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`'>Очистить</button>
             </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <input type="text" class="form-control " style='width:50px' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
-            </div>
-        </td>
+                
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1" style='width:150px;'>
+            <span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <b><span id='camera` +String(i)+`'style="text-transform: uppercase; font-size:12px;padding-left:5px"></span></b>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " id="artikul`+String(i)+`" onchange='clear_artikul(`+String(i)+`)'></select>
+        </div>
+        <span style='display:none' id='artikul_pvc` +String(i)+`'></span>
+        <span style='display:none' id='iskyucheniye` +String(i)+`'></span>
+    </td>
     
-        <td >
-            <div class="input-group input-group-sm mb-1">    
-            <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
+    
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <b><span  id ='kod_komponent` +String(i)+`'style="text-transform: uppercase;font-size: 12px;padding-left:5px;"></span></b>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
+                <option  selected ></option>
+                <option value="1" >Неламинированный</option>
+                <option value="2" >Ламинированный</option>
+              </select>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1" style="width: 70px;">
+       
+        <select class="form-select" aria-label="" style="width: 70px;"  disabled id='kod_svet_zames`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <option  value="" selected ></option>
+            <option value="F8" >F8</option>
+            <option value="PE" >PE</option>
+            <option value="N1" >N1</option>
+            <option value="EG1" >EG1</option>
+            <option value="LE" >LE</option>
+            <option value="BR1" >BR1</option>
+            <option value="WT7" >WT7</option>
+            <option value="BR10" >BR10</option>
+            <option value="W6" >W6</option>
+            <option value="N2" >N2</option>
+        </select>
+        
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <input type="text" class="form-control " style='width:50px' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
+        </div>
+    </td>
+
+    <td >
+        <div class="input-group input-group-sm mb-1">    
+        <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
+            <option  value="" selected></option>
+            <option value="0027">Золотой дуб IW</option>
+            <option value="0300">Дуб мокко IW</option>
+            <option value="0549">Красный Орех IW</option>
+            <option value="0550">Орех IW</option>
+            <option value="1004">Мет платин</option>
+            <option value="1005">Мет серый кварц</option>
+            <option value="1006">Мет серый антрацит</option>
+            <option value="1012">Алюкс антрацит</option>
+            <option value="1015">АЛЮКС БЕЛЫЙ АЛЮМИН</option>
+            <option value="1016">Алюкс серый алюмин</option>
+            <option value="2007">Красный орех</option>
+            <option value="2012">Орех</option>
+            <option value="2025">Светлый дуб</option>
+            <option value="2036">Золотой дуб</option>
+            <option value="2048">Дуб мокко</option>
+            <option value="3001">Терновый дуб солод</option>
+            <option value="3002">Шеф Альпийский дуб</option>
+            <option value="3003">Гранитовый шеф дуб</option>
+            <option value="3042">Дерево бальза</option>
+            <option value="3043">Вишня амаретто</option>
+            <option value="3059">Орех терра</option>
+            <option value="3062">Грецкий орех</option>
+            <option value="3077">Винчестер</option>
+            <option value="3081">Шеф дуб светлый</option>
+            <option value="3083">Сантана</option>
+            <option value="3086">ШЕФ ДУБ СЕРЫЙ</option>
+            <option value="3091">Шеф дуб</option>
+            <option value="3094">Орех Ребраун</option>
+            <option value="4687">Кенсингтон серый</option>
+            <option value="5057">Бриллиантвейс</option>
+            <option value="6700">Темный дуб</option>
+            <option value="5F00">Шеф дуб серый LG</option>
+            <option value="A508">Антрацит сер ADO п</option>
+            <option value="EL01">Золотой дуб Элезго</option>
+            <option value="EL02">Горный Элезго</option>
+            <option value="KC01">Горный KCC</option>
+            <option value="S103">Красный орех ADO п</option>
+            <option value="S141">Дуб мокко ADO п</option>
+            <option value="S150">Золотой дуб ADO п</option>
+            <option value="S500">Золотой дуб ADO</option>
+            <option value="S508">Антрацит серый ADO</option>
+            <option value="S541">Дуб мокко ADO</option>
+            <option value="5003">Темный Антрацит</option>
+            <option value="S513">Красный орех ADO</option>
+            <option value="S540">Золотой дуб S540</option>
+            <option value="5F01">Шеф дуб сер 5F01</option>
+            <option value="1022">Ocean Blue</option>
+            <option value="ASA1128">ASA1128</option>
+            <option value="6030">МАТОВЫЙ БЕЛЫЙ</option>
+            <option value="6062">МАТОВЫЙ ЧЁРНЫЙ</option>
+            <option value="2509">АНТРАЦИТ СЕРЫЙ LG</option>
+            <option value="9252">Винчестер Renolit</option>
+            <option value="XXXX">XXXX</option>
+        </select>
+        </div>
+    </td>
+    
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <div>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;" id ='code_lamplonka_snaruji` +String(i)+`'></span>
+            </div>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
                 <option  value="" selected></option>
                 <option value="0027">Золотой дуб IW</option>
                 <option value="0300">Дуб мокко IW</option>
@@ -1083,150 +1151,83 @@ function add_column(){
                 <option value="9252">Винчестер Renolit</option>
                 <option value="XXXX">XXXX</option>
             </select>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <div>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%" id='code_lamplonka_vnutri`+String(i)+`'></span>
             </div>
-        </td>
-        
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;" id ='code_lamplonka_snaruji` +String(i)+`'></span>
-                </div>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1" style="width: 60px;">
+        <select class="form-select" aria-label="" style="width: 50px;border-color:red;display:none"   id='kod_svet_rezini`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <option  value="" selected ></option>
+            <option value="Чёрная резина" >BR</option>
+            <option value="Серая резина" >GR</option>
+            <option value="Без резины" >NR</option>
+        </select>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            
+                <span class =' text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;" id='svet_rezin`+String(i)+`'></span>
+            
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
+        <div id='nakleyka_select`+String(i)+`' class='nak_select`+String(i)+`' style='display:none;'>
+            <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
+        </div>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            
+                <span class ='text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;padding:5px" id='nadpis_nakleyki`+String(i)+`'></span>
+            
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <div>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" >PVCGP</span>
             </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
-                    <option  value="" selected></option>
-                    <option value="0027">Золотой дуб IW</option>
-                    <option value="0300">Дуб мокко IW</option>
-                    <option value="0549">Красный Орех IW</option>
-                    <option value="0550">Орех IW</option>
-                    <option value="1004">Мет платин</option>
-                    <option value="1005">Мет серый кварц</option>
-                    <option value="1006">Мет серый антрацит</option>
-                    <option value="1012">Алюкс антрацит</option>
-                    <option value="1015">АЛЮКС БЕЛЫЙ АЛЮМИН</option>
-                    <option value="1016">Алюкс серый алюмин</option>
-                    <option value="2007">Красный орех</option>
-                    <option value="2012">Орех</option>
-                    <option value="2025">Светлый дуб</option>
-                    <option value="2036">Золотой дуб</option>
-                    <option value="2048">Дуб мокко</option>
-                    <option value="3001">Терновый дуб солод</option>
-                    <option value="3002">Шеф Альпийский дуб</option>
-                    <option value="3003">Гранитовый шеф дуб</option>
-                    <option value="3042">Дерево бальза</option>
-                    <option value="3043">Вишня амаретто</option>
-                    <option value="3059">Орех терра</option>
-                    <option value="3062">Грецкий орех</option>
-                    <option value="3077">Винчестер</option>
-                    <option value="3081">Шеф дуб светлый</option>
-                    <option value="3083">Сантана</option>
-                    <option value="3086">ШЕФ ДУБ СЕРЫЙ</option>
-                    <option value="3091">Шеф дуб</option>
-                    <option value="3094">Орех Ребраун</option>
-                    <option value="4687">Кенсингтон серый</option>
-                    <option value="5057">Бриллиантвейс</option>
-                    <option value="6700">Темный дуб</option>
-                    <option value="5F00">Шеф дуб серый LG</option>
-                    <option value="A508">Антрацит сер ADO п</option>
-                    <option value="EL01">Золотой дуб Элезго</option>
-                    <option value="EL02">Горный Элезго</option>
-                    <option value="KC01">Горный KCC</option>
-                    <option value="S103">Красный орех ADO п</option>
-                    <option value="S141">Дуб мокко ADO п</option>
-                    <option value="S150">Золотой дуб ADO п</option>
-                    <option value="S500">Золотой дуб ADO</option>
-                    <option value="S508">Антрацит серый ADO</option>
-                    <option value="S541">Дуб мокко ADO</option>
-                    <option value="5003">Темный Антрацит</option>
-                    <option value="S513">Красный орех ADO</option>
-                    <option value="S540">Золотой дуб S540</option>
-                    <option value="5F01">Шеф дуб сер 5F01</option>
-                    <option value="1022">Ocean Blue</option>
-                    <option value="ASA1128">ASA1128</option>
-                    <option value="6030">МАТОВЫЙ БЕЛЫЙ</option>
-                    <option value="6062">МАТОВЫЙ ЧЁРНЫЙ</option>
-                    <option value="2509">АНТРАЦИТ СЕРЫЙ LG</option>
-                    <option value="9252">Винчестер Renolit</option>
-                    <option value="XXXX">XXXX</option>
-                </select>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%" id='code_lamplonka_vnutri`+String(i)+`'></span>
-                </div>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1" style="width: 60px;">
-            <select class="form-select" aria-label="" style="width: 50px;border-color:red;display:none"   id='kod_svet_rezini`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
-                <option  value="" selected ></option>
-                <option value="Чёрная резина" >BR</option>
-                <option value="Серая резина" >GR</option>
-                <option value="Без резины" >NR</option>
-            </select>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                
-                    <span class =' text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;" id='svet_rezin`+String(i)+`'></span>
-                
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
-            <div id='nakleyka_select`+String(i)+`' class='nak_select`+String(i)+`' style='display:none;'>
-                <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
-            </div>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                
-                    <span class ='text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;padding:5px" id='nadpis_nakleyki`+String(i)+`'></span>
-                
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" >PVCGP</span>
-                </div>
-            </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
-            </div>
-        </td>
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
+        </div>
+    </td>
+
+    <td >
+        <div class="input-group input-group-sm mb-1">
+       
+        <input type='text' class=" form-control " style=" width: 110px; font-size:10px; display:none; height:32px" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
     
-        <td >
-            <div class="input-group input-group-sm mb-1">
-           
-            <input type='text' class=" form-control " style=" width: 110px; font-size:10px; display:none; height:32px" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        
-            </div>
-        </td> 
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-            </div>
-        </td>
-        
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px;border-color:red;"  id='sena_export`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-           </div>
-        </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-           <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
-           </div>
-        </td>`
+        </div>
+    </td> 
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+        </div>
+    </td>
+    
+    <td >
+        <div class="input-group input-group-sm mb-1">
+        <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px;border-color:red;"  id='sena_export`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+       </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+       <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+       </div>
+    </td>
+   `
     }
 
 
