@@ -12,7 +12,7 @@ urlpatterns = [
 
     #pvc
     path('order-pvc',views.index_pvc,name='order_pvc'),
-    path('order-pvc-delete/<int:id>',views.order_delete,name='order_delete_pvc'),
+    path('order-pvc-delete/<int:id>',views.order_delete_pvc,name='order_delete_pvc'),
     path('order-detail-pvc/<int:id>',views.order_detail_pvc,name='order_detail_pvc'),
     path('order-status-pvc/<int:id>',views.status_change_to_done_pvc,name ='status_change_to_done_pvc'),
     ]

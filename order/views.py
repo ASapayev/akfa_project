@@ -106,7 +106,7 @@ def order_delete(request,id):
 def order_delete_pvc(request,id):
     order = OrderPVX.objects.get(id = id)
     order.delete()
-    return redirect('order')
+    return redirect('order_pvc')
 
 
 @login_required(login_url='/accounts/login/')
