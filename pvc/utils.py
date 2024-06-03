@@ -691,7 +691,7 @@ def characteristika_created_txt_create(datas,order_id):
     ########################## Длинный текс savdo.txt ##############################
     #dlinniy_text_zero
     dlinniy_t ={}
-    header_dlinniy ='\MATNR\t\t\t\tTEXT'
+    header_dlinniy ='\tMATNR\t\t\t\tTEXT'
     dlinniy_t['ID']=dlinniy_text_savdo[0] 
     dlinniy_t['MATNR']=dlinniy_text_savdo[1] 
     dlinniy_t['RU']=['Z' for x in (dlinniy_text_savdo[1])] 
