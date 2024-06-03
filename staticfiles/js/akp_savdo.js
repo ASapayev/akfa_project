@@ -1054,18 +1054,22 @@ function clear_artikul(id){
 
     var storonnost = $('#storonnost'+id)
     storonnost.val("")
+    storonnost.css('border-color','#dedad9')
     storonnost.attr('disabled',true)
 
     var kod_sveta = $('#kod_sveta'+id)
     kod_sveta.val("")
+    kod_sveta.css('border-color','#dedad9')
     kod_sveta.attr('disabled',true)
 
     var naz_sveta = $('#naz_sveta'+id)
     naz_sveta.text("")
+    naz_sveta.css('border-color','#dedad9')
     naz_sveta.attr('disabled',true)
 
     var tip_paneli = $('#tip_paneli'+id)
     tip_paneli.val("")
+    tip_paneli.css('border-color','#dedad9')
     tip_paneli.attr('disabled',true)
 
     var dlina = $('#dlina'+id)
