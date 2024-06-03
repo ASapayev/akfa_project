@@ -1044,10 +1044,12 @@ function clear_artikul(id){
     delete data_base[id];
     var brend = $('#brend'+id)
     brend.val("")
+    brend.css('border-color','#dedad9')
     brend.attr('disabled',true)
 
     var mikron = $('#mikron'+id)
     mikron.val("")
+    mikron.css('border-color','#dedad9')
     mikron.attr('disabled',true)
 
     var storonnost = $('#storonnost'+id)
@@ -1068,74 +1070,92 @@ function clear_artikul(id){
 
     var dlina = $('#dlina'+id)
     dlina.val("")
+    dlina.css('border-color','#dedad9')
     dlina.css('display','none')
 
     var shirina = $('#shirina'+id)
     shirina.val("")
+    shirina.css('border-color','#dedad9')
     shirina.css('display','none')
 
     var sap_code = $('#sap_code'+id)
     sap_code.val("")
+    sap_code.css('border-color','#dedad9')
     sap_code.css('display','none')
 
     var krat = $('#krat'+id)
     krat.val("")
+    krat.css('border-color','#dedad9')
     krat.css('display','none')
 
     var comment = $('#comment'+id)
     comment.val("")
+    comment.css('border-color','#dedad9')
     comment.css('display','none')
 
     var pickupdate = $('#pickupdate'+id)
     pickupdate.val("")
+    pickupdate.css('border-color','#dedad9')
     pickupdate.css('display','none')
 
     var sena_c_nds = $('#sena_c_nds'+id)
     sena_c_nds.val("")
+    sena_c_nds.css('border-color','#dedad9')
     sena_c_nds.css('display','none')
 
     var sena_bez_nds = $('#sena_bez_nds'+id)
     sena_bez_nds.val("")
+    sena_bez_nds.css('border-color','#dedad9')
     sena_bez_nds.css('display','none')
 
     var online_id = $('#online_id'+id)
     online_id.val("")
+    online_id.css('border-color','#dedad9')
     online_id.css('display','none')
 
     var nazvaniye_ruchnoy = $('#nazvaniye_ruchnoy'+id)
     nazvaniye_ruchnoy.val("")
+    nazvaniye_ruchnoy.css('border-color','#dedad9')
     nazvaniye_ruchnoy.css('display','none')
 
     var group = $('#group'+id)
     group.val("")
+    group.css('border-color','#dedad9')
     group.css('display','none')
 
     var buxgalter_tovar = $('#buxgalter_tovar'+id)
     buxgalter_tovar.val("")
+    buxgalter_tovar.css('border-color','#dedad9')
     buxgalter_tovar.css('display','none')
 
     var buxgalter_uchot = $('#buxgalter_uchot'+id)
     buxgalter_uchot.val("")
+    buxgalter_uchot.css('border-color','#dedad9')
     buxgalter_uchot.css('display','none')
 
     var bazoviy_edin = $('#bazoviy_edin'+id)
     bazoviy_edin.val("")
+    bazoviy_edin.css('border-color','#dedad9')
     bazoviy_edin.css('display','none')
 
     var alter_edin = $('#alter_edin'+id)
     alter_edin.val("")
+    alter_edin.css('border-color','#dedad9')
     alter_edin.css('display','none')
 
     var status_first =$('#status'+id);
     status_first.css('display','none')
     status_first.val('')
+    status_first.css('border-color','#dedad9')
 
     var diller = $('#diller'+id)
     diller.val("")
+    diller.css('border-color','#dedad9')
     diller.css('display','none')
 
     var tip_clenta = $('#tip_clenta'+id)
     tip_clenta.val("")
+    tip_clenta.css('border-color','#dedad9')
     tip_clenta.css('display','none')
 
 
