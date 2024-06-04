@@ -133,7 +133,7 @@
                         </div>
                       {%endif%}
                     </td>
-                    <td>{%if order.status|stringformat:"d" == '10023' %}<a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Convert</a>{%endif%}<a href="{%url 'order_check' order.id %}" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> See</a></td>
+                    <td>{%if order.status|stringformat:"d" == '10063' %}<a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Convert</a>{%endif%}<a href="{%url 'order_check' order.id %}" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> See</a></td>
                 </tr>
             {%endfor%}
               </tbody>
