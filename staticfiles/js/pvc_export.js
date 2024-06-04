@@ -120,6 +120,7 @@ for (let i = 1; i <= 5; i++) {
             
             <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-warning btn-sm gradient-buttons" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`'>Очистить</button>
+            
             </div>
                 
         </div>
@@ -493,6 +494,10 @@ function artukil_clear(id){
 
 
 
+
+
+
+
 function clear_artikul(id){
     var table_tr =$('#table_tr'+id);
     $('.nazvaniye_system'+id).text('');
@@ -684,9 +689,12 @@ function tip_pokritiya_selected(id,val){
         svet_lamplonka_snaruji.attr("required",true);
         svet_lamplonka_snaruji.css("border-color",'#fc2003');
         var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
+        var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
+        svet_lamplonka_vnutri.val('XXXX')
+        code_lamplonka_vnutri.text('XXXX')
         svet_lamplonka_vnutri.attr("disabled",false);
         svet_lamplonka_vnutri.attr("required",true);
-        svet_lamplonka_vnutri.css("border-color",'#fc2003');
+        // svet_lamplonka_vnutri.css("border-color",'#fc2003');
 
         if(iskyucheniye =='1'){
             data_base[id].is_iklyuch=true
