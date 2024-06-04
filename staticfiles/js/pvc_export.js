@@ -850,7 +850,7 @@ function create_kratkiy_tekst(id){
         
         const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
         const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-        var nadpis_nak= $('#nadpis_nakleyki1'+String(id)).text()
+        var nadpis_nak= $('#nadpis_nakleyki'+String(id)).text()
         
         if(spanTextbox.innerText !=''){
             spanss.style.borderColor='#dedad9';
@@ -875,7 +875,7 @@ function create_kratkiy_tekst(id){
        var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
        const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-       var nadpis_nak= $('#nadpis_nakleyki1'+String(id)).text()
+       var nadpis_nak= $('#nadpis_nakleyki'+String(id)).text()
         
        if(spanTextbox.innerText !=''){
             
