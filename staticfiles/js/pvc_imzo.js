@@ -145,12 +145,12 @@ for (let i = 1; i <= 5; i++) {
                 
         </div>
     </td>
-    <td >
+    <td style='display:none;' >
         <div class="input-group input-group-sm mb-1" style='width:150px;'>
             <span id ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
         </div>
     </td>
-    <td >
+    <td style='display:none;' >
         <div class="input-group input-group-sm mb-1">
             <b><span id='camera` +String(i)+`'style="text-transform: uppercase; font-size:12px;padding-left:5px"></span></b>
         </div>
@@ -164,7 +164,7 @@ for (let i = 1; i <= 5; i++) {
     </td>
     
     
-    <td >
+    <td style='display:none;'>
         <div class="input-group input-group-sm mb-1">
             <b><span  id ='kod_komponent` +String(i)+`'style="text-transform: uppercase;font-size: 12px;padding-left:5px;"></span></b>
         </div>
@@ -1055,12 +1055,12 @@ function add_column(){
                 
         </div>
     </td>
-    <td >
+    <td style='display:none;'>
         <div class="input-group input-group-sm mb-1" style='width:150px;'>
             <span id ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
         </div>
     </td>
-    <td >
+    <td style='display:none;'>
         <div class="input-group input-group-sm mb-1">
             <b><span id='camera` +String(i)+`'style="text-transform: uppercase; font-size:12px;padding-left:5px"></span></b>
         </div>
@@ -1074,7 +1074,7 @@ function add_column(){
     </td>
     
     
-    <td >
+    <td style='display:none;'>
         <div class="input-group input-group-sm mb-1">
             <b><span  id ='kod_komponent` +String(i)+`'style="text-transform: uppercase;font-size: 12px;padding-left:5px;"></span></b>
         </div>
