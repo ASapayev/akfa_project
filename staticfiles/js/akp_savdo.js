@@ -74,28 +74,28 @@ class BasePokritiya{
         switch(this.id){
             case 1: if(this.brend && this.storonnost && this.mikron && this.kod_sveta && this.tip_paneli && this.dlina && this.shirina){
                 
-                    if(this.is_active){
-                        
-                        if (this.online_id && this.nazvaniye_ruchnoy){
-        
-                           
-                            return {'text':this.brend + ' '+this.mikron+' '+ this.storonnost + ' ' + this.kod_sveta +'  ' +this.tip_paneli+'  ' +this.dlina +'x' +this.shirina,'accept':true}
+                        if(this.is_active){
+                            
+                            if (this.online_id && this.nazvaniye_ruchnoy){
+            
+                            
+                                return {'text':this.brend + ' '+this.mikron+' '+ this.storonnost + ' ' + this.kod_sveta +'  ' +this.tip_paneli+'  ' +this.dlina +'x' +this.shirina,'accept':true}
+                            }else{
+                                
+                                return {'text':this.brend + ' '+this.mikron+' '+ this.storonnost + ' ' + this.kod_sveta +'  ' +this.tip_paneli+'  ' +this.dlina +'x' +this.shirina,'accept':false}
+                            }
+                            
                         }else{
                             
-                            return {'text':this.brend + ' '+this.mikron+' '+ this.storonnost + ' ' + this.kod_sveta +'  ' +this.tip_paneli+'  ' +this.dlina +'x' +this.shirina,'accept':false}
-                        }
-                        
-                    }else{
-                        
-                        if ( this.pickupdate && this.sena_bez_nds && this.sena_c_nds && this.group && this.buxgalter_tovar && this.diller && this.tip_clenta){
-                            
-                            
-                            return {'text':this.brend + ' '+this.mikron+' '+ this.storonnost + ' ' + this.kod_sveta +'  ' +this.tip_paneli+'  ' +this.dlina +'x' +this.shirina,'accept':true}
-                        }else{
-                            
-                            return {'text':this.brend + ' '+this.mikron+' '+ this.storonnost + ' ' + this.kod_sveta +'  ' +this.tip_paneli+'  ' +this.dlina +'x' +this.shirina,'accept':false}
-                        }
-                    } 
+                            if ( this.pickupdate && this.sena_bez_nds && this.sena_c_nds && this.group && this.buxgalter_tovar && this.diller && this.tip_clenta && this.nazvaniye_ruchnoy){
+                                
+                                
+                                return {'text':this.brend + ' '+this.mikron+' '+ this.storonnost + ' ' + this.kod_sveta +'  ' +this.tip_paneli+'  ' +this.dlina +'x' +this.shirina,'accept':true}
+                            }else{
+                                
+                                return {'text':this.brend + ' '+this.mikron+' '+ this.storonnost + ' ' + this.kod_sveta +'  ' +this.tip_paneli+'  ' +this.dlina +'x' +this.shirina,'accept':false}
+                            }
+                        } 
         
                 }else{
                     return {'text':'XXXXXXXX','accept':false}
@@ -266,7 +266,7 @@ for (let i = 1; i <= 10; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <textarea   rows='1' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+        <textarea   rows='1' class=" form-control " style=" width: 220px; font-size:10px; display:none;border-color:red; height:32px" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
     </td>
     
@@ -1286,6 +1286,13 @@ function create_kratkiy_tekst(id){
         }else{
             data_base[id].comment = NaN;
         }
+        if(nazvaniye_ruchnoy.val()!=''){
+            nazvaniye_ruchnoy.css('border-color','#dedad9')
+            data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
+        }else{
+            nazvaniye_ruchnoy.css('border-color','red')
+            data_base[id].nazvaniye_ruchnoy = NaN;
+        }
         
         var is_active =$('#is_active'+id)
         
@@ -1298,13 +1305,7 @@ function create_kratkiy_tekst(id){
                 online_id.css('border-color','red')
                 data_base[id].online_id = NaN;
             }
-            if(nazvaniye_ruchnoy.val()!=''){
-                nazvaniye_ruchnoy.css('border-color','#dedad9')
-                data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
-            }else{
-                nazvaniye_ruchnoy.css('border-color','red')
-                data_base[id].nazvaniye_ruchnoy = NaN;
-            }
+           
             
             if(pickupdate.val()!=''){
                 data_base[id].pickupdate = pickupdate.val();
@@ -1378,13 +1379,13 @@ function create_kratkiy_tekst(id){
                
                 data_base[id].online_id = NaN;
             }
-            if(nazvaniye_ruchnoy.val()!=''){
+            // if(nazvaniye_ruchnoy.val()!=''){
                 
-                data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
-            }else{
+            //     data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
+            // }else{
                 
-                data_base[id].nazvaniye_ruchnoy = NaN;
-            }
+            //     data_base[id].nazvaniye_ruchnoy = NaN;
+            // }
             if(pickupdate.val()!=''){
                 pickupdate.css('border-color','#dedad9')
                 data_base[id].pickupdate = pickupdate.val();
@@ -1651,7 +1652,7 @@ function add_column(){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <textarea   rows='1' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+            <textarea   rows='1' class=" form-control " style=" width: 220px; font-size:10px; display:none; border-color:red; height:32px" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
             </div>
         </td>
         

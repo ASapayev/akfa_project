@@ -33,6 +33,7 @@ class BasePokritiya{
         kratkiy_tekst=NaN,//done
         sap_code_ruchnoy=NaN,//done
         kratkiy_text_ruchnoy=NaN,//done
+        nazvaniye_ruchnoy =NaN,
         comment=NaN,
         dilina_pressa =NaN,
         is_termo=false
@@ -71,6 +72,7 @@ class BasePokritiya{
         this.kratkiy_tekst=kratkiy_tekst;
         this.sap_code_ruchnoy=sap_code_ruchnoy;
         this.kratkiy_text_ruchnoy=kratkiy_text_ruchnoy;
+        this.nazvaniye_ruchnoy=nazvaniye_ruchnoy;
         this.comment=comment;
         this.dilina_pressa =dilina_pressa;
         this.is_termo=is_termo;
@@ -80,14 +82,25 @@ class BasePokritiya{
         switch(this.id){
             case 1:if(!this.is_termo){
            
-                if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki ){
-                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
-                }else{
-                    return {'text':'XXXXXXXX','accept':false}
-                }
+                    if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki ){
+                        if(this.nazvaniye_ruchnoy && this.dilina_pressa){
+
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                        }else{
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                        }
+                    }else{
+                        return {'text':'XXXXXXXX','accept':false}
+                    }
                 }else{
                     if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                        if(this.nazvaniye_ruchnoy && this.dilina_pressa){
+
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                        }else{
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+
+                        }
                     }else{
                         return {'text':'XXXXXXXX','accept':false}
                     }
@@ -95,67 +108,127 @@ class BasePokritiya{
             case 2:if(!this.is_termo){
 
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki ){
-                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                    if(this.nazvaniye_ruchnoy && this.dilina_pressa){
+
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                    }else{
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                        
+                    }
                 }else{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
         
                     if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki ){
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                        if(this.nazvaniye_ruchnoy && this.dilina_pressa){
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                            
+                        }else{
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                            
+                        }
                     }else{
                         return {'text':'XXXXXXXX','accept':false}
                     }
                 }break;
             case 3: if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
-                    return  {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                    if(this.nazvaniye_ruchnoy && this.dilina_pressa){
+
+                        return  {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                    }else{
+                        return  {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                        
+                    }
                 }else{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
                 
                     if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                        if(this.nazvaniye_ruchnoy && this.dilina_pressa){
+
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                        }else{
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                            
+                        }
                     }else{
                         return {'text':'XXXXXXXX','accept':false}
                     }
                 }break;
             case 4: if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki ){
-                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
+                    if(this.nazvaniye_ruchnoy && this.dilina_pressa){
+
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
+                    }else{
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
+                        
+                    }
                 }else{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
                     if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki ){
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
+                        if(this.nazvaniye_ruchnoy && this.dilina_pressa){
+
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
+                        }else{
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
+                            
+                        }
                     }else{
                         return {'text':'XXXXXXXX','accept':false}
                     }
                 }break;
             case 5:if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki){
-                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':true}
+                    if(this.nazvaniye_ruchnoy && this.dilina_pressa){
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':true}
+                        
+                    }else{
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':false}
+                        
+                    }
                 }else{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
                     if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn){
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':true}
+                        if(this.nazvaniye_ruchnoy && this.dilina_pressa){
+
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':true}
+                        }else{
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':false}
+                            
+                        }
                     }else{
                         return {'text':'XXXXXXXX','accept':false}
                     }
                 }break;
             case 6:if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_nakleyki && this.contactnost_anod){
-                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
+                    if(this.nazvaniye_ruchnoy && this.dilina_pressa){
+
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
+                    }else{
+                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
+                        
+                    }
                 }else{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
                     if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_anod_vn && this.kod_nakleyki && this.contactnost_anod){
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
+                        if(this.nazvaniye_ruchnoy && this.dilina_pressa){
+
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
+                        }else{
+                            
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
+                        }
                     }else{
                         return {'text':'XXXXXXXX','accept':false}
                     }
@@ -463,12 +536,17 @@ for (let i = 1; i <= 5; i++) {
     
     <td >
         <div class="input-group input-group-sm mb-1">
+            <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:32px;border-color:red;" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+        </div>
+    </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
             <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type="text" class="form-control "  style='width:90px;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  >    
+        <input type="text" class="form-control "  style='width:90px;border-color:red'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  >    
         </div>
     </td>
     </tr>`
@@ -704,7 +782,9 @@ function artukil_clear(id){
     var klaes_kratkiy =$('#klaes_kratkiy'+String(id))
     var sap_code_ruchnoy =$('#sap_code_ruchnoy'+String(id))
     var kratkiy_text_ruchnoy =$('#kratkiy_text_ruchnoy'+String(id))
+    var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+String(id))
 
+    nazvaniye_ruchnoy.text('')
     tex_name.text('')
     kratkiy_text_ruchnoy.val('')
     sap_code_ruchnoy.val('')
@@ -1159,6 +1239,15 @@ function create_kratkiy_tekst(id){
         data_base[id].dilina_pressa = dilina_pressa.val();
     }else{
         data_base[id].dilina_pressa = NaN;
+        dilina_pressa.css("border-color",'red');
+    }
+    var nazvaniye_ruchnoy = $('#nazvaniye_ruchnoy'+String(id));
+    if(nazvaniye_ruchnoy.val()!=''){
+        nazvaniye_ruchnoy.css("border-color",'#dedad9');
+        data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
+    }else{
+        data_base[id].nazvaniye_ruchnoy = NaN;
+        nazvaniye_ruchnoy.css("border-color",'red');
     }
 
     var sap_code_ruchnoy = $('#sap_code_ruchnoy'+String(id));
@@ -1780,6 +1869,11 @@ function add_column(){
         <input type="text" class="form-control "  style='width:220px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="kratkiy_text_ruchnoy`+String(i)+`" onchange="create_kratkiy_tekst(`+String(i)+`)" >
         </div>
     </td>
+    <td >
+        <div class="input-group input-group-sm mb-1">
+            <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:32px;border-color:red" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+        </div>
+    </td>
     
     <td >
         <div class="input-group input-group-sm mb-1">
@@ -1788,7 +1882,7 @@ function add_column(){
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type="text" class="form-control "  style='width:90px;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  >    
+        <input type="text" class="form-control "  style='width:90px;border-color:red'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  >    
         </div>
     </td>
     </tr>`
