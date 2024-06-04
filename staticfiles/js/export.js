@@ -300,6 +300,8 @@ for (let i = 1; i <= 5; i++) {
             <option value="60" >60</option>
             <option value="63" >63</option>
             <option value="82" >82</option>
+            <option value="05" >05</option>
+            <option value="61" >61</option>
         </select>
         
         </div>
@@ -311,6 +313,9 @@ for (let i = 1; i <= 5; i++) {
             <option value="T4" >T4</option>
             <option value="T5" >T5</option>
             <option value="T6" >T6</option>
+            <option value="T42" >T42</option>
+            <option value="T52" >T52</option>
+            <option value="T61" >T61</option>
             <option value="T66" >T66</option>
         </select>
         </div>
