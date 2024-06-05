@@ -611,7 +611,7 @@ for (let i = 1; i <= 6; i++) {
         type: 'GET',
         url: "/client/imzo-artikul-list"
     }).then(function (data) {
-        console.log(data,'datatatattatatta22')
+        console.log(data['data'],'datatatattatatta22')
         console.log(data.data,'datatatattatatta')
         var option = new Option(data.data['Артикул'], data.id, true, true);
         artikulSelect.append(option).trigger('change');
