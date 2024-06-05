@@ -161,6 +161,7 @@ for (let i = 1; i <= 5; i++) {
         </div>
         <span style='display:none' id='artikul_pvc` +String(i)+`'></span>
         <span style='display:none' id='iskyucheniye` +String(i)+`'></span>
+        <span style='display:none' id='is_special` +String(i)+`'></span>
     </td>
     
     
@@ -439,7 +440,7 @@ for (let i = 1; i <= 6; i++) {
             dataType: 'json',
             processResults: function(data){
                 return {results: $.map(data, function(item){
-                    return {id:item.id,text:item.artikul,component:item.component2,system:item.nazvaniye_sistem,camera:item.camera,kod_k_component:item.kod_k_component,iskyucheniye:item.iskyucheniye}
+                    return {id:item.id,text:item.artikul,component:item.component2,system:item.nazvaniye_sistem,camera:item.camera,kod_k_component:item.kod_k_component,iskyucheniye:item.iskyucheniye,is_special:item.is_special}
                 })
             };
             }
@@ -473,7 +474,9 @@ for (let i = 1; i <= 6; i++) {
         var artikul_pvc = $('#artikul_pvc'+String(i));
         var iskyucheniye = $('#iskyucheniye'+String(i));
         var tip_pokritiya = $('#tip_pokritiya'+String(i));
+        var is_special = $('#is_special'+String(i));
         tip_pokritiya.attr("disabled",false);
+        is_special.text(e.params.data.is_special);
         nazvaniye_system.text(e.params.data.system);
         artikul_pvc.text(e.params.data.component);
         iskyucheniye.text(e.params.data.iskyucheniye);
@@ -757,10 +760,18 @@ function tip_pokritiya_selected(id,val){
         svet_lamplonka_snaruji.attr("disabled",false);
         svet_lamplonka_snaruji.attr("required",true);
         svet_lamplonka_snaruji.css("border-color",'#fc2003');
+        
+
+        var is_special = $('#is_special'+String(id)).text();
         var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
         var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
-        svet_lamplonka_vnutri.val('XXXX')
-        code_lamplonka_vnutri.text('XXXX')
+        if(is_special =='1'){
+            svet_lamplonka_vnutri.val('XXXX')
+            code_lamplonka_vnutri.text('XXXX')
+
+        }else{
+            svet_lamplonka_vnutri.css("border-color",'#fc2003');
+        }
         svet_lamplonka_vnutri.attr("disabled",false);
         svet_lamplonka_vnutri.attr("required",true);
         // svet_lamplonka_vnutri.css("border-color",'#fc2003');
