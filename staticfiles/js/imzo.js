@@ -40,7 +40,6 @@ class BasePokritiya{
         kod_sveta=NaN,
         kratkiy_klaes=NaN,
         comment=NaN,
-        dilina_pressa =NaN,
         is_termo=false) {
             this.full=full;
             this.id =id;
@@ -82,7 +81,6 @@ class BasePokritiya{
             this.kod_sveta =kod_sveta;
             this.kratkiy_klaes =kratkiy_klaes;
             this.comment =comment;
-            this.dilina_pressa =dilina_pressa;
             this.is_termo= is_termo;
     }
 
@@ -579,11 +577,7 @@ for (let i = 1; i <= 5; i++) {
             <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
     </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type="text" class="form-control "  style='width:90px;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  >    
-        </div>
-    </td>
+    
     </tr>`
   }
 
@@ -1268,13 +1262,7 @@ function create_kratkiy_tekst(id){
         dlina.css("border-color",'red');
         data_base[id].dlina = NaN;
     }
-    var dilina_pressa = $('#dilina_pressa'+String(id));
-    if(dilina_pressa.val()!=''){
-        dilina_pressa.css("border-color",'#dedad9');
-        data_base[id].dilina_pressa = dilina_pressa.val();
-    }else{
-        data_base[id].dilina_pressa = NaN;
-    }
+   
 
     var id_klaes =$('#id_klaes'+String(id))
     var klaes_nazvaniye =$('#klaes_nazvaniye'+String(id))
@@ -1646,7 +1634,6 @@ function create_kratkiy_tekst(id){
 
     }
     kratkiy_tekst.text(data.text)
-
     }
 }
 
@@ -2095,3 +2082,32 @@ function add_column(){
     // clear_artikul(sizeee + 1);
 }
 
+function getCSRFToken() {
+    return $('input[name=csrfmiddlewaretoken]').val();
+}
+
+function get_sapcode(artikul,kratkiy_tekst){
+    var url = "order-save"
+    var csrfToken = getCSRFToken();
+    var postData = {
+        'data': json_data,
+        'order_type':'pvc_export',
+        'name':'PVC EXPORT'
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        headers: { "X-CSRFToken": csrfToken },
+        data: postData,
+    }).done(function (res) {
+        console.log(res)
+        if (res.status ==201){
+            
+
+        }else{
+            console.log('aa')
+        }
+        // WON'T REDIRECT
+    });
+}
