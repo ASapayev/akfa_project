@@ -530,12 +530,12 @@ for (let i = 1; i <= 5; i++) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type="text" class="form-control "  style='width:90px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="sap_code_ruchnoy`+String(i)+`"  onchange="create_kratkiy_tekst(`+String(i)+`)">           
+        <input type="text" class="form-control "  style='width:150px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="sap_code_ruchnoy`+String(i)+`"  onchange="create_kratkiy_tekst(`+String(i)+`)">           
         </div>
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type="text" class="form-control "  style='width:220px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="kratkiy_text_ruchnoy`+String(i)+`" onchange="create_kratkiy_tekst(`+String(i)+`)" >
+        <input type="text" class="form-control "  style='width:250px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="kratkiy_text_ruchnoy`+String(i)+`" onchange="create_kratkiy_tekst(`+String(i)+`)" >
         </div>
     </td>
     

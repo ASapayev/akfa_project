@@ -720,13 +720,13 @@ for (let i = 1; i <= 5; i++) {
     <td >
         <div class="input-group input-group-sm mb-1">
        
-        <input type='text' class=" form-control " style=" width: 110px; font-size:10px; display:none; " id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+        <input type='text' class=" form-control " style=" width: 150px; font-size:10px; display:none; " id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
     
         </div>
     </td> 
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; "  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+        <input type='text' class=" form-control " style=" width: 250px; font-size:10px; display:none; "  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         </div>
     </td>
     
