@@ -336,7 +336,6 @@
                         <th>Артикул</th>
                         <th>Компонент</th>
                         <th>Product description - RUS</th>
-                        <th>Старый Код</th>
                         <th>Комбинация</th>
                         <th>Тип Комбинация</th>
                         <th>Тип профиля</th>
@@ -365,7 +364,6 @@
                         <td class ='new_char_five' ><input type='text'  id ='artikul{{forloop.counter}}'  style="width: 110px;" value='{{char.0}}' data-status="{{char.1}}"></td>
                         <td class ='new_char_five' ><input type='text'  id ='komponent{{forloop.counter}}'  style="width: 110px;"></td>
                         <td class ='new_char_five' ><input type='text'  id ='description{{forloop.counter}}' ></td>
-                        <td class ='new_char_five' ><input type='text'  id ='stariy_kod{{forloop.counter}}'  style="width: 110px;"></td>
                         <td class ='new_char_five' >
                           <select class="form-select" aria-label=""    style="width: 180px" id ='kombinatsiya{{forloop.counter}}'  >
                             <option value="" ></option>
@@ -706,7 +704,6 @@
           komponent = $('#komponent'+ String(i)).val();
           description = $('#description'+ String(i)).val();
           kombinatsiya = $('#kombinatsiya'+ String(i)).val();
-          stariy_kod = $('#stariy_kod'+ String(i)).val();
           tip_combination = $('#tip_combination'+ String(i)).val();
           tip_profilya = $('#tip_profilya'+ String(i)).val();
           visota = $('#visota'+ String(i)).val();
@@ -728,11 +725,9 @@
             default_exists = true;
             break
             }
-          if (stariy_kod ==''){
-            default_exists = true;
-            break
-            }
-          if (kombinatsiya ==''){
+          
+          
+            if (kombinatsiya ==''){
             default_exists = true;
             break
             }
@@ -783,7 +778,6 @@
             'Артикул' : artikul, 
             'Компонент' : komponent, 
             'Product description - RUS' : description, 
-            'Старый Код' : stariy_kod, 
             'Комбинация' : kombinatsiya, 
             'Тип Комбинация' : tip_combination, 
             'Тип профиля' : tip_profilya, 
@@ -862,7 +856,6 @@
                     komponent = $('#komponent'+ String(i)).val(msg.artikul['komponent']);
                     description = $('#description'+ String(i)).val(msg.artikul['description']);
                     kombinatsiya = $('#kombinatsiya'+ String(i)).val(msg.artikul['kombinatsiya']);
-                    stariy_kod = $('#stariy_kod'+ String(i)).val(msg.artikul['stariy_kod']);
                     tip_combination = $('#tip_combination'+ String(i)).val(msg.artikul['tip_combination']);
                     tip_profilya = $('#tip_profilya'+ String(i)).val(msg.artikul['tip_profilya']);
                     visota = $('#visota'+ String(i)).val(msg.artikul['visota']);

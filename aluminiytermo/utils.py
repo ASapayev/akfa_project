@@ -1052,7 +1052,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
             dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
-            dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append('')
             dd2[5].append(bazaprofiley.data['Тип Комбинация'])
             dd2[5].append('XXXX')
         else:
@@ -1137,10 +1137,8 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
             dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
-            if row['ch_artikul_old'] =='XXXX':
-                dd2[5].append('XXXX')
-            else:
-                dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append('')
+            
             dd2[5].append(bazaprofiley.data['Тип Комбинация'])
 
             if '-7' in row['SAP код S4P 100']:
@@ -2373,7 +2371,7 @@ def get_cretead_txt_for_1101(datas,elist):
             dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
-            dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append('')
             dd2[5].append(bazaprofiley.data['Тип Комбинация'])
             artikul_for_qbic = row['SAP код S4P 100'].split('-')[0]
             if Norma.objects.filter(Q(артикул=artikul_for_qbic)&~Q(упаковка_колво_профилей_в_1_пачке ='0')).exists():
@@ -2455,7 +2453,7 @@ def get_cretead_txt_for_1101(datas,elist):
             dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
-            dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append('')
             dd2[5].append(bazaprofiley.data['Тип Комбинация'])
             dd2[5].append('XXXX')
 
@@ -2912,7 +2910,7 @@ def create_characteristika_utils(items):
         df[50].append(ch_tnved)
         df[51].append(ch_surface_treatment_export)
         sap_kode =item['material'].split('-')[0]
-        df[52].append(baza_profiey.data['Старый Код'])
+        df[52].append('')
 
         
     dat = {
@@ -4828,7 +4826,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
-            dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append()
             dd2[5].append(bazaprofiley.data['Тип Комбинация'])
             artikul_for_qbic = str(row['SAP код S4P 100']).split('-')[0]
             if Norma.objects.filter(Q(артикул=artikul_for_qbic)&~Q(упаковка_колво_профилей_в_1_пачке ='0')).exists():
@@ -4909,7 +4907,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
-            dd2[5].append(row['ch_artikul_old'])
+            dd2[5].append('')
             dd2[5].append(bazaprofiley.data['Тип Комбинация'])
             dd2[5].append('XXXX')
 
@@ -6069,7 +6067,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
                 dd2[5].append(row['WMS_WIDTH'])
                 dd2[5].append(row['WMS_HEIGHT'])
-                dd2[5].append(row['ch_artikul_old'])
+                dd2[5].append('')
                 dd2[5].append(bazaprofiley.data['Тип Комбинация'])
                 dd2[5].append('XXXX')
             else:
@@ -6154,7 +6152,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
                 dd2[5].append(row['WMS_WIDTH'])
                 dd2[5].append(row['WMS_HEIGHT'])
-                dd2[5].append(row['ch_artikul_old'])
+                dd2[5].append('')
                 dd2[5].append(bazaprofiley.data['Тип Комбинация'])
                 if '-7' in row['SAP код S4P 100']:
                     if row['Тип покрытия'] =='Неокрашенный':
@@ -6630,7 +6628,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
                 dd2[5].append(row['WMS_WIDTH'])
                 dd2[5].append(row['WMS_HEIGHT'])
-                dd2[5].append(row['ch_artikul_old'])
+                dd2[5].append('')
                 dd2[5].append(bazaprofiley.data['Тип Комбинация'])
                 dd2[5].append('XXXX')
             else:
@@ -6715,7 +6713,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
                 dd2[5].append(row['WMS_WIDTH'])
                 dd2[5].append(row['WMS_HEIGHT'])
-                dd2[5].append(row['ch_artikul_old'])
+                dd2[5].append('')
                 dd2[5].append(bazaprofiley.data['Тип Комбинация'])
                 if '-7' in row['SAP код S4P 100']:
                     if row['Тип покрытия'] =='Неокрашенный':

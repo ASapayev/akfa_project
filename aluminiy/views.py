@@ -788,7 +788,6 @@ def get_bazaprofiley(request):
             'komponent' :  baza_profile['Компонент'],
             'description' :  baza_profile['Product description - RUS'],
             'kombinatsiya' :  baza_profile['Комбинация'],
-            'stariy_kod' :  baza_profile['Старый Код'],
             'tip_combination' :  baza_profile['Тип Комбинация'],
             'tip_profilya' :  baza_profile['Тип профиля'],
             'visota' :  baza_profile['Высота'],
@@ -922,57 +921,7 @@ def product_add_second_org(request,id):
                   'AluProflesData':doesnotexist,
                   'filename':'aluminiy'
             }
-            # df_char_utils_one = pd.DataFrame({
-            #       'матрица':doesnotexist[0],
-            #       'артикул':doesnotexist[0],
-            #       'высота':['' for i in doesnotexist[0]],
-            #       'ширина':['' for i in doesnotexist[0]],
-            #       'высота_ширина':['' for i in doesnotexist[0]],
-            #       'systems':['' for i in doesnotexist[0]]
-            #       })
-            # df_char_utils_two =pd.DataFrame({
-            #       'артикул':doesnotexist[1],
-            #       'полый_или_фасонный':['' for i in doesnotexist[1]]
-            # })
-            # df_baza_profiley =pd.DataFrame({
-            #       'артикул':[i[0] for i in doesnotexist[2]],
-            #       'серия':[i[1] for i in doesnotexist[2]],
-            #       'старый_код':[i[2] for i in doesnotexist[2]],
-            #       'компонент':[i[3] for i in doesnotexist[2]],
-            #       'type_combination':[i[4] for i in doesnotexist[2]],
-            #       'product_description':[i[5] for i in doesnotexist[2]],
-            #       'link':[i[6] for i in doesnotexist[2]],
-            # })
-          
-            # df_artikul_component =pd.DataFrame({
-            #       'artikul':doesnotexist[3],
-            #       'component':doesnotexist[3],
-            #       'seria':['' for i in doesnotexist[3]],
-            #       'product_description_ru1':['' for i in doesnotexist[3]],
-            #       'product_description_ru':['' for i in doesnotexist[3]],
-            #       'stariy_code_benkam':['' for i in doesnotexist[3]],
-            #       'stariy_code_jomiy':['' for i in doesnotexist[3]],
-            #       'proverka_artikul2':['' for i in doesnotexist[3]],
-            #       'proverka_component2':['' for i in doesnotexist[3]],
-            #       'gruppa_materialov':['' for i in doesnotexist[3]],
-            #       'gruppa_materialov2':['' for i in doesnotexist[3]]
-            # })
-            # create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\','Not Exists')
-            
-            # path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\Not Exists\\Not_Exists.xlsx'
-            
-            # if os.path.isfile(path_not_exists):
-            #       try:
-            #             os.remove(path_not_exists)
-            #       except:
-            #             return render(request,'utils/file_exist_org.html')
-            
-            # writer = pd.ExcelWriter(path_not_exists, engine='xlsxwriter')
-            # df_char_utils_one.to_excel(writer,index=False,sheet_name ='character utils one')
-            # df_char_utils_two.to_excel(writer,index=False,sheet_name ='character utils two')
-            # df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
-            # df_artikul_component.to_excel(writer,index=False,sheet_name ='artikul component')
-            # writer.close()
+           
 
             if order_id:
                   order = Order.objects.get(id = order_id)
@@ -3173,7 +3122,6 @@ def razlovka_save(request):
 def artikul_component(request):
       data = request.POST.get('data',None)
       datas = json.loads(data)
-      print(datas)
       if data:
             for dat in datas:
                   if AluProfilesData.objects.filter(Q(data__Артикул=dat['Артикул'])&Q(data__Компонент=dat['Компонент'])).exists():
