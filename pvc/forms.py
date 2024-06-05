@@ -1,5 +1,5 @@
 from django import forms
-from .models import PVCFile,CharacteristikaFilePVC,RezinaIsklyucheniye
+from .models import PVCFile,CharacteristikaFilePVC
 
 
 class FileFormPVC(forms.ModelForm):

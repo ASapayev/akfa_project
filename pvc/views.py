@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from datetime import datetime
 from config.settings import MEDIA_ROOT
 from .forms import FileFormPVC,FileFormCharPVC
-from .models import PVCProduct,PVCFile,ArtikulKomponentPVC,CameraPvc,AbreviaturaLamination,LengthOfProfilePVC,Characteristika,Price,CharacteristikaFilePVC,RazlovkaPVX,BuxgalterskiyNazvaniye,DliniyText,RezinaIsklyucheniye
+from .models import PVCProduct,PVCFile,ArtikulKomponentPVC,CameraPvc,AbreviaturaLamination,LengthOfProfilePVC,Characteristika,Price,CharacteristikaFilePVC,RazlovkaPVX,BuxgalterskiyNazvaniye,DliniyText
 from order.models import OrderPVX
 from accounts.models import User
 from aluminiy.models import LengthOfProfile,ExchangeValues
@@ -233,7 +233,7 @@ def product_add_second_org(request,id):
     df_new['SAP код 7']=''
     df_new['U-Упаковка + Готовая Продукция']=''
     
-    rezina_iskyuch = RezinaIsklyucheniye.objects.all().values_list('artikul',flat=True)
+    rezina_iskyuch = ArtikulKomponentPVC.objects.filter(iskyucheniye ='1').values_list('artikul',flat=True)
     
     
     

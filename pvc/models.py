@@ -73,6 +73,7 @@ class ArtikulKomponentPVC(models.Model):
   product_type = models.CharField(max_length = 50,blank=True,null=True)
   profile_type = models.CharField(max_length = 50,blank=True,null=True)
   iskyucheniye = models.CharField(max_length =5,blank=True,null=True,default='0')
+  is_special = models.SmallIntegerField(default=0,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 
@@ -136,10 +137,6 @@ class DliniyText(models.Model):
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 
-class RezinaIsklyucheniye(models.Model):
-  artikul = models.CharField(max_length = 150,blank=True,null=True)
-  created_at =models.DateTimeField(auto_now_add=True)
-  updated_at =models.DateTimeField(auto_now=True)
 
 class NakleykaPvc(models.Model):
   name = models.CharField(max_length =10,blank=True,null=True)
