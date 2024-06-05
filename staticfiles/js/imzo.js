@@ -1626,13 +1626,18 @@ function create_kratkiy_tekst(id){
         table_tr.css('background-color','#2de319')
         data_base[id].full=true
         data_base[id].kratkiy_tekst=data.text
+        
     }else{
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','white')
         data_base[id].full=false
         data_base[id].kratkiy_tekst=NaN
-
+        
     }
+    if(data.text !='XXXXXXXX' ){
+        sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text,data_base[id].is_termo)
+    }
+
     kratkiy_tekst.text(data.text)
     }
 }
@@ -2082,29 +2087,24 @@ function add_column(){
     // clear_artikul(sizeee + 1);
 }
 
-function getCSRFToken() {
-    return $('input[name=csrfmiddlewaretoken]').val();
-}
 
-function get_sapcode(artikul,kratkiy_tekst){
-    var url = "order-save"
-    var csrfToken = getCSRFToken();
-    var postData = {
-        'data': json_data,
-        'order_type':'pvc_export',
-        'name':'PVC EXPORT'
-    }
+
+function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
+    var url = '/client/get-sapcodes'
+   
 
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: url,
-        headers: { "X-CSRFToken": csrfToken },
-        data: postData,
+        data: {'artikul':artikul,'kratkiy_tekst':kratkiy_tekst,'is_termo':is_termo},
     }).done(function (res) {
-        console.log(res)
         if (res.status ==201){
-            
-
+            var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+            var kratkiy_text_ruchnoy = $('#kratkiy_text_ruchnoy'+id)
+            sap_code_ruchnoy.val(res.artikul)
+            kratkiy_text_ruchnoy.val(res.kratkiy_tekst)
+            sap_code_ruchnoy.css('background-color','orange')
+            kratkiy_text_ruchnoy.css('background-color','orange')
         }else{
             console.log('aa')
         }

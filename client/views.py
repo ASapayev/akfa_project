@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.http import JsonResponse
-from aluminiy.models import AluProfilesData,AluFile
+from aluminiy.models import AluProfilesData,AluFile,AluminiyProduct
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile
 from .models import Anod,Order,OrderDetail
 from django.contrib.auth.decorators import login_required
@@ -18,7 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 import websocket
 from django_eventstream import send_event
 import pandas as pd
-from aluminiytermo.models import ArtikulComponent,AluFileTermo,NakleykaCode
+from aluminiytermo.models import ArtikulComponent,AluFileTermo,NakleykaCode,AluminiyProductTermo
 import os
 from config.settings import MEDIA_ROOT
 from datetime import datetime
@@ -833,6 +833,25 @@ def order_detail(request,id):
 
    
 
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def get_sapcodes(request):
+    artikul = request.GET.get('artikul')
+    kratkiy_tekst = request.GET.get('kratkiy_tekst')
+    is_termo = request.GET.get('is_termo')
+    if is_termo =='false':
+        if AluminiyProduct.objects.filter(artikul=artikul,kratkiy_tekst_materiala=kratkiy_tekst).exists():
+            sapcode = AluminiyProduct.objects.filter(artikul=artikul,kratkiy_tekst_materiala=kratkiy_tekst)[:1].get()
+        else:
+            return  JsonResponse({'status':400,'artikul':None,'kratkiy_tekst':None})
+    else:
+        if AluminiyProductTermo.objects.filter(artikul=artikul,kratkiy_tekst_materiala=kratkiy_tekst).exists():
+            sapcode = AluminiyProductTermo.objects.filter(artikul=artikul,kratkiy_tekst_materiala=kratkiy_tekst)[:1].get()
+        else:
+            return  JsonResponse({'status':400,'artikul':None,'kratkiy_tekst':None})
+
+    return JsonResponse({'status':201,'artikul':sapcode.material,'kratkiy_tekst':sapcode.kratkiy_tekst_materiala})
 
 @login_required(login_url='/accounts/login/')
 @customer_only
