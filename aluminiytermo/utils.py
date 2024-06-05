@@ -4826,7 +4826,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             dd2[5].append(str(row['ch_surface_treatment_export']).replace('.0',''))
             dd2[5].append(row['WMS_WIDTH'])
             dd2[5].append(row['WMS_HEIGHT'])
-            dd2[5].append()
+            dd2[5].append('')
             dd2[5].append(bazaprofiley.data['Тип Комбинация'])
             artikul_for_qbic = str(row['SAP код S4P 100']).split('-')[0]
             if Norma.objects.filter(Q(артикул=artikul_for_qbic)&~Q(упаковка_колво_профилей_в_1_пачке ='0')).exists():
