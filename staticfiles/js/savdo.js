@@ -2814,10 +2814,37 @@ function create_kratkiy_tekst(id){
         data_base[id].kratkiy_tekst=NaN
 
     }
+    if(data.text !='XXXXXXXX' ){
+        sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text,data_base[id].is_termo)
+    }
     
     kratkiy_tekst.text(data.text)
 
     }
+}
+
+
+function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
+    var url = '/client/get-sapcodes'
+   
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        data: {'artikul':artikul,'kratkiy_tekst':kratkiy_tekst,'is_termo':is_termo},
+    }).done(function (res) {
+        if (res.status ==201){
+            var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+            var kratkiy_text_ruchnoy = $('#kratkiy_text_ruchnoy'+id)
+            sap_code_ruchnoy.val(res.artikul)
+            kratkiy_text_ruchnoy.val(res.kratkiy_tekst)
+            sap_code_ruchnoy.css('background-color','orange')
+            kratkiy_text_ruchnoy.css('background-color','orange')
+        }else{
+            console.log('aa')
+        }
+        // WON'T REDIRECT
+    });
 }
 
 function add_column(){
