@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.http import JsonResponse
 from aluminiy.models import AluProfilesData,AluFile,AluminiyProduct
-from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile
+from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile,PVCProduct
 from .models import Anod,Order,OrderDetail
 from django.contrib.auth.decorators import login_required
 import time
@@ -851,6 +851,20 @@ def get_sapcodes(request):
         else:
             return  JsonResponse({'status':400,'artikul':None,'kratkiy_tekst':None})
 
+    return JsonResponse({'status':201,'artikul':sapcode.material,'kratkiy_tekst':sapcode.kratkiy_tekst_materiala})
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def get_sapcodes_pvc(request):
+    artikul = request.GET.get('artikul')
+    kratkiy_tekst = request.GET.get('kratkiy_tekst')
+   
+    
+    if PVCProduct.objects.filter(artikul=artikul,kratkiy_tekst_materiala=kratkiy_tekst).exists():
+        sapcode = PVCProduct.objects.filter(artikul=artikul,kratkiy_tekst_materiala=kratkiy_tekst)[:1].get()
+    else:
+        return  JsonResponse({'status':400,'artikul':None,'kratkiy_tekst':None})
+   
     return JsonResponse({'status':201,'artikul':sapcode.material,'kratkiy_tekst':sapcode.kratkiy_tekst_materiala})
 
 @login_required(login_url='/accounts/login/')

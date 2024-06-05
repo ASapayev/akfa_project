@@ -396,13 +396,13 @@ for (let i = 1; i <= 5; i++) {
     <td >
         <div class="input-group input-group-sm mb-1">
        
-        <input type='text' class=" form-control " style=" width: 110px; font-size:10px; display:none; height:32px" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+        <input type='text' class=" form-control " style=" width: 150px; font-size:10px; display:none; height:32px" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
     
         </div>
     </td> 
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+        <input type='text' class=" form-control " style=" width: 250px; font-size:10px; display:none; height:32px"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         </div>
     </td>
     
@@ -1045,9 +1045,36 @@ function create_kratkiy_tekst(id){
 
     }
     
+    if(data.text !='XXXXXXXX' ){
+        sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text)
+    }
+
     kratkiy_tekst.text(data.text)
 
     }
+}
+
+function get_sapcode(id,artikul,kratkiy_tekst){
+    var url = '/client/get-sapcodes-pvc'
+   
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        data: {'artikul':artikul,'kratkiy_tekst':kratkiy_tekst},
+    }).done(function (res) {
+        if (res.status ==201){
+            var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+            var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
+            sap_code_ruchnoy.val(res.artikul)
+            kratkiy_text_ruchnoy.val(res.kratkiy_tekst)
+            sap_code_ruchnoy.css('background-color','orange')
+            kratkiy_text_ruchnoy.css('background-color','orange')
+        }else{
+            console.log('aa')
+        }
+        // WON'T REDIRECT
+    });
 }
 
 function add_column(){
