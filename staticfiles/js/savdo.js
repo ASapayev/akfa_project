@@ -2835,7 +2835,8 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
     }).done(function (res) {
         if (res.status ==201){
             var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
-            var kratkiy_text_ruchnoy = $('#kratkiy_text_ruchnoy'+id)
+            var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
+            
             sap_code_ruchnoy.val(res.artikul)
             kratkiy_text_ruchnoy.val(res.kratkiy_tekst)
             sap_code_ruchnoy.css('background-color','orange')
