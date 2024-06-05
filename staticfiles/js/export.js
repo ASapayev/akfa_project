@@ -587,15 +587,18 @@ for (let i = 1; i <= 6; i++) {
         type: 'GET',
         url: "/client/imzo-artikul-list"
     }).then(function (data) {
-        var option = new Option(data.data['Артикул'], data.id, true, true);
-        artikulSelect.append(option).trigger('change');
-    
-        artikulSelect.trigger({
-            type: 'select2:select',
-            params: {
-                data: data
-            }
-        });
+        data.forEach(function(dataItem) {
+
+            var option = new Option(dataItem['Артикул'], data['id'], true, true);
+            artikulSelect.append(option).trigger('change');
+        
+            artikulSelect.trigger({
+                type: 'select2:select',
+                params: {
+                    data: dataItem
+                }
+            });
+        })
     });
     
     
