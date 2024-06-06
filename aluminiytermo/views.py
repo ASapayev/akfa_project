@@ -1506,7 +1506,7 @@ def product_add_second_org(request,id):
                   if df['Длина при выходе из пресса'][key] != 'nan':
                         if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key]).exists():
                               df_new['SAP код F'][key] = AluminiyProductTermo.objects.filter(artikul = df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key])[:1].get().material
-                              duplicat_list.append([df_new['SAP код Ф'][key],df_new['Фабрикация'][key],'F'])
+                              duplicat_list.append([df_new['SAP код F'][key],df_new['Фабрикация'][key],'F'])
                         else: 
                               if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='F').exists():
                                     umumiy_counter_termo[df['Артикул'][key]+'-F'] += 1
