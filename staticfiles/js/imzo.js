@@ -485,14 +485,14 @@ for (let i = 1; i <= 5; i++) {
         </select>
         </div>
     </td>
-    <td >
+    <td style='display:none' >
         <div class="input-group input-group-sm mb-1">
         <div>
             <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id='tip_anodirovki`+String(i)+`'></span>
         </div>
         </div>
     </td>
-    <td >
+    <td style='display:none' >
         <div class="input-group input-group-sm mb-1">
         <div>
             <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='sposob_anodirovki`+String(i)+`'></span>
