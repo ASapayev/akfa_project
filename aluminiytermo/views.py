@@ -1524,6 +1524,21 @@ def product_add_second_org(request,id):
                                     
                                     
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный']
+                                    
+                                    
+                                    if row['Тип покрытия'].lower() == 'сублимированный':
+                                          tip_poktitiya ='с декоративным покрытием'
+                                    else:
+                                          tip_poktitiya = row['Тип покрытия'].lower()
+                                    
+                                    export_description = ''
+                                    if row['Комбинация'].lower() == 'с термомостом':  
+                                          export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    else:       
+                                          export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    
+                                    export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()
                                     
                                           
                                     cache_for_cratkiy_text.append(
@@ -1581,6 +1596,21 @@ def product_add_second_org(request,id):
                                     
                                     
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный']
+                                    
+                                    
+                                    if row['Тип покрытия'].lower() == 'сублимированный':
+                                          tip_poktitiya ='с декоративным покрытием'
+                                    else:
+                                          tip_poktitiya = row['Тип покрытия'].lower()
+                                    
+                                    export_description = ''
+                                    if row['Комбинация'].lower() == 'с термомостом':  
+                                          export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    else:       
+                                          export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    
+                                    export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()
                                     
                                           
                                     cache_for_cratkiy_text.append(
