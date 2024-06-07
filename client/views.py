@@ -136,7 +136,7 @@ def order_list_for_zavod(request):
     return render(request,'client/moderator/order_list.html',context)
 @login_required(login_url='/accounts/login/')
 
-@moderator_only
+@allowed_users(allowed_roles=['moderator','user1'])
 def order_list_for_moderator(request):
     orders = Order.objects.all().order_by('-created_at')
 
@@ -620,7 +620,7 @@ def json_to_excel(datas):
 
 
 @login_required(login_url='/accounts/login/')
-@moderator_only
+@allowed_users(allowed_roles=['moderator','user1'])
 def moderator_check(request,id):
     users = User.objects.all()
     if request.method =='POST':

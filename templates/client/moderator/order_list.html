@@ -69,7 +69,7 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Заявка Статус</h4>
-          {%if orders %}
+          {%if orders  %}
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -88,53 +88,104 @@
                 </tr>
               </thead>
               <tbody>
+
                 {%for order in orders%}
-                <tr>
-                    <th scope="row">{{forloop.counter}}</th>
-                    <td>{{order.data.name}}</td>
-                    <td>{{order.owner}}</td>
-                    <td>{%if order.checker %}{{order.checker}}{%endif%}</td>
-                    <!-- <td>
-                      <div class="progress">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </td> -->
-                    <td>
-                        
-                      {%if order.status|stringformat:"d" == '1' %}<span class="badge badge-primary" value="1"   >Открыто</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10023' %} <span value="10023" class="badge badge-success" >Выполнено</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10063' %}<span value="10063" class="badge badge-warning"   >Работа ведется</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10081' %} <span value="10081" class="badge badge-secondary" >На паузе</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10083' %} <span value="10083" class="badge badge-warning"  >Согласование</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10082' %}<span value="10082" class="badge badge-danger"  >Отменено</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10084' %}<span value="10084" class="badge badge-warning" >Доработка заявителем</span>{%endif%}
-                      {%if order.status|stringformat:"d" == '10085' %}<span value="10084" class="badge badge-warning"  >Исправлено</span>{%endif%}
-                        
-                    </td>
-                    <td>{{order.created_at|date:"d-m-Y H:i"}}</td>
-                    <td>
+                  {% if request.user.role == 'moderator' %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{order.data.name}}</td>
+                        <td>{{order.owner}}</td>
+                        <td>{%if order.checker %}{{order.checker}}{%endif%}</td>
+                        <!-- <td>
+                          <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </td> -->
+                        <td>
+                            
+                          {%if order.status|stringformat:"d" == '1' %}<span class="badge badge-primary" value="1"   >Открыто</span>{%endif%}
+                          {%if order.status|stringformat:"d" == '10023' %} <span value="10023" class="badge badge-success" >Выполнено</span>{%endif%}
+                          {%if order.status|stringformat:"d" == '10063' %}<span value="10063" class="badge badge-warning"   >Работа ведется</span>{%endif%}
+                          {%if order.status|stringformat:"d" == '10081' %} <span value="10081" class="badge badge-secondary" >На паузе</span>{%endif%}
+                          {%if order.status|stringformat:"d" == '10083' %} <span value="10083" class="badge badge-warning"  >Согласование</span>{%endif%}
+                          {%if order.status|stringformat:"d" == '10082' %}<span value="10082" class="badge badge-danger"  >Отменено</span>{%endif%}
+                          {%if order.status|stringformat:"d" == '10084' %}<span value="10084" class="badge badge-warning" >Доработка заявителем</span>{%endif%}
+                          {%if order.status|stringformat:"d" == '10085' %}<span value="10084" class="badge badge-warning"  >Исправлено</span>{%endif%}
+                            
+                        </td>
+                        <td>{{order.created_at|date:"d-m-Y H:i"}}</td>
+                        <td>
+                            {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                            <div class="form-check">
+                              <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1101_{{forloop.counter}}"> <i class="input-helper" ></i></label>
+                            </div>
+                            {%endif%}
+                        </td>
+                        <td>
+                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                            <div class="form-check">
+                              <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1201_{{forloop.counter}}">  <i class="input-helper"></i></label>
+                            </div>
+                          {%endif%}
+                        </td>
+                        <td>
+                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                            <div class="form-check">
+                              <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="join_{{forloop.counter}}">  <i class="input-helper"></i></label>
+                            </div>
+                          {%endif%}
+                        </td>
+                        <td>{%if order.status|stringformat:"d" == '10063' %}<a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Convert</a>{%endif%}<a href="{%url 'order_check' order.id %}" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> See</a></td>
+                    </tr>
+                  {%endif%}
+                  {%if request.user ==  order.partner %}
+                    <tr>
+                      <th scope="row">{{forloop.counter}}</th>
+                      <td>{{order.data.name}}</td>
+                      <td>{{order.owner}}</td>
+                      <td>{%if order.checker %}{{order.checker}}{%endif%}</td>
+                      <!-- <td>
+                        <div class="progress">
+                          <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </td> -->
+                      <td>
+                          
+                        {%if order.status|stringformat:"d" == '1' %}<span class="badge badge-primary" value="1"   >Открыто</span>{%endif%}
+                        {%if order.status|stringformat:"d" == '10023' %} <span value="10023" class="badge badge-success" >Выполнено</span>{%endif%}
+                        {%if order.status|stringformat:"d" == '10063' %}<span value="10063" class="badge badge-warning"   >Работа ведется</span>{%endif%}
+                        {%if order.status|stringformat:"d" == '10081' %} <span value="10081" class="badge badge-secondary" >На паузе</span>{%endif%}
+                        {%if order.status|stringformat:"d" == '10083' %} <span value="10083" class="badge badge-warning"  >Согласование</span>{%endif%}
+                        {%if order.status|stringformat:"d" == '10082' %}<span value="10082" class="badge badge-danger"  >Отменено</span>{%endif%}
+                        {%if order.status|stringformat:"d" == '10084' %}<span value="10084" class="badge badge-warning" >Доработка заявителем</span>{%endif%}
+                        {%if order.status|stringformat:"d" == '10085' %}<span value="10084" class="badge badge-warning"  >Исправлено</span>{%endif%}
+                          
+                      </td>
+                      <td>{{order.created_at|date:"d-m-Y H:i"}}</td>
+                      <td>
+                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1101_{{forloop.counter}}"> <i class="input-helper" ></i></label>
+                          </div>
+                          {%endif%}
+                      </td>
+                      <td>
                         {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1101_{{forloop.counter}}"> <i class="input-helper" ></i></label>
-                        </div>
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1201_{{forloop.counter}}">  <i class="input-helper"></i></label>
+                          </div>
                         {%endif%}
-                    </td>
-                    <td>
-                      {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1201_{{forloop.counter}}">  <i class="input-helper"></i></label>
-                        </div>
-                      {%endif%}
-                    </td>
-                    <td>
-                      {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="join_{{forloop.counter}}">  <i class="input-helper"></i></label>
-                        </div>
-                      {%endif%}
-                    </td>
-                    <td>{%if order.status|stringformat:"d" == '10063' %}<a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Convert</a>{%endif%}<a href="{%url 'order_check' order.id %}" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> See</a></td>
-                </tr>
+                      </td>
+                      <td>
+                        {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="join_{{forloop.counter}}">  <i class="input-helper"></i></label>
+                          </div>
+                        {%endif%}
+                      </td>
+                      <td><a href="{%url 'order_check' order.id %}" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> See</a></td>
+                  </tr>
+                  {%endif%}
             {%endfor%}
               </tbody>
             </table>

@@ -149,8 +149,11 @@
                                         <label for="exampleTextarea1" id="examplelabel">Сообщение</label>
                                         <textarea class="form-control " id="exampleTextarea1" name="message" rows="4"></textarea>
                                         </div>
-                                    <button type="submit" class="btn btn-primary mr-2">Отправить</button>
-                                    <button class="btn btn-dark">Отменить</button>
+                                        <div id="btn_command">
+                                        
+                                            <button type="submit" class="btn btn-primary mr-2">Отправить</button>
+                                            <button class="btn btn-dark">Отменить</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -256,6 +259,8 @@ function status_change(val){
         textarea.attr('required',false)
         textarea.removeClass('mustbe_red')
     }
+    var btn_command = $('#btn_command')
+    btn_command.css('display','block')
 }
 </script>
 {%endblock%}
