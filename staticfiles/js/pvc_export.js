@@ -986,6 +986,12 @@ function get_sapcode(id,artikul,kratkiy_tekst){
             sap_code_ruchnoy.css('background-color','orange')
             kratkiy_text_ruchnoy.css('background-color','orange')
         }else{
+            var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+            var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
+            sap_code_ruchnoy.val('')
+            kratkiy_text_ruchnoy.val('')
+            sap_code_ruchnoy.css('background-color','white')
+            kratkiy_text_ruchnoy.css('background-color','white')
             console.log('aa')
         }
         // WON'T REDIRECT

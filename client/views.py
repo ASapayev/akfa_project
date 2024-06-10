@@ -609,7 +609,7 @@ def json_to_excel(datas):
                 df_simple['Краткий текст товара'][k_simple] = data['kratkiy_tekst']
                 df_simple['SAP Код вручную (вставится вручную)'][k_simple] = ''
                 df_simple['Краткий текст товара (вставится вручную)'][k_simple] =''
-                df_simple['Длина при выходе из пресса'][k_simple] = data['dilina_pressa']
+                # df_simple['Длина при выходе из пресса'][k_simple] = data['dilina_pressa']
                 k_simple+=1
     del df_simple['counter']
     del df_termo['counter']
