@@ -356,7 +356,7 @@ def create_txt_for_1101(request):
                               character_dict['ch_profile_base'].append(character_txt.profile_base)
                               character_dict['ch_category'].append(character_txt.category)
                               character_dict['ch_surface_treatment_export'].append(character_txt.surface_treatment_export)
-                              character_dict['ch_artikul_old'].append(stariy_code.data['Старый Код'])
+                              character_dict['ch_artikul_old'].append('')
                         
                   df = pd.DataFrame(character_dict)
                   path = get_cretead_txt_for_1201(df,elist,does_not_exists)

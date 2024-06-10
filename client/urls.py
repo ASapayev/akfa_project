@@ -35,7 +35,9 @@ urlpatterns = [
     ###### Moderator #####
     path('order-list-check',views.order_list_for_moderator,name='order_list_for_moderator'),
     path('order-check/<int:id>',views.moderator_check,name='order_check'),
+    path('order-check-zavod/<int:id>',views.moderator_check_zavod,name='order_check_zavod'),
     path('order-convert/<int:id>',views.moderator_convert,name='order_convert'),
+    path('save-ves-of-profile',views.save_ves_of_profile,name='save_ves_of_profile'),
     
 
 

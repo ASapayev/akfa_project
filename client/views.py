@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.http import JsonResponse
-from aluminiy.models import AluProfilesData,AluFile,AluminiyProduct
+from aluminiy.models import AluProfilesData,AluFile,AluminiyProduct,LengthOfProfile
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile,PVCProduct
 from .models import Anod,Order,OrderDetail
 from django.contrib.auth.decorators import login_required
@@ -169,6 +169,22 @@ def save_file_to_model(file_path,model):
         my_model_instance.file.save(os.path.basename(file_path), File(file))
         my_model_instance.save()
         return my_model_instance.id
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['moderator','user1'])
+def save_ves_of_profile(request):
+    data_json = request.POST.get('data',None)
+    
+    data = json.loads(data_json)
+    
+    if data_json:
+        for dat in data:
+            profile = LengthOfProfile(artikul = dat[''])
+        return JsonResponse({'a':'d'})
+    else:
+        return JsonResponse({'a':'c'})
+
+
 
 @login_required(login_url='/accounts/login/')
 @moderator_only
@@ -621,6 +637,52 @@ def json_to_excel(datas):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['moderator','user1'])
+def moderator_check_zavod(request,id):
+    users = User.objects.all()
+    if request.method =='POST':
+        data =request.POST.copy()
+        owner =request.user
+        partner_id = data.get('user_id',None)
+        order = Order.objects.get(id=id)
+        if partner_id and partner_id !='':
+            partner = User.objects.get(id = int(partner_id))
+            order.partner =partner
+        order.status = data.get('status',1)
+        order.checker = request.user
+        order.save()
+        data['owner'] = owner
+        data['order'] = order
+        form = OrderFileForm(data,request.FILES)
+        if form.is_valid():
+            form.save()
+            order_details = OrderDetail.objects.filter(order = order)
+            send_event("test", "message", {
+                                        "id":order.id,
+                                        "order_name" : order.data['name'],
+                                        "owner" : str(owner),
+                                        "checker":None,
+                                        "status":str(order.status),
+                                        "created_at":order.created_at
+                                        })
+            return redirect('order_list_for_moderator')
+        else:
+            return JsonResponse({'form':form.errors})
+    else:
+        order = Order.objects.get(id = id)
+        order_details = OrderDetail.objects.filter(order = order)
+        context ={
+            'status_name':STATUSES[str(order.status)],
+            'status':str(order.status),
+            'order_type':order.order_type,
+            'data':json.dumps(order.data),
+            'order_details':order_details,
+            'users':users,
+            'partner':order.partner
+        }
+        return render(request,'client/moderator/order_detail_zavod.html',context)
+    
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['moderator','user1'])
 def moderator_check(request,id):
     users = User.objects.all()
     if request.method =='POST':
@@ -664,6 +726,7 @@ def moderator_check(request,id):
             'partner':order.partner
         }
         return render(request,'client/moderator/order_detail.html',context)
+    
 STATUSES =  {
     '1':'Открыто',
     '4':'Пере-открыто',
