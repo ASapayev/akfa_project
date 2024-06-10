@@ -150,14 +150,7 @@ def characteristika_created_txt_create(datas,order_id):
                     buxgalterskiy_naz[6].append('')
                     buxgalterskiy_naz[7].append('')
 
-                    buxgalterskiy_naz[0].append('1')
-                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
-                    buxgalterskiy_naz[2].append('1200')
-                    buxgalterskiy_naz[3].append(vtweg)
-                    buxgalterskiy_naz[4].append('JA')
-                    buxgalterskiy_naz[5].append('0001')
-                    buxgalterskiy_naz[6].append('')
-                    buxgalterskiy_naz[7].append('')
+                    
                 
                     buxgalterskiy_naz[0].append('2')
                     buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
@@ -177,6 +170,17 @@ def characteristika_created_txt_create(datas,order_id):
                     buxgalterskiy_naz[6].append('')
                     buxgalterskiy_naz[7].append(row['export_description_eng'])
                     
+                    
+                if ((ii!= 0) and (row['nazvaniye_export'] != '' and row['nazvaniye_export'] != 'nan')):
+                    buxgalterskiy_naz[0].append('1')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('JA')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append('')
+
                     buxgalterskiy_naz[0].append('2')
                     buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
                     buxgalterskiy_naz[2].append('1200')
@@ -185,6 +189,8 @@ def characteristika_created_txt_create(datas,order_id):
                     buxgalterskiy_naz[5].append('0001')
                     buxgalterskiy_naz[6].append('')
                     buxgalterskiy_naz[7].append(row['export_description_eng'])
+
+
                 
                 if ((ii!= 0) and (row['online_savdo_name'] != '' and row['online_savdo_name'] != 'nan')):
                     buxgalterskiy_naz[0].append('1')
@@ -1142,7 +1148,7 @@ def create_characteristika_utils(items):
         [],[],[],[],[],[],[],[],[],[],
         [],[],[],[],[],[],[],[],[],[],
         [],[],[],[],[],[],[],[],[],[],
-        [],[],[],[],[]
+        [],[],[],[],[],[]
     ]
     
     
@@ -1235,6 +1241,8 @@ def create_characteristika_utils(items):
         df[51].append(dlinniy_text)
         df[52].append(item['kod_lam_plen_snar'])
         df[53].append(item['kod_lam_plen_vnut'])
+        # 'nazvaniye_export':export_name
+        df[54].append(item['nazvaniye_export'])
 
         
 
@@ -1291,7 +1299,8 @@ def create_characteristika_utils(items):
         'online_savdo_name' :df[49],
         'id_savdo' :df[50],
         'kod_lam_plen_snar' :df[52],
-        'kod_lam_plen_vnut' :df[53]
+        'kod_lam_plen_vnut' :df[53],
+        'nazvaniye_export':df[54]
         
     }
     
