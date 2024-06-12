@@ -38,6 +38,7 @@ urlpatterns = [
     path('order-check-zavod/<int:id>',views.moderator_check_zavod,name='order_check_zavod'),
     path('order-convert/<int:id>',views.moderator_convert,name='order_convert'),
     path('save-ves-of-profile',views.save_ves_of_profile,name='save_ves_of_profile'),
+    path('save-ves-of-profile-single',views.save_ves_of_profile_single,name='save_ves_of_profile_single'),
     
 
 

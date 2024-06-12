@@ -185,10 +185,27 @@ def save_ves_of_profile(request):
             if not LengthOfProfile.objects.filter(artikul = dat['base_artikul'],length=dat['dlina']).exists():
                 profile = LengthOfProfile(artikul = dat['base_artikul'],length=dat['dlina'],ves_za_shtuk=ves_za_shtuk,ves_za_metr=ves_za_metr)
                 profile.save()
-            else:
-                profile =  LengthOfProfile.objects.filter(artikul = dat['base_artikul'],length=dat['dlina'])[:1].get() 
+            # else:
+            #     profile =  LengthOfProfile.objects.filter(artikul = dat['base_artikul'],length=dat['dlina'])[:1].get() 
           
         return JsonResponse({'status':201,'msg':'saved'})
+    else:
+        return JsonResponse({'status':400,'msg':'something went wrong'})
+    
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['moderator','user1'])
+def save_ves_of_profile_single(request):
+    data_json = request.POST.get('data',None)
+    
+    data = json.loads(data_json)
+    if data_json:
+        if LengthOfProfile.objects.filter(artikul = data['artikul'],length=data['dlina']).exists():
+            profile = LengthOfProfile.objects.filter(artikul = data['artikul'],length=data['dlina'])[:1].get()
+            return JsonResponse({'status':201,'msg':profile.ves_za_shtuk})
+        else:
+            return JsonResponse({'status':400,'msg':'not exist'})
+          
     else:
         return JsonResponse({'status':400,'msg':'something went wrong'})
 
@@ -649,32 +666,21 @@ def moderator_check_zavod(request,id):
     users = User.objects.all()
     if request.method =='POST':
         data =request.POST.copy()
-        owner =request.user
-        partner_id = data.get('user_id',None)
         order = Order.objects.get(id=id)
-        if partner_id and partner_id !='':
-            partner = User.objects.get(id = int(partner_id))
-            order.partner =partner
         order.status = data.get('status',1)
-        order.checker = request.user
         order.save()
-        data['owner'] = owner
-        data['order'] = order
-        form = OrderFileForm(data,request.FILES)
-        if form.is_valid():
-            form.save()
-            order_details = OrderDetail.objects.filter(order = order)
-            send_event("test", "message", {
-                                        "id":order.id,
-                                        "order_name" : order.data['name'],
-                                        "owner" : str(owner),
-                                        "checker":None,
-                                        "status":str(order.status),
-                                        "created_at":order.created_at
-                                        })
-            return redirect('order_list_for_moderator')
-        else:
-            return JsonResponse({'form':form.errors})
+        
+        order_details = OrderDetail.objects.filter(order = order)
+        send_event("test", "message", {
+                                    "id":order.id,
+                                    "order_name" : order.data['name'],
+                                    "owner":str(order.owner),
+                                    "checker":str(order.checker),
+                                    "status":str(order.status),
+                                    "created_at":order.created_at
+                                    })
+        return redirect('order_list_for_moderator')
+        
     else:
         order = Order.objects.get(id = id)
         order_details = OrderDetail.objects.filter(order = order)

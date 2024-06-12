@@ -597,19 +597,22 @@ function create_kratkiy_tekst(){
     var url ='{%url "save_ves_of_profile" %}'
     var all_correct_ves = true
     var i=0
-    for (var key in jsonData) {
+    var datas = $('.new')
+    for (var key in datas) {
         i += 1
         new_dat ={}
         var artikul = $('.base_artikul'+i+'1').text()
         var dlina = $('.dlina'+i+'2').text()
-        var ves = $('#ves'+i+'3').val()
+        var ves = $('#ves'+i+'3')
         if(ves =='' || ves == undefined){
             all_correct_ves =false
         }
-        new_dat['base_artikul'] =artikul
-        new_dat['dlina'] =dlina
-        new_dat['ves'] =ves
-        data.push(new_dat)
+        if (ves.hasClass('new')){
+            new_dat['base_artikul'] =artikul
+            new_dat['dlina'] =dlina
+            new_dat['ves'] =ves.val()
+            data.push(new_dat)
+        }
     }
     // console.log(all_correct_ves,'eeeeeeeee')
     if(all_correct_ves){
@@ -618,7 +621,6 @@ function create_kratkiy_tekst(){
         var postData = {
             'data': JSON.stringify(data),
             'order_type':order_type,
-            'new':false
         }
         $.ajax({
             type: 'POST',
@@ -626,7 +628,6 @@ function create_kratkiy_tekst(){
             headers: { "X-CSRFToken": csrfToken },
             data: postData,
         }).done(function (res) {
-            console.log(res)
             if(res.status == 201 ){
 
                 Swal.fire({
@@ -643,23 +644,8 @@ function create_kratkiy_tekst(){
                 for(i=0; i<ves_all.length; i++){
                     ves_all[i].setAttribute('disabled',true)
                 }
-
                 
-            }else if(res.status == 202){
-                Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: res.msg,
-                            showConfirmButton: false,
-                            timer: 1000
-                              })
-
-                var btn = $('#btn_save')
-                var ves_all = $('.ves_all')
-                btn.css('display','none')
-                for(i=0; i<ves_all.length; i++){
-                    ves_all[i].setAttribute('disabled',true)
-                }
+                
             }else{
                 Swal.fire({
                 icon: 'error',
@@ -691,16 +677,19 @@ function set_values(base,i,order){
     }
     if(order_type =='alu_imzo' || order_type =='alu_savdo' || order_type =='alu_export'){
 
-        var url ='{%url "save_ves_of_profile" %}'
-        var artikul = $('.base_artikul'+i+'1').text()
-        var dlina = $('.dlina'+i+'2').text()
-        // var ves = $('#ves'+i+'3').val()
+        var url ='{%url "save_ves_of_profile_single" %}'
+        
+        var ves = $('#ves'+i+'3')
+
+        data ={
+            'artikul':base['base_artikul'],
+            'dlina':base['dlina']
+        }
     
         var csrfToken = getCSRFToken();
         var postData = {
             'data': JSON.stringify(data),
             'order_type':order_type,
-            'new':true
         }
         $.ajax({
             type: 'POST',
@@ -709,9 +698,12 @@ function set_values(base,i,order){
             data: postData,
         }).done(function (res) {
             
-            if(res.status == 201 ){   
-            
+            if(res.status == 201 ){
+                ves.val(res.msg);
+                ves.attr('disabled',true)
+                ves.addClass('old')
             }else{
+                ves.addClass('new')
                 console.log('a')
             }
             
