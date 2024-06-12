@@ -3710,12 +3710,12 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
         if  (('-E' in row['SAP код S4P 100']) and (row['SAP код S4P 100'] not in elist)):
             continue 
 
-        if row['Тип покрытия'] =='Анодированный':
-            continue
+        # if row['Тип покрытия'] =='Анодированный':
+        #     continue
         if file_name =='aluminiy':
-            filte_type2 = ('-E' in row['SAP код S4P 100']) or ('-Z' in row['SAP код S4P 100']) or ('-P' in row['SAP код S4P 100']) or ('-S' in row['SAP код S4P 100'])or ('-7' in row['SAP код S4P 100'])
+            filte_type2 = ('-E' in row['SAP код S4P 100']) or ('-Z' in row['SAP код S4P 100']) or ('-P' in row['SAP код S4P 100']) or ('-S' in row['SAP код S4P 100'])or('-A' in row['SAP код S4P 100']) or ('-7' in row['SAP код S4P 100'])
         else:
-            filte_type2 = ('-Z' in row['SAP код S4P 100']) or ('-P' in row['SAP код S4P 100']) or ('-S' in row['SAP код S4P 100']) or ('-N' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100']) or ('-7' in row['SAP код S4P 100'])
+            filte_type2 = ('-Z' in row['SAP код S4P 100']) or ('-P' in row['SAP код S4P 100']) or ('-S' in row['SAP код S4P 100']) or ('-N' in row['SAP код S4P 100']) or ('-A' in row['SAP код S4P 100']) or ('-K' in row['SAP код S4P 100']) or ('-7' in row['SAP код S4P 100'])
         
         if not filte_type2:
             continue
@@ -5565,6 +5565,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         umumiy_without_duplicate1201[46].append(LGPRO1201[sap_code_simvol])
         umumiy_without_duplicate1201[47].append('')
         umumiy_without_duplicate1201[48].append(row['ch_combination'] + row['Тип покрытия'])
+    
     umumiy_without_duplicate =[[] for i in range(0,49)]
     for i in range(0,len(umumiy_without_duplicate1201)):
         umumiy_without_duplicate[i]+=umumiy_without_duplicate1201[i] 
