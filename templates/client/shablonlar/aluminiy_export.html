@@ -95,6 +95,10 @@
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
 <script src="{% static 'js/export.js'%}"></script>
 <script>
+    function validateFourNumbers(input) {
+    const regex = /^\d{4}$/; // Matches exactly four digits
+    return regex.test(input);
+    }
 
     function getCSRFToken() {
         return $('input[name=csrfmiddlewaretoken]').val();

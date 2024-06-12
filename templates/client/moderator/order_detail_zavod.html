@@ -545,7 +545,7 @@ for (var key in jsonData) {
         text2=''
         for (var j = 0; j < order[order_type].length; j++) {
             var key2 = order[order_type][j];
-            text2+=`<td class="text-center" style='background-color:white'>
+            text2+=`<td  style='background-color:white'>
                        
                             <span class ='`+key2 +String(i)+String(j)+`'style="text-transform: uppercase;font-size: 16px;" class="text-center"></span>
                         
@@ -556,9 +556,9 @@ for (var key in jsonData) {
         // console.log(order_type)
         if(order_type =='alu_imzo' || order_type =='alu_savdo'  || order_type =='alu_export'){
             text_extra = `<td class="text-center" style='background-color:white'>
-                            <div class="input-group input-group-sm mb-1" style="width: 150px;">
-                                <span class=" text-center" style="font-size: small; font-weight: bold; text-transform: uppercase; width: 100px; border-color: rgb(252, 32, 3);" ><input type="text" class="form-control ves_all" id="ves`+String(i)+String(j)+`" aria-describedby="inputGroup-sizing-sm" style="width: 65px;border-color: red;height:30px" ></span>
-                            </div>
+                            
+                                <input type="text" class="form-control ves_all" id="ves`+String(i)+String(j)+`" aria-describedby="inputGroup-sizing-sm" style="width: 65px;border-color: red;height:30px" >
+                            
                             </td>`
         }else if(order_type =='acs_imzo' || order_type =='acs_savdo'  || order_type =='acs_export'){
             text_extra = ''
@@ -597,14 +597,14 @@ function create_kratkiy_tekst(){
     var url ='{%url "save_ves_of_profile" %}'
     var all_correct_ves = true
     var i=0
-    var datas = $('.new')
-    for (var key in datas) {
+    
+    for (var key in jsonData) {
         i += 1
         new_dat ={}
         var artikul = $('.base_artikul'+i+'1').text()
         var dlina = $('.dlina'+i+'2').text()
         var ves = $('#ves'+i+'3')
-        if(ves =='' || ves == undefined){
+        if(ves.val() =='' || ves.val() == undefined){
             all_correct_ves =false
         }
         if (ves.hasClass('new')){

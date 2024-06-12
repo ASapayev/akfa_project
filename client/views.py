@@ -176,7 +176,7 @@ def save_ves_of_profile(request):
     data_json = request.POST.get('data',None)
     
     data = json.loads(data_json)
-   
+    print(data)
     if data_json:
         for dat in data:
             ves_za_shtuk = float(str(dat['ves']).replace(',','.'))
