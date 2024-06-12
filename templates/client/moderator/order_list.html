@@ -96,6 +96,10 @@
                         <td>{{order.data.name}}</td>
                         <td>{{order.owner}}</td>
                         <td>{%if order.checker %}{{order.checker}}{%endif%}</td>
+                        <td id="clock">
+                          
+                          <i class="bi bi-clock"></i>
+                        </td>
                         <!-- <td>
                           <div class="progress">
                             <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -246,6 +250,22 @@
 <script src="{% static 'js/eventsource.js' %}"></script>
 <script src="{% static 'js/reconnecting-eventsource.js' %}"></script>
 <script>
+  function updateClock(createdAt) {
+      const date = new Date(createdAt);
+
+      if (isNaN(date.getTime())) {
+        console.error("Invalid created_at time format");
+        return;
+      }
+
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      const formattedTime = `${hours}:${minutes}`;
+
+      document.getElementById("clock").innerHTML = formattedTime;
+    }
+
+    
 
   function status_set(elem,i){
     var link = $('#link'+i)

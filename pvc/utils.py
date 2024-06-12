@@ -171,7 +171,7 @@ def characteristika_created_txt_create(datas,order_id):
                     buxgalterskiy_naz[7].append(row['export_description_eng'])
                     
                     
-                if ((ii!= 0) and (row['nazvaniye_export'] != '' and row['nazvaniye_export'] != 'nan')):
+                if ((ii== 0) and (row['nazvaniye_export'] != '' and row['nazvaniye_export'] != 'nan')):
                     buxgalterskiy_naz[0].append('1')
                     buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
                     buxgalterskiy_naz[2].append('1200')
@@ -188,7 +188,7 @@ def characteristika_created_txt_create(datas,order_id):
                     buxgalterskiy_naz[4].append('JA')
                     buxgalterskiy_naz[5].append('0001')
                     buxgalterskiy_naz[6].append('')
-                    buxgalterskiy_naz[7].append(row['export_description_eng'])
+                    buxgalterskiy_naz[7].append(row['nazvaniye_export'])
 
 
                 
