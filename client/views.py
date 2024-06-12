@@ -176,13 +176,21 @@ def save_ves_of_profile(request):
     data_json = request.POST.get('data',None)
     
     data = json.loads(data_json)
-    
+   
     if data_json:
         for dat in data:
-            profile = LengthOfProfile(artikul = dat[''])
-        return JsonResponse({'a':'d'})
+            ves_za_shtuk = float(str(dat['ves']).replace(',','.'))
+            dlina = float(dat['dlina'])/1000 # metr
+            ves_za_metr ='%.3f' % (float(ves_za_shtuk)/dlina)
+            if not LengthOfProfile.objects.filter(artikul = dat['base_artikul'],length=dat['dlina']).exists():
+                profile = LengthOfProfile(artikul = dat['base_artikul'],length=dat['dlina'],ves_za_shtuk=ves_za_shtuk,ves_za_metr=ves_za_metr)
+                profile.save()
+            else:
+                profile =  LengthOfProfile.objects.filter(artikul = dat['base_artikul'],length=dat['dlina'])[:1].get() 
+          
+        return JsonResponse({'status':201,'msg':'saved'})
     else:
-        return JsonResponse({'a':'c'})
+        return JsonResponse({'status':400,'msg':'something went wrong'})
 
 
 

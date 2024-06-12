@@ -15,7 +15,7 @@
                                 <th scope="col" style="font-size: 14px;" class="align-middle" >Название системы</th>
                                 <th scope="col" style="font-size: 14px;" class="align-middle" >Артикул</th>
                                 <th scope="col" style="font-size: 14px;" class="align-middle" >Длина (мм)</th>
-                                <th scope="col" style="font-size: 14px;" class="align-middle" >Вес</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Вес за штук</th>
                                 
                             </tr>
                             </thead>
@@ -24,7 +24,7 @@
                             </tbody>
                         </table>
                         </div>
-                    <a  class="btn btn-info mt-2" onclick="create_kratkiy_tekst()"> Save</a>
+                    <a  class="btn btn-info mt-2" onclick="create_kratkiy_tekst()" id ='btn_save'> Save</a>
                 </form>
             </section>
             {%endif%}
@@ -41,7 +41,7 @@
                             <th scope="col" style="font-size: 14px;" class="align-middle">Название системы</th>
                             <th scope="col" style="font-size: 14px;" class="align-middle">Артикул</th>
                             <th scope="col" style="font-size: 14px;" class="align-middle">Длина (мм)</th>
-                            <th scope="col" style="font-size: 14px;" class="align-middle">Вес</th>
+                            <th scope="col" style="font-size: 14px;" class="align-middle">Вес  за штук</th>
                             
                           </tr>
                         </thead>
@@ -52,7 +52,7 @@
                   
                     
                 </div>
-               
+                <a  class="btn btn-info mt-2" onclick="create_kratkiy_tekst()" id ='btn_save'> Save</a>
             </form>
             </section>
             {%endif%}
@@ -68,7 +68,7 @@
                                 <th scope="col" style="font-size: 14px;" class="align-middle" >Название системы</th>
                                 <th scope="col" style="font-size: 14px;" class="align-middle" >Артикул</th>
                                 <th scope="col" style="font-size: 14px;" class="align-middle" >Длина (мм)</th>
-                                <th scope="col" style="font-size: 14px;" class="align-middle" >Вес</th>
+                                <th scope="col" style="font-size: 14px;" class="align-middle" >Вес за штук</th>
                             </tr>
                             </thead>
                             <tbody id="table-artikul">
@@ -77,7 +77,7 @@
                         </table>
                         
                 </div>
-                
+                <a  class="btn btn-info mt-2" onclick="create_kratkiy_tekst()" id ='btn_save'> Save</a>
                 </form>
             </section>
             {%endif%}
@@ -557,7 +557,7 @@ for (var key in jsonData) {
         if(order_type =='alu_imzo' || order_type =='alu_savdo'  || order_type =='alu_export'){
             text_extra = `<td class="text-center" style='background-color:white'>
                             <div class="input-group input-group-sm mb-1" style="width: 150px;">
-                                <span class=" text-center" style="font-size: small; font-weight: bold; text-transform: uppercase; width: 100px; border-color: rgb(252, 32, 3);" ><input type="text" class="form-control " id="ves`+String(i)+String(j)+`" aria-describedby="inputGroup-sizing-sm" style="width: 65px;border-color: red;height:30px" ></span>
+                                <span class=" text-center" style="font-size: small; font-weight: bold; text-transform: uppercase; width: 100px; border-color: rgb(252, 32, 3);" ><input type="text" class="form-control ves_all" id="ves`+String(i)+String(j)+`" aria-describedby="inputGroup-sizing-sm" style="width: 65px;border-color: red;height:30px" ></span>
                             </div>
                             </td>`
         }else if(order_type =='acs_imzo' || order_type =='acs_savdo'  || order_type =='acs_export'){
@@ -618,6 +618,7 @@ function create_kratkiy_tekst(){
         var postData = {
             'data': JSON.stringify(data),
             'order_type':order_type,
+            'new':false
         }
         $.ajax({
             type: 'POST',
@@ -626,6 +627,47 @@ function create_kratkiy_tekst(){
             data: postData,
         }).done(function (res) {
             console.log(res)
+            if(res.status == 201 ){
+
+                Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: res.msg,
+                            showConfirmButton: false,
+                            timer: 1000
+                              })
+
+                var btn = $('#btn_save')
+                var ves_all = $('.ves_all')
+                btn.css('display','none')
+                for(i=0; i<ves_all.length; i++){
+                    ves_all[i].setAttribute('disabled',true)
+                }
+
+                
+            }else if(res.status == 202){
+                Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: res.msg,
+                            showConfirmButton: false,
+                            timer: 1000
+                              })
+
+                var btn = $('#btn_save')
+                var ves_all = $('.ves_all')
+                btn.css('display','none')
+                for(i=0; i<ves_all.length; i++){
+                    ves_all[i].setAttribute('disabled',true)
+                }
+            }else{
+                Swal.fire({
+                icon: 'error',
+                title: 'Something went wrong.',
+                text: 'Check all data!!!',
+            });
+            }
+            
         });
     }else{
         Swal.fire({
@@ -644,7 +686,36 @@ function set_values(base,i,order){
         if(base[key]){
             var va2 =$('.'+key+i+j)
             va2.text(base[key])
+            
+            }
+    }
+    if(order_type =='alu_imzo' || order_type =='alu_savdo' || order_type =='alu_export'){
+
+        var url ='{%url "save_ves_of_profile" %}'
+        var artikul = $('.base_artikul'+i+'1').text()
+        var dlina = $('.dlina'+i+'2').text()
+        // var ves = $('#ves'+i+'3').val()
+    
+        var csrfToken = getCSRFToken();
+        var postData = {
+            'data': JSON.stringify(data),
+            'order_type':order_type,
+            'new':true
         }
+        $.ajax({
+            type: 'POST',
+            url: url,
+            headers: { "X-CSRFToken": csrfToken },
+            data: postData,
+        }).done(function (res) {
+            
+            if(res.status == 201 ){   
+            
+            }else{
+                console.log('a')
+            }
+            
+        });
     }
 }
 
