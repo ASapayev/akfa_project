@@ -17,14 +17,15 @@
                             <th scope="col">Checker</th>
                             <th scope="col">Status</th>
                             <th scope="col">Created</th>
+                            <th scope="col">Past date</th>
                             <th scope="col">Options</th>
                         </tr>
                         </thead>
                         <tbody>
                             {%for order in orders%}
                                 <tr>
-                                    <th scope="row">{{forloop.counter}}</th>
-                                    <td>{{order.data.name}}</td>
+                                    <th scope="row" class="lengg">{{forloop.counter}}</th>
+                                    <td><a href="{%url 'customer_order_detail' order.id %}">{{order.data.name}}</a></td>
                                     <td>{{order.owner}}</td>
                                     <td>{%if order.checker %}{{order.checker}}{%endif%}</td>
                                     <td>
@@ -39,12 +40,18 @@
                                         {%if order.status|stringformat:"d" == '10085' %}<span value="10084" class="badge badge-warning"  >Исправлено</span>{%endif%}
                                         
                                     </td>
-                                    <td>{{order.created_at|date:"d-m-Y H:i"}}</td>
+                                    <td id="created_at{{forloop.counter}}">{{order.created_at|date:"Y-d-M H:i"}}</td>
+                                    <td >
+                                        <div class="d-flex" id='cloker{{forloop.counter}}'>
+                                          <div class="p-1" id="clock{{forloop.counter}}"></div>
+                                          <div class="p-1"><i class="bi bi-clock"></i></div>
+                                        </div>
+                                      </td>
                                     <td>{%if order.status|stringformat:"d" == '10081' or order.status|stringformat:"d" == '10084'%}<a href="{%url 'order_update_all' order.id %}" class="btn btn-warning btn-sm" ><i class="bi bi-pen-fill"></i> Edit</a>{%endif%}
                                         {%if order.status|stringformat:"d" == '10083' and order.partner %}
                                             {%if order.status|stringformat:"d" == '10083' and order.partner == request.user %}<a href="{%url 'order_update_all' order.id %}" class="btn btn-warning btn-sm" ><i class="bi bi-pen-fill"></i> Edit</a>{%endif%}
                                         {%endif%}
-                                        <a href="{%url 'customer_order_detail' order.id %}" class="btn btn-info btn-sm ml-1"><i class="bi bi-eye-fill"></i> Detail</a></td>
+                                        </td>
                                 </tr>
                             {%endfor%}
                         </tbody>
@@ -95,6 +102,76 @@
 <script src="{% static 'js/eventsource.js' %}"></script>
 <script src="{% static 'js/reconnecting-eventsource.js' %}"></script>
 <script>
+     var orders = document.querySelectorAll('.lengg');
+    var intervalIds = [];
+    console.log(orders,'ddddd')
+for (let i = 1; i <= orders.length; i++) {
+    var created_at = document.getElementById('created_at' + i).innerText;
+
+    const [datePart, timePart] = created_at.split(' ');
+    const [yy, day, monthAbbreviation] = datePart.split('-');
+    const [hour, minute] = timePart.split(':');
+
+
+    
+    // Convert month abbreviation to month index (assuming abbreviation is provided in English)
+    const monthIndex = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'].indexOf(monthAbbreviation) + 1;
+
+    // Create a new Date object
+    const year = new Date().getFullYear(); // Assume current year
+    const createdAt = new Date(year, monthIndex - 1, parseInt(day), parseInt(hour), parseInt(minute));
+
+
+    const intervalId = setInterval(updateTimePassed.bind(null, createdAt, i), 1000);
+    intervalIds.push(intervalId);
+
+    // Initial update
+    updateTimePassed(createdAt, i);
+}
+
+// Function to calculate the time passed
+function calculateTimePassed(createdAt) {
+    const now = new Date();
+    const timeDifference = now.getTime() - createdAt.getTime();
+
+    const hoursPassed = Math.floor(timeDifference / (1000 * 60 * 60));
+    const minutesPassed = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+    return { hoursPassed, minutesPassed };
+}
+
+// Function to update the displayed time
+function updateTimePassed(createdAt, i) {
+    const { hoursPassed, minutesPassed } = calculateTimePassed(createdAt);
+    const timePassedElement = document.getElementById('clock' + i);
+    if (parseInt(minutesPassed) < 10) {
+    minnpas = '0' + String(minutesPassed);
+    }else{
+        minnpas =minutesPassed
+    }
+
+    timePassedElement.innerText = `${hoursPassed}:${minnpas}`;
+    
+    var cloker = document.getElementById('cloker'+i)
+    
+    if(parseInt(hoursPassed)>=5 && parseInt(hoursPassed)<6){
+        cloker.style.borderRadius='17px'
+        cloker.style.backgroundColor='#ffdc73'
+    }else if(parseInt(hoursPassed)>=6 && parseInt(hoursPassed)<7){
+        cloker.style.borderRadius='17px'
+        cloker.style.color='white'
+        cloker.style.backgroundColor='#ff3333'
+    
+    }else if(parseInt(hoursPassed)>=7) {
+      
+        cloker.style.borderRadius='17px'
+        cloker.style.color='white'
+        cloker.style.backgroundColor='#b30000'
+    
+    }
+}
+
+  
   
   var es = new ReconnectingEventSource('/events/');
 
