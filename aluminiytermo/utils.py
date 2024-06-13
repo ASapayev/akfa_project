@@ -3861,6 +3861,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 umumiy_without_duplicate12D1[50].append('S1')
             elif row['Тип покрытия'] =='Окрашенный':
                 umumiy_without_duplicate12D1[50].append('S2')
+            elif row['Тип покрытия'] =='Анодированный':
+                umumiy_without_duplicate12D1[50].append('S2')
             elif row['Тип покрытия'] =='Сублимированный':
                 umumiy_without_duplicate12D1[50].append('S3')
             elif row['Тип покрытия'] =='Ламинированный':
@@ -3944,6 +3946,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 umumiy_without_duplicate12D2[50].append('S1')
             elif row['Тип покрытия'] =='Окрашенный':
                 umumiy_without_duplicate12D2[50].append('S2')
+            elif row['Тип покрытия'] =='Анодированный':
+                umumiy_without_duplicate12D1[50].append('S2')
             elif row['Тип покрытия'] =='Сублимированный':
                 umumiy_without_duplicate12D2[50].append('S3')
             elif row['Тип покрытия'] =='Ламинированный':
@@ -4021,6 +4025,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 umumiy_without_duplicate12D3[50].append('S0')
             elif row['Тип покрытия'] =='Неокрашенный':
                 umumiy_without_duplicate12D3[50].append('S1')
+            elif row['Тип покрытия'] =='Анодированный':
+                umumiy_without_duplicate12D1[50].append('S2')
             elif row['Тип покрытия'] =='Окрашенный':
                 umumiy_without_duplicate12D3[50].append('S2')
             elif row['Тип покрытия'] =='Сублимированный':
@@ -4100,6 +4106,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 umumiy_without_duplicate12D4[50].append('S0')
             elif row['Тип покрытия'] =='Неокрашенный':
                 umumiy_without_duplicate12D4[50].append('S1')
+            elif row['Тип покрытия'] =='Анодированный':
+                umumiy_without_duplicate12D1[50].append('S2')
             elif row['Тип покрытия'] =='Окрашенный':
                 umumiy_without_duplicate12D4[50].append('S2')
             elif row['Тип покрытия'] =='Сублимированный':
@@ -4180,6 +4188,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 umumiy_without_duplicate12D5[50].append('S0')
             elif row['Тип покрытия'] =='Неокрашенный':
                 umumiy_without_duplicate12D5[50].append('S1')
+            elif row['Тип покрытия'] =='Анодированный':
+                umumiy_without_duplicate12D1[50].append('S2')
             elif row['Тип покрытия'] =='Окрашенный':
                 umumiy_without_duplicate12D5[50].append('S2')
             elif row['Тип покрытия'] =='Сублимированный':
@@ -4278,6 +4288,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 umumiy_without_duplicate1201[50].append('S0')
             elif row['Тип покрытия'] =='Неокрашенный':
                 umumiy_without_duplicate1201[50].append('S1')
+            elif row['Тип покрытия'] =='Анодированный':
+                umumiy_without_duplicate12D1[50].append('S2')
             elif row['Тип покрытия'] =='Окрашенный':
                 umumiy_without_duplicate1201[50].append('S2')
             elif row['Тип покрытия'] =='Сублимированный':
