@@ -96,8 +96,9 @@
               <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Order name</th>
+                    <th scope="col">Order type</th>
                     <th scope="col">Owner</th>
+                    <th scope="col">Order name</th>
                     <th scope="col">Checker</th>
                     <!-- <th scope="col" >Time</th> -->
                     <th scope="col">Status</th>
@@ -115,9 +116,10 @@
                   {% if request.user.role == 'moderator' %}
                     <tr  >
                         <th scope="row" class="lengg">{{forloop.counter}}</th>
-                        <td><a href="{%url 'order_check' order.id %}">{{order.data.name}}</a></td>
-                        <td>{{order.owner}}</td>
-                        <td>{%if order.checker %}{{order.checker}}{%endif%}</td>
+                        <td class="text-primary">{{order.data.name}}</td>
+                        <td><i class="bi bi-person-circle mr-1"></i>{{order.owner}}</td>
+                        <td><a href="{%url 'order_check' order.id %}">{{order.theme |truncatechars:20}}</a></td>
+                        <td>{%if order.checker %}<i class="bi bi-person-check mr-1"></i>{{order.checker}}{%endif%}</td>
                         
                         <!-- <td>
                           <div class="progress">

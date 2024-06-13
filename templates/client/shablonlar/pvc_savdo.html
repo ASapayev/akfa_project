@@ -70,13 +70,14 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex justify-content-start p-2">
-                                <input type="button" class="btn btn-warning " value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" ></span>
+                                <input type="button" class="btn btn-warning mr-2" value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" >Тема:</span>
+                                <input  type="text"  id="theme" class="form-control " onkeyup="show_zagruska_btn()" style="height: 30px;">           
                             </div>
                         </div>
                         
                         <div class="col-md-6">
                             <div class="d-flex justify-content-end p-2">
-                                <span  class="btn btn-primary" value="" id="zagruzka_file" onclick="ready_all()">Загрузить</span>
+                                <span  class="btn btn-primary" value="" id="zagruzka_file" style="display: none;" onclick="ready_all()">Загрузить</span>
                             </div>
                         </div>
                     </div>
@@ -97,6 +98,16 @@
 <script src="{% static 'js/pvc_savdo.js'%}"></script>
 
 <script>
+    
+    function show_zagruska_btn(){
+        var zagruzka_file =$('#zagruzka_file')
+        var theme =$('#theme').val()
+        if(theme !='' && theme!= undefined){
+            zagruzka_file.css('display','block')
+        }else{
+            zagruzka_file.css('display','none')
+        }
+    }
 
     function getCSRFToken() {
         return $('input[name=csrfmiddlewaretoken]').val();
@@ -121,11 +132,13 @@
     if (!data_empty && all_correct){
         var json_data = JSON.stringify(data_base)
         var url = "order-save"
+        var theme =$('#theme').val()
         var csrfToken = getCSRFToken();
         var postData = {
             'data': json_data,
             'order_type':'pvc_savdo',
-            'name':'PVC SAVDO'
+            'name':'PVC SAVDO',
+            'order_name':theme
         }
         $.ajax({
             type: 'POST',

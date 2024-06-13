@@ -96,10 +96,12 @@ class OrderSaveView(APIView):
     def post(self, request):
         data = request.data.get('data',None)
         name = request.data.get('name',None)
+        order_name = request.data.get('order_name',None)
+
         order_type = request.data.get('order_type',None)
         res = json.loads(data)
         try:
-            order = Order(data = {'name':name,'data':res},owner=request.user,order_type = order_type)
+            order = Order(data = {'name':name,'data':res},owner=request.user,order_type = order_type,theme =order_name)
             order.save()
             order_detail = OrderDetail(order=order,owner=request.user)
             order_detail.save()
