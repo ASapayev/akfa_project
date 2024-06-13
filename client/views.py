@@ -975,10 +975,8 @@ def index(request):
 @customer_only
 def shablon_imzo_detail(request):
     if request.method =='POST':
-        context ={
-            'link':'https://mdm.akfagroup.com/'
-        }
-        return render(request,'client/created_link.html',context)
+        
+        return render(request,'client/created_link.html')
     else:
         # nakleyka_list = [{'name':nak.name,'nadpis':nak.nadpis} for  nak in NakleykaCode.objects.all()]
         nakleyka_list = NakleykaCode.objects.all()

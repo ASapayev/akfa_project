@@ -828,7 +828,7 @@ function nazvaniye_svet_zames_selected(id,val){
     create_kratkiy_tekst(id);
 }
 
-
+var zapros_count =[]
 
 
 
@@ -1046,7 +1046,11 @@ function create_kratkiy_tekst(id){
     }
     
     if(data.text !='XXXXXXXX' ){
-        sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text)
+        var art_krat = data_base[id].base_artikul + data.text
+        if(zapros_count.indexOf(art_krat) === -1){
+            sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text)
+            zapros_count.push(art_krat)
+        }
     }
 
     kratkiy_tekst.text(data.text)
