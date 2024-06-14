@@ -29,9 +29,10 @@ from order.models import OrderPVX as BaseOrderPvc
 import string
 import random
 from django.core.files import File
+from decouple import config
 
 # API_KEY = os.environ.get("JIRA_CREDENTIALS")
-API_KEY = 'Jahongir.Dusmuratov@akfagroup.com:ATATT3xFfGF07TQW9N_hLK5VTj3gaqIP0H5c9CT0T8p9SJtwmPNhY5vIJV7zUYa9PZR0MFnDAULMMu4hIGwfamhKfgUlvRWhNCI5J7TUZ3S68BTKgtLLGkRVumVmX8QuntKR1OOpgD7Y32Lv03XcfhGswL6JVfa_MFpxzlhU8iqLT3ae37Vv3sA=F786BCC2'
+API_KEY = config('JIRA_CREDENTIALS')
 
 credentials = "Basic " + base64.b64encode(f"{API_KEY}".encode("ascii")).decode("ascii")
 
