@@ -776,6 +776,9 @@ def moderator_check_zavod(request,id):
         order = Order.objects.get(id=id)
         order.status = data.get('status',1)
         order.save()
+
+        # status_id_for_jira =STATUS_JIRA[order.status]['id']
+        # jira_status_change(order.id_for_jira,status=status_id_for_jira)
         
         order_details = OrderDetail.objects.filter(order = order)
         send_event("test", "message", {
@@ -927,6 +930,8 @@ def detail_order_update(request,id):
         owner =request.user
         order = Order.objects.get(id=id)
         order.status = data.get('status',1)
+        # status_id_for_jira =STATUS_JIRA[order.status]['id']
+        # jira_status_change(order.id_for_jira,status=status_id_for_jira)
         order.save()
         data['owner'] = owner
         data['order'] = order
@@ -976,6 +981,8 @@ def order_detail(request,id):
         owner =request.user
         order = Order.objects.get(id=id)
         order.status = data.get('status',1)
+        # status_id_for_jira =STATUS_JIRA[order.status]['id']
+        # jira_status_change(order.id_for_jira,status=status_id_for_jira)
         order.save()
         data['owner'] = owner
         data['order'] = order
