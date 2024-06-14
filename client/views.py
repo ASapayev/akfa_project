@@ -11,6 +11,8 @@ from rest_framework import permissions
 from accounts.decorators import customer_only,moderator_only,allowed_users
 from django.core.paginator import Paginator
 import json
+import requests as rq
+import base64
 from .forms import OrderFileForm
 from django.db.models import Q
 from accounts.models import User
@@ -27,6 +29,20 @@ from order.models import OrderPVX as BaseOrderPvc
 import string
 import random
 from django.core.files import File
+
+# API_KEY = os.environ.get("JIRA_CREDENTIALS")
+API_KEY = 'Jahongir.Dusmuratov@akfagroup.com:ATATT3xFfGF07TQW9N_hLK5VTj3gaqIP0H5c9CT0T8p9SJtwmPNhY5vIJV7zUYa9PZR0MFnDAULMMu4hIGwfamhKfgUlvRWhNCI5J7TUZ3S68BTKgtLLGkRVumVmX8QuntKR1OOpgD7Y32Lv03XcfhGswL6JVfa_MFpxzlhU8iqLT3ae37Vv3sA=F786BCC2'
+
+credentials = "Basic " + base64.b64encode(f"{API_KEY}".encode("ascii")).decode("ascii")
+
+
+
+headers_jira = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": credentials
+}
+
 
 def test(request):
     send_event("test", "message", {"text": "hello world"})
@@ -101,10 +117,13 @@ class OrderSaveView(APIView):
         order_type = request.data.get('order_type',None)
         res = json.loads(data)
         try:
-            order = Order(data = {'name':name,'data':res},owner=request.user,order_type = order_type,theme =order_name)
+            issueKey = order_create_jira(order_name)
+            order = Order(data = {'name':name,'data':res},owner=request.user,order_type = order_type,theme =order_name,id_for_jira=issueKey)
             order.save()
             order_detail = OrderDetail(order=order,owner=request.user)
             order_detail.save()
+            print(order_name,'nammm')
+            ##### create jira ######
             send_event("test", "message", {
                                         "id":order.id,
                                         "order_name" : name,
@@ -115,8 +134,55 @@ class OrderSaveView(APIView):
                                         })
             return Response({'msg':'Ordered successfully!','status':201,'order_id':order.id})    
         except:
-            return Response({'msg':'Something went wrong.','status':300,'order_id':None})    
+            return Response({'msg':'Something went wrong.','status':300,'order_id':None}) 
 
+
+
+
+
+   
+
+
+def jira_status_change(id,status):
+    payload_jira = json.dumps({
+            "transition": {
+                "id": status
+            }
+        })
+    url_jira = f"https://akfa-group.atlassian.net/rest/api/3/issue/{id}/transitions"
+
+    response = rq.request(
+        "POST",
+        url_jira,
+        data=payload_jira,
+        headers=headers_jira
+    )
+    return JsonResponse({'status':'changed'})
+
+
+
+def order_create_jira(name):
+    payload_jira = json.dumps({
+        "requestFieldValues": {
+            "summary":name
+        },
+        "serviceDeskId": "11",
+        "requestTypeId": "78",
+        "raiseOnBehalfOf": "712020:df5b851d-453a-4da2-a081-00dca93a05a7"
+    })
+    url_jira = "https://akfa-group.atlassian.net/rest/servicedeskapi/request"
+
+    response = rq.request(
+        "POST",
+        url_jira,
+        data=payload_jira,
+        headers=headers_jira
+    )
+    issueKey = json.loads(response.text)['issueKey']
+    # print(res)
+    # print(json.dumps(json.loads(response.text),
+    #     sort_keys=True, indent=4, separators=(",", ": ")))
+    return issueKey
 
 @login_required(login_url='/accounts/login/')
 @moderator_only
@@ -659,8 +725,47 @@ def json_to_excel(datas):
     return df_simple,df_termo,correct,artikul_list
 
 
+STATUSES =  {
+    '1':'Открыто',
+    '4':'Пере-открыто',
+    '10023':'Выполнено',
+    '10081':'На паузе',
+    '10083':'Согласование',
+    '10084':'Доработка',
+    '10082':'Отменено',
+    '10063':'Работа ведется',
+    '10085':'Исправлено'
 
+}
+STATUS_JIRA ={
+                    '1':{"id": "161",
+                        "name": "Open"},
+                
+                    '10023':{"id": "61",
+                            "name": "Отметить как выполненное"},
+               
+                    '10082':{"id": "171",
+                            "name": "Отозвать заявку"},
+               
+                    '10083':{"id": "181",
+                            "name": "Согласование",},
+                
+                    '10081':{"id": "41",
+                        "name": "В ожидании",},
+                
+                    '10085':{"id": "151",
+                        "name": "Доработан"},
+                    
+                    '10084':{"id": "121",
+                        "name": "Отправить на доработку",},
 
+                    '10063':{"id": "11",
+                        "name": "Ход запуска",}
+
+                }
+                
+
+              
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['moderator','user1'])
@@ -710,6 +815,8 @@ def moderator_check(request,id):
             partner = User.objects.get(id = int(partner_id))
             order.partner =partner
         order.status = data.get('status',1)
+        # status_id_for_jira =STATUS_JIRA[order.status]['id']
+        # jira_status_change(order.id_for_jira,status=status_id_for_jira)
         order.checker = request.user
         order.save()
         data['owner'] = owner
@@ -743,19 +850,7 @@ def moderator_check(request,id):
         }
         return render(request,'client/moderator/order_detail.html',context)
     
-STATUSES =  {
-    '1':'Открыто',
-    '4':'Пере-открыто',
-    '10023':'Выполнено',
-    '10063':'Работа ведется',
-    '10081':'На паузе',
-    '10083':'Согласование',
-    '10084':'Доработка',
-    '10082':'Отменено',
-    '10063':'Работа ведется',
-    '10085':'Исправлено'
 
-}
 
 @login_required(login_url='/accounts/login/')
 @customer_only

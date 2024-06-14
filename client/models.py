@@ -14,6 +14,7 @@ class Anod(models.Model):
 class Order(models.Model):
     data = models.JSONField(default=dict)
     theme =models.CharField(max_length =200,blank=True,null=True)
+    id_for_jira = models.CharField(max_length =100,blank=True,null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE,related_name='owner')
     checker = models.ForeignKey(User,on_delete=models.CASCADE,related_name='checker',blank=True,null=True)
     partner = models.ForeignKey(User,on_delete=models.CASCADE,related_name='partner',blank=True,null=True)
