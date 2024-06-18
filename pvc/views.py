@@ -2946,6 +2946,14 @@ def sap_code_bulk_delete(request):
     
 
     
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
+def create_artikul(request):
+    if request.method =='POST':
+        return JsonResponse({'status':201})
+    return render(request,'pvc/create_artikul.html')
+
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator']) 

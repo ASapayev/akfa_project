@@ -12,6 +12,7 @@ urlpatterns = [
     path('bulk-delete-sapcodes',views.sap_code_bulk_delete,name='sap_code_bulk_delete_pvc'),
     path('delete-sapcode/<int:id>',views.delete_sap_code,name='delete_sap_code_pvc'),
     path('edit-sapcode/<int:id>',views.edit_sapcode,name='edit_sapcode_pvc'),
+    path('create-artikul',views.create_artikul,name='create_artikul_pvc'),
 
 
     ###1

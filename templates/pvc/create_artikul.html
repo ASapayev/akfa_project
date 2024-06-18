@@ -1,0 +1,374 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">UI</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Создать</h4>
+                <form class="form-sample">
+                    {%csrf_token%}
+                    <div style="overflow: scroll;" id="table-container">
+                    
+                        <table class="table table-sm" id="my-table">
+                            <thead>
+                              <tr>
+                                <th scope="col" style="font-size: 14px;">Название</th>
+                                <th scope="col" style="font-size: 14px;">Артикул</th>
+                                <th scope="col" style="font-size: 14px;">Копонент</th>
+                                <th scope="col" style="font-size: 14px;">Категория</th>
+                                <th scope="col" style="font-size: 14px;">Высота</th>
+                                <th scope="col" style="font-size: 14px;">Ширина</th>
+                                <th scope="col" style="font-size: 14px;">Тип профилей</th>
+                                <th scope="col" style="font-size: 14px;">Продукт тип</th>
+                                <th scope="col" style="font-size: 14px;">Tnved</th>
+                                <th scope="col" style="font-size: 14px;">WMS высота</th>
+                                <th scope="col" style="font-size: 14px;">WMS ширина</th>
+                                <th scope="col" style="font-size: 14px;">Камера</th>
+                                <th scope="col" style="font-size: 14px;">Код к компонент</th>
+                                <th scope="col" style="font-size: 14px;">Резина исключен.</th>
+                                <th scope="col" style="font-size: 14px;">Ламинация 2-ч xxx</th>
+                                <th scope="col" style="font-size: 14px;">Упаковка ламинации</th>
+                                <th scope="col" style="font-size: 14px;">Упаковка pvc</th>
+                                <th scope="col" style="font-size: 14px;">Длинный название</th>
+                              </tr>
+                            </thead>
+                            <tbody id="table-artikul">
+                               
+                            </tbody>
+                        </table>
+                        </form>
+                        </div>
+                    <button type="button" class="btn btn-success mt-2" onclick="save_krat()">SAVE</button>
+            </div>
+          </div>
+        
+      </div>
+      
+    </div>
+   
+  </div>
+  <script>
+
+
+class BasePokritiya{
+    constructor(
+        full=false, 
+        id=NaN,
+        nazvaniye_system=NaN,
+        artikul=NaN,
+        komponent=NaN,
+        сategoriya=NaN,
+        visota=NaN,
+        shirina=NaN,
+        tip_profiley=NaN,
+        product_type=NaN,
+        tnved=NaN,
+        wms_visota=NaN,
+        wms_shirina=NaN,
+        kamera=NaN,
+        kod_k_component=NaN,
+        isklyucheniye=NaN,
+        is_special=NaN,
+        kamera_lam=NaN,
+        kamera_pvx=NaN,
+        dlinniy_naz=NaN
+        ) {
+            this.full=full,
+            this.id =id,
+            this.nazvaniye_system =nazvaniye_system,
+            this.artikul =artikul,
+            this.komponent =komponent,
+            this.сategoriya =сategoriya,
+            this.visota =visota,
+            this.shirina =shirina,
+            this.tip_profiley =tip_profiley,
+            this.product_type =product_type,
+            this.tnved =tnved,
+            this.wms_visota =wms_visota,
+            this.wms_shirina =wms_shirina,
+            this.kamera =kamera,
+            this.kod_k_component =kod_k_component,
+            this.isklyucheniye =isklyucheniye,
+            this.is_special =is_special,
+            this.kamera_lam =kamera_lam,
+            this.kamera_pvx =kamera_pvx,
+            this.dlinniy_naz =dlinniy_naz
+    }
+    
+}
+
+    text =''
+    for(let i=1; i<=10; i++){
+        text +=` <tr id='table_tr` +String(i)+`' >
+                                    <td >
+                                        <select class="form-select" aria-label="" style="width: 165px;text-transform: uppercase; font-size:12px; padding-right:0px;"  id='nazvaniye_system`+String(i)+`' onchange='create_baza(`+String(i)+`)' required>
+                                            <option  selected></option>
+                                            <option value="TRIO 6000">TRIO 6000</option>
+                                            <option value="QUATTRO 6000">QUATTRO 6000</option>
+                                            <option value="TRIO 6000 ECO">TRIO 6000 ECO</option>
+                                            <option value="AKFA 7000">AKFA 7000</option>
+                                            <option value="ENGELBERG 7000">ENGELBERG 7000</option>
+                                            <option value="ENGELBERG 8000">ENGELBERG 8000</option>
+                                            <option value="Ламбри">Ламбри</option>
+                                            <option value="Подок STANDARD">Подок STANDARD</option>
+                                            <option value="Подок LUX">Подок LUX</option>
+                                            <option value="Подок ELITE">Подок ELITE</option>
+                                            <option value="Подок UNIVERSAL">Подок UNIVERSAL</option>
+                                            <option value="НЕСИСТЕМНЫЙ ПРОФИЛЬ">НЕСИСТЕМНЫЙ ПРОФИЛЬ</option>
+                                            <option value="TRIO 5800">TRIO 5800</option>
+                                            <option value="Подок ECONOM">Подок ECONOM</option>
+                                            <option value="REHAU 7000">REHAU 7000</option>
+                                            <option value="Penta 6500">Penta 6500</option>
+                                            <option value="REHAU 8000">REHAU 8000</option>
+                                        </select>
+                                        
+                                    </td>
+                                    <td >
+                                        <input type="text" class="form-control "  style='width:120px;height: 25px;'   aria-describedby="inputGroup-sizing-sm" name ='artikul`+String(i)+`' onkeyup='create_baza(`+String(i)+`)' id="artikul`+String(i)+`"  >
+                                    </td>
+                                    <td >
+                                        <input type="text" class="form-control "  style='width:90px;height: 25px;'   aria-describedby="inputGroup-sizing-sm" name ='komponent`+String(i)+`' onkeyup='create_baza(`+String(i)+`)' id="komponent`+String(i)+`"  >
+                                    </td>
+                                    <td >
+                                        <select class="form-select" aria-label="" style="width: 100px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange='create_baza(`+String(i)+`)' id='сategoriya`+String(i)+`' required>
+                                            <option  selected></option>
+                                            <option value="ECONOM" >ECONOM</option>
+                                            <option value="PREMIUM">PREMIUM</option>
+                                            <option value="STANDARD">STANDARD</option>
+                                          </select>
+                                        
+                                    </td>
+                                    <td >
+                                        <select class="form-select" aria-label="" style="width: 80px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange='create_baza(`+String(i)+`)'  id='visota`+String(i)+`' required>
+                                            <option  selected></option>
+                                            <option value="20" >20</option>
+                                            <option value="1-1000">1-1000</option>
+                                            <option value="20-40.5">20-40.5</option>
+                                          </select>
+                                        
+                                    </td>
+                                    <td >
+                                        <select class="form-select" aria-label="" style="width: 80px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange='create_baza(`+String(i)+`)'  id='shirina`+String(i)+`' required>
+                                            <option  selected></option>
+                                            <option value="100-108" >100-108</option>
+                                            <option value="1-1000">1-1000</option>
+                                            <option value="150-606">150-606</option>
+                                          </select>
+                                    </td>
+                                    <td >
+                                        <select class="form-select" aria-label="" style="width: 70px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange='create_baza(`+String(i)+`)' id='tip_profiley`+String(i)+`' required>
+                                            <option  selected></option>
+                                            <option value="F">F</option>
+                                            <option value="M">M</option>
+                                            <option value="V">V</option>
+                                            <option value="VD">VD</option>
+                                            <option value="G">G</option>
+                                            <option value="D">D</option>
+                                            <option value="MD">MD</option>
+                                            <option value="L">L</option>
+                                            <option value="P">P</option>
+                                            <option value="A">A</option>
+                                          </select>
+                                    </td>
+                                    <td >
+                                        <select class="form-select" aria-label="" style="width: 120px;text-transform: uppercase; font-size:12px; padding-right:0px;"  onchange='create_baza(`+String(i)+`)' id='product_type`+String(i)+`' required>
+                                            <option  selected></option>
+                                            <option value="LAMBRI" >LAMBRI</option>
+                                            <option value="PROFILE">PROFILE</option>
+                                            <option value="WINDOWSILL">WINDOWSILL</option>
+                                          </select>
+                                    </td>
+                                    <td >
+                                        <select class="form-select" aria-label="" style="width: 120px;text-transform: uppercase; font-size:12px; padding-right:0px;"  onchange='create_baza(`+String(i)+`)' id='tnved`+String(i)+`' required>
+                                            <option  selected></option>
+                                            <option value="3916200000" >3916200000</option>
+                                            <option value="3925908009">3925908009</option>
+                                          </select>
+                                    </td>
+                                    <td >
+                                        <input type="text" class="form-control "  style='width:60px;height: 25px;'   aria-describedby="inputGroup-sizing-sm" name ='wms_visota`+String(i)+`' onkeyup='create_baza(`+String(i)+`)' id="wms_visota`+String(i)+`"  >
+                                    </td>
+                                    <td >
+                                        <input type="text" class="form-control "  style='width:50px;height: 25px;'   aria-describedby="inputGroup-sizing-sm" name ='wms_shirina`+String(i)+`' onkeyup='create_baza(`+String(i)+`)' id="wms_shirina`+String(i)+`"  >
+                                    </td>
+                                    <td >
+                                        <input type="text" class="form-control "  style='width:50px;height: 25px;'   aria-describedby="inputGroup-sizing-sm" name ='kamera`+String(i)+`' onkeyup='create_baza(`+String(i)+`)' id="kamera`+String(i)+`"  >
+                                    </td>
+                                    <td >
+                                        <select class="form-select" aria-label="" style="width: 120px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange='create_baza(`+String(i)+`)' id='kod_k_component`+String(i)+`' required>
+                                            <option  selected></option>
+                                            <option value="F">F</option>
+                                            <option value="M">M</option>
+                                            <option value="V">V</option>
+                                            <option value="G">G</option>
+                                            <option value="A">A</option>
+                                            <option value="CP">CP</option>
+                                            <option value="L">L</option>
+                                            <option value="P">P</option>
+                                            <option value="WS150">WS150</option>
+                                            <option value="WS200">WS200</option>
+                                            <option value="WS250">WS250</option>
+                                            <option value="WS300">WS300</option>
+                                            <option value="WS350">WS350</option>
+                                            <option value="WS400">WS400</option>
+                                            <option value="WS450">WS450</option>
+                                            <option value="WS500">WS500</option>
+                                            <option value="WS550">WS550</option>
+                                            <option value="WL350">WL350</option>
+                                            <option value="WE150">WE150</option>
+                                            <option value="WE200">WE200</option>
+                                            <option value="WE250">WE250</option>
+                                            <option value="WE300">WE300</option>
+                                            <option value="WE350">WE350</option>
+                                            <option value="WE400">WE400</option>
+                                            <option value="WE450">WE450</option>
+                                            <option value="WE500">WE500</option>
+                                            <option value="WE550">WE550</option>
+                                            <option value="WE600">WE600</option>
+                                            <option value="WU400">WU400</option>
+                                            <option value="WU500">WU500</option>
+                                            <option value="WU600">WU600</option>
+                                            <option value="WU700">WU700</option>
+                                            <option value="WN150">WN150</option>
+                                            <option value="WN200">WN200</option>
+                                            <option value="WN250">WN250</option>
+                                            <option value="WN300">WN300</option>
+                                            <option value="WN350">WN350</option>
+                                            <option value="WN400">WN400</option>
+                                            <option value="WN450">WN450</option>
+                                            <option value="WN600">WN600</option>
+                                            <option value="WL150">WL150</option>
+                                            <option value="WL200">WL200</option>
+                                            <option value="WL250">WL250</option>
+                                            <option value="WL300">WL300</option>
+                                            <option value="WL400">WL400</option>
+                                            <option value="WL450">WL450</option>
+                                            <option value="WL600">WL600</option>
+                                        </select>
+                                    </td>
+                                    <td >
+                                        <select class="form-select" aria-label="" style="width: 70px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange='create_baza(`+String(i)+`)' id='isklyucheniye`+String(i)+`' required>
+                                            <option  selected></option>
+                                            <option value="1" >Да</option>
+                                            <option value="0">Нет</option>
+                                        </select>
+                                    </td>
+                                    <td >
+                                        <select class="form-select" aria-label="" style="width: 70px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange='create_baza(`+String(i)+`)' id='is_special`+String(i)+`' required>
+                                            <option  selected></option>
+                                            <option value="1" >Да</option>
+                                            <option value="0">Нет</option>
+                                        </select>
+                                    </td>
+                                    <td >
+                                        <input type="text" class="form-control "  style='width:50px;height: 25px;'   aria-describedby="inputGroup-sizing-sm" name ='kamera_lam`+String(i)+`' onkeyup='create_baza(`+String(i)+`)' id="kamera_lam`+String(i)+`"  >
+                                    </td>
+                                    <td >
+                                        <input type="text" class="form-control "  style='width:50px;height: 25px;'   aria-describedby="inputGroup-sizing-sm" name ='kamera_pvx`+String(i)+`' onkeyup='create_baza(`+String(i)+`)' id="kamera_pvx`+String(i)+`"  >
+                                    </td>
+                                    <td >
+                                        <input type="textarea" class="form-control "   style='width:250px;height: 25px;'  aria-describedby="inputGroup-sizing-sm" name ='dlinniy_naz`+String(i)+`' onkeyup='create_baza(`+String(i)+`)' id="dlinniy_naz`+String(i)+`"  >
+                                    </td>
+                                </tr>`
+
+        
+    }
+     
+    
+    var table_artikul = $('#table-artikul')
+    table_artikul.append(text)
+
+    var data_base = {}
+
+    function create_baza(id){
+        if(!data_base.hasOwnProperty(id)){
+            data_base[id] = new BasePokritiya()
+        }
+        check_full(id)
+    }
+    var zagolovok =['nazvaniye_system','artikul','komponent','сategoriya','visota','shirina','tip_profiley','product_type','tnved','wms_visota','wms_shirina','kamera','kod_k_component','isklyucheniye','is_special','kamera_lam','kamera_pvx','dlinniy_naz']
+
+    function check_full(id){
+        var ch_full = true;
+        for(let i=0; i<= zagolovok.length; i++){
+            if(ch_full_sap(zagolovok[i])){
+                var elem= $('#'+zagolovok[i]).val();
+                console.log('ssssss',elem)
+                data_base[id][zagolovok[i]]= elem
+            }else{
+                console.log('33333')
+                data_base[id][zagolovok[i]]=NaN
+                ch_full = false;
+            }
+        }
+        data_base[id].full= ch_full
+        
+
+    }
+    function ch_full_sap(selector){
+        var elem= $('#'+selector).val();
+        if(elem !='' && elem != undefined){
+            return true
+        }else{
+            return false;
+        }
+    }
+
+
+
+    function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+    function save_krat(){
+        var url = "{%url 'create_artikul_pvc'%}"
+        var all_correct =false
+        console.log(data_base,'dataaaa')
+        for(let j =0; j<data_base.length; j++){
+            console.log(data_base[j])
+            
+        }
+        if(all_correct){
+            var csrfToken = getCSRFToken();
+            var postData = {
+                'kratkiy': 'kratkiy',
+                
+            }
+            // $.ajax({
+            //     type: 'POST',
+            //     url: url,
+            //     headers: { "X-CSRFToken": csrfToken },
+            //     data: postData,
+            // }).done(function (res) {
+            //     console.log(res)
+            //     if (res.status ==201){
+            //         Swal.fire('Qabul qilindi...', '', 'success')
+
+            //     }else{
+            //         Swal.fire('Something went wrong...', '', 'info')
+            //     }
+            //     // WON'T REDIRECT
+            // });
+        }else{
+            Swal.fire('Malumotlar toliq emas!', '', 'info')
+        }
+
+       
+            
+    }
+    
+  </script>
+{% endblock %}

@@ -169,7 +169,7 @@ def order_create_jira(name):
         },
         "serviceDeskId": "11",
         "requestTypeId": "78",
-        "raiseOnBehalfOf": "712020:df5b851d-453a-4da2-a081-00dca93a05a7"
+        "raiseOnBehalfOf": "712020:81c47857-d7c3-4478-86af-60456c2ed63f"
     })
     url_jira = "https://akfa-group.atlassian.net/rest/servicedeskapi/request"
 
@@ -819,8 +819,11 @@ def moderator_check(request,id):
             partner = User.objects.get(id = int(partner_id))
             order.partner =partner
         order.status = data.get('status',1)
-        # status_id_for_jira =STATUS_JIRA[order.status]['id']
-        # jira_status_change(order.id_for_jira,status=status_id_for_jira)
+
+        status_id_for_jira =STATUS_JIRA[order.status]['id']
+        jira_status_change(order.id_for_jira,status=status_id_for_jira)
+        checker_send_to_jira(order.id_for_jira)
+
         order.checker = request.user
         order.save()
         data['owner'] = owner
@@ -854,6 +857,23 @@ def moderator_check(request,id):
         }
         return render(request,'client/moderator/order_detail.html',context)
     
+def checker_send_to_jira(id):
+    
+    payload_jira = json.dumps( 
+        {
+        "accountId": "712020:81c47857-d7c3-4478-86af-60456c2ed63f"
+        })
+
+    url_jira = f"https://akfa-group.atlassian.net/rest/api/3/issue/{id}/assignee"
+    print(url_jira)
+    response = rq.request(
+        "PUT",
+        url_jira,
+        data=payload_jira,
+        headers=headers_jira
+    )
+    print(response.text)
+    return JsonResponse({'status':'changed'})
 
 
 @login_required(login_url='/accounts/login/')
