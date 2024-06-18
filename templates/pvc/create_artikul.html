@@ -303,9 +303,10 @@ class BasePokritiya{
 
     function check_full(id){
         var ch_full = true;
-        for(let i=0; i<= zagolovok.length; i++){
-            if(ch_full_sap(zagolovok[i])){
-                var elem= $('#'+zagolovok[i]).val();
+        for(let i=0; i<zagolovok.length; i++){
+            console.log(zagolovok[i],'rrrrrrrr')
+            if(ch_full_sap(zagolovok[i]+id)){
+                var elem= $('#'+zagolovok[i]+id).val();
                 console.log('ssssss',elem)
                 data_base[id][zagolovok[i]]= elem
             }else{
@@ -335,33 +336,43 @@ class BasePokritiya{
 
     function save_krat(){
         var url = "{%url 'create_artikul_pvc'%}"
-        var all_correct =false
-        console.log(data_base,'dataaaa')
-        for(let j =0; j<data_base.length; j++){
-            console.log(data_base[j])
-            
+        var all_correct =true
+        // console.log(data_base,'dataaaa',data_base.length)
+        let objectLength = Object.keys(data_base).length;
+
+        for(let j =1; j<=objectLength; j++){
+            // console.log(data_base[j].full,'5555')
+            if(data_base[j].full){
+                // console.log(data_base[j].full,'hhhhhhhkkk')
+                continue
+            }else{
+                all_correct = false
+                break 
+            }
         }
+        // all_correct =true
+        console.log(all_correct,'ddddddd')
         if(all_correct){
             var csrfToken = getCSRFToken();
             var postData = {
-                'kratkiy': 'kratkiy',
+                'data': JSON.stringify(data_base),
                 
             }
-            // $.ajax({
-            //     type: 'POST',
-            //     url: url,
-            //     headers: { "X-CSRFToken": csrfToken },
-            //     data: postData,
-            // }).done(function (res) {
-            //     console.log(res)
-            //     if (res.status ==201){
-            //         Swal.fire('Qabul qilindi...', '', 'success')
+            $.ajax({
+                type: 'POST',
+                url: url,
+                headers: { "X-CSRFToken": csrfToken },
+                data: postData,
+            }).done(function (res) {
+                console.log(res)
+                if (res.status ==201){
+                    Swal.fire('Qabul qilindi...', '', 'success')
 
-            //     }else{
-            //         Swal.fire('Something went wrong...', '', 'info')
-            //     }
-            //     // WON'T REDIRECT
-            // });
+                }else{
+                    Swal.fire('Something went wrong...', '', 'info')
+                }
+                // WON'T REDIRECT
+            });
         }else{
             Swal.fire('Malumotlar toliq emas!', '', 'info')
         }

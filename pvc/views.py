@@ -16,6 +16,7 @@ from onlinesavdo.utils import zip
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 import os
+import json
 from .BAZA import DOP_PROFIL
 from functools import partial
 import random 
@@ -2951,8 +2952,44 @@ def sap_code_bulk_delete(request):
 @allowed_users(allowed_roles=['admin','moderator']) 
 def create_artikul(request):
     if request.method =='POST':
+        data_json = request.POST.get('data',None)
+        datas = json.loads(data_json)
+        for key,data in datas.items():
+            # print(data)
+            # # data =data[key]
+            artikul_component = ArtikulKomponentPVC(
+                artikul = data['artikul'],
+                component=data['komponent'],
+                component2=data['komponent']+'-7',
+                category =data['сategoriya'],
+                height =data['visota'],
+                width =data['shirina'],
+                product_type =data['product_type'],
+                profile_type =data['tip_profiley'],
+                tnved =data['tnved'],
+                wms_height =data['wms_visota'],
+                wms_width =data['wms_shirina'],
+                nazvaniye_sistem =data['nazvaniye_system'],
+                camera =data['kamera'],
+                kod_k_component =data['kod_k_component'],
+                iskyucheniye =data['isklyucheniye'],
+                is_special =data['is_special'],
+                )
+            artikul_component.save()
+            camera_pvc = CameraPvc(sap_code =data['artikul'],coun_of_lam=data['kamera_lam'],coun_of_pvc=data['kamera_pvx'])
+            camera_pvc.save()
+
+            dlinniy_text = DliniyText(sap_code =data['artikul'],product_desc=data['dlinniy_naz'])
+            dlinniy_text.save()
+
         return JsonResponse({'status':201})
     return render(request,'pvc/create_artikul.html')
+
+
+
+#         kamera_lam=NaN,
+#         kamera_pvx=NaN,
+#         dlinniy_naz=NaN
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
