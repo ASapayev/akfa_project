@@ -1031,7 +1031,7 @@ def product_add_second_org(request,id):
                   else:
                         continue
                   
-            if df['Длина при выходе из пресса'][key] != 'nan':
+            if df['Длина при выходе из пресса'][key] != 'nan' and df['Длина при выходе из пресса'][key].replace('.0','')!= row['Длина (мм)']:
                   dlina = df['Длина при выходе из пресса'][key].replace('.0','')
                         
                   df_new['Фабрикация'][key]=df['Краткий текст товара'][key]
@@ -1076,7 +1076,7 @@ def product_add_second_org(request,id):
                               
                         df_new['Ламинация'][key] = df['Краткий текст товара'][key]
                   
-            if df['Длина при выходе из пресса'][key] != 'nan':
+            if df['Длина при выходе из пресса'][key] != 'nan' and df['Длина при выходе из пресса'][key].replace('.0','')!= row['Длина (мм)']:
                   if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key]).exists():
                         df_new['SAP код F'][key] = AluminiyProduct.objects.filter(artikul = df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key])[:1].get().material
                         duplicat_list.append([df_new['SAP код F'][key],df_new['Фабрикация'][key],'F'])
@@ -1703,7 +1703,7 @@ def product_add_second_org(request,id):
             
             dlina =''
       
-            if df['Длина при выходе из пресса'][key] != 'nan':
+            if df['Длина при выходе из пресса'][key] != 'nan' and df['Длина при выходе из пресса'][key].replace('.0','')!= row['Длина (мм)']:
                   dlina = df['Длина при выходе из пресса'][key].replace('.0','')      
             else:
                   dlina = df['Длина (мм)'][key]
