@@ -218,10 +218,15 @@ class BasePokritiya{
         <td >
             <div class="input-group input-group-sm mb-1">
                 
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="create(`+String(i)+`)" id='create_btn`+String(i)+`' >Создание</button>
-                    <button type="button" class="btn btn-info btn-sm" onclick="activate(`+String(i)+`)" id='activate_btn`+String(i)+`'>Активация</button>
-                    <button type="button" class="btn btn-warning btn-sm gradient-buttons" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`'>Очистить</button>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li style='cursor:pointer'><a class="dropdown-item" onclick="create(`+String(i)+`)" id='create_btn`+String(i)+`'><i class="bi bi-plus-circle mr-2"></i>Создание</a></li>
+                        <li style='cursor:pointer'><a class="dropdown-item" onclick="activate(`+String(i)+`)" id='activate_btn`+String(i)+`'> <i class="bi bi-award-fill mr-2"></i>Активация</a></li>
+                        <li style='cursor:pointer'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
+                    </ul>
                 </div>
                     
             </div>

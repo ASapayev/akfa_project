@@ -257,8 +257,13 @@ function front_piece(start=1,end=6){
                                     
         <td >
             <div class="input-group input-group-sm mb-1">
-                <div>
-                    <button type="button" class="btn btn-warning" onclick="artukil_clear(`+String(i)+`)" style="font-size: 12px;">Очистить</button>     
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li style='cursor:pointer'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"   ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
+                    </ul>
                 </div>
             </div>
         </td>

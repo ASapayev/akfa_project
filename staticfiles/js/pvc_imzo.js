@@ -139,8 +139,13 @@ class BasePokritiya{
         <td >
             <div class="input-group input-group-sm mb-1">
                 
-                <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-warning btn-sm gradient-buttons" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`'>Очистить</button>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li style='cursor:pointer'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
+                    </ul>
                 </div>
                     
             </div>
