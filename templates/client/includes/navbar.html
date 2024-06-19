@@ -1,102 +1,65 @@
 
 {%load static %}
-
-<div id="sticky-wrapper" class="sticky-wrapper is-sticky" style="height: 78px;"><nav class="navbar navbar-expand-lg" style="width: 1263px; position: fixed; top: 0px;">
-    <div class="container">
-        <a class="sidebar-brand brand-logo" href="{%url 'home' %}"><img style="width:100px;" src="{% static 'assets/images/logo2.png' %}" alt="logo" /></a>
-       
-
-        <div class="d-lg-none ms-auto me-4">
-            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
-        </div>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-lg-5 me-lg-auto">
+<main>
+    <!-- <div class="container"> -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="{%url 'home' %}"><img style="width:100px;" src="{% static 'assets/images/logo2.png' %}" alt="logo" /></a>
+          
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{%url 'client_index'%}">Home</a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="{%url 'client_index'%}">Home</a>
+                  <a class="nav-link active" href="{%url 'client_order_list'%}">Orders</a>
                 </li>
-                <li class="nav-item" >
-                    <a class="nav-link"  style="color: rgba(0,0,0,.8);" href="{%url 'client_order_list'%}">Orders</a>
-                </li>
-            </ul>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+              <div class="mr-5">
 
-            <div class="d-none d-lg-block mr-5">
-                <ul >
-                    <li class="nav-item dropdown " style="list-style: none;">
-                        <a href="#top" class="navbar-icon bi-person smoothscroll" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false"></a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
-                            <h6 class="p-3 mb-0">Profile</h6>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                <div class="preview-icon bg-dark rounded-circle">
-                                    <i class="mdi mdi-settings text-success"></i>
-                                </div>
-                                </div>
-                                <div class="preview-item-content">
-                                <p class="preview-subject mb-1">Settings</p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item" href="/accounts/logout/">
-                                <div class="preview-thumbnail">
-                                <div class="preview-icon bg-dark rounded-circle">
-                                    <i class="mdi mdi-logout text-danger"></i>
-                                </div>
-                                </div>
-                                <div class="preview-item-content">
-                                <p class="preview-subject mb-1">Log out</p>
-                                </div>
-                            </a>
-                            
-                        </div>
-                    </li>
-                </ul>
-
-                
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link inactive" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                      <div class="navbar-profile">
-                        <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
-                        <img class="img-xs rounded-circle" src="/media/user/profile_pictures/photo_2023-06-16_15-11-31.jpg" alt="">
-                        <p class="mb-0 d-none d-sm-block navbar-profile-name">Khazrat</p>
-                        <i class="mdi mdi-menu-down d-none d-sm-block"></i>
-                      </div>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
-                      <h6 class="p-3 mb-0">Profile</h6>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                          <div class="preview-icon bg-dark rounded-circle">
-                            <i class="mdi mdi-settings text-success"></i>
+                  <div class="d-none d-lg-block mr-5">
+                  <ul >
+                      <li class="nav-item dropdown " style="list-style: none;">
+                          <a href="#top" class="navbar-icon bi-person smoothscroll" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false"></a>
+                          <div class="dropdown-menu  navbar-dropdown preview-list" aria-labelledby="profileDropdown">
+                              <h6 class="p-3 mb-0">Profile</h6>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item preview-item">
+                                  <div class="preview-thumbnail">
+                                  <div class="preview-icon bg-dark rounded-circle">
+                                      <i class="mdi mdi-settings text-success"></i>
+                                  </div>
+                                  </div>
+                                  <div class="preview-item-content">
+                                  <p style="font-size: 12px;" class="preview-subject mb-1">Settings</p>
+                                  </div>
+                              </a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item preview-item" href="/accounts/logout/">
+                                  <div class="preview-thumbnail">
+                                  <div class="preview-icon bg-dark rounded-circle">
+                                      <i class="mdi mdi-logout text-danger"></i>
+                                  </div>
+                                  </div>
+                                  <div class="preview-item-content">
+                                  <p  style="font-size: 12px;" class="preview-subject mb-1">Log out</p>
+                                  </div>
+                              </a>
+                              
                           </div>
-                        </div>
-                        <div class="preview-item-content">
-                          <p class="preview-subject mb-1">Settings</p>
-                        </div>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item preview-item" href="/accounts/logout/">
-                        <div class="preview-thumbnail">
-                          <div class="preview-icon bg-dark rounded-circle">
-                            <i class="mdi mdi-logout text-danger"></i>
-                          </div>
-                        </div>
-                        <div class="preview-item-content">
-                          <p class="preview-subject mb-1">Log out</p>
-                        </div>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <p class="p-3 mb-0 text-center">Advanced settings</p>
-                    </div>
-                  </li> -->
+                      </li>
+                  </ul>
+  
+                  
+                  
+                  </div>
+              </div>
             </div>
-            
-        </div>
-    </div>
-</nav></div>
+          </nav>
+    
