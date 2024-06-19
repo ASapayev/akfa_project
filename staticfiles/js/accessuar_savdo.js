@@ -92,237 +92,240 @@ class BasePokritiya{
 
 
 
+function front_piece(start=1,end=6){
+    text =""
 
-text =""
-
-for (let i = 1; i <= 5; i++) {
-    text +=`
-    <tr id='table_tr` +String(i)+`' >                   
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            
-            <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="create(`+String(i)+`)" id='create_btn`+String(i)+`' >Создание</button>
-            <button type="button" class="btn btn-info btn-sm" onclick="activate(`+String(i)+`)" id='activate_btn`+String(i)+`'>Активация</button>
-            <button type="button" class="btn btn-warning btn-sm gradient-buttons" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`'>Очистить</button>
-            </div>
+    for (let i = start; i < end; i++) {
+        text +=`
+        <tr id='table_tr` +String(i)+`' >                   
+        <td >
+            <div class="input-group input-group-sm mb-1">
                 
-        </div>
-    </td>
-    <td >
-    <input  style='display:none;border-color:red; line-height:15px' type="date" class="form-control" id="pickupdate`+String(i)+`" onchange='create_kratkiy_tekst(`+String(i)+`)'> 
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px " id='sena_za_bei`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px " id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <textarea   rows='1' class=" form-control " style="border-color:red; width: 220px; font-size:10px; display:none; height:32px" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-        <option  selected></option>
-        <option   value="LAM">LAM</option>
-        <option   value="Anod">Anod</option>
-        <option   value="COLOUR">COLOUR</option>
-        <option   value="VAKUM &amp; 3D">VAKUM &amp; 3D</option>
-        <option   value="WHITE">WHITE</option>
-        <option   value="Без цвета">Без цвета</option>
-      </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-        <option  selected></option>
-        <option value="Granit">Granit</option>
-        <option value="Radiator SAP (IMPORT)">Radiator SAP (IMPORT)</option>
-        <option value="Rezina Tpv">Rezina Tpv</option>
-        <option value="Aksessuar Import (SAP)">Aksessuar Import (SAP)</option>
-        <option value="Kraska">Kraska</option>
-        <option value="Gazoblok">Gazoblok</option>
-        <option value="Butilchita">Butilchita</option>
-        <option value="Aksessuar Import">Aksessuar Import</option>
-        <option value="Aksessuar Rezina">Aksessuar Rezina</option>
-        <option value="Aksessuar UZ">Aksessuar UZ</option>
-        <option value="Tiokol">Tiokol</option>
-        <option value="Metal">Metal</option>
-        <option value="Alucobond">Alucobond</option>
-        <option value="Radiator">Radiator</option>
-        <option value="Kabina">Kabina</option>
-        <option value="Granula">Granula</option>
-        <option value="Radiator (IMPORT)">Radiator (IMPORT)</option>
-        <option value="Kotel (AIRFEL)">Kotel (AIRFEL)</option>
-        <option value="Kotel (AKFA)">Kotel (AKFA)</option>
-        <option value="VITYAJNOYE USTROYSTVA">VITYAJNOYE USTROYSTVA</option>
-        <option value="Setka">Setka</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1"  >
-        <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="create(`+String(i)+`)" id='create_btn`+String(i)+`' >Создание</button>
+                <button type="button" class="btn btn-info btn-sm" onclick="activate(`+String(i)+`)" id='activate_btn`+String(i)+`'>Активация</button>
+                <button type="button" class="btn btn-warning btn-sm gradient-buttons" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`'>Очистить</button>
+                </div>
+                    
+            </div>
+        </td>
+        <td >
+        <input  style='display:none;border-color:red; line-height:15px' type="date" class="form-control" id="pickupdate`+String(i)+`" onchange='create_kratkiy_tekst(`+String(i)+`)'> 
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px " id='sena_za_bei`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px " id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <textarea   rows='1' class=" form-control " style="border-color:red; width: 220px; font-size:10px; display:none; height:32px" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+            </div>
+        </td>
+        
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
-            <option value="5200 QVT PVC (NAVOIY)">5200 QVT PVC (NAVOIY)</option>
-            <option value="5200 QVT PVC RETPEN (NAVOIY)">5200 QVT PVC RETPEN (NAVOIY)</option>
+            <option   value="LAM">LAM</option>
+            <option   value="Anod">Anod</option>
+            <option   value="COLOUR">COLOUR</option>
+            <option   value="VAKUM &amp; 3D">VAKUM &amp; 3D</option>
+            <option   value="WHITE">WHITE</option>
+            <option   value="Без цвета">Без цвета</option>
         </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
-            <option value="Сырье">Сырье</option>
-            <option value="Готовый продукт">Готовый продукт</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value="Aldoks">Aldoks</option>
-            <option value="Стандарт">Стандарт</option>
-            <option value="Премиум">Премиум</option>
-            <option value="Аксессуар">Аксессуар</option>
-            <option value="Аксессуар 2">Аксессуар 2</option>
-            <option value="Аксессуар 3">Аксессуар 3</option>
-            <option value="Falcon">Falcon</option>
-            <option value="Эконом">Эконом</option>
-            <option value="Mebel">Mebel</option>
-            <option value="LAMBRI">LAMBRI</option>
-            <option value="RETPEN 10%">RETPEN 10%</option>
-            <option value="RETPEN 15%">RETPEN 15%</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
-            <option value='Термоуплотненный алюминиевый профиль (N)'>Термоуплотненный алюминиевый профиль (N)</option>
-            <option value='Мебельный профиль из алюминия анодированный матовое серебро (N)'>Мебельный профиль из алюминия анодированный матовое серебро (N)</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option  value="Штука">Штука</div>
-            <option  value="Килограмм">Килограмм</div>
-            <option  value="Квадратный метр">Квадратный метр</div>
-            <option  value="Метр">Метр</div>
-            <option  value="КМП">КМП</div>
-            <option  value="Пачка">Пачка</div>
-            <option  value="Секция">Секция</div>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option vlaue="Штука">Штука</div>
-            <option vlaue="Килограмм">Килограмм</div>
-            <option vlaue="Квадратный метр">Квадратный метр</div>
-            <option vlaue="Метр">Метр</div>
-            <option vlaue="КМП">КМП</div>
-            <option vlaue="Пачка">Пачка</div>
-            <option vlaue="Секция">Секция</div>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option vlaue="Штука">Штука</div>
-            <option vlaue="Килограмм">Килограмм</div>
-            <option vlaue="Квадратный метр">Квадратный метр</div>
-            <option vlaue="Метр">Метр</div>
-            <option vlaue="КМП">КМП</div>
-            <option vlaue="Пачка">Пачка</div>
-            <option vlaue="Секция">Секция</div>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_baza`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value="Активный">Активный</option>
-            <option value="Пассивный">Пассивный</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='zavod_name`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value="ZAVOD BUTIL">ZAVOD BUTIL</option>
-            <option value="IMPORT">IMPORT</option>
-            <option value="ZAVOD REZINA">ZAVOD REZINA</option>
-            <option value="ZAVOD AKS UZ">ZAVOD AKS UZ</option>
-            <option value="ZAVOD TIOKOL">ZAVOD TIOKOL</option>
-            <option value="ZAVOD METAL">ZAVOD METAL</option>
-            <option value="ZAVOD ALUCOBOND">ZAVOD ALUCOBOND</option>
-            <option value="ZAVOD RADIATOR">ZAVOD RADIATOR</option>
-            <option value="Akfa Savdo">Akfa Savdo</option>
-            <option value="ZAVOD GRANULA">ZAVOD GRANULA</option>
-            <option value="ZAVOD GRANIT">ZAVOD GRANIT</option>
-            <option value="РЦ Зенит">РЦ Зенит</option>
-            <option value="РЦ Наманган">РЦ Наманган</option>
-            <option value="РЦ Бухара">РЦ Бухара</option>
-            <option value="РЦ Самарканд">РЦ Самарканд</option>
-            <option value="РЦ Хорезм">РЦ Хорезм</option>
-            <option value="ZAVOD REZINA TPV">ZAVOD REZINA TPV</option>
-            <option value="ZAVOD KRASKA">ZAVOD KRASKA</option>
-        </select>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value="AKFA">AKFA</option>
-            <option value="IMZO">IMZO</option>
-            <option value="Q-Q">Q-Q</option>
-            <option value="FRANCHISING">FRANCHISING</option>
-        </select>
-        </div>
-    </td>
-    <td style="display: none;" >
-        <div class="input-group input-group-sm mb-1">
-        <span id="is_active`+String(i)+`" style="display: none;"></span>
-        </div>
-    </td>
-    
-    </tr>`
-  }
+            <option value="Granit">Granit</option>
+            <option value="Radiator SAP (IMPORT)">Radiator SAP (IMPORT)</option>
+            <option value="Rezina Tpv">Rezina Tpv</option>
+            <option value="Aksessuar Import (SAP)">Aksessuar Import (SAP)</option>
+            <option value="Kraska">Kraska</option>
+            <option value="Gazoblok">Gazoblok</option>
+            <option value="Butilchita">Butilchita</option>
+            <option value="Aksessuar Import">Aksessuar Import</option>
+            <option value="Aksessuar Rezina">Aksessuar Rezina</option>
+            <option value="Aksessuar UZ">Aksessuar UZ</option>
+            <option value="Tiokol">Tiokol</option>
+            <option value="Metal">Metal</option>
+            <option value="Alucobond">Alucobond</option>
+            <option value="Radiator">Radiator</option>
+            <option value="Kabina">Kabina</option>
+            <option value="Granula">Granula</option>
+            <option value="Radiator (IMPORT)">Radiator (IMPORT)</option>
+            <option value="Kotel (AIRFEL)">Kotel (AIRFEL)</option>
+            <option value="Kotel (AKFA)">Kotel (AKFA)</option>
+            <option value="VITYAJNOYE USTROYSTVA">VITYAJNOYE USTROYSTVA</option>
+            <option value="Setka">Setka</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1"  >
+            <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+                <option  selected></option>
+                <option value="5200 QVT PVC (NAVOIY)">5200 QVT PVC (NAVOIY)</option>
+                <option value="5200 QVT PVC RETPEN (NAVOIY)">5200 QVT PVC RETPEN (NAVOIY)</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+                <option  selected></option>
+                <option value="Сырье">Сырье</option>
+                <option value="Готовый продукт">Готовый продукт</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option value="Aldoks">Aldoks</option>
+                <option value="Стандарт">Стандарт</option>
+                <option value="Премиум">Премиум</option>
+                <option value="Аксессуар">Аксессуар</option>
+                <option value="Аксессуар 2">Аксессуар 2</option>
+                <option value="Аксессуар 3">Аксессуар 3</option>
+                <option value="Falcon">Falcon</option>
+                <option value="Эконом">Эконом</option>
+                <option value="Mebel">Mebel</option>
+                <option value="LAMBRI">LAMBRI</option>
+                <option value="RETPEN 10%">RETPEN 10%</option>
+                <option value="RETPEN 15%">RETPEN 15%</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
+                <option value='Термоуплотненный алюминиевый профиль (N)'>Термоуплотненный алюминиевый профиль (N)</option>
+                <option value='Мебельный профиль из алюминия анодированный матовое серебро (N)'>Мебельный профиль из алюминия анодированный матовое серебро (N)</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option  value="Штука">Штука</div>
+                <option  value="Килограмм">Килограмм</div>
+                <option  value="Квадратный метр">Квадратный метр</div>
+                <option  value="Метр">Метр</div>
+                <option  value="КМП">КМП</div>
+                <option  value="Пачка">Пачка</div>
+                <option  value="Секция">Секция</div>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option vlaue="Штука">Штука</div>
+                <option vlaue="Килограмм">Килограмм</div>
+                <option vlaue="Квадратный метр">Квадратный метр</div>
+                <option vlaue="Метр">Метр</div>
+                <option vlaue="КМП">КМП</div>
+                <option vlaue="Пачка">Пачка</div>
+                <option vlaue="Секция">Секция</div>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option vlaue="Штука">Штука</div>
+                <option vlaue="Килограмм">Килограмм</div>
+                <option vlaue="Квадратный метр">Квадратный метр</div>
+                <option vlaue="Метр">Метр</div>
+                <option vlaue="КМП">КМП</div>
+                <option vlaue="Пачка">Пачка</div>
+                <option vlaue="Секция">Секция</div>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_baza`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option value="Активный">Активный</option>
+                <option value="Пассивный">Пассивный</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='zavod_name`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option value="ZAVOD BUTIL">ZAVOD BUTIL</option>
+                <option value="IMPORT">IMPORT</option>
+                <option value="ZAVOD REZINA">ZAVOD REZINA</option>
+                <option value="ZAVOD AKS UZ">ZAVOD AKS UZ</option>
+                <option value="ZAVOD TIOKOL">ZAVOD TIOKOL</option>
+                <option value="ZAVOD METAL">ZAVOD METAL</option>
+                <option value="ZAVOD ALUCOBOND">ZAVOD ALUCOBOND</option>
+                <option value="ZAVOD RADIATOR">ZAVOD RADIATOR</option>
+                <option value="Akfa Savdo">Akfa Savdo</option>
+                <option value="ZAVOD GRANULA">ZAVOD GRANULA</option>
+                <option value="ZAVOD GRANIT">ZAVOD GRANIT</option>
+                <option value="РЦ Зенит">РЦ Зенит</option>
+                <option value="РЦ Наманган">РЦ Наманган</option>
+                <option value="РЦ Бухара">РЦ Бухара</option>
+                <option value="РЦ Самарканд">РЦ Самарканд</option>
+                <option value="РЦ Хорезм">РЦ Хорезм</option>
+                <option value="ZAVOD REZINA TPV">ZAVOD REZINA TPV</option>
+                <option value="ZAVOD KRASKA">ZAVOD KRASKA</option>
+            </select>
+            </div>
+        </td>
+        
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option value="AKFA">AKFA</option>
+                <option value="IMZO">IMZO</option>
+                <option value="Q-Q">Q-Q</option>
+                <option value="FRANCHISING">FRANCHISING</option>
+            </select>
+            </div>
+        </td>
+        <td style="display: none;" >
+            <div class="input-group input-group-sm mb-1">
+            <span id="is_active`+String(i)+`" style="display: none;"></span>
+            </div>
+        </td>
+        
+        </tr>`
+    }
+    return text
+}
 
+text = front_piece()
 
 
 var table = $('#table-artikul')
@@ -958,342 +961,17 @@ function create_kratkiy_tekst(id){
 function add_column(){
         
     text =""
-    var sizee = Object.keys(data_base).length;
-    console.log(sizee)
     var sizeee = $('#table-artikul tr').length;
     
-    for (let i = sizeee + 1; i < sizeee+2; i++) {
-        text +=`
-        <tr id='table_tr` +String(i)+`' >                   
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            
-            <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="create(`+String(i)+`)" id='create_btn`+String(i)+`' >Создание</button>
-            <button type="button" class="btn btn-info btn-sm" onclick="activate(`+String(i)+`)" id='activate_btn`+String(i)+`'>Активация</button>
-            <button type="button" class="btn btn-warning btn-sm gradient-buttons" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`'>Очистить</button>
-            </div>
-                
-        </div>
-    </td>
-    <td >
-    <input  style='display:none;border-color:red; line-height:15px' type="date" class="form-control" id="pickupdate`+String(i)+`" onchange='create_kratkiy_tekst(`+String(i)+`)'> 
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px " id='sena_za_bei`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px " id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <textarea   rows='1' class=" form-control " style="border-color:red; width: 220px; font-size:10px; display:none; height:32px" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-        <option  selected></option>
-        <option   value="LAM">LAM</option>
-        <option   value="Anod">Anod</option>
-        <option   value="COLOUR">COLOUR</option>
-        <option   value="VAKUM &amp; 3D">VAKUM &amp; 3D</option>
-        <option   value="WHITE">WHITE</option>
-        <option   value="Без цвета">Без цвета</option>
-      </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-        <option  selected></option>
-        <option value="Granit">Granit</option>
-        <option value="Radiator SAP (IMPORT)">Radiator SAP (IMPORT)</option>
-        <option value="Rezina Tpv">Rezina Tpv</option>
-        <option value="Aksessuar Import (SAP)">Aksessuar Import (SAP)</option>
-        <option value="Kraska">Kraska</option>
-        <option value="Gazoblok">Gazoblok</option>
-        <option value="Butilchita">Butilchita</option>
-        <option value="Aksessuar Import">Aksessuar Import</option>
-        <option value="Aksessuar Rezina">Aksessuar Rezina</option>
-        <option value="Aksessuar UZ">Aksessuar UZ</option>
-        <option value="Tiokol">Tiokol</option>
-        <option value="Metal">Metal</option>
-        <option value="Alucobond">Alucobond</option>
-        <option value="Radiator">Radiator</option>
-        <option value="Kabina">Kabina</option>
-        <option value="Granula">Granula</option>
-        <option value="Radiator (IMPORT)">Radiator (IMPORT)</option>
-        <option value="Kotel (AIRFEL)">Kotel (AIRFEL)</option>
-        <option value="Kotel (AKFA)">Kotel (AKFA)</option>
-        <option value="VITYAJNOYE USTROYSTVA">VITYAJNOYE USTROYSTVA</option>
-        <option value="Setka">Setka</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1"  >
-        <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
-            <option  selected></option>
-            <option value="5200 QVT PVC (NAVOIY)">5200 QVT PVC (NAVOIY)</option>
-            <option value="5200 QVT PVC RETPEN (NAVOIY)">5200 QVT PVC RETPEN (NAVOIY)</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
-            <option  selected></option>
-            <option value="Сырье">Сырье</option>
-            <option value="Готовый продукт">Готовый продукт</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' required>
-            <option  selected></option>
-            <option value="Aldoks">Aldoks</option>
-            <option value="Стандарт">Стандарт</option>
-            <option value="Премиум">Премиум</option>
-            <option value="Аксессуар">Аксессуар</option>
-            <option value="Аксессуар 2">Аксессуар 2</option>
-            <option value="Аксессуар 3">Аксессуар 3</option>
-            <option value="Falcon">Falcon</option>
-            <option value="Эконом">Эконом</option>
-            <option value="Mebel">Mebel</option>
-            <option value="LAMBRI">LAMBRI</option>
-            <option value="RETPEN 10%">RETPEN 10%</option>
-            <option value="RETPEN 15%">RETPEN 15%</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' required>
-            <option  selected></option>
-            <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
-            <option value='Термоуплотненный алюминиевый профиль (N)'>Термоуплотненный алюминиевый профиль (N)</option>
-            <option value='Мебельный профиль из алюминия анодированный матовое серебро (N)'>Мебельный профиль из алюминия анодированный матовое серебро (N)</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' required>
-            <option  selected></option>
-            <option  value="Штука">Штука</div>
-            <option  value="Килограмм">Килограмм</div>
-            <option  value="Квадратный метр">Квадратный метр</div>
-            <option  value="Метр">Метр</div>
-            <option  value="КМП">КМП</div>
-            <option  value="Пачка">Пачка</div>
-            <option  value="Секция">Секция</div>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option vlaue="Штука">Штука</div>
-            <option vlaue="Килограмм">Килограмм</div>
-            <option vlaue="Квадратный метр">Квадратный метр</div>
-            <option vlaue="Метр">Метр</div>
-            <option vlaue="КМП">КМП</div>
-            <option vlaue="Пачка">Пачка</div>
-            <option vlaue="Секция">Секция</div>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`'  required>
-            <option  selected></option>
-            <option vlaue="Штука">Штука</div>
-            <option vlaue="Килограмм">Килограмм</div>
-            <option vlaue="Квадратный метр">Квадратный метр</div>
-            <option vlaue="Метр">Метр</div>
-            <option vlaue="КМП">КМП</div>
-            <option vlaue="Пачка">Пачка</div>
-            <option vlaue="Секция">Секция</div>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_baza`+String(i)+`'  ></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_alter`+String(i)+`'  ></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value="Активный">Активный</option>
-            <option value="Пассивный">Пассивный</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='zavod_name`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value="ZAVOD BUTIL">ZAVOD BUTIL</option>
-            <option value="IMPORT">IMPORT</option>
-            <option value="ZAVOD REZINA">ZAVOD REZINA</option>
-            <option value="ZAVOD AKS UZ">ZAVOD AKS UZ</option>
-            <option value="ZAVOD TIOKOL">ZAVOD TIOKOL</option>
-            <option value="ZAVOD METAL">ZAVOD METAL</option>
-            <option value="ZAVOD ALUCOBOND">ZAVOD ALUCOBOND</option>
-            <option value="ZAVOD RADIATOR">ZAVOD RADIATOR</option>
-            <option value="Akfa Savdo">Akfa Savdo</option>
-            <option value="ZAVOD GRANULA">ZAVOD GRANULA</option>
-            <option value="ZAVOD GRANIT">ZAVOD GRANIT</option>
-            <option value="РЦ Зенит">РЦ Зенит</option>
-            <option value="РЦ Наманган">РЦ Наманган</option>
-            <option value="РЦ Бухара">РЦ Бухара</option>
-            <option value="РЦ Самарканд">РЦ Самарканд</option>
-            <option value="РЦ Хорезм">РЦ Хорезм</option>
-            <option value="ZAVOD REZINA TPV">ZAVOD REZINA TPV</option>
-            <option value="ZAVOD KRASKA">ZAVOD KRASKA</option>
-        </select>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value="AKFA">AKFA</option>
-            <option value="IMZO">IMZO</option>
-            <option value="Q-Q">Q-Q</option>
-            <option value="FRANCHISING">FRANCHISING</option>
-        </select>
-        </div>
-    </td>
-    <td style="display: none;" >
-        <div class="input-group input-group-sm mb-1">
-        <span id="is_active`+String(i)+`" style="display: none;"></span>
-        </div>
-    </td>
-    
-    </tr>`
-    }
-
-
+    text = front_piece(start = sizeee+1, end = sizeee+2)
 
     
     var table = $('#table-artikul')
     table.append(text)
+    
 
 
-
-
-    for (let i = sizeee + 1; i < sizeee+2; i++) {
-        $('#artikul'+String(i)).select2({
-            ajax: {
-                url: "/client/imzo-artikul-list",
-                dataType: 'json',
-                processResults: function(data){
-                    return {results: $.map(data, function(item){
-                        return {id:item.id,text:item.artikul,system:item.system,combination:item.combination,code_nakleyka:item.code_nakleyka}
-                    })
-                };
-                }
-            }
-            });
-        
-        
-        
-        var artikulSelect = $('#artikul'+String(i));
-        $.ajax({
-            type: 'GET',
-            url: "/client/imzo-artikul-list"
-        }).then(function (data) {
-            var option = new Option(data.artikul, data.id, true, true);
-            artikulSelect.append(option).trigger('change');
-        
-            artikulSelect.trigger({
-                type: 'select2:select',
-                params: {
-                    data: data
-                }
-            });
-        });
-        
-        
-        $("#artikul"+String(i)).on("select2:select", function (e) { 
-        var select_val = $(e.currentTarget).val();
-        console.log(select_val)
-        var nazvaniye_system =$('.nazvaniye_system'+String(i));
-        var combination = $('#combination'+String(i));
-        var tip_pokritiya = $('#tip_pokritiya'+String(i));
-        // tip_pokritiya.val('').change();
-        console.log(tip_pokritiya)
-        if(select_val!=''){
-
-            tip_pokritiya.attr("disabled",false);
-            
-        }
-        nazvaniye_system.text(e.params.data.system);
-        combination.text(e.params.data.combination)
-
-        var nakleyka_kode = e.params.data.code_nakleyka
-        
-        
-        
-        
-        
-        var nakleyka_nt1 = $('#nakleyka_nt'+String(i))
-        var nakleyka_org =$('#nakleyka_org'+String(i));
-        var nakleyka_select = $('#nakleyka_select'+String(i));
-
-        var length = $('#length'+String(i));
-        length.attr('required',true)
-        var splav = $('#splav'+String(i));
-        splav.attr('required',true)
-        var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(i));
-        tip_zakalyonnosti.attr('required',true)
-
-        nakleyka_org.text("")
-        if (nakleyka_kode =='NT1'){
-            nakleyka_nt1.css('display','block')
-            nakleyka_org.css('display','none')
-            nakleyka_select.css('display','none')
-        }
-        else if( nakleyka_kode !=''){
-            nakleyka_org.text(nakleyka_kode)
-            nakleyka_nt1.css('display','none')
-            nakleyka_org.css('display','block')
-            nakleyka_select.css('display','none')
-        }        
-        else{
-            nakleyka_nt1.css('display','none')
-            nakleyka_org.css('display','none')
-            nakleyka_select.css('display','block')
-            nakleyka_select.attr('required',true)
-            get_nakleyka(String(i))
-        }
-        
-        
-        
-        // console.log(e.params.data.system)
-        });
-
-    }
-    // clear_artikul(sizeee + 1);
 }
-
 
 
 
