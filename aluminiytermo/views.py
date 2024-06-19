@@ -1313,42 +1313,7 @@ def product_add_second_org(request,id):
                   'AluProflesData':doesnotexist,
                   'filename':'aluminiy'
             }
-            # df_char_utils_one = pd.DataFrame({
-            #       'матрица':doesnotexist[0],
-            #       'артикул':doesnotexist[0],
-            #       'высота':['' for i in doesnotexist[0]],
-            #       'ширина':['' for i in doesnotexist[0]],
-            #       'высота_ширина':['' for i in doesnotexist[0]],
-            #       'systems':['' for i in doesnotexist[0]]
-            #       })
-            # df_char_utils_two =pd.DataFrame({
-            #       'артикул':doesnotexist[1],
-            #       'полый_или_фасонный':['' for i in doesnotexist[1]]
-            # })
-
-            # df_baza_profiley =pd.DataFrame({
-            #       'артикул':[i[0] for i in doesnotexist[2]],
-            #       'серия':[i[1] for i in doesnotexist[2]],
-            #       'старый_код':[i[2] for i in doesnotexist[2]],
-            #       'компонент':[i[3] for i in doesnotexist[2]],
-            #       'product_description':[i[4] for i in doesnotexist[2]],
-            #       'link':[i[5] for i in doesnotexist[2]],
-            # })
-            # create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}','Not Exists')
             
-            # path_not_exists =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\Not Exists\\Not_Exists.xlsx'
-            
-            # if os.path.isfile(path_not_exists):
-            #       try:
-            #             os.remove(path_not_exists)
-            #       except:
-            #             return render(request,'utils/file_exist_org.html')
-            
-            # writer = pd.ExcelWriter(path_not_exists, engine='xlsxwriter')
-            # df_char_utils_one.to_excel(writer,index=False,sheet_name ='character utils one')
-            # df_char_utils_two.to_excel(writer,index=False,sheet_name ='character utils two')
-            # df_baza_profiley.to_excel(writer,index=False,sheet_name ='baza profile')
-            # writer.close()
 
             order_id = request.GET.get('order_id',None)
             if order_id:
@@ -1441,7 +1406,13 @@ def product_add_second_org(request,id):
             row['Код лам пленки внутри'] = row['Код лам пленки внутри'].replace('.0','')
             row['Код лам пленки внутри'] = row['Код лам пленки внутри'].replace('.0','')
             
-            
+            if 'Название export' in list(df.columns):
+                  if ((row['Название export'] == 'nan') or (row['Название export'] == '')):
+                        export_name = ''
+                  else:
+                        export_name = row['Название export']
+            else:
+                  export_name = ''
             
             artikul = df['Артикул'][key]
             component = df['Компонент'][key]
@@ -1578,6 +1549,7 @@ def product_add_second_org(request,id):
                                                       'wms_width':aluprofiles.data['Ширина'],
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                                     
@@ -1650,6 +1622,7 @@ def product_add_second_org(request,id):
                                                       'wms_width':aluprofiles.data['Ширина'],
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                                     
@@ -1751,6 +1724,7 @@ def product_add_second_org(request,id):
                                                       'wms_width':aluprofiles.data['Ширина'],
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                               
@@ -1835,6 +1809,7 @@ def product_add_second_org(request,id):
                                                       'wms_width':aluprofiles.data['Ширина'],
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                                     
@@ -1926,6 +1901,7 @@ def product_add_second_org(request,id):
                                                       'wms_width':aluprofiles.data['Ширина'],
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                               
@@ -2010,6 +1986,7 @@ def product_add_second_org(request,id):
                                                       'wms_width':aluprofiles.data['Ширина'],
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                               
@@ -2103,6 +2080,7 @@ def product_add_second_org(request,id):
                                                 'wms_width':aluprofiles.data['Ширина'],
                                                 'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
+                                                'nazvaniye_export':export_name,
                                                 }
                                           )
                                       
@@ -2169,6 +2147,7 @@ def product_add_second_org(request,id):
                                                 'wms_width':aluprofiles.data['Ширина'],
                                                 'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
+                                                'nazvaniye_export':export_name,
                                                 }
                                           )
                               
@@ -2242,6 +2221,7 @@ def product_add_second_org(request,id):
                                                       'wms_width':aluprofiles.data['Ширина'],
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                               else:
@@ -2308,6 +2288,7 @@ def product_add_second_org(request,id):
                                                       'wms_width':aluprofiles.data['Ширина'],
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
             elif  component !='nan':
@@ -2436,6 +2417,7 @@ def product_add_second_org(request,id):
                                                 'wms_width':aluprofiles.data['Ширина'],
                                                 'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
+                                                'nazvaniye_export':export_name,
                                                 }
                                           )
                                 
@@ -2505,6 +2487,7 @@ def product_add_second_org(request,id):
                                                 'wms_height':aluprofiles.data['Высота'],
                                                       
                                                 'group_prise': export_description_eng.group_price,
+                                                'nazvaniye_export':export_name,
                                                 }
                                           )
                               
@@ -2582,6 +2565,7 @@ def product_add_second_org(request,id):
                                                       'wms_width':aluprofiles.data['Ширина'],
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                                     
@@ -2647,6 +2631,7 @@ def product_add_second_org(request,id):
                                                       'wms_width':aluprofiles.data['Ширина'],
                                                       'wms_height':aluprofiles.data['Высота'],
                                                        'group_prise': export_description_eng.group_price,
+                                                       'nazvaniye_export':export_name,
                                                       }
                                                 )
                                     
@@ -2736,6 +2721,7 @@ def product_add_second_org(request,id):
                                                       'wms_width':aluprofiles.data['Ширина'],
                                                       'wms_height':aluprofiles.data['Высота'],
                                                        'group_prise': export_description_eng.group_price,
+                                                       'nazvaniye_export':export_name,
                                                       }
                                                 )
                                     
@@ -2802,6 +2788,7 @@ def product_add_second_org(request,id):
                                                       'wms_width':aluprofiles.data['Ширина'],
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                                     
@@ -2887,6 +2874,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                        
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                                     
@@ -2954,6 +2942,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                        
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                                     
@@ -3036,6 +3025,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                        
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                               else:
@@ -3101,6 +3091,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                        
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                                     
@@ -3196,6 +3187,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                        
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                               else:
@@ -3262,6 +3254,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                        
                                                       'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
                                                       }
                                                 )
                   

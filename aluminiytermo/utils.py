@@ -2911,6 +2911,7 @@ def create_characteristika_utils(items):
         df[51].append(ch_surface_treatment_export)
         sap_kode =item['material'].split('-')[0]
         df[52].append('')
+        df[53].append(item['nazvaniye_export'])
 
         
     dat = {
@@ -2967,7 +2968,8 @@ def create_characteristika_utils(items):
         'ch_export_description_eng': df[49],
         'ch_tnved': df[50],
         'ch_surface_treatment_export': df[51],
-        'ch_artikul_old': df[52]
+        'ch_artikul_old': df[52],
+        'nazvaniye_export':df[53],
     }
     df_new = pd.DataFrame(dat)
     
@@ -3776,6 +3778,25 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 buxgalterskiy_naz[5].append('0001')
                 buxgalterskiy_naz[6].append('')
                 buxgalterskiy_naz[7].append(row['ch_export_description_eng'])
+
+                if row['nazvaniye_export']!='':
+                    buxgalterskiy_naz[0].append('1')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1100')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('JA')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append('')
+
+                    buxgalterskiy_naz[0].append('2')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1100')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('JA')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append(row['nazvaniye_export'])
                 
         
         
@@ -5105,6 +5126,25 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 buxgalterskiy_naz[5].append('0001')
                 buxgalterskiy_naz[6].append('')
                 buxgalterskiy_naz[7].append(row['ch_export_description_eng'])
+
+                if row['nazvaniye_export']!='':
+                    buxgalterskiy_naz[0].append('1')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('JA')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append('')
+
+                    buxgalterskiy_naz[0].append('2')
+                    buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
+                    buxgalterskiy_naz[2].append('1200')
+                    buxgalterskiy_naz[3].append(vtweg)
+                    buxgalterskiy_naz[4].append('JA')
+                    buxgalterskiy_naz[5].append('0001')
+                    buxgalterskiy_naz[6].append('')
+                    buxgalterskiy_naz[7].append(row['nazvaniye_export'])
                 
         
         
