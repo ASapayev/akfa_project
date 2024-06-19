@@ -116,14 +116,18 @@ class OrderSaveView(APIView):
         order_name = request.data.get('order_name',None)
 
         order_type = request.data.get('order_type',None)
-        res = json.loads(data)
+        response = json.loads(data)
+        artikules = []
+        for key,val in response.items():
+            artikules.append(val['base_artikul'])
+
         try:
             issueKey = order_create_jira(order_name)
-            order = Order(data = {'name':name,'data':res},owner=request.user,order_type = order_type,theme =order_name,id_for_jira=issueKey)
+            order = Order(data = {'name':name,'data':response,'artikul':artikules},owner=request.user,order_type = order_type,theme =order_name,id_for_jira=issueKey)
             order.save()
             order_detail = OrderDetail(order=order,owner=request.user)
             order_detail.save()
-            print(order_name,'nammm')
+            # print(order_name,'nammm')
             ##### create jira ######
             send_event("test", "message", {
                                         "id":order.id,
@@ -1072,7 +1076,13 @@ def get_sapcodes_pvc(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def order_list(request):
-    orders = Order.objects.filter(Q(owner = request.user)|(Q(partner = request.user)&Q(status=10083))).order_by('-created_at')
+    search = request.GET.get('search',None)
+
+    if search:
+        orders = Order.objects.filter(Q(owner = request.user)&(Q(id_for_jira__icontains=search)|Q(theme__icontains=search)|Q(data__artikul__icontains=search))).order_by('-created_at')
+    else:
+        orders = Order.objects.filter(Q(owner = request.user)|(Q(partner = request.user)&Q(status=10083))).order_by('-created_at')
+
     paginator = Paginator(orders, 15)
 
     if request.GET.get('page') != None:

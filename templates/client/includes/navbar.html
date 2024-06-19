@@ -17,10 +17,12 @@
                   <a class="nav-link active" href="{%url 'client_order_list'%}">Orders</a>
                 </li>
               </ul>
+              {%if 'order-list' in request.path %}
               <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <input class="form-control mr-sm-2" type="search" placeholder="Поиск ..." name='search' aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
               </form>
+              {%endif%}
               <div class="mr-5">
 
                   <div class="d-none d-lg-block mr-5">
