@@ -3699,6 +3699,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     umumiy_without_duplicate12D5 =[[] for i in range(0,51)]
     
     dlinniy_text_zero =[[],[],[]]
+    dlinniy_text_savdo =[[],[],[]]
     buxgalterskiy_naz =[[],[],[],[],[],[],[],[]]
     
     zakalka_iskyucheniye1 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
@@ -3723,6 +3724,16 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
         
         if not filte_type2:
             continue
+        
+        if '-7' in row['SAP код S4P 100']:
+
+            dlinniy_text_savdo[0].append('1')
+            dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
+            dlinniy_text_savdo[2].append(row['Польное наименование SAP'])
+            
+            dlinniy_text_savdo[0].append('2')
+            dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
+            dlinniy_text_savdo[2].append(row['Польное наименование SAP'])
 
         dlinniy_text_zero[0].append('1')
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
@@ -4409,12 +4420,12 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     #dlinniy_text_zero
     dlinniy_t ={}
     header_dlinniy ='\tMATNR\t\t\t\tTEXT'
-    dlinniy_t['ID']=dlinniy_text_zero[0] 
-    dlinniy_t['MATNR']=dlinniy_text_zero[1] 
-    dlinniy_t['RU']=['Z' for x in (dlinniy_text_zero[1])] 
-    dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_zero[1])]
-    dlinniy_t['sa']=['' for x in (dlinniy_text_zero[1])]
-    dlinniy_t['TEXT']=dlinniy_text_zero[2]
+    dlinniy_t['ID']=dlinniy_text_savdo[0] 
+    dlinniy_t['MATNR']=dlinniy_text_savdo[1] 
+    dlinniy_t['RU']=['Z' for x in (dlinniy_text_savdo[1])] 
+    dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_savdo[1])]
+    dlinniy_t['sa']=['' for x in (dlinniy_text_savdo[1])]
+    dlinniy_t['TEXT']=dlinniy_text_savdo[2]
     
     df_dlinniy_text = pd.DataFrame(dlinniy_t)
     
@@ -5081,6 +5092,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
     umumiy_without_duplicate12D5 =[[] for i in range(0,49)]
     
     dlinniy_text_zero =[[],[],[]]
+    dlinniy_text_savdo =[[],[],[]]
     buxgalterskiy_naz =[[],[],[],[],[],[],[],[]]
     
 
@@ -5100,6 +5112,17 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         dlinniy_text_zero[0].append('2')
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
         dlinniy_text_zero[2].append(row['Польное наименование SAP'])
+
+
+        if '-7' in row['SAP код S4P 100']:
+
+            dlinniy_text_savdo[0].append('1')
+            dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
+            dlinniy_text_savdo[2].append(row['Польное наименование SAP'])
+            
+            dlinniy_text_savdo[0].append('2')
+            dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
+            dlinniy_text_savdo[2].append(row['Польное наименование SAP'])
         
         
         ############################ bugalter nazvaniya###
@@ -5745,12 +5768,12 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
     #dlinniy_text_zero
         dlinniy_t ={}
         header_dlinniy ='\tMATNR\t\t\t\tTEXT'
-        dlinniy_t['ID']=dlinniy_text_zero[0] 
-        dlinniy_t['MATNR']=dlinniy_text_zero[1] 
-        dlinniy_t['RU']=['Z' for x in (dlinniy_text_zero[1])] 
-        dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_zero[1])]
-        dlinniy_t['sa']=['' for x in (dlinniy_text_zero[1])]
-        dlinniy_t['TEXT']=dlinniy_text_zero[2]
+        dlinniy_t['ID']=dlinniy_text_savdo[0] 
+        dlinniy_t['MATNR']=dlinniy_text_savdo[1] 
+        dlinniy_t['RU']=['Z' for x in (dlinniy_text_savdo[1])] 
+        dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_savdo[1])]
+        dlinniy_t['sa']=['' for x in (dlinniy_text_savdo[1])]
+        dlinniy_t['TEXT']=dlinniy_text_savdo[2]
         
         df_dlinniy_text = pd.DataFrame(dlinniy_t)
         
@@ -6331,12 +6354,12 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
     #dlinniy_text_zero
         dlinniy_t ={}
         header_dlinniy ='\tMATNR\t\t\t\tTEXT'
-        dlinniy_t['ID']=dlinniy_text_zero[0] 
-        dlinniy_t['MATNR']=dlinniy_text_zero[1] 
-        dlinniy_t['RU']=['Z' for x in (dlinniy_text_zero[1])] 
-        dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_zero[1])]
-        dlinniy_t['sa']=['' for x in (dlinniy_text_zero[1])]
-        dlinniy_t['TEXT']=dlinniy_text_zero[2]
+        dlinniy_t['ID']=dlinniy_text_savdo[0] 
+        dlinniy_t['MATNR']=dlinniy_text_savdo[1] 
+        dlinniy_t['RU']=['Z' for x in (dlinniy_text_savdo[1])] 
+        dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_savdo[1])]
+        dlinniy_t['sa']=['' for x in (dlinniy_text_savdo[1])]
+        dlinniy_t['TEXT']=dlinniy_text_savdo[2]
         
         df_dlinniy_text = pd.DataFrame(dlinniy_t)
         
