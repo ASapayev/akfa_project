@@ -3655,6 +3655,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\Длинный текс.txt'
+        pathtextsavdo =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\Длинный текс савдо.txt'
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\Бух название SDLONGTEXT.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\RAUBE.txt'
         pathtext10 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\JOMIY\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
@@ -3681,6 +3682,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\Длинный текс.txt'
+        pathtextsavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\Длинный текс савдо.txt'
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\Бух название SDLONGTEXT.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\RAUBE.txt'
         pathtext10 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
@@ -4403,6 +4405,25 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     
     ########################## end Длинный текс.txt ##############################
 
+    ########################## Длинный текс Savdo.txt ##############################
+    #dlinniy_text_zero
+    dlinniy_t ={}
+    header_dlinniy ='\tMATNR\t\t\t\tTEXT'
+    dlinniy_t['ID']=dlinniy_text_zero[0] 
+    dlinniy_t['MATNR']=dlinniy_text_zero[1] 
+    dlinniy_t['RU']=['Z' for x in (dlinniy_text_zero[1])] 
+    dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_zero[1])]
+    dlinniy_t['sa']=['' for x in (dlinniy_text_zero[1])]
+    dlinniy_t['TEXT']=dlinniy_text_zero[2]
+    
+    df_dlinniy_text = pd.DataFrame(dlinniy_t)
+    
+    np.savetxt(pathtextsavdo, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
+        
+        
+    
+    ########################## end Длинный текс.txt ##############################
+
 
     ########################## 1.txt ##############################
     d1={}
@@ -5021,6 +5042,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Длинный текс.txt'
+        pathtextsavdo =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Длинный текс савдо.txt'
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО'
@@ -5044,6 +5066,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Длинный текс.txt'
+        pathtextsavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Длинный текс савдо.txt'
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ'
@@ -5718,6 +5741,24 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         
     ########################## end Длинный текс.txt ##############################
 
+    ########################## Длинный текс Savdo.txt ##############################
+    #dlinniy_text_zero
+        dlinniy_t ={}
+        header_dlinniy ='\tMATNR\t\t\t\tTEXT'
+        dlinniy_t['ID']=dlinniy_text_zero[0] 
+        dlinniy_t['MATNR']=dlinniy_text_zero[1] 
+        dlinniy_t['RU']=['Z' for x in (dlinniy_text_zero[1])] 
+        dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_zero[1])]
+        dlinniy_t['sa']=['' for x in (dlinniy_text_zero[1])]
+        dlinniy_t['TEXT']=dlinniy_text_zero[2]
+        
+        df_dlinniy_text = pd.DataFrame(dlinniy_t)
+        
+        np.savetxt(pathtextsavdo, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
+        
+        
+    
+    ########################## end Длинный текс.txt ##############################
 
     ########################## 1.txt ##############################
         d1={}
@@ -6285,6 +6326,24 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         np.savetxt(pathtext7, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
         
         
+    ########################## end Длинный текс.txt ##############################
+    ########################## Длинный текс Savdo.txt ##############################
+    #dlinniy_text_zero
+        dlinniy_t ={}
+        header_dlinniy ='\tMATNR\t\t\t\tTEXT'
+        dlinniy_t['ID']=dlinniy_text_zero[0] 
+        dlinniy_t['MATNR']=dlinniy_text_zero[1] 
+        dlinniy_t['RU']=['Z' for x in (dlinniy_text_zero[1])] 
+        dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_zero[1])]
+        dlinniy_t['sa']=['' for x in (dlinniy_text_zero[1])]
+        dlinniy_t['TEXT']=dlinniy_text_zero[2]
+        
+        df_dlinniy_text = pd.DataFrame(dlinniy_t)
+        
+        np.savetxt(pathtextsavdo, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
+        
+        
+    
     ########################## end Длинный текс.txt ##############################
 
 
