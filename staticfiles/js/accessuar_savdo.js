@@ -107,8 +107,9 @@ function front_piece(start=1,end=6){
                     <i class="bi bi-three-dots-vertical"></i>
                     </button>
                     <ul class="dropdown-menu">
-                        <li style='cursor:pointer'><a class="dropdown-item" onclick="create(`+String(i)+`)" id='create_btn`+String(i)+`'><i class="bi bi-plus-circle mr-2"></i>Создание</a></li>
-                        <li style='cursor:pointer'><a class="dropdown-item" onclick="activate(`+String(i)+`)" id='activate_btn`+String(i)+`'> <i class="bi bi-award-fill mr-2"></i>Активация</a></li>
+                        <li style='cursor:pointer' id='create_btn`+String(i)+`'><a class="dropdown-item" onclick="create(`+String(i)+`)" ><i class="bi bi-plus-circle mr-2"></i>Создание</a></li>
+                        <li style='cursor:pointer' id='activate_btn`+String(i)+`'><a class="dropdown-item" onclick="activate(`+String(i)+`)" > <i class="bi bi-award-fill mr-2"></i>Активация</a></li>
+                        <li style='cursor:pointer'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Копировать</a></li>
                         <li style='cursor:pointer'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
                     </ul>
                 </div>
@@ -366,9 +367,9 @@ function create(id){
     
 
     var activate_btn =$('#activate_btn'+id);
-    activate_btn.attr('disabled',true)
     var create_btn =$('#create_btn'+id);
-    create_btn.attr('disabled',true)
+    activate_btn.css('display','none')
+    create_btn.css('display','none')
 
     var zavod_name =$('#zavod_name'+id);
     var tip_clenta =$('#tip_clenta'+id);
@@ -454,8 +455,8 @@ function activate(id){
 
     var activate_btn =$('#activate_btn'+id);
     var create_btn =$('#create_btn'+id);
-    activate_btn.attr('disabled',true)
-    create_btn.attr('disabled',true)
+    activate_btn.css('display','none')
+    create_btn.css('display','none')
     var status_first =$('#status'+id);
     status_first.val('Активный')
 
@@ -663,8 +664,8 @@ function artukil_clear(id){
     var create_btn =$('#create_btn'+id);
     var activate_btn =$('#activate_btn'+id);
 
-    create_btn.attr('disabled',false)
-    activate_btn.attr('disabled',false)
+    activate_btn.css('display','block')
+    create_btn.css('display','block')
 
 
 
