@@ -128,7 +128,7 @@ function front_piece(start=1,end=6){
                     <ul class="dropdown-menu">
                         <li style='cursor:pointer' id='create_btn`+String(i)+`'><a class="dropdown-item" onclick="create(`+String(i)+`)" ><i class="bi bi-plus-circle mr-2"></i>Создание</a></li>
                         <li style='cursor:pointer' id='activate_btn`+String(i)+`'><a class="dropdown-item" onclick="activate(`+String(i)+`)" > <i class="bi bi-award-fill mr-2"></i>Активация</a></li>
-                        <li style='cursor:pointer'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Копировать</a></li>
+                        <li style='cursor:pointer'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
                         <li style='cursor:pointer'><a class="dropdown-item" onclick="clear_artikul(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
                     </ul>
                 </div>
