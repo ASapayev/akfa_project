@@ -4418,18 +4418,18 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
 
     ########################## Длинный текс Savdo.txt ##############################
     #dlinniy_text_zero
-    dlinniy_t ={}
-    header_dlinniy ='\tMATNR\t\t\t\tTEXT'
-    dlinniy_t['ID']=dlinniy_text_savdo[0] 
-    dlinniy_t['MATNR']=dlinniy_text_savdo[1] 
-    dlinniy_t['RU']=['Z' for x in (dlinniy_text_savdo[1])] 
-    dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_savdo[1])]
-    dlinniy_t['sa']=['' for x in (dlinniy_text_savdo[1])]
-    dlinniy_t['TEXT']=dlinniy_text_savdo[2]
+    dlinniy_t_savdo ={}
+    header_dlinniy_savdo ='\tMATNR\t\t\t\tTEXT'
+    dlinniy_t_savdo['ID']=dlinniy_text_savdo[0] 
+    dlinniy_t_savdo['MATNR']=dlinniy_text_savdo[1] 
+    dlinniy_t_savdo['RU']=['Z' for x in (dlinniy_text_savdo[1])] 
+    dlinniy_t_savdo['GRUN']=['GRUN' for x in (dlinniy_text_savdo[1])]
+    dlinniy_t_savdo['sa']=['' for x in (dlinniy_text_savdo[1])]
+    dlinniy_t_savdo['TEXT']=dlinniy_text_savdo[2]
     
-    df_dlinniy_text = pd.DataFrame(dlinniy_t)
+    df_dlinniy_text_savdo = pd.DataFrame(dlinniy_t_savdo)
     
-    np.savetxt(pathtextsavdo, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
+    np.savetxt(pathtextsavdo, df_dlinniy_text_savdo.values,fmt='%s', delimiter="\t",header=header_dlinniy_savdo,comments='',encoding='ansi')
         
         
     
