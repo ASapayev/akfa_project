@@ -2737,7 +2737,7 @@ def create_characteristika_utils(items):
         [],[],[],[],[],[],[],[],[],[],
         [],[],[],[],[],[],[],[],[],[],
         [],[],[],[],[],[],[],[],[],[],
-        [],[],[]
+        [],[],[],[]
     ]
     
     # nakleyka_codes =[ code[0] for code in NakleykaCode.objects.values_list('name')]
