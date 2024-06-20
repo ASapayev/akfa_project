@@ -3792,7 +3792,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 buxgalterskiy_naz[6].append('')
                 buxgalterskiy_naz[7].append(row['ch_export_description_eng'])
 
-                if row['nazvaniye_export']!='':
+                if row['nazvaniye_export']!='' and ii == 2:
                     buxgalterskiy_naz[0].append('1')
                     buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
                     buxgalterskiy_naz[2].append('1100')
