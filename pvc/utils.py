@@ -702,7 +702,7 @@ def characteristika_created_txt_create(datas,order_id):
     header_dlinniy ='\tBISMT\t\t\t\tTEXT'
     dlinniy_t['ID']=dlinniy_text_zero[0] + dlinniy_text_savdo[0]
     dlinniy_t['BISMT']=dlinniy_text_zero[1] +dlinniy_text_savdo[1]
-    dlinniy_t['RU']=['RU' for x in (dlinniy_text_zero[1])] + ['Z' for x in (dlinniy_text_zero[1])] 
+    dlinniy_t['RU']=['RU' for x in (dlinniy_text_zero[1])] + ['Z' for x in (dlinniy_text_savdo[1])] 
     dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_zero[1])] + ['GRUN' for x in (dlinniy_text_savdo[1])]
     dlinniy_t['sa']=['' for x in (dlinniy_text_zero[1])] + ['' for x in (dlinniy_text_savdo[1])]
     dlinniy_t['TEXT']=dlinniy_text_zero[2] + dlinniy_text_savdo[2]
