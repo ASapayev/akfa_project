@@ -5173,7 +5173,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 buxgalterskiy_naz[6].append('')
                 buxgalterskiy_naz[7].append(row['ch_export_description_eng'])
 
-                if row['nazvaniye_export']!='':
+                if row['nazvaniye_export']!='' and ii == 2:
                     buxgalterskiy_naz[0].append('1')
                     buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
                     buxgalterskiy_naz[2].append('1200')
