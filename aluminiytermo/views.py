@@ -1413,6 +1413,11 @@ def product_add_second_org(request,id):
                         export_name = row['Название export']
             else:
                   export_name = ''
+
+            if ((row['Название савдо'] == 'nan') or (row['Название савдо'] == '')):
+                  online_savdo_name = ''
+            else:
+                  online_savdo_name = row['Название савдо']
             
             artikul = df['Артикул'][key]
             component = df['Компонент'][key]
@@ -1550,6 +1555,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                                     
@@ -1623,6 +1629,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                                     
@@ -1725,6 +1732,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                               
@@ -1810,6 +1818,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                                     
@@ -1902,6 +1911,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                               
@@ -1987,6 +1997,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                               
@@ -2081,6 +2092,7 @@ def product_add_second_org(request,id):
                                                 'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 'nazvaniye_export':export_name,
+                                                'online_savdo_name':online_savdo_name,
                                                 }
                                           )
                                       
@@ -2148,6 +2160,7 @@ def product_add_second_org(request,id):
                                                 'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 'nazvaniye_export':export_name,
+                                                'online_savdo_name':online_savdo_name,
                                                 }
                                           )
                               
@@ -2222,6 +2235,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                               else:
@@ -2289,6 +2303,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
             elif  component !='nan':
@@ -2418,6 +2433,7 @@ def product_add_second_org(request,id):
                                                 'wms_height':aluprofiles.data['Высота'],
                                                 'group_prise': export_description_eng.group_price,
                                                 'nazvaniye_export':export_name,
+                                                'online_savdo_name':online_savdo_name,
                                                 }
                                           )
                                 
@@ -2488,6 +2504,7 @@ def product_add_second_org(request,id):
                                                       
                                                 'group_prise': export_description_eng.group_price,
                                                 'nazvaniye_export':export_name,
+                                                'online_savdo_name':online_savdo_name,
                                                 }
                                           )
                               
@@ -2566,6 +2583,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                                     
@@ -2632,6 +2650,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                        'group_prise': export_description_eng.group_price,
                                                        'nazvaniye_export':export_name,
+                                                       'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                                     
@@ -2722,6 +2741,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                        'group_prise': export_description_eng.group_price,
                                                        'nazvaniye_export':export_name,
+                                                       'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                                     
@@ -2789,6 +2809,7 @@ def product_add_second_org(request,id):
                                                       'wms_height':aluprofiles.data['Высота'],
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                                     
@@ -2875,6 +2896,7 @@ def product_add_second_org(request,id):
                                                        
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                                     
@@ -2943,6 +2965,7 @@ def product_add_second_org(request,id):
                                                        
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                                     
@@ -3026,6 +3049,7 @@ def product_add_second_org(request,id):
                                                        
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                               else:
@@ -3092,6 +3116,7 @@ def product_add_second_org(request,id):
                                                        
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                                     
@@ -3188,6 +3213,7 @@ def product_add_second_org(request,id):
                                                        
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                               else:
@@ -3255,6 +3281,7 @@ def product_add_second_org(request,id):
                                                        
                                                       'group_prise': export_description_eng.group_price,
                                                       'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
                                                       }
                                                 )
                   

@@ -258,6 +258,7 @@ def product_add_second_org(request,id):
             online_savdo_name = ''
         else:
             online_savdo_name = row['Название']
+            
         if 'Название export' in list(df.columns):
             if ((row['Название export'] == 'nan') or (row['Название export'] == '')):
                 export_name = ''
