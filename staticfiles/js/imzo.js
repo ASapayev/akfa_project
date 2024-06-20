@@ -703,12 +703,45 @@ request_piece()
 data_base = {}
 
 
+function copy_tr(id){
+    if(!data_base[id]){
+        console.log('salom')
+    }else{
+    
+        text =""
+        var size = $('#table-artikul tr').length;
+        text = front_piece(start = size+1, end = size+2)
+        var table = $('#table_tr'+id)
+        var new_tr =$(text)
+
+        table.after(new_tr)
+        request_piece(start = size+1, end = size+2)
+
+        data = data_base[id]
+
+        data_base[size+1] = data
+
+        if(data.)
+
+        // console.log(data_base,'show all')
+    }
+
+
+}
+
+function check_for_valid_and_set_val_select(val,selector){
+    if(val !=NaN && val !=''){
+        $(selector).
+    }
+}
+
+
 function add_column(){
         
     text =""
-    var sizeee = $('#table-artikul tr').length;
+    var size = $('#table-artikul tr').length;
     
-    text = front_piece(start = sizeee+1, end = sizeee+2)
+    text = front_piece(start = size+1, end = size+2)
 
     
     var table = $('#table-artikul')
@@ -716,7 +749,7 @@ function add_column(){
     
     
 
-    request_piece(start = sizeee+1, end = sizeee+2)
+    request_piece(start = size+1, end = size+2)
 
 
 }

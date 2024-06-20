@@ -115,13 +115,14 @@ def characteristika_created_txt_create(datas,order_id):
         ############################ bugalter nazvaniya###
         if '-7' in row['SAP код S4P 100']:
 
-            dlinniy_text_savdo[0].append('1')
-            dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
-            dlinniy_text_savdo[2].append(row['online_savdo_name'])
-            
-            dlinniy_text_savdo[0].append('2')
-            dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
-            dlinniy_text_savdo[2].append(row['online_savdo_name'])
+            if row['online_savdo_name'] !='' and row['online_savdo_name'] !='nan':
+                dlinniy_text_savdo[0].append('1')
+                dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
+                dlinniy_text_savdo[2].append(row['online_savdo_name'])
+                
+                dlinniy_text_savdo[0].append('2')
+                dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
+                dlinniy_text_savdo[2].append(row['online_savdo_name'])
             
             for ii in range(0,3):
                 if ii ==0:

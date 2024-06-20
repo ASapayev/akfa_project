@@ -3728,14 +3728,14 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             continue
         
         if '-7' in row['SAP код S4P 100']:
-
-            dlinniy_text_savdo[0].append('1')
-            dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
-            dlinniy_text_savdo[2].append(row['online_savdo_name'])
-            
-            dlinniy_text_savdo[0].append('2')
-            dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
-            dlinniy_text_savdo[2].append(row['online_savdo_name'])
+            if row['online_savdo_name'] !='' and row['online_savdo_name'] !='nan':
+                dlinniy_text_savdo[0].append('1')
+                dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
+                dlinniy_text_savdo[2].append(row['online_savdo_name'])
+                
+                dlinniy_text_savdo[0].append('2')
+                dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
+                dlinniy_text_savdo[2].append(row['online_savdo_name'])
 
         dlinniy_text_zero[0].append('1')
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
@@ -5174,14 +5174,14 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
 
 
         if '-7' in row['SAP код S4P 100']:
-
-            dlinniy_text_savdo[0].append('1')
-            dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
-            dlinniy_text_savdo[2].append(row['online_savdo_name'])
-            
-            dlinniy_text_savdo[0].append('2')
-            dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
-            dlinniy_text_savdo[2].append(row['online_savdo_name'])
+            if row['online_savdo_name'] !='' and row['online_savdo_name'] !='nan':
+                dlinniy_text_savdo[0].append('1')
+                dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
+                dlinniy_text_savdo[2].append(row['online_savdo_name'])
+                
+                dlinniy_text_savdo[0].append('2')
+                dlinniy_text_savdo[1].append(row['SAP код S4P 100'])
+                dlinniy_text_savdo[2].append(row['online_savdo_name'])
         
         
         ############################ bugalter nazvaniya###
