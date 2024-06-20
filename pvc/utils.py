@@ -70,7 +70,7 @@ def characteristika_created_txt_create(datas,order_id):
     pathtext5 =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\Единицы изм.txt'
     pathtext6 =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\Лист в C 3.xlsx'
     pathtext7 =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\Длинный текс.txt'
-    pathtextsavdo =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\Длинный текс савдо.txt'
+    # pathtextsavdo =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\Длинный текс савдо.txt'
     pathtext8 =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\Бух название SDLONGTEXT.txt'
     pathtext9 =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
     pathzip =f'{MEDIA_ROOT}\\uploads\\pvc\\{year}\\{month}\\{day}\\{hour} PVC'
@@ -699,12 +699,12 @@ def characteristika_created_txt_create(datas,order_id):
     #dlinniy_text_zero
     dlinniy_t ={}
     header_dlinniy ='\tBISMT\t\t\t\tTEXT'
-    dlinniy_t['ID']=dlinniy_text_zero[0] 
-    dlinniy_t['BISMT']=dlinniy_text_zero[1] 
-    dlinniy_t['RU']=['RU' for x in (dlinniy_text_zero[1])] 
-    dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_zero[1])]
-    dlinniy_t['sa']=['' for x in (dlinniy_text_zero[1])]
-    dlinniy_t['TEXT']=dlinniy_text_zero[2]
+    dlinniy_t['ID']=dlinniy_text_zero[0] + dlinniy_text_savdo[0]
+    dlinniy_t['BISMT']=dlinniy_text_zero[1] +dlinniy_text_savdo[1]
+    dlinniy_t['RU']=['RU' for x in (dlinniy_text_zero[1])] + ['Z' for x in (dlinniy_text_zero[1])] 
+    dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_zero[1])] + ['GRUN' for x in (dlinniy_text_savdo[1])]
+    dlinniy_t['sa']=['' for x in (dlinniy_text_zero[1])] + ['' for x in (dlinniy_text_savdo[1])]
+    dlinniy_t['TEXT']=dlinniy_text_zero[2] + dlinniy_text_savdo[2]
     
     df_dlinniy_text = pd.DataFrame(dlinniy_t)
     
@@ -714,18 +714,18 @@ def characteristika_created_txt_create(datas,order_id):
     ########################## end Длинный текс.txt ##############################
     ########################## Длинный текс savdo.txt ##############################
     #dlinniy_text_zero
-    dlinniy_t ={}
-    header_dlinniy ='\tMATNR\t\t\t\tTEXT'
-    dlinniy_t['ID']=dlinniy_text_savdo[0] 
-    dlinniy_t['MATNR']=dlinniy_text_savdo[1] 
-    dlinniy_t['RU']=['Z' for x in (dlinniy_text_savdo[1])] 
-    dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_savdo[1])]
-    dlinniy_t['sa']=['' for x in (dlinniy_text_savdo[1])]
-    dlinniy_t['TEXT']=dlinniy_text_savdo[2]
+    # dlinniy_t ={}
+    # header_dlinniy ='\tMATNR\t\t\t\tTEXT'
+    # dlinniy_t['ID']=dlinniy_text_savdo[0] 
+    # dlinniy_t['MATNR']=dlinniy_text_savdo[1] 
+    # dlinniy_t['RU']=['Z' for x in (dlinniy_text_savdo[1])] 
+    # dlinniy_t['GRUN']=['GRUN' for x in (dlinniy_text_savdo[1])]
+    # dlinniy_t['sa']=['' for x in (dlinniy_text_savdo[1])]
+    # dlinniy_t['TEXT']=dlinniy_text_savdo[2]
     
-    df_dlinniy_text = pd.DataFrame(dlinniy_t)
+    # df_dlinniy_text = pd.DataFrame(dlinniy_t)
     
-    np.savetxt(pathtextsavdo, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
+    # np.savetxt(pathtextsavdo, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
         
         
     ########################## end Длинный текс.txt ##############################
