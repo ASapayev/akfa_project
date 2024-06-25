@@ -523,33 +523,192 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1" >
-            <div>
-                <span class =' text-center' style="font-size: small;font-weight: bold; text-transform: uppercase;" id ='brand_kraski_snaruji` +String(i)+`'></span>
-            </div>
+           <select class="form-select form-select-sm text-center"  style="width:65px;border-color:#fc2003;display:none" id='brand_k_snaruji`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)" required>
+                <option  value="0" selected></option>
+                <option value="NT1">NT1</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="R">R</option>
+                <option value="T">T</option>
+                <option value="J">J</option>
+                <option value="P">P</option>
+                <option value="M">M</option>
+            </select>
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 100px;">
-            <div>
-                <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase;width: 100px;" id ='code_kraski_snaruji` +String(i)+`'></span>
-            </div>
+            <select class="form-select form-select-sm text-center"  style="width:100px;border-color:#fc2003;display:none" id='code_kraski_snar`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)" required>
+                                    <option  value="0" selected></option>
+                                    <option value="MF">MF</option>
+                                    <option value="8M01">8M01</option>
+                                    <option value="6029">6029</option>
+                                    <option value="1013">1013</option>
+                                    <option value="7M43">7M43</option>
+                                    <option value="8002">8002</option>
+                                    <option value="7M24">7M24</option>
+                                    <option value="7M16">7M16</option>
+                                    <option value="7043">7043</option>
+                                    <option value="7021">7021</option>
+                                    <option value="7015">7015</option>
+                                    <option value="7039">7039</option>
+                                    <option value="7011">7011</option>
+                                    <option value="7M47">7M47</option>
+                                    <option value="9016">9016</option>
+                                    <option value="7016">7016</option>
+                                    <option value="2654">2654</option>
+                                    <option value="9010">9010</option>
+                                    <option value="9M05">9M05</option>
+                                    <option value="9005">9005</option>
+                                    <option value="3884">3884</option>
+                                    <option value="3774">3774</option>
+                                    <option value="235G">235G</option>
+                                    <option value="7M21">7M21</option>
+                                    <option value="355F">355F</option>
+                                    <option value="8001">8001</option>
+                                    <option value="8019">8019</option>
+                                    <option value="8017">8017</option>
+                                    <option value="9006">9006</option>
+                                    <option value="306G">306G</option>
+                                    <option value="9011">9011</option>
+                                    <option value="2M06">2M06</option>
+                                    <option value="8M19">8M19</option>
+                                    <option value="8003">8003</option>
+                                    <option value="2900">2900</option>
+                                    <option value="7037">7037</option>
+                                    <option value="281F">281F</option>
+                                    <option value="1019">1019</option>
+                                    <option value="7M22">7M22</option>
+                                    <option value="7M31">7M31</option>
+                                    <option value="9M07">9M07</option>
+                                    <option value="9M16">9M16</option>
+                                    <option value="7M35">7M35</option>
+                                    <option value="9007">9007</option>
+                                    <option value="5002">5002</option>
+                                    <option value="7024">7024</option>
+                                    <option value="2604">2604</option>
+                                    <option value="7035">7035</option>
+                                    <option value="7M36">7M36</option>
+                                    <option value="7042">7042</option>
+                                    <option value="9M03">9M03</option>
+                                    <option value="7006">7006</option>
+                                    <option value="9M04">9M04</option>
+                                    <option value="9003">9003</option>
+                                    <option value="2M04">2M04</option>
+                                    <option value="283F">283F</option>
+                                    <option value="7038">7038</option>
+                                    <option value="1035">1035</option>
+                                    <option value="7M39">7M39</option>
+                                    <option value="2303">2303</option>
+                                    <option value="3020">3020</option>
+                                    <option value="8M24">8M24</option>
+                                    <option value="7M12">7M12</option>
+                                    <option value="9001">9001</option>
+                                    <option value="7M06">7M06</option>
+                                    <option value="8000">8000</option>
+                                    <option value="1015">1015</option>
+                                    <option value="7030">7030</option>
+                                    <option value="8024">8024</option>
+                                    <option value="1376">1376</option>
+                                    <option value="S352">S352</option>
+                                    <option value="8077">8077</option>
+                                </select>
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1">
-            <div>
-                <span class =' text-center' style="font-size: small;font-weight: bold; text-transform: uppercase;" id ='brand_kraski_vnutri` +String(i)+`'></span>
-            </div>
+            <select class="form-select form-select-sm text-center"  style="width:65px;border-color:#fc2003;display:none" id='brand_k_vnutri`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)" required>
+                <option  value="0" selected></option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="R">R</option>
+                <option value="T">T</option>
+                <option value="J">J</option>
+                <option value="P">P</option>
+                <option value="M">M</option>
+            </select>
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 100px;">
-            <div>
-                <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase; width:100px" id ='code_kraski_vnutri` +String(i)+`'></span>
-            </div>
+            <select class="form-select form-select-sm text-center"  style="width:100px;border-color:#fc2003;display:none" id='code_kraski_vnut`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)" required>
+                                    <option  value="0" selected></option>
+                                    <option value="MF">MF</option>
+                                    <option value="8M01">8M01</option>
+                                    <option value="6029">6029</option>
+                                    <option value="1013">1013</option>
+                                    <option value="7M43">7M43</option>
+                                    <option value="8002">8002</option>
+                                    <option value="7M24">7M24</option>
+                                    <option value="7M16">7M16</option>
+                                    <option value="7043">7043</option>
+                                    <option value="7021">7021</option>
+                                    <option value="7015">7015</option>
+                                    <option value="7039">7039</option>
+                                    <option value="7011">7011</option>
+                                    <option value="7M47">7M47</option>
+                                    <option value="9016">9016</option>
+                                    <option value="7016">7016</option>
+                                    <option value="2654">2654</option>
+                                    <option value="9010">9010</option>
+                                    <option value="9M05">9M05</option>
+                                    <option value="9005">9005</option>
+                                    <option value="3884">3884</option>
+                                    <option value="3774">3774</option>
+                                    <option value="235G">235G</option>
+                                    <option value="7M21">7M21</option>
+                                    <option value="355F">355F</option>
+                                    <option value="8001">8001</option>
+                                    <option value="8019">8019</option>
+                                    <option value="8017">8017</option>
+                                    <option value="9006">9006</option>
+                                    <option value="306G">306G</option>
+                                    <option value="9011">9011</option>
+                                    <option value="2M06">2M06</option>
+                                    <option value="8M19">8M19</option>
+                                    <option value="8003">8003</option>
+                                    <option value="2900">2900</option>
+                                    <option value="7037">7037</option>
+                                    <option value="281F">281F</option>
+                                    <option value="1019">1019</option>
+                                    <option value="7M22">7M22</option>
+                                    <option value="7M31">7M31</option>
+                                    <option value="9M07">9M07</option>
+                                    <option value="9M16">9M16</option>
+                                    <option value="7M35">7M35</option>
+                                    <option value="9007">9007</option>
+                                    <option value="5002">5002</option>
+                                    <option value="7024">7024</option>
+                                    <option value="2604">2604</option>
+                                    <option value="7035">7035</option>
+                                    <option value="7M36">7M36</option>
+                                    <option value="7042">7042</option>
+                                    <option value="9M03">9M03</option>
+                                    <option value="7006">7006</option>
+                                    <option value="9M04">9M04</option>
+                                    <option value="9003">9003</option>
+                                    <option value="2M04">2M04</option>
+                                    <option value="283F">283F</option>
+                                    <option value="7038">7038</option>
+                                    <option value="1035">1035</option>
+                                    <option value="7M39">7M39</option>
+                                    <option value="2303">2303</option>
+                                    <option value="3020">3020</option>
+                                    <option value="8M24">8M24</option>
+                                    <option value="7M12">7M12</option>
+                                    <option value="9001">9001</option>
+                                    <option value="7M06">7M06</option>
+                                    <option value="8000">8000</option>
+                                    <option value="1015">1015</option>
+                                    <option value="7030">7030</option>
+                                    <option value="8024">8024</option>
+                                    <option value="1376">1376</option>
+                                    <option value="S352">S352</option>
+                                    <option value="8077">8077</option>
+                                </select>
             </div>
         </td>
         
@@ -1543,14 +1702,14 @@ function clear_artikul(id){
     table_tr.css('background-color','white')
     
 
-    var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-    var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-    var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
-    var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-    code_kraski_snaruji.text("");
-    code_kraski_vnutri.text("");
-    brand_kraski_vnutri.text("");
-    brand_kraski_snaruji.text("");
+    var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+    var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
+    var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id))
+    var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
+    code_kraski_snaruji.val("");
+    code_kraski_vnutri.val("");
+    brand_kraski_vnutri.val("");
+    brand_kraski_snaruji.val("");
 
     code_kraski_snaruji.css("border-color",'#dedad9');
     code_kraski_vnutri.css("border-color",'#dedad9');
@@ -1709,21 +1868,26 @@ function tip_pokritiya_selected(id,val){
     select_anod_vnut.children("span").css('display','none');
     select_anod_vnut.children("select").remove();
     
-    var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-    var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-    var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
-    var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
+    var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+    var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
+    var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id))
+    var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
     kratkiy_tekst.text("");
-    code_kraski_snaruji.text("");
-    code_kraski_vnutri.text("");
-    brand_kraski_vnutri.text("");
-    brand_kraski_snaruji.text("");
+    code_kraski_snaruji.val("");
+    code_kraski_vnutri.val("");
+    brand_kraski_vnutri.val("");
+    brand_kraski_snaruji.val("");
 
     code_kraski_snaruji.css("border-color",'#dedad9');
     code_kraski_vnutri.css("border-color",'#dedad9');
     brand_kraski_vnutri.css("border-color",'#dedad9');
     brand_kraski_snaruji.css("border-color",'#dedad9');
+
+    code_kraski_snaruji.css("display",'none');
+    code_kraski_vnutri.css("display",'none');
+    brand_kraski_vnutri.css("display",'none');
+    brand_kraski_snaruji.css("display",'none');
 
 
     var combination= $('#combination'+String(id));
@@ -1809,13 +1973,23 @@ function tip_pokritiya_selected(id,val){
         svet_product_val = 'Без цвета'
        
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
-            code_kraski_snaruji.text('MF')
+            var code_kraski_snaruji = $('#code_kraski_snar'+String(id))
+            code_kraski_snaruji.val('MF')
+            code_kraski_snaruji.attr('disabled',true)
+            code_kraski_snaruji.css('display','block')
+            code_kraski_snaruji.css('border-color','#dedad9')
         }else{
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            code_kraski_snaruji.text('MF');
-            code_kraski_vnutri.text('MF');
+            var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+            var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
+            code_kraski_snaruji.val('MF');
+            code_kraski_snaruji.attr('disabled',true)
+            code_kraski_snaruji.css('display','block')
+            code_kraski_snaruji.css('border-color','#dedad9')
+            
+            code_kraski_vnutri.val('MF');
+            code_kraski_vnutri.attr('disabled',true)
+            code_kraski_vnutri.css('display','block')
+            code_kraski_vnutri.css('border-color','#dedad9')
         }
 
     }else if(String(val) == '2'){
@@ -1825,19 +1999,44 @@ function tip_pokritiya_selected(id,val){
         svet_product_val = 'WHITE'
 
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
-            var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-            code_kraski_snaruji.text('9016')
-            brand_kraski_snaruji.text('R')
+            var code_kraski_snaruji = $('#code_kraski_snar'+String(id))
+            var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
+        
+            code_kraski_snaruji.val('9016');
+            code_kraski_snaruji.attr('disabled',true)
+            code_kraski_snaruji.css('display','block')
+            code_kraski_snaruji.css('border-color','#dedad9')
+
+            brand_kraski_snaruji.val('R');
+            brand_kraski_snaruji.attr('disabled',true)
+            brand_kraski_snaruji.css('display','block')
+            brand_kraski_snaruji.css('border-color','#dedad9')
         }else{
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
-            var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-            brand_kraski_snaruji.text('R');
-            code_kraski_snaruji.text('9016');
-            brand_kraski_vnutri.text('R');
-            code_kraski_vnutri.text('9016');
+            var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+            var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
+            var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id))
+            var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
+
+            brand_kraski_snaruji.val('R');
+            brand_kraski_snaruji.attr('disabled',true)
+            brand_kraski_snaruji.css('display','block')
+            brand_kraski_snaruji.css('border-color','#dedad9')
+
+            code_kraski_snaruji.val('9016');
+            code_kraski_snaruji.attr('disabled',true)
+            code_kraski_snaruji.css('display','block')
+            code_kraski_snaruji.css('border-color','#dedad9')
+
+            brand_kraski_vnutri.val('R');
+            brand_kraski_vnutri.attr('disabled',true)
+            brand_kraski_vnutri.css('display','block')
+            brand_kraski_vnutri.css('border-color','#dedad9')
+
+            code_kraski_vnutri.val('9016');
+            code_kraski_vnutri.attr('disabled',true)
+            code_kraski_vnutri.css('display','block')
+            code_kraski_vnutri.css('border-color','#dedad9')
+
         }
 
         
@@ -1871,192 +2070,27 @@ function tip_pokritiya_selected(id,val){
             svet_product_val ='VAKUM & 3D'
         } 
         
-        var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;border-color:#fc2003" id='brand_k_snaruji`+String(id)+`'  onchange="create_kratkiy_tekst(`+String(id)+`)" required>
-        <option  value="0" selected></option>
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="R">R</option>
-        <option value="T">T</option>
-        <option value="J">J</option>
-        <option value="P">P</option>
-        <option value="M">M</option>
-        </select>` 
-        var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-       
-        brand_kraski_snaruji.append(brands)
-        var code_kras_snaruji =`<select class="form-select form-select-sm text-center"  style="width:100px;border-color:#fc2003" id='code_kraski_snar`+String(id)+`'  onchange="create_kratkiy_tekst(`+String(id)+`)" required>
-                                    <option  value="0" selected></option>
-                                    <option value="8M01">8M01</option>
-                                    <option value="6029">6029</option>
-                                    <option value="1013">1013</option>
-                                    <option value="7M43">7M43</option>
-                                    <option value="8002">8002</option>
-                                    <option value="7M24">7M24</option>
-                                    <option value="7M16">7M16</option>
-                                    <option value="7043">7043</option>
-                                    <option value="7021">7021</option>
-                                    <option value="7015">7015</option>
-                                    <option value="7039">7039</option>
-                                    <option value="7011">7011</option>
-                                    <option value="7M47">7M47</option>
-                                    <option value="9016">9016</option>
-                                    <option value="7016">7016</option>
-                                    <option value="2654">2654</option>
-                                    <option value="9010">9010</option>
-                                    <option value="9M05">9M05</option>
-                                    <option value="9005">9005</option>
-                                    <option value="3884">3884</option>
-                                    <option value="3774">3774</option>
-                                    <option value="235G">235G</option>
-                                    <option value="7M21">7M21</option>
-                                    <option value="355F">355F</option>
-                                    <option value="8001">8001</option>
-                                    <option value="8019">8019</option>
-                                    <option value="8017">8017</option>
-                                    <option value="9006">9006</option>
-                                    <option value="306G">306G</option>
-                                    <option value="9011">9011</option>
-                                    <option value="2M06">2M06</option>
-                                    <option value="8M19">8M19</option>
-                                    <option value="8003">8003</option>
-                                    <option value="2900">2900</option>
-                                    <option value="7037">7037</option>
-                                    <option value="281F">281F</option>
-                                    <option value="1019">1019</option>
-                                    <option value="7M22">7M22</option>
-                                    <option value="7M31">7M31</option>
-                                    <option value="9M07">9M07</option>
-                                    <option value="9M16">9M16</option>
-                                    <option value="7M35">7M35</option>
-                                    <option value="9007">9007</option>
-                                    <option value="5002">5002</option>
-                                    <option value="7024">7024</option>
-                                    <option value="2604">2604</option>
-                                    <option value="7035">7035</option>
-                                    <option value="7M36">7M36</option>
-                                    <option value="7042">7042</option>
-                                    <option value="9M03">9M03</option>
-                                    <option value="7006">7006</option>
-                                    <option value="9M04">9M04</option>
-                                    <option value="9003">9003</option>
-                                    <option value="2M04">2M04</option>
-                                    <option value="283F">283F</option>
-                                    <option value="7038">7038</option>
-                                    <option value="1035">1035</option>
-                                    <option value="7M39">7M39</option>
-                                    <option value="2303">2303</option>
-                                    <option value="3020">3020</option>
-                                    <option value="8M24">8M24</option>
-                                    <option value="7M12">7M12</option>
-                                    <option value="9001">9001</option>
-                                    <option value="7M06">7M06</option>
-                                    <option value="8000">8000</option>
-                                    <option value="1015">1015</option>
-                                    <option value="7030">7030</option>
-                                    <option value="8024">8024</option>
-                                    <option value="1376">1376</option>
-                                    <option value="S352">S352</option>
-                                    <option value="8077">8077</option>
-                                </select>`
         
-        // var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-        code_kraski_snaruji.append(code_kras_snaruji);
-        code_kraski_snaruji.css("border-color",'#fc2003')
+       
+        var brand_kraski_vnutri = $('#brand_k_snaruji'+String(id));
+        brand_kraski_vnutri.attr('disabled',false)
+        brand_kraski_vnutri.css('display','block')
+        var code_kraski_vnutri = $('#code_kraski_snar'+String(id));
+        code_kraski_vnutri.attr('disabled',false)
+        code_kraski_vnutri.css('display','block')
+       
         
         
        
 
         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
-            var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;border-color:#fc2003" id='brand_k_vnutri`+String(id)+`' onchange="create_kratkiy_tekst(`+String(id)+`)" required>
-                <option  value="0" selected></option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="R">R</option>
-                <option value="T">T</option>
-                <option value="J">J</option>
-                <option value="P">P</option>
-                <option value="M">M</option>
-            </select>`
-            var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id));
-            brand_kraski_vnutri.append(brands)
-
-           var code_kras_vnut =`<select class="form-select form-select-sm text-center"  style="width:100px;border-color:#fc2003" id='code_kraski_vnut`+String(id)+`'  onchange="create_kratkiy_tekst(`+String(id)+`)" required>
-                                    <option  value="0" selected></option>
-                                    <option value="8M01">8M01</option>
-                                    <option value="6029">6029</option>
-                                    <option value="1013">1013</option>
-                                    <option value="7M43">7M43</option>
-                                    <option value="8002">8002</option>
-                                    <option value="7M24">7M24</option>
-                                    <option value="7M16">7M16</option>
-                                    <option value="7043">7043</option>
-                                    <option value="7021">7021</option>
-                                    <option value="7015">7015</option>
-                                    <option value="7039">7039</option>
-                                    <option value="7011">7011</option>
-                                    <option value="7M47">7M47</option>
-                                    <option value="9016">9016</option>
-                                    <option value="7016">7016</option>
-                                    <option value="2654">2654</option>
-                                    <option value="9010">9010</option>
-                                    <option value="9M05">9M05</option>
-                                    <option value="9005">9005</option>
-                                    <option value="3884">3884</option>
-                                    <option value="3774">3774</option>
-                                    <option value="235G">235G</option>
-                                    <option value="7M21">7M21</option>
-                                    <option value="355F">355F</option>
-                                    <option value="8001">8001</option>
-                                    <option value="8019">8019</option>
-                                    <option value="8017">8017</option>
-                                    <option value="9006">9006</option>
-                                    <option value="306G">306G</option>
-                                    <option value="9011">9011</option>
-                                    <option value="2M06">2M06</option>
-                                    <option value="8M19">8M19</option>
-                                    <option value="8003">8003</option>
-                                    <option value="2900">2900</option>
-                                    <option value="7037">7037</option>
-                                    <option value="281F">281F</option>
-                                    <option value="1019">1019</option>
-                                    <option value="7M22">7M22</option>
-                                    <option value="7M31">7M31</option>
-                                    <option value="9M07">9M07</option>
-                                    <option value="9M16">9M16</option>
-                                    <option value="7M35">7M35</option>
-                                    <option value="9007">9007</option>
-                                    <option value="5002">5002</option>
-                                    <option value="7024">7024</option>
-                                    <option value="2604">2604</option>
-                                    <option value="7035">7035</option>
-                                    <option value="7M36">7M36</option>
-                                    <option value="7042">7042</option>
-                                    <option value="9M03">9M03</option>
-                                    <option value="7006">7006</option>
-                                    <option value="9M04">9M04</option>
-                                    <option value="9003">9003</option>
-                                    <option value="2M04">2M04</option>
-                                    <option value="283F">283F</option>
-                                    <option value="7038">7038</option>
-                                    <option value="1035">1035</option>
-                                    <option value="7M39">7M39</option>
-                                    <option value="2303">2303</option>
-                                    <option value="3020">3020</option>
-                                    <option value="8M24">8M24</option>
-                                    <option value="7M12">7M12</option>
-                                    <option value="9001">9001</option>
-                                    <option value="7M06">7M06</option>
-                                    <option value="8000">8000</option>
-                                    <option value="1015">1015</option>
-                                    <option value="7030">7030</option>
-                                    <option value="8024">8024</option>
-                                    <option value="1376">1376</option>
-                                    <option value="S352">S352</option>
-                                    <option value="8077">8077</option>
-                                </select>`
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            code_kraski_vnutri.append(code_kras_vnut)
-
+            
+            var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id));
+            brand_kraski_vnutri.attr('disabled',false)
+            brand_kraski_vnutri.css('display','block')
+            var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
+            code_kraski_vnutri.attr('disabled',false)
+            code_kraski_vnutri.css('display','block')
 
         }
 
