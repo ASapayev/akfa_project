@@ -329,33 +329,192 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1" >
-            <div>
-                <span class =' text-center' style="font-size: small;font-weight: bold; text-transform: uppercase;" id ='brand_kraski_snaruji` +String(i)+`'></span>
-            </div>
+            <select class="form-select form-select-sm text-center"  style="width:65px;border-color:#fc2003;display:none" id='brand_k_snaruji`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)" required>
+                <option  value="0" selected></option>
+                <option value="NT1">NT1</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="R">R</option>
+                <option value="T">T</option>
+                <option value="J">J</option>
+                <option value="P">P</option>
+                <option value="M">M</option>
+            </select>
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 100px;">
-            <div>
-                <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase;width: 100px;" id ='code_kraski_snaruji` +String(i)+`'></span>
-            </div>
+            <select class="form-select form-select-sm text-center"  style="width:100px;border-color:#fc2003;display:none" id='code_kraski_snar`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)" required>
+                                    <option  value="0" selected></option>
+                                    <option value="MF">MF</option>
+                                    <option value="8M01">8M01</option>
+                                    <option value="6029">6029</option>
+                                    <option value="1013">1013</option>
+                                    <option value="7M43">7M43</option>
+                                    <option value="8002">8002</option>
+                                    <option value="7M24">7M24</option>
+                                    <option value="7M16">7M16</option>
+                                    <option value="7043">7043</option>
+                                    <option value="7021">7021</option>
+                                    <option value="7015">7015</option>
+                                    <option value="7039">7039</option>
+                                    <option value="7011">7011</option>
+                                    <option value="7M47">7M47</option>
+                                    <option value="9016">9016</option>
+                                    <option value="7016">7016</option>
+                                    <option value="2654">2654</option>
+                                    <option value="9010">9010</option>
+                                    <option value="9M05">9M05</option>
+                                    <option value="9005">9005</option>
+                                    <option value="3884">3884</option>
+                                    <option value="3774">3774</option>
+                                    <option value="235G">235G</option>
+                                    <option value="7M21">7M21</option>
+                                    <option value="355F">355F</option>
+                                    <option value="8001">8001</option>
+                                    <option value="8019">8019</option>
+                                    <option value="8017">8017</option>
+                                    <option value="9006">9006</option>
+                                    <option value="306G">306G</option>
+                                    <option value="9011">9011</option>
+                                    <option value="2M06">2M06</option>
+                                    <option value="8M19">8M19</option>
+                                    <option value="8003">8003</option>
+                                    <option value="2900">2900</option>
+                                    <option value="7037">7037</option>
+                                    <option value="281F">281F</option>
+                                    <option value="1019">1019</option>
+                                    <option value="7M22">7M22</option>
+                                    <option value="7M31">7M31</option>
+                                    <option value="9M07">9M07</option>
+                                    <option value="9M16">9M16</option>
+                                    <option value="7M35">7M35</option>
+                                    <option value="9007">9007</option>
+                                    <option value="5002">5002</option>
+                                    <option value="7024">7024</option>
+                                    <option value="2604">2604</option>
+                                    <option value="7035">7035</option>
+                                    <option value="7M36">7M36</option>
+                                    <option value="7042">7042</option>
+                                    <option value="9M03">9M03</option>
+                                    <option value="7006">7006</option>
+                                    <option value="9M04">9M04</option>
+                                    <option value="9003">9003</option>
+                                    <option value="2M04">2M04</option>
+                                    <option value="283F">283F</option>
+                                    <option value="7038">7038</option>
+                                    <option value="1035">1035</option>
+                                    <option value="7M39">7M39</option>
+                                    <option value="2303">2303</option>
+                                    <option value="3020">3020</option>
+                                    <option value="8M24">8M24</option>
+                                    <option value="7M12">7M12</option>
+                                    <option value="9001">9001</option>
+                                    <option value="7M06">7M06</option>
+                                    <option value="8000">8000</option>
+                                    <option value="1015">1015</option>
+                                    <option value="7030">7030</option>
+                                    <option value="8024">8024</option>
+                                    <option value="1376">1376</option>
+                                    <option value="S352">S352</option>
+                                    <option value="8077">8077</option>
+                                </select>
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1">
-            <div>
-                <span class =' text-center' style="font-size: small;font-weight: bold; text-transform: uppercase;" id ='brand_kraski_vnutri` +String(i)+`'></span>
-            </div>
+            <select class="form-select form-select-sm text-center"  style="width:65px;border-color:#fc2003;display:none" id='brand_k_vnutri`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)" required>
+                <option  value="0" selected></option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="R">R</option>
+                <option value="T">T</option>
+                <option value="J">J</option>
+                <option value="P">P</option>
+                <option value="M">M</option>
+            </select>
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 100px;">
-            <div>
-                <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase; width:100px" id ='code_kraski_vnutri` +String(i)+`' ></span>
-            </div>
+            <select class="form-select form-select-sm text-center"  style="width:100px;border-color:#fc2003;display:none" id='code_kraski_vnut`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)" required>
+                                    <option  value="0" selected></option>
+                                    <option value="MF">MF</option>
+                                    <option value="8M01">8M01</option>
+                                    <option value="6029">6029</option>
+                                    <option value="1013">1013</option>
+                                    <option value="7M43">7M43</option>
+                                    <option value="8002">8002</option>
+                                    <option value="7M24">7M24</option>
+                                    <option value="7M16">7M16</option>
+                                    <option value="7043">7043</option>
+                                    <option value="7021">7021</option>
+                                    <option value="7015">7015</option>
+                                    <option value="7039">7039</option>
+                                    <option value="7011">7011</option>
+                                    <option value="7M47">7M47</option>
+                                    <option value="9016">9016</option>
+                                    <option value="7016">7016</option>
+                                    <option value="2654">2654</option>
+                                    <option value="9010">9010</option>
+                                    <option value="9M05">9M05</option>
+                                    <option value="9005">9005</option>
+                                    <option value="3884">3884</option>
+                                    <option value="3774">3774</option>
+                                    <option value="235G">235G</option>
+                                    <option value="7M21">7M21</option>
+                                    <option value="355F">355F</option>
+                                    <option value="8001">8001</option>
+                                    <option value="8019">8019</option>
+                                    <option value="8017">8017</option>
+                                    <option value="9006">9006</option>
+                                    <option value="306G">306G</option>
+                                    <option value="9011">9011</option>
+                                    <option value="2M06">2M06</option>
+                                    <option value="8M19">8M19</option>
+                                    <option value="8003">8003</option>
+                                    <option value="2900">2900</option>
+                                    <option value="7037">7037</option>
+                                    <option value="281F">281F</option>
+                                    <option value="1019">1019</option>
+                                    <option value="7M22">7M22</option>
+                                    <option value="7M31">7M31</option>
+                                    <option value="9M07">9M07</option>
+                                    <option value="9M16">9M16</option>
+                                    <option value="7M35">7M35</option>
+                                    <option value="9007">9007</option>
+                                    <option value="5002">5002</option>
+                                    <option value="7024">7024</option>
+                                    <option value="2604">2604</option>
+                                    <option value="7035">7035</option>
+                                    <option value="7M36">7M36</option>
+                                    <option value="7042">7042</option>
+                                    <option value="9M03">9M03</option>
+                                    <option value="7006">7006</option>
+                                    <option value="9M04">9M04</option>
+                                    <option value="9003">9003</option>
+                                    <option value="2M04">2M04</option>
+                                    <option value="283F">283F</option>
+                                    <option value="7038">7038</option>
+                                    <option value="1035">1035</option>
+                                    <option value="7M39">7M39</option>
+                                    <option value="2303">2303</option>
+                                    <option value="3020">3020</option>
+                                    <option value="8M24">8M24</option>
+                                    <option value="7M12">7M12</option>
+                                    <option value="9001">9001</option>
+                                    <option value="7M06">7M06</option>
+                                    <option value="8000">8000</option>
+                                    <option value="1015">1015</option>
+                                    <option value="7030">7030</option>
+                                    <option value="8024">8024</option>
+                                    <option value="1376">1376</option>
+                                    <option value="S352">S352</option>
+                                    <option value="8077">8077</option>
+                                </select>
             </div>
         </td>
         
@@ -475,12 +634,16 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 75px;">
-            <div id='anod`+String(i)+`' class='anood'  style="width: 75px;" ></div>            
+            <div id='anod`+String(i)+`' class='anood'  style="width: 75px;border-color:red; display:none;" >
+                <select class="form-select kod_anod_snar" aria-label="" style=" width: 100px; border-color:#fc2003;!important; display:none" onchange="code_svet_anodirovki_snaruji_selected(`+String(i)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(i)+`' required></select>         
+            </div>   
             </div>
         </td> 
         <td class='mr-2'>
-            <div class="input-group input-group-sm mr-1 pr-2" style="width: 75px;">
-            <div id='anod_vnutr`+String(i)+`'  style="width: 75px;"></div>            
+            <div class="input-group input-group-sm mr-1 pr-5 mr-1" style="width: 75px;">
+            <div id='anod_vnutr`+String(i)+`'  style="width: 75px;display:none;border-color:red;">
+                <select class="form-select kod_anod_vnutri" aria-label="" style="width: 75px;border-color:#fc2003;margin-right:15px;" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='code_svet_anodirovki_vnutr`+String(i)+`' required></select>       
+            </div>     
             </div>
             </div>
         </td> 
@@ -514,15 +677,15 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='nadpis_nakleyki`+String(i)+`'></span>
+            <span  style="font-size: small; width:150px; font-weight: bold; text-transform: uppercase;" id='nadpis_nakleyki`+String(i)+`'></span>
             
         </td>
         <td >
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='baza_profiley`+String(i)+`'></span>
+            <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='baza_profiley`+String(i)+`'></span>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label=""    style="width:200px; display:none; border-color:red" id='goods_group`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <select class="form-select" aria-label=""    style="width:200px; border-color:red" id='goods_group`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
                 <option  value=""></option>
                 <option value="QLIK_ALU_PROF" >Алюминиевый профиль</option>
                 <option value="QLIK_RLS">Рольставни</option>
@@ -552,32 +715,32 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:150px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="sap_code_ruchnoy`+String(i)+`" onkeyup='create_kratkiy_tekst(`+String(i)+`)' >           
+            <input type="text" class="form-control "  style='width:150px;'   aria-describedby="inputGroup-sizing-sm"  id="sap_code_ruchnoy`+String(i)+`" onkeyup='create_kratkiy_tekst(`+String(i)+`)' >           
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:250px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="kratkiy_text_ruchnoy`+String(i)+`"  onkeyup='create_kratkiy_tekst(`+String(i)+`)'>
+            <input type="text" class="form-control "  style='width:250px;'   aria-describedby="inputGroup-sizing-sm"  id="kratkiy_text_ruchnoy`+String(i)+`"  onkeyup='create_kratkiy_tekst(`+String(i)+`)'>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:90px;display:none;border-color:red;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="id_klaes`+String(i)+`"  >    
+            <input type="text" class="form-control "  style='width:90px;border-color:red;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="id_klaes`+String(i)+`"  >    
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:90px;display:none;border-color:red;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="klaes_nazvaniye`+String(i)+`"  >    
+            <input type="text" class="form-control "  style='width:90px;border-color:red;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="klaes_nazvaniye`+String(i)+`"  >    
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:90px;display:none;border-color:red;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="code_sveta`+String(i)+`"  >    
+            <input type="text" class="form-control "  style='width:90px;border-color:red;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="code_sveta`+String(i)+`"  >    
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:90px;display:none;border-color:red;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="klaes_kratkiy`+String(i)+`"  >    
+            <input type="text" class="form-control "  style='width:90px;border-color:red;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="klaes_kratkiy`+String(i)+`"  >    
             </div>
         </td>
         <td >
@@ -600,17 +763,18 @@ var table = $('#table-artikul')
 
 table.append(text)
 
+
+
 function request_piece(start=1,end=6){
 
     for (let i = start; i <=end; i++) {
-        console.log(i,'44444444222321123')
         $('#artikul'+String(i)).select2({
             ajax: {
                 url: "/client/imzo-artikul-list",
                 dataType: 'json',
                 processResults: function(data){
                     return {results: $.map(data, function(item){
-                        return {id:item.id,text:item.data['Артикул'],system:item.data['Система'],combination:item.data['Комбинация'],code_nakleyka:item.data['Код наклейки'],baza_profiley:item.data['BAZA']}
+                        return {id:item.data['Артикул'],text:item.data['Артикул'],system:item.data['Система'],combination:item.data['Комбинация'],code_nakleyka:item.data['Код наклейки'],baza_profiley:item.data['BAZA']}
                     })
                 };
                 }
@@ -705,9 +869,9 @@ data_base = {}
 
 function copy_tr(id){
     if(!data_base[id]){
-        console.log('salom')
+        console.log('salom2222 copy')
     }else{
-    
+        
         text =""
         var size = $('#table-artikul tr').length;
         text = front_piece(start = size+1, end = size+2)
@@ -716,22 +880,226 @@ function copy_tr(id){
 
         table.after(new_tr)
         request_piece(start = size+1, end = size+2)
-
-        data = data_base[id]
+        
+        var data = new BasePokritiya()
+        for(key in data_base[id]){
+            data[key] = data_base[id][key]
+        }
+       
 
         data_base[size+1] = data
+        
+        var s = size+1
 
-        if(data.)
+        var id = data.id;
+        var nazvaniye_system = data.nazvaniye_system;
+        var dlina = data.dlina;
+        var base_artikul = data.base_artikul;
+        var splav = data.splav;
+        var tip_zak = data.tip_zak;
+        var combination = data.combination;
+        var brend_kraska_sn = data.brend_kraska_sn;
+        var kod_kraska_sn = data.kod_kraska_sn;
+        var brend_kraska_vn = data.brend_kraska_vn;
+        var kod_kraska_vn = data.kod_kraska_vn;
+        var kod_dekor_sn = data.kod_dekor_sn;
+        var svet_dekplonka_snaruji = data.svet_dekplonka_snaruji;
+        var kod_dekor_vn = data.kod_dekor_vn;
+        var svet_dekplonka_vnutri = data.svet_dekplonka_vnutri;
 
-        // console.log(data_base,'show all')
+        var svet_lamplonka_snaruji = data.svet_lamplonka_snaruji;
+        var kod_lam_sn = data.kod_lam_sn;
+        var svet_lamplonka_vnutri = data.svet_lamplonka_vnutri;
+        var kod_lam_vn = data.kod_lam_vn;
+
+
+        var kod_anod_sn = data.kod_anod_sn;
+        var kod_anod_vn = data.kod_anod_vn;
+
+
+        var contactnost_anod = data.contactnost_anod;
+        var tip_anod = data.tip_anod;
+        var sposob_anod = data.sposob_anod;
+
+        var kod_nakleyki = data.kod_nakleyki;
+        var nadpis_nakleyki = data.nadpis_nakleyki;
+        var baza_profiley = data.baza_profiley;
+        var goods_group = data.goods_group;
+        var tex_name = data.tex_name;
+        var gruppa_materialov = data.gruppa_materialov;
+
+        var kratkiy_tekst = data.kratkiy_tekst;
+
+        var sap_code_ruchnoy = data.sap_code_ruchnoy;
+        var kratkiy_text_ruchnoy = data.kratkiy_text_ruchnoy;
+        var klaes_id = data.klaes_id;
+        var klaes_nazvaniye = data.klaes_nazvaniye;
+        var kod_sveta = data.kod_sveta;
+        var kratkiy_klaes = data.kratkiy_klaes;
+        var comment = data.comment;
+        var is_termo = data.is_termo;
+
+        
+      
+        
+        check_input_and_change(id,'#tip_pokritiya'+s)
+
+
+        
+
+        if(id ==1){
+            check_input_and_change(kod_kraska_sn,'#code_kraski_snar'+s,dis=true)
+            check_input_and_change(kod_nakleyki,'#nakleyka'+s,dis=true)
+            if(is_termo){
+                check_input_and_change(kod_kraska_vn,'#code_kraski_vnut'+s,dis=true)
+            }
+        }else if(id == 2){    
+                check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=true)
+                check_input_and_change(kod_kraska_sn,'#code_kraski_snar'+s,dis=true)
+                check_input_and_change(kod_nakleyki,'#nakleyka'+s)
+                if(is_termo){
+                    check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=true)
+                    check_input_and_change(kod_kraska_vn,'#code_kraski_vnut'+s,dis=true)
+                }
+        }else if(id ==3){
+            
+            check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
+            check_input_and_change(kod_kraska_sn,'#code_kraski_snar'+s,dis=false,is_req=true)
+            check_input_and_change(kod_nakleyki,'#nakleyka'+s)
+
+            if(is_termo){
+                check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
+                check_input_and_change(kod_kraska_vn,'#code_kraski_vnut'+s,dis=false,is_req=true)
+            }
+        }
+        else if(id ==4){
+            
+            check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
+            check_input_and_change(kod_kraska_sn,'#code_kraski_snar'+s,dis=false,is_req=true)
+
+            check_input_and_change(kod_lam_sn,'#svet_lamplonka_snaruji'+s,dis=false,is_req=true)
+            check_text_and_change(kod_lam_sn,'#code_lamplonka_snaruji'+s,dis=false,is_req=true)
+
+            check_input_and_change(kod_lam_vn,'#svet_lamplonka_vnutri'+s,dis=false,is_req=true)
+            check_text_and_change(kod_lam_vn,'#code_lamplonka_vnutri'+s,dis=false,is_req=true)
+            check_input_and_change(kod_nakleyki,'#nakleyka'+s)
+
+        }
+        else if(id ==5){
+            
+            check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
+            check_input_and_change(kod_kraska_sn,'#code_kraski_snar'+s,dis=false,is_req=true)
+
+            check_input_and_change(svet_dekplonka_snaruji,'#svet_dekplonka_snaruji'+s,dis=false,is_req=true)
+            check_text_and_change(svet_dekplonka_snaruji,'#code_dekplonka_snaruji'+s,dis=false,is_req=true)
+
+            check_input_and_change(kod_nakleyki,'#nakleyka'+s)
+
+            if(is_termo){
+                check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
+                check_input_and_change(kod_kraska_vn,'#code_kraski_vnut'+s,dis=false,is_req=true)
+
+                check_input_and_change(svet_dekplonka_vnutri,'#svet_dekplonka_vnutri'+s,dis=false,is_req=true)
+                check_text_and_change(svet_dekplonka_vnutri,'#code_dekplonka_vnutri'+s,dis=false,is_req=true)
+            }
+
+        }
+        else if(id ==6){
+            
+
+            
+            check_for_valid_and_set_val_select(kod_anod_sn,'code_svet_anodirovki_snaruji'+ s)
+
+            check_input_and_change(contactnost_anod,'#contactnost_anodirovki'+s,dis=false,is_req=true)
+
+            check_input_and_change(kod_nakleyki,'#nakleyka'+s)
+
+            get_anod(s)
+            if(is_termo){
+                check_for_valid_and_set_val_select(kod_anod_sn,'code_svet_anodirovki_vnutri'+ s)
+                get_anod(s,is_termo=true)
+            }
+
+
+
+        }
+
+       
+        check_input_and_change(dlina,'#length'+s,dis=false,is_req=true)
+        check_for_valid_and_set_val_select(base_artikul,'artikul'+ s)
+        check_input_and_change(splav,'#splav'+s)
+        check_input_and_change(tip_zak,'#tip_zakalyonnosti'+s)
+        check_text_and_change(combination,'#combination'+s)
+        check_text_and_change(nazvaniye_system,'.nazvaniye_system'+s)
+        
+        
+        check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
+        check_text_and_change(baza_profiley,'#baza_profiley'+s)
+        
+
+        check_input_and_change(tex_name,'#goods_group'+s)
+        check_text_and_change(tex_name,'#tex_name'+s)
+        
+        check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
+
+        check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
+        check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_text_ruchnoy'+s)
+
+
+        check_input_and_change(klaes_id,'#id_klaes'+s)
+        check_input_and_change(klaes_nazvaniye,'#klaes_nazvaniye'+s)
+        check_input_and_change(kod_sveta,'#code_sveta'+s)
+        check_input_and_change(kratkiy_klaes,'#klaes_kratkiy'+s)
+        check_input_and_change(comment,'#comment'+s)
+        
+        
     }
 
 
 }
 
-function check_for_valid_and_set_val_select(val,selector){
-    if(val !=NaN && val !=''){
-        $(selector).
+function check_for_valid_and_set_val_select(val,selector,is_req=false){
+    if(is_req){
+        var span = $('#select2-'+selector+'-container')
+        span.css('display','block')
+        span.css('border-color','red')
+
+    }
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        ////// selec2 value change \\\\\\\
+        var span = $('#select2-'+selector+'-container')
+        span.attr('title',val);
+        span.text(val);
+
+        //////end ////////////
+        
+    }
+}
+
+function check_input_and_change(val,selector,dis=false,is_req=false){
+    if(is_req){
+        
+        $(selector).attr('disabled',false)
+        $(selector).css('display','block')
+        $(selector).css('border-color','red')
+
+    }
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        sel.attr('disabled',dis)
+        sel.css('display','block')
+        sel.css('border-color','#dedad9')
+        sel.val(val)
+        // console.log(val,typeof(val),selector)
+    }
+    
+}
+
+function check_text_and_change(val,selector){
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        sel.css('display','block')
+        sel.text(val)
     }
 }
 
@@ -757,7 +1125,8 @@ function add_column(){
 
 
 
-function get_anod(termo=false){
+function get_anod(id,termo=false){
+    $('#anod'+id).css('display','block')
     $('.kod_anod_snar').select2({
         ajax: {
             url: "/client/client-anod-list",
@@ -771,6 +1140,7 @@ function get_anod(termo=false){
         }
         });
     if (termo){
+        $('#anod_vnutr'+id).css('display','block')
         $('.kod_anod_vnutri').select2({
             ajax: {
                 url: "/client/client-anod-list",
@@ -805,14 +1175,14 @@ function clear_artikul(id){
     table_tr.css('background-color','white')
     
 
-    var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-    var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-    var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
-    var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-    code_kraski_snaruji.text("");
-    code_kraski_vnutri.text("");
-    brand_kraski_vnutri.text("");
-    brand_kraski_snaruji.text("");
+    var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+    var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
+    var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id))
+    var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
+    code_kraski_snaruji.val("");
+    code_kraski_vnutri.val("");
+    brand_kraski_vnutri.val("");
+    brand_kraski_snaruji.val("");
 
     code_kraski_snaruji.css("border-color",'#dedad9');
     code_kraski_vnutri.css("border-color",'#dedad9');
@@ -827,7 +1197,7 @@ function clear_artikul(id){
     dlina.css("border-color",'#dedad9');
 
     var combination= document.getElementById('combination'+String(id));
-    console.log(combination,'dddd',combination.innerText)
+    // console.log(combination,'dddd',combination.innerText)
     combination.innerText='';
     // combination.text("");
 
@@ -909,7 +1279,7 @@ function tip_pokritiya_selected(id,val){
     
     var select_anod_snar = $('#anod'+String(id));
     select_anod_snar.children("span").css('display','none');
-    select_anod_snar.children("select").remove();
+    
 
     var dlina =$('#length'+String(id));
     dlina.attr("disabled",false);
@@ -917,23 +1287,28 @@ function tip_pokritiya_selected(id,val){
 
     var select_anod_vnut = $('#anod_vnutr'+String(id));
     select_anod_vnut.children("span").css('display','none');
-    select_anod_vnut.children("select").remove();
+   
     
-    var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-    var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-    var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
-    var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
+    var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+    var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
+    var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id))
+    var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
     kratkiy_tekst.text("");
-    code_kraski_snaruji.text("");
-    code_kraski_vnutri.text("");
-    brand_kraski_vnutri.text("");
-    brand_kraski_snaruji.text("");
+    code_kraski_snaruji.val("");
+    code_kraski_vnutri.val("");
+    brand_kraski_vnutri.val("");
+    brand_kraski_snaruji.val("");
 
     code_kraski_snaruji.css("border-color",'#dedad9');
     code_kraski_vnutri.css("border-color",'#dedad9');
     brand_kraski_vnutri.css("border-color",'#dedad9');
     brand_kraski_snaruji.css("border-color",'#dedad9');
+
+    code_kraski_snaruji.css("display",'none');
+    code_kraski_vnutri.css("display",'none');
+    brand_kraski_vnutri.css("display",'none');
+    brand_kraski_snaruji.css("display",'none');
 
 
     var combination= $('#combination'+String(id));
@@ -1013,40 +1388,81 @@ function tip_pokritiya_selected(id,val){
     var nakleyka = $('#nakleyka'+String(id))
 
     if(String(val) == '1'){
+        
         data_base[id] = new BasePokritiya()
         data_base[id].id = 1 
         data_base[id].tip_pokritiya = 'Неокрашенный' 
+        
         nakleyka.css('display','block');
         nakleyka.val("NT1");
 
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
-            code_kraski_snaruji.text('MF')
+            var code_kraski_snaruji = $('#code_kraski_snar'+String(id))
+            code_kraski_snaruji.val('MF')
+            code_kraski_snaruji.attr('disabled',true)
+            code_kraski_snaruji.css('display','block')
+            code_kraski_snaruji.css('border-color','#dedad9')
         }else{
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            code_kraski_snaruji.text('MF');
-            code_kraski_vnutri.text('MF');
+            var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+            var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
+            code_kraski_snaruji.val('MF');
+            code_kraski_snaruji.attr('disabled',true)
+            code_kraski_snaruji.css('display','block')
+            code_kraski_snaruji.css('border-color','#dedad9')
+            
+            code_kraski_vnutri.val('MF');
+            code_kraski_vnutri.attr('disabled',true)
+            code_kraski_vnutri.css('display','block')
+            code_kraski_vnutri.css('border-color','#dedad9')
+           
+
         }
 
     }else if(String(val) == '2'){
+        
         data_base[id] = new BasePokritiya()
         data_base[id].id = 2 
         data_base[id].tip_pokritiya = 'Белый'
+        
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
-            var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-            code_kraski_snaruji.text('9016')
-            brand_kraski_snaruji.text('R')
+            var code_kraski_snaruji = $('#code_kraski_snar'+String(id))
+            var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
+        
+            code_kraski_snaruji.val('9016');
+            code_kraski_snaruji.attr('disabled',true)
+            code_kraski_snaruji.css('display','block')
+            code_kraski_snaruji.css('border-color','#dedad9')
+
+            brand_kraski_snaruji.val('R');
+            brand_kraski_snaruji.attr('disabled',true)
+            brand_kraski_snaruji.css('display','block')
+            brand_kraski_snaruji.css('border-color','#dedad9')
         }else{
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
-            var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-            brand_kraski_snaruji.text('R');
-            code_kraski_snaruji.text('9016');
-            brand_kraski_vnutri.text('R');
-            code_kraski_vnutri.text('9016');
+            var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+            var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
+            var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id))
+            var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
+
+            brand_kraski_snaruji.val('R');
+            brand_kraski_snaruji.attr('disabled',true)
+            brand_kraski_snaruji.css('display','block')
+            brand_kraski_snaruji.css('border-color','#dedad9')
+
+            code_kraski_snaruji.val('9016');
+            code_kraski_snaruji.attr('disabled',true)
+            code_kraski_snaruji.css('display','block')
+            code_kraski_snaruji.css('border-color','#dedad9')
+
+            brand_kraski_vnutri.val('R');
+            brand_kraski_vnutri.attr('disabled',true)
+            brand_kraski_vnutri.css('display','block')
+            brand_kraski_vnutri.css('border-color','#dedad9')
+
+            code_kraski_vnutri.val('9016');
+            code_kraski_vnutri.attr('disabled',true)
+            code_kraski_vnutri.css('display','block')
+            code_kraski_vnutri.css('border-color','#dedad9')
+
         }
 
         var nakleyka_codd = $('#nakleyka_codd'+String(id)).text()
@@ -1062,206 +1478,46 @@ function tip_pokritiya_selected(id,val){
         }
 
         if(String(val) == '3'){
+            
             data_base[id] = new BasePokritiya()
             data_base[id].id = 3 
             data_base[id].tip_pokritiya = 'Окрашенный'
+            
         }else if(String(val) == '4'){
+            
             data_base[id] = new BasePokritiya()
             data_base[id].id = 4 
             data_base[id].tip_pokritiya = 'Ламинированный'
+            
         }else if(String(val) == '5'){
+            
             data_base[id] = new BasePokritiya()
             data_base[id].id = 5 
             data_base[id].tip_pokritiya = 'Сублимированный'
+            
         } 
         
-        var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;border-color:#fc2003" id='brand_k_snaruji`+String(id)+`'  onchange="create_kratkiy_tekst(`+String(id)+`)" required>
-        <option  value="0" selected></option>
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="R">R</option>
-        <option value="T">T</option>
-        <option value="J">J</option>
-        <option value="P">P</option>
-        <option value="M">M</option>
-        </select>` 
-        var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-       
-        brand_kraski_snaruji.append(brands)
-        // var code_kras_snaruji =`<input type="text"  class="form-control " id ='code_kraski_snar`+String(id)+`' aria-describedby="inputGroup-sizing-sm" style="width: 65px;border-color: red;height:30px"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
-        var code_kras_snaruji =`<select class="form-select form-select-sm text-center"  style="width:100px;border-color:#fc2003" id='code_kraski_snar`+String(id)+`'  onchange="create_kratkiy_tekst(`+String(id)+`)" required>
-                                    <option  value="0" selected></option>
-                                    <option value="8M01">8M01</option>
-                                    <option value="6029">6029</option>
-                                    <option value="1013">1013</option>
-                                    <option value="7M43">7M43</option>
-                                    <option value="8002">8002</option>
-                                    <option value="7M24">7M24</option>
-                                    <option value="7M16">7M16</option>
-                                    <option value="7043">7043</option>
-                                    <option value="7021">7021</option>
-                                    <option value="7015">7015</option>
-                                    <option value="7039">7039</option>
-                                    <option value="7011">7011</option>
-                                    <option value="7M47">7M47</option>
-                                    <option value="9016">9016</option>
-                                    <option value="7016">7016</option>
-                                    <option value="2654">2654</option>
-                                    <option value="9010">9010</option>
-                                    <option value="9M05">9M05</option>
-                                    <option value="9005">9005</option>
-                                    <option value="3884">3884</option>
-                                    <option value="3774">3774</option>
-                                    <option value="235G">235G</option>
-                                    <option value="7M21">7M21</option>
-                                    <option value="355F">355F</option>
-                                    <option value="8001">8001</option>
-                                    <option value="8019">8019</option>
-                                    <option value="8017">8017</option>
-                                    <option value="9006">9006</option>
-                                    <option value="306G">306G</option>
-                                    <option value="9011">9011</option>
-                                    <option value="2M06">2M06</option>
-                                    <option value="8M19">8M19</option>
-                                    <option value="8003">8003</option>
-                                    <option value="2900">2900</option>
-                                    <option value="7037">7037</option>
-                                    <option value="281F">281F</option>
-                                    <option value="1019">1019</option>
-                                    <option value="7M22">7M22</option>
-                                    <option value="7M31">7M31</option>
-                                    <option value="9M07">9M07</option>
-                                    <option value="9M16">9M16</option>
-                                    <option value="7M35">7M35</option>
-                                    <option value="9007">9007</option>
-                                    <option value="5002">5002</option>
-                                    <option value="7024">7024</option>
-                                    <option value="2604">2604</option>
-                                    <option value="7035">7035</option>
-                                    <option value="7M36">7M36</option>
-                                    <option value="7042">7042</option>
-                                    <option value="9M03">9M03</option>
-                                    <option value="7006">7006</option>
-                                    <option value="9M04">9M04</option>
-                                    <option value="9003">9003</option>
-                                    <option value="2M04">2M04</option>
-                                    <option value="283F">283F</option>
-                                    <option value="7038">7038</option>
-                                    <option value="1035">1035</option>
-                                    <option value="7M39">7M39</option>
-                                    <option value="2303">2303</option>
-                                    <option value="3020">3020</option>
-                                    <option value="8M24">8M24</option>
-                                    <option value="7M12">7M12</option>
-                                    <option value="9001">9001</option>
-                                    <option value="7M06">7M06</option>
-                                    <option value="8000">8000</option>
-                                    <option value="1015">1015</option>
-                                    <option value="7030">7030</option>
-                                    <option value="8024">8024</option>
-                                    <option value="1376">1376</option>
-                                    <option value="S352">S352</option>
-                                    <option value="8077">8077</option>
-                                </select>`
         
-        code_kraski_snaruji.append(code_kras_snaruji);
-        code_kraski_snaruji.css("border-color",'#fc2003')
+        var brand_k_snaruji = $('#brand_k_snaruji'+String(id));
+        brand_k_snaruji.attr('disabled',false)
+        brand_k_snaruji.css('display','block')
+        var code_kraski_snar = $('#code_kraski_snar'+String(id));
+        code_kraski_snar.attr('disabled',false)
+        code_kraski_snar.css('display','block')
+
+        // code_kraski_snaruji.css("border-color",'#fc2003')
     
        
 
         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
-            var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;border-color:#fc2003" id='brand_k_vnutri`+String(id)+`' onchange="create_kratkiy_tekst(`+String(id)+`)" required>
-                <option  value="0" selected></option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="R">R</option>
-                <option value="T">T</option>
-                <option value="J">J</option>
-                <option value="P">P</option>
-                <option value="M">M</option>
-            </select>`
-            var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id));
-            brand_kraski_vnutri.append(brands)
-
-            // var code_kras_vnut =`<input type="text" class="form-control " style='border-color:#fc2003;width:65px; height:30px' id ='code_kraski_vnut`+String(id)+`' aria-describedby="inputGroup-sizing-sm"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
-            var code_kras_vnut =`<select class="form-select form-select-sm text-center"  style="width:100px;border-color:#fc2003" id='code_kraski_vnut`+String(id)+`'  onchange="create_kratkiy_tekst(`+String(id)+`)" required>
-                                    <option  value="0" selected></option>
-                                    <option value="8M01">8M01</option>
-                                    <option value="6029">6029</option>
-                                    <option value="1013">1013</option>
-                                    <option value="7M43">7M43</option>
-                                    <option value="8002">8002</option>
-                                    <option value="7M24">7M24</option>
-                                    <option value="7M16">7M16</option>
-                                    <option value="7043">7043</option>
-                                    <option value="7021">7021</option>
-                                    <option value="7015">7015</option>
-                                    <option value="7039">7039</option>
-                                    <option value="7011">7011</option>
-                                    <option value="7M47">7M47</option>
-                                    <option value="9016">9016</option>
-                                    <option value="7016">7016</option>
-                                    <option value="2654">2654</option>
-                                    <option value="9010">9010</option>
-                                    <option value="9M05">9M05</option>
-                                    <option value="9005">9005</option>
-                                    <option value="3884">3884</option>
-                                    <option value="3774">3774</option>
-                                    <option value="235G">235G</option>
-                                    <option value="7M21">7M21</option>
-                                    <option value="355F">355F</option>
-                                    <option value="8001">8001</option>
-                                    <option value="8019">8019</option>
-                                    <option value="8017">8017</option>
-                                    <option value="9006">9006</option>
-                                    <option value="306G">306G</option>
-                                    <option value="9011">9011</option>
-                                    <option value="2M06">2M06</option>
-                                    <option value="8M19">8M19</option>
-                                    <option value="8003">8003</option>
-                                    <option value="2900">2900</option>
-                                    <option value="7037">7037</option>
-                                    <option value="281F">281F</option>
-                                    <option value="1019">1019</option>
-                                    <option value="7M22">7M22</option>
-                                    <option value="7M31">7M31</option>
-                                    <option value="9M07">9M07</option>
-                                    <option value="9M16">9M16</option>
-                                    <option value="7M35">7M35</option>
-                                    <option value="9007">9007</option>
-                                    <option value="5002">5002</option>
-                                    <option value="7024">7024</option>
-                                    <option value="2604">2604</option>
-                                    <option value="7035">7035</option>
-                                    <option value="7M36">7M36</option>
-                                    <option value="7042">7042</option>
-                                    <option value="9M03">9M03</option>
-                                    <option value="7006">7006</option>
-                                    <option value="9M04">9M04</option>
-                                    <option value="9003">9003</option>
-                                    <option value="2M04">2M04</option>
-                                    <option value="283F">283F</option>
-                                    <option value="7038">7038</option>
-                                    <option value="1035">1035</option>
-                                    <option value="7M39">7M39</option>
-                                    <option value="2303">2303</option>
-                                    <option value="3020">3020</option>
-                                    <option value="8M24">8M24</option>
-                                    <option value="7M12">7M12</option>
-                                    <option value="9001">9001</option>
-                                    <option value="7M06">7M06</option>
-                                    <option value="8000">8000</option>
-                                    <option value="1015">1015</option>
-                                    <option value="7030">7030</option>
-                                    <option value="8024">8024</option>
-                                    <option value="1376">1376</option>
-                                    <option value="S352">S352</option>
-                                    <option value="8077">8077</option>
-                                </select>`
-           
-           
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            code_kraski_vnutri.append(code_kras_vnut)
+            
+            var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id));
+            brand_kraski_vnutri.attr('disabled',false)
+            brand_kraski_vnutri.css('display','block')
+            var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
+            code_kraski_vnutri.attr('disabled',false)
+            code_kraski_vnutri.css('display','block')
+            
 
 
         }
@@ -1297,16 +1553,16 @@ function tip_pokritiya_selected(id,val){
         
 
     }else if(String(val) == '6'){
+        
         data_base[id] = new BasePokritiya()
         data_base[id].id = 6 
         data_base[id].tip_pokritiya = 'Анодированный'
-        const newDiv = `<select class="form-select kod_anod_snar" aria-label="" style="width: 100px; border-color:#fc2003;!important" onchange="code_svet_anodirovki_snaruji_selected(`+String(id)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(id)+`' required></select>`
-        select_anod_snar.append(newDiv) 
+        
+       
 
         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
-            const newDiv = `<select class="form-select kod_anod_vnutri" aria-label="" style="width: 100px;border-color:#fc2003" onchange="create_kratkiy_tekst(`+String(id)+`)"  id='code_svet_anodirovki_vnutr`+String(id)+`' required></select>`
-            select_anod_vnut.append(newDiv) 
-            get_anod(termo=true)
+             
+            get_anod(id,termo=true)
 
             var code_svet_anodirovki_vnutri = $('#code_svet_anodirovki_vnutri'+String(id));
             code_svet_anodirovki_vnutri.attr("disabled",false);
@@ -1314,7 +1570,7 @@ function tip_pokritiya_selected(id,val){
             code_svet_anodirovki_vnutri.css("border-color",'#fc2003');
 
         }else{
-            get_anod()
+            get_anod(id,termo=false)
             
         }
 
@@ -1356,7 +1612,7 @@ function tip_pokritiya_selected(id,val){
         data_base[id].base_artikul = base_artikul.text()
         data_base[id].nazvaniye_system = nazvaniye_system.text()
         data_base[id].splav = splav.val()
-        data_base[id].tip_zakalyonnosti = tip_zakalyonnosti.val()
+        data_base[id].tip_zak = tip_zakalyonnosti.val()
         data_base[id].combination = combination.text()
         
 
@@ -1399,7 +1655,7 @@ function code_svet_anodirovki_snaruji_selected(id,val){
     
         var tip_anodirovki =$('#tip_anodirovki'+String(id));
         var sposob_anodirovki = $('#sposob_anodirovki'+String(id));
-        console.log(e.params.data.text);
+        // console.log(e.params.data.text);
         tip_anodirovki.text(e.params.data.tip_anod);
         sposob_anodirovki.text(e.params.data.sposob_anod);
 
@@ -1448,7 +1704,7 @@ function svet_dekplonka_vnutri_selected(id,val){
     code_dekplonka_vnutri.text(String(val));
     var selectElement = document.getElementById('svet_dekplonka_vnutri'+String(id));
     selectElement.style.borderColor='red';
-    console.log(selectElement)
+    // console.log(selectElement)
     create_kratkiy_tekst(id);
 }
 
@@ -1657,7 +1913,7 @@ function create_kratkiy_tekst(id){
                 a1=code_kraski_vnut.val() != '0'
                 a2=code_kraski_vnut.val() != undefined
                 a3=code_kraski_vnut.val() != ''
-                console.log(a1,a2,a3)
+                // console.log(a1,a2,a3)
                 if((code_kraski_vnut.val() != '0') && (code_kraski_vnut.val()  != undefined)&&code_kraski_vnut.val()!=''){
                     code_kraski_vnut.css("border-color",'#dedad9');
                     data_base[id].kod_kraska_vn =code_kraski_vnut.val();
@@ -1789,7 +2045,7 @@ function create_kratkiy_tekst(id){
         var anod_sn = document.getElementById("anod"+String(id))
         const spanTextbox1 = anod_sn.querySelector('span[role="textbox"]');
         
-        const spanss =document.querySelector('.anood .select2-container .select2-selection--single')
+        const spanss =document.querySelector('#anod'+String(id) +' .select2-container .select2-selection--single')
         if(spanTextbox1){
             if(spanTextbox1.innerText !='' ){
                 var tip_anodirovki = $('#tip_anodirovki'+String(id)).text()
@@ -1809,12 +2065,16 @@ function create_kratkiy_tekst(id){
             data_base[id].is_termo =true;
             var anod_sn = document.getElementById("anod_vnutr"+String(id))
             // anod_sn.style.borderColor='#dedad9';
+            const spanss =document.querySelector('#anod_vnutr'+String(id) +' .select2-container .select2-selection--single')
+
             const spanTextbox2 = anod_sn.querySelector('span[role="textbox"]');
             if(spanTextbox2){
                 if(spanTextbox2.innerText !=''){
+                    spanss.style.borderColor='#dedad9';
                     spanTextbox2.style.borderColor='#dedad9';
                     data_base[id].kod_anod_vn = spanTextbox2.innerText;
                 }else{
+                    spanss.style.borderColor='red';
                     spanTextbox2.style.borderColor='red';
                     data_base[id].kod_anod_vn = NaN;
                 }
@@ -1854,10 +2114,13 @@ function create_kratkiy_tekst(id){
             sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text,data_base[id].is_termo)
             zapros_count.push(art_krat)
         }
+        data_base[id].kratkiy_tekst= data.text
     }
-
+    
     kratkiy_tekst.text(data.text)
     }
+
+    // console.log(data_base,'create_text')
 }
 
 
@@ -1887,7 +2150,7 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
             kratkiy_text_ruchnoy.val('')
             sap_code_ruchnoy.css('background-color','white')
             kratkiy_text_ruchnoy.css('background-color','white')
-            console.log('aa')
+            // console.log('aa')
         }
         // WON'T REDIRECT
     });
