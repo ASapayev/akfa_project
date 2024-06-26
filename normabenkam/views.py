@@ -3542,7 +3542,7 @@ def delete_texcarta(request):
 
     search = request.GET.get('search',None)
     if search:
-        products = TexcartaBase.objects.filter(material__icontains=search)[:1].get()
+        products = TexcartaBase.objects.filter(material__icontains=search)[:1]
     else:
         products = TexcartaBase.objects.all().order_by('-created_at')
     paginator = Paginator(products, 25)
