@@ -3540,7 +3540,7 @@ def sublimatsiya_del(request,id):
 @allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def delete_texcarta(request):
 
-    search = request.POST.get('search',None)
+    search = request.GET.get('search',None)
     if search:
         products = TexcartaBase.objects.filter(material__icontains=search)[:1].get()
     else:
