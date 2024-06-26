@@ -3496,6 +3496,7 @@ def bulk_delete_texcarta(request):
 @allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def delete_texcarta_one(request,id):
     if request.method =="POST":
+        
         texcartaa= TexcartaBase.objects.get(id=int(id))
         texcartaa.delete()
         return JsonResponse({'msg':True})
@@ -3538,7 +3539,12 @@ def sublimatsiya_del(request,id):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
 def delete_texcarta(request):
-    products = TexcartaBase.objects.all().order_by('-created_at')
+
+    search = request.POST.get('search',None)
+    if search:
+        products = TexcartaBase.objects.filter(material__icontains=search)[:1].get()
+    else:
+        products = TexcartaBase.objects.all().order_by('-created_at')
     paginator = Paginator(products, 25)
 
     if request.GET.get('page') != None:
