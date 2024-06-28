@@ -123,7 +123,7 @@ function front_piece(start=1,end=6){
 
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-three-dots-vertical"></i>
+                    <span id='icon_btn`+String(i)+`'><i class="bi bi-three-dots-vertical"></i></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li style='cursor:pointer;font-size:14px' id='create_btn`+String(i)+`'><a class="dropdown-item" onclick="create(`+String(i)+`)" ><i class="bi bi-plus-circle mr-2"></i>Создание</a></li>
@@ -239,19 +239,19 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
         
-            <input type='text' class=" form-control " style=" width: 110px; font-size:10px; display:none; height:32px" id='sap_code`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 110px; font-size:10px; height:32px" id='sap_code`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         
             </div>
         </td> 
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px"  id='krat`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 220px; font-size:10px;  height:32px"  id='krat`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1">
-        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
         </td>
         <td >
@@ -814,6 +814,206 @@ table.append(text)
 
 
 
+function copy_tr(id){
+    if(!data_base[id]){
+        console.log('salom2222 copy')
+    }else{
+        
+        text =""
+        var size = $('#table-artikul tr').length;
+        text = front_piece(start = size+1, end = size+2)
+        var table = $('#table_tr'+id)
+        var new_tr =$(text)
+
+        table.after(new_tr)
+        
+        var data = new BasePokritiya()
+
+        for(key in data_base[id]){
+            data[key] = data_base[id][key]
+        }
+       
+
+        data_base[size+1] = data
+        
+        var s = size+1
+
+        var id = data.id;
+        var brend = data.brend ;
+        var mikron = data.mikron ;
+        var storonnost = data.storonnost ;
+        var kod_sveta = data.kod_sveta ;
+        var naz_sveta = data.naz_sveta ;
+        var tip_paneli = data.tip_paneli ;
+        var dlina = data.dlina ;
+        var shirina = data.shirina ;
+        var gruppa_materialov = data.gruppa_materialov ;
+        var kratkiy_tekst = data.kratkiy_tekst ;
+        var sap_code = data.sap_code ;
+        var krat = data.krat ;
+        var comment = data.comment ;
+        var pickupdate = data.pickupdate ;
+        var sena_c_nds = data.sena_c_nds ;
+        var sena_bez_nds = data.sena_bez_nds ;
+        var online_id = data.online_id ;
+        var nazvaniye_ruchnoy = data.nazvaniye_ruchnoy ;
+       
+        var group = data.group ;
+   
+        var buxgalter_tovar = data.buxgalter_tovar ;
+        var buxgalter_uchot = data.buxgalter_uchot ;
+        var bazoviy_edin = data.bazoviy_edin ;
+        var alter_edin = data.alter_edin ;
+        var status_online = data.status_online ;
+        var diller = data.diller ;
+        var tip_clenta = data.tip_clenta ;
+        var is_active = data.is_active
+
+        
+        if(is_active){
+            var icon = $('#icon_btn'+s)
+            icon.children('i').remove()
+            icon.append('<i class="bi bi-award-fill"></i>')
+        }else{
+            var icon = $('#icon_btn'+s)
+            icon.children('i').remove()
+            icon.append('<i class="bi bi-plus-circle"></i>')
+
+        }
+      
+        var activate_btn =$('#activate_btn'+s);
+        var create_btn =$('#create_btn'+s);
+        activate_btn.css('display','none')
+        create_btn.css('display','none')
+
+
+        if(!is_active){
+            $('#is_active'+s).text('Активный')
+            check_input_and_change(brend,'#brend'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(mikron,'#mikron'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(storonnost,'#storonnost'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(kod_sveta,'#kod_sveta'+s,dis=false,is_req=true,is_req_simple=false)
+            check_text_and_change(naz_sveta,'#naz_sveta'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(tip_paneli,'#tip_paneli'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(dlina,'#dlina'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(shirina,'#shirina'+s,dis=false,is_req=true,is_req_simple=false)
+            check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s,dis=false,is_req=true,is_req_simple=false)
+            
+            check_input_and_change(sap_code,'#sap_code'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(krat,'#krat'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
+            
+            check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(sena_c_nds,'#sena_c_nds'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(sena_bez_nds,'#sena_bez_nds'+s,dis=false,is_req=true,is_req_simple=false)
+            
+            check_input_and_change(online_id,'#online_id'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true,is_req_simple=false)
+            
+            check_input_and_change(group,'#group'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=true,is_req_simple=false)
+            
+            check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(bazoviy_edin,'#bazoviy_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(status_online,'#status'+s,dis=false,is_req=false,is_req_simple=true)
+            
+            check_input_and_change(diller,'#diller'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(tip_clenta,'#tip_clenta'+s,dis=false,is_req=true,is_req_simple=false)
+
+        }else{
+            $('#is_active'+s).text('')
+            check_input_and_change(brend,'#brend'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(mikron,'#mikron'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(storonnost,'#storonnost'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(kod_sveta,'#kod_sveta'+s,dis=false,is_req=true,is_req_simple=false)
+            check_text_and_change(naz_sveta,'#naz_sveta'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(tip_paneli,'#tip_paneli'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(dlina,'#dlina'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(shirina,'#shirina'+s,dis=false,is_req=true,is_req_simple=false)
+            check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s,dis=false,is_req=true,is_req_simple=false)
+            
+            check_input_and_change(sap_code,'#sap_code'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(krat,'#krat'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
+            
+            check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sena_c_nds,'#sena_c_nds'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sena_bez_nds,'#sena_bez_nds'+s,dis=false,is_req=false,is_req_simple=true)
+            
+            check_input_and_change(online_id,'#online_id'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true,is_req_simple=false)
+            
+            check_input_and_change(group,'#group'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=false,is_req_simple=true)
+            
+            check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(bazoviy_edin,'#bazoviy_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(status_online,'#status'+s,dis=false,is_req=false,is_req_simple=true)
+            
+            check_input_and_change(diller,'#diller'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(tip_clenta,'#tip_clenta'+s,dis=false,is_req=false,is_req_simple=true)
+            
+        }
+        
+        
+    }
+
+
+}
+
+function check_for_valid_and_set_val_select(val,selector,is_req=false){
+    if(is_req){
+        var span = $('#select2-'+selector+'-container')
+        span.css('display','block')
+        span.css('border-color','red')
+
+    }
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        ////// selec2 value change \\\\\\\
+        var span = $('#select2-'+selector+'-container')
+        span.attr('title',val);
+        span.text(val);
+
+        //////end ////////////
+        
+    }
+}
+
+function check_input_and_change(val,selector,dis=false,is_req=false,is_req_simple=false){
+    if(is_req){
+        
+        $(selector).attr('disabled',false)
+        $(selector).css('display','block')
+        $(selector).css('border-color','red')
+
+    }
+    if(is_req_simple){
+        
+        $(selector).attr('disabled',false)
+        $(selector).css('display','block')
+        $(selector).css('border-color','#dedad9')
+
+    }
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        sel.attr('disabled',dis)
+        sel.css('display','block')
+        sel.css('border-color','#dedad9')
+        sel.val(val)
+        // console.log(val,typeof(val),selector)
+    }
+    
+}
+
+function check_text_and_change(val,selector){
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        sel.css('display','block')
+        sel.text(val)
+    }
+}
 
 
 
@@ -917,6 +1117,10 @@ function create(i){
     var create_btn =$('#create_btn'+i);
     activate_btn.css('display','none')
     create_btn.css('display','none')
+
+    var icon = $('#icon_btn'+i)
+    icon.children('i').remove()
+    icon.append('<i class="bi bi-plus-circle"></i>')
     
    
     data_base[i].gruppa_materialov ='AKPGP'
@@ -1020,6 +1224,9 @@ function activate(i){
     var create_btn =$('#create_btn'+i);
     activate_btn.css('display','none')
     create_btn.css('display','none')
+    var icon = $('#icon_btn'+i)
+    icon.children('i').remove()
+    icon.append('<i class="bi bi-award-fill"></i>')
     
 
     var is_active =$('#is_active'+i);
@@ -1036,11 +1243,6 @@ function activate(i){
     data_base[i].zavod_name ='ZAVOD ALUCOBOND'
 
 }
-
-
-
-
-
 
 
 function clear_artikul(id){
@@ -1095,17 +1297,17 @@ function clear_artikul(id){
     var sap_code = $('#sap_code'+id)
     sap_code.val("")
     sap_code.css('border-color','#dedad9')
-    sap_code.css('display','none')
+    // sap_code.css('display','none')
 
     var krat = $('#krat'+id)
     krat.val("")
     krat.css('border-color','#dedad9')
-    krat.css('display','none')
+    // krat.css('display','none')
 
     var comment = $('#comment'+id)
     comment.val("")
     comment.css('border-color','#dedad9')
-    comment.css('display','none')
+    // comment.css('display','none')
 
     var pickupdate = $('#pickupdate'+id)
     pickupdate.val("")
@@ -1177,17 +1379,12 @@ function clear_artikul(id){
     var create_btn =$('#create_btn'+id);
     activate_btn.css('display','block')
     create_btn.css('display','block')
+
+    var icon = $('#icon_btn'+id)
+    icon.children('i').remove()
+    icon.append('<i class="bi bi-three-dots-vertical"></i>')
     
 }
-
-
-
-
-
-
-
-
-
 
 
 function create_kratkiy_tekst(id){
@@ -1496,6 +1693,9 @@ function create_kratkiy_tekst(id){
         data_base[id].kratkiy_tekst = NaN;
         data_base[id].full=false
 
+    }
+    if(data.text !='XXXXXXXX' ){
+        data_base[id].kratkiy_tekst= data.text
     }
     
     kratkiy_tekst.text(data.text)

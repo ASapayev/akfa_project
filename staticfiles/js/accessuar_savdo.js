@@ -396,6 +396,7 @@ function copy_tr(id){
 
 
         if(!is_active){
+            $('#is_active'+s).text('')
             check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(sena_za_bei,'#sena_za_bei'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=false,is_req_simple=true)
