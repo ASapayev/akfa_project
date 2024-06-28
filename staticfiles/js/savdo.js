@@ -1790,6 +1790,10 @@ function copy_tr(id){
             check_text_and_change(kod_lam_vn,'#code_lamplonka_vnutri'+s,dis=false,is_req=true)
             check_input_and_change(kod_nakleyki,'#nakleyka'+s)
             check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
+            if(is_termo){
+                check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
+                check_input_and_change(kod_kraska_vn,'#code_kraski_vnut'+s,dis=false,is_req=true)
+            }
 
         }
         else if(id ==5){
