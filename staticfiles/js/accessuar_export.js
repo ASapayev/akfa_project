@@ -120,25 +120,111 @@ var table = $('#table-artikul')
 
 table.append(text)
 
+function copy_tr(id){
+    if(!data_base[id]){
+        console.log('salom2222 copy')
+    }else{
+        
+        text =""
+        var size = $('#table-artikul tr').length;
+        text = front_piece(start = size+1, end = size+2)
+        var table = $('#table_tr'+id)
+        var new_tr =$(text)
+
+        table.after(new_tr)
+        
+        
+        var data = new BasePokritiya()
+        for(key in data_base[id]){
+            data[key] = data_base[id][key]
+        }
+            
+        
+        data_base[size+1] = data
+        
+        var s = size+1
+
+        var sapcode = data.sapcode;
+        var nazvaniye_tovarov = data.nazvaniye_tovarov;
+        var polnoye_nazvaniye = data.polnoye_nazvaniye;
+        var sena_materiala = data.sena_materiala;
+        var bazoviy_edinitsa = data.bazoviy_edinitsa;
+        var koefitsiyent = data.koefitsiyent;
+        var alternativ_edin = data.alternativ_edin;
+        var gruppa_materialov = data.gruppa_materialov;
+        var comment = data.comment;
+        
+      
+        
+        check_input_and_change(sapcode,'#sapcode'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(nazvaniye_tovarov,'#nazvaniye_tovarov'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(polnoye_nazvaniye,'#polnoye_nazvaniye'+s,dis=false,is_req=true,is_req_simple=false)
+        check_input_and_change(sena_materiala,'#sena_materiala'+s,dis=false,is_req=true,is_req_simple=false)
+        check_input_and_change(bazoviy_edinitsa,'#bazoviy_edinitsa'+s,dis=false,is_req=true,is_req_simple=false)
+        check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(alternativ_edin,'#alternativ_edin'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
+        
+        
+        
+    }
+
+
+}
 
 
 
+function check_input_and_change(val,selector,dis=false,is_req=false,is_req_simple=false){
+    if(is_req){
+        
+        // $(selector).attr('disabled',false)
+        $(selector).css('display','block')
+        $(selector).css('border-color','red')
 
+    }
+    if(is_req_simple){
+        
+        // $(selector).attr('disabled',false)
+        $(selector).css('display','block')
+        $(selector).css('border-color','#dedad9')
 
-function clear_artikul(id){
-    var table_tr =$('#table_tr'+id);
-    
-    delete data_base[id]
-
-    
-    table_tr.css('background-color','white')
-    
+    }
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        // sel.attr('disabled',dis)
+        sel.css('display','block')
+        sel.css('border-color','#dedad9')
+        sel.val(val)
+        // console.log(val,typeof(val),selector)
+    }
     
 }
 
+function check_text_and_change(val,selector){
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        sel.css('display','block')
+        sel.text(val)
+    }
+}
+
+
+
+
+
+
+
 function artukil_clear(id){
     
-    clear_artikul(id)
+    var table_tr =$('#table_tr'+id);
+    
+    for(key in data_base[id]){
+        data_base[id][key] = NaN
+    }
+
+    
+    table_tr.css('background-color','white')
 
   
     var sapcode =$('#sapcode'+id);
