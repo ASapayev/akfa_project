@@ -1331,7 +1331,7 @@ function clear_artikul(id){
 
     var nazvaniye_ruchnoy = $('#nazvaniye_ruchnoy'+id)
     nazvaniye_ruchnoy.val("")
-    nazvaniye_ruchnoy.css('border-color','#dedad9')
+    // nazvaniye_ruchnoy.css('border-color','#dedad9')
     nazvaniye_ruchnoy.css('display','none')
 
     var group = $('#group'+id)
