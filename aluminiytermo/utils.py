@@ -971,7 +971,8 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
 
     for key , row in datas.iterrows():
         sap_code = row['SAP код S4P 100'].split('-')[0]
-        bazaprofiley = AluProfilesData.objects.filter(Q(data__Артикул =sap_code)|Q(data__Компонент=sap_code))[:1].get()  
+        bazaprofiley = AluProfilesData.objects.filter(Q(data__Артикул =sap_code)|Q(data__Компонент=sap_code))[:1].get()
+        print(bazaprofiley)  
         baza_profile_links[0].append(row['SAP код S4P 100'])
         baza_profile_links[1].append(bazaprofiley.data['Ссылка для чертежей'])
 
