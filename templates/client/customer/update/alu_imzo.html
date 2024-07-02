@@ -32,8 +32,6 @@
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Код цвета анодировки снаружи</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Код цвета анодировки внутри</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Контактность анодировки</th>
-                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Тип анодировки</th>
-                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Способ анодировки</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Код наклейки</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Надпись наклейки</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >База профилей</th>
@@ -48,7 +46,7 @@
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Код Цвета</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Краткий код Klaes</th>
                                 <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Место для комментариев</th>
-                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Длина при выходе из пресса</th>
+                                <!-- <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Длина при выходе из пресса</th> -->
                             </tr>
                             </thead>
                             <tbody id="table-artikul">
@@ -63,6 +61,14 @@
                 </form>
             </section>
            
+            <div  style="display: none;">
+                <select class="form-select" style="color: black; width: 80px; display: none;" id ='nakleyka_list' onchange="">
+                    <option value=""></option>
+                    {% for nak in nakleyka_list %}
+                    <option value="{{nak.name}}" data-nadpis="{{nak.nadpis}}">{{nak.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
             <section class="explore-section " id="section_2">
                 <div class="container">

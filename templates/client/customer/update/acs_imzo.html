@@ -230,7 +230,7 @@
         }).done(function (res) {
             console.log(res)
             if (res.status ==201){
-                // Swal.fire('Muvaafaqiyatli o\'zgartirildi.', '', 'success')
+                Swal.fire('Muvaafaqiyatli o\'zgartirildi.', '', 'success')
 
             }else{
                 console.log('aa')
@@ -241,11 +241,11 @@
     }else{
         
         if(!data_empty && !all_correct){
-            // Swal.fire({
-            //     icon: 'error',
-            //     title: 'Malumotlar to\'liq emas!!!',
-            //     text: 'Itimos ma\'lumotlarni to\'ldiring.',
-            // });
+            Swal.fire({
+                icon: 'error',
+                title: 'Malumotlar to\'liq emas!!!',
+                text: 'Itimos ma\'lumotlarni to\'ldiring.',
+            });
         }
     }
 

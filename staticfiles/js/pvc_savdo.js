@@ -1082,7 +1082,12 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="width: 75px; font-size:10px;display:none;height:32px " id='diller`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            
+            <select class="form-select" aria-label="" style="width: 75px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;" id='diller`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option value="1">Да</option>
+                <option value="0">Нет</option>
+            </select>
             </div>
         </td>
         <td >
@@ -1561,11 +1566,6 @@ function activate(i){
     icon.append('<i class="bi bi-award-fill"></i>')
 
 }
-
-
-
-
-
 
 
 function clear_artikul(id){
@@ -2103,8 +2103,6 @@ function tip_pokritiya_selected(id,val){
     
     create_kratkiy_tekst(id);
 }
-
-
 
 function svet_lamplonka_snaruji_selected(id,val){
     var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));

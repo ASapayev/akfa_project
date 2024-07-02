@@ -1116,7 +1116,11 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            
+            <select class="form-select" aria-label="" style="width: 75px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;" id='diller`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option value="1">Да</option>
+                <option value="0">Нет</option>
+            </select>
             </div>
         </td>
         <td >

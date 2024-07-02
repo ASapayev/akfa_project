@@ -37,7 +37,7 @@ class BasePokritiya{
   }
 
 
-  data_base = {}
+data_base = {}
 
 function front_piece(start=1,end=6){
     text =""

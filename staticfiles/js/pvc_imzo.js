@@ -910,12 +910,6 @@ function artukil_clear(id){
    
 }
 
-
-
-
-
-
-
 function tip_pokritiya_selected(id,val){
 
     var element33 = document.getElementById("table_tr"+id);

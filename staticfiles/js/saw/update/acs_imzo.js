@@ -45,211 +45,192 @@ class BasePokritiya{
 
 
 text =""
-data_base = {}
 var jsonData = JSON.parse(JSON.parse(document.getElementById('items-data').textContent)).data;
 
 
+data_base = {}
+var ii = 1
 for(var key1 in jsonData){
-    data_base[key1] = new BasePokritiya()
+    data_base[ii] = new BasePokritiya();
     for(var key2 in jsonData[key1]){
-        data_base[key1][key2] = jsonData[key1][key2]
+        console.log(jsonData[key1][key2],'llll')
+        data_base[ii][key2] = jsonData[key1][key2]
     }
+    ii += 1 
+}
+i = 0
+const lengthOfObject = Object.keys(jsonData).length;
+
+var order_type =$('#order_type').text()
+
+
+
+function front_piece(start=1,end=6){
+    text =""
+    for (let i = start; i < end; i++) {
+        text +=`
+        <tr id='table_tr` +String(i)+`' >                   
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style=" width: 75px; font-size:10px; " id='sapcode`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style=" width: 175px; font-size:10px; " id='nazvaniye_tovarov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="border-color:red; width: 175px; font-size:10px; " id='polnoye_nazvaniye`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; " id='sena_materiala`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; " id='bazoviy_edinitsa`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="border-color:red; width: 165px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" id='goods_group`+String(i)+`' required>
+                    <option  selected></option>
+                    <option value="QLIK_ACS" >Аксессуар</option>
+                    <option value="QLIK_CLR">Метал</option>
+                    <option value="QLIK_MDF">МДФ</option>
+                </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <div><span class ='tex_name` +String(i)+`' id ='tex_name` +String(i)+`'style="text-transform: uppercase;" style="font-size: 12px;"></span></div>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; " id='koefitsiyent`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; " id='alternativ_edin`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; " id='id_klaes`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; " id='gruppa_materialov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+            </div>
+        </td>
+        
+        </tr>`
+    }
+    return text
 }
 
-i = 0
-var order_type =$('#order_type').text()
-for (var key in jsonData) {
-    i+=1
-    text +=`
-    <tr id='table_tr` +String(i)+`' >                   
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style=" width: 75px; font-size:10px;height:32px " id='sapcode`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style=" width: 175px; font-size:10px;height:32px " id='nazvaniye_tovarov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="border-color:red; width: 175px; font-size:10px;height:32px " id='polnoye_nazvaniye`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;height:32px " id='sena_materiala`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;height:32px " id='bazoviy_edinitsa`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="border-color:red; width: 165px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" id='goods_group`+String(i)+`' required>
-                <option  selected></option>
-                <option value="QLIK_ACS" >Аксессуар</option>
-                <option value="QLIK_CLR">Метал</option>
-                <option value="QLIK_MDF">МДФ</option>
-              </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <div><span class ='tex_name` +String(i)+`' id ='tex_name` +String(i)+`'style="text-transform: uppercase;" style="font-size: 12px;"></span></div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px;height:32px " id='koefitsiyent`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px;height:32px " id='alternativ_edin`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px;height:32px " id='id_klaes`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px;height:32px " id='gruppa_materialov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
-        </div>
-    </td>
-    
-    </tr>`
-  }
-
+text = front_piece(start=1,end=lengthOfObject+1)
 
 
 var table = $('#table-artikul')
 
 table.append(text)
 
+var i = 1
+for(key in data_base){
+    copy_tr(key,i)
+    i += 1
+}
 
+function copy_tr(id,i){
+    if(!data_base[id]){
+        console.log('salom2222 copy')
+    }else{
+        var data = data_base[id]
+        var s = i
 
-
-
-
-
-i = 0
-
-for(var key in jsonData){
-    i+=1
-    
-    if(jsonData[i]['sapcode']){
-        $('#sapcode' +i).val(jsonData[i]['sapcode'])
-    }
-    if(jsonData[i]['nazvaniye_tovarov']){
-        $('#nazvaniye_tovarov' +i).val(jsonData[i]['nazvaniye_tovarov'])
-    }
-    if(jsonData[i]['polnoye_nazvaniye']){
-        $('#polnoye_nazvaniye'+i).css('border-color','#dedad9')
-        $('#polnoye_nazvaniye' +i).val(jsonData[i]['polnoye_nazvaniye'])
-    }
-    if(jsonData[i]['sena_materiala']){
-        $('#sena_materiala'+i).css('border-color','#dedad9')
-        $('#sena_materiala' +i).val(jsonData[i]['sena_materiala'])
-    }
-    if(jsonData[i]['bazoviy_edinitsa']){
-        $('#bazoviy_edinitsa'+i).css('border-color','#dedad9')
-        $('#bazoviy_edinitsa' +i).val(jsonData[i]['bazoviy_edinitsa'])
-    }
-
-    if(jsonData[i]['goods_group']){
-        $('#goods_group' +i).css('display','block')
-        $('#goods_group' +i).css('border-color','#dedad9')
-        $('#goods_group' +i).val(jsonData[i]['tex_name'])
-        $('#tex_name' +i).text(jsonData[i]['tex_name'])
-    }
-
-    if(jsonData[i]['koefitsiyent']){
-        $('#koefitsiyent' +i).val(jsonData[i]['koefitsiyent'])
-    }
-    if(jsonData[i]['alternativ_edin']){
-        $('#alternativ_edin' +i).val(jsonData[i]['alternativ_edin'])
-    }
-    if(jsonData[i]['id_klaes']){
-        $('#id_klaes' +i).val(jsonData[i]['id_klaes'])
+        var sapcode = data.sapcode;
+        var nazvaniye_tovarov = data.nazvaniye_tovarov;
+        var polnoye_nazvaniye = data.polnoye_nazvaniye;
+        var sena_materiala = data.sena_materiala;
+        var bazoviy_edinitsa = data.bazoviy_edinitsa;
+        var goods_group = data.goods_group;
+        var tex_name = data.tex_name;
+        var koefitsiyent = data.koefitsiyent;
+        var alternativ_edin = data.alternativ_edin;
+        var id_klaes = data.id_klaes;
+        var gruppa_materialov = data.gruppa_materialov;
+        var comment = data.comment;
+        
+      
+        
+        check_input_and_change(sapcode,'#sapcode'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(nazvaniye_tovarov,'#nazvaniye_tovarov'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(polnoye_nazvaniye,'#polnoye_nazvaniye'+s,dis=false,is_req=true,is_req_simple=false)
+        check_input_and_change(sena_materiala,'#sena_materiala'+s,dis=false,is_req=true,is_req_simple=false)
+        check_input_and_change(bazoviy_edinitsa,'#bazoviy_edinitsa'+s,dis=false,is_req=true,is_req_simple=false)
+        check_input_and_change(tex_name,'#goods_group'+s,dis=false,is_req=true,is_req_simple=false)
+        check_text_and_change(tex_name,'#tex_name'+s)
+        check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(alternativ_edin,'#alternativ_edin'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(id_klaes,'#id_klaes'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
+        
+        
+        
     }
 
-    if(jsonData[i]['gruppa_materialov']){
-        $('#gruppa_materialov' +i).val(jsonData[i]['gruppa_materialov'])
-    }
-    if(jsonData[i]['comment']){
-        $('#comment' +i).val(jsonData[i]['comment'])
-    }
 
 }
 
 
 
+function check_input_and_change(val,selector,dis=false,is_req=false,is_req_simple=false){
+    if(is_req){
+        
+        // $(selector).attr('disabled',false)
+        $(selector).css('display','block')
+        $(selector).css('border-color','red')
 
+    }
+    if(is_req_simple){
+        
+        // $(selector).attr('disabled',false)
+        $(selector).css('display','block')
+        $(selector).css('border-color','#dedad9')
 
-
-function clear_artikul(id){
-    var table_tr =$('#table_tr'+id);
-    
-    delete data_base[id]
-
-    
-    table_tr.css('background-color','white')
-    
+    }
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        // sel.attr('disabled',dis)
+        sel.css('display','block')
+        sel.css('border-color','#dedad9')
+        sel.val(val)
+        // console.log(val,typeof(val),selector)
+    }
     
 }
 
-function artukil_clear(id){
-    
-    clear_artikul(id)
-
-  
-    var sapcode =$('#sapcode'+id);
-    sapcode.val('')
-    var nazvaniye_tovarov =$('#nazvaniye_tovarov'+id);
-    nazvaniye_tovarov.val('')
-
-    var polnoye_nazvaniye =$('#polnoye_nazvaniye'+id);
-    polnoye_nazvaniye.val('')
-    polnoye_nazvaniye.css('border-color','red')
-    var sena_materiala =$('#sena_materiala'+id);
-    sena_materiala.val('')
-    sena_materiala.css('border-color','red')
-    var bazoviy_edinitsa =$('#bazoviy_edinitsa'+id);
-    bazoviy_edinitsa.val('')
-    bazoviy_edinitsa.css('border-color','red')
-    var goods_group =$('#goods_group'+id);
-    goods_group.val('')
-    goods_group.css('border-color','red')
-    
-    var tex_name =$('#tex_name'+id);
-    tex_name.text('')
-    var koefitsiyent =$('#koefitsiyent'+id);
-    koefitsiyent.val('')
-    var alternativ_edin =$('#alternativ_edin'+id);
-    alternativ_edin.val('')
-    var id_klaes =$('#id_klaes'+id);
-    id_klaes.val('')
-    var gruppa_materialov =$('#gruppa_materialov'+id);
-    gruppa_materialov.val('')
-    var comment =$('#comment'+id);
-    comment.val('')
-    
-
+function check_text_and_change(val,selector){
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        sel.css('display','block')
+        sel.text(val)
+    }
 }
-
-
-
 
 
 function create_kratkiy_tekst(id){
@@ -376,11 +357,3 @@ function create_kratkiy_tekst(id){
     }
     }
 }
-
-
-
-
-
-
-
-

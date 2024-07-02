@@ -111,7 +111,7 @@ class BasePokritiya{
 
 
 
-  function front_piece(start=1,end=6){
+function front_piece(start=1,end=6){
     text =""
 
     for (let i = start; i < end; i++) {

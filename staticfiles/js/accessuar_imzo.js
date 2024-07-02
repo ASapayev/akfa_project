@@ -46,6 +46,7 @@ class BasePokritiya{
 
 
 data_base = {}
+
 function front_piece(start=1,end=6){
     text =""
     for (let i = start; i < end; i++) {
@@ -191,7 +192,7 @@ function copy_tr(id){
         check_input_and_change(polnoye_nazvaniye,'#polnoye_nazvaniye'+s,dis=false,is_req=true,is_req_simple=false)
         check_input_and_change(sena_materiala,'#sena_materiala'+s,dis=false,is_req=true,is_req_simple=false)
         check_input_and_change(bazoviy_edinitsa,'#bazoviy_edinitsa'+s,dis=false,is_req=true,is_req_simple=false)
-        check_input_and_change(goods_group,'#goods_group'+s,dis=false,is_req=true,is_req_simple=false)
+        check_input_and_change(tex_name,'#goods_group'+s,dis=false,is_req=true,is_req_simple=false)
         check_text_and_change(tex_name,'#tex_name'+s)
         check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=false,is_req_simple=true)
         check_input_and_change(alternativ_edin,'#alternativ_edin'+s,dis=false,is_req=false,is_req_simple=true)
@@ -257,12 +258,6 @@ function add_column(){
 
 
 }
-
-
-
-
-
-
 
 
 

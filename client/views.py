@@ -119,14 +119,16 @@ class OrderSaveView(APIView):
         response = json.loads(data)
         artikules = []
         for key,val in response.items():
-            artikules.append(val['base_artikul'])
-            if val['segment'] =='no' and 'ALUMINIY SAVDO' == order_type:
-                response[key]['segment'] =''
-                baza_profiley = AluProfilesData.objects.filter(data__Артикул= val['base_artikul'])[:1].get()
+            if 'acs' not in order_type:
+                artikules.append(val['base_artikul'])
+            if 'segment' in val:
+                if val['segment'] =='no' and 'alu_savdo' == order_type:
+                    response[key]['segment'] =''
+                    baza_profiley = AluProfilesData.objects.filter(data__Артикул= val['base_artikul'])[:1].get()
 
-                if baza_profiley.data['Сегмент'] =='Нет сегмента' and str(response[key]['is_active'])=='false':
-                    baza_profiley.data['Сегмент'] = response[key]['segment']
-                    baza_profiley.save()
+                    if baza_profiley.data['Сегмент'] =='Нет сегмента' and str(response[key]['is_active'])=='false':
+                        baza_profiley.data['Сегмент'] = response[key]['segment']
+                        baza_profiley.save()
 
         try:
             issueKey = order_create_jira(order_name)
