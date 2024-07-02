@@ -484,7 +484,7 @@ for (var key in jsonData) {
     </td>
     <td >
         <div class="input-group input-group-sm mb-1">
-        <input type="text" class="form-control "  style='width:220px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="dilina_pressa`+String(i)+`" onchange="create_kratkiy_tekst(`+String(i)+`)" >
+        <input type="text" class="form-control "  style='width:220px;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="dilina_pressa`+String(i)+`" onchange="create_kratkiy_tekst(`+String(i)+`)" maxlength="4" >
         </div>
     </td>
     </tr>`
