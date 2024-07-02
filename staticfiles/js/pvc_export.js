@@ -556,14 +556,10 @@ function copy_tr(id){
         check_text_and_change_simple(artikul,'#artikul_pvc'+s)
         check_text_and_change_simple(nazvaniye_system,'.nazvaniye_system'+s)
         check_text_and_change_simple(camera,'#camera'+s)
+
+        console.log(kod_k_component,'kkkkkkkkk22222')
         check_text_and_change_simple(kod_k_component,'#kod_komponent'+s)
-         
-
-
-
-
-
-        
+    
         
         check_text_and_change(nazvaniye_system,'.nazvaniye_system'+s)
         check_input_and_change(id,'#tip_pokritiya'+s)
@@ -614,7 +610,7 @@ function copy_tr(id){
 
        
 
-       
+       console.log(data_base,'ldddddddddd')
         
         
     }
@@ -795,7 +791,7 @@ function clear_artikul(id){
         var base_artikul =$('#select2-artikul'+id+'-container').text()
         var nazvaniye_system = $('.nazvaniye_system'+id).text()
         var camera = $('#camera'+String(id)).text();
-        var kod_komponent = $('#kod_komponent'+String(id));
+        var kod_komponent = $('#kod_komponent'+String(id)).text();
         var artikul_pvc = $('#artikul_pvc'+String(id)).text();
         var iskyucheniye = $('#iskyucheniye'+String(id)).text();
         var is_special = $('#is_special'+String(id)).text();
@@ -982,6 +978,7 @@ function tip_pokritiya_selected(id,val){
         var nazvaniye_system = $('.nazvaniye_system'+id).text()
         var camera =$('#camera'+id).text()
         var kod_komponent =$('#kod_komponent'+id).text()
+        console.log(kod_komponent,'dddddddd')
         data_base[id].nazvaniye_system = nazvaniye_system;
         data_base[id].camera = camera;
         data_base[id].kod_k_component = kod_komponent;

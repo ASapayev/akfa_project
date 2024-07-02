@@ -764,7 +764,7 @@ function clear_artikul(id){
         var base_artikul =$('#select2-artikul'+id+'-container').text()
         var nazvaniye_system = $('.nazvaniye_system'+id).text()
         var camera = $('#camera'+String(id)).text();
-        var kod_komponent = $('#kod_komponent'+String(id));
+        var kod_komponent = $('#kod_komponent'+String(id)).text();
         var artikul_pvc = $('#artikul_pvc'+String(id)).text();
         var iskyucheniye = $('#iskyucheniye'+String(id)).text();
         var is_special = $('#is_special'+String(id)).text();

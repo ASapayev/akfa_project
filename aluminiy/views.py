@@ -2744,6 +2744,7 @@ def product_add_second_org(request,id):
       for key,razlov in df_new.iterrows():
             if razlov['SAP код 7']!="":
                   if not RazlovkaObichniy.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
+                        
                         RazlovkaObichniy(
                               esap_code =razlov['SAP код E'],
                               ekratkiy =razlov['Экструзия холодная резка'],
@@ -2768,6 +2769,7 @@ def product_add_second_org(request,id):
                         ).save()
             elif razlov['SAP код 75']!= '':
                   if not RazlovkaObichniy.objects.filter(sap_code75=razlov['SAP код 75'],kratkiy75=razlov['U-Упаковка + Готовая Продукция 75']).exists():
+                        
                         RazlovkaObichniy(
                               esap_code =razlov['SAP код E'],
                               ekratkiy =razlov['Экструзия холодная резка'],
@@ -2790,6 +2792,9 @@ def product_add_second_org(request,id):
                               sap_code75 =razlov['SAP код 75'],
                               kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
                         ).save()
+      
+      
+      
       for key,razlov in df_char.iterrows():
             if not Characteristika.objects.filter(sap_code=razlov['SAP CODE'],kratkiy_text=razlov['KRATKIY TEXT']).exists():
                   Characteristika(
@@ -2858,8 +2863,8 @@ def product_add_second_org(request,id):
                   ).save()
       exchange_value = ExchangeValues.objects.get(id=1)
       price_all_correct = True
-      # print('#*'*15)
-      # print(df_char_title)
+     
+
       for key, row in df_char_title.iterrows():
             if LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
                   length_of_profile = LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина'])[:1].get()
