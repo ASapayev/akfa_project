@@ -890,6 +890,7 @@ def checker_send_to_jira(id):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def order_update_all(request,id):
+   
     if request.method =='POST':
         data =request.POST.copy()
         owner =request.user
@@ -912,6 +913,7 @@ def order_update_all(request,id):
                                         })
             return redirect('client_order_list')
     else:
+        nakleyka_list = NakleykaCode.objects.all()
         order = Order.objects.get(id = id)
         order_details = OrderDetail.objects.filter(order = order)
         context ={
@@ -920,13 +922,15 @@ def order_update_all(request,id):
             'order_type':order.order_type,
             'data':json.dumps(order.data),
             'order_details':order_details,
-            'id':order.id   
+            'id':order.id,
+            'nakleyka_list': nakleyka_list    
         }
     return render(request,f'client/customer/update/{order.order_type}.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def order_update(request,id):
+    
     if request.method =='POST':
         order = Order.objects.get(id=id)
         data = request.POST.get('data',None)
@@ -942,6 +946,7 @@ def order_update(request,id):
             return JsonResponse({'status':405})
        
     else:
+        nakleyka_list = NakleykaCode.objects.all()
         order = Order.objects.get(id = id)
         order_details = OrderDetail.objects.filter(order = order)
         context ={
@@ -950,7 +955,8 @@ def order_update(request,id):
             'order_type':order.order_type,
             'data':json.dumps(order.data),
             'order_details':order_details,
-            'id':order.id   
+            'id':order.id,
+            'nakleyka_list': nakleyka_list   
         }
     return render(request,f'client/customer/update/{order.order_type}.html',context)
 
