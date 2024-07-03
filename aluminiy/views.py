@@ -1038,11 +1038,14 @@ def product_add_second_org(request,id):
                         export_name = row['Название export']
             else:
                   export_name = ''
-
-            if ((row['Название савдо'] == 'nan') or (row['Название савдо'] == '')):
-                  online_savdo_name = ''
+            
+            if 'Название савдо' in list(df.columns):
+                  if ((row['Название савдо'] == 'nan') or (row['Название савдо'] == '')):
+                        online_savdo_name = ''
+                  else:
+                        online_savdo_name = row['Название савдо']
             else:
-                  online_savdo_name = row['Название савдо']
+                  online_savdo_name =''
                   
             if df['Длина при выходе из пресса'][key] != 'nan' and df['Длина при выходе из пресса'][key].replace('.0','')!= row['Длина (мм)']:
                   dlina = df['Длина при выходе из пресса'][key].replace('.0','')

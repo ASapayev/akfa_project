@@ -31,8 +31,8 @@ class BasePokritiya{
         baza_profiley=NaN,
         gruppa_materialov=NaN,
         kratkiy_tekst=NaN,//done
-        sap_code_ruchnoy=NaN,//done
-        kratkiy_text_ruchnoy=NaN,//done
+        sap_code=NaN,//done
+        krat=NaN,//done
         nazvaniye_ruchnoy =NaN,
         comment=NaN,
         dilina_pressa =NaN,
@@ -70,8 +70,8 @@ class BasePokritiya{
         this.baza_profiley=baza_profiley;
         this.gruppa_materialov=gruppa_materialov;
         this.kratkiy_tekst=kratkiy_tekst;
-        this.sap_code_ruchnoy=sap_code_ruchnoy;
-        this.kratkiy_text_ruchnoy=kratkiy_text_ruchnoy;
+        this.sap_code=sap_code;
+        this.krat=krat;
         this.nazvaniye_ruchnoy=nazvaniye_ruchnoy;
         this.comment=comment;
         this.dilina_pressa =dilina_pressa;
@@ -700,12 +700,12 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:150px;'   aria-describedby="inputGroup-sizing-sm"  id="sap_code_ruchnoy`+String(i)+`"  onchange="create_kratkiy_tekst(`+String(i)+`)">           
+            <input type="text" class="form-control "  style='width:150px;'   aria-describedby="inputGroup-sizing-sm"  id="sap_code`+String(i)+`"  onchange="create_kratkiy_tekst(`+String(i)+`)">           
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:250px;'   aria-describedby="inputGroup-sizing-sm"  id="kratkiy_text_ruchnoy`+String(i)+`" onchange="create_kratkiy_tekst(`+String(i)+`)" >
+            <input type="text" class="form-control "  style='width:250px;'   aria-describedby="inputGroup-sizing-sm"  id="krat`+String(i)+`" onchange="create_kratkiy_tekst(`+String(i)+`)" >
             </div>
         </td>
         
@@ -920,8 +920,8 @@ function copy_tr(id){
 
         var kratkiy_tekst = data.kratkiy_tekst;
 
-        var sap_code_ruchnoy = data.sap_code_ruchnoy;
-        var kratkiy_text_ruchnoy = data.kratkiy_text_ruchnoy;
+        var sap_code = data.sap_code;
+        var krat = data.krat;
         
         var nazvaniye_ruchnoy = data.nazvaniye_ruchnoy
         var dilina_pressa = data.dilina_pressa
@@ -1040,8 +1040,8 @@ function copy_tr(id){
         
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
 
-        check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
-        check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_text_ruchnoy'+s)
+        check_input_and_change(sap_code,'#sap_code'+s)
+        check_input_and_change(krat,'#krat'+s)
 
 
 
@@ -1365,14 +1365,14 @@ function artukil_clear(id){
     var klaes_nazvaniye =$('#klaes_nazvaniye'+String(id))
     var code_sveta =$('#code_sveta'+String(id))
     var klaes_kratkiy =$('#klaes_kratkiy'+String(id))
-    var sap_code_ruchnoy =$('#sap_code_ruchnoy'+String(id))
-    var kratkiy_text_ruchnoy =$('#kratkiy_text_ruchnoy'+String(id))
+    var sap_code =$('#sap_code'+String(id))
+    var krat =$('#krat'+String(id))
     var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+String(id))
 
     nazvaniye_ruchnoy.text('')
     tex_name.text('')
-    kratkiy_text_ruchnoy.val('')
-    sap_code_ruchnoy.val('')
+    krat.val('')
+    sap_code.val('')
     goods_group.val('0').change();
     id_klaes.val('')
     klaes_nazvaniye.val('')
@@ -1383,8 +1383,8 @@ function artukil_clear(id){
     klaes_nazvaniye.css('border-color','red')
     code_sveta.css('border-color','red')
     klaes_kratkiy.css('border-color','red')
-    kratkiy_text_ruchnoy.css('display','none')
-    sap_code_ruchnoy.css('display','none')
+    krat.css('display','none')
+    sap_code.css('display','none')
     goods_group.css('display','none')
     id_klaes.css('display','none')
     klaes_nazvaniye.css('display','none')
@@ -1732,13 +1732,13 @@ function tip_pokritiya_selected(id,val){
         data_base[id].tip_zakalyonnosti = tip_zakalyonnosti.val()
         data_base[id].combination = combination.text()
 
-        var sap_code_ruchnoy =$('#sap_code_ruchnoy'+String(id))
-        var kratkiy_text_ruchnoy =$('#kratkiy_text_ruchnoy'+String(id))
+        var sap_code =$('#sap_code'+String(id))
+        var krat =$('#krat'+String(id))
     
-        kratkiy_text_ruchnoy.val('')
-        sap_code_ruchnoy.val('')
-        sap_code_ruchnoy.css('display','block')
-        kratkiy_text_ruchnoy.css('display','block')
+        krat.val('')
+        sap_code.val('')
+        sap_code.css('display','block')
+        krat.css('display','block')
     }
     
     create_kratkiy_tekst(id);
@@ -1844,25 +1844,25 @@ function create_kratkiy_tekst(id){
         nazvaniye_ruchnoy.css("border-color",'red');
     }
 
-    var sap_code_ruchnoy = $('#sap_code_ruchnoy'+String(id));
+    var sap_code = $('#sap_code'+String(id));
    
     
-    if(sap_code_ruchnoy.val()!='0' && sap_code_ruchnoy.val()!='' && sap_code_ruchnoy.val()!=null){
+    if(sap_code.val()!='0' && sap_code.val()!='' && sap_code.val()!=null){
         
-        data_base[id].sap_code_ruchnoy = sap_code_ruchnoy.val();
+        data_base[id].sap_code = sap_code.val();
     }else{
         
-        data_base[id].sap_code_ruchnoy = NaN;
+        data_base[id].sap_code = NaN;
     }
     
-    var kratkiy_text_ruchnoy = $('#kratkiy_text_ruchnoy'+String(id));
+    var krat = $('#krat'+String(id));
    
-    if(kratkiy_text_ruchnoy.val()!='0' && kratkiy_text_ruchnoy.val()!='' && kratkiy_text_ruchnoy.val()!=null){
+    if(krat.val()!='0' && krat.val()!='' && krat.val()!=null){
         
-        data_base[id].kratkiy_text_ruchnoy = kratkiy_text_ruchnoy.val();
+        data_base[id].krat = krat.val();
     }else{
         
-        data_base[id].kratkiy_text_ruchnoy = NaN;
+        data_base[id].krat = NaN;
     }
     
     
@@ -2193,19 +2193,19 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
         data: {'artikul':artikul,'kratkiy_tekst':kratkiy_tekst,'is_termo':is_termo},
     }).done(function (res) {
         if (res.status ==201){
-            var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
-            var kratkiy_text_ruchnoy = $('#kratkiy_text_ruchnoy'+id)
-            sap_code_ruchnoy.val(res.artikul)
-            kratkiy_text_ruchnoy.val(res.kratkiy_tekst)
-            sap_code_ruchnoy.css('background-color','orange')
-            kratkiy_text_ruchnoy.css('background-color','orange')
+            var sap_code = $('#sap_code'+id)
+            var krat = $('#krat'+id)
+            sap_code.val(res.artikul)
+            krat.val(res.kratkiy_tekst)
+            sap_code.css('background-color','orange')
+            krat.css('background-color','orange')
         }else{
-            var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
-            var kratkiy_text_ruchnoy = $('#kratkiy_text_ruchnoy'+id)
-            sap_code_ruchnoy.val('')
-            kratkiy_text_ruchnoy.val('')
-            sap_code_ruchnoy.css('background-color','white')
-            kratkiy_text_ruchnoy.css('background-color','white')
+            var sap_code = $('#sap_code'+id)
+            var krat = $('#krat'+id)
+            sap_code.val('')
+            krat.val('')
+            sap_code.css('background-color','white')
+            krat.css('background-color','white')
             console.log('aa')
         }
         // WON'T REDIRECT
