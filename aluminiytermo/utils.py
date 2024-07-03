@@ -2972,7 +2972,7 @@ def create_characteristika_utils(items):
         'ch_surface_treatment_export': df[51],
         'ch_artikul_old': df[52],
         'nazvaniye_export':df[53],
-        'online_savdo_name' :df[49],
+        'online_savdo_name' :df[54],
     }
     df_new = pd.DataFrame(dat)
     
