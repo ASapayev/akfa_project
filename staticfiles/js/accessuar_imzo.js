@@ -35,7 +35,7 @@ class BasePokritiya{
 
     }
     get_kratkiy_tekst(){
-                if (this.polnoye_nazvaniye && this.sena_materiala && this.bazoviy_edinitsa && this.goods_group){
+                if (this.polnoye_nazvaniye && this.sena_materiala && this.bazoviy_edinitsa && this.goods_group&& this.id_klaes){
                     return {'text':'','accept':true}
                 }else{
                     return {'text':'','accept':false}
@@ -121,7 +121,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="width: 75px; font-size:10px; " id='id_klaes`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; border-color:red; " id='id_klaes`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
@@ -196,7 +196,7 @@ function copy_tr(id){
         check_text_and_change(tex_name,'#tex_name'+s)
         check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=false,is_req_simple=true)
         check_input_and_change(alternativ_edin,'#alternativ_edin'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(id_klaes,'#id_klaes'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(id_klaes,'#id_klaes'+s,dis=false,is_req=true,is_req_simple=false)
         check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
         check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
         
@@ -346,11 +346,7 @@ function create_kratkiy_tekst(id){
     }else{
         data_base[id].gruppa_materialov =NaN;
     }
-    if(id_klaes.val()!=''){
-        data_base[id].id_klaes = id_klaes.val();
-    }else{
-        data_base[id].id_klaes =NaN;
-    }
+    
     if(alternativ_edin.val()!=''){
         data_base[id].alternativ_edin = alternativ_edin.val();
     }else{
@@ -373,6 +369,15 @@ function create_kratkiy_tekst(id){
     }
 
 
+    
+
+    if(id_klaes.val()!=''){
+        id_klaes.css('border-color','#dedad9')
+        data_base[id].id_klaes = id_klaes.val();
+    }else{
+        id_klaes.css('border-color','red')
+        data_base[id].id_klaes =NaN;
+    }
 
     var polnoye_nazvaniye =$('#polnoye_nazvaniye'+id)
 
