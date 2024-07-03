@@ -2887,7 +2887,7 @@ function create_kratkiy_tekst(id){
                     
                 }
                 else if(String(val) == '6'){
-                    buxgalter_tovar.val('')
+                    buxgalter_tovar.val('Термоуплотненный анодированный алюминиевый профиль (N)')
 
                 }
             }
