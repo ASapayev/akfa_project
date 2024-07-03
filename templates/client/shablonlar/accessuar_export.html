@@ -6,6 +6,7 @@
           
 
 
+
             <section class="topics-detail-section section-padding" id="topics-detail">
                 <form method="POST" id="basic_form" onsubmit="return validateForm()">
                     {%csrf_token%}
@@ -36,16 +37,25 @@
                
                 <div class="container ">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="d-flex justify-content-start p-2">
-                                <input type="button" class="btn btn-warning mr-2 btn-sm" value="Добавить" onclick="add_column()" id="add_column_btn" ><span class="m-1" >Тема:</span>
-                                <input  type="text"  id="theme" class="form-control " onkeyup="show_zagruska_btn()" style="height: 30px;">
+                                <input type="button" class="btn btn-warning mr-2 btn-sm" value="Добавить" onclick="add_column()" id="add_column_btn" >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-start p-2">
+                                <span class="m-1" style="font-weight: 700;" >Тема:</span>
+                                <input  type="text"  id="theme" class="form-control " onkeyup="show_zagruska_btn()" style="height: 30px;border-color:red">
                             </div>
                         </div>
                         
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="d-flex justify-content-end p-2">
-                                <span  class="btn btn-primary" value="" id="zagruzka_file" style="display: none;" onclick="ready_all()">Загрузить</span>
+                                <span  class="btn btn-primary" value="" id="zagruzka_file"  onclick="ready_all()">Загрузить</span>
+                                <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
+                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                    Loading...
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -67,11 +77,11 @@
 <script>
     function show_zagruska_btn(){
         var zagruzka_file =$('#zagruzka_file')
-        var theme =$('#theme').val()
-        if(theme !='' && theme!= undefined){
-            zagruzka_file.css('display','block')
+        var theme =$('#theme')
+        if(theme.val() !='' && theme.val()!= undefined){
+            theme.css('border-color','#dedad9')
         }else{
-            zagruzka_file.css('display','none')
+            theme.css('border-color','red')
         }
     }
 
@@ -80,70 +90,86 @@
     }
 
     function ready_all(){
-        var all_correct = true;
-        var data_empty = false
-        var dattt_len  = Object.keys(data_base).length
-        
-        for(let k =1; k<=dattt_len; k++){
-            if(data_base[k].polnoye_nazvaniye && data_base[k].sena_materiala && data_base[k].bazoviy_edinitsa){
-                continue;
-            }else{
-                delete data_base[k]
-            }
-        }
-        if (Object.keys(data_base).length === 0) {
-            data_empty = true
-        }
-        for (var key in data_base) {
-            if (data_base.hasOwnProperty(key)) { 
-                var value = data_base[key];
-                if(!value.full){
-                    all_correct=false
-                }
-            }
-        }
-
-        if (!data_empty && all_correct){
-            var json_data = JSON.stringify(data_base)
-            var url = "/client/order-save"
-            var theme =$('#theme').val()
-            var csrfToken = getCSRFToken();
-            var postData = {
-                'data': json_data,
-                'order_type':'acs_export',
-                'name':'ACCESSUAR EXPORT',
-                'order_name':theme
-            }
-            $.ajax({
-                type: 'POST',
-                url: url,
-                headers: { "X-CSRFToken": csrfToken },
-                data: postData,
-            }).done(function (res) {
-                console.log(res)
-                if (res.status ==201){
-                    Swal.fire('Qabul qilindi...', '', 'success')
-                setTimeout(function() {
-                    var url = '{%url "client_order_list" %}';
-                    window.location.href = url;
-                }, 750);
-
-                }else{
-                    console.log('aa')
-                }
-                // WON'T REDIRECT
-            });
-            
-        }else{
-            console.log(data_empty,all_correct)
-            if(!data_empty && !all_correct){
-                Swal.fire({
+        var theme =$('#theme')
+        if(theme.val() =='' || theme.val() == undefined){
+            Swal.fire({
                     icon: 'error',
-                    title: 'Malumotlar to\'liq emas!!!',
-                    text: 'Itimos ma\'lumotlarni to\'ldiring.',
+                    title: 'Iltimos zayavka mavzusini kiriting!!!',
                 });
+             
+        }else{
+
+            var all_correct = true;
+            var data_empty = false
+            var dattt_len  = Object.keys(data_base).length
+            
+            for(let k =1; k<=dattt_len; k++){
+                if(data_base[k].polnoye_nazvaniye && data_base[k].sena_materiala && data_base[k].bazoviy_edinitsa){
+                    continue;
+                }else{
+                    delete data_base[k]
+                }
+            }
+            if (Object.keys(data_base).length === 0) {
+                data_empty = true
+            }
+            for (var key in data_base) {
+                if (data_base.hasOwnProperty(key)) { 
+                    var value = data_base[key];
+                    if(!value.full){
+                        all_correct=false
+                    }
+                }
+            }
+    
+            if (!data_empty && all_correct){
+                var submit_btn = document.getElementById('zagruzka_file')
+                var upload_btn = document.getElementById('upload_btn')
+                upload_btn.style.display ='block';
+                submit_btn.style.display ='none';
+    
+                var json_data = JSON.stringify(data_base)
+                var url = "/client/order-save"
+                var theme =$('#theme').val()
+                var csrfToken = getCSRFToken();
+                var postData = {
+                    'data': json_data,
+                    'order_type':'acs_export',
+                    'name':'ACCESSUAR EXPORT',
+                    'order_name':theme
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    headers: { "X-CSRFToken": csrfToken },
+                    data: postData,
+                }).done(function (res) {
+                    console.log(res)
+                    if (res.status ==201){
+                        Swal.fire('Qabul qilindi...', '', 'success')
+                    setTimeout(function() {
+                        var url = '{%url "client_order_list" %}';
+                        window.location.href = url;
+                    }, 750);
+    
+                    }else{
+                        console.log('aa')
+                    }
+                    // WON'T REDIRECT
+                });
+                
+            }else{
+                console.log(data_empty,all_correct)
+                if(!data_empty && !all_correct){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Malumotlar to\'liq emas!!!',
+                        text: 'Itimos ma\'lumotlarni to\'ldiring.',
+                    });
+                }
             }
         }
+        
 
    
 }
