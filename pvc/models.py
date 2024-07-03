@@ -74,6 +74,7 @@ class ArtikulKomponentPVC(models.Model):
   profile_type = models.CharField(max_length = 50,blank=True,null=True)
   iskyucheniye = models.CharField(max_length =5,blank=True,null=True,default='0')
   is_special = models.SmallIntegerField(default=0,blank=True,null=True)
+  nakleyka_nt1 = models.CharField(max_length =5,blank=True,null=True,default='0')
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 
