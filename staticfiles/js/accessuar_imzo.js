@@ -35,7 +35,7 @@ class BasePokritiya{
 
     }
     get_kratkiy_tekst(){
-                if (this.polnoye_nazvaniye && this.sena_materiala && this.bazoviy_edinitsa && this.goods_group&& this.id_klaes){
+                if (this.polnoye_nazvaniye && this.sena_materiala && this.bazoviy_edinitsa && this.goods_group&& this.id_klaes && this.nazvaniye_tovarov){
                     return {'text':'','accept':true}
                 }else{
                     return {'text':'','accept':false}
@@ -71,12 +71,12 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 75px; font-size:10px; " id='sapcode`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 125px; font-size:10px; " id='sapcode`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 175px; font-size:10px; " id='nazvaniye_tovarov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 175px; font-size:10px; border-color:red" id='nazvaniye_tovarov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
@@ -188,7 +188,7 @@ function copy_tr(id){
       
         
         check_input_and_change(sapcode,'#sapcode'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(nazvaniye_tovarov,'#nazvaniye_tovarov'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(nazvaniye_tovarov,'#nazvaniye_tovarov'+s,dis=false,is_req=true,is_req_simple=false)
         check_input_and_change(polnoye_nazvaniye,'#polnoye_nazvaniye'+s,dis=false,is_req=true,is_req_simple=false)
         check_input_and_change(sena_materiala,'#sena_materiala'+s,dis=false,is_req=true,is_req_simple=false)
         check_input_and_change(bazoviy_edinitsa,'#bazoviy_edinitsa'+s,dis=false,is_req=true,is_req_simple=false)
@@ -278,6 +278,7 @@ function artukil_clear(id){
     var sapcode =$('#sapcode'+id);
     sapcode.val('')
     var nazvaniye_tovarov =$('#nazvaniye_tovarov'+id);
+    nazvaniye_tovarov.css('border-color','red')
     nazvaniye_tovarov.val('')
 
     var polnoye_nazvaniye =$('#polnoye_nazvaniye'+id);
@@ -301,6 +302,7 @@ function artukil_clear(id){
     alternativ_edin.val('')
     var id_klaes =$('#id_klaes'+id);
     id_klaes.val('')
+    id_klaes.css('border-color','red')
     var gruppa_materialov =$('#gruppa_materialov'+id);
     gruppa_materialov.val('')
     var comment =$('#comment'+id);
@@ -357,11 +359,7 @@ function create_kratkiy_tekst(id){
     }else{
         data_base[id].koefitsiyent =NaN;
     }
-    if(nazvaniye_tovarov.val()!=''){
-        data_base[id].nazvaniye_tovarov = nazvaniye_tovarov.val();
-    }else{
-        data_base[id].nazvaniye_tovarov =NaN;
-    }
+    
     if(sapcode.val()!=''){
         data_base[id].sapcode = sapcode.val();
     }else{
@@ -370,6 +368,14 @@ function create_kratkiy_tekst(id){
 
 
     
+
+    if(nazvaniye_tovarov.val()!=''){
+        nazvaniye_tovarov.css('border-color','#dedad9')
+        data_base[id].nazvaniye_tovarov = nazvaniye_tovarov.val();
+    }else{
+        nazvaniye_tovarov.css('border-color','red')
+        data_base[id].nazvaniye_tovarov =NaN;
+    }
 
     if(id_klaes.val()!=''){
         id_klaes.css('border-color','#dedad9')
