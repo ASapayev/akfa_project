@@ -448,8 +448,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
 
-            <div class="d-flex flex-row">
-                <div class="p-2"><div class="dropdown">
+                <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <span id='icon_btn`+String(i)+`'><i class="bi bi-three-dots-vertical"></i></span>
                         </button>
@@ -459,11 +458,7 @@ function front_piece(start=1,end=6){
                             <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
                             <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
                         </ul>
-                    </div>
                 </div>
-            
-            </div>
-   
                 
             </div>
         </td>
@@ -832,14 +827,14 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1" >
             <div id='anod`+String(i)+`' class='anood'  style="width: 75px;border-color:red; display:none;" >
-                <select class="form-select kod_anod_snar" aria-label="" style=" width: 100px; border-color:#fc2003;!important; display:none" onchange="code_svet_anodirovki_snaruji_selected(`+String(i)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(i)+`' required></select>         
+                <select class="form-select kod_anod_snar`+String(i)+`" aria-label="" style=" width: 100px; border-color:#fc2003;!important;" onchange="code_svet_anodirovki_snaruji_selected(`+String(i)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(i)+`' required></select>         
             </div>          
             </div>
         </td> 
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 60px;">
             <div id='anod_vnutr`+String(i)+`'  style="width: 75px;display:none;border-color:red;">
-                <select class="form-select kod_anod_vnutri" aria-label="" style="width: 75px;border-color:#fc2003;margin-right:15px;" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='code_svet_anodirovki_vnutr`+String(i)+`' required></select>       
+                <select class="form-select kod_anod_vnutri`+String(i)+`" aria-label="" style="width: 75px;border-color:#fc2003;margin-right:15px;" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='code_svet_anodirovki_vnutr`+String(i)+`' required></select>       
             </div>
             </div>
         </td> 
@@ -1231,7 +1226,6 @@ function request_piece(start=1,end=6){
             nakleyka_codd.text(nakleyka_kode)
 
             if(!data_base[i]){
-                console.log('111 com')
                 var nakleyka_codd = $('#nakleyka_codd'+String(i))
                 nakleyka_codd.text(nakleyka_kode)
                 nakleyka.css('display','block')
@@ -1241,10 +1235,8 @@ function request_piece(start=1,end=6){
                 var nadpisValue = selectedOption.data('nadpis');
                 nadpis_nakleyki.text(nadpisValue)
             }else{
-                console.log('222 com')
                 var pokritiya = data_base[i].id
                 if(pokritiya == 1 || pokritiya =='1'){
-                    console.log('222 com 222','pokrrr1')
                     nakleyka.css('display','block')
                     nakleyka.val('NT1')
                     nadpis_nakleyki.text('БЕЗ НАКЛЕЙКИ')
@@ -1465,8 +1457,6 @@ function copy_tr(id){
         }
         else if(id ==6){
             
-
-            
             check_for_valid_and_set_val_select(kod_anod_sn,'code_svet_anodirovki_snaruji'+ s)
 
             check_input_and_change(contactnost_anod,'#contactnost_anodirovki'+s,dis=false,is_req=true)
@@ -1660,8 +1650,9 @@ function activate(i){
 
 
 
-function get_anod(termo=false){
-    $('.kod_anod_snar').select2({
+function get_anod(id,termo=false){
+    $('#anod'+id).css('display','block')
+    $('.kod_anod_snar'+id).select2({
         ajax: {
             url: "/client/client-anod-list",
             dataType: 'json',
@@ -1674,7 +1665,8 @@ function get_anod(termo=false){
         }
         });
     if (termo){
-        $('.kod_anod_vnutri').select2({
+        $('#anod_vnutr'+id).css('display','block')
+        $('.kod_anod_vnutri'+id).select2({
             ajax: {
                 url: "/client/client-anod-list",
                 dataType: 'json',
@@ -1978,14 +1970,16 @@ function tip_pokritiya_selected(id,val){
     
     
     var select_anod_snar = $('#anod'+String(id));
-    select_anod_snar.children("span").css('display','none');
+    select_anod_snar.css('display','none');
+    // select_anod_snar.children("span").css('display','none');
 
     var dlina =$('#length'+String(id));
     dlina.attr("disabled",false);
     dlina.css("border-color",'#fc2003');
 
     var select_anod_vnut = $('#anod_vnutr'+String(id));
-    select_anod_vnut.children("span").css('display','none');
+    select_anod_vnut.css('display','none');
+    // select_anod_vnut.children("span").css('display','none');
     
     var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
     var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
@@ -2257,8 +2251,9 @@ function tip_pokritiya_selected(id,val){
             code_svet_anodirovki_vnutri.attr("disabled",false);
             code_svet_anodirovki_vnutri.attr("required",true);
             code_svet_anodirovki_vnutri.css("border-color",'#fc2003');
-
+            
         }else{
+            
             get_anod(id,termo=false)
             
         }

@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.http import JsonResponse
-from aluminiy.models import AluProfilesData,AluFile,AluminiyProduct,LengthOfProfile
+from aluminiy.models import AluProfilesData,AluFile,AluminiyProduct,LengthOfProfile,BrendKraska
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile,PVCProduct
 from .models import Anod,Order,OrderDetail
 from django.contrib.auth.decorators import login_required
@@ -1263,6 +1263,18 @@ def nakleyka_list(request):
         nakleyka_l = NakleykaCode.objects.all().distinct("name").values('id','name','nadpis')
         
     return JsonResponse(list(nakleyka_l),safe=False)
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def brend_list(request):
+    
+    term = request.GET.get('term',None)
+    if term:
+        brend_kraska = BrendKraska.objects.filter(brend__icontains = term).distinct("brend").values('id','brend','kraska')
+    else:
+        brend_kraska = BrendKraska.objects.all().distinct("name").values('id','brend','kraska')
+        
+    return JsonResponse(list(brend_kraska),safe=False)
 
 @login_required(login_url='/accounts/login/')
 @customer_only

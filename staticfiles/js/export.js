@@ -643,14 +643,14 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 75px;">
             <div id='anod`+String(i)+`' class='anood'  style="width: 75px;border-color:red; display:none;" >
-                <select class="form-select kod_anod_snar" aria-label="" style=" width: 100px; border-color:#fc2003;!important; display:none" onchange="code_svet_anodirovki_snaruji_selected(`+String(i)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(i)+`' required></select>         
+                <select class="form-select kod_anod_snar`+String(i)+`" aria-label="" style=" width: 100px; border-color:#fc2003;!important;" onchange="code_svet_anodirovki_snaruji_selected(`+String(i)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(i)+`' required></select>         
             </div>            
             </div>
         </td> 
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 75px;">
             <div id='anod_vnutr`+String(i)+`'  style="width: 75px;display:none;border-color:red;">
-                <select class="form-select kod_anod_vnutri" aria-label="" style="width: 75px;border-color:#fc2003;margin-right:15px;" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='code_svet_anodirovki_vnutr`+String(i)+`' required></select>       
+                <select class="form-select kod_anod_vnutri`+String(i)+`" aria-label="" style="width: 75px;border-color:#fc2003;margin-right:15px;" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='code_svet_anodirovki_vnutr`+String(i)+`' required></select>       
             </div>
             </div>
         </td> 
@@ -1120,8 +1120,9 @@ function add_column(){
 }
 
 
-function get_anod(termo=false){
-    $('.kod_anod_snar').select2({
+function get_anod(id,termo=false){
+    $('#anod'+id).css('display','block')
+    $('.kod_anod_snar'+id).select2({
         ajax: {
             url: "/client/client-anod-list",
             dataType: 'json',
@@ -1134,7 +1135,8 @@ function get_anod(termo=false){
         }
         });
     if (termo){
-        $('.kod_anod_vnutri').select2({
+        $('#anod_vnutr'+id).css('display','block')
+        $('.kod_anod_vnutri'+id).select2({
             ajax: {
                 url: "/client/client-anod-list",
                 dataType: 'json',

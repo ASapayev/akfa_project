@@ -125,3 +125,10 @@ class AluFileBazaprofiles(models.Model):
   file_type =models.CharField(max_length=255,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
+
+
+class BrendKraska(models.Model):
+  brend = models.CharField(max_length=10,blank=True,null=True)  
+  kraska = models.CharField(max_length=5,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)  
