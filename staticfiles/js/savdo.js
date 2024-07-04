@@ -447,18 +447,33 @@ function front_piece(start=1,end=6){
                                     
         <td >
             <div class="input-group input-group-sm mb-1">
-   
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span id='icon_btn`+String(i)+`'><i class="bi bi-three-dots-vertical"></i></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li style='cursor:pointer;font-size:14px'id='create_btn`+String(i)+`' data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi' data-bs-content='this is bots content'><a class="dropdown-item" onclick="create(`+String(i)+`)" >     <i class="bi bi-plus-circle mr-2"></i>Создание</a></li>
-                        <li style='cursor:pointer;font-size:14px'id='activate_btn`+String(i)+`'><a class="dropdown-item" onclick="activate(`+String(i)+`)" > <i class="bi bi-award-fill mr-2"></i>Активация</a></li>
-                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
-                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
-                    </ul>
+
+            <div class="d-flex flex-row">
+                <div class="p-2"><div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span id='icon_btn`+String(i)+`'><i class="bi bi-three-dots-vertical"></i></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li style='cursor:pointer;font-size:14px'id='create_btn`+String(i)+`' data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi' data-bs-content='this is bots content'><a class="dropdown-item" onclick="create(`+String(i)+`)" >     <i class="bi bi-plus-circle mr-2"></i>Создание</a></li>
+                            <li style='cursor:pointer;font-size:14px'id='activate_btn`+String(i)+`'><a class="dropdown-item" onclick="activate(`+String(i)+`)" > <i class="bi bi-award-fill mr-2"></i>Активация</a></li>
+                            <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
+                            <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
+                        </ul>
+                    </div>
                 </div>
+            <div class="p-1">
+                <button type="button" class="btn btn-warning btn-sm">
+                    <img src="/static/assets/images/square-a.png" alt="" style='heght:25px;width:25px' class="scr">
+                </button>
+            </div>
+            <div class="p-1">
+                <button type="button" class="btn btn-info btn-sm">
+                    <img src="/static/assets/images/square-c.png" alt="" style='heght:25px;width:25px' class="scr">
+                </button>
+            </div>
+            </div>
+   
+                
             </div>
         </td>
         <td >
