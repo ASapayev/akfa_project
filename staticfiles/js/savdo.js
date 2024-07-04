@@ -461,16 +461,7 @@ function front_piece(start=1,end=6){
                         </ul>
                     </div>
                 </div>
-            <div class="p-1">
-                <button type="button" class="btn btn-warning btn-sm">
-                    <img src="/static/assets/images/square-a.png" alt="" style='heght:25px;width:25px' class="scr">
-                </button>
-            </div>
-            <div class="p-1">
-                <button type="button" class="btn btn-info btn-sm">
-                    <img src="/static/assets/images/square-c.png" alt="" style='heght:25px;width:25px' class="scr">
-                </button>
-            </div>
+            
             </div>
    
                 
