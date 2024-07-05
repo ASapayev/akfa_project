@@ -36,6 +36,11 @@
   <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
   <script src="{% static 'js/all.js'%}"></script>
 
+  <!-- <link rel="stylesheet" href="{% static 'chosen/docsupport/style.css'%}"> -->
+  <!-- <link rel="stylesheet" href="{% static 'chosen/docsupport/prism.css'%}"> -->
+  <link rel="stylesheet" href="{% static 'chosen/chosen.css'%}">
+  
+ 
 <style>
     td.custom-width {
     width: 200px;
@@ -75,6 +80,42 @@
     button{
         font-size: 12px;
     }
+
+.chosen-container {
+    background-color: #f2f2f2;
+    width: 75px!important;
+    /* border: 1px solid #ccc; */
+    /*  border-radius: 5px; */
+    
+}
+/* #nakleyka_select1 > div */
+
+/* Change font size and color of the selected option */
+.chosen-single {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Change font size and color of options in the dropdown */
+.chosen-results li {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Change the background color of the dropdown */
+.chosen-drop {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Customize the search input within Chosen */
+.chosen-search input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
     
 </style>
     </head>
@@ -91,7 +132,12 @@
             {%include 'client/includes/footer.html'%}
           
 
-        <!-- JAVASCRIPT FILES -->
+        JAVASCRIPT FILES
+        <script src="{%     static 'chosen/docsupport/jquery-3.2.1.min.js'%}" type="text/javascript"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+        <script src="{%     static 'chosen/docsupport/prism.js'%}" type="text/javascript" charset="utf-8"></script>
+        <script src="{%     static 'chosen/docsupport/init.js'%}" type="text/javascript" charset="utf-8"></script>
+        
         <script src="{% static 'assets/js/jquery.min.js'%}"></script>
         <script src="{%     static 'assets/js/bootstrap.bundle.min.js'%}"></script>
         <script src="{% static 'assets/js/jquery.sticky.js'%}"></script>

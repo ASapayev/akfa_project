@@ -1208,7 +1208,11 @@ def shablon_acs_export_savdo_detail(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_pvc_export_detail(request):
-    return render(request,'client/shablonlar/pvc_imzo.html')
+    nakleyka_list = NakleykaCode.objects.all().values_list('name','nadpis')
+    context ={
+        'nakleyka_list':json.dumps(list(nakleyka_list))
+    }
+    return render(request,'client/shablonlar/pvc_imzo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
@@ -1243,9 +1247,9 @@ def pvc_artikul_list(request):
     
     term = request.GET.get('term',None)
     if term:
-        artikules = ArtikulKomponentPVC.objects.filter(artikul__icontains = term).values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component','iskyucheniye','is_special')
+        artikules = ArtikulKomponentPVC.objects.filter(artikul__icontains = term).values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component','iskyucheniye','is_special','nakleyka_nt1')
     else:
-        artikules = ArtikulKomponentPVC.objects.all()[:50].values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component','iskyucheniye','is_special')
+        artikules = ArtikulKomponentPVC.objects.all()[:50].values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component','iskyucheniye','is_special','nakleyka_nt1')
     return JsonResponse(list(artikules),safe=False)
 
 
@@ -1267,14 +1271,14 @@ def nakleyka_list(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def brend_list(request):
-    
     term = request.GET.get('term',None)
     if term:
         brend_kraska = BrendKraska.objects.filter(brend__icontains = term).distinct("brend").values('id','brend','kraska')
     else:
         brend_kraska = BrendKraska.objects.all().distinct("name").values('id','brend','kraska')
-        
     return JsonResponse(list(brend_kraska),safe=False)
+
+
 
 @login_required(login_url='/accounts/login/')
 @customer_only
