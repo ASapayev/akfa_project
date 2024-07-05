@@ -43,6 +43,7 @@
                                 <th scope="col" style="font-size: 14px;">Упаковка ламинации</th>
                                 <th scope="col" style="font-size: 14px;">Упаковка pvc</th>
                                 <th scope="col" style="font-size: 14px;">Длинный название</th>
+                                <th scope="col" style="font-size: 14px;">Наклейка NT1</th>
                               </tr>
                             </thead>
                             <tbody id="table-artikul">
@@ -84,7 +85,8 @@ class BasePokritiya{
         is_special=NaN,
         kamera_lam=NaN,
         kamera_pvx=NaN,
-        dlinniy_naz=NaN
+        dlinniy_naz=NaN,
+        nakleykant1_=NaN
         ) {
             this.full=full,
             this.id =id,
@@ -105,7 +107,8 @@ class BasePokritiya{
             this.is_special =is_special,
             this.kamera_lam =kamera_lam,
             this.kamera_pvx =kamera_pvx,
-            this.dlinniy_naz =dlinniy_naz
+            this.dlinniy_naz =dlinniy_naz,
+            this.nakleykant1_ =nakleykant1_
     }
     
 }
@@ -282,6 +285,13 @@ class BasePokritiya{
                                     <td >
                                         <input type="textarea" class="form-control "   style='width:250px;height: 25px;'  aria-describedby="inputGroup-sizing-sm" name ='dlinniy_naz`+String(i)+`' onkeyup='create_baza(`+String(i)+`)' id="dlinniy_naz`+String(i)+`"  >
                                     </td>
+                                    <td >
+                                        <select class="form-select" aria-label="" style="width: 70px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange='create_baza(`+String(i)+`)' id='nakleykant1_`+String(i)+`' required>
+                                            <option  selected></option>
+                                            <option value="1" >Да</option>
+                                            <option value="0">Нет</option>
+                                        </select>
+                                    </td>
                                 </tr>`
 
         
@@ -299,7 +309,7 @@ class BasePokritiya{
         }
         check_full(id)
     }
-    var zagolovok =['nazvaniye_system','artikul','komponent','сategoriya','visota','shirina','tip_profiley','product_type','tnved','wms_visota','wms_shirina','kamera','kod_k_component','isklyucheniye','is_special','kamera_lam','kamera_pvx','dlinniy_naz']
+    var zagolovok =['nazvaniye_system','artikul','komponent','сategoriya','visota','shirina','tip_profiley','product_type','tnved','wms_visota','wms_shirina','kamera','kod_k_component','isklyucheniye','is_special','kamera_lam','kamera_pvx','dlinniy_naz','nakleykant1_']
 
     function check_full(id){
         var ch_full = true;
@@ -367,7 +377,7 @@ class BasePokritiya{
                 console.log(res)
                 if (res.status ==201){
                     Swal.fire('Qabul qilindi...', '', 'success')
-
+                    window.location.href='/'
                 }else{
                     Swal.fire('Something went wrong...', '', 'info')
                 }

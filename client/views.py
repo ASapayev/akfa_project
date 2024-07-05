@@ -1222,12 +1222,20 @@ def shablon_akp_savdo_detail(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_pvc_savdo_detail(request):
-    return render(request,'client/shablonlar/pvc_savdo.html')
+    nakleyka_list = NakleykaCode.objects.all().values_list('name','nadpis')
+    context ={
+        'nakleyka_list':json.dumps(list(nakleyka_list))
+    }
+    return render(request,'client/shablonlar/pvc_savdo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_pvc_export_savdo_detail(request):
-    return render(request,'client/shablonlar/pvc_export.html')
+    nakleyka_list = NakleykaCode.objects.all().values_list('name','nadpis')
+    context ={
+        'nakleyka_list':json.dumps(list(nakleyka_list))
+    }
+    return render(request,'client/shablonlar/pvc_export.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only

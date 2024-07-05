@@ -170,6 +170,7 @@ function front_piece(start=1,end=6){
             <span style='display:none' id='artikul_pvc` +String(i)+`'></span>
             <span style='display:none' id='iskyucheniye` +String(i)+`'></span>
             <span style='display:none' id='is_special` +String(i)+`'></span>
+            <span style='display:none' id='nakleyka_nt1` +String(i)+`'></span>
         </td>
         
         
@@ -217,7 +218,7 @@ function front_piece(start=1,end=6){
 
         <td >
             <div class="input-group input-group-sm mb-1">    
-            <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
+            <select class="form-select " aria-label="" style="width: 220px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
                 <option  value="" selected></option>
                 <option value="0027">Золотой дуб IW</option>
                 <option value="0300">Дуб мокко IW</option>
@@ -370,7 +371,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
             <div id='nakleyka_select`+String(i)+`' class='nak_select`+String(i)+`' style='display:none;'>
-                <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 145px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
+                <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 145px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)" data-placeholder="..."></select>
             </div>
             </div>
         </td>
@@ -451,7 +452,7 @@ function request_piece(start=1,end=6){
                 dataType: 'json',
                 processResults: function(data){
                     return {results: $.map(data, function(item){
-                        return {id:item.id,text:item.artikul,component:item.component2,system:item.nazvaniye_sistem,camera:item.camera,kod_k_component:item.kod_k_component,iskyucheniye:item.iskyucheniye,is_special:item.is_special}
+                        return {id:item.id,text:item.artikul,component:item.component2,system:item.nazvaniye_sistem,camera:item.camera,kod_k_component:item.kod_k_component,iskyucheniye:item.iskyucheniye,is_special:item.is_special,nakleyka_nt1:item.nakleyka_nt1}
                     })
                 };
                 }
@@ -486,6 +487,8 @@ function request_piece(start=1,end=6){
             var iskyucheniye = $('#iskyucheniye'+String(i));
             var tip_pokritiya = $('#tip_pokritiya'+String(i));
             var is_special = $('#is_special'+String(i));
+            var nakleyka_nt1 = $('#nakleyka_nt1'+String(i));
+            var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i));
             tip_pokritiya.attr("disabled",false);
             is_special.text(e.params.data.is_special);
             nazvaniye_system.text(e.params.data.system);
@@ -494,6 +497,15 @@ function request_piece(start=1,end=6){
             camera.text(e.params.data.camera)
             kod_komponent.text(e.params.data.kod_k_component)
             
+            if(e.params.data.nakleyka_nt1 =='1'){
+                nakleyka_nt1.text('1')
+                set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='NT1')
+                nadpis_nakleyki.text('Без наклейки')
+            }else{
+                nakleyka_nt1.text('')
+                set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='')
+                nadpis_nakleyki.text('')
+            }
         
             var nakleyka_select = $('#nakleyka_select'+String(i));
 
@@ -501,7 +513,7 @@ function request_piece(start=1,end=6){
             length.attr('required',true)
             nakleyka_select.css('display','block')
             nakleyka_select.attr('required',true)
-            get_nakleyka(String(i))
+           
 
             if(data_base[i]){
                 clear_artikul(i)
@@ -511,6 +523,10 @@ function request_piece(start=1,end=6){
 
     }
 }
+
+
+
+
 
 request_piece()
 
@@ -635,7 +651,10 @@ function copy_tr(id){
        
         nakleyka_select.css('display','block')
         nakleyka_select.attr('required',true)
-        get_nakleyka(String(s))
+        set_nakleyka(nakleyka_list,'.kod_nakleyki'+s,value=kod_nakleyki)
+        check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
+
+        // get_nakleyka(String(s))
 
         check_input_and_change(tex_name,'#goods_group'+s,dis=false,is_req=true,is_req_simple=false)
         check_text_and_change(tex_name,'#tex_name'+s)
@@ -652,7 +671,7 @@ function copy_tr(id){
 
 
        
-        check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s)
+        // check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s)
 
        
         
@@ -737,24 +756,8 @@ function add_column(){
 
 }
 
-function get_nakleyka(i){
-    $('.kod_nakleyki'+i).select2({
-        ajax: {
-            url: "/client/nakleyka-list-pvc",
-            dataType: 'json',
-            processResults: function(data){
-                return {results: $.map(data, function(item){
-                    return {id:item.name,text:item.nadpis,nadpis:item.name}
-                })
-            };
-            }
-        }
-        });
-        $(".kod_nakleyki"+String(i)).on("select2:select", function (e) { 
-            var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i));
-            nadpis_nakleyki.text(e.params.data.nadpis);
-            })
-}
+
+
 
 
 
@@ -939,6 +942,7 @@ function tip_pokritiya_selected(id,val){
     
    
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
+    var kod_nakleyki =$('.kod_nakleyki'+id)
     kratkiy_tekst.text("");
 
 
@@ -967,7 +971,18 @@ function tip_pokritiya_selected(id,val){
 
     var nakleyka_select = $('#nakleyka_select'+String(id));
     nakleyka_select.css('display','block');
-    get_nakleyka(id)
+    var nakleyka_nt1 = $('#nakleyka_nt1'+String(id));
+    if(nakleyka_nt1.text()==''){
+        set_nakleyka(nakleyka_list,'.kod_nakleyki'+id,value='')
+        nadpis_nakleyki.text('')
+    }else{
+        set_nakleyka(nakleyka_list,'.kod_nakleyki'+id,value='NT1')
+        nadpis_nakleyki.text('Без наклейки')
+    }
+
+    
+
+    // get_nakleyka(id)
 
     
     var iskyucheniye =$('#iskyucheniye'+id).text()
@@ -996,8 +1011,10 @@ function tip_pokritiya_selected(id,val){
         goods_group.val('')
         goods_group.css('display','block');
 
-        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-        spanss.style.borderColor='red';
+        // const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
+        // spanss.style.borderColor='red';
+        kod_nakleyki.css('border-color','red')
+
         
         if(iskyucheniye =='1'){
             data_base[id].is_iklyuch=true
@@ -1026,8 +1043,9 @@ function tip_pokritiya_selected(id,val){
         var nazvaniye_svet_zames = $('#nazvaniye_svet_zames'+String(id));
         nazvaniye_svet_zames.attr("disabled",false);
         nazvaniye_svet_zames.css("border-color",'#fc2003');
-        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-        spanss.style.borderColor='red';
+        // const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
+        // spanss.style.borderColor='red';
+        kod_nakleyki.css('border-color','red')
 
         var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
         kod_svet_rezini.val('')
@@ -1037,6 +1055,7 @@ function tip_pokritiya_selected(id,val){
         svet_lamplonka_snaruji.attr("disabled",false);
         svet_lamplonka_snaruji.attr("required",true);
         svet_lamplonka_snaruji.css("border-color",'#fc2003');
+        
         
 
         var is_special = $('#is_special'+String(id)).text();
@@ -1237,40 +1256,22 @@ function create_kratkiy_tekst(id){
 
     
 
-    if(String(val) == '1'){
-
-        const spanss = document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-        var value_nak = document.querySelector('.kod_nakleyki'+String(id))
-        var nadpis_nak= $('.kod_nakleyki'+String(id)+' option:selected').text()
-        if(value_nak.value !=''){
-            spanss.style.borderColor='#dedad9';
-            data_base[id].kod_nakleyki = value_nak.value;
-            data_base[id].nadpis_nakleyki = nadpis_nak;
-            
-        }else{
-            data_base[id].kod_nakleyki = NaN
-            data_base[id].nadpis_nakleyki = NaN;
-        }
-
-       
+    var value_nak = $('.kod_nakleyki'+String(id))
+    var nadpis_nakleyki = $('#nadpis_nakleyki'+String(id));
+    
+    if(value_nak.val() !=''){
+        value_nak.css('border-color','#dedad9');
+        data_base[id].kod_nakleyki = value_nak.val();
+        data_base[id].nadpis_nakleyki = nadpis_nakleyki.text();
+        
+    }else{
+        value_nak.css('border-color','red');
+        data_base[id].kod_nakleyki = NaN
+        data_base[id].nadpis_nakleyki = NaN;
     }
-    else if(String(val) == '2'){
+    if(String(val) == '2'){
        
-
-       const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-       var value_nak= document.querySelector('.kod_nakleyki'+String(id))
-       var nadpis_nak= $('.kod_nakleyki'+String(id)+' option:selected').text()
-       if(value_nak.value !=''){
-            spanss.style.borderColor='#dedad9';
-            data_base[id].kod_nakleyki = value_nak.value;
-            data_base[id].nadpis_nakleyki = nadpis_nak;
-            
-        }else{
-            spanss.style.borderColor='red';
-            data_base[id].kod_nakleyki = NaN
-            data_base[id].nadpis_nakleyki = NaN;
-
-        }
+        
 
         
             

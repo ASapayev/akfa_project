@@ -2975,6 +2975,9 @@ def create_artikul(request):
                 kod_k_component =data['kod_k_component'],
                 iskyucheniye =data['isklyucheniye'],
                 is_special =data['is_special'],
+                nakleyka_nt1 =data['nakleykant1_'],
+
+                
                 )
             artikul_component.save()
             camera_pvc = CameraPvc(sap_code =data['artikul'],coun_of_lam=data['kamera_lam'],coun_of_pvc=data['kamera_pvx'])
