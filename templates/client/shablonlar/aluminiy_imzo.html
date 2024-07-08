@@ -117,13 +117,13 @@
 
     var brend_kaska ='{{brend_kaska|safe}}'
 
-    function set_brend_kraska(element_list,selector,val=''){
+    function set_brend_kraska(element_list,selector,val_=''){
             
             var jsonData = JSON.parse(element_list)
             
             var select = $(selector);
             $.each(jsonData, function(index, item) {
-                console.log(item)
+                // console.log(item)
                 var option = $('<option>', {
                     value: item['kraska'],
                     text: item['kraska'],
@@ -133,7 +133,7 @@
             });
             
             $(selector).chosen({max_selected_options: 50,no_results_text: "Краска не найден"});
-            $(selector).val(val);
+            $(selector).val(val_);
             $(selector).trigger('chosen:updated');
     }
 

@@ -1176,8 +1176,10 @@ def shablon_imzo_detail(request):
 @customer_only
 def shablon_savdo_detail(request):
     nakleyka_list = NakleykaCode.objects.all()
+    brend_kraska = BrendKraska.objects.all().values('brend','kraska')
     context ={
-        'nakleyka_list': nakleyka_list
+        'nakleyka_list': nakleyka_list,
+        'brend_kaska':json.dumps(list(brend_kraska))
     }
     return render(request,'client/shablonlar/aluminiy_savdo.html',context)
 
@@ -1185,8 +1187,10 @@ def shablon_savdo_detail(request):
 @customer_only
 def shablon_export_detail(request):
     nakleyka_list = NakleykaCode.objects.all()
+    brend_kraska = BrendKraska.objects.all().values('brend','kraska')
     context ={
-        'nakleyka_list': nakleyka_list
+        'nakleyka_list': nakleyka_list,
+        'brend_kaska':json.dumps(list(brend_kraska))
     }
     return render(request,'client/shablonlar/aluminiy_export.html',context)
 
