@@ -1164,10 +1164,11 @@ def shablon_imzo_detail(request):
         
         return render(request,'client/created_link.html')
     else:
-        # nakleyka_list = [{'name':nak.name,'nadpis':nak.nadpis} for  nak in NakleykaCode.objects.all()]
         nakleyka_list = NakleykaCode.objects.all()
+        brend_kraska = BrendKraska.objects.all().values('brend','kraska')
         context ={
-            'nakleyka_list': nakleyka_list
+            'nakleyka_list': nakleyka_list,
+            'brend_kaska':json.dumps(list(brend_kraska))
         }
         return render(request,'client/shablonlar/aluminiy_imzo.html',context)
 
@@ -1276,15 +1277,7 @@ def nakleyka_list(request):
         
     return JsonResponse(list(nakleyka_l),safe=False)
 
-@login_required(login_url='/accounts/login/')
-@customer_only
-def brend_list(request):
-    term = request.GET.get('term',None)
-    if term:
-        brend_kraska = BrendKraska.objects.filter(brend__icontains = term).distinct("brend").values('id','brend','kraska')
-    else:
-        brend_kraska = BrendKraska.objects.all().distinct("name").values('id','brend','kraska')
-    return JsonResponse(list(brend_kraska),safe=False)
+
 
 
 

@@ -690,11 +690,6 @@ function check_text_and_change_simple(val,selector){
 
 
 
-
-
-
-
-
 function artukil_clear(id){
     $('#artikul'+id).val(null).trigger('change');
     var table_tr =$('#table_tr'+id);
@@ -774,11 +769,6 @@ function artukil_clear(id){
 }
 
 
-
-
-
-
-
 function clear_artikul(id){
     if(data_base[id]){
 
@@ -832,8 +822,6 @@ function clear_artikul(id){
    
     
 }
-
-
 
 function tip_pokritiya_selected(id,val){
 
@@ -986,7 +974,6 @@ function tip_pokritiya_selected(id,val){
     
     create_kratkiy_tekst(id);
 }
-
 
 
 function svet_lamplonka_snaruji_selected(id,val){

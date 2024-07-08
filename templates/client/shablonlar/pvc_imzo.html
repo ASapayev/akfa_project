@@ -111,6 +111,7 @@ function set_nakleyka(element_list,selector,val=''){
         
         $(selector).chosen({max_selected_options: 50,no_results_text: "Наклейка не найден"});
         $(selector).val(val);
+        $(selector).chosen({with:'100%'});
         $(selector).trigger('chosen:updated');
     }
     

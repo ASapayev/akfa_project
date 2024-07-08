@@ -23,13 +23,14 @@ urlpatterns = [
     path('shablon-akp-savdo-detail',views.shablon_akp_savdo_detail,name='shablon_akp_savdo_detail'),
 
     ################## APIS ################
+        ######## ALU #####
     path('imzo-artikul-list',views.imzo_artikul_list,name='imzo_artikul_list'),
-    path('pvc-artikul-list',views.pvc_artikul_list,name='pvc_artikul_list'),
     path('nakleyka-list',views.nakleyka_list,name='nakleyka_list'),
-    path('nakleyka-list-pvc',views.nakleyka_list_pvc,name='nakleyka_list_pvc'),
-    path('brend-list',views.brend_list,name='brend_list'),
-
     path('client-anod-list',views.anod_list,name='client_anod_list'),
+
+        ######### PVC ######
+    path('pvc-artikul-list',views.pvc_artikul_list,name='pvc_artikul_list'),
+    path('nakleyka-list-pvc',views.nakleyka_list_pvc,name='nakleyka_list_pvc'),
 
     ################ Order ###########
 
