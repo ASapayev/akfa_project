@@ -19,6 +19,7 @@ urlpatterns = [
     path('online-savdo/',include('onlinesavdo.urls')),
     path('client/',include('client.urls')),
     path('accessuar/',include('accessuar.urls')),
+    path('radiator/',include('radiator.urls')),
     
 
    path("events/", include(django_eventstream.urls), {"channels": ["test"]}),

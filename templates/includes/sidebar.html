@@ -180,7 +180,7 @@
       </div>
     </li>
     {%endif%}
-    {% if user_role == 'moderator'  or user_role == 'user1' or user_role == 'only_razlovka' or user_role == 'razlovka'%}
+    {% if user_role == 'moderator'  or user_role == 'user1' or user_role == 'only_razlovka' or user_role == 'razlovka' or user_role == 'radiator' %}
       <li class="nav-item menu-items">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm" aria-expanded="false" aria-controls="ui-basic-norm">
           <span class="menu-icon">
@@ -191,6 +191,11 @@
         </a>
         <div class="collapse" id="ui-basic-norm">
           <ul class="nav flex-column sub-menu">
+            {%if user_role == 'radiator' %}
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">Норма</span> расход</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'upload_siryo_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">сире</span> файла</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'file_upload_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">разловка</span> файла</a></li>
+            {%endif%}
             {%if user_role == 'moderator' or user_role == 'user1' %}
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо</span> файла</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">обыч</span> файла</a></li>

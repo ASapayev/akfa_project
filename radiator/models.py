@@ -1,0 +1,15 @@
+from django.db import models
+
+# Create your models here.
+
+
+class Norma(models.Model):
+    data = models.JSONField(null=True,blank=True,default=dict)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)
+
+
+class Siryo(models.Model):
+    data = models.JSONField(null=True,blank=True,default=dict)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)

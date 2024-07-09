@@ -317,7 +317,7 @@ def get_ready_ozmka(request,id):
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka','radiator'])
 def index(request):
   return render(request,'index.html')
 
