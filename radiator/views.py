@@ -2,12 +2,45 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
 from .forms import NormaFileForm,NormaExcelFiles
-from .models import Norma,Siryo
+from .models import Norma,Siryo,Korobka,Kraska
 from config.settings import MEDIA_ROOT
 import pandas as pd
 import os 
 from datetime import datetime
 
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
+def full_update_korobka(request):
+    if request.method == 'POST':
+        data = request.POST.copy()
+        data['type']='termo'
+        form = NormaFileForm(data, request.FILES)
+        if form.is_valid():
+            siryo = Korobka.objects.all()
+            siryo.delete()
+            form_file = form.save()
+            file = form_file.file
+            path =f'{MEDIA_ROOT}/{file}'
+            
+            df = pd.read_excel(path)
+
+            df = df.astype(str)
+            df = df.replace('nan','0')
+            df = df.replace('0.0','0')
+            
+            columns = df.columns
+
+            Korobka(data ={'columns':list(columns)}).save()
+
+            for key, row in df.iterrows():
+                norma_dict = {}
+                for col in columns:
+                    norma_dict[col]=row[col]
+                Korobka(data =norma_dict).save()
+
+    return render(request,'norma/benkam/main.html')
 
 
 @login_required(login_url='/accounts/login/')
@@ -42,6 +75,40 @@ def full_update_siryo(request):
 
     return render(request,'norma/benkam/main.html')
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
+def full_update_kraska(request):
+    if request.method == 'POST':
+        data = request.POST.copy()
+        data['type']='termo'
+        form = NormaFileForm(data, request.FILES)
+        if form.is_valid():
+            siryo = Kraska.objects.all()
+            siryo.delete()
+            form_file = form.save()
+            file = form_file.file
+            path =f'{MEDIA_ROOT}/{file}'
+            
+            df = pd.read_excel(path)
+
+            df = df.astype(str)
+            df = df.replace('nan','0')
+            df = df.replace('0.0','0')
+            
+            columns = df.columns
+
+            Kraska(data ={'columns':list(columns)}).save()
+
+            for key, row in df.iterrows():
+                norma_dict = {}
+                for col in columns:
+                    norma_dict[col]=row[col]
+                Kraska(data =norma_dict).save()
+
+    return render(request,'norma/benkam/main.html')
+
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','radiator'])
 def full_update_norm(request):
@@ -74,6 +141,7 @@ def full_update_norm(request):
 
     return render(request,'norma/benkam/main.html')
 
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','radiator'])
 def file_upload_org(request): 
@@ -104,6 +172,7 @@ def file_list_org(request):
               }
     return render(request,'universal/file_list_norma.html',context)
 
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','radiator'])
 def kombinirovaniy_process(request,id):
@@ -120,11 +189,11 @@ def kombinirovaniy_process(request,id):
     
     for key,row in df_exell.iterrows():
         df.append([
-            row['SAP код P'],row['PR - Press'],
-            row['SAP код M'],row['MO - Mex obrabotka'],
-            row['SAP код PM'],row['PM - Puma'],
-            row['SAP код PK'],row['PK - Pokraska'],
-            row['SAP код 7'],row['7 - Upakovka ']
+            row['SAP CODE P'],row['PR - Press'],
+            row['SAP CODE M'],row['MO - Mex obrabotka'],
+            row['SAP CODE PM'],row['PM - Puma'],
+            row['SAP CODE PK'],row['PK - Pokraska'],
+            row['SAP CODE 7'],row['7 - Upakovka ']
         ])
     
     class Xatolar:
@@ -254,10 +323,9 @@ def kombinirovaniy_process(request,id):
 
     for i in range(0,len(df)):
         print(i)
-        # older_process ={'sapcode':'','kratkiy':''}
         
         artikul = df[i][8].split('-')[0]
-        # print(artikul,'sssss')
+        print(artikul,'norma')
         norma = Norma.objects.filter(data__Артикул__icontains = artikul)[:1].get()
 
         ### 7  ###
@@ -304,6 +372,7 @@ def kombinirovaniy_process(request,id):
                     
                     df_new['MATNR1'].append(df[i][6])
                     df_new['TEXT2'].append(df[i][7])
+                    # print(df[i][9],'kkk')
                     seksiya_list =df[i][9].split(' ')
                     text =''
                     for sek in seksiya_list:
@@ -317,7 +386,8 @@ def kombinirovaniy_process(request,id):
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                     
-                df_new['LGORT'].append('')
+                
+                df_new['LGORT'].append('PS08')
 
             upakovka_names =[
                 {'kratkiy':'Пленка полиэтиленовая 90см','sapcode':'1000004426'},
@@ -349,8 +419,37 @@ def kombinirovaniy_process(request,id):
                     df_new['MENGE'].append('КГ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
-                    df_new['LGORT'].append('')
-           
+                    df_new['LGORT'].append('PS08')
+
+             
+            krat = df[i][9].split('-')
+            seria = krat[0]
+            korobka_type = krat[1].split(' ')[-1]
+            t+=1
+            if Korobka.objects.filter(data__KOROBKA__icontains=seria,data__TYPE__icontains =korobka_type).exists():
+                korobka = Korobka.objects.filter(data__KOROBKA__icontains=seria,data__TYPE__icontains =korobka_type)[:1].get()
+                df_new['ID'].append('2')
+                df_new['MATNR'].append('')
+                df_new['WERKS'].append('')
+                df_new['TEXT1'].append('')
+                df_new['STLAL'].append('')
+                df_new['STLAN'].append('')
+                df_new['ZTEXT'].append('')
+                df_new['STKTX'].append('')
+                df_new['BMENG'].append('')
+                df_new['BMEIN'].append('')
+                df_new['STLST'].append('')
+                df_new['POSNR'].append(t)
+                df_new['POSTP'].append('L')
+                df_new['MATNR1'].append(korobka.data['MATNR'])
+                df_new['TEXT2'].append(korobka.data['MAKTX'])
+                sap_val = '1000' if korobka_type !='BK' else '2000'
+                df_new['MEINS'].append(sap_val) 
+                df_new['MENGE'].append('ШТ')
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+                df_new['LGORT'].append('PS08')
+        
         #### PK
         if {df[i][6]:df[i][7]} not in norma_exists:
             norma_exists.append({df[i][6]:df[i][7]})
@@ -374,7 +473,7 @@ def kombinirovaniy_process(request,id):
             df_new['DATUV'].append('01012021')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('')
-            for k in range(1,4):
+            for k in range(1,5):
                 j+=1
                 df_new['ID'].append('2')
                 df_new['MATNR'].append('')
@@ -420,8 +519,20 @@ def kombinirovaniy_process(request,id):
                     df_new['MENGE'].append('КГ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
+                if k == 4 :
+                    kraska = df[i][7].split(' ')[-1]
+                    siryo = Kraska.objects.filter(data__CODE__icontains =kraska)[:1].get()
+                    df_new['MATNR1'].append(siryo.data['MATNR'])
+                    df_new['TEXT2'].append(siryo.data['MAKTX'])
                     
-                df_new['LGORT'].append('')
+                    # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
+                    df_new['MEINS'].append(norma.data['расход /кг на 1000 секции'].replace('.0','')  if norma.data['расход /кг на 1000 секции'][-2:]=='.0' else ("%.3f" % float(norma.data['расход /кг на 1000 секции'])).replace('.',',')) 
+                    df_new['MENGE'].append('КГ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+
+                    
+                df_new['LGORT'].append('PS08')
         
        
         #### PM
@@ -472,10 +583,9 @@ def kombinirovaniy_process(request,id):
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                     
-                df_new['LGORT'].append('')
+                df_new['LGORT'].append('PS07')
         
-        
-                    
+                
         #### M
         if {df[i][2]:df[i][3]} not in norma_exists:
             norma_exists.append({df[i][2]:df[i][3]})
@@ -520,18 +630,18 @@ def kombinirovaniy_process(request,id):
             df_new['MENGE'].append('скц')
             df_new['DATUV'].append('')
             df_new['PUSTOY'].append('')
-            df_new['LGORT'].append('')
+            df_new['LGORT'].append('PS04')
 
             siryo_names =[
-                {'kratkiy':'Лента абразивная 60 (140х2000) Барабан','sapcode':'1000004458'},
-                {'kratkiy':'Лента абразивная 120(140х2000) Барабан','sapcode':'1000004459'},
-                {'kratkiy':'Лента абразивная  80 (350х1900) Мех.обр','sapcode':'1000004455'},
-                {'kratkiy':'Лента абразивная 120 (350х1900) Мех.обр','sapcode':'1000004456'},
-                {'kratkiy':'Лента абразивная 240 (350х1900) Мех.обр','sapcode':'1000004457'},
-                {'kratkiy':'Тех. отход ал стружка','sapcode':'1900007454'},
-                {'kratkiy':'Крышка радиатора','sapcode':'1000004484'},
-                {'kratkiy':'Паронит межсекционная (Китай) Gizetta','sapcode':'1000004374'},
-                {'kratkiy':'Соеденительная муфта (Местный)','sapcode':'1000004372'},
+                {'kratkiy':'Лента абразивная 60 (140х2000) Барабан','sapcode':'1000004458','MEINS':'ШТ'},
+                {'kratkiy':'Лента абразивная 120(140х2000) Барабан','sapcode':'1000004459','MEINS':'ШТ'},
+                {'kratkiy':'Лента абразивная  80 (350х1900) Мех.обр','sapcode':'1000004455','MEINS':'ШТ'},
+                {'kratkiy':'Лента абразивная 120 (350х1900) Мех.обр','sapcode':'1000004456','MEINS':'ШТ'},
+                {'kratkiy':'Лента абразивная 240 (350х1900) Мех.обр','sapcode':'1000004457','MEINS':'ШТ'},
+                {'kratkiy':'Тех. отход ал стружка','sapcode':'1900007454','MEINS':'КГ'},
+                {'kratkiy':'Крышка радиатора','sapcode':'1000004484','MEINS':'КГ'},
+                {'kratkiy':'Паронит межсекционная (Китай) Gizetta','sapcode':'1000004374','MEINS':'ШТ'},
+                {'kratkiy':'Соеденительная муфта (Местный)','sapcode':'1000004372','MEINS':'ШТ'},
                 ]
             t= 1
             for k in range(0,len(siryo_names)):
@@ -558,14 +668,91 @@ def kombinirovaniy_process(request,id):
 
                     sap_val = norma.data[siryo_names[k]['kratkiy']].replace(' ','').replace('.0','') if norma.data[siryo_names[k]['kratkiy']][-2:]=='.0' else ("%.3f" % float(norma.data[siryo_names[k]['kratkiy']].replace(' ',''))).replace('.',',')
                     df_new['MEINS'].append(sap_val if not 'отход' in siryo_names[k]['kratkiy'] else '-' + sap_val) 
-                    df_new['MENGE'].append('КГ')
+                    df_new['MENGE'].append(siryo_names[k]['MEINS'])
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
-                    df_new['LGORT'].append('')
+                    df_new['LGORT'].append('PS04')
                 
                
                     # siryo = Siryo.objects.filter(data__Краткийтекст__icontains =siryo_names[k-2]['kratkiy'])[:1].get()
         
+            #####M-2
+            df_new['ID'].append('1')
+            df_new['MATNR'].append(df[i][2])
+            df_new['WERKS'].append('5101')
+            df_new['TEXT1'].append(df[i][3])
+            df_new['STLAL'].append('2')
+            df_new['STLAN'].append('1')
+            df_new['ZTEXT'].append(df[i][3])
+            df_new['STKTX'].append('')
+            df_new['BMENG'].append( '1000')
+            df_new['BMEIN'].append('скц')
+            df_new['STLST'].append('1')
+            df_new['POSNR'].append('')
+            df_new['POSTP'].append('')
+            df_new['MATNR1'].append('')
+            df_new['TEXT2'].append('')
+            df_new['MEINS'].append('')
+            df_new['MENGE'].append('')
+            df_new['DATUV'].append('01012021')
+            df_new['PUSTOY'].append('')
+            df_new['LGORT'].append('')
+            
+            
+            df_new['ID'].append('2')
+            df_new['MATNR'].append('')
+            df_new['WERKS'].append('')
+            df_new['TEXT1'].append('')
+            df_new['STLAL'].append('')
+            df_new['STLAN'].append('')
+            df_new['ZTEXT'].append('')
+            df_new['STKTX'].append('')
+            df_new['BMENG'].append('')
+            df_new['BMEIN'].append('')
+            df_new['STLST'].append('')
+            df_new['POSNR'].append(1)
+            df_new['POSTP'].append('L')
+            df_new['MATNR1'].append(df[i][0])
+            df_new['TEXT2'].append(df[i][1])
+            df_new['MEINS'].append('1000') 
+            df_new['MENGE'].append('скц')
+            df_new['DATUV'].append('')
+            df_new['PUSTOY'].append('')
+            df_new['LGORT'].append('PS05')
+
+            t= 1
+            for k in range(0,len(siryo_names)):
+                if norma.data[siryo_names[k]['kratkiy']] !='0':
+                    if siryo_names[k]['kratkiy'] =='Крышка радиатора' and norma.data['Тип'] =='Bimetall':
+                        continue
+                    j+=1
+                    t+=1
+                    df_new['ID'].append('2')
+                    df_new['MATNR'].append('')
+                    df_new['WERKS'].append('')
+                    df_new['TEXT1'].append('')
+                    df_new['STLAL'].append('')
+                    df_new['STLAN'].append('')
+                    df_new['ZTEXT'].append('')
+                    df_new['STKTX'].append('')
+                    df_new['BMENG'].append('')
+                    df_new['BMEIN'].append('')
+                    df_new['STLST'].append('')
+                    df_new['POSNR'].append(t)
+                    df_new['POSTP'].append('L')
+                    df_new['MATNR1'].append(siryo_names[k]['sapcode'])
+                    df_new['TEXT2'].append(siryo_names[k]['kratkiy'])
+
+                    sap_val = norma.data[siryo_names[k]['kratkiy']].replace(' ','').replace('.0','') if norma.data[siryo_names[k]['kratkiy']][-2:]=='.0' else ("%.3f" % float(norma.data[siryo_names[k]['kratkiy']].replace(' ',''))).replace('.',',')
+                    df_new['MEINS'].append(sap_val if not 'отход' in siryo_names[k]['kratkiy'] else '-' + sap_val) 
+                    df_new['MENGE'].append(siryo_names[k]['MEINS'])
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                    df_new['LGORT'].append('PS05')
+                    
+                
+                        # siryo = Siryo.objects.filter(data__Краткийтекст__icontains =siryo_names[k-2]['kratkiy'])[:1].get()
+            
         #### PR
         if {df[i][0]:df[i][1]} not in norma_exists:
             norma_exists.append({df[i][0]:df[i][1]})
@@ -650,7 +837,7 @@ def kombinirovaniy_process(request,id):
                     df_new['MENGE'].append('КГ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
-                df_new['LGORT'].append('')
+                df_new['LGORT'].append('PS02')
             
             if norma.data['Тип'] =='Bimetall':
                 if '16' in norma.data['Вставка биметалл']: 
@@ -673,7 +860,7 @@ def kombinirovaniy_process(request,id):
                     df_new['MENGE'].append('ШТ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
-                    df_new['LGORT'].append('')
+                    df_new['LGORT'].append('PS02')
                 else:
                     df_new['ID'].append('2')
                     df_new['MATNR'].append('')
@@ -694,7 +881,7 @@ def kombinirovaniy_process(request,id):
                     df_new['MENGE'].append('ШТ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
-                    df_new['LGORT'].append('')
+                    df_new['LGORT'].append('PS02')
 
                  
         
@@ -717,29 +904,10 @@ def kombinirovaniy_process(request,id):
     path =f'{MEDIA_ROOT}\\uploads\\norma-radiator\\{year}\\{month}\\{day}\\{hour}\\NORMA_RADIATOR_{minut}.xlsx'
     
 
-    # meins7 = []
-    
-    # for mein in df_new['MEINS']:
-    #     mein_txt = str(mein)
-    #     if mein_txt[-4:] ==',000':
-    #         meins7.append(mein_txt.replace(',000',''))
-    #     else:
-    #         meins7.append(mein_txt)
-    # df_new['MEINS'] =meins7
-    
-    # meins7d = []
-    
-    # for mein in df_new_duplicate['MEINS']:
-    #     mein_txt = str(mein)
-    #     if mein_txt[-4:] ==',000':
-    #         meins7d.append(mein_txt.replace(',000',''))
-    #     else:
-    #         meins7d.append(mein_txt)
-    # df_new_duplicate['MEINS'] =meins7d
+    # for key,row in df_new.items():
+    #     print(key,len(row))
 
-    for key,row in df_new.items():
-        print(key,len(row))
-    dff =pd.DataFrame(df_new)
+    dff = pd.DataFrame(df_new)
     
 
 
@@ -758,14 +926,6 @@ def kombinirovaniy_process(request,id):
       }
     return render(request,'norma/benkam/generated_files.html',context)
 
-def round503(n):
-    if (n*100 % 1000) < 750 and (n*100 % 1000)>=250 :
-        return int(n/10)*10 + 5
-    elif (n*100 % 1000) >= 750:
-        return int(n/10)*10 + 10
-    else:
-        return int(n/10)*10
-    return 
 
 def create_folder(parent_dir,directory):
     path =os.path.join(parent_dir,directory)

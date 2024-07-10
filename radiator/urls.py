@@ -7,6 +7,8 @@ urlpatterns = [
 
     path('file-upload-termo-org',views.full_update_norm,name='norma_file_upload_radiator'),
     path('file-upload-siryo',views.full_update_siryo,name='upload_siryo_radiator'),
+    path('file-upload-korobka',views.full_update_korobka,name='upload_korobka_radiator'),
+    path('file-upload-kraska',views.full_update_kraska,name='upload_kraska_radiator'),
     path('norma-radiator-upload',views.file_upload_org,name='file_upload_radiator'),
     path('norma-radiator-file-list',views.file_list_org,name='file_list_radiator'),
     path('kombinirovaniy-process/<int:id>',views.kombinirovaniy_process,name='kombinirovaniy_process_radiator'),

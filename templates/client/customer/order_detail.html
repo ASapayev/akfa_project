@@ -76,17 +76,17 @@
             {%endif%}
 
             {%if order_type == 'alu_savdo'%}
-            <div class="row p-2">
-                <div class="col">
-                 
-                </div>
-                <div class="col-10">
-                </div>
-                <div class="col">
-                  <button onclick="downloadTableAsExcel()" class="btn btn-primary btn-sm">Download as Excel</button>
-                </div>
-              </div>
             <section class="topics-detail-section section-padding" id="topics-detail">
+                <div class="row p-2">
+                    <div class="col">
+                     
+                    </div>
+                    <div class="col-10">
+                    </div>
+                    <div class="col">
+                      <button onclick="downloadTableAsExcel()" class="btn btn-primary btn-sm">Download as Excel</button>
+                    </div>
+                  </div>
                 <form method="POST" id="basic_form" onsubmit="return validateForm()">
                     {%csrf_token%}
                 <div style="overflow: scroll;width: auto;" id="table-container">

@@ -192,9 +192,11 @@
         <div class="collapse" id="ui-basic-norm">
           <ul class="nav flex-column sub-menu">
             {%if user_role == 'radiator' %}
-            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">Норма</span> расход</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{% url 'upload_siryo_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">сире</span> файла</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">норма</span> расход</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'file_upload_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">разловка</span> файла</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'upload_siryo_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">сире</span> файла</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'upload_kraska_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">краска</span> файла</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'upload_korobka_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">коробка</span> файла</a></li>
             {%endif%}
             {%if user_role == 'moderator' or user_role == 'user1' %}
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо</span> файла</a></li>
