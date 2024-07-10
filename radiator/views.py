@@ -827,7 +827,7 @@ def kombinirovaniy_process(request,id):
                     df_new['MATNR1'].append('1000004351')
                     df_new['TEXT2'].append('Сож для прес-формы DIELUBRIC')
                     df_new['MEINS'].append('-'+norma.data['Сож для прес-формы DIELUBRIC'].replace('.0','') if norma.data['Сож для прес-формы DIELUBRIC'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Сож для прес-формы DIELUBRIC'])).replace('.',','))
-                    df_new['MENGE'].append('КГ')
+                    df_new['MENGE'].append('Л')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                 if k == 6 :
