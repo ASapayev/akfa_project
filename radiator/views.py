@@ -224,7 +224,7 @@ def kombinirovaniy_process(request,id):
     #     }
     #     return render(request,'norma/benkam/not_exist.html',context)
     
-    df_new ={
+    df_new =    {
         'ID':[],
         'MATNR': [],
         'WERKS':[],
@@ -255,17 +255,17 @@ def kombinirovaniy_process(request,id):
     for i in range(0,len(df)):
         print(i)
         # older_process ={'sapcode':'','kratkiy':''}
-        # 7
+        
         artikul = df[i][8].split('-')[0]
         # print(artikul,'sssss')
         norma = Norma.objects.filter(data__Артикул__icontains = artikul)[:1].get()
 
-
+        ### 7  ###
         if {df[i][8]:df[i][9]} not in norma_exists:
             norma_exists.append({df[i][8]:df[i][9]})
             df_new['ID'].append('1')
             df_new['MATNR'].append(df[i][8])
-            df_new['WERKS'].append('4501')
+            df_new['WERKS'].append('5101')
             df_new['TEXT1'].append(df[i][9])
             df_new['STLAL'].append('1')
             df_new['STLAN'].append('1')
@@ -324,7 +324,7 @@ def kombinirovaniy_process(request,id):
             norma_exists.append({df[i][6]:df[i][7]})
             df_new['ID'].append('1')
             df_new['MATNR'].append(df[i][6])
-            df_new['WERKS'].append('4501')
+            df_new['WERKS'].append('5101')
             df_new['TEXT1'].append(df[i][7])
             df_new['STLAL'].append('1')
             df_new['STLAN'].append('1')
@@ -342,7 +342,7 @@ def kombinirovaniy_process(request,id):
             df_new['DATUV'].append('01012021')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('')
-            for k in range(1,3):
+            for k in range(1,4):
                 j+=1
                 df_new['ID'].append('2')
                 df_new['MATNR'].append('')
@@ -369,18 +369,27 @@ def kombinirovaniy_process(request,id):
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                 if k == 2 :
-                    
-                    df_new['MATNR1'].append('555656565')
+                    # siryo = Siryo.objects.filter(data__Краткийтекст__icontains ='Анафорез.грунтовка ARSONKOTE 1002K CLEAR')
+                    df_new['MATNR1'].append('1000004435')
                     df_new['TEXT2'].append('Анафорез.грунтовка ARSONKOTE 1002K CLEAR')
                     
                     # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
-                    df_new['MEINS'].append(norma.data['Анафорез.грунтовка ARSONKOTE 1002K CLEAR']) 
+                    df_new['MEINS'].append(round(int(norma.data['Анафорез.грунтовка ARSONKOTE 1002K CLEAR'])) if norma.data['Анафорез.грунтовка ARSONKOTE 1002K CLEAR'][-2:]=='.0' else round(int(norma.data['Анафорез.грунтовка ARSONKOTE 1002K CLEAR']),3) ) 
+                    df_new['MENGE'].append('КГ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                if k == 3 :
+                    # siryo = Siryo.objects.filter(data__Краткийтекст__icontains ='Анафорез.грунтовка ARSONKOTE 1002K CLEAR')
+                    df_new['MATNR1'].append('1000004436')
+                    df_new['TEXT2'].append('Анафорез.грунтовка. 1002K PIG.PASTE')
+                    
+                    # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
+                    df_new['MEINS'].append(norma.data['Анафорез.грунтовка. 1002K PIG.PASTE']) 
                     df_new['MENGE'].append('КГ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                     
                 df_new['LGORT'].append('')
-        
         
        
         #### PM
@@ -388,7 +397,7 @@ def kombinirovaniy_process(request,id):
             norma_exists.append({df[i][4]:df[i][5]})
             df_new['ID'].append('1')
             df_new['MATNR'].append(df[i][4])
-            df_new['WERKS'].append('4501')
+            df_new['WERKS'].append('5101')
             df_new['TEXT1'].append(df[i][5])
             df_new['STLAL'].append('1')
             df_new['STLAN'].append('1')
@@ -440,7 +449,7 @@ def kombinirovaniy_process(request,id):
             norma_exists.append({df[i][2]:df[i][3]})
             df_new['ID'].append('1')
             df_new['MATNR'].append(df[i][2])
-            df_new['WERKS'].append('4501')
+            df_new['WERKS'].append('5101')
             df_new['TEXT1'].append(df[i][3])
             df_new['STLAL'].append('1')
             df_new['STLAN'].append('1')
@@ -458,97 +467,77 @@ def kombinirovaniy_process(request,id):
             df_new['DATUV'].append('01012021')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('')
-            for k in range(1,10):
-                j+=1
-                df_new['ID'].append('2')
-                df_new['MATNR'].append('')
-                df_new['WERKS'].append('')
-                df_new['TEXT1'].append('')
-                df_new['STLAL'].append('')
-                df_new['STLAN'].append('')
-                df_new['ZTEXT'].append('')
-                df_new['STKTX'].append('')
-                df_new['BMENG'].append('')
-                df_new['BMEIN'].append('')
-                df_new['STLST'].append('')
-                df_new['POSNR'].append(k)
-                df_new['POSTP'].append('L')
-                
-                
-                if k == 1 :
-                    df_new['MATNR1'].append(df[i][0])
-                    df_new['TEXT2'].append(df[i][1])
-                    df_new['MEINS'].append('1000') 
-                    df_new['MENGE'].append('скц')
-                    df_new['DATUV'].append('')
-                    df_new['PUSTOY'].append('')
-                if k == 2 :
-                    df_new['MATNR1'].append('1000004484')
-                    df_new['TEXT2'].append('Крышка радиатора')
-                    df_new['MEINS'].append('1000') 
-                    df_new['MENGE'].append('КГ')
-                    df_new['DATUV'].append('')
-                    df_new['PUSTOY'].append('')
-                    
-                if k == 3 :
-                    df_new['MATNR1'].append('1000004484')
-                    df_new['TEXT2'].append('Лента абразивная 60 (140х2000) Барабан')
-                    df_new['MEINS'].append(norma.data['Лента абразивная 60 (140х2000) Барабан']) 
-                    df_new['MENGE'].append('КГ')
-                    df_new['DATUV'].append('')
-                    df_new['PUSTOY'].append('')
+            
+            
+            df_new['ID'].append('2')
+            df_new['MATNR'].append('')
+            df_new['WERKS'].append('')
+            df_new['TEXT1'].append('')
+            df_new['STLAL'].append('')
+            df_new['STLAN'].append('')
+            df_new['ZTEXT'].append('')
+            df_new['STKTX'].append('')
+            df_new['BMENG'].append('')
+            df_new['BMEIN'].append('')
+            df_new['STLST'].append('')
+            df_new['POSNR'].append(k)
+            df_new['POSTP'].append('L')
+            df_new['MATNR1'].append(df[i][0])
+            df_new['TEXT2'].append(df[i][1])
+            df_new['MEINS'].append('1000') 
+            df_new['MENGE'].append('скц')
+            df_new['DATUV'].append('')
+            df_new['PUSTOY'].append('')
+            df_new['LGORT'].append('')
 
-                if k == 4 :
-                    df_new['MATNR1'].append('1000004484')
-                    df_new['TEXT2'].append('Лента абразивная 80 (350х1900) Мех.обр')
-                    df_new['MEINS'].append(norma.data['Лента абразивная  80 (350х1900) Мех.обр']) 
+            siryo_names =[
+                {'kratkiy':'Лента абразивная 60 (140х2000) Барабан','sapcode':'1000004458'},
+                {'kratkiy':'Лента абразивная 120(140х2000) Барабан','sapcode':'1000004459'},
+                {'kratkiy':'Лента абразивная  80 (350х1900) Мех.обр','sapcode':'1000004455'},
+                {'kratkiy':'Лента абразивная 120 (350х1900) Мех.обр','sapcode':'1000004456'},
+                {'kratkiy':'Лента абразивная 240 (350х1900) Мех.обр','sapcode':'1000004457'},
+                {'kratkiy':'Тех. отход ал стружка','sapcode':'1900007454'},
+                {'kratkiy':'Крышка радиатора','sapcode':'1000004484'},
+                {'kratkiy':'Паронит межсекционная (Китай) Gizetta','sapcode':'1000004374'},
+                {'kratkiy':'Соеденительная муфта (Местный)','sapcode':'1000004372'},
+                ]
+            t= 1
+            for k in range(0,len(siryo_names)):
+                if norma.data[siryo_names[k]['kratkiy']] !='0':
+                    if siryo_names[k]['kratkiy'] =='Крышка радиатора' and norma.data['Тип'] =='Bimetall':
+                        continue
+                    j+=1
+                    t+=1
+                    df_new['ID'].append('2')
+                    df_new['MATNR'].append('')
+                    df_new['WERKS'].append('')
+                    df_new['TEXT1'].append('')
+                    df_new['STLAL'].append('')
+                    df_new['STLAN'].append('')
+                    df_new['ZTEXT'].append('')
+                    df_new['STKTX'].append('')
+                    df_new['BMENG'].append('')
+                    df_new['BMEIN'].append('')
+                    df_new['STLST'].append('')
+                    df_new['POSNR'].append(t)
+                    df_new['POSTP'].append('L')
+                    df_new['MATNR1'].append(siryo_names[k]['sapcode'])
+                    df_new['TEXT2'].append(siryo_names[k]['kratkiy'])
+                    df_new['MEINS'].append(norma.data[siryo_names[k]['kratkiy']] if not 'отход' in siryo_names[k]['kratkiy'] else '-' + norma.data[siryo_names[k]['kratkiy']] ) 
                     df_new['MENGE'].append('КГ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
-                if k == 5 :
-                    df_new['MATNR1'].append('1000004484')
-                    df_new['TEXT2'].append('Лента абразивная 240 (350х1900) Мех.обр')
-                    df_new['MEINS'].append(norma.data['Лента абразивная 240 (350х1900) Мех.обр']) 
-                    df_new['MENGE'].append('КГ')
-                    df_new['DATUV'].append('')
-                    df_new['PUSTOY'].append('')
-                if k == 6 :
-                    df_new['MATNR1'].append('1000004484')
-                    df_new['TEXT2'].append('Тех. отход ал стружка')
-                    df_new['MEINS'].append(norma.data['Тех. отход ал стружка']) 
-                    df_new['MENGE'].append('КГ')
-                    df_new['DATUV'].append('')
-                    df_new['PUSTOY'].append('')
-                if k == 7 :
-                    df_new['MATNR1'].append('1000004484')
-                    df_new['TEXT2'].append('Крышка радиатора')
-                    df_new['MEINS'].append(norma.data['Крышка радиатора']) 
-                    df_new['MENGE'].append('КГ')
-                    df_new['DATUV'].append('')
-                    df_new['PUSTOY'].append('')
-                if k == 8 :
-                    df_new['MATNR1'].append('1000004484')
-                    df_new['TEXT2'].append('Паронит межсекционная (Китай) Gizetta')
-                    df_new['MEINS'].append(norma.data['Паронит межсекционная (Китай) Gizetta']) 
-                    df_new['MENGE'].append('КГ')
-                    df_new['DATUV'].append('')
-                    df_new['PUSTOY'].append('')
-                if k == 9 :
-                    df_new['MATNR1'].append('1000004484')
-                    df_new['TEXT2'].append('Соеденительная муфта (Местный)')
-                    df_new['MEINS'].append(norma.data['Соеденительная муфта (Местный)']) 
-                    df_new['MENGE'].append('КГ')
-                    df_new['DATUV'].append('')
-                    df_new['PUSTOY'].append('')
-                    
-                df_new['LGORT'].append('')
+                    df_new['LGORT'].append('')
+                
+               
+                    # siryo = Siryo.objects.filter(data__Краткийтекст__icontains =siryo_names[k-2]['kratkiy'])[:1].get()
         
         #### PR
         if {df[i][0]:df[i][1]} not in norma_exists:
             norma_exists.append({df[i][0]:df[i][1]})
             df_new['ID'].append('1')
             df_new['MATNR'].append(df[i][0])
-            df_new['WERKS'].append('4501')
+            df_new['WERKS'].append('5101')
             df_new['TEXT1'].append(df[i][1])
             df_new['STLAL'].append('1')
             df_new['STLAN'].append('1')
@@ -586,7 +575,7 @@ def kombinirovaniy_process(request,id):
                 if k == 1 :
                     df_new['MATNR1'].append('1000004483')
                     df_new['TEXT2'].append('Сплав AK12')
-                    df_new['MEINS'].append('2400') 
+                    df_new['MEINS'].append(norma.data['расход сплава АК 12 на 1000 секции']) 
                     df_new['MENGE'].append('КГ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
@@ -599,7 +588,7 @@ def kombinirovaniy_process(request,id):
                     df_new['PUSTOY'].append('')
                     
                 if k == 3 :
-                    df_new['MATNR1'].append('1000004484')
+                    df_new['MATNR1'].append('1900007455')
                     df_new['TEXT2'].append('Тех. отход промывка')
                     df_new['MEINS'].append('-'+norma.data['Тех. отход промывка']) 
                     df_new['MENGE'].append('КГ')
@@ -607,27 +596,72 @@ def kombinirovaniy_process(request,id):
                     df_new['PUSTOY'].append('')
 
                 if k == 4 :
-                    df_new['MATNR1'].append('1000004484')
+                    df_new['MATNR1'].append('1900007457')
                     df_new['TEXT2'].append('Тех. отход шлак масло')
                     df_new['MEINS'].append('-'+norma.data['Тех. отход шлак масло']) 
                     df_new['MENGE'].append('КГ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                 if k == 5 :
-                    df_new['MATNR1'].append('1000004484')
+                    df_new['MATNR1'].append('1000004351')
                     df_new['TEXT2'].append('Сож для прес-формы DIELUBRIC')
                     df_new['MEINS'].append('-'+norma.data['Сож для прес-формы DIELUBRIC']) 
                     df_new['MENGE'].append('КГ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                 if k == 6 :
-                    df_new['MATNR1'].append('1000004484')
+                    df_new['MATNR1'].append('1000004353')
                     df_new['TEXT2'].append('Огнеупорная смазка Pyro-Mastic')
                     df_new['MEINS'].append('-'+norma.data['Огнеупорная смазка Pyro-Mastic']) 
                     df_new['MENGE'].append('КГ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                 df_new['LGORT'].append('')
+            
+            if norma.data['Тип'] =='Bimetall':
+                if '16' in norma.data['Вставка биметалл']: 
+                    df_new['ID'].append('2')
+                    df_new['MATNR'].append('')
+                    df_new['WERKS'].append('')
+                    df_new['TEXT1'].append('')
+                    df_new['STLAL'].append('')
+                    df_new['STLAN'].append('')
+                    df_new['ZTEXT'].append('')
+                    df_new['STKTX'].append('')
+                    df_new['BMENG'].append('')
+                    df_new['BMEIN'].append('')
+                    df_new['STLST'].append('')
+                    df_new['POSNR'].append(7)
+                    df_new['POSTP'].append('L')
+                    df_new['MATNR1'].append('1000004481')
+                    df_new['TEXT2'].append('Вставка для радиатора 16 мм')
+                    df_new['MEINS'].append('1000') 
+                    df_new['MENGE'].append('ШТ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                    df_new['LGORT'].append('')
+                else:
+                    df_new['ID'].append('2')
+                    df_new['MATNR'].append('')
+                    df_new['WERKS'].append('')
+                    df_new['TEXT1'].append('')
+                    df_new['STLAL'].append('')
+                    df_new['STLAN'].append('')
+                    df_new['ZTEXT'].append('')
+                    df_new['STKTX'].append('')
+                    df_new['BMENG'].append('')
+                    df_new['BMEIN'].append('')
+                    df_new['STLST'].append('')
+                    df_new['POSNR'].append(7)
+                    df_new['POSTP'].append('L')
+                    df_new['MATNR1'].append('1000004482')
+                    df_new['TEXT2'].append('Вставка для радиатора 18 мм')
+                    df_new['MEINS'].append('1000') 
+                    df_new['MENGE'].append('ШТ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                    df_new['LGORT'].append('')
+
                 
                     
                 
