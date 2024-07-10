@@ -1437,7 +1437,7 @@ def kombinirovaniy_process(request,id):
                     
                     if its_kombinirovanniy:
                         print('k ga kiryapti')
-                        norma_1 = Norma.objects.filter(артикул=length[0])[:1].get()
+                        # norma_1 = Norma.objects.filter(артикул=length[0])[:1].get()
                         if ((norma_1.уп_пол_лн_рас_уп_лн_на_1000_штук_кг =='0' ) and (length[0] not in accessuar)):
                             isklyucheniye_ids.append(k)
                             norma.append([length[0],artikul_org,'','','','','','','','xato 0','','Normada Gp bez nakleyka',['#12a4d9','#12a4d9','white','white','white','white','white']])
@@ -1643,67 +1643,67 @@ def kombinirovaniy_process(request,id):
                                 if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм,False,True] not in nakleyka_N:
                                     nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_голд_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_голд_вр_ширина_лн_мм,True,True])
                          
-                    elif nakleyka_code =='I01':
-                        aluminiy_norma_log = (norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм and norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм != '0') or ((norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)and((norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм=='0')))
-                        if aluminiy_norma_log:
-                            if norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0':
-                                if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм).exists():
-                                    isklyucheniye_ids.append(k)
-                                    if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,False] not in nakleyka_N:
-                                        nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,False])
-                            elif norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм =='0':
-                                if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм).exists():
-                                    isklyucheniye_ids.append(k)
-                                    if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,False,True] not in nakleyka_N:
-                                        nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,False,True])
-                            else:
-                                if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм).exists():
-                                    isklyucheniye_ids.append(k)
-                                    if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,True] not in nakleyka_N:
-                                        nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,True])
-                        elif ((norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм == '0')):
-                            norma.append(['',length[0],'I01','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
-                            isklyucheniye_ids.append(k)
-                        else:
-                            if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм).exists():
-                                isklyucheniye_ids.append(k)
-                                if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,False] not in nakleyka_N:
-                                    nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,True])
-                            if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм).exists():
-                                isklyucheniye_ids.append(k)
-                                if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,False,True] not in nakleyka_N:
-                                    nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,True])
+                    # elif nakleyka_code =='I01':
+                    #     aluminiy_norma_log = (norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм and norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм != '0') or ((norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм)and((norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм=='0')))
+                    #     if aluminiy_norma_log:
+                    #         if norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0':
+                    #             if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм).exists():
+                    #                 isklyucheniye_ids.append(k)
+                    #                 if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,False] not in nakleyka_N:
+                    #                     nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,False])
+                    #         elif norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм =='0':
+                    #             if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм).exists():
+                    #                 isklyucheniye_ids.append(k)
+                    #                 if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,False,True] not in nakleyka_N:
+                    #                     nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,False,True])
+                    #         else:
+                    #             if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм).exists():
+                    #                 isklyucheniye_ids.append(k)
+                    #                 if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,True] not in nakleyka_N:
+                    #                     nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,True])
+                    #     elif ((norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм == '0')):
+                    #         norma.append(['',length[0],'I01','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
+                    #         isklyucheniye_ids.append(k)
+                    #     else:
+                    #         if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм).exists():
+                    #             isklyucheniye_ids.append(k)
+                    #             if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,False] not in nakleyka_N:
+                    #                 nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,True])
+                    #         if not Nakleyka.objects.filter(код_наклейки = 'I01',ширина= norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм).exists():
+                    #             isklyucheniye_ids.append(k)
+                    #             if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,False,True] not in nakleyka_N:
+                    #                 nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_imzo_akfa_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_imzo_akfa_вр_ширина_лн_мм,True,True])
                                      
-                    elif nakleyka_code =='NB1':
-                        aluminiy_norma_log = (norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм and norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм != '0') or ((norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм)and((norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм=='0')))
-                        if aluminiy_norma_log:
-                            if norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм =='0':
-                                if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм).exists():
-                                    isklyucheniye_ids.append(k)
-                                    if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,False] not in nakleyka_N:
-                                        nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,False])
-                            elif norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм =='0':
-                                if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм).exists():
-                                    isklyucheniye_ids.append(k)
-                                    if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,False,True] not in nakleyka_N:
-                                        nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,False,True])
-                            else:
-                                if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм).exists():
-                                    isklyucheniye_ids.append(k)
-                                    if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,True] not in nakleyka_N:
-                                        nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,True])
-                        elif ((norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм == '0')):
-                            norma.append(['',length[0],'NB1','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
-                            isklyucheniye_ids.append(k)
-                        else:
-                            if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм).exists():
-                                isklyucheniye_ids.append(k)
-                                if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,False] not in nakleyka_N:
-                                    nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,True])
-                            if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм).exists():
-                                isklyucheniye_ids.append(k)
-                                if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,False,True] not in nakleyka_N:
-                                    nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,True])
+                    # elif nakleyka_code =='NB1':
+                    #     aluminiy_norma_log = (norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм == norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм and norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм != '0') or ((norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм != norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм)and((norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм =='0')or(norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм=='0')))
+                    #     if aluminiy_norma_log:
+                    #         if norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм =='0':
+                    #             if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм).exists():
+                    #                 isklyucheniye_ids.append(k)
+                    #                 if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,False] not in nakleyka_N:
+                    #                     nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,False])
+                    #         elif norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм =='0':
+                    #             if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм).exists():
+                    #                 isklyucheniye_ids.append(k)
+                    #                 if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,False,True] not in nakleyka_N:
+                    #                     nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,False,True])
+                    #         else:
+                    #             if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм).exists():
+                    #                 isklyucheniye_ids.append(k)
+                    #                 if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,True] not in nakleyka_N:
+                    #                     nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,True])
+                    #     elif ((norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм =='0') and (norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм == '0')):
+                    #         norma.append(['',length[0],'NB1','','','','','','','','','Nakleykani qiymati 0',['white','white','#e75874','white','white','white','white']])
+                    #         isklyucheniye_ids.append(k)
+                    #     else:
+                    #         if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм).exists():
+                    #             isklyucheniye_ids.append(k)
+                    #             if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,False] not in nakleyka_N:
+                    #                 nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,True])
+                    #         if not Nakleyka.objects.filter(код_наклейки = 'NB1',ширина= norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм).exists():
+                    #             isklyucheniye_ids.append(k)
+                    #             if [length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,False,True] not in nakleyka_N:
+                    #                 nakleyka_N.append([length[0],nakleyka_code,norma_1.заш_пл_кг_м_без_бр_низ_ширина_лн_мм,norma_1.заш_пл_кг_м_без_бр_вр_ширина_лн_мм,True,True])
                     
                     elif nakleyka_code =='E01':
                         
