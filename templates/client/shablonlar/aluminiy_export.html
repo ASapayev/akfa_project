@@ -9,7 +9,7 @@
                 <form method="POST" id="basic_form" onsubmit="return validateForm()">
                     {%csrf_token%}
                 <div class="" style="overflow: scroll;">
-                        <table class="table table-sm" >
+                        <table class="table table-sm" id="my-table">
                             <thead>
                             <tr>
                                 <th scope="col" style="font-size: 14px;">Действие</th>
@@ -55,7 +55,6 @@
                         </table>
                         
                 </div>
-                <div class="container ">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="d-flex justify-content-start p-2">
@@ -79,7 +78,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
                 </form>
             </section>
 
