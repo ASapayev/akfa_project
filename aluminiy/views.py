@@ -3321,6 +3321,34 @@ def delete_sap_code(request,id):
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator']) 
+def delete_razlovka(request):
+      sap_type = request.GET.get('sap_type',None)
+      sapcode_id = request.GET.get('id',None)
+      
+
+      if sapcode_id:
+            
+            if sap_type =='simple':
+                 
+                  if RazlovkaObichniy.objects.filter(id=sapcode_id).exists():
+                        RazlovkaObichniy.objects.get(id = sapcode_id).delete()
+                  return redirect('show_razlovki')
+            else:      
+                  if RazlovkaTermo.objects.filter(id = sapcode_id).exists():
+                        termo =RazlovkaTermo.objects.get(id = sapcode_id)
+                        components =RazlovkaTermo.objects.filter(parent_id =termo.id)
+                        components.delete()
+                        termo.delete()
+                  return redirect('show_razlovki_termo')
+                  
+
+            return JsonResponse({'msg':True})
+      else:
+            return JsonResponse({'msg':False})
+      
+@csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator']) 
 def sap_code_bulk_delete(request):
       if request.method =='POST':
             file_type = request.POST.get('type',None)

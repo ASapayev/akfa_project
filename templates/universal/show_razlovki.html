@@ -102,7 +102,7 @@
                           </td>
                           <td> {{profile.kratkiy75}}</td>
                           <td>
-                            <div class="badge btn-warning" style="cursor: pointer;">Удалить</div>
+                            <div class="badge btn-warning" style="cursor: pointer;"><a href="{%url 'delete_razlovka'%}?sap_type=termo&id={{profile.id}}">Удалить</a></div>
                           </td>
                         </tr>
                         {%else%}
@@ -152,7 +152,7 @@
                           </td>
                           <td> {{profile.kratkiy75}}</td>
                           <td>
-                            <div class="badge btn-warning" style="cursor: pointer;">Удалить</div>
+                            <div class="badge btn-warning" style="cursor: pointer;"><a href="{%url 'delete_razlovka'%}?sap_type=termo&id={{profile.id}}">Удалить</a></div>
                           </td>
                         </tr>
                       {%endif%}
@@ -233,7 +233,7 @@
                           <td> {{profile.kratkiy75}}</td>
                           
                           <td>
-                            <div class="badge btn-warning" style="cursor: pointer;">Удалить</div>
+                            <div class="badge btn-warning" style="cursor: pointer;"> <a href="{%url 'delete_razlovka'%}?sap_type=simple&id={{profile.id}}">Удалить</a></div>
                           </td>
                         </tr>
                     {%endfor%}

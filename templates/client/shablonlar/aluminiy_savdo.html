@@ -7,8 +7,7 @@
 
 
             <!-- <section class="topics-detail-section section-padding" id="topics-detail"> -->
-                <form method="POST" id="basic_form" onsubmit="return validateForm()">
-                    {%csrf_token%}
+                
                 <div style="overflow: scroll;" id="table-container">
                     
                     <table class="table table-sm" id="my-table">
@@ -75,30 +74,30 @@
                   
                     
                 </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="d-flex justify-content-start p-2">
-                                <input type="button" class="btn btn-warning mr-2 btn-sm" value="Добавить" onclick="add_column()" id="add_column_btn" >
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="d-flex justify-content-start p-2">
-                                <span class="m-1" style="font-weight: 700;" >Тема:</span>
-                                <input  type="text"  id="theme" class="form-control " onkeyup="show_zagruska_btn()" style="height: 30px;border-color:red">
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="d-flex justify-content-end p-2">
-                                <span  class="btn btn-primary" value="" id="zagruzka_file"  onclick="ready_all()">Загрузить</span>
-                                <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
-                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                                    Loading...
-                                </button>
-                            </div>
+                <div class="row" style="position: sticky;">
+                    <div class="col-md-4">
+                        <div class="d-flex justify-content-start p-2">
+                            <input type="button" class="btn btn-warning mr-2 btn-sm" value="Добавить" onclick="add_column()" id="add_column_btn" >
                         </div>
                     </div>
-            </form>
+                    <div class="col-md-4">
+                        <div class="d-flex justify-content-start p-2">
+                            <span class="m-1" style="font-weight: 700;" >Тема:</span>
+                            <input  type="text"  id="theme" class="form-control " onkeyup="show_zagruska_btn()" style="height: 30px;border-color:red">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="d-flex justify-content-end p-2">
+                            <span  class="btn btn-primary" value="" id="zagruzka_file"  onclick="ready_all()">Загрузить</span>
+                            <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
+                                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                Loading...
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            
             <!-- </section> -->
 
             <div  style="display: none;">

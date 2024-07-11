@@ -263,7 +263,7 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-three-dots-vertical"></i>
+                  
                     </button>
                     <ul class="dropdown-menu">
                     <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
