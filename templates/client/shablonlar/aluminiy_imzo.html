@@ -5,14 +5,12 @@
 {%block content%}
 
          
-
-
-            <section class="topics-detail-section section-padding" id="topics-detail">
+            <!-- <section class="topics-detail-section section-padding" id="topics-detail"> -->
                 <form method="POST" id="basic_form" onsubmit="return validateForm()">
                     {%csrf_token%}
                 <div class="" style="overflow: scroll;">
                         <table class="table table-sm" id="my-table">
-                            <thead>
+                            <thead class="sticky-top">
                                 {% csrf_token %}
                             <tr>
                                 <th scope="col" style="font-size: 14px;">Действие</th>
@@ -88,7 +86,7 @@
                         </div>
                     </div>
                 </form>
-            </section>
+            <!-- </section> -->
 
             <div  style="display: none;">
                 <select class="form-select" style="color: black; width: 80px; display: none;height: 30px; font-size: 13px;" id ='nakleyka_list' onchange="">
