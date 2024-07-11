@@ -99,22 +99,19 @@ function front_piece(start=1,end=6){
         text +=`
         <tr id='table_tr` +String(i)+`' >                   
         <td >
-            <div class="input-group input-group-sm mb-1">
-                
-
-                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span id='icon_btn`+String(i)+`'><i class="bi bi-three-dots-vertical"></i></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li style='cursor:pointer;font-size:14px' id='create_btn`+String(i)+`'><a class="dropdown-item" onclick="create(`+String(i)+`)" ><i class="bi bi-plus-circle mr-2"></i>Создание</a></li>
-                        <li style='cursor:pointer;font-size:14px' id='activate_btn`+String(i)+`'><a class="dropdown-item" onclick="activate(`+String(i)+`)" > <i class="bi bi-award-fill mr-2"></i>Активация</a></li>
-                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
-                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
-                    </ul>
-                </div>
-                
-                    
+            <div class="d-flex justify-content-start bd-highlight mb-3">
+                        <div class="p-0 bd-highlight" data-bs-toggle='popover' title="Ma'lumotlarni tozalash">
+                            <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
+                                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
+                                    </ul>
+                            </div> 
+                        </div>
+                        <div class="p-0 bd-highlight"><button class="btn btn-warning btn-sm" id='create_btn`+String(i)+`' onclick="create(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'>Созд.</button></div>
+                        <div class="p-0 bd-highlight"><button class="btn btn-success btn-sm" id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' >Актив.</button></div>
             </div>
         </td>
         <td >
@@ -442,21 +439,11 @@ function copy_tr(id){
 
         
       
-        if(is_active){
-            var icon = $('#icon_btn'+s)
-            icon.children('i').remove()
-            icon.append('<i class="bi bi-award-fill"></i>')
-        }else{
-            var icon = $('#icon_btn'+s)
-            icon.children('i').remove()
-            icon.append('<i class="bi bi-plus-circle"></i>')
-
-        }
-      
+        
         var activate_btn =$('#activate_btn'+s);
         var create_btn =$('#create_btn'+s);
-        activate_btn.css('display','none')
-        create_btn.css('display','none')
+        activate_btn.attr('disabled',true)
+        create_btn.attr('disabled',true)
         
     }
 
@@ -516,12 +503,8 @@ function create(id){
 
     var activate_btn =$('#activate_btn'+id);
     var create_btn =$('#create_btn'+id);
-    activate_btn.css('display','none')
-    create_btn.css('display','none')
-    
-    var icon = $('#icon_btn'+id)
-    icon.children('i').remove()
-    icon.append('<i class="bi bi-plus-circle"></i>')
+    activate_btn.attr('disabled',true)
+    create_btn.attr('disabled',true)
 
     var zavod_name =$('#zavod_name'+id);
     var tip_clenta =$('#tip_clenta'+id);
@@ -607,17 +590,15 @@ function activate(id){
 
     var activate_btn =$('#activate_btn'+id);
     var create_btn =$('#create_btn'+id);
-    activate_btn.css('display','none')
-    create_btn.css('display','none')
+    activate_btn.attr('disabled',true)
+    create_btn.attr('disabled',true)
     var status_first =$('#status'+id);
     status_first.val('Активный')
 
     var is_active =$('#is_active'+id);
     is_active.text('Активный')
 
-    var icon = $('#icon_btn'+id)
-    icon.children('i').remove()
-    icon.append('<i class="bi bi-award-fill"></i>')
+   
    
         
     var svet_product =$('#svet_product'+id);
@@ -816,12 +797,8 @@ function artukil_clear(id){
     var create_btn =$('#create_btn'+id);
     var activate_btn =$('#activate_btn'+id);
 
-    activate_btn.css('display','block')
-    create_btn.css('display','block')
-
-    var icon = $('#icon_btn'+id)
-    icon.children('i').remove()
-    icon.append('<i class="bi bi-three-dots-vertical"></i>')
+    activate_btn.attr('disabled',false)
+    create_btn.attr('disabled',false)
 
 
 
