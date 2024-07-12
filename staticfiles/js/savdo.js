@@ -445,11 +445,12 @@ function front_piece(start=1,end=6){
         text +=`
         <tr id='table_tr` +String(i)+`' >
                                     
-        <td >
+        <td  >
                     <div class="d-flex justify-content-start bd-highlight mb-3">
                         <div class="p-0 bd-highlight" data-bs-toggle='popover' title="Ma'lumotlarni tozalash">
                             <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                    <button class="btn btn-primary  btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                    <i class="bi bi-chevron-down"></i>
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
@@ -468,7 +469,7 @@ function front_piece(start=1,end=6){
                 <div><span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;" style="font-size: 12px;"></span></div>
             </div>
         </td>
-        <td >
+        <td class="sticky-col" >
             <div class="input-group input-group-sm mb-1">
                 <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " disabled id="artikul`+String(i)+`" ></select>
                 <span style='display:none' id ='nakleyka_codd` +String(i)+`'></span>
@@ -1232,7 +1233,7 @@ function copy_tr(id){
 
         
 
-        if(id ==1){
+        if(id == 1){
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=true)
             div_kras_sn.css('display','block')
             check_input_and_change('NT1','#nakleyka'+s,dis=true)
@@ -1253,7 +1254,7 @@ function copy_tr(id){
                     chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=true)
                     div_kras_vn.css('display','block')
                 }
-        }else if(id ==3){
+        }else if(id == 3){
             
             check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
@@ -1268,7 +1269,7 @@ function copy_tr(id){
                 check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
             }
         }
-        else if(id ==4){
+        else if(id == 4){
             
             check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
@@ -1288,7 +1289,7 @@ function copy_tr(id){
             }
 
         }
-        else if(id ==5){
+        else if(id == 5){
             
             check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
@@ -1311,7 +1312,7 @@ function copy_tr(id){
             }
 
         }
-        else if(id ==6){
+        else if(id == 6){
             
             check_for_valid_and_set_val_select(kod_anod_sn,'code_svet_anodirovki_snaruji'+ s)
 

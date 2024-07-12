@@ -142,8 +142,8 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
                 
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                 
+                    <button class="btn btn-primary  btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-chevron-down"></i>
                     </button>
                     <ul class="dropdown-menu">
                         <li style='cursor:pointer; font-size:14px'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
@@ -163,7 +163,7 @@ function front_piece(start=1,end=6){
                 <b><span id='camera` +String(i)+`'style="text-transform: uppercase; font-size:12px;padding-left:5px"></span></b>
             </div>
         </td>
-        <td >
+        <td class="sticky-col" >
             <div class="input-group input-group-sm mb-1">
                 <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " id="artikul`+String(i)+`" ></select>
             </div>

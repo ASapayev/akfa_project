@@ -5,6 +5,7 @@ from aluminiytermo import views as alutermoview
 
 urlpatterns = [
 
+    path('file-upload-radiator-texcarta',views.file_upload_radiator_tex,name='file_upload_radiator_tex'),
     path('file-upload-termo-org',views.full_update_norm,name='norma_file_upload_radiator'),
     path('file-upload-siryo',views.full_update_siryo,name='upload_siryo_radiator'),
     path('file-upload-korobka',views.full_update_korobka,name='upload_korobka_radiator'),

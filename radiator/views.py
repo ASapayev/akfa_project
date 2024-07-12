@@ -45,6 +45,30 @@ def full_update_korobka(request):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','radiator'])
+def file_upload_radiator_tex(request): 
+  if request.method == 'POST':
+    data = request.POST.copy()
+    data['type']='simple'
+    form = NormaFileForm(data, request.FILES)
+    if form.is_valid():
+        file = form.save()
+        context ={'files':[File(file=str(file.file),id=file.id,filetype='texcarta'),],
+              'link':'/radiator/generate-radiator/',
+              'section':'Генерация техкарта файла',
+              'type':'Радиатор',
+              'file_type':'simple'
+              }
+    return render(request,'universal/file_list_norma.html',context)
+  else:
+      form =NormaFileForm()
+      context ={
+        'section':''
+      }
+  return render(request,'universal/main.html',context)
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
 def full_update_siryo(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -940,7 +964,7 @@ class File:
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','only_razlovka'])
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
 def lenght_generate_texcarta(request,id):
     file = NormaExcelFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -949,137 +973,11 @@ def lenght_generate_texcarta(request,id):
     df =df.astype(str)
     df=df.replace('nan','')
 
-    df_list = []
-    df_list_no_dubl = []
 
-    df_list_gp = [[],[],[],[]]
-
-    # for key,row in df.iterrows():
-        # if 'SAP код K'in row:
-        #     df_list.append([
-        #         row['SAP код E'],row['Экструзия холодная резка'],
-        #         row['SAP код Z'],row['Печь старения'],
-        #         row['SAP код P'],row['Покраска автомат'],
-        #         row['SAP код S'],row['Сублимация'],
-        #         row['SAP код A'],row['Анодировка'],
-        #         row['SAP код N'],row['Наклейка'],
-        #         row['SAP код K'],row['K-Комбинирования'],
-        #         row['SAP код 7'],row['U-Упаковка + Готовая Продукция'],
-        #         row['SAP код F'],row['Фабрикация'],
-        #         row['SAP код 75'],row['U-Упаковка + Готовая Продукция 75'],
-        #     ])
-            
-        #     if row['SAP код F']!='' and row['SAP код 75']!='':
-        #         if not TexcartaBase.objects.filter(material = row['SAP код 75']).exists():
-        #             df_list_gp[0].append('1201')
-        #             df_list_gp[1].append('12017500')
-        #             df_list_gp[2].append('1')
-        #             df_list_gp[3].append(row['SAP код 75'])
-        #             TexcartaBase(material = row['SAP код 75']).save()
-        #     elif row['SAP код K']!='' and row['SAP код 7']!='':   
-        #         if not TexcartaBase.objects.filter(material = row['SAP код 7']).exists():
-        #             df_list_gp[0].append('1201')
-        #             df_list_gp[1].append('12017000')
-        #             df_list_gp[2].append('2')
-        #             df_list_gp[3].append(row['SAP код 7'])
-        #             TexcartaBase(material = row['SAP код 7']).save()
-
-        #     if row['SAP код K'] != '':
-        #         if not TexcartaBase.objects.filter(material = row['SAP код K']).exists():
-        #             df_list_gp[0].append('1201')
-        #             df_list_gp[1].append('1201K001')
-        #             df_list_gp[2].append('1')
-        #             df_list_gp[3].append(row['SAP код K'])
-
-        #             df_list_gp[0].append('1201')
-        #             df_list_gp[1].append('1201K002')
-        #             df_list_gp[2].append('1')
-        #             df_list_gp[3].append(row['SAP код K'])
-        #             TexcartaBase(material = row['SAP код K']).save()
-            
-        #     if row['SAP код N'] != '':
-        #         if not TexcartaBase.objects.filter(material = row['SAP код N']).exists():
-        #             df_list_gp[0].append('1201')
-        #             df_list_gp[1].append('1201N000')
-        #             df_list_gp[2].append('1')
-        #             df_list_gp[3].append(row['SAP код N'])
-        #             TexcartaBase(material = row['SAP код N']).save()
-
-        #     if row['SAP код F'] != '':
-        #         if not TexcartaBase.objects.filter(material = row['SAP код F']).exists():
-        #             df_list_gp[0].append('1201')
-        #             df_list_gp[1].append('1201F001')
-        #             df_list_gp[2].append('1')
-        #             df_list_gp[3].append(row['SAP код F'])
-        #             TexcartaBase(material = row['SAP код F']).save()
-        # else:
-        #     df_list.append([
-        #         row['SAP код E'],row['Экструзия холодная резка'],
-        #         row['SAP код Z'],row['Печь старения'],
-        #         row['SAP код P'],row['Покраска автомат'],
-        #         row['SAP код S'],row['Сублимация'],
-        #         row['SAP код A'],row['Анодировка'],
-        #         row['SAP код N'],row['Наклейка'],
-        #         row['SAP код 7'],row['U-Упаковка + Готовая Продукция'],
-        #         row['SAP код F'],row['Фабрикация'],
-        #         row['SAP код 75'],row['U-Упаковка + Готовая Продукция 75'],
-        #     ])
-        
-        #     if row['SAP код N']!='' and row['SAP код 7']!='':
-        #         if not TexcartaBase.objects.filter(material = row['SAP код 7']).exists():
-        #             df_list_gp[0].append('1201')
-        #             df_list_gp[1].append('12017601')
-        #             df_list_gp[2].append('1')
-        #             df_list_gp[3].append(row['SAP код 7'])
-        #             TexcartaBase(material = row['SAP код 7']).save()
-        #     elif row['SAP код N']=='' and row['SAP код 7']!='' :
-        #         if not TexcartaBase.objects.filter(material = row['SAP код 7']).exists():
-        #             df_list_gp[0].append('1201')
-        #             df_list_gp[1].append('12017000')
-        #             df_list_gp[2].append('2')
-        #             df_list_gp[3].append(row['SAP код 7'])
-        #             TexcartaBase(material = row['SAP код 7']).save()
-            
-        #     if row['SAP код N'] != '':
-        #         if not TexcartaBase.objects.filter(material = row['SAP код N']).exists():
-        #             df_list_gp[0].append('1201')
-        #             df_list_gp[1].append('1201N000')
-        #             df_list_gp[2].append('1')
-        #             df_list_gp[3].append(row['SAP код N'])
-        #             TexcartaBase(material = row['SAP код N']).save()
-
-        #     if row['SAP код F'] != '':
-        #         if not TexcartaBase.objects.filter(material = row['SAP код F']).exists():
-        #             df_list_gp[0].append('1201')
-        #             df_list_gp[1].append('1201F001')
-        #             df_list_gp[2].append('1')
-        #             df_list_gp[3].append(row['SAP код F'])
-        #             TexcartaBase(material = row['SAP код F']).save()
-
-        #     if row['SAP код F']!='' and row['SAP код 75']!='':
-        #         if not TexcartaBase.objects.filter(material = row['SAP код 75']).exists():
-        #             df_list_gp[0].append('1201')
-        #             df_list_gp[1].append('12017500')
-        #             df_list_gp[2].append('1')
-        #             df_list_gp[3].append(row['SAP код 75'])
-        #             TexcartaBase(material = row['SAP код 75']).save()
-
-
-
-        # if row['SAP код E'] !='':
-        #         df_list_no_dubl.append({'МАТЕРИАЛ':row['SAP код E'],'КРАТКИЙ ТЕКСТ':row['Экструзия холодная резка']})
-        # if row['SAP код Z'] !='':
-        #     df_list_no_dubl.append({'МАТЕРИАЛ':row['SAP код Z'],'КРАТКИЙ ТЕКСТ':row['Печь старения']})
-        # if row['SAP код P'] !='':
-        #     df_list_no_dubl.append({'МАТЕРИАЛ':row['SAP код P'],'КРАТКИЙ ТЕКСТ':row['Покраска автомат']})
-        # if row['SAP код S'] !='':
-        #     df_list_no_dubl.append({'МАТЕРИАЛ':row['SAP код S'],'КРАТКИЙ ТЕКСТ':row['Сублимация']})
-        # if row['SAP код A'] !='':
-        #     df_list_no_dubl.append({'МАТЕРИАЛ':row['SAP код A'],'КРАТКИЙ ТЕКСТ':row['Анодировка']})
-
+    print(df,'+'*50)
 
     counter = 0
-    for row in df_list_no_dubl:
+    for key,row in df.iterrows():
         if not TexcartaBase.objects.filter(material = row['МАТЕРИАЛ']).exists():
             if '-PR' in row['МАТЕРИАЛ']:
                 counter +=2
@@ -1122,21 +1020,17 @@ def lenght_generate_texcarta(request,id):
     df_new['USR00']=''
     df_new['USR01']=''
     
-
-    
-            
-    
-    
-
+    print(df_new,'lllll')
 
     counter_2 = 0
-    for row in df_list_no_dubl:
+    for key,row in df.iterrows():
         if not TexcartaBase.objects.filter(material = row['МАТЕРИАЛ']).exists():
             length = row['МАТЕРИАЛ'].split('-')[0]
-            norma = Norma.objects.filter(data__новый__icontains=length)[:1].get()
+            print(row['МАТЕРИАЛ'],'ddd')
+            norma = Norma.objects.filter(data__Артикул__icontains=length)[:1].get()
             
             if '-PR' in row['МАТЕРИАЛ']:
-                for i in range(1,4):
+                for i in range(1,3):
                     if i ==1:
                         df_new['ID'][counter_2] ='1'
                         df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
@@ -1145,7 +1039,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['PLNAL'][counter_2] ='1'
                         df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                         df_new['VERWE'][counter_2] ='1'
-                        df_new['STATU'][counter_2] ='4'
+                        df_new['STATU'][counter_2] ='4'     
                         df_new['LOSVN'][counter_2] ='1'
                         df_new['LOSBS'][counter_2] ='99999999'
                     elif i == 2:
@@ -1170,8 +1064,8 @@ def lenght_generate_texcarta(request,id):
                     counter_2 +=1
                 TexcartaBase(material = row['МАТЕРИАЛ']).save()
             
-            if '-PR' in row['МАТЕРИАЛ']:
-                for i in range(1,4):
+            if '-PM' in row['МАТЕРИАЛ']:
+                for i in range(1,3):
                     if i ==1:
                         df_new['ID'][counter_2] ='1'
                         df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
@@ -1186,15 +1080,15 @@ def lenght_generate_texcarta(request,id):
                     elif i == 2:
                         df_new['ID'][counter_2]='2'
                         df_new['VORNR'][counter_2] ='0010'
-                        df_new['ARBPL'][counter_2] ='5101A301'
+                        df_new['ARBPL'][counter_2] ='5101B201'
                         df_new['WERKS1'][counter_2] ='5101'
                         df_new['STEUS'][counter_2] ='ZK01'
-                        df_new['LTXA1'][counter_2] ='Пресс'
+                        df_new['LTXA1'][counter_2] ='PUMA'
                         df_new['BMSCH'][counter_2] = '1000'
                         df_new['MEINH'][counter_2] ='СКЦ'
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
-                        df_new['ACTTYPE_01'][counter_2] ='200003'
+                        df_new['ACTTYPE_01'][counter_2] ='200280'
                         df_new['CKSELKZ'][counter_2] ='X'
                         df_new['UMREZ'][counter_2] = '1'
                         df_new['UMREN'][counter_2] = '1'
@@ -1209,9 +1103,294 @@ def lenght_generate_texcarta(request,id):
                     counter_2 +=1
                 TexcartaBase(material = row['МАТЕРИАЛ']).save()
             
-    for i in range(0,counter_2):
-        df_new['USR01'][i] = df_new['USR01'][i].replace('.',',')
+            if '-PK' in row['МАТЕРИАЛ']:
+                for i in range(1,3):
+                    if i ==1:
+                        df_new['ID'][counter_2] ='1'
+                        df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                        df_new['WERKS'][counter_2] ='5101'
+                        df_new['STTAG'][counter_2] ='01012023'
+                        df_new['PLNAL'][counter_2] ='1'
+                        df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                        df_new['VERWE'][counter_2] ='1'
+                        df_new['STATU'][counter_2] ='4'
+                        df_new['LOSVN'][counter_2] ='1'
+                        df_new['LOSBS'][counter_2] ='99999999'
+                    elif i == 2:
+                        df_new['ID'][counter_2]='2'
+                        df_new['VORNR'][counter_2] ='0010'
+                        df_new['ARBPL'][counter_2] ='5101B511'
+                        df_new['WERKS1'][counter_2] ='5101'
+                        df_new['STEUS'][counter_2] ='ZK01'
+                        df_new['LTXA1'][counter_2] ='Покраска'
+                        df_new['BMSCH'][counter_2] = '1000'
+                        df_new['MEINH'][counter_2] ='СКЦ'
+                        df_new['VGW01'][counter_2] ='24'
+                        df_new['VGE01'][counter_2] ='STD'
+                        df_new['ACTTYPE_01'][counter_2] ='200043'
+                        df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = '1'
+                        df_new['UMREN'][counter_2] = '1'
+                        df_new['USR00'][counter_2] = '1'
+                        df_new['USR01'][counter_2] = '60'
+                        # df_new['UMREZ'][counter_2] = '1000'
+                        # df_new['UMREN'][counter_2] = int(float(norma.data['Площадь поверхности 1000шт профилей/м²'].replace(',','.'))*float(L)/(6))
+                        # df_new['USR00'][counter_2] = '1'
+                        # df_new['USR01'][counter_2] = ("%.3f" % ((L*1000*3600*float(norma.data['Площадь поверхности 1000шт профилей/м²'].replace(',','.')))/(6000000*bmsch)))
+                       
+                   
+                    counter_2 +=1
+                TexcartaBase(material = row['МАТЕРИАЛ']).save()
+            
+            if '-7' in row['МАТЕРИАЛ']:
+                for i in range(1,3):
+                    if i ==1:
+                        df_new['ID'][counter_2] ='1'
+                        df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                        df_new['WERKS'][counter_2] ='5101'
+                        df_new['STTAG'][counter_2] ='01012023'
+                        df_new['PLNAL'][counter_2] ='1'
+                        df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                        df_new['VERWE'][counter_2] ='1'
+                        df_new['STATU'][counter_2] ='4'
+                        df_new['LOSVN'][counter_2] ='1'
+                        df_new['LOSBS'][counter_2] ='99999999'
+                    elif i == 2:
+                        df_new['ID'][counter_2]='2'
+                        df_new['VORNR'][counter_2] ='0010'
+                        df_new['ARBPL'][counter_2] ='5101B521'
+                        df_new['WERKS1'][counter_2] ='5101'
+                        df_new['STEUS'][counter_2] ='ZK01'
+                        df_new['LTXA1'][counter_2] ='Упаковка'
+                        df_new['BMSCH'][counter_2] = '1000'
+                        df_new['MEINH'][counter_2] ='СКЦ'
+                        df_new['VGW01'][counter_2] ='24'
+                        df_new['VGE01'][counter_2] ='STD'
+                        df_new['ACTTYPE_01'][counter_2] ='200043'
+                        df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = '1'
+                        df_new['UMREN'][counter_2] = '1'
+                        df_new['USR00'][counter_2] = '1'
+                        df_new['USR01'][counter_2] = '60'
+                        # df_new['UMREZ'][counter_2] = '1000'
+                        # df_new['UMREN'][counter_2] = int(float(norma.data['Площадь поверхности 1000шт профилей/м²'].replace(',','.'))*float(L)/(6))
+                        # df_new['USR00'][counter_2] = '1'
+                        # df_new['USR01'][counter_2] = ("%.3f" % ((L*1000*3600*float(norma.data['Площадь поверхности 1000шт профилей/м²'].replace(',','.')))/(6000000*bmsch)))
+                       
+                   
+                    counter_2 +=1
+                TexcartaBase(material = row['МАТЕРИАЛ']).save()
 
+            if '-MO' in row['МАТЕРИАЛ']:
+                
+                type_art = norma.data['Тип']
+                if type_art.upper() =='ALUMIN':
+                    opisaniye =[
+                        ['Сварка','Тест Сварки','Фреза','Барабан','Резьба и Торцовка','Шлифовка','Сборка','Тест Сборки'],
+                        ['5101B111','5101B112','5101B121','5101B131','5101B141','5101B151','5101B161','5101B162']]
+                    for j in range(1,4):
+                        if j ==1:
+                            for i in range(1,10):
+                                if i ==1:
+                                    df_new['ID'][counter_2] ='1'
+                                    df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                                    df_new['WERKS'][counter_2] ='5101'
+                                    df_new['STTAG'][counter_2] ='01012023'
+                                    df_new['PLNAL'][counter_2] ='1'
+                                    df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                    df_new['VERWE'][counter_2] ='1'
+                                    df_new['STATU'][counter_2] ='4'
+                                    df_new['LOSVN'][counter_2] ='1'
+                                    df_new['LOSBS'][counter_2] ='99999999'
+                                elif i >= 2:
+                                    df_new['ID'][counter_2]='2'
+                                    df_new['VORNR'][counter_2] =f'00{i-1}0'
+                                    df_new['ARBPL'][counter_2] =opisaniye[1][i-2]
+                                    df_new['WERKS1'][counter_2] ='5101'
+                                    df_new['STEUS'][counter_2] ='ZK01'
+                                    df_new['LTXA1'][counter_2] =opisaniye[0][i-2]
+                                    df_new['BMSCH'][counter_2] = '1000'
+                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['VGW01'][counter_2] ='24'
+                                    df_new['VGE01'][counter_2] ='STD'
+                                    df_new['ACTTYPE_01'][counter_2] ='200280' if 'Тест Сборки' == opisaniye[0][i-2] else ''
+                                    df_new['CKSELKZ'][counter_2] ='X' if 'Тест Сборки' == opisaniye[0][i-2] else ''
+                                    df_new['UMREZ'][counter_2] = '1'
+                                    df_new['UMREN'][counter_2] = '1'
+                                    df_new['USR00'][counter_2] = '1'
+                                    df_new['USR01'][counter_2] = '60'
+                                    
+                            
+                                counter_2 +=1
+                        if j==2:        
+                            for i in range(1,3):
+                                if i ==1:
+                                    df_new['ID'][counter_2] ='1'
+                                    df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                                    df_new['WERKS'][counter_2] ='5101'
+                                    df_new['STTAG'][counter_2] ='01012023'
+                                    df_new['PLNAL'][counter_2] ='1'
+                                    df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                    df_new['VERWE'][counter_2] ='1'
+                                    df_new['STATU'][counter_2] ='4'
+                                    df_new['LOSVN'][counter_2] ='1'
+                                    df_new['LOSBS'][counter_2] ='99999999'
+                                elif i == 2:
+                                    df_new['ID'][counter_2]='2'
+                                    df_new['VORNR'][counter_2] ='0010'
+                                    df_new['ARBPL'][counter_2] ='5101B301'
+                                    df_new['WERKS1'][counter_2] ='5101'
+                                    df_new['STEUS'][counter_2] ='ZK01'
+                                    df_new['LTXA1'][counter_2] ='МехОбработка Gi Zeta'
+                                    df_new['BMSCH'][counter_2] = '1000'
+                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['VGW01'][counter_2] ='24'
+                                    df_new['VGE01'][counter_2] ='STD'
+                                    df_new['ACTTYPE_01'][counter_2] ='200281'
+                                    df_new['CKSELKZ'][counter_2] ='X'
+                                    df_new['UMREZ'][counter_2] = '1'
+                                    df_new['UMREN'][counter_2] = '1'
+                                    df_new['USR00'][counter_2] = '1'
+                                    df_new['USR01'][counter_2] = '60'
+                                counter_2 +=1
+                        if j==3:        
+                            for i in range(1,3):
+                                if i ==1:
+                                    df_new['ID'][counter_2] ='1'
+                                    df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                                    df_new['WERKS'][counter_2] ='5101'
+                                    df_new['STTAG'][counter_2] ='01012023'
+                                    df_new['PLNAL'][counter_2] ='1'
+                                    df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                    df_new['VERWE'][counter_2] ='1'
+                                    df_new['STATU'][counter_2] ='4'
+                                    df_new['LOSVN'][counter_2] ='1'
+                                    df_new['LOSBS'][counter_2] ='99999999'
+                                elif i == 2:
+                                    df_new['ID'][counter_2]='2'
+                                    df_new['VORNR'][counter_2] ='0010'
+                                    df_new['ARBPL'][counter_2] ='5101B401'
+                                    df_new['WERKS1'][counter_2] ='5101'
+                                    df_new['STEUS'][counter_2] ='ZK01'
+                                    df_new['LTXA1'][counter_2] ='МехОбработка S.A.I.P.'
+                                    df_new['BMSCH'][counter_2] = '1000'
+                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['VGW01'][counter_2] ='24'
+                                    df_new['VGE01'][counter_2] ='STD'
+                                    df_new['ACTTYPE_01'][counter_2] ='200282'
+                                    df_new['CKSELKZ'][counter_2] ='X'
+                                    df_new['UMREZ'][counter_2] = '1'
+                                    df_new['UMREN'][counter_2] = '1'
+                                    df_new['USR00'][counter_2] = '1'
+                                    df_new['USR01'][counter_2] = '60'
+                                counter_2 +=1
+                if type_art.upper() =='BIMETALL': 
+                    opisaniye =[
+                        ['Барабан','Торцовка','Шлифовка','Сборка','Тест Сборки'],
+                        ['5101B131','5101B141','5101B151','5101B161','5101B162']]
+                    for j in range(1,4):
+                        if j ==1:
+                            for i in range(1,7):
+                                if i ==1:
+                                    df_new['ID'][counter_2] ='1'
+                                    df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                                    df_new['WERKS'][counter_2] ='5101'
+                                    df_new['STTAG'][counter_2] ='01012023'
+                                    df_new['PLNAL'][counter_2] ='1'
+                                    df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                    df_new['VERWE'][counter_2] ='1'
+                                    df_new['STATU'][counter_2] ='4'
+                                    df_new['LOSVN'][counter_2] ='1'
+                                    df_new['LOSBS'][counter_2] ='99999999'
+                                elif i >= 2:
+                                    df_new['ID'][counter_2]='2'
+                                    df_new['VORNR'][counter_2] =f'00{i-1}0'
+                                    df_new['ARBPL'][counter_2] =opisaniye[1][i-2]
+                                    df_new['WERKS1'][counter_2] ='5101'
+                                    df_new['STEUS'][counter_2] ='ZK01'
+                                    df_new['LTXA1'][counter_2] =opisaniye[0][i-2]
+                                    df_new['BMSCH'][counter_2] = '1000'
+                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['VGW01'][counter_2] ='24'
+                                    df_new['VGE01'][counter_2] ='STD'
+                                    df_new['ACTTYPE_01'][counter_2] ='200280' if 'Тест Сборки' == opisaniye[0][i-2] else ''
+                                    df_new['CKSELKZ'][counter_2] ='X' if 'Тест Сборки' == opisaniye[0][i-2] else ''
+                                    df_new['UMREZ'][counter_2] = '1'
+                                    df_new['UMREN'][counter_2] = '1'
+                                    df_new['USR00'][counter_2] = '1'
+                                    df_new['USR01'][counter_2] = '60'
+                                counter_2 +=1
+                        if j==2:        
+                            for i in range(1,3):
+                                if i ==1:
+                                    df_new['ID'][counter_2] ='1'
+                                    df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                                    df_new['WERKS'][counter_2] ='5101'
+                                    df_new['STTAG'][counter_2] ='01012023'
+                                    df_new['PLNAL'][counter_2] ='1'
+                                    df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                    df_new['VERWE'][counter_2] ='1'
+                                    df_new['STATU'][counter_2] ='4'
+                                    df_new['LOSVN'][counter_2] ='1'
+                                    df_new['LOSBS'][counter_2] ='99999999'
+                                elif i == 2:
+                                    df_new['ID'][counter_2]='2'
+                                    df_new['VORNR'][counter_2] ='0010'
+                                    df_new['ARBPL'][counter_2] ='5101B301'
+                                    df_new['WERKS1'][counter_2] ='5101'
+                                    df_new['STEUS'][counter_2] ='ZK01'
+                                    df_new['LTXA1'][counter_2] ='Gi Zeta'
+                                    df_new['BMSCH'][counter_2] = '1000'
+                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['VGW01'][counter_2] ='24'
+                                    df_new['VGE01'][counter_2] ='STD'
+                                    df_new['ACTTYPE_01'][counter_2] ='200281'
+                                    df_new['CKSELKZ'][counter_2] ='X'
+                                    df_new['UMREZ'][counter_2] = '1'
+                                    df_new['UMREN'][counter_2] = '1'
+                                    df_new['USR00'][counter_2] = '1'
+                                    df_new['USR01'][counter_2] = '60'
+                                counter_2 +=1
+                        
+                        if j==3:        
+                            for i in range(1,3):
+                                if i ==1:
+                                    df_new['ID'][counter_2] ='1'
+                                    df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                                    df_new['WERKS'][counter_2] ='5101'
+                                    df_new['STTAG'][counter_2] ='01012023'
+                                    df_new['PLNAL'][counter_2] ='1'
+                                    df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                    df_new['VERWE'][counter_2] ='1'
+                                    df_new['STATU'][counter_2] ='4'
+                                    df_new['LOSVN'][counter_2] ='1'
+                                    df_new['LOSBS'][counter_2] ='99999999'
+                                elif i == 2:
+                                    df_new['ID'][counter_2]='2'
+                                    df_new['VORNR'][counter_2] ='0010'
+                                    df_new['ARBPL'][counter_2] ='5101B401'
+                                    df_new['WERKS1'][counter_2] ='5101'
+                                    df_new['STEUS'][counter_2] ='ZK01'
+                                    df_new['LTXA1'][counter_2] ='S.A.I.P.'
+                                    df_new['BMSCH'][counter_2] = '1000'
+                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['VGW01'][counter_2] ='24'
+                                    df_new['VGE01'][counter_2] ='STD'
+                                    df_new['ACTTYPE_01'][counter_2] ='200282'
+                                    df_new['CKSELKZ'][counter_2] ='X'
+                                    df_new['UMREZ'][counter_2] = '1'
+                                    df_new['UMREN'][counter_2] = '1'
+                                    df_new['USR00'][counter_2] = '1'
+                                    df_new['USR01'][counter_2] = '60'
+                                counter_2 +=1
+                
+                TexcartaBase(material = row['МАТЕРИАЛ']).save()
+
+
+
+
+
+    print(df_new,'newwwwww')
     df_new=df_new.replace('nan','')
 
     
@@ -1234,18 +1413,18 @@ def lenght_generate_texcarta(request,id):
     create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta_radiator\\{year}\\{month}',day)
     create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta_radiator\\{year}\\{month}\\{day}',hour)
     
-    path7 =f'{MEDIA_ROOT}\\uploads\\texcarta_radiator\\{year}\\{month}\\{day}\\{hour}\\TK_PRISVOENIYE_{s2}.xlsx'
-    tk_prisvoeniye ={}
-    header ='WERKS\tPLNNR\tPLNAL_02\tMATNR_02'
-    tk_prisvoeniye['WERKS']=df_list_gp[0]
-    tk_prisvoeniye['PLNNR']=df_list_gp[1]
-    tk_prisvoeniye['PLNAL_02']=df_list_gp[2]
-    tk_prisvoeniye['MATNR_02']=df_list_gp[3]
+    # path7 =f'{MEDIA_ROOT}\\uploads\\texcarta_radiator\\{year}\\{month}\\{day}\\{hour}\\TK_PRISVOENIYE_{s2}.xlsx'
+    # tk_prisvoeniye ={}
+    # header ='WERKS\tPLNNR\tPLNAL_02\tMATNR_02'
+    # tk_prisvoeniye['WERKS']=df_list_gp[0]
+    # tk_prisvoeniye['PLNNR']=df_list_gp[1]
+    # tk_prisvoeniye['PLNAL_02']=df_list_gp[2]
+    # tk_prisvoeniye['MATNR_02']=df_list_gp[3]
   
     
-    df_tk_prisvoeniye= pd.DataFrame(tk_prisvoeniye)
+    # df_tk_prisvoeniye= pd.DataFrame(tk_prisvoeniye)
     
-    df_tk_prisvoeniye.to_excel(path7,index=False)
+    # df_tk_prisvoeniye.to_excel(path7,index=False)
     # np.savetxt(path7, df_tk_prisvoeniye.values,fmt='%s', delimiter="\t",header=header,comments='',encoding='ansi')
 
 
@@ -1257,11 +1436,10 @@ def lenght_generate_texcarta(request,id):
     # files =[File(file =path2,filetype='simple',id=1),File(file =path7,filetype='simple',id=2),]
     context ={
         'file1':path2,
-        'file2':path7,
         'section':'Техкарта',
 
     }
 
    
-    return render(request,'norma/benkam/generated_files_texcarta.html',context)
+    return render(request,'norma/radiator/generated_files_texcarta.html',context)
 
