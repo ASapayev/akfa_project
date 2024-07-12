@@ -445,7 +445,7 @@ function front_piece(start=1,end=6){
         text +=`
         <tr id='table_tr` +String(i)+`' >
                                     
-        <td  >
+        <td class="sticky-col" style='left:0' >
                     <div class="d-flex justify-content-start bd-highlight mb-3">
                         <div class="p-0 bd-highlight" data-bs-toggle='popover' title="Ma'lumotlarni tozalash">
                             <div class="dropdown">
@@ -464,14 +464,14 @@ function front_piece(start=1,end=6){
                     
 
         </td>
-        <td >
+        <td class="sticky-col">
             <div class="input-group input-group-sm mb-1">
                 <div><span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;" style="font-size: 12px;"></span></div>
             </div>
         </td>
-        <td class="sticky-col" >
+        <td class="sticky-col"  style=' left: 150px;'>
             <div class="input-group input-group-sm mb-1">
-                <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " disabled id="artikul`+String(i)+`" ></select>
+                <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; padding-right:150px!important; font-size:10px " disabled id="artikul`+String(i)+`" ></select>
                 <span style='display:none' id ='nakleyka_codd` +String(i)+`'></span>
             </div>
         </td>
@@ -731,9 +731,11 @@ function front_piece(start=1,end=6){
         <td >
             <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='gruppa_materialov`+String(i)+`'>ALUGP</span>   
         </td> 
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
+        <td class="sticky-col" style=' left: 5px;'>
+            <div class="input-group input-group-sm ">
+                <div class="input-group input-group-sm">
+                <span class =' text-center ' style="font-size: small; width:350px; font-weight: bold; text-transform: uppercase;padding-left:140px;" id='kratkiy_tekst`+String(i)+`'></span>
+                </div>
             </div>
         </td>
         <td >

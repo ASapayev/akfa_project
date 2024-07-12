@@ -32,3 +32,8 @@ class TexcartaBase(models.Model):
     material =models.CharField(max_length=25)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
+
+class ViFiles(models.Model):
+    file =models.FileField(upload_to='uploads/vi/downloads',max_length=500)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)

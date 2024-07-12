@@ -1,12 +1,306 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
-from .forms import NormaFileForm,NormaExcelFiles
-from .models import Norma,Siryo,Korobka,Kraska,TexcartaBase
+from .forms import NormaFileForm,NormaExcelFiles,ViFileForm
+from .models import Norma,Siryo,Korobka,Kraska,TexcartaBase,ViFiles
 from config.settings import MEDIA_ROOT
 import pandas as pd
 import os 
 from datetime import datetime
+
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','radiator'])
+def vi_file(request):
+    files = ViFiles.objects.all().order_by('-created_at')
+    context ={
+        'files':files,
+        'section':'Формирование ВИ файла',
+        'link':'/radiator/vi-generate/',
+        'type':'ВИ'
+        }
+    return render(request,'universal/file_list.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
+def file_vi_upload_org(request):
+      
+    if request.method == 'POST':
+        form = ViFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('vi_file_list_radiator')
+    else:
+        context ={
+            'section':'Загрузка ВИ файла'
+        }
+    return render(request,'universal/main.html',context)
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
+def vi_generate(request,id):
+    file = ViFiles.objects.get(id=id).file
+    file_path =f'{MEDIA_ROOT}\\{file}'
+    df_new = pd.read_excel(file_path,sheet_name=['MARA','MAPL','MAST','PLPO','STKO'])
+    df_new['MARA'] = df_new['MARA'].astype(str)
+    df_new['MAPL'] = df_new['MAPL'].astype(str)
+    df_new['MAST'] = df_new['MAST'].astype(str)
+    df_new['PLPO'] = df_new['PLPO'].astype(str)
+    df_new['STKO'] = df_new['STKO'].astype(str)
+
+    df_new['MARA'] = df_new['MARA'].replace('nan','')
+    df_new['MAPL'] = df_new['MAPL'].replace('nan','')
+    df_new['MAST'] = df_new['MAST'].replace('nan','')
+    df_new['PLPO'] = df_new['PLPO'].replace('nan','')
+    df_new['STKO'] = df_new['STKO'].replace('nan','')
+
+
+    # print(df)
+
+    df_vi = pd.DataFrame()
+    df_vi['WERKS'] = ['5101' for i in df_new['MAST']['Материал']]
+    df_vi['MATNR'] = df_new['MAST']['Материал']
+    df_vi['VERID'] = ["{:04d}".format(int(i)) for i in df_new['MAST']['АльтернСпецификация']]
+    df_vi['BSTMI'] = ['1' for i in df_new['MAST']['Материал']]
+    df_vi['BSTMA'] = ['99999999' for i in df_new['MAST']['Материал']]
+    df_vi['ADATU'] = ['01012024' for i in df_new['MAST']['Материал']]
+    df_vi['BDATU'] = ['31129999' for i in df_new['MAST']['Материал']]
+    df_vi['PLNTY'] = ['N' for i in df_new['MAST']['Материал']]
+    
+    df_vi['ALNAL'] = ['1' for i in df_new['MAST']['Материал']]
+    df_vi['STLAL'] = df_new['MAST']['АльтернСпецификация']
+    df_vi['STLAN'] = ['1' for i in df_new['MAST']['Материал']]
+    df_vi['ELPRO'] = ''
+    df_vi['ALORT'] = ''
+    df_vi['MATNR ALT'] =df_vi['MATNR']+df_vi['STLAL']
+    
+    # find_z =df_vi[df_vi['MATNR'].str.contains("-Z")]
+    # print(find_z)
+    
+
+
+    df_merge1 = pd.DataFrame()
+    df_merge1['Спецификация'] =df_new['MAST']['Спецификация']
+    df_merge1['Материал'] =df_new['MAST']['Материал']
+    df = pd.merge(df_merge1,df_new['STKO'],   how='inner',left_on=['Спецификация'],right_on=['Спецификация'])
+    df['MATNR ALT'] = df['Материал'] + df['АльтернСпецификация']
+    # df_new['STKO'].merge(df_new['MAST'],on='Спецификация', how='inner')
+
+    df_text_alt = pd.DataFrame()
+    df_text_alt['MATNR ALT'] =df['MATNR ALT']
+    df_text_alt['TEXT1'] =df['Текст к альтернативе']
+
+    df_new_vi = pd.merge(df_text_alt,df_vi,   how='inner',left_on=['MATNR ALT'],right_on=['MATNR ALT'])
+
+    # find_z = df_new_vi[df_new_vi['MATNR'].str.contains("-Z")]
+    # print(find_z)
+
+    df_plpo = pd.DataFrame()
+    df_plpo['Материал'] =df_new['MAPL']['Материал']
+    df_plpo['Группа'] =df_new['MAPL']['Группа']
+    df2 = pd.merge(df_plpo,df_new['PLPO'],   how='inner',left_on=['Группа'],right_on=['Группа'])
+
+    df2_filtered =df2[~df2['Краткий текст к операции'].isin(['SKM Хим. обработка', 'ГР Хим. обработка', 'SAT Хим. обработка'])] 
+
+    df2_filtered['MATNR PLPO KRATKIY'] =df2_filtered['Материал']+ df2_filtered['Краткий текст к операции']
+
+    df_new_vi['MATNR PLPO KRATKIY'] =df_new_vi['MATNR'] +df_new_vi['TEXT1']
+    
+
+    # find_z = df_new_vi[df_new_vi['MATNR'].str.contains("-Z")]
+    # print(find_z)
+
+    df_plpo_2 =pd.DataFrame()
+    df_plpo_2['MATNR PLPO KRATKIY'] = df2_filtered['MATNR PLPO KRATKIY']
+    df_plpo_2['PLNNR'] = df2_filtered['Группа']
+
+    
+    df_z = df_plpo[df_plpo['Материал'].str.contains("-Z")]
+    df_z['MATNR'] = df_z['Материал']
+    df_z['PLNNR'] = df_z['Группа']
+    del df_z["Материал"]
+    del df_z["Группа"]
+
+
+    find_z_in_vi = df_new_vi[df_new_vi['MATNR PLPO KRATKIY'].str.contains("-Z")]
+
+
+    df_new_vi_z = pd.merge(df_z,find_z_in_vi,   how='inner',left_on=['MATNR'],right_on=['MATNR'])
+    # print(df_new_vi_z,'vi')
+
+
+
+    df_new_vi2 = pd.merge(df_plpo_2,df_new_vi,   how='inner',left_on=['MATNR PLPO KRATKIY'],right_on=['MATNR PLPO KRATKIY'])
+
+    df_new_vi2 = pd.concat([df_new_vi2, df_new_vi_z])
+    
+
+    ################
+    #algort
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Упаковка']),'ALORT'] = 'PS08'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Покраска']),'ALORT'] = 'PS08'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['PUMA']),'ALORT'] = 'PS07'
+    df_new_vi2.loc[df_new_vi2['TEXT1'].isin(['Пресс']),'ALORT'] = 'PS02'
+    
+
+
+    ####################
+
+    df_4_filter =df_new_vi2[df_new_vi2['VERID'].isin(['0004'])]
+    df_5_filter =df_new_vi2[df_new_vi2['VERID'].isin(['0005'])]
+    df_6_filter =df_new_vi2[df_new_vi2['VERID'].isin(['0006'])]
+
+    df_pere_prisvoeniye_4 = pd.DataFrame({'MATNR':df_4_filter['MATNR'],'WERKS':['5101' for i in df_4_filter['MATNR']],'PLNNR':df_4_filter['PLNNR'],'VORNR':['010' for i in df_4_filter['MATNR']],'PLNFL':['0010' for i in df_4_filter['MATNR']]})
+    df_pere_prisvoeniye_5 = pd.DataFrame({'MATNR':df_5_filter['MATNR'],'WERKS':['5101' for i in df_5_filter['MATNR']],'PLNNR':df_5_filter['PLNNR'],'VORNR':['010' for i in df_5_filter['MATNR']],'PLNFL':['0010' for i in df_5_filter['MATNR']]})
+    df_pere_prisvoeniye_6 = pd.DataFrame({'MATNR':df_6_filter['MATNR'],'WERKS':['5101' for i in df_6_filter['MATNR']],'PLNNR':df_6_filter['PLNNR'],'VORNR':['010' for i in df_6_filter['MATNR']],'PLNFL':['0010' for i in df_6_filter['MATNR']]})
+    
+    del df_new_vi2["MATNR PLPO KRATKIY"]
+    del df_new_vi2["MATNR ALT"]
+
+    columnsTitles = ['WERKS', 'MATNR', 'VERID','TEXT1','BSTMI','BSTMA','ADATU','BDATU','PLNTY','PLNNR','ALNAL','STLAL','STLAN','ELPRO','ALORT']
+    df_new_vi2 = df_new_vi2.reindex(columns=columnsTitles)
+    
+
+    df_new_vi2 = df_new_vi2.drop_duplicates()
+    df_pere_prisvoeniye_4 = df_pere_prisvoeniye_4.drop_duplicates()
+    df_pere_prisvoeniye_5 = df_pere_prisvoeniye_5.drop_duplicates()
+    df_pere_prisvoeniye_6 = df_pere_prisvoeniye_6.drop_duplicates()
+
+    now = datetime.now()
+    year =now.strftime("%Y")
+    month =now.strftime("%B")
+    day =now.strftime("%a%d")
+    hour =now.strftime("%H HOUR")
+    minut =now.strftime("%d-%B-%Y %H-%M-%S")    
+                 
+            
+    create_folder(f'{MEDIA_ROOT}\\uploads\\','vi')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\',f'{year}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\',hour)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}',minut)
+
+    path =f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}\\{minut}\\ВИ_5101.xlsx'
+    
+    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    df_new_vi2.to_excel(writer,index=False,sheet_name ='ВИ')
+    # df_pere_prisvoeniye_4.to_excel(writer,index=False,sheet_name ='4')
+    # df_pere_prisvoeniye_5.to_excel(writer,index=False,sheet_name ='5')
+    # df_pere_prisvoeniye_6.to_excel(writer,index=False,sheet_name ='6')
+    writer.close()
+
+    files =[File(file =path,filetype='vi',id=None)]
+    context ={
+        'section':'ВИ',
+        'files':files
+    }
+    return render(request,'universal/generated_files.html',context)
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
+def vi_generate_mo(request,id):
+    file = ViFiles.objects.get(id=id).file
+    file_path =f'{MEDIA_ROOT}\\{file}'
+    df_new = pd.read_excel(file_path,sheet_name=['MARA','MAPL','MAST','PLPO','STKO'])
+    df_new['MARA'] =df_new['MARA'].astype(str)
+    df_new['MAPL'] =df_new['MAPL'].astype(str)
+    df_new['MAST'] =df_new['MAST'].astype(str)
+    df_new['PLPO'] =df_new['PLPO'].astype(str)
+    df_new['STKO'] =df_new['STKO'].astype(str)
+
+    df_new['MARA']=df_new['MARA'].replace('nan','')
+    df_new['MAPL']=df_new['MAPL'].replace('nan','')
+    df_new['MAST']=df_new['MAST'].replace('nan','')
+    df_new['PLPO']=df_new['PLPO'].replace('nan','')
+    df_new['STKO']=df_new['STKO'].replace('nan','')
+   
+
+    # print(df)
+
+    df_vi = pd.DataFrame()
+    df_vi['WERKS'] = ['5101' for i in df_new['MAPL']['Материал']]
+    df_vi['MATNR'] = df_new['MAPL']['Материал']
+    df_vi['VERID'] = ['' for i in df_new['MAPL']['Материал']]
+    df_vi['BSTMI'] = ['1' for i in df_new['MAPL']['Материал']]
+    df_vi['BSTMA'] = ['99999999' for i in df_new['MAPL']['Материал']]
+    df_vi['ADATU'] = ['01012024' for i in df_new['MAPL']['Материал']]
+    df_vi['BDATU'] = ['31129999' for i in df_new['MAPL']['Материал']]
+    df_vi['PLNTY'] = ['N' for i in df_new['MAPL']['Материал']]
+    df_vi['PLNNR'] = df_new['MAPL']['Группа']
+    
+    df_vi['ALNAL'] = ['1' for i in df_new['MAPL']['Материал']]
+    df_vi['STLAL'] =  ['' for i in df_new['MAPL']['Материал']]
+    df_vi['STLAN'] = ['1' for i in df_new['MAPL']['Материал']]
+    df_vi['ELPRO'] = ''
+    df_vi['ALORT'] = ''
+    df_vi['MATNR ALT'] =df_vi['MATNR']+df_vi['STLAL']
+    
+    
+    
+
+
+    df_merge1 = pd.DataFrame()
+    df_merge1['Краткий текст к операции'] =df_new['PLPO']['Краткий текст к операции']
+    df_merge1['Вид работ'] =df_new['PLPO']['Вид работ']
+    filtered_df = df_merge1[df_merge1['Вид работ'] != '']
+    print(filtered_df['Краткий текст к операции'],'corected')
+
+    df_vi['TEXT1'] = [row for row in filtered_df['Краткий текст к операции']]
+
+    saip = df_vi['TEXT1'].str.contains('S.A.I.P.', case=False, na=False)
+    gizeta = df_vi['TEXT1'].str.contains('Gi Zeta', case=False, na=False)
+    ruchnoy = df_vi['TEXT1'].str.contains('Тест Сборки', case=False, na=False)
+
+    df_vi.loc[saip,'STLAL'] = '1'
+    df_vi.loc[gizeta,'STLAL'] = '2'
+
+    df_vi.loc[gizeta,'ALORT'] = 'PS05'
+    df_vi.loc[ruchnoy,'ALORT'] = 'PS04'
+
+
+    df_vi.loc[saip,'VERID'] = 'S001'
+    df_vi.loc[gizeta,'VERID'] = 'G001'
+    df_vi.loc[ruchnoy,'VERID'] = 'R001'
+
+    
+
+    columnsTitles = ['WERKS', 'MATNR', 'VERID','TEXT1','BSTMI','BSTMA','ADATU','BDATU','PLNTY','PLNNR','ALNAL','STLAL','STLAN','ELPRO','ALORT']
+    df_new_vi2 = df_vi.reindex(columns=columnsTitles)
+    
+
+    now = datetime.now()
+    year =now.strftime("%Y")
+    month =now.strftime("%B")
+    day =now.strftime("%a%d")
+    hour =now.strftime("%H HOUR")
+    minut =now.strftime("%d-%B-%Y %H-%M-%S")    
+                 
+            
+    create_folder(f'{MEDIA_ROOT}\\uploads\\','vi')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\',f'{year}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\',hour)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}',minut)
+
+    path =f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}\\{minut}\\ВИ_5101.xlsx'
+    
+    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    df_new_vi2.to_excel(writer,index=False,sheet_name ='ВИ')
+    writer.close()
+
+    files =[File(file =path,filetype='vi',id=None)]
+    context ={
+        'section':'ВИ',
+        'files':files
+    }
+    return render(request,'universal/generated_files.html',context)
+
+
 
 
 
@@ -362,7 +656,7 @@ def kombinirovaniy_process(request,id):
             df_new['STLAL'].append('1')
             df_new['STLAN'].append('1')
             df_new['ZTEXT'].append(df[i][9])
-            df_new['STKTX'].append('')
+            df_new['STKTX'].append('Упаковка')
             df_new['BMENG'].append( '1000')
             df_new['BMEIN'].append('ШТ')
             df_new['STLST'].append('1')
@@ -406,7 +700,7 @@ def kombinirovaniy_process(request,id):
                     seksiya = text.split('-')[1]
                     # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
                     df_new['MEINS'].append(int(seksiya)*1000) 
-                    df_new['MENGE'].append('скц')
+                    df_new['MENGE'].append('SKC')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                     
@@ -484,9 +778,9 @@ def kombinirovaniy_process(request,id):
             df_new['STLAL'].append('1')
             df_new['STLAN'].append('1')
             df_new['ZTEXT'].append(df[i][7])
-            df_new['STKTX'].append('')
+            df_new['STKTX'].append('Покраска')
             df_new['BMENG'].append( '1000')
-            df_new['BMEIN'].append('скц')
+            df_new['BMEIN'].append('SKC')
             df_new['STLST'].append('1')
             df_new['POSNR'].append('')
             df_new['POSTP'].append('')
@@ -520,7 +814,7 @@ def kombinirovaniy_process(request,id):
                     df_new['TEXT2'].append(df[i][5])
                     # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
                     df_new['MEINS'].append('1000') 
-                    df_new['MENGE'].append('скц')
+                    df_new['MENGE'].append('SKC')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                 if k == 2 :
@@ -569,9 +863,9 @@ def kombinirovaniy_process(request,id):
             df_new['STLAL'].append('1')
             df_new['STLAN'].append('1')
             df_new['ZTEXT'].append(df[i][5])
-            df_new['STKTX'].append('')
+            df_new['STKTX'].append('PUMA')
             df_new['BMENG'].append( '1000')
-            df_new['BMEIN'].append('скц')
+            df_new['BMEIN'].append('SKC')
             df_new['STLST'].append('1')
             df_new['POSNR'].append('')
             df_new['POSTP'].append('')
@@ -603,7 +897,7 @@ def kombinirovaniy_process(request,id):
                     df_new['MATNR1'].append(df[i][2])
                     df_new['TEXT2'].append(df[i][3])
                     df_new['MEINS'].append('1000') 
-                    df_new['MENGE'].append('скц')
+                    df_new['MENGE'].append('SKC')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                     
@@ -622,7 +916,7 @@ def kombinirovaniy_process(request,id):
             df_new['ZTEXT'].append(df[i][3])
             df_new['STKTX'].append('')
             df_new['BMENG'].append( '1000')
-            df_new['BMEIN'].append('скц')
+            df_new['BMEIN'].append('SKC')
             df_new['STLST'].append('1')
             df_new['POSNR'].append('')
             df_new['POSTP'].append('')
@@ -651,7 +945,7 @@ def kombinirovaniy_process(request,id):
             df_new['MATNR1'].append(df[i][0])
             df_new['TEXT2'].append(df[i][1])
             df_new['MEINS'].append('1000') 
-            df_new['MENGE'].append('скц')
+            df_new['MENGE'].append('SKC')
             df_new['DATUV'].append('')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('PS04')
@@ -710,7 +1004,7 @@ def kombinirovaniy_process(request,id):
             df_new['ZTEXT'].append(df[i][3])
             df_new['STKTX'].append('')
             df_new['BMENG'].append( '1000')
-            df_new['BMEIN'].append('скц')
+            df_new['BMEIN'].append('SKC')
             df_new['STLST'].append('1')
             df_new['POSNR'].append('')
             df_new['POSTP'].append('')
@@ -739,7 +1033,7 @@ def kombinirovaniy_process(request,id):
             df_new['MATNR1'].append(df[i][0])
             df_new['TEXT2'].append(df[i][1])
             df_new['MEINS'].append('1000') 
-            df_new['MENGE'].append('скц')
+            df_new['MENGE'].append('SKC')
             df_new['DATUV'].append('')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('PS05')
@@ -787,9 +1081,9 @@ def kombinirovaniy_process(request,id):
             df_new['STLAL'].append('1')
             df_new['STLAN'].append('1')
             df_new['ZTEXT'].append(df[i][1])
-            df_new['STKTX'].append('')
+            df_new['STKTX'].append('Пресс')
             df_new['BMENG'].append( '1000')
-            df_new['BMEIN'].append('скц')
+            df_new['BMEIN'].append('SKC')
             df_new['STLST'].append('1')
             df_new['POSNR'].append('')
             df_new['POSTP'].append('')
@@ -1050,7 +1344,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] ='Пресс'
                         df_new['BMSCH'][counter_2] = '1000'
-                        df_new['MEINH'][counter_2] ='СКЦ'
+                        df_new['MEINH'][counter_2] ='SKC'
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] ='200003'
@@ -1085,7 +1379,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] ='PUMA'
                         df_new['BMSCH'][counter_2] = '1000'
-                        df_new['MEINH'][counter_2] ='СКЦ'
+                        df_new['MEINH'][counter_2] ='SKC'
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] ='200280'
@@ -1124,7 +1418,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] ='Покраска'
                         df_new['BMSCH'][counter_2] = '1000'
-                        df_new['MEINH'][counter_2] ='СКЦ'
+                        df_new['MEINH'][counter_2] ='SKC'
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] ='200043'
@@ -1163,7 +1457,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] ='Упаковка'
                         df_new['BMSCH'][counter_2] = '1000'
-                        df_new['MEINH'][counter_2] ='СКЦ'
+                        df_new['MEINH'][counter_2] ='SKC'
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] ='200043'
@@ -1210,7 +1504,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['STEUS'][counter_2] ='ZK01'
                                     df_new['LTXA1'][counter_2] =opisaniye[0][i-2]
                                     df_new['BMSCH'][counter_2] = '1000'
-                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
                                     df_new['VGE01'][counter_2] ='STD'
                                     df_new['ACTTYPE_01'][counter_2] ='200280' if 'Тест Сборки' == opisaniye[0][i-2] else ''
@@ -1243,7 +1537,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['STEUS'][counter_2] ='ZK01'
                                     df_new['LTXA1'][counter_2] ='МехОбработка Gi Zeta'
                                     df_new['BMSCH'][counter_2] = '1000'
-                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
                                     df_new['VGE01'][counter_2] ='STD'
                                     df_new['ACTTYPE_01'][counter_2] ='200281'
@@ -1274,7 +1568,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['STEUS'][counter_2] ='ZK01'
                                     df_new['LTXA1'][counter_2] ='МехОбработка S.A.I.P.'
                                     df_new['BMSCH'][counter_2] = '1000'
-                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
                                     df_new['VGE01'][counter_2] ='STD'
                                     df_new['ACTTYPE_01'][counter_2] ='200282'
@@ -1310,7 +1604,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['STEUS'][counter_2] ='ZK01'
                                     df_new['LTXA1'][counter_2] =opisaniye[0][i-2]
                                     df_new['BMSCH'][counter_2] = '1000'
-                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
                                     df_new['VGE01'][counter_2] ='STD'
                                     df_new['ACTTYPE_01'][counter_2] ='200280' if 'Тест Сборки' == opisaniye[0][i-2] else ''
@@ -1341,7 +1635,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['STEUS'][counter_2] ='ZK01'
                                     df_new['LTXA1'][counter_2] ='Gi Zeta'
                                     df_new['BMSCH'][counter_2] = '1000'
-                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
                                     df_new['VGE01'][counter_2] ='STD'
                                     df_new['ACTTYPE_01'][counter_2] ='200281'
@@ -1373,7 +1667,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['STEUS'][counter_2] ='ZK01'
                                     df_new['LTXA1'][counter_2] ='S.A.I.P.'
                                     df_new['BMSCH'][counter_2] = '1000'
-                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
                                     df_new['VGE01'][counter_2] ='STD'
                                     df_new['ACTTYPE_01'][counter_2] ='200282'
