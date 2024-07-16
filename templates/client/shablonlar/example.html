@@ -1,0 +1,1680 @@
+<html lang="en" class="panel-fit">
+{% load static %}
+<head>
+
+    <title>Приложения для продаж - система онлайн-продаж</title>
+    <script type="text/javascript" charset="utf-8">
+        var i18n = JSON.parse(
+            '{"returnOrderSap":"SAP-заказ на возврат","operator.greater":"Большее","caption.edit":"Редактировать","text.pleaseSelectItemToDelete":"Пожалуйста, выберите элемент для удаления","label.year":"Год","label.goods":"Товар","label.dashboard":"Dashboard","payment.item.datagrid":"Датагрид данных платежных позиций","label.report":"Отчеты","label.upload.from.excel":"Загрузить из Excel","label.country":"Страна","receipt.item.list":"Список элементов чека","label.priority":"Приоритет","enum.osmOrderStatus.PROCESS":"В процессе","purchasing.group":"Группа закупок","last_month":"В прошлом месяце","agreement":"Контракт","transaction.cant.edit":"Вы не можете редактировать эту транзакцию","chart.pie.kotel.akfa.title":"Котел Акфа Трейд","label.printWithDetails":"Распечатать операцию с деталями","purchasingGroup.rewrite.transactions":"Группа закупок переписывает транзакции","query.for.test.by.day":"Запрос на тест по дням","invoice.item":"Пункт счета","report.account.history.datagrid":"Отчет о Датагрид данных истории учетной записи","enum.FactoryType.REGIONAL_CENTER":"Региональный центр","menu.group.role":"Роль","menu.group.goods":"Товары","write.offs.invoice.item":"Списание элемент","button.checked":"Проверено","goodsPriceByClient":"Цена товара по клиенту","datagrid.error.msg":"Вот сообщение об ошибке!","label.house":"Номер дома","error.order.delete":"Вы не можете удалить этот заказ. Заказ, использованный в транзакции","label.given.qty":"Учит. кол-во","role":"Роль","report.balance.sheet.treegrid":"Отчет данных баланса treegrid","enum.factory.type":"Тип заводи Enum","rate.history":"История оценок","upload.transaction.datagrid":"Загрузить транзакции датагрид","shipment.from.distribution.centre.close":"Отгрузка из распределительного центра закрыта","transactionItem":"Элемент транзакции","order.items":"Детали заказа","label.plant.name":"Название завода","report.monthlySalesByGoods":"Ежемесячные продажи по товарам","button.show":"Просмотр","boiler.report.delete":"Удалить отчет котла","label.amount":"Сумма","widget.kotel.by.region.daily":"Виджет котель по регионам ежедневно","transaction.content":"Содержание транзакции","button.excel":"Ехсел","label.arrival.date":"Дата прибытия","transaction.outbound.report.datagrid":"Transaction outbound report datagrid","operator.contains":"Содержит","menu.group.dealer.cabinet":"Приборная панель дилерского кабинета","smap.ab.osm.order.ready.date":"Дата готовности","outbound.delivery.report":"Отчет об исходящей доставке","enum.AccountsType.BANK":"Безналичные","datagrid.with.given":"Датагрид с учетом","widget.alucabond.by.region":"Виджет alucabond по регионам","label.goods.balance":"Остатка","special.order.report.excel":"Отчет по специальному заказу excel","label.cost":"Стоимость","transaction.save.warehouse":"Склад сохранения транзакций","enum.PaymentReceiptType.PAYMENT":"Оплата","label.classname":"Название класса","menu.group.godown":"Перемищения","paymentReceipt":"Платежная квитанция","order.item.goods.already.exists":"Товар уже существует в этом заказе","report.goods.history.excel":"Отчет об историю товаров excel","enum.SendingStatus.SENDING":"Отправка","november":"Ноябрь","login.btn.login":"Авторизоваться","write.offs.invoice.collect":"Списать бракованный товар","view.sold.items":"view.sold.items","label.prompt.toFilter":"Чтобы отфильтровать...","report.salesByGoodsGroup":"Продажи по группам товаров","replenishment.base.spesorder.datagrid":"Отчет о пополнении склада по спецзаказу Датагрид","return.invoice.item":"Возврат продукции","enum.SendingStatus.CANNOT_SENT":"Не можете отправить","goods.price.by.client":"Цена по клиентам","enum.TransactionStatus.SEND_TO_CHECK":"Отправить, чтобы проверить","menu.group.order":"Заказ","label.data":"Data","enum.AccountsType.EXPENSE":"Расходы","error.you.cant.close.transaction.gtin.not.sold":"Вы не можете закрыть транзакцию, если товар еще не продан.","label.from":"Dan","unit.min":"Ед.изм","warehouse.replenishment.report.datagrid":"Отчет по пополнению склада датагрид","thursday_short":"Чтв","enum.osmOrderStatus.ORDERED":"Заказан","sales.invoice.item":"Расход инвойс элемент","enum.TransactionType.CREDIT_NOTE":"Возврать (от клиента)","label.date":"Дата","export":"Экспорт","label.delete":"Удалить","menu.category.transactions":"Трансакция","role.copy":"Копия роли","button.filter":"Фильтр","label.integration.key":"Integration key","enum.Action.DELETED":"Удалено","enum.TransactionStatus.ACCESS_TO_SHIPMENT":"Доступ к отгрузке","menu.group.salesraw":"Расход сырья","list":"Список","login.list.has.goods":"Login list has Goods","payment.item.add":"Платежная позиция добавить","label.sapname":"Название в САП","receipt.items":"Получение предметов","wmsWarehouse":"WMS Warehouse Mapping","accounting.transactions":"Бухгалтерские операции","text.reasonOfCancel":"Причина отмены","enum.InvoiceStatus.VERIFY_AB":"Проверка AB","chart.pie.radiator.subtitle":"Продажи радиаторов по регионам","text.doYouWantToExcelExport":"Вы хотите экспортировать в Ехсел?","caption.upload":"Загрузить","text.doYouWantToMergeIt":"Вы хотите объединить его?","label.allow.transactions.forward":"Разрешить транзакции передним числом","specialorderinbase":"Спецзаказ в базе","operator.endwith":"Конец с","goods.group.for.chart":"Группа товаров для диаграммы","label.goods.is.free":"Бесплатно?","class.characteristocValues.parent":"Родительские значения характеристик","enum.statusKM.RECEIVED":"Получен","action.itemKM":"action.itemKM","revise.special.order.report.datagrid":"Пересмотреть отчет по специальному заказу Датагрид","payment.item.save":"Сохранить элемент оплаты","order.bindid":"№ дилер заказа","label.upload.rate":"Загрузить цена","widget.pvc.by.region":"Виджет пвх по регионам","label.description":"Описание","class.technicalNameOfCharacteristic":"Техническое название характеристики","return.from.base":"Отчет склада возврат Датагрид","label.master.group":"Мастер-группа","text.pleaseSelectAccount":"Пожалуйста, выберите аккаунт","label.group":"Группа","label.sale.only.by.transfer":"Продажа только по перечислению","friday_short":"Птн","replenishment.base.spesorder.excel":"Отчет о пополнении склада по спецзаказу excel","order.manager.cancel.confirm":"Менеджер заказов отменить подтвердить","enum.abOrderStatus.PENDING":"В ожидании","smap.ab.osm.upload":"Загрузить вручную ","last_7_days":"Последние 7 дней","report.goods.balance.excel":"Отчет об остатке товара excel","order.not.found":"Заказ не найден","chart.pie.alumin.title":"Торговля алюминием","transaction.send.for.access":"Отправка транзакции для доступа","enum.OrderType.WAREHOUSE_RETURN_ORDER":"Заявка на возврат","wednesday_short":"Срд","transaction.items":"Элементы транзакция","error.11":"Пожалуйста, выберите другую валюту.","error.12":"Такой обмен уже существует","error.10":"Пожалуйста, введите необходимые значения","label.acceptedQty":"Принятое кол-во","saturday_short":"Сбт","main.chart":"Основная диаграмма","transaction.not.closed.status":"Статус транзакция не закрыт","transaction.send.sap":"SAP отправки транзакции","smap.ab.config.setting":"Настройка OMS","warehouse.order.manager.datagrid":"Датагрид диспетчера складских заказов","label.purchasing.group":"Группа закупок","release":"Отпустить","special.order.inbase":"Специальный заказ в базе","closing.order.of.factory.datagrid":"Порядок закрытия заказа завода Датагрид","global.flag.shortName.uz":"Уз","enum.PaymentReceiptType.RECEIPT":"Получение","mvc.action.successfully":"Действие успешно","label.passed":"Передал","report.account.history.excel":"Отчет об истории аккаунта excel","permissionReceiveOrder":"Разрешение на получение заказа","text.doYouWantDeleteDuplicateTransaction":"Вы хотите удалить дублированную транзакцию?","enum.transaction.status":"Статус транзакции перечисления","login.list":"Список входа","product.type":"Тип металла","order":"Заказ","label.calc.acc.amount.by.percent":"Расчет бухгалтерской суммы в процентах","smap.oms.gtin":"GTIN","monthly.balance":"Monthly Balance","menu.group.dealer.cabinet.history.excel":"История Excel","transaction.save":"Сохранить транзакцию","enum.abOrderStatus.CREATED":"Создан","label.success":"Операция успешно выполнена","label.needWeight":"Нужно изменить вес","noteToUsers":"Примечание для пользователей","agreement.end.date":"Дата окончания","enum.statusKM.SOLD":"Продан","label.lastdate":"Последнее число","warehouse.list.by.factory":"Список складов по заводе","payers.list":"Список плательщиков","label.manufactory":"Цех","save.canceled.transaction.access":"Сохранить отмененный доступ к транзакции","global.page.title":"Приложения для продаж - система онлайн-продаж","label.baseUnitVal":"Стоимость базовой единицы","revise.special.order.report":"Пересмотреть отчет по специальному заказу","report.monthlyBalance":"Ежемесячный баланс","accountingGoodsPrice":"Бухгалтерская цена товара","button.refresh":"Обновить","factory.delete.account.error":"Вы не можете удалить эту фабрику. Потому что фабрика в аккаунтах","manufacturer":"Производитель","valid":"Действительный","monday_short":"Пнд","transaction.closed.datagrid.by.order":"Сделка закрыта по заказу датагрид","label.value":"Значение","purchase.subtitle":"Покупка товара до склада","class.technicalNameOfCharacteristic.parent":"Техническое имя родительского характеристики","monthlyBalance":"Ежемесячный баланс","enum.statusKM.PRINTED":"Печатан","label.parent":"Источник","smap.ab.config.osm.id":"Омс Ид(OMSId)","purchase.to.base.close":"Купить до закрытия базы","widget.kotel.akfa.by.region":"Виджет котел акфа по регионам","enum.Level.Region":"Область","transaction.datagrid.by.order":"Транзакций по заказу датагрид","order.godown":"Заказ для перемещения","label.canSentToSap":"Можно отправить в САП","enum.OrderStatus.CANCEL_ORDER":"Отменить заказ","transaction.upload.file":"Загруженный файл","label.ordered.qty.short":"Кол. по заявке","goods.receptions":"Прием товаров","button.info":"Информация","label.nameGtd":"Название(gtd)","menu.group.onlineUser":"Online Users","enum.OrderStatus.ACCESS_TO_SHIPMENT":"Доступ к отгрузке","active.no":"Нет","receipt.item.delete":"Удалить элемент чека","label.response":"Response","menu.group.goodsGroup":"Товарная группа","text.pleaseSelectItemToEdit":"Пожалуйста, выберите элемент для редактирования","transaction.detail.by.transaction":"Сведения о транзакции по транзакции","client.type":"Тип клиента","sales.report2":"Отчет о продажах 2","shipment.from.base.close":"Отгрузка с базы закрыть","payment.item.list":"Список платежных позиций","sales.report3":"Отчет о продажах 3","button.sent.to.factory":"Отправить на завод","enum.osmOrderStatus.MANUAL_UPLOADED":"Загружено вручную","pvx.report":"Отчёт по пвх","error.you.cant.close.transaction.this.date":"Вы не можете закрыть транзакцию на эту дату","enum.OrderStatus.PARTIALLY_CLOSED":"Частично закрыто","label.price":"Цена","agreement.interm.location":"Инкотерм место расположения","login.label.password":"Пароль","classMenu":"Характеристики классов","menu.group.order.manager":"Менеджер заказов","all":"Все","label.order.type":"Тип заказа","menu.group.dealer.cabinet.order.list":"Список заказа","enum.OrderStatus.CLOSED":"Закрыто","operator.lessorequal":"Меньше или равно","label.discount.amount":"Сумма скидки","button.take":"Принимать","global.flag.shortName.ru":"Ру","label.allow.fakeclose":"Разрешить подделку закрыть","unit":"Единица измерения","this_month":"Этот месяц","goodsPriceByClient.get.goodsPrice.clinetId.goodId":"Цена товара по клиенту получить цену товара по clinetId и goodId","Transaction":"Транзакции по заказам","label.sales.rate":"Цена продажи","menu.balance.account":"Баланс счета","specialorderinbase.datagrid":"Спецзаказ в базе Датагрид","fake.sales.report":"Поддельный отчет о продажах","october":"Октябрь","purchaseItem":"Покупка товара","collect":"Собрать","smap.ab.config.host":"Хост","receipt.item.save":"Получение элемента сохранения","label.outbount.count":"Кол-во поставка","menu.group.unit":"Единица измерения","warehouse.replenishment.report.excel":"Отчет по пополнению склада excel","button.export":"Экспорт","addressed.storage":"Адресное хранение","full.list":"Полный список","label.role":"Роль","return.from.base.datagrid":"Отчет склада возврат Датагрид","enum.sending.status":"Статус отправки перечисления","label.counrty":"Страна","missed.order.report.excel":"Отчет об упущенном заказе excel","label.account.amount.percent":"Учетная сумма в процентах","today":"Сегодня","smap.ab.osm.order.item.km.status":"Статус КМ","customerSupportCenter":"Центр поддержки клиентов","enum.TransactionStatus.ACCESS_TO_COLLECT":"Доступ к сбору","discount.excel":"discount.excel","label.actual.balance":"Факт. остатка","enum.OrderStatus.SEND_TO_TRADEHOUSE":"Отправлено в торговый дом","caption.close":"Закрыть","menu.group.creditnote":"Bозврат от клиента","label.sales":"Продажи","menu.group.dealer.cabinet.payment.history":"История платежей","smap.goods.report.by.accounts.datagrid":"Продукт отчет по дилерам таблица","oms.images":"oms.images","receipt.list":"Список чеков","text.doYouWantToRemoveThisItem":"Вы хотите удалить этот элемент?","enum.TransactionType.GODOWN_OUT":"Перемищения","label.daily.report":"Ежедневный отчет","menu.group.godown.check":"Проверить входящие товаров","button.send.order":"Заказ Отправить","goods.price.by.client.price.good.id.account.id":"Цена товара по прайс-листу клиента по id товара и id аккаунта","button.accepted.list":"Принятый список","permission.list":"Список разрешений","revise.special.order.report.excel":"Пересмотреть отчет по специальному заказу excel","button.unselect":"Отмените выбор","menu.group.export.order.manager":"Менеджер экспортных заказов","label.given.alterqty.short":"Учит. доп-кол","text.goodsPriceByClientAndGoodIdNodExists":"Для этого клиента цена товара не указана","tree.table":"Таблица дерева","error.6":"Пожалуйста, введите то же значение еще раз.","warehouse.replenishment.report":"Отчет по пополнению склада","report.goods.history.datagrid":"Отчет о Датагрид истории товаров","error.7":"Этого пункт не существует","error.1":"Необходимый","error.2":"Пожалуйста, введите действительный адрес электронной почты","error.3":"Неизвестная ошибка","error.4":"Подтверждение пароля не совпадает","error.5":"500 - Внутренняя системная ошибка.","upload.transaction.excelTemplate":"Загрузить Excel шаблон транзакции","label.delivery.address":"Адрес доставки","label.closing.order.of.factory":"Закрытие заказа с завода","warehouse.subtitle":"Обрашения внутри склада","enum.Status.PASSIVE":"Пассивный","menu.shipping.order":"Отгрузка заказа","label.ask.choose.warehouse":"Попросить выбрать склад","label.streetName":"Название улицы","transaction.outbound.report.excel":"Исходящий отчет по транзакциям excel","button.sent.wms":"Отправить в WMS","warehouse":"Склад","operator.notequal":"Не равный","menu.permissionReceiveOrder":"Разрешение на получение заказа","goods.group.by.factory.account":"Группа товаров по заводскому счету","menu.bank.and.payment":"Списание ДС","sales.report.excel":"Отчета о продажах excel","purchase.invoice.item.warehouse":"Инвойс элемент в складе","warehouse.is.distribution.warehouse":"Распределительный склад?","label.termdays":"Срок дней","label.is.supplier.factory":"Является ли этот поставщик заводоской?","enum.OrderType.DEALER_RETURN_ORDER":"Заявка на возврат","label.article":"Артикул","recipients":"Получатели","widget.alucabond.by.region.daily":"Виджет alucabond по регионам ежедневно","transaction.datagrid.outbound.delivery":"Исходящая доставка транзакционной Датагрид данных","enum.TransactionType.GODOWN_IN":"Перемищения","enum.Level.City":"Город","button.back":"Назад","label.transaction.type":"Тип транзаксия","menu.group.purchase.to.base":"Приход на базу","menu.category.processing.application":"Обработка заявка","menu.account.history":"История аккаунта","smap.oms.arrivalDate.purchaseInvoice":"Дата прибытия заказа","error.segment.used.in.dealerdiscount":"Вы не можете удалить этот сегмент. Используется в таблице скидок дилера.","error.you.cant.send.for.access":"Вы не можете отправить транзакцию для доступа. Вы можете отправить только в САП","label.title":"Заголовок","label.code":"Код","menu.group.dealer":"Дилер","label.outward":"Исходящий","enum.Type.BY_GROUP":"ПО ГРУППЕ","report.salesByAccount":"Продажи по клиентам","currency":"Валюта","enum.OrderStatus.SENT_TO_FACTORY":"Отправлено на завод","menu.transaction.list":"Список транзакций","transaction.item.edit.qty":"Кол-во редактирования элемента транзакции","menu.group.warehouse":"Склад","error.before.cancel.order.had.been.sent":"Вы можете отменить только отправленную транзакцию","enum.OrderType.SPECIAL_ORDER_FOR_FACTORY":"Спецзаказ для производства","special.order.manager.datagrid":"Датагрид менеджера спецзаказов","menu.group.dealer.cabinet.payment.excel":"Оплата excel","label.region":"Регион","special.order.table":"Стол специального заказа","label.username":"Имя пользователя","report.balance.sheet.datagrid":"Отчет данных баланса Датагрид","transaction.cancel.closed.by.spesorder":"Отмена транзакции закрыта по спецзаказу","report.account.balance.by.factory.datagrid":"Отчет об остатке на счете по заводской Датагрид","label.permission":"Разрешение","label.with.total":"Всего","button.reload":"Перезагружать","error.from.warehouse.and.towarehouse.cannot.beequals":"Со склада и на склад не могут быть равны","reportGoodsGroup.treedata":"Группа товаров для отчета treedata","invoice.id":"Инвойс №","goods":"Товары","goods.group.list.by.factory":"Список групп товаров по фабрике","shipment.from.factory.close":"Отгрузка с завода закрыть","label.sign":"Признак","boiler.report":"Отчёт по котлам","menu.notesForOrder":"Примечание для заказа ","button.unfilter":"Снять фильтр","mvc.send.successfully":"Отправить успешно","enum.OrderType.DEALER_PURCHASE_ORDER":"Заказ на приход","enum.FactoryType.SUPPLIER":"Поставщик","manu.bank.and.cash":"Банк и касса","label.fax":"Факс","segment":"Сегмент","label.opening.balance":"Начальное сальдо","label.bank.balance":"Банковский баланс","menu.group.transactions.by.accounting.goods":"Операции по бухгалтерской товаров","transactions.by.special.order.list":"Транзакции по спецзаказу","enum.invoice.status":"Enum invoice status","enum.transaction.type":"Тип транзакции перечисления","label.access.date":"Дата доступа","caption.add":"Новый","receipt.item.add":"Добавление товара в чек","label.shipment.date":"Дата отгрузки","agreement.start.date":"Дата начала","button.add":"Добавить","table.item":"Элемент таблицы","allow.to.print.sap.invoice":"Разрешить печать САП счета-фактуры","datagrid.by.order":"Датагрид по заказу","text.pleaseSelectPeriodOfTimeSMAP":"Пожалуйста, выберите период времени, не превышающий 6 месяцев","error.transaction.not.set.warehouse":"Склад транзакций не установлен. Пожалуйста, установите склад","export.product.price.by.client":"Цена продукта по клиенту","write.offs.invoice.item.collect":"Сбор позиции инвойс на списание","transaction.already.closed":"Транзакция уже закрыта!!!","chart.pie.kotel.akfa.subtitle":"Продажа котлов Акфа по регионам","get.by.id":"Получить по идентификатору","menu.specialorder.report":"Отчет о продажах по спецзаказу","menu.monthlySalesByGoods":"Ежемесячные продажи по товарам","mvc.delete.successfully":"Удалить успешно","goods.rate":"Цена товара","error.account.not.found":"Aккаунт не найден","enum.Status.ACTIVE":"Активный","enum.OrderStatus.SENT_TO_WAREHOUSE":"Отправлено на склад","label.nameCn":"Название(cn)","enum.TransactionStatus.CANCEL_FROM_MANAGER":"Отменить от менеджера","button.reset":"Перезагрузить","operator.equal":"Равные","filter.and.add.good.qt":"Отфильтруйте и добавьте хорошее количество","label.notice.on.pdf":"Уведомление в пдф","enum.OrderStatus.DRAFT":"Черновой","boiler.report.edit":"Редактировать отчет котла","label.currency":"Валюта","yesterday":"Вчера","transaction.by.accounting.goods":"Операция по учету товаров","order.shipment.distribution.centre":"Отгрузка заказа из распределительного центра","button.sspecial.save":"Специальное сохранение","label.debit":"Дебет","menu.bank.and.recipt":"Поступление ДС","sales.invoice":"Инвойс продажи","range.custom":"Произвольный период","payment.item.delete":"Удалить позицию платежа","purchase":"Покупка","cancel.transaction.access":"Отменить доступ к транзакции","label.collect.amount":"Собрать сумму","enum.TransactionStatus.FAKE_CLOSED":"Закрыто!","special.order.report.datagrid":"Отчет по специальному заказу Датагрид","factory.not.found":"Завод не найден","mvc.thisUsed":"Это используется","menu.group.check.cargo.ontruck":"Проверить груз на грузовике","error.you.cant.close.this.transaction.close.only.wms":"Вы не можете закрыть эту транзакцию. Закрывается только из WMS","export.order.by.client":"Заказ на экспорт от клиента","menu.monthlyBalance":"Ежемесячное остаток","widget.alumin.by.region":"Виджет алюминия по регионам","distribution.channel":"Канал распределения","text.doYouWantToCloseThisItem":"Вы хотите закрыть этот заказ?","label.debt.limit":"Долг лимит","container":"Контейнер","menu.group.sales":"Продажи","class.technical":"Техническое название класса","goods.group.by.account.id":"Группа товаров по ИД счета","label.characteristic.name":"Имя характеристики","sales.by.special.order.report.excel":"Отчет о продажах по спецзаказу excel","label.type":"Тип","last_30_days":"Последние 30 дней","global.flag.shortName.en":"Ен","reportGoodsGroup":"Группа товаров для отчета","currencyExchange":"Обмен валют","label.sap.documentid":"САП-документа ИД","label.tzd":"Для мобильного пользователя ТЗД","goodsFilterByParams":"Фильтр товаров","currencyExchangeItem":"Пункт обмена валюты","label.sap.documenttext":"Текст документа","menu.report.category.list":"Список","payment":"Оплата  ","transaction.datagrid.sent.sap":"Транзакция Датагрид отправлена в sap","menu.group.product.color":"Цвет продукта","label.startDate":"Дата начала","smap.ab.osm.order.uuid":"Код заказа","goods.rates":"Цена товаров","upload.transaction.excelUpload":"Загрузить транзакцию в excel","label.organisation":"Организация","return.from.base.excel":"Отчет склада возврат excel","button.edit":"Редактировать","error.order.already.accepted":"Вы не можете принять заказ. Заказ уже принято","login.form.title":"Войти","enum.Type.BY_GOODS":"ПО ТОВАРАМ","physicalStockItem":"Физический товар на складе","missed.order.report":"Отчет об упущенном заказе","label.ordered.qty":"Количество по заявке","entranceNote":"Введите имя пользователя и пароль для входа.","smap.ab.osm.order.item.km":"Код маркировки","logistics.firm":"Логистическая фирма","goodsPriceByClient.update.status":"Цена товара по статусу обновления клиента","label.ordered.date":"Дата заказа","enum.TransactionType.PHYSICAL_STOCK":"Физический запас","text.pleaseSelectAnyItem":"Пожалуйста, выберите любой предмет","characteristocValues":"Значения характеристик","label.symbol.count":"штук","warehouse.transaction.access.datagrid":"Доступ к складским транзакциям Датагрид","label.total":"Итог","label.daily.report.table":"Таблица ежедневных отчетов","enum.DeliveryType.ORDER_TO_DISTRIBUTION_CENTRE":"Заказ в распределительный центр","menu.group.dealer.discount":"Скидка","button.cancel.confirm":"Отменить подтверждение","error.order.already.sent":"Вы не можете отправить заказ. Заказ уже отправлен.","label.buxUnit":"Бухгалтерский учет","menu.group.supplier":"Поставщик","ab.setting":"ab.setting","ABItemKM.view":"ABItemKM.view","smap.ab.config.extension":"Расширение(extension)","shipment.special.order.goods.datagrid":"Отгрузка спецзаказов Датагрид","error.200":"Это электронная почта уже используется","start_date":"Дата начала","enum.accounts.type":"Тип счетов Enum","enum.AccountsType.CASH":"Наличные","failed.notification":"Оповещение о неудаче","menu.goods.rate.history":"История цена товаров","report.order.by.region.chart":"Порядок отчетов по диаграмме регионов","label.product.color":"Цвет продукта","label.sapcode":"САП код","order.not.confirm.status":"Заказ не подтверждает статус","transaction.ask.warehouse":"Сделка спросите склад","special.order.factory":"Спецзаказ для производства","goodsGroup.not.found":"Товарная группа не найдена","button.accept":"Принимать","appSettings":"Настройки приложения","label.comment":"Комментарий","button.merge":"Объединить","sales.invoice.collect":"Собрать","january":"Январь","sales.to.base.excel":"Продажи в базу excel","button.collapse":"Обвал","label.fullName":"Полное имя","enum.AccountsType.SUPPLIER":"Поставщик","label.additional.characteristics":"Дополнительные характеристики","receipt.edit":"Редактировать квитанцию","Day":"Заказов в день","mvc.save.unsuccessfully":"Сохранить неудачно","mvc.save.successfully":"Сохранить успешно","smap.goods.report.by.accounts.excel":"Продукт отчет по дилерам Excel","balance.sheet2":"Бухгалтерский баланс 2","label.model":"Модель автомобиля","godown":"Перемищения","enum.DeliveryType.THROUGH_THE_BASE":"Через база","datagrid.error":"Ошибка","enum.InvoiceStatus.DRAFT":"Открыт","menu.group.accounting.goods":"Бухгалтерские товары","return.invoice.collect":"Принимать возврат","button.to.shipment":"К отгрузке","report.goodsTurnover.excel":"Отчета по товарообороту Excel","agreement.document.text":"Краткий текст контракта.","label.#":"№","enum.InvoiceStatus.ON_THE_WAY":"В пути","text.youCantEditThisItem":"Вы не можете редактировать этот элемент","label.email":"E-mail","collect.and.sales":"Сборка и продажа","requestHistory":"История запросов","download.the.template.to.excel":"Загрузите шаблон в Excel","label.system.name":"Название системы","report.boiler.akfa":"ОТЧЁТ КОТЁЛ AIRFEL","button.download":"Скачать шаблонь","transaction.cancel.shipment":"Транзакция отменить отгрузку","operator.greaterorequal":"Больше или равно","alumin.report":"Отчёт по алюминию","menu.group.dealer.cabinet.history.table":"Таблица истории","special.order.manager.confirm":"Менеджер по спецзаказу подтверждает","text.doYouWantToSendThisItem":"Вы хотите отправить эти данные?","requestHistoryView":"Просмотр истории запросов","closing.order.of.factory":"Порядок закрытия заказа завода","label.sold.gtin.count":"Кол-во продан (KM)","label.manage.alterqty.short":"Доп. кол-во манажера","label.endDate":"Дата окончания","smap.ab.osmOrder.title":"GTIN","label.accounting.name":"Бухгал. название","menu.group.outbound.delivery":"Исходящая поставка","agreement.payment.terms":"Условия оплаты","label.purchase.rate":"Цена покупки","shipment.from.factory":"Отгрузка с завода","chart.pie.radiator.title":"Торговля радиаторами","enum.TransactionStatus.CLOSED":"Закрыто","boiler.royal":"Royal boiler","menu.group.account.balance":"Бухгалтерский баланс","report.balance.sheet2.excel":"Отчет данных баланса 2 excel ","balance.account.datagrid":"Баланс счета датагрид","enum.TransactionStatus.DRAFT":"Черновой","september":"Сентябрь","text.pleaseSelectItemToCancel":"Please select item to cancel","menu.group.region":"Регион","label.requiredQty":"Требуемое количество","error.400":"Некорректный ввод.","error.401":"Неверный URL-ссылка","label.alternateUnit":"Альтернативный единица ","label.inward":"Входящий","label.old.rate":"Старая цена","text.pleaseSelectPeriodOfTime":"Пожалуйста, выберите период времени, не превышающий 45 дней","label.order.history":"История заказов","class.charactersticValues":"Значения характеристик","label.lastRate":"Последняя цена","special.order.to.factory":"Спецзаказ на завод","transaction.type":"Тип операции","label.car.nomer":"Номер машины","button.sent.to.tradehouse":"Отправить","label.address":"Адрес","enum.DeliveryType.SPECIAL_ORDER":"Спецзаказ","order.send.for.manager":"Заказ отправить менеджеру","menu.return.from.base":"Отчет склада возврат","report.goods.balance.datagrid":"Отчет по остаткам товаров в таблице данных","user":"Пользователь","account":"Счет","customer":"Заказчик","balance.list":"С балансовым списком","ABOrder.view":"ABOrder.view","label.bind":"Связывать","enum.InvoiceStatus.CLOSED":"Закрыть","label.cash.balance":"Денежных баланс","mvc.cancel.order.unsuccessfully":"Не удалось отменить заказ из-за того, что в столбце Статус указано «Отправлено на завод».","label.period":"Период","report.boiler.royal":"ОТЧЁТ КОТЁЛ ROYAL","report.warehouse.list":"Отчет об список складов","radiator.report":"Отчёт по радиаторам","menu.category.dashboard":"Главная страница","widget.pvc.by.region.daily":"Виджет пвх по регионам ежедневно","monthly.sales":"Ежемесячные продажи","label.level":"Уровень","menu.group.purchasing.group":"Группа закупок","button.clear":"Очистить","menu.productPriceByClient":"Цена продукта клиентом","final.report":"Заключительный отчет","enum.InvoiceStatus.ACCESS_TO_SHIPMENT":"Открыт","class.charactersticValues.filter":"Фильтр значений характеристик","label.residue.qty":"Кол. остат ","upload.transaction":"Загрузить транзакцию","brandSticker":"Фирменная наклейка","label.contract":"Контракт","label.taxnumber":"Налоговый номер","agreement.codeinterm":"Код инкотермс","operator.less":"Меньше","order.manager.datagrid":"Датагрид менеджера заказов","july":"Июль","sales.report.datagrid":"Отчета о продажах датагрид","boiler.akfa.settings":"Настройки АИРФЕЛ","payment.list":"Список платежей","missed.order.report.datagrid":"Отчет о упущенном заказе Датагрид","sunday_short":"Вск","report.sales.by.region.chart":"Отчет о продажах по регионам","menu.category.main":"Главный","plant":"Вид завод","balance.account.excel":"Баланс счета excel","goodsFilter":"Фильтр товаров по параметру","enum.order.type":"Тип заказа перечисления","sales.report.excel2":"Отчета о продажах excel 2","goods.price.by.client.account.id":"Цена товара по списку клиентских счетов по товара id","closing.order.of.factory.excel":"Порядок закрытия заказа завода excel","enum.Level.Country":"Страна","sales.report.excel3":"Отчета о продажах excel 3","enum.OrderStatus.PROGRESS":"Прогресс","error.600":"Пожалуйста, введите действительный электронной почты","report.balance.sheet2.treegrid":"Отчет данных баланса treegrid 2","error.601":"Это электронная почта уже используется","error.user.cannot.set.role":"Вы не можете установить роль администратора для этого пользователя. Только администратор создает администратора.","enum.abOrderStatus.READY":"Готов","label.conversion":"Конверсия","payment.items":"Предметы оплаты","report.salesByGoods":"Продажи по товарам","special.order.access.datagrid":"Датагрид доступа по специальному заказу","text.youCantCancelThisCloseTransaction":"Вы не можете отменить эту закрытую транзакцию. Только может администратор","label.factory":"Завод","view.itemKM":"view.itemKM","goods.rate.history.purchase.price":"Цена покупки","label.equick.id":"equick ID","transaction.already.sent.tobase":"Транзакция уже отправлена на базу !!!","smap.goods.view.only.smap":"Использовать только SMAP","menu.salesByGoods":"Продажи по товарам","enum.SendingStatus.NOT_SENT":"Не отправлено","menu.group.goodsBalance":"Остатка товаров","label.delivery.type":"Тип доставки","boiler.akfa":"AIRFEL boiler","warehouse.transaction.access":"Доступ к складским транзакциям","error.order.out.debt.limit":"Вы не можете отправить заказ.Задолженность по счету превышена.","chart.pie.ordered.alumin.subtitle":"Заказы алюминия по регионам","menu.monthlySales":"Ежемесячные продажи","march":"Март","enum.Action.UPDATED":"Обновлено","transaction.item.accounting.goods.datagrid":"Товарная позиция по товарной сетке учета","june":"Июнь","purchase.invoice.warehouse":"Приход на склад","label.excel":"Ехсел","label.to":"К","boiler.settings":"Boiler settings","enum.AccountsType.CLIENT":"Клиент","menu.group.order.godown.accept":"Принимать перемещение заказ","menu.group.return.order":"Заявка на возврат","report.monthlySales":"Ежемесячные продажи","sales.by.special.order.report.datagrid":"Отчет о продажах по спецзаказу Датагрид","report.balance.sheet.excel":"Отчет данных баланса excel","enum.FactoryType.IMPORT_CLIENT":"Импорт клиента","return.invoice":"Возврат инвойс","menu.report.category.sales":"Отчеты по продажам","button.rewrite":"Перезапись","enum.Level.District":"Район","goodsTurnover2":"Товарооборот 2","smap.ab.check.status":"Проверить OMS статус","label.accountingGoods":"Бухгалтерский товары","enum.goods.type":"Перечислить тип товара","label.nameSMAP":"SMAP название","menu.category.settings":"Настройки","enum.TransactionType.SALES":"Расход","title.sold.code.markups":"Проданные код маркировки","menu.report.category.goods":"Отчеты по товарам","balanceUnit":"Балансовая единица","mvc.thisIsNotExist":"Этого не существует","text.youCantCancelThisCloseTransactionFromUploaded":"Вы не можете отменить эту закрытую транзакцию. Эта транзакция создана из Excel","ABOrderItem.view":"ABOrderItem.view","button.send":"Отправить","label.discount.percent":"Процент скидки","menu.category.system":"Система","transaction.access.datagrid":"Доступа к транзакциям Датагрид","button.close":"Закрыть","button.message":"Message","report.detailing.of.goods":"Детализация товаров","transaction.upload":"Загрузка транзакции","label.production.date":"Дата изготовления","smap.goods.report.by.accounts.header":"Goods report by accounts header","button.excel.download":"Скачать Excel","label.templete":"Шаблон","report.goodsTurnover2.excel":"Отчета по товарообороту 2 Excel","label.receipt":"Поступление ДС","report.salesByWarehouse":"Продажи со склада","report.account.balance.by.factory.excel":"Отчет об остатке на счете по заводской excel","shipment.from.base.datagrid":"Отгрузка с базы Датагрид","button.copy":"Копировать","client":"Клиент","label.balance":"Остаток средств:","label.given.qty.short":"Учит. кол-во","button.expand":"Расширять","label.reason.itemqty.change":"Причина изменения количества","mvc.close.unsuccessfully":"Закрыть неудачно","menu.group.request":"Заявка","permission":"Разрешение","goodsGroup":"Товарная группа","dealer.order.datagrid":"Датагрид данных заказа дилера","label.number":"Номер","export.order.item":"Экспорт элемента заказа","smap.goods.auto.ordering.KM":"Оформить КМ (Asl Belgi)","global.btn.logout":"Выйти","label.notAllowed":"Не разрешено","label.chart.report":"Диаграммы","enum.SendingStatus.SENT":"Отправлено","error.you.cannot.cancel.transaction.which.was.delivered":"Вы не можете отменить транзакцию, которая была доставлена","label.only.for.order":"Использовать только для заказа","menu.group.dealer.cabinet.history":"История кабинета дилера","serviceEmployee":"Обслуживание сотрудников","sales.by.special.order.report":"Отчет о продажах по спецзаказу","goodsGroup.delete.error":"Вы не можете удалить эту группу.","purchase.invoice.excel":"Эксель счет на покупку","error.you.cant.delete.closed.transaction":"Вы не можете удалить закрытую транзакцию","smap.oms.import.country":"Страна импорта","payment.report":"Отчет об оплате","smap.ab.osm.order.order.load.method":"Способ загрузки заказа","label.alternateUnitVal":"Альтер. стоимость единицы","payer":"Плательщик","messageForOnlineUsers":"Message For Online Users","error.you.cant.edit.closed.transaction":"Вы не можете редактировать закрытую транзакцию","sales.report":"Отчёт о продажи","label.old.date":"Старая дата","label.password":"Пароль","supplier":"Поставщик","save.reason.item.change":"Сохранить изменение элемента причины","accountingGoods":"Бухгалтерские товарь","menu.accountDailyPosition":"Дневная позиция по счету","caption.search":"Поиск","chart.pie.alucabond.subtitle":"Торговля алюкабондами по регионам","menu.group.currencyExchange":"Обмен валют","label.order.status":"Статус заказа","label.upload":"Загрузить","error.sendingstatus.already.sent":"Вы уже отправили эту транзакцию","order.sent.old.date.error":"Вы не можете отправить заказ в эту дату. Пожалуйста, проверьте дату заказа !!!","reportGroupHeader":"Отчет о заголовке группы товаров","dealer.discount":"Скидка дилера","enum.OrderType.DEALER_SPECIAL_ORDER":"Спецзаказ","enum":"Enum","widget.radiator.by.region":"Виджет радиатора по регионам","special.confirm":"Подтвердить специальный заказ","menu.reference.book":"Справочник","label.error":"Ошибка","invalid":"Недействителен","return.invoice.item.collect":"Принимать возврат","enum.TransactionType.PURCHASE":"Приход","manufactory":"Завод","transaction.datagrid.sent.sap.excel":"Transaction datagrid sent sap excel","button.confirm":"Подтвердить","label.pdf":"PDF","special.order.shipment":"Отгрузка товаров по спецзаказу","enum.TransactionStatus.CANCEL_SHIPMENT":"Отмена отгрузки","operator.beginwith":"Начинается с","button.no":"Нет","goodsTurnovern":"Товарооборот","button.cancel.accepted":"Отмена принята","december":"Декабрь","menu.group.purchase":"Приход","table":"Таблица","label.rate":"Цена","smap.supplier":"Поставщик","label.id":"Id","enum.status":"Статус перечисления","report.paymentReport":"Отчет об оплате","may":"Май","chart.pie.ordered.pvc.subtitle":"Заказы ПВХ по регионам","enum.PaymentReceiptType.CONTRA":"Перевод","agreement.partner.name":"Имя делового партнера","transaction.registrationYears.list":"Transaction registration years list","enum.OrderType.SPECIAL_ORDER_FOR_MANUFACTURE":"Спецзаказ для производства","enum.OrderStatus.ACCESS_TO_MANUFACTURE":"Доступ к производству","menu":"Меню","label.creditNote":"Возврат","specialorderinbase.close":"Спецзаказ в базе закрыть","smap.ab.config.token":"Токен","menu.request.history":"История запросов","smap.goods.report.by.accounts":"Продукт отчет по дилерам","wmsMessage":"WMS Message","label.manage.qty.short":"Кол-во менеджера","transaction":"Трансакция","smap.ab.osm.order.transaction.item.qty":"Кол-во","transactionDetail":"Детали транзакции","label.mobile":"Пинкод для мобильного (требуется 6 цифров)","orderedGoods":"Количество заказанного товара","boiler.report.get":"Отчет котла получить","enum.TransactionStatus.SENT_TO_REGIONAL_CENTER":"Отправлено в региональный центр","transaction.cancel.datagrid":"Отмена транзакции Датагрид","coverType":"Тип покрытия","goodsPriceByClient.filter.by.Json.data":"Цена товара по клиенту фильтр по данным Json","menu.group.outbound.deliveryid":"№ поставка","save.canceled.transaction":"Сохранить отмененную транзакцию","label.characteristic.code":"Код характеристики","label.class.code":"Код класса","label.company":"Компания","menu.salesByGoodsGroup":"Продажи по группам товаров","order.shipment.factory":"Отгрузке заказа из завода","enum.TransactionStatus.SEND_TO_ACCESS":"Отправлено для доступа","button.sent.sap":"Отправить в САП","goods.image":"Изображение товара","label.accounttype":"Тип аккаунта","transaction.not.agreement":"У транзакции нет контракта на отправку","label.phone":"Телефон","label.outbound.deliveryids":"№ поставки","enum.TransactionType.DEBIT_NOTE":"Возврать (на поставщика)","label.alternate.qty":"Дополн. кол-во","receipt.item.edit":"Редактирование элемента чека","label.sending.status":"Статус отправки","label.delivery.pdf":"Доставка PDF","shipment.from.distribution.centre.datagrid":"Отгрузка из распределительного центра Датагрид","menu.group.transaction":"Трансакция","menu.report.category.accounts":"Отчеты по счетам","smap.goods.auto.generate.KM":"Автоматически генерировать KM (Asl Belgi)","special.order.close":"Спецзаказ закрыть","enum.abOrderStatus.CLOSED":"Закрыто","text.youCantChangeThis":"Вы не можете изменить это","datagrid.loading":"Обработка, пожалуйста, подождите ...","special.order.production.date.not.exits":"Дата изготовления заказа не существует","notesForOrder":"Примечание для заказа ","receipt.item.datagrid":"Датагрид элемента получения","label.bn.account":"Аккаунт Б.Н.","label.missing.qty":"Упущен. кол-во","credit.note.report.datagrid":"Отчет о кредит-ноте Датагрид","global.flag.longName.uz":"Узбекский","enum.statusKM.REPEAT_PRINTED":"Повтор печатан","write.offs.invoice":"Списание брака","mvc.delete.unsuccessfully":"Удалить неудачно","label.closed.date":"Закрытая дата","smap.ab.osm.order.order.status":"Статус","warehouse.list":"Список складов","button.edit.in.warehouse":"Редактировать на складе","shipment.from.distribution.centre":"Отгрузка из распределительного центра","label.plant.code":"Код завода","enum.SendingStatus.PROCESS":"Процесс","enum.FactoryType.SALES_DEPARTMENT":"Отдел продаж","goodsBalance":"Остатка товаров","label.sending.info":"Отправка инфо","label.to.warehouse":"На склад","label.symbol":"Символ","global.flag.longName.ru":"Русский","label.difference.qty":"Разница кол-во","smap.ab.osm.order.transaction.id":"Ид транзакции","label.closing.balance":"Конечное сальдо","menu.group.currency":"Валюта","chart.pie.kotel.subtitle":"Продажи котлов Airfel по регионам","warehouse.replenishment":"Пополнение склада","label.count":"Count","menu.sales.to.base":"Отчёт пополнения остатков","dealer.not.found.error":"Дилер не найден","camerasInProfile":"Камер в профиле ","label.organisation.address.table":"Таблица адресов организации","Month":"Заказов в месяц","label.supplier":"Поставщик","label.contractCode":"Код контракта","enum.OrderType.WAREHOUSE_REPLENISHMENT":"Заказ на пополнение остатков","boiler.report.save":"Сохранить отчет котла","label.identifikator":"Идентификатор","august":"Август","shipment.special.order.goods":"Отгрузка спецзаказов","orderedGoodDetils":"Детали заказанного товара","enum.AccountsType.MANUFACTORY":"Цех","order.id":"№ заказа","label.organisation.address":"Адрес организации","menu.group.dealer.cabinet.payment.table":"Платежная таблица","mvc.cancel.order.manager.unsuccessfully":"Отменить заказ не удалось, потому что Отменить можно только со статусом «Черновой».","transaction.item.with.balance.datagrid":"Позиция транзакции с балансовой датагрид","label.class.name":"Имя класса ","error.account.not.binded.this.group":"Эта группа не привязывала этот аккаунт","label.payers":"Плательщики","operator.nofilter":"Нет фильтра","transaction.cancel.sent.order":"Транзакция отменить отправленный заказ","report.detailing.of.goods.datagrid":"Детализация товаров таблица","active.yes":"Да","widget.radiator.by.region.daily":"Виджет радиатора по регионам ежедневно","end_date":"Дата окончания","info.container.datagrid":"Информационная таблица контейнера","enum.OrderType.ORDER_GODOWN":"Заказ для перемещения","smap.ab.osm.order.item.good.name":"Товар","label.from.warehouse":"Со склада","menu.goods.history":"История товаров","shipment.special.order.goods.close":"Отгрузка спецзаказов закрыть","special.order":"Спецзаказ","menu.group.closed.transactions":"Закрытые транзакции","button.accept.datagrid":"Принять сетку данных","report.daybook.excel":"Отчет о данных ежедневника excel","edit.order":"Изменить заказ","menu.group.warehouse.transaction.access":"Доступ к складской транзакции","label.inn":"ИНН(Идентификационный номер налогоплательщика)","label.weight.of.one":"Вес одного","enum.GoodsType.FINISHED_PRODUCT":"Готовый продукт","smap.ab.osmOrder.item.km.title":"Код маркировки","mvc.cancel.unsuccessfully":"Не удалось отменить заказ","goods.filter.by.Json.data":"Фильтр товаров по данным Json","label.duedate":"Срок","menu.balance.sheet":"Баланс листов","enum.osmOrderStatus.ERROR":"Ошибка","chart.pie.pvc.subtitle":"Продажи ПВХ по регионам","label.account":"Аккоунт","widget.kotel.by.region":"Виджет котел по регионам","mvc.send.unsuccessfully":"Отправить неудачно","dealer":"Дилер","menu.group.clientType":"Тип клиента","menu.group.clients":"Клиенты","error.goods.not.found":"Товары не найдены по этому идентификатору: %s","menu.daybook":"Дневник","enum.InvoiceStatus.ACCESS_TO_COLLECT":"На Склад","menu.specialorder.revise":"Сверка специальный заказ","transaction.not.foraccess.status":"Транзакция не для статуса доступа","button.delete":"Удалить","enum.Action.CREATED":"Созданный","report.detailing.of.goods.excel":"Детализация товара excel","error.100":"Этот логин не существует","details":"Подробности","report.accountDailyPosition":"Дневная позиция по счету","report.sales.by.region.chart2":"Отчет о продажах по регионам, диаграмма 2","enum.GoodsType.RAW_MATERIAL":"Сырье","error.103":"Аккаунт пассивен или удален.","menu.group.factory":"Завод","error.101":"Логин или пароль неверный","error.102":"Ожидается активация учетной записи.","smap.ab.osm.order.created.date":"Дата создания","label.accounting.amount":"Бухгалтерская сумма","enum.report.group.type":"Тип группы отчетов Enum","caption.info":"Инфо","enum.osmOrderStatus.CLOSED":"Закрыто","menu.oms":"OMS","button.ok":"OK","enum.delivery.type":"Тип доставки Enum","region":"Регион","label.postalCode":"Почтовый индекс","label.ordered.amount":"Сумма заказа","menu.group.special.order.manager":"Менеджер по спец-заказам","label.ordered.alterqty.short":"Доп-кол. по заявке","transaction.uploaded.files":"Загруженные файлы","enum.abOrderStatus.EXPIRED":"Истекший","datagrid.goods":"Товары","chart.pie.kotel.title":"Котел Airfel Торговля","goods.price.by.client.good.list.by.account.id":"Цена товара по клиенту хороший список по id аккаунта","enum.TransactionStatus.ON_THE_WAY":"В пути","update":"Обновлять","menu.group.debitnote":"Возврат товара","widget.pvc.by.region.daily.ordered":"Виджет пвх по регионам ежедневно заказывается","button.accept.save":"Принять Сохранить","receipt.add":"Квитанция добавить","enterToSystem":"Войти","transaction.datagrid":"Трансакция","enum.FactoryType.MANUFACTORY":"Завод","menu.sales.report":"Отчёт о продажах","button.save":"Сохранить","menu.creditnote.report":"Отчет по возвратам","warehouse.return.order":"Заявка на возврат склада","chart.pie.alumin.subtitle":"Торговля алюминием по регионам","label.allow.to.sent":"Разрешить отправлять","turnover":"Оборот","widget.alumin.by.region.daily.ordered":"Виджет алюминия по регионам в день заказа","menu.category.return":"Возврать","enum.abOrderStatus.REJECTED":"Отклоненный","smap.osmOrder.print":"Распечатать","permission.url":"Url","selectedGoodQuantity":"Добавить выбранное товар количество","account.balance.by.factory":"Баланс счета по заводе","smap.ab.download.km":"Загрузить","button.for.access":"Для доступа","credit.note.report.excel":"Отчет о кредит-ноте excel","menu.group.warehouse.order.manager":"Менеджер РЦ заказов","url.itemKM.view":"url.itemKM.view","label.is.has.parent":"Есть родитель?","menu.category.report":"Отчет","discount.percent":"Скидка","shipment.from.base":"Отгрузка с базы","label.sentdate":"Дата отправки","text.doYouWantCancelClosedTransaction":"Вы хотите отменить закрытую транзакцию?","sales.report.datagrid3":"Отчета о продажах датагрид 3","label.active":"Активный","sales.report.datagrid2":"Отчета о продажах датагрид 2","menu.salesByWarehouse":"Продажи со склада","label.denominator":"Знаменатель","transactionItem.not.found":"Элемент транзакции не найден","widget.kotel.akfa.by.region.daily":"Виджет котел акфа по регионам ежедневно","label.qty":"Количество","sales.to.base.datagrid":"Продажи в база Датагрид","warehouse.is.vertual":"Виртуальный склад?","april":"Апрель","label.is.factory":"Является ли этот клиент завод?","credit.note.report":"Credit note report","button.special.save":"Специальное сохранение","special.order.cancel":"Отмена специального заказа","menu.group.specialorder":"Спецзаказ","wmsCustomer":"WMS Customer Mapping","label.receive.qty":"Принято кол-во","error.distribution.centre.wrong":"Неправильный распределительный центр","report.balance.sheet.excel2":"Отчет данных баланса excel 2","error.300":"Этот электронной почты не существует","caption.show":"показывать","payment.item.edit":"Редактирование позиции платежа","menu.salesByAccount":"Продажи по клиентам","label.factoryType":"Тип завода","transaction.upload.date":"Дата загрузки","button.upload":"Загрузить из ехсел","button.excel.export":"Экспорт в Excel","purchase.invoice.item":"Приход инвойс элемент","button.cancel":"Отменить","label.warehouse":"Склад","enum.AccountsType.DEBITOR":"Клиент","special.order.access.manufacture":"Изготовление доступа по специальному заказу","contractor":"Контрагент","class.technical.parent":"Техническое имя родительского класса","tuesday_short":"Втр","reset.permissions":"Сбросить разрешения","dealer.warehouse.list":"dealer.warehouse.list","error.from.warehouse.not.indicated":"Со склада не указано","archiveTransaction":"Архивировать транзакцию","button.to.manufacture":"Для производства","label.credit":"Кредит","label.alternate.qty.short":"Доп. кол","widget.alumin.by.region.daily":"Виджет алюминия по регионам ежедневно","goods.characteristic":"Характеристика товара","smap.ab.config.port":"Порт","transaction.cancel.closed":"Отмена транзакции закрыта","payment.edit":"Редактировать платежа","label.weight":"Масса","agreement.document.text.small":"№ контракта","label.allow.transactions.retroactively":"Разрешить транзакции задним числом","fake.sales.report.excel":"Поддельный отчет о продажах Excel","mvc.action.unsuccessfully":"Действие безуспешно","enum.SendingStatus.ERROR_SENDING":"Ошибка отправки","account.by.login.list":"Учетная запись по списку входа","chart.pie.pvc.title":"Торговля ПВХ","button.yes":"Да","button.sent.tms":"Отправить в TMS","fake.sales.report.datagrid":"Поддельный отчет о продажах","mvc.close.successfully":"Успешно закрыто","chart.pie.ordered.pvc.title":"Заказы ПВХ","list.has.goods":"В списке есть Товары","label.participated":"Участвовал","excel":"Excel","physicalStock":"Физический запас","query.for.test":"Запрос на тест","label.gtin":"Код маркировки GTIN (Asl Belgi)","report.goodsTurnover2.datagrid":"Датагрид отчета по товарообороту 2","label.time":"Время","active.all":"Все","button.sent.to":"Отправить в ","label.transaction.id":"Транзакция №","label.payment":"Списание ДС","data":"Данные","receipt.get":"Квитанция получить","sales.invoice.item.collect":"Сбор инвойс элемента ","text.welcomeToOurWebsite":"Добро пожаловать на наш сайт","balance.account":"Баланс счета","menu.group.user":"Пользователь","label.process":"Процесс","label.pdf.for.rc":"PDF для РЦ","button.view":"Вид","smap.ab.osm.order.transaction.item.id":"Элемент ид заказа","special.order.history":"История специальных заказов","login.label.login":"Авторизоваться","label.download":"Скачать","get.boiler.settings":"Получить настройки котла","error.500":"Такой URL существует","order.history":"История заказов","menu.group.transaction.access":"Доступ к транзакции","label.view":"Просмотр","menu.replenishment.base.spesorder":"Отчет о пополнении склада по спецзаказу","chart.pie.alucabond.title":"Торговля Алукабонд","organization.division":"Организационный отдел","info.container":"Информация Контейнера","label.chart.report.bozor":"Диаграмма бозор","enum.order.status":"Статус заказа перечисления","caption.cancel":"Отмена","download.excel":"Скачать excel","menu.group.godown.outgoing":"Перемещение товаров","shipment.from.factory.datagrid":"Отгрузка с заводского Датагрид","label.allowed":"Разрешенно","label.baseUnit":"Базовый единица ","label.gtin.short":"GTIN (Asl Belgi)","enum.DeliveryType.DIRECT_DELIVERY":"Прямая поставка","product.color":"Цвет продукта","label.name1":"Название 1 ","label.name2":"Название 2","label.name3":"Название 3","label.name4":"Название 4","label.name":"Название","bozor.charts":"Бозорская диаграмма","note":"Если у вас возникли проблемы со входом, обратитесь к своему менеджеру или в центр поддержки клиентов.","label.column":"Столбец","cancel.transaction":"Отменить транзакцию","menu.group.special.order.access":"Доступ по специальному заказу","monthly.sales.by.goods":"Ежемесячные продажи по товарам","label.full.name":"Полное наименование","label.status":"Статус","error.sendingstatus.cannot":"Вы не можете отправить эту транзакцию в САП","order.manager.confirm":"Менеджер заказа подтвердит","car":"Автомобиль","order.shipment.base":"Отгрузке заказа из РЦ","report.daybook.datagrid":"Отчет о данных ежедневника Датагрид","factory":"Завод","enum.TransactionType.WRITE_OFFS":"Списания","transaction.to.shipment":"Транзакция на отгрузку","transaction.not.found":"Транзакция не найдена","enum.AccountsType.CREDITOR":"Поставщик","label.sum":"Сумма","purchase.invoice":"Инвойс","special.order.report":"Отчет по специальному заказу","february":"Февраль","global.flag.longName.en":"Английский","accountGroup":"Группа счетов","goodsGroup.listHasGoods.for.export":"Товарная группа-список содержит товары на экспорт","menu.category.home":"Главная","enum.FactoryType.DEALER":"Дилер","label.login":"Авторизоваться","send.check":"Отправить для проверки","report.goodsTurnover.datagrid":"Датагрид отчета по товарообороту","label.closing.date":"Срок закрития","chart.pie.ordered.alumin.title":"Заказы на алюминий","add.goods":"Добавить товары","invoice":"Инвойс"}'
+            );
+        var loggedUserId = 648;
+    </script>
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="{% static 'assets/plugins/font-awesome/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <!--jQuery EasyUI-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/jquery-easyui-1.10.19/themes/metro/easyui.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/jquery-easyui-1.10.19/themes/icon.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/jquery-easyui-1.10.19/themes/color.min.css' %}">
+
+    <script type="text/javascript" src="{% static 'assets/jquery-easyui-1.10.19/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/jquery-easyui-1.10.19/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/jquery-easyui-1.10.19/locale/easyui-lang-ru.js' %}"></script>
+    <!--jQuery EasyUI extensions-->
+    <script type="text/javascript"
+        src="{% static 'assets/plugins/easyui/jquery-easyui-1.5.5.2/extension/datagrid-filter/datagrid-filter.min.js' %}"></script>
+    <script type="text/javascript"
+        src="{% static 'assets/plugins/easyui/jquery-easyui-1.5.5.2/extension/datagrid-cellediting/datagrid-cellediting.min.js' %}">
+    </script>
+    <script type="text/javascript"
+        src="{% static 'assets/plugins/easyui/jquery-easyui-1.5.5.2/extension/portal/jquery.portal.min.js' %}"></script>
+    <script type="text/javascript"
+        src="{% static 'assets/plugins/easyui/jquery-easyui-1.5.5.2/extension/datagridview/datagrid-groupview.min.js' %}"></script>
+    <script type="text/javascript"
+        src="{% static 'assets/plugins/easyui/jquery-easyui-1.5.5.2/extension/datagridview/datagrid-scrollview.min.js' %}"></script>
+    <script type="text/javascript"
+        src="{% static 'assets/plugins/easyui/jquery-easyui-1.5.5.2/extension/columns-ext/columns-ext.js' %}"></script>
+    <!--Plugins-->
+    
+    <style id="datagrid-filter-style">
+        a.datagrid-filter-btn {
+            display: inline-block;
+            width: 22px;
+            height: 100%;
+            margin: 0;
+            vertical-align: middle;
+            cursor: pointer;
+            opacity: 0.6;
+            filter: alpha(opacity=60);
+        }
+
+        a:hover.datagrid-filter-btn {
+            opacity: 1;
+            filter: alpha(opacity=100);
+        }
+
+        .datagrid-filter-row .textbox,
+        .datagrid-filter-row .textbox .textbox-text {
+            -moz-border-radius: 0;
+            -webkit-border-radius: 0;
+            border-radius: 0;
+        }
+
+        .datagrid-filter-row input {
+            margin: 0;
+            -moz-border-radius: 0;
+            -webkit-border-radius: 0;
+            border-radius: 0;
+        }
+
+        .datagrid-filter-c {
+            overflow: hidden
+        }
+
+        .datagrid-filter-cache {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            left: -99999px;
+        }
+    </style>
+</head>
+
+<body class="easyui-layout layout panel-noscroll" onload="GoodsModule.init()">
+
+    <div class="panel layout-panel layout-panel-north panel-htop" style="width: 1280px; left: 0px; top: 0px;">
+        <div data-options="region:'north',border:false" style="width: 1280px; height: 36px;" title=""
+            class="panel-body panel-body-noheader panel-body-noborder layout-body">
+            <style type="text/css">
+                .content-wrapper {
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .active {
+                    /*text-decoration: underline;*/
+                    /*background-color: #ffffee;*/
+                }
+
+                a {
+                    text-decoration: none;
+                }
+
+                ul {
+                    list-style-type: none;
+                }
+            </style>
+            <div class="panel panel-htop">
+                <div class="easyui-panel panel-body panel-body-noheader" data-options="doSize:false,border:true"
+                    style="padding:5px;" title="" id="">
+
+                    <a href="#" class="easyui-menubutton l-btn l-btn-small l-btn-plain m-btn m-btn-small"
+                        data-options="menu:'#mm1', showEvent:'click'" group="" id=""><span class="l-btn-left"><span
+                                class="l-btn-text"><i class=""></i>
+                                Настройки</span><span class="m-btn-downarrow"></span><span
+                                class="m-btn-line"></span></span></a>
+
+                    <div style="float: right;">
+
+                        <div>
+                            <div style="float: right">
+                                <a href="/auth/logout" class="easyui-linkbutton l-btn l-btn-small" onclick="logout()"
+                                    group="" id=""><span class="l-btn-left"><span class="l-btn-text"><i
+                                                class="fa fa-sign-out fa-lg"></i>
+                                            Выйти</span></span></a>
+                            </div>
+                            <div style="float: right">
+                                <ul class="nav navbar-nav navbar-right" style="margin: 5px">
+                                    <li>
+                                        <div style="float: left; padding-right: 15px">
+                                            <a href="?language=uz">
+                                                <img alt="" src="/assets/img/flags/uz.png">
+                                            </a>
+                                        </div>
+                                        <div style="float: left; padding-right: 15px">
+                                            <a class="active" href="?language=ru">
+                                                <img alt="" src="/assets/img/flags/ru.png">
+                                            </a>
+                                        </div>
+                                        <div style="float: left; padding-right: 15px">
+                                            <a href="?language=en">
+                                                <img alt="" src="/assets/img/flags/en.png">
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel layout-panel layout-panel-center panel-htop" style="width: 1280px; left: 0px; top: 36px;">
+        <div data-options="region:'center',title:''"
+            style="background: rgb(238, 238, 238); width: 1280px; height: 114px;" title=""
+            class="panel-body panel-body-noheader layout-body" id="">
+
+            <div class="easyui-layout layout easyui-fluid" style="width: 1260px; height: 111px;">
+                <div class="panel layout-panel layout-panel-center panel-htop"
+                    style="width: 1260px; left: 0px; top: 0px;">
+                    <div class="panel-header" style="width: 1260px;">
+                        <div class="panel-title">Товары</div>
+                        <div class="panel-tool"><a href="javascript:;" class="panel-tool-collapse"
+                                style="display: none;"></a></div>
+                    </div>
+                    <div data-options="region:'center',title:'Товары',border:true" title=""
+                        class="panel-body layout-body panel-noscroll" id="" style="width: 1260px; height: 83.6667px;">
+                        <div class="panel datagrid panel-htop easyui-fluid" style="width: 1258px;">
+                            <div class="datagrid-wrap panel-body panel-body-noheader panel-body-noborder" title=""
+                                style="width: 1258px; height: 83px;">
+                                <div id="toolbar" class="datagrid-toolbar">
+                                    <a href="javascript:void(0)" id="appendLink"
+                                        class="easyui-linkbutton c1 l-btn l-btn-small" group=""><span
+                                            class="l-btn-left"><span class="l-btn-text"><i class="fa fa-plus-square"
+                                                    aria-hidden="true"></i> Добавить</span></span></a>
+                                    <a href="javascript:void(0)" id="editLink"
+                                        class="easyui-linkbutton c7 l-btn l-btn-small" group=""><span
+                                            class="l-btn-left"><span class="l-btn-text"><i class="fa fa-pencil"
+                                                    aria-hidden="true"></i> Редактировать</span></span></a>
+                                    <a href="javascript:void(0)" id="removeLink"
+                                        class="easyui-linkbutton c5 l-btn l-btn-small" group=""><span
+                                            class="l-btn-left"><span class="l-btn-text"><i class="fa fa-trash"
+                                                    aria-hidden="true"></i> Удалить</span></span></a>
+                                    <a href="javascript:void(0)" id="uploadLink"
+                                        class="easyui-linkbutton l-btn l-btn-small" group=""><span
+                                            class="l-btn-left"><span class="l-btn-text"><i class="fa fa-cloud-upload"
+                                                    aria-hidden="true"></i> Загрузить</span></span></a>
+                                    <a href="javascript:void(0)" id="uploadRateLink"
+                                        class="easyui-linkbutton l-btn l-btn-small" group=""><span
+                                            class="l-btn-left"><span class="l-btn-text"><i class="fa fa-cloud-upload"
+                                                    aria-hidden="true"></i> Загрузить цена</span></span></a>
+                                    <a href="javascript:void(0)" id="downloadLink"
+                                        class="easyui-linkbutton l-btn l-btn-small" group=""><span
+                                            class="l-btn-left"><span class="l-btn-text"><i class="fa fa-cloud-download"
+                                                    aria-hidden="true"></i> Скачать</span></span></a>
+                                </div>
+                                <div class="datagrid-view" style="width: 1258px; height: 62.6667px;">
+                                    <div class="datagrid-view1" style="width: 818.333px;">
+                                        <div class="datagrid-header" style="width: 818.323px; height: 62.6667px;">
+                                            <div class="datagrid-header-inner" style="display: block;">
+                                                <table class="datagrid-htable" border="0" cellspacing="0"
+                                                    cellpadding="0" style="height: 62.6667px;">
+                                                    <tbody>
+                                                        <tr class="datagrid-header-row">
+                                                            <td rowspan="1">
+                                                                <div class="datagrid-header-rownumber"></div>
+                                                            </td>
+                                                            <td class="" style="" field="id">
+                                                                <div
+                                                                    class="datagrid-cell datagrid-sort-asc datagrid-sort dg_datagrid-cell-c1-id">
+                                                                    <span>Id</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="name">
+                                                                <div
+                                                                    class="datagrid-cell datagrid-sort dg_datagrid-cell-c1-name">
+                                                                    <span>Название</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="f_group">
+                                                                <div class="datagrid-cell dg_datagrid-cell-c1-f_group">
+                                                                    <span>Группа</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="sapCode">
+                                                                <div
+                                                                    class="datagrid-cell datagrid-sort dg_datagrid-cell-c1-sapCode">
+                                                                    <span>САП код</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="datagrid-header-row datagrid-filter-row">
+                                                            <td field="_"></td>
+                                                            <td field="id">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input numberbox-f textbox-f datagrid-filter"
+                                                                        style="display: none;" name="id"><span
+                                                                        class="textbox numberbox"
+                                                                        style="width: 39px; height: 28px;"><input
+                                                                            id="_easyui_textbox_input1" type="text"
+                                                                            class="textbox-text validatebox-text textbox-prompt"
+                                                                            autocomplete="off" tabindex=""
+                                                                            placeholder=""
+                                                                            style="margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 26.6667px; line-height: 26.6667px; width: 37.6667px;"><input
+                                                                            type="hidden" class="textbox-value"
+                                                                            value=""></span></div>
+                                                            </td>
+                                                            <td field="name" class="">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input textbox-f datagrid-filter"
+                                                                        style="display: none;" name="name"><span
+                                                                        class="textbox"
+                                                                        style="width: 349px; height: 28px;"><input
+                                                                            id="_easyui_textbox_input2" type="text"
+                                                                            class="textbox-text validatebox-text textbox-prompt"
+                                                                            autocomplete="off" tabindex=""
+                                                                            placeholder=""
+                                                                            style="margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 26.6667px; line-height: 26.6667px; width: 347.667px;"><input
+                                                                            type="hidden" class="textbox-value"
+                                                                            value=""></span></div>
+                                                            </td>
+                                                            <td field="f_group" class="">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input textbox-f datagrid-filter"
+                                                                        style="display: none;" name="f_group"><span
+                                                                        class="textbox"
+                                                                        style="width: 249px; height: 28px;"><input
+                                                                            id="_easyui_textbox_input3" type="text"
+                                                                            class="textbox-text validatebox-text textbox-prompt"
+                                                                            autocomplete="off" tabindex=""
+                                                                            placeholder=""
+                                                                            style="margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 26.6667px; line-height: 26.6667px; width: 247.667px;"><input
+                                                                            type="hidden" class="textbox-value"
+                                                                            value=""></span></div>
+                                                            </td>
+                                                            <td field="sapCode">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input datagrid-filter"
+                                                                        name="sapCode"
+                                                                        style="width: 149px; height: 28px;"></div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="datagrid-body"
+                                            style="width: 818.323px; margin-top: 0px; height: 0px;">
+                                            <div class="datagrid-body-inner">
+                                                <table class="datagrid-btable" cellspacing="0" cellpadding="0"
+                                                    border="0">
+                                                    <tbody>
+                                                        <tr id="dg_datagrid-row-r1-1-0" datagrid-row-index="0"
+                                                            class="datagrid-row">
+                                                            <td class="datagrid-td-rownumber">
+                                                                <div class="datagrid-cell-rownumber">1</div>
+                                                            </td>
+                                                            <td field="id">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-id">5851
+                                                                </div>
+                                                            </td>
+                                                            <td field="name">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-name">Butil
+                                                                    Chita 10.5mm (Alutex)</div>
+                                                            </td>
+                                                            <td field="f_group">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-f_group">
+                                                                    AKSESSUAR (B) ALUTEX</div>
+                                                            </td>
+                                                            <td field="sapCode">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-sapCode">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="dg_datagrid-row-r1-1-1" datagrid-row-index="1"
+                                                            class="datagrid-row datagrid-row-alt ">
+                                                            <td class="datagrid-td-rownumber">
+                                                                <div class="datagrid-cell-rownumber">2</div>
+                                                            </td>
+                                                            <td field="id">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-id">5852
+                                                                </div>
+                                                            </td>
+                                                            <td field="name">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-name">Butil
+                                                                    Chita 12mm (Alutex)</div>
+                                                            </td>
+                                                            <td field="f_group">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-f_group">
+                                                                    AKSESSUAR (B) ALUTEX</div>
+                                                            </td>
+                                                            <td field="sapCode">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-sapCode">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="dg_datagrid-row-r1-1-2" datagrid-row-index="2"
+                                                            class="datagrid-row  " style="height: 37.6667px;">
+                                                            <td class="datagrid-td-rownumber">
+                                                                <div class="datagrid-cell-rownumber">3</div>
+                                                            </td>
+                                                            <td field="id">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-id">5853
+                                                                </div>
+                                                            </td>
+                                                            <td field="name">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-name">Butil
+                                                                    Chita 10.5mm (Uz)</div>
+                                                            </td>
+                                                            <td field="f_group">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-f_group">
+                                                                    AKSESSUAR BUTIL</div>
+                                                            </td>
+                                                            <td field="sapCode">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-sapCode">
+                                                                    1000000935</div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="dg_datagrid-row-r1-1-3" datagrid-row-index="3"
+                                                            class="datagrid-row datagrid-row-alt "
+                                                            style="height: 37.6667px;">
+                                                            <td class="datagrid-td-rownumber">
+                                                                <div class="datagrid-cell-rownumber">4</div>
+                                                            </td>
+                                                            <td field="id">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-id">5854
+                                                                </div>
+                                                            </td>
+                                                            <td field="name">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-name">Butil
+                                                                    Chita 12mm (Uz)</div>
+                                                            </td>
+                                                            <td field="f_group">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-f_group">
+                                                                    AKSESSUAR BUTIL</div>
+                                                            </td>
+                                                            <td field="sapCode">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-sapCode">
+                                                                    1000000936</div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="dg_datagrid-row-r1-1-4" datagrid-row-index="4"
+                                                            class="datagrid-row  " style="height: 37.6667px;">
+                                                            <td class="datagrid-td-rownumber">
+                                                                <div class="datagrid-cell-rownumber">5</div>
+                                                            </td>
+                                                            <td field="id">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-id">5855
+                                                                </div>
+                                                            </td>
+                                                            <td field="name">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-name">Butil
+                                                                    Chita 15.5mm (Uz)</div>
+                                                            </td>
+                                                            <td field="f_group">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-f_group">
+                                                                    AKSESSUAR BUTIL</div>
+                                                            </td>
+                                                            <td field="sapCode">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-sapCode">
+                                                                    1000000938</div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="dg_datagrid-row-r1-1-5" datagrid-row-index="5"
+                                                            class="datagrid-row datagrid-row-alt "
+                                                            style="height: 37.6667px;">
+                                                            <td class="datagrid-td-rownumber">
+                                                                <div class="datagrid-cell-rownumber">6</div>
+                                                            </td>
+                                                            <td field="id">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-id">5856
+                                                                </div>
+                                                            </td>
+                                                            <td field="name">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-name">Butil
+                                                                    Chita 9mm (Uz)</div>
+                                                            </td>
+                                                            <td field="f_group">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-f_group">
+                                                                    AKSESSUAR BUTIL</div>
+                                                            </td>
+                                                            <td field="sapCode">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-sapCode">
+                                                                    000000001000000934</div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="dg_datagrid-row-r1-1-6" datagrid-row-index="6"
+                                                            class="datagrid-row  " style="height: 37.6667px;">
+                                                            <td class="datagrid-td-rownumber">
+                                                                <div class="datagrid-cell-rownumber">7</div>
+                                                            </td>
+                                                            <td field="id">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-id">5857
+                                                                </div>
+                                                            </td>
+                                                            <td field="name">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-name">Butil
+                                                                    Chita JP 15.5mm (15024) (Uz)</div>
+                                                            </td>
+                                                            <td field="f_group">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-f_group">
+                                                                    AKSESSUAR BUTIL</div>
+                                                            </td>
+                                                            <td field="sapCode">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-sapCode">
+                                                                    000000001000000930</div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="dg_datagrid-row-r1-1-7" datagrid-row-index="7"
+                                                            class="datagrid-row datagrid-row-alt "
+                                                            style="height: 37.6667px;">
+                                                            <td class="datagrid-td-rownumber">
+                                                                <div class="datagrid-cell-rownumber">8</div>
+                                                            </td>
+                                                            <td field="id">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-id">5858
+                                                                </div>
+                                                            </td>
+                                                            <td field="name">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-name">Butil
+                                                                    Chita JP 15.5mm (Uz)</div>
+                                                            </td>
+                                                            <td field="f_group">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-f_group">
+                                                                    AKSESSUAR BUTIL</div>
+                                                            </td>
+                                                            <td field="sapCode">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-sapCode">
+                                                                    000000001000000928</div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="dg_datagrid-row-r1-1-8" datagrid-row-index="8"
+                                                            class="datagrid-row  ">
+                                                            <td class="datagrid-td-rownumber">
+                                                                <div class="datagrid-cell-rownumber">9</div>
+                                                            </td>
+                                                            <td field="id">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-id">5859
+                                                                </div>
+                                                            </td>
+                                                            <td field="name">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-name">Beton
+                                                                    Kreplenie Dlya Steklyan Dver (St)</div>
+                                                            </td>
+                                                            <td field="f_group">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-f_group">
+                                                                    Alu. AKSESSUAR STEKLO</div>
+                                                            </td>
+                                                            <td field="sapCode">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-sapCode">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="dg_datagrid-row-r1-1-9" datagrid-row-index="9"
+                                                            class="datagrid-row datagrid-row-alt">
+                                                            <td class="datagrid-td-rownumber">
+                                                                <div class="datagrid-cell-rownumber">10</div>
+                                                            </td>
+                                                            <td field="id">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-id">5860
+                                                                </div>
+                                                            </td>
+                                                            <td field="name">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-name">
+                                                                    Dovodchik (Mexanizm) Exclusive (St)</div>
+                                                            </td>
+                                                            <td field="f_group">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-f_group">
+                                                                    Alu. AKSESSUAR STEKLO</div>
+                                                            </td>
+                                                            <td field="sapCode">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-sapCode">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="dg_datagrid-row-r1-1-10" datagrid-row-index="10"
+                                                            class="datagrid-row  ">
+                                                            <td class="datagrid-td-rownumber">
+                                                                <div class="datagrid-cell-rownumber">11</div>
+                                                            </td>
+                                                            <td field="id">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-id">5861
+                                                                </div>
+                                                            </td>
+                                                            <td field="name">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-name">
+                                                                    Dushevie Kabini Ser (OF-W 1.5 M) (St)</div>
+                                                            </td>
+                                                            <td field="f_group">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-f_group">
+                                                                    Alu. AKSESSUAR STEKLO</div>
+                                                            </td>
+                                                            <td field="sapCode">
+                                                                <div style="white-space:normal;height:auto;"
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-sapCode">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="datagrid-footer" style="width: 818.323px;">
+                                            <div class="datagrid-footer-inner" style="display: none;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="datagrid-view2" style="width: 439.677px;">
+                                        <div class="datagrid-header" style="width: 439.667px; height: 62.6667px;">
+                                            <div class="datagrid-header-inner" style="display: block;">
+                                                <table class="datagrid-htable" border="0" cellspacing="0"
+                                                    cellpadding="0" style="height: 62.6667px;">
+                                                    <tbody>
+                                                        <tr class="datagrid-header-row">
+                                                            <td class="" style="" field="factory">
+                                                                <div class="datagrid-cell dg_datagrid-cell-c1-factory">
+                                                                    <span>Завод</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="segment">
+                                                                <div class="datagrid-cell dg_datagrid-cell-c1-segment">
+                                                                    <span>Сегмент</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="productColor">
+                                                                <div
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-productColor">
+                                                                    <span>Цвет продукта</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="buxUnit">
+                                                                <div class="datagrid-cell dg_datagrid-cell-c1-buxUnit">
+                                                                    <span>Бухгалтерский учет</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="accountingGoods">
+                                                                <div
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-accountingGoods">
+                                                                    <span>Бухгалтерский товары</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="accountAmountPercent">
+                                                                <div
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-accountAmountPercent">
+                                                                    <span>Учетная сумма в процентах</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="status">
+                                                                <div class="datagrid-cell datagrid-sort dg_datagrid-cell-c1-status"
+                                                                    style="text-align: center;"><span>Статус</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="baseUnit">
+                                                                <div class="datagrid-cell dg_datagrid-cell-c1-baseUnit">
+                                                                    <span>Базовый единица </span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="alternateUnit">
+                                                                <div
+                                                                    class="datagrid-cell dg_datagrid-cell-c1-alternateUnit">
+                                                                    <span>Альтернативный единица </span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="baseUnitVal">
+                                                                <div
+                                                                    class="datagrid-cell datagrid-sort dg_datagrid-cell-c1-baseUnitVal">
+                                                                    <span>Стоимость базовой единицы</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="alternateUnitVal">
+                                                                <div
+                                                                    class="datagrid-cell datagrid-sort dg_datagrid-cell-c1-alternateUnitVal">
+                                                                    <span>Альтер. стоимость единицы</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                            <td class="" style="" field="creater">
+                                                                <div class="datagrid-cell dg_datagrid-cell-c1-creater">
+                                                                    <span>Creater</span><span
+                                                                        class="datagrid-sort-icon"></span></div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="datagrid-header-row datagrid-filter-row">
+                                                            <td field="factory">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input datagrid-filter"
+                                                                        name="factory"
+                                                                        style="width: 149px; height: 28px;"></div>
+                                                            </td>
+                                                            <td field="segment">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input datagrid-filter"
+                                                                        name="segment"
+                                                                        style="width: 149px; height: 28px;"></div>
+                                                            </td>
+                                                            <td field="productColor">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input datagrid-filter"
+                                                                        name="productColor"
+                                                                        style="width: 149px; height: 28px;"></div>
+                                                            </td>
+                                                            <td field="buxUnit">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input datagrid-filter"
+                                                                        name="buxUnit"
+                                                                        style="width: 149px; height: 28px;"></div>
+                                                            </td>
+                                                            <td field="accountingGoods">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input datagrid-filter"
+                                                                        name="accountingGoods"
+                                                                        style="width: 149px; height: 28px;"></div>
+                                                            </td>
+                                                            <td field="accountAmountPercent">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input datagrid-filter"
+                                                                        name="accountAmountPercent"
+                                                                        style="width: 149px; height: 28px;"></div>
+                                                            </td>
+                                                            <td field="status">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input combobox-f combo-f textbox-f datagrid-filter"
+                                                                        style="display: none;" name="status"><span
+                                                                        class="textbox combo"
+                                                                        style="width: 99px; height: 28px;"><span
+                                                                            class="textbox-addon textbox-addon-right"
+                                                                            style="right: 0px; top: 0px;"><a
+                                                                                href="javascript:;"
+                                                                                class="textbox-icon icon-clear"
+                                                                                icon-index="0" tabindex="-1"
+                                                                                style="width: 26px; height: 26.6667px;"></a><a
+                                                                                href="javascript:;"
+                                                                                class="textbox-icon combo-arrow"
+                                                                                icon-index="1" tabindex="-1"
+                                                                                style="width: 26px; height: 26.6667px;"></a></span><input
+                                                                            id="_easyui_textbox_input4" type="text"
+                                                                            class="textbox-text validatebox-text validatebox-readonly textbox-prompt"
+                                                                            autocomplete="off" tabindex="" readonly=""
+                                                                            placeholder=""
+                                                                            style="margin: 0px 52px 0px 0px; padding-top: 0px; padding-bottom: 0px; height: 26.6667px; line-height: 26.6667px; width: 45.6667px;"><input
+                                                                            type="hidden" class="textbox-value" name=""
+                                                                            value=""></span></div>
+                                                            </td>
+                                                            <td field="baseUnit">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input datagrid-filter"
+                                                                        name="baseUnit"
+                                                                        style="width: 149px; height: 28px;"></div>
+                                                            </td>
+                                                            <td field="alternateUnit">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input datagrid-filter"
+                                                                        name="alternateUnit"
+                                                                        style="width: 149px; height: 28px;"></div>
+                                                            </td>
+                                                            <td field="baseUnitVal">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input datagrid-filter"
+                                                                        name="baseUnitVal"
+                                                                        style="width: 149px; height: 28px;"></div>
+                                                            </td>
+                                                            <td field="alternateUnitVal">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input datagrid-filter"
+                                                                        name="alternateUnitVal"
+                                                                        style="width: 149px; height: 28px;"></div>
+                                                            </td>
+                                                            <td field="creater">
+                                                                <div class="datagrid-filter-c" style=""><input
+                                                                        type="text"
+                                                                        class="datagrid-editable-input datagrid-filter"
+                                                                        name="creater"
+                                                                        style="width: 99px; height: 28px;"></div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="datagrid-body"
+                                            style="width: 439.667px; margin-top: 0px; height: 0px;">
+                                            <table class="datagrid-btable" cellspacing="0" cellpadding="0" border="0">
+                                                <tbody>
+                                                    <tr id="dg_datagrid-row-r1-2-0" datagrid-row-index="0"
+                                                        class="datagrid-row">
+                                                        <td field="factory">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-factory">ZAVOD
+                                                                BUTIL</div>
+                                                        </td>
+                                                        <td field="segment">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-segment"></div>
+                                                        </td>
+                                                        <td field="productColor">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-productColor">
+                                                            </div>
+                                                        </td>
+                                                        <td field="buxUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-buxUnit"></div>
+                                                        </td>
+                                                        <td field="accountingGoods">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountingGoods">
+                                                            </div>
+                                                        </td>
+                                                        <td field="accountAmountPercent">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountAmountPercent">
+                                                            </div>
+                                                        </td>
+                                                        <td field="status">
+                                                            <div style="text-align:center;white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-status"><i
+                                                                    class="fa fa-times fa-lg"></i></div>
+                                                        </td>
+                                                        <td field="baseUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnit">Штука
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="baseUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnitVal">1
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnitVal">
+                                                                0.018</div>
+                                                        </td>
+                                                        <td field="creater">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-creater">SIZ
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="dg_datagrid-row-r1-2-1" datagrid-row-index="1"
+                                                        class="datagrid-row datagrid-row-alt ">
+                                                        <td field="factory">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-factory">ZAVOD
+                                                                BUTIL</div>
+                                                        </td>
+                                                        <td field="segment">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-segment"></div>
+                                                        </td>
+                                                        <td field="productColor">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-productColor">
+                                                            </div>
+                                                        </td>
+                                                        <td field="buxUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-buxUnit"></div>
+                                                        </td>
+                                                        <td field="accountingGoods">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountingGoods">
+                                                            </div>
+                                                        </td>
+                                                        <td field="accountAmountPercent">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountAmountPercent">
+                                                            </div>
+                                                        </td>
+                                                        <td field="status">
+                                                            <div style="text-align:center;white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-status"><i
+                                                                    class="fa fa-times fa-lg"></i></div>
+                                                        </td>
+                                                        <td field="baseUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnit">Штука
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="baseUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnitVal">1
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnitVal">
+                                                                0.019</div>
+                                                        </td>
+                                                        <td field="creater">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-creater">SIZ
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="dg_datagrid-row-r1-2-2" datagrid-row-index="2"
+                                                        class="datagrid-row  " style="height: 37.6667px;">
+                                                        <td field="factory">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-factory">ZAVOD
+                                                                BUTIL</div>
+                                                        </td>
+                                                        <td field="segment">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-segment">
+                                                                Аксессуар</div>
+                                                        </td>
+                                                        <td field="productColor">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-productColor">
+                                                                Без цвета</div>
+                                                        </td>
+                                                        <td field="buxUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-buxUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="accountingGoods">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountingGoods">
+                                                                Дистанционная рамка </div>
+                                                        </td>
+                                                        <td field="accountAmountPercent">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountAmountPercent">
+                                                                0</div>
+                                                        </td>
+                                                        <td field="status">
+                                                            <div style="text-align:center;white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-status"><i
+                                                                    class="fa fa-check fa-lg"></i></div>
+                                                        </td>
+                                                        <td field="baseUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnit">Метр
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="baseUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnitVal">1
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnitVal">
+                                                                0.02</div>
+                                                        </td>
+                                                        <td field="creater">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-creater">SIZ
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="dg_datagrid-row-r1-2-3" datagrid-row-index="3"
+                                                        class="datagrid-row datagrid-row-alt "
+                                                        style="height: 37.6667px;">
+                                                        <td field="factory">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-factory">ZAVOD
+                                                                BUTIL</div>
+                                                        </td>
+                                                        <td field="segment">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-segment">
+                                                                Аксессуар</div>
+                                                        </td>
+                                                        <td field="productColor">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-productColor">
+                                                                Без цвета</div>
+                                                        </td>
+                                                        <td field="buxUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-buxUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="accountingGoods">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountingGoods">
+                                                                Дистанционная рамка </div>
+                                                        </td>
+                                                        <td field="accountAmountPercent">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountAmountPercent">
+                                                                0</div>
+                                                        </td>
+                                                        <td field="status">
+                                                            <div style="text-align:center;white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-status"><i
+                                                                    class="fa fa-check fa-lg"></i></div>
+                                                        </td>
+                                                        <td field="baseUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnit">Метр
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="baseUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnitVal">1
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnitVal">
+                                                                0.02</div>
+                                                        </td>
+                                                        <td field="creater">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-creater">SIZ
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="dg_datagrid-row-r1-2-4" datagrid-row-index="4"
+                                                        class="datagrid-row  " style="height: 37.6667px;">
+                                                        <td field="factory">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-factory">ZAVOD
+                                                                BUTIL</div>
+                                                        </td>
+                                                        <td field="segment">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-segment">
+                                                                Аксессуар</div>
+                                                        </td>
+                                                        <td field="productColor">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-productColor">
+                                                                Без цвета</div>
+                                                        </td>
+                                                        <td field="buxUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-buxUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="accountingGoods">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountingGoods">
+                                                                Дистанционная рамка </div>
+                                                        </td>
+                                                        <td field="accountAmountPercent">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountAmountPercent">
+                                                                0</div>
+                                                        </td>
+                                                        <td field="status">
+                                                            <div style="text-align:center;white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-status"><i
+                                                                    class="fa fa-check fa-lg"></i></div>
+                                                        </td>
+                                                        <td field="baseUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnit">Метр
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="baseUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnitVal">1
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnitVal">
+                                                                0.02</div>
+                                                        </td>
+                                                        <td field="creater">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-creater">SIZ
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="dg_datagrid-row-r1-2-5" datagrid-row-index="5"
+                                                        class="datagrid-row datagrid-row-alt "
+                                                        style="height: 37.6667px;">
+                                                        <td field="factory">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-factory">ZAVOD
+                                                                BUTIL</div>
+                                                        </td>
+                                                        <td field="segment">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-segment">
+                                                                Аксессуар</div>
+                                                        </td>
+                                                        <td field="productColor">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-productColor">
+                                                                Без цвета</div>
+                                                        </td>
+                                                        <td field="buxUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-buxUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="accountingGoods">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountingGoods">
+                                                                Дистанционная рамка </div>
+                                                        </td>
+                                                        <td field="accountAmountPercent">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountAmountPercent">
+                                                            </div>
+                                                        </td>
+                                                        <td field="status">
+                                                            <div style="text-align:center;white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-status"><i
+                                                                    class="fa fa-check fa-lg"></i></div>
+                                                        </td>
+                                                        <td field="baseUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnit">Метр
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="baseUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnitVal">1
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnitVal">
+                                                                0.02</div>
+                                                        </td>
+                                                        <td field="creater">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-creater">SIZ
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="dg_datagrid-row-r1-2-6" datagrid-row-index="6"
+                                                        class="datagrid-row  " style="height: 37.6667px;">
+                                                        <td field="factory">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-factory">ZAVOD
+                                                                BUTIL</div>
+                                                        </td>
+                                                        <td field="segment">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-segment">
+                                                                Аксессуар</div>
+                                                        </td>
+                                                        <td field="productColor">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-productColor">
+                                                                Без цвета</div>
+                                                        </td>
+                                                        <td field="buxUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-buxUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="accountingGoods">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountingGoods">
+                                                                Дистанционная рамка </div>
+                                                        </td>
+                                                        <td field="accountAmountPercent">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountAmountPercent">
+                                                            </div>
+                                                        </td>
+                                                        <td field="status">
+                                                            <div style="text-align:center;white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-status"><i
+                                                                    class="fa fa-check fa-lg"></i></div>
+                                                        </td>
+                                                        <td field="baseUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnit">Метр
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="baseUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnitVal">1
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnitVal">
+                                                                1.2</div>
+                                                        </td>
+                                                        <td field="creater">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-creater">SIZ
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="dg_datagrid-row-r1-2-7" datagrid-row-index="7"
+                                                        class="datagrid-row datagrid-row-alt "
+                                                        style="height: 37.6667px;">
+                                                        <td field="factory">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-factory">ZAVOD
+                                                                BUTIL</div>
+                                                        </td>
+                                                        <td field="segment">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-segment">
+                                                                Аксессуар</div>
+                                                        </td>
+                                                        <td field="productColor">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-productColor">
+                                                                Без цвета</div>
+                                                        </td>
+                                                        <td field="buxUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-buxUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="accountingGoods">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountingGoods">
+                                                                Дистанционная рамка </div>
+                                                        </td>
+                                                        <td field="accountAmountPercent">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountAmountPercent">
+                                                            </div>
+                                                        </td>
+                                                        <td field="status">
+                                                            <div style="text-align:center;white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-status"><i
+                                                                    class="fa fa-check fa-lg"></i></div>
+                                                        </td>
+                                                        <td field="baseUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnit">Метр
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnit">
+                                                                Килограмм</div>
+                                                        </td>
+                                                        <td field="baseUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnitVal">1
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnitVal">
+                                                                1.2</div>
+                                                        </td>
+                                                        <td field="creater">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-creater">SIZ
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="dg_datagrid-row-r1-2-8" datagrid-row-index="8"
+                                                        class="datagrid-row  ">
+                                                        <td field="factory">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-factory">IMPORT
+                                                            </div>
+                                                        </td>
+                                                        <td field="segment">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-segment">
+                                                                Аксессуар</div>
+                                                        </td>
+                                                        <td field="productColor">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-productColor">
+                                                                Без цвета</div>
+                                                        </td>
+                                                        <td field="buxUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-buxUnit"></div>
+                                                        </td>
+                                                        <td field="accountingGoods">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountingGoods">
+                                                            </div>
+                                                        </td>
+                                                        <td field="accountAmountPercent">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountAmountPercent">
+                                                            </div>
+                                                        </td>
+                                                        <td field="status">
+                                                            <div style="text-align:center;white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-status"><i
+                                                                    class="fa fa-times fa-lg"></i></div>
+                                                        </td>
+                                                        <td field="baseUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnit">Штука
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnit">
+                                                            </div>
+                                                        </td>
+                                                        <td field="baseUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnitVal">0
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnitVal">
+                                                                0</div>
+                                                        </td>
+                                                        <td field="creater">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-creater">SIZ
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="dg_datagrid-row-r1-2-9" datagrid-row-index="9"
+                                                        class="datagrid-row datagrid-row-alt">
+                                                        <td field="factory">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-factory">IMPORT
+                                                            </div>
+                                                        </td>
+                                                        <td field="segment">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-segment">
+                                                                Аксессуар</div>
+                                                        </td>
+                                                        <td field="productColor">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-productColor">
+                                                                Без цвета</div>
+                                                        </td>
+                                                        <td field="buxUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-buxUnit"></div>
+                                                        </td>
+                                                        <td field="accountingGoods">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountingGoods">
+                                                            </div>
+                                                        </td>
+                                                        <td field="accountAmountPercent">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountAmountPercent">
+                                                            </div>
+                                                        </td>
+                                                        <td field="status">
+                                                            <div style="text-align:center;white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-status"><i
+                                                                    class="fa fa-times fa-lg"></i></div>
+                                                        </td>
+                                                        <td field="baseUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnit">Штука
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnit">
+                                                            </div>
+                                                        </td>
+                                                        <td field="baseUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnitVal">0
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnitVal">
+                                                                0</div>
+                                                        </td>
+                                                        <td field="creater">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-creater">SIZ
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="dg_datagrid-row-r1-2-10" datagrid-row-index="10"
+                                                        class="datagrid-row  ">
+                                                        <td field="factory">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-factory">IMPORT
+                                                            </div>
+                                                        </td>
+                                                        <td field="segment">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-segment">
+                                                                Аксессуар</div>
+                                                        </td>
+                                                        <td field="productColor">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-productColor">
+                                                                Без цвета</div>
+                                                        </td>
+                                                        <td field="buxUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-buxUnit"></div>
+                                                        </td>
+                                                        <td field="accountingGoods">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountingGoods">
+                                                            </div>
+                                                        </td>
+                                                        <td field="accountAmountPercent">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-accountAmountPercent">
+                                                            </div>
+                                                        </td>
+                                                        <td field="status">
+                                                            <div style="text-align:center;white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-status"><i
+                                                                    class="fa fa-times fa-lg"></i></div>
+                                                        </td>
+                                                        <td field="baseUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnit">Штука
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnit">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnit">
+                                                            </div>
+                                                        </td>
+                                                        <td field="baseUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-baseUnitVal">0
+                                                            </div>
+                                                        </td>
+                                                        <td field="alternateUnitVal">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-alternateUnitVal">
+                                                                0</div>
+                                                        </td>
+                                                        <td field="creater">
+                                                            <div style="white-space:normal;height:auto;"
+                                                                class="datagrid-cell dg_datagrid-cell-c1-creater">SIZ
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="datagrid-footer" style="width: 439.667px;">
+                                            <div class="datagrid-footer-inner" style="display: none;"></div>
+                                        </div>
+                                    </div>
+                                    <table id="dg" class="datagrid-f" style="display: none;"></table>
+                                    <style type="text/css" easyui="true">
+                                        .datagrid-header-rownumber {
+                                            width: 29px
+                                        }
+
+                                        .datagrid-cell-rownumber {
+                                            width: 29px
+                                        }
+
+                                        .dg_datagrid-cell-c1-id {
+                                            width: 39px
+                                        }
+
+                                        .dg_datagrid-cell-c1-name {
+                                            width: 349px
+                                        }
+
+                                        .dg_datagrid-cell-c1-f_group {
+                                            width: 249px
+                                        }
+
+                                        .dg_datagrid-cell-c1-sapCode {
+                                            width: 149px
+                                        }
+
+                                        .dg_datagrid-cell-c1-factory {
+                                            width: 149px
+                                        }
+
+                                        .dg_datagrid-cell-c1-segment {
+                                            width: 149px
+                                        }
+
+                                        .dg_datagrid-cell-c1-productColor {
+                                            width: 149px
+                                        }
+
+                                        .dg_datagrid-cell-c1-buxUnit {
+                                            width: 149px
+                                        }
+
+                                        .dg_datagrid-cell-c1-accountingGoods {
+                                            width: 149px
+                                        }
+
+                                        .dg_datagrid-cell-c1-accountAmountPercent {
+                                            width: 149px
+                                        }
+
+                                        .dg_datagrid-cell-c1-status {
+                                            width: 99px
+                                        }
+
+                                        .dg_datagrid-cell-c1-baseUnit {
+                                            width: 149px
+                                        }
+
+                                        .dg_datagrid-cell-c1-alternateUnit {
+                                            width: 149px
+                                        }
+
+                                        .dg_datagrid-cell-c1-baseUnitVal {
+                                            width: 149px
+                                        }
+
+                                        .dg_datagrid-cell-c1-alternateUnitVal {
+                                            width: 149px
+                                        }
+
+                                        .dg_datagrid-cell-c1-creater {
+                                            width: 99px
+                                        }
+                                    </style>
+                                </div>
+                                <div class="datagrid-pager pagination">
+                                    <table cellspacing="0" cellpadding="0" border="0">
+                                        <tbody>
+                                            <tr>
+                                                <td><select class="pagination-page-list">
+                                                        <option>10</option>
+                                                        <option>11</option>
+                                                        <option>20</option>
+                                                        <option>30</option>
+                                                        <option>40</option>
+                                                        <option>50</option>
+                                                        <option>100</option>
+                                                    </select></td>
+                                                <td>
+                                                    <div class="pagination-btn-separator"></div>
+                                                </td>
+                                                <td><a href="javascript:;"
+                                                        class="l-btn l-btn-small l-btn-plain l-btn-disabled l-btn-plain-disabled"
+                                                        group="" id=""><span class="l-btn-left l-btn-icon-left"><span
+                                                                class="l-btn-text l-btn-empty">&nbsp;</span><span
+                                                                class="l-btn-icon pagination-first">&nbsp;</span></span></a>
+                                                </td>
+                                                <td><a href="javascript:;"
+                                                        class="l-btn l-btn-small l-btn-plain l-btn-disabled l-btn-plain-disabled"
+                                                        group="" id=""><span class="l-btn-left l-btn-icon-left"><span
+                                                                class="l-btn-text l-btn-empty">&nbsp;</span><span
+                                                                class="l-btn-icon pagination-prev">&nbsp;</span></span></a>
+                                                </td>
+                                                <td>
+                                                    <div class="pagination-btn-separator"></div>
+                                                </td>
+                                                <td><span style="padding-left:6px;">Страница</span></td>
+                                                <td><input class="pagination-num" type="text" value="1" size="2"></td>
+                                                <td><span style="padding-right:6px;">из 2477</span></td>
+                                                <td>
+                                                    <div class="pagination-btn-separator"></div>
+                                                </td>
+                                                <td><a href="javascript:;" class="l-btn l-btn-small l-btn-plain"
+                                                        group="" id=""><span class="l-btn-left l-btn-icon-left"><span
+                                                                class="l-btn-text l-btn-empty">&nbsp;</span><span
+                                                                class="l-btn-icon pagination-next">&nbsp;</span></span></a>
+                                                </td>
+                                                <td><a href="javascript:;" class="l-btn l-btn-small l-btn-plain"
+                                                        group="" id=""><span class="l-btn-left l-btn-icon-left"><span
+                                                                class="l-btn-text l-btn-empty">&nbsp;</span><span
+                                                                class="l-btn-icon pagination-last">&nbsp;</span></span></a>
+                                                </td>
+                                                <td>
+                                                    <div class="pagination-btn-separator"></div>
+                                                </td>
+                                                <td><a href="javascript:;" class="l-btn l-btn-small l-btn-plain"
+                                                        group="" id=""><span class="l-btn-left l-btn-icon-left"><span
+                                                                class="l-btn-text l-btn-empty">&nbsp;</span><span
+                                                                class="l-btn-icon pagination-load">&nbsp;</span></span></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="pagination-info">Просмотр 1 до 11 из 27243 записей</div>
+                                    <div style="clear:both;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="layout-split-proxy-h"></div>
+                <div class="layout-split-proxy-v"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="mm1" class="menu-top menu"
+        style="width: 212px; height: 197px; overflow: hidden; display: none; left: 0px; top: 0px;">
+        <div class="menu-line" style="height: 195px;"></div>
+
+        <div onclick="redirect('/goodsGroup')" class="menu-item" style="height: 32px;">
+            <div class="menu-text" style="height: 30px; line-height: 30px;"><i class=""></i>
+                Товарная группа</div>
+        </div>
+
+        <div onclick="redirect('/goods')" class="menu-item" style="height: 32px;">
+            <div class="menu-text" style="height: 30px; line-height: 30px;"><i class=""></i>
+                Товары</div>
+        </div>
+
+        <div onclick="redirect('/unit')" class="menu-item" style="height: 32px;">
+            <div class="menu-text" style="height: 30px; line-height: 30px;"><i class=""></i>
+                Единица измерения</div>
+        </div>
+
+        <div onclick="redirect('/factory')" class="menu-item" style="height: 32px;">
+            <div class="menu-text" style="height: 30px; line-height: 30px;"><i class=""></i>
+                Завод</div>
+        </div>
+
+        <div onclick="redirect('/dealer')" class="menu-item" style="height: 32px;">
+            <div class="menu-text" style="height: 30px; line-height: 30px;"><i class=""></i>
+                Дилер</div>
+        </div>
+
+        <div onclick="redirect('/clientType')" class="menu-item" style="height: 32px;">
+            <div class="menu-text" style="height: 30px; line-height: 30px;"><i class=""></i>
+                Тип клиента</div>
+        </div>
+
+    </div>
+    <div class="layout-split-proxy-h"></div>
+    <div class="layout-split-proxy-v"></div>
+    <div class="panel window panel-htop easyui-fluid" style="display: none; width: 600px; left: 340px; top: 1px;">
+        <div class="panel-header panel-header-noborder window-header" style="width: 588.667px;">
+            <div class="panel-title">Upload result</div>
+            <div class="panel-tool"><a href="javascript:;" class="panel-tool-close"></a></div>
+        </div>
+        <div class="easyui-dialog panel-body panel-body-noborder window-body" title="" closed="true"
+            id="uploadResultDlg" style="width: 588.667px; height: 512.99px;">
+            <table id="resultdg"></table>
+        </div>
+    </div>
+    <div class="window-shadow" style="display: none; left: 340px; top: 1px; width: 600px; height: 550.99px;"></div>
+    <div class="panel combo-p panel-htop" style="position: absolute; z-index: 10; display: none;">
+        <div class="combo-panel panel-body panel-body-noheader" title="" id="">
+            <div id="_easyui_combobox_i1_0" class="combobox-item">Активный</div>
+            <div id="_easyui_combobox_i1_1" class="combobox-item">Пассивный</div>
+        </div>
+    </div>
+</body>
+
+</html>

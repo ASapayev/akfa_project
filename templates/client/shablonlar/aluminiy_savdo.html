@@ -5,23 +5,43 @@
     <style>
         .sticky-top {
             position: sticky;
-            top: 0;
-            background-color: #f8f9fa; /* Adjust background color as needed */
-            z-index: 2; /* Ensure header is above other content */
+            left: 0;
+            background-color: #f8f9fa; 
+            z-index: 2; 
             }
 
         .sticky-col {
             position: sticky;
            
-            background-color: #f8f9fa; /* Adjust background color as needed */
-            z-index: 1; /* Ensure column is above non-sticky columns */
-            /* margin: 0 15px; */
+            background-color: #f8f9fa; 
+            z-index: 1; 
             }
 
         .table-responsive {
             overflow-x: auto;
+            overflow-y: visible;
+            max-height: 410px;
             -webkit-overflow-scrolling: touch;
             }
+        
+        .table thead th {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff; /* Background color of sticky header */
+            z-index: 2; /* Ensure headers stay above sticky columns */
+            }
+        
+        .sticky-th {
+            position: sticky;
+            left: 0;
+            z-index: 5; /* Ensure th stay above sticky columns */
+            background-color: #ffffff; /* Background color of sticky th */
+            }
+        
+           
+
+      
+          
 
     </style>
             
@@ -29,63 +49,63 @@
 
             <!-- <section class="topics-detail-section section-padding" id="topics-detail"> -->
                 
-                <div style="overflow: scroll;" id="table-container">
+                <div  class="table-responsive custom-max-height " id="table-container">
                     
                     <table class="table table-sm" id="my-table">
                         <thead>
                           <tr>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Действие</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Название системы</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Артикул</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Длина (мм)</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Тип покрытия</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Сплав</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">тип закаленности</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Комбинация</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Бренд краски снаружи</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Код краски снаружи</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Бренд краски внутри</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Код краски внутри</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Код декор пленки снаружи</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Цвет декор пленки снаружи</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Код декор пленки внутри</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Цвет декор пленки внутри</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Цвет лам пленки снаружи</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Код лам пленки снаружи</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Цвет лам пленки внутри</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Код лам пленки внутри</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Код цвета анодировки снаружи</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Код цвета анодировки внутри</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Контактность анодировки</th>
-                            <!-- <th scope="col" class="sticky-top" style="font-size: 14px;">Тип анодировки</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Способ анодировки</th> -->
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Код наклейки</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Надпись наклейки</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">База профилей</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Группа материалов</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;padding-left: 90px;">Краткий текст товара</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;" >SAP Код вручную (вставляется вручную)</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;" >Краткий текст товара (вставляется вручную)</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Место для комментариев</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;" >Длина при выходе из пресса</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Завод</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">ONLINE ID</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Название</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Цвет продукта</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Группа закупок</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Группа</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Тип</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Сегмент</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Бухгалтерский товары</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Бухгалтерский учет</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Базовый единица</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Альтернативный единица</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Стоимость базовой единицы</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Альтер. стоимость единицы</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Статус</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Завод</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Акфа дилерда очиш керак</th>
-                            <th scope="col" class="sticky-top" style="font-size: 14px;">Тип клиента</th>
+                            <th scope="col" class="sticky-th" style="font-size: 12px;">Действие</th>
+                            <th scope="col"  style="font-size: 12px;">Название системы</th>
+                            <th scope="col"  style="font-size: 12px;">Артикул</th>
+                            <th scope="col"  style="font-size: 12px;">Длина (мм)</th>
+                            <th scope="col"  style="font-size: 12px;">Тип покрытия</th>
+                            <th scope="col"  style="font-size: 12px;">Сплав</th>
+                            <th scope="col"  style="font-size: 12px;">тип закаленности</th>
+                            <th scope="col"  style="font-size: 12px;">Комбинация</th>
+                            <th scope="col"  style="font-size: 12px;">Бренд краски снаружи</th>
+                            <th scope="col"  style="font-size: 12px;">Код краски снаружи</th>
+                            <th scope="col"  style="font-size: 12px;">Бренд краски внутри</th>
+                            <th scope="col"  style="font-size: 12px;">Код краски внутри</th>
+                            <th scope="col"  style="font-size: 12px;">Код декор пленки снаружи</th>
+                            <th scope="col"  style="font-size: 12px;">Цвет декор пленки снаружи</th>
+                            <th scope="col"  style="font-size: 12px;">Код декор пленки внутри</th>
+                            <th scope="col"  style="font-size: 12px;">Цвет декор пленки внутри</th>
+                            <th scope="col"  style="font-size: 12px;">Цвет лам пленки снаружи</th>
+                            <th scope="col"  style="font-size: 12px;">Код лам пленки снаружи</th>
+                            <th scope="col"  style="font-size: 12px;">Цвет лам пленки внутри</th>
+                            <th scope="col"  style="font-size: 12px;">Код лам пленки внутри</th>
+                            <th scope="col"  style="font-size: 12px;">Код цвета анодировки снаружи</th>
+                            <th scope="col"  style="font-size: 12px;">Код цвета анодировки внутри</th>
+                            <th scope="col"  style="font-size: 12px;">Контактность анодировки</th>
+                            <!-- <th scope="col"  style="font-size: 12px;">Тип анодировки</th>
+                            <th scope="col"  style="font-size: 12px;">Способ анодировки</th> -->
+                            <th scope="col"  style="font-size: 12px;">Код наклейки</th>
+                            <th scope="col"  style="font-size: 12px;">Надпись наклейки</th>
+                            <th scope="col"  style="font-size: 12px;">База профилей</th>
+                            <th scope="col"  style="font-size: 12px;">Группа материалов</th>
+                            <th scope="col"  style="font-size: 12px;padding-left: 90px;">Краткий текст товара</th>
+                            <th scope="col"  style="font-size: 12px;" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col"  style="font-size: 12px;" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col"  style="font-size: 12px;">Место для комментариев</th>
+                            <th scope="col"  style="font-size: 12px;" >Длина при выходе из пресса</th>
+                            <th scope="col"  style="font-size: 12px;">Завод</th>
+                            <th scope="col"  style="font-size: 12px;">ONLINE ID</th>
+                            <th scope="col"  style="font-size: 12px;">Название</th>
+                            <th scope="col"  style="font-size: 12px;">Цвет продукта</th>
+                            <th scope="col"  style="font-size: 12px;">Группа закупок</th>
+                            <th scope="col"  style="font-size: 12px;">Группа</th>
+                            <th scope="col"  style="font-size: 12px;">Тип</th>
+                            <th scope="col"  style="font-size: 12px;">Сегмент</th>
+                            <th scope="col"  style="font-size: 12px;">Бухгалтерский товары</th>
+                            <th scope="col"  style="font-size: 12px;">Бухгалтерский учет</th>
+                            <th scope="col"  style="font-size: 12px;">Базовый единица</th>
+                            <th scope="col"  style="font-size: 12px;">Альтернативный единица</th>
+                            <th scope="col"  style="font-size: 12px;">Стоимость базовой единицы</th>
+                            <th scope="col"  style="font-size: 12px;">Альтер. стоимость единицы</th>
+                            <th scope="col"  style="font-size: 12px;">Статус</th>
+                            <th scope="col"  style="font-size: 12px;">Завод</th>
+                            <th scope="col"  style="font-size: 12px;">Акфа дилерда очиш керак</th>
+                            <th scope="col"  style="font-size: 12px;">Тип клиента</th>
                           </tr>
                         </thead>
                         <tbody id="table-artikul">
@@ -141,6 +161,26 @@
 <link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
 <script>
+
+
+function updateMaxHeight() {
+      var windowHeight = $(window).height();
+      var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
+
+      // Calculate the dynamic max-height
+      var dynamicMaxHeight = windowHeight - navbarHeight - 50; // Adjust as needed
+
+      // Apply the dynamic max-height
+      $('#dynamic-table').css('max-height', dynamicMaxHeight + 'px');
+    }
+
+    // Call the function on document ready and window resize
+    $(window).on('load resize', function() {
+      updateMaxHeight();
+    });
+
+
+
     var brend_kaska ='{{brend_kaska|safe}}'
     
     function set_brend_kraska(element_list,selector,val_=''){

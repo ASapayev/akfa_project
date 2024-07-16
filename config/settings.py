@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'normabenkam',
     'accessuar',
     'radiator',
+    'apis',
     'rest_framework',
     # 'json_field',
     # "debug_toolbar",

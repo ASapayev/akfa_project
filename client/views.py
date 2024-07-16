@@ -1170,7 +1170,8 @@ def shablon_imzo_detail(request):
             'nakleyka_list': nakleyka_list,
             'brend_kaska':json.dumps(list(brend_kraska))
         }
-        return render(request,'client/shablonlar/aluminiy_imzo.html',context)
+        return render(request,'client/shablonlar/example.html',context)
+        # return render(request,'client/shablonlar/aluminiy_imzo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only

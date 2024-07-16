@@ -20,6 +20,7 @@ urlpatterns = [
     path('client/',include('client.urls')),
     path('accessuar/',include('accessuar.urls')),
     path('radiator/',include('radiator.urls')),
+    path('api/v1/',include('apis.urls')),
     
 
    path("events/", include(django_eventstream.urls), {"channels": ["test"]}),
