@@ -13,7 +13,8 @@
         .sticky-col {
             position: sticky;
            
-            background-color: #f8f9fa; 
+            /* background-color: #f8f9fa; */
+            background-color: #f0f0f0; 
             z-index: 1; 
             }
 
@@ -27,22 +28,16 @@
         .table thead th {
             position: sticky;
             top: 0;
-            background-color: #ffffff; /* Background color of sticky header */
+            background-color: #ffffff;
             z-index: 2; /* Ensure headers stay above sticky columns */
             }
         
         .sticky-th {
             position: sticky;
-            left: 0;
-            z-index: 5; /* Ensure th stay above sticky columns */
+            z-index: 105!important; /* Ensure th stay above sticky columns */
             background-color: #ffffff; /* Background color of sticky th */
             }
         
-           
-
-      
-          
-
     </style>
             
 
@@ -52,11 +47,11 @@
                 <div  class="table-responsive custom-max-height " id="table-container">
                     
                     <table class="table table-sm" id="my-table">
-                        <thead>
-                          <tr>
-                            <th scope="col" class="sticky-th" style="font-size: 12px;">Действие</th>
-                            <th scope="col"  style="font-size: 12px;">Название системы</th>
-                            <th scope="col"  style="font-size: 12px;">Артикул</th>
+                        <thead style="line-height: 1;" >
+                          <tr >
+                            <th scope="col" class="sticky-th" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
+                            <th scope="col"  class="sticky-th" style="font-size: 12px; left:150px;">Название системы</th>
+                            <th scope="col"  class="sticky-th"  style="font-size: 12px;left:215.5px;">Артикул</th>
                             <th scope="col"  style="font-size: 12px;">Длина (мм)</th>
                             <th scope="col"  style="font-size: 12px;">Тип покрытия</th>
                             <th scope="col"  style="font-size: 12px;">Сплав</th>
@@ -83,7 +78,7 @@
                             <th scope="col"  style="font-size: 12px;">Надпись наклейки</th>
                             <th scope="col"  style="font-size: 12px;">База профилей</th>
                             <th scope="col"  style="font-size: 12px;">Группа материалов</th>
-                            <th scope="col"  style="font-size: 12px;padding-left: 90px;">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 12px;">Краткий текст товара</th>
                             <th scope="col"  style="font-size: 12px;" >SAP Код вручную (вставляется вручную)</th>
                             <th scope="col"  style="font-size: 12px;" >Краткий текст товара (вставляется вручную)</th>
                             <th scope="col"  style="font-size: 12px;">Место для комментариев</th>
@@ -142,7 +137,7 @@
             <!-- </section> -->
 
             <div  style="display: none;">
-                <select class="form-select" style="color: black; width: 80px; display: none; height: 30px; font-size: 13px;" id ='nakleyka_list' onchange="">
+                <select class="form-select" style="color: black; width: 80px; display: none; height: 27px; font-size: 13px;" id ='nakleyka_list' onchange="">
                     <option value=""></option>
                     {% for nak in nakleyka_list %}
                     <option value="{{nak.name}}" data-nadpis="{{nak.nadpis}}">{{nak.name}}</option>

@@ -17,7 +17,7 @@ def vi_file(request):
     context ={
         'files':files,
         'section':'Формирование ВИ файла',
-        'link':'/radiator/vi-generate/',
+        'link':'/radiator/vi-generate-mo/',
         'type':'ВИ'
         }
     return render(request,'universal/file_list.html',context)
@@ -205,15 +205,17 @@ def vi_generate(request,id):
 def vi_generate_mo(request,id):
     file = ViFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
-    df_new = pd.read_excel(file_path,sheet_name=['MARA','MAPL','MAST','PLPO','STKO'])
+    df_new = pd.read_excel(file_path,sheet_name=['MARA','MAPL','PLKO','MAST','PLPO','STKO'])
     df_new['MARA'] =df_new['MARA'].astype(str)
     df_new['MAPL'] =df_new['MAPL'].astype(str)
+    df_new['PLKO'] =df_new['PLKO'].astype(str)
     df_new['MAST'] =df_new['MAST'].astype(str)
     df_new['PLPO'] =df_new['PLPO'].astype(str)
     df_new['STKO'] =df_new['STKO'].astype(str)
 
     df_new['MARA']=df_new['MARA'].replace('nan','')
     df_new['MAPL']=df_new['MAPL'].replace('nan','')
+    df_new['PLKO']=df_new['PLKO'].replace('nan','')
     df_new['MAST']=df_new['MAST'].replace('nan','')
     df_new['PLPO']=df_new['PLPO'].replace('nan','')
     df_new['STKO']=df_new['STKO'].replace('nan','')
@@ -244,20 +246,37 @@ def vi_generate_mo(request,id):
 
 
     df_merge1 = pd.DataFrame()
-    df_merge1['Краткий текст к операции'] =df_new['PLPO']['Краткий текст к операции']
-    df_merge1['Вид работ'] =df_new['PLPO']['Вид работ']
-    filtered_df = df_merge1[df_merge1['Вид работ'] != '']
-    print(filtered_df['Краткий текст к операции'],'corected')
+    df_merge1['TEXT1'] =df_new['PLKO']['ТкстТехкрт']
+    df_merge1['Группа'] =df_new['PLKO']['Группа']
+    df_vi = pd.merge(df_vi,df_merge1,   how='inner',left_on=['PLNNR'],right_on=['Группа'])
+   
+    
+    # print(df_vi,'ggg')
+    # df_new['STKO'].merge(df_new['MAST'],on='Спецификация', how='inner')
 
-    df_vi['TEXT1'] = [row for row in filtered_df['Краткий текст к операции']]
+   
+
+
+
+    # df_merge1 = pd.DataFrame()
+    # df_merge1['Краткий текст к операции'] =df_new['PLPO']['Краткий текст к операции']
+    # df_merge1['Вид работ'] =df_new['PLPO']['Вид работ']
+    # filtered_df = df_merge1[df_merge1['Вид работ'] != '']
+    # print(filtered_df['Краткий текст к операции'],'corected')
+
+    # df_vi['TEXT1'] = [row for row in filtered_df['Краткий текст к операции']]
 
     saip = df_vi['TEXT1'].str.contains('S.A.I.P.', case=False, na=False)
     gizeta = df_vi['TEXT1'].str.contains('Gi Zeta', case=False, na=False)
-    ruchnoy = df_vi['TEXT1'].str.contains('Тест Сборки', case=False, na=False)
+    ruchnoy = df_vi['TEXT1'].str.contains('Ручная', case=False, na=False)
+    
+    df_vi.loc[saip,'STLAN'] = ''
 
-    df_vi.loc[saip,'STLAL'] = '1'
+    df_vi.loc[ruchnoy,'STLAL'] = '1'
     df_vi.loc[gizeta,'STLAL'] = '2'
+   
 
+    df_vi.loc[saip,'ALORT'] = 'PS06'
     df_vi.loc[gizeta,'ALORT'] = 'PS05'
     df_vi.loc[ruchnoy,'ALORT'] = 'PS04'
 
@@ -266,7 +285,7 @@ def vi_generate_mo(request,id):
     df_vi.loc[gizeta,'VERID'] = 'G001'
     df_vi.loc[ruchnoy,'VERID'] = 'R001'
 
-    
+    # df_vi['ELPRO'] = df_vi['ALORT']
 
     columnsTitles = ['WERKS', 'MATNR', 'VERID','TEXT1','BSTMI','BSTMA','ADATU','BDATU','PLNTY','PLNNR','ALNAL','STLAL','STLAN','ELPRO','ALORT']
     df_new_vi2 = df_vi.reindex(columns=columnsTitles)
@@ -1491,7 +1510,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['WERKS'][counter_2] ='5101'
                                     df_new['STTAG'][counter_2] ='01012023'
                                     df_new['PLNAL'][counter_2] ='1'
-                                    df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                    df_new['KTEXT'][counter_2] ='МехОбработка Ручная'
                                     df_new['VERWE'][counter_2] ='1'
                                     df_new['STATU'][counter_2] ='4'
                                     df_new['LOSVN'][counter_2] ='1'
@@ -1524,7 +1543,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['WERKS'][counter_2] ='5101'
                                     df_new['STTAG'][counter_2] ='01012023'
                                     df_new['PLNAL'][counter_2] ='1'
-                                    df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                    df_new['KTEXT'][counter_2] ='МехОбработка Gi Zeta'
                                     df_new['VERWE'][counter_2] ='1'
                                     df_new['STATU'][counter_2] ='4'
                                     df_new['LOSVN'][counter_2] ='1'
@@ -1555,7 +1574,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['WERKS'][counter_2] ='5101'
                                     df_new['STTAG'][counter_2] ='01012023'
                                     df_new['PLNAL'][counter_2] ='1'
-                                    df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                    df_new['KTEXT'][counter_2] ='МехОбработка S.A.I.P.'
                                     df_new['VERWE'][counter_2] ='1'
                                     df_new['STATU'][counter_2] ='4'
                                     df_new['LOSVN'][counter_2] ='1'
@@ -1591,7 +1610,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['WERKS'][counter_2] ='5101'
                                     df_new['STTAG'][counter_2] ='01012023'
                                     df_new['PLNAL'][counter_2] ='1'
-                                    df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                    df_new['KTEXT'][counter_2] ='МехОбработка Ручная'
                                     df_new['VERWE'][counter_2] ='1'
                                     df_new['STATU'][counter_2] ='4'
                                     df_new['LOSVN'][counter_2] ='1'
@@ -1622,7 +1641,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['WERKS'][counter_2] ='5101'
                                     df_new['STTAG'][counter_2] ='01012023'
                                     df_new['PLNAL'][counter_2] ='1'
-                                    df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                    df_new['KTEXT'][counter_2] ='МехОбработка Gi Zeta'
                                     df_new['VERWE'][counter_2] ='1'
                                     df_new['STATU'][counter_2] ='4'
                                     df_new['LOSVN'][counter_2] ='1'
@@ -1633,7 +1652,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['ARBPL'][counter_2] ='5101B301'
                                     df_new['WERKS1'][counter_2] ='5101'
                                     df_new['STEUS'][counter_2] ='ZK01'
-                                    df_new['LTXA1'][counter_2] ='Gi Zeta'
+                                    df_new['LTXA1'][counter_2] ='МехОбработка Gi Zeta'
                                     df_new['BMSCH'][counter_2] = '1000'
                                     df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
@@ -1654,7 +1673,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['WERKS'][counter_2] ='5101'
                                     df_new['STTAG'][counter_2] ='01012023'
                                     df_new['PLNAL'][counter_2] ='1'
-                                    df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                                    df_new['KTEXT'][counter_2] ='МехОбработка S.A.I.P.'
                                     df_new['VERWE'][counter_2] ='1'
                                     df_new['STATU'][counter_2] ='4'
                                     df_new['LOSVN'][counter_2] ='1'
@@ -1665,7 +1684,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['ARBPL'][counter_2] ='5101B401'
                                     df_new['WERKS1'][counter_2] ='5101'
                                     df_new['STEUS'][counter_2] ='ZK01'
-                                    df_new['LTXA1'][counter_2] ='S.A.I.P.'
+                                    df_new['LTXA1'][counter_2] ='МехОбработка S.A.I.P.'
                                     df_new['BMSCH'][counter_2] = '1000'
                                     df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
