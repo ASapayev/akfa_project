@@ -42,6 +42,20 @@
   
  
 <style>
+
+
+    .scrolling {
+        transition: transform 0.3s;
+        will-change: transform;
+    }
+    
+    .scrolling.scroll-down {
+        transform: translateY(-100%);
+    }
+
+
+
+
     td.custom-width {
     width: 200px;
     }
@@ -116,6 +130,7 @@
     border: 1px solid #ccc;
     border-radius: 3px;
 }
+
     
 </style>
     </head>
@@ -129,7 +144,7 @@
             {%block content%}
             {%endblock%}
           
-
+       
         <script src="{%     static 'chosen/docsupport/jquery-3.2.1.min.js'%}" type="text/javascript"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
         <script src="{%     static 'chosen/docsupport/prism.js'%}" type="text/javascript" charset="utf-8"></script>
@@ -141,6 +156,34 @@
         <script src="{% static 'assets/js/click-scroll.js'%}"></script>
         <script src="{% static 'assets/js/custom.js'%}"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+        <script>
+            function handleScreenSizeChange() {
+               
+                var availScreenHeight = parseInt(screen.availHeight)
+                
+                if(availScreenHeight>=600 & availScreenHeight<=680){
+                     availScreenHeight = parseInt(screen.availHeight)*0.72;
+                }
+                if(availScreenHeight > 700){
+                     availScreenHeight = parseInt(screen.availHeight)*0.8;
+                }
+             
+
+             var table_container = $('#table-container')
+             table_container.css('overflow-x','auto')
+             table_container.css('overflow-y','visible')
+             table_container.css('height',`${availScreenHeight}px`)
+             table_container.css('max-height',`${availScreenHeight}px`)
+             table_container.css('-webkit-overflow-scrolling','touch')
+
+            
+             
+            }
+             
+             handleScreenSizeChange()
+ 
+             window.addEventListener('resize', handleScreenSizeChange);
+         </script>
         {%block java_script%}
         {%endblock%}
     </body>

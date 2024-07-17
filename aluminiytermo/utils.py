@@ -4454,6 +4454,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     
     df_bug_text= pd.DataFrame(buxgalterskiy_t)
     
+    print(df_bug_text,'bug')
     np.savetxt(pathtext8, df_bug_text.values,fmt='%s', delimiter="\t",header=header_buxgalter,comments='',encoding='ansi')
     
     
