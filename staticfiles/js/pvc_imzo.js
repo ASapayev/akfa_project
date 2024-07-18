@@ -137,21 +137,15 @@ function front_piece(start=1,end=6){
 
     for (let i = start; i < end; i++) {
         text +=`
-        <tr id='table_tr` +String(i)+`' >                   
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                
-                <div class="dropdown">
-                    <button class="btn btn-primary  btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-chevron-down"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li style='cursor:pointer; font-size:14px'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
-                        <li style='cursor:pointer; font-size:14px'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
-                    </ul>
-                </div>
+        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>                   
+        <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><i class="bi bi-x-circle"></i></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
+                    </div>
                     
-            </div>
+                    
+
         </td>
         <td style='display:none;' >
             <div class="input-group input-group-sm mb-1" style='width:150px;'>
@@ -163,7 +157,7 @@ function front_piece(start=1,end=6){
                 <b><span id='camera` +String(i)+`'style="text-transform: uppercase; font-size:12px;padding-left:5px"></span></b>
             </div>
         </td>
-        <td class="sticky-col" >
+        <td class="sticky-col" style=' left: 73.5px;background-color:white!important' >
             <div class="input-group input-group-sm mb-1">
                 <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " id="artikul`+String(i)+`" ></select>
             </div>
@@ -176,13 +170,13 @@ function front_piece(start=1,end=6){
         
         <td style='display:none;'>
             <div class="input-group input-group-sm mb-1">
-                <b><span  id ='kod_komponent` +String(i)+`'style="text-transform: uppercase;font-size: 12px;padding-left:5px;"></span></b>
+                <b><span  id ='kod_komponent` +String(i)+`'style="text-transform: uppercase;font-size: 12px;padding-left:5px;height:27px!important;z-index:0;"></span></b>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
-                    <option  selected ></option>
+                <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;height:27px!important;z-index:0" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
+                    <option  selected value='' ></option>
                     <option value="1" >Неламинированный</option>
                     <option value="2" >Ламинированный</option>
                 </select>
@@ -191,7 +185,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 190px;">
         
-            <select class="form-select" aria-label="" style="width: 190px;"  disabled id='nazvaniye_svet_zames`+String(i)+`' onchange="nazvaniye_svet_zames_selected(`+String(i)+`,this.value)">
+            <select class="form-select" aria-label="" style="width: 190px;height:27px!important;z-index:0"  disabled id='nazvaniye_svet_zames`+String(i)+`' onchange="nazvaniye_svet_zames_selected(`+String(i)+`,this.value)">
                 <option  value="" selected ></option>
                 <option value="F8" >Белый стандарт</option>
                 <option value="PE" >Подоконник</option>
@@ -207,18 +201,18 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <b><span  id ='kod_svet_zames` +String(i)+`'style="text-transform: uppercase;font-size: 12px;padding-left:5px;"></span></b>
+                <b><span  id ='kod_svet_zames` +String(i)+`'style="text-transform: uppercase;font-size: 12px;padding-left:5px;z-index:0"></span></b>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type="text" class="form-control " style='width:50px' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`" maxlength="4" >
+                <input type="text" class="form-control " style='width:50px;height:27px!important;z-index:0' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`" maxlength="4" >
             </div>
         </td>
 
         <td >
             <div class="input-group input-group-sm mb-1">    
-            <select class="form-select " aria-label="" style="width: 220px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
+            <select class="form-select " aria-label="" style="width: 220px;height:27px!important;z-index:0" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
                 <option  value="" selected></option>
                 <option value="0027">Золотой дуб IW</option>
                 <option value="0300">Дуб мокко IW</option>
@@ -280,13 +274,13 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;" id ='code_lamplonka_snaruji` +String(i)+`'></span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;z-index:0" id ='code_lamplonka_snaruji` +String(i)+`'></span>
                 </div>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
+                <select class="form-select" aria-label="" style="width: 220px;height:27px!important;z-index:0" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
                     <option  value="" selected></option>
                     <option value="0027">Золотой дуб IW</option>
                     <option value="0300">Дуб мокко IW</option>
@@ -347,13 +341,13 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%" id='code_lamplonka_vnutri`+String(i)+`'></span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;z-index:0" id='code_lamplonka_vnutri`+String(i)+`'></span>
                 </div>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 150px;">
-            <select class="form-select" aria-label="" style="width: 150px;border-color:red;display:none"   id='kod_svet_rezini`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <select class="form-select" aria-label="" style="width: 150px;border-color:red;display:none;height:27px!important;z-index:0"   id='kod_svet_rezini`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
                 <option  value="" selected ></option>
                 <option value="BR" >Чёрная резина</option>
                 <option value="GR" >Серая резина</option>
@@ -364,27 +358,27 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1"  id='svet_text`+String(i)+`'>
                 
-                    <span class =' text-center ' style="font-size:12px; font-weight: 700; text-transform: uppercase; padding:5px" id='svet_rezin`+String(i)+`'></span>
+                    <span class =' text-center ' style="font-size:12px; font-weight: 700; text-transform: uppercase; padding:5px;z-index:0" id='svet_rezin`+String(i)+`'></span>
                 
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
             <div id='nakleyka_select`+String(i)+`' class='nak_select`+String(i)+`' style='display:none;'>
-                <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 145px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)" data-placeholder="..."></select>
+                <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 145px;padding-left:35%;height:27px!important;z-index:0' onchange="create_kratkiy_tekst(`+String(i)+`)" data-placeholder="..."></select>
             </div>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
                 
-                    <span class ='text-center ' style="font-size:12px; font-weight: bold; text-transform: uppercase;padding:5px" id='nadpis_nakleyki`+String(i)+`'></span>
+                    <span class ='text-center ' style="font-size:12px; font-weight: bold; text-transform: uppercase;padding:5px;z-index:0" id='nadpis_nakleyki`+String(i)+`'></span>
                 
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 150px;border-color:red;display:none"   id='goods_group`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <select class="form-select" aria-label="" style="width: 150px;border-color:red;display:none;height:27px!important;z-index:0"   id='goods_group`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
                 <option  value="" selected ></option>
                 <option value="QLIK_PVC_PROF" >ПВХ профиль</option>
                 <option value="QLIK_PDF" >Подоконник</option>
@@ -393,41 +387,41 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id='tex_name`+String(i)+`'></span>
+            <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;z-index:0" id='tex_name`+String(i)+`'></span>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
+            <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='kratkiy_tekst`+String(i)+`'></span>
             </div>
         </td>
 
         <td >
             <div class="input-group input-group-sm mb-1">
         
-            <input type='text' class=" form-control " style=" width: 150px; font-size:10px;  height:32px" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 150px; font-size:10px;  height:27px!important;z-index:0" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         
             </div>
         </td> 
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 250px; font-size:10px;  height:32px"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 250px; font-size:10px;  height:27px!important;z-index:0"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1">
-        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:27px!important;z-index:0" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px; border-color:red"  id='sena`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:27px!important;z-index:0; border-color:red"  id='sena`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:32px; border-color:red"  id='klaes_id`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; height:27px!important;z-index:0; border-color:red"  id='klaes_id`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
     `
@@ -819,8 +813,9 @@ function artukil_clear(id){
     var table_tr =$('#table_tr'+id);
     $('#nazvaniye_system'+id).text('');
     var tip_pokritiya = $('#tip_pokritiya'+String(id));
-    tip_pokritiya.val('0').change();
+    tip_pokritiya.val('').change();
     tip_pokritiya.attr("disabled",true);
+
     var camera = $('#camera'+String(id));
     var kod_komponent = $('#kod_komponent'+String(id));
     var nazvaniye_svet_zames = $('#nazvaniye_svet_zames'+String(id));
@@ -840,6 +835,8 @@ function artukil_clear(id){
     kod_svet_zames.css('border-color','#dedad9')
     
     nazvaniye_svet_zames.val('')
+    nazvaniye_svet_zames.attr('disabled',true)
+    nazvaniye_svet_zames.css('border-color','#dedad9')
     kod_svet_rezini.val('')
     kod_svet_rezini.css('display','none')
        
@@ -850,7 +847,6 @@ function artukil_clear(id){
 
     var kratkiy_tekst = document.getElementById('kratkiy_tekst'+String(id));
     kratkiy_tekst.innerText="";
-
 
     
     

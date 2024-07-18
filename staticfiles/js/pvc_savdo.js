@@ -219,23 +219,17 @@ function front_piece(start=1,end=6){
 
     for (let i = start; i < end; i++) {
         text +=`
-        <tr id='table_tr` +String(i)+`' >                   
-        <td >
-            <div class="d-flex justify-content-start bd-highlight mb-3">
-                        <div class="p-0 bd-highlight" data-bs-toggle='popover' title="Ma'lumotlarni tozalash">
-                            <div class="dropdown">
-                                    <button class="btn btn-primary  btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                                    <i class="bi bi-chevron-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
-                                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
-                                    </ul>
-                            </div> 
-                        </div>
-                        <div class="p-0 bd-highlight"><button class="btn btn-warning btn-sm" id='create_btn`+String(i)+`' onclick="create(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'>Созд.</button></div>
-                        <div class="p-0 bd-highlight"><button class="btn btn-success btn-sm" id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' >Актив.</button></div>
-            </div>
+        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>                   
+         <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><i class="bi bi-x-circle"></i></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='create_btn`+String(i)+`' onclick="create(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi' style='font-size:16px; width:34px'>С</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' style='font-size:16px;width:34px'>А</button>
+                    </div>
+                    
+                    
+
         </td>
         <td style='display:none;'>
             <div class="input-group input-group-sm mb-1" style='width:150px;'>
@@ -247,7 +241,7 @@ function front_piece(start=1,end=6){
                 <b><span id='camera` +String(i)+`'style="text-transform: uppercase; font-size:12px;padding-left:5px"></span></b>
             </div>
         </td>
-        <td class="sticky-col" >
+        <td class="sticky-col" style=' left: 139.6px;background-color:white!important' >
             <div class="input-group input-group-sm mb-1">
                 <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " disabled id="artikul`+String(i)+`" ></select>
             </div>
@@ -265,7 +259,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
+                <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;height:27px!important;z-index:0" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
                     <option  selected ></option>
                     <option value="1" >Неламинированный</option>
                     <option value="2" >Ламинированный</option>
@@ -275,7 +269,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 70px;">
         
-            <select class="form-select" aria-label="" style="width: 70px;"  disabled id='kod_svet_zames`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <select class="form-select" aria-label="" style="width: 70px;height:27px!important;z-index:0"  disabled id='kod_svet_zames`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
                 <option  value="" selected ></option>
                 <option value="F8" >F8</option>
                 <option value="PE" >PE</option>
@@ -293,13 +287,13 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type="text" class="form-control " style='width:50px' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`" maxlength="4" >
+                <input type="text" class="form-control " style='width:50px;height:27px!important;z-index:0' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`" maxlength="4" >
             </div>
         </td>
 
         <td >
             <div class="input-group input-group-sm mb-1">    
-            <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
+            <select class="form-select" aria-label="" style="width: 220px;height:27px!important;z-index:0" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
                 <option  value="" selected></option>
                 <option value="0027">Золотой дуб IW</option>
                 <option value="0300">Дуб мокко IW</option>
@@ -361,13 +355,13 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;" id ='code_lamplonka_snaruji` +String(i)+`'></span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;z-index:0" id ='code_lamplonka_snaruji` +String(i)+`'></span>
                 </div>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
+                <select class="form-select" aria-label="" style="width: 220px;height:27px!important;z-index:0" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
                     <option  value="" selected></option>
                     <option value="0027">Золотой дуб IW</option>
                     <option value="0300">Дуб мокко IW</option>
@@ -428,13 +422,13 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%" id='code_lamplonka_vnutri`+String(i)+`'></span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;z-index:0" id='code_lamplonka_vnutri`+String(i)+`'></span>
                 </div>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 60px;">
-            <select class="form-select" aria-label="" style="width: 50px;border-color:red;display:none"   id='kod_svet_rezini`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <select class="form-select" aria-label="" style="width: 50px;border-color:red;display:none;height:27px!important;z-index:0"   id='kod_svet_rezini`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
                 <option  value="" selected ></option>
                 <option value="Чёрная резина" >BR</option>
                 <option value="Серая резина" >GR</option>
@@ -445,82 +439,82 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1" id='svet_text`+String(i)+`'>
                 
-                    <span class =' text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;" id='svet_rezin`+String(i)+`'></span>
+                    <span class =' text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;z-index:0" id='svet_rezin`+String(i)+`'></span>
                 
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
             <div id='nakleyka_select`+String(i)+`' class='nak_select`+String(i)+`' style='display:none;'>
-                <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)" data-placeholder="..."></select>
+                <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%;height:27px!important;z-index:0' onchange="create_kratkiy_tekst(`+String(i)+`)" data-placeholder="..."></select>
             </div>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
                 
-                    <span class ='text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;padding:5px" id='nadpis_nakleyki`+String(i)+`'></span>
+                    <span class ='text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;padding:5px;z-index:0" id='nadpis_nakleyki`+String(i)+`'></span>
                 
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" >PVCGP</span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;z-index:0" >PVCGP</span>
                 </div>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
+            <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='kratkiy_tekst`+String(i)+`'></span>
             </div>
         </td>
 
         <td >
             <div class="input-group input-group-sm mb-1">
         
-            <input type='text' class=" form-control " style=" width: 150px; font-size:10px; height:32px" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 150px; font-size:10px; height:27px!important;z-index:0;" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         
             </div>
         </td> 
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 250px; font-size:10px; height:32px"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 250px; font-size:10px; height:27px!important;z-index:0;"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1">
-        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:27px!important;z-index:0;" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
         </td>
         <td >
-            <input  style='display:none;border-color:red; line-height:15px' type="date" class="form-control" id="pickupdate`+String(i)+`" onchange='create_kratkiy_tekst(`+String(i)+`)'>      
+            <input  style='display:none;border-color:red; line-height:15px;height:27px!important;z-index:0' type="date" class="form-control" id="pickupdate`+String(i)+`" onchange='create_kratkiy_tekst(`+String(i)+`)'>      
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; display:none;height:32px" id='sena_c_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; display:none;height:27px!important;z-index:0" id='sena_c_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; display:none; height:32px" id='sena_bez_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; display:none; height:27px!important;z-index:0;" id='sena_bez_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px " id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:27px!important;z-index:0; " id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <textarea   rows='1' class=" form-control " style="border-color:red; width: 220px; font-size:10px; display:none; height:32px" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+            <textarea   rows='1' class=" form-control " style="border-color:red; width: 220px; font-size:10px; display:none; height:27px!important;z-index:0;" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  value='' selected></option>
             <option   value="LAM">LAM</option>
             <option   value="WHITE">WHITE</option>
@@ -529,7 +523,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;height:27px!important;z-index:0" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value="PVX OQ (Navoiy)">PVX OQ (Navoiy)</option>
             <option value="PVX LAM (Navoiy)">PVX LAM (Navoiy)</option>
@@ -538,7 +532,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1"  >
-            <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+            <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
                 <option  selected></option>
                 <option value="5200 QVT PVC (NAVOIY)">5200 QVT PVC (NAVOIY)</option>
                 <option value="5200 QVT PVC RETPEN (NAVOIY)">5200 QVT PVC RETPEN (NAVOIY)</option>
@@ -580,7 +574,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0"  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
                 <option  selected></option>
                 <option value="Сырье">Сырье</option>
                 <option value="Готовый продукт">Готовый продукт</option>
@@ -589,7 +583,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;height:27px!important;z-index:0" id='segment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="Aldoks">Aldoks</option>
                 <option value="Стандарт">Стандарт</option>
@@ -608,7 +602,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;height:27px!important;z-index:0" id='buxgalter_tovar`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
                 <option value='Otvetka 153 (oq)'>Otvetka 153 (oq)</option>
@@ -1017,7 +1011,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option  value="Штука">Штука</div>
                 <option  value="Килограмм">Килограмм</div>
@@ -1031,7 +1025,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option vlaue="Штука">Штука</div>
                 <option vlaue="Килограмм">Килограмм</div>
@@ -1045,7 +1039,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='alter_edin`+ String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option vlaue="Штука">Штука</div>
                 <option vlaue="Килограмм">Килограмм</div>
@@ -1059,17 +1053,17 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_baza`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:27px!important;z-index:0" id='stoimost_baza`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:27px!important;z-index:0;" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="Активный">Активный</option>
                 <option value="Пассивный">Пассивный</option>
@@ -1078,13 +1072,13 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;" id='zavod_name`+String(i)+`'>ZAVOD PVS NAVOIY</span>
+            <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;z-index:0" id='zavod_name`+String(i)+`'>ZAVOD PVS NAVOIY</span>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
             
-            <select class="form-select" aria-label="" style="width: 75px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;" id='diller`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 75px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='diller`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="1">Да</option>
                 <option value="0">Нет</option>
@@ -1093,7 +1087,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="AKFA">AKFA</option>
                 <option value="IMZO">IMZO</option>
@@ -1359,8 +1353,10 @@ function copy_tr(id){
 
        
         check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s)
-
+        
         if(!is_active){
+            create_btn.css('background-color','green')
+            create_btn.css('color','white')
             check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(sena_c_nds,'#sena_c_nds'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(sena_bez_nds,'#sena_bez_nds'+s,dis=false,is_req=true,is_req_simple=false)
@@ -1386,6 +1382,9 @@ function copy_tr(id){
             is_active.text('Пассивный')
 
         }else{
+            
+            activate_btn.css('background-color','orange')
+            activate_btn.css('color','white')
             check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(sena_c_nds,'#sena_c_nds'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(sena_bez_nds,'#sena_bez_nds'+s,dis=false,is_req=false,is_req_simple=true)
@@ -1517,6 +1516,8 @@ function create(i){
 
     var activate_btn =$('#activate_btn'+i);
     var create_btn =$('#create_btn'+i);
+    create_btn.css('background-color','green')
+    create_btn.css('color','white')
     activate_btn.attr('disabled',true)
     create_btn.attr('disabled',true)
    
@@ -1533,8 +1534,12 @@ function activate(i){
 
     var activate_btn =$('#activate_btn'+i);
     var create_btn =$('#create_btn'+i);
+    activate_btn.css('background-color','orange')
+    activate_btn.css('color','white')
     activate_btn.attr('disabled',true)
     create_btn.attr('disabled',true)
+
+
     var status_first =$('#status'+i);
     status_first.val('Активный')
 
@@ -1772,7 +1777,10 @@ function artukil_clear(id){
     activate_btn.attr('disabled',false)
     create_btn.attr('disabled',false)
 
-
+    activate_btn.css('background-color','')
+    activate_btn.css('color','')
+    create_btn.css('background-color','')
+    create_btn.css('color','')
 
 }
 
@@ -1930,7 +1938,7 @@ function tip_pokritiya_selected(id,val){
         data_base[id].camera = camera;
         data_base[id].kod_k_component = kod_komponent;
     }
-
+    console.log(is_active.text(),'lllllll')
 
     if(is_active.text()=='Активный' && String(val) != ''){
         
@@ -2013,7 +2021,8 @@ function tip_pokritiya_selected(id,val){
         sena_bez_nds.css('border-color','#dedad9')
 
     }else if(is_active.text()=='Пассивный' && String(val) != ''){
-       
+        
+        data_base[id].is_active = false
         var svet_product =$('#svet_product'+id);
         var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
         var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
@@ -2080,7 +2089,6 @@ function tip_pokritiya_selected(id,val){
         tip_clenta.css('border-color','#dedad9')
 
     }
-    
     create_kratkiy_tekst(id);
 }
 

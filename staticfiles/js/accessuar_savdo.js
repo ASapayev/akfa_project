@@ -97,23 +97,17 @@ function front_piece(start=1,end=6){
 
     for (let i = start; i < end; i++) {
         text +=`
-        <tr id='table_tr` +String(i)+`' >                   
-        <td >
-            <div class="d-flex justify-content-start bd-highlight mb-3">
-                        <div class="p-0 bd-highlight" data-bs-toggle='popover' title="Ma'lumotlarni tozalash">
-                            <div class="dropdown">
-                                    <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                                    <i class="bi bi-chevron-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
-                                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
-                                    </ul>
-                            </div> 
-                        </div>
-                        <div class="p-0 bd-highlight"><button class="btn btn-warning btn-sm" id='create_btn`+String(i)+`' onclick="create(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'>Созд.</button></div>
-                        <div class="p-0 bd-highlight"><button class="btn btn-success btn-sm" id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' >Актив.</button></div>
-            </div>
+        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>                   
+        <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><i class="bi bi-x-circle"></i></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='create_btn`+String(i)+`' onclick="create(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi' style='font-size:16px; width:34px'>С</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' style='font-size:16px;width:34px'>А</button>
+                    </div>
+                    
+                    
+
         </td>
         <td >
         <input  style='display:none;border-color:red; line-height:15px' type="date" class="form-control" id="pickupdate`+String(i)+`" onchange='create_kratkiy_tekst(`+String(i)+`)'> 
@@ -368,6 +362,9 @@ function copy_tr(id){
         }
             
         
+
+        
+
         data_base[size+1] = data
         
         var s = size+1
@@ -391,9 +388,15 @@ function copy_tr(id){
         var zavod = data.zavod;
         var tip_clenta = data.tip_clenta;
         var is_active = data.is_active;
-
+        
+        var activate_btn =$('#activate_btn'+s);
+        var create_btn =$('#create_btn'+s);
+        activate_btn.attr('disabled',true)
+        create_btn.attr('disabled',true)
 
         if(!is_active){
+            create_btn.css('background-color','green')
+            create_btn.css('color','white')
             $('#is_active'+s).text('')
             check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(sena_za_bei,'#sena_za_bei'+s,dis=false,is_req=true,is_req_simple=false)
@@ -415,6 +418,8 @@ function copy_tr(id){
             check_input_and_change(tip_clenta,'#tip_clenta'+s,dis=false,is_req=true,is_req_simple=false)
             }
         else{
+            activate_btn.css('background-color','orange')
+            activate_btn.css('color','white')
             $('#is_active'+s).text('Активный')
             check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(sena_za_bei,'#sena_za_bei'+s,dis=false,is_req=false,is_req_simple=true)
@@ -441,10 +446,7 @@ function copy_tr(id){
         
       
         
-        var activate_btn =$('#activate_btn'+s);
-        var create_btn =$('#create_btn'+s);
-        activate_btn.attr('disabled',true)
-        create_btn.attr('disabled',true)
+        
         
     }
 
@@ -504,6 +506,8 @@ function create(id){
 
     var activate_btn =$('#activate_btn'+id);
     var create_btn =$('#create_btn'+id);
+    create_btn.css('background-color','green')
+    create_btn.css('color','white')
     activate_btn.attr('disabled',true)
     create_btn.attr('disabled',true)
 
@@ -591,8 +595,13 @@ function activate(id){
 
     var activate_btn =$('#activate_btn'+id);
     var create_btn =$('#create_btn'+id);
+    activate_btn.css('background-color','orange')
+    activate_btn.css('color','white')
     activate_btn.attr('disabled',true)
     create_btn.attr('disabled',true)
+
+
+
     var status_first =$('#status'+id);
     status_first.val('Активный')
 
@@ -801,6 +810,10 @@ function artukil_clear(id){
     activate_btn.attr('disabled',false)
     create_btn.attr('disabled',false)
 
+    activate_btn.css('background-color','')
+    activate_btn.css('color','')
+    create_btn.css('background-color','')
+    create_btn.css('color','')
 
 
 }

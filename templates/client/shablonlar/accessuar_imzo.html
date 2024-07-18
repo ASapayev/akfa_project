@@ -14,39 +14,50 @@
 
         .sticky-col {
             position: sticky;
-            left: 0;
+           
             background-color: #f8f9fa; /* Adjust background color as needed */
             z-index: 1; /* Ensure column is above non-sticky columns */
             }
 
-        .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            .table thead th {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            z-index: 2; /* Ensure headers stay above sticky columns */
             }
+        
+        .sticky-th {
+            position: sticky;
+            top: 0;
+            z-index: 600!important; /* Ensure th stay above sticky columns */
+            background-color: #ffffff; /* Background color of sticky th */
+            }
+
+        
 
     </style>
 
 
             <!-- <section class="topics-detail-section section-padding" id="topics-detail"> -->
              
-                <div style="overflow: scroll;" id="table-container">
-                    
+                <div  class="table-responsive custom-max-height  " id="table-container" style="padding-top: 76px; ">
+                    {% csrf_token %}
                     <table class="table table-sm" id="my-table">
-                        <thead>
+                        <thead style="line-height: 1;">
                           <tr>
-                            <th scope="col" style="font-size: 14px;">Действие</th>
-                            <th scope="col" style="font-size: 14px;">SAP код</th>
-                            <th scope="col" style="font-size: 14px;">Название товаров (40 симвлов)</th>
-                            <th scope="col" style="font-size: 14px;">Полное название товара</th>
-                            <th scope="col" style="font-size: 14px;">Цена материала (СУМ)</th>
-                            <th scope="col" style="font-size: 14px;">Базовая единица измерения</th>
-                            <th scope="col" style="font-size: 14px;">GOODS_GROUP</th>
-                            <th scope="col" style="font-size: 14px;">TEX_NAME</th>
-                            <th scope="col" style="font-size: 14px;">Коеффициент пересчета</th>
-                            <th scope="col" style="font-size: 14px;">Альтернативная единица измерения</th>
-                            <th scope="col" style="font-size: 14px;">ID KLAES</th>
-                            <th scope="col" style="font-size: 14px;">Группма Материалов</th>
-                            <th scope="col" style="font-size: 14px;">Комментария</th>
+                            <th scope="col" class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
+                            <th scope="col" style="font-size: 12px;">SAP код</th>
+                            <th scope="col" style="font-size: 12px;">Название товаров (40 симвлов)</th>
+                            <th scope="col" style="font-size: 12px;">Полное название товара</th>
+                            <th scope="col" style="font-size: 12px;">Цена материала (СУМ)</th>
+                            <th scope="col" style="font-size: 12px;">Базовая единица измерения</th>
+                            <th scope="col" style="font-size: 12px;">GOODS_GROUP</th>
+                            <th scope="col" style="font-size: 12px;">TEX_NAME</th>
+                            <th scope="col" style="font-size: 12px;">Коеффициент пересчета</th>
+                            <th scope="col" style="font-size: 12px;">Альтернативная единица измерения</th>
+                            <th scope="col" style="font-size: 12px;">ID KLAES</th>
+                            <th scope="col" style="font-size: 12px;">Группма Материалов</th>
+                            <th scope="col" style="font-size: 12px;">Комментария</th>
                         </tr>
                         </thead>
                         <tbody id="table-artikul">
@@ -73,10 +84,7 @@
                         <div class="col-md-4">
                             <div class="d-flex justify-content-end p-2">
                                 <span  class="btn btn-primary" value="" id="zagruzka_file"  onclick="ready_all()">Загрузить</span>
-                                <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
-                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                                    Loading...
-                                </button>
+                                
                             </div>
                         </div>
                     </div>
@@ -86,6 +94,41 @@
 
             
         </main>
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Информация</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="close_modal()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Полное название товара</th>
+                              <th scope="col">Цена материала (СУМ)</th>
+                              <th scope="col">Базовая единица измерения</th>
+                            </tr>
+                          </thead>
+                          <tbody id="modal_body">
+                            
+                          </tbody>
+                        </table>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close_modal()">Close</button>
+                    <button type="button" class="btn btn-primary" id="save_btn" onclick="send_data()">Save changes</button>
+                    <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
+                      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                      Loading...
+                  </button>
+                  </div>
+                </div>
+            </div>
+          </div>
 {%endblock%}
 
 {%block java_script%}
@@ -95,6 +138,22 @@
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
 <script src="{% static 'js/accessuar_imzo.js'%}"></script>
 <script>
+    function updateMaxHeight() {
+      var windowHeight = $(window).height();
+      var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
+
+      // Calculate the dynamic max-height
+      var dynamicMaxHeight = windowHeight - navbarHeight - 50; // Adjust as needed
+
+      // Apply the dynamic max-height
+      $('#dynamic-table').css('max-height', dynamicMaxHeight + 'px');
+    }
+
+    // Call the function on document ready and window resize
+    $(window).on('load resize', function() {
+      updateMaxHeight();
+    });
+
     function show_zagruska_btn(){
         var zagruzka_file =$('#zagruzka_file')
         var theme =$('#theme')
@@ -144,40 +203,29 @@
             }
 
             if (!data_empty && all_correct){
-                var submit_btn = document.getElementById('zagruzka_file')
-                var upload_btn = document.getElementById('upload_btn')
-                upload_btn.style.display ='block';
-                submit_btn.style.display ='none';
-                
-                var json_data = JSON.stringify(data_base)
-                var url = "order-save"
-                var theme =$('#theme').val()
-                var csrfToken = getCSRFToken();
-                var postData = {
-                    'data': json_data,
-                    'order_type':'acs_imzo',
-                    'name':'ACCESSUAR IMZO',
-                    'order_name':theme
-                }
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    headers: { "X-CSRFToken": csrfToken },
-                    data: postData,
-                }).done(function (res) {
-                    console.log(res)
-                    if (res.status ==201){
-                        Swal.fire('Qabul qilindi...', '', 'success')
-                        setTimeout(function() {
-                            var url = '{%url "client_order_list" %}';
-                            window.location.href = url;
-                        }, 750);
 
-                    }else{
-                        console.log('aa')
-                    }
-                    // WON'T REDIRECT
-                });
+                var text_tr =''
+                var i = 1
+                for(key in data_base){
+                    text_tr += `
+                        <tr>
+                            <th scope="row">${i}</th>
+                            <td>${data_base[key]['polnoye_nazvaniye']}</td>
+                            <td>${data_base[key]['sena_materiala']}</td>
+                            <td>${data_base[key]['bazoviy_edinitsa']}</td>
+                        </tr>
+                    `
+                    i +=1
+                        
+                }
+
+                var modal_body = $('#modal_body')
+                modal_body.children('tr').remove()
+                modal_body.append(text_tr)
+
+                $('#myModal').modal('show')
+
+                
                     
             }else{
                 console.log(data_empty,all_correct)
@@ -193,6 +241,49 @@
 
    
 }
+
+    function send_data(){
+        var submit_btn = document.getElementById('save_btn')
+        var upload_btn = document.getElementById('upload_btn')
+        upload_btn.style.display ='block';
+        submit_btn.style.display ='none';
+        
+        var json_data = JSON.stringify(data_base)
+        var url = "order-save"
+        var theme =$('#theme').val()
+        var csrfToken = getCSRFToken();
+        var postData = {
+            'data': json_data,
+            'order_type':'acs_imzo',
+            'name':'ACCESSUAR IMZO',
+            'order_name':theme
+        }
+        $.ajax({
+            type: 'POST',
+            url: url,
+            headers: { "X-CSRFToken": csrfToken },
+            data: postData,
+        }).done(function (res) {
+            console.log(res)
+            if (res.status ==201){
+                Swal.fire('Qabul qilindi...', '', 'success')
+                setTimeout(function() {
+                    var url = '{%url "client_order_list" %}';
+                    window.location.href = url;
+                }, 750);
+                close_modal()
+            }else{
+                Swal.fire('Something went wrong.', '', 'info')
+                console.log('aa')
+                close_modal()
+            }
+            // WON'T REDIRECT
+        });
+    }
+
+    function close_modal(){
+        $('#myModal').modal('hide')
+    }
 </script>
 
 {%endblock%}

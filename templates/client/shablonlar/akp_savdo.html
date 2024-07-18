@@ -13,15 +13,25 @@
 
     .sticky-col {
         position: sticky;
-        left: 0;
+      
         background-color: #f8f9fa; /* Adjust background color as needed */
         z-index: 1; /* Ensure column is above non-sticky columns */
         }
 
-    .table-responsive {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        }
+    .table thead th {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            z-index: 2; /* Ensure headers stay above sticky columns */
+            }
+        
+    .sticky-th {
+            position: sticky;
+            top: 0;
+            z-index: 600!important; /* Ensure th stay above sticky columns */
+            background-color: #ffffff; /* Background color of sticky th */
+            }
+
 
 </style>
           
@@ -29,44 +39,44 @@
 
             <!-- <section class="topics-detail-section section-padding" id="topics-detail"> -->
                
-                <div style="overflow: scroll;" id="table-container">
-                    
+                <div  class="table-responsive custom-max-height  " id="table-container" style="padding-top: 76px; ">
+                    {% csrf_token %}
                     <table class="table table-sm" id="my-table">
-                        <thead>
+                        <thead style="line-height: 1;">
                           <tr>
-                            <th scope="col" style="font-size: 14px;">Действие</th>
-                            <th scope="col" style="font-size: 14px;">Бренд</th>
-                            <th scope="col" style="font-size: 14px;">Микрон</th>
-                            <th scope="col" style="font-size: 14px;">Сторонность</th>
-                            <th scope="col" style="font-size: 14px;">Код цвета</th>
-                            <th scope="col" style="font-size: 14px;">Название цвета</th>
-                            <th scope="col" style="font-size: 14px;">Тип панели </th>
-                            <th scope="col" style="font-size: 14px;">Длина (мм)</th>
-                            <th scope="col" style="font-size: 14px;">Ширина</th>
-                            <th scope="col" style="font-size: 14px;">Группа материалов</th>
-                            <th scope="col" style="font-size: 14px;">Краткий текст товара</th>
-                            <th scope="col" style="font-size: 14px;" >SAP Код вручную (вставляется вручную)</th>
-                            <th scope="col" style="font-size: 14px;" >Краткий текст товара (вставляется вручную)</th>
-                            <th scope="col" style="font-size: 14px;">Место для комментариев</th>
-                            <th scope="col" style="font-size: 14px;">Дата добавление цены</th>
-                            <th scope="col" style="font-size: 14px;">Цена с НДС</th>
-                            <th scope="col" style="font-size: 14px;">Цена без НДС</th>
-                            <th scope="col" style="font-size: 14px;">Online savdo ID</th>
-                            <th scope="col" style="font-size: 14px;">Название</th>
-                            <th scope="col" style="font-size: 14px;">Цвет продукта</th>
-                            <th scope="col" style="font-size: 14px;">Группа закупок</th>
-                            <th scope="col" style="font-size: 14px;">Группа</th>
+                            <th scope="col"  class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
+                            <th scope="col" style="font-size: 12px;">Бренд</th>
+                            <th scope="col" style="font-size: 12px;">Микрон</th>
+                            <th scope="col" style="font-size: 12px;">Сторонность</th>
+                            <th scope="col" style="font-size: 12px;">Код цвета</th>
+                            <th scope="col" style="font-size: 12px;">Название цвета</th>
+                            <th scope="col" style="font-size: 12px;">Тип панели </th>
+                            <th scope="col" style="font-size: 12px;">Длина (мм)</th>
+                            <th scope="col" style="font-size: 12px;">Ширина</th>
+                            <th scope="col" style="font-size: 12px;">Группа материалов</th>
+                            <th scope="col" style="font-size: 12px;">Краткий текст товара</th>
+                            <th scope="col" style="font-size: 12px;" >SAP Код вручную (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 12px;" >Краткий текст товара (вставляется вручную)</th>
+                            <th scope="col" style="font-size: 12px;">Место для комментариев</th>
+                            <th scope="col" style="font-size: 12px;">Дата добавление цены</th>
+                            <th scope="col" style="font-size: 12px;">Цена с НДС</th>
+                            <th scope="col" style="font-size: 12px;">Цена без НДС</th>
+                            <th scope="col" style="font-size: 12px;">Online savdo ID</th>
+                            <th scope="col" style="font-size: 12px;">Название</th>
+                            <th scope="col" style="font-size: 12px;">Цвет продукта</th>
+                            <th scope="col" style="font-size: 12px;">Группа закупок</th>
+                            <th scope="col" style="font-size: 12px;">Группа</th>
                             
-                            <th scope="col" style="font-size: 14px;">Тип</th>
-                            <th scope="col" style="font-size: 14px;">Сегмент</th>
-                            <th scope="col" style="font-size: 14px;">Бухгал товары</th>
-                            <th scope="col" style="font-size: 14px;">Бухгалтерский учет</th>
-                            <th scope="col" style="font-size: 14px;">Базовый единица</th>
-                            <th scope="col" style="font-size: 14px;">Альтер единица</th>
-                            <th scope="col" style="font-size: 14px;">Статус</th>
-                            <th scope="col" style="font-size: 14px;">Завод</th>
-                            <th scope="col" style="font-size: 14px;">Акфа дилерда очиш керак</th>
-                            <th scope="col" style="font-size: 14px;">Тип клиента</th>
+                            <th scope="col" style="font-size: 12px;">Тип</th>
+                            <th scope="col" style="font-size: 12px;">Сегмент</th>
+                            <th scope="col" style="font-size: 12px;">Бухгал товары</th>
+                            <th scope="col" style="font-size: 12px;">Бухгалтерский учет</th>
+                            <th scope="col" style="font-size: 12px;">Базовый единица</th>
+                            <th scope="col" style="font-size: 12px;">Альтер единица</th>
+                            <th scope="col" style="font-size: 12px;">Статус</th>
+                            <th scope="col" style="font-size: 12px;">Завод</th>
+                            <th scope="col" style="font-size: 12px;">Акфа дилерда очиш керак</th>
+                            <th scope="col" style="font-size: 12px;">Тип клиента</th>
                         </tr>
                         </thead>
                         <tbody id="table-artikul">
@@ -93,16 +103,48 @@
                         <div class="col-md-4">
                             <div class="d-flex justify-content-end p-2">
                                 <span  class="btn btn-primary" value="" id="zagruzka_file"  onclick="ready_all()">Загрузить</span>
-                                <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
-                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                                    Loading...
-                                </button>
+                                
                             </div>
                         </div>
                     </div>
           
             <!-- </section> -->
 
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Информация</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="close_modal()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Бренд</th>
+                                    <th scope="col">Микрон</th>
+                                    <th scope="col">Сторонность</th>
+                                </tr>
+                                </thead>
+                                <tbody id="modal_body">
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close_modal()">Close</button>
+                        <button type="button" class="btn btn-primary" id="save_btn" onclick="send_data()">Save changes</button>
+                        <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Loading...
+                        </button>
+                        </div>
+                    </div>
+                </div>
+                </div>
 
           
         </main>
@@ -116,6 +158,21 @@
 <script src="{% static 'js/akp_savdo.js'%}"></script>
 
 <script>
+    function updateMaxHeight() {
+      var windowHeight = $(window).height();
+      var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
+
+      // Calculate the dynamic max-height
+      var dynamicMaxHeight = windowHeight - navbarHeight - 50; // Adjust as needed
+
+      // Apply the dynamic max-height
+      $('#dynamic-table').css('max-height', dynamicMaxHeight + 'px');
+    }
+
+    // Call the function on document ready and window resize
+    $(window).on('load resize', function() {
+      updateMaxHeight();
+    });
     function show_zagruska_btn(){
         var zagruzka_file =$('#zagruzka_file')
         var theme =$('#theme')
@@ -155,7 +212,44 @@
     }
 
     if (!data_empty && all_correct){
-        var submit_btn = document.getElementById('zagruzka_file')
+        var text_tr =''
+        var i = 1
+        for(key in data_base){
+            text_tr += `
+                <tr>
+                    <th scope="row">${i}</th>
+                    <td>${data_base[key]['brend']}</td>
+                    <td>${data_base[key]['mikron']}</td>
+                    <td>${data_base[key]['storonnost']}</td>
+                </tr>
+            `
+            i +=1
+                
+        }
+
+        var modal_body = $('#modal_body')
+        modal_body.children('tr').remove()
+        modal_body.append(text_tr)
+
+        $('#myModal').modal('show')
+            
+    }else{
+        
+        if(!data_empty && !all_correct){
+            Swal.fire({
+                icon: 'error',
+                title: 'Malumotlar to\'liq emas!!!',
+                text: 'Itimos ma\'lumotlarni to\'ldiring.',
+            });
+        }
+    }
+}
+
+   
+}
+
+function send_data(){
+    var submit_btn = document.getElementById('save_btn')
         var upload_btn = document.getElementById('upload_btn')
         upload_btn.style.display ='block';
         submit_btn.style.display ='none';
@@ -183,27 +277,20 @@
                     var url = '{%url "client_order_list" %}';
                     window.location.href = url;
                 }, 750);
+                close_modal()
 
             }else{
-                console.log('aa')
+                Swal.fire('Something went wrong.', '', 'info')
+                close_modal()
             }
             // WON'T REDIRECT
         });
-            
-    }else{
-        
-        if(!data_empty && !all_correct){
-            Swal.fire({
-                icon: 'error',
-                title: 'Malumotlar to\'liq emas!!!',
-                text: 'Itimos ma\'lumotlarni to\'ldiring.',
-            });
-        }
-    }
+
 }
 
-   
-}
+function close_modal(){
+        $('#myModal').modal('hide')
+    }
 </script>
 
 {%endblock%}
