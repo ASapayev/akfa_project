@@ -132,12 +132,12 @@ class OrderSaveView(APIView):
                         baza_profiley.save()
 
         try:
-            issueKey = order_create_jira(order_name)
+            # issueKey = order_create_jira(order_name)
+            issueKey = 'MDMtest'
             order = Order(data = {'name':name,'data':response,'artikul':artikules},owner=request.user,order_type = order_type,theme =order_name,id_for_jira=issueKey)
             order.save()
             order_detail = OrderDetail(order=order,owner=request.user)
             order_detail.save()
-            # print(order_name,'nammm')
             ##### create jira ######
             send_event("test", "message", {
                                         "id":order.id,

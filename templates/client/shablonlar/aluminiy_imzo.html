@@ -14,64 +14,73 @@
 
     .sticky-col {
         position: sticky;
-        left: 0;
+      
         background-color: #f8f9fa; /* Adjust background color as needed */
-        z-index: 1; /* Ensure column is above non-sticky columns */
+        z-index: 500; /* Ensure column is above non-sticky columns */
         }
 
-    .table-responsive {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+    .table thead th {
+        position: sticky;
+        top: 0;
+        background-color: #ffffff;
+        z-index: 2; /* Ensure headers stay above sticky columns */
+        }
+    
+    .sticky-th {
+        position: sticky;
+        top: 0;
+        z-index: 600!important; /* Ensure th stay above sticky columns */
+        background-color: #ffffff; /* Background color of sticky th */
         }
 
 </style>
          
             <!-- <section class="topics-detail-section section-padding" id="topics-detail"> -->
                 
-                <div class="" style="overflow: scroll;">
+                <div  class="table-responsive custom-max-height  " id="table-container" style="padding-top: 76px; ">
+                        {% csrf_token %}
                         <table class="table table-sm" id="my-table">
-                            <thead class="sticky-top">
-                                {% csrf_token %}
+                            <thead style="line-height: 1;">
                             <tr>
-                                <th scope="col" style="font-size: 14px;">Действие</th>
-                                <th scope="col" style="font-size: 14px;" >Название системы</th>
-                                <th scope="col" style="font-size: 14px;" >Артикул</th>
-                                <th scope="col" style="font-size: 14px;" >Длина (мм)</th>
-                                <th scope="col" style="font-size: 14px;" >Тип покрытия</th>
-                                <th scope="col" style="font-size: 14px;" >Сплав</th>
-                                <th scope="col" style="font-size: 14px;" >тип закаленности</th>
-                                <th scope="col" style="font-size: 14px;" >Комбинация</th>
-                                <th scope="col" style="font-size: 14px;" >Бренд краски снаружи</th>
-                                <th scope="col" style="font-size: 14px;" >Код краски снаружи</th>
-                                <th scope="col" style="font-size: 14px;" >Бренд краски внутри</th>
-                                <th scope="col" style="font-size: 14px;" >Код краски внутри</th>
-                                <th scope="col" style="font-size: 14px;" >Код декор пленки снаружи</th>
-                                <th scope="col" style="font-size: 14px;" >Цвет декор пленки снаружи</th>
-                                <th scope="col" style="font-size: 14px;" >Код декор пленки внутри</th>
-                                <th scope="col" style="font-size: 14px;" >Цвет декор пленки внутри</th>
-                                <th scope="col" style="font-size: 14px;" >Цвет лам пленки снаружи</th>
-                                <th scope="col" style="font-size: 14px;" >Код лам пленки снаружи</th>
-                                <th scope="col" style="font-size: 14px;" >Цвет лам пленки внутри</th>
-                                <th scope="col" style="font-size: 14px;" >Код лам пленки внутри</th>
-                                <th scope="col" style="font-size: 14px;" >Код цвета анодировки снаружи</th>
-                                <th scope="col" style="font-size: 14px;" >Код цвета анодировки внутри</th>
-                                <th scope="col" style="font-size: 14px;" >Контактность анодировки</th>
-                                <!-- <th scope="col" style="font-size: 14px;" >Тип анодировки</th>
-                                <th scope="col" style="font-size: 14px;" >Способ анодировки</th> -->
-                                <th scope="col" style="font-size: 14px;" >Код наклейки</th>
-                                <th scope="col" style="font-size: 14px;" >Надпись наклейки</th>
-                                <th scope="col" style="font-size: 14px;" >База профилей</th>
-                                <th scope="col" style="font-size: 14px;" >GOODS_GROUP</th>
-                                <th scope="col" style="font-size: 14px;" >Tex_name</th>
-                                <th scope="col" style="font-size: 14px;" >Группа материалов</th>
-                                <th scope="col" style="font-size: 14px;" >Краткий текст товара</th>
-                                <th scope="col" style="font-size: 14px;" >SAP Код вручную (вставляется вручную)</th>
-                                <th scope="col" style="font-size: 14px;" >Краткий текст товара (вставляется вручную)</th>
-                                <th scope="col" style="font-size: 14px;" >KLAES ID</th>
-                                <th scope="col" style="font-size: 14px;" >KLAES название</th>
-                                <th scope="col" style="font-size: 14px;" >Код Цвета</th>
-                                <th scope="col" style="font-size: 14px;" >Краткий код Klaes</th>
-                                <th scope="col" style="font-size: 14px;" >Место для комментариев</th>
+                                <th scope="col" class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
+                                <th scope="col"  class="sticky-th" style="font-size: 12px; left:73.5px;" >Название системы</th>
+                                <th scope="col"  class="sticky-th" style="font-size: 12px;left: 139.2px;" >Артикул</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Длина (мм)</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Тип покрытия</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Сплав</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >тип закаленности</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Комбинация</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Бренд краски снаружи</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Код краски снаружи</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Бренд краски внутри</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Код краски внутри</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Код декор пленки снаружи</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Цвет декор пленки снаружи</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Код декор пленки внутри</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Цвет декор пленки внутри</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Цвет лам пленки снаружи</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Код лам пленки снаружи</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Цвет лам пленки внутри</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Код лам пленки внутри</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Код цвета анодировки снаружи</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Код цвета анодировки внутри</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Контактность анодировки</th>
+                                <!-- <th scope="col" class="text-center" style="font-size: 12px;" >Тип анодировки</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Способ анодировки</th> -->
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Код наклейки</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Надпись наклейки</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >База профилей</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >GOODS_GROUP</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Tex_name</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Группа материалов</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Краткий текст товара</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >SAP Код вручную (вставляется вручную)</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Краткий текст товара (вставляется вручную)</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >KLAES ID</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >KLAES название</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Код Цвета</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Краткий код Klaes</th>
+                                <th scope="col" class="text-center" style="font-size: 12px;" >Место для комментариев</th>
                             </tr>
                             </thead>
                            
@@ -81,7 +90,7 @@
                         </table>
                         
                 </div>
-                    <div class="row">
+                    <div class="row pb-1">
                         <div class="col-md-4">
                             <div class="d-flex justify-content-start p-2">
                                 <input type="button" class="btn btn-warning mr-2 btn-sm" value="Добавить" onclick="add_column()" id="add_column_btn" >
@@ -97,10 +106,6 @@
                         
                         <div class="col-md-4">
                             <div class="d-flex justify-content-end p-2">
-                                <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
-                                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                                            Loading...
-                                </button>
                                 <span  class="btn btn-primary" value="" id="zagruzka_file"  onclick="ready_all()">Загрузить</span>
                             </div>
                         </div>
@@ -109,7 +114,7 @@
             <!-- </section> -->
 
             <div  style="display: none;">
-                <select class="form-select" style="color: black; width: 80px; display: none;height: 30px; font-size: 13px;" id ='nakleyka_list' onchange="">
+                <select class="form-select" style="color: black; width: 80px; display: none;height: 27px; font-size: 10px;" id ='nakleyka_list' onchange="">
                     <option value=""></option>
                     {% for nak in nakleyka_list %}
                     <option value="{{nak.name}}" data-nadpis="{{nak.nadpis}}">{{nak.name}}</option>
@@ -118,6 +123,41 @@
             </div>
         </main>
 
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Информация</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="close_modal()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Артикул</th>
+                              <th scope="col">Краткий текст</th>
+                              <!-- <th scope="col">Название</th> -->
+                            </tr>
+                          </thead>
+                          <tbody id="modal_body">
+                            
+                          </tbody>
+                        </table>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close_modal()">Close</button>
+                    <button type="button" class="btn btn-primary" id="save_btn" onclick="send_data()">Save changes</button>
+                    <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
+                      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                      Loading...
+                  </button>
+                  </div>
+                </div>
+            </div>
+          </div>
         
 {%endblock%}
 
@@ -130,6 +170,25 @@
 <link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
 <script>
+
+    function updateMaxHeight() {
+      var windowHeight = $(window).height();
+      var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
+
+      // Calculate the dynamic max-height
+      var dynamicMaxHeight = windowHeight - navbarHeight - 50; // Adjust as needed
+
+      // Apply the dynamic max-height
+      $('#dynamic-table').css('max-height', dynamicMaxHeight + 'px');
+    }
+
+    // Call the function on document ready and window resize
+    $(window).on('load resize', function() {
+      updateMaxHeight();
+    });
+
+
+
 
     var brend_kaska ='{{brend_kaska|safe}}'
 
@@ -195,40 +254,31 @@
         }
 
         if (!data_empty && all_correct){
-            var submit_btn = document.getElementById('zagruzka_file')
-            var upload_btn = document.getElementById('upload_btn')
-            upload_btn.style.display ='block';
-            submit_btn.style.display ='none';
-            
-            var json_data = JSON.stringify(data_base)
-            var url = "order-save"
-            var csrfToken = getCSRFToken();
-            var theme =$('#theme').val()
-            var postData = {
-                'data': json_data,
-                'order_type':'alu_imzo',
-                'name':'ALUMINIY IMZO',
-                'order_name':theme
+
+            var text_tr =''
+            var i = 1
+            for(key in data_base){
+                text_tr += `
+                    <tr>
+                        <th scope="row">${i}</th>
+                        <td>${data_base[key]['base_artikul']}</td>
+                        <td>${data_base[key]['kratkiy_tekst']}</td>
+                    </tr>
+                `
+                i +=1
+                    
             }
-            $.ajax({
-                type: 'POST',
-                url: url,
-                headers: { "X-CSRFToken": csrfToken },
-                data: postData,
-            }).done(function (res) {
-                console.log(res)
-                if (res.status ==201){
-                    Swal.fire('Qabul qilindi...', '', 'success')
-                    setTimeout(function() {
-                        var url = '{%url "client_order_list" %}';
-                        window.location.href = url;
-                    }, 750);
-            
-                }else{
-                    console.log('aa')
-                }
-                // WON'T REDIRECT
-            });
+
+            var modal_body = $('#modal_body')
+            modal_body.children('tr').remove()
+            modal_body.append(text_tr)
+
+            $('#myModal').modal('show')
+
+
+
+
+           
                 
         }else{
             
@@ -245,7 +295,53 @@
 }
 
 
+function send_data(){
 
+    var submit_btn = document.getElementById('save_btn')
+    var upload_btn = document.getElementById('upload_btn')
+    upload_btn.style.display ='block';
+    submit_btn.style.display ='none';
+
+    var json_data = JSON.stringify(data_base)
+    var url = "order-save"
+    var csrfToken = getCSRFToken();
+    var theme =$('#theme').val()
+    var postData = {
+        'data': json_data,
+        'order_type':'alu_imzo',
+        'name':'ALUMINIY IMZO',
+        'order_name':theme
+    }
+    $.ajax({
+        type: 'POST',
+        url: url,
+        headers: { "X-CSRFToken": csrfToken },
+        data: postData,
+    }).done(function (res) {
+        console.log(res)
+        if (res.status ==201){
+            Swal.fire('Qabul qilindi...', '', 'success')
+            setTimeout(function() {
+                var url = '{%url "client_order_list" %}';
+                window.location.href = url;
+            }, 750);
+            close_modal()
+
+        }else{
+            Swal.fire('Something went wrong.', '', 'info')
+            console.log('aa')
+            close_modal()
+        }
+        // WON'T REDIRECT
+    });
+
+ 
+}
+
+
+function close_modal(){
+$('#myModal').modal('hide')
+}
 
 
 </script>

@@ -443,33 +443,25 @@ function front_piece(start=1,end=7){
         nakleyki = nakleyki.replace('onchange=""','onchange="create_kratkiy_tekst('+String(i)+')"')
     
         text +=`
-        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important'>
+        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>
                                     
-        <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;'>
-                    <div class="d-flex justify-content-start bd-highlight mb-3" >
-                        <div class="p-0 bd-highlight" data-bs-toggle='popover' title="Ma'lumotlarni tozalash" >
-                            <div class="dropdown" >
-                                    <button class="btn btn-primary  btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                                    <i class="bi bi-chevron-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu" >
-                                        <li style='cursor:pointer;font-size:14px;'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
-                                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
-                                    </ul>
-                            </div> 
-                        </div>
-                        <div class="p-0 bd-highlight" ><button class="btn btn-warning btn-sm"  id='create_btn`+String(i)+`' onclick="create(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'>Созд.</button></div>
-                        <div class="p-0 bd-highlight"><button class="btn btn-success btn-sm"  id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' >Актив.</button></div>
+        <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><i class="bi bi-x-circle"></i></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='create_btn`+String(i)+`' onclick="create(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi' style='font-size:16px; width:34px'>С</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' style='font-size:16px;width:34px'>А</button>
                     </div>
+                    
                     
 
         </td>
-        <td class="sticky-col" style=' left: 150px;background-color:white!important'>
+        <td class="sticky-col" style=' left: 139.6px;background-color:white!important'>
             <div class="input-group input-group-sm mb-1">
                 <div><span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;" style="font-size: 12px;"></span></div>
             </div>
         </td>
-        <td class="sticky-col"  style=' left: 215.5px; background-color:white!important'>
+        <td class="sticky-col"  style=' left: 205.3px; background-color:white!important'>
             <div class="input-group input-group-sm mb-1">
                 <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; padding-right:150px!important; font-size:10px " disabled id="artikul`+String(i)+`" ></select>
                 <span style='display:none' id ='nakleyka_codd` +String(i)+`'></span>
@@ -544,7 +536,7 @@ function front_piece(start=1,end=7){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select form-select-sm text-center"  style="width:65px;border-color:#fc2003;display:non;height:27px!important;z-index:0" id='brand_k_vnutri`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)" required>
+            <select class="form-select form-select-sm text-center"  style="width:65px;border-color:#fc2003;display:none;height:27px!important;z-index:0;" id='brand_k_vnutri`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)" required>
                 <option  value="" selected></option>
                 <option value="A">A</option>
                 <option value="B">B</option>
@@ -680,14 +672,14 @@ function front_piece(start=1,end=7){
         <td >
             <div class="input-group input-group-sm mb-1" >
             <div id='anod`+String(i)+`' class='anood'  style="width: 75px;border-color:red; display:none;" >
-                <select class="form-select kod_anod_snar`+String(i)+`" aria-label="" style=" width: 100px; border-color:#fc2003;!important;z-index:0" onchange="code_svet_anodirovki_snaruji_selected(`+String(i)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(i)+`' required></select>         
+                <select class="form-select kod_anod_snar`+String(i)+`" aria-label="" style=" width: 100px; border-color:#fc2003;!important;height:27px!important;z-index:0" onchange="code_svet_anodirovki_snaruji_selected(`+String(i)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(i)+`' required></select>         
             </div>          
             </div>
         </td> 
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 60px;">
             <div id='anod_vnutr`+String(i)+`'  style="width: 75px;display:none;border-color:red;">
-                <select class="form-select kod_anod_vnutri`+String(i)+`" aria-label="" style="width: 75px;border-color:#fc2003;margin-right:15px;z-index:0" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='code_svet_anodirovki_vnutr`+String(i)+`' required></select>       
+                <select class="form-select kod_anod_vnutri`+String(i)+`" aria-label="" style="width: 75px;border-color:#fc2003;margin-right:15px;height:27px!important;z-index:0" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='code_svet_anodirovki_vnutr`+String(i)+`' required></select>       
             </div>
             </div>
         </td> 
@@ -855,7 +847,7 @@ function front_piece(start=1,end=7){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;height:27px!important;z-index:0" id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style=" width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;height:27px!important;z-index:0" id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="Нет сегмента">Нет сегмента</option>
                 <option value=""></option>
@@ -1054,12 +1046,16 @@ function request_piece(start=1,end=7){
 
     
             
-            if(status.val()=='Пассивный'){
-                segment.val(segment_text)
-                if(segment_text == 'Нет сегмента'){
-                    segment.css('border-color','red');
+            
+            segment.val(segment_text)
+            if(segment_text == 'Нет сегмента'){
+                segment.css('border-color','red');
+                if(data_base[i]){
+                    data_base[i].segment =NaN;
+                    create_kratkiy_tekst(i)
                 }
             }
+            
             
 
             
@@ -1358,6 +1354,8 @@ function copy_tr(id){
         check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s)
 
         if(is_active){
+            activate_btn.css('background-color','orange')
+            activate_btn.css('color','white')
             check_input_and_change(zavod_name,'#zavod'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=true)
             check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true)
@@ -1380,6 +1378,8 @@ function copy_tr(id){
 
 
         }else{
+            create_btn.css('background-color','green')
+            create_btn.css('color','white')
             check_input_and_change(zavod_name,'#zavod'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true)
@@ -1489,6 +1489,8 @@ function create(i){
 
     var activate_btn =$('#activate_btn'+i);
     var create_btn =$('#create_btn'+i);
+    create_btn.css('background-color','green')
+    create_btn.css('color','white')
     activate_btn.attr('disabled',true)
     create_btn.attr('disabled',true)   
    
@@ -1503,7 +1505,9 @@ function activate(i){
 
 
     var activate_btn =$('#activate_btn'+i);
-    var create_btn =$('#create_btn'+i);
+    var create_btn =$('#create_btn'+i);  
+    activate_btn.css('background-color','orange')
+    activate_btn.css('color','white')
     activate_btn.attr('disabled',true)
     create_btn.attr('disabled',true)
     
@@ -1822,6 +1826,10 @@ function artukil_clear(id){
     activate_btn.attr('disabled',false)
     create_btn.attr('disabled',false)
 
+    activate_btn.css('background-color','')
+    activate_btn.css('color','')
+    create_btn.css('background-color','')
+    create_btn.css('color','')
 
 
 }
@@ -2233,7 +2241,7 @@ function tip_pokritiya_selected(id,val){
         alter_edin.css('border-color','#dedad9')
         stoimost_baza.css('border-color','#dedad9')
         stoimost_alter.css('border-color','#dedad9')
-        segment.css('border-color','#dedad9')
+        // segment.css('border-color','#dedad9')
         buxgalter_tovar.css('border-color','#dedad9')
     }else if(status_first.val()=='Пассивный' && String(val) != ''){
         console.log(status_first.val())
@@ -2869,12 +2877,17 @@ function create_kratkiy_tekst(id){
                 data_base[id].buxgalter_tovar = NaN;
                 
             }
-            if(segment.val()!=''){
-                data_base[id].segment = segment.val();
-                
-            }else{
+            if(segment.val() == 'Нет сегмента'){
+                segment.css('border-color','red')
                 data_base[id].segment = NaN;
                 
+            }else{
+                segment.css('border-color','#dedad9')
+                if(segment.val()==''){
+                    data_base[id].segment = 'no';
+                }else{
+                    data_base[id].segment = segment.val();
+                }
             }
             if(sap_code_ruchnoy.val()!=''){
                 data_base[id].sap_code = sap_code_ruchnoy.val();
