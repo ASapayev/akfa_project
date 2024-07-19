@@ -266,7 +266,7 @@ function front_piece(start=1,end=6){
         </td>
         <td class="sticky-col" style=' left: 73.5px;background-color:white!important;width:100px!important'>
             <div class="input-group input-group-sm mb-1" style='width:100%'>
-                <span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important"></span>
+                <span class ='text-center nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important"></span>
             </div>
         </td>
         <td class="sticky-col"  style=' left: 183.2px; background-color:white!important' >
@@ -535,7 +535,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span  style="font-size: small; width:150px; font-weight: bold; text-transform: uppercase;z-index:0" id='nadpis_nakleyki`+String(i)+`'></span>
+            <span  class='text-center' style="font-size: small; width:150px; font-weight: bold; text-transform: uppercase;z-index:0" id='nadpis_nakleyki`+String(i)+`'></span>
             </div>
         </td>
         <td >
