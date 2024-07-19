@@ -268,12 +268,12 @@ function front_piece(start=1,end=6){
                     
 
         </td>
-        <td class="sticky-col" style=' left: 73.5px;background-color:white!important'>
-            <div class="input-group input-group-sm mb-1">
-                <div><span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;" style="font-size: 12px;"></span></div>
+        <td class="sticky-col" style=' left: 73.5px;background-color:white!important;width:100px!important'>
+            <div class="input-group input-group-sm mb-1" style='width:100%'>
+                <span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important"></span>
             </div>
         </td>
-        <td class="sticky-col"  style=' left: 139.2px; background-color:white!important' >
+        <td class="sticky-col"  style=' left: 183.2px; background-color:white!important' >
             <div class="input-group input-group-sm mb-1">
                 <select class=" form-control" style="background-color:#ddebf7; width: 140px; padding-right:150px!important; font-size:10px" id="artikul`+String(i)+`" ></select>
                 <span style='display:none' id ='nakleyka_codd` +String(i)+`'></span>
