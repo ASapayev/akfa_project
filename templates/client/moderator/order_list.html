@@ -479,13 +479,28 @@
 
       
     var orderCreatedAt = new Date(data['created_at']);
+    const monthNames = {
+      '01': 'Янв',
+      '02': 'Фев',
+      '03': 'Мар',
+      '04': 'Апр',
+      '05': 'Май',
+      '06': 'Июн',
+      '07': 'Июл',
+      '08': 'Авг',
+      '09': 'Сен',
+      '10': 'Окт',
+      '11': 'Ноя',
+      '12': 'Дек'
+        };
+    const yyy = orderCreatedAt.getFullYear().toString();
+    const mmm = ('0' + (orderCreatedAt.getMonth() + 1)).slice(-2); // +1 because getMonth() returns zero-based index
+    const ddd = ('0' + orderCreatedAt.getDate()).slice(-2);
+    const hhh = ('0' + orderCreatedAt.getHours()).slice(-2);
+    const minn = ('0' + orderCreatedAt.getMinutes()).slice(-2);
 
-    // Formatting the date
-    var formattedDate = orderCreatedAt.getFullYear() + '-' +
-                        ('0' + (orderCreatedAt.getMonth() + 1)).slice(-2) + '-' +
-                        ('0' + orderCreatedAt.getDate()).slice(-2) + ' ' +
-                        ('0' + orderCreatedAt.getHours()).slice(-2) + ':' +
-                        ('0' + orderCreatedAt.getMinutes()).slice(-2);
+// Format the date with mapped month name
+  const formattedDate = `${yyy}-${ddd}-${monthNames[mmm]} ${hhh}:${minn}`;
 
       
 
@@ -533,12 +548,11 @@
       }
 
 
-      var created_at = data['created_at']
+      var created_at = document.getElementById('created_at' + tr_size).innerText;
 
-      const [datePart, timePart] = created_at.split('T');
+      const [datePart, timePart] = created_at.split(' ');
       const [yy, day, monthAbbreviation] = datePart.split('-');
-      console.log(datePart,timePart,'time part')
-      const [hour, minute,isoSecond] =  timePart.split(':');
+      const [hour, minute] = timePart.split(':');
 
       // Convert month abbreviation to month index (assuming abbreviation is provided in English)
       const monthIndex = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'].indexOf(monthAbbreviation) + 1;
@@ -551,7 +565,6 @@
       intervalIds.push(intervalId);
 
       // Initial update
-      console.log(createdAt,'kkkkkk')
       updateTimePassed(createdAt, tr_size);
       
   }, false);
