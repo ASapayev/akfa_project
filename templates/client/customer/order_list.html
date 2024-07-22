@@ -106,76 +106,140 @@
 <script src="{% static 'js/eventsource.js' %}"></script>
 <script src="{% static 'js/reconnecting-eventsource.js' %}"></script>
 <script>
-     var orders = document.querySelectorAll('.lengg');
+    var orders = document.querySelectorAll('.lengg');
     var intervalIds = [];
-    console.log(orders,'ddddd')
-for (let i = 1; i <= orders.length; i++) {
-    var created_at = document.getElementById('created_at' + i).innerText;
 
-    const [datePart, timePart] = created_at.split(' ');
-    const [yy, day, monthAbbreviation] = datePart.split('-');
-    const [hour, minute] = timePart.split(':');
+    for (let i = 1; i <= orders.length; i++) {
+        var created_at = document.getElementById('created_at' + i).innerText;
 
+        const [datePart, timePart] = created_at.split(' ');
+        const [yy, day, monthAbbreviation] = datePart.split('-');
+        const [hour, minute] = timePart.split(':');
 
-    
-    // Convert month abbreviation to month index (assuming abbreviation is provided in English)
-    const monthIndex = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'].indexOf(monthAbbreviation) + 1;
+        // Convert month abbreviation to month index (assuming abbreviation is provided in English)
+        const monthIndex = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'].indexOf(monthAbbreviation) + 1;
 
-    // Create a new Date object
-    const year = new Date().getFullYear(); // Assume current year
-    const createdAt = new Date(year, monthIndex - 1, parseInt(day), parseInt(hour), parseInt(minute));
+        // Create a new Date object for order creation time
+        const year = new Date().getFullYear(); // Assume current year
+        const createdAt = new Date(year, monthIndex - 1, parseInt(day), parseInt(hour), parseInt(minute));
 
+        const intervalId = setInterval(updateTimePassed.bind(null, createdAt, i), 1000);
+        intervalIds.push(intervalId);
 
-    const intervalId = setInterval(updateTimePassed.bind(null, createdAt, i), 1000);
-    intervalIds.push(intervalId);
-
-    // Initial update
-    updateTimePassed(createdAt, i);
-}
-
-// Function to calculate the time passed
-function calculateTimePassed(createdAt) {
-    const now = new Date();
-    const timeDifference = now.getTime() - createdAt.getTime();
-
-    const hoursPassed = Math.floor(timeDifference / (1000 * 60 * 60));
-    const minutesPassed = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-
-    return { hoursPassed, minutesPassed };
-}
-
-// Function to update the displayed time
-function updateTimePassed(createdAt, i) {
-    const { hoursPassed, minutesPassed } = calculateTimePassed(createdAt);
-    const timePassedElement = document.getElementById('clock' + i);
-    if (parseInt(minutesPassed) < 10) {
-    minnpas = '0' + String(minutesPassed);
-    }else{
-        minnpas =minutesPassed
+        // Initial update
+        updateTimePassed(createdAt, i);
     }
 
-    timePassedElement.innerText = `${hoursPassed}:${minnpas}`;
-    
-    var cloker = document.getElementById('cloker'+i)
-    
-    if(parseInt(hoursPassed)>=5 && parseInt(hoursPassed)<6){
-        cloker.style.borderRadius='17px'
-        cloker.style.backgroundColor='#ffdc73'
-    }else if(parseInt(hoursPassed)>=6 && parseInt(hoursPassed)<7){
-        cloker.style.borderRadius='17px'
-        cloker.style.color='white'
-        cloker.style.backgroundColor='#ff3333'
-    
-    }else if(parseInt(hoursPassed)>=7) {
-      
-        cloker.style.borderRadius='17px'
-        cloker.style.color='white'
-        cloker.style.backgroundColor='#b30000'
-    
-    }
-}
+    function calculateTimePassed(createdAt) {
+        
+        const now = new Date();
+        var passed_hour = 0
 
-  
+        if (createdAt.getDay() == now.getDay()) {
+            if(createdAt.getHours() < 9){
+                passed_hour = now.getHours() - 9
+            }else if(createdAt.getHours() > 18){
+                passed_hour = 9
+            }else{
+                passed_hour = now.getHours() - createdAt.getHours() 
+            }
+        }else if (now.getDay() != createdAt.getDay()){
+            if(createdAt.getDay() == 0){
+                if(now.getDay() != 0){
+                    var date_hour = (now.getDay() - 1) * 9 
+                
+                    if(now.getHours() < 9){
+                        passed_hour = date_hour 
+                    }else if(now.getHours() > 18){
+                        passed_hour = date_hour + 9
+                    }else{
+                        if( createdAt.getMinutes() > now.getMinutes()){
+                            passed_hour = date_hour + now.getHours() - createdAt.getHours() - 1
+                        }else{
+                            passed_hour = date_hour + now.getHours() - createdAt.getHours()
+                        }
+                    }
+                }else{
+                    passed_hour = 0
+                }
+            }else {
+                var pased_date_create = 0
+                if(createdAt.getHours() < 9){
+                    pased_date_create = 9
+                }else if(createdAt.getHours() >18){
+                    pased_date_create = 0
+                }else{
+                    pased_date_create = 18 - createdAt.getHours() 
+                }
+                console.log(pased_date_create,'newwww')
+
+                var date_hour = ( 6 - createdAt.getDay()) * 9 + pased_date_create
+                if(now.getHours() < 9){
+                    passed_hour = date_hour 
+                }else if(now.getHours() > 18){
+                    passed_hour = date_hour + 9
+                }else{
+                    passed_hour = date_hour + now.getHours() - 9
+                }
+            }
+        }
+        
+        
+        
+        const timeDifference = now.getTime() - createdAt.getTime();
+        const totalHoursPassed = Math.floor(timeDifference / (1000 * 60 * 60));
+        var totalMinutesPassed = 0;
+        if(createdAt.getHours() < 9){
+            totalMinutesPassed = now.getMinutes()
+        }else if(createdAt.getHours() > 18){
+            totalMinutesPassed = 0
+        }else{
+            totalMinutesPassed = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        }
+        
+        let elapsedBusinessHours = passed_hour;
+        let elapsedBusinessMinutes = 0;
+
+        // Iterate from createdAt date to now date
+        
+        
+        return { totalHoursPassed, totalMinutesPassed, elapsedBusinessHours, elapsedBusinessMinutes };
+    }
+
+    // Function to update the displayed time
+    function updateTimePassed(createdAt, i) {
+        const { totalHoursPassed, totalMinutesPassed, elapsedBusinessHours, elapsedBusinessMinutes } = calculateTimePassed(createdAt);
+        const timePassedElement = document.getElementById('clock' + i);
+
+        // Display total time passed
+        if (parseInt(totalMinutesPassed) < 10) {
+            var minnpas = '0' + String(totalMinutesPassed);
+        } else {
+            var minnpas = totalMinutesPassed;
+        }
+        if (elapsedBusinessHours >= 7){
+            timePassedElement.innerText = ` - ${elapsedBusinessHours}:${minnpas}`;
+        }else{
+            timePassedElement.innerText = `${elapsedBusinessHours}:${minnpas}`;
+        }
+
+        // Handle styling based on elapsed business hours
+        var cloker = document.getElementById('cloker' + i);
+        if (elapsedBusinessHours >= 5 && elapsedBusinessHours < 6) {
+            cloker.style.borderRadius = '17px';
+            cloker.style.backgroundColor = '#ffdc73';
+        } else if (elapsedBusinessHours >= 6 && elapsedBusinessHours < 7) {
+            cloker.style.borderRadius = '17px';
+            cloker.style.color = 'white';
+            cloker.style.backgroundColor = '#ff3333';
+        } else if (elapsedBusinessHours >= 7) {
+            cloker.style.borderRadius = '17px';
+            cloker.style.color = 'white';
+            cloker.style.backgroundColor = '#b30000';
+        }
+    }
+
+
   
   var es = new ReconnectingEventSource('/events/');
 
