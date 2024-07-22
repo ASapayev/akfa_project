@@ -108,10 +108,9 @@
           <h4 class="card-title">Заявка Статус</h4>
           {%if orders  %}
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="my_table">
               <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Order type</th>
                     <th scope="col">Order ID</th>
                     <th scope="col">Order name</th>
@@ -131,8 +130,8 @@
 
                 {%for order in orders%}
                   {% if request.user.role == 'moderator' %}
-                    <tr  >
-                        <th scope="row" class="lengg">{{forloop.counter}}</th>
+                    <tr class="trs">
+                        <td style="display: none;" id="order_{{order.id}}">{{order.id}}</td>
                         <td class="text-primary">{{order.data.name}}</td>
                         <td class="text-primary" style="width: 100px;"><a href="{%url 'customer_order_detail' order.id %}">{{order.id_for_jira}}</a></td>
                         <td><a href="{%url 'order_check' order.id %}">{{order.theme |truncatechars:20}}</a></td>
@@ -185,8 +184,7 @@
                     </tr>
                   {%endif%}
                   {%if request.user ==  order.partner and order.status|stringformat:"d" == '10083' %}
-                    <tr>
-                      <th scope="row" class="lengg">{{forloop.counter}}</th>
+                    <tr class="trs">
                       <td><a href="{%url 'order_check_zavod' order.id %}">{{order.data.name}}</a></td>
                       <td>{{order.owner}}</td>
                       <td>{%if order.checker %}{{order.checker}}{%endif%}</td>
@@ -467,8 +465,63 @@
   
   var es = new ReconnectingEventSource('/events/');
 
-  es.addEventListener('message', function (e) {
-      console.log(e.data);
+  es.addEventListener('message_new', function (e) {
+      var tr_size = $('.trs').length + 1
+      var data = e.data
+      var my_table = $('#my_table')
+      var tr_text = ''
+      var user_role = '{{request.user.role}}'
+
+      console.log(data)
+
+      var orderCreatedAt = new Date(data['created_at']);
+
+// Formatting the date
+      var formattedDate = orderCreatedAt.getFullYear() + '-' +
+                        ('0' + (orderCreatedAt.getMonth() + 1)).slice(-2) + '-' +
+                        ('0' + orderCreatedAt.getDate()).slice(-2) + ' ' +
+                        ('0' + orderCreatedAt.getHours()).slice(-2) + ':' +
+                        ('0' + orderCreatedAt.getMinutes()).slice(-2);
+
+      if(user_role == 'moderator'){
+        tr_text =`
+                    <tr  >
+                        <td style="display: none;" id="order_${data['id']}">${data['id']}</td>
+                        <td class="text-primary">${data['order_type']}</td>
+                        <td class="text-primary" style="width: 100px;"><a href="/client/customer-order-detail/${data['id']}">${data['order_id']}</a></td>
+                        <td><a href="/client/order-check/${data['id']} %}">${data['order_name']}</a></td>
+                        <td><i class="bi bi-person-circle mr-1"></i>${data['owner']} </td>
+                        <td></td>
+                        
+                
+                        <td>
+                            
+                          <span class="badge badge-primary" style="opacity: 0.6;" value="1"   >Открыто</span>
+                            
+                        </td>
+                        <td id="created_at${tr_size}">${formattedDate}</td>
+                        <td >
+                          <div class="d-flex" id='cloker${tr_size}'>
+                            <div class="p-1" id="clock${tr_size}"></div>
+                            <div class="p-1"><i class="bi bi-clock"></i></div>
+                          </div>
+                        </td>
+                        <td></td>
+                        </td>
+                        <td>
+                            
+                        </td>
+                        <td>
+                         
+                        </td>
+                        <td>
+                          
+                        </td>
+                    </tr>
+                  `
+       
+        $('#my_table tbody').prepend(tr_text);
+      }
   }, false);
 
   es.addEventListener('stream-reset', function (e) {

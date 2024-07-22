@@ -386,7 +386,7 @@ def product_add_second_org(request,id):
                         umumiy_counter[df['Артикул'][key]+'-7'] = 1
                         
                         component2 = materiale.split('-')[0]
-                        
+                        print(df['Артикул'][key],'yoqlar')
                         artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
                         
                         q_bic = ''

@@ -23,7 +23,7 @@ urlpatterns = [
     path('api/v1/',include('apis.urls')),
     
 
-   path("events/", include(django_eventstream.urls), {"channels": ["test"]}),
+   path("events/", include(django_eventstream.urls), {"channels": ["orders"]}),
     # path('__debug__/', include('debug_toolbar.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 # if settings.DEBUG:

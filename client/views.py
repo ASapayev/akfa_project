@@ -139,9 +139,11 @@ class OrderSaveView(APIView):
             order_detail = OrderDetail(order=order,owner=request.user)
             order_detail.save()
             ##### create jira ######
-            send_event("test", "message", {
+            send_event("orders", "message_new", {
                                         "id":order.id,
-                                        "order_name" : name,
+                                        "order_type" : name,
+                                        "order_id" : issueKey,
+                                        "order_name" : order.theme,
                                         "owner" : str(request.user),
                                         "checker":None,
                                         "status":"1",
