@@ -131,7 +131,7 @@
                 {%for order in orders%}
                   {% if request.user.role == 'moderator' %}
                     <tr class="trs">
-                        <td style="display: none;" id="order_{{order.id}}">{{order.id}}</td>
+                        <td style="display: none;" id="order_{{order.id}}"  class="lengg" >{{order.id}}</td>
                         <td class="text-primary">{{order.data.name}}</td>
                         <td class="text-primary" style="width: 100px;"><a href="{%url 'customer_order_detail' order.id %}">{{order.id_for_jira}}</a></td>
                         <td><a href="{%url 'order_check' order.id %}">{{order.theme |truncatechars:20}}</a></td>
@@ -152,7 +152,7 @@
                             
                         </td>
                         <td id="created_at{{forloop.counter}}">{{order.created_at|date:"Y-d-M H:i"}}</td>
-                        <td >
+                        <td style="width: 130px!important;">
                           <div class="d-flex" id='cloker{{forloop.counter}}'>
                             <div class="p-1" id="clock{{forloop.counter}}"></div>
                             <div class="p-1"><i class="bi bi-clock"></i></div>
@@ -299,6 +299,8 @@
     var orders = document.querySelectorAll('.lengg');
     var intervalIds = [];
 
+
+
     for (let i = 1; i <= orders.length; i++) {
         var created_at = document.getElementById('created_at' + i).innerText;
 
@@ -400,7 +402,6 @@
         const { totalHoursPassed, totalMinutesPassed, elapsedBusinessHours, elapsedBusinessMinutes } = calculateTimePassed(createdAt);
         const timePassedElement = document.getElementById('clock' + i);
 
-        // Display total time passed
         if (parseInt(totalMinutesPassed) < 10) {
             var minnpas = '0' + String(totalMinutesPassed);
         } else {
@@ -467,21 +468,29 @@
 
   es.addEventListener('message_new', function (e) {
       var tr_size = $('.trs').length + 1
-      var data = e.data
+      var data = JSON.parse(e.data)
       var my_table = $('#my_table')
       var tr_text = ''
       var user_role = '{{request.user.role}}'
 
-      console.log(data)
+      console.log(data,typeof(data))
 
-      var orderCreatedAt = new Date(data['created_at']);
+    
 
-// Formatting the date
-      var formattedDate = orderCreatedAt.getFullYear() + '-' +
+      
+    var orderCreatedAt = new Date(data['created_at']);
+
+    // Formatting the date
+    var formattedDate = orderCreatedAt.getFullYear() + '-' +
                         ('0' + (orderCreatedAt.getMonth() + 1)).slice(-2) + '-' +
                         ('0' + orderCreatedAt.getDate()).slice(-2) + ' ' +
                         ('0' + orderCreatedAt.getHours()).slice(-2) + ':' +
                         ('0' + orderCreatedAt.getMinutes()).slice(-2);
+
+      
+
+
+
 
       if(user_role == 'moderator'){
         tr_text =`
@@ -522,6 +531,29 @@
        
         $('#my_table tbody').prepend(tr_text);
       }
+
+
+      var created_at = data['created_at']
+
+      const [datePart, timePart] = created_at.split('T');
+      const [yy, day, monthAbbreviation] = datePart.split('-');
+      console.log(datePart,timePart,'time part')
+      const [hour, minute,isoSecond] =  timePart.split(':');
+
+      // Convert month abbreviation to month index (assuming abbreviation is provided in English)
+      const monthIndex = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'].indexOf(monthAbbreviation) + 1;
+
+      // Create a new Date object for order creation time
+      const year = new Date().getFullYear(); // Assume current year
+      const createdAt = new Date(year, monthIndex - 1, parseInt(day), parseInt(hour), parseInt(minute));
+
+      const intervalId = setInterval(updateTimePassed.bind(null, createdAt, tr_size), 1000);
+      intervalIds.push(intervalId);
+
+      // Initial update
+      console.log(createdAt,'kkkkkk')
+      updateTimePassed(createdAt, tr_size);
+      
   }, false);
 
   es.addEventListener('stream-reset', function (e) {

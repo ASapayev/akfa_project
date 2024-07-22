@@ -138,6 +138,7 @@ class OrderSaveView(APIView):
             order.save()
             order_detail = OrderDetail(order=order,owner=request.user)
             order_detail.save()
+            print(order.created_at,'$'*250)
             ##### create jira ######
             send_event("orders", "message_new", {
                                         "id":order.id,
