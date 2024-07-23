@@ -333,26 +333,29 @@
             }else if(createdAt.getHours() > 18){
                 passed_hour = 9
             }else{
+              if(now.getMinutes() <= createdAt.getMinutes()){
+                passed_hour = now.getHours() - createdAt.getHours()- 1
+              }else{
                 passed_hour = now.getHours() - createdAt.getHours() 
+              }
             }
         }else if (now.getDay() != createdAt.getDay()){
             if(createdAt.getDay() == 0){
                 if(now.getDay() != 0){
                     var date_hour = (now.getDay() - 1) * 9 
-                
+                    // console.log(date_hour,'kkkkkk')
                     if(now.getHours() < 9){
                         passed_hour = date_hour 
                     }else if(now.getHours() > 18){
                         passed_hour = date_hour + 9
                     }else{
-                        if( createdAt.getMinutes() > now.getMinutes()){
-                            passed_hour = date_hour + now.getHours() - createdAt.getHours() - 1
-                        }else{
-                            passed_hour = date_hour + now.getHours() - createdAt.getHours()
-                        }
+                      
+                        passed_hour = (date_hour + (now.getHours() - 9 ))
+                     
                     }
+                    console.log(passed_hour,'llllll')
                 }else{
-                    passed_hour = 0
+                      passed_hour = 0
                 }
             }else {
                 var pased_date_create = 0
@@ -389,7 +392,12 @@
         }else if(createdAt.getHours() > 18){
             totalMinutesPassed = 0
         }else{
+          if(createdAt.getDay() == 0){
+            totalMinutesPassed = now.getMinutes()
+          }else{
             totalMinutesPassed = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            console.log(totalMinutesPassed,'kkkmin')
+          }
         }
         
         let elapsedBusinessHours = passed_hour;
