@@ -130,16 +130,16 @@
 
                 {%for order in orders%}
                   {% if request.user.role == 'moderator' %}
-                    <tr class="trs">
-                        <td style="display: none;" id="order_{{order.id}}"  class="lengg" >{{order.id}}</td>
+                    <tr class="trs" id="tr_loop_{{order.id}}">
+                        <td style="display: none;"   class="lengg" >{{order.id}}</td>
                         <td class="text-primary">{{order.data.name}}</td>
                         <td class="text-primary" style="width: 100px;"><a href="{%url 'customer_order_detail' order.id %}">{{order.id_for_jira}}</a></td>
                         <td><a href="{%url 'order_check' order.id %}">{{order.theme |truncatechars:20}}</a></td>
                         <td><i class="bi bi-person-circle mr-1"></i>{{order.owner}}</td>
-                        <td>{%if order.checker %}<i class="bi bi-person-check mr-1"></i>{{order.checker}}{%endif%}</td>
+                        <td id="checker_{{order.id}}">{%if order.checker %}<i class="bi bi-person-check mr-1"></i>{{order.checker}}{%endif%}</td>
                         
                 
-                        <td>
+                        <td id="status_{{order.id}}">
                             
                           {%if order.status|stringformat:"d" == '1' %}<span class="badge badge-primary" style="opacity: 0.6;" value="1"   >Открыто</span>{%endif%}
                           {%if order.status|stringformat:"d" == '10023' %} <span value="10023" class="badge badge-success" >Выполнено</span>{%endif%}
@@ -158,24 +158,24 @@
                             <div class="p-1"><i class="bi bi-clock"></i></div>
                           </div>
                         </td>
-                        <td>{%if order.status|stringformat:"d" == '10063' %}<a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Convert</a>{%endif%}</td>
+                        <td id="options_{{order.id}}" data-loop="{{forloop.counter}}">{%if order.status|stringformat:"d" == '10063' %}<a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Convert</a>{%endif%}</td>
                         </td>
-                        <td>
-                            {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                        <td id="zavod_1101_{{order.id}}">
+                            {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10063' %}
                             <div class="form-check">
                               <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1101_{{forloop.counter}}"> <i class="input-helper" ></i></label>
                             </div>
                             {%endif%}
                         </td>
-                        <td>
-                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                        <td id="zavod_1201_{{order.id}}">
+                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10063' %}
                             <div class="form-check">
                               <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1201_{{forloop.counter}}">  <i class="input-helper"></i></label>
                             </div>
                           {%endif%}
                         </td>
-                        <td>
-                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                        <td id="zavod_join_{{order.id}}">
+                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10063' %}
                             <div class="form-check">
                               <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="join_{{forloop.counter}}">  <i class="input-helper"></i></label>
                             </div>
@@ -188,11 +188,7 @@
                       <td><a href="{%url 'order_check_zavod' order.id %}">{{order.data.name}}</a></td>
                       <td>{{order.owner}}</td>
                       <td>{%if order.checker %}{{order.checker}}{%endif%}</td>
-                      <!-- <td>
-                        <div class="progress">
-                          <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </td> -->
+                      
                       <td>
                           
                         {%if order.status|stringformat:"d" == '1' %}<span class="badge badge-primary" value="1"  >Открыто</span>{%endif%}
@@ -214,25 +210,13 @@
                       </td>
                       <td></td>
                       <td>
-                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
-                          <div class="form-check">
-                            <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1101_{{forloop.counter}}"> <i class="input-helper" ></i></label>
-                          </div>
-                          {%endif%}
+                          
                       </td>
                       <td>
-                        {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
-                          <div class="form-check">
-                            <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1201_{{forloop.counter}}">  <i class="input-helper"></i></label>
-                          </div>
-                        {%endif%}
+                        
                       </td>
                       <td>
-                        {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
-                          <div class="form-check">
-                            <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="join_{{forloop.counter}}">  <i class="input-helper"></i></label>
-                          </div>
-                        {%endif%}
+                        
                       </td>
                   </tr>
                   {%endif%}
@@ -316,7 +300,7 @@
         const createdAt = new Date(year, monthIndex - 1, parseInt(day), parseInt(hour), parseInt(minute));
 
         const intervalId = setInterval(updateTimePassed.bind(null, createdAt, i), 1000);
-        intervalIds.push(intervalId);
+        intervalIds.push({ intervalId: intervalId, createdAt: created_at, i: i });
 
         // Initial update
         updateTimePassed(createdAt, i);
@@ -571,7 +555,17 @@
 }
 
 
-
+function stopInterval(createdAt, i) {
+    // Find and stop the interval based on createdAt and i
+    for (var j = 0; j < intervalIds.length; j++) {
+        var data = intervalIds[j];
+        if (data.createdAt === createdAt && data.i === i) {
+            clearInterval(data.intervalId); // Stop the interval
+            intervalIds.splice(j, 1); // Remove the stopped interval from array
+            break; // Exit loop after stopping the interval
+        }
+    }
+}
 
 
 
@@ -654,16 +648,16 @@
 
       if(user_role == 'moderator'){
         tr_text =`
-                    <tr  >
-                        <td style="display: none;" id="order_${data['id']}">${data['id']}</td>
+                    <tr  class="trs" id="tr_loop_${data['id']}">
+                        <td style="display: none;" class="lengg" ></td>
                         <td class="text-primary">${data['order_type']}</td>
                         <td class="text-primary" style="width: 100px;"><a href="/client/customer-order-detail/${data['id']}">${data['order_id']}</a></td>
                         <td><a href="/client/order-check/${data['id']} %}">${data['order_name']}</a></td>
                         <td><i class="bi bi-person-circle mr-1"></i>${data['owner']} </td>
-                        <td></td>
+                        <td id="checker_${data['id']}"></td>
                         
                 
-                        <td>
+                        <td id="status_${data['id']}">
                             
                           <span class="badge badge-primary" style="opacity: 0.6;" value="1"   >Открыто</span>
                             
@@ -675,15 +669,15 @@
                             <div class="p-1"><i class="bi bi-clock"></i></div>
                           </div>
                         </td>
-                        <td></td>
+                        <td id="options_${data['id']}" data-loop="${tr_size}"></td>
                         </td>
-                        <td>
+                        <td id="zavod_1101_${data['id']}">
                             
                         </td>
-                        <td>
+                        <td id="zavod_1201_${data['id']}">
                          
                         </td>
-                        <td>
+                        <td id="zavod_join_${data['id']}">
                           
                         </td>
                     </tr>
@@ -714,8 +708,100 @@
       
   }, false);
 
-  es.addEventListener('stream-reset', function (e) {
-      // ... client fell behind, reinitialize ...
+  es.addEventListener('message_update', function (e) {
+    
+    var data = JSON.parse(e.data)
+    var order_id = data['id']
+    var checker = data['checker']
+    var status = data['status']
+    var is_alu = data['is_alu']
+
+    var option_button = $('#options_'+order_id)
+    var forloop = option_button.attr('data-loop');
+
+    if(status != 'Выполнено'){
+
+      var checker_site = $('#checker_'+order_id)
+      if(checker_site.text()==''){
+        checker_text =`<i class="bi bi-person-check mr-1"></i>${checker}`
+        checker_site.append(checker_text)
+      }
+      var status_ = $('#status_'+order_id)
+      status_.children('span').remove()
+      var status_text =''
+      switch(status){
+        case 'Открыто':status_text=`<span class="badge badge-primary" style="opacity: 0.6;" value="1"   >Открыто</span>`; break;
+        case 'Выполнено':status_text=`<span value="10023" class="badge badge-success" >Выполнено</span>`; break;
+        case 'Работа ведется':status_text=`<span value="10063" class="badge badge-warning"   >Работа ведется</span>`;  break;
+        case 'На паузе':status_text=`<span value="10081" class="badge badge-secondary" style="color:black" >На паузе</span>`; break;
+        case 'Согласование':status_text=`<span value="10083" class="badge badge-warning"  >Согласование</span>`; break;
+        case 'Отменено':status_text=`<span value="10082" class="badge badge-danger"  >Отменено</span>`; break;
+        case 'Доработка заявителем':status_text=`<span value="10084" class="badge badge-warning" >Доработка заявителем</span>`; break;
+        case 'Исправлено':status_text=`<span value="10084" class="badge badge-warning"  >Исправлено</span>`; break;
+      }
+      status_.append(status_text)
+  
+      
+      
+      var option_text =''
+      if(status =='Работа ведется'){
+        option_text =`<a href="/client/order-convert/${order_id}" class="btn btn-warning btn-sm" id="link${forloop}" ><i class="bi bi-pen"></i> Convert</a>`
+        option_button.children('a').remove()
+        option_button.append(option_text)
+      }else{
+        option_button.children('a').remove()
+      }
+  
+      var zavod_1101_text = ''
+      var zavod_1201_text = ''
+      var zavod_join_text = ''
+      var zavod_1101 = $('#zavod_1101_'+order_id)
+      var zavod_1201 = $('#zavod_1201_'+order_id)
+      var zavod_join = $('#zavod_join_'+order_id)
+  
+      if(is_alu && status =='Работа ведется'){
+        zavod_1101_text =`<div class="form-check">
+                                <input type="checkbox" class="form-check-input" onchange="status_set(this,'${forloop}')" id="1101_${forloop}"> <i class="input-helper" ></i></label>
+                              </div>`
+        zavod_1201_text = `<div class="form-check">
+                                <input type="checkbox" class="form-check-input" onchange="status_set(this,'${forloop}')" id="1201_${forloop}">  <i class="input-helper"></i></label>
+                              </div>`
+        zavod_join_text = `<div class="form-check">
+                                <input type="checkbox" class="form-check-input" onchange="status_set(this,'${forloop}')" id="join_${forloop}">  <i class="input-helper"></i></label>
+                              </div>`
+  
+        zavod_1101.children('div').remove()
+        zavod_1201.children('div').remove()
+        zavod_join.children('div').remove()
+  
+        zavod_1101.append(zavod_1101_text)
+        zavod_1201.append(zavod_1201_text)
+        zavod_join.append(zavod_join_text)
+  
+  
+      }else{
+        zavod_1101.children('div').remove()
+        zavod_1201.children('div').remove()
+        zavod_join.children('div').remove()
+      }
+    }else{
+      console.log(forloop,'forlooppppp')
+      var created_at = document.getElementById('created_at' + forloop).innerText;
+      stopInterval(created_at,forloop)
+      var element = $('#tr_loop_'+order_id)
+      element.remove()
+
+
+    }
+      
+    
+
+
+
+
+
   }, false);
+
+
 </script>
 {% endblock %}

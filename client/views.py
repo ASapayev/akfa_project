@@ -224,7 +224,7 @@ def order_list_for_zavod(request):
 
 @allowed_users(allowed_roles=['moderator','user1'])
 def order_list_for_moderator(request):
-    orders = Order.objects.all().order_by('-created_at')
+    orders = Order.objects.filter(~Q(status=10023)).order_by('-created_at')
 
     paginator = Paginator(orders, 15)
 
@@ -749,7 +749,7 @@ STATUSES =  {
     '10023':'Выполнено',
     '10081':'На паузе',
     '10083':'Согласование',
-    '10084':'Доработка',
+    '10084':'Доработка заявителем',
     '10082':'Отменено',
     '10063':'Работа ведется',
     '10085':'Исправлено'
@@ -835,11 +835,13 @@ def moderator_check(request,id):
         if partner_id and partner_id !='':
             partner = User.objects.get(id = int(partner_id))
             order.partner =partner
-        order.status = data.get('status',1)
+        order_status = data.get('status',1)
+        order.status = order_status
 
         status_id_for_jira =STATUS_JIRA[order.status]['id']
-        jira_status_change(order.id_for_jira,status=status_id_for_jira)
-        checker_send_to_jira(order.id_for_jira)
+        # jira_status_change(order.id_for_jira,status=status_id_for_jira)
+        # checker_send_to_jira(order.id_for_jira)
+
 
         order.checker = request.user
         order.save()
@@ -849,13 +851,11 @@ def moderator_check(request,id):
         if form.is_valid():
             form.save()
             order_details = OrderDetail.objects.filter(order = order)
-            send_event("test", "message", {
+            send_event("orders", "message_update", {
                                         "id":order.id,
-                                        "order_name" : order.data['name'],
-                                        "owner" : str(owner),
-                                        "checker":None,
-                                        "status":str(order.status),
-                                        "created_at":order.created_at
+                                        "checker":order.checker.username +' ' +order.checker.last_name,
+                                        "status":STATUSES[order_status],
+                                        "is_alu":True if 'alu' in order.order_type else False,
                                         })
             return redirect('order_list_for_moderator')
         else:
