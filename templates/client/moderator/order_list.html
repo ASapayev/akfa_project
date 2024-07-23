@@ -357,14 +357,18 @@
             }else {
                 var pased_date_create = 0
                 if(createdAt.getHours() < 9){
-                    pased_date_create = 9
+                    pased_date_create = 9*60
                 }else if(createdAt.getHours() >18){
                     pased_date_create = 0
                 }else{
-                    pased_date_create = 18 - createdAt.getHours() 
+                    pased_date_create = 18*60 - createdAt.getHours()*60 - createdAt.getMinutes()
                 }
 
-                var date_hour = ( 6 - createdAt.getDay()) * 9 + pased_date_create
+                var hour_part = parseInt(pased_date_create/60) 
+
+
+                var date_hour = (now.getDay()-createdAt.getDay() - 1 ) * 9 + hour_part
+
                 if(now.getHours() < 9){
                     passed_hour = date_hour 
                 }else if(now.getHours() > 18){
