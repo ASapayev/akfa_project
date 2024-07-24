@@ -22,6 +22,9 @@ urlpatterns = [
     ######AKP###############
     path('shablon-akp-savdo-detail',views.shablon_akp_savdo_detail,name='shablon_akp_savdo_detail'),
 
+    #######RADIATOR##############
+    path('shablon-radiator-detail',views.shablon_radiator_detail,name='shablon_radiator_detail'),
+
     ################## APIS ################
         ######## ALU #####
     path('imzo-artikul-list',views.imzo_artikul_list,name='imzo_artikul_list'),

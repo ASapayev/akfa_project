@@ -1239,6 +1239,11 @@ def shablon_pvc_savdo_detail(request):
 
 @login_required(login_url='/accounts/login/')
 @customer_only
+def shablon_radiator_detail(request):
+    return render(request,'client/shablonlar/radiator.html')
+
+@login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_pvc_export_savdo_detail(request):
     nakleyka_list = NakleykaCode.objects.all().values_list('name','nadpis')
     context ={

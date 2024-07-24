@@ -5,6 +5,8 @@ from aluminiytermo import views as alutermoview
 
 urlpatterns = [
 
+
+    ######## NORMA ############
     path('file-upload-radiator-texcarta',views.file_upload_radiator_tex,name='file_upload_radiator_tex'),
     path('file-upload-termo-org',views.full_update_norm,name='norma_file_upload_radiator'),
     path('file-upload-siryo',views.full_update_siryo,name='upload_siryo_radiator'),
@@ -19,6 +21,10 @@ urlpatterns = [
     path('vi-file-list',views.vi_file,name='vi_file_list_radiator'),
     path('vi-generate/<int:id>',views.vi_generate,name='vi_generate_radiator'),
     path('vi-generate-mo/<int:id>',views.vi_generate_mo,name='vi_generate_mo_radiator'),
+    
+
+    ######## END NORMA ############
+
     
 ]
 
