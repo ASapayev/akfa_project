@@ -21,6 +21,7 @@ class BasePokritiya{
         tip = NaN,
         segment = NaN,
         buxgalter_tovar = NaN,
+        buxgalter_sena = NaN,
         buxgalter_uchot = NaN,
         bazoviy_edin = NaN,
         alter_edin = NaN,
@@ -53,6 +54,7 @@ class BasePokritiya{
             this.tip = tip;//done
             this.segment = segment;
             this.buxgalter_tovar = buxgalter_tovar;
+            this.buxgalter_sena = buxgalter_sena;
             this.buxgalter_uchot = buxgalter_uchot;
             this.bazoviy_edin = bazoviy_edin;//done
             this.alter_edin = alter_edin;
@@ -505,6 +507,7 @@ function request_piece(start=1,end=6){
                 var status =$('#status'+i);
                 var zavod =$('#zavod'+i);
                 var buxgalter_uchot =$('#buxgalter_uchot'+i);
+                var buxgalter_sena =$('#buxgalter_sena'+i);
                 var alter_edin =$('#alter_edin'+i);
                 var stoimost_baza =$('#stoimost_baza'+i);
                 var stoimost_alter =$('#stoimost_alter'+i);
@@ -520,6 +523,7 @@ function request_piece(start=1,end=6){
                 sena_c_nds.css('display','block')
                 sena_bez_nds.css('display','block')
                 tip_clenta.css('display','block')
+                buxgalter_sena.css('display','block')
                 
                 
                 
@@ -585,6 +589,7 @@ function request_piece(start=1,end=6){
                 var stoimost_alter =$('#stoimost_alter'+i);
                 var segment =$('#segment'+i);
                 var buxgalter_tovar =$('#buxgalter_tovar'+i);
+                var buxgalter_sena =$('#buxgalter_sena'+i);
                 var comment =$('#comment'+i);
                 var obshiy_ves_shtuku =$('#obshiy_ves_shtuku'+i);
                 var pickupdate =$('#pickupdate'+i);
@@ -617,6 +622,7 @@ function request_piece(start=1,end=6){
                 status.css('display','block')
                 zavod.css('display','block')
                 buxgalter_uchot.css('display','block')
+                buxgalter_sena.css('display','block')
                 alter_edin.css('display','block')
                 stoimost_baza.css('display','block')
                 stoimost_alter.css('display','block')
@@ -697,6 +703,7 @@ function copy_tr(id){
         var tip =  data.tip 
         var segment =  data.segment 
         var buxgalter_tovar =  data.buxgalter_tovar 
+        var buxgalter_sena =  data.buxgalter_sena 
         var buxgalter_uchot =  data.buxgalter_uchot 
         var bazoviy_edin =  data.bazoviy_edin 
         var alter_edin =  data.alter_edin 
@@ -758,6 +765,7 @@ function copy_tr(id){
             check_input_and_change(tip,'#tip'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(segment,'#segment'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(buxgalter_sena,'#buxgalter_sena'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(bazoviy_edin,'#bazoviy_edin'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
@@ -784,6 +792,7 @@ function copy_tr(id){
             check_input_and_change(group,'#group'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(tip,'#tip'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(segment,'#segment'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(buxgalter_sena,'#buxgalter_sena'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(bazoviy_edin,'#bazoviy_edin'+s,dis=false,is_req=false,is_req_simple=true)
@@ -1036,6 +1045,7 @@ function artukil_clear(id){
     var status =$('#status'+id);
     var zavod =$('#zavod'+id);
     var buxgalter_uchot =$('#buxgalter_uchot'+id);
+    var buxgalter_sena =$('#buxgalter_sena'+id);
     var alter_edin =$('#alter_edin'+id);
     var stoimost_baza =$('#stoimost_baza'+id);
     var stoimost_alter =$('#stoimost_alter'+id);
@@ -1066,6 +1076,7 @@ function artukil_clear(id){
     status.css('display','none')
     zavod.css('display','none')
     buxgalter_uchot.css('display','none')
+    buxgalter_sena.css('display','none')
     alter_edin.css('display','none')
     stoimost_baza.css('display','none')
     stoimost_alter.css('display','none')
@@ -1104,6 +1115,7 @@ function artukil_clear(id){
     status.val('Активный')
     // zavod.val('')
     buxgalter_uchot.val('')
+    buxgalter_sena.val('')
     alter_edin.val('')
     stoimost_baza.val('')
     stoimost_alter.val('')

@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import User
 
 # Create your models here.
 
@@ -70,3 +71,40 @@ class RazlovkaRadiator(models.Model):
   kratkiy7 =models.CharField(max_length=150)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
+
+
+class RadiatorFile(models.Model):
+  file =models.FileField(upload_to='uploads/radiator/downloads/',max_length=500)
+  generated =models.BooleanField(default=False)
+  file_type =models.CharField(max_length=255,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
+
+STATUS_CHOICES_RADIATOR =(
+     (1,'ON HOLD'),
+    (2,'ON PROCESS'),
+    (3,'CANCEL'),
+    (4,'DONE')
+)
+
+WORK_TYPE_CHOICES_RADIATOR =(
+    (1,'ON HOLD'),
+    (2,'SAP CODE CREATING'),
+    (3,'SAP CODE CREATING LACKS'),
+    (4,'TEXT CREATING'),
+    (5,'TEXT CREATING LACKS'),
+    (6,'DONE')
+)
+
+class OrderRadiator(models.Model):
+    title = models.CharField(max_length=150)
+    status = models.SmallIntegerField(choices=STATUS_CHOICES_RADIATOR,default=1)
+    work_type =models.SmallIntegerField(choices=WORK_TYPE_CHOICES_RADIATOR,default=1)
+    owner = models.ForeignKey(User,on_delete=models.CASCADE)
+    current_worker = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='on_time_worker_radiator')
+    radiator_worker = models.ForeignKey(User,models.CASCADE,blank=True,null=True,related_name='radiator_work')
+    radiator_wrongs = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='radiator_work_wrong')
+    paths = models.JSONField(null=True,blank=True,default=dict)
+    order_type = models.SmallIntegerField(default=1)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)

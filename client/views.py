@@ -2,6 +2,8 @@ from django.shortcuts import render,get_object_or_404,redirect
 from django.http import JsonResponse
 from aluminiy.models import AluProfilesData,AluFile,AluminiyProduct,LengthOfProfile,BrendKraska
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile,PVCProduct
+from radiator.models import RadiatorFile,OrderRadiator as BaseOrderRadiator
+
 from .models import Anod,Order,OrderDetail
 from radiator.models import ArtikulRadiator
 from django.contrib.auth.decorators import login_required
@@ -305,6 +307,7 @@ def moderator_convert(request,id):
     datas = order.data['data']
     name = order.data['name']
     rand_string = id_generator()
+    
     if 'ALUMINIY' in name:
         df_simple, df_termo , correct, artikul_list = json_to_excel(datas)
 
@@ -405,8 +408,101 @@ def moderator_convert(request,id):
         order = BaseOrderPvc(title = name,owner=request.user,current_worker_id= request.user.id,pvc_worker_id =request.user.id,paths=paths,order_type =2)
         order.save()
         return redirect('order_detail_pvc',id=order.id)
-    elif name =='ALUMINIY EXPORT':
-        pass
+    elif 'RADIATOR' in name:
+        df_radiator = json_to_excel_radiator(datas)
+        path_radiator = f'{MEDIA_ROOT}\\uploads\\radiator\\downloads\\SHABLON_{rand_string}.xlsx'
+        df_radiator.to_excel(path_radiator, index = False)
+        title = name
+        oid = save_file_to_model(path_radiator,RadiatorFile())
+        o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
+        paths ={
+                    'radiator_file':path_radiator,
+                    'oid':oid,
+                    'obichniy_date':o_created_at,
+                    'is_obichniy':'yes',
+                    'type':'RADIATOR',
+                    'status_l':'on hold',
+                    'status_raz':'on hold',
+                    'status_zip':'on hold',
+                    'status_norma':'on hold',
+                    'status_text_l':'on hold',
+                    'status_norma_lack':'on hold',
+                    'status_texcarta':'on hold',
+                }
+            
+        order = BaseOrderRadiator(title = name,owner=request.user,current_worker_id= request.user.id,radiator_worker_id =request.user.id,paths=paths,order_type =2)
+        order.save()
+        return redirect('order_detail_radiator',id=order.id)
+    
+
+def json_to_excel_radiator(datas):
+    df_radiator  = pd.DataFrame()
+
+    df_radiator['counter'] =['' for x in range(0,len(datas)+4)]
+
+    df_radiator['Модель'] = ''
+    df_radiator['Артикул'] = ''
+    df_radiator['Количество секций'] = ''
+    df_radiator['Цвет'] = ''
+    df_radiator['Бренд'] = ''
+    df_radiator['Краткий текст'] = ''
+    df_radiator['Комментарий'] = ''
+    df_radiator['Дата добавление цены'] = ''
+    df_radiator['Цена с НДС'] = ''
+    df_radiator['Цена без НДС'] = ''
+    df_radiator['Online savdo ID'] = ''
+    df_radiator['Название'] = ''
+    df_radiator['Цвет продукта'] = ''
+    df_radiator['Группа закупок'] = ''
+    df_radiator['Группа'] = ''
+    df_radiator['Тип'] = ''
+    df_radiator['Сегмент'] = ''
+    df_radiator['Бухгал товары'] = ''
+    df_radiator['Бухгалтерская цена'] = ''
+    df_radiator['Бухгалтерский учет'] = ''
+    df_radiator['Базовый единица'] = ''
+    df_radiator['Альтер единица'] = ''
+    df_radiator['Стоимость базовой единицы'] = ''
+    df_radiator['Альтер. стоимость единицы'] = ''
+    df_radiator['Статус'] = ''
+    df_radiator['Завод'] = ''
+    df_radiator['Тип клиента'] = ''
+    
+    
+    
+    k = 0
+    for key1,data in datas.items():
+        df_radiator['Модель'] = data['model']
+        df_radiator['Артикул'] = data['base_artikul']
+        df_radiator['Количество секций'] = data['kol_section']
+        df_radiator['Цвет'] = data['svet']
+        df_radiator['Бренд'] = data['brend']
+        df_radiator['Краткий текст'] = data['kratkiy_tekst']
+        df_radiator['Комментарий'] = data['comment']
+        df_radiator['Дата добавление цены'] = data['pickupdate']
+        df_radiator['Цена с НДС'] = data['sena_c_nds']
+        df_radiator['Цена без НДС'] = data['sena_bez_nds']
+        df_radiator['Online savdo ID'] = data['online_id']
+        df_radiator['Название'] = data['nazvaniye_ruchnoy']
+        df_radiator['Цвет продукта'] = data['svet_product']
+        df_radiator['Группа закупок'] = data['group_zakup']
+        df_radiator['Группа'] = data['group']
+        df_radiator['Тип'] = data['tip']
+        df_radiator['Сегмент'] = data['segment']
+        df_radiator['Бухгал товары'] = data['buxgalter_tovar']
+        df_radiator['Бухгалтерская цена'] = data['buxgalter_sena']
+        df_radiator['Бухгалтерский учет'] = data['buxgalter_uchot']
+        df_radiator['Базовый единица'] = data['bazoviy_edin']
+        df_radiator['Альтер единица'] = data['alter_edin']
+        df_radiator['Стоимость базовой единицы'] = data['stoimost_baza']
+        df_radiator['Альтер. стоимость единицы'] = data['stoimost_alter']
+        df_radiator['Статус'] = data['status_online']
+        df_radiator['Завод'] = data['zavod_name']
+        df_radiator['Тип клиента'] = data['tip_clenta']
+        k+=1
+
+   
+    return df_radiator
 
 def json_to_excel_pvc(datas):
     df_pvc  = pd.DataFrame()
@@ -463,6 +559,10 @@ def json_to_excel_pvc(datas):
 
    
     return df_pvc
+
+
+
+
 
 def json_to_excel(datas):
     df_termo  = pd.DataFrame()
@@ -744,6 +844,11 @@ def json_to_excel(datas):
     return df_simple,df_termo,correct,artikul_list
 
 
+
+
+
+
+
 STATUSES =  {
     '1':'Открыто',
     '4':'Пере-открыто',
@@ -854,6 +959,7 @@ def moderator_check(request,id):
             order_details = OrderDetail.objects.filter(order = order)
             send_event("orders", "message_update", {
                                         "id":order.id,
+                                        "owner":str(order.owner),
                                         "checker":order.checker.username +' ' +order.checker.last_name,
                                         "status":STATUSES[order_status],
                                         "is_alu":True if 'alu' in order.order_type else False,

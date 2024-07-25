@@ -884,7 +884,8 @@ def full_update_bazaprofiley(request):
                   
                   columns = df.columns
                   print(columns)
-            
+
+                  AluProfilesData.objects.all().delete()
                   AluProfilesData(data ={'columns':list(columns)}).save()
                   for key, row in df.iterrows():
                         norma_dict = {}
