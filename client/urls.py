@@ -35,6 +35,10 @@ urlpatterns = [
     path('pvc-artikul-list',views.pvc_artikul_list,name='pvc_artikul_list'),
     path('nakleyka-list-pvc',views.nakleyka_list_pvc,name='nakleyka_list_pvc'),
 
+        ######## Radiator ########
+    path('radiator-artikul-list',views.radiator_artikul_list,name='radiator_artikul_list'),
+
+
     ################ Order ###########
 
     ###### Moderator #####

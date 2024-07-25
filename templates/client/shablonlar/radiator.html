@@ -3,7 +3,7 @@
 {%block content%}
             
 
-                
+               
     <style>
         .sticky-top {
             position: sticky;
@@ -14,11 +14,11 @@
 
         .sticky-col {
             position: sticky;
-         
+            
             background-color: #f8f9fa; /* Adjust background color as needed */
             z-index: 500; /* Ensure column is above non-sticky columns */
             }
-
+        
         .table thead th {
             position: sticky;
             top: 0;
@@ -32,40 +32,50 @@
             z-index: 600!important; /* Ensure th stay above sticky columns */
             background-color: #ffffff; /* Background color of sticky th */
             }
+        
 
     </style>
 
 
             <!-- <section class="topics-detail-section section-padding" id="topics-detail"> -->
-                
-                
+               
                 <div  class="table-responsive custom-max-height  " id="table-container" style="padding-top: 76px; ">
                     {% csrf_token %}
                     <table class="table table-sm" id="my-table">
                         <thead style="line-height: 1;">
                           <tr>
-                            <th scope="col" class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
-                            <th scope="col" class="sticky-th" style="font-size: 12px; left:73.5px;" >Артикул</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Тип покрытия</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Названия цвет основы/Замес</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Код цвета основы/Замес</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Длина (мм)</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Цвет лам пленки снаружи</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Код лам пленки снаружи</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Цвет лам пленки внутри</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Код лам пленки внутри</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Цвет резины</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Код цвет резины</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Надпись наклейки</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Код наклейки</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >GOODS_GROUP</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Tex_name</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Краткий текст товара</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;"  >SAP Код вручную (вставляется вручную)</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;"  >Краткий текст товара (вставляется вручную)</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Место для комментариев</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Цена</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Клайс ID</th>
+                            <th scope="col"  class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
+                           
+                            <th scope="col" class="sticky-th text-center" style="font-size: 12px; left:139.6px;">Модель</th>
+                            
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Артикул</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Количество секций</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Цвет</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Бренд</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Краткий текст</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Комментарий</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Дата добавления цены</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Цена за БЕИ с НДС</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Цена за БЕИ БЕЗ НДС</th>
+
+                            
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Online savdo ID</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Название</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Цвет продукта</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Группа закупок</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Группа</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Тип</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Сегмент</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Бухгалтерский товары</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Бухгалтерская цена</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Бухгалтерский учет</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Базовый единица</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Альтернативный единица</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Стоимость базовой единицы</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Альтер. стоимость единицы</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Статус</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Завод</th>
+                            <th scope="col" class="text-center" style="font-size: 12px;" >Тип клиента</th>
                         </tr>
                         </thead>
                         <tbody id="table-artikul">
@@ -76,7 +86,7 @@
                     
                 </div>
                
-                    <div class="row">
+                    <div class="row pb-1">
                         <div class="col-md-4">
                             <div class="d-flex justify-content-start p-2">
                                 <input type="button" class="btn btn-warning mr-2 btn-sm" value="Добавить" onclick="add_column()" id="add_column_btn" >
@@ -92,53 +102,51 @@
                         <div class="col-md-4">
                             <div class="d-flex justify-content-end p-2">
                                 <span  class="btn btn-primary" value="" id="zagruzka_file"  onclick="ready_all()">Загрузить</span>
-                                
                             </div>
                         </div>
                     </div>
-            
+       
             <!-- </section> -->
 
+
           
-
-
-            
         </main>
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Информация</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="close_modal()">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                      <table class="table table-bordered">
-                          <thead>
-                            <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Артикул</th>
-                              <th scope="col">Краткий текст</th>
-                              <!-- <th scope="col">Название</th> -->
-                            </tr>
-                          </thead>
-                          <tbody id="modal_body">
-                            
-                          </tbody>
-                        </table>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close_modal()">Close</button>
-                    <button type="button" class="btn btn-primary" id="save_btn" onclick="send_data()">Save changes</button>
-                    <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
-                      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                      Loading...
-                  </button>
-                  </div>
-                </div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Информация</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="close_modal()">
+                <span aria-hidden="true">&times;</span>
+            </button>
             </div>
-          </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Артикул</th>
+                        <th scope="col">Краткий текст</th>
+                        <th scope="col">Название</th>
+                    </tr>
+                    </thead>
+                    <tbody id="modal_body">
+                    
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close_modal()">Close</button>
+            <button type="button" class="btn btn-primary" id="save_btn" onclick="send_data()">Save changes</button>
+            <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                Loading...
+            </button>
+            </div>
+        </div>
+    </div>
+    </div>
 {%endblock%}
 
 {%block java_script%}
@@ -146,9 +154,12 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
 <link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
+
+
 <script>
 
-    function updateMaxHeight() {
+
+function updateMaxHeight() {
       var windowHeight = $(window).height();
       var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
 
@@ -163,33 +174,12 @@
     $(window).on('load resize', function() {
       updateMaxHeight();
     });
+
+
+
+
     
-var nakleyka_list ='{{nakleyka_list|safe}}'
-    
-    
-    
-function set_nakleyka(element_list,selector,val=''){
-        
-        var jsonData = JSON.parse(element_list)
-        
-        var select = $(selector);
-        
-        $.each(jsonData, function(index, item) {
-            var option = $('<option>', {
-                value: item[0],
-                text: item[0],
-                'data-nadpis': item[1] 
-            });
-            select.append(option);
-        });
-        
-        $(selector).chosen({max_selected_options: 50,no_results_text: "Наклейка не найден"});
-        $(selector).val(val);
-        $(selector).chosen({with:'100%'});
-        $(selector).trigger('chosen:updated');
-    }
-    
-function show_zagruska_btn(){
+    function show_zagruska_btn(){
         var zagruzka_file =$('#zagruzka_file')
         var theme =$('#theme')
         if(theme.val() !='' && theme.val()!= undefined){
@@ -198,25 +188,26 @@ function show_zagruska_btn(){
             theme.css('border-color','red')
         }
     }
-function getCSRFToken() {
-    return $('input[name=csrfmiddlewaretoken]').val();
-}
 
-function ready_all(){
-    var theme =$('#theme')
-    if(theme.val() =='' || theme.val() == undefined){
-        Swal.fire({
-            icon: 'error',
-            title: 'Iltimos zayavka mavzusini kiriting!!!',
-        });
-        
-    }else{
+    function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+    function ready_all(){
+        var theme =$('#theme')
+        if(theme.val() =='' || theme.val() == undefined){
+            Swal.fire({
+                    icon: 'error',
+                    title: 'Iltimos zayavka mavzusini kiriting!!!',
+                });
+             
+        }else{
         var all_correct = true;
         var data_empty = false
         if (Object.keys(data_base).length === 0) {
             data_empty = true
         }
-        
+
         for (var key in data_base) {
             if (data_base.hasOwnProperty(key)) { 
                 var value = data_base[key];
@@ -225,7 +216,7 @@ function ready_all(){
                 }
             }
         }
-        
+
         if (!data_empty && all_correct){
             var text_tr =''
             var i = 1
@@ -235,6 +226,7 @@ function ready_all(){
                         <th scope="row">${i}</th>
                         <td>${data_base[key]['base_artikul']}</td>
                         <td>${data_base[key]['kratkiy_tekst']}</td>
+                        <td>${data_base[key]['nazvaniye_ruchnoy']}</td>
                     </tr>
                 `
                 i +=1
@@ -246,68 +238,65 @@ function ready_all(){
             modal_body.append(text_tr)
 
             $('#myModal').modal('show')
-
-
         
-    }else{
-        
-        if(!data_empty && !all_correct){
-            Swal.fire({
-                icon: 'error',
-                title: 'Malumotlar to\'liq emas!!!',
-                text: 'Itimos ma\'lumotlarni to\'ldiring.',
-            });
+            
+                
+        }else{
+            
+            if(!data_empty && !all_correct){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Malumotlar to\'liq emas!!!',
+                    text: 'Itimos ma\'lumotlarni to\'ldiring.',
+                });
+            }
         }
-    }
-    
-}
+
+ }
 }
 
 
 function send_data(){
-    var submit_btn = document.getElementById('save_btn')
-    var upload_btn = document.getElementById('upload_btn')
-    upload_btn.style.display ='block';
-    submit_btn.style.display ='none';
-    
-    var json_data = JSON.stringify(data_base)
-    var url = "/client/order-save"
-    var theme =$('#theme').val()
-    var csrfToken = getCSRFToken();
-    var postData = {
-        'data': json_data,
-        'order_type':'pvc_imzo',
-        'name':'PVC IMZO',
-        'order_name':theme
-    }
-    $.ajax({
-        type: 'POST',
-        url: url,
-        headers: { "X-CSRFToken": csrfToken },
-        data: postData,
-    }).done(function (res) {
-        
-        if (res.status ==201){
-            Swal.fire('Qabul qilindi...', '', 'success')
-            setTimeout(function() {
-                var url = '{%url "client_order_list" %}';
-                window.location.href = url;
-            }, 750);
-            close_modal()
-            
-        }else{
-            Swal.fire('Something went wrong.', '', 'info')
-            console.log('aa')
-            close_modal()
+            var submit_btn = document.getElementById('save_btn')
+            var upload_btn = document.getElementById('upload_btn')
+            upload_btn.style.display ='block';
+            submit_btn.style.display ='none';
+
+            var json_data = JSON.stringify(data_base)
+            var url = "order-save"
+            var theme =$('#theme').val()
+            var csrfToken = getCSRFToken();
+            var postData = {
+                'data': json_data,
+                'order_type':'radiator',
+                'name':'RADIATOR',
+                'order_name':theme
+            }
+            $.ajax({
+                type: 'POST',
+                url: url,
+                headers: { "X-CSRFToken": csrfToken },
+                data: postData,
+            }).done(function (res) {
+                if (res.status ==201){
+                    Swal.fire('Qabul qilindi...', '', 'success')
+                    setTimeout(function() {
+                        var url = '{%url "client_order_list" %}';
+                        window.location.href = url;
+                    }, 750);
+                    close_modal()
+
+                }else{
+                    Swal.fire('Something went wrong.', '', 'info')
+                    close_modal()
+                }
+                // WON'T REDIRECT
+            });
+
         }
-    // WON'T REDIRECT
-    });
-}
-
-function close_modal(){
-    $('#myModal').modal('hide')
-}
+    function close_modal(){
+        $('#myModal').modal('hide')
+    }
 </script>
-<script src="{% static 'js/pvc_imzo.js'%}"></script>
-
+<script src="{% static 'js/radiator.js'%}"></script>
 {%endblock%}

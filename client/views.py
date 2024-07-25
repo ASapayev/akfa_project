@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from aluminiy.models import AluProfilesData,AluFile,AluminiyProduct,LengthOfProfile,BrendKraska
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile,PVCProduct
 from .models import Anod,Order,OrderDetail
+from radiator.models import ArtikulRadiator
 from django.contrib.auth.decorators import login_required
 import time
 from rest_framework.views import APIView
@@ -1272,6 +1273,18 @@ def pvc_artikul_list(request):
         artikules = ArtikulKomponentPVC.objects.filter(artikul__icontains = term).values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component','iskyucheniye','is_special','nakleyka_nt1')
     else:
         artikules = ArtikulKomponentPVC.objects.all()[:50].values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component','iskyucheniye','is_special','nakleyka_nt1')
+    return JsonResponse(list(artikules),safe=False)
+
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def radiator_artikul_list(request):
+    
+    term = request.GET.get('term',None)
+    if term:
+        artikules = ArtikulRadiator.objects.filter(model_radiator__icontains = term).values('id','model_radiator','artikul')
+    else:
+        artikules = ArtikulRadiator.objects.all()[:50].values('id','model_radiator','artikul')
     return JsonResponse(list(artikules),safe=False)
 
 
