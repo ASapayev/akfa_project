@@ -305,7 +305,9 @@ def product_add_second_org(request,id):
                         artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
                         
                         q_bic = ''
-                            
+                        
+                        outer_side_wg_id = row['Цвет лам пленки снаружи']
+                        inner_side_wg_id = row['Цвет лам пленки внутри']
                         
                         if row['Код лам пленки снаружи'] ==row['Код лам пленки внутри']:
                             surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().surface_treatment_export
@@ -382,6 +384,8 @@ def product_add_second_org(request,id):
                         artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
                         
                         q_bic = ''
+                        outer_side_wg_id = row['Цвет лам пленки снаружи']
+                        inner_side_wg_id = row['Цвет лам пленки внутри']
                         
                         if row['Код лам пленки снаружи'] ==row['Код лам пленки внутри']:
                             surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().surface_treatment_export
