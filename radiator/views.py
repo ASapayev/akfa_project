@@ -1291,7 +1291,7 @@ def lenght_generate_texcarta(request,id):
     df=df.replace('nan','')
 
 
-    print(df,'+'*50)
+    print(df,'+' * 50)
 
     counter = 0
     for key,row in df.iterrows():
@@ -1480,7 +1480,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] ='Упаковка'
                         df_new['BMSCH'][counter_2] = '1000'
-                        df_new['MEINH'][counter_2] ='SKC'
+                        df_new['MEINH'][counter_2] ='ШТ'
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] ='200043'
