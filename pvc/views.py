@@ -1152,7 +1152,14 @@ def update_char_title_function(df_title,order_id):
 #################################################################
 #################################################################
 ###############################################################
-
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1'])
+def show_list_history(request):
+  files = OrderPVX.objects.all().order_by('-created_at')
+  context ={
+    'files':files
+  }
+  return render(request,'pvc/history.html',context)
 
 
 

@@ -1,0 +1,90 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> PVC файлы </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Загруженные файлы</h4>
+
+            
+
+            <div class="table-responsive">
+              <table class="table table-light">
+                <thead>
+                  <tr>
+                    <th> # </th>
+                    <th > Имя файла </th>
+                    <th > Дата</th>
+                    <th> Действие </th>
+                    <th> TEXT </th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {%for file in files%}
+                    <!-- data ={
+                      'excel_file_path':file.file,
+                      'zip_file_path':zip_path,
+                      'created_at':file.created_at
+                  
+                    } -->
+                          <tr>
+                            <td> {{ forloop.counter }} </td>
+                            <td class="p-1"> {{file.data.pvc_file|cut:'uploads/pvc/downloads/'|slice:"-40:"}} </td>
+                            <td>{{file.created_at |date:"d-m-Y H:i"}} </td>
+                            <td ><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{file.data.pvc_file}}">Download</a></td>
+                            {%if file.data.pvc_razlovka_file %}
+                            <td ><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{file.data.pvc_razlovka_file.0}}"> TEXT FILES</a></td>
+                            {%else%}
+                            <td ><a class="text-uppercase" > NO TEXT FILES</a></td>
+                            {%endif%}
+                          </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+   
+  </div>
+  <script>
+    function myFunction(typ,file_id) {
+      if(typ =='alu'){
+        text ='Aluminiyni generatsiya qilyapsizmi?'
+        loc = 'len-gen-org/'+file_id+'?type=alu'
+    }else{
+        loc = 'len-gen-org/'+file_id+'?type=pvc'
+        text ='PVCni generatsiya qilyapsizmi?'
+  
+      }
+      Swal.fire({
+        showDenyButton: true,
+        text:text,
+        confirmButtonText: 'Ha',
+        denyButtonText: `Yo'q`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire('Ishga tushdi...', '', 'success')
+          window.location.href=loc
+        } else if (result.isDenied) {
+          Swal.fire('Chuchvara otmen!!!', '', 'info')
+        }
+      })
+    }
+  </script>
+{% endblock %}

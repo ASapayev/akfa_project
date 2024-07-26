@@ -13,6 +13,7 @@ urlpatterns = [
     path('delete-sapcode/<int:id>',views.delete_sap_code,name='delete_sap_code_pvc'),
     path('edit-sapcode/<int:id>',views.edit_sapcode,name='edit_sapcode_pvc'),
     path('create-artikul',views.create_artikul,name='create_artikul_pvc'),
+    path('pvc-history',views.show_list_history,name='show_list_history_pvc'),
 
 
     ###1
