@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
 from .forms import NormaFileForm,NormaExcelFiles,ViFileForm
-from .models import Norma,Siryo,Korobka,Kraska,TexcartaBase,ViFiles,RadiatorFile,RadiatorSapCode,OrderRadiator
+from .models import Norma,Siryo,Korobka,Kraska,TexcartaBase,ViFiles,RadiatorFile,RadiatorSapCode,OrderRadiator,RazlovkaRadiator
 from config.settings import MEDIA_ROOT
 import pandas as pd
 from accounts.models import User
@@ -10,6 +10,7 @@ import os
 from datetime import datetime
 from django.db.models import Max
 from random import randint
+from .utils import create_characteristika,create_characteristika_utils
 
 
 
@@ -1820,788 +1821,223 @@ def product_add_second_org_radiator(request,id):
     df_new['PK - Pokraska']=''
     
     df_new['SAP CODE 7']=''
-    df_new['7 - Upakovka ']=''
+    df_new['7 - Upakovka']=''
     
     
     
     cache_for_cratkiy_text =[]
     duplicat_list =[]
     
-    exturision_list = []
     
     for key,row in df.iterrows():  
-        row['Длина (мм)'] = str(row['Длина (мм)']).replace('.0','')
-        dlina = row['Длина (мм)']
-        df_new['U-Упаковка + Готовая Продукция'][key] = df['Краткий текст'][key]
-        
-        row['Код лам пленки снаружи'] =str(row['Код лам пленки снаружи']).replace('.0','')
-        row['Код лам пленки внутри'] =str(row['Код лам пленки внутри']).replace('.0','')
-        row['Количество камер'] =str(row['Количество камер']).replace('.0','')
+        df_new['PR - Press'][key] = 'PR-'+df['Модель'][key]
+        df_new['MO - Mex obrabotka'][key] = 'MO-'+df['Модель'][key]
+        df_new['PM - Puma'][key] = 'PM-'+df['Модель'][key]
+        df_new['PK - Pokraska'][key] = 'PK-'+df['Модель'][key]+' ' +df['Цвет'][key]
+        df_new['7 - Upakovka'][key] = df['Краткий текст'][key]
         
         
-        row['Код лам пленки снаружи']='0'+row['Код лам пленки снаружи'] if row['Код лам пленки снаружи']=='550' else row['Код лам пленки снаружи']
         if ((row['Название'] == 'nan') or (row['Название'] == '')):
             online_savdo_name = ''
         else:
             online_savdo_name = row['Название']
             
-        if 'Название export' in list(df.columns):
-            if ((row['Название export'] == 'nan') or (row['Название export'] == '')):
-                export_name = ''
-            else:
-                export_name = row['Название export']
-        else:
-            export_name = ''
             
         if ((row['Online savdo ID'] == 'nan') or (row['Online savdo ID'] == '')):
             id_savdo = 'XXXXX'
         else:
             id_savdo = str(row['Online savdo ID']).replace('.0','')
 
-        dlinniy_text = DliniyText.objects.filter(sap_code =df['Артикул'][key])[:1].get().product_desc
         
-        if df['Тип покрытия'][key] == 'Ламинированный':
-
-            export_description =''
-            if ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and ((row['Код резины'] =='NR') or(row['Код резины'] =='nan')):
-                export_description ='Профиль из ПВХ ламинированный'
-            elif ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Код резины'] !='NR'):
-                export_description ='Профиль из ПВХ ламинированный с уплотнителем'
-            elif ('PDF' not in row['Артикул']) and (row['Код резины'] =='NR' or row['Код резины'] =='nan') and ( 'L0001' in row['Артикул'] or 'L0002' in row['Артикул']) :
-                export_description ='Ламбри из ПВХ ламинированный'
-            elif('L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Код резины'] =='nan'):
-                export_description ='Подоконник из ПВХ ламинированный'
-
-            if export_description !='':
-                buxgalter_naz = BuxgalterskiyNazvaniye.objects.filter(naz_ru = export_description)[:1].get()
-            else:
-                buxgalter_naz =Buxgalter(naz_ru='',naz_eng='',sb='')
-
-            if PVCProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=row['Краткий текст']).exists():
-                df_new['SAP код 7'][key] = PVCProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=row['Краткий текст'])[:1].get().material
-                duplicat_list.append([df_new['SAP код 7'][key],row['Краткий текст'],'7'])
-            else: 
-                if PVCProduct.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
-                        umumiy_counter[df['Артикул'][key]+'-7'] += 1
-                        max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
-                        materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
-                        PVCProduct(artikul = df['Артикул'][key],section ='7',counter=max_values7,gruppa_materialov='PVCGP',kratkiy_tekst_materiala=row['Краткий текст'],material=materiale).save()
-                        df_new['SAP код 7'][key] = materiale
-                        
-                        artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
-                        
-                        q_bic = ''
-                        
-                        outer_side_wg_id = row['Цвет лам пленки снаружи']
-                        inner_side_wg_id = row['Цвет лам пленки внутри']
-                            
-                        
-
-                            
-                        
-                        if row['Код лам пленки снаружи'] ==row['Код лам пленки внутри']:
-                            surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
-                        elif row['Код лам пленки снаружи'] =='XXXX':
-                            surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
-                        else:
-                            surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
-
-                        
-                        if row['Цвет лам пленки снаружи'] =='XXXX':
-                            q_bic = inner_side_wg_id
-                        else:
-                            q_bic = outer_side_wg_id
 
 
-                        
-                        # surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
-                        amount_in_a_package = CameraPvc.objects.filter(sap_code=df['Артикул'][key])[:1].get().coun_of_lam
+    
+        for i in range(1,6):
 
-                        
-                        
-                        cache_for_cratkiy_text.append({
-                                            'kratkiy':row['Краткий текст'],
-                                            'sap_code':  materiale,
-                                            'system' : row['Название системы'],
-                                            'number_of_chambers' : row['Количество камер'],
-                                            'article' : row['Артикул'],
-                                            'profile_type_id' : row['Код к компоненту системы'],
-                                            'length' : row['Длина (мм)'],
-                                            'surface_treatment' : row['Тип покрытия'],
-                                            'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : outer_side_wg_id,
-                                            'inner_side_wg_id' : inner_side_wg_id,
-                                            'sealer_color' : row['Код резины'],
-                                            'print_view' : row['Код наклейки'],
-                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
-                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
-                                            'width' : artikulcomponent.width,
-                                            'height' : artikulcomponent.height,
-                                            'category' : artikulcomponent.category,
-                                            'material_class' : 'Готовая продукция',
-                                            'rawmat_type' : 'ГП',
-                                            'tnved' : artikulcomponent.tnved,
-                                            'surface_treatment_export' : surface_treatment_export,
-                                            'amount_in_a_package' :amount_in_a_package,
-                                            'wms_width' : artikulcomponent.wms_width,
-                                            'wms_height' : artikulcomponent.wms_height,
-                                            'product_type' : artikulcomponent.product_type,
-                                            'profile_type' : artikulcomponent.profile_type,
-                                            'export_description':buxgalter_naz.naz_ru,
-                                            'export_description_eng':buxgalter_naz.naz_eng,
-                                            'sb':buxgalter_naz.sb,
-                                            'coating_qbic' : q_bic,
-                                            'online_savdo_name':online_savdo_name,
-                                            'id_savdo' : id_savdo,
-                                            'dlinniy_text':dlinniy_text,
-                                            'nazvaniye_export':export_name
-
-                                            # 'klaes' : 1,#row[''],
-                                            
-                                            # 'ch_profile_type' : 1,#row[''],
-                                            # 'kls_wast_length' : 1,#row[''],
-                                            # 'kls_wast' : 1,#row[''],
-                                            # 'ch_klaes_optm' : 1,#row[''],
-                                            # 'goods_group' : 1,#row['']
-                                        })
-                
-                else:
-                        materiale = df['Артикул'][key]+"-7{:03d}".format(1)
-                        PVCProduct(artikul = df['Артикул'][key],section ='7',counter=1,gruppa_materialov='PVCGP',kratkiy_tekst_materiala=row['Краткий текст'],material=materiale).save()
-                        df_new['SAP код 7'][key] = materiale
-                        umumiy_counter[df['Артикул'][key]+'-7'] = 1
-                        
-                        component2 = materiale.split('-')[0]
-                        print(df['Артикул'][key],'yoqlar')
-                        artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
-                        
-                        q_bic = ''
-                        if row['Тип покрытия'] =='Неламинированный':
-                            q_bic = row['Код цвета основы/Замес']
-                        else:
-                            if row['Цвет лам пленки снаружи'] =='XXXX':
-                                q_bic = row['Цвет лам пленки внутри']
-                            else:
-                                q_bic = row['Цвет лам пленки снаружи']
-                            
-                        outer_side_wg_id = row['Цвет лам пленки снаружи']
-                        inner_side_wg_id = row['Цвет лам пленки внутри']
-
-                        # if 'подок' in str(row['Название системы']).lower():
-                        #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
-                        #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
-                        # else:
-                        #     outer_side_wg_id = row['Код лам пленки снаружи']
-                        #     inner_side_wg_id = row['Код лам пленки внутри']
-
-                        if row['Код лам пленки снаружи'] ==row['Код лам пленки внутри']:
-                            surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
-                        elif row['Код лам пленки снаружи'] =='XXXX':
-                            surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
-                        else:
-                            surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya
-
-                        
-                        
-                        # surface_treatment_export = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya
-                        amount_in_a_package = CameraPvc.objects.filter(sap_code =df['Артикул'][key])[:1].get().coun_of_lam
-                              
-                        cache_for_cratkiy_text.append(
-                                        {
-                                            'sap_code':  materiale,
-                                            'kratkiy':row['Краткий текст'],
-                                            'system' : row['Название системы'],
-                                            'number_of_chambers' : row['Количество камер'],
-                                            'article' : row['Артикул'],
-                                            'profile_type_id' : row['Код к компоненту системы'],
-                                            'length' : row['Длина (мм)'],
-                                            'surface_treatment' : row['Тип покрытия'],
-                                            'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : outer_side_wg_id,
-                                            'inner_side_wg_id' : inner_side_wg_id,
-                                            'sealer_color' : row['Код резины'],
-                                            'print_view' : row['Код наклейки'],
-                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
-                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
-
-                                            'width' : artikulcomponent.width,
-                                            'height' : artikulcomponent.height,
-                                            'category' : artikulcomponent.category,
-                                            'material_class' : 'Готовая продукция',
-                                            'rawmat_type' : 'ГП',
-                                            'tnved' : artikulcomponent.tnved,
-                                            'surface_treatment_export' :surface_treatment_export,
-                                            'amount_in_a_package' : amount_in_a_package,
-                                            'wms_width' : artikulcomponent.wms_width,
-                                            'wms_height' : artikulcomponent.wms_height,
-                                            'product_type' : artikulcomponent.product_type,
-                                            'profile_type' : artikulcomponent.profile_type,
-                                            'export_description':buxgalter_naz.naz_ru,
-                                            'export_description_eng':buxgalter_naz.naz_eng,
-                                            'sb':buxgalter_naz.sb,
-
-                                            'coating_qbic' : q_bic,
-                                            'online_savdo_name':online_savdo_name,
-                                            'id_savdo' : id_savdo,
-                                            'dlinniy_text':dlinniy_text,
-                                            'nazvaniye_export':export_name
-                                            # 'id_savdo' : 1,#row[''],
-                                            # 'klaes' : 1,#row[''],
-                                            
-                                            # 'ch_profile_type' : 1,#row[''],
-                                            # 'kls_wast_length' : 1,#row[''],
-                                            # 'kls_wast' : 1,#row[''],
-                                            # 'ch_klaes_optm' : 1,#row[''],
-                                            # 'goods_group' : 1,#row['']
-                                        }
-                                    )
-                
-            ##### kombirinovanniy
-        elif df['Тип покрытия'][key] == 'Неламинированный':
-            export_description =''
-            if ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Код резины'] =='NR'):
-                export_description ='Профиль из ПВХ'
-            elif ('PDF' not in row['Артикул'] and 'L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Код резины'] !='NR'):
-                export_description ='Профиль из ПВХ с уплотнителем'
-            elif ('PDF' not in row['Артикул']) and ( 'L0001' in row['Артикул'] or 'L0002' in row['Артикул']) and (row['Код резины'] =='NR'  or row['Код резины'] =='nan'):
-                export_description ='Ламбри из ПВХ'
-            elif('L0001' not in row['Артикул'] and 'L0002' not in row['Артикул']) and (row['Код резины'] =='nan'):
-                export_description ='Подоконник из ПВХ'
-            
-            if export_description !='':
-                buxgalter_naz = BuxgalterskiyNazvaniye.objects.filter(naz_ru = export_description)[:1].get()
-            else:
-                buxgalter_naz =Buxgalter(naz_ru='',naz_eng='',sb='')
-
-            if PVCProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=row['Краткий текст']).exists():
-                df_new['SAP код 7'][key] = PVCProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=row['Краткий текст'])[:1].get().material
-            else: 
-                if PVCProduct.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
-                        umumiy_counter[df['Артикул'][key]+'-7'] += 1
-                        max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
-                        materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
-                        PVCProduct(artikul = df['Артикул'][key],section ='7',counter=max_values7,gruppa_materialov='PVCGP',kratkiy_tekst_materiala=row['Краткий текст'],material=materiale).save()
-                        df_new['SAP код 7'][key] = materiale
-                        
-                        q_bic = ''
-                        q_bic = row['Код цвета основы/Замес']
-                        artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
-
-
-                        outer_side_wg_id = ''
-                        inner_side_wg_id = ''
-                        
-
-                        surface_treatment_export =row['Код цвета основы/Замес']
-                        amount_in_a_package = CameraPvc.objects.filter(sap_code =df['Артикул'][key])[:1].get().coun_of_pvc  
-
-                        cache_for_cratkiy_text.append({
-                                            'kratkiy':row['Краткий текст'],
-                                            'sap_code':  materiale,
-                                            'system' : row['Название системы'],
-                                            'number_of_chambers' : row['Количество камер'],
-                                            'article' : row['Артикул'],
-                                            'profile_type_id' : row['Код к компоненту системы'],
-                                            'length' : row['Длина (мм)'],
-                                            'surface_treatment' : row['Тип покрытия'],
-                                            'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : outer_side_wg_id,
-                                            'inner_side_wg_id' : inner_side_wg_id,
-                                            'sealer_color' : row['Код резины'],
-                                            'print_view' : row['Код наклейки'],
-                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
-                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
-
-                                            'width' : artikulcomponent.width,
-                                            'height' : artikulcomponent.height,
-                                            'category' : artikulcomponent.category,
-                                            'material_class' :'Готовая продукция',
-                                            'rawmat_type' : 'ГП',
-                                            'tnved' : artikulcomponent.tnved,
-                                            'surface_treatment_export' : surface_treatment_export,
-                                            'amount_in_a_package' : amount_in_a_package,
-                                            'wms_width' : artikulcomponent.wms_width,
-                                            'wms_height' : artikulcomponent.wms_height,
-                                            'product_type' : artikulcomponent.product_type,
-                                            'profile_type' : artikulcomponent.profile_type,
-                                            'export_description':buxgalter_naz.naz_ru,
-                                            'export_description_eng':buxgalter_naz.naz_eng,
-                                            'sb':buxgalter_naz.sb,
-
-                                            'coating_qbic' : q_bic,
-                                            'online_savdo_name':online_savdo_name,
-                                            'id_savdo' : id_savdo,
-                                            'dlinniy_text':dlinniy_text,
-                                            'nazvaniye_export':export_name
-
-                                            # 'id_savdo' : 1,#row[''],
-                                            # 'klaes' : 1,#row[''],
-                                            
-                                            # 'ch_profile_type' : 1,#row[''],
-                                            # 'kls_wast_length' : 1,#row[''],
-                                            # 'kls_wast' : 1,#row[''],
-                                            # 'ch_klaes_optm' : 1,#row[''],
-                                            # 'goods_group' : 1,#row['']
-                                        })
-                        
-                else:
-                    materiale = df['Артикул'][key]+"-7{:03d}".format(1)
-                    PVCProduct(artikul = df['Артикул'][key],section ='7',counter=1,gruppa_materialov='PVCGP',kratkiy_tekst_materiala=row['Краткий текст'],material=materiale).save()
-                    df_new['SAP код 7'][key] = materiale
-                    umumiy_counter[df['Артикул'][key]+'-7'] = 1
-                    
-                    component2 = materiale.split('-')[0]
-                    
-                    artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
-                    
-                    
-                    q_bic = row['Код цвета основы/Замес']
-                    
-                    if 'подок' in str(row['Название системы']).lower():
-                        outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
-                        inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
-                    else:
-                        outer_side_wg_id = row['Код лам пленки снаружи']
-                        inner_side_wg_id = row['Код лам пленки внутри']
-                    # if outer_side_wg_id =='XXXX':
-                    #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
-                    # else:
-                    #     surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
-
-                    
-                    surface_treatment_export = row['Код цвета основы/Замес']
-                    amount_in_a_package = CameraPvc.objects.filter(sap_code =df['Артикул'][key])[:1].get().coun_of_pvc
-                            
-                    cache_for_cratkiy_text.append(
-                                    {
-                                        'sap_code':  materiale,
-                                        'kratkiy':row['Краткий текст'],
-                                        'system' : row['Название системы'],
-                                        'number_of_chambers' : row['Количество камер'],
-                                        'article' : row['Артикул'],
-                                        'profile_type_id' : row['Код к компоненту системы'],
-                                        'length' : row['Длина (мм)'],
-                                        'surface_treatment' : row['Тип покрытия'],
-                                        'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                        'outer_side_wg_id' : outer_side_wg_id,
-                                        'inner_side_wg_id' : inner_side_wg_id,
-                                        'sealer_color' : row['Код резины'],
-                                        'print_view' : row['Код наклейки'],
-                                        'kod_lam_plen_snar':row['Код лам пленки снаружи'],
-                                        'kod_lam_plen_vnut':row['Код лам пленки внутри'],
-                                        'width' : artikulcomponent.width,
-                                        'height' : artikulcomponent.height,
-                                        'category' : artikulcomponent.category,
-                                        'material_class' : 'Готовая продукция',
-                                        'rawmat_type' : 'ГП',
-                                        'tnved' : artikulcomponent.tnved,
-                                        'surface_treatment_export' :surface_treatment_export,
-                                        'amount_in_a_package' : amount_in_a_package,
-                                        'wms_width' : artikulcomponent.wms_width,
-                                        'wms_height' : artikulcomponent.wms_height,
-                                        'product_type' : artikulcomponent.product_type,
-                                        'profile_type' : artikulcomponent.profile_type,
-                                        'export_description':buxgalter_naz.naz_ru,
-                                        'export_description_eng':buxgalter_naz.naz_eng,
-                                        'sb':buxgalter_naz.sb,
-
-                                        'coating_qbic' : q_bic,
-                                        'online_savdo_name':online_savdo_name,
-                                        'id_savdo' : id_savdo,
-                                        'dlinniy_text':dlinniy_text,
-                                        'nazvaniye_export':export_name
-
-                                        # 'id_savdo' : 1,#row[''],
-                                        # 'klaes' : 1,#row[''],
-                                        
-                                        # 'ch_profile_type' : 1,#row[''],
-                                        # 'kls_wast_length' : 1,#row[''],
-                                        # 'kls_wast' : 1,#row[''],
-                                        # 'ch_klaes_optm' : 1,#row[''],
-                                        # 'goods_group' : 1,#row['']
-                                    }
-                                )
-        
-        art = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
-
-        component = df['Артикул'][key]
-        if df['Тип покрытия'][key] == 'Ламинированный':
-                if row['Код резины']!='nan':   
-                    lamtext = row['Код лам пленки снаружи']+"/"+row['Код лам пленки внутри']+' '+row['Код резины']
-                else:
-                    lamtext = row['Код лам пленки снаружи']+"/"+row['Код лам пленки внутри']
-                    
-                df_new['Ламинация'][key] = art.component+'-L ' +row['Код цвета основы/Замес'] +' L'+dlina +' ' +lamtext+' '+ row['Код наклейки']
-                
-                if PVCProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][key]).exists():
-                    df_new['SAP код L'][key] = PVCProduct.objects.filter(artikul =component,section ='L',kratkiy_tekst_materiala=df_new['Ламинация'][key])[:1].get().material
-                    duplicat_list.append([df_new['SAP код L'][key],df_new['Ламинация'][key],'L'])
+            if i == 1:
+                if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PR',kratkiy_tekst_materiala= df_new['PR - Press'][key]).exists():
+                    df_new['SAP CODE P'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PR',kratkiy_tekst_materiala=df_new['PR - Press'][key])[:1].get().material
+                    duplicat_list.append([df_new['SAP CODE P'][key],df_new['PR - Press'][key],'PR'])
                 else: 
-                    if PVCProduct.objects.filter(artikul =component,section ='L').exists():
-                            umumiy_counter[component+'-L'] += 1
-                            max_valuesL = umumiy_counter[ component +'-L']
-                            materiale = component+"-L{:03d}".format(max_valuesL)
-                            PVCProduct(artikul =component,section ='L',counter=max_valuesL,gruppa_materialov='PVCPF',kratkiy_tekst_materiala=df_new['Ламинация'][key],material=materiale).save()
-                            df_new['SAP код L'][key]=materiale
+                    if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='PR').exists():
+                            umumiy_counter[df['Артикул'][key]+'-PR'] += 1
+                            max_valuesPR = umumiy_counter[df['Артикул'][key]+'-PR']
+                            materiale = df['Артикул'][key]+"-PR{:02d}".format(max_valuesPR)
+                            RadiatorSapCode(artikul = df['Артикул'][key],section ='PR',counter=max_valuesPR,kratkiy_tekst_materiala=df_new['PR - Press'][key],material=materiale).save()
+                            df_new['SAP CODE P'][key] = materiale
                             
-                            component2 = materiale.split('-')[0]
-                            artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
-
-                            outer_side_wg_id = row['Цвет лам пленки снаружи']
-                            inner_side_wg_id = row['Цвет лам пленки внутри']
-
-                            # if 'подок' in str(row['Название системы']).lower():
-                            #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
-                            #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
-                            # else:
-                            #     outer_side_wg_id = row['Код лам пленки снаружи']
-                            #     inner_side_wg_id = row['Код лам пленки внутри']
-                            # if outer_side_wg_id =='XXXX':
-                            #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
-                            # else:
-                            #     surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
-
-                        
-                            q_bic = ''
-                            if row['Тип покрытия'] =='Неламинированный':
-                                q_bic = row['Код цвета основы/Замес']
-                            else:
-                                if row['Цвет лам пленки снаружи'] =='XXXX':
-                                    q_bic = row['Цвет лам пленки внутри']
-                                else:
-                                    q_bic = row['Цвет лам пленки снаружи']
-                                
-                            cache_for_cratkiy_text.append(
-                                            {'sap_code':  materiale,
-                                             'kratkiy':df_new['Ламинация'][key],
-                                            'system' : row['Название системы'],
-                                            'number_of_chambers' : row['Количество камер'],
-                                            'article' : row['Артикул'],
-                                            'profile_type_id' : row['Код к компоненту системы'],
-                                            'length' : row['Длина (мм)'],
-                                            'surface_treatment' : row['Тип покрытия'],
-                                            'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : outer_side_wg_id,
-                                            'inner_side_wg_id' : inner_side_wg_id,
-                                            'sealer_color' : row['Код резины'],
-                                            'print_view' : row['Код наклейки'],
-                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
-                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
-
-                                            'width' : artikulcomponent.width,
-                                            'height' : artikulcomponent.height,
-                                            'category' : artikulcomponent.category,
-                                            'material_class' : 'Полуфабрикат',
-                                            'rawmat_type' : 'ПФ',
-                                            'tnved' : artikulcomponent.tnved,
-                                            'surface_treatment_export' :'',
-                                            'amount_in_a_package' : '',
-                                            'wms_width' : artikulcomponent.wms_width,
-                                            'wms_height' : artikulcomponent.wms_height,
-                                            'product_type' : artikulcomponent.product_type,
-                                            'profile_type' : artikulcomponent.profile_type,
-                                            'export_description':'',
-                                            'export_description_eng':'',
-                                            'sb':'',
-                                            
-
-                                            'coating_qbic' : q_bic,
-                                            'online_savdo_name':'',
-                                            'id_savdo' : id_savdo,
-                                            'dlinniy_text':'',
-                                            'nazvaniye_export':export_name
-                                            # 'id_savdo' : 1,#row[''],
-                                            # 'klaes' : 1,#row[''],
-                                            
-                                            # 'ch_profile_type' : 1,#row[''],
-                                            # 'kls_wast_length' : 1,#row[''],
-                                            # 'kls_wast' : 1,#row[''],
-                                            # 'ch_klaes_optm' : 1,#row[''],
-                                            # 'goods_group' : 1,#row['']
-                                            }
-                                        )
-                    
-                    else:
-                            materiale = df['Артикул'][key]+"-L{:03d}".format(1)
-                            PVCProduct(artikul =df['Артикул'][key],section ='L',counter=1,gruppa_materialov='PVCPF',kratkiy_tekst_materiala=df_new['Ламинация'][key],material=materiale).save()
-                            df_new['SAP код L'][key]=materiale
-                            umumiy_counter[df['Артикул'][key]+'-L'] = 1
-                            
-                            artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
-                        
-                            q_bic = ''
-                            if row['Тип покрытия'] =='Неламинированный':
-                                q_bic = row['Код цвета основы/Замес']
-                            else:
-                                if row['Цвет лам пленки снаружи'] =='XXXX':
-                                    q_bic = row['Цвет лам пленки внутри']
-                                else:
-                                    q_bic = row['Цвет лам пленки снаружи']
-                            outer_side_wg_id = row['Цвет лам пленки снаружи']
-                            inner_side_wg_id = row['Цвет лам пленки внутри']
-
-                           
-                           
-                                
-                            cache_for_cratkiy_text.append(
-                                            {'sap_code':  materiale,
-                                             'kratkiy':df_new['Ламинация'][key],
-                                            'system' : row['Название системы'],
-                                            'number_of_chambers' : row['Количество камер'],
-                                            'article' : row['Артикул'],
-                                            'profile_type_id' : row['Код к компоненту системы'],
-                                            'length' : row['Длина (мм)'],
-                                            'surface_treatment' : row['Тип покрытия'],
-                                            'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                            'outer_side_wg_id' : outer_side_wg_id,
-                                            'inner_side_wg_id' : inner_side_wg_id,
-                                            'sealer_color' : row['Код резины'],
-                                            'print_view' : row['Код наклейки'],
-                                            'kod_lam_plen_snar':row['Код лам пленки снаружи'],
-                                            'kod_lam_plen_vnut':row['Код лам пленки внутри'],
-
-                                            'width' : artikulcomponent.width,
-                                            'height' : artikulcomponent.height,
-                                            'category' : artikulcomponent.category,
-                                            'material_class' : 'Полуфабрикат',
-                                            'rawmat_type' : 'ПФ',
-                                            'tnved' : '',
-                                            'surface_treatment_export' : '',
-                                            'amount_in_a_package' :'',
-                                            'wms_width' : artikulcomponent.wms_width,
-                                            'wms_height' : artikulcomponent.wms_height,
-                                            'product_type' : artikulcomponent.product_type,
-                                            'profile_type' : artikulcomponent.profile_type,
-                                            'export_description':'',
-                                            'export_description_eng':'',
-                                            'sb':'',
-
-                                            'coating_qbic' : q_bic,
-                                            'online_savdo_name':'',
-                                            'id_savdo' : id_savdo,
-                                            'dlinniy_text':'',
-                                            'nazvaniye_export':export_name
-
-                                            # 'id_savdo' : 1,#row[''],
-                                            # 'klaes' : 1,#row[''],
-                                            
-                                            # 'ch_profile_type' : 1,#row[''],
-                                            # 'kls_wast_length' : 1,#row[''],
-                                            # 'kls_wast' : 1,#row[''],
-                                            # 'ch_klaes_optm' : 1,#row[''],
-                                            # 'goods_group' : 1,#row['']
-                                            }
-                                        )
-        
-        if component in rezina_iskyuch:
-            text_nr = ' '
-        else:
-            text_nr = ' NR '
-
-
-        if df['Тип покрытия'][key] == 'Ламинированный':
-            
-            if 'PDF' in row['Артикул'] or '.G00' in row['Артикул'] or row['Артикул'] in DOP_PROFIL:
-                sd = 'NT1'
-                nakleyka ='NT1'
-            else:
-                nakleyka = row['Код наклейки']
-                sd = row['Код наклейки'] +' 1sd'
-
-            if ((str(row['Код лам пленки внутри']).lower() =='xxxx') or (str(row['Код лам пленки снаружи']).lower() =='xxxx')):
-                df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + sd
-            else:
-                nakleyka ='NT1'
-                df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr +'NT1'
-        else:
-            if component in rezina_iskyuch:
-                text_nr = ' '
-            elif row['Код резины'] =='' :
-                text_nr = ' '
-            else:
-                rez =row['Код резины']
-                text_nr = f' {rez} '
-
-            nakleyka = row['Код наклейки']
-            df_new['Экструзия холодная резка'][key] = art.component+'-E ' +row['Код цвета основы/Замес'] +' L'+row['Длина (мм)'] + text_nr + row['Код наклейки']
-        
-        
-                    
-       
-        simple_existE = PVCProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala= df_new['Экструзия холодная резка'][key]).exists()
-
-        
-        if simple_existE:
-            sap_code_e = PVCProduct.objects.filter(artikul =component,section ='E',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key])[:1].get().material
-            duplicat_list.append([df_new['SAP код E'][key],df_new['Экструзия холодная резка'][key],'E'])
-            df_new['SAP код E'][key] = sap_code_e
-        else:
-                if PVCProduct.objects.filter(artikul =component,section ='E').exists():
-                    umumiy_counter[component+'-E'] += 1
-                    max_valuesE = umumiy_counter[component+'-E']
-                    materiale = component+"-E{:03d}".format(max_valuesE)
-                    PVCProduct(artikul =component,section ='E',counter=max_valuesE,gruppa_materialov='PVCPF',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key],material=materiale).save()
-                    df_new['SAP код E'][key]=materiale
-                    
-                    artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
-                        
-                    q_bic = ''
-                    if row['Тип покрытия'] =='Неламинированный':
-                        q_bic = row['Код цвета основы/Замес']
-                    else:
-                        if row['Цвет лам пленки снаружи'] =='XXXX':
-                            q_bic = row['Цвет лам пленки внутри']
-                        else:
-                            q_bic = row['Цвет лам пленки снаружи']
-                    
-                    outer_side_wg_id = ''
-                    inner_side_wg_id = ''
-
-                    # if 'подок' in str(row['Название системы']).lower():
-                    #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
-                    #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
-                    # else:
-                    #     outer_side_wg_id = row['Код лам пленки снаружи']
-                    #     inner_side_wg_id = row['Код лам пленки внутри']
-
-                    if row['Тип покрытия'] !='Неламинированный':
-                        cache_for_cratkiy_text.append(
-                                            {   
+                            cache_for_cratkiy_text.append({
+                                                'kratkiy':df_new['PR - Press'][key],
                                                 'sap_code':  materiale,
-                                                'kratkiy':df_new['Экструзия холодная резка'][key],
-                                                'system' : row['Название системы'],
-                                                'number_of_chambers' : row['Количество камер'],
-                                                'article' : row['Артикул'],
-                                                'profile_type_id' : row['Код к компоненту системы'],
-                                                'length' : row['Длина (мм)'],
-                                                'surface_treatment' : 'Неламинированный',
-                                                'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                                'outer_side_wg_id' : outer_side_wg_id,
-                                                'inner_side_wg_id' : inner_side_wg_id,
-                                                'sealer_color' : row['Код резины'],
-                                                'print_view' : nakleyka,
-                                                'width' : artikulcomponent.width,
-                                                'height' : artikulcomponent.height,
-                                                'category' : artikulcomponent.category,
-                                                'material_class' : 'Полуфабрикат',
-                                                'rawmat_type' : 'ПФ',
-                                                'tnved' : '',
-                                                'surface_treatment_export' : '',
-                                                'amount_in_a_package' : '',
-                                                'wms_width' : artikulcomponent.wms_width,
-                                                'wms_height' : artikulcomponent.wms_height,
-                                                'product_type' : artikulcomponent.product_type,
-                                                'profile_type' : artikulcomponent.profile_type,
-                                                'kod_lam_plen_snar':row['Код лам пленки снаружи'],
-                                                'kod_lam_plen_vnut':row['Код лам пленки внутри'],
-
-                                                'export_description':'',
-                                                'export_description_eng':'',
-                                                'sb':'',
-                                                'coating_qbic' : q_bic,
-                                                'online_savdo_name':'',
-                                                'id_savdo' : id_savdo,
-                                                'dlinniy_text':dlinniy_text,
-                                                'nazvaniye_export':export_name
-
-                                                # 'id_savdo' : 1,#row[''],
-                                                # 'klaes' : 1,#row[''],
                                                 
-                                                # 'ch_profile_type' : 1,#row[''],
-                                                # 'kls_wast_length' : 1,#row[''],
-                                                # 'kls_wast' : 1,#row[''],
-                                                # 'ch_klaes_optm' : 1,#row[''],
-                                                # 'goods_group' : 1,#row['']
-                                            }
-                                    )
-                                
-                else: 
-                    materiale = component+"-E{:03d}".format(1)
-                    PVCProduct(artikul =component,section ='E',counter=1,gruppa_materialov='PVCPF',kratkiy_tekst_materiala=df_new['Экструзия холодная резка'][key],material=materiale).save()
-                    df_new['SAP код E'][key]=materiale
-                    umumiy_counter[component+'-E'] = 1
+                                                # 'system' : row['Название системы'],
+                                                # 'number_of_chambers' : row['Количество камер'],
+                                                # 'article' : row['Артикул'],
+                                                # 'profile_type_id' : row['Код к компоненту системы'],
+                                                
+                                            })
                     
-                    component2 = materiale.split('-')[0]
-                         
-                    artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
-                        
-                    q_bic = ''
-                    if row['Тип покрытия'] =='Неламинированный':
-                        q_bic = row['Код цвета основы/Замес']
                     else:
-                        if row['Цвет лам пленки снаружи'] =='XXXX':
-                            q_bic = row['Цвет лам пленки внутри']
-                        else:
-                            q_bic = row['Цвет лам пленки снаружи']
-                        
-                    outer_side_wg_id = ''
-                    inner_side_wg_id = ''
-                    
-                    # if 'подок' in str(row['Название системы']).lower():
-                    #     outer_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки снаружи'])[:1].get().pokritiya +' п'
-                    #     inner_side_wg_id = AbreviaturaLamination.objects.filter(abreviatura =row['Код лам пленки внутри'])[:1].get().pokritiya +' п'
-                    # else:
-                    #     outer_side_wg_id = row['Код лам пленки снаружи']
-                    #     inner_side_wg_id = row['Код лам пленки внутри']
-                    # if outer_side_wg_id =='XXXX':
-                    #     surface_treatment_export = 'ВН ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
-                    # else:
-                    #     surface_treatment_export = 'НА ' + AbreviaturaLamination.objects.filter(abreviatura =row['kod_lam_plen_vnut'])[:1].get().pokritiya
-
-                    if row['Тип покрытия'] !='Неламинированный':
-                        cache_for_cratkiy_text.append(
+                            materiale = df['Артикул'][key]+"-PR{:02d}".format(1)
+                            RadiatorSapCode(artikul = df['Артикул'][key],section ='PR',counter=1,kratkiy_tekst_materiala=df_new['PR - Press'][key],material=materiale).save()
+                            df_new['SAP CODE P'][key] = materiale
+                            umumiy_counter[df['Артикул'][key]+'-PR'] = 1
+                  
+                            cache_for_cratkiy_text.append(
                                             {
+                                                'kratkiy':df_new['PR - Press'][key],
                                                 'sap_code':  materiale,
-                                                'kratkiy':df_new['Экструзия холодная резка'][key],
-                                                'system' : row['Название системы'],
-                                                'number_of_chambers' : row['Количество камер'],
-                                                'article' : row['Артикул'],
-                                                'profile_type_id' : row['Код к компоненту системы'],
-                                                'length' : row['Длина (мм)'],
-                                                'surface_treatment' : 'Неламинированный',
-                                                'outer_side_pc_id' : row['Код цвета основы/Замес'],
-                                                'outer_side_wg_id' : outer_side_wg_id,
-                                                'inner_side_wg_id' : inner_side_wg_id,
-                                                'sealer_color' : row['Код резины'],
-                                                'print_view' : nakleyka,
-                                                'kod_lam_plen_snar':row['Код лам пленки снаружи'],
-                                                'kod_lam_plen_vnut':row['Код лам пленки внутри'],
-                                                
-                                                'width' : artikulcomponent.width,
-                                                'height' : artikulcomponent.height,
-                                                'category' : artikulcomponent.category,
-                                                'material_class' : 'Полуфабрикат',
-                                                'rawmat_type' : 'ПФ',
-                                                'tnved' : '',
-                                                'surface_treatment_export' : '',
-                                                'amount_in_a_package' : '',
-                                                'wms_width' : artikulcomponent.wms_width,
-                                                'wms_height' : artikulcomponent.wms_height,
-                                                'product_type' : artikulcomponent.product_type,
-                                                'profile_type' : artikulcomponent.profile_type,
-                                                'export_description':'',
-                                                'export_description_eng':'',
-                                                'sb':'',
-
-                                                'coating_qbic' : q_bic,
-                                                'online_savdo_name':'',
-                                                'id_savdo' : id_savdo,
-                                                'dlinniy_text':dlinniy_text,
-                                                'nazvaniye_export':export_name
-
-                                                # 'id_savdo' : 1,#row[''],
-                                                # 'klaes' : 1,#row[''],
-                                                
-                                                # 'ch_profile_type' : 1,#row[''],
-                                                # 'kls_wast_length' : 1,#row[''],
-                                                # 'kls_wast' : 1,#row[''],
-                                                # 'ch_klaes_optm' : 1,#row[''],
-                                                # 'goods_group' : 1,#row['']
                                             }
-                                    )
-                        
-
+                                        )
                     
+           
+            if i == 2:
+                if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='MO',kratkiy_tekst_materiala= df_new['MO - Mex obrabotka'][key]).exists():
+                    df_new['SAP CODE M'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='MO',kratkiy_tekst_materiala=df_new['MO - Mex obrabotka'][key])[:1].get().material
+                    duplicat_list.append([df_new['SAP CODE M'][key],df_new['MO - Mex obrabotka'][key],'MO'])
+                else: 
+                    if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='MO').exists():
+                            umumiy_counter[df['Артикул'][key]+'-MO'] += 1
+                            max_valuesMO = umumiy_counter[df['Артикул'][key]+'-MO']
+                            materiale = df['Артикул'][key]+"-MO{:02d}".format(max_valuesMO)
+                            RadiatorSapCode(artikul = df['Артикул'][key],section ='MO',counter=max_valuesMO,kratkiy_tekst_materiala=df_new['MO - Mex obrabotka'][key],material=materiale).save()
+                            df_new['SAP CODE M'][key] = materiale
+                            
+                            cache_for_cratkiy_text.append({
+                                                'kratkiy':df_new['MO - Mex obrabotka'][key],
+                                                'sap_code':  materiale,
+                                                
+                                                # 'system' : row['Название системы'],
+                                                # 'number_of_chambers' : row['Количество камер'],
+                                                # 'article' : row['Артикул'],
+                                                # 'profile_type_id' : row['Код к компоненту системы'],
+                                                
+                                            })
+                    
+                    else:
+                            materiale = df['Артикул'][key]+"-MO{:02d}".format(1)
+                            RadiatorSapCode(artikul = df['Артикул'][key],section ='MO',counter=1,kratkiy_tekst_materiala=df_new['MO - Mex obrabotka'][key],material=materiale).save()
+                            df_new['SAP CODE M'][key] = materiale
+                            umumiy_counter[df['Артикул'][key]+'-MO'] = 1
+                  
+                            cache_for_cratkiy_text.append(
+                                            {
+                                                'kratkiy':df_new['MO - Mex obrabotka'][key],
+                                                'sap_code':  materiale,
+                                            }
+                                        )
+                    
+            if i == 3:
+                if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PM',kratkiy_tekst_materiala= df_new['PM - Puma'][key]).exists():
+                    df_new['SAP CODE PM'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PM',kratkiy_tekst_materiala=df_new['PM - Puma'][key])[:1].get().material
+                    duplicat_list.append([df_new['SAP CODE PM'][key],df_new['PM - Puma'][key],'PM'])
+                else: 
+                    if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='PM').exists():
+                            umumiy_counter[df['Артикул'][key]+'-PM'] += 1
+                            max_valuesPM = umumiy_counter[df['Артикул'][key]+'-PM']
+                            materiale = df['Артикул'][key]+"-PM{:02d}".format(max_valuesPM)
+                            RadiatorSapCode(artikul = df['Артикул'][key],section ='PM',counter=max_valuesPM,kratkiy_tekst_materiala=df_new['PM - Puma'][key],material=materiale).save()
+                            df_new['SAP CODE PM'][key] = materiale
+                            
+                            cache_for_cratkiy_text.append({
+                                                'kratkiy':df_new['PM - Puma'][key],
+                                                'sap_code':  materiale,
+                                                
+                                                # 'system' : row['Название системы'],
+                                                # 'number_of_chambers' : row['Количество камер'],
+                                                # 'article' : row['Артикул'],
+                                                # 'profile_type_id' : row['Код к компоненту системы'],
+                                                
+                                            })
+                    
+                    else:
+                            materiale = df['Артикул'][key]+"-PM{:02d}".format(1)
+                            RadiatorSapCode(artikul = df['Артикул'][key],section ='PM',counter=1,kratkiy_tekst_materiala=df_new['PM - Puma'][key],material=materiale).save()
+                            df_new['SAP CODE PM'][key] = materiale
+                            umumiy_counter[df['Артикул'][key]+'-PM'] = 1
+                  
+                            cache_for_cratkiy_text.append(
+                                            {
+                                                'kratkiy':df_new['PM - Puma'][key],
+                                                'sap_code':  materiale,
+                                            }
+                                        )
+                    
+            if i == 4:
+                if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PK',kratkiy_tekst_materiala= df_new['PK - Pokraska'][key]).exists():
+                    df_new['SAP CODE PK'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PK',kratkiy_tekst_materiala=df_new['PK - Pokraska'][key])[:1].get().material
+                    duplicat_list.append([df_new['SAP CODE PK'][key],df_new['PK - Pokraska'][key],'PK'])
+                else: 
+                    if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='PK').exists():
+                            umumiy_counter[df['Артикул'][key]+'-PK'] += 1
+                            max_valuesPK = umumiy_counter[df['Артикул'][key]+'-PK']
+                            materiale = df['Артикул'][key]+"-PK{:02d}".format(max_valuesPK)
+                            RadiatorSapCode(artikul = df['Артикул'][key],section ='PK',counter=max_valuesPK,kratkiy_tekst_materiala=df_new['PK - Pokraska'][key],material=materiale).save()
+                            df_new['SAP CODE PK'][key] = materiale
+                            
+                            cache_for_cratkiy_text.append({
+                                                'kratkiy':df_new['PK - Pokraska'][key],
+                                                'sap_code':  materiale,
+                                                
+                                                # 'system' : row['Название системы'],
+                                                # 'number_of_chambers' : row['Количество камер'],
+                                                # 'article' : row['Артикул'],
+                                                # 'profile_type_id' : row['Код к компоненту системы'],
+                                                
+                                            })
+                    
+                    else:
+                            materiale = df['Артикул'][key]+"-PK{:02d}".format(1)
+                            RadiatorSapCode(artikul = df['Артикул'][key],section ='PK',counter=1,kratkiy_tekst_materiala=df_new['PK - Pokraska'][key],material=materiale).save()
+                            df_new['SAP CODE PK'][key] = materiale
+                            umumiy_counter[df['Артикул'][key]+'-PK'] = 1
+                  
+                            cache_for_cratkiy_text.append(
+                                            {
+                                                'kratkiy':df_new['PK - Pokraska'][key],
+                                                'sap_code':  materiale,
+                                            }
+                                        )
+                    
+            if i == 5:
+                if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala= df_new['7 - Upakovka'][key]).exists():
+                    df_new['SAP CODE 7'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['7 - Upakovka'][key])[:1].get().material
+                    duplicat_list.append([df_new['SAP CODE 7'][key],df_new['7 - Upakovka'][key],'7'])
+                else: 
+                    if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
+                            umumiy_counter[df['Артикул'][key]+'-7'] += 1
+                            max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
+                            materiale = df['Артикул'][key]+"-7{:02d}".format(max_values7)
+                            RadiatorSapCode(artikul = df['Артикул'][key],section ='7',counter=max_values7,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+                            df_new['SAP CODE 7'][key] = materiale
+                            
+                            cache_for_cratkiy_text.append({
+                                                'kratkiy':df_new['7 - Upakovka'][key],
+                                                'sap_code':  materiale,
+                                                
+                                                # 'system' : row['Название системы'],
+                                                # 'number_of_chambers' : row['Количество камер'],
+                                                # 'article' : row['Артикул'],
+                                                # '7ofile_type_id' : row['Код к компоненту системы'],
+                                                
+                                            })
+                    
+                    else:
+                            materiale = df['Артикул'][key]+"-7{:02d}".format(1)
+                            RadiatorSapCode(artikul = df['Артикул'][key],section ='7',counter=1,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+                            df_new['SAP CODE 7'][key] = materiale
+                            umumiy_counter[df['Артикул'][key]+'-7'] = 1
+                  
+                            cache_for_cratkiy_text.append(
+                                            {
+                                                'kratkiy':df_new['7 - Upakovka'][key],
+                                                'sap_code':  materiale,
+                                            }
+                                        )
+                    
+           
+            
+           
         
       
     parent_dir ='{MEDIA_ROOT}\\uploads\\radiator\\'
@@ -2631,52 +2067,22 @@ def product_add_second_org_radiator(request,id):
 
 
     for key,razlov in df_new.iterrows():
-        if razlov['SAP код 7']!="":
-                if not RazlovkaPVX.objects.filter(sapkode7=razlov['SAP код 7'],krat7=razlov['U-Упаковка + Готовая Продукция']).exists():
-                    RazlovkaPVX(
-                            esapkode =razlov['SAP код E'],
-                            ekrat =razlov['Экструзия холодная резка'],
-                            lsapkode =razlov['SAP код L'],
-                            lkrat =razlov['Ламинация'], 
-                            sapkode7 =razlov['SAP код 7'],
-                            krat7 =razlov['U-Упаковка + Готовая Продукция']
+        if razlov['SAP CODE 7']!="":
+                if not RazlovkaRadiator.objects.filter(sap_code7=razlov['SAP CODE 7'],kratkiy7=razlov['7 - Upakovka']).exists():
+                    RazlovkaRadiator(
+                            pr_sap_code =razlov['SAP CODE P'],
+                            pr_kratkiy =razlov['PR - Press'],
+                            mo_sap_code =razlov['SAP CODE M'],
+                            mo_kratkiy =razlov['MO - Mex obrabotka'], 
+                            pm_sap_code =razlov['SAP CODE PM'],
+                            pm_kratkiy =razlov['PM - Puma'], 
+                            pk_sap_code =razlov['SAP CODE PK'],
+                            pk_kratkiy =razlov['PK - Pokraska'], 
+                            sap_code7 =razlov['SAP CODE 7'],
+                            kratkiy7 =razlov['7 - Upakovka']
                         ).save()
         
-    for key,razlov in df_char.iterrows():
-        if not Characteristika.objects.filter(sap_code=razlov['SAP CODE'],kratkiy=razlov['KRATKIY TEXT']).exists():
-                Characteristika(
-                    sap_code = razlov['SAP CODE'],
-                    kratkiy=razlov['KRATKIY TEXT'], 
-                    system = razlov['SYSTEM'], 
-                    number_of_chambers = razlov['NUMBER_OF_CHAMBERS'], 
-                    article = razlov['ARTICLE'], 
-                    profile_type_id = razlov['PROFILE_TYPE_ID'], 
-                    length = razlov['LENGTH'], 
-                    surface_treatment = razlov['SURFACE_TREATMENT'], 
-                    outer_side_pc_id = razlov['OUTER_SIDE_PC_ID'], 
-                    outer_side_wg_id = razlov['OUTER_SIDE_WG_ID'], 
-                    inner_side_wg_id = razlov['INNER_SIDE_WG_ID'], 
-                    sealer_color = razlov['SEALER_COLOR'], 
-                    print_view = razlov['PRINT_VIEW'], 
-                    width = razlov['WIDTH'], 
-                    height = razlov['HEIGHT'], 
-                    category = razlov['CATEGORY'], 
-                    material_class = razlov['MATERIAL_CLASS'], 
-                    rawmat_type = razlov['RAWMAT_TYPE'], 
-                    tnved = razlov['TNVED'], 
-                    surface_treatment_export = razlov['SURFACE_TREATMENT_EXPORT'], 
-                    amount_in_a_package = razlov['AMOUNT_IN_A_PACKAGE'], 
-                    wms_width = razlov['WMS_WIDTH'], 
-                    wms_height = razlov['WMS_HEIGHT'], 
-                    product_type = razlov['PRODUCT_TYPE'], 
-                    profile_type = razlov['PROFILE_TYPE'], 
-                    coating_qbic = razlov['COATING_QBIC'],
-                    online_savdo_name = razlov['ONLINE_SAVDO_NAME'],		
-                    id_savdo = razlov['ID_SAVDO']		
-                ).save()
-
-        
-        
+    
     price_all_correct = False
       
     
@@ -2697,12 +2103,13 @@ def product_add_second_org_radiator(request,id):
     if order_id:
         work_type = OrderRadiator.objects.get(id = order_id).work_type
         if price_all_correct and  work_type != 5 :
-            path = update_char_title_function(df_char_title,order_id)
-            files =[File(file=p,filetype='radiator') for p in path]
+            # path = update_char_title_function(df_char_title,order_id)
+            # files =[File(file=p,filetype='radiator') for p in path]
+            files = []
             files.append(File(file=path_radiator,filetype='radiator'))
             context ={
                   'files':files,
-                  'section':'Формированый обычный файл'
+                  'section':'Формированый радиатор файл'
             }
 
             if order_id:
@@ -2728,10 +2135,10 @@ def product_add_second_org_radiator(request,id):
                 paths =  order.paths
                 for key,val in paths.items():
                     context[key] = val
-                return render(request,'order/order_detail_pvc.html',context)  
+                return render(request,'order/order_detail_radiator.html',context)  
         else:
             
-            file =[File(file = path_radiator,filetype='radiator')]
+            file =[File(file = path_radiator,filetype='radiator',id=1)]
             context = {
                   'files':file,
                   'section':'Формированый radiator файл'

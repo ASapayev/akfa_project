@@ -89,6 +89,10 @@ class CameraPvc(models.Model):
 class AbreviaturaLamination(models.Model):
   abreviatura = models.CharField(max_length = 50,blank=True,null=True)
   pokritiya = models.CharField(max_length = 50,blank=True,null=True)
+  coating_qbic = models.CharField(max_length = 50,blank=True,null=True)
+  surface_treatment_export = models.CharField(max_length = 50,blank=True,null=True)
+  surface_treatment_export_na = models.CharField(max_length = 50,blank=True,null=True)
+  surface_treatment_export_vn = models.CharField(max_length = 50,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 

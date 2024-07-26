@@ -438,7 +438,7 @@ def moderator_convert(request,id):
 def json_to_excel_radiator(datas):
     df_radiator  = pd.DataFrame()
 
-    df_radiator['counter'] =['' for x in range(0,len(datas)+4)]
+    df_radiator['counter'] =['' for x in range(0,len(datas))]
 
     df_radiator['Модель'] = ''
     df_radiator['Артикул'] = ''

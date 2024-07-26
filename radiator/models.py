@@ -108,3 +108,8 @@ class OrderRadiator(models.Model):
     order_type = models.SmallIntegerField(default=1)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
+
+class Characteristika(models.Model):
+    data = models.JSONField(null=True,blank=True,default=dict)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)
