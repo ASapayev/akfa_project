@@ -41,13 +41,13 @@
                     } -->
                           <tr>
                             <td> {{ forloop.counter }} </td>
-                            <td class="p-1"> {{file.data.pvc_file|cut:'uploads/pvc/downloads/'|slice:"-40:"}} </td>
+                            <td class="p-1"> {{file.paths.pvc_file|cut:'uploads/pvc/downloads/'|slice:"-40:"}} </td>
                             <td>{{file.created_at |date:"d-m-Y H:i"}} </td>
-                            <td ><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{file.data.pvc_file}}">Download</a></td>
-                            {%if file.data.pvc_razlovka_file %}
-                            <td ><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{file.data.pvc_razlovka_file.0}}"> TEXT FILES</a></td>
+                            <td ><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{file.paths.pvc_file}}">Download</a></td>
+                            {%if file.paths.pvc_razlovka_file %}
+                            <td ><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{file.paths.pvc_razlovka_file.0}}"> TEXT FILES</a></td>
                             {%else%}
-                            <td ><a class="text-uppercase" > NO TEXT FILES</a></td>
+                            <td ><a class="text-uppercase" >NO TEXT FILES</a></td>
                             {%endif%}
                           </tr>
                     {% endfor %}
