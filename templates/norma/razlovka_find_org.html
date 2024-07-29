@@ -8,7 +8,7 @@
         <h3 class="page-title"> Нормы </h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="">UI Elements</a></li>
+            <li class="breadcrumb-item">{%if 'pvc' in request.path %}<a class="btn btn-success btn-sm" href="{%url 'download_all_characteristiki_pvc' %}">Скачать все чар.</a>{%else%}<a href="">UI Elements</a>{%endif%}</li>
             <li class="breadcrumb-item active" aria-current="page">{%if 'pvc' in request.path %}<a class="btn btn-success btn-sm" href="{%url 'download_all_razlovki_pvc' %}">Скачать все раз.</a>{%else%}Button{%endif%}</li>
           </ol>
         </nav>

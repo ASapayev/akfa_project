@@ -30,6 +30,18 @@ from aluminiy.utils import download_bs64
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
+def download_all_characteristiki(request):
+        simple_list = Characteristika.objects.all().values_list('sap_code','kratkiy','system','number_of_chambers','article','profile_type_id','length','surface_treatment','outer_side_pc_id','outer_side_wg_id','inner_side_wg_id','sealer_color','print_view','width','height','category','material_class','rawmat_type','tnved','surface_treatment_export','amount_in_a_package','wms_width','wms_height','product_type','profile_type','coating_qbic','id_savdo','online_savdo_name')
+        data = pd.DataFrame(np.array(list(simple_list)),columns=[
+                'SAPCOD','KRATKIY TEXT','NAZVANIYE SYSTEM','NUMBER OF CHAMBERS','ARTICLE','PROFILE TYPE ID','LENGTH','SURFACETREATMENT','OUTER SIDE PC ID','OUTER SIDE WG ID','INNER SIDE WG ID','SEALER COLOR','PRINT VIEW','WIDTH','HEIGHT','CATEGORY','MATERIAL CLASS','RAWMAT TYPE','TNVED','SURFACE TREATMENT EXPORT','AMOUNT IN A PACKAGE','WMS WIDTH','WMS HEIGHT','PRODUCT TYPE','PROFILE TYPE','COATING QBIC','ID SAVDO','ONLINE SAVDO NAME',
+                                                        ])
+        data = data.replace('nan','')
+        
+        res = download_bs64([data,],'CHARACTERISTIKA')
+        return res
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
 def download_all_razlovki(request):
         simple_list = RazlovkaPVX.objects.all().values_list('esapkode','ekrat','lsapkode','lkrat','sapkode7','krat7')
         data = pd.DataFrame(np.array(list(simple_list)),columns=[

@@ -17,6 +17,7 @@ urlpatterns = [
     path('get-razlovki',views.get_razlovka_pvc,name='get_razlovka_pvc'),
     path('get-all-razlovki',views.download_all_razlovki,name='download_all_razlovki_pvc'),
 
+    path('get-all-characteristiki',views.download_all_characteristiki,name='download_all_characteristiki_pvc'),
 
     ###1
     path('upload-pvc',views.upload_product_org_pvc,name='upload_online_savdo_pvc'),
