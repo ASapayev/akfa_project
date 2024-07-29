@@ -16,14 +16,61 @@ from onlinesavdo.utils import zip
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 import os
+import numpy as np
+import sys
 import json
 from .BAZA import DOP_PROFIL
 from functools import partial
 import random 
 from aluminiy.models import ExchangeValues
-from .utils import create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct
+from .utils import create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct,get_ozmka
 from accounts.decorators import allowed_users
+from aluminiy.utils import download_bs64
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
+def download_all_razlovki(request):
+        simple_list = RazlovkaPVX.objects.all().values_list('esapkode','ekrat','lsapkode','lkrat','sapkode7','krat7')
+        data = pd.DataFrame(np.array(list(simple_list)),columns=[
+                'SAP код E','Экструзия холодная резка',
+                'SAP код L','Ламинация',
+                'SAP код 7','U-Упаковка + Готовая Продукция'
+                                                        ])
+        data = data.replace('nan','')
+        
+        res = download_bs64([data,],'OBICHNIY')
+        return res
+
+class FileRazlovki:
+    def __init__(self,file):
+        self.file =file
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
+def get_razlovka_pvc(request):
+    if request.method =='POST':
+        ozmk = request.POST.get('ozmk',None)
+        if ozmk:
+            ozmks =ozmk.split()
+            path,df = get_ozmka(ozmks)
+            res = download_bs64(df,'RAZLOVKA')
+            if request.user.role =='user1':
+                return res
+            files = [FileRazlovki(file=p) for p in path]
+            context ={
+                'files':files,
+                'section':'Разловка'
+            }
+            return render(request,'universal/generated_files.html',context)
+        else:
+            return render(request,'norma/razlovka_find_org.html')
+    else:
+        path1 = request.GET.get('path',None)
+        if path1:
+            if sys.platform == "win32":
+                os.startfile(path1)
+        return render(request,'norma/razlovka_find_org.html')
 
 
 

@@ -464,7 +464,7 @@ def full_update_norm(request):
             file = form_file.file
             path =f'{MEDIA_ROOT}/{file}'
             
-            df = pd.read_excel(path,sheet_name='норма', header=3)
+            df = pd.read_excel(path,sheet_name='норма + цикл', header=3)
 
             df = df.astype(str)
             df = df.replace('nan','0')
