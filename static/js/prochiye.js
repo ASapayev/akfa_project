@@ -13,6 +13,7 @@ class BasePokritiya{
         tip=NaN,//done
         segment=NaN,//done
         buxgalter_tovar=NaN,//done
+        buxgalter_sena=NaN,//done
         buxgalter_uchot=NaN,//done
         bazoviy_edin=NaN,//done
         alter_edin=NaN,//done
@@ -38,6 +39,7 @@ class BasePokritiya{
         this.tip=tip;
         this.segment=segment;
         this.buxgalter_tovar=buxgalter_tovar;
+        this.buxgalter_sena=buxgalter_sena;
         this.buxgalter_uchot=buxgalter_uchot;
         this.bazoviy_edin=bazoviy_edin;
         this.alter_edin=alter_edin;
@@ -227,6 +229,11 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px;z-index:0" id='buxgalter_sena`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;z-index:0" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option  value="Штука">Штука</div>
@@ -394,6 +401,7 @@ function copy_tr(id){
         var tip = data.tip;
         var segment = data.segment;
         var buxgalter_tovar = data.buxgalter_tovar;
+        var buxgalter_sena = data.buxgalter_sena;
         var buxgalter_uchot = data.buxgalter_uchot;
         var bazoviy_edin = data.bazoviy_edin;
         var alter_edin = data.alter_edin;
@@ -425,6 +433,7 @@ function copy_tr(id){
             check_input_and_change(tip,'#tip'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(segment,'#segment'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(buxgalter_sena,'#buxgalter_sena'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(bazoviy_edin,'#bazoviy_edin'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
@@ -450,6 +459,7 @@ function copy_tr(id){
             check_input_and_change(tip,'#tip'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(segment,'#segment'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(buxgalter_sena,'#buxgalter_sena'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(bazoviy_edin,'#bazoviy_edin'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
@@ -552,6 +562,7 @@ function create(id){
     var stoimost_alter =$('#stoimost_alter'+id);
     var segment =$('#segment'+id);
     var buxgalter_tovar =$('#buxgalter_tovar'+id);
+    var buxgalter_sena =$('#buxgalter_sena'+id);
     var comment =$('#comment'+id);
     var obshiy_ves_shtuku =$('#obshiy_ves_shtuku'+id);
     var pickupdate =$('#pickupdate'+id);
@@ -562,7 +573,6 @@ function create(id){
     pickupdate.css('display','block')
     sena_c_nds.css('display','block')
     sena_bez_nds.css('display','block')
-    sena_za_bei.css('display','block')
     
     
     
@@ -590,6 +600,7 @@ function create(id){
     stoimost_alter.css('display','block')
     segment.css('display','block')
     buxgalter_tovar.css('display','block')
+    buxgalter_sena.css('display','block')
     
     svet_product.val('')
     tip.val('Готовый продукт')
@@ -651,6 +662,7 @@ function activate(id){
     var status =$('#status'+id);
     var zavod =$('#zavod'+id);
     var buxgalter_uchot =$('#buxgalter_uchot'+id);
+    var buxgalter_sena =$('#buxgalter_sena'+id);
     var alter_edin =$('#alter_edin'+id);
     var stoimost_baza =$('#stoimost_baza'+id);
     var stoimost_alter =$('#stoimost_alter'+id);
@@ -665,7 +677,6 @@ function activate(id){
     pickupdate.css('display','block')
     sena_c_nds.css('display','block')
     sena_bez_nds.css('display','block')
-    sena_za_bei.css('display','block')
     
     
     zavod_name.css('display','block')
@@ -680,6 +691,7 @@ function activate(id){
     status.css('display','block')
     zavod.css('display','block')
     buxgalter_uchot.css('display','block')
+    buxgalter_sena.css('display','block')
     alter_edin.css('display','block')
     stoimost_baza.css('display','block')
     stoimost_alter.css('display','block')
@@ -690,7 +702,6 @@ function activate(id){
     status.val('Активный')
     // status.attr('disabled',true)
 
-    sena_za_bei.css('border-color','#dedad9')
     zavod_name.css('border-color','#dedad9')
     tip_clenta.css('border-color','#dedad9')
     svet_product.css('border-color','#dedad9')
@@ -706,6 +717,7 @@ function activate(id){
     stoimost_alter.css('border-color','#dedad9')
     segment.css('border-color','#dedad9')
     buxgalter_tovar.css('border-color','#dedad9')
+    buxgalter_sena.css('border-color','#dedad9')
     comment.css('border-color','#dedad9')
     pickupdate.css('border-color','#dedad9')
     sena_c_nds.css('border-color','#dedad9')
@@ -748,6 +760,7 @@ function artukil_clear(id){
     var status =$('#status'+id);
     var zavod =$('#zavod_name'+id);
     var buxgalter_uchot =$('#buxgalter_uchot'+id);
+    var buxgalter_sena =$('#buxgalter_sena'+id);
     var alter_edin =$('#alter_edin'+id);
     var stoimost_baza =$('#stoimost_baza'+id);
     var stoimost_alter =$('#stoimost_alter'+id);
@@ -767,7 +780,7 @@ function artukil_clear(id){
     pickupdate.css('display','none')
     diller.css('display','none')
     tip_clenta.css('display','none')
-    sena_za_bei.css('display','none')
+    
 
 
     svet_product.css('display','none')
@@ -778,6 +791,7 @@ function artukil_clear(id){
     status.css('display','none')
     zavod.css('display','none')
     buxgalter_uchot.css('display','none')
+    buxgalter_sena.css('display','none')
     alter_edin.css('display','none')
     stoimost_baza.css('display','none')
     stoimost_alter.css('display','none')
@@ -823,6 +837,7 @@ function artukil_clear(id){
     stoimost_alter.val('')
     segment.val('')
     buxgalter_tovar.val('')
+    buxgalter_sena.val('')
     comment.val('')
     obshiy_ves_shtuku.val('')
     pickupdate.val('')
@@ -870,6 +885,7 @@ function create_kratkiy_tekst(id){
         var is_active =$('#is_active'+id)
         var segment =$('#segment'+id)
         var buxgalter_tovar =$('#buxgalter_tovar'+id)
+        var buxgalter_sena =$('#buxgalter_sena'+id)
         var buxgalter_uchot =$('#buxgalter_uchot'+id)
         var alter_edin =$('#alter_edin'+id)
         var stoimost_baza =$('#stoimost_baza'+id)
@@ -894,6 +910,11 @@ function create_kratkiy_tekst(id){
             data_base[id].buxgalter_uchot = buxgalter_uchot.val();
         }else{
             data_base[id].buxgalter_uchot = NaN;
+        }
+        if(buxgalter_sena.val()!=''){
+            data_base[id].buxgalter_sena = buxgalter_sena.val();
+        }else{
+            data_base[id].buxgalter_sena = NaN;
         }
         if(buxgalter_tovar.val()!=''){
             data_base[id].buxgalter_tovar = buxgalter_tovar.val();
@@ -1026,12 +1047,17 @@ function create_kratkiy_tekst(id){
                 tip_clenta.css('border-color','red')
                 data_base[id].tip_clenta = NaN;
             }
-            if(sena_za_bei.val()!=''){
-                data_base[id].sena_za_bei = sena_za_bei.val();
-                sena_za_bei.css('border-color','#dedad9')
+            if(sena_c_nds.val()!=''){
+                data_base[id].sena_c_nds = sena_c_nds.val();
+                sena_c_nds.css('border-color','#dedad9')
             }else{
-                sena_za_bei.css('border-color','red')
-                data_base[id].sena_za_bei = NaN;
+                data_base[id].sena_c_nds = NaN;
+            }
+            if(sena_bez_nds.val()!=''){
+                data_base[id].sena_bez_nds = sena_bez_nds.val();
+                sena_bez_nds.css('border-color','#dedad9')
+            }else{
+                data_base[id].sena_bez_nds = NaN;
             }
             if(pickupdate.val()!=''){
                 data_base[id].pickupdate = pickupdate.val();

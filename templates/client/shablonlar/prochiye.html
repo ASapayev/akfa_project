@@ -45,7 +45,8 @@
                           <tr>
                             <th scope="col" class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
                             <th scope="col" style="font-size: 12px;">Дата добавления цены</th>
-                            <th scope="col" style="font-size: 12px;">Цена за БЕИ</th>
+                            <th scope="col" style="font-size: 12px;">Цена за БЕИ с ндс</th>
+                            <th scope="col" style="font-size: 12px;">Цена за БЕИ без ндс</th>
                             <th scope="col" style="font-size: 12px;">Online savdo ID</th>
                             <th scope="col" style="font-size: 12px;">Название</th>
                             <th scope="col" style="font-size: 12px;">Цвет продукта</th>
@@ -54,6 +55,7 @@
                             <th scope="col" style="font-size: 12px;">Тип</th>
                             <th scope="col" style="font-size: 12px;">Сегмент</th>
                             <th scope="col" style="font-size: 12px;">Бухгал товары</th>
+                            <th scope="col" style="font-size: 12px;">Бухгалтерская цена</th>
                             <th scope="col" style="font-size: 12px;">Бухгалтерский учет</th>
                             <th scope="col" style="font-size: 12px;">Базовый единица</th>
                             <th scope="col" style="font-size: 12px;">Альтер единица</th>
@@ -115,7 +117,6 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Дата добавления цены</th>
-                                <th scope="col">Цена за БЕИ</th>
                                 <th scope="col">Online savdo ID</th>
                                 <th scope="col">Название</th>
                             </tr>
@@ -209,7 +210,6 @@ function updateMaxHeight() {
                             <tr>
                                 <th scope="row">${i}</th>
                                 <td>${data_base[key]['pickupdate']}</td>
-                                <td>${data_base[key]['sena_za_bei']}</td>
                                 <td>${data_base[key]['online_id']}</td>
                                 <td>${data_base[key]['nazvaniye_ruchnoy']}</td>
                             </tr>
@@ -253,8 +253,8 @@ function updateMaxHeight() {
         var csrfToken = getCSRFToken();
         var postData = {
             'data': json_data,
-            'order_type':'acs_savdo',
-            'name':'ACCESSUAR SAVDO',
+            'order_type':'prochiye',
+            'name':'PROCHIYE',
             'order_name':theme
         }
         $.ajax({
