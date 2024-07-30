@@ -42,6 +42,35 @@ def download_all_characteristiki(request):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
+def show_all_artikules(request):
+    search =request.GET.get('search',None)
+    
+    if search:
+        products = ArtikulKomponentPVC.objects.filter(Q(artikul__icontains = search)|Q(component__icontains=search)).values_list('artikul','component')
+    else:
+        
+        products = ArtikulKomponentPVC.objects.all().values_list('artikul','component')
+                  
+    paginator = Paginator(products, 25)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+
+    context ={
+        'section':'PVC артикул',
+        'products':page_obj,
+        'search':search,
+        'type':'simple'
+
+    }
+    return render(request,'pvc/show_artikules.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
 def download_all_razlovki(request):
         simple_list = RazlovkaPVX.objects.all().values_list('esapkode','ekrat','lsapkode','lkrat','sapkode7','krat7')
         data = pd.DataFrame(np.array(list(simple_list)),columns=[
