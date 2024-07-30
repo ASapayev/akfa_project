@@ -519,7 +519,7 @@ def file_list_org(request):
 def kombinirovaniy_process(request,id):
     file = NormaExcelFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
-    df_exell = pd.read_excel(file_path,header=0,sheet_name='a')
+    df_exell = pd.read_excel(file_path,header=0)
     df_exell = df_exell.fillna('')
     df_exell =df_exell.astype(str)
     
@@ -534,7 +534,7 @@ def kombinirovaniy_process(request,id):
             row['SAP CODE M'],row['MO - Mex obrabotka'],
             row['SAP CODE PM'],row['PM - Puma'],
             row['SAP CODE PK'],row['PK - Pokraska'],
-            row['SAP CODE 7'],row['7 - Upakovka ']
+            row['SAP CODE 7'],row['7 - Upakovka']
         ])
     
     class Xatolar:
@@ -981,8 +981,8 @@ def kombinirovaniy_process(request,id):
                 {'kratkiy':'Лента абразивная 240 (350х1900) Мех.обр','sapcode':'1000004457','MEINS':'ШТ'},
                 {'kratkiy':'Тех. отход ал стружка','sapcode':'1900007454','MEINS':'КГ'},
                 {'kratkiy':'Крышка радиатора','sapcode':'1000004484','MEINS':'КГ'},
-                {'kratkiy':'Паронит межсекционная (Китай) Gizetta','sapcode':'1000004374','MEINS':'ШТ'},
-                {'kratkiy':'Соеденительная муфта (Местный)','sapcode':'1000004372','MEINS':'ШТ'},
+                {'kratkiy':'Паронит межсекционная','sapcode':'1000004373','MEINS':'ШТ'},
+                {'kratkiy':'Соеденительная муфта','sapcode':'1000004371','MEINS':'ШТ'},
                 ]
             t= 1
             for k in range(0,len(siryo_names)):
@@ -1117,7 +1117,7 @@ def kombinirovaniy_process(request,id):
             df_new['DATUV'].append('01012021')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('')
-            for k in range(1,7):
+            for k in range(1,4):
                 j+=1
                 df_new['ID'].append('2')
                 df_new['MATNR'].append('')
@@ -1141,37 +1141,37 @@ def kombinirovaniy_process(request,id):
                     df_new['MENGE'].append('КГ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
-                if k == 2 :
-                    df_new['MATNR1'].append('1000004484')
-                    df_new['TEXT2'].append('Тех. отход литник')
-                    df_new['MEINS'].append('-'+norma.data['Тех. отход литник'].replace('.0','') if norma.data['Тех. отход литник'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Тех. отход литник'])).replace('.',',')) 
-                    df_new['MENGE'].append('КГ')
-                    df_new['DATUV'].append('')
-                    df_new['PUSTOY'].append('')
+                # if k == 2 :
+                #     df_new['MATNR1'].append('1000004484')
+                #     df_new['TEXT2'].append('Тех. отход литник')
+                #     df_new['MEINS'].append('-'+norma.data['Тех. отход литник'].replace('.0','') if norma.data['Тех. отход литник'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Тех. отход литник'])).replace('.',',')) 
+                #     df_new['MENGE'].append('КГ')
+                #     df_new['DATUV'].append('')
+                #     df_new['PUSTOY'].append('')
                     
-                if k == 3 :
-                    df_new['MATNR1'].append('1900007455')
-                    df_new['TEXT2'].append('Тех. отход промывка')
-                    df_new['MEINS'].append('-'+norma.data['Тех. отход промывка'].replace('.0','') if norma.data['Тех. отход промывка'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Тех. отход промывка'])).replace('.',','))
-                    df_new['MENGE'].append('КГ')
-                    df_new['DATUV'].append('')
-                    df_new['PUSTOY'].append('')
+                # if k == 3 :
+                #     df_new['MATNR1'].append('1900007455')
+                #     df_new['TEXT2'].append('Тех. отход промывка')
+                #     df_new['MEINS'].append('-'+norma.data['Тех. отход промывка'].replace('.0','') if norma.data['Тех. отход промывка'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Тех. отход промывка'])).replace('.',','))
+                #     df_new['MENGE'].append('КГ')
+                #     df_new['DATUV'].append('')
+                #     df_new['PUSTOY'].append('')
 
-                if k == 4 :
-                    df_new['MATNR1'].append('1900007457')
-                    df_new['TEXT2'].append('Тех. отход шлак масло')
-                    df_new['MEINS'].append('-'+norma.data['Тех. отход шлак масло'].replace('.0','') if norma.data['Тех. отход шлак масло'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Тех. отход шлак масло'])).replace('.',','))
-                    df_new['MENGE'].append('КГ')
-                    df_new['DATUV'].append('')
-                    df_new['PUSTOY'].append('')
-                if k == 5 :
+                # if k == 4 :
+                #     df_new['MATNR1'].append('1900007457')
+                #     df_new['TEXT2'].append('Тех. отход шлак масло')
+                #     df_new['MEINS'].append('-'+norma.data['Тех. отход шлак масло'].replace('.0','') if norma.data['Тех. отход шлак масло'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Тех. отход шлак масло'])).replace('.',','))
+                #     df_new['MENGE'].append('КГ')
+                #     df_new['DATUV'].append('')
+                #     df_new['PUSTOY'].append('')
+                if k == 2 :
                     df_new['MATNR1'].append('1000004351')
                     df_new['TEXT2'].append('Сож для прес-формы DIELUBRIC')
                     df_new['MEINS'].append('-'+norma.data['Сож для прес-формы DIELUBRIC'].replace('.0','') if norma.data['Сож для прес-формы DIELUBRIC'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Сож для прес-формы DIELUBRIC'])).replace('.',','))
                     df_new['MENGE'].append('Л')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
-                if k == 6 :
+                if k == 3 :
                     df_new['MATNR1'].append('1000004353')
                     df_new['TEXT2'].append('Огнеупорная смазка Pyro-Mastic')
                     df_new['MEINS'].append('-'+norma.data['Огнеупорная смазка Pyro-Mastic'].replace('.0','') if norma.data['Огнеупорная смазка Pyro-Mastic'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Огнеупорная смазка Pyro-Mastic'])).replace('.',','))
@@ -1193,7 +1193,7 @@ def kombinirovaniy_process(request,id):
                     df_new['BMENG'].append('')
                     df_new['BMEIN'].append('')
                     df_new['STLST'].append('')
-                    df_new['POSNR'].append(7)
+                    df_new['POSNR'].append(4)
                     df_new['POSTP'].append('L')
                     df_new['MATNR1'].append('1000004481')
                     df_new['TEXT2'].append('Вставка для радиатора 16 мм')
@@ -1214,7 +1214,7 @@ def kombinirovaniy_process(request,id):
                     df_new['BMENG'].append('')
                     df_new['BMEIN'].append('')
                     df_new['STLST'].append('')
-                    df_new['POSNR'].append(7)
+                    df_new['POSNR'].append(4)
                     df_new['POSTP'].append('L')
                     df_new['MATNR1'].append('1000004482')
                     df_new['TEXT2'].append('Вставка для радиатора 18 мм')
@@ -2007,7 +2007,7 @@ def product_add_second_org_radiator(request,id):
                     if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
                             umumiy_counter[df['Артикул'][key]+'-7'] += 1
                             max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
-                            materiale = df['Артикул'][key]+"-7{:02d}".format(max_values7)
+                            materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
                             RadiatorSapCode(artikul = df['Артикул'][key],section ='7',counter=max_values7,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
                             df_new['SAP CODE 7'][key] = materiale
                             
@@ -2023,7 +2023,7 @@ def product_add_second_org_radiator(request,id):
                                             })
                     
                     else:
-                            materiale = df['Артикул'][key]+"-7{:02d}".format(1)
+                            materiale = df['Артикул'][key]+"-7{:03d}".format(1)
                             RadiatorSapCode(artikul = df['Артикул'][key],section ='7',counter=1,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
                             df_new['SAP CODE 7'][key] = materiale
                             umumiy_counter[df['Артикул'][key]+'-7'] = 1

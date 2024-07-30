@@ -192,6 +192,7 @@ function front_piece(start=1,end=6){
                 <option value="Perfetto">Perfetto</option>
                 <option value="Florence">Florence</option>
                 <option value="Piuma">Piuma</option>
+                <option value="LIDER-PERFETTO">LIDER-PERFETTO</option>
 
                 
             </select>

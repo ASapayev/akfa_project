@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from aluminiy.models import AluProfilesData,AluFile,AluminiyProduct,LengthOfProfile,BrendKraska
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile,PVCProduct
 from radiator.models import RadiatorFile,OrderRadiator as BaseOrderRadiator
-
 from .models import Anod,Order,OrderDetail
 from radiator.models import ArtikulRadiator
 from django.contrib.auth.decorators import login_required
@@ -472,33 +471,33 @@ def json_to_excel_radiator(datas):
     
     k = 0
     for key1,data in datas.items():
-        df_radiator['Модель'] = data['model']
-        df_radiator['Артикул'] = data['base_artikul']
-        df_radiator['Количество секций'] = data['kol_section']
-        df_radiator['Цвет'] = data['svet']
-        df_radiator['Бренд'] = data['brend']
-        df_radiator['Краткий текст'] = data['kratkiy_tekst']
-        df_radiator['Комментарий'] = data['comment']
-        df_radiator['Дата добавление цены'] = data['pickupdate']
-        df_radiator['Цена с НДС'] = data['sena_c_nds']
-        df_radiator['Цена без НДС'] = data['sena_bez_nds']
-        df_radiator['Online savdo ID'] = data['online_id']
-        df_radiator['Название'] = data['nazvaniye_ruchnoy']
-        df_radiator['Цвет продукта'] = data['svet_product']
-        df_radiator['Группа закупок'] = data['group_zakup']
-        df_radiator['Группа'] = data['group']
-        df_radiator['Тип'] = data['tip']
-        df_radiator['Сегмент'] = data['segment']
-        df_radiator['Бухгал товары'] = data['buxgalter_tovar']
-        df_radiator['Бухгалтерская цена'] = data['buxgalter_sena']
-        df_radiator['Бухгалтерский учет'] = data['buxgalter_uchot']
-        df_radiator['Базовый единица'] = data['bazoviy_edin']
-        df_radiator['Альтер единица'] = data['alter_edin']
-        df_radiator['Стоимость базовой единицы'] = data['stoimost_baza']
-        df_radiator['Альтер. стоимость единицы'] = data['stoimost_alter']
-        df_radiator['Статус'] = data['status_online']
-        df_radiator['Завод'] = data['zavod_name']
-        df_radiator['Тип клиента'] = data['tip_clenta']
+        df_radiator['Модель'][k] = data['model']
+        df_radiator['Артикул'][k] = data['base_artikul']
+        df_radiator['Количество секций'][k] = data['kol_section']
+        df_radiator['Цвет'][k] = data['svet']
+        df_radiator['Бренд'][k] = data['brend']
+        df_radiator['Краткий текст'][k] = data['kratkiy_tekst']
+        df_radiator['Комментарий'][k] = data['comment']
+        df_radiator['Дата добавление цены'][k] = data['pickupdate']
+        df_radiator['Цена с НДС'][k] = data['sena_c_nds']
+        df_radiator['Цена без НДС'][k] = data['sena_bez_nds']
+        df_radiator['Online savdo ID'][k] = data['online_id']
+        df_radiator['Название'][k] = data['nazvaniye_ruchnoy']
+        df_radiator['Цвет продукта'][k] = data['svet_product']
+        df_radiator['Группа закупок'][k] = data['group_zakup']
+        df_radiator['Группа'][k] = data['group']
+        df_radiator['Тип'][k] = data['tip']
+        df_radiator['Сегмент'][k] = data['segment']
+        df_radiator['Бухгал товары'][k] = data['buxgalter_tovar']
+        df_radiator['Бухгалтерская цена'][k] = data['buxgalter_sena']
+        df_radiator['Бухгалтерский учет'][k] = data['buxgalter_uchot']
+        df_radiator['Базовый единица'][k] = data['bazoviy_edin']
+        df_radiator['Альтер единица'][k] = data['alter_edin']
+        df_radiator['Стоимость базовой единицы'][k] = data['stoimost_baza']
+        df_radiator['Альтер. стоимость единицы'][k] = data['stoimost_alter']
+        df_radiator['Статус'][k] = data['status_online']
+        df_radiator['Завод'][k] = data['zavod_name']
+        df_radiator['Тип клиента'][k] = data['tip_clenta']
         k+=1
 
    
@@ -1265,7 +1264,8 @@ def order_list(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def index(request):
-    return render(request,'client/index.html')
+    current_date = datetime.now()
+    return render(request,'client/index.html',{'current_date': current_date})
 
 @login_required(login_url='/accounts/login/')
 @customer_only
@@ -1348,6 +1348,11 @@ def shablon_pvc_savdo_detail(request):
 @customer_only
 def shablon_radiator_detail(request):
     return render(request,'client/shablonlar/radiator.html')
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def shablon_prochiye_detail(request):
+    return render(request,'client/shablonlar/prochiye.html')
 
 @login_required(login_url='/accounts/login/')
 @customer_only
