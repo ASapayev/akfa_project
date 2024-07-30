@@ -689,7 +689,7 @@ def kombinirovaniy_process(request,id):
             df_new['TEXT2'].append('')
             df_new['MEINS'].append('')
             df_new['MENGE'].append('')
-            df_new['DATUV'].append('01012021')
+            df_new['DATUV'].append('01012023')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('')
             for k in range(1,2):
@@ -811,7 +811,7 @@ def kombinirovaniy_process(request,id):
             df_new['TEXT2'].append('')
             df_new['MEINS'].append('')
             df_new['MENGE'].append('')
-            df_new['DATUV'].append('01012021')
+            df_new['DATUV'].append('01012023')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('')
             for k in range(1,5):
@@ -896,7 +896,7 @@ def kombinirovaniy_process(request,id):
             df_new['TEXT2'].append('')
             df_new['MEINS'].append('')
             df_new['MENGE'].append('')
-            df_new['DATUV'].append('01012021')
+            df_new['DATUV'].append('01012023')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('')
             for k in range(1,2):
@@ -937,7 +937,7 @@ def kombinirovaniy_process(request,id):
             df_new['STLAL'].append('1')
             df_new['STLAN'].append('1')
             df_new['ZTEXT'].append(df[i][3])
-            df_new['STKTX'].append('')
+            df_new['STKTX'].append('МехОбр. Ручная')
             df_new['BMENG'].append( '1000')
             df_new['BMEIN'].append('SKC')
             df_new['STLST'].append('1')
@@ -947,7 +947,7 @@ def kombinirovaniy_process(request,id):
             df_new['TEXT2'].append('')
             df_new['MEINS'].append('')
             df_new['MENGE'].append('')
-            df_new['DATUV'].append('01012021')
+            df_new['DATUV'].append('01012023')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('')
             
@@ -1025,7 +1025,7 @@ def kombinirovaniy_process(request,id):
             df_new['STLAL'].append('2')
             df_new['STLAN'].append('1')
             df_new['ZTEXT'].append(df[i][3])
-            df_new['STKTX'].append('')
+            df_new['STKTX'].append('Уч-к GIZETTA')
             df_new['BMENG'].append( '1000')
             df_new['BMEIN'].append('SKC')
             df_new['STLST'].append('1')
@@ -1035,7 +1035,7 @@ def kombinirovaniy_process(request,id):
             df_new['TEXT2'].append('')
             df_new['MEINS'].append('')
             df_new['MENGE'].append('')
-            df_new['DATUV'].append('01012021')
+            df_new['DATUV'].append('01012023')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('')
             
@@ -1114,7 +1114,7 @@ def kombinirovaniy_process(request,id):
             df_new['TEXT2'].append('')
             df_new['MEINS'].append('')
             df_new['MENGE'].append('')
-            df_new['DATUV'].append('01012021')
+            df_new['DATUV'].append('01012023')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('')
             for k in range(1,4):
@@ -1167,14 +1167,14 @@ def kombinirovaniy_process(request,id):
                 if k == 2 :
                     df_new['MATNR1'].append('1000004351')
                     df_new['TEXT2'].append('Сож для прес-формы DIELUBRIC')
-                    df_new['MEINS'].append('-'+norma.data['Сож для прес-формы DIELUBRIC'].replace('.0','') if norma.data['Сож для прес-формы DIELUBRIC'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Сож для прес-формы DIELUBRIC'])).replace('.',','))
+                    df_new['MEINS'].append(norma.data['Сож для прес-формы DIELUBRIC'].replace('.0','') if norma.data['Сож для прес-формы DIELUBRIC'][-2:]=='.0' else  ("%.3f" % float(norma.data['Сож для прес-формы DIELUBRIC'])).replace('.',','))
                     df_new['MENGE'].append('Л')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                 if k == 3 :
                     df_new['MATNR1'].append('1000004353')
                     df_new['TEXT2'].append('Огнеупорная смазка Pyro-Mastic')
-                    df_new['MEINS'].append('-'+norma.data['Огнеупорная смазка Pyro-Mastic'].replace('.0','') if norma.data['Огнеупорная смазка Pyro-Mastic'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Огнеупорная смазка Pyro-Mastic'])).replace('.',','))
+                    df_new['MEINS'].append(norma.data['Огнеупорная смазка Pyro-Mastic'].replace('.0','') if norma.data['Огнеупорная смазка Pyro-Mastic'][-2:]=='.0' else ("%.3f" % float(norma.data['Огнеупорная смазка Pyro-Mastic'])).replace('.',','))
                     df_new['MENGE'].append('КГ')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
