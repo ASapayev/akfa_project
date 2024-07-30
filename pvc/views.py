@@ -46,10 +46,10 @@ def show_all_artikules(request):
     search =request.GET.get('search',None)
     
     if search:
-        products = ArtikulKomponentPVC.objects.filter(Q(artikul__icontains = search)|Q(component__icontains=search)).values_list('artikul','component')
+        products = ArtikulKomponentPVC.objects.filter(Q(artikul__icontains = search)|Q(component__icontains=search)).values_list('artikul','component').order_by('-created_at')
     else:
         
-        products = ArtikulKomponentPVC.objects.all().values_list('artikul','component')
+        products = ArtikulKomponentPVC.objects.all().values_list('artikul','component').order_by('-created_at')
                   
     paginator = Paginator(products, 25)
 
