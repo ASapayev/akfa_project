@@ -291,12 +291,12 @@
             <div class="div-25" id="acs_import" style="display: none;">
                 <div class="row">
                     <div class="col-4">
-                        <div class="column" style="width: 100%;">
+                        <!-- <div class="column" style="width: 100%;">
                             <div class="div-26">
                                 <img
                                 loading="lazy"
                                 src="{% static 'assets/images/figma/1.png'%}"
-                                class="img-4 custom-img"
+                                class="img-4"
                                 />
                                 <div class="div-27">Савдо</div>
                                 <div class="div-28">
@@ -311,7 +311,7 @@
                                 <div class="div-31">30 ta</div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-4">
                         <div class="column-2" style="width: 100%;">
@@ -321,13 +321,13 @@
                             src="{% static 'assets/images/figma/2.png'%}"
                             class="img-6 custom-img"
                             />
-                            <div class="div-33">Imzo</div>
+                            <div class="div-33"><a href="{% url 'shablon_akp_savdo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">АКП</a></div>
                             <div class="div-34">
                             <div class="div-35">
                                 <img
                                 loading="lazy"
                                 src="{% static 'assets/images/figma/date.svg' %}"
-                                class="img-7 "
+                                class="img-7"
                                 />
                                 <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
                             </div>
@@ -336,12 +336,13 @@
                         </div>
                         </div>
                     </div>
-                    <div class="col-4"><div class="column-3" style="width: 100%;">
+                    <div class="col-4">
+                      <!-- <div class="column-3" style="width: 100%;">
                         <div class="div-38">
                             <img
                             loading="lazy"
                             src="{% static 'assets/images/figma/3.png'%}"
-                            class="img-8 custom-img"
+                            class="img-8"
                             />
                             <div class="div-39">Экспорт</div>
                             <div class="div-40">
@@ -356,12 +357,9 @@
                             <div class="div-43">30 ta</div>
                             </div>
                         </div>
-                        </div>
+                      </div> -->
                     </div>
                 </div>
-                
-                
-                
             </div>
             <div class="div-25" id="akp" style="display: none;">
                 <div class="row">
