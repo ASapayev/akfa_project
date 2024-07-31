@@ -25,7 +25,7 @@
                   <label for="exampleTextarea1">Лист сапкода</label>
                   <textarea class="form-control" id="exampleTextarea1" rows="8" name="ozmk"></textarea>
                 </div>
-                {%if 'pvc' not in request.path %}
+                {%if 'pvc' not in request.path and 'radiator' not in request.path %}
                 <div class="form-check-flat form-check-primary p-3">
                   <label class="form-check-label">
                     <input type="checkbox" class="form-check-input" name="for1101" > For 1101 </label>

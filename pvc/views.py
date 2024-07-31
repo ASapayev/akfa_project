@@ -83,6 +83,18 @@ def download_all_razlovki(request):
         res = download_bs64([data,],'OBICHNIY')
         return res
 
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
+def download_all_artikles(request):
+        simple_list = ArtikulKomponentPVC.objects.all().values_list('artikul','component','component2','nazvaniye_sistem','camera','kod_k_component','width','height','category','tnved','wms_width','wms_height','product_type','profile_type','iskyucheniye','is_special','nakleyka_nt1')
+        data = pd.DataFrame(np.array(list(simple_list)),columns=[
+                'Артикул','Копонент','Копонент2','Название','Камера','Код к компонент','Ширина','Высота','Категория','Tnved','WMS ширина','WMS высота','Продукт тип','Тип профилей','Резина исключен.','Ламинация 2-ч xxx','Наклейка NT1'
+                                                        ])
+        data = data.replace('nan','')
+        
+        res = download_bs64([data,],'АРТИКУЛ')
+        return res
+
 class FileRazlovki:
     def __init__(self,file):
         self.file =file
@@ -96,7 +108,7 @@ def get_razlovka_pvc(request):
             ozmks =ozmk.split()
             path,df = get_ozmka(ozmks)
             res = download_bs64(df,'RAZLOVKA')
-            if request.user.role =='user1':
+            if request.user.role =='moderator':
                 return res
             files = [FileRazlovki(file=p) for p in path]
             context ={

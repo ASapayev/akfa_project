@@ -202,6 +202,7 @@
             <li class="nav-item"> <a class="nav-link" href="{% url 'upload_siryo_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">сире</span> файла</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'upload_kraska_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">краска</span> файла</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'upload_korobka_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">коробка</span> файла</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'get_razlovka_radiator'%}">Найти <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">разловки</span></a></li>
             {%endif%}
             {%if user_role == 'moderator' or user_role == 'user1' %}
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо</span> файла</a></li>

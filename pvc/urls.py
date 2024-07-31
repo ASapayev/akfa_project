@@ -16,6 +16,7 @@ urlpatterns = [
     path('pvc-history',views.show_list_history,name='show_list_history_pvc'),
     path('get-razlovki',views.get_razlovka_pvc,name='get_razlovka_pvc'),
     path('get-all-razlovki',views.download_all_razlovki,name='download_all_razlovki_pvc'),
+    path('get-all-artikules',views.download_all_artikles,name='download_all_artikles_pvc'),
     path('show-all-artikules',views.show_all_artikules,name='show_all_artikules'),
 
     path('get-all-characteristiki',views.download_all_characteristiki,name='download_all_characteristiki_pvc'),

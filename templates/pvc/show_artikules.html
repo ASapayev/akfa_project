@@ -16,9 +16,15 @@
           <ol class="breadcrumb">
                 
             <li class="breadcrumb-item"> <input type="search" class="form-control" placeholder="Search sapcode" name="search"></li>
-            <li class="breadcrumb-item " ><button class="btn btn-info " type="submit">Search</button></li>
+            <li class="p-2" ><button class="btn btn-info " type="submit">Search</button></li>
         
-            <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'create_artikul_pvc' %}" class="btn btn-success btn-sm">Создать артикул</a></li>
+            <li class=" active" aria-current="page">
+              
+              <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-success"><a href="{% url 'create_artikul_pvc' %}" >Создать артикул</a></button>
+                <button type="button" class="btn btn-secondary"><a href="{% url 'download_all_artikles_pvc' %}"  >Скачать артикул</a></button>
+              </div>
+            </li>
         </ol>
          </form>
         </nav>

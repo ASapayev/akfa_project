@@ -7,10 +7,12 @@ from config.settings import MEDIA_ROOT
 import pandas as pd
 from accounts.models import User
 import os 
+import sys
 from datetime import datetime
 from django.db.models import Max
+from aluminiy.utils import download_bs64
 from random import randint
-from .utils import create_characteristika,create_characteristika_utils
+from .utils import create_characteristika,create_characteristika_utils,get_ozmka
 
 
 
@@ -2185,3 +2187,33 @@ def product_add_second_org_radiator(request,id):
     
     return render(request,'universal/generated_files.html',{'a':'b'})
 
+
+class FileRazlovki:
+    def __init__(self,file):
+        self.file =file
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
+def get_razlovka_radiator(request):
+    if request.method =='POST':
+        ozmk = request.POST.get('ozmk',None)
+        if ozmk:
+            ozmks =ozmk.split()
+            path,df = get_ozmka(ozmks)
+            res = download_bs64(df,'RAZLOVKA')
+            if request.user.role =='radiator':
+                return res
+            files = [FileRazlovki(file=p) for p in path]
+            context ={
+                'files':files,
+                'section':'Разловка'
+            }
+            return render(request,'universal/generated_files.html',context)
+        else:
+            return render(request,'norma/razlovka_find_org.html')
+    else:
+        path1 = request.GET.get('path',None)
+        if path1:
+            if sys.platform == "win32":
+                os.startfile(path1)
+        return render(request,'norma/razlovka_find_org.html')
