@@ -321,7 +321,7 @@ def characteristika_created_txt_create(datas,order_id):
         umumiy_without_duplicate1203[44].append(SFSPF1203[sap_code_simvol])
         umumiy_without_duplicate1203[45].append('X')
         umumiy_without_duplicate1203[46].append(LGPRO1203[sap_code_simvol])
-        umumiy_without_duplicate1203[47].append('')
+        umumiy_without_duplicate1203[47].append('X')
         umumiy_without_duplicate1203[48].append(row['combination'] + row['Тип покрытия'])
             
         if gruppa_material=='PVCGP':
