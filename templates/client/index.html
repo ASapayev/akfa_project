@@ -66,13 +66,14 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="column" style="width: 100%;">
+                          <a href="{%url 'shablon_savdo_detail' %}"  style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
                             <div class="div-26">
                                 <img
                                 loading="lazy"
                                 src="{% static 'assets/images/figma/a1.jpg'%}"
                                 class="img-4 custom-img"
                                 />
-                                <div class="div-27"> <a href="{%url 'shablon_savdo_detail' %}"  style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Савдо</a></div>
+                                <div class="div-27 card-title">Савдо</div>
                                 <div class="div-28">
                                 <div class="div-29">
                                     <img
@@ -85,39 +86,43 @@
                                 <div class="div-31">30 ta</div>
                                 </div>
                             </div>
+                          </a>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="column-2" style="width: 100%;">
-                        <div class="div-32">
-                            <img
-                            loading="lazy"
-                            src="{% static 'assets/images/figma/a2.jpg'%}"
-                            class="img-6 custom-img"
-                            />
-                            <div class="div-33"><a href="{% url 'shablon_imzo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Imzo</a></div>
-                            <div class="div-34">
-                            <div class="div-35">
+                          <a href="{% url 'shablon_imzo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
                                 <img
                                 loading="lazy"
-                                src="{% static 'assets/images/figma/date.svg' %}"
-                                class="img-7"
+                                src="{% static 'assets/images/figma/a2.jpg'%}"
+                                class="img-6 custom-img"
                                 />
-                                <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                <div class="div-33 card-title">Imzo</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
                             </div>
-                            <div class="div-37">30 ta</div>
-                            </div>
-                        </div>
+                          </a>
                         </div>
                     </div>
                     <div class="col-4"><div class="column-3" style="width: 100%;">
+                      <a href="{% url 'shablon_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
                         <div class="div-38">
                             <img
                             loading="lazy"
                             src="{% static 'assets/images/figma/a3.jpg'%}"
                             class="img-8 custom-img"
                             />
-                            <div class="div-39"><a href="{% url 'shablon_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Экспорт</a></div>
+                            <div class="div-39 card-title">Экспорт</div>
                             <div class="div-40">
                             <div class="div-41">
                                 <img
@@ -130,6 +135,7 @@
                             <div class="div-43">30 ta</div>
                             </div>
                         </div>
+                      </a>
                         </div>
                     </div>
                 </div>
@@ -141,13 +147,14 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="column" style="width: 100%;">
+                          <a href="{% url 'shablon_pvc_savdo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
                             <div class="div-26">
                                 <img
                                 loading="lazy"
                                 src="{% static 'assets/images/figma/1.png'%}"
                                 class="img-4 custom-img"
                                 />
-                                <div class="div-27"><a href="{% url 'shablon_pvc_savdo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Савдо</a></div>
+                                <div class="div-27 card-title">Савдо</div>
                                 <div class="div-28">
                                 <div class="div-29">
                                     <img
@@ -160,52 +167,58 @@
                                 <div class="div-31">30 ta</div>
                                 </div>
                             </div>
+                          </a>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="column-2" style="width: 100%;">
-                        <div class="div-32">
-                            <img
-                            loading="lazy"
-                            src="{% static 'assets/images/figma/2.png'%}"
-                            class="img-6 custom-img"
-                            />
-                            <div class="div-33"><a href="{% url 'shablon_pvc_imzo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Imzo</a></div>
-                            <div class="div-34">
-                            <div class="div-35">
+                          <a href="{% url 'shablon_pvc_imzo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
                                 <img
                                 loading="lazy"
-                                src="{% static 'assets/images/figma/date.svg' %}"
-                                class="img-7"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
                                 />
-                                <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                <div class="div-33 card-title">Imzo</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
                             </div>
-                            <div class="div-37">30 ta</div>
-                            </div>
-                        </div>
+                          </a>
                         </div>
                     </div>
-                    <div class="col-4"><div class="column-3" style="width: 100%;">
-                        <div class="div-38">
-                            <img
-                            loading="lazy"
-                            src="{% static 'assets/images/figma/3.png'%}"
-                            class="img-8 custom-img"
-                            />
-                            <div class="div-39"><a href="{% url 'shablon_pvc_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Экспорт</a></div>
-                            <div class="div-40">
-                            <div class="div-41">
-                                <img
-                                loading="lazy"
-                                src="{% static 'assets/images/figma/date.svg' %}"
-                                class="img-9"
-                                />
-                                <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
-                            </div>
-                            <div class="div-43">30 ta</div>
-                            </div>
-                        </div>
-                        </div>
+                    <div class="col-4">
+                      <div class="column-3" style="width: 100%;">
+                        <a href="{% url 'shablon_pvc_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                          <div class="div-38">
+                              <img
+                              loading="lazy"
+                              src="{% static 'assets/images/figma/3.png'%}"
+                              class="img-8 custom-img"
+                              />
+                              <div class="div-39 card-title">Экспорт</div>
+                              <div class="div-40">
+                              <div class="div-41">
+                                  <img
+                                  loading="lazy"
+                                  src="{% static 'assets/images/figma/date.svg' %}"
+                                  class="img-9"
+                                  />
+                                  <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                              </div>
+                              <div class="div-43">30 ta</div>
+                              </div>
+                          </div>
+                        </a>
+                      </div>
                     </div>
                 </div>
                 
@@ -216,13 +229,14 @@
                 <div class="row">
                     <div class="col-3">
                         <div class="column" style="width: 100%;">
+                          <a href="{% url 'shablon_acs_savdo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
                             <div class="div-26">
                                 <img
                                 loading="lazy"
                                 src="{% static 'assets/images/figma/1.png'%}"
                                 class="img-4 custom-img"
                                 />
-                                <div class="div-27"><a href="{% url 'shablon_acs_savdo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Савдо</a></div>
+                                <div class="div-27 card-title">Савдо</div>
                                 <div class="div-28">
                                 <div class="div-29">
                                     <img
@@ -235,40 +249,44 @@
                                 <div class="div-31">30 ta</div>
                                 </div>
                             </div>
+                          </a>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="column-2" style="width: 100%;">
-                        <div class="div-32">
-                            <img
-                            loading="lazy"
-                            src="{% static 'assets/images/figma/2.png'%}"
-                            class="img-6 custom-img"
-                            />
-                            <div class="div-33"><a href="{% url 'shablon_acs_imzo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Imzo</a></div>
-                            <div class="div-34">
-                            <div class="div-35">
+                          <a href="{% url 'shablon_acs_imzo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
                                 <img
                                 loading="lazy"
-                                src="{% static 'assets/images/figma/date.svg' %}"
-                                class="img-7"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
                                 />
-                                <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                <div class="div-33 card-title">Imzo</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
                             </div>
-                            <div class="div-37">30 ta</div>
-                            </div>
-                        </div>
+                          </a>
                         </div>
                     </div>
                     <div class="col-3">
                       <div class="column-3" style="width: 100%;">
+                        <a href="{% url 'shablon_acs_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
                           <div class="div-38">
                               <img
                               loading="lazy"
                               src="{% static 'assets/images/figma/3.png'%}"
                               class="img-8 custom-img"
                               />
-                              <div class="div-39"><a href="{% url 'shablon_acs_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Экспорт</a></div>
+                              <div class="div-39 card-title">Экспорт</div>
                               <div class="div-40">
                               <div class="div-41">
                                   <img
@@ -281,17 +299,19 @@
                               <div class="div-43">30 ta</div>
                               </div>
                           </div>
+                        </a>
                         </div>
                     </div>
                     <div class="col-3">
                       <div class="column-3" style="width: 100%;">
+                        <a href="{% url 'shablon_acs_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
                           <div class="div-38">
                               <img
                               loading="lazy"
                               src="{% static 'assets/images/figma/a4.jpg'%}"
                               class="img-8 custom-img"
                               />
-                              <div class="div-39"><a href="{% url 'shablon_acs_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">ZAVOD</a></div>
+                              <div class="div-39 card-title">ZAVOD</div>
                               <div class="div-40">
                               <div class="div-41">
                                   <img
@@ -304,6 +324,7 @@
                               <div class="div-43">30 ta</div>
                               </div>
                           </div>
+                        </a>
                         </div>
                     </div>
                 </div>
@@ -338,25 +359,27 @@
                     </div>
                     <div class="col-4">
                         <div class="column-2" style="width: 100%;">
-                        <div class="div-32">
-                            <img
-                            loading="lazy"
-                            src="{% static 'assets/images/figma/2.png'%}"
-                            class="img-6 custom-img"
-                            />
-                            <div class="div-33"><a href="{% url 'shablon_accessuar_import_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Аксессуар Импорт</a></div>
-                            <div class="div-34">
-                            <div class="div-35">
+                          <a href="{% url 'shablon_accessuar_import_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
                                 <img
                                 loading="lazy"
-                                src="{% static 'assets/images/figma/date.svg' %}"
-                                class="img-7"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
                                 />
-                                <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                <div class="div-33 card-title">Аксессуар Импорт</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
                             </div>
-                            <div class="div-37">30 ta</div>
-                            </div>
-                        </div>
+                          </a>
                         </div>
                     </div>
                     <div class="col-4">
@@ -411,25 +434,27 @@
                     </div>
                     <div class="col-4">
                         <div class="column-2" style="width: 100%;">
-                        <div class="div-32">
-                            <img
-                            loading="lazy"
-                            src="{% static 'assets/images/figma/2.png'%}"
-                            class="img-6 custom-img"
-                            />
-                            <div class="div-33"><a href="{% url 'shablon_akp_savdo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">АКП</a></div>
-                            <div class="div-34">
-                            <div class="div-35">
+                          <a href="{% url 'shablon_akp_savdo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
                                 <img
                                 loading="lazy"
-                                src="{% static 'assets/images/figma/date.svg' %}"
-                                class="img-7"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
                                 />
-                                <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                <div class="div-33 card-title">АКП</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
                             </div>
-                            <div class="div-37">30 ta</div>
-                            </div>
-                        </div>
+                          </a>
                         </div>
                     </div>
                     <div class="col-4">
@@ -461,13 +486,14 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="column" style="width: 100%;">
+                          <a href="{% url 'shablon_radiator_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
                             <div class="div-26">
                                 <img
                                 loading="lazy"
                                 src="{% static 'assets/images/figma/1.png'%}"
                                 class="img-4 custom-img"
                                 />
-                                <div class="div-27"><a href="{% url 'shablon_radiator_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Радиатор ехпорт</a></div>
+                                <div class="div-27 card-title">Радиатор ехпорт</div>
                                 <div class="div-28">
                                 <div class="div-29">
                                     <img
@@ -480,29 +506,32 @@
                                 <div class="div-31">30 ta</div>
                                 </div>
                             </div>
+                          </a>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="column-2" style="width: 100%;">
-                        <div class="div-32">
-                            <img
-                            loading="lazy"
-                            src="{% static 'assets/images/figma/2.png'%}"
-                            class="img-6 custom-img"
-                            />
-                            <div class="div-33"><a href="{% url 'shablon_radiator_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Радиатор</a></div>
-                            <div class="div-34">
-                            <div class="div-35">
+                          <a href="{% url 'shablon_radiator_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
                                 <img
                                 loading="lazy"
-                                src="{% static 'assets/images/figma/date.svg' %}"
-                                class="img-7"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
                                 />
-                                <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                <div class="div-33 card-title">Радиатор</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
                             </div>
-                            <div class="div-37">30 ta</div>
-                            </div>
-                        </div>
+                          </a>
                         </div>
                     </div>
                     <div class="col-4">
@@ -558,25 +587,27 @@
                     </div>
                     <div class="col-4">
                         <div class="column-2" style="width: 100%;">
-                        <div class="div-32">
-                            <img
-                            loading="lazy"
-                            src="{% static 'assets/images/figma/2.png'%}"
-                            class="img-6 custom-img"
-                            />
-                            <div class="div-33"><a href="{% url 'shablon_prochie_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" class="card-title">Прочие</a></div>
-                            <div class="div-34">
-                            <div class="div-35">
+                          <a href="{% url 'shablon_prochie_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
                                 <img
                                 loading="lazy"
-                                src="{% static 'assets/images/figma/date.svg' %}"
-                                class="img-7"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
                                 />
-                                <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                <div class="div-33 card-title">Прочие</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
                             </div>
-                            <div class="div-37">30 ta</div>
-                            </div>
-                        </div>
+                          </a>
                         </div>
                     </div>
                     <div class="col-4">
