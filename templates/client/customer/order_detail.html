@@ -679,6 +679,47 @@
             </form>
             </section>
             {%endif%}
+            {%if order_type == 'radiator_export'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <div class="row p-2">
+                    <div class="col">
+                     
+                    </div>
+                    <div class="col-10">
+                    </div>
+                    <div class="col">
+                      <button onclick="downloadTableAsExcel()" class="btn btn-primary btn-sm">Download as Excel</button>
+                    </div>
+                  </div>
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Модель</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Количество секций</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цвет</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Бренд</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;width:120px!important" class="align-middle">Краткий текст</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Комментарий</th>
+
+                          </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
             {%if order_type == 'prochiye'%}
             <section class="topics-detail-section section-padding" id="topics-detail">
                 <div class="row p-2">
@@ -736,79 +777,68 @@
             </form>
             </section>
             {%endif%}
-            
-            <section class="explore-section " id="section_2">
-                <div class="container">
-
-                        <div class="col-12 text-center">
-                            <h3 class="mb-4">Чат </h3>
-                        </div>
-
-                   
-                </div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-
-                                    <div class="col-md-12 p-2" style="background-color: #fafbfc;{%if status == 1 %}display:none;{%endif%}">
-                                        {%for order_detail in order_details %}
-                                            {%if request.user == order_detail.owner %}
-                                                {%if status != 1 %}
-                                                {%if order_detail.message != '' or order_detail.file %}
-                                                <div class="bg-white">
-                                                    <div class="d-flex justify-content-start col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
-                                                    {%if order_detail.message != '' %}
-                                                        <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
-                                                            <p>{{order_detail.message}}</p>
-                                                        </div>
-                                                    {%endif%}
-
-                                                    {%if order_detail.file %}
-                                                    <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
-                                                        <p ><a class="link-opacity-100" href="{{order_detail.file.url}}"><i class="bi bi-file-earmark-arrow-down"></i> File link</a></p>
-                                                    </div>
-                                                    {%endif%}
-                                                </div>
-                                                    <hr>
-                                                {%endif%}
-                                                {%endif%}
-                                            {%else%}
-                                                    {%if status != 1 %}
-                                                    {%if order_detail.message != '' or order_detail.file %}
-                                                    <div class="bg-white">
-                                                        <div class="d-flex justify-content-end col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
-                                                        {%if order_detail.message != '' %}
-                                                            <div class="d-flex justify-content-end col-md-12 pl-5" style="color:rgba(0,0,0,.6);">
-                                                                <p style="padding-left: 40%;">{{order_detail.message}}</p>
-                                                            </div>
-                                                        {%endif%}
-
-                                                        {%if order_detail.file %}
-                                                        <div class="d-flex justify-content-end col-md-12" style="color:rgba(0,0,0,.6);">
-                                                            <p ><a class="link-opacity-100" href="{{order_detail.file.url}}"><i class="bi bi-file-earmark-arrow-down"></i> File link</a></p>
-                                                        </div>
-                                                        {%endif%}
-                                                    </div>
-                                                        <hr>
-                                                    {%endif%}
-                                                    {%endif%}
-
-                                            {%endif%}
-
-                                                
-
-                                        {% endfor %}
-                                    </div>
-
-                                    
-                                </div>
-                            </div>
-                        </div>
+            {%if order_type == 'acs_import'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <div class="row p-2">
+                    <div class="col">
+                     
                     </div>
+                    <div class="col-10">
+                    </div>
+                    <div class="col">
+                      <button onclick="downloadTableAsExcel()" class="btn btn-primary btn-sm">Download as Excel</button>
+                    </div>
+                  </div>
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группа товар</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Категория</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Названия материала</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цвет</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">БЕИ</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">АЕИ</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Коэффициент пересчета</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">SAP CODE</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Дата добавление цены</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена с ндс</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена без ндс</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Ед.изм цены</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Online savdo ID</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цвет продукта</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группа закупок</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группа</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Тип</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Сегмент</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Базовый единица</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Альтер единица</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Стмость баз едн</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Альтер. стоимость единицы</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Статус</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Завод</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Тип клиента</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Комментария</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
                 </div>
+               
+               
+            </form>
             </section>
+            {%endif%}
+            
         </main>
         <div style="display: none;">
                 {{ data|json_script:"items-data" }}
@@ -841,8 +871,9 @@
             'acs_export':[ 'sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','koefitsiyent','alternativ_edin','gruppa_materialov','comment'],
             'akp_savdo':[ 'brend','mikron','storonnost','kod_sveta','naz_sveta','tip_paneli','dlina','shirina','gruppa_materialov','kratkiy_tekst','sap_code','krat','comment','pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','status_online','zavod_name','diller','tip_clenta'],
             'radiator':['model','base_artikul','kol_section','svet','brend','kratkiy_tekst','comment','pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_sena','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod_name','tip_clenta'],
-            'prochiye':['pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_sena','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment']
-    
+            'radiator_export':['model','base_artikul','kol_section','svet','brend','kratkiy_tekst','comment'],
+            'prochiye':['pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_sena','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment'],
+            'acs_import':['artikul','group_tovarov','categoriya','nazvaniye_materiala','svet','bei','aei','koefitsiyent','sap_code','pickupdate','sena_c_nds','sena_bez_nds','edizm ','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment',]
             }
 
         for (var key in jsonData) 

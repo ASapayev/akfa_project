@@ -44,47 +44,17 @@
                     <table class="table table-sm" id="my-table">
                         <thead style="line-height: 1;">
                           <tr>
-                            <th scope="col"  class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
+                            <th  style="font-size: 12px;" >Действие</th>
                            
-                            <th scope="col" class="sticky-th text-center" style="font-size: 12px; left:139.6px;">Артикул</th>
+                            <th  style="font-size: 12px;" >Модель</th>
                             
-                            <th scope="col" class="text-center" style="font-size: 12px;">Тип покрытия</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Код цвета основы/Замес</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Длина (мм)</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Цвет лам пленки снаружи</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Код лам пленки снаружи</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Цвет лам пленки внутри</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Код лам пленки внутри</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Код цвет резины</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Цвет резины</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Код наклейки</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Надпись наклейки</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Группа материалов</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Краткий текст товара</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >SAP Код вручную (вставляется вручную)</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;" >Краткий текст товара (вставляется вручную)</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Место для комментариев</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Дата добавление цены</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Цена с НДС</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Цена без НДС</th>
+                            <th  style="font-size: 12px;" >Артикул</th>
+                            <th  style="font-size: 12px;" >Количество секций</th>
+                            <th  style="font-size: 12px;" >Цвет</th>
+                            <th  style="font-size: 12px;" >Бренд</th>
+                            <th  style="font-size: 12px;" >Краткий текст</th>
+                            <th  style="font-size: 12px;" >Комментарий</th>
                             
-                            <th scope="col" class="text-center" style="font-size: 12px;">Online savdo ID</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Название</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Цвет продукта</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Группа закупок</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Группа</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Тип</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Сегмент</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Бухгал товары</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Бухгалтерский учет</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Базовый единица</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Альтер единица</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Стмость баз едн</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Альтер. стоимость единицы</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Статус</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Завод</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Акфа дилерда очиш керак</th>
-                            <th scope="col" class="text-center" style="font-size: 12px;">Тип клиента</th>
                         </tr>
                         </thead>
                         <tbody id="table-artikul">
@@ -137,7 +107,6 @@
                         <th scope="col">#</th>
                         <th scope="col">Артикул</th>
                         <th scope="col">Краткий текст</th>
-                        <th scope="col">Название</th>
                     </tr>
                     </thead>
                     <tbody id="modal_body">
@@ -168,7 +137,7 @@
 <script>
 
 
-    function updateMaxHeight() {
+function updateMaxHeight() {
       var windowHeight = $(window).height();
       var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
 
@@ -187,30 +156,6 @@
 
 
 
-    var nakleyka_list ='{{nakleyka_list|safe}}'
-    
-    
-    
-    function set_nakleyka(element_list,selector,val=''){
-            
-            var jsonData = JSON.parse(element_list)
-            
-            var select = $(selector);
-            
-            $.each(jsonData, function(index, item) {
-                var option = $('<option>', {
-                    value: item[0],
-                    text: item[0],
-                    'data-nadpis': item[1] 
-                });
-                select.append(option);
-            });
-            
-            $(selector).chosen({max_selected_options: 50,no_results_text: "Наклейка не найден"});
-            $(selector).val(val);
-            $(selector).trigger('chosen:updated');
-        }
-    
     
     function show_zagruska_btn(){
         var zagruzka_file =$('#zagruzka_file')
@@ -259,7 +204,6 @@
                         <th scope="row">${i}</th>
                         <td>${data_base[key]['base_artikul']}</td>
                         <td>${data_base[key]['kratkiy_tekst']}</td>
-                        <td>${data_base[key]['nazvaniye_ruchnoy']}</td>
                     </tr>
                 `
                 i +=1
@@ -289,7 +233,7 @@
 }
 
 
-    function send_data(){
+function send_data(){
             var submit_btn = document.getElementById('save_btn')
             var upload_btn = document.getElementById('upload_btn')
             upload_btn.style.display ='block';
@@ -301,8 +245,8 @@
             var csrfToken = getCSRFToken();
             var postData = {
                 'data': json_data,
-                'order_type':'pvc_savdo',
-                'name':'PVC SAVDO',
+                'order_type':'radiator_export',
+                'name':'RADIATOR EXPORT',
                 'order_name':theme
             }
             $.ajax({
@@ -327,10 +271,9 @@
             });
 
         }
-    
     function close_modal(){
         $('#myModal').modal('hide')
     }
 </script>
-<script src="{% static 'js/pvc_savdo.js'%}"></script>
+<script src="{% static 'js/radiator_export.js'%}"></script>
 {%endblock%}

@@ -47,7 +47,7 @@
                         <thead style="line-height: 1;">
                           <tr>
                             <th scope="col" class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
-                            <th scope="col" style="font-size: 12px;">Артикул</th>
+                            <th scope="col" class="sticky-th  text-center" style="font-size: 12px; left: 139.6px !important;;">Артикул</th>
                             <th scope="col" style="font-size: 12px;">Группа товар</th>
                             <th scope="col" style="font-size: 12px;">Категория</th>
                             <th scope="col" style="font-size: 12px;">Названия материала</th>
@@ -126,7 +126,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Дата добавления цены</th>
+                                <th scope="col">Артикул</th>
                                 <th scope="col">Online savdo ID</th>
                                 <th scope="col">Название</th>
                             </tr>
@@ -179,7 +179,7 @@
     });
 
 
-    function set_val_category(element_list,selector,val=''){
+    function set_val_category(element_list=category_list,selector,val=''){
             
             var jsonData = JSON.parse(element_list)
             
@@ -199,7 +199,7 @@
             $(selector).trigger('chosen:updated');
         }
 
-    function set_val_group(element_list,selector,val=''){
+    function set_val_group(element_list=group_product_list,selector,val=''){
             
             var jsonData = JSON.parse(element_list)
             
@@ -270,7 +270,7 @@
                         text_tr += `
                             <tr>
                                 <th scope="row">${i}</th>
-                                <td>${data_base[key]['pickupdate']}</td>
+                                <td>${data_base[key]['artikul']}</td>
                                 <td>${data_base[key]['online_id']}</td>
                                 <td>${data_base[key]['nazvaniye_ruchnoy']}</td>
                             </tr>
@@ -314,8 +314,8 @@
         var csrfToken = getCSRFToken();
         var postData = {
             'data': json_data,
-            'order_type':'IMPORT',
-            'name':'IMPORT',
+            'order_type':'acs_import',
+            'name':'ACCESSUAR IMPORT',
             'order_name':theme
         }
         $.ajax({

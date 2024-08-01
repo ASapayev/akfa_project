@@ -255,7 +255,7 @@ function front_piece(start=1,end=6){
         text +=`
         <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>
                                     
-         <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
+         <td  >
                     <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><i class="bi bi-x-circle"></i></button>
                             <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
@@ -264,12 +264,12 @@ function front_piece(start=1,end=6){
                     
 
         </td>
-        <td class="sticky-col" style=' left: 73.5px;background-color:white!important;width:100px!important'>
+        <td >
             <div class="input-group input-group-sm mb-1" style='width:100%'>
                 <span class ='text-center nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important"></span>
             </div>
         </td>
-        <td class="sticky-col"  style=' left: 183.2px; background-color:white!important' >
+        <td >
             <div class="input-group input-group-sm mb-1">
                 <select class=" form-control" style="background-color:#ddebf7; width: 140px; font-size:10px;padding-right:150px!important;" id="artikul`+String(i)+`" ></select>
                 <span style='display:none' id ='nakleyka_codd` +String(i)+`'></span>

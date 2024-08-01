@@ -1352,6 +1352,11 @@ def shablon_radiator_detail(request):
 
 @login_required(login_url='/accounts/login/')
 @customer_only
+def shablon_radiator_export_detail(request):
+    return render(request,'client/shablonlar/radiator_export.html')
+
+@login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_prochiye_detail(request):
     return render(request,'client/shablonlar/prochiye.html')
 

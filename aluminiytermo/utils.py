@@ -4665,7 +4665,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                         ladgr.append(umumiy_without_duplicate[50][j])
                 else:
                     ladgr.append('0001')
-
+            elif '-Z' in sap_code:
+                ladgr.append('11S1')
             else:
                 ladgr.append('0001')
             j += 1
@@ -4717,7 +4718,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['Z'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['Z'][i]['zavod_sap'])
-                new_ll[3].append('')
+                new_ll[3].append('S1')
         if sap_code_simvol =='P':
             for i in range(0,len(LGORT_1101['P'])):
                 new_ll[0].append(row['SAP код S4P 100'])
@@ -6718,7 +6719,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         d4['MATNR']=new_ll[0]
         d4['WERKS']=new_ll[1]
         d4['LGORT']=new_ll[2]
-        d4['RAUBE']=['' for x in new_ll[2]]
+        d4['RAUBE']=['' for x in new_ll[0]]
         df4= pd.DataFrame(d4)
         np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################

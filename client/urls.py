@@ -24,6 +24,7 @@ urlpatterns = [
 
     #######RADIATOR##############
     path('shablon-radiator-detail',views.shablon_radiator_detail,name='shablon_radiator_detail'),
+    path('shablon-radiator-export-detail',views.shablon_radiator_export_detail,name='shablon_radiator_export_detail'),
 
     ####### Prochiye #########
     path('shablon-prochiye-detail',views.shablon_prochiye_detail,name='shablon_prochie_detail'),
