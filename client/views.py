@@ -4,6 +4,7 @@ from aluminiy.models import AluProfilesData,AluFile,AluminiyProduct,LengthOfProf
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile,PVCProduct
 from radiator.models import RadiatorFile,OrderRadiator as BaseOrderRadiator
 from .models import Anod,Order,OrderDetail
+from accessuar_import.models import Category,GroupProduct
 from radiator.models import ArtikulRadiator
 from django.contrib.auth.decorators import login_required
 import time
@@ -1353,6 +1354,18 @@ def shablon_radiator_detail(request):
 @customer_only
 def shablon_prochiye_detail(request):
     return render(request,'client/shablonlar/prochiye.html')
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def shablon_accessuar_import_detail(request):
+    category = Category.objects.all().values_list('name','code')
+    group_product = GroupProduct.objects.all().values_list('name','code')
+
+    context ={
+        'category':json.dumps(list(category)),
+        'group_product':json.dumps(list(group_product))
+    }
+    return render(request,'client/shablonlar/accessuar_import.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only

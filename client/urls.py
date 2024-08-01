@@ -29,6 +29,10 @@ urlpatterns = [
     path('shablon-prochiye-detail',views.shablon_prochiye_detail,name='shablon_prochie_detail'),
 
 
+    ####### Accessuar Import #########
+    path('shablon-accessuar-import-detail',views.shablon_accessuar_import_detail,name='shablon_accessuar_import_detail'),
+
+
 
 
 

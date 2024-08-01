@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'client',
     'normabenkam',
     'accessuar',
+    'accessuar_import',
     'radiator',
     'apis',
     'rest_framework',

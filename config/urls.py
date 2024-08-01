@@ -19,6 +19,7 @@ urlpatterns = [
     path('online-savdo/',include('onlinesavdo.urls')),
     path('client/',include('client.urls')),
     path('accessuar/',include('accessuar.urls')),
+    path('accessuar-import/',include('accessuar_import.urls')),
     path('radiator/',include('radiator.urls')),
     path('api/v1/',include('apis.urls')),
     

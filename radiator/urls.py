@@ -20,7 +20,6 @@ urlpatterns = [
 
     ######## texcarta #######
     path('generate-radiator/<int:id>',views.lenght_generate_texcarta,name='lenght_generate_texcarta_radiator'),
-    
     path('vifile-upload-radiator',views.file_vi_upload_org,name='vi_file_upload_radiator'),
     path('vi-file-list',views.vi_file,name='vi_file_list_radiator'),
     path('vi-generate/<int:id>',views.vi_generate,name='vi_generate_radiator'),

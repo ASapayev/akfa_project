@@ -1848,7 +1848,8 @@ def product_add_second_org(request,id):
                                           export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                                     else:       
                                           export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                                    # print(export_description)
+                                    print(artikle,'<<<artikul')
+                                    print(export_description)
                                     # print(df_new['SAP код 7'][key],key)
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     

@@ -23,7 +23,7 @@ def vi_file(request):
     context ={
         'files':files,
         'section':'Формирование ВИ файла',
-        'link':'/radiator/vi-generate-mo/',
+        'link':'/radiator/vi-generate/',
         'type':'ВИ'
         }
     return render(request,'universal/file_list.html',context)
@@ -1482,7 +1482,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] ='Упаковка'
                         df_new['BMSCH'][counter_2] = '1000'
-                        df_new['MEINH'][counter_2] ='ШТ'
+                        df_new['MEINH'][counter_2] ='ST'
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] ='200043'
