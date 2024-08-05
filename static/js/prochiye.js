@@ -2,26 +2,26 @@ class BasePokritiya{
     constructor(
         full=false,//done
         id=NaN, //done
-        pickupdate=NaN,//done
-        sena_c_nds=NaN,//done
-        sena_bez_nds=NaN,//done
-        online_id=NaN,//done
-        nazvaniye_ruchnoy=NaN,//done
-        svet_product=NaN,//done
-        group_zakup=NaN,//done
-        group=NaN,//done
-        tip=NaN,//done
-        segment=NaN,//done
-        buxgalter_tovar=NaN,//done
-        buxgalter_sena=NaN,//done
-        buxgalter_uchot=NaN,//done
-        bazoviy_edin=NaN,//done
-        alter_edin=NaN,//done
-        stoimost_baza=NaN,//done
-        stoimost_alter=NaN,//done
-        status_online=NaN,//done
-        zavod=NaN,//done
-        tip_clenta=NaN,//done
+        pickupdate=NaN,
+        sena_c_nds=NaN,
+        sena_bez_nds=NaN,
+        online_id=NaN,
+        nazvaniye_ruchnoy=NaN,
+        svet_product=NaN,
+        group_zakup=NaN,
+        group=NaN,
+        tip=NaN,
+        segment=NaN,
+        buxgalter_tovar=NaN,
+        buxgalter_sena=NaN,
+        buxgalter_uchot=NaN,
+        bazoviy_edin=NaN,
+        alter_edin=NaN,
+        stoimost_baza=NaN,
+        stoimost_alter=NaN,
+        status_online=NaN,
+        zavod=NaN,
+        tip_clenta=NaN,
         comment=NaN,
         is_active=false,
         ) {
@@ -156,27 +156,25 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;z-index:0" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
-            <option value="Granit">Granit</option>
             <option value="Radiator SAP (IMPORT)">Radiator SAP (IMPORT)</option>
             <option value="Rezina Tpv">Rezina Tpv</option>
-            <option value="Aksessuar Import (SAP)">Aksessuar Import (SAP)</option>
+            
             <option value="Kraska">Kraska</option>
             <option value="Gazoblok">Gazoblok</option>
             <option value="Butilchita">Butilchita</option>
             <option value="Aksessuar Import">Aksessuar Import</option>
             <option value="Aksessuar Rezina">Aksessuar Rezina</option>
-            <option value="Aksessuar UZ">Aksessuar UZ</option>
+            
             <option value="Tiokol">Tiokol</option>
             <option value="Metal">Metal</option>
-            <option value="Alucobond">Alucobond</option>
-            <option value="Radiator">Radiator</option>
+            
             <option value="Kabina">Kabina</option>
             <option value="Granula">Granula</option>
             <option value="Radiator (IMPORT)">Radiator (IMPORT)</option>
             <option value="Kotel (AIRFEL)">Kotel (AIRFEL)</option>
             <option value="Kotel (AKFA)">Kotel (AKFA)</option>
             <option value="VITYAJNOYE USTROYSTVA">VITYAJNOYE USTROYSTVA</option>
-            <option value="Setka">Setka</option>
+           
             </select>
             </div>
         </td>
@@ -300,21 +298,12 @@ function front_piece(start=1,end=6){
                 <option value="ZAVOD BUTIL">ZAVOD BUTIL</option>
                 <option value="IMPORT">IMPORT</option>
                 <option value="ZAVOD REZINA">ZAVOD REZINA</option>
-                <option value="ZAVOD AKS UZ">ZAVOD AKS UZ</option>
                 <option value="ZAVOD TIOKOL">ZAVOD TIOKOL</option>
                 <option value="ZAVOD METAL">ZAVOD METAL</option>
-                <option value="ZAVOD ALUCOBOND">ZAVOD ALUCOBOND</option>
-                <option value="ZAVOD RADIATOR">ZAVOD RADIATOR</option>
-                <option value="Akfa Savdo">Akfa Savdo</option>
                 <option value="ZAVOD GRANULA">ZAVOD GRANULA</option>
-                <option value="ZAVOD GRANIT">ZAVOD GRANIT</option>
-                <option value="РЦ Зенит">РЦ Зенит</option>
-                <option value="РЦ Наманган">РЦ Наманган</option>
-                <option value="РЦ Бухара">РЦ Бухара</option>
-                <option value="РЦ Самарканд">РЦ Самарканд</option>
-                <option value="РЦ Хорезм">РЦ Хорезм</option>
                 <option value="ZAVOD REZINA TPV">ZAVOD REZINA TPV</option>
                 <option value="ZAVOD KRASKA">ZAVOD KRASKA</option>
+                <option value="ZAVOD TAPOICH AKS UZ">ZAVOD TAPOICH AKS UZ</option>
             </select>
             </div>
         </td>
@@ -322,11 +311,8 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-                <option  selected></option>
-                <option value="AKFA">AKFA</option>
-                <option value="IMZO">IMZO</option>
-                <option value="Q-Q">Q-Q</option>
-                <option value="FRANCHISING">FRANCHISING</option>
+                <option  ></option>
+                <option selected value="AKFA">AKFA</option>
             </select>
             </div>
         </td>

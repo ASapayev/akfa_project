@@ -21,7 +21,6 @@ class BasePokritiya{
         tip = NaN,
         segment = NaN,
         buxgalter_tovar = NaN,
-        buxgalter_sena = NaN,
         buxgalter_uchot = NaN,
         bazoviy_edin = NaN,
         alter_edin = NaN,
@@ -54,7 +53,6 @@ class BasePokritiya{
             this.tip = tip;//done
             this.segment = segment;
             this.buxgalter_tovar = buxgalter_tovar;
-            this.buxgalter_sena = buxgalter_sena;
             this.buxgalter_uchot = buxgalter_uchot;
             this.bazoviy_edin = bazoviy_edin;//done
             this.alter_edin = alter_edin;
@@ -189,10 +187,11 @@ function front_piece(start=1,end=6){
                 <option value="LIDER">LIDER</option>
                 <option value="AKFA">AKFA</option>
                 <option value="MILANO">MILANO</option>
-                <option value="Perfetto">Perfetto</option>
-                <option value="Florence">Florence</option>
-                <option value="Piuma">Piuma</option>
+                <option value="AVANGARD-FAF">AVANGARD-FAF</option>
+                <option value="AKFA-FLORENCE">AKFA-FLORENCE</option>
+                <option value="AKFA-PERFETTO">AKFA-PERFETTO</option>
                 <option value="LIDER-PERFETTO">LIDER-PERFETTO</option>
+                <option value="PIUMA">PIUMA</option>
 
                 
             </select>
@@ -238,58 +237,35 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  value='' selected></option>
-            <option   value="LAM">LAM</option>
-            <option   value="Anod">Anod</option>
             <option   value="COLOUR">COLOUR</option>
-            <option   value="VAKUM &amp; 3D">VAKUM &amp; 3D</option>
             <option   value="WHITE">WHITE</option>
-            <option   value="Без цвета">Без цвета</option>
         </select>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;height:27px!important;z-index:0" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value="Butilchita">Butilchita</option>
-            <option value="Aksessuar Rezina">Aksessuar Rezina</option>
-            <option value="Aksessuar UZ">Aksessuar UZ</option>
-            <option value="Tiokol">Tiokol</option>
-            <option value="Metal">Metal</option>
-            <option value="Alucobond">Alucobond</option>
-            <option value="Radiator">Radiator</option>
-            <option value="Kabina">Kabina</option>
-            <option value="Granula">Granula</option>
-            <option value="Radiator (IMPORT)">Radiator (IMPORT)</option>
-            <option value="Kotel (AIRFEL)">Kotel (AIRFEL)</option>
-            <option value="Kotel (AKFA)">Kotel (AKFA)</option>
-            <option value="VITYAJNOYE USTROYSTVA">VITYAJNOYE USTROYSTVA</option>
-            <option value="Setka">Setka</option>
-            <option value="Granit">Granit</option>
-            <option value="Radiator SAP (IMPORT)">Radiator SAP (IMPORT)</option>
-            <option value="Radiator (Panel) Lider Line (UZ)">Radiator (Panel) Lider Line (UZ)</option>
-            <option value="Rezina Tpv">Rezina Tpv</option>
-            <option value="Aksessuar UZ Tapoich">Aksessuar UZ Tapoich</option>
-            <option value="Aksessuar Import (SAP) keremas">Aksessuar Import (SAP) keremas</option>
-            <option value="Radiator (Panel) AKFA (UZ)">Radiator (Panel) AKFA (UZ)</option>
-            <option value="Kraska">Kraska</option>
-            <option value="Gazoblok">Gazoblok</option>
-            <option value="Paket">Paket</option>
-            <option value="Radiator (Panel) ROYAL (UZ)">Radiator (Panel) ROYAL (UZ)</option>
-
-
+            <option  ></option>
+            <option selected value="Radiator">Radiator</option>
+            
             </select>
             </div>
         </td>
         <td >
-            <div class="input-group input-group-sm mb-1"  >
-            <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
-                <option  selected></option>
-                <option value="5200 QVT PVC (NAVOIY)">5200 QVT PVC (NAVOIY)</option>
-                <option value="5200 QVT PVC RETPEN (NAVOIY)">5200 QVT PVC RETPEN (NAVOIY)</option>
-                
+            
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;height:27px!important;z-index:0" id='group`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <option  selected></option>
+            
+            <option value="RADIATOR GROUP">RADIATOR GROUP</option>
+            <option value="RADIATOR STANDART">RADIATOR STANDART</option>
+            <option value="RADIATOR BIMETAL">RADIATOR BIMETAL</option>
+            <option value="RADIATOR CLASSIC">RADIATOR CLASSIC</option>
+            <option value="RADIATOR MONZA">RADIATOR MONZA</option>
+            <option value="RADIATOR (UZ-ECOS)">RADIATOR (UZ-ECOS)</option>
             </select>
             </div>
+            
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
@@ -300,44 +276,17 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;height:27px!important;z-index:0" id='segment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
-                <option  selected></option>
-                <option value="Aldoks">Aldoks</option>
-                <option value="Стандарт">Стандарт</option>
-                <option value="Премиум">Премиум</option>
-                <option value="Аксессуар">Аксессуар</option>
-                <option value="Falcon">Falcon</option>
-                <option value="Аксессуар 2">Аксессуар 2</option>
-                <option value="Podokonnik EKO">Podokonnik EKO</option>
-                
-            </select>
+            <input type='text' class=" form-control " style=" width: 75px; font-size:10px; display:none; height:27px!important;z-index:0;" id='segment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
+            
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;height:27px!important;z-index:0" id='buxgalter_tovar`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
-                <option  selected></option>
-                <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
-                <option value='Otvetka 153 (oq)'>Otvetka 153 (oq)</option>
-                <option value='Ламбри из ПВХ'>Ламбри из ПВХ</option>
-                <option value='Soedinitel OP.40.J05 L=10mm'>Soedinitel OP.40.J05 L=10mm</option>
-            </select>
+            <input type='text' class=" form-control " style=" width: 75px; font-size:10px; display:none; height:27px!important;z-index:0;" id='buxgalter_tovar`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
+            
         </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='buxgalter_sena`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-                <option  selected></option>
-                <option  value="Штука">Штука</div>
-                <option  value="Килограмм">Килограмм</div>
-                <option  value="Квадратный метр">Квадратный метр</div>
-                <option  value="Метр">Метр</div>
-                <option  value="КМП">КМП</div>
-                <option  value="Пачка">Пачка</div>
-                <option  value="Секция">Секция</div>
-            </select>
-            </div>
-        </td>
+        
         <td >
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
@@ -401,18 +350,15 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;z-index:0" id='zavod_name`+String(i)+`'>ZAVOD PVS NAVOIY</span>
+            <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;z-index:0" id='zavod_name`+String(i)+`'>ZAVOD RADIATOR</span>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-                <option  selected></option>
-                <option value="AKFA">AKFA</option>
-                <option value="IMZO">IMZO</option>
-                <option value="FRANCHISING">FRANCHISING</option>
-                <option value="AKFA-IMZO-FRANCHISING">AKFA-IMZO-FRANCHISING</option>
-                <option value="IMZO-FRANCHISING">IMZO-FRANCHISING</option>
+                <option  ></option>
+                <option selected  value="AKFA">AKFA</option>
+                
             </select>
             </div>
         </td>

@@ -132,11 +132,7 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
-            <option   value="LAM">LAM</option>
-            <option   value="Anod">Anod</option>
             <option   value="COLOUR">COLOUR</option>
-            <option   value="VAKUM &amp; 3D">VAKUM &amp; 3D</option>
-            <option   value="WHITE">WHITE</option>
             <option   value="Без цвета">Без цвета</option>
         </select>
             </div>
@@ -173,8 +169,9 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1"  >
             <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
                 <option  selected></option>
-                <option value="5200 QVT PVC (NAVOIY)">5200 QVT PVC (NAVOIY)</option>
-                <option value="5200 QVT PVC RETPEN (NAVOIY)">5200 QVT PVC RETPEN (NAVOIY)</option>
+                <option value="Alu. AKSESSUAR (UZ)">Alu. AKSESSUAR (UZ)</option>
+                <option value="Pvc. AKSESSUAR (UZ)">Pvc. AKSESSUAR (UZ)</option>
+                
             </select>
             </div>
         </td>
@@ -191,18 +188,11 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;z-index:0" id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
-                <option value="Aldoks">Aldoks</option>
-                <option value="Стандарт">Стандарт</option>
-                <option value="Премиум">Премиум</option>
+                
                 <option value="Аксессуар">Аксессуар</option>
                 <option value="Аксессуар 2">Аксессуар 2</option>
                 <option value="Аксессуар 3">Аксессуар 3</option>
-                <option value="Falcon">Falcon</option>
-                <option value="Эконом">Эконом</option>
-                <option value="Mebel">Mebel</option>
-                <option value="LAMBRI">LAMBRI</option>
-                <option value="RETPEN 10%">RETPEN 10%</option>
-                <option value="RETPEN 15%">RETPEN 15%</option>
+                
             </select>
             </div>
         </td>
@@ -281,24 +271,8 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0" id='zavod_name`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
-                <option value="ZAVOD BUTIL">ZAVOD BUTIL</option>
-                <option value="IMPORT">IMPORT</option>
-                <option value="ZAVOD REZINA">ZAVOD REZINA</option>
                 <option value="ZAVOD AKS UZ">ZAVOD AKS UZ</option>
-                <option value="ZAVOD TIOKOL">ZAVOD TIOKOL</option>
-                <option value="ZAVOD METAL">ZAVOD METAL</option>
-                <option value="ZAVOD ALUCOBOND">ZAVOD ALUCOBOND</option>
-                <option value="ZAVOD RADIATOR">ZAVOD RADIATOR</option>
-                <option value="Akfa Savdo">Akfa Savdo</option>
-                <option value="ZAVOD GRANULA">ZAVOD GRANULA</option>
-                <option value="ZAVOD GRANIT">ZAVOD GRANIT</option>
-                <option value="РЦ Зенит">РЦ Зенит</option>
-                <option value="РЦ Наманган">РЦ Наманган</option>
-                <option value="РЦ Бухара">РЦ Бухара</option>
-                <option value="РЦ Самарканд">РЦ Самарканд</option>
-                <option value="РЦ Хорезм">РЦ Хорезм</option>
-                <option value="ZAVOD REZINA TPV">ZAVOD REZINA TPV</option>
-                <option value="ZAVOD KRASKA">ZAVOD KRASKA</option>
+                
             </select>
             </div>
         </td>
@@ -306,11 +280,8 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-                <option  selected></option>
-                <option value="AKFA">AKFA</option>
-                <option value="IMZO">IMZO</option>
-                <option value="Q-Q">Q-Q</option>
-                <option value="FRANCHISING">FRANCHISING</option>
+                <option  ></option>
+                <option selected value="AKFA">AKFA</option>
             </select>
             </div>
         </td>

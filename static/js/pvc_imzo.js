@@ -222,7 +222,7 @@ function front_piece(start=1,end=6){
                 <option value="1005">Мет серый кварц</option>
                 <option value="1006">Мет серый антрацит</option>
                 <option value="1012">Алюкс антрацит</option>
-                <option value="1015">АЛЮКС БЕЛЫЙ АЛЮМИН</option>
+                <option value="1015">Алюкс алюмин</option>
                 <option value="1016">Алюкс серый алюмин</option>
                 <option value="2007">Красный орех</option>
                 <option value="2012">Орех</option>
@@ -234,6 +234,7 @@ function front_piece(start=1,end=6){
                 <option value="3003">Гранитовый шеф дуб</option>
                 <option value="3042">Дерево бальза</option>
                 <option value="3043">Вишня амаретто</option>
+                <option value="3058">Грец орех амаретто</option>
                 <option value="3059">Орех терра</option>
                 <option value="3062">Грецкий орех</option>
                 <option value="3077">Винчестер</option>
@@ -243,6 +244,7 @@ function front_piece(start=1,end=6){
                 <option value="3091">Шеф дуб</option>
                 <option value="3094">Орех Ребраун</option>
                 <option value="4687">Кенсингтон серый</option>
+                <option value="5053">Алтвейс</option>
                 <option value="5057">Бриллиантвейс</option>
                 <option value="6700">Темный дуб</option>
                 <option value="5F00">Шеф дуб серый LG</option>
@@ -257,16 +259,25 @@ function front_piece(start=1,end=6){
                 <option value="S508">Антрацит серый ADO</option>
                 <option value="S541">Дуб мокко ADO</option>
                 <option value="5003">Темный Антрацит</option>
+                <option value="XXXX">XXXX</option>
                 <option value="S513">Красный орех ADO</option>
                 <option value="S540">Золотой дуб S540</option>
-                <option value="5F01">Шеф дуб сер 5F01</option>
                 <option value="1022">Ocean Blue</option>
+                <option value="5F01">Шеф дуб сер 5F01</option>
+                <option value="1027">GOLD BRUSH</option>
                 <option value="ASA1128">ASA1128</option>
-                <option value="6030">МАТОВЫЙ БЕЛЫЙ</option>
-                <option value="6062">МАТОВЫЙ ЧЁРНЫЙ</option>
+                <option value="ASA8028">ASA8028</option>
+                <option value="ASA5003">ASA5003</option>
+                <option value="6030">Матовый белый</option>
+                <option value="6062">Матовый черный</option>
                 <option value="2509">АНТРАЦИТ СЕРЫЙ LG</option>
                 <option value="9252">Винчестер Renolit</option>
-                <option value="XXXX">XXXX</option>
+                <option value="1001">Метбраш Алюмин</option>
+                <option value="5001">Кремвейс</option>
+                <option value="6003">Маттекс антрацит</option>
+                <option value="3007">Тропик дуб</option>
+                <option value="9026">Маттекс темный сер</option>
+                <option value="9036">Терновый орех</option>
             </select>
             </div>
         </td>
@@ -283,58 +294,69 @@ function front_piece(start=1,end=6){
                 <select class="form-select" aria-label="" style="width: 220px;height:27px!important;z-index:0" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
                     <option  value="" selected></option>
                     <option value="0027">Золотой дуб IW</option>
-                    <option value="0300">Дуб мокко IW</option>
-                    <option value="0549">Красный Орех IW</option>
-                    <option value="0550">Орех IW</option>
-                    <option value="1004">Мет платин</option>
-                    <option value="1005">Мет серый кварц</option>
-                    <option value="1006">Мет серый антрацит</option>
-                    <option value="1012">Алюкс антрацит</option>
-                    <option value="1015">АЛЮКС БЕЛЫЙ АЛЮМИН</option>
-                    <option value="1016">Алюкс серый алюмин</option>
-                    <option value="2007">Красный орех</option>
-                    <option value="2012">Орех</option>
-                    <option value="2025">Светлый дуб</option>
-                    <option value="2036">Золотой дуб</option>
-                    <option value="2048">Дуб мокко</option>
-                    <option value="3001">Терновый дуб солод</option>
-                    <option value="3002">Шеф Альпийский дуб</option>
-                    <option value="3003">Гранитовый шеф дуб</option>
-                    <option value="3042">Дерево бальза</option>
-                    <option value="3043">Вишня амаретто</option>
-                    <option value="3059">Орех терра</option>
-                    <option value="3062">Грецкий орех</option>
-                    <option value="3077">Винчестер</option>
-                    <option value="3081">Шеф дуб светлый</option>
-                    <option value="3083">Сантана</option>
-                    <option value="3086">ШЕФ ДУБ СЕРЫЙ</option>
-                    <option value="3091">Шеф дуб</option>
-                    <option value="3094">Орех Ребраун</option>
-                    <option value="4687">Кенсингтон серый</option>
-                    <option value="5057">Бриллиантвейс</option>
-                    <option value="6700">Темный дуб</option>
-                    <option value="5F00">Шеф дуб серый LG</option>
-                    <option value="A508">Антрацит сер ADO п</option>
-                    <option value="EL01">Золотой дуб Элезго</option>
-                    <option value="EL02">Горный Элезго</option>
-                    <option value="KC01">Горный KCC</option>
-                    <option value="S103">Красный орех ADO п</option>
-                    <option value="S141">Дуб мокко ADO п</option>
-                    <option value="S150">Золотой дуб ADO п</option>
-                    <option value="S500">Золотой дуб ADO</option>
-                    <option value="S508">Антрацит серый ADO</option>
-                    <option value="S541">Дуб мокко ADO</option>
-                    <option value="5003">Темный Антрацит</option>
-                    <option value="S513">Красный орех ADO</option>
-                    <option value="S540">Золотой дуб S540</option>
-                    <option value="5F01">Шеф дуб сер 5F01</option>
-                    <option value="1022">Ocean Blue</option>
-                    <option value="ASA1128">ASA1128</option>
-                    <option value="6030">МАТОВЫЙ БЕЛЫЙ</option>
-                    <option value="6062">МАТОВЫЙ ЧЁРНЫЙ</option>
-                    <option value="2509">АНТРАЦИТ СЕРЫЙ LG</option>
-                    <option value="9252">Винчестер Renolit</option>
-                    <option value="XXXX">XXXX</option>
+                <option value="0300">Дуб мокко IW</option>
+                <option value="0549">Красный Орех IW</option>
+                <option value="0550">Орех IW</option>
+                <option value="1004">Мет платин</option>
+                <option value="1005">Мет серый кварц</option>
+                <option value="1006">Мет серый антрацит</option>
+                <option value="1012">Алюкс антрацит</option>
+                <option value="1015">Алюкс алюмин</option>
+                <option value="1016">Алюкс серый алюмин</option>
+                <option value="2007">Красный орех</option>
+                <option value="2012">Орех</option>
+                <option value="2025">Светлый дуб</option>
+                <option value="2036">Золотой дуб</option>
+                <option value="2048">Дуб мокко</option>
+                <option value="3001">Терновый дуб солод</option>
+                <option value="3002">Шеф Альпийский дуб</option>
+                <option value="3003">Гранитовый шеф дуб</option>
+                <option value="3042">Дерево бальза</option>
+                <option value="3043">Вишня амаретто</option>
+                <option value="3058">Грец орех амаретто</option>
+                <option value="3059">Орех терра</option>
+                <option value="3062">Грецкий орех</option>
+                <option value="3077">Винчестер</option>
+                <option value="3081">Шеф дуб светлый</option>
+                <option value="3083">Сантана</option>
+                <option value="3086">ШЕФ ДУБ СЕРЫЙ</option>
+                <option value="3091">Шеф дуб</option>
+                <option value="3094">Орех Ребраун</option>
+                <option value="4687">Кенсингтон серый</option>
+                <option value="5053">Алтвейс</option>
+                <option value="5057">Бриллиантвейс</option>
+                <option value="6700">Темный дуб</option>
+                <option value="5F00">Шеф дуб серый LG</option>
+                <option value="A508">Антрацит сер ADO п</option>
+                <option value="EL01">Золотой дуб Элезго</option>
+                <option value="EL02">Горный Элезго</option>
+                <option value="KC01">Горный KCC</option>
+                <option value="S103">Красный орех ADO п</option>
+                <option value="S141">Дуб мокко ADO п</option>
+                <option value="S150">Золотой дуб ADO п</option>
+                <option value="S500">Золотой дуб ADO</option>
+                <option value="S508">Антрацит серый ADO</option>
+                <option value="S541">Дуб мокко ADO</option>
+                <option value="5003">Темный Антрацит</option>
+                <option value="XXXX">XXXX</option>
+                <option value="S513">Красный орех ADO</option>
+                <option value="S540">Золотой дуб S540</option>
+                <option value="1022">Ocean Blue</option>
+                <option value="5F01">Шеф дуб сер 5F01</option>
+                <option value="1027">GOLD BRUSH</option>
+                <option value="ASA1128">ASA1128</option>
+                <option value="ASA8028">ASA8028</option>
+                <option value="ASA5003">ASA5003</option>
+                <option value="6030">Матовый белый</option>
+                <option value="6062">Матовый черный</option>
+                <option value="2509">АНТРАЦИТ СЕРЫЙ LG</option>
+                <option value="9252">Винчестер Renolit</option>
+                <option value="1001">Метбраш Алюмин</option>
+                <option value="5001">Кремвейс</option>
+                <option value="6003">Маттекс антрацит</option>
+                <option value="3007">Тропик дуб</option>
+                <option value="9026">Маттекс темный сер</option>
+                <option value="9036">Терновый орех</option>
                 </select>
             </div>
         </td>
@@ -358,7 +380,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1"  id='svet_text`+String(i)+`'>
                 
-                    <span class =' text-center ' style="font-size:12px; font-weight: 700; text-transform: uppercase; padding:5px;z-index:0" id='svet_rezin`+String(i)+`'></span>
+                    <span class =' text-center ' style="font-size:12px; font-weight: 700; text-transform: uppercase; padding:5px;z-index:0;white-space: nowrap;" id='svet_rezin`+String(i)+`'></span>
                 
             </div>
         </td>
@@ -392,7 +414,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='kratkiy_tekst`+String(i)+`'></span>
+            <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0;white-space: nowrap;" id='kratkiy_tekst`+String(i)+`'></span>
             </div>
         </td>
 

@@ -2,9 +2,10 @@ from django.shortcuts import render,get_object_or_404,redirect
 from django.http import JsonResponse
 from aluminiy.models import AluProfilesData,AluFile,AluminiyProduct,LengthOfProfile,BrendKraska
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile,PVCProduct
-from radiator.models import RadiatorFile,OrderRadiator as BaseOrderRadiator
+from radiator.models import RadiatorFile,OrderRadiator as BaseOrderRadiator,ProchiyeFile,AkpFile
 from .models import Anod,Order,OrderDetail
 from accessuar_import.models import Category,GroupProduct
+from accessuar.models import OrderACS,OrderAKP,OrderProchiye,AccessuarDownloadFile
 from radiator.models import ArtikulRadiator
 from django.contrib.auth.decorators import login_required
 import time
@@ -298,6 +299,10 @@ def save_ves_of_profile_single(request):
     else:
         return JsonResponse({'status':400,'msg':'something went wrong'})
 
+def create_folder(parent_dir,directory):
+    path =os.path.join(parent_dir,directory)
+    if not os.path.isdir(path):
+        os.mkdir(path)
 
 
 @login_required(login_url='/accounts/login/')
@@ -307,9 +312,19 @@ def moderator_convert(request,id):
     datas = order.data['data']
     name = order.data['name']
     rand_string = id_generator()
-    
-    if 'ALUMINIY' in name:
-        df_simple, df_termo , correct, artikul_list = json_to_excel(datas)
+    create_folder(f'{MEDIA_ROOT}\\uploads','radiator')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\radiator','downloads')
+    create_folder(f'{MEDIA_ROOT}\\uploads','accessuar')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\accessuar','downloads')
+    create_folder(f'{MEDIA_ROOT}\\uploads','akp')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\akp','downloads')
+    create_folder(f'{MEDIA_ROOT}\\uploads','prochiye')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\prochiye','downloads')
+
+    print(name,'<<<'*7)
+
+    if name in ['ALUMINIY SAVDO','ALUMINIY EXPORT','ALUMINIY IMZO'] :
+        df_simple, df_termo , correct, artikul_list = json_to_excel_alumin(datas)
 
         if not correct:
             context ={
@@ -317,7 +332,7 @@ def moderator_convert(request,id):
             }
             return render(request,'client/moderator/artikul_component.html',context)
 
-        path_alu_termo = f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\downloads\\SHABLON_{rand_string}.xlsx'
+        path_alu_termo = f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\downloads\\SHABLON_ALUMINIY_{rand_string}.xlsx'
         path_alu_simple = f'{MEDIA_ROOT}\\uploads\\aluminiy\\downloads\\SHABLON_{rand_string}.xlsx'
         
         is_column_empty_simple = (df_simple['Краткий текст товара'] == "").all()
@@ -382,12 +397,12 @@ def moderator_convert(request,id):
             
             order = BaseOrder(title = name,owner=request.user,current_worker_id= request.user.id,aluminiy_worker_id =request.user.id,paths=paths,order_type =2)
             order.save()
-        return redirect('order')
-    elif 'PVC' in name:
+        return redirect('order')   
+    elif name in ['PVC SAVDO','PVC EXPORT','PVC IMZO']:
         df_pvc = json_to_excel_pvc(datas)
-        path_pvc = f'{MEDIA_ROOT}\\uploads\\pvc\\downloads\\SHABLON_{rand_string}.xlsx'
+        path_pvc = f'{MEDIA_ROOT}\\uploads\\pvc\\downloads\\SHABLON_PVC_{rand_string}.xlsx'
         df_pvc.to_excel(path_pvc, index = False)
-        title = name
+       
         oid = save_file_to_model(path_pvc,PVCFile())
         o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
         paths ={
@@ -408,12 +423,12 @@ def moderator_convert(request,id):
         order = BaseOrderPvc(title = name,owner=request.user,current_worker_id= request.user.id,pvc_worker_id =request.user.id,paths=paths,order_type =2)
         order.save()
         return redirect('order_detail_pvc',id=order.id)
-    elif 'RADIATOR' in name:
+    elif name in ['RADIATOR']:
         df_radiator = json_to_excel_radiator(datas)
-        path_radiator = f'{MEDIA_ROOT}\\uploads\\radiator\\downloads\\SHABLON_{rand_string}.xlsx'
+        path_radiator = f'{MEDIA_ROOT}\\uploads\\radiator\\downloads\\SHABLON_RADIATOR_{rand_string}.xlsx'
         df_radiator.to_excel(path_radiator, index = False)
-        title = name
-        oid = save_file_to_model(path_radiator,RadiatorFile())
+        
+        oid = save_file_to_model(path_radiator,RadiatorFile(file_type='radiator'))
         o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
         paths ={
                     'radiator_file':path_radiator,
@@ -432,8 +447,474 @@ def moderator_convert(request,id):
             
         order = BaseOrderRadiator(title = name,owner=request.user,current_worker_id= request.user.id,radiator_worker_id =request.user.id,paths=paths,order_type =2)
         order.save()
+        return redirect('order_detail_radiator',id=order.id)  
+    elif name in ['RADIATOR EXPORT']:
+        df_radiator = json_to_excel_radiator_export(datas)
+        path_radiator = f'{MEDIA_ROOT}\\uploads\\radiator\\downloads\\SHABLON_RADIATOR_EXPORT_{rand_string}.xlsx'
+        df_radiator.to_excel(path_radiator, index = False)
+      
+        oid = save_file_to_model(path_radiator,RadiatorFile(file_type='radiator_export'))
+        o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
+        paths ={
+                    'radiator_file':path_radiator,
+                    'oid':oid,
+                    'obichniy_date':o_created_at,
+                    'is_obichniy':'yes',
+                    'type':'RADIATOR EXPORT',
+                    'status_l':'on hold',
+                    'status_raz':'on hold',
+                    'status_zip':'on hold',
+                    'status_norma':'on hold',
+                    'status_text_l':'on hold',
+                    'status_norma_lack':'on hold',
+                    'status_texcarta':'on hold',
+                }
+            
+        order = BaseOrderRadiator(title = name,owner=request.user,current_worker_id= request.user.id,radiator_worker_id =request.user.id,paths=paths,order_type =2)
+        order.save()
         return redirect('order_detail_radiator',id=order.id)
+    elif name in ['ACCESSUAR SAVDO','ACCESSUAR IMZO','ACCESSUAR EXPORT','ACCESSUAR IMPORT']:
+        df_accessuar = json_to_excel_accessuar(datas,order_name=name)
+        path_accessuar = f'{MEDIA_ROOT}\\uploads\\accessuar\\downloads\\SHABLON_ACCESSUAR_{rand_string}.xlsx'
+        df_accessuar.to_excel(path_accessuar, index = False)
+      
+        oid = save_file_to_model(path_accessuar,AccessuarDownloadFile())
+        o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
+        paths ={
+                    'accessuar_file':path_accessuar,
+                    'oid':oid,
+                    'obichniy_date':o_created_at,
+                    'is_obichniy':'yes',
+                    'type':'ACCESSUAR',
+                    'status_l':'on hold',
+                    'status_raz':'on hold',
+                    'status_zip':'on hold',
+                    'status_norma':'on hold',
+                    'status_text_l':'on hold',
+                    'status_norma_lack':'on hold',
+                    'status_texcarta':'on hold',
+                }
+            
+        order = OrderACS(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1)
+        order.save()
+        return redirect('order_detail_accessuar',id=order.id)
+    elif name in ['AKP SAVDO']:
+        df_akp = json_to_excel_akp(datas)
+        path_akp = f'{MEDIA_ROOT}\\uploads\\akp\\downloads\\SHABLON_AKP_{rand_string}.xlsx'
+        df_akp.to_excel(path_akp, index = False)
+      
+        oid = save_file_to_model(path_akp,AkpFile(file_type='akp'))
+        o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
+        paths ={
+                    'akp_file':path_akp,
+                    'oid':oid,
+                    'obichniy_date':o_created_at,
+                    'is_obichniy':'yes',
+                    'type':'AKP EXPORT',
+                    'status_l':'on hold',
+                    'status_raz':'on hold',
+                    'status_zip':'on hold',
+                    'status_norma':'on hold',
+                    'status_text_l':'on hold',
+                    'status_norma_lack':'on hold',
+                    'status_texcarta':'on hold',
+                }
+            
+        order = OrderAKP(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1)
+        order.save()
+        return redirect('order_detail_akp',id=order.id)
+    elif name in ['PROCHIYE']:
+        df_prochiye = json_to_excel_prochiye(datas)
+        path_prochiye = f'{MEDIA_ROOT}\\uploads\\prochiye\\downloads\\SHABLON_PROCHIYE_{rand_string}.xlsx'
+        df_prochiye.to_excel(path_prochiye, index = False)
+      
+        oid = save_file_to_model(path_prochiye,ProchiyeFile(file_type='prochiye'))
+        o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
+        paths ={
+                    'prochiye_file':path_prochiye,
+                    'oid':oid,
+                    'obichniy_date':o_created_at,
+                    'is_obichniy':'yes',
+                    'type':'AKP EXPORT',
+                    'status_l':'on hold',
+                    'status_raz':'on hold',
+                    'status_zip':'on hold',
+                    'status_norma':'on hold',
+                    'status_text_l':'on hold',
+                    'status_norma_lack':'on hold',
+                    'status_texcarta':'on hold',
+                }
+            
+        order = OrderProchiye(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1)
+        order.save()
+        return redirect('order_detail_prochiye',id=order.id)
+
+
+def json_to_excel_prochiye(datas):
+    df_prochiye  = pd.DataFrame()
+
+    df_prochiye['counter'] =['' for x in range(0,len(datas))]
+
+    df_prochiye['Дата добавления цены'] = ''
+    df_prochiye['Цена за БЕИ с ндс'] = ''
+    df_prochiye['Цена за БЕИ без ндс'] = ''
+    df_prochiye['Online savdo ID'] = ''
+    df_prochiye['Название'] = ''
+    df_prochiye['Цвет продукта'] = ''
+    df_prochiye['Группа закупок'] = ''
+    df_prochiye['Группа'] = ''
+    df_prochiye['Тип'] = ''
+    df_prochiye['Сегмент'] = ''
+    df_prochiye['Бухгал товары'] = ''
+    df_prochiye['Бухгалтерская цена'] = ''
+    df_prochiye['Бухгалтерский учет'] = ''
+    df_prochiye['Базовый единица'] = ''
+    df_prochiye['Альтер единица'] = ''
+    df_prochiye['Стмость баз едн'] = ''
+    df_prochiye['Альтер. стоимость единицы'] = ''
+    df_prochiye['Статус'] = ''
+    df_prochiye['Завод'] = ''
+    df_prochiye['Тип клиента'] = ''
+    df_prochiye['Комментария'] = ''
     
+    k = 0
+    for key1,data in datas.items():
+        df_prochiye['Дата добавления цены'][k] = data['pickupdate']
+        df_prochiye['Цена за БЕИ с ндс'][k] = data['sena_c_nds']
+        df_prochiye['Цена за БЕИ без ндс'][k] = data['sena_bez_nds']
+        df_prochiye['Online savdo ID'][k] = data['online_id']
+        df_prochiye['Название'][k] = data['nazvaniye_ruchnoy']
+        df_prochiye['Цвет продукта'][k] = data['svet_product']
+        df_prochiye['Группа закупок'][k] = data['group_zakup']
+        df_prochiye['Группа'][k] = data['group']
+        df_prochiye['Тип'][k] = data['tip']
+        df_prochiye['Сегмент'][k] = data['segment']
+        df_prochiye['Бухгал товары'][k] = data['buxgalter_tovar']
+        df_prochiye['Бухгалтерская цена'][k] = data['buxgalter_sena']
+        df_prochiye['Бухгалтерский учет'][k] = data['buxgalter_uchot']
+        df_prochiye['Базовый единица'][k] = data['bazoviy_edin']
+        df_prochiye['Альтер единица'][k] = data['alter_edin']
+        df_prochiye['Стмость баз едн'][k] = data['stoimost_baza']
+        df_prochiye['Альтер. стоимость единицы'][k] = data['stoimost_alter']
+        df_prochiye['Статус'][k] = data['status_online']
+        df_prochiye['Завод'][k] = data['zavod']
+        df_prochiye['Тип клиента'][k] = data['tip_clenta']
+        df_prochiye['Комментария'][k] = data['comment']
+        
+        k+=1
+
+    del df_prochiye['counter']
+    return df_prochiye
+
+
+
+def json_to_excel_akp(datas):
+    df_akp  = pd.DataFrame()
+
+    df_akp['counter'] =['' for x in range(0,len(datas))]
+
+    df_akp['Бренд'] = ''
+    df_akp['Микрон'] = ''
+    df_akp['Сторонность'] = ''
+    df_akp['Код цвета'] = ''
+    df_akp['Название цвета'] = ''
+    df_akp['Тип панели'] = ''
+    df_akp['Длина (мм)'] = ''
+    df_akp['Ширина'] = ''
+    df_akp['Группа материалов'] = ''
+    df_akp['Краткий текст товара'] = ''
+    df_akp['SAP Код вручную (вставляется вручную)'] = ''
+    df_akp['Краткий текст товара (вставляется вручную)'] = ''
+    df_akp['Место для комментариев'] = ''
+    df_akp['Дата добавление цены'] = ''
+    df_akp['Цена с НДС'] = ''
+    df_akp['Цена без НДС'] = ''
+    df_akp['Online savdo ID'] = ''
+    df_akp['Название'] = ''
+    df_akp['Цвет продукта'] = ''
+    df_akp['Группа закупок'] = ''
+    df_akp['Группа'] = ''
+    df_akp['Тип'] = ''
+    df_akp['Сегмент'] = ''
+    df_akp['Бухгал товары'] = ''
+    df_akp['Бухгалтерский учет'] = ''
+    df_akp['Базовый единица'] = ''
+    df_akp['Альтер единица'] = ''
+    df_akp['Статус'] = ''
+    df_akp['Завод'] = ''
+    df_akp['Акфа дилерда очиш керак'] = ''
+    df_akp['Тип клиента'] = ''
+    
+    
+    k = 0
+    for key1,data in datas.items():
+        df_akp['Бренд'][k] = data['brend']
+        df_akp['Микрон'][k] = data['mikron']
+        df_akp['Сторонность'][k] = data['storonnost']
+        df_akp['Код цвета'][k] = data['kod_sveta']
+        df_akp['Название цвета'][k] = data['naz_sveta']
+        df_akp['Тип панели'][k] = data['tip_paneli']
+        df_akp['Длина (мм)'][k] = data['dlina']
+        df_akp['Ширина'][k] = data['shirina']
+        df_akp['Группа материалов'][k] = data['gruppa_materialov']
+        df_akp['Краткий текст товара'][k] = data['kratkiy_tekst']
+        df_akp['SAP Код вручную (вставляется вручную)'][k] = data['sap_code']
+        df_akp['Краткий текст товара (вставляется вручную)'][k] = data['krat']
+        df_akp['Место для комментариев'][k] = data['comment']
+        df_akp['Дата добавление цены'][k] = data['pickupdate']
+        df_akp['Цена с НДС'][k] = data['sena_c_nds']
+        df_akp['Цена без НДС'][k] = data['sena_bez_nds']
+        df_akp['Online savdo ID'][k] = data['online_id']
+        df_akp['Название'][k] = data['nazvaniye_ruchnoy']
+        df_akp['Цвет продукта'][k] = data['svet_product']
+        df_akp['Группа закупок'][k] = data['group_zakup']
+        df_akp['Группа'][k] = data['group']
+        df_akp['Тип'][k] = data['tip']
+        df_akp['Сегмент'][k] = data['segment']
+        df_akp['Бухгал товары'][k] = data['buxgalter_tovar']
+        df_akp['Бухгалтерский учет'][k] = data['buxgalter_uchot']
+        df_akp['Базовый единица'][k] = data['bazoviy_edin']
+        df_akp['Альтер единица'][k] = data['alter_edin']
+        df_akp['Статус'][k] = data['status_online']
+        df_akp['Завод'][k] = data['zavod_name']
+        df_akp['Акфа дилерда очиш керак'][k] = data['diller']
+        df_akp['Тип клиента'][k] = data['tip_clenta']
+        
+        k+=1
+
+    del df_akp['counter']
+    return df_akp
+
+
+
+
+def json_to_excel_accessuar(datas,order_name):
+    df_accessuar  = pd.DataFrame()
+
+    df_accessuar['counter'] =['' for x in range(0,len(datas))]
+
+    if order_name =='ACCESSUAR SAVDO':
+
+        df_accessuar['Дата добавления цены'] = ''
+        df_accessuar['Цена за БЕИ'] = ''
+        df_accessuar['Online savdo ID'] = ''
+        df_accessuar['Название'] = ''
+        df_accessuar['Цвет продукта'] = ''
+        df_accessuar['Группа закупок'] = ''
+        df_accessuar['Группа'] = ''
+        df_accessuar['Тип'] = ''
+        df_accessuar['Сегмент'] = ''
+        df_accessuar['Бухгал товары'] = ''
+        df_accessuar['Бухгалтерский учет'] = ''
+        df_accessuar['Базовый единица'] = ''
+        df_accessuar['Альтер единица'] = ''
+        df_accessuar['Стмость баз едн'] = ''
+        df_accessuar['Альтер. стоимость единицы'] = ''
+        df_accessuar['Статус'] = ''
+        df_accessuar['Завод'] = ''
+        df_accessuar['Тип клиента'] = ''
+    
+    
+        k = 0
+        for key1,data in datas.items():
+            df_accessuar['Дата добавления цены'][k] = data['pickupdate']
+            df_accessuar['Цена за БЕИ'][k] = data['sena_za_bei']
+            df_accessuar['Online savdo ID'][k] = data['online_id']
+            df_accessuar['Название'][k] = data['nazvaniye_ruchnoy']
+            df_accessuar['Цвет продукта'][k] = data['svet_product']
+            df_accessuar['Группа закупок'][k] = data['group_zakup']
+            df_accessuar['Группа'][k] = data['group']
+            df_accessuar['Тип'][k] = data['tip']
+            df_accessuar['Сегмент'][k] = data['segment']
+            df_accessuar['Бухгал товары'][k] = data['buxgalter_tovar']
+            df_accessuar['Бухгалтерский учет'][k] = data['buxgalter_uchot']
+            df_accessuar['Базовый единица'][k] = data['bazoviy_edin']
+            df_accessuar['Альтер единица'][k] = data['alter_edin']
+            df_accessuar['Стмость баз едн'][k] = data['stoimost_baza']
+            df_accessuar['Альтер. стоимость единицы'][k] = data['stoimost_alter']
+            df_accessuar['Статус'][k] = data['status_online']
+            df_accessuar['Завод'][k] = data['zavod']
+            df_accessuar['Тип клиента'][k] = data['tip_clenta']
+    
+            
+            k+=1
+
+   
+    
+    if order_name =='ACCESSUAR IMZO':
+
+        df_accessuar['SAP код'] = ''
+        df_accessuar['Название товаров (40 симвлов)'] = ''
+        df_accessuar['Полное название товара'] = ''
+        df_accessuar['Цена материала (СУМ)'] = ''
+        df_accessuar['Базовая единица измерения'] = ''
+        df_accessuar['GOODS_GROUP'] = ''
+        df_accessuar['TEX_NAME'] = ''
+        df_accessuar['Коеффициент пересчета'] = ''
+        df_accessuar['Альтернативная единица измерения'] = ''
+        df_accessuar['ID KLAES'] = ''
+        df_accessuar['Группма Материалов'] = ''
+        df_accessuar['Комментария'] = ''
+        
+    
+    
+        k = 0
+        for key1,data in datas.items():
+            df_accessuar['SAP код'][k] = data['sapcode']
+            df_accessuar['Название товаров (40 симвлов)'][k] = data['nazvaniye_tovarov']
+            df_accessuar['Полное название товара'][k] = data['polnoye_nazvaniye']
+            df_accessuar['Цена материала (СУМ)'][k] = data['sena_materiala']
+            df_accessuar['Базовая единица измерения'][k] = data['bazoviy_edinitsa']
+            df_accessuar['GOODS_GROUP'][k] = data['goods_group']
+            df_accessuar['TEX_NAME'][k] = data['tex_name']
+            df_accessuar['Коеффициент пересчета'][k] = data['koefitsiyent']
+            df_accessuar['Альтернативная единица измерения'][k] = data['alternativ_edin']
+            df_accessuar['ID KLAES'][k] = data['id_klaes']
+            df_accessuar['Группма Материалов'][k] = data['gruppa_materialov']
+            df_accessuar['Комментария'][k] = data['comment']
+            
+    
+            
+            k+=1
+
+   
+    
+    if order_name =='ACCESSUAR EXPORT':
+
+        df_accessuar['SAP код'] = ''
+        df_accessuar['Название товаров (40 симвлов)'] = ''
+        df_accessuar['Полное название товара'] = ''
+        df_accessuar['Цена материала (СУМ)'] = ''
+        df_accessuar['Базовая единица измерения'] = ''
+        df_accessuar['Коеффициент пересчета'] = ''
+        df_accessuar['Альтернативная единица измерения'] = ''
+        df_accessuar['Группма Материалов'] = ''
+        df_accessuar['Комментария'] = ''
+        
+    
+    
+        k = 0
+        for key1,data in datas.items():
+            df_accessuar['SAP код'][k] = data['sapcode']
+            df_accessuar['Название товаров (40 симвлов)'][k] = data['nazvaniye_tovarov']
+            df_accessuar['Полное название товара'][k] = data['polnoye_nazvaniye']
+            df_accessuar['Цена материала (СУМ)'][k] = data['sena_materiala']
+            df_accessuar['Базовая единица измерения'][k] = data['bazoviy_edinitsa']
+            df_accessuar['Коеффициент пересчета'][k] = data['koefitsiyent']
+            df_accessuar['Альтернативная единица измерения'][k] = data['alternativ_edin']
+            df_accessuar['Группма Материалов'][k] = data['gruppa_materialov']
+            df_accessuar['Комментария'][k] = data['comment']
+            
+    
+            
+            k+=1
+
+   
+    if order_name =='ACCESSUAR IMPORT':
+
+        df_accessuar['Артикул'] = ''
+        df_accessuar['Группа товар'] = ''
+        df_accessuar['Категория'] = ''
+        df_accessuar['Названия материала'] = ''
+        df_accessuar['Цвет'] = ''
+        df_accessuar['БЕИ'] = ''
+        df_accessuar['АЕИ'] = ''
+        df_accessuar['Коэффициент пересчета'] = ''
+        df_accessuar['SAP CODE'] = ''
+        df_accessuar['Дата добавление цены'] = ''
+        df_accessuar['Цена с ндс'] = ''
+        df_accessuar['Цена без ндс'] = ''
+        df_accessuar['Ед.изм цены'] = ''
+        df_accessuar['Online savdo ID'] = ''
+        df_accessuar['Название'] = ''
+        df_accessuar['Цвет продукта'] = ''
+        df_accessuar['Группа закупок'] = ''
+        df_accessuar['Группа'] = ''
+        df_accessuar['Тип'] = ''
+        df_accessuar['Сегмент'] = ''
+        df_accessuar['Базовый единица'] = ''
+        df_accessuar['Альтер единица'] = ''
+        df_accessuar['Стмость баз едн'] = ''
+        df_accessuar['Альтер. стоимость единицы'] = ''
+        df_accessuar['Статус'] = ''
+        df_accessuar['Завод'] = ''
+        df_accessuar['Тип клиента'] = ''
+        df_accessuar['Комментария'] = ''
+        
+        
+    
+    
+        k = 0
+        for key1,data in datas.items():
+            df_accessuar['Артикул'][k] = data['artikul']
+            df_accessuar['Группа товар'][k] = data['group_tovarov']
+            df_accessuar['Категория'][k] = data['categoriya']
+            df_accessuar['Названия материала'][k] = data['nazvaniye_materiala']
+            df_accessuar['Цвет'][k] = data['svet']
+            df_accessuar['БЕИ'][k] = data['bei']
+            df_accessuar['АЕИ'][k] = data['aei']
+            df_accessuar['Коэффициент пересчета'][k] = data['koefitsiyent']
+            df_accessuar['SAP CODE'][k] = data['sap_code']
+            df_accessuar['Дата добавление цены'][k] = data['pickupdate']
+            df_accessuar['Цена с ндс'][k] = data['sena_c_nds']
+            df_accessuar['Цена без ндс'][k] = data['sena_bez_nds']
+            df_accessuar['Ед.изм цены'][k] = data['edizm']
+            df_accessuar['Online savdo ID'][k] = data['online_id']
+            df_accessuar['Название'][k] = data['nazvaniye_ruchnoy']
+            df_accessuar['Цвет продукта'][k] = data['svet_product']
+            df_accessuar['Группа закупок'][k] = data['group_zakup']
+            df_accessuar['Группа'][k] = data['group']
+            df_accessuar['Тип'][k] = data['tip']
+            df_accessuar['Сегмент'][k] = data['segment']
+            df_accessuar['Базовый единица'][k] = data['bazoviy_edin']
+            df_accessuar['Альтер единица'][k] = data['alter_edin']
+            df_accessuar['Стмость баз едн'][k] = data['stoimost_baza']
+            df_accessuar['Альтер. стоимость единицы'][k] = data['stoimost_alter']
+            df_accessuar['Статус'][k] = data['status_online']
+            df_accessuar['Завод'][k] = data['zavod']
+            df_accessuar['Тип клиента'][k] = data['tip_clenta']
+            df_accessuar['Комментария'][k] = data['comment']
+            
+            k+=1
+
+   
+    del df_accessuar['counter']
+   
+    return df_accessuar
+
+def json_to_excel_radiator_export(datas):
+    df_radiator  = pd.DataFrame()
+
+    df_radiator['counter'] =['' for x in range(0,len(datas))]
+
+    df_radiator['Модель'] = ''
+    df_radiator['Артикул'] = ''
+    df_radiator['Количество секций'] = ''
+    df_radiator['Цвет'] = ''
+    df_radiator['Бренд'] = ''
+    df_radiator['Краткий текст'] = ''
+    df_radiator['Комментарий'] = ''
+    
+    
+    k = 0
+    for key1,data in datas.items():
+        df_radiator['Модель'][k] = data['model']
+        df_radiator['Артикул'][k] = data['base_artikul']
+        df_radiator['Количество секций'][k] = data['kol_section']
+        df_radiator['Цвет'][k] = data['svet']
+        df_radiator['Бренд'][k] = data['brend']
+        df_radiator['Краткий текст'][k] = data['kratkiy_tekst']
+        df_radiator['Комментарий'][k] = data['comment']
+        
+        k+=1
+    del df_radiator['counter']
+   
+    return df_radiator
+
+
+
+
+
 
 def json_to_excel_radiator(datas):
     df_radiator  = pd.DataFrame()
@@ -501,7 +982,7 @@ def json_to_excel_radiator(datas):
         df_radiator['Тип клиента'][k] = data['tip_clenta']
         k+=1
 
-   
+    del df_radiator['counter']
     return df_radiator
 
 def json_to_excel_pvc(datas):
@@ -556,15 +1037,13 @@ def json_to_excel_pvc(datas):
             df_pvc['Online savdo ID'][k] = data['online_id']
             df_pvc['Название'][k] = data['nazvaniye_ruchnoy']
         k+=1
-
+        
+    del df_pvc['counter']
    
     return df_pvc
 
 
-
-
-
-def json_to_excel(datas):
+def json_to_excel_alumin(datas):
     df_termo  = pd.DataFrame()
     df_termo['counter'] =['' for x in range(0,len(datas)*4)]
     df_termo['Название системы'] =''
@@ -599,7 +1078,10 @@ def json_to_excel(datas):
     df_termo['Краткий текст товара'] =''
     df_termo['SAP Код вручную (вставится вручную)'] =''
     df_termo['Краткий текст товара (вставится вручную)'] =''
+    df_termo['Место для комментариев'] =''
     df_termo['Длина при выходе из пресса'] =''
+
+    
 
     df_simple  = pd.DataFrame()
     df_simple['counter'] =['' for x in range(0,len(datas))]
@@ -842,7 +1324,6 @@ def json_to_excel(datas):
     del df_simple['counter']
     del df_termo['counter']
     return df_simple,df_termo,correct,artikul_list
-
 
 
 

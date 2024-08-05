@@ -80,6 +80,20 @@ class RadiatorFile(models.Model):
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
 
+class ProchiyeFile(models.Model):
+  file =models.FileField(upload_to='uploads/prochiye/downloads/',max_length=500)
+  generated =models.BooleanField(default=False)
+  file_type =models.CharField(max_length=255,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
+
+class AkpFile(models.Model):
+  file =models.FileField(upload_to='uploads/akp/downloads/',max_length=500)
+  generated =models.BooleanField(default=False)
+  file_type =models.CharField(max_length=255,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
+
 STATUS_CHOICES_RADIATOR =(
      (1,'ON HOLD'),
     (2,'ON PROCESS'),

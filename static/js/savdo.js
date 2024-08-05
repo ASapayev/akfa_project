@@ -116,7 +116,6 @@ class BasePokritiya{
             this.status_name=status_name;//done
     }
     get_kratkiy_tekst(){
-        this.group='NAAAAN'
         switch(this.id){
             case 1:  if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki){
@@ -458,7 +457,7 @@ function front_piece(start=1,end=7){
         </td>
         <td class="sticky-col" style=' left: 139.6px;background-color:white!important;width:100px!important'>
             <div class="input-group input-group-sm mb-1" style='width:100%'>
-                <span class ='text-center nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important"></span>
+                <span class ='text-center nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important;white-space: nowrap;"></span>
             </div>
         </td>
         <td class="sticky-col"  style=' left: 249.3px; background-color:white!important'>
@@ -524,6 +523,7 @@ function front_piece(start=1,end=7){
                 <option value="J">J</option>
                 <option value="P">P</option>
                 <option value="M">M</option>
+                <option value="X">X</option>
             </select>
             </div>
         </td>
@@ -545,6 +545,7 @@ function front_piece(start=1,end=7){
                 <option value="J">J</option>
                 <option value="P">P</option>
                 <option value="M">M</option>
+                <option value="X">X</option>
             </select>
             </div>
         </td>
@@ -622,6 +623,11 @@ function front_piece(start=1,end=7){
                 <option value="1004">Метбраш платин</option>
                 <option value="1005">Метбраш серый кварц</option>
                 <option value="1006">Метбраш серый антрацит</option>
+                <option value="1001">Метбраш Алюмин</option>
+                <option value="5001">Кремвейс</option>
+                <option value="6062">Матовый чёрный</option>
+                <option value="6030">Матовый белый</option>
+                <option value="1015">Алюкс алюмин</option>
                 <option value="XXXX">XXXX</option>
             </select>
             </div>
@@ -639,26 +645,31 @@ function front_piece(start=1,end=7){
                 <select class="form-select" aria-label="" style="width: 220px;height:27px!important;z-index:0" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
                     <option  value="" selected></option>
                     <option value="2036" >Золотой дуб</option>
-                <option value="2048">Дуб мокко</option>
-                <option value="2007">Красный орех</option>
-                <option value="2012">Орех</option>
-                <option value="3086">Шеффелдский дуб серый</option>
-                <option value="1012">Алюкс антрацит</option>
-                <option value="3001">Терновый дуб</option>
-                <option value="3002">Шеф Альпийский дуб</option>
-                <option value="3003">Гранитовый шеф дуб</option>
-                <option value="3042">Дерево бальза</option>
-                <option value="3062">Грецкий орех</option>
-                <option value="3043">Вишня амаретто</option>
-                <option value="3059">Орех терра</option>
-                <option value="3058">Грецкий орех амаретто</option>
-                <option value="3077">Винчестер</option>
-                <option value="3081">Шеффелдский дуб светлый</option>
-                <option value="3094">Орех Ребраун</option>
-                <option value="1004">Метбраш платин</option>
-                <option value="1005">Метбраш серый кварц</option>
-                <option value="1006">Метбраш серый антрацит</option>
-                <option value="XXXX">XXXX</option>
+                    <option value="2048">Дуб мокко</option>
+                    <option value="2007">Красный орех</option>
+                    <option value="2012">Орех</option>
+                    <option value="3086">Шеффелдский дуб серый</option>
+                    <option value="1012">Алюкс антрацит</option>
+                    <option value="3001">Терновый дуб</option>
+                    <option value="3002">Шеф Альпийский дуб</option>
+                    <option value="3003">Гранитовый шеф дуб</option>
+                    <option value="3042">Дерево бальза</option>
+                    <option value="3062">Грецкий орех</option>
+                    <option value="3043">Вишня амаретто</option>
+                    <option value="3059">Орех терра</option>
+                    <option value="3058">Грецкий орех амаретто</option>
+                    <option value="3077">Винчестер</option>
+                    <option value="3081">Шеффелдский дуб светлый</option>
+                    <option value="3094">Орех Ребраун</option>
+                    <option value="1004">Метбраш платин</option>
+                    <option value="1005">Метбраш серый кварц</option>
+                    <option value="1006">Метбраш серый антрацит</option>
+                    <option value="1001">Метбраш Алюмин</option>
+                    <option value="5001">Кремвейс</option>
+                    <option value="6062">Матовый чёрный</option>
+                    <option value="6030">Матовый белый</option>
+                    <option value="1015">Алюкс алюмин</option>
+                    <option value="XXXX">XXXX</option>
                 </select>
             </div>
         </td>
@@ -726,7 +737,7 @@ function front_piece(start=1,end=7){
         <td >
             <div class="input-group input-group-sm ">
                 <div class="input-group input-group-sm">
-                <span class =' text-center ' style="font-size: small; width:350px; font-weight: bold; text-transform: uppercase;z-index:0" id='kratkiy_tekst`+String(i)+`'></span>
+                <span class =' text-center ' style="font-size: small; width:300px; font-weight: bold; text-transform: uppercase;z-index:0;white-space: nowrap;" id='kratkiy_tekst`+String(i)+`'></span>
                 </div>
             </div>
         </td>
@@ -789,50 +800,104 @@ function front_piece(start=1,end=7){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;height:27px!important;z-index:0" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
-            <option value="Kabina">Kabina</option>
-            <option value="Alumin WHITE (B.N)">Alumin WHITE (B.N)</option>
-            <option value="Aksessuar Import (SAP)">Aksessuar Import (SAP)</option>
-            <option value="Alumin VAKUM (B.N)">Alumin VAKUM (B.N)</option>
-            <option value="Metal">Metal</option>
-            <option value="Aksessuar UZ Tapoich">Aksessuar UZ Tapoich</option>
-            <option value="Alumin COLOUR (Navoiy)">Alumin COLOUR (Navoiy)</option>
-            <option value="Alumin VAKUM (Navoiy)">Alumin VAKUM (Navoiy)</option>
             <option value="Alumin WHITE (Navoiy)">Alumin WHITE (Navoiy)</option>
-            <option value="Alumin Anod (Navoiy)">Alumin Anod (Navoiy)</option>
-            <option value="PVX OQ (Navoiy)">PVX OQ (Navoiy)</option>
-            <option value="Butilchita">Butilchita</option>
-            <option value="Aksessuar Rezina">Aksessuar Rezina</option>
-            <option value="Radiator">Radiator</option>
-            <option value="Aksessuar UZ">Aksessuar UZ</option>
-            <option value="Alucobond">Alucobond</option>
-            <option value="VITYAJNOYE USTROYSTVA">VITYAJNOYE USTROYSTVA</option>
-            <option value="Aksessuar Import">Aksessuar Import</option>
-            <option value="Radiator (IMPORT)">Radiator (IMPORT)</option>
-            <option value="Radiator SAP (IMPORT)">Radiator SAP (IMPORT)</option>
-            <option value="PVX LAM (Navoiy)">PVX LAM (Navoiy)</option>
-            <option value="Rezina Tpv">Rezina Tpv</option>
-            <option value="Granula">Granula</option>
-            <option value="Granit">Granit</option>
-            <option value="Setka">Setka</option>
-            <option value="Kraska">Kraska</option>
-            <option value="Gazoblok">Gazoblok</option>
-            <option value="Paket">Paket</option>
-            <option value="Alumin Lam">Alumin Lam</option>
             <option value="Alumin COLOUR">Alumin COLOUR</option>
-            <option value="Alumin VAKUM">Alumin VAKUM</option>
+            <option value="Alumin Lam">Alumin Lam</option>
             <option value="Alumin WHITE">Alumin WHITE</option>
-            <option value="Radiator (Panel) AKFA (UZ)">Radiator (Panel) AKFA (UZ)</option>
-            <option value="Radiator (Panel) ROYAL (UZ)">Radiator (Panel) ROYAL (UZ)</option>
-            <option value="Radiator (Panel) Lider Line (UZ)" >Radiator (Panel) Lider Line (UZ)"</option>
+            <option value="Alumin COLOUR (Navoiy)">Alumin COLOUR (Navoiy)</option>
+            <option value="Alumin Anod (Navoiy)">Alumin Anod (Navoiy)</option>
+            <option value="Alumin VAKUM">Alumin VAKUM</option>
+            <option value="Alumin VAKUM (Navoiy)">Alumin VAKUM (Navoiy)</option>
             </select>
             </div>
         </td>
         <td >
-            <div class="input-group input-group-sm mb-1" id='group`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'>
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+            <div class="input-group input-group-sm mb-1"  >
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;height:27px!important;z-index:0;display:none;"  id='group`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)'required>
                 <option  selected></option>
-                <option value="Сырье">Сырье</option>
-                <option value="Готовый продукт">Готовый продукт</option>
+                <option value="ALUMIN - (OQ) NAVOIY">ALUMIN - (OQ) NAVOIY</option>
+                <option value="TERMO 7000 (TSVETNOY)">TERMO 7000 (TSVETNOY)</option>
+                <option value="Alu. AKSESSUAR 2">Alu. AKSESSUAR 2</option>
+                <option value="ALUMIN LAM JP / RAZ">ALUMIN LAM JP / RAZ</option>
+                <option value="ALUMIN LAM TERMO 70">ALUMIN LAM TERMO 70</option>
+                <option value="ALUMIN LAM ALDOKS">ALUMIN LAM ALDOKS</option>
+                <option value="Adt ALUMIN (9005)">Adt ALUMIN (9005)</option>
+                <option value="ALUMIN LAM TERMO 70 (N)">ALUMIN LAM TERMO 70 (N)</option>
+                <option value="ALUMIN CHAMPION (TSVETNOY)">ALUMIN CHAMPION (TSVETNOY)</option>
+                <option value="ALUMIN - (ANOD) (NAVOIY)">ALUMIN - (ANOD) (NAVOIY)</option>
+                <option value="BENKAM (COLOUR) FASAD">BENKAM (COLOUR) FASAD</option>
+                <option value="ALUMIN - (ANOD) (ZAKAZ)">ALUMIN - (ANOD) (ZAKAZ)</option>
+                <option value="POROG (ANOD)">POROG (ANOD)</option>
+                <option value="ALUMIN - (ANOD) TERMO-70">ALUMIN - (ANOD) TERMO-70</option>
+                <option value="Uselitel (Alum)">Uselitel (Alum)</option>
+                <option value="Adt ALUMIN (SW306G)">Adt ALUMIN (SW306G)</option>
+                <option value="Adt ALUMIN (5002)">Adt ALUMIN (5002)</option>
+                <option value="Adt ALUMIN (7011)">Adt ALUMIN (7011)</option>
+                <option value="Adt ALUMIN (7042)">Adt ALUMIN (7042)</option>
+                <option value="Adt ALUMIN (8003)">Adt ALUMIN (8003)</option>
+                <option value="Adt ALUMIN (8017)">Adt ALUMIN (8017)</option>
+                <option value="Adt ALUMIN (9006)">Adt ALUMIN (9006)</option>
+                <option value="ALUMIN - (ANOD) ALDOKS">ALUMIN - (ANOD) ALDOKS</option>
+                <option value="ALUMIN (TSVETNOY)">ALUMIN (TSVETNOY)</option>
+                <option value="ALUMIN - (NEKR) (ADT)">ALUMIN - (NEKR) (ADT)</option>
+                <option value="ALUMIN (TSVETNOY) NAVOIY">ALUMIN (TSVETNOY) NAVOIY</option>
+                <option value="ALUMIN (TSVETNOY) ALDOKS-2">ALUMIN (TSVETNOY) ALDOKS-2</option>
+                <option value="ALUMIN (TSVETNOY) JP">ALUMIN (TSVETNOY) JP</option>
+                <option value="ALUMIN (TSVETNOY) ROLSTAVNI">ALUMIN (TSVETNOY) ROLSTAVNI</option>
+                <option value="ALUMIN - (V ZOL DUB) ROLSTAVNI">ALUMIN - (V ZOL DUB) ROLSTAVNI</option>
+                <option value="ALUMIN - (NEKR) AKS UZ (ADT)">ALUMIN - (NEKR) AKS UZ (ADT)</option>
+                <option value="ALUMIN - (3D) (55/56) ALDOKS">ALUMIN - (3D) (55/56) ALDOKS</option>
+                <option value="ALUMIN - (3D) (55/56) ALDOKS-2">ALUMIN - (3D) (55/56) ALDOKS-2</option>
+                <option value="ALUMIN - (V ZOL DUB) ALDOKS (N)">ALUMIN - (V ZOL DUB) ALDOKS (N)</option>
+                <option value="ALUMIN - (V DUB MOKKO) ALDOKS-2">ALUMIN - (V DUB MOKKO) ALDOKS-2</option>
+                <option value="ALUMIN - (V ZOL DUB) ALDOKS">ALUMIN - (V ZOL DUB) ALDOKS</option>
+                <option value="ALUMIN - (V DUB MOKKO) ALDOKS">ALUMIN - (V DUB MOKKO) ALDOKS</option>
+                <option value="ALUMIN - (NEKR) GAZ PLITA">ALUMIN - (NEKR) GAZ PLITA</option>
+                <option value="ALUMIN - (OQ) JP (ADT)">ALUMIN - (OQ) JP (ADT)</option>
+                <option value="ALUMIN - (NEKR) FRAME">ALUMIN - (NEKR) FRAME</option>
+                <option value="ALUMIN - (OQ) (ADT)">ALUMIN - (OQ) (ADT)</option>
+                <option value="ALUMIN - (OQ) ALDOKS-2 (ADT)">ALUMIN - (OQ) ALDOKS-2 (ADT)</option>
+                <option value="ALUMIN - (OQ) ALDOKS (ADT)">ALUMIN - (OQ) ALDOKS (ADT)</option>
+                <option value="ALUMIN - (OQ) ALDOKS (N)">ALUMIN - (OQ) ALDOKS (N)</option>
+                <option value="ALUMIN - (OQ) ROLSTAVNI (ADT)">ALUMIN - (OQ) ROLSTAVNI (ADT)</option>
+                <option value="BENKAM (NEKR) FASAD">BENKAM (NEKR) FASAD</option>
+                <option value="BENKAM (OQ) FASAD">BENKAM (OQ) FASAD</option>
+                <option value="ALUMIN - (NEKR UZ) NARVON">ALUMIN - (NEKR UZ) NARVON</option>
+                <option value="MEBEL ANADIROVKA">MEBEL ANADIROVKA</option>
+                <option value="TERMO 6000 (TSVETNOY)">TERMO 6000 (TSVETNOY)</option>
+                <option value="TERMO 7000 (OQ) (N)">TERMO 7000 (OQ) (N)</option>
+                <option value="TERMO 7000 (TSVETNOY) (N)">TERMO 7000 (TSVETNOY) (N)</option>
+                <option value="TERMO 6000 (V Zol Dub)">TERMO 6000 (V Zol Dub)</option>
+                <option value="TERMO 7000 (V Zol Dub)">TERMO 7000 (V Zol Dub)</option>
+                <option value="TERMO 6000 (OQ)">TERMO 6000 (OQ)</option>
+                <option value="TERMO 6500 (OQ) 1.3mm">TERMO 6500 (OQ) 1.3mm</option>
+                <option value="TERMO 7000 (OQ)">TERMO 7000 (OQ)</option>
+                <option value="ALUMIN LAM AKF Chempion">ALUMIN LAM AKF Chempion</option>
+                <option value="ALUMIN LAM TERMO 65">ALUMIN LAM TERMO 65</option>
+                <option value="TERMO 7800 (TSVETNOY)">TERMO 7800 (TSVETNOY)</option>
+                <option value="ALUMIN LAM TERMO 78">ALUMIN LAM TERMO 78</option>
+                <option value="ALUMIN - (3D) (55/56) ROLSTAVNI">ALUMIN - (3D) (55/56) ROLSTAVNI</option>
+                <option value="ALUMIN - (OQ) CHAMPION">ALUMIN - (OQ) CHAMPION</option>
+                <option value="TERMO 6500 (TSVETNOY) 1.3mm">TERMO 6500 (TSVETNOY) 1.3mm</option>
+                <option value="TERMO 7800 (OQ)">TERMO 7800 (OQ)</option>
+                <option value="TERMO 7000 (NEKR)">TERMO 7000 (NEKR)</option>
+                <option value="TERMO B.ALUMIN - (Benkam) OQ">TERMO B.ALUMIN - (Benkam) OQ</option>
+                <option value="ALUMIN LAM BENKAM">ALUMIN LAM BENKAM</option>
+                <option value="ALUMIN (TSVETNOY) NAVOIY TIARA TWIN MAX">ALUMIN (TSVETNOY) NAVOIY TIARA TWIN MAX</option>
+                <option value="ALUMIN - (V ZOL DUB) ALDOKS-2">ALUMIN - (V ZOL DUB) ALDOKS-2</option>
+                <option value="ALUMIN - (OQ) NAVOIY TIARA TWIN MAX">ALUMIN - (OQ) NAVOIY TIARA TWIN MAX</option>
+                <option value="ALUMIN - (V ZOL DUB) NAVOIY">ALUMIN - (V ZOL DUB) NAVOIY</option>
+                <option value="TERMO B.ALUMIN - (Benkam) Colour">TERMO B.ALUMIN - (Benkam) Colour</option>
+                <option value="ALUMIN - (OQ) RETPEN ALDOKS (ADT)">ALUMIN - (OQ) RETPEN ALDOKS (ADT)</option>
+                <option value="ALUMIN (TSVETNOY) TIARA TWIN MAX">ALUMIN (TSVETNOY) TIARA TWIN MAX</option>
+                <option value="TERMO B.ALUMIN - (Benkam) 3D">TERMO B.ALUMIN - (Benkam) 3D</option>
+                <option value="Adt ALUMIN (SW306G) RETPEN">Adt ALUMIN (SW306G) RETPEN</option>
+                <option value="ALUMIN - (OQ) RETPEN ALDOKS (N)">ALUMIN - (OQ) RETPEN ALDOKS (N)</option>
+                <option value="ALUMIN - (V ZOL DUB) RETPEN ALDOKS (N)">ALUMIN - (V ZOL DUB) RETPEN ALDOKS (N)</option>
+                <option value="POROG (ALUMIN)">POROG (ALUMIN)</option>
+                <option value="ALUMIN - (V ZOL DUB) (ADT)">ALUMIN - (V ZOL DUB) (ADT)</option>
+                <option value="MEBEL SVETNOY">MEBEL SVETNOY</option>
+                <option value="BENKAM (V ZOL DUB) FASAD">BENKAM (V ZOL DUB) FASAD</option>
             </select>
             </div>
         </td>
@@ -851,18 +916,13 @@ function front_piece(start=1,end=7){
                 <option  selected></option>
                 <option value="Нет сегмента">Нет сегмента</option>
                 <option value=""></option>
-                <option value="Aldoks">Aldoks</option>
-                <option value="Стандарт">Стандарт</option>
                 <option value="Премиум">Премиум</option>
                 <option value="Аксессуар">Аксессуар</option>
-                <option value="Falcon">Falcon</option>
+                <option value="Aldoks">Aldoks</option>
+                <option value="Стандарт">Стандарт</option>
                 <option value="Mebel">Mebel</option>
-                <option value="RETPEN 8-10%">RETPEN 8-10%</option>
-                <option value="RETPEN 10-12%">RETPEN 10-12%</option>
-                <option value="RETPEN 17%">RETPEN 17%</option>
-                <option value="Аксессуар 2">Аксессуар 2</option>
-                <option value="Podokonnik EKO">Podokonnik EKO</option>
                 <option value="Alumin arzon">Alumin arzon</option>
+                <option value="Falcon">Falcon</option>
             </select>
             </div>
         </td>
@@ -972,6 +1032,15 @@ function front_piece(start=1,end=7){
             </div>
         </td>
         <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 75px;text-transform: uppercase; font-size:12px;height:27px!important;z-index:0; padding-right:0px;" id='tip_clienta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option value="AKFA">AKFA</option>
+                <option value="IMZO">IMZO</option>
+                <option value="FRANCHISING">FRANCHISING</option>
+                <option value="AKFA-IMZO-FRANCHISING">AKFA-IMZO-FRANCHISING</option>
+                <option value="IMZO-FRANCHISING">IMZO-FRANCHISING</option>
+            </select>
+            </div>
             
         </td>
         </tr>`

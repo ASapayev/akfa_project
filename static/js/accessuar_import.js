@@ -11,7 +11,6 @@ class BasePokritiya{
         aei=NaN,
         koefitsiyent=NaN,
         sap_code=NaN,
-        
         pickupdate=NaN,
         sena_c_nds=NaN,
         sena_bez_nds=NaN,

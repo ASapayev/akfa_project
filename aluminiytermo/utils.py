@@ -3201,6 +3201,7 @@ def characteristika_created_txt_create_1301(datas):
     d2['UEETK']=umumiy_without_duplicate1201[45]
     d2['SBDKZ']=umumiy_without_duplicate1201[47]
     d2['SOBSL']=umumiy_without_duplicate1201[48]
+    d2['AUTO_P_ORD']=['X' for x in umumiy_without_duplicate1201[48]]
     # d2['RAUBE']=umumiy_without_duplicate[50]
 
    

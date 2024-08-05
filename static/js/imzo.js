@@ -270,7 +270,7 @@ function front_piece(start=1,end=6){
         </td>
         <td class="sticky-col" style=' left: 73.5px;background-color:white!important;width:100px!important'>
             <div class="input-group input-group-sm mb-1" style='width:100%'>
-                <span class ='text-center nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important"></span>
+                <span class ='text-center nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important;white-space: nowrap;"></span>
             </div>
         </td>
         <td class="sticky-col"  style=' left: 183.2px; background-color:white!important' >
@@ -334,6 +334,7 @@ function front_piece(start=1,end=6){
                 <option value="J">J</option>
                 <option value="P">P</option>
                 <option value="M">M</option>
+                <option value="X">X</option>
             </select>
             </div>
         </td>
@@ -355,6 +356,7 @@ function front_piece(start=1,end=6){
                 <option value="J">J</option>
                 <option value="P">P</option>
                 <option value="M">M</option>
+                <option value="X">X</option>
             </select>
             </div>
         </td>
@@ -434,6 +436,11 @@ function front_piece(start=1,end=6){
                 <option value="1004">Метбраш платин</option>
                 <option value="1005">Метбраш серый кварц</option>
                 <option value="1006">Метбраш серый антрацит</option>
+                <option value="1001">Метбраш Алюмин</option>
+                <option value="5001">Кремвейс</option>
+                <option value="6062">Матовый чёрный</option>
+                <option value="6030">Матовый белый</option>
+                <option value="1015">Алюкс алюмин</option>
                 <option value="XXXX">XXXX</option>
             </select>
             </div>
@@ -470,6 +477,11 @@ function front_piece(start=1,end=6){
                     <option value="1004">Метбраш платин</option>
                     <option value="1005">Метбраш серый кварц</option>
                     <option value="1006">Метбраш серый антрацит</option>
+                    <option value="1001">Метбраш Алюмин</option>
+                    <option value="5001">Кремвейс</option>
+                    <option value="6062">Матовый чёрный</option>
+                    <option value="6030">Матовый белый</option>
+                    <option value="1015">Алюкс алюмин</option>
                     <option value="XXXX">XXXX</option>
                 </select>
             </div>
@@ -540,10 +552,6 @@ function front_piece(start=1,end=6){
                 <option value="QLIK_RLS">Рольставни</option>
                 <option value="QLIK_MSQ">Москитка</option>
                 <option value="QLIK_FSD">Фасад</option>
-                <option value="QLIK_ACS">Аксессуар</option>
-                <option value="QLIK_GLS">Стекло</option>
-                <option value="QLIK_PDF">Подоконник</option>
-                <option value="QLIK_CLR">Металл</option>
                 <option value="QLIK_MDF">МДФ</option>
             </select>
             </div>
@@ -559,7 +567,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='kratkiy_tekst`+String(i)+`'></span>
+            <span class =' text-center ' style="font-size: small; width:300px; font-weight: bold; text-transform: uppercase;z-index:0;white-space: nowrap;" id='kratkiy_tekst`+String(i)+`'></span>
             </div>
         </td>
         <td >

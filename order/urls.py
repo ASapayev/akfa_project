@@ -22,4 +22,24 @@ urlpatterns = [
     path('order-radiator-delete/<int:id>',views.order_delete_radiator,name='order_delete_radiator'),
     path('order-detail-radiator/<int:id>',views.order_detail_radiator,name='order_detail_radiator'),
     path('order-status-radiator/<int:id>',views.status_change_to_done_radiator,name ='status_change_to_done_radiator'),
+    
+    #accessuar
+    path('order-accessuar',views.index_accessuar,name='order_accessuar'),
+    path('order-accessuar-delete/<int:id>',views.order_delete_accessuar,name='order_delete_accessuar'),
+    path('order-detail-accessuar/<int:id>',views.order_detail_accessuar,name='order_detail_accessuar'),
+    path('order-status-accessuar/<int:id>',views.status_change_to_done_accessuar,name ='status_change_to_done_accessuar'),
+    
+    #akp
+    path('order-akp',views.index_akp,name='order_akp'),
+    path('order-akp-delete/<int:id>',views.order_delete_akp,name='order_delete_akp'),
+    path('order-detail-akp/<int:id>',views.order_detail_akp,name='order_detail_akp'),
+    path('order-status-akp/<int:id>',views.status_change_to_done_akp,name ='status_change_to_done_akp'),
+    
+    #prochiye
+    path('order-prochiye',views.index_prochiye,name='order_prochiye'),
+    path('order-prochiye-delete/<int:id>',views.order_delete_prochiye,name='order_delete_prochiye'),
+    path('order-detail-prochiye/<int:id>',views.order_detail_prochiye,name='order_detail_prochiye'),
+    path('order-status-prochiye/<int:id>',views.status_change_to_done_prochiye,name ='status_change_to_done_prochiye'),
+
+
     ]
