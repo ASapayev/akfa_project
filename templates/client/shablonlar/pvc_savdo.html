@@ -140,6 +140,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Артикул</th>
                         <th scope="col">Краткий текст</th>
+                        <th scope="col">Online Id</th>
                         <th scope="col">Название</th>
                     </tr>
                     </thead>
@@ -257,12 +258,30 @@
             var text_tr =''
             var i = 1
             for(key in data_base){
+                var basee_art = ''
+                var kratkiy_tekss = ''
+                var online_idd = ''
+                var naz_ru = ''
+                if(data_base[key]['base_artikul']){
+                    basee_art = data_base[key]['base_artikul']
+                }
+                if(data_base[key]['kratkiy_tekst'] && data_base[key]['kratkiy_tekst']!='XXXXXXXX' ){
+                    kratkiy_tekss = data_base[key]['kratkiy_tekst']
+                }
+                if(data_base[key]['nazvaniye_ruchnoy']){
+                    naz_ru = data_base[key]['nazvaniye_ruchnoy']
+                }
+                if(data_base[key]['online_id']){
+                    online_idd = data_base[key]['online_id']
+                }
+
                 text_tr += `
                     <tr>
                         <th scope="row">${i}</th>
-                        <td>${data_base[key]['base_artikul']}</td>
-                        <td>${data_base[key]['kratkiy_tekst']}</td>
-                        <td>${data_base[key]['nazvaniye_ruchnoy']}</td>
+                        <td>${basee_art}</td>
+                        <td>${kratkiy_tekss}</td>
+                        <td>${online_idd}</td>
+                        <td>${naz_ru}</td>
                     </tr>
                 `
                 i +=1

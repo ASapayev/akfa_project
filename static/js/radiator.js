@@ -119,7 +119,7 @@ function front_piece(start=1,end=6){
         
         <td class="sticky-col" style=' left: 139.6px;background-color:white!important' >
             <div class="input-group input-group-sm mb-1">
-                <select class=" form-control basic_model" style="background-color:#ddebf7; width: 140px; font-size:10px " disabled id="model`+String(i)+`" ></select>
+                <select class=" form-control basic_model" style="background-color:#ddebf7; width: 170px; font-size:10px " disabled id="model`+String(i)+`" ></select>
             </div>
             <span style='display:none' id='artikul_radiator` +String(i)+`'></span>
         </td>
@@ -1105,8 +1105,8 @@ function create_kratkiy_tekst(id){
     var kol_section= $('#kol_section'+String(id));
     var svet= $('#svet'+String(id));
     var brend= $('#brend'+String(id));
+    var alter_edin_base =$('#stoimost_alter'+id)
         
-        console.log(svet,brend,'lddddddd')
     var comment= $('#comment'+String(id));
     comment = comment.val();
     
@@ -1124,22 +1124,31 @@ function create_kratkiy_tekst(id){
         base_artikul.css("border-color",'red');
         data_base[id].base_artikul = NaN;
     }
-    console.log(kol_section.val(),'kol-sec')
+
     if(kol_section.val()!=''){
         console.log(kol_section.val(),'section')
         kol_section.css("border-color",'#dedad9');
         data_base[id].kol_section = kol_section.val();
+        alter_edin_base.val(parseInt(kol_section.val()))
     }else{
         kol_section.css("border-color",'red');
         data_base[id].kol_section = NaN;
+        alter_edin_base.val('')
     }
+    var svet_product_base =$('#svet_product'+id)
     if(svet.val()!=''){
         console.log(svet.val(),'svet')
         svet.css("border-color",'#dedad9');
         data_base[id].svet = svet.val();
+        if(svet.val()=='9016'){
+            svet_product_base.val('WHITE')
+        }else{
+            svet_product_base.val('COLOUR')
+        }
     }else{
         svet.css("border-color",'red');
         data_base[id].svet = NaN;
+        svet_product_base.val('')
     }
     if(brend.val()!=''){
         console.log(brend.val(),'brend')
