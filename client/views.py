@@ -971,7 +971,6 @@ def json_to_excel_radiator(datas):
         df_radiator['Тип'][k] = data['tip']
         df_radiator['Сегмент'][k] = data['segment']
         df_radiator['Бухгал товары'][k] = data['buxgalter_tovar']
-        df_radiator['Бухгалтерская цена'][k] = data['buxgalter_sena']
         df_radiator['Бухгалтерский учет'][k] = data['buxgalter_uchot']
         df_radiator['Базовый единица'][k] = data['bazoviy_edin']
         df_radiator['Альтер единица'][k] = data['alter_edin']
@@ -1712,6 +1711,31 @@ def get_sapcodes_pvc(request):
       
       
 
+
+
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def order_list_test(request):
+    search = request.GET.get('search',None)
+
+    if search:
+        orders = Order.objects.filter(Q(owner = request.user)&(Q(id_for_jira__icontains=search)|Q(theme__icontains=search)|Q(data__artikul__icontains=search))).order_by('-created_at')
+    else:
+        orders = Order.objects.filter(Q(owner = request.user)|(Q(partner = request.user)&Q(status=10083))).order_by('-created_at')
+
+    paginator = Paginator(orders, 15)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+    context ={
+        'orders':page_obj
+    }
+    return render(request,'client/customer/test_list.html',context)
 
 
 

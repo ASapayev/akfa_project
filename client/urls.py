@@ -70,6 +70,7 @@ urlpatterns = [
     path('order-update/<int:id>',views.order_update,name='order_update'),
     path('customer-order-detail/<int:id>',views.order_detail,name='customer_order_detail'),
     path('order-list',views.order_list,name='client_order_list'),
+    path('order-list-test',views.order_list_test,name='client_order_list_test'),
     path('get-sapcodes',views.get_sapcodes,name='get_sapcodes_for_client'),
     path('get-sapcodes-pvc',views.get_sapcodes_pvc,name='get_sapcodes_pvc'),
 

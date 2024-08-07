@@ -2215,7 +2215,6 @@ function create_kratkiy_tekst(id){
                 data_base[id].group_zakup = group_zakup.val();
             }else{
                 data_base[id].group_zakup =NaN;
-                
             }
             if(group.val()!=''){
                 

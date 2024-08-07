@@ -113,133 +113,195 @@
 
     for (let i = 1; i <= orders.length; i++) {
         var created_at = document.getElementById('created_at' + i).innerText;
-        const createdAt = parseDateString(created_at) // Replace with your created_at timestamp
-        const now = new Date(); // Current time
-        const minutesss = calculateWorkMinutes(createdAt, now);
-        const workingHours = convertMinutesToHours(minutesss)
 
-        updateTimePassed(workingHours.hours,workingHours.minutes,i)
-        console.log(`${createdAt}, <<<>>> ${now}  Total2 Working Hours: ${workingHours.hours} hours and ${workingHours.minutes} minutes`);
+        const [datePart, timePart] = created_at.split(' ');
+        const [yy, day, monthAbbreviation] = datePart.split('-');
+        const [hour, minute] = timePart.split(':');
+
+        // Convert month abbreviation to month index (assuming abbreviation is provided in English)
+        const monthIndex = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'].indexOf(monthAbbreviation) + 1;
+
+        // Create a new Date object for order creation time
+        const year = new Date().getFullYear(); // Assume current year
+        const createdAt = new Date(year, monthIndex - 1, parseInt(day), parseInt(hour), parseInt(minute));
+
+        const intervalId = setInterval(updateTimePassed.bind(null, createdAt, i), 1000);
+        intervalIds.push({ intervalId: intervalId, createdAt: created_at, i: i });
+
+        // Initial update
+        updateTimePassed(createdAt, i);
     }
 
+    function calculateTimePassed(createdAt) {
+        
+        const now = new Date();
+        var passed_hour = 0
 
-    function calculateWorkMinutes(start, end) {
-            const workStartHour = 9;  // 9 AM
-            const workEndHour = 18;   // 6 PM
+        if (createdAt.getDay() == now.getDay()) {
+            if(createdAt.getHours() < 9){
+                passed_hour = now.getHours() - 9
+            }else if(createdAt.getHours() > 18){
+                passed_hour = 9
+            }else{
+              if(now.getMinutes() <= createdAt.getMinutes()){
+                passed_hour = now.getHours() - createdAt.getHours()- 1
+              }else{
+                passed_hour = now.getHours() - createdAt.getHours() 
+              }
+            }
+        }else if (now.getDay() != createdAt.getDay()){
+            if(createdAt.getDay() == 0){
+                if(now.getDay() != 0){
+                    var date_hour = (now.getDay() - 1) * 9 
+                    // console.log(date_hour,'kkkkkk')
+                    if(now.getHours() < 9){
+                        passed_hour = date_hour 
+                    }else if(now.getHours() > 18){
+                        passed_hour = date_hour + 9
+                    }else{
+                      
+                        passed_hour = (date_hour + (now.getHours() - 9 ))
+                     
+                    }
+                    // console.log(passed_hour,'llllll')
+                }else{
+                      passed_hour = 0
+                }
+            }else {
+                var pased_date_create = 0
+                if(createdAt.getHours() < 9){
+                    pased_date_create = 9*60
+                }else if(createdAt.getHours() >18){
+                    pased_date_create = 0
+                }else{
+                    pased_date_create = 18*60 - createdAt.getHours()*60 - createdAt.getMinutes()
+                }
 
-            let totalMinutes = 0;
+                var hour_part = parseInt(pased_date_create/60) 
 
-            // Ensure start and end are Date objects
-            start = new Date(start);
-            end = new Date(end);
 
-            // Adjust start and end to work hours if needed
-            if (start.getHours() < workStartHour) {
-                start.setHours(workStartHour, 0, 0, 0);
+                var date_hour = (now.getDay()-createdAt.getDay() - 1 ) * 9 + hour_part
+
+                if(now.getHours() < 9){
+                    passed_hour = date_hour 
+                }else if(now.getHours() > 18){
+                    passed_hour = date_hour + 9
+                }else{
+                    passed_hour = date_hour + now.getHours() - 9
+                }
+            }
+        }
+        
+        
+        
+        const timeDifference = now.getTime() - createdAt.getTime();
+        const totalHoursPassed = Math.floor(timeDifference / (1000 * 60 * 60));
+        var totalMinutesPassed = 0;
+        if(createdAt.getHours() < 9){
+            totalMinutesPassed = now.getMinutes()
+        }else if(createdAt.getHours() > 18){
+            totalMinutesPassed = 0
+        }else{
+          if(createdAt.getDay() == 0){
+            totalMinutesPassed = now.getMinutes()
+          }else{
+            totalMinutesPassed = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            // console.log(totalMinutesPassed,'kkkmin')
+          }
+        }
+        
+        let elapsedBusinessHours = passed_hour;
+        let elapsedBusinessMinutes = 0;
+
+        // Iterate from createdAt date to now date
+        
+        
+        return { totalHoursPassed, totalMinutesPassed, elapsedBusinessHours, elapsedBusinessMinutes };
+    }
+
+    // Function to update the displayed time
+    function calculateTimePassedWeekend(createdAt) {
+        
+        const now = new Date();
+        var passed_hour = 0
+        var passed_hour_one = 0
+        var sundays = 0
+
+        
+        if(createdAt.getDay() == 0 && now.getDay() == 0){  
+          sundays = parseInt(dateDiffInDays(createdAt,now)/7)
+          passed_hour = (dateDiffInDays(createdAt,now) -sundays) * 9
+        }
+        else {
+            var pased_date_create = 0
+            if(createdAt.getHours() < 9){
+                pased_date_create = 9*60
+            }else if(createdAt.getHours() >18){
+                pased_date_create = 0
+            }else{
+                pased_date_create = 18*60 - createdAt.getHours()*60 - createdAt.getMinutes()
+            }
+
+            var hour_part = parseInt(pased_date_create/60) 
+
+
+
+            sundays = countSundays(createdAt,now)
+            if(createdAt.getMinutes() < now.getMinutes()){
+
+              passed_hour_one = (dateDiffInDays(createdAt,now) - sundays - 1) * 9 +1
+            }else{
+
+              passed_hour_one = (dateDiffInDays(createdAt,now) - sundays - 1) * 9 
             }
             
-            if (end.getHours() >= workEndHour) {
-                end.setHours(workEndHour, 0, 0, 0);
+            var date_hour = passed_hour_one + hour_part
+            
+            if(now.getHours() < 9){
+              passed_hour = date_hour 
+            }else if(now.getHours() > 18){
+              passed_hour = date_hour + 9
+            }else{
+              passed_hour = date_hour + now.getHours() - 9
             }
-
-            // Ensure start time is before end time
-            if (start >= end) {
-                return 0;
-            }
-
-            // Iterate from start to end date
-            for (let currentDate = new Date(start); currentDate <= end; currentDate.setDate(currentDate.getDate() + 1)) {
-                const dayOfWeek = currentDate.getDay();
-
-                // Skip Sundays
-                if (dayOfWeek === 0) continue;
-
-                // Define work hours for the current day
-                const workStart = new Date(currentDate);
-                workStart.setHours(workStartHour, 0, 0, 0);
-
-                const workEnd = new Date(currentDate);
-                workEnd.setHours(workEndHour, 0, 0, 0);
-
-                // Determine the actual start and end time for the work period on the current day
-                const dayStart = Math.max(start.getTime(), workStart.getTime());
-                const dayEnd = Math.min(end.getTime(), workEnd.getTime());
-
-                // If there's a valid work period
-                console.log(dayStart,' <<<< day start  ',dayEnd,' <<<< day end')
-                if (dayStart < dayEnd) {
-                const duration = dayEnd - dayStart;
-                console.log(Math.floor(duration / (1000 * 60))%60,Math.floor(Math.floor(duration / (1000 * 60))/60),currentDate.getDate(),'#########')
-                totalMinutes += Math.floor(duration / (1000 * 60)); // Convert milliseconds to minutes
-                }
-            }
-            var extra_minutes = 0
-            if(end.getDay()!= 0 && start.getDay()!= end.getDay()){
-                const updatedDate = new Date(start);
-                updatedDate.setDate(end.getDate());
-                updatedDate.setMonth(end.getMonth());
-                if(updatedDate > end){
-                    if(9 <= end.getHours() && end.getHours() < 18){
-
-                        extra_minutes = end.getHours()*60 + end.getMinutes() - 540
-                    }else{
-                        if(end.getHours() >= 18){
-                             extra_minutes = 9*60
-                        }else{
-                             extra_minutes = 0
-
-                        }
-
-                    }
-                }
-            }
-            totalMinutes += extra_minutes
-            return totalMinutes;
-            }
-
-
-    function convertMinutesToHours(minutes) {
-                const hours = Math.floor(minutes / 60);
-                const remainingMinutes = minutes % 60;
-                return { hours:hours, minutes: remainingMinutes };
-                }
-
-    function parseDateString(dateStr) {
-                    // Mapping Russian month abbreviations to English
-                const monthMap = {
-                    'Янв': 'Jan',
-                    'Фев': 'Feb',
-                    'Мар': 'Mar',
-                    'Апр': 'Apr',
-                    'Май': 'May',
-                    'Июн': 'Jun',
-                    'Июл': 'Jul',
-                    'Авг': 'Aug',
-                    'Сен': 'Sep',
-                    'Окт': 'Oct',
-                    'Ноя': 'Nov',
-                    'Дек': 'Dec'
-                };
-
-                // Extract date and time components
-                const [datePart, timePart] = dateStr.split(' ');
-                const [year,day,monthAbbr] = datePart.split('-');
-                
-                // Convert Russian month abbreviation to English
-                const month = monthMap[monthAbbr];
-                
-                // Construct the date string in a format JavaScript understands
-                const formattedDateStr = `${month} ${day}, ${year} ${timePart}`;
-                
-                // Create and return a Date object
-                return formattedDateStr;
-
-            }
-
-    
-    // Function to update the displayed time
-    function updateTimePassed(elapsedBusinessHours,totalMinutesPassed, i) {
+            // console.log(hour_part,passed_hour_one,now.getHours() - 9,'kkkkkk',sundays)
+        }
         
+        
+        
+        
+        const timeDifference = now.getTime() - createdAt.getTime();
+        const totalHoursPassed = Math.floor(timeDifference / (1000 * 60 * 60));
+        var totalMinutesPassed = 0;
+        if(createdAt.getHours() < 9){
+            totalMinutesPassed = now.getMinutes()
+        }else if(createdAt.getHours() > 18){
+            totalMinutesPassed = 0
+        }else{
+          if(createdAt.getDay() == 0){
+            totalMinutesPassed = now.getMinutes()
+          }else{
+            totalMinutesPassed = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            // console.log(totalMinutesPassed,'kkkmin')
+          }
+        }
+        
+        let elapsedBusinessHours = passed_hour;
+        let elapsedBusinessMinutes = 0;
+
+        // Iterate from createdAt date to now date
+        
+        
+        return { totalHoursPassed, totalMinutesPassed, elapsedBusinessHours, elapsedBusinessMinutes };
+    }
+
+    // Function to update the displayed time
+    function updateTimePassed(createdAt, i) {
+        if(isWeekend(createdAt)){
+          var { totalHoursPassed, totalMinutesPassed, elapsedBusinessHours, elapsedBusinessMinutes } = calculateTimePassed(createdAt);
+        } else{
+          var { totalHoursPassed, totalMinutesPassed, elapsedBusinessHours, elapsedBusinessMinutes } = calculateTimePassedWeekend(createdAt);
+        }
         var timePassedElement = document.getElementById('clock' + i);
 
         if (parseInt(totalMinutesPassed) < 10) {
@@ -269,6 +331,54 @@
         }
     }
 
+
+    function isWeekend(created_at) {
+        // Convert created_at to a Date object
+        var date = new Date(created_at);
+        var dayOfCreatedAt = date.getDate()
+        var dayAt = date.getDay()
+
+        var today = new Date(); // Current date
+        var currentDayOfWeek = today.getDate();
+        var curWeekDay = today.getDay();
+        
+        if (Math.abs(currentDayOfWeek - dayOfCreatedAt)<7 && curWeekDay >= dayAt) {
+            return true;
+        } else {
+            return false; 
+        }
+  }
+
+    function dateDiffInDays(date1, date2) {
+      // Convert both dates to milliseconds
+      var date1_ms = date1.getTime();
+      var date2_ms = date2.getTime();
+
+      // Calculate the difference in milliseconds
+      var difference_ms = Math.abs(date2_ms - date1_ms);
+
+      // Convert milliseconds to days
+      return Math.floor(difference_ms / (1000 * 60 * 60 * 24));
+  }
+  
+
+    function countSundays(startDate, endDate) {
+    var sundayCount = 0;
+    var currentDate = new Date(startDate);
+
+    // Iterate through each day from startDate to endDate
+    while (currentDate <= endDate) {
+        // Check if the current day (currentDate) is a Sunday (dayOfWeek = 0)
+        if (currentDate.getDay() === 0) {
+            sundayCount++;
+        }
+
+        // Move to the next day
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return sundayCount;
+}
 
     function stopInterval(createdAt, i) {
         // Find and stop the interval based on createdAt and i
