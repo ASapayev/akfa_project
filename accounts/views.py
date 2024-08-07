@@ -4,6 +4,9 @@ from .models import User,UserProfile
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm,AccountForm
 from .decorators import unauthenticated_user,allowed_users
+import pandas as pd
+from django.http import JsonResponse
+from django.db.models import Q
 
 # Create your views here.
 @unauthenticated_user
@@ -69,3 +72,26 @@ def myAccount(request):
       'user_profile_form':user_profile_form
     }
     return render(request,'accounts/my_profile.html',context)
+  
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','only_razlovka','user_accessuar','razlovka'])
+def add_user(request):
+  users = pd.read_excel('D:\\Users\\Muzaffar.Tursunov\\Desktop\\user2.xlsx')
+  for key,row in users.iterrows():
+    if User.objects.filter(Q(username=row['username'])|Q(email=row['email'])).exists():
+      continue
+    else:
+      User(
+        password =row['password'],
+        first_name=row['first_name'],
+        last_name=row['last_name'],
+        username=row['username'],
+        email=row['email'],
+        role=row['role'],
+        is_active=True,
+        jira_id=row['jira_id'],
+
+      ).save()
+  print(users)
+  return JsonResponse({'a':'b'})
