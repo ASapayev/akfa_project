@@ -284,16 +284,23 @@
 
 
 
+    
     for (let i = 1; i <= orders.length; i++) {
-      var created_at = document.getElementById('created_at' + i).innerText;
-        const createdAt = parseDateString(created_at) // Replace with your created_at timestamp
-        const now = new Date(); // Current time
-        const minutesss = calculateWorkMinutes(createdAt, now);
-        const workingHours = convertMinutesToHours(minutesss);
+        var created_at = document.getElementById('created_at' + i).innerText;
+        const [datePart, timePart] = created_at.split(' ');
+        const [yy, day, monthAbbreviation] = datePart.split('-');
+        const [hour, minute] = timePart.split(':');
 
-        updateTimePassed(workingHours.hours,workingHours.minutes,i)
-        console.log(`${createdAt}, <<<>>> ${now}  Total2 Working Hours: ${workingHours.hours} hours and ${workingHours.minutes} minutes`);
-   
+        // Convert month abbreviation to month index (assuming abbreviation is provided in English)
+        const monthIndex = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'].indexOf(monthAbbreviation) + 1;
+
+        // Create a new Date object for order creation time
+        const year = new Date().getFullYear(); // Assume current year
+        const createdAt = new Date(year, monthIndex - 1, parseInt(day), parseInt(hour), parseInt(minute));
+
+        const intervalId = setInterval(updateTimePassed.bind(null, createdAt, i), 1000);
+        intervalIds.push({ intervalId: intervalId});
+
     }
 
 
@@ -378,43 +385,20 @@
                 return { hours:hours, minutes: remainingMinutes };
                 }
 
-    function parseDateString(dateStr) {
-                    // Mapping Russian month abbreviations to English
-                const monthMap = {
-                    'Янв': 'Jan',
-                    'Фев': 'Feb',
-                    'Мар': 'Mar',
-                    'Апр': 'Apr',
-                    'Май': 'May',
-                    'Июн': 'Jun',
-                    'Июл': 'Jul',
-                    'Авг': 'Aug',
-                    'Сен': 'Sep',
-                    'Окт': 'Oct',
-                    'Ноя': 'Nov',
-                    'Дек': 'Dec'
-                };
-
-                // Extract date and time components
-                const [datePart, timePart] = dateStr.split(' ');
-                const [year,day,monthAbbr] = datePart.split('-');
-                
-                // Convert Russian month abbreviation to English
-                const month = monthMap[monthAbbr];
-                
-                // Construct the date string in a format JavaScript understands
-                const formattedDateStr = `${month} ${day}, ${year} ${timePart}`;
-                
-                // Create and return a Date object
-                return formattedDateStr;
-
-            }
-
     
     // Function to update the displayed time
-    function updateTimePassed(elapsedBusinessHours,totalMinutesPassed, i) {
+    function updateTimePassed(created_at, i) {
+
+        const createdAt = created_at // Replace with your created_at timestamp
+        const now = new Date(); // Current time
+        const minutesss = calculateWorkMinutes(createdAt, now);
+        const workingHours = convertMinutesToHours(minutesss)
         
         var timePassedElement = document.getElementById('clock' + i);
+        
+
+        var totalMinutesPassed =workingHours.minutes
+        var elapsedBusinessHours =workingHours.hours
 
         if (parseInt(totalMinutesPassed) < 10) {
             var minnpas = '0' + String(totalMinutesPassed);
@@ -443,6 +427,8 @@
         }
     }
 
+
+   
 
 
 function stopInterval(createdAt, i) {

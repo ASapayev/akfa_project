@@ -1759,6 +1759,7 @@ def lenght_generate_texcarta(request,id):
 
 
 
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])    
 def product_add_second_org_radiator(request,id):
