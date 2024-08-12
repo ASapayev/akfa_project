@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
-from config.settings import MEDIA_ROOT,BASE_DIR
+from config.settings import MEDIA_ROOT
 from .forms import AccessuarFileForm
-from .models import Norma,Siryo,TexcartaBase,DataForText
+from .models import Norma,Siryo,TexcartaBase,DataForText,OrderACS,AccessuarFiles
 import pandas as pd
 from .utils import get_norma_df,get_norma_price,create_folder,lenght_generate_texcarta,get_sapcodes
 from django.contrib.auth.decorators import login_required
@@ -12,7 +12,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 import numpy as np
 from .serializers import NormaSerializers
-
+from datetime import datetime
 
 
 class File:
@@ -1001,4 +1001,261 @@ def generate_sap_code_price(sapcodes):
 
 
 
+
+# @login_required(login_url='/accounts/login/')
+# @allowed_users(allowed_roles=['admin','moderator'])    
+# def product_add_second_org_accessuar_uz(request,id):
+#     file = AccessuarFiles.objects.get(id=id).file
+#     if 'SHABLON' in str(file):
+#         df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
+#     else:
+#         df = pd.read_excel(f'{MEDIA_ROOT}/{file}',header=4)
+    
+#     df = df.astype(str)
+    
+#     now = datetime.now()
+#     year =now.strftime("%Y")
+#     month =now.strftime("%B")
+#     day =now.strftime("%a%d")
+#     hour =now.strftime("%H HOUR")
+#     minut =now.strftime("%M")
+      
+#     order_id = request.GET.get('order_id',None)
+      
+
+
+      
+#     aluminiy_group = RadiatorSapCode.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
+#     umumiy_counter={}
+#     for al in aluminiy_group:
+#         umumiy_counter[ al['artikul'] + '-' + al['section'] ] = al['total_max']
+    
+#     aluminiy_group_termo = RadiatorSapCode.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
+#     umumiy_counter_termo = {}
+#     for al in aluminiy_group_termo:
+#         umumiy_counter_termo[ al['artikul'] + '-' + al['section'] ] = al['total_max']
+      
+      
+      
+    
+#     for key,row in df.iterrows():
+#         if row['Модель'] == 'nan':
+#                 df = df.drop(key)
+    
+        
+    
+    
+#     df_new = pd.DataFrame()
+
+#     df_new['counter'] =df['Артикул']
+    
+#     df_new['SAP CODE 7']=''
+#     df_new['7 - Upakovka']=''
+    
+    
+    
+#     cache_for_cratkiy_text =[]
+#     duplicat_list =[]
+    
+    
+#     for key,row in df.iterrows():  
+#         df_new['7 - Upakovka'][key] = df['Краткий текст'][key]
+        
+        
+#         if ((row['Название'] == 'nan') or (row['Название'] == '')):
+#             online_savdo_name = ''
+#         else:
+#             online_savdo_name = row['Название']
+            
+            
+#         if ((row['Online savdo ID'] == 'nan') or (row['Online savdo ID'] == '')):
+#             id_savdo = 'XXXXX'
+#         else:
+#             id_savdo = str(row['Online savdo ID']).replace('.0','')
+
+        
+#         if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala= df_new['7 - Upakovka'][key]).exists():
+#             df_new['SAP CODE 7'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['7 - Upakovka'][key])[:1].get().material
+#             duplicat_list.append([df_new['SAP CODE 7'][key],df_new['7 - Upakovka'][key],'7'])
+#         else: 
+#             if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
+#                     umumiy_counter[df['Артикул'][key]+'-7'] += 1
+#                     max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
+#                     materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
+#                     RadiatorSapCode(artikul = df['Артикул'][key],section ='7',counter=max_values7,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+#                     df_new['SAP CODE 7'][key] = materiale
+                    
+#                     cache_for_cratkiy_text.append({
+#                                         'kratkiy':df_new['7 - Upakovka'][key],
+#                                         'sap_code':  materiale,
+                                        
+#                                         # 'system' : row['Название системы'],
+#                                         # 'number_of_chambers' : row['Количество камер'],
+#                                         # 'article' : row['Артикул'],
+#                                         # '7ofile_type_id' : row['Код к компоненту системы'],
+                                        
+#                                     })
+            
+#             else:
+#                     materiale = df['Артикул'][key]+"-7{:03d}".format(1)
+#                     RadiatorSapCode(artikul = df['Артикул'][key],section ='7',counter=1,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+#                     df_new['SAP CODE 7'][key] = materiale
+#                     umumiy_counter[df['Артикул'][key]+'-7'] = 1
+            
+#                     cache_for_cratkiy_text.append(
+#                                     {
+#                                         'kratkiy':df_new['7 - Upakovka'][key],
+#                                         'sap_code':  materiale,
+#                                     }
+#                                 )
+            
+    
+            
+           
+        
+      
+#     parent_dir ='{MEDIA_ROOT}\\uploads\\radiator\\'
+    
+#     if not os.path.isdir(parent_dir):
+#         create_folder(f'{MEDIA_ROOT}\\uploads\\','radiator')
+        
+#     create_folder(f'{MEDIA_ROOT}\\uploads\\radiator\\',f'{year}')
+#     create_folder(f'{MEDIA_ROOT}\\uploads\\radiator\\{year}\\',f'{month}')
+#     create_folder(f'{MEDIA_ROOT}\\uploads\\radiator\\{year}\\{month}\\',day)
+#     create_folder(f'{MEDIA_ROOT}\\uploads\\radiator\\{year}\\{month}\\{day}\\',hour)
+      
+      
+#     df_char = create_characteristika(cache_for_cratkiy_text) 
+    
+#     df_char_title = create_characteristika_utils(cache_for_cratkiy_text)
+                 
+      
+            
+#     if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\radiator\\{year}\\{month}\\{day}\\{hour}\\radiator-{minut}.xlsx'):
+#         path_radiator =  f'{MEDIA_ROOT}\\uploads\\radiator\\{year}\\{month}\\{day}\\{hour}\\radiator-{minut}.xlsx'
+#     else:
+#         st = randint(0,1000)
+#         path_radiator =  f'{MEDIA_ROOT}\\uploads\\radiator\\{year}\\{month}\\{day}\\{hour}\\radiator-{minut}-{st}.xlsx'
+      
+
+
+
+#     for key,razlov in df_new.iterrows():
+#         if razlov['SAP CODE 7']!="":
+#                 if not RazlovkaRadiator.objects.filter(sap_code7=razlov['SAP CODE 7'],kratkiy7=razlov['7 - Upakovka']).exists():
+#                     RazlovkaRadiator(
+#                             pr_sap_code =razlov['SAP CODE P'],
+#                             pr_kratkiy =razlov['PR - Press'],
+#                             mo_sap_code =razlov['SAP CODE M'],
+#                             mo_kratkiy =razlov['MO - Mex obrabotka'], 
+#                             pm_sap_code =razlov['SAP CODE PM'],
+#                             pm_kratkiy =razlov['PM - Puma'], 
+#                             pk_sap_code =razlov['SAP CODE PK'],
+#                             pk_kratkiy =razlov['PK - Pokraska'], 
+#                             sap_code7 =razlov['SAP CODE 7'],
+#                             kratkiy7 =razlov['7 - Upakovka']
+#                         ).save()
+        
+    
+#     price_all_correct = False
+      
+    
+
+
+#     del df_new['counter']
+
+#     writer = pd.ExcelWriter(path_radiator, engine='xlsxwriter')
+#     df_new.to_excel(writer,index=False,sheet_name='Schotchik')
+#     df_char.to_excel(writer,index=False,sheet_name='Characteristika')
+#     df_char_title.to_excel(writer,index=False,sheet_name='title')
+#     writer.close()
+
+
+#     order_id = request.GET.get('order_id',None)
+
+#     work_type = 1
+#     if order_id:
+#         work_type = OrderRadiator.objects.get(id = order_id).work_type
+#         if price_all_correct and  work_type != 5 :
+#             # path = update_char_title_function(df_char_title,order_id)
+#             # files =[File(file=p,filetype='radiator') for p in path]
+#             files = []
+#             files.append(File(file=path_radiator,filetype='radiator'))
+#             context ={
+#                   'files':files,
+#                   'section':'Формированый радиатор файл'
+#             }
+
+#             if order_id:
+#                 file_paths =[ file.file for file in files]
+#                 order = OrderRadiator.objects.get(id = order_id)
+#                 paths = order.paths
+#                 raz_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+#                 zip_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+#                 paths['radiator_razlovka_file']= file_paths
+#                 paths['raz_created_at']= raz_created_at
+#                 paths['zip_created_at']= zip_created_at
+#                 paths['status_l']= 'done'
+#                 paths['status_raz']= 'done'
+#                 paths['status_zip']= 'done'
+#                 paths['status_text_l']= 'done'
+                
+#                 order.paths = paths
+#                 order.radiator_worker = request.user
+#                 order.current_worker = request.user
+#                 order.work_type = 6
+#                 order.save()
+#                 context['order'] = order
+#                 paths =  order.paths
+#                 for key,val in paths.items():
+#                     context[key] = val
+#                 return render(request,'order/order_detail_radiator.html',context)  
+#         else:
+            
+#             file =[File(file = path_radiator,filetype='radiator',id=1)]
+#             context = {
+#                   'files':file,
+#                   'section':'Формированый radiator файл'
+#             }
+            
+#             if order_id:
+#                 order = OrderRadiator.objects.get( id = order_id)
+#                 paths = order.paths 
+#                 if work_type != 5:
+#                     context2 ={
+#                             'radiator_razlovka_file':[path_radiator,path_radiator]
+#                     }
+#                     paths['radiator_razlovka_file'] = [path_radiator,path_radiator]
+#                 else:
+#                     path_radiator = order.paths['radiator_razlovka_file']
+#                     context2 ={
+#                             'radiator_razlovka_file':[path_radiator,path_radiator]
+#                     }
+
+                
+#                 raz_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+#                 paths['raz_created_at']= raz_created_at
+                
+#                 paths['status_l']= 'done'
+#                 paths['status_raz']= 'done'
+#                 paths['status_zip']= 'on process'
+#                 paths['status_text_l']= 'on process'
+                
+
+#                 order.paths = paths
+#                 order.current_worker = request.user
+#                 order.work_type = 5
+#                 order.save()
+#                 context2['order'] = order
+#                 paths =  order.paths
+#                 for key,val in paths.items():
+#                     context2[key] = val
+
+#                 workers = User.objects.filter(role =  'moderator',is_active =True)
+#                 context2['workers'] = workers
+
+#                 return render(request,'order/order_detail_radiator.html',context2)
+
+    
+#     return render(request,'universal/generated_files.html',{'a':'b'})
 

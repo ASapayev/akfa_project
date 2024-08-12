@@ -82,7 +82,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
       |Q(fkratkiy =ozm)
       |Q(sap_code75 =ozm)
       |Q(kratkiy75 =ozm)
-      )[:1].values_list()
+      ).order_by('-created_at')[:1].values_list()
       sap_code_exists=True
       if list(razlovkaobichniy)[0] not in obichniy_razlovka:
         obichniy_razlovka+=list(razlovkaobichniy)
@@ -116,7 +116,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
       |Q(fkratkiy =ozm)
       |Q(sap_code75 =ozm)
       |Q(kratkiy75 =ozm)
-      )[:1].get()
+      ).order_by('-created_at')[:1].get()
       id =razlovkatermo.parent_id
       if id == 0:
         if razlovkatermo.id not in sap_exists:

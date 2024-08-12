@@ -19,3 +19,12 @@ class Category(models.Model):
     code =  models.CharField(max_length=20,blank=True,null=True)
     created_at =    models.DateTimeField(auto_now_add=True)
     updated_at =    models.DateTimeField(auto_now=True)
+
+class AccessuarImportSapCode(models.Model):
+  material =models.CharField(max_length=25,blank=True,null=True)
+  artikul =models.CharField(max_length=20,blank=True,null=True)
+  section =models.CharField(max_length=10,blank=True,null=True)
+  counter =models.IntegerField(default=0)
+  kratkiy_tekst_materiala =models.CharField(max_length=80,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
