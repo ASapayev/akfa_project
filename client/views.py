@@ -1892,9 +1892,9 @@ def imzo_artikul_list(request):
     
     term = request.GET.get('term',None)
     if term:
-        artikules = AluProfilesData.objects.filter(Q(data__Артикул__icontains = term)|Q(data__Компонент__icontains=term)).values('id','data').order_by('-created_at')
+        artikules = AluProfilesData.objects.filter(Q(data__Артикул__icontains = term)|Q(data__Компонент__icontains=term)).values('id','data')
     else:
-        artikules = AluProfilesData.objects.all()[:50].values('id','data').order_by('-created_at')
+        artikules = AluProfilesData.objects.all()[:50].values('id','data')
     return JsonResponse(list(artikules),safe=False)
 
 
@@ -1904,9 +1904,9 @@ def pvc_artikul_list(request):
     
     term = request.GET.get('term',None)
     if term:
-        artikules = ArtikulKomponentPVC.objects.filter(artikul__icontains = term).values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component','iskyucheniye','is_special','nakleyka_nt1').order_by('-created_at')
+        artikules = ArtikulKomponentPVC.objects.filter(artikul__icontains = term).values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component','iskyucheniye','is_special','nakleyka_nt1')
     else:
-        artikules = ArtikulKomponentPVC.objects.all()[:50].values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component','iskyucheniye','is_special','nakleyka_nt1').order_by('-created_at')
+        artikules = ArtikulKomponentPVC.objects.all()[:50].values('id','artikul','component','component2','category','nazvaniye_sistem','camera','kod_k_component','iskyucheniye','is_special','nakleyka_nt1')
     return JsonResponse(list(artikules),safe=False)
 
 
@@ -1916,9 +1916,9 @@ def radiator_artikul_list(request):
     
     term = request.GET.get('term',None)
     if term:
-        artikules = ArtikulRadiator.objects.filter(model_radiator__icontains = term).values('id','model_radiator','artikul').order_by('-created_at')
+        artikules = ArtikulRadiator.objects.filter(model_radiator__icontains = term).values('id','model_radiator','artikul')
     else:
-        artikules = ArtikulRadiator.objects.all()[:50].values('id','model_radiator','artikul').order_by('-created_at')
+        artikules = ArtikulRadiator.objects.all()[:50].values('id','model_radiator','artikul')
     return JsonResponse(list(artikules),safe=False)
 
 

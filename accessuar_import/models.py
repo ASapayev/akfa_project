@@ -28,3 +28,8 @@ class AccessuarImportSapCode(models.Model):
   kratkiy_tekst_materiala =models.CharField(max_length=80,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
+
+class Characteristika(models.Model):
+    data = models.JSONField(null=True,blank=True,default=dict)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)

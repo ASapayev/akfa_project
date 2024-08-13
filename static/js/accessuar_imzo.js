@@ -69,7 +69,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 175px; font-size:10px; border-color:red;z-index:0" id='nazvaniye_tovarov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 175px; font-size:10px; border-color:red;z-index:0" id='nazvaniye_tovarov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)' maxlength="40"></input>
             </div>
         </td>
         <td >
@@ -84,16 +84,51 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;z-index:0 " id='bazoviy_edinitsa`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+                <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;z-index:0" id='bazoviy_edinitsa`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                    <option  selected></option>
+                    <option vlaue="Штука">Штука</div>
+                    <option vlaue="Килограмм">Килограмм</div>
+                    <option vlaue="Квадратный метр">Квадратный метр</div>
+                    <option vlaue="Метр">Метр</div>
+                    <option vlaue="КМП">КМП</div>
+                    <option vlaue="Пачка">Пачка</div>
+                    <option vlaue="Секция">Секция</div>
+                    <option  value="Коробка">Коробка</div>
+                    <option  value="Грам">Грам</div>
+                </select>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="border-color:red; width: 165px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" onchange="create_kratkiy_tekst(`+String(i)+`)" id='goods_group`+String(i)+`' required>
                     <option  selected></option>
-                    <option value="QLIK_ACS" >Аксессуар</option>
+                    <option value="ACS_RAW_ALU">Сырье аксессуары алюминий</option>
+                    <option value="ACS_RAW_PVC">Сырье аксессуары ПВХ</option>
+                    <option value="GLASS_RAW_MATERIAL">Стекло сырье</option>
+                    <option value="OTHER_RAW">Прочее сырье</option>
+                    <option value="PVC_RAW_MATERIAL">ПВХ сырье</option>
+                    <option value="ALU_RAW_MATERIAL">Алюминиевое сырье</option>
+                    <option value="SVR_FINISH_PROD">ГП секционные ворота</option>
+                    <option value="SGLS_FINISH_PROD">ГП стекло одинарное</option>
+                    <option value="GLS_FINISH_PROD">ГП стеклопакеты</option>
+                    <option value="ALU_FINISH_PROD">ГП алюминий</option>
+                    <option value="PVC_FINISH_PROD">ГП ПВХ</option>
+                    <option value="QLIK_ALU_PROF">Алюминиевый профиль</option>
+                    <option value="QLIK_PVC_PROF">ПВХ профиль</option>
+                    <option value="QLIK_RLS">Рольставни</option>
+                    <option value="QLIK_MSQ">Москитка</option>
+                    <option value="QLIK_FSD">Фасад</option>
+                    <option value="QLIK_ACS">Аксессуар</option>
+                    <option value="QLIK_GLS">Стекло</option>
+                    <option value="QLIK_PDF">Подоконник</option>
                     <option value="QLIK_CLR">Метал</option>
                     <option value="QLIK_MDF">МДФ</option>
+                    <option value="RAWMAT_TYPE_PVC">Сырьё ПВХ</option>
+                    <option value="RAWMAT_TYPE_LAM">Сырьё Ламинации</option>
+                    <option value="QLIK_PVC_DO">Деловод отход ПВХ</option>
+                    <option value="QLIK_ALU_DO">Деловод отход Алю</option>
+                    <option value="QLIK_OTH_MAT">Прочие материалы</option>
+                    <option value="OTH_FINISH_PROD">ГП другие</option>
                 </select>
             </div>
         </td>
@@ -119,7 +154,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="width: 75px; font-size:10px; z-index:0" id='gruppa_materialov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; z-index:0" id='gruppa_materialov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)' value='AKSUZGP'></input>
             </div>
         </td>
         <td >

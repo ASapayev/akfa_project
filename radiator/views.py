@@ -1162,19 +1162,19 @@ def kombinirovaniy_process(request,id):
                 #     df_new['DATUV'].append('')
                 #     df_new['PUSTOY'].append('')
                 if k == 2 :
-                    df_new['MATNR1'].append('1000004351')
-                    df_new['TEXT2'].append('Сож для прес-формы DIELUBRIC')
-                    df_new['MEINS'].append(norma.data['Сож для прес-формы DIELUBRIC'].replace('.0','') if norma.data['Сож для прес-формы DIELUBRIC'][-2:]=='.0' else  ("%.3f" % float(norma.data['Сож для прес-формы DIELUBRIC'])).replace('.',','))
+                    df_new['MATNR1'].append('1000004350')
+                    df_new['TEXT2'].append('Сож для прес-формы')
+                    df_new['MEINS'].append(norma.data['Сож для прес-формы'].replace('.0','') if norma.data['Сож для прес-формы'][-2:]=='.0' else  ("%.3f" % float(norma.data['Сож для прес-формы'])).replace('.',','))
                     df_new['MENGE'].append('Л')
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
-                if k == 3 :
-                    df_new['MATNR1'].append('1000004353')
-                    df_new['TEXT2'].append('Огнеупорная смазка Pyro-Mastic')
-                    df_new['MEINS'].append(norma.data['Огнеупорная смазка Pyro-Mastic'].replace('.0','') if norma.data['Огнеупорная смазка Pyro-Mastic'][-2:]=='.0' else ("%.3f" % float(norma.data['Огнеупорная смазка Pyro-Mastic'])).replace('.',','))
-                    df_new['MENGE'].append('КГ')
-                    df_new['DATUV'].append('')
-                    df_new['PUSTOY'].append('')
+                # if k == 3 :
+                #     df_new['MATNR1'].append('1000004353')
+                #     df_new['TEXT2'].append('Огнеупорная смазка Pyro-Mastic')
+                #     df_new['MEINS'].append(norma.data['Огнеупорная смазка Pyro-Mastic'].replace('.0','') if norma.data['Огнеупорная смазка Pyro-Mastic'][-2:]=='.0' else ("%.3f" % float(norma.data['Огнеупорная смазка Pyro-Mastic'])).replace('.',','))
+                #     df_new['MENGE'].append('КГ')
+                #     df_new['DATUV'].append('')
+                #     df_new['PUSTOY'].append('')
                 df_new['LGORT'].append('PS02')
             
             if norma.data['Тип'] =='Bimetall':
@@ -1190,7 +1190,7 @@ def kombinirovaniy_process(request,id):
                     df_new['BMENG'].append('')
                     df_new['BMEIN'].append('')
                     df_new['STLST'].append('')
-                    df_new['POSNR'].append(4)
+                    df_new['POSNR'].append(3)
                     df_new['POSTP'].append('L')
                     df_new['MATNR1'].append('1000004481')
                     df_new['TEXT2'].append('Вставка для радиатора 16 мм')
@@ -1211,7 +1211,7 @@ def kombinirovaniy_process(request,id):
                     df_new['BMENG'].append('')
                     df_new['BMEIN'].append('')
                     df_new['STLST'].append('')
-                    df_new['POSNR'].append(4)
+                    df_new['POSNR'].append(3)
                     df_new['POSTP'].append('L')
                     df_new['MATNR1'].append('1000004482')
                     df_new['TEXT2'].append('Вставка для радиатора 18 мм')
@@ -1364,7 +1364,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] ='Пресс'
                         df_new['BMSCH'][counter_2] = '1000'
-                        df_new['MEINH'][counter_2] ='СКЦ'
+                        df_new['MEINH'][counter_2] ='SKC'
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] ='200003'
@@ -1399,7 +1399,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] ='PUMA'
                         df_new['BMSCH'][counter_2] = '1000'
-                        df_new['MEINH'][counter_2] ='СКЦ'
+                        df_new['MEINH'][counter_2] ='SKC'
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] ='200280'
@@ -1438,7 +1438,7 @@ def lenght_generate_texcarta(request,id):
                         df_new['STEUS'][counter_2] ='ZK01'
                         df_new['LTXA1'][counter_2] ='Покраска'
                         df_new['BMSCH'][counter_2] = '1000'
-                        df_new['MEINH'][counter_2] ='СКЦ'
+                        df_new['MEINH'][counter_2] ='SKC'
                         df_new['VGW01'][counter_2] ='24'
                         df_new['VGE01'][counter_2] ='STD'
                         df_new['ACTTYPE_01'][counter_2] ='200043'
@@ -1524,7 +1524,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['STEUS'][counter_2] ='ZK01'
                                     df_new['LTXA1'][counter_2] =opisaniye[0][i-2]
                                     df_new['BMSCH'][counter_2] = '1000'
-                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
                                     df_new['VGE01'][counter_2] ='STD'
                                     df_new['ACTTYPE_01'][counter_2] ='200280' if 'Тест Сборки' == opisaniye[0][i-2] else ''
@@ -1557,7 +1557,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['STEUS'][counter_2] ='ZK01'
                                     df_new['LTXA1'][counter_2] ='МехОбработка Gi Zeta'
                                     df_new['BMSCH'][counter_2] = '1000'
-                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
                                     df_new['VGE01'][counter_2] ='STD'
                                     df_new['ACTTYPE_01'][counter_2] ='200281'
@@ -1588,7 +1588,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['STEUS'][counter_2] ='ZK01'
                                     df_new['LTXA1'][counter_2] ='МехОбработка S.A.I.P.'
                                     df_new['BMSCH'][counter_2] = '1000'
-                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
                                     df_new['VGE01'][counter_2] ='STD'
                                     df_new['ACTTYPE_01'][counter_2] ='200282'
@@ -1624,7 +1624,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['STEUS'][counter_2] ='ZK01'
                                     df_new['LTXA1'][counter_2] =opisaniye[0][i-2]
                                     df_new['BMSCH'][counter_2] = '1000'
-                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
                                     df_new['VGE01'][counter_2] ='STD'
                                     df_new['ACTTYPE_01'][counter_2] ='200280' if 'Тест Сборки' == opisaniye[0][i-2] else ''
@@ -1655,7 +1655,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['STEUS'][counter_2] ='ZK01'
                                     df_new['LTXA1'][counter_2] ='МехОбработка Gi Zeta'
                                     df_new['BMSCH'][counter_2] = '1000'
-                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
                                     df_new['VGE01'][counter_2] ='STD'
                                     df_new['ACTTYPE_01'][counter_2] ='200281'
@@ -1687,7 +1687,7 @@ def lenght_generate_texcarta(request,id):
                                     df_new['STEUS'][counter_2] ='ZK01'
                                     df_new['LTXA1'][counter_2] ='МехОбработка S.A.I.P.'
                                     df_new['BMSCH'][counter_2] = '1000'
-                                    df_new['MEINH'][counter_2] ='СКЦ'
+                                    df_new['MEINH'][counter_2] ='SKC'
                                     df_new['VGW01'][counter_2] ='24'
                                     df_new['VGE01'][counter_2] ='STD'
                                     df_new['ACTTYPE_01'][counter_2] ='200282'

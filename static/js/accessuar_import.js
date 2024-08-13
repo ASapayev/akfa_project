@@ -6,7 +6,6 @@ class BasePokritiya{
         group_tovarov=NaN,
         categoriya=NaN,
         nazvaniye_materiala=NaN,
-        svet=NaN,
         bei=NaN,
         aei=NaN,
         koefitsiyent=NaN,
@@ -39,7 +38,6 @@ class BasePokritiya{
         this.group_tovarov=group_tovarov;
         this.categoriya=categoriya;
         this.nazvaniye_materiala=nazvaniye_materiala;
-        this.svet=svet;
         this.bei=bei;
         this.aei=aei;
         this.koefitsiyent=koefitsiyent;
@@ -70,7 +68,7 @@ class BasePokritiya{
     get_kratkiy_tekst(){
             switch(this.id){
                 case 1: if(this.is_active){
-                    if (this.group_tovarov && this.categoriya && this.nazvaniye_materiala && this.svet&& this.bei&&  this.online_id && this.nazvaniye_ruchnoy){
+                    if (this.group_tovarov && this.categoriya && this.nazvaniye_materiala && this.svet_product&& this.bei&&  this.online_id && this.nazvaniye_ruchnoy){
                         
                         return {'text':'','accept':true}
                     }else{
@@ -78,7 +76,7 @@ class BasePokritiya{
                     }
                     
                     }else{
-                        if (this.group_tovarov && this.categoriya && this.nazvaniye_materiala && this.svet&& this.bei &&  this.tip_clenta && this.zavod &&this.sena_c_nds &&this.sena_bez_nds && this.pickupdate && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
+                        if (this.group_tovarov && this.categoriya && this.nazvaniye_materiala && this.svet_product&& this.bei &&  this.tip_clenta && this.zavod &&this.sena_c_nds &&this.sena_bez_nds && this.pickupdate && this.nazvaniye_ruchnoy && this.svet_product_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
         
                             return {'text':'','accept':true}
                         }else{
@@ -127,23 +125,11 @@ function front_piece(start=1,end=6){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 200px; font-size:10px;display:none;height:27px;z-index:0 " id='nazvaniye_materiala`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="border-color:red; width: 200px; font-size:10px;display:none;height:27px;z-index:0 " id='nazvaniye_materiala`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)' maxlength="40"></input>
             </div>
         </td>
 
-         <td >
-            <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0"  id='svet`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option   value="LAM">LAM</option>
-            <option   value="Anod">Anod</option>
-            <option   value="COLOUR">COLOUR</option>
-            <option   value="VAKUM &amp; 3D">VAKUM &amp; 3D</option>
-            <option   value="WHITE">WHITE</option>
-            <option   value="Без цвета">Без цвета</option>
-            </select>
-            </div>
-        </td>
+         
         <td >
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;border-color:red;display:none;z-index:0" id='bei`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
@@ -155,6 +141,8 @@ function front_piece(start=1,end=6){
                 <option  value="КМП">КМП</div>
                 <option  value="Пачка">Пачка</div>
                 <option  value="Секция">Секция</div>
+                <option  value="Коробка">Коробка</div>
+                <option  value="Грам">Грам</div>
             </select>
             </div>
         </td>
@@ -169,6 +157,8 @@ function front_piece(start=1,end=6){
                 <option  value="КМП">КМП</div>
                 <option  value="Пачка">Пачка</div>
                 <option  value="Секция">Секция</div>
+                <option  value="Коробка">Коробка</div>
+                <option  value="Грам">Грам</div>
             </select>
             </div>
         </td>
@@ -206,6 +196,8 @@ function front_piece(start=1,end=6){
                 <option vlaue="КМП">КМП</div>
                 <option vlaue="Пачка">Пачка</div>
                 <option vlaue="Секция">Секция</div>
+                <option  value="Коробка">Коробка</div>
+                <option  value="Грам">Грам</div>
             </select>
             </div>
         </td>
@@ -237,20 +229,8 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;z-index:0" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
-            <option value="Butilchita">Butilchita</option>
+            <option value="RADIATORI (IMPORT)">RADIATORI (IMPORT)</option>
             <option value="Aksessuar Import">Aksessuar Import</option>
-            <option value="Aksessuar Rezina">Aksessuar Rezina</option>
-            <option value="Aksessuar UZ">Aksessuar UZ</option>
-            <option value="Tiokol">Tiokol</option>
-            <option value="Alumin Lam">Alumin Lam</option>
-            <option value="Alumin Anod (Navoiy)">Alumin Anod (Navoiy)</option>
-            <option value="PVX LAM">PVX LAM</option>
-            <option value="PVX OQ">PVX OQ</option>
-            <option value="Metal">Metal</option>
-            <option value="Alucobond">Alucobond</option>
-            <option value="Alumin WHITE">Alumin WHITE</option>
-            <option value="Radiator">Radiator</option>
-            <option value="Kabina">Kabina</option>
             </select>
             </div>
         </td>
@@ -258,7 +238,6 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1"  >
             <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0"    onchange='create_kratkiy_tekst(`+String(i)+`)'required>
                 <option  selected></option>
-                <option value="Alu. AKSESSUAR STEKLO">Alu. AKSESSUAR STEKLO</option>
                 <option value="Alu. AKSESSUAR (TR)">Alu. AKSESSUAR (TR)</option>
                 <option value="Alu. AKSESSUAR (TR) ALUTEX">Alu. AKSESSUAR (TR) ALUTEX</option>
                 <option value="Alu. ALUMIN (OQ JP TURKEY)">Alu. ALUMIN (OQ JP TURKEY)</option>
@@ -290,6 +269,22 @@ function front_piece(start=1,end=6){
                 <option value="Alu. AKSESSUAR (Pergola)">Alu. AKSESSUAR (Pergola)</option>
                 <option value="TIOKOL (TR)">TIOKOL (TR)</option>
                 <option value="Alu. AKSESSUAR (BKS)">Alu. AKSESSUAR (BKS)</option>
+                <option value="Avt. SEKSIONNIE VOROTO">Avt. SEKSIONNIE VOROTO</option>
+                <option value="ALUCOBOND">ALUCOBOND</option>
+                <option value="Bez Nakleyka">Bez Nakleyka</option>
+                <option value="Bez Nakleyka TR">Bez Nakleyka TR</option>
+                <option value="EKO KABINA">EKO KABINA</option>
+                <option value="GRANULA">GRANULA</option>
+                <option value="KOTEL">KOTEL</option>
+                <option value="KOTEL (AIRFEL)">KOTEL (AIRFEL)</option>
+                <option value="KOTEL (AKFA)">KOTEL (AKFA)</option>
+                <option value="KOTEL (AKFA) GOST AAA">KOTEL (AKFA) GOST AAA</option>
+                <option value="KOTEL (FAHRENEIT)">KOTEL (FAHRENEIT)</option>
+                <option value="KOTEL AKSSESSUAR">KOTEL AKSSESSUAR</option>
+                <option value="KOTEL (AIRFEL) AKSESSUAR">KOTEL (AIRFEL) AKSESSUAR</option>
+                <option value="KOTEL (AKFA) AKSESSUAR">KOTEL (AKFA) AKSESSUAR</option>
+                <option value="RADIATORI (IMPORT)">RADIATORI (IMPORT)</option>
+                <option value="RADIATORI PANEL (IMPORT)">RADIATORI PANEL (IMPORT)</option>
             </select>
             </div>
         </td>
@@ -322,6 +317,8 @@ function front_piece(start=1,end=6){
                 <option vlaue="КМП">КМП</div>
                 <option vlaue="Пачка">Пачка</div>
                 <option vlaue="Секция">Секция</div>
+                <option  value="Коробка">Коробка</div>
+                <option  value="Грам">Грам</div>
             </select>
             </div>
         </td>
@@ -336,6 +333,8 @@ function front_piece(start=1,end=6){
                 <option vlaue="КМП">КМП</div>
                 <option vlaue="Пачка">Пачка</div>
                 <option vlaue="Секция">Секция</div>
+                <option  value="Коробка">Коробка</div>
+                <option  value="Грам">Грам</div>
             </select>
             </div>
         </td>
@@ -361,8 +360,9 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0" id='zavod_name`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-                <option  ></option>
-                <option value="IMPORT" selected >IMPORT</option>
+                <option  selected></option>
+                <option value="IMPORT" >IMPORT</option>
+                <option value="IMPORT Airfel"  >IMPORT Airfel</option>
             </select>
             </div>
         </td>

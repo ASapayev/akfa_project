@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
 from datetime import datetime
 import os
-from accessuar_import.models import AccessuarImportSapCode
+from accessuar_import.models import AccessuarImportSapCode,Characteristika
 from random import randint
 from accessuar.utils import create_folder
 from django.db.models import Max
@@ -19,6 +19,66 @@ class File:
         self.file =file
         self.filetype =filetype
         self.id = id
+
+def create_characteristika(items):
+    
+    all_data = [
+        [],[]
+    ]
+    
+    
+    
+    for item in items:
+        
+        all_data[0].append(item['sap_code'])
+        all_data[1].append(item['kratkiy'])
+        
+        data ={
+            'SAP CODE':item['sap_code'],
+            'KRATKIY TEXT':item['kratkiy'],
+        }
+        character = Characteristika( data = data )
+        character.save()
+        
+
+
+
+    df_new ={
+        'SAP CODE':all_data[0],
+        'KRATKIY TEXT':all_data[1],
+        
+    }
+    
+    df_charakter = pd.DataFrame(df_new)
+    df_charakter =  df_charakter.replace('nan','')
+    return df_charakter   
+
+
+def create_characteristika_utils(items):
+    df =[
+        [],[]
+    ]
+    
+    
+    for item in items:
+
+        df[0].append(item['sap_code'])
+        df[1].append(item['kratkiy'])
+        
+
+        
+
+    dat = {
+        'SAP CODE':df[0],
+        'KRATKIY TEXT':df[1],
+        
+        
+    }
+    
+    df_new = pd.DataFrame(dat)
+    
+
+    return df_new
 
 
 
@@ -96,9 +156,9 @@ def product_add_second_org_accessuar_uz(request,id):
         
         if AccessuarImportSapCode.objects.filter(artikul =df['Артикул'][key],section ='75',kratkiy_tekst_materiala= df_new['7 - Upakovka'][key]).exists():
             df_new['SAP CODE 7'][key] = AccessuarImportSapCode.objects.filter(artikul =df['Артикул'][key],section ='75',kratkiy_tekst_materiala=df_new['7 - Upakovka'][key])[:1].get().material
-            duplicat_list.append([df_new['SAP CODE 7'][key],df_new['7 - Upakovka'][key],'7'])
+            duplicat_list.append([df_new['SAP CODE 7'][key],df_new['7 - Upakovka'][key],'75'])
         else: 
-            if AccessuarImportSapCode.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
+            if AccessuarImportSapCode.objects.filter(artikul=df['Артикул'][key],section ='75').exists():
                     umumiy_counter[df['Артикул'][key]+'-75'] += 1
                     max_values7 = umumiy_counter[df['Артикул'][key]+'-75']
                     materiale = df['Артикул'][key]+"-75{:02d}".format(max_values7)
@@ -206,7 +266,7 @@ def product_add_second_org_accessuar_uz(request,id):
                 paths =  order.paths
                 for key,val in paths.items():
                     context[key] = val
-                return render(request,'order/order_detail_radiator.html',context)  
+                return render(request,'order/order_detail_accessuar_import.html',context)  
         else:
             
             file =[File(file = path_accessuar_import,filetype='accessuar_import',id=1)]
@@ -251,7 +311,7 @@ def product_add_second_org_accessuar_uz(request,id):
                 workers = User.objects.filter(role =  'moderator',is_active =True)
                 context2['workers'] = workers
 
-                return render(request,'order/order_detail_radiator.html',context2)
+                return render(request,'order/order_detail_accessuar_import.html',context2)
 
     
     return render(request,'universal/generated_files.html',{'a':'b'})

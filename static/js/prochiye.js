@@ -156,34 +156,96 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;z-index:0" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
-            <option value="Radiator SAP (IMPORT)">Radiator SAP (IMPORT)</option>
-            <option value="Rezina Tpv">Rezina Tpv</option>
-            
-            <option value="Kraska">Kraska</option>
-            <option value="Gazoblok">Gazoblok</option>
             <option value="Butilchita">Butilchita</option>
             <option value="Aksessuar Import">Aksessuar Import</option>
             <option value="Aksessuar Rezina">Aksessuar Rezina</option>
-            
+            <option value="Aksessuar UZ">Aksessuar UZ</option>
             <option value="Tiokol">Tiokol</option>
+            <option value="Alumin Lam">Alumin Lam</option>
+            <option value="Alumin Anod (Navoiy)">Alumin Anod (Navoiy)</option>
+            <option value="PVX LAM">PVX LAM</option>
+            <option value="PVX OQ">PVX OQ</option>
             <option value="Metal">Metal</option>
-            
+            <option value="Alucobond">Alucobond</option>
+            <option value="Alumin WHITE">Alumin WHITE</option>
+            <option value="Radiator">Radiator</option>
             <option value="Kabina">Kabina</option>
             <option value="Granula">Granula</option>
             <option value="Radiator (IMPORT)">Radiator (IMPORT)</option>
+            <option value="Alumin COLOUR">Alumin COLOUR</option>
+            <option value="Alumin VAKUM">Alumin VAKUM</option>
             <option value="Kotel (AIRFEL)">Kotel (AIRFEL)</option>
             <option value="Kotel (AKFA)">Kotel (AKFA)</option>
+            <option value="Alumin WHITE (Navoiy)">Alumin WHITE (Navoiy)</option>
+            <option value="Alumin VAKUM (Navoiy)">Alumin VAKUM (Navoiy)</option>
+            <option value="Alumin COLOUR (Navoiy)">Alumin COLOUR (Navoiy)</option>
+            <option value="PVX LAM (Navoiy)">PVX LAM (Navoiy)</option>
+            <option value="PVX OQ (Navoiy)">PVX OQ (Navoiy)</option>
             <option value="VITYAJNOYE USTROYSTVA">VITYAJNOYE USTROYSTVA</option>
+            <option value="Setka">Setka</option>
+            <option value="Granit">Granit</option>
+            <option value="Radiator SAP (IMPORT)">Radiator SAP (IMPORT)</option>
+            <option value="Radiator (Panel) Lider Line (UZ)">Radiator (Panel) Lider Line (UZ)</option>
+            <option value="Rezina Tpv">Rezina Tpv</option>
+            <option value="Alumin WHITE (B.N)">Alumin WHITE (B.N)</option>
+            <option value="Alumin VAKUM (B.N)">Alumin VAKUM (B.N)</option>
+            <option value="Aksessuar UZ Tapoich">Aksessuar UZ Tapoich</option>
+            <option value="Aksessuar Import (SAP) keremas">Aksessuar Import (SAP) keremas</option>
+            <option value="Radiator (Panel) AKFA (UZ)">Radiator (Panel) AKFA (UZ)</option>
+            <option value="Kraska">Kraska</option>
+            <option value="Gazoblok">Gazoblok</option>
+            <option value="Paket">Paket</option>
+            <option value="Radiator (Panel) ROYAL (UZ)">Radiator (Panel) ROYAL (UZ)</option>
            
             </select>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1"  >
-            <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+            <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0"   onchange='create_kratkiy_tekst(`+String(i)+`)'required>
                 <option  selected></option>
-                <option value="5200 QVT PVC (NAVOIY)">5200 QVT PVC (NAVOIY)</option>
-                <option value="5200 QVT PVC RETPEN (NAVOIY)">5200 QVT PVC RETPEN (NAVOIY)</option>
+                <option value="AKSESSUAR (B) ALUTEX">AKSESSUAR (B) ALUTEX</option>
+                <option value="AKSESSUAR BUTIL">AKSESSUAR BUTIL</option>
+                <option value="AKSESSUAR BUTIL (B.N)">AKSESSUAR BUTIL (B.N)</option>
+                <option value="AKSESSUAR (R) ALUTEX">AKSESSUAR (R) ALUTEX</option>
+                <option value="Pvc. EPDM (UZ)">Pvc. EPDM (UZ)</option>
+                <option value="REZINA PROF. & TPV">REZINA PROF. & TPV</option>
+                <option value="REZINA PROF. & TPV (B.N)">REZINA PROF. & TPV (B.N)</option>
+                <option value="AKSESSUAR (T) ALUTEX">AKSESSUAR (T) ALUTEX</option>
+                <option value="TIOKOL">TIOKOL</option>
+                <option value="Metall Prof. ALUTEX">Metall Prof. ALUTEX</option>
+                <option value="Metall Profil (..)">Metall Profil (..)</option>
+                <option value="Metall Profil (Engelberg)">Metall Profil (Engelberg)</option>
+                <option value="Metall Profil (..) (B.N)">Metall Profil (..) (B.N)</option>
+                <option value="Avt. SEKSIONNIE VOROTO">Avt. SEKSIONNIE VOROTO</option>
+                <option value="ALUCOBOND">ALUCOBOND</option>
+                <option value="ALUCOBOND (KG)">ALUCOBOND (KG)</option>
+                <option value="EKO KABINA">EKO KABINA</option>
+                <option value="GRANULA">GRANULA</option>
+                <option value="KOTEL">KOTEL</option>
+                <option value="KOTEL (AIRFEL)">KOTEL (AIRFEL)</option>
+                <option value="KOTEL (AKFA)">KOTEL (AKFA)</option>
+                <option value="KOTEL (AKFA) GOST AAA">KOTEL (AKFA) GOST AAA</option>
+                <option value="KOTEL (FAHRENEIT)">KOTEL (FAHRENEIT)</option>
+                <option value="KOTEL AKSSESSUAR">KOTEL AKSSESSUAR</option>
+                <option value="KOTEL (AIRFEL) AKSESSUAR">KOTEL (AIRFEL) AKSESSUAR</option>
+                <option value="KOTEL (AKFA) AKSESSUAR">KOTEL (AKFA) AKSESSUAR</option>
+                <option value="KRASKA">KRASKA</option>
+                <option value="MEBEL PROF&AKS.">MEBEL PROF&AKS.</option>
+                <option value="MEBEL 3D (56/55)">MEBEL 3D (56/55)</option>
+                <option value="MEBEL AKSESSUAR (ANOD)">MEBEL AKSESSUAR (ANOD)</option>
+                <option value="MEBEL ANADIROVKA">MEBEL ANADIROVKA</option>
+                <option value="MEBEL SVETNOY">MEBEL SVETNOY</option>
+                <option value="MEBEL VAKUM">MEBEL VAKUM</option>
+                <option value="RADIATOR AKSESSUAR">RADIATOR AKSESSUAR</option>
+                <option value="SETKA">SETKA</option>
+                <option value="SUVOQ PROFIL">SUVOQ PROFIL</option>
+                <option value="VITYAJNOY USTROYSTVA">VITYAJNOY USTROYSTVA</option>
+                <option value="GRANIT">GRANIT</option>
+                <option value="RADIATORI PANEL (IMPORT)">RADIATORI PANEL (IMPORT)</option>
+                <option value="PIGMENT POROSHKOVIY">PIGMENT POROSHKOVIY</option>
+                <option value="GAZOBLOK">GAZOBLOK</option>
+                <option value="PAKET">PAKET</option>
             </select>
             </div>
         </td>
