@@ -64,7 +64,7 @@ def file_vi_mo_upload_org(request):
         form = ViFileForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('vi_file_list_radiator')
+            return redirect('vi_mo_file_list_radiator')
     else:
         context ={
             'section':'Загрузка ВИ файла'
