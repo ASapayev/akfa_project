@@ -5,7 +5,7 @@ from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile,PVCProduct
 from radiator.models import RadiatorFile,OrderRadiator as BaseOrderRadiator,ProchiyeFile,AkpFile
 from .models import Anod,Order,OrderDetail
 from accessuar_import.models import Category,GroupProduct
-from accessuar.models import OrderACS,OrderAKP,OrderProchiye,AccessuarDownloadFile
+from accessuar.models import OrderACS,OrderAKP,OrderProchiye,AccessuarDownloadFile,ArtikulAccessuar
 from radiator.models import ArtikulRadiator
 from django.contrib.auth.decorators import login_required
 import time
@@ -1820,12 +1820,21 @@ def shablon_acs_export_detail(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_acs_savdo_detail(request):
-    return render(request,'client/shablonlar/accessuar_savdo.html')
+    artikul_list = ArtikulAccessuar.objects.all().values_list('artikul')
+    context ={
+        'artikul_list':json.dumps(list(artikul_list))
+    }
+    return render(request,'client/shablonlar/accessuar_savdo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_acs_export_savdo_detail(request):
     return render(request,'client/shablonlar/accessuar_export.html')
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def shablon_acs_zavod_savdo_detail(request):
+    return render(request,'client/shablonlar/accessuar_zavod.html')
 
 @login_required(login_url='/accounts/login/')
 @customer_only
@@ -1913,13 +1922,22 @@ def pvc_artikul_list(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def radiator_artikul_list(request):
-    
     term = request.GET.get('term',None)
     if term:
         artikules = ArtikulRadiator.objects.filter(model_radiator__icontains = term).values('id','model_radiator','artikul')
     else:
         artikules = ArtikulRadiator.objects.all()[:50].values('id','model_radiator','artikul')
     return JsonResponse(list(artikules),safe=False)
+
+# @login_required(login_url='/accounts/login/')
+# @customer_only
+# def accessuar_uz_artikul_list(request):
+#     term = request.GET.get('term',None)
+#     if term:
+#         artikules = ArtikulAccessuar.objects.filter(model_radiator__icontains = term).values('id','model_radiator','artikul')
+#     else:
+#         artikules = ArtikulAccessuar.objects.all()[:50].values('id','model_radiator','artikul')
+#     return JsonResponse(list(artikules),safe=False)
 
 
     

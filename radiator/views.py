@@ -28,9 +28,37 @@ def vi_file(request):
         }
     return render(request,'universal/file_list.html',context)
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','radiator'])
+def vi_mo_file(request):
+    files = ViFiles.objects.all().order_by('-created_at')
+    context ={
+        'files':files,
+        'section':'Формирование ВИ файла',
+        'link':'/radiator/vi-generate-mo/',
+        'type':'ВИ'
+        }
+    return render(request,'universal/file_list.html',context)
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','radiator'])
 def file_vi_upload_org(request):
+      
+    if request.method == 'POST':
+        form = ViFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('vi_file_list_radiator')
+    else:
+        context ={
+            'section':'Загрузка ВИ файла'
+        }
+    return render(request,'universal/main.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
+def file_vi_mo_upload_org(request):
       
     if request.method == 'POST':
         form = ViFileForm(request.POST, request.FILES)
@@ -497,9 +525,9 @@ def file_upload_org(request):
             return redirect('file_list_radiator')
     else:
         form =NormaFileForm()
-        context ={
-            'section':''
-        }
+    context ={
+        'section':''
+    }
     return render(request,'universal/main.html',context)
 
 

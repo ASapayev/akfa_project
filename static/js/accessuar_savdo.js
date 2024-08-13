@@ -2,8 +2,17 @@ class BasePokritiya{
     constructor(
         full=false,//done
         id=NaN, //done
+        base_artikul=NaN,
+        kratkiy_tekst=NaN,
+        gruppa_materialov=NaN,
+        bei =NaN,
+        aei=NaN,
+        koefitsiyent=NaN,
+        comment=NaN,
         pickupdate=NaN,//done
-        sena_za_bei=NaN,//done
+        sena_c_nds=NaN,
+        sena_bez_nds=NaN,
+
         online_id=NaN,//done
         nazvaniye_ruchnoy=NaN,//done
         svet_product=NaN,//done
@@ -25,8 +34,16 @@ class BasePokritiya{
       
         this.full=full;
         this.id=id;
+        this.base_artikul=base_artikul;
+        this.kratkiy_tekst=kratkiy_tekst;
+        this.gruppa_materialov=gruppa_materialov;
+        this.bei=bei;
+        this.aei=aei;
+        this.koefitsiyent=koefitsiyent;
+        this.comment=comment,
         this.pickupdate=pickupdate;
-        this.sena_za_bei=sena_za_bei;
+        this.sena_c_nds=sena_c_nds;
+        this.sena_bez_nds=sena_bez_nds;
         this.online_id=online_id;
         this.nazvaniye_ruchnoy=nazvaniye_ruchnoy;
         this.svet_product=svet_product;
@@ -48,7 +65,7 @@ class BasePokritiya{
     get_kratkiy_tekst(){
             switch(this.id){
                 case 1: if(this.is_active){
-                    if (this.online_id && this.nazvaniye_ruchnoy){
+                    if (this.online_id && this.nazvaniye_ruchnoy&&this.sena_c_nds&&this.sena_bez_nds){
                         
                         return {'text':'','accept':true}
                     }else{
@@ -56,7 +73,7 @@ class BasePokritiya{
                     }
                     
                     }else{
-                        if (this.tip_clenta && this.zavod &&this.sena_za_bei && this.pickupdate && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
+                        if (this.base_artikul && this.kratkiy_tekst && this.bei && this.tip_clenta && this.zavod &&this.sena_c_nds&&this.sena_bez_nds && this.pickupdate && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
         
                             return {'text':'','accept':true}
                         }else{
@@ -64,7 +81,7 @@ class BasePokritiya{
                         }
                     }break;
                 case 2:if(this.is_active){
-                    if (this.online_id && this.nazvaniye_ruchnoy){
+                    if (this.online_id && this.nazvaniye_ruchnoy&&this.sena_c_nds&&this.sena_bez_nds){
         
                         
                         return {'text':'','accept':true}
@@ -75,7 +92,7 @@ class BasePokritiya{
                     
                     }else{
                         
-                        if (this.tip_clenta &&this.zavod && this.sena_za_bei && this.pickupdate && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
+                        if (this.base_artikul && this.kratkiy_tekst && this.bei && this.tip_clenta &&this.zavod &&this.sena_c_nds&&this.sena_bez_nds && this.pickupdate && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
                             
                             
                             return {'text':'','accept':true}
@@ -105,16 +122,80 @@ function front_piece(start=1,end=6){
                             <button type="button" class="btn btn-outline-secondary btn-sm" id='create_btn`+String(i)+`' onclick="create(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi' style='font-size:16px; width:34px'>С</button>
                             <button type="button" class="btn btn-outline-secondary btn-sm" id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' style='font-size:16px;width:34px'>А</button>
                     </div>
-                    
-                    
-
         </td>
+        <td >
+            <div id='div_artikul`+String(i)+`' style='display:none'>
+                <select class ='form-select base_artikul_org`+String(i)+`' id='base_artikul`+String(i)+`'  style='text-transform: uppercase; padding-left:35%;height:27px!important;z-index:0;border-color:red' onchange="create_kratkiy_tekst(`+String(i)+`)" data-placeholder="..."></select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="border-color:red; width: 200px; font-size:10px;display:none;height:27px;z-index:0 " id='kratkiy_tekst`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+                <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;z-index:0"  id='gruppa_materialov`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                    <option  ></option>
+                    <option  selected value="ACSUZGP">ACSUZGP</option>
+                </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;border-color:red;display:none;z-index:0" id='bei`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option  value="Штука">Штука</div>
+                <option  value="Килограмм">Килограмм</div>
+                <option  value="Квадратный метр">Квадратный метр</div>
+                <option  value="Метр">Метр</div>
+                <option  value="КМП">КМП</div>
+                <option  value="Пачка">Пачка</div>
+                <option  value="Секция">Секция</div>
+                <option  value="Коробка">Коробка</div>
+                <option  value="Грам">Грам</div>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;z-index:0" id='aei`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option  value="Штука">Штука</div>
+                <option  value="Килограмм">Килограмм</div>
+                <option  value="Квадратный метр">Квадратный метр</div>
+                <option  value="Метр">Метр</div>
+                <option  value="КМП">КМП</div>
+                <option  value="Пачка">Пачка</div>
+                <option  value="Секция">Секция</div>
+                <option  value="Коробка">Коробка</div>
+                <option  value="Грам">Грам</div>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style=" width: 75px; font-size:10px;display:none;height:27px;z-index:0 " id='koefitsiyent`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style=" width: 170px; font-size:10px;display:none;height:27px;z-index:0 " id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+
+
         <td >
         <input  style='display:none;border-color:red; line-height:15px;z-index:0' type="date" class="form-control" id="pickupdate`+String(i)+`" onchange='create_kratkiy_tekst(`+String(i)+`)'> 
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px;z-index:0 " id='sena_za_bei`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px;z-index:0 " id='sena_c_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px;z-index:0 " id='sena_bez_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
@@ -130,11 +211,11 @@ function front_piece(start=1,end=6){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option   value="COLOUR">COLOUR</option>
-            <option   value="Без цвета">Без цвета</option>
-        </select>
+                <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                    <option  selected></option>
+                    <option   value="COLOUR">COLOUR</option>
+                    <option   value="Без цвета">Без цвета</option>
+                </select>
             </div>
         </td>
         <td >
@@ -292,6 +373,7 @@ function front_piece(start=1,end=6){
         </td>
         
         </tr>`
+        
     }
     return text
 }
@@ -303,6 +385,14 @@ var table = $('#table-artikul')
 
 table.append(text)
 
+artikul_list_add()
+
+function artikul_list_add(start=1,end=6){
+
+    for (let i = start; i < end; i++) {
+        set_base_artikul(artikul_list,'.base_artikul_org'+i,value='')
+    }
+}
 
 
 
@@ -311,6 +401,8 @@ table.append(text)
 
 
 data_base = {}
+
+
 
 
 function copy_tr(id){
@@ -340,8 +432,18 @@ function copy_tr(id){
         
         var s = size+1
 
+        var base_artikul = data.base_artikul;
+        var kratkiy_tekst = data.kratkiy_tekst;
+        var gruppa_materialov = data.gruppa_materialov;
+        var bei = data.bei;
+        var aei = data.aei;
+        var koefitsiyent = data.koefitsiyent;
+        var comment = data.comment;
+        
+        
         var pickupdate = data.pickupdate;
-        var sena_za_bei = data.sena_za_bei;
+        var sena_c_nds = data.sena_c_nds;
+        var sena_bez_nds = data.sena_bez_nds;
         var online_id = data.online_id;
         var nazvaniye_ruchnoy = data.nazvaniye_ruchnoy;
         var svet_product = data.svet_product;
@@ -369,8 +471,17 @@ function copy_tr(id){
             create_btn.css('background-color','green')
             create_btn.css('color','white')
             $('#is_active'+s).text('')
+            check_input_and_change(base_artikul,'#base_artikul'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(kratkiy_tekst,'#kratkiy_tekst'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(bei,'#bei'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(aei,'#aei'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
+
             check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=true,is_req_simple=false)
-            check_input_and_change(sena_za_bei,'#sena_za_bei'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(sena_c_nds ,'#sena_c_nds '+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(sena_bez_nds ,'#sena_bez_nds '+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(svet_product,'#svet_product'+s,dis=false,is_req=true,is_req_simple=false)
@@ -392,8 +503,17 @@ function copy_tr(id){
             activate_btn.css('background-color','orange')
             activate_btn.css('color','white')
             $('#is_active'+s).text('Активный')
+            check_input_and_change(base_artikul,'#base_artikul'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(kratkiy_tekst,'#kratkiy_tekst'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(bei,'#bei'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(aei,'#aei'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
+
             check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=false,is_req_simple=true)
-            check_input_and_change(sena_za_bei,'#sena_za_bei'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sena_c_nds ,'#sena_c_nds '+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(sena_bez_nds ,'#sena_bez_nds '+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(svet_product,'#svet_product'+s,dis=false,is_req=false,is_req_simple=true)
@@ -484,7 +604,13 @@ function create(id){
 
     var zavod_name =$('#zavod_name'+id);
     var tip_clenta =$('#tip_clenta'+id);
-    var sena_za_bei =$('#sena_za_bei'+id);
+
+    var div_artikul =$('#div_artikul'+id);
+    var kratkiy_tekst =$('#kratkiy_tekst'+id);
+    var gruppa_materialov =$('#gruppa_materialov'+id);
+    var bei =$('#bei'+id);
+    var aei =$('#aei'+id);
+    var koefitsiyent =$('#koefitsiyent'+id);
     
     var svet_product =$('#svet_product'+id);
     var online_savdo_id =$('#online_savdo_id'+id);
@@ -512,7 +638,6 @@ function create(id){
     pickupdate.css('display','block')
     sena_c_nds.css('display','block')
     sena_bez_nds.css('display','block')
-    sena_za_bei.css('display','block')
     
     
     
@@ -522,6 +647,14 @@ function create(id){
     stoimost_baza.val('1')
     
     
+
+    div_artikul.css('display','block')
+    kratkiy_tekst.css('display','block')
+    gruppa_materialov.css('display','block')
+    bei.css('display','block')
+    aei.css('display','block')
+    koefitsiyent.css('display','block')
+    comment.css('display','block')
 
     zavod_name.css('display','block')
     tip_clenta.css('display','block')
@@ -587,9 +720,17 @@ function activate(id){
     
     data_base[id].is_active=true
 
+    var div_artikul =$('#div_artikul'+id);
+    var kratkiy_tekst =$('#kratkiy_tekst'+id);
+    var gruppa_materialov =$('#gruppa_materialov'+id);
+    var bei =$('#bei'+id);
+    var aei =$('#aei'+id);
+    var koefitsiyent =$('#koefitsiyent'+id);
+
+  
+
     var zavod_name =$('#zavod_name'+id);
     var tip_clenta =$('#tip_clenta'+id);
-    var sena_za_bei =$('#sena_za_bei'+id);
 
     
     var online_savdo_id =$('#online_savdo_id'+id);
@@ -616,9 +757,15 @@ function activate(id){
     pickupdate.css('display','block')
     sena_c_nds.css('display','block')
     sena_bez_nds.css('display','block')
-    sena_za_bei.css('display','block')
     
-    
+    div_artikul.css('display','block')
+    kratkiy_tekst.css('display','block')
+    gruppa_materialov.css('display','block')
+    bei.css('display','block')
+    aei.css('display','block')
+    koefitsiyent.css('display','block')
+    comment.css('display','block')
+
     zavod_name.css('display','block')
     tip_clenta.css('display','block')
     online_savdo_id.css('display','block')
@@ -641,7 +788,9 @@ function activate(id){
     status.val('Активный')
     // status.attr('disabled',true)
 
-    sena_za_bei.css('border-color','#dedad9')
+    kratkiy_tekst.css('border-color','#dedad9')
+    bei.css('border-color','#dedad9')
+
     zavod_name.css('border-color','#dedad9')
     tip_clenta.css('border-color','#dedad9')
     svet_product.css('border-color','#dedad9')
@@ -659,8 +808,8 @@ function activate(id){
     buxgalter_tovar.css('border-color','#dedad9')
     comment.css('border-color','#dedad9')
     pickupdate.css('border-color','#dedad9')
-    sena_c_nds.css('border-color','#dedad9')
-    sena_bez_nds.css('border-color','#dedad9')
+    // sena_c_nds.css('border-color','#dedad9')
+    // sena_bez_nds.css('border-color','#dedad9')
 
     
 
@@ -690,6 +839,7 @@ function artukil_clear(id){
     var online_savdo_id =$('#online_savdo_id'+id);
     var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id);
 
+    set_base_artikul(artikul_list,'.base_artikul_org'+id,value='',add=false)
 
     var svet_product =$('#svet_product'+id);
     var group_zakup =$('#group_zakup'+id);
@@ -709,14 +859,29 @@ function artukil_clear(id){
     var pickupdate =$('#pickupdate'+id);
     var diller =$('#diller'+id);
     var tip_clenta =$('#tip_clenta'+id);
-    var sena_za_bei =$('#sena_za_bei'+id);
+    var div_artikul =$('#div_artikul'+id);
+    var kratkiy_tekst =$('#kratkiy_tekst'+id);
+    var gruppa_materialov =$('#gruppa_materialov'+id);
+    var bei =$('#bei'+id);
+    var aei =$('#aei'+id);
+    var koefitsiyent =$('#koefitsiyent'+id);
+    var sena_c_nds =$('#sena_c_nds'+id);
+    var sena_bez_nds =$('#sena_bez_nds'+id);
     
+    div_artikul.css('display','none')
+    kratkiy_tekst.css('display','none')
+    gruppa_materialov.css('display','none')
+    bei.css('display','none')
+    aei.css('display','none')
+    koefitsiyent.css('display','none')
+
     comment.css('display','none')
     obshiy_ves_shtuku.css('display','none')
     pickupdate.css('display','none')
     diller.css('display','none')
     tip_clenta.css('display','none')
-    sena_za_bei.css('display','none')
+    sena_c_nds.css('display','none')
+    sena_bez_nds.css('display','none')
 
 
     svet_product.css('display','none')
@@ -749,9 +914,28 @@ function artukil_clear(id){
     zavod.css('border-color','red')
     pickupdate.css('border-color','red')
     tip_clenta.css('border-color','red')
-    sena_za_bei.css('border-color','red')
+
+    sena_bez_nds.css('border-color','red')
+    sena_c_nds.css('border-color','red')
+
+    // base_artikul.css('border-color','red')
+    kratkiy_tekst.css('border-color','red')
+    // gruppa_materialov.css('border-color','red')
+    bei.css('border-color','red')
+    // aei.css('border-color','red')
+    // koefitsiyent.css('border-color','red')
 
     
+
+    sena_bez_nds.val('')
+    sena_c_nds.val('')
+    // base_artikul.val('')
+    kratkiy_tekst.val('')
+    gruppa_materialov.val('')
+    bei.val('')
+    aei.val('')
+    koefitsiyent.val('')
+
     diller.val('')
     tip_clenta.val('')
     online_savdo_id.val('')
@@ -763,7 +947,6 @@ function artukil_clear(id){
     zavod.val('')
     bazoviy_edin.val('')
     status.val('Активный')
-    sena_za_bei.val('')
     buxgalter_uchot.val('')
     alter_edin.val('')
     stoimost_baza.val('')
@@ -810,7 +993,16 @@ function create_kratkiy_tekst(id){
         var comment =$('#comment'+id);
         var pickupdate =$('#pickupdate'+id);
         var tip_clenta =$('#tip_clenta'+id)
-        var sena_za_bei =$('#sena_za_bei'+id)
+
+
+        var base_artikul =$('#base_artikul'+id)
+        var kratkiy_tekst =$('#kratkiy_tekst'+id)
+        var gruppa_materialov =$('#gruppa_materialov'+id)
+        var bei =$('#bei'+id)
+        var aei =$('#aei'+id)
+        var koefitsiyent =$('#koefitsiyent'+id)
+        var sena_c_nds =$('#sena_c_nds'+id)
+        var sena_bez_nds =$('#sena_bez_nds'+id)
         
         
         var is_active =$('#is_active'+id)
@@ -858,6 +1050,49 @@ function create_kratkiy_tekst(id){
         
         if(is_active.text()=='Активный'){
 
+            if(base_artikul.val()!=''){
+                data_base[id].base_artikul = base_artikul.val();
+                base_artikul.css('border-color','#dedad9')
+            }else{
+                base_artikul.css('border-color','#dedad9')
+                data_base[id].base_artikul = NaN;
+            }
+            if(kratkiy_tekst.val()!=''){
+                data_base[id].kratkiy_tekst = kratkiy_tekst.val();
+                kratkiy_tekst.css('border-color','#dedad9')
+            }else{
+                kratkiy_tekst.css('border-color','#dedad9')
+                data_base[id].kratkiy_tekst = NaN;
+            }
+            if(gruppa_materialov.val()!=''){
+                data_base[id].gruppa_materialov = gruppa_materialov.val();
+                gruppa_materialov.css('border-color','#dedad9')
+            }else{
+                gruppa_materialov.css('border-color','#dedad9')
+                data_base[id].gruppa_materialov = NaN;
+            }
+            if(bei.val()!=''){
+                data_base[id].bei = bei.val();
+                bei.css('border-color','#dedad9')
+            }else{
+                bei.css('border-color','#dedad9')
+                data_base[id].bei = NaN;
+            }
+            if(aei.val()!=''){
+                data_base[id].aei = aei.val();
+                aei.css('border-color','#dedad9')
+            }else{
+                aei.css('border-color','#dedad9')
+                data_base[id].aei = NaN;
+            }
+            if(koefitsiyent.val()!=''){
+                data_base[id].koefitsiyent = koefitsiyent.val();
+                koefitsiyent.css('border-color','#dedad9')
+            }else{
+                koefitsiyent.css('border-color','#dedad9')
+                data_base[id].koefitsiyent = NaN;
+            }
+
             if(tip_clenta.val()!=''){
                 data_base[id].tip_clenta = tip_clenta.val();
                 tip_clenta.css('border-color','#dedad9')
@@ -865,12 +1100,8 @@ function create_kratkiy_tekst(id){
                 tip_clenta.css('border-color','#dedad9')
                 data_base[id].tip_clenta = NaN;
             }
-            if(sena_za_bei.val()!=''){
-                data_base[id].sena_za_bei = sena_za_bei.val();
-                sena_za_bei.css('border-color','#dedad9')
-            }else{
-                data_base[id].sena_za_bei = NaN;
-            }
+
+            
             
             if(pickupdate.val()!=''){
                 data_base[id].pickupdate = pickupdate.val();
@@ -887,6 +1118,22 @@ function create_kratkiy_tekst(id){
             }
             
             
+            if(sena_c_nds.val()!=''){
+                sena_c_nds.css('border-color','#dedad9')
+                data_base[id].sena_c_nds = sena_c_nds.val();
+            }else{
+                data_base[id].sena_c_nds = NaN;
+                sena_c_nds.css('border-color','red')
+            }
+            if(sena_bez_nds.val()!=''){
+                sena_bez_nds.css('border-color','#dedad9')
+                data_base[id].sena_bez_nds = sena_bez_nds.val();
+            }else{
+                data_base[id].sena_bez_nds = NaN;
+                sena_bez_nds.css('border-color','red')
+            }
+
+
             if(online_savdo_id.val()!=''){
                 online_savdo_id.css('border-color','#dedad9')
                 data_base[id].online_id = online_savdo_id.val();
@@ -894,6 +1141,9 @@ function create_kratkiy_tekst(id){
                 data_base[id].online_id = NaN;
                 online_savdo_id.css('border-color','red')
             }
+
+
+
             if(nazvaniye_ruchnoy.val()!=''){
                 nazvaniye_ruchnoy.css('border-color','#dedad9')
                 data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
@@ -959,6 +1209,50 @@ function create_kratkiy_tekst(id){
                 
             }
         }else{
+            
+            if(base_artikul.val()!=''){
+                data_base[id].base_artikul = base_artikul.val();
+                base_artikul.css('border-color','#dedad9')
+            }else{
+                base_artikul.css('border-color','red')
+                data_base[id].base_artikul = NaN;
+            }
+            if(kratkiy_tekst.val()!=''){
+                data_base[id].kratkiy_tekst = kratkiy_tekst.val();
+                kratkiy_tekst.css('border-color','#dedad9')
+            }else{
+                kratkiy_tekst.css('border-color','red')
+                data_base[id].kratkiy_tekst = NaN;
+            }
+            if(gruppa_materialov.val()!=''){
+                data_base[id].gruppa_materialov = gruppa_materialov.val();
+                gruppa_materialov.css('border-color','#dedad9')
+            }else{
+                gruppa_materialov.css('border-color','#dedad9')
+                data_base[id].gruppa_materialov = NaN;
+            }
+            if(bei.val()!=''){
+                data_base[id].bei = bei.val();
+                bei.css('border-color','#dedad9')
+            }else{
+                bei.css('border-color','red')
+                data_base[id].bei = NaN;
+            }
+            if(aei.val()!=''){
+                data_base[id].aei = aei.val();
+                aei.css('border-color','#dedad9')
+            }else{
+                aei.css('border-color','#dedad9')
+                data_base[id].aei = NaN;
+            }
+            if(koefitsiyent.val()!=''){
+                data_base[id].koefitsiyent = koefitsiyent.val();
+                koefitsiyent.css('border-color','#dedad9')
+            }else{
+                koefitsiyent.css('border-color','#dedad9')
+                data_base[id].koefitsiyent = NaN;
+            }
+
             if(tip_clenta.val()!=''){
                 data_base[id].tip_clenta = tip_clenta.val();
                 tip_clenta.css('border-color','#dedad9')
@@ -966,12 +1260,19 @@ function create_kratkiy_tekst(id){
                 tip_clenta.css('border-color','red')
                 data_base[id].tip_clenta = NaN;
             }
-            if(sena_za_bei.val()!=''){
-                data_base[id].sena_za_bei = sena_za_bei.val();
-                sena_za_bei.css('border-color','#dedad9')
+            if(sena_c_nds.val()!=''){
+                sena_c_nds.css('border-color','#dedad9')
+                data_base[id].sena_c_nds = sena_c_nds.val();
             }else{
-                sena_za_bei.css('border-color','red')
-                data_base[id].sena_za_bei = NaN;
+                data_base[id].sena_c_nds = NaN;
+                sena_c_nds.css('border-color','red')
+            }
+            if(sena_bez_nds.val()!=''){
+                sena_bez_nds.css('border-color','#dedad9')
+                data_base[id].sena_bez_nds = sena_bez_nds.val();
+            }else{
+                data_base[id].sena_bez_nds = NaN;
+                sena_bez_nds.css('border-color','red')
             }
             if(pickupdate.val()!=''){
                 data_base[id].pickupdate = pickupdate.val();

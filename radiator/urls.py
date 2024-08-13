@@ -17,16 +17,22 @@ urlpatterns = [
     path('kombinirovaniy-process/<int:id>',views.kombinirovaniy_process,name='kombinirovaniy_process_radiator'),
     path('get-razlovka-radiator',views.get_razlovka_radiator,name='get_razlovka_radiator'),
 
+    ######## END NORMA ############
 
     ######## texcarta #######
     path('generate-radiator/<int:id>',views.lenght_generate_texcarta,name='lenght_generate_texcarta_radiator'),
+
+
+    ####### vi files #############
     path('vifile-upload-radiator',views.file_vi_upload_org,name='vi_file_upload_radiator'),
+    path('vifile-mo-upload-radiator',views.file_vi_mo_upload_org,name='vi_mo_file_upload_radiator'),
     path('vi-file-list',views.vi_file,name='vi_file_list_radiator'),
+    path('vi-mo-file-list',views.vi_mo_file,name='vi_mo_file_list_radiator'),
     path('vi-generate/<int:id>',views.vi_generate,name='vi_generate_radiator'),
     path('vi-generate-mo/<int:id>',views.vi_generate_mo,name='vi_generate_mo_radiator'),
-    
+    ############# end vi #############
 
-    ######## END NORMA ############
+    
 
     path('radiator-generate-sapcode/<int:id>',views.product_add_second_org_radiator,name='radiator_add_org'),
 
