@@ -1296,6 +1296,7 @@ def product_add_second_org(request,id):
       file = AluFileTermo.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
       df =df.astype(str)
+      df['Код заказчика экспорт если експорт']=''
       
       now = datetime.now()
       year =now.strftime("%Y")
@@ -1405,6 +1406,7 @@ def product_add_second_org(request,id):
             row['Код лам пленки снаружи'] = row['Код лам пленки снаружи'].replace('.0','')
             row['Код лам пленки внутри'] = row['Код лам пленки внутри'].replace('.0','')
             row['Код лам пленки внутри'] = row['Код лам пленки внутри'].replace('.0','')
+            
             
             if 'Название export' in list(df.columns):
                   if ((row['Название export'] == 'nan') or (row['Название export'] == '')):
