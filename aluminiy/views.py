@@ -905,6 +905,7 @@ def product_add_second_org(request,id):
       file = AluFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
       df =df.astype(str)
+      df['Код заказчика экспорт если експорт'] =''
       
       now = datetime.now()
       year =now.strftime("%Y")
