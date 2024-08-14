@@ -1834,7 +1834,11 @@ def shablon_acs_export_savdo_detail(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_acs_zavod_savdo_detail(request):
-    return render(request,'client/shablonlar/accessuar_zavod.html')
+    artikul_list = ArtikulAccessuar.objects.all().values_list('artikul')
+    context ={
+        'artikul_list':json.dumps(list(artikul_list))
+    }
+    return render(request,'client/shablonlar/accessuar_zavod.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
