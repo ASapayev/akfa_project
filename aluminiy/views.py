@@ -1048,31 +1048,55 @@ def product_add_second_org(request,id):
                         online_savdo_name = row['Название савдо']
             else:
                   online_savdo_name =''
-                  
-            if df['Длина при выходе из пресса'][key] != 'nan' and df['Длина при выходе из пресса'][key].replace('.0','')!= row['Длина (мм)']:
-                  dlina = df['Длина при выходе из пресса'][key].replace('.0','')
-                        
-                  df_new['Фабрикация'][key]=df['Краткий текст товара'][key]
-                  df_new['U-Упаковка + Готовая Продукция 75'][key]=df['Краткий текст товара'][key]
-                  
-                  
-                  if df['Тип покрытия'][key] == 'Ламинированный':
-                        plenki1 = False
-                        plenki2 = False
-                        if df['Код лам пленки снаружи'][key] != 'nan':
-                              laminatsiya =row['Код лам пленки снаружи'].replace('.0','')+'/XXXX'
-                              plenki1 = True
-                              
-                        if df['Код лам пленки внутри'][key] != 'nan':
-                              laminatsiya ='XXXX/'+df['Код лам пленки внутри'][key].replace('.0','')
-                              plenki2 =True
-                              
-                        if plenki1 and plenki2:
-                              laminatsiya =df['Код лам пленки снаружи'][key].replace('.0','') +'/'+ df['Код лам пленки внутри'][key].replace('.0','')
-                              
-                        ll =row['Сплав'][len(row['Сплав'])-2:] + row['тип закаленности'] +' L'+dlina+' '+row['Бренд краски снаружи'].replace('.0','')+row['Код краски снаружи'].replace('.0','')+'/'+df['Код краски внутри'][key].replace('.0','')+'_'+laminatsiya +' ' +row['Код наклейки']
-                        df_new['Ламинация'][key] = fabrikatsiya_sap_kod(ll,df['Длина при выходе из пресса'][key].replace('.0',''))
 
+            
+            if 'Длина при выходе из пресса' in list(df.columns):
+                  if df['Длина при выходе из пресса'][key] != 'nan' and df['Длина при выходе из пресса'][key].replace('.0','')!= row['Длина (мм)']:
+                        dlina = df['Длина при выходе из пресса'][key].replace('.0','')
+                              
+                        df_new['Фабрикация'][key]=df['Краткий текст товара'][key]
+                        df_new['U-Упаковка + Готовая Продукция 75'][key]=df['Краткий текст товара'][key]
+                        
+                        
+                        if df['Тип покрытия'][key] == 'Ламинированный':
+                              plenki1 = False
+                              plenki2 = False
+                              if df['Код лам пленки снаружи'][key] != 'nan':
+                                    laminatsiya =row['Код лам пленки снаружи'].replace('.0','')+'/XXXX'
+                                    plenki1 = True
+                                    
+                              if df['Код лам пленки внутри'][key] != 'nan':
+                                    laminatsiya ='XXXX/'+df['Код лам пленки внутри'][key].replace('.0','')
+                                    plenki2 =True
+                                    
+                              if plenki1 and plenki2:
+                                    laminatsiya =df['Код лам пленки снаружи'][key].replace('.0','') +'/'+ df['Код лам пленки внутри'][key].replace('.0','')
+                                    
+                              ll =row['Сплав'][len(row['Сплав'])-2:] + row['тип закаленности'] +' L'+dlina+' '+row['Бренд краски снаружи'].replace('.0','')+row['Код краски снаружи'].replace('.0','')+'/'+df['Код краски внутри'][key].replace('.0','')+'_'+laminatsiya +' ' +row['Код наклейки']
+                              df_new['Ламинация'][key] = fabrikatsiya_sap_kod(ll,df['Длина при выходе из пресса'][key].replace('.0',''))
+
+                  else:
+                        dlina = df['Длина (мм)'][key]
+                        df_new['U-Упаковка + Готовая Продукция'][key] = df['Краткий текст товара'][key]
+                        
+                        
+                        if df['Тип покрытия'][key] == 'Ламинированный':
+                              plenki1 = False
+                              plenki2 = False
+                              if row['Код лам пленки снаружи'] != 'nan':
+                                    laminatsiya =row['Код лам пленки снаружи'].replace('.0','')+'/XXXX'
+                                    plenki1 = True
+                                    
+                              if df['Код лам пленки внутри'][key] != 'nan':
+                                    laminatsiya ='XXXX/'+df['Код лам пленки внутри'][key].replace('.0','')
+                                    plenki2 =True
+                                    
+                              if plenki1 and plenki2:
+                                    laminatsiya =df['Код лам пленки снаружи'][key].replace('.0','') +'/'+ df['Код лам пленки внутри'][key].replace('.0','')
+                                    
+                              df_new['Ламинация'][key] = df['Краткий текст товара'][key]
+                  
+                  
             else:
                   dlina = df['Длина (мм)'][key]
                   df_new['U-Упаковка + Готовая Продукция'][key] = df['Краткий текст товара'][key]
@@ -1093,324 +1117,506 @@ def product_add_second_org(request,id):
                               laminatsiya =df['Код лам пленки снаружи'][key].replace('.0','') +'/'+ df['Код лам пленки внутри'][key].replace('.0','')
                               
                         df_new['Ламинация'][key] = df['Краткий текст товара'][key]
-                  
-            if df['Длина при выходе из пресса'][key] != 'nan' and df['Длина при выходе из пресса'][key].replace('.0','')!= row['Длина (мм)']:
-                  if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key]).exists():
-                        df_new['SAP код F'][key] = AluminiyProduct.objects.filter(artikul = df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key])[:1].get().material
-                        duplicat_list.append([df_new['SAP код F'][key],df_new['Фабрикация'][key],'F'])
-                  else: 
-                        if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F').exists():
-                              umumiy_counter[df['Артикул'][key]+'-F'] += 1
-                              max_valuesF = umumiy_counter[df['Артикул'][key]+'-F']
-                              materiale = df['Артикул'][key] +"-F{:03d}".format(max_valuesF)
-                              AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][key],material=materiale).save()
-                              df_new['SAP код F'][key]=materiale
-                              component2 = materiale.split('-')[0]
-                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
-                              artikle = aluprofiles.data['Артикул']
-                              hollow_and_solid =aluprofiles.data['Полый и Фасонный']
-                              
-                              if row['Тип покрытия'].lower() == 'сублимированный':
-                                    tip_poktitiya ='с декоративным покрытием'
-                              else:
-                                    tip_poktitiya = row['Тип покрытия'].lower()
-                              
-                              
-                              export_description = ''
-                              if row['Комбинация'].lower() == 'с термомостом':  
-                                    export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                              else:       
-                                    export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                              export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()
-                              
-                              
+            
+            
+            
+            if 'Длина при выходе из пресса' in list(df.columns):   
+                  if df['Длина при выходе из пресса'][key] != 'nan' and df['Длина при выходе из пресса'][key].replace('.0','')!= row['Длина (мм)']:
+                        if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key]).exists():
+                              df_new['SAP код F'][key] = AluminiyProduct.objects.filter(artikul = df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key])[:1].get().material
+                              duplicat_list.append([df_new['SAP код F'][key],df_new['Фабрикация'][key],'F'])
+                        else: 
+                              if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F').exists():
+                                    umumiy_counter[df['Артикул'][key]+'-F'] += 1
+                                    max_valuesF = umumiy_counter[df['Артикул'][key]+'-F']
+                                    materiale = df['Артикул'][key] +"-F{:03d}".format(max_valuesF)
+                                    AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=max_valuesF,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][key],material=materiale).save()
+                                    df_new['SAP код F'][key]=materiale
+                                    component2 = materiale.split('-')[0]
+                                    aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                                    artikle = aluprofiles.data['Артикул']
+                                    hollow_and_solid =aluprofiles.data['Полый и Фасонный']
                                     
-                              cache_for_cratkiy_text.append(
-                                                {'material':materiale,
-                                                'kratkiy':df_new['Фабрикация'][key],
-                                                'section':'F-Фабрикация',
-                                                'export_customer_id':row['Код заказчика экспорт если експорт'],
-                                                'system':row['Название системы'],
-                                                'article':artikle,
-                                                'length':df['Длина (мм)'][key],
-                                                'surface_treatment':row['Тип покрытия'],
-                                                'alloy':row['Сплав'],
-                                                'temper':row['тип закаленности'],
-                                                'combination':row['Комбинация'],
-                                                'outer_side_pc_id': row['Код цвета анодировки снаружи'] if row['Тип покрытия']=='Анодированный' else row['Код краски снаружи'],
-                                                'outer_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски снаружи']],
-                                                'inner_side_pc_id':row['Код цвета анодировки внутри'] if row['Тип покрытия']=='Анодированный' else row['Код краски внутри'],
-                                                'inner_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски внутри']],
-                                                'outer_side_wg_s_id':row['Код декор пленки снаружи'],
-                                                'inner_side_wg_s_id':row['Код декор пленки внутри'],
-                                                'outer_side_wg_id':row['Код лам пленки снаружи'],
-                                                'inner_side_wg_id':row['Код лам пленки внутри'],
-                                                'anodization_contact':row['Контактность анодировки'],
-                                                'anodization_type':row['Тип анодировки'],
-                                                'anodization_method':row['Способ анодировки'],
-                                                'print_view':row['Код наклейки'],
-                                                'profile_base':row['База профилей'],
-                                                'width':'1-1000',
-                                                'height':'1-1000',
-                                                'rawmat_type':'ПФ',
-                                                'wms_width':aluprofiles.data['Ширина'],
-                                                'wms_height':aluprofiles.data['Высота'],
-                                                'group_prise': export_description_eng.group_price,
-                                                'nazvaniye_export':export_name,
-                                                'online_savdo_name':online_savdo_name,
-                                                }
-                                          )
-                              
-                        else:
-                              materiale = df['Артикул'][key] +"-F{:03d}".format(1)
-                              AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][key],material=materiale).save()
-                              df_new['SAP код F'][key]=materiale
-                              umumiy_counter[df['Артикул'][key]+'-F'] = 1
-                              component2 = materiale.split('-')[0]
-                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
-                              artikle = aluprofiles.data['Артикул']
-                              hollow_and_solid = aluprofiles.data['Полый и Фасонный']
-                              
-                              if row['Тип покрытия'].lower() == 'сублимированный':
-                                    tip_poktitiya ='с декоративным покрытием'
-                              else:
-                                    tip_poktitiya = row['Тип покрытия'].lower()
-                              
-                              export_description = ''
-                              if row['Комбинация'].lower() == 'с термомостом':  
-                                    export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                              else:       
-                                    export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                              export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()
-                              
-                              
-                              
-                                    
-                              cache_for_cratkiy_text.append(
-                                                {'material':materiale,
-                                                'kratkiy':df_new['Фабрикация'][key],
-                                                'section':'F-Фабрикация',
-                                                'export_customer_id':row['Код заказчика экспорт если експорт'],
-                                                'system':row['Название системы'],
-                                                'article':artikle,
-                                                'length':df['Длина (мм)'][key],
-                                                'surface_treatment':row['Тип покрытия'],
-                                                'alloy':row['Сплав'],
-                                                'temper':row['тип закаленности'],
-                                                'combination':row['Комбинация'],
-                                                'outer_side_pc_id': row['Код цвета анодировки снаружи'] if row['Тип покрытия']=='Анодированный' else row['Код краски снаружи'],
-                                                'outer_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски снаружи']],
-                                                'inner_side_pc_id':row['Код цвета анодировки внутри'] if row['Тип покрытия']=='Анодированный' else row['Код краски внутри'],
-                                                'inner_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски внутри']],
-                                                'outer_side_wg_s_id':row['Код декор пленки снаружи'],
-                                                'inner_side_wg_s_id':row['Код декор пленки внутри'],
-                                                'outer_side_wg_id':row['Код лам пленки снаружи'],
-                                                'inner_side_wg_id':row['Код лам пленки внутри'],
-                                                'anodization_contact':row['Контактность анодировки'],
-                                                'anodization_type':row['Тип анодировки'],
-                                                'anodization_method':row['Способ анодировки'],
-                                                'print_view':row['Код наклейки'],
-                                                'profile_base':row['База профилей'],
-                                                'width':'1-1000',
-                                                'height':'1-1000',
-                                                'rawmat_type':'ПФ',
-                                                'wms_width':aluprofiles.data['Ширина'],
-                                                'wms_height':aluprofiles.data['Высота'],
-                                                'group_prise': export_description_eng.group_price,
-                                                'nazvaniye_export':export_name,
-                                                'online_savdo_name':online_savdo_name,
-                                                }
-                                          )
-                              
-                              
-                  
-                  
-                  if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key]).exists():
-                        df_new['SAP код 75'][key] = AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key])[:1].get().material
-                        duplicat_list.append([df_new['SAP код 75'][key],df_new['U-Упаковка + Готовая Продукция 75'][key],'75'])
-                  else: 
-                        if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='75').exists():
-                              umumiy_counter[df['Артикул'][key]+'-75'] += 1
-                              max_values75 = umumiy_counter[df['Артикул'][key]+'-75']
-                              
-                              if max_values75 <= 99:
-                                    materiale = df['Артикул'][key]+"-75{:02d}".format(max_values75)
-                              else:
-                                    counter =7500 + max_values75
-                                    materiale = df['Артикул'][key]+"-{:04d}".format(counter)
-                                    
-                                    
-                              AluminiyProduct(artikul =df['Артикул'][key],section ='75',counter=max_values75,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key],material=materiale).save()
-                              df_new['SAP код 75'][key] = materiale
-                              
-                             
-                              component2 = materiale.split('-')[0]
-
-                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
-                              artikle = aluprofiles.data['Артикул']
-                              hollow_and_solid =aluprofiles.data['Полый и Фасонный']
-                              
-                              if row['Тип покрытия'].lower() == 'сублимированный':
-                                    tip_poktitiya ='с декоративным покрытием'
-                              else:
-                                    tip_poktitiya = row['Тип покрытия'].lower()
-                              
-                              export_description = ''
-                              if row['Комбинация'].lower() == 'с термомостом':  
-                                    export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                              else:       
-                                    export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                              
-                              export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
-                              
-                              
-                              surface_treatment_export=''
-                              if row['Тип покрытия'].lower() =='неокрашенный':
-                                    surface_treatment_export ='Неокрашенный'
-                              elif ((row['Тип покрытия'].lower() =='окрашенный') or (row['Тип покрытия'].lower() =='белый')):
-                                    surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']] +' ' + row['Код краски снаружи']
-                              elif row['Тип покрытия'].lower() =='сублимированный':
-                                    surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
-                              elif row['Тип покрытия'].lower() =='анодированный':
-                                    surface_treatment_export = row['Код цвета анодировки снаружи']
-                              elif row['Тип покрытия'].lower() =='ламинированный':
-                                    if (row['Цвет лам пленки снаружи']=='XXXX' or row['Цвет лам пленки снаружи']=='nan'):
-                                          surface_treatment_export = svet_lam_plenke_VN[row['Цвет лам пленки внутри']]                  
+                                    if row['Тип покрытия'].lower() == 'сублимированный':
+                                          tip_poktitiya ='с декоративным покрытием'
                                     else:
-                                          if (row['Цвет лам пленки внутри']=='XXXX' or row['Цвет лам пленки внутри']=='nan'):
-                                                surface_treatment_export = svet_lam_plenke_NA[row['Цвет лам пленки снаружи']] 
-                                          else:
-                                                surface_treatment_export = svet_lam_plenke_POL[row['Цвет лам пленки снаружи']]
-                              
+                                          tip_poktitiya = row['Тип покрытия'].lower()
                                     
-                              cache_for_cratkiy_text.append(
-                                                {'material':materiale,
-                                                'kratkiy':df_new['U-Упаковка + Готовая Продукция 75'][key],
-                                                'section':'V-Упаковка + Готовая продукция',
-                                                'export_customer_id':row['Код заказчика экспорт если експорт'],
-                                                'system':row['Название системы'],
-                                                'article':artikle,
-                                                'length':df['Длина (мм)'][key],
-                                                'surface_treatment':row['Тип покрытия'],
-                                                'alloy':row['Сплав'],
-                                                'temper':row['тип закаленности'],
-                                                'combination':row['Комбинация'],
-                                                'outer_side_pc_id': row['Код цвета анодировки снаружи'] if row['Тип покрытия']=='Анодированный' else row['Код краски снаружи'],
-                                                'outer_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски снаружи']],
-                                                'inner_side_pc_id':row['Код цвета анодировки внутри'] if row['Тип покрытия']=='Анодированный' else row['Код краски внутри'],
-                                                'inner_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски внутри']],
-                                                'outer_side_wg_s_id':row['Код декор пленки снаружи'],
-                                                'inner_side_wg_s_id':row['Код декор пленки внутри'],
-                                                'outer_side_wg_id':row['Код лам пленки снаружи'],
-                                                'inner_side_wg_id':row['Код лам пленки внутри'],
-                                                'anodization_contact':row['Контактность анодировки'],
-                                                'anodization_type':row['Тип анодировки'],
-                                                'anodization_method':row['Способ анодировки'],
-                                                'print_view':row['Код наклейки'],
-                                                'profile_base':row['База профилей'],
-                                                'width':'1-1000',
-                                                'height':'1-1000',
-                                                # 'category':row['Название системы'],
-                                                'rawmat_type':'ГП',
-                                                'hollow_and_solid':hollow_and_solid,
-                                                'export_description':export_description,
-                                                'export_description_eng':export_description_eng.bux_name_eng,
-                                                'tnved':export_description_eng.tnved,
-                                                'surface_treatment_export':surface_treatment_export,# GP da kerak
-                                                'wms_width':aluprofiles.data['Ширина'],
-                                                'wms_height':aluprofiles.data['Высота'],
-                                                'group_prise': export_description_eng.group_price,
-                                                'nazvaniye_export':export_name,
-                                                'online_savdo_name':online_savdo_name,
-                                                }
-                                          )
+                                    
+                                    export_description = ''
+                                    if row['Комбинация'].lower() == 'с термомостом':  
+                                          export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    else:       
+                                          export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()
+                                    
+                                    
+                                          
+                                    cache_for_cratkiy_text.append(
+                                                      {'material':materiale,
+                                                      'kratkiy':df_new['Фабрикация'][key],
+                                                      'section':'F-Фабрикация',
+                                                      'export_customer_id':row['Код заказчика экспорт если експорт'],
+                                                      'system':row['Название системы'],
+                                                      'article':artikle,
+                                                      'length':df['Длина (мм)'][key],
+                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'alloy':row['Сплав'],
+                                                      'temper':row['тип закаленности'],
+                                                      'combination':row['Комбинация'],
+                                                      'outer_side_pc_id': row['Код цвета анодировки снаружи'] if row['Тип покрытия']=='Анодированный' else row['Код краски снаружи'],
+                                                      'outer_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски снаружи']],
+                                                      'inner_side_pc_id':row['Код цвета анодировки внутри'] if row['Тип покрытия']=='Анодированный' else row['Код краски внутри'],
+                                                      'inner_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски внутри']],
+                                                      'outer_side_wg_s_id':row['Код декор пленки снаружи'],
+                                                      'inner_side_wg_s_id':row['Код декор пленки внутри'],
+                                                      'outer_side_wg_id':row['Код лам пленки снаружи'],
+                                                      'inner_side_wg_id':row['Код лам пленки внутри'],
+                                                      'anodization_contact':row['Контактность анодировки'],
+                                                      'anodization_type':row['Тип анодировки'],
+                                                      'anodization_method':row['Способ анодировки'],
+                                                      'print_view':row['Код наклейки'],
+                                                      'profile_base':row['База профилей'],
+                                                      'width':'1-1000',
+                                                      'height':'1-1000',
+                                                      'rawmat_type':'ПФ',
+                                                      'wms_width':aluprofiles.data['Ширина'],
+                                                      'wms_height':aluprofiles.data['Высота'],
+                                                      'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
+                                                      }
+                                                )
+                                    
+                              else:
+                                    materiale = df['Артикул'][key] +"-F{:03d}".format(1)
+                                    AluminiyProduct(artikul =df['Артикул'][key],section ='F',counter=1,gruppa_materialov='ALUPF',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['Фабрикация'][key],material=materiale).save()
+                                    df_new['SAP код F'][key]=materiale
+                                    umumiy_counter[df['Артикул'][key]+'-F'] = 1
+                                    component2 = materiale.split('-')[0]
+                                    aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                                    artikle = aluprofiles.data['Артикул']
+                                    hollow_and_solid = aluprofiles.data['Полый и Фасонный']
+                                    
+                                    if row['Тип покрытия'].lower() == 'сублимированный':
+                                          tip_poktitiya ='с декоративным покрытием'
+                                    else:
+                                          tip_poktitiya = row['Тип покрытия'].lower()
+                                    
+                                    export_description = ''
+                                    if row['Комбинация'].lower() == 'с термомостом':  
+                                          export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    else:       
+                                          export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()
+                                    
+                                    
+                                    
+                                          
+                                    cache_for_cratkiy_text.append(
+                                                      {'material':materiale,
+                                                      'kratkiy':df_new['Фабрикация'][key],
+                                                      'section':'F-Фабрикация',
+                                                      'export_customer_id':row['Код заказчика экспорт если експорт'],
+                                                      'system':row['Название системы'],
+                                                      'article':artikle,
+                                                      'length':df['Длина (мм)'][key],
+                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'alloy':row['Сплав'],
+                                                      'temper':row['тип закаленности'],
+                                                      'combination':row['Комбинация'],
+                                                      'outer_side_pc_id': row['Код цвета анодировки снаружи'] if row['Тип покрытия']=='Анодированный' else row['Код краски снаружи'],
+                                                      'outer_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски снаружи']],
+                                                      'inner_side_pc_id':row['Код цвета анодировки внутри'] if row['Тип покрытия']=='Анодированный' else row['Код краски внутри'],
+                                                      'inner_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски внутри']],
+                                                      'outer_side_wg_s_id':row['Код декор пленки снаружи'],
+                                                      'inner_side_wg_s_id':row['Код декор пленки внутри'],
+                                                      'outer_side_wg_id':row['Код лам пленки снаружи'],
+                                                      'inner_side_wg_id':row['Код лам пленки внутри'],
+                                                      'anodization_contact':row['Контактность анодировки'],
+                                                      'anodization_type':row['Тип анодировки'],
+                                                      'anodization_method':row['Способ анодировки'],
+                                                      'print_view':row['Код наклейки'],
+                                                      'profile_base':row['База профилей'],
+                                                      'width':'1-1000',
+                                                      'height':'1-1000',
+                                                      'rawmat_type':'ПФ',
+                                                      'wms_width':aluprofiles.data['Ширина'],
+                                                      'wms_height':aluprofiles.data['Высота'],
+                                                      'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
+                                                      }
+                                                )
+                                    
+                                    
                         
-                        else:
-                              materiale = df['Артикул'][key]+"-75{:02d}".format(1)
-                              AluminiyProduct(artikul = df['Артикул'][key],section ='75',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key],material=materiale).save()
-                              df_new['SAP код 75'][key] = materiale 
-                              umumiy_counter[df['Артикул'][key]+'-75'] = 1
-                              
-                              component2 = materiale.split('-')[0]
-                              aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
-                              artikle = aluprofiles.data['Артикул']
-                              hollow_and_solid =aluprofiles.data['Полый и Фасонный']
-                              
-                              if row['Тип покрытия'].lower() == 'сублимированный':
-                                    tip_poktitiya ='с декоративным покрытием'
-                              else:
-                                    tip_poktitiya = row['Тип покрытия'].lower()
-                              
-                              export_description = ''
-                              if row['Комбинация'].lower() == 'с термомостом':  
-                                    export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                              else:       
-                                    export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                              
-                              export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
-                              
-                              
-                              surface_treatment_export=''
-                              if row['Тип покрытия'].lower() =='неокрашенный':
-                                    surface_treatment_export ='Неокрашенный'
-                              elif ((row['Тип покрытия'].lower() =='окрашенный') or (row['Тип покрытия'].lower() =='белый')):
-                                    surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']]+' '+row['Код краски снаружи']
-                              elif row['Тип покрытия'].lower() =='сублимированный':
-                                    surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
-                              elif row['Тип покрытия'].lower() =='анодированный':
-                                    surface_treatment_export = row['Код цвета анодировки снаружи']
-                              elif row['Тип покрытия'].lower() =='ламинированный':
-                                    if (row['Цвет лам пленки снаружи']=='XXXX' or row['Цвет лам пленки снаружи']=='nan'):
-                                          surface_treatment_export = svet_lam_plenke_VN[row['Цвет лам пленки внутри']]                  
-                                    else:
-                                          if (row['Цвет лам пленки внутри']=='XXXX' or row['Цвет лам пленки внутри']=='nan'):
-                                                surface_treatment_export = svet_lam_plenke_NA[row['Цвет лам пленки снаружи']] 
-                                          else:
-                                                surface_treatment_export = svet_lam_plenke_POL[row['Цвет лам пленки снаружи']]
-                              
+                        
+                        if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key]).exists():
+                              df_new['SAP код 75'][key] = AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key])[:1].get().material
+                              duplicat_list.append([df_new['SAP код 75'][key],df_new['U-Упаковка + Готовая Продукция 75'][key],'75'])
+                        else: 
+                              if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='75').exists():
+                                    umumiy_counter[df['Артикул'][key]+'-75'] += 1
+                                    max_values75 = umumiy_counter[df['Артикул'][key]+'-75']
                                     
-                              cache_for_cratkiy_text.append(
-                                                {'material':materiale,
-                                                'kratkiy':df_new['U-Упаковка + Готовая Продукция 75'][key],
-                                                'section':'V-Упаковка + Готовая продукция',
-                                                'export_customer_id':row['Код заказчика экспорт если експорт'],
-                                                'system':row['Название системы'],
-                                                'article':artikle,
-                                                'length':df['Длина (мм)'][key],
-                                                'surface_treatment':row['Тип покрытия'],
-                                                'alloy':row['Сплав'],
-                                                'temper':row['тип закаленности'],
-                                                'combination':row['Комбинация'],
-                                                'outer_side_pc_id': row['Код цвета анодировки снаружи'] if row['Тип покрытия']=='Анодированный' else row['Код краски снаружи'],
-                                                'outer_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски снаружи']],
-                                                'inner_side_pc_id':row['Код цвета анодировки внутри'] if row['Тип покрытия']=='Анодированный' else row['Код краски внутри'],
-                                                'inner_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски внутри']],
-                                                'outer_side_wg_s_id':row['Код декор пленки снаружи'],
-                                                'inner_side_wg_s_id':row['Код декор пленки внутри'],
-                                                'outer_side_wg_id':row['Код лам пленки снаружи'],
-                                                'inner_side_wg_id':row['Код лам пленки внутри'],
-                                                'anodization_contact':row['Контактность анодировки'],
-                                                'anodization_type':row['Тип анодировки'],
-                                                'anodization_method':row['Способ анодировки'],
-                                                'print_view':row['Код наклейки'],
-                                                'profile_base':row['База профилей'],
-                                                'width':'1-1000',
-                                                'height':'1-1000',
-                                                # 'category':row['Название системы'],
-                                                'rawmat_type':'ГП',
-                                                'hollow_and_solid':hollow_and_solid,
-                                                'export_description':export_description,
-                                                'export_description_eng':export_description_eng.bux_name_eng,
-                                                'tnved':export_description_eng.tnved,
-                                                'surface_treatment_export':surface_treatment_export,# GP da kerak
-                                                'wms_width':aluprofiles.data['Ширина'],
-                                                'wms_height':aluprofiles.data['Высота'],
-                                                'group_prise': export_description_eng.group_price,
-                                                'nazvaniye_export':export_name,
-                                                'online_savdo_name':online_savdo_name,
-                                                }
-                                          )
+                                    if max_values75 <= 99:
+                                          materiale = df['Артикул'][key]+"-75{:02d}".format(max_values75)
+                                    else:
+                                          counter =7500 + max_values75
+                                          materiale = df['Артикул'][key]+"-{:04d}".format(counter)
+                                          
+                                          
+                                    AluminiyProduct(artikul =df['Артикул'][key],section ='75',counter=max_values75,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key],material=materiale).save()
+                                    df_new['SAP код 75'][key] = materiale
+                                    
                               
+                                    component2 = materiale.split('-')[0]
+
+                                    aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                                    artikle = aluprofiles.data['Артикул']
+                                    hollow_and_solid =aluprofiles.data['Полый и Фасонный']
+                                    
+                                    if row['Тип покрытия'].lower() == 'сублимированный':
+                                          tip_poktitiya ='с декоративным покрытием'
+                                    else:
+                                          tip_poktitiya = row['Тип покрытия'].lower()
+                                    
+                                    export_description = ''
+                                    if row['Комбинация'].lower() == 'с термомостом':  
+                                          export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    else:       
+                                          export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    
+                                    export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
+                                    
+                                    
+                                    surface_treatment_export=''
+                                    if row['Тип покрытия'].lower() =='неокрашенный':
+                                          surface_treatment_export ='Неокрашенный'
+                                    elif ((row['Тип покрытия'].lower() =='окрашенный') or (row['Тип покрытия'].lower() =='белый')):
+                                          surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']] +' ' + row['Код краски снаружи']
+                                    elif row['Тип покрытия'].lower() =='сублимированный':
+                                          surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
+                                    elif row['Тип покрытия'].lower() =='анодированный':
+                                          surface_treatment_export = row['Код цвета анодировки снаружи']
+                                    elif row['Тип покрытия'].lower() =='ламинированный':
+                                          if (row['Цвет лам пленки снаружи']=='XXXX' or row['Цвет лам пленки снаружи']=='nan'):
+                                                surface_treatment_export = svet_lam_plenke_VN[row['Цвет лам пленки внутри']]                  
+                                          else:
+                                                if (row['Цвет лам пленки внутри']=='XXXX' or row['Цвет лам пленки внутри']=='nan'):
+                                                      surface_treatment_export = svet_lam_plenke_NA[row['Цвет лам пленки снаружи']] 
+                                                else:
+                                                      surface_treatment_export = svet_lam_plenke_POL[row['Цвет лам пленки снаружи']]
+                                    
+                                          
+                                    cache_for_cratkiy_text.append(
+                                                      {'material':materiale,
+                                                      'kratkiy':df_new['U-Упаковка + Готовая Продукция 75'][key],
+                                                      'section':'V-Упаковка + Готовая продукция',
+                                                      'export_customer_id':row['Код заказчика экспорт если експорт'],
+                                                      'system':row['Название системы'],
+                                                      'article':artikle,
+                                                      'length':df['Длина (мм)'][key],
+                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'alloy':row['Сплав'],
+                                                      'temper':row['тип закаленности'],
+                                                      'combination':row['Комбинация'],
+                                                      'outer_side_pc_id': row['Код цвета анодировки снаружи'] if row['Тип покрытия']=='Анодированный' else row['Код краски снаружи'],
+                                                      'outer_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски снаружи']],
+                                                      'inner_side_pc_id':row['Код цвета анодировки внутри'] if row['Тип покрытия']=='Анодированный' else row['Код краски внутри'],
+                                                      'inner_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски внутри']],
+                                                      'outer_side_wg_s_id':row['Код декор пленки снаружи'],
+                                                      'inner_side_wg_s_id':row['Код декор пленки внутри'],
+                                                      'outer_side_wg_id':row['Код лам пленки снаружи'],
+                                                      'inner_side_wg_id':row['Код лам пленки внутри'],
+                                                      'anodization_contact':row['Контактность анодировки'],
+                                                      'anodization_type':row['Тип анодировки'],
+                                                      'anodization_method':row['Способ анодировки'],
+                                                      'print_view':row['Код наклейки'],
+                                                      'profile_base':row['База профилей'],
+                                                      'width':'1-1000',
+                                                      'height':'1-1000',
+                                                      # 'category':row['Название системы'],
+                                                      'rawmat_type':'ГП',
+                                                      'hollow_and_solid':hollow_and_solid,
+                                                      'export_description':export_description,
+                                                      'export_description_eng':export_description_eng.bux_name_eng,
+                                                      'tnved':export_description_eng.tnved,
+                                                      'surface_treatment_export':surface_treatment_export,# GP da kerak
+                                                      'wms_width':aluprofiles.data['Ширина'],
+                                                      'wms_height':aluprofiles.data['Высота'],
+                                                      'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
+                                                      }
+                                                )
+                              
+                              else:
+                                    materiale = df['Артикул'][key]+"-75{:02d}".format(1)
+                                    AluminiyProduct(artikul = df['Артикул'][key],section ='75',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key],material=materiale).save()
+                                    df_new['SAP код 75'][key] = materiale 
+                                    umumiy_counter[df['Артикул'][key]+'-75'] = 1
+                                    
+                                    component2 = materiale.split('-')[0]
+                                    aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                                    artikle = aluprofiles.data['Артикул']
+                                    hollow_and_solid =aluprofiles.data['Полый и Фасонный']
+                                    
+                                    if row['Тип покрытия'].lower() == 'сублимированный':
+                                          tip_poktitiya ='с декоративным покрытием'
+                                    else:
+                                          tip_poktitiya = row['Тип покрытия'].lower()
+                                    
+                                    export_description = ''
+                                    if row['Комбинация'].lower() == 'с термомостом':  
+                                          export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    else:       
+                                          export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    
+                                    export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
+                                    
+                                    
+                                    surface_treatment_export=''
+                                    if row['Тип покрытия'].lower() =='неокрашенный':
+                                          surface_treatment_export ='Неокрашенный'
+                                    elif ((row['Тип покрытия'].lower() =='окрашенный') or (row['Тип покрытия'].lower() =='белый')):
+                                          surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']]+' '+row['Код краски снаружи']
+                                    elif row['Тип покрытия'].lower() =='сублимированный':
+                                          surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
+                                    elif row['Тип покрытия'].lower() =='анодированный':
+                                          surface_treatment_export = row['Код цвета анодировки снаружи']
+                                    elif row['Тип покрытия'].lower() =='ламинированный':
+                                          if (row['Цвет лам пленки снаружи']=='XXXX' or row['Цвет лам пленки снаружи']=='nan'):
+                                                surface_treatment_export = svet_lam_plenke_VN[row['Цвет лам пленки внутри']]                  
+                                          else:
+                                                if (row['Цвет лам пленки внутри']=='XXXX' or row['Цвет лам пленки внутри']=='nan'):
+                                                      surface_treatment_export = svet_lam_plenke_NA[row['Цвет лам пленки снаружи']] 
+                                                else:
+                                                      surface_treatment_export = svet_lam_plenke_POL[row['Цвет лам пленки снаружи']]
+                                    
+                                          
+                                    cache_for_cratkiy_text.append(
+                                                      {'material':materiale,
+                                                      'kratkiy':df_new['U-Упаковка + Готовая Продукция 75'][key],
+                                                      'section':'V-Упаковка + Готовая продукция',
+                                                      'export_customer_id':row['Код заказчика экспорт если експорт'],
+                                                      'system':row['Название системы'],
+                                                      'article':artikle,
+                                                      'length':df['Длина (мм)'][key],
+                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'alloy':row['Сплав'],
+                                                      'temper':row['тип закаленности'],
+                                                      'combination':row['Комбинация'],
+                                                      'outer_side_pc_id': row['Код цвета анодировки снаружи'] if row['Тип покрытия']=='Анодированный' else row['Код краски снаружи'],
+                                                      'outer_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски снаружи']],
+                                                      'inner_side_pc_id':row['Код цвета анодировки внутри'] if row['Тип покрытия']=='Анодированный' else row['Код краски внутри'],
+                                                      'inner_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски внутри']],
+                                                      'outer_side_wg_s_id':row['Код декор пленки снаружи'],
+                                                      'inner_side_wg_s_id':row['Код декор пленки внутри'],
+                                                      'outer_side_wg_id':row['Код лам пленки снаружи'],
+                                                      'inner_side_wg_id':row['Код лам пленки внутри'],
+                                                      'anodization_contact':row['Контактность анодировки'],
+                                                      'anodization_type':row['Тип анодировки'],
+                                                      'anodization_method':row['Способ анодировки'],
+                                                      'print_view':row['Код наклейки'],
+                                                      'profile_base':row['База профилей'],
+                                                      'width':'1-1000',
+                                                      'height':'1-1000',
+                                                      # 'category':row['Название системы'],
+                                                      'rawmat_type':'ГП',
+                                                      'hollow_and_solid':hollow_and_solid,
+                                                      'export_description':export_description,
+                                                      'export_description_eng':export_description_eng.bux_name_eng,
+                                                      'tnved':export_description_eng.tnved,
+                                                      'surface_treatment_export':surface_treatment_export,# GP da kerak
+                                                      'wms_width':aluprofiles.data['Ширина'],
+                                                      'wms_height':aluprofiles.data['Высота'],
+                                                      'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
+                                                      }
+                                                )
+
+                  else:     
+                        if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key]).exists():
+                              df_new['SAP код 7'][key] = AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key])[:1].get().material
+                              duplicat_list.append([df_new['SAP код 7'][key],df_new['U-Упаковка + Готовая Продукция'][key],'7'])
+                        else: 
+                              if AluminiyProduct.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
+                                    umumiy_counter[df['Артикул'][key]+'-7'] += 1
+                                    max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
+                                    materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
+                                    AluminiyProduct(artikul = df['Артикул'][key],section ='7',counter=max_values7,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key],material=materiale).save()
+                                    df_new['SAP код 7'][key] = materiale
+                                    
+                                    component2 = materiale.split('-')[0]
+                                    aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                                    artikle = aluprofiles.data['Артикул']
+                                    hollow_and_solid =aluprofiles.data['Полый и Фасонный']
+
+                                    if row['Тип покрытия'].lower() == 'сублимированный':
+                                          tip_poktitiya ='с декоративным покрытием'
+                                    else:
+                                          tip_poktitiya = row['Тип покрытия'].lower()
+                                    
+                                    export_description = ''
+                                    if row['Комбинация'].lower() == 'с термомостом':  
+                                          export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    else:       
+                                          export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    
+                                    export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
+                                    
+                                    
+                                    surface_treatment_export=''
+                                    if row['Тип покрытия'].lower() =='неокрашенный':
+                                          surface_treatment_export ='Неокрашенный'
+                                    elif ((row['Тип покрытия'].lower() =='окрашенный') or (row['Тип покрытия'].lower() =='белый')):
+                                          surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']] +' ' +row['Код краски снаружи']
+                                    elif row['Тип покрытия'].lower() =='сублимированный':
+                                          surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
+                                    elif row['Тип покрытия'].lower() =='анодированный':
+                                          surface_treatment_export = row['Код цвета анодировки снаружи']
+                                    elif row['Тип покрытия'].lower() =='ламинированный':
+                                          if (row['Цвет лам пленки снаружи']=='XXXX' or row['Цвет лам пленки снаружи']=='nan'):
+                                                surface_treatment_export = svet_lam_plenke_VN[row['Цвет лам пленки внутри']]                  
+                                          else:
+                                                if (row['Цвет лам пленки внутри']=='XXXX' or row['Цвет лам пленки внутри']=='nan'):
+                                                      surface_treatment_export = svet_lam_plenke_NA[row['Цвет лам пленки снаружи']] 
+                                                else:
+                                                      surface_treatment_export = svet_lam_plenke_POL[row['Цвет лам пленки снаружи']]
+                                          
+                                    cache_for_cratkiy_text.append(
+                                                      {'material':materiale,
+                                                      'kratkiy':df_new['U-Упаковка + Готовая Продукция'][key],
+                                                      'section':'U-Упаковка + Готовая продукция',
+                                                      'export_customer_id':row['Код заказчика экспорт если експорт'],
+                                                      'system':row['Название системы'],
+                                                      'article':artikle,
+                                                      'length':dlina,
+                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'alloy':row['Сплав'],
+                                                      'temper':row['тип закаленности'],
+                                                      'combination':row['Комбинация'],
+                                                      'outer_side_pc_id': row['Код цвета анодировки снаружи'] if row['Тип покрытия']=='Анодированный' else row['Код краски снаружи'],
+                                                      'outer_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски снаружи']],
+                                                      'inner_side_pc_id':row['Код цвета анодировки внутри'] if row['Тип покрытия']=='Анодированный' else row['Код краски внутри'],
+                                                      'inner_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски внутри']],
+                                                      'outer_side_wg_s_id':row['Код декор пленки снаружи'],
+                                                      'inner_side_wg_s_id':row['Код декор пленки внутри'],
+                                                      'outer_side_wg_id':row['Код лам пленки снаружи'],
+                                                      'inner_side_wg_id':row['Код лам пленки внутри'],
+                                                      'anodization_contact':row['Контактность анодировки'],
+                                                      'anodization_type':row['Тип анодировки'],
+                                                      'anodization_method':row['Способ анодировки'],
+                                                      'print_view':row['Код наклейки'],
+                                                      'profile_base':row['База профилей'],
+                                                      'width':'1-1000',
+                                                      'height':'1-1000',
+                                                      # 'category':row['Название системы'],
+                                                      'rawmat_type':'ГП',
+                                                      'hollow_and_solid':hollow_and_solid,
+                                                      'export_description':export_description,
+                                                      'export_description_eng':export_description_eng.bux_name_eng,
+                                                      'tnved':export_description_eng.tnved,
+                                                      'surface_treatment_export':surface_treatment_export,# GP da kerak
+                                                      'wms_width':aluprofiles.data['Ширина'],
+                                                      'wms_height':aluprofiles.data['Высота'],
+                                                      'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
+                                                      }
+                                                )
+                              
+                              else:
+                                    materiale = df['Артикул'][key]+"-7{:03d}".format(1)
+                                    AluminiyProduct(artikul = df['Артикул'][key],section ='7',counter=1,gruppa_materialov='ALUGP',kombinirovanniy='БЕЗ ТЕРМОМОСТА',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key],material=materiale).save()
+                                    df_new['SAP код 7'][key] = materiale
+                                    umumiy_counter[df['Артикул'][key]+'-7'] = 1
+                              
+                                    component2 = materiale.split('-')[0]
+                                    aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
+                                    artikle = aluprofiles.data['Артикул']
+                                    hollow_and_solid =aluprofiles.data['Полый и Фасонный']
+
+                                    if row['Тип покрытия'].lower() == 'сублимированный':
+                                          tip_poktitiya ='с декоративным покрытием'
+                                    else:
+                                          tip_poktitiya = row['Тип покрытия'].lower()
+                                    
+                                    export_description = ''
+                                    if row['Комбинация'].lower() == 'с термомостом':  
+                                          export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    else:       
+                                          export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
+                                    
+                                    export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
+                                    
+                                    
+                                    surface_treatment_export=''
+                                    if row['Тип покрытия'].lower() =='неокрашенный':
+                                          surface_treatment_export ='Неокрашенный'
+                                    elif ((row['Тип покрытия'].lower() =='окрашенный') or (row['Тип покрытия'].lower() =='белый')):
+                                          surface_treatment_export = brand_kraski_snaruji_ABC[row['Бренд краски снаружи']] + ' ' + row['Код краски снаружи']
+                                    elif row['Тип покрытия'].lower() =='сублимированный':
+                                          surface_treatment_export = kod_dekorativ_snaruji_ABC[row['Код декор пленки снаружи']]
+                                    elif row['Тип покрытия'].lower() =='анодированный':
+                                          surface_treatment_export = row['Код цвета анодировки снаружи']
+                                    elif row['Тип покрытия'].lower() =='ламинированный':
+                                          if (row['Цвет лам пленки снаружи']=='XXXX' or row['Цвет лам пленки снаружи']=='nan'):
+                                                surface_treatment_export = svet_lam_plenke_VN[row['Цвет лам пленки внутри']]                  
+                                          else:
+                                                if (row['Цвет лам пленки внутри']=='XXXX' or row['Цвет лам пленки внутри']=='nan'):
+                                                      surface_treatment_export = svet_lam_plenke_NA[row['Цвет лам пленки снаружи']] 
+                                                else:
+                                                      surface_treatment_export = svet_lam_plenke_POL[row['Цвет лам пленки снаружи']]
+                                    
+                                          
+                                    cache_for_cratkiy_text.append(
+                                                      {'material':materiale,
+                                                      'kratkiy':df_new['U-Упаковка + Готовая Продукция'][key],
+                                                      'section':'U-Упаковка + Готовая продукция',
+                                                      'export_customer_id':row['Код заказчика экспорт если експорт'],
+                                                      'system':row['Название системы'],
+                                                      'article':artikle,
+                                                      'length':dlina,
+                                                      'surface_treatment':row['Тип покрытия'],
+                                                      'alloy':row['Сплав'],
+                                                      'temper':row['тип закаленности'],
+                                                      'combination':row['Комбинация'],
+                                                      'outer_side_pc_id': row['Код цвета анодировки снаружи'] if row['Тип покрытия']=='Анодированный' else row['Код краски снаружи'],
+                                                      'outer_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски снаружи']],
+                                                      'inner_side_pc_id':row['Код цвета анодировки внутри'] if row['Тип покрытия']=='Анодированный' else row['Код краски внутри'],
+                                                      'inner_side_pc_brand':brand_kraski_snaruji_ABC[row['Бренд краски внутри']],
+                                                      'outer_side_wg_s_id':row['Код декор пленки снаружи'],
+                                                      'inner_side_wg_s_id':row['Код декор пленки внутри'],
+                                                      'outer_side_wg_id':row['Код лам пленки снаружи'],
+                                                      'inner_side_wg_id':row['Код лам пленки внутри'],
+                                                      'anodization_contact':row['Контактность анодировки'],
+                                                      'anodization_type':row['Тип анодировки'],
+                                                      'anodization_method':row['Способ анодировки'],
+                                                      'print_view':row['Код наклейки'],
+                                                      'profile_base':row['База профилей'],
+                                                      'width':'1-1000',
+                                                      'height':'1-1000',
+                                                      # 'category':row['Название системы'],
+                                                      'rawmat_type':'ГП',
+                                                      'hollow_and_solid':hollow_and_solid,
+                                                      'export_description':export_description,
+                                                      'export_description_eng':export_description_eng.bux_name_eng,
+                                                      'tnved':export_description_eng.tnved,
+                                                      'surface_treatment_export':surface_treatment_export,# GP da kerak
+                                                      'wms_width':aluprofiles.data['Ширина'],
+                                                      'wms_height':aluprofiles.data['Высота'],
+                                                      'group_prise': export_description_eng.group_price,
+                                                      'nazvaniye_export':export_name,
+                                                      'online_savdo_name':online_savdo_name,
+                                                      }
+                                                )
+                              
+                        ##### kombirinovanniy
+
             else:     
                   if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key]).exists():
                         df_new['SAP код 7'][key] = AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key])[:1].get().material
@@ -1736,9 +1942,11 @@ def product_add_second_org(request,id):
                                           )
             
             dlina =''
-      
-            if df['Длина при выходе из пресса'][key] != 'nan' and df['Длина при выходе из пресса'][key].replace('.0','')!= row['Длина (мм)']:
-                  dlina = df['Длина при выходе из пресса'][key].replace('.0','')      
+            if 'Длина при выходе из пресса' in list(df.columns):
+                  if df['Длина при выходе из пресса'][key] != 'nan' and df['Длина при выходе из пресса'][key].replace('.0','')!= row['Длина (мм)']:
+                        dlina = df['Длина при выходе из пресса'][key].replace('.0','') 
+                  else:
+                        dlina = df['Длина (мм)'][key]     
             else:
                   dlina = df['Длина (мм)'][key]
                   
