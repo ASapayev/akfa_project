@@ -324,7 +324,7 @@ def moderator_convert(request,id):
     print(name,'<<<'*7)
 
     if name in ['ALUMINIY SAVDO','ALUMINIY EXPORT','ALUMINIY IMZO'] :
-        df_simple, df_termo , correct, artikul_list = json_to_excel_alumin(datas)
+        df_simple, df_termo , correct, artikul_list = json_to_excel_alumin(datas,name)
 
         if not correct:
             context ={
@@ -1042,7 +1042,7 @@ def json_to_excel_pvc(datas):
     return df_pvc
 
 
-def json_to_excel_alumin(datas):
+def json_to_excel_alumin(datas,name):
     df_termo  = pd.DataFrame()
     df_termo['counter'] =['' for x in range(0,len(datas)*4)]
     df_termo['Название системы'] =''
@@ -1115,7 +1115,8 @@ def json_to_excel_alumin(datas):
     df_simple['Краткий текст товара'] =''
     df_simple['SAP Код вручную (вставится вручную)'] =''
     df_simple['Краткий текст товара (вставится вручную)'] =''
-    df_simple['Длина при выходе из пресса'] =''
+    if name =='ALUMINIY EXPORT':
+        df_simple['Длина при выходе из пресса'] =''
     df_simple['Код заказчика экспорт если експорт'] =''
     correct = True
     artikul_list = []
@@ -1166,7 +1167,8 @@ def json_to_excel_alumin(datas):
                 df_termo['Краткий текст товара'][k_termo] = data['kratkiy_tekst']
                 df_termo['SAP Код вручную (вставится вручную)'][k_termo] = ''
                 df_termo['Краткий текст товара (вставится вручную)'][k_termo] = ''
-                df_termo['Длина при выходе из пресса'][k_termo] = data['dilina_pressa']
+                if name =='ALUMINIY EXPORT':
+                    df_termo['Длина при выходе из пресса'][k_termo] = data['dilina_pressa']
                 k_termo += 1
                 lenth_of_component = ArtikulComponent.objects.filter(data__artikul =data['base_artikul']).count()
 
@@ -1230,7 +1232,8 @@ def json_to_excel_alumin(datas):
                         df_termo['Краткий текст товара'][k_termo] = kratkiy_text_component
                         df_termo['SAP Код вручную (вставится вручную)'][k_termo] = ''
                         df_termo['Краткий текст товара (вставится вручную)'][k_termo] = ''
-                        df_termo['Длина при выходе из пресса'][k_termo] = data['dilina_pressa']
+                        if name =='ALUMINIY EXPORT':
+                            df_termo['Длина при выходе из пресса'][k_termo] = data['dilina_pressa']
                         k_termo += 1
                     if i == 2:
                         if data['id'] ==1:
@@ -1284,7 +1287,8 @@ def json_to_excel_alumin(datas):
                         df_termo['Краткий текст товара'][k_termo] = kratkiy_text_component
                         df_termo['SAP Код вручную (вставится вручную)'][k_termo] = ''
                         df_termo['Краткий текст товара (вставится вручную)'][k_termo] = ''
-                        df_termo['Длина при выходе из пресса'][k_termo] = data['dilina_pressa']
+                        if name =='ALUMINIY EXPORT':
+                            df_termo['Длина при выходе из пресса'][k_termo] = data['dilina_pressa']
                         k_termo += 1
             else:
                 df_simple['Название системы'][k_simple] = data['nazvaniye_system']
@@ -1318,7 +1322,8 @@ def json_to_excel_alumin(datas):
                 df_simple['Краткий текст товара'][k_simple] = data['kratkiy_tekst']
                 df_simple['SAP Код вручную (вставится вручную)'][k_simple] = ''
                 df_simple['Краткий текст товара (вставится вручную)'][k_simple] =''
-                # df_simple['Длина при выходе из пресса'][k_simple] = data['dilina_pressa']
+                if name =='ALUMINIY EXPORT':
+                    df_simple['Длина при выходе из пресса'][k_simple] = data['dilina_pressa']
                 k_simple+=1
     del df_simple['counter']
     del df_termo['counter']
