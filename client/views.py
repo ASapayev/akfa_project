@@ -1848,7 +1848,7 @@ def shablon_acs_zavod_savdo_detail(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_pvc_export_detail(request):
-    nakleyka_list = NakleykaCode.objects.all().values_list('name','nadpis')
+    nakleyka_list = NakleykaPvc.objects.all().values_list('name','nadpis')
     context ={
         'nakleyka_list':json.dumps(list(nakleyka_list))
     }
@@ -1862,7 +1862,7 @@ def shablon_akp_savdo_detail(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_pvc_savdo_detail(request):
-    nakleyka_list = NakleykaCode.objects.all().values_list('name','nadpis')
+    nakleyka_list = NakleykaPvc.objects.all().values_list('name','nadpis')
     context ={
         'nakleyka_list':json.dumps(list(nakleyka_list))
     }
