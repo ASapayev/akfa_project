@@ -35,6 +35,7 @@ class BasePokritiya{
 
     }
     get_kratkiy_tekst(){
+            console.log(this.polnoye_nazvaniye , this.sena_materiala , this.bazoviy_edinitsa , this.goods_group, this.id_klaes , this.nazvaniye_tovarov)
                 if (this.polnoye_nazvaniye && this.sena_materiala && this.bazoviy_edinitsa && this.goods_group&& this.id_klaes && this.nazvaniye_tovarov){
                     return {'text':'','accept':true}
                 }else{
@@ -84,7 +85,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;z-index:0" id='bazoviy_edinitsa`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="border-color:red;width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='bazoviy_edinitsa`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option vlaue="Штука">Штука</div>
                     <option vlaue="Килограмм">Килограмм</div>
@@ -100,7 +101,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="border-color:red; width: 165px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" onchange="create_kratkiy_tekst(`+String(i)+`)" id='goods_group`+String(i)+`' required>
+            <select class="form-select" aria-label="" style="border-color:red; width: 225px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" onchange="create_kratkiy_tekst(`+String(i)+`)" id='goods_group`+String(i)+`' required>
                     <option  selected></option>
                     <option value="ACS_RAW_ALU">Сырье аксессуары алюминий</option>
                     <option value="ACS_RAW_PVC">Сырье аксессуары ПВХ</option>
