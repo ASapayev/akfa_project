@@ -3153,7 +3153,7 @@ def characteristika_created_txt_create_1301(datas):
     ########################## end 1.txt ##############################
 
     ########################## 2.txt ##############################
-    header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tUEETK\tSBDKZ\tSOBSL\tAUTO_P_ORD\tAUSME\tSFCPF'
+    header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tUEETK\tSBDKZ\tSOBSL\tAUTO_P_ORD\tAUSME'
     
    
     d2={}
@@ -3196,14 +3196,14 @@ def characteristika_created_txt_create_1301(datas):
     d2['EKALR']=umumiy_without_duplicate1201[41]
     d2['HKMAT']=umumiy_without_duplicate1201[42]
     d2['LOSGR']=umumiy_without_duplicate1201[38]
-    d2['SFCPF']=umumiy_without_duplicate1201[46]
+    d2['SFCPF']=['1301LM' for x in umumiy_without_duplicate1201[48]]
     
     d2['UEETK']=umumiy_without_duplicate1201[45]
     d2['SBDKZ']=umumiy_without_duplicate1201[47]
     d2['SOBSL']=umumiy_without_duplicate1201[48]
     d2['AUTO_P_ORD']=['X' for x in umumiy_without_duplicate1201[48]]
     d2['AUSME']=['M' for x in umumiy_without_duplicate1201[48]]
-    d2['SFCPF']=['1301LM' for x in umumiy_without_duplicate1201[48]]
+    
     # d2['RAUBE']=umumiy_without_duplicate[50]
 
    
