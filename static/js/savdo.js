@@ -729,7 +729,7 @@ function front_piece(start=1,end=7){
             </div>
         </td>
         <td >
-        <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='baza_profiley`+String(i)+`'></span>
+        <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0;white-space:nowrap;" id='baza_profiley`+String(i)+`'></span>
         </td>
         
         <td >
