@@ -8,6 +8,7 @@
     <link href="{% static 'assets/css/bootstrap.min.css'%}" rel="stylesheet">
 
     <link href="{% static 'assets/css/bootstrap-icons.css'%}" rel="stylesheet">
+   
 </head>
 <body>
     <div class="container-fluid" >
@@ -26,22 +27,54 @@
                 <div class="div-5"><a href="{%url 'client_order_list' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);"><i class="bi bi-cart-check-fill"></i> Заказы </a></div>
                 </div>
                 <div class="div-6">
-                <img
-                    loading="lazy"
-                    src="{% static 'assets/images/figma/human.svg' %}"
-                    class="img-2"
-                />
-                <div class="div-7">
-                    <div class="div-8">
-                    <div class="div-9">{{request.user}}</div>
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/041ef38f4f3faba975acb38050ce3071c14959914b88035b3e8c8097b4c35413?"
-                        class="img-3"
-                    />
+                  <ul id="profileDropdown" >
+                    <li class="nav-item dropdown " id="profil_li" style="list-style: none;">
+                        <a href="#top" class=" smoothscroll"  href="#" data-toggle="dropdown" aria-expanded="false">
+                          <img
+                              loading="lazy"
+                              src="{% static 'assets/images/figma/human.svg' %}"
+                              class="img-2"
+                          /> 
+                        </a>
+                        
+                        <div class="dropdown-menu  navbar-dropdown preview-list pt-2 " id="profil_div" aria-labelledby="profileDropdown">
+                            <h6 class="p-3 mb-0"><i class="bi bi-person-bounding-box"></i> Profile</h6>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-settings text-success"></i>
+                                </div>
+                                </div>
+                                <div class="preview-item-content">
+                                <p style="font-size: 12px;" class="preview-subject mb-1"><i class="bi bi-gear-fill"></i> Settings</p>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item preview-item" href="/accounts/logout/">
+                                <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-logout text-danger"></i>
+                                </div>
+                                </div>
+                                <div class="preview-item-content">
+                                <p  style="font-size: 12px;" class="preview-subject mb-1"><i class="bi bi-box-arrow-right"></i> Log out</p>
+                                </div>
+                            </a>
+                            
+                        </div>
+                    </li>
+                  </ul>
+                    <div class="div-7">
+                        <div class="div-8">
+                        <div class="div-9">
+                          {{request.user}}
+                          
+                        </div>
+                        </div>
+                        <div class="div-10">Клиент</div>
                     </div>
-                    <div class="div-10">Клиент</div>
-                </div>
+                           
                 </div>
             </div>
             </div>
@@ -1241,6 +1274,47 @@
       
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
       <script>
+
+        $('#profileDropdown').hover(
+            function() {
+                // Mouse enters the element
+                var profil_li =$('#profil_li')
+                var profil_div =$('#profil_div')
+                
+                profil_li.addClass('show')
+
+                profil_div.addClass('show')
+                profil_div.css('position','absolute')
+                profil_div.css('transform','translate3d(0px,28px,0px)')
+                profil_div.css('top','0px')
+                profil_div.css('left','0px')
+                profil_div.css('will-change','transform')
+                profil_div.attr('x-placement','bottom-start')
+
+
+
+            },
+            function() {
+              var profil_li =$('#profil_li')
+                var profil_div =$('#profil_div')
+                
+                profil_li.removeClass('show')
+
+                profil_div.removeClass('show')
+                
+                profil_div.css({
+                  'position': '',
+                  'transform': '',
+                  'top': '',
+                  'left': '',
+                  'will-change': ''
+              });
+
+                profil_div.attr('x-placement','')
+            }
+        );
+
+
         var all_menu =['alumin','pvc','acs_uz','acs_import','akp','radiator','prochiye','tms','biznes']
          function menu_change(el,menu_type='alumin'){
             $('.menu').removeClass('active_menu')           
