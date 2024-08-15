@@ -5380,7 +5380,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
             umumiy_without_duplicate1203[44].append(SFSPF1203[sap_code_simvol])
             umumiy_without_duplicate1203[45].append('X')
             umumiy_without_duplicate1203[46].append(LGPRO1203[sap_code_simvol])
-            umumiy_without_duplicate1203[47].append('')
+            umumiy_without_duplicate1203[47].append('X')
             umumiy_without_duplicate1203[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         if gruppa_material=='ALUGP':
@@ -5780,7 +5780,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         umumiy_without_duplicate1201[44].append(SFSPF1201[sap_code_simvol])
         umumiy_without_duplicate1201[45].append('X')
         umumiy_without_duplicate1201[46].append(LGPRO1201[sap_code_simvol])
-        umumiy_without_duplicate1201[47].append('')
+        umumiy_without_duplicate1201[47].append('X')
         umumiy_without_duplicate1201[48].append(row['ch_combination'] + row['Тип покрытия'])
     
     umumiy_without_duplicate =[[] for i in range(0,49)]
