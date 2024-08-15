@@ -1051,7 +1051,7 @@ function copy_tr(id){
         nakleyka_select.css('display','block')
         nakleyka_select.attr('required',true)
 
-        set_nakleyka(nakleyka_list,'.kod_nakleyki'+s,value=kod_nakleyki)
+        set_nakleyka(nakleyka_list,'.kod_nakleyki'+s,value=kod_nakleyki,add=false)
         check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
 
 
@@ -1625,10 +1625,10 @@ function tip_pokritiya_selected(id,val){
     nakleyka_select.css('display','block');
     var nakleyka_nt1 = $('#nakleyka_nt1'+String(id));
     if(nakleyka_nt1.text()==''){
-        set_nakleyka(nakleyka_list,'.kod_nakleyki'+id,value='')
+        set_nakleyka(nakleyka_list,'.kod_nakleyki'+id,value='',add=false)
         nadpis_nakleyki.text('')
     }else{
-        set_nakleyka(nakleyka_list,'.kod_nakleyki'+id,value='NT1')
+        set_nakleyka(nakleyka_list,'.kod_nakleyki'+id,value='NT1',add=false)
         nadpis_nakleyki.text('Без наклейки')
     }
 

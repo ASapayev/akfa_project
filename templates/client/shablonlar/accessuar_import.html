@@ -178,7 +178,7 @@
     });
 
 
-    function set_val_category(element_list=category_list,selector,val=''){
+    function set_val_category(element_list=category_list,selector,val='',add=true){
             
             var jsonData = JSON.parse(element_list)
             
@@ -190,7 +190,9 @@
                     text: item[0],
                     'data-category': item[1] 
                 });
-                select.append(option);
+                if(add){
+                    select.append(option);
+                }
             });
             
             $(selector).chosen({max_selected_options: 50,no_results_text: "Ничего не найден",width: '300px',});
@@ -198,7 +200,7 @@
             $(selector).trigger('chosen:updated');
         }
 
-    function set_val_group(element_list=group_product_list,selector,val=''){
+    function set_val_group(element_list=group_product_list,selector,val='',add=true){
             
             var jsonData = JSON.parse(element_list)
             
@@ -210,7 +212,9 @@
                     text: item[0],
                     'data-group-tovarov': item[1] 
                 });
-                select.append(option);
+                if(add){
+                    select.append(option);
+                }
             });
             
             $(selector).chosen({max_selected_options: 50,no_results_text: "Ничего не найден"});

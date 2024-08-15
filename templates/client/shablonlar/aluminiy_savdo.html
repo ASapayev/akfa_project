@@ -215,7 +215,7 @@
 
     var brend_kaska ='{{brend_kaska|safe}}'
     
-    function set_brend_kraska(element_list,selector,val_=''){
+    function set_brend_kraska(element_list,selector,val_='',add=true){
         
         var jsonData = JSON.parse(element_list)
         
@@ -227,7 +227,9 @@
                 text: item['kraska'],
                 'data-brend': item['brend'] 
             });
-            select.append(option);
+            if(add){
+                select.append(option);
+            }
         });
         
         $(selector).chosen({max_selected_options: 50,no_results_text: "Краска не найден"});

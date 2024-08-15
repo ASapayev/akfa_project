@@ -195,7 +195,7 @@
     
     
     
-    function set_nakleyka(element_list,selector,val=''){
+    function set_nakleyka(element_list,selector,val='',add=true){
             
             var jsonData = JSON.parse(element_list)
             
@@ -207,7 +207,9 @@
                     text: item[0],
                     'data-nadpis': item[1] 
                 });
-                select.append(option);
+                if(add){
+                    select.append(option);
+                }
             });
             
             $(selector).chosen({max_selected_options: 50,no_results_text: "Наклейка не найден"});

@@ -1497,7 +1497,7 @@ function copy_tr(id){
 
 function chosen_update(selector,val_,disabled=false){
 
-    set_brend_kraska(brend_kaska,selector,val_=val_)
+    set_brend_kraska(brend_kaska,selector,val_=val_,add=false)
     if(disabled){
         $(selector).prop('disabled', true).trigger('chosen:updated')
     }else{
@@ -1941,8 +1941,8 @@ function tip_pokritiya_selected(id,val){
     select_anod_vnut.css('display','none');
     // select_anod_vnut.children("span").css('display','none');
     
-    set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='')
-    set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='')
+    set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='',add=false)
+    set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='',add=false)
 
     var brand_k_snaruji = $('#brand_k_snaruji'+id)
     var brand_k_vnutri = $('#brand_k_vnutri'+id)
