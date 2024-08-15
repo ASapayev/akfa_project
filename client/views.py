@@ -1898,7 +1898,7 @@ def shablon_accessuar_import_detail(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_pvc_export_savdo_detail(request):
-    nakleyka_list = NakleykaCode.objects.all().values_list('name','nadpis')
+    nakleyka_list = NakleykaPvc.objects.all().values_list('name','nadpis')
     context ={
         'nakleyka_list':json.dumps(list(nakleyka_list))
     }
