@@ -1224,6 +1224,7 @@ function copy_tr(id){
             data[key] = data_base[id][key]
         }
        
+        console.log(data_base,'daattatat')
 
         data_base[size+1] = data
         
@@ -1427,6 +1428,7 @@ function copy_tr(id){
         
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
 
+        console.log(sap_code_ruchnoy,kratkiy_text_ruchnoy,'obshiyy')
         check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
         check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s)
         check_input_and_change(comment,'#comment'+s)
@@ -3256,10 +3258,25 @@ function create_kratkiy_tekst(id){
 
     }
     if(data.text !='XXXXXXXX' ){
-        var art_krat = data_base[id].base_artikul + data.text
+        var artikul = data_base[id].base_artikul
+        var art_krat = {artikul:data.text}
         if(zapros_count.indexOf(art_krat) === -1){
             sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text,data_base[id].is_termo)
             zapros_count.push(art_krat)
+        }else{
+
+            var krat = zapros_count[artikul]
+            var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+            var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
+            
+
+            sap_code_ruchnoy.val(artikul)
+            kratkiy_text_ruchnoy.val(krat)
+            sap_code_ruchnoy.css('background-color','orange')
+            kratkiy_text_ruchnoy.css('background-color','orange')
+            sap_code_ruchnoy.attr('disabled',true)
+            kratkiy_text_ruchnoy.attr('disabled',true)
+
         }
         data_base[id].kratkiy_tekst= data.text
         
@@ -3288,6 +3305,8 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
             kratkiy_text_ruchnoy.val(res.kratkiy_tekst)
             sap_code_ruchnoy.css('background-color','orange')
             kratkiy_text_ruchnoy.css('background-color','orange')
+            sap_code_ruchnoy.attr('disabled',true)
+            kratkiy_text_ruchnoy.attr('disabled',true)
         }else{
             var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
             var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
@@ -3296,6 +3315,8 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
             kratkiy_text_ruchnoy.val('')
             sap_code_ruchnoy.css('background-color','white')
             kratkiy_text_ruchnoy.css('background-color','white')
+            sap_code_ruchnoy.attr('disabled',false)
+            kratkiy_text_ruchnoy.attr('disabled',false)
             console.log('aa')
         }
         // WON'T REDIRECT
