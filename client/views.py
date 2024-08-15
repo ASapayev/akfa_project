@@ -1649,6 +1649,7 @@ def order_detail(request,id):
                     if 'pvc' in order.order_type:
                         if PVCProduct.objects.filter(artikul=artikul,kratkiy_tekst_materiala=kratkiy,section='7').exists():
                             profil = PVCProduct.objects.filter(artikul=artikul,kratkiy_tekst_materiala=kratkiy,section='7')[:1].get()
+                            datas[key]['base_artikul'] =profil.material
                             datas[key]['sap_code'] =profil.material
                             datas[key]['krat'] =profil.kratkiy_tekst_materiala
                         
@@ -1656,11 +1657,13 @@ def order_detail(request,id):
                         if val['is_termo']:
                             if AluminiyProductTermo.objects.filter(artikul=artikul,kratkiy_tekst_materiala=kratkiy,section='7').exists():
                                 profil = AluminiyProductTermo.objects.filter(artikul=artikul,kratkiy_tekst_materiala=kratkiy,section='7')[:1].get()
+                                datas[key]['base_artikul'] =profil.material
                                 datas[key]['sap_code'] =profil.material
                                 datas[key]['krat'] =profil.kratkiy_tekst_materiala
                         else:
                             if AluminiyProduct.objects.filter(artikul=artikul,kratkiy_tekst_materiala=kratkiy,section='7').exists():
                                 profil = AluminiyProduct.objects.filter(artikul=artikul,kratkiy_tekst_materiala=kratkiy,section='7')[:1].get()
+                                datas[key]['base_artikul'] =profil.material
                                 datas[key]['sap_code'] =profil.material
                                 datas[key]['krat'] =profil.kratkiy_tekst_materiala
             order.data['data'] = datas

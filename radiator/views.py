@@ -905,6 +905,7 @@ def kombinirovaniy_process(request,id):
                     
                 df_new['LGORT'].append('PS08')
         
+        
        
         #### PM
         if {df[i][4]:df[i][5]} not in norma_exists:
@@ -956,7 +957,7 @@ def kombinirovaniy_process(request,id):
                     
                 df_new['LGORT'].append('PS07')
         
-                
+        
         #### M
         if {df[i][2]:df[i][3]} not in norma_exists:
             norma_exists.append({df[i][2]:df[i][3]})
@@ -1118,7 +1119,8 @@ def kombinirovaniy_process(request,id):
                     
                 
                         # siryo = Siryo.objects.filter(data__Краткийтекст__icontains =siryo_names[k-2]['kratkiy'])[:1].get()
-            
+        
+        
         #### PR
         if {df[i][0]:df[i][1]} not in norma_exists:
             norma_exists.append({df[i][0]:df[i][1]})
@@ -1142,7 +1144,7 @@ def kombinirovaniy_process(request,id):
             df_new['DATUV'].append('01012023')
             df_new['PUSTOY'].append('')
             df_new['LGORT'].append('')
-            for k in range(1,4):
+            for k in range(1,3):
                 j+=1
                 df_new['ID'].append('2')
                 df_new['MATNR'].append('')
@@ -1249,7 +1251,7 @@ def kombinirovaniy_process(request,id):
                     df_new['PUSTOY'].append('')
                     df_new['LGORT'].append('PS02')
 
-                 
+       
         
     now = datetime.now()
     year =now.strftime("%Y")

@@ -935,7 +935,7 @@ function copy_tr(id){
 
 function chosen_update(selector,val_,disabled=false){
 
-    set_brend_kraska(brend_kaska,selector,val_=val_,add=false)
+    set_brend_kraska(brend_kaska,selector,val_=val_)
     if(disabled){
         $(selector).prop('disabled', true).trigger('chosen:updated')
     }else{

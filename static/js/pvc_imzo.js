@@ -668,7 +668,7 @@ function copy_tr(id){
        
         nakleyka_select.css('display','block')
         nakleyka_select.attr('required',true)
-        set_nakleyka(nakleyka_list,'.kod_nakleyki'+s,value=kod_nakleyki,add=false)
+        set_nakleyka(nakleyka_list,'.kod_nakleyki'+s,value=kod_nakleyki)
         check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
 
         // get_nakleyka(String(s))

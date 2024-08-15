@@ -479,8 +479,8 @@ function copy_tr(id){
         $('#categoriya_select'+s).css('display','block')
         $('#group_tovarov_select'+s).css('display','block')
         console.log(categoriya,category_list,'llllll')
-        set_val_category(category_list,'#categoriya'+s,val=categoriya,add=false)
-        set_val_group(group_product_list,'#group_tovarov'+s,val=group_tovarov,add=false)
+        set_val_category(category_list,'#categoriya'+s,val=categoriya)
+        set_val_group(group_product_list,'#group_tovarov'+s,val=group_tovarov)
 
         check_input_and_change(nazvaniye_materiala,'#nazvaniye_materiala'+s,dis=false,is_req=true,is_req_simple=false)
         check_input_and_change(svet,'#svet'+s,dis=false,is_req=true,is_req_simple=false)

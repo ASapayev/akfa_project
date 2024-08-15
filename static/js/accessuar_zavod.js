@@ -8,6 +8,9 @@ class BasePokritiya{
         bei =NaN,
         aei=NaN,
         koefitsiyent=NaN,
+        sklad_gp=NaN,
+        bux_sena=NaN,
+
         comment=NaN,
         
         
@@ -21,6 +24,8 @@ class BasePokritiya{
         this.bei=bei;
         this.aei=aei;
         this.koefitsiyent=koefitsiyent;
+        this.sklad_gp=sklad_gp;
+        this.bux_sena=bux_sena;
         this.comment=comment;
         
     }
@@ -116,6 +121,16 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style=" width: 75px; font-size:10px;height:27px;z-index:0 " id='sklad_gp`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style=" width: 75px; font-size:10px;height:27px;z-index:0 " id='bux_sena`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
             <input type='text' class=" form-control " style=" width: 170px; font-size:10px;height:27px;z-index:0 " id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
@@ -188,15 +203,21 @@ function copy_tr(id){
         var bei = data.bei;
         var aei = data.aei;
         var koefitsiyent = data.koefitsiyent;
+        var sklad_gp = data.sklad_gp;
+        var bux_sena = data.bux_sena;
         var comment = data.comment;
         
         
-        check_input_and_change(base_artikul,'#base_artikul'+s,dis=false,is_req=true,is_req_simple=false)
+        set_base_artikul(artikul_list,'.base_artikul_org'+s,base_artikul)
+        console.log(artikul_list,base_artikul)
+
         check_input_and_change(kratkiy_tekst,'#kratkiy_tekst'+s,dis=false,is_req=true,is_req_simple=false)
         check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
         check_input_and_change(bei,'#bei'+s,dis=false,is_req=true,is_req_simple=false)
         check_input_and_change(aei,'#aei'+s,dis=false,is_req=false,is_req_simple=true)
         check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(sklad_gp,'#sklad_gp'+s,dis=false,is_req=false,is_req_simple=true)
+        check_input_and_change(bux_sena,'#bux_sena'+s,dis=false,is_req=false,is_req_simple=true)
         check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
         
         
@@ -257,11 +278,14 @@ function artukil_clear(id){
 
 
     set_base_artikul(artikul_list,'.base_artikul_org'+id,value='',add=false)
+    var div_artikul =$('#div_artikul'+id);
     var kratkiy_tekst =$('#kratkiy_tekst'+id);
     var gruppa_materialov =$('#gruppa_materialov'+id);
     var bei =$('#bei'+id);
     var aei =$('#aei'+id);
     var koefitsiyent =$('#koefitsiyent'+id);
+    var sklad_gp =$('#sklad_gp'+id);
+    var bux_sena =$('#bux_sena'+id);
     var comment =$('#comment'+id);
 
     
@@ -271,6 +295,8 @@ function artukil_clear(id){
     bei.css('display','none')
     aei.css('display','none')
     koefitsiyent.css('display','none')
+    sklad_gp.css('display','none')
+    bux_sena.css('display','none')
     comment.css('display','none')
     
 
@@ -283,6 +309,8 @@ function artukil_clear(id){
     bei.val('')
     aei.val('')
     koefitsiyent.val('')
+    sklad_gp.val('')
+    bux_sena.val('')
     comment.val('')
 
 
@@ -301,6 +329,8 @@ function create_kratkiy_tekst(id){
         var bei =$('#bei'+id)
         var aei =$('#aei'+id)
         var koefitsiyent =$('#koefitsiyent'+id)
+        var sklad_gp =$('#sklad_gp'+id)
+        var bux_sena =$('#bux_sena'+id)
         var comment =$('#comment'+id);
         console.log(kratkiy_tekst.val())
         
@@ -347,6 +377,27 @@ function create_kratkiy_tekst(id){
         }else{
             koefitsiyent.css('border-color','#dedad9')
             data_base[id].koefitsiyent = NaN;
+        }
+        if(sklad_gp.val()!=''){
+            data_base[id].sklad_gp = sklad_gp.val();
+            sklad_gp.css('border-color','#dedad9')
+        }else{
+            sklad_gp.css('border-color','#dedad9')
+            data_base[id].sklad_gp = NaN;
+        }
+        if(bux_sena.val()!=''){
+            data_base[id].bux_sena = bux_sena.val();
+            bux_sena.css('border-color','#dedad9')
+        }else{
+            bux_sena.css('border-color','#dedad9')
+            data_base[id].bux_sena = NaN;
+        }
+        if(comment.val()!=''){
+            data_base[id].comment = comment.val();
+            comment.css('border-color','#dedad9')
+        }else{
+            comment.css('border-color','#dedad9')
+            data_base[id].comment = NaN;
         }
 
 
