@@ -471,7 +471,7 @@ function front_piece(start=1,end=7){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type="text" class="form-control " style='width:50px;height:27px!important;z-index:0' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`" maxlength="4" >
+                <input type="text" pattern="\d*" maxlength="4"  class="form-control " style='width:70px;height:27px!important;z-index:0' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
             </div>
         </td>
         <td >

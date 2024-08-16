@@ -35,6 +35,7 @@ class BasePokritiya{
         kratkiy_tekst=NaN,
         sap_code=NaN,
         krat=NaN,
+        delovoy_otxod=NaN,
         klaes_id=NaN,
         klaes_nazvaniye=NaN,
         kod_sveta=NaN,
@@ -76,6 +77,7 @@ class BasePokritiya{
             this.kratkiy_tekst =kratkiy_tekst;
             this.sap_code =sap_code;
             this.krat =krat;
+            this.delovoy_otxod =delovoy_otxod;
             this.klaes_id =klaes_id;
             this.klaes_nazvaniye =klaes_nazvaniye;
             this.kod_sveta =kod_sveta;
@@ -88,24 +90,84 @@ class BasePokritiya{
     get_kratkiy_tekst(){
         switch(this.id){
             case 1: if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki ){
-                    if( this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                    if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki){
+                        if(this.tex_name){
+                            if(this.tex_name == 'QLIK_FSD'){
+                                if(this.klaes_nazvaniye){
+                                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                                }else{
+                                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                                }
+                            }else{
+                                if(this.delovoy_otxod && this.dlina){
+                                    if(this.delovoy_otxod == this.dlina){
+                                        if(this.klaes_id && this.klaes_nazvaniye){
 
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                                        }else{
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                                        }
+
+                                    }else{
+                                        if(this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                                        }else{
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                                        }
+                                    }
+
+                                }else{
+                                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                                }
+                            }
+
+                        }else{
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                        }
+
+                        
                     }else{
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                        return {'text':'XXXXXXXX','accept':false}
                     }
                 }else{
-                    return {'text':'XXXXXXXX','accept':false}
-                }
-                }else{
                     if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki ){
-                        if(this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
 
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                        if(this.tex_name){
+                            if(this.tex_name == 'QLIK_FSD'){
+                                if(this.klaes_nazvaniye){
+                                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                                }else{
+                                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                                }
+                            }else{
+                                if(this.delovoy_otxod && this.dlina){
+                                    if(this.delovoy_otxod == this.dlina){
+                                        if(this.klaes_id && this.klaes_nazvaniye){
+
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                                        }else{
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                                        }
+
+                                    }else{
+                                        if(this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                                        }else{
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                                        }
+                                    }
+
+                                }else{
+                                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                                }
+                            }
+
                         }else{
                             return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
                         }
+
                     }else{
                         return {'text':'XXXXXXXX','accept':false}
                     }
@@ -114,21 +176,80 @@ class BasePokritiya{
             case 2: if(!this.is_termo){
 
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki ){
-                    if(this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
 
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                    if(this.tex_name){
+                        if(this.tex_name == 'QLIK_FSD'){
+                            if(this.klaes_nazvaniye){
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                            }
+                        }else{
+                            if(this.delovoy_otxod && this.dlina){
+                                if(this.delovoy_otxod == this.dlina){
+                                    if(this.klaes_id && this.klaes_nazvaniye){
+
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                                    }else{
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                                    }
+
+                                }else{
+                                    if(this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                                    }else{
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                                    }
+                                }
+
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                            }
+                        }
+
                     }else{
                         return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
                     }
+
                 }else{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
         
                     if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
-                        if(this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
 
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                        if(this.tex_name){
+                            if(this.tex_name == 'QLIK_FSD'){
+                                if(this.klaes_nazvaniye){
+                                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                                }else{
+                                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                                }
+                            }else{
+                                if(this.delovoy_otxod && this.dlina){
+                                    if(this.delovoy_otxod == this.dlina){
+                                        if(this.klaes_id && this.klaes_nazvaniye){
+
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                                        }else{
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                                        }
+
+                                    }else{
+                                        if(this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                                        }else{
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                                        }
+                                    }
+
+                                }else{
+                                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                                }
+                            }
+
                         }else{
                             return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
                         }
@@ -138,9 +259,39 @@ class BasePokritiya{
                 } break;
             case 3:if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
-                    if(this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                    
 
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                    if(this.tex_name){
+                        if(this.tex_name == 'QLIK_FSD'){
+                            if(this.klaes_nazvaniye){
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                            }
+                        }else{
+                            if(this.delovoy_otxod && this.dlina){
+                                if(this.delovoy_otxod == this.dlina){
+                                    if(this.klaes_id && this.klaes_nazvaniye){
+
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                                    }else{
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                                    }
+
+                                }else{
+                                    if(this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                                    }else{
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                                    }
+                                }
+
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                            }
+                        }
+
                     }else{
                         return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
                     }
@@ -150,9 +301,39 @@ class BasePokritiya{
                 }
                 }else{
                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
-                    if(this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                    
 
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                    if(this.tex_name){
+                        if(this.tex_name == 'QLIK_FSD'){
+                            if(this.klaes_nazvaniye){
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                            }
+                        }else{
+                            if(this.delovoy_otxod && this.dlina){
+                                if(this.delovoy_otxod == this.dlina){
+                                    if(this.klaes_id && this.klaes_nazvaniye){
+
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                                    }else{
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                                    }
+
+                                }else{
+                                    if(this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                                    }else{
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                                    }
+                                }
+
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+                            }
+                        }
+
                     }else{
                         return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
                     }
@@ -163,9 +344,38 @@ class BasePokritiya{
                 }break;
             case 4:if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki){
-                    if(this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
 
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
+                    if(this.tex_name){
+                        if(this.tex_name == 'QLIK_FSD'){
+                            if(this.klaes_nazvaniye){
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
+                            }
+                        }else{
+                            if(this.delovoy_otxod && this.dlina){
+                                if(this.delovoy_otxod == this.dlina){
+                                    if(this.klaes_id && this.klaes_nazvaniye){
+
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
+                                    }else{
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
+                                    }
+
+                                }else{
+                                    if(this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
+                                    }else{
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
+                                    }
+                                }
+
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
+                            }
+                        }
+
                     }else{
                         return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
                     }
@@ -175,11 +385,41 @@ class BasePokritiya{
                 }
                 }else{
                     if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki){
-                        if(this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                        
 
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
+                        if(this.tex_name){
+                            if(this.tex_name == 'QLIK_FSD'){
+                                if(this.klaes_nazvaniye){
+                                    return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
+                                }else{
+                                   return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
+                                }
+                            }else{
+                                if(this.delovoy_otxod && this.dlina){
+                                    if(this.delovoy_otxod == this.dlina){
+                                        if(this.klaes_id && this.klaes_nazvaniye){
+
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
+                                        }else{
+                                           return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
+                                        }
+
+                                    }else{
+                                        if(this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+
+                                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
+                                        }else{
+                                           return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
+                                        }
+                                    }
+
+                                }else{
+                                   return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
+                                }
+                            }
+
                         }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
+                           return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
                         }
                         
                     }else{
@@ -188,9 +428,38 @@ class BasePokritiya{
                 }break;
             case 5:if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki){
-                    if(this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
 
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':true}
+                    if(this.tex_name){
+                        if(this.tex_name == 'QLIK_FSD'){
+                            if(this.klaes_nazvaniye){
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':true}
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':false}
+                            }
+                        }else{
+                            if(this.delovoy_otxod && this.dlina){
+                                if(this.delovoy_otxod == this.dlina){
+                                    if(this.klaes_id && this.klaes_nazvaniye){
+
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':true}
+                                    }else{
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':false}
+                                    }
+
+                                }else{
+                                    if(this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':true}
+                                    }else{
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':false}
+                                    }
+                                }
+
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':false}
+                            }
+                        }
+
                     }else{
                         return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':false}
                     }
@@ -200,9 +469,38 @@ class BasePokritiya{
                 }
                 }else{
                     if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn && this.kod_nakleyki){
-                        if(this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                        
+                        if(this.tex_name){
+                            if(this.tex_name == 'QLIK_FSD'){
+                                if(this.klaes_nazvaniye){
+                                    return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':true}
+                                }else{
+                                    return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':false}
+                                }
+                            }else{
+                                if(this.delovoy_otxod && this.dlina){
+                                    if(this.delovoy_otxod == this.dlina){
+                                        if(this.klaes_id && this.klaes_nazvaniye){
 
-                            return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':true}
+                                            return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':true}
+                                        }else{
+                                            return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':false}
+                                        }
+
+                                    }else{
+                                        if(this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+
+                                            return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':true}
+                                        }else{
+                                            return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':false}
+                                        }
+                                    }
+
+                                }else{
+                                    return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':false}
+                                }
+                            }
+
                         }else{
                             return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':false}
                         }
@@ -213,9 +511,39 @@ class BasePokritiya{
                 }break;
             case 6:if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_nakleyki && this.contactnost_anod){
-                    if(this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                    
 
-                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
+                    if(this.tex_name){
+                        if(this.tex_name == 'QLIK_FSD'){
+                            if(this.klaes_nazvaniye){
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
+                            }
+                        }else{
+                            if(this.delovoy_otxod && this.dlina){
+                                if(this.delovoy_otxod == this.dlina){
+                                    if(this.klaes_id && this.klaes_nazvaniye){
+
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
+                                    }else{
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
+                                    }
+
+                                }else{
+                                    if(this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
+                                    }else{
+                                        return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
+                                    }
+                                }
+
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
+                            }
+                        }
+
                     }else{
                         return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
                     }
@@ -225,9 +553,39 @@ class BasePokritiya{
                 }
                 }else{
                     if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_anod_vn && this.kod_nakleyki && this.contactnost_anod){
-                        if(this.tex_name && this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+                        
 
-                            return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
+                        if(this.tex_name){
+                            if(this.tex_name == 'QLIK_FSD'){
+                                if(this.klaes_nazvaniye){
+                                    return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
+                                }else{
+                                    return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
+                                }
+                            }else{
+                                if(this.delovoy_otxod && this.dlina){
+                                    if(this.delovoy_otxod == this.dlina){
+                                        if(this.klaes_id && this.klaes_nazvaniye){
+
+                                            return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
+                                        }else{
+                                            return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
+                                        }
+
+                                    }else{
+                                        if(this.klaes_id && this.klaes_nazvaniye && this.kod_sveta && this.kratkiy_klaes){
+
+                                            return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
+                                        }else{
+                                            return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
+                                        }
+                                    }
+
+                                }else{
+                                    return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
+                                }
+                            }
+
                         }else{
                             return {'text': this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
                         }
@@ -283,7 +641,7 @@ function front_piece(start=1,end=6){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type="text" class="form-control "  style='width:50px;height:27px!important;z-index:0' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm"  name ='length`+String(i)+`' id="length`+String(i)+`"  maxlength="4" >
+                <input type="text"  class="form-control "  style='width:50px;height:27px!important;z-index:0' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm"  name ='length`+String(i)+`' id="length`+String(i)+`"  maxlength="4" >
             </div>
         </td>
         <td >
@@ -581,6 +939,11 @@ function front_piece(start=1,end=6){
             </div>
         </td>
         <td >
+            <div class="input-group input-group-sm " style="width: 60px;">
+            <input type="text" class="form-control "  style='border-color:red;width:250px;height:27px!important;z-index:0;display:none;'   aria-describedby="inputGroup-sizing-sm"  id="delovoy_otxod`+String(i)+`"  onkeyup='create_kratkiy_tekst(`+String(i)+`)'>
+            </div>
+        </td>
+        <td >
             <div class="input-group input-group-sm mb-1">
             <input type="text" class="form-control "  style='width:90px;border-color:red;height:27px!important;z-index:0;display:none;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="id_klaes`+String(i)+`"  >    
             </div>
@@ -669,16 +1032,16 @@ function request_piece(start=1,end=6){
         var baza_profiley = $('#baza_profiley'+String(i));
         baza_profiley.text(e.params.data.baza_profiley)
         
-        var klaes_id = $('#klaes_id'+String(i));
-        var klaes_nazvaniye = $('#klaes_nazvaniye'+String(i));
-        var kod_sveta = $('#kod_sveta'+String(i));
-        var kratkiy_klaes = $('#kratkiy_klaes'+String(i));
+        // var klaes_id = $('#klaes_id'+String(i));
+        // var klaes_nazvaniye = $('#klaes_nazvaniye'+String(i));
+        // var kod_sveta = $('#kod_sveta'+String(i));
+        // var kratkiy_klaes = $('#kratkiy_klaes'+String(i));
 
 
-        klaes_id.css('display','block')
-        klaes_nazvaniye.css('display','block')
-        kod_sveta.css('display','block')
-        kratkiy_klaes.css('display','block')
+        // klaes_id.css('display','block')
+        // klaes_nazvaniye.css('display','block')
+        // kod_sveta.css('display','block')
+        // kratkiy_klaes.css('display','block')
         
         // tip_pokritiya.val('').change();
         tip_pokritiya.attr("disabled",false);
@@ -823,6 +1186,7 @@ function copy_tr(id){
         var sap_code = data.sap_code;
         var krat = data.krat;
         var klaes_id = data.klaes_id;
+        var delovoy_otxod = data.delovoy_otxod;
         var klaes_nazvaniye = data.klaes_nazvaniye;
         var kod_sveta = data.kod_sveta;
         var kratkiy_klaes = data.kratkiy_klaes;
@@ -948,7 +1312,7 @@ function copy_tr(id){
         check_text_and_change(baza_profiley,'#baza_profiley'+s)
         
 
-        check_input_and_change(tex_name,'#goods_group'+s)
+        check_input_and_change(tex_name,'#goods_group'+s,dis=false,is_req=true)
         check_text_and_change(tex_name,'#tex_name'+s)
         
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
@@ -957,10 +1321,29 @@ function copy_tr(id){
         check_input_and_change(krat,'#krat'+s)
 
 
-        check_input_and_change(klaes_id,'#id_klaes'+s)
-        check_input_and_change(klaes_nazvaniye,'#klaes_nazvaniye'+s)
-        check_input_and_change(kod_sveta,'#code_sveta'+s)
-        check_input_and_change(kratkiy_klaes,'#klaes_kratkiy'+s)
+        
+        
+        if(tex_name =='QLIK_FSD'){
+            // check_input_and_change(delovoy_otxod,'#delovoy_otxod'+s,dis=false,is_req=false)
+            // check_input_and_change(klaes_id,'#id_klaes'+s,dis=false,is_req=false)
+            check_input_and_change(klaes_nazvaniye,'#klaes_nazvaniye'+s,dis=false,is_req=true)
+            // check_input_and_change(kod_sveta,'#code_sveta'+s,dis=false,is_req=false)
+            // check_input_and_change(kratkiy_klaes,'#klaes_kratkiy'+s,dis=false,is_req=false)
+        }else{
+            check_input_and_change(delovoy_otxod,'#delovoy_otxod'+s,dis=false,is_req=true)
+            if(delovoy_otxod == dlina && dlina){
+                check_input_and_change(klaes_id,'#id_klaes'+s,dis=false,is_req=true)
+                check_input_and_change(klaes_nazvaniye,'#klaes_nazvaniye'+s,dis=false,is_req=true)
+                // check_input_and_change(kod_sveta,'#code_sveta'+s,dis=false,is_req=false)
+                // check_input_and_change(kratkiy_klaes,'#klaes_kratkiy'+s,dis=false,is_req=false)
+            }else if(delovoy_otxod != dlina && dlina){
+                check_input_and_change(klaes_id,'#id_klaes'+s,dis=false,is_req=true)
+                check_input_and_change(klaes_nazvaniye,'#klaes_nazvaniye'+s,dis=false,is_req=true)
+                check_input_and_change(kod_sveta,'#code_sveta'+s,dis=false,is_req=true)
+                check_input_and_change(kratkiy_klaes,'#klaes_kratkiy'+s,dis=false,is_req=true)
+            }
+        }
+
         check_input_and_change(comment,'#comment'+s)
         
         
@@ -1291,12 +1674,14 @@ function artukil_clear(id){
     var krat =$('#krat'+String(id))
     var nadpis_nakleyki =$('#nadpis_nakleyki'+String(id))
     var baza_profiley =$('#baza_profiley'+String(id))
+    var delovoy_otxod =$('#delovoy_otxod'+String(id))
 
 
     nadpis_nakleyki.text('')
     baza_profiley.text('')
 
     tex_name.text('')
+    delovoy_otxod.val('')
     krat.val('')
     sap_code.val('')
     goods_group.val('0').change();
@@ -1304,12 +1689,14 @@ function artukil_clear(id){
     klaes_nazvaniye.val('')
     code_sveta.val('')
     klaes_kratkiy.val('')
+    delovoy_otxod.css('border-color','red')
     goods_group.css('border-color','red')
     id_klaes.css('border-color','red')
     klaes_nazvaniye.css('border-color','red')
     code_sveta.css('border-color','red')
     klaes_kratkiy.css('border-color','red')
     krat.css('display','none')
+    delovoy_otxod.css('display','none')
     sap_code.css('display','none')
     goods_group.css('display','none')
     id_klaes.css('display','none')
@@ -1648,6 +2035,7 @@ function tip_pokritiya_selected(id,val){
         var baza_profiley =$('#baza_profiley'+id)
         var gruppa_materialov =$('#gruppa_materialov'+id)
         var comment =$('#comment'+id)
+        
         data_base[id].baza_profiley = baza_profiley.text()
         data_base[id].gruppa_materialov = gruppa_materialov.text()
         data_base[id].comment = comment.val()
@@ -1668,6 +2056,7 @@ function tip_pokritiya_selected(id,val){
         var goods_group = $('#goods_group'+String(id));
         goods_group.val('0').change();
         goods_group.css('display','block')
+        var delovoy_otxod =$('#delovoy_otxod'+id)
         var id_klaes =$('#id_klaes'+String(id))
         var klaes_nazvaniye =$('#klaes_nazvaniye'+String(id))
         var code_sveta =$('#code_sveta'+String(id))
@@ -1676,19 +2065,22 @@ function tip_pokritiya_selected(id,val){
         var krat =$('#krat'+String(id))
     
         krat.val('')
+        delovoy_otxod.val('')
         sap_code.val('')
         id_klaes.val('')
         klaes_nazvaniye.val('')
         code_sveta.val('')
         klaes_kratkiy.val('')
-        id_klaes.css('border-color','red')
-        klaes_nazvaniye.css('border-color','red')
-        code_sveta.css('border-color','red')
-        klaes_kratkiy.css('border-color','red')
-        id_klaes.css('display','block')
-        klaes_nazvaniye.css('display','block')
-        code_sveta.css('display','block')
-        klaes_kratkiy.css('display','block')
+        // delovoy_otxod.css('border-color','red')
+        // id_klaes.css('border-color','red')
+        // klaes_nazvaniye.css('border-color','red')
+        // code_sveta.css('border-color','red')
+        // klaes_kratkiy.css('border-color','red')
+        // id_klaes.css('display','block')
+        // delovoy_otxod.css('display','block')
+        // klaes_nazvaniye.css('display','block')
+        // code_sveta.css('display','block')
+        // klaes_kratkiy.css('display','block')
         sap_code.css('display','block')
         krat.css('display','block')
     }
@@ -1781,11 +2173,58 @@ function create_kratkiy_tekst(id){
     }
    
 
+    var delovoy_otxod =$('#delovoy_otxod'+String(id))
     var id_klaes =$('#id_klaes'+String(id))
     var klaes_nazvaniye =$('#klaes_nazvaniye'+String(id))
     var code_sveta =$('#code_sveta'+String(id))
     var klaes_kratkiy =$('#klaes_kratkiy'+String(id))
+    var goods_group = $('#goods_group'+String(id));
+
+
+    if(goods_group.val()!=''&&goods_group.val()!=null){
+        if(goods_group.val() =='QLIK_FSD'){
+            delovoy_otxod.css('display','none')
+            id_klaes.css('display','none') 
+            klaes_nazvaniye.css('display','block') 
+            code_sveta.css('display','none') 
+            klaes_kratkiy.css('display','none') 
+            delovoy_otxod.val('')
+            id_klaes.val('')
+            code_sveta.val('')
+            klaes_kratkiy.val('')
+        }else{
+            klaes_nazvaniye.css('display','none')
+            delovoy_otxod.css('display','block')
+
+            if(delovoy_otxod.val()!='' && dlina.val()!=''){
+                if(delovoy_otxod.val() == dlina.val() ){
+                   id_klaes.css('display','block') 
+                   klaes_nazvaniye.css('display','block') 
+                   code_sveta.css('display','none') 
+                    klaes_kratkiy.css('display','none')
+                    code_sveta.val('')
+                    klaes_kratkiy.val('')
+                }else{
+                    id_klaes.css('display','block') 
+                    klaes_nazvaniye.css('display','block') 
+                    code_sveta.css('display','block') 
+                    klaes_kratkiy.css('display','block') 
+
+                }
+            }
+        }
+    }
+
+    
+
    
+    if(delovoy_otxod.val()!=''){
+        delovoy_otxod.css("border-color",'#dedad9');
+        data_base[id].delovoy_otxod = delovoy_otxod.val();
+    }else{
+        delovoy_otxod.css("border-color",'red');
+        data_base[id].delovoy_otxod = NaN;
+    }
     if(id_klaes.val()!=''){
         id_klaes.css("border-color",'#dedad9');
         data_base[id].klaes_id = id_klaes.val();
@@ -1815,7 +2254,7 @@ function create_kratkiy_tekst(id){
         data_base[id].kratkiy_klaes = NaN;
     }
 
-     var goods_group = $('#goods_group'+String(id));
+     
     if(goods_group.val()!=''&&goods_group.val()!=null){
         
         var tex_name = $('#tex_name'+String(id));
