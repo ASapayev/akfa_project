@@ -542,11 +542,11 @@ function front_piece(start=1,end=6){
             </div>
         </td>
         <td >
-            <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='baza_profiley`+String(i)+`'></span>
+            <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0;white-space:nowrap" id='baza_profiley`+String(i)+`'></span>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label=""    style="width:200px; border-color:red;height:27px!important;z-index:0" id='goods_group`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <select class="form-select" aria-label=""    style="display:none; width:200px; border-color:red;height:27px!important;z-index:0" id='goods_group`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
                 <option  value=""></option>
                 <option value="QLIK_ALU_PROF" >Алюминиевый профиль</option>
                 <option value="QLIK_RLS">Рольставни</option>
@@ -582,22 +582,22 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:90px;border-color:red;height:27px!important;z-index:0'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="id_klaes`+String(i)+`"  >    
+            <input type="text" class="form-control "  style='width:90px;border-color:red;height:27px!important;z-index:0;display:none;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="id_klaes`+String(i)+`"  >    
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:250px;border-color:red;height:27px!important;z-index:0'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="klaes_nazvaniye`+String(i)+`"  >    
+            <input type="text" class="form-control "  style='width:250px;border-color:red;height:27px!important;z-index:0;display:none;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="klaes_nazvaniye`+String(i)+`"  >    
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:90px;border-color:red;height:27px!important;z-index:0'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="code_sveta`+String(i)+`"  >    
+            <input type="text" class="form-control "  style='width:90px;border-color:red;height:27px!important;z-index:0;display:none;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="code_sveta`+String(i)+`"  >    
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:90px;border-color:red;height:27px!important;z-index:0'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="klaes_kratkiy`+String(i)+`"  >    
+            <input type="text" class="form-control "  style='width:90px;border-color:red;height:27px!important;z-index:0;display:none;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="klaes_kratkiy`+String(i)+`"  >    
             </div>
         </td>
         <td >
@@ -669,6 +669,16 @@ function request_piece(start=1,end=6){
         var baza_profiley = $('#baza_profiley'+String(i));
         baza_profiley.text(e.params.data.baza_profiley)
         
+        var klaes_id = $('#klaes_id'+String(i));
+        var klaes_nazvaniye = $('#klaes_nazvaniye'+String(i));
+        var kod_sveta = $('#kod_sveta'+String(i));
+        var kratkiy_klaes = $('#kratkiy_klaes'+String(i));
+
+
+        klaes_id.css('display','block')
+        klaes_nazvaniye.css('display','block')
+        kod_sveta.css('display','block')
+        kratkiy_klaes.css('display','block')
         
         // tip_pokritiya.val('').change();
         tip_pokritiya.attr("disabled",false);
@@ -1279,6 +1289,12 @@ function artukil_clear(id){
     var klaes_kratkiy =$('#klaes_kratkiy'+String(id))
     var sap_code =$('#sap_code'+String(id))
     var krat =$('#krat'+String(id))
+    var nadpis_nakleyki =$('#nadpis_nakleyki'+String(id))
+    var baza_profiley =$('#baza_profiley'+String(id))
+
+
+    nadpis_nakleyki.text('')
+    baza_profiley.text('')
 
     tex_name.text('')
     krat.val('')
