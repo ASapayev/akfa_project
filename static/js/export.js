@@ -580,7 +580,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type='text' class=" form-control " style="border-color:red; width: 250px; font-size:10px; height:27px!important;z-index:0"  id='comment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+                <input type='text' class=" form-control " style="width: 250px; font-size:10px; height:27px!important;z-index:0"  id='comment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
@@ -1701,6 +1701,7 @@ function create_kratkiy_tekst(id){
     }else{
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
     var combination= $('#combination'+String(id));
+    var comment= $('#comment'+String(id));
     combination_text = combination.text();
     var val = $('#tip_pokritiya'+String(id)).val();
 
@@ -1712,6 +1713,11 @@ function create_kratkiy_tekst(id){
     }else{
         dlina.css("border-color",'red');
         data_base[id].dlina = NaN;
+    }
+    if(comment.val()!=''){
+        data_base[id].comment = comment.val();
+    }else{
+        data_base[id].comment = NaN;
     }
     var dilina_pressa = $('#dilina_pressa'+String(id));
     if(dilina_pressa.val()!=''){
