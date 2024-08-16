@@ -1857,8 +1857,12 @@ function artukil_clear(id){
     var edinitsa_izm =$('#edinitsa_izm'+id);
     var buxgalter_tovar =$('#buxgalter_tovar'+id);
     var zavod_name =$('#zavod_name'+id)
+    var diller =$('#diller'+id)
+    var tip_clienta =$('#tip_clienta'+id)
     zavod_name.text('')
 
+    diller.val('')
+    tip_clienta.val('AKFA')
 
     svet_product.css('display','none')
     group_zakup.css('display','none')
@@ -2823,7 +2827,8 @@ function create_kratkiy_tekst(id){
         var bazoviy_edin =$('#bazoviy_edin'+id);
         var status =$('#status'+id);
         var zavod =$('#zavod'+id);
-        // var zavod =$('#zavod_name'+id);
+        var diller =$('#diller'+id);
+        var tip_clienta =$('#tip_clienta'+id);
 
         var segment =$('#segment'+id);
         var edinitsa_izm =$('#edinitsa_izm'+id);
@@ -2936,6 +2941,22 @@ function create_kratkiy_tekst(id){
         }
 
         
+        if(diller.val()!=''){
+            data_base[id].diller = diller.val();
+            
+        }else{
+            data_base[id].diller = NaN;
+            
+        }
+        if(tip_clienta.val()!=''){
+            data_base[id].tip_clienta = tip_clienta.val();
+            
+        }else{
+            data_base[id].tip_clienta = NaN;
+            
+        }
+
+
 
         if(status_first.val() == 'Активный'){
             if(stoimost_alter.val()!=''){
