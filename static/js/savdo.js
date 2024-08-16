@@ -2843,6 +2843,7 @@ function create_kratkiy_tekst(id){
 
         console.log(zavod.val())
 
+        var group_ = group.val()
 
         if(zavod.val() =='ZAVOD ALUMIN'){
 
@@ -2867,6 +2868,7 @@ function create_kratkiy_tekst(id){
                     buxgalter_tovar.val('Алюминиевый профиль с декоративным покрытием')
                 }
                 else if(String(val) == '6'){
+                    if()
                     buxgalter_tovar.val('')
                 }
                 
@@ -2914,7 +2916,16 @@ function create_kratkiy_tekst(id){
                     buxgalter_tovar.val('Алюминиевый профиль с декоративным покрытием (N)')
                 }
                 else if(String(val) == '6'){
-                    buxgalter_tovar.val('')
+                    if(group_.indexOf('MEBEL') !== -1){
+                        buxgalter_tovar.val('Анодированный алюминиевый профиль (N)')
+                    }else{
+                        if(''){
+                            buxgalter_tovar.val('Мебельный профиль из алюминия анодированный матовое серебро (N)')
+                            
+                        }else{
+                            buxgalter_tovar.val('Анодированный алюминиевый профиль (N)')
+                        }
+                    }
                 }
 
             }else{
@@ -2934,7 +2945,9 @@ function create_kratkiy_tekst(id){
                     buxgalter_tovar.val('Алюминиевый профиль с декоративным покрытием (N)')
                 }
                 else if(String(val) == '6'){
-                    buxgalter_tovar.val('Термоуплотненный анодированный алюминиевый профиль (N)')
+                    
+                        buxgalter_tovar.val('Термоуплотненный анодированный алюминиевый профиль (N)')
+                    
                 }
                 
             }
