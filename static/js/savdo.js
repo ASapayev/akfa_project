@@ -2868,7 +2868,7 @@ function create_kratkiy_tekst(id){
                     buxgalter_tovar.val('Алюминиевый профиль с декоративным покрытием')
                 }
                 else if(String(val) == '6'){
-                    if()
+                    
                     buxgalter_tovar.val('')
                 }
                 
