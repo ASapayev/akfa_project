@@ -1883,6 +1883,12 @@ def shablon_radiator_export_detail(request):
 
 @login_required(login_url='/accounts/login/')
 @customer_only
+def shablon_accessuar_texnopark_detail(request):
+    return render(request,'client/shablonlar/accessuar_texnopark.html')
+
+
+@login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_prochiye_detail(request):
     return render(request,'client/shablonlar/prochiye.html')
 

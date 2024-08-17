@@ -18,6 +18,7 @@ urlpatterns = [
     path('shablon-acs-savdo-detail',views.shablon_acs_savdo_detail,name='shablon_acs_savdo_detail'),
     path('shablon-acs-export-detail',views.shablon_acs_export_savdo_detail,name='shablon_acs_export_detail'),
     path('shablon-acs-zavod-detail',views.shablon_acs_zavod_savdo_detail,name='shablon_acs_zavod_detail'),
+    path('shablon-acs-texnopark-detail',views.shablon_accessuar_texnopark_detail,name='shablon_acs_texnopark_detail'),
 
 
     ######AKP###############

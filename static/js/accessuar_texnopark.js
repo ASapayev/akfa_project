@@ -5,6 +5,8 @@ class BasePokritiya{
         pickupdate=NaN,
         sena_c_nds=NaN,
         sena_bez_nds=NaN,
+        sena_c_nds_zakup=NaN,
+        sena_bez_nds_zakup=NaN,
         online_id=NaN,
         nazvaniye_ruchnoy=NaN,
         svet_product=NaN,
@@ -31,6 +33,8 @@ class BasePokritiya{
         this.pickupdate=pickupdate;
         this.sena_c_nds=sena_c_nds;
         this.sena_bez_nds=sena_bez_nds;
+        this.sena_c_nds_zakup=sena_c_nds_zakup;
+        this.sena_bez_nds_zakup=sena_bez_nds_zakup;
         this.online_id=online_id;
         this.nazvaniye_ruchnoy=nazvaniye_ruchnoy;
         this.svet_product=svet_product;
@@ -62,7 +66,7 @@ class BasePokritiya{
                     }
                     
                     }else{
-                        if (this.tip_clenta && this.zavod &&this.sena_c_nds &&this.sena_bez_nds && this.pickupdate && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
+                        if (this.tip_clenta && this.zavod &&this.sena_c_nds &&this.sena_bez_nds &&this.sena_c_nds_zakup &&this.sena_bez_nds_zakup && this.pickupdate && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
         
                             return {'text':'','accept':true}
                         }else{
@@ -81,7 +85,7 @@ class BasePokritiya{
                     
                     }else{
                         
-                        if (this.tip_clenta &&this.zavod &&this.sena_c_nds &&this.sena_bez_nds && this.pickupdate && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
+                        if (this.tip_clenta &&this.zavod &&this.sena_c_nds &&this.sena_bez_nds &&this.sena_c_nds_zakup &&this.sena_bez_nds_zakup && this.pickupdate && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
                             
                             
                             return {'text':'','accept':true}
@@ -126,6 +130,16 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
             <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px;z-index:0 " id='sena_bez_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px;z-index:0 " id='sena_c_nds_zakup`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px;z-index:0 " id='sena_bez_nds_zakup`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
@@ -443,6 +457,8 @@ function copy_tr(id){
         var pickupdate = data.pickupdate;
         var sena_c_nds = data.sena_c_nds;
         var sena_bez_nds = data.sena_bez_nds;
+        var sena_c_nds_zakup = data.sena_c_nds_zakup;
+        var sena_bez_nds_zakup = data.sena_bez_nds_zakup;
         var online_id = data.online_id;
         var nazvaniye_ruchnoy = data.nazvaniye_ruchnoy;
         var svet_product = data.svet_product;
@@ -475,6 +491,8 @@ function copy_tr(id){
             check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(sena_c_nds,'#sena_c_nds'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(sena_bez_nds,'#sena_bez_nds'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(sena_c_nds_zakup,'#sena_c_nds_zakup'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(sena_bez_nds_zakup,'#sena_bez_nds_zakup'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(svet_product,'#svet_product'+s,dis=false,is_req=true,is_req_simple=false)
@@ -501,6 +519,8 @@ function copy_tr(id){
             check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(sena_c_nds,'#sena_c_nds'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(sena_bez_nds,'#sena_bez_nds'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sena_c_nds_zakup,'#sena_c_nds_zakup'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sena_bez_nds_zakup,'#sena_bez_nds_zakup'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(svet_product,'#svet_product'+s,dis=false,is_req=false,is_req_simple=true)
@@ -595,6 +615,8 @@ function create(id){
     var tip_clenta =$('#tip_clenta'+id);
     var sena_c_nds =$('#sena_c_nds'+id);
     var sena_bez_nds =$('#sena_bez_nds'+id);
+    var sena_c_nds_zakup =$('#sena_c_nds_zakup'+id);
+    var sena_bez_nds_zakup =$('#sena_bez_nds_zakup'+id);
     
     var svet_product =$('#svet_product'+id);
     var online_savdo_id =$('#online_savdo_id'+id);
@@ -623,6 +645,8 @@ function create(id){
     pickupdate.css('display','block')
     sena_c_nds.css('display','block')
     sena_bez_nds.css('display','block')
+    sena_c_nds_zakup.css('display','block')
+    sena_bez_nds_zakup.css('display','block')
     
     
     
@@ -722,11 +746,15 @@ function activate(id){
     var pickupdate =$('#pickupdate'+id);
     var sena_c_nds =$('#sena_c_nds'+id);
     var sena_bez_nds =$('#sena_bez_nds'+id);
+    var sena_c_nds_zakup =$('#sena_c_nds_zakup'+id);
+    var sena_bez_nds_zakup =$('#sena_bez_nds_zakup'+id);
 
     comment.css('display','block')
     pickupdate.css('display','block')
     sena_c_nds.css('display','block')
     sena_bez_nds.css('display','block')
+    sena_c_nds_zakup.css('display','block')
+    sena_bez_nds_zakup.css('display','block')
     
     
     zavod_name.css('display','block')
@@ -772,6 +800,8 @@ function activate(id){
     pickupdate.css('border-color','#dedad9')
     sena_c_nds.css('border-color','#dedad9')
     sena_bez_nds.css('border-color','#dedad9')
+    sena_c_nds_zakup.css('border-color','#dedad9')
+    sena_bez_nds_zakup.css('border-color','#dedad9')
 
     
 
@@ -823,6 +853,8 @@ function artukil_clear(id){
     var tip_clenta =$('#tip_clenta'+id);
     var sena_c_nds =$('#sena_c_nds'+id);
     var sena_bez_nds =$('#sena_bez_nds'+id);
+    var sena_c_nds_zakup =$('#sena_c_nds_zakup'+id);
+    var sena_bez_nds_zakup =$('#sena_bez_nds_zakup'+id);
    
     
     comment.css('display','none')
@@ -832,6 +864,8 @@ function artukil_clear(id){
     tip_clenta.css('display','none')
     sena_c_nds.css('display','none')
     sena_bez_nds.css('display','none')
+    sena_c_nds_zakup.css('display','none')
+    sena_bez_nds_zakup.css('display','none')
     
 
 
@@ -868,6 +902,8 @@ function artukil_clear(id){
     tip_clenta.css('border-color','red')
     sena_c_nds.css('border-color','red')
     sena_bez_nds.css('border-color','red')
+    sena_c_nds_zakup.css('border-color','red')
+    sena_bez_nds_zakup.css('border-color','red')
 
     
     diller.val('')
@@ -883,6 +919,8 @@ function artukil_clear(id){
     status.val('Активный')
     sena_c_nds.val('')
     sena_bez_nds.val('')
+    sena_c_nds_zakup.val('')
+    sena_bez_nds_zakup.val('')
     buxgalter_uchot.val('')
     alter_edin.val('')
     stoimost_baza.val('')
@@ -932,6 +970,8 @@ function create_kratkiy_tekst(id){
         var tip_clenta =$('#tip_clenta'+id)
         var sena_c_nds =$('#sena_c_nds'+id)
         var sena_bez_nds =$('#sena_bez_nds'+id)
+        var sena_c_nds_zakup =$('#sena_c_nds_zakup'+id)
+        var sena_bez_nds_zakup =$('#sena_bez_nds_zakup'+id)
         
         
         var is_active =$('#is_active'+id)
@@ -1003,6 +1043,18 @@ function create_kratkiy_tekst(id){
                 sena_bez_nds.css('border-color','#dedad9')
             }else{
                 data_base[id].sena_bez_nds = NaN;
+            }
+            if(sena_c_nds_zakup.val()!=''){
+                data_base[id].sena_c_nds_zakup = sena_c_nds_zakup.val();
+                sena_c_nds_zakup.css('border-color','#dedad9')
+            }else{
+                data_base[id].sena_c_nds_zakup = NaN;
+            }
+            if(sena_bez_nds_zakup.val()!=''){
+                data_base[id].sena_bez_nds_zakup = sena_bez_nds_zakup.val();
+                sena_bez_nds_zakup.css('border-color','#dedad9')
+            }else{
+                data_base[id].sena_bez_nds_zakup = NaN;
             }
             
             if(pickupdate.val()!=''){
@@ -1112,6 +1164,20 @@ function create_kratkiy_tekst(id){
             }else{
                 data_base[id].sena_bez_nds = NaN;
                 sena_bez_nds.css('border-color','red')
+            }
+            if(sena_c_nds_zakup.val()!=''){
+                data_base[id].sena_c_nds_zakup = sena_c_nds_zakup.val();
+                sena_c_nds_zakup.css('border-color','#dedad9')
+            }else{
+                data_base[id].sena_c_nds_zakup = NaN;
+                sena_c_nds_zakup.css('border-color','red')
+            }
+            if(sena_bez_nds_zakup.val()!=''){
+                data_base[id].sena_bez_nds_zakup = sena_bez_nds_zakup.val();
+                sena_bez_nds_zakup.css('border-color','#dedad9')
+            }else{
+                data_base[id].sena_bez_nds_zakup = NaN;
+                sena_bez_nds_zakup.css('border-color','red')
             }
             if(pickupdate.val()!=''){
                 data_base[id].pickupdate = pickupdate.val();
