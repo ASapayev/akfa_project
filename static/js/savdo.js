@@ -629,6 +629,7 @@ function front_piece(start=1,end=7){
                 <option value="6062">Матовый чёрный</option>
                 <option value="6030">Матовый белый</option>
                 <option value="1015">Алюкс алюмин</option>
+                <option value="2025">Светлый дуб</option>
                 <option value="XXXX">XXXX</option>
             </select>
             </div>
@@ -670,6 +671,7 @@ function front_piece(start=1,end=7){
                     <option value="6062">Матовый чёрный</option>
                     <option value="6030">Матовый белый</option>
                     <option value="1015">Алюкс алюмин</option>
+                    <option value="2025">Светлый дуб</option>
                     <option value="XXXX">XXXX</option>
                 </select>
             </div>
