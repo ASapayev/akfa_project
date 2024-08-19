@@ -577,7 +577,7 @@ function front_piece(start=1,end=6){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type='text' class=" form-control " style="border-color:red; width: 250px; font-size:10px; height:27px!important;z-index:0"  id='nazvaniye_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+                <input type='text' class=" form-control " style="border-color:red; width: 250px; font-size:10px; height:27px!important;z-index:0;display:none;"  id='nazvaniye_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
@@ -587,7 +587,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:90px;border-color:red;height:27px!important;z-index:0'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  maxlength='4'>    
+            <input type="text" class="form-control "  style='width:90px;border-color:red;height:27px!important;z-index:0;display:none;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  maxlength='4'>    
             </div>
         </td>
         </tr>`
@@ -1603,6 +1603,8 @@ function tip_pokritiya_selected(id,val){
         var base_artikul =$('#select2-artikul'+id+'-container')
         var baza_profiley =$('#baza_profiley'+id)
         var gruppa_materialov =$('#gruppa_materialov'+id)
+        var dilina_pressa =$('#dilina_pressa'+id)
+        var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+id)
         var comment =$('#comment'+id)
         data_base[id].baza_profiley = baza_profiley.text()
         data_base[id].gruppa_materialov = gruppa_materialov.text()
@@ -1627,6 +1629,10 @@ function tip_pokritiya_selected(id,val){
         sap_code.val('')
         sap_code.css('display','block')
         krat.css('display','block')
+        nazvaniye_ruchnoy.val('')
+        dilina_pressa.val('')
+        dilina_pressa.css('display','block')
+        nazvaniye_ruchnoy.css('display','block')
     }
     
     create_kratkiy_tekst(id);
