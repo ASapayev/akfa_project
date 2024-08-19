@@ -30,6 +30,7 @@ urlpatterns = [
 
     ####### Prochiye #########
     path('shablon-prochiye-detail',views.shablon_prochiye_detail,name='shablon_prochie_detail'),
+    path('shablon-prochiye-tms-detail',views.shablon_prochiye_tms_detail,name='shablon_prochie_tms_detail'),
 
 
     ####### Accessuar Import #########

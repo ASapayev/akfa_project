@@ -1841,6 +1841,11 @@ def shablon_acs_export_savdo_detail(request):
 
 @login_required(login_url='/accounts/login/')
 @customer_only
+def shablon_prochiye_tms_detail(request):
+    return render(request,'client/shablonlar/prochiye_tms.html')
+
+@login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_acs_zavod_savdo_detail(request):
     artikul_list = ArtikulAccessuar.objects.all().values_list('artikul')
     context ={
