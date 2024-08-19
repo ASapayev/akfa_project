@@ -953,6 +953,51 @@
             </section>
             {%endif%}
 
+            {%if order_type == 'change_data'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <div class="row p-2">
+                    <div class="col">
+                     
+                    </div>
+                    <div class="col-10">
+                    </div>
+                    <div class="col">
+                      <button onclick="downloadTableAsExcel()" class="btn btn-primary btn-sm">Download as Excel</button>
+                    </div>
+                  </div>
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Вид заявки</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Id savdo</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Названия SAVDO</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Сапкод</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">БЕИ</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">АЕИ</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Коэффициент пересчета</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена с НДС</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена без НДС</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Ед.изм цены</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Комментария</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+
             <hr>
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
@@ -1093,7 +1138,8 @@ var order ={
             'prochiye':['pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_sena','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment'],
             'acs_texnopark':['pickupdate','sena_c_nds','sena_bez_nds','sena_c_nds_zakup','sena_bez_nds_zakup','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_sena','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment'],
             'acs_import':['artikul','group_tovarov','categoriya','nazvaniye_materiala','svet','bei','aei','koefitsiyent','sap_code','pickupdate','sena_c_nds','sena_bez_nds','edizm ','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment',],
-            'prochiye_tms':['vid_zayavki','zavod','sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','koefitsiyent','alternativ_edin','vid_materiala','vid_zagotovki','prodayot','gruppa_zakupok','gruppa_materialov','comment',]
+            'prochiye_tms':['vid_zayavki','zavod','sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','koefitsiyent','alternativ_edin','vid_materiala','vid_zagotovki','prodayot','gruppa_zakupok','gruppa_materialov','comment',],
+            'change_data':['id_savdo','naz_savdo','sapcode','bei ','aei','koefitsiyent','sena_c_ndc','sena_bez_ndc','ed_izm','comment'],
 
                 
         }

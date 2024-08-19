@@ -124,7 +124,7 @@ class OrderSaveView(APIView):
         response = json.loads(data)
         artikules = []
         for key,val in response.items():
-            if 'acs' not in order_type and 'akp' not in order_type and 'prochiye' not in order_type:
+            if 'acs' not in order_type and 'akp' not in order_type and 'prochiye' not in order_type and 'change' not in order_type:
                 artikules.append(val['base_artikul'])
             if 'segment' in val:
                 if val['segment'] =='no' and 'alu_savdo' == order_type:

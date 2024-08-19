@@ -188,7 +188,7 @@ function updateMaxHeight() {
             var dattt_len  =Object.keys(data_base).length
         
             for(let k =1; k<=dattt_len; k++){
-                if(data_base[k].base_artikul && data_base[k].kratkiy_tekst && data_base[k].bei){
+                if(data_base[k].id_savdo && data_base[k].naz_savdo){
                     continue;
                 }else{
                     delete data_base[k]
@@ -216,8 +216,8 @@ function updateMaxHeight() {
                         text_tr += `
                             <tr>
                                 <th scope="row">${i}</th>
-                                <td>${data_base[key]['base_artikul']}</td>
-                                <td>${data_base[key]['kratkiy_tekst']}</td>
+                                <td>${data_base[key]['id_savdo']}</td>
+                                <td>${data_base[key]['naz_savdo']}</td>
                             </tr>
                         `
                         i +=1
