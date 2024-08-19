@@ -36,6 +36,9 @@ urlpatterns = [
     ####### Accessuar Import #########
     path('shablon-accessuar-import-detail',views.shablon_accessuar_import_detail,name='shablon_accessuar_import_detail'),
 
+    ####### Change Data #########
+    path('change-data-detail',views.shablon_change_data_detail,name='shablon_change_data_detail'),
+
 
 
 

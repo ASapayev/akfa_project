@@ -92,7 +92,8 @@
                 <div class="div-21 menu" onclick="menu_change(this,'prochiye')">Прочие товары вне SAP</div>
                 <div class="div-22 menu" onclick="menu_change(this,'prochiye_tms')">Прочие тмц , запчасти , услуги</div>
                 <div class="div-23 menu" onclick="menu_change(this,'biznes')">Бизнес партнер (БП)</div>
-                <div class="div-23 menu" onclick="menu_change(this,'acs_tex')">Аксессуары UZ технопарк</div>
+                <div class="div-23 menu" onclick="menu_change(this,'acs_tex')">Акс UZ технопарк</div>
+                <div class="div-23 menu" onclick="menu_change(this,'change_dat')">Изм. дан</div>
             </div>
             </div>
             <div class="div-24">
@@ -703,7 +704,7 @@
                                 src="{% static 'assets/images/figma/2.png'%}"
                                 class="img-6 custom-img"
                                 />
-                                <div class="div-33 card-title">Прочие тмс</div>
+                                <div class="div-33 card-title">Прочие тмц</div>
                                 <div class="div-34">
                                 <div class="div-35">
                                     <img
@@ -779,6 +780,81 @@
                                 class="img-6 custom-img"
                                 />
                                 <div class="div-33 card-title">Аксессуар Uz</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                      <!-- <div class="column-3" style="width: 100%;">
+                        <div class="div-38">
+                            <img
+                            loading="lazy"
+                            src="{% static 'assets/images/figma/3.png'%}"
+                            class="img-8"
+                            />
+                            <div class="div-39">Экспорт</div>
+                            <div class="div-40">
+                            <div class="div-41">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/date.svg' %}"
+                                class="img-9"
+                                />
+                                <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                            </div>
+                            <div class="div-43">30 ta</div>
+                            </div>
+                        </div>
+                      </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="div-25" id="change_dat" style="display: none;">
+                <div class="row">
+                    <div class="col-4">
+                        <!-- <div class="column" style="width: 100%;">
+                            <div class="div-26">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/1.png'%}"
+                                class="img-4"
+                                />
+                                <div class="div-27">Савдо</div>
+                                <div class="div-28">
+                                <div class="div-29">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-5"
+                                    />
+                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-31">30 ta</div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-4">
+                        <div class="column-2" style="width: 100%;">
+                          <a href="{% url 'shablon_change_data_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
+                                />
+                                <div class="div-33 card-title">Изменение данных</div>
                                 <div class="div-34">
                                 <div class="div-35">
                                     <img
@@ -1466,7 +1542,7 @@
         );
 
 
-        var all_menu =['alumin','pvc','acs_uz','acs_import','akp','radiator','prochiye','tms','biznes','acs_tex']
+        var all_menu =['alumin','pvc','acs_uz','acs_import','akp','radiator','prochiye','tms','biznes','acs_tex','prochiye_tms','change_dat']
          function menu_change(el,menu_type='alumin'){
             $('.menu').removeClass('active_menu')           
             $(el).addClass('active_menu');

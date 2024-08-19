@@ -1899,6 +1899,11 @@ def shablon_prochiye_detail(request):
 
 @login_required(login_url='/accounts/login/')
 @customer_only
+def shablon_change_data_detail(request):
+    return render(request,'client/shablonlar/change_data.html')
+
+@login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_accessuar_import_detail(request):
     category = Category.objects.all().values_list('name','code')
     group_product = GroupProduct.objects.all().values_list('name','code')
