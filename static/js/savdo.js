@@ -915,9 +915,8 @@ function front_piece(start=1,end=7){
         <td >
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style=" width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;height:27px!important;z-index:0" id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-                <option  selected></option>
+                <option  selected value="" ></option>
                 <option value="Нет сегмента">Нет сегмента</option>
-                <option value=""></option>
                 <option value="Премиум">Премиум</option>
                 <option value="Аксессуар">Аксессуар</option>
                 <option value="Aldoks">Aldoks</option>

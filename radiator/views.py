@@ -1796,6 +1796,7 @@ def product_add_second_org_radiator(request,id):
     file = RadiatorFile.objects.get(id=id).file
     if 'SHABLON' in str(file):
         df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
+        # df = pd.read_excel(f'')
     else:
         df = pd.read_excel(f'{MEDIA_ROOT}/{file}',header=4)
     
