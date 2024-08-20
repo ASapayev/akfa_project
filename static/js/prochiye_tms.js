@@ -205,9 +205,10 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 30px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red;" id='prodayot`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-                    <option  selected value=''></option>
+                <select class="form-select" aria-label="" style="width: 30px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red;" id='prodayot`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)'  required>
+                    <option  selected value='' disabled>...</option>
                     <option value="X">X</option>
+                    <option value=""></option>
                 </select>
             </div>
         </td>
@@ -466,7 +467,7 @@ function create_kratkiy_tekst(id){
         vid_zagotovki.css('border-color','red')
         data_base[id].vid_zagotovki =NaN;
     }
-    if(prodayot.val()!=''){
+    if(prodayot.val()=='' || prodayot.val()=='X'){
         prodayot.css('border-color','#dedad9')
         data_base[id].prodayot = prodayot.val();
     }else{
