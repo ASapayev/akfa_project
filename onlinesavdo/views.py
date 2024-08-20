@@ -420,6 +420,7 @@ def sozdaniya_online_savdo(request,id):
     all_corecct = True
     for key,row in df1.iterrows():
         print(row["Артикул"],row['Длина (мм)'])
+        row['Длина (мм)'] = row['Длина (мм)'].replace('.0','')
         if not LengthOfProfile.objects.filter(artikul =row["Артикул"],length=row['Длина (мм)']).exists():
             not_exists[0].append(row["Артикул"])
             not_exists[1].append(row['Длина (мм)'])
