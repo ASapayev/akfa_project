@@ -1482,9 +1482,9 @@ def proverka(request,id):
 
     df1 = pd.read_excel(f'{MEDIA_ROOT}/{path5}',sheet_name='Sheet1',header=0)
 
-    to_datetime_fmt = partial(pd.to_datetime, format='%d.%m.%Y')
+    # to_datetime_fmt = partial(pd.to_datetime, format='%d.%m.%Y')
 
-    df1['DATAB'] = df1['DATAB'].apply(to_datetime_fmt)
+    # df1['DATAB'] = df1['DATAB'].apply(to_datetime_fmt)
     df1 = df1.astype(str)
     df1['joined_data']= df1['VKORG'] + df1['KONDA'] + df1['MATNR'] +df1['DATAB']
 
