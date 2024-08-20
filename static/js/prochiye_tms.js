@@ -41,7 +41,9 @@ class BasePokritiya{
 
     }
     get_kratkiy_tekst(){
+            console.log(this.zavod , this.nazvaniye_tovarov , this.polnoye_nazvaniye , this.sena_materiala , this.bazoviy_edinitsa , this.vid_materiala , this.vid_zagotovki , this.prodayot)
                 if (this.zavod && this.nazvaniye_tovarov && this.polnoye_nazvaniye && this.sena_materiala && this.bazoviy_edinitsa && this.vid_materiala && this.vid_zagotovki && this.prodayot){
+                    console.log(this.zavod , this.nazvaniye_tovarov , this.polnoye_nazvaniye , this.sena_materiala , this.bazoviy_edinitsa , this.vid_materiala , this.vid_zagotovki , this.prodayot,'sddddsa')
                     return {'text':'','accept':true}
                 }else{
                     return {'text':'','accept':false}
@@ -369,6 +371,7 @@ function artukil_clear(id){
     vid_zayavki.val('')
     var zavod =$('#zavod'+id);
     zavod.val('')
+    zavod.css('border-color','red')
 
 
     var sapcode =$('#sapcode'+id);
@@ -377,6 +380,7 @@ function artukil_clear(id){
 
     var nazvaniye_tovarov =$('#nazvaniye_tovarov'+id);
     nazvaniye_tovarov.val('')
+    nazvaniye_tovarov.css('border-color','red')
 
     var polnoye_nazvaniye =$('#polnoye_nazvaniye'+id);
     polnoye_nazvaniye.val('')
@@ -421,7 +425,6 @@ function create_kratkiy_tekst(id){
         console.log('salom')
     }else{
     
-    console.log(data_base[id])
         
     var vid_zayavki =$('#vid_zayavki'+id);
     var zavod =$('#zavod'+id);
@@ -467,9 +470,15 @@ function create_kratkiy_tekst(id){
         vid_zagotovki.css('border-color','red')
         data_base[id].vid_zagotovki =NaN;
     }
+    console.log(prodayot.val(),'llllllll')
     if(prodayot.val()=='' || prodayot.val()=='X'){
+        console.log('<>>>>>',prodayot.val(),'<<<<<<<')
         prodayot.css('border-color','#dedad9')
-        data_base[id].prodayot = prodayot.val();
+        if(prodayot.val()==''){
+            data_base[id].prodayot = ' ';
+        }else{
+            data_base[id].prodayot = prodayot.val();
+        }
     }else{
         prodayot.css('border-color','red')
         data_base[id].prodayot =NaN;

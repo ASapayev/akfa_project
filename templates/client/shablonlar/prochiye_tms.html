@@ -184,12 +184,19 @@
             var dattt_len  = Object.keys(data_base).length
             
             for(let k =1; k<=dattt_len; k++){
-                if(data_base[k].polnoye_nazvaniye && data_base[k].sena_materiala && data_base[k].bazoviy_edinitsa){
-                    continue;
-                }else{
-                    delete data_base[k]
+                if(data_base[k]){
+                    if(data_base[k].sena_materiala || data_base[k].bazoviy_edinitsa || data_base[k].zavod || data_base[k].nazvaniye_tovarov || data_base[k].polnoye_nazvaniye || data_base[k].vid_materiala || data_base[k].vid_zagotovki || data_base[k].prodayot ){
+                        continue;
+                    }else{
+                        delete data_base[k]
+                        $('#table_tr'+k).remove();
+                        
+                    }
                 }
             }
+
+
+
             if (Object.keys(data_base).length === 0) {
                 data_empty = true
             }
@@ -247,6 +254,8 @@
         var upload_btn = document.getElementById('upload_btn')
         upload_btn.style.display ='block';
         submit_btn.style.display ='none';
+
+        
 
         var json_data = JSON.stringify(data_base)
         var url = "/client/order-save"
