@@ -1256,6 +1256,7 @@ function artukil_clear(id){
     var sap_code =$('#sap_code'+String(id))
     var krat =$('#krat'+String(id))
     var nazvaniye_ruchnoy =$('#nazvaniye_ruchnoy'+String(id))
+    var dilina_pressa =$('#dilina_pressa'+String(id))
 
     nazvaniye_ruchnoy.text('')
     tex_name.text('')
@@ -1267,6 +1268,8 @@ function artukil_clear(id){
     code_sveta.val('')
     klaes_kratkiy.val('')
     goods_group.css('border-color','red')
+    nazvaniye_ruchnoy.css('display','none')
+    dilina_pressa.css('display','none')
     id_klaes.css('border-color','red')
     klaes_nazvaniye.css('border-color','red')
     code_sveta.css('border-color','red')
