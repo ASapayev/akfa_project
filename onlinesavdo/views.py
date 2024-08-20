@@ -423,6 +423,7 @@ def sozdaniya_online_savdo(request,id):
             not_exists[0].append(row["Артикул"])
             not_exists[1].append(row['Длина (мм)'])
             all_corecct = False
+    all_corecct =True
 
     if not all_corecct:
         new_not ={'Артикул':not_exists[0],'Длина (мм)':not_exists[1]} 
