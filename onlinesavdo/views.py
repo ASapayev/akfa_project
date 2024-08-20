@@ -481,12 +481,14 @@ def sozdaniya_online_savdo(request,id):
             t = 1
         else:
             t = LengthOfProfile.objects.filter(artikul = row2["Артикул"],length = row2['Длина (мм)'])[:1].get().ves_za_shtuk
-        print()
+        
         data[5].append(round50(float(t)*(price*PriceUSD)))
         data[4].append(round50(round50(float(t)*(price*PriceUSD))/1.12))
         data[6].append("UZS")
         data[7].append(row2['Базовый единица'])
 
+    for row in data:
+        print(len(row),'dddd')
 
 
     new_row = {'ID' :data[0], 'NAME':data[1], 'CLIENTYPE':data[2],'DATE':data[3],'COST':data[4],'RATE':data[5],'CURRENCY':data[6],'UNIT':data[7]}
