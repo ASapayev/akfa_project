@@ -1498,6 +1498,9 @@ def proverka(request,id):
     # print(df2['joined_data'])
     nesovpaden_datas =[[],[],[],[],
                     [],[],[],[],[],[],[],[],[],[],[],[],[]]
+    
+    print(df1['joined_data'],'df1')
+    print(df2['joined_data'],'df2')
 
     for key1,row1 in df1.iterrows():
         result = df2[df2['joined_data'] == row1['joined_data'] ]
