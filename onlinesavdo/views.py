@@ -293,7 +293,7 @@ def upload_for_proverka(request):
 
 
 def round50(n):
-    return round(n, -2)
+    return round(n, 0.01)
 
 def round502(n):
     if str(n)=='':
@@ -488,7 +488,7 @@ def sozdaniya_online_savdo(request,id):
         
         data[5].append(round50(float(t)*(price)))
         data[4].append(round50(round50(float(t)*(price))/1.12))
-        data[6].append("UZS")
+        data[6].append("USD")
         data[7].append(row2['Базовый единица'])
 
 
