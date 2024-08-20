@@ -447,6 +447,7 @@ def sozdaniya_online_savdo(request,id):
     PriceUSD = int(ExchangeValues.objects.get(id = 1).valute)
     for key2,row2 in df1.iterrows():
         result = base[base['name'] ==row2['Название'] ]
+        print(result)
         data[0].append(result.iloc[0]['id'])
         data[1].append(result.iloc[0]['name'])
         data[2].append(row2['Тип клиента'])
@@ -480,6 +481,7 @@ def sozdaniya_online_savdo(request,id):
         if row2['Базовый единица']=='КГ':
             t = 1
         else:
+            print(row2["Артикул"],row2['Длина (мм)'])
             t = LengthOfProfile.objects.filter(artikul = row2["Артикул"],length = row2['Длина (мм)'])[:1].get().ves_za_shtuk
         
         data[5].append(round50(float(t)*(price*PriceUSD)))
