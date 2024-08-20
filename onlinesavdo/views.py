@@ -338,7 +338,7 @@ def create_online(request,id):
     df['Длина (мм)'] = df['Длина (мм)'].replace('.0','')
     for key,row in df.iterrows():
         
-        
+        df['Длина (мм)'][key] =str(df['Длина (мм)'][key]).replace('.0','')
         if not LengthOfProfile.objects.filter(artikul =row["Артикул"],length=df['Длина (мм)'][key]).exists():
             not_exists[0].append(row["Артикул"])
             not_exists[1].append(df['Длина (мм)'][key])
@@ -362,7 +362,7 @@ def create_online(request,id):
     df['Длина (мм)'] = df['Длина (мм)'].replace('.0','')
     data =[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
     for key,row in df.iterrows():
-        
+        df['Длина (мм)'][key] =str(df['Длина (мм)'][key]).replace('.0','')
         data[0].append(row["Название"])
         data[1].append(row["SAP Код вручную (вставится вручную)"])
         data[2].append(row["Группа"])
@@ -374,7 +374,7 @@ def create_online(request,id):
         data[8].append("Штука")
         data[9].append("Килограмм")
         data[10].append(1)
-        ves_za_shtuk = LengthOfProfile.objects.filter(artikul =row["Артикул"],length=row['Длина (мм)'])[:1].get().ves_za_shtuk
+        ves_za_shtuk = LengthOfProfile.objects.filter(artikul =row["Артикул"],length=df['Длина (мм)'][key])[:1].get().ves_za_shtuk
         data[11].append(ves_za_shtuk)
         data[12].append("Пассивный")
         data[13].append(row["Завод TEX"])
