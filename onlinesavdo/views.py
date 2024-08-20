@@ -1501,6 +1501,7 @@ def proverka(request,id):
 
     for key1,row1 in df1.iterrows():
         result = df2[df2['joined_data'] == row1['joined_data'] ]
+        print(result,'result')
         result['Сумма']=result['Сумма'].astype(float)
         row1['KBETR']= float(row1['KBETR'])
         
