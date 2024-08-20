@@ -293,7 +293,7 @@ def upload_for_proverka(request):
 
 
 def round50(n):
-    return round(n, 0.01)
+    return round(n/0.01)*0.01
 
 def round502(n):
     if str(n)=='':
