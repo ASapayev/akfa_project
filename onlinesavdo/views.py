@@ -334,10 +334,14 @@ def create_online(request,id):
 
     not_exists = [[],[]]
     all_corecct = True
+    df['Длина (мм)'].astype(str)
+    df['Длина (мм)'] = df['Длина (мм)'].replace('.0','')
     for key,row in df.iterrows():
-        if not LengthOfProfile.objects.filter(artikul =row["Артикул"],length=row['Длина (мм)']).exists():
+        
+        
+        if not LengthOfProfile.objects.filter(artikul =row["Артикул"],length=df['Длина (мм)'][key]).exists():
             not_exists[0].append(row["Артикул"])
-            not_exists[1].append(row['Длина (мм)'])
+            not_exists[1].append(df['Длина (мм)'][key])
             all_corecct = False
 
     if not all_corecct:
@@ -354,8 +358,11 @@ def create_online(request,id):
         }
         return render(request,'universal/generated_files.html',context)
 
+    df['Длина (мм)'].astype(str)
+    df['Длина (мм)'] = df['Длина (мм)'].replace('.0','')
     data =[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
     for key,row in df.iterrows():
+        
         data[0].append(row["Название"])
         data[1].append(row["SAP Код вручную (вставится вручную)"])
         data[2].append(row["Группа"])
@@ -419,8 +426,9 @@ def sozdaniya_online_savdo(request,id):
     not_exists = [[],[]]
     all_corecct = True
     df1['Длина (мм)'].astype(str)
+    df1['Длина (мм)'] = df1['Длина (мм)'].replace('.0','')
     for key,row in df1.iterrows():
-        df1['Длина (мм)'] = df1['Длина (мм)'].replace('.0','')
+        
         if not LengthOfProfile.objects.filter(artikul =row["Артикул"],length=df1['Длина (мм)'][key]).exists():
             not_exists[0].append(row["Артикул"])
             not_exists[1].append(row['Длина (мм)'])
@@ -444,7 +452,7 @@ def sozdaniya_online_savdo(request,id):
 
 
     data =[[],[],[],[],[],[],[],[]] 
-    PriceUSD = int(ExchangeValues.objects.get(id = 1).valute)
+    # PriceUSD = int(ExchangeValues.objects.get(id = 1).valute)
     df1['Длина (мм)'].astype(str)
     for key2,row2 in df1.iterrows():
         result = base[base['name'] ==row2['Название'] ]
