@@ -470,7 +470,6 @@ function create_kratkiy_tekst(id){
         vid_zagotovki.css('border-color','red')
         data_base[id].vid_zagotovki =NaN;
     }
-    console.log(prodayot.val(),'llllllll')
     if(prodayot.val()=='' || prodayot.val()=='X'){
         console.log('<>>>>>',prodayot.val(),'<<<<<<<')
         prodayot.css('border-color','#dedad9')

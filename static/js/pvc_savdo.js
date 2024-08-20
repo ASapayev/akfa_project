@@ -2004,12 +2004,17 @@ function create_kratkiy_tekst(id){
     var value_nak = $('.kod_nakleyki'+String(id))
     var nadpis_nakleyki = $('#nadpis_nakleyki'+String(id));
     
+    var value_nak_1 = $('.kod_nakleyki'+String(id) +' option:selected')
+    var nadpiss_ = value_nak_1.attr('data-nadpis')
+  
     if(value_nak.val() !=''){
         value_nak.css('border-color','#dedad9');
         data_base[id].kod_nakleyki = value_nak.val();
-        data_base[id].nadpis_nakleyki = nadpis_nakleyki.text();
+        data_base[id].nadpis_nakleyki = nadpiss_
+        nadpis_nakleyki.text(nadpiss_)
         
     }else{
+        nadpis_nakleyki.text('')
         value_nak.css('border-color','red');
         data_base[id].kod_nakleyki = NaN
         data_base[id].nadpis_nakleyki = NaN;
