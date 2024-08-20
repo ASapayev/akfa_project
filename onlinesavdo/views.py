@@ -418,10 +418,10 @@ def sozdaniya_online_savdo(request,id):
 
     not_exists = [[],[]]
     all_corecct = True
+    df1['Длина (мм)'].astype(str)
     for key,row in df1.iterrows():
-        print(row["Артикул"],row['Длина (мм)'])
-        row['Длина (мм)'] = str(row['Длина (мм)']).replace('.0','')
-        if not LengthOfProfile.objects.filter(artikul =row["Артикул"],length=row['Длина (мм)']).exists():
+        df1['Длина (мм)'] = df1['Длина (мм)'].replace('.0','')
+        if not LengthOfProfile.objects.filter(artikul =row["Артикул"],length=df1['Длина (мм)'][key]).exists():
             not_exists[0].append(row["Артикул"])
             not_exists[1].append(row['Длина (мм)'])
             all_corecct = False
