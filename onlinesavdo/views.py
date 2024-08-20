@@ -491,8 +491,6 @@ def sozdaniya_online_savdo(request,id):
         data[6].append("UZS")
         data[7].append(row2['Базовый единица'])
 
-    for row in data:
-        print(len(row),'dddd')
 
 
     new_row = {'ID' :data[0], 'NAME':data[1], 'CLIENTYPE':data[2],'DATE':data[3],'COST':data[4],'RATE':data[5],'CURRENCY':data[6],'UNIT':data[7]}
