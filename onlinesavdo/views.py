@@ -1733,12 +1733,12 @@ def proverka(request,id):
     nesovpaden_datas =[[],[],[],[],
                     [],[],[],[],[],[],[],[],[],[],[],[],[]]
     
-    print(df1['joined_data'],'df1')
-    print(df2['joined_data'],'df2')
+    # print(df1['joined_data'],'df1')
+    # print(df2['joined_data'],'df2')
 
     for key1,row1 in df1.iterrows():
         result = df2[df2['joined_data'] == row1['joined_data']]
-        print(result)
+        # print(result)
         result['Сумма']=result['Сумма'].astype(float)
         result['Сумма']=result['Сумма'].round(decimals = 1)
     
