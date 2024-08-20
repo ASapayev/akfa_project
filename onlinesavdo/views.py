@@ -486,8 +486,8 @@ def sozdaniya_online_savdo(request,id):
             print(row2["Артикул"],row2['Длина (мм)'])
             t = LengthOfProfile.objects.filter(artikul = row2["Артикул"],length = str(row2['Длина (мм)']).replace('.0',''))[:1].get().ves_za_shtuk
         
-        data[5].append(round50(float(t)*(price*PriceUSD)))
-        data[4].append(round50(round50(float(t)*(price*PriceUSD))/1.12))
+        data[5].append(round50(float(t)*(price)))
+        data[4].append(round50(round50(float(t)*(price))/1.12))
         data[6].append("UZS")
         data[7].append(row2['Базовый единица'])
 
