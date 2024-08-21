@@ -183,31 +183,33 @@
                  
                 </tr>
                 {%endif%}
-                {%if status_norma == 'on process' or status_norma == 'done' %}
-                <tr>
-                  <td class="text-capitalize"><div class="d-flex justify-content-start align-items-center">
-                    <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
-                        class="text-muted small">{{order.current_worker.username}}</span></p>
-                      <span class="ms-3 me-4">|</span></p>
-                    <a href="#!">
-                      <img src="{{order.current_worker.userprofile.profile_picture.url}}" alt="avatar"
-                        class="img-fluid rounded-circle me-1" width="35">
-                    </a>
-                    </div></td>
-                  <td>{{order.id | order_number_format}}</td>
-                  {%if status_norma == 'on process' %}
-                  <td>{{raz_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
-                  {%else%}
-                  <td>{{norma_org_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                {%if order.order_name == 'ALUMINIY SAVDO' %}
+                  {%if status_norma == 'on process' or status_norma == 'done' %}
+                    <tr>
+                      <td class="text-capitalize"><div class="d-flex justify-content-start align-items-center">
+                        <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                            class="text-muted small">{{order.current_worker.username}}</span></p>
+                          <span class="ms-3 me-4">|</span></p>
+                        <a href="#!">
+                          <img src="{{order.current_worker.userprofile.profile_picture.url}}" alt="avatar"
+                            class="img-fluid rounded-circle me-1" width="35">
+                        </a>
+                        </div></td>
+                      <td>{{order.id | order_number_format}}</td>
+                      {%if status_norma == 'on process' %}
+                      <td>{{raz_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                      {%else%}
+                      <td>{{norma_org_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                      {%endif%}
+                      <td><span class="text-info">SAVDO MATERIAL</span></td>
+                      <td>{%if status_norma == 'done' %}<a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{norma_file_ready}}"> Download</a>{%else%}{%endif%}</td>
+                      {%if status_norma == 'done' %}
+                      <td><i class="mdi mdi-check-all text-success"></i></td>
+                      {%else%}
+                      <td><label class="badge badge-success">ON PROCESS</label></td>
+                      {%endif%}
+                    </tr>
                   {%endif%}
-                  <td><span class="text-info">NORMA CREATING</span></td>
-                  <td>{%if status_norma == 'done' %}<a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{norma_file_ready}}"> Download</a>{%else%}{%endif%}</td>
-                  {%if status_norma == 'done' %}
-                  <td><i class="mdi mdi-check-all text-success"></i></td>
-                  {%else%}
-                  <td><label class="badge badge-success">ON PROCESS</label></td>
-                  {%endif%}
-                </tr>
                 {%endif%}
                 {%if order.work_type == 7 and status_norma_lack == 'on process' %}
                 <tr>
@@ -487,50 +489,49 @@
         </div>
         {%endif%}
 {%endif%}
-
-    {%if order.work_type == 6 and order.current_worker == request.user and status_norma == 'done' %}
-      <div class="page-header">
-        <h3 class="page-title"> Генерация норма {%if is_obichniy == 'yes' %}обычного{%else%}термо{%endif%} файла </h3>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
-          </ol>
-        </nav>
-      </div>
-      <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Загруженные файлы</h4>
-          
-            <div class="table-responsive">
-              <table class="table table-light">
-                <thead>
-                  <tr>
-                    <th> # </th>
-                    <th > Имя файла </th>
-                    <th > Дата </th>
-                    <th> Действие </th>
-                  </tr>
-                </thead>
-                <tbody>
-                        <tr>
-                            <td> 1 </td>
-                            <td class="p-1"> {{file|split_text}} </td>
-                            <td>{%now "SHORT_DATETIME_FORMAT" %} </td>
-                            <td> <a href="{{norma_link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">{%if is_obichniy == 'yes' %}обычного{%else%}термо{%endif%}</span> алюминого файла</a> </td>
-                        </tr>
-                </tbody>
-              </table>
+      {%if order.work_type == 6 and order.current_worker == request.user and status_norma == 'done' and order.order_name == 'ALUMINIY SAVDO' %}
+          <div class="page-header">
+            <h3 class="page-title"> Генерация норма {%if is_obichniy == 'yes' %}обычного{%else%}термо{%endif%} файла </h3>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Загруженные файлы</h4>
+              
+                <div class="table-responsive">
+                  <table class="table table-light">
+                    <thead>
+                      <tr>
+                        <th> # </th>
+                        <th > Имя файла </th>
+                        <th > Дата </th>
+                        <th> Действие </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td> 1 </td>
+                                <td class="p-1"> {{file|split_text}} </td>
+                                <td>{%now "SHORT_DATETIME_FORMAT" %} </td>
+                                <td> <a href="{{norma_link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">{%if is_obichniy == 'yes' %}обычного{%else%}термо{%endif%}</span> алюминого файла</a> </td>
+                            </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    {%endif%}
+      {%endif%}
 
-    {%if order.work_type == 6 and status_norma == 'on process' %}
+    {%if order.work_type == 6 and status_norma == 'on process' and order.order_name == 'ALUMINIY SAVDO' %}
     <div class="page-header">
-      <h3 class="page-title"> Генерация норма файла </h3>
+      <h3 class="page-title"> Генерация савдо файла </h3>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
@@ -560,7 +561,7 @@
                           <td> 1 </td>
                           <td class="p-1"> {{norma_formula_file|split_text}} </td>
                           <td>{%now "SHORT_DATETIME_FORMAT" %} </td>
-                          <td> <a href="{{norma_link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">Норма</span> алюминого файла</a> </td>
+                          <td> <a href="{{norma_link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">савдо</span> алюминого файла</a> </td>
                       </tr>
               </tbody>
             </table>

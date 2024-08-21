@@ -3126,6 +3126,7 @@ def product_add_second_org(request,id):
                   'section':'Формированый обычный файл'
             }
 
+      
             if order_id:
                   norma_file = NormaExcelFiles(file = path_ramka_norma,type='simple')
                   norma_file.save()

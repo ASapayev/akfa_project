@@ -345,7 +345,6 @@ def moderator_convert(request,id):
             is_1101 = request.GET.get('for1101','off')
             is_1201 = request.GET.get('for1201','off')
             is_1112 = request.GET.get('for1112','off')
-            print(is_1101,is_1201,is_1112,'sstttatus')
             o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
             paths ={
                         'obichniy_file':path_alu_simple,
@@ -366,7 +365,7 @@ def moderator_convert(request,id):
 
                     }
                 
-            order = BaseOrder(title = name,owner=request.user,current_worker_id= request.user.id,aluminiy_worker_id =request.user.id,paths=paths,order_type =1)
+            order = BaseOrder(title = name,owner=request.user,current_worker_id= request.user.id,aluminiy_worker_id =request.user.id,paths=paths,order_type =1,order_name=name)
             order.save()
 
         if not is_column_empty_termo:
@@ -395,7 +394,7 @@ def moderator_convert(request,id):
                     'is_1112':is_1112,
                 }
             
-            order = BaseOrder(title = name,owner=request.user,current_worker_id= request.user.id,aluminiy_worker_id =request.user.id,paths=paths,order_type =2)
+            order = BaseOrder(title = name,owner=request.user,current_worker_id= request.user.id,aluminiy_worker_id =request.user.id,paths=paths,order_type =2,order_name=name)
             order.save()
         return redirect('order')   
     elif name in ['PVC SAVDO','PVC EXPORT','PVC IMZO']:
@@ -420,7 +419,7 @@ def moderator_convert(request,id):
                     'status_texcarta':'on hold',
                 }
             
-        order = BaseOrderPvc(title = name,owner=request.user,current_worker_id= request.user.id,pvc_worker_id =request.user.id,paths=paths,order_type =2)
+        order = BaseOrderPvc(title = name,owner=request.user,current_worker_id= request.user.id,pvc_worker_id =request.user.id,paths=paths,order_type =2,order_name=name)
         order.save()
         return redirect('order_detail_pvc',id=order.id)
     elif name in ['RADIATOR']:
@@ -445,7 +444,7 @@ def moderator_convert(request,id):
                     'status_texcarta':'on hold',
                 }
             
-        order = BaseOrderRadiator(title = name,owner=request.user,current_worker_id= request.user.id,radiator_worker_id =request.user.id,paths=paths,order_type =2)
+        order = BaseOrderRadiator(title = name,owner=request.user,current_worker_id= request.user.id,radiator_worker_id =request.user.id,paths=paths,order_type =2,order_name=name)
         order.save()
         return redirect('order_detail_radiator',id=order.id)  
     elif name in ['RADIATOR EXPORT']:
@@ -470,7 +469,7 @@ def moderator_convert(request,id):
                     'status_texcarta':'on hold',
                 }
             
-        order = BaseOrderRadiator(title = name,owner=request.user,current_worker_id= request.user.id,radiator_worker_id =request.user.id,paths=paths,order_type =2)
+        order = BaseOrderRadiator(title = name,owner=request.user,current_worker_id= request.user.id,radiator_worker_id =request.user.id,paths=paths,order_type =2,order_name=name)
         order.save()
         return redirect('order_detail_radiator',id=order.id)
     elif name in ['ACCESSUAR SAVDO','ACCESSUAR IMZO','ACCESSUAR EXPORT','ACCESSUAR IMPORT']:
@@ -495,7 +494,7 @@ def moderator_convert(request,id):
                     'status_texcarta':'on hold',
                 }
             
-        order = OrderACS(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1)
+        order = OrderACS(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1,order_name=name)
         order.save()
         return redirect('order_detail_accessuar',id=order.id)
     elif name in ['AKP SAVDO']:
@@ -520,7 +519,7 @@ def moderator_convert(request,id):
                     'status_texcarta':'on hold',
                 }
             
-        order = OrderAKP(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1)
+        order = OrderAKP(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1,order_name=name)
         order.save()
         return redirect('order_detail_akp',id=order.id)
     elif name in ['PROCHIYE']:
@@ -545,7 +544,7 @@ def moderator_convert(request,id):
                     'status_texcarta':'on hold',
                 }
             
-        order = OrderProchiye(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1)
+        order = OrderProchiye(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1,order_name=name)
         order.save()
         return redirect('order_detail_prochiye',id=order.id)
 

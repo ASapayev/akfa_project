@@ -60,6 +60,7 @@ class OrderACS(models.Model):
     wrongs = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='acs_work_wrong')
     paths = models.JSONField(null=True,blank=True,default=dict)
     order_type = models.SmallIntegerField(default=1)
+    order_name = models.CharField(max_length=50,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
 
@@ -73,6 +74,7 @@ class OrderAKP(models.Model):
     wrongs = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='akp_work_wrong')
     paths = models.JSONField(null=True,blank=True,default=dict)
     order_type = models.SmallIntegerField(default=1)
+    order_name = models.CharField(max_length=50,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
 
@@ -86,6 +88,7 @@ class OrderProchiye(models.Model):
     wrongs = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='prochiye_work_wrong')
     paths = models.JSONField(null=True,blank=True,default=dict)
     order_type = models.SmallIntegerField(default=1)
+    order_name = models.CharField(max_length=50,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
 
