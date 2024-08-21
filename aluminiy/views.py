@@ -10,7 +10,7 @@ from django.db.models import Max
 import zipfile
 from config.settings import MEDIA_ROOT
 import numpy as np
-from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_razlovka,download_bs64,characteristika_created_txt_create_1301_v2
+from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_razlovka,download_bs64,characteristika_created_txt_create_1301_v2,json_to_excel_alumin
 import os
 from order.models import Order
 import random
@@ -27,6 +27,12 @@ from accounts.models import User
 from django.urls import reverse
 from norma.models import NormaExcelFiles
 from accounts.decorators import allowed_users
+from client.views import save_file_to_model,id_generator
+from onlinesavdo.models import OnlineSavdoFile
+from accessuar.models import OrderACS,OrderAKP,OrderProchiye
+from client.models import Order as BaseOrderAlu
+
+
 
 
 @login_required(login_url='/accounts/login/')
@@ -999,6 +1005,8 @@ def product_add_second_org(request,id):
       duplicat_list =[]
       
       exturision_list = []
+
+      artikul_kratkiy_collection ={}
       
       for key,row in df.iterrows():
             row['Сплав'] = row['Сплав'].replace('.0','')
@@ -1125,6 +1133,7 @@ def product_add_second_org(request,id):
                         if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key]).exists():
                               df_new['SAP код F'][key] = AluminiyProduct.objects.filter(artikul = df['Артикул'][key],section ='F',kratkiy_tekst_materiala=df_new['Фабрикация'][key])[:1].get().material
                               duplicat_list.append([df_new['SAP код F'][key],df_new['Фабрикация'][key],'F'])
+                              
                         else: 
                               if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='F').exists():
                                     umumiy_counter[df['Артикул'][key]+'-F'] += 1
@@ -1136,6 +1145,7 @@ def product_add_second_org(request,id):
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
                                     artikle = aluprofiles.data['Артикул']
                                     hollow_and_solid =aluprofiles.data['Полый и Фасонный']
+                                    
                                     
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -1197,6 +1207,8 @@ def product_add_second_org(request,id):
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
                                     artikle = aluprofiles.data['Артикул']
                                     hollow_and_solid = aluprofiles.data['Полый и Фасонный']
+
+
                                     
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -1255,6 +1267,8 @@ def product_add_second_org(request,id):
                         if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key]).exists():
                               df_new['SAP код 75'][key] = AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key])[:1].get().material
                               duplicat_list.append([df_new['SAP код 75'][key],df_new['U-Упаковка + Готовая Продукция 75'][key],'75'])
+                              key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция 75'][key]
+                              artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 75'][key]
                         else: 
                               if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='75').exists():
                                     umumiy_counter[df['Артикул'][key]+'-75'] += 1
@@ -1276,6 +1290,9 @@ def product_add_second_org(request,id):
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
                                     artikle = aluprofiles.data['Артикул']
                                     hollow_and_solid =aluprofiles.data['Полый и Фасонный']
+
+                                    key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция 75'][key]
+                                    artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 75'][key]
                                     
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -1362,6 +1379,9 @@ def product_add_second_org(request,id):
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
                                     artikle = aluprofiles.data['Артикул']
                                     hollow_and_solid =aluprofiles.data['Полый и Фасонный']
+
+                                    key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция 75'][key]
+                                    artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 75'][key]
                                     
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -1442,6 +1462,8 @@ def product_add_second_org(request,id):
                         if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key]).exists():
                               df_new['SAP код 7'][key] = AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key])[:1].get().material
                               duplicat_list.append([df_new['SAP код 7'][key],df_new['U-Упаковка + Готовая Продукция'][key],'7'])
+                              key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция'][key]
+                              artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 7'][key]
                         else: 
                               if AluminiyProduct.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
                                     umumiy_counter[df['Артикул'][key]+'-7'] += 1
@@ -1454,6 +1476,9 @@ def product_add_second_org(request,id):
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
                                     artikle = aluprofiles.data['Артикул']
                                     hollow_and_solid =aluprofiles.data['Полый и Фасонный']
+
+                                    key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция'][key]
+                                    artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 7'][key]
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -1540,6 +1565,9 @@ def product_add_second_org(request,id):
                                     artikle = aluprofiles.data['Артикул']
                                     hollow_and_solid =aluprofiles.data['Полый и Фасонный']
 
+                                    key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция'][key]
+                                    artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 7'][key]
+
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
                                     else:
@@ -1621,6 +1649,8 @@ def product_add_second_org(request,id):
                   if AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key]).exists():
                         df_new['SAP код 7'][key] = AluminiyProduct.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key])[:1].get().material
                         duplicat_list.append([df_new['SAP код 7'][key],df_new['U-Упаковка + Готовая Продукция'][key],'7'])
+                        key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция'][key]
+                        artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 7'][key]
                   else: 
                         if AluminiyProduct.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
                               umumiy_counter[df['Артикул'][key]+'-7'] += 1
@@ -1633,6 +1663,9 @@ def product_add_second_org(request,id):
                               aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
                               artikle = aluprofiles.data['Артикул']
                               hollow_and_solid =aluprofiles.data['Полый и Фасонный']
+
+                              key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция'][key]
+                              artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 7'][key]
 
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -1718,6 +1751,9 @@ def product_add_second_org(request,id):
                               aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=component2)|Q(data__Компонент=component2))
                               artikle = aluprofiles.data['Артикул']
                               hollow_and_solid =aluprofiles.data['Полый и Фасонный']
+                              
+                              key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция'][key]
+                              artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 7'][key]
 
                               if row['Тип покрытия'].lower() == 'сублимированный':
                                     tip_poktitiya ='с декоративным покрытием'
@@ -3126,19 +3162,27 @@ def product_add_second_org(request,id):
                   'section':'Формированый обычный файл'
             }
 
-      
+
             if order_id:
-                  norma_file = NormaExcelFiles(file = path_ramka_norma,type='simple')
-                  norma_file.save()
-                  file_paths =[ file.file for file in files]
                   order = Order.objects.get(id = order_id)
+                  datas = BaseOrderAlu.objects.get(id = order.client_order_id).data['data']
+                  df_simple = json_to_excel_alumin(datas,artikul_kratkiy_collection)
+                  rand_string = id_generator()
+                  path_onlinesavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\downloads\\SHABLON_ALUMINIY_SAVDO_{rand_string}.xlsx'
+                  df_simple.to_excel(path_onlinesavdo, index = False)
+                  
+                  file_id = save_file_to_model(path_onlinesavdo,OnlineSavdoFile())
+
+                  file_paths =[ file.file for file in files]
+                  
                   paths = order.paths
                   raz_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
                   zip_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
                   paths['obichniy_razlovka_file']= file_paths
 
                   paths['norma_formula_file'] = f'{MEDIA_ROOT}\\{path_ramka_norma}'
-                  paths['norma_link'] ='/norma/process-combinirovanniy/' + str(norma_file.id) +f'?type=simple&order_id={order_id}'
+                  paths['savdo_file'] = path_onlinesavdo
+                  paths['norma_link'] ='/online-savdo/generate-online-file/' + str(file_id) +f'?order_id={order_id}'
                  
 
                   paths['raz_created_at']= raz_created_at
@@ -3167,9 +3211,15 @@ def product_add_second_org(request,id):
             }
             
             if order_id:
-                  norma_file = NormaExcelFiles(file = path_ramka_norma,type='simple')
-                  norma_file.save()
-                  order = Order.objects.get( id = order_id)
+                  order = Order.objects.get(id = order_id)
+                  datas = BaseOrderAlu.objects.get(id = order.client_order_id).data['data']
+                  df_simple= json_to_excel_alumin(datas,artikul_kratkiy_collection)
+                  rand_string = id_generator()
+                  path_onlinesavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\downloads\\SHABLON_ALUMINIY_SAVDO_{rand_string}.xlsx'
+                  df_simple.to_excel(path_onlinesavdo, index = False)
+                  
+                  file_id = save_file_to_model(path_onlinesavdo,OnlineSavdoFile())
+
                   paths = order.paths 
                   if work_type != 5:
                         context2 ={
@@ -3194,8 +3244,9 @@ def product_add_second_org(request,id):
                   paths['status_norma_lack']= 'on process'
 
                   paths['norma_formula_file'] =  f'{MEDIA_ROOT}\\{path_ramka_norma}'
-                  paths['norma_link'] ='/norma/process-combinirovanniy/' + str(norma_file.id) +'?type=simple&order_id='+str(order_id)
-                  
+                  paths['savdo_file'] = path_onlinesavdo
+                  paths['norma_link'] ='/online-savdo/generate-online-file/' + str(file_id) +f'?order_id={order_id}'
+                 
 
                   order.paths = paths
                   order.current_worker = request.user

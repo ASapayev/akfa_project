@@ -211,46 +211,8 @@
                     </tr>
                   {%endif%}
                 {%endif%}
-                {%if order.work_type == 7 and status_norma_lack == 'on process' %}
-                <tr>
-                  <td class="text-capitalize"><div class="d-flex justify-content-start align-items-center">
-                    <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
-                        class="text-muted small">{{order.current_worker.username}}</span></p>
-                      <span class="ms-3 me-4">|</span></p>
-                    <a href="#!">
-                      <img src="{{order.current_worker.userprofile.profile_picture.url}}" alt="avatar"
-                        class="img-fluid rounded-circle me-1" width="35">
-                    </a>
-                    </div></td>
-                  <td>{{order.id | order_number_format}}</td>
-                  <td>{{norma_l_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
-                  <td><span class="text-danger">NORMA CREATING LACKS</span></td>
-                  <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{norma_file_lack}}"> Download</a></td>
-                  <td><label class="badge badge-success">ON PROCESS</label></td>
-                </tr>
-                {%endif%}
-                {%if status_texcarta == 'done' or status_texcarta == 'on process' %}
-                <tr>
-                  <td class="text-capitalize"><div class="d-flex justify-content-start align-items-center">
-                    <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
-                        class="text-muted small">{{order.current_worker.username}}</span></p>
-                      <span class="ms-3 me-4">|</span></p>
-                    <a href="#!">
-                      <img src="{{order.current_worker.userprofile.profile_picture.url}}" alt="avatar"
-                        class="img-fluid rounded-circle me-1" width="35">
-                    </a>
-                    </div></td>
-                  <td>{{order.id | order_number_format}}</td>
-                  <td>{{raz_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
-                  <td><span class="text-info">TEXCARTA CREATING</span></td>
-                  <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{texcarta_file}}"> Download</a></td>
-                  {%if status_texcarta == 'on process' %}
-                  <td><label class="badge badge-success">ON PROCESS</label></td>
-                  {%else%}
-                  <td><i class="mdi mdi-check-all text-success"></i></td>
-                  {%endif%}
-                </tr>
-                {%endif%}
+                
+                
                 
               </tbody>
             </table>
@@ -559,7 +521,7 @@
               <tbody>
                       <tr>
                           <td> 1 </td>
-                          <td class="p-1"> {{norma_formula_file|split_text}} </td>
+                          <td class="p-1"> {{savdo_file|split_text}} </td>
                           <td>{%now "SHORT_DATETIME_FORMAT" %} </td>
                           <td> <a href="{{norma_link}}" class="btn btn-outline-success btn-fw">Генерация <span style="color:chocolate;font-weight: 700;">савдо</span> алюминого файла</a> </td>
                       </tr>

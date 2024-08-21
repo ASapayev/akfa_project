@@ -61,6 +61,7 @@ class OrderACS(models.Model):
     paths = models.JSONField(null=True,blank=True,default=dict)
     order_type = models.SmallIntegerField(default=1)
     order_name = models.CharField(max_length=50,blank=True,null=True)
+    client_order_id = models.CharField(max_length=50,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
 
@@ -75,6 +76,7 @@ class OrderAKP(models.Model):
     paths = models.JSONField(null=True,blank=True,default=dict)
     order_type = models.SmallIntegerField(default=1)
     order_name = models.CharField(max_length=50,blank=True,null=True)
+    client_order_id = models.CharField(max_length=50,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
 
@@ -89,6 +91,7 @@ class OrderProchiye(models.Model):
     paths = models.JSONField(null=True,blank=True,default=dict)
     order_type = models.SmallIntegerField(default=1)
     order_name = models.CharField(max_length=50,blank=True,null=True)
+    client_order_id = models.CharField(max_length=50,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
 

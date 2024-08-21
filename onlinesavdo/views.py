@@ -12,6 +12,7 @@ from .models import OnlineSavdoOrder,OnlineSavdoFile
 import os
 from .utils import create_folder,zip
 from accounts.decorators import allowed_users
+from order.models import Order
 
 
 
@@ -306,8 +307,13 @@ def round503(n):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
 def create_online(request,id):
+
+    order_id = request.get('order_id',None)
+
+    
+
     file = OnlineSavdoFile.objects.get(id=id).file
-    df = pd.read_excel(f'{MEDIA_ROOT}/{file}',sheet_name='Алюмин Навои Жомий',header=4)
+    df = pd.read_excel(f'{MEDIA_ROOT}/{file}',header=0)
     df = df[~df['Название системы'].isnull()]
     df =df.astype(str)
 
@@ -330,6 +336,13 @@ def create_online(request,id):
     create_folder(f'{MEDIA_ROOT}\\uploads\\online_savdo\\{year}\\{month}\\{day}\\{hour}\\ONLINE\\',minut)
 
     pathtext1 =f'{MEDIA_ROOT}\\uploads\\online_savdo\\{year}\\{month}\\{day}\\{hour}\\ONLINE\\{minut}\\teams.xlsx'
+
+
+    if order_id:
+        order = Order.objects.get(id = order_id)
+        paths = order.paths
+        paths['savdo_material_file'] = pathtext1
+        order.work_type = 7
 
 
     not_exists = [[],[]]
@@ -356,7 +369,7 @@ def create_online(request,id):
         context ={
             'files':files
         }
-        return render(request,'universal/generated_files.html',context)
+        return render(request,'universal/generated_files_alu_online.html',context)
 
     df['Длина (мм)'].astype(str)
     df['Длина (мм)'] = df['Длина (мм)'].replace('.0','')
@@ -388,7 +401,7 @@ def create_online(request,id):
     context ={
         'files':files
     }
-    return render(request,'universal/generated_files.html',context)
+    return render(request,'universal/generated_files_alu_online.html',context)
 
 
 @login_required(login_url='/accounts/login/')
