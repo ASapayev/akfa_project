@@ -3174,7 +3174,7 @@ def product_add_second_org(request,id):
                         df_simple.to_excel(path_onlinesavdo, index = False)
                   else:
                         datf = pd.DataFrame({'Malumot':'yoq'})
-                        datf.to_excel(path_onlinesavdo, index = False)
+                        datf.to_excel(path_onlinesavdo)
                         
                   file_id = save_file_to_model(path_onlinesavdo,OnlineSavdoFile())
 
@@ -3226,7 +3226,7 @@ def product_add_second_org(request,id):
                         df_simple.to_excel(path_onlinesavdo, index = False)
                   else:
                         datf = pd.DataFrame({'Malumot':'yoq'})
-                        datf.to_excel(path_onlinesavdo, index = False)
+                        datf.to_excel(path_onlinesavdo)
                   
                   file_id = save_file_to_model(path_onlinesavdo,OnlineSavdoFile())
 
