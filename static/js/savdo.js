@@ -1046,7 +1046,7 @@ function front_piece(start=1,end=7){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 75px;text-transform: uppercase; font-size:12px;height:27px!important;z-index:0; padding-right:0px;" id='tip_clienta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 180px;text-transform: uppercase; font-size:12px;height:27px!important;z-index:0; padding-right:0px;" id='tip_clienta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option value="AKFA">AKFA</option>
                 <option value="IMZO">IMZO</option>
                 <option value="FRANCHISING">FRANCHISING</option>
@@ -2042,28 +2042,48 @@ function tip_pokritiya_selected(id,val){
     var status_first = $('#status'+String(id))
     var svet_product_val =''
 
+    var obj_exists = true
+
+    if(data_base[id]){
+        obj_exists =true
+    }else{
+        obj_exists =false
+    }
+
+
     if(String(val) == '1'){
-        data_base[id] = new BasePokritiya()
-        data_base[id].id = 1
-        data_base[id].tip_pokritiya = 'Неокрашенный'
+        
         nakleyka.css('display','block');
         nakleyka.val("NT1");
         
         svet_product_val = 'Без цвета'
+
        
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
-            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF')
+            if(obj_exists){
+                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF',add=false)
+            }else{
+                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF')
+            }
+            
             $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_sn'+String(id))
             div_kras.css('display','block')
             brand_k_snaruji.val('')
         }else{
-            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF')
+            if(obj_exists){
+                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF',add=false)
+                set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='MF',add=false)
+            }else{
+                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF')
+                set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='MF')
+            }
+           
             $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_sn'+String(id))
             div_kras.css('display','block')
 
-            set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='MF')
+          
             $('.code_kraski_vnut_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_vn'+String(id))
             div_kras.css('display','block')
@@ -2072,14 +2092,20 @@ function tip_pokritiya_selected(id,val){
             brand_k_vnutri.val('')
         }
 
-    }else if(String(val) == '2'){
         data_base[id] = new BasePokritiya()
-        data_base[id].id = 2
-        data_base[id].tip_pokritiya = 'Белый'
+        data_base[id].id = 1
+        data_base[id].tip_pokritiya = 'Неокрашенный'
+
+    }else if(String(val) == '2'){
+        
         svet_product_val = 'WHITE'
 
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
-            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016')
+            if(obj_exists){
+                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016',add=false)
+            }else{
+                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016')
+            }
             $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_sn'+String(id))
             div_kras.css('display','block')
@@ -2089,15 +2115,21 @@ function tip_pokritiya_selected(id,val){
             brand_k_snaruji.css('border-color','#dedad9')
             brand_k_snaruji.attr('disabled',true)
 
+            
 
         }else{
+            if(obj_exists){
+                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016',add=false)
+                set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='9016',add=false)
+            }else{
+                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016')
+                set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='9016')
+            }
             
-            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016')
             $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_sn'+String(id))
             div_kras.css('display','block')
 
-            set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='9016')
             $('.code_kraski_vnut_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_vn'+String(id))
             div_kras.css('display','block')
@@ -2121,7 +2153,9 @@ function tip_pokritiya_selected(id,val){
 
         }
 
-        
+        data_base[id] = new BasePokritiya()
+        data_base[id].id = 2
+        data_base[id].tip_pokritiya = 'Белый'
         
         var nakleyka_codd = $('#nakleyka_codd'+String(id)).text()
         if(nakleyka_codd!=''){
@@ -2133,6 +2167,43 @@ function tip_pokritiya_selected(id,val){
         var nakleyka_codd = $('#nakleyka_codd'+String(id)).text()
         if(nakleyka_codd!=''){
             nakleyka.val(nakleyka_codd)
+        }
+
+        
+        
+        
+       
+        var brand_k_snaruji = $('#brand_k_snaruji'+String(id));
+        brand_k_snaruji.attr('disabled',false)
+        brand_k_snaruji.css('display','block')
+        if(obj_exists){
+            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='',add=false)
+        }else{
+            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='')
+        }
+        $('.code_kraski_snar_sel'+String(id)).prop('disabled', false).trigger('chosen:updated')
+        var div_kras = $('#div_kras_sn'+String(id))
+        div_kras.css('display','block')
+       
+        
+        
+       
+
+        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
+            
+            var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id));
+            brand_kraski_vnutri.attr('disabled',false)
+            brand_kraski_vnutri.css('display','block')
+            if(obj_exists){
+                set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='',add=false)
+            }else{
+                set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='')
+            }
+            $('.code_kraski_vnut_sel'+String(id)).prop('disabled', false).trigger('chosen:updated')
+            var div_kras = $('#div_kras_vn'+String(id))
+            div_kras.css('display','block')
+            
+
         }
 
         if(String(val) == '3'){
@@ -2152,33 +2223,6 @@ function tip_pokritiya_selected(id,val){
             svet_product_val ='VAKUM & 3D'
         } 
         
-        
-       
-        var brand_k_snaruji = $('#brand_k_snaruji'+String(id));
-        brand_k_snaruji.attr('disabled',false)
-        brand_k_snaruji.css('display','block')
-        set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='')
-        $('.code_kraski_snar_sel'+String(id)).prop('disabled', false).trigger('chosen:updated')
-        var div_kras = $('#div_kras_sn'+String(id))
-        div_kras.css('display','block')
-       
-        
-        
-       
-
-        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
-            
-            var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id));
-            brand_kraski_vnutri.attr('disabled',false)
-            brand_kraski_vnutri.css('display','block')
-            set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='')
-            $('.code_kraski_vnut_sel'+String(id)).prop('disabled', false).trigger('chosen:updated')
-            var div_kras = $('#div_kras_vn'+String(id))
-            div_kras.css('display','block')
-            
-
-        }
-
         if (String(val) == '4'){
             var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
             svet_lamplonka_snaruji.attr("disabled",false);
