@@ -2,6 +2,7 @@ class BasePokritiya{
     constructor(
         full=false,//done
         id=NaN, //done
+        vid_zayavki=NaN,
         id_savdo=NaN,
         naz_savdo=NaN,
         sapcode=NaN,
@@ -11,6 +12,15 @@ class BasePokritiya{
         sena_c_ndc=NaN,
         sena_bez_ndc=NaN,
         ed_izm=NaN,
+        group=NaN,
+        group_zakupok=NaN,
+        zavod=NaN,
+        segment=NaN,
+        bux_naz=NaN,
+        tip_clienta=NaN,
+        svet_product=NaN,
+        diller=NaN,
+
 
         comment=NaN,
         
@@ -19,6 +29,7 @@ class BasePokritiya{
       
         this.full=full;
         this.id=id;
+        this.vid_zayavki=vid_zayavki;
         this.id_savdo=id_savdo;
         this.naz_savdo=naz_savdo;
         this.sapcode=sapcode;
@@ -28,6 +39,14 @@ class BasePokritiya{
         this.sena_c_ndc=sena_c_ndc;
         this.sena_bez_ndc=sena_bez_ndc;
         this.ed_izm=ed_izm;
+        this.group=group;
+        this.group_zakupok=group_zakupok;
+        this.zavod=zavod;
+        this.segment=segment;
+        this.bux_naz=bux_naz;
+        this.tip_clienta=tip_clienta;
+        this.svet_product=svet_product;
+        this.diller=diller;
         this.comment=comment;
         
     }

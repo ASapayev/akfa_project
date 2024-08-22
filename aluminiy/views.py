@@ -3165,12 +3165,16 @@ def product_add_second_org(request,id):
 
             if order_id:
                   order = Order.objects.get(id = order_id)
-                  datas = BaseOrderAlu.objects.get(id = order.client_order_id).data['data']
-                  df_simple = json_to_excel_alumin(datas,artikul_kratkiy_collection)
-                  rand_string = id_generator()
                   path_onlinesavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\downloads\\SHABLON_ALUMINIY_SAVDO_{rand_string}.xlsx'
-                  df_simple.to_excel(path_onlinesavdo, index = False)
-                  
+                  if BaseOrderAlu.objects.filter(id = order.client_order_id).exists():
+                        datas = BaseOrderAlu.objects.get(id = order.client_order_id).data['data']
+                        df_simple = json_to_excel_alumin(datas,artikul_kratkiy_collection)
+                        rand_string = id_generator()
+                        df_simple.to_excel(path_onlinesavdo, index = False)
+                  else:
+                        datf = pd.DataFrame({'Malumot':'yoq'})
+                        datf.to_excel(path_onlinesavdo, index = False)
+                        
                   file_id = save_file_to_model(path_onlinesavdo,OnlineSavdoFile())
 
                   file_paths =[ file.file for file in files]
@@ -3212,11 +3216,15 @@ def product_add_second_org(request,id):
             
             if order_id:
                   order = Order.objects.get(id = order_id)
-                  datas = BaseOrderAlu.objects.get(id = order.client_order_id).data['data']
-                  df_simple= json_to_excel_alumin(datas,artikul_kratkiy_collection)
-                  rand_string = id_generator()
                   path_onlinesavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\downloads\\SHABLON_ALUMINIY_SAVDO_{rand_string}.xlsx'
-                  df_simple.to_excel(path_onlinesavdo, index = False)
+                  if BaseOrderAlu.objects.filter(id = order.client_order_id).exists():
+                        datas = BaseOrderAlu.objects.get(id = order.client_order_id).data['data']
+                        df_simple= json_to_excel_alumin(datas,artikul_kratkiy_collection)
+                        rand_string = id_generator()
+                        df_simple.to_excel(path_onlinesavdo, index = False)
+                  else:
+                        datf = pd.DataFrame({'Malumot':'yoq'})
+                        datf.to_excel(path_onlinesavdo, index = False)
                   
                   file_id = save_file_to_model(path_onlinesavdo,OnlineSavdoFile())
 
