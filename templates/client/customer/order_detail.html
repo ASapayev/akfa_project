@@ -969,6 +969,7 @@
                     <table class="table table-sm table-light table-bordered" id="my-table">
                         <thead>
                           <tr>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Вид заявки</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Id savdo</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Названия SAVDO</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Сапкод</th>
@@ -978,6 +979,14 @@
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена с НДС</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена без НДС</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Ед.изм цены</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группа</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группа закуп</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Завод</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Сегмент</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Бухгалтерская названия</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Тип клиента</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цвет продукта</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Акфа дилерда</th>
                             <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Комментария</th>
                         </tr>
                         </thead>
@@ -1032,7 +1041,7 @@
             'acs_texnopark':['pickupdate','sena_c_nds','sena_bez_nds','sena_c_nds_zakup','sena_bez_nds_zakup','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_sena','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment'],
             'acs_import':['artikul','group_tovarov','categoriya','nazvaniye_materiala','svet','bei','aei','koefitsiyent','sap_code','pickupdate','sena_c_nds','sena_bez_nds','edizm ','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment',],
             'prochiye_tms':['vid_zayavki','zavod','sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','koefitsiyent','alternativ_edin','vid_materiala','vid_zagotovki','prodayot','gruppa_zakupok','gruppa_materialov','comment',],
-            'change_data':['id_savdo','naz_savdo','sapcode','bei ','aei','koefitsiyent','sena_c_ndc','sena_bez_ndc','ed_izm','comment'],
+            'change_data':['vid_zayavki','id_savdo','naz_savdo','sapcode','bei ','aei','koefitsiyent','sena_c_ndc','sena_bez_ndc','ed_izm','group','group_zakupok','zavod','segment','bux_naz','tip_clienta','svet_product','diller','comment'],
             }
 
         for (var key in jsonData) 
