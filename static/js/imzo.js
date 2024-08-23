@@ -1807,6 +1807,13 @@ function tip_pokritiya_selected(id,val){
     code_svet_anodirovki_vnutri.css("border-color",'#dedad9');
 
 
+    var obj_exists = true
+
+    if(data_base[id]){
+        obj_exists =true
+    }else{
+        obj_exists =false
+    }
     
     
     var contactnost_anodirovki = $('#contactnost_anodirovki'+String(id));
