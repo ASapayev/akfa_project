@@ -814,7 +814,7 @@ def kombinirovaniy_process(request,id):
                 df_new['POSTP'].append('L')
                 df_new['MATNR1'].append(korobka.data['MATNR'])
                 df_new['TEXT2'].append(korobka.data['MAKTX'])
-                sap_val = '1000' if korobka_type !='BK' else '2000'
+                sap_val = '1000' if 'BK' not in korobka_type else '2000'
                 df_new['MEINS'].append(sap_val) 
                 df_new['MENGE'].append('ШТ')
                 df_new['DATUV'].append('')

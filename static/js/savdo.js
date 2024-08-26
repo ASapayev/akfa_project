@@ -219,31 +219,34 @@ class BasePokritiya{
                     }
                 }break;
             case 3:  if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
-    
-                    if(this.is_active){
-                        if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
-                        }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+                // this.brend_kraska_sn
+                console.log(this.kod_kraska_sn,this.brend_kraska_sn,'kod_kraska_sn >>>')
+                    if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')){
+                        
+                        if(this.is_active){
+                            if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+            
+                            }
         
+                        }else{
+        
+                            if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod && this.segment){
+            
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+            
+                            }
                         }
-    
+        
                     }else{
-    
-                        if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod && this.segment){
-        
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
-                        }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
-        
-                        }
+                        return {'text':'XXXXXXXX','accept':false}
                     }
-    
                 }else{
-                    return {'text':'XXXXXXXX','accept':false}
-                }
-                }else{
+                    console.log(this.kod_kraska_sn,this.kod_kraska_vn,'kod_kraska_sn >>>')
                     
                     if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
         
@@ -2624,11 +2627,14 @@ function create_kratkiy_tekst(id){
             data_base[id].brend_kraska_sn =brend_kaska_sn.val();
         }else{
 
-            if(code_kraski_snaruji.val() == 'MF'){
-
+            var selected_text = $('#code_kraski_snar'+String(id) + ' option:selected').text();
+            if(selected_text == 'MF'){
+                data_base[id].brend_kraska_sn ='';
+            }else{
+                brend_kaska_sn.css("border-color",'red');
+                data_base[id].brend_kraska_sn =NaN;
             }
-            brend_kaska_sn.css("border-color",'red');
-            data_base[id].brend_kraska_sn =NaN;
+
         }
         
         
@@ -2648,9 +2654,15 @@ function create_kratkiy_tekst(id){
 
 
         }else{
-            code_kraski_snaruji.css("border-color",'red');
-            data_base[id].kod_kraska_sn =NaN;
-            data_base[id].brend_kraska_sn = NaN
+            var selected_text = $('#code_kraski_snar'+String(id) + ' option:selected');
+            if(selected_text.text() == 'MF'){
+                data_base[id].brend_kraska_sn ='';
+                data_base[id].kod_kraska_sn =selected_text.val();
+            }else{
+                code_kraski_snaruji.css("border-color",'red');
+                data_base[id].kod_kraska_sn =NaN;
+                data_base[id].brend_kraska_sn = NaN
+            }
         }
        
        
@@ -2665,8 +2677,15 @@ function create_kratkiy_tekst(id){
                     brend_kaska_vn.css("border-color",'#dedad9');
                     data_base[id].brend_kraska_vn =brend_kaska_vn.val();
                 }else{
-                    brend_kaska_vn.css("border-color",'red');
-                    data_base[id].brend_kraska_vn =NaN;
+
+                    var selected_text = $('#code_kraski_vnut'+String(id) + ' option:selected').text();
+                    if(selected_text == 'MF'){
+                        data_base[id].brend_kraska_vn ='';
+                    }else{
+                        brend_kaska_vn.css("border-color",'red');
+                        data_base[id].brend_kraska_vn =NaN;
+                    }
+
                 }
 
                 var code_kraski_vnut = $('#code_kraski_vnut'+String(id))
@@ -2683,9 +2702,16 @@ function create_kratkiy_tekst(id){
 
                     }
                 }else{
-                    code_kraski_vnut.css("border-color",'red');
-                    data_base[id].kod_kraska_vn =NaN;
-                    data_base[id].brend_kraska_vn = NaN;
+
+                    var selected_text = $('#code_kraski_vnut'+String(id) + ' option:selected');
+                    if(selected_text.text() == 'MF'){
+                        data_base[id].brend_kraska_vn ='';
+                        data_base[id].kod_kraska_vn =selected_text.val();
+                    }else{
+                        code_kraski_vnut.css("border-color",'red');
+                        data_base[id].kod_kraska_vn =NaN;
+                        data_base[id].brend_kraska_vn = NaN;
+                    }
                 }
 
                 data_base[id].is_termo =true;
