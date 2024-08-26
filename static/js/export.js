@@ -926,7 +926,7 @@ function copy_tr(id){
        
         check_input_and_change(comment,'#comment'+s)
         check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s)
-        check_input_and_change(dilina_pressa,'#dilina_pressa'+s)
+        check_input_and_change(dilina_pressa,'#dilina_pressa'+s,dis=false,is_req=true)
         
         
     }

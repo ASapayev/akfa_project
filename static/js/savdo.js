@@ -2617,19 +2617,24 @@ function create_kratkiy_tekst(id){
     }
     else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
         var brend_kaska_sn = $('#brand_k_snaruji'+id)
+        var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
 
         if(brend_kaska_sn.val() != '0' && brend_kaska_sn.val()  != undefined && brend_kaska_sn.val() != '' && brend_kaska_sn.val()  !=null){
             brend_kaska_sn.css("border-color",'#dedad9');
             data_base[id].brend_kraska_sn =brend_kaska_sn.val();
         }else{
+
+            if(code_kraski_snaruji.val() == 'MF'){
+
+            }
             brend_kaska_sn.css("border-color",'red');
             data_base[id].brend_kraska_sn =NaN;
         }
         
-        var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+        
         if(code_kraski_snaruji.val() != '0' && code_kraski_snaruji.val()  != undefined && code_kraski_snaruji.val() != '' && code_kraski_snaruji.val()  !=null){
             code_kraski_snaruji.css("border-color",'#dedad9');
-            data_base[id].kod_kraska_sn =code_kraski_snaruji.val();
+            data_base[id].kod_kraska_sn = code_kraski_snaruji.val();
 
             
             var brend_kaska_sn = $('#brand_k_snaruji'+id)
