@@ -273,6 +273,7 @@ class BasePokritiya{
                     }
                 } break;
             case 4: if(!this.is_termo){
+                console.log(this.splav , this.tip_zak , this.dlina , this.kod_kraska_sn , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki,this.brend_kraska_sn)
                 if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')){
     
                     if(this.is_active){
@@ -284,7 +285,7 @@ class BasePokritiya{
                         }
     
                     }else{
-    
+                        console.log(this.edinitsa_izm , this.nazvaniye_ruchnoy , this.svet_product , this.group_zakup , this.group , this.tip , this.bazoviy_edin , this.status_online , this.zavod  , this.segment)
                         if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod  && this.segment){
         
                             return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
@@ -1430,7 +1431,6 @@ function copy_tr(id){
         
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
 
-        console.log(sap_code_ruchnoy,kratkiy_text_ruchnoy,'obshiyy')
         // check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
         // check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s)
         check_input_and_change(comment,'#comment'+s)
@@ -1493,7 +1493,6 @@ function copy_tr(id){
         
         
     }
-
 
 }
 
@@ -2619,14 +2618,24 @@ function create_kratkiy_tekst(id){
     else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
         var brend_kaska_sn = $('#brand_k_snaruji'+id)
         var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+        var selected_text = $('#code_kraski_snar'+String(id) + ' option:selected').text();
 
         if(brend_kaska_sn.val() != '0' && brend_kaska_sn.val()  != undefined && brend_kaska_sn.val() != '' && brend_kaska_sn.val()  !=null){
-            brend_kaska_sn.css("border-color",'#dedad9');
-            data_base[id].brend_kraska_sn =brend_kaska_sn.val();
+            
+            if(selected_text =='MF'){
+
+                brend_kaska_sn.val('')
+                brend_kaska_sn.css("border-color",'#dedad9');
+                data_base[id].brend_kraska_sn ='';
+            }else{
+                brend_kaska_sn.css("border-color",'#dedad9');
+                data_base[id].brend_kraska_sn =brend_kaska_sn.val();
+            }
+
         }else{
 
-            var selected_text = $('#code_kraski_snar'+String(id) + ' option:selected').text();
             if(selected_text == 'MF'){
+                brend_kaska_sn.val('')
                 data_base[id].brend_kraska_sn ='';
             }else{
                 brend_kaska_sn.css("border-color",'red');
@@ -2654,6 +2663,7 @@ function create_kratkiy_tekst(id){
         }else{
             var selected_text = $('#code_kraski_snar'+String(id) + ' option:selected');
             if(selected_text.text() == 'MF'){
+                brend_kaska_sn.val('')
                 data_base[id].brend_kraska_sn ='';
                 data_base[id].kod_kraska_sn =selected_text.val();
             }else{
@@ -2670,14 +2680,22 @@ function create_kratkiy_tekst(id){
             {
 
                 var brend_kaska_vn = $('#brand_k_vnutri'+id)
+                var selected_text = $('#code_kraski_vnut'+String(id) + ' option:selected').text();
 
                 if(brend_kaska_vn.val() != '0' && brend_kaska_vn.val()  != undefined && brend_kaska_vn.val() != '' && brend_kaska_vn.val()  !=null){
-                    brend_kaska_vn.css("border-color",'#dedad9');
-                    data_base[id].brend_kraska_vn =brend_kaska_vn.val();
+                    if(selected_text =='MF'){
+                        brend_kaska_vn.val('')
+                        brend_kaska_vn.css("border-color",'#dedad9');
+                        data_base[id].brend_kraska_vn ='';
+                    }else{
+                        brend_kaska_vn.css("border-color",'#dedad9');
+                        data_base[id].brend_kraska_vn =brend_kaska_vn.val();
+                    }
                 }else{
 
-                    var selected_text = $('#code_kraski_vnut'+String(id) + ' option:selected').text();
+                    
                     if(selected_text == 'MF'){
+                        brend_kaska_vn.val('')
                         data_base[id].brend_kraska_vn ='';
                     }else{
                         brend_kaska_vn.css("border-color",'red');
@@ -2687,11 +2705,12 @@ function create_kratkiy_tekst(id){
                 }
 
                 var code_kraski_vnut = $('#code_kraski_vnut'+String(id))
+                var brend_kaska_vn = $('#brand_k_vnutri'+id)
                 if(code_kraski_vnut.val() != '0' && code_kraski_vnut.val()  != undefined && code_kraski_vnut.val()  != '' && code_kraski_vnut.val()  !=null){
                     code_kraski_vnut.css("border-color",'#dedad9');
                     data_base[id].kod_kraska_vn =code_kraski_vnut.val();
                     
-                    var brend_kaska_vn = $('#brand_k_vnutri'+id)
+                    
                     if(!data_base[id].brend_kraska_vn ){
                         var code_kraski_vnutri_kraska = $('#code_kraski_vnut'+String(id) +' option:selected').attr('data-brend');;
                         brend_kaska_vn.css("border-color",'#dedad9');
@@ -2703,6 +2722,7 @@ function create_kratkiy_tekst(id){
 
                     var selected_text = $('#code_kraski_vnut'+String(id) + ' option:selected');
                     if(selected_text.text() == 'MF'){
+                        brend_kaska_vn.val('')
                         data_base[id].brend_kraska_vn ='';
                         data_base[id].kod_kraska_vn =selected_text.val();
                     }else{
@@ -3352,6 +3372,7 @@ function create_kratkiy_tekst(id){
 
     var data =data_base[id].get_kratkiy_tekst()
 
+    console.log(data)
 
     if(data.accept){
         var table_tr =$('#table_tr'+id);
