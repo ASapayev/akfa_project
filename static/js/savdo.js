@@ -219,8 +219,7 @@ class BasePokritiya{
                     }
                 }break;
             case 3:  if(!this.is_termo){
-                // this.brend_kraska_sn
-                console.log(this.kod_kraska_sn,this.brend_kraska_sn,'kod_kraska_sn >>>')
+                
                     if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')){
                         
                         if(this.is_active){
@@ -246,9 +245,8 @@ class BasePokritiya{
                         return {'text':'XXXXXXXX','accept':false}
                     }
                 }else{
-                    console.log(this.kod_kraska_sn,this.kod_kraska_vn,'kod_kraska_sn >>>')
                     
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
+                    if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')&&(this.brend_kraska_vn || this.brend_kraska_vn =='')){
         
                         if(this.is_active){
                             if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
@@ -275,7 +273,7 @@ class BasePokritiya{
                     }
                 } break;
             case 4: if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki){
+                if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')){
     
                     if(this.is_active){
                         if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
@@ -299,7 +297,7 @@ class BasePokritiya{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki){
+                    if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')&&(this.brend_kraska_vn || this.brend_kraska_vn =='')){
         
         
                         if(this.is_active){
@@ -328,7 +326,7 @@ class BasePokritiya{
                     }
                 }break;
             case 5:  if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki){
+                if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')){
     
                     if(this.is_active){
                         if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
@@ -355,7 +353,7 @@ class BasePokritiya{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn  && this.kod_nakleyki){
+                    if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn  && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')&&(this.brend_kraska_vn || this.brend_kraska_vn =='')){
         
         
                         if(this.is_active){

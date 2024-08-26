@@ -397,7 +397,11 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;z-index:0" id='tip_clienta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  ></option>
-                <option selected value="AKFA">AKFA</option>
+                <option value="AKFA">AKFA</option>
+                <option value="IMZO">IMZO</option>
+                <option value="FRANCHISING">FRANCHISING</option>
+                <option value="AKFA-IMZO-FRANCHISING">AKFA-IMZO-FRANCHISING</option>
+                <option value="IMZO-FRANCHISING">IMZO-FRANCHISING</option>
             </select>
             </div>
         </td>
