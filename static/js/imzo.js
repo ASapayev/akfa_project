@@ -1328,8 +1328,8 @@ function copy_tr(id){
         
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
         
-        check_input_and_change(sap_code,'#sap_code'+s)
-        check_input_and_change(krat,'#krat'+s)
+        // check_input_and_change(sap_code,'#sap_code'+s)
+        // check_input_and_change(krat,'#krat'+s)
         
         
         

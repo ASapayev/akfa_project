@@ -630,8 +630,8 @@ function copy_tr(id){
        
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
 
-        check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
-        check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s)
+        // check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
+        // check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s)
         check_input_and_change(comment,'#comment'+s)
         check_input_and_change(sena_export,'#sena_export'+s,dis=false,is_req=true,is_req_simple=false)
 

@@ -1430,8 +1430,8 @@ function copy_tr(id){
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
 
         console.log(sap_code_ruchnoy,kratkiy_text_ruchnoy,'obshiyy')
-        check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
-        check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s)
+        // check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
+        // check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s)
         check_input_and_change(comment,'#comment'+s)
         check_input_and_change(dilina_pressa,'#dilina_pressa'+s)
 
