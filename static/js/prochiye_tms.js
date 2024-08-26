@@ -95,7 +95,7 @@ function front_piece(start=1,end=6){
                     <option value="1208 - Производство дистанционной рамки">1208 - Производство дистанционной рамки</option>
                     <option value="1209 - Производство резиновых уплотнителей">1209 - Производство резиновых уплотнителей</option>
                     <option value="1301 - Фабрика сборки оконно-дверных систем Имзо">1301 - Фабрика сборки оконно-дверных систем Имзо</option>
-                    <option value="1305 - AKFA Projects">1305 - AKFA Projects</option>
+                    <option value="1311 - AKFA Projects">1311 - AKFA Projects</option>
                     <option value="5101 - AKFA Radiators">5101 - AKFA Radiators</option>
                     <option value="4501 - Сектор оконно-дверных аксессуаров">4501 - Сектор оконно-дверных аксессуаров</option>
                     <option value="4601 - Завод производства Композитных панелей из Алюминия">4601 - Завод производства Композитных панелей из Алюминия</option>
