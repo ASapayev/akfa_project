@@ -596,7 +596,7 @@ function front_piece(start=1,end=6){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 250px; font-size:10px; height:27px!important;z-index:0;display:none"  id='comment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="width: 250px; font-size:10px; height:27px!important;z-index:0;display:none"  id='comment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
             
         </td>

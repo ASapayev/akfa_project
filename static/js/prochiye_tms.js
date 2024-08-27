@@ -41,13 +41,25 @@ class BasePokritiya{
 
     }
     get_kratkiy_tekst(){
-            console.log(this.zavod , this.nazvaniye_tovarov , this.polnoye_nazvaniye , this.sena_materiala , this.bazoviy_edinitsa , this.vid_materiala , this.vid_zagotovki , this.prodayot)
-                if (this.zavod && this.nazvaniye_tovarov && this.polnoye_nazvaniye && this.sena_materiala && this.bazoviy_edinitsa && this.vid_materiala && this.vid_zagotovki && this.prodayot){
-                    console.log(this.zavod , this.nazvaniye_tovarov , this.polnoye_nazvaniye , this.sena_materiala , this.bazoviy_edinitsa , this.vid_materiala , this.vid_zagotovki , this.prodayot,'sddddsa')
-                    return {'text':'','accept':true}
-                }else{
-                    return {'text':'','accept':false}
-                }
+
+        switch(this.id){
+            case 1: if(this.zavod && this.nazvaniye_tovarov && this.polnoye_nazvaniye && this.sena_materiala && this.bazoviy_edinitsa && this.vid_materiala && this.gruppa_zakupok){
+                return {'text':'','accept':true}
+            }else{
+                return {'text':'','accept':false}
+            } break;
+            case 2: if(this.sapcode && this.nazvaniye_tovarov){
+                return {'text':'','accept':true}
+            }else{
+                return {'text':'','accept':false}
+            } break;
+            case 3: if(this.zavod && this.sapcode && this.nazvaniye_tovarov && this.sena_materiala && this.bazoviy_edinitsa){
+                return {'text':'','accept':true}
+            }else{
+                return {'text':'','accept':false}
+            } break;
+            }
+            
         }
   }
 
@@ -58,7 +70,7 @@ function front_piece(start=1,end=6){
     text =""
 
     for (let i = start; i < end; i++) {
-        data_base[i] = new BasePokritiya()
+        
         text +=`
         <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>                   
         <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
@@ -72,7 +84,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 115px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='vid_zayavki`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="width: 115px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='vid_zayavki`+ String(i)+`' onchange='select_vid_zayavki(`+String(i)+`,this.value)' required>
                     <option  selected></option>
                     <option vlaue="Создание">Создание</div>
                     <option vlaue="Изменение">Изменение</div>
@@ -82,7 +94,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 450px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red" id='zavod`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="display:none;width: 70px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red" id='zavod`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option value="1101 - Производство алюминиевых профилей - Джами">1101 - Производство алюминиевых профилей - Джами</option>
                     <option value="1201 - Производство алюминиевых профилей - BENKAM">1201 - Производство алюминиевых профилей - BENKAM</option>
@@ -99,66 +111,60 @@ function front_piece(start=1,end=6){
                     <option value="5101 - AKFA Radiators">5101 - AKFA Radiators</option>
                     <option value="4501 - Сектор оконно-дверных аксессуаров">4501 - Сектор оконно-дверных аксессуаров</option>
                     <option value="4601 - Завод производства Композитных панелей из Алюминия">4601 - Завод производства Композитных панелей из Алюминия</option>
-                    <option value="9001 - RADIATOR ">9001 - RADIATOR </option>
-                    <option value="9002 - Акссеуар Technology">9002 - Акссеуар Technology</option>
-                    <option value="9003 - Дорожная краска">9003 - Дорожная краска</option>
-                    <option value="9004 - ПОРОШКОВАЯ КРАСКА">9004 - ПОРОШКОВАЯ КРАСКА</option>
-                    <option value="9004 - Матрица">9004 - Матрица</option>
-                    <option value="9005 - EPDM_WTS">9005 - EPDM_WTS</option>
+                    
                 </select>
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 100px; font-size:10px;z-index:0 " id='sapcode`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="display:none; width: 100px; font-size:10px;z-index:0 " id='sapcode`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)' maxlength="40"></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 175px; font-size:10px; z-index:0" id='nazvaniye_tovarov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="display:none; border-color:red; width: 175px; font-size:10px; z-index:0" id='nazvaniye_tovarov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 175px; font-size:10px;z-index:0 " id='polnoye_nazvaniye`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="display:none; border-color:red; width: 175px; font-size:10px;z-index:0 " id='polnoye_nazvaniye`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; z-index:0" id='sena_materiala`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="display:none; border-color:red; width: 75px; font-size:10px; z-index:0" id='sena_materiala`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="border-color:red;height:27px;width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='bazoviy_edinitsa`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="display:none;border-color:red;height:27px;width: 55px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='bazoviy_edinitsa`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
-                    <option vlaue="Штука">Штука</div>
-                    <option vlaue="Килограмм">Килограмм</div>
-                    <option vlaue="Квадратный метр">Квадратный метр</div>
-                    <option vlaue="Метр">Метр</div>
+                    <option vlaue="ШТ">ШТ</div>
+                    <option vlaue="КГ">КГ</div>
+                    <option vlaue="М2">М2</div>
+                    <option vlaue="М">М</div>
                     <option vlaue="КМП">КМП</div>
-                    <option vlaue="Пачка">Пачка</div>
-                    <option vlaue="Секция">Секция</div>
-                    <option  value="Коробка">Коробка</div>
-                    <option  value="Грам">Грам</div>
+                    <option vlaue="ПАЧ">ПАЧ</div>
+                    <option vlaue="СКЦ">СКЦ</div>
+                    <option  value="КОР">КОР</div>
                 </select>
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="width: 75px; font-size:10px;z-index:0 " id='koefitsiyent`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="display:none;width: 75px; font-size:10px;z-index:0 " id='koefitsiyent`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="width: 75px; font-size:10px;z-index:0 " id='alternativ_edin`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="display:none;width: 75px; font-size:10px;z-index:0 " id='alternativ_edin`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="border-color:red;width: 500px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='vid_materiala`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="display:none;border-color:red;width: 500px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='vid_materiala`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option value="Сырье и материалы - Сырье и материалы">Сырье и материалы - Сырье и материалы</option>
                     <option value="Вспомогательные материалы - Вспомогательное сырье и материалы">Вспомогательные материалы - Вспомогательное сырье и материалы</option>
@@ -198,7 +204,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 120px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red;" id='vid_zagotovki`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="display:none;width: 120px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red;" id='vid_zagotovki`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option value="Закупается">Закупается</option>
                     <option value="Производится">Производится</option>
@@ -207,8 +213,8 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 30px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red;" id='prodayot`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)'  required>
-                    <option  selected value='' disabled>...</option>
+                <select class="form-select" aria-label="" style="display:none;width: 30px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red;" id='prodayot`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)'  required>
+                    <option  selected value='0' disabled>...</option>
                     <option value="X">X</option>
                     <option value=""></option>
                 </select>
@@ -216,7 +222,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 200px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='gruppa_zakupok`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="display:none;width: 200px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='gruppa_zakupok`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option value="100 - Импорт/Сырьё/Усл.">100 - Импорт/Сырьё/Усл.</option>
                     <option value="101 - Импорт/Оборудов/ЗЧ">101 - Импорт/Оборудов/ЗЧ</option>
@@ -227,12 +233,12 @@ function front_piece(start=1,end=6){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="width: 100px; font-size:10px;z-index:0 " id='gruppa_materialov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="display:none;width: 100px; font-size:10px;z-index:0 " id='gruppa_materialov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type='text' class=" form-control " style="width: 250px; font-size:10px; height:27px!important;z-index:0"  id='comment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+                <input type='text' class=" form-control " style="display:none;width: 250px; font-size:10px; height:27px!important;z-index:0"  id='comment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' placeholder='Складини тулдиринг'></input>
             </div>
             
         </td>
@@ -272,6 +278,7 @@ function copy_tr(id){
         
         var s = size+1
 
+        var data_id = data.id;
         var vid_zayavki = data.vid_zayavki;
         var zavod = data.zavod;
         var sapcode = data.sapcode;
@@ -288,23 +295,56 @@ function copy_tr(id){
         var gruppa_materialov = data.gruppa_materialov;
         var comment = data.comment;
         
-      
-        
         check_input_and_change(vid_zayavki,'#vid_zayavki'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(zavod,'#zavod'+s,dis=false,is_req=true,is_req_simple=false)
-        check_input_and_change(sapcode,'#sapcode'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(nazvaniye_tovarov,'#nazvaniye_tovarov'+s,dis=false,is_req=true,is_req_simple=false)
-        check_input_and_change(polnoye_nazvaniye,'#polnoye_nazvaniye'+s,dis=false,is_req=true,is_req_simple=false)
-        check_input_and_change(sena_materiala,'#sena_materiala'+s,dis=false,is_req=true,is_req_simple=false)
-        check_input_and_change(bazoviy_edinitsa,'#bazoviy_edinitsa'+s,dis=false,is_req=true,is_req_simple=false)
-        check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(alternativ_edin,'#alternativ_edin'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(vid_materiala,'#vid_materiala'+s,dis=false,is_req=true,is_req_simple=false)
-        check_input_and_change(vid_zagotovki,'#vid_zagotovki'+s,dis=false,is_req=true,is_req_simple=false)
-        check_input_and_change(prodayot,'#prodayot'+s,dis=false,is_req=true,is_req_simple=false)
-        check_input_and_change(gruppa_zakupok,'#gruppa_zakupok'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
+        
+        if(data_id == 1){
+            check_input_and_change(zavod,'#zavod'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(sapcode,'#sapcode'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(nazvaniye_tovarov,'#nazvaniye_tovarov'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(polnoye_nazvaniye,'#polnoye_nazvaniye'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(sena_materiala,'#sena_materiala'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(bazoviy_edinitsa,'#bazoviy_edinitsa'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(alternativ_edin,'#alternativ_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(vid_materiala,'#vid_materiala'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(vid_zagotovki,'#vid_zagotovki'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(prodayot,'#prodayot'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(gruppa_zakupok,'#gruppa_zakupok'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
+        }else if(data_id == 2){
+            check_input_and_change(zavod,'#zavod'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sapcode,'#sapcode'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(nazvaniye_tovarov,'#nazvaniye_tovarov'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(polnoye_nazvaniye,'#polnoye_nazvaniye'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sena_materiala,'#sena_materiala'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(bazoviy_edinitsa,'#bazoviy_edinitsa'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(alternativ_edin,'#alternativ_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(vid_materiala,'#vid_materiala'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(vid_zagotovki,'#vid_zagotovki'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(prodayot,'#prodayot'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(gruppa_zakupok,'#gruppa_zakupok'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
+        }else if(data_id == 3){
+            check_input_and_change(zavod,'#zavod'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(sapcode,'#sapcode'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(nazvaniye_tovarov,'#nazvaniye_tovarov'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(polnoye_nazvaniye,'#polnoye_nazvaniye'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sena_materiala,'#sena_materiala'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(bazoviy_edinitsa,'#bazoviy_edinitsa'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(alternativ_edin,'#alternativ_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(vid_materiala,'#vid_materiala'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(vid_zagotovki,'#vid_zagotovki'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(prodayot,'#prodayot'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(gruppa_zakupok,'#gruppa_zakupok'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
+
+        }
+        
         
         
         
@@ -313,6 +353,132 @@ function copy_tr(id){
 
 }
 
+
+function select_vid_zayavki(id,val){
+
+    var element33 = document.getElementById("table_tr"+id);
+    element33.style.backgroundColor='white';
+
+    var vid_zayavki =$('#vid_zayavki'+id);
+    var zavod =$('#zavod'+id);
+    var sapcode =$('#sapcode'+id);
+    var nazvaniye_tovarov =$('#nazvaniye_tovarov'+id);
+    var polnoye_nazvaniye =$('#polnoye_nazvaniye'+id);
+    var sena_materiala =$('#sena_materiala'+id);
+    var bazoviy_edinitsa =$('#bazoviy_edinitsa'+id);
+    var koefitsiyent =$('#koefitsiyent'+id);
+    var alternativ_edin =$('#alternativ_edin'+id);
+    var vid_materiala =$('#vid_materiala'+id);
+    var vid_zagotovki =$('#vid_zagotovki'+id);
+    var prodayot =$('#prodayot'+id);
+    var gruppa_zakupok =$('#gruppa_zakupok'+id);
+    var gruppa_materialov =$('#gruppa_materialov'+id);
+    var comment =$('#comment'+id);
+
+    zavod.val('')
+    sapcode.val('')
+    nazvaniye_tovarov.val('')
+    polnoye_nazvaniye.val('')
+    sena_materiala.val('')
+    bazoviy_edinitsa.val('')
+    koefitsiyent.val('')
+    alternativ_edin.val('')
+    vid_materiala.val('')
+    vid_zagotovki.val('')
+    prodayot.val('')
+    gruppa_zakupok.val('')
+    gruppa_materialov.val('')
+    comment.val('')
+
+
+    // vid_zayavki.css('display','none')
+    zavod.css('display','none')
+    sapcode.css('display','none')
+    nazvaniye_tovarov.css('display','none')
+    polnoye_nazvaniye.css('display','none')
+    sena_materiala.css('display','none')
+    bazoviy_edinitsa.css('display','none')
+    koefitsiyent.css('display','none')
+    alternativ_edin.css('display','none')
+    vid_materiala.css('display','none')
+    vid_zagotovki.css('display','none')
+    prodayot.css('display','none')
+    gruppa_zakupok.css('display','none')
+    gruppa_materialov.css('display','none')
+    comment.css('display','none')
+
+    vid_zayavki.css('border-color','#dedad9')
+    zavod.css('border-color','#dedad9')
+    sapcode.css('border-color','#dedad9')
+    nazvaniye_tovarov.css('border-color','#dedad9')
+    polnoye_nazvaniye.css('border-color','#dedad9')
+    sena_materiala.css('border-color','#dedad9')
+    bazoviy_edinitsa.css('border-color','#dedad9')
+    koefitsiyent.css('border-color','#dedad9')
+    alternativ_edin.css('border-color','#dedad9')
+    vid_materiala.css('border-color','#dedad9')
+    vid_zagotovki.css('border-color','#dedad9')
+    prodayot.css('border-color','#dedad9')
+    gruppa_zakupok.css('border-color','#dedad9')
+    gruppa_materialov.css('border-color','#dedad9')
+    comment.css('border-color','#dedad9')
+
+    if(val!=''){
+        vid_zayavki.css('display','block')
+        zavod.css('display','block')
+        sapcode.css('display','block')
+        nazvaniye_tovarov.css('display','block')
+        polnoye_nazvaniye.css('display','block')
+        sena_materiala.css('display','block')
+        bazoviy_edinitsa.css('display','block')
+        koefitsiyent.css('display','block')
+        alternativ_edin.css('display','block')
+        vid_materiala.css('display','block')
+        vid_zagotovki.css('display','block')
+        prodayot.css('display','block')
+        gruppa_zakupok.css('display','block')
+        gruppa_materialov.css('display','block')
+        comment.css('display','block')
+    }
+
+    if(val =='Создание'){
+        data_base[id] = new BasePokritiya()
+        data_base[id].id = 1
+        data_base[id].vid_zayavki = 'Создание'
+        zavod.css('border-color','red')
+        nazvaniye_tovarov.css('border-color','red')
+        polnoye_nazvaniye.css('border-color','red')
+        sena_materiala.css('border-color','red')
+        bazoviy_edinitsa.css('border-color','red')
+        vid_materiala.css('border-color','red')
+        // prodayot.css('border-color','red')
+        gruppa_zakupok.css('border-color','red')
+        vid_zagotovki.val('Закупается')
+        prodayot.val('')
+    }else if(val =='Изменение'){
+        data_base[id] = new BasePokritiya()
+        data_base[id].id = 2
+        data_base[id].vid_zayavki = 'Изменение'
+        sapcode.css('border-color','red')
+        nazvaniye_tovarov.css('border-color','red')
+        
+    }else if(val =='Расширение'){
+        data_base[id] = new BasePokritiya()
+        data_base[id].id = 3
+        data_base[id].vid_zayavki = 'Расширение'
+
+        zavod.css('border-color','red')
+        sapcode.css('border-color','red')
+        nazvaniye_tovarov.css('border-color','red')
+        sena_materiala.css('border-color','red')
+        bazoviy_edinitsa.css('border-color','red')
+
+    }
+
+
+    
+
+}
 
 
 function check_input_and_change(val,selector,dis=false,is_req=false,is_req_simple=false){
@@ -350,72 +516,83 @@ function check_text_and_change(val,selector){
 }
 
 
-
-
-
-
-
 function artukil_clear(id){
     
     var table_tr =$('#table_tr'+id);
     
-    for(key in data_base[id]){
-        data_base[id][key] = NaN
-    }
+    delete data_base[id]
+    
 
     
     table_tr.css('background-color','white')
 
-  
+    
     var vid_zayavki =$('#vid_zayavki'+id);
-    vid_zayavki.val('')
     var zavod =$('#zavod'+id);
-    zavod.val('')
-    zavod.css('border-color','red')
-
-
     var sapcode =$('#sapcode'+id);
-    sapcode.val('')
-
-
     var nazvaniye_tovarov =$('#nazvaniye_tovarov'+id);
-    nazvaniye_tovarov.val('')
-    nazvaniye_tovarov.css('border-color','red')
-
     var polnoye_nazvaniye =$('#polnoye_nazvaniye'+id);
-    polnoye_nazvaniye.val('')
-    polnoye_nazvaniye.css('border-color','red')
     var sena_materiala =$('#sena_materiala'+id);
-    sena_materiala.val('')
-    sena_materiala.css('border-color','red')
     var bazoviy_edinitsa =$('#bazoviy_edinitsa'+id);
-    bazoviy_edinitsa.val('')
-    bazoviy_edinitsa.css('border-color','red')
-    
     var koefitsiyent =$('#koefitsiyent'+id);
-    koefitsiyent.val('')
     var alternativ_edin =$('#alternativ_edin'+id);
-    alternativ_edin.val('')
     var vid_materiala =$('#vid_materiala'+id);
-    vid_materiala.val('')
     var vid_zagotovki =$('#vid_zagotovki'+id);
-    vid_zagotovki.val('')
     var prodayot =$('#prodayot'+id);
-    prodayot.val('')
-
-
     var gruppa_zakupok =$('#gruppa_zakupok'+id);
-    gruppa_zakupok.val('')
-    
     var gruppa_materialov =$('#gruppa_materialov'+id);
-    gruppa_materialov.val('')
     var comment =$('#comment'+id);
+
+    vid_zayavki.val('')
+    zavod.val('')
+    sapcode.val('')
+    nazvaniye_tovarov.val('')
+    polnoye_nazvaniye.val('')
+    sena_materiala.val('')
+    bazoviy_edinitsa.val('')
+    koefitsiyent.val('')
+    alternativ_edin.val('')
+    vid_materiala.val('')
+    vid_zagotovki.val('')
+    prodayot.val('')
+    gruppa_zakupok.val('')
+    gruppa_materialov.val('')
     comment.val('')
+
+
+    zavod.css('display','none')
+    sapcode.css('display','none')
+    nazvaniye_tovarov.css('display','none')
+    polnoye_nazvaniye.css('display','none')
+    sena_materiala.css('display','none')
+    bazoviy_edinitsa.css('display','none')
+    koefitsiyent.css('display','none')
+    alternativ_edin.css('display','none')
+    vid_materiala.css('display','none')
+    vid_zagotovki.css('display','none')
+    prodayot.css('display','none')
+    gruppa_zakupok.css('display','none')
+    gruppa_materialov.css('display','none')
+    comment.css('display','none')
+   
     
 
 }
 
-
+function get_and_set_data(id,selector,is_req){
+    var data = $('#'+selector+id)
+    if(data.val() != '' && data.val() !=NaN && data.val() !=null){
+        data_base[id][selector] = data.val()
+        data.css('border-color','#dedad9')
+    }else{
+        if(is_req){
+            data.css('border-color','red')
+        }else{
+            data.css('border-color','#dedad9')
+        }
+        data_base[id][selector] = NaN;
+    }
+}
 
 
 
@@ -425,53 +602,10 @@ function create_kratkiy_tekst(id){
         console.log('salom')
     }else{
     
-        
     var vid_zayavki =$('#vid_zayavki'+id);
-    var zavod =$('#zavod'+id);
-    var sapcode =$('#sapcode'+id);
-    var nazvaniye_tovarov =$('#nazvaniye_tovarov'+id);
-
-    var polnoye_nazvaniye =$('#polnoye_nazvaniye'+id);
-    var sena_materiala =$('#sena_materiala'+id);
-    var bazoviy_edinitsa =$('#bazoviy_edinitsa'+id);
-    
-
-    var koefitsiyent =$('#koefitsiyent'+id);
-    var alternativ_edin =$('#alternativ_edin'+id);
-    var vid_materiala =$('#vid_materiala'+id);
-    var vid_zagotovki =$('#vid_zagotovki'+id);
     var prodayot =$('#prodayot'+id);
-    var gruppa_zakupok =$('#gruppa_zakupok'+id);
-    var id_klaes =$('#id_klaes'+id);
-    var gruppa_materialov =$('#gruppa_materialov'+id);
-    var comment =$('#comment'+id);
-    
-    if(gruppa_materialov.val()!=''){
-        data_base[id].gruppa_materialov = gruppa_materialov.val();
-    }else{
-        data_base[id].gruppa_materialov =NaN;
-    }
-    if(vid_zayavki.val()!=''){
-        data_base[id].vid_zayavki = vid_zayavki.val();
-    }else{
-        data_base[id].vid_zayavki =NaN;
-    }
-    if(zavod.val()!=''){
-        zavod.css('border-color','#dedad9')
-        data_base[id].zavod = zavod.val();
-    }else{
-        zavod.css('border-color','red')
-        data_base[id].zavod =NaN;
-    }
-    if(vid_zagotovki.val()!=''){
-        vid_zagotovki.css('border-color','#dedad9')
-        data_base[id].vid_zagotovki = vid_zagotovki.val();
-    }else{
-        vid_zagotovki.css('border-color','red')
-        data_base[id].vid_zagotovki =NaN;
-    }
+
     if(prodayot.val()=='' || prodayot.val()=='X'){
-        console.log('<>>>>>',prodayot.val(),'<<<<<<<')
         prodayot.css('border-color','#dedad9')
         if(prodayot.val()==''){
             data_base[id].prodayot = ' ';
@@ -479,86 +613,71 @@ function create_kratkiy_tekst(id){
             data_base[id].prodayot = prodayot.val();
         }
     }else{
-        prodayot.css('border-color','red')
+        prodayot.css('border-color','#dedad9')
         data_base[id].prodayot =NaN;
     }
-    if(vid_materiala.val()!=''){
-        vid_materiala.css('border-color','#dedad9')
-        data_base[id].vid_materiala = vid_materiala.val();
-    }else{
-        vid_materiala.css('border-color','red')
-        data_base[id].vid_materiala =NaN;
-    }
-    if(gruppa_zakupok.val()!=''){
-        data_base[id].gruppa_zakupok = gruppa_zakupok.val();
-    }else{
-        data_base[id].gruppa_zakupok =NaN;
-    }
-    if(id_klaes.val()!=''){
-        data_base[id].id_klaes = id_klaes.val();
-    }else{
-        data_base[id].id_klaes =NaN;
-    }
     
-    if(alternativ_edin.val()!=''){
-        data_base[id].alternativ_edin = alternativ_edin.val();
-    }else{
-        data_base[id].alternativ_edin =NaN;
-    }
-    if(koefitsiyent.val()!=''){
-        data_base[id].koefitsiyent = koefitsiyent.val();
-    }else{
-        data_base[id].koefitsiyent =NaN;
-    }
-    if(nazvaniye_tovarov.val()!=''){
-        nazvaniye_tovarov.css('border-color','#dedad9')
-        data_base[id].nazvaniye_tovarov = nazvaniye_tovarov.val();
-    }else{
-        nazvaniye_tovarov.css('border-color','red')
-        data_base[id].nazvaniye_tovarov =NaN;
-    }
-    if(sapcode.val()!=''){
-        data_base[id].sapcode = sapcode.val();
-    }else{
-        data_base[id].sapcode =NaN;
-    }
-    if(comment.val()!=''){
-        data_base[id].comment = comment.val();
-    }else{
-        data_base[id].comment =NaN;
-    }
+    if(vid_zayavki.val()=='Создание'){
+        get_and_set_data(id,'zavod',is_req=true)
+        get_and_set_data(id,'sapcode',is_req=false)
+        get_and_set_data(id,'nazvaniye_tovarov',is_req=true)
+        get_and_set_data(id,'polnoye_nazvaniye',is_req=true)
+        get_and_set_data(id,'sena_materiala',is_req=true)
+        get_and_set_data(id,'bazoviy_edinitsa',is_req=true)
+        get_and_set_data(id,'koefitsiyent',is_req=false)
+        get_and_set_data(id,'alternativ_edin',is_req=false)
+        get_and_set_data(id,'vid_materiala',is_req=true)
+        get_and_set_data(id,'vid_zagotovki',is_req=false)
+
         
-    var polnoye_nazvaniye =$('#polnoye_nazvaniye'+id)
-    if(polnoye_nazvaniye.val()!=''){
-        polnoye_nazvaniye.css('border-color','#dedad9')
-        data_base[id].polnoye_nazvaniye = polnoye_nazvaniye.val();
-    }else{
-        polnoye_nazvaniye.css('border-color','red')
-        data_base[id].polnoye_nazvaniye =NaN;
+
+        get_and_set_data(id,'gruppa_zakupok',is_req=true)
+        get_and_set_data(id,'gruppa_materialov',is_req=false)
+        get_and_set_data(id,'comment',is_req=false)
+
+    }else if(vid_zayavki.val()=='Изменение'){
+        get_and_set_data(id,'zavod',is_req=false)
+        get_and_set_data(id,'sapcode',is_req=true)
+        get_and_set_data(id,'nazvaniye_tovarov',is_req=true)
+        get_and_set_data(id,'polnoye_nazvaniye',is_req=false)
+        get_and_set_data(id,'sena_materiala',is_req=false)
+        get_and_set_data(id,'bazoviy_edinitsa',is_req=false)
+        get_and_set_data(id,'koefitsiyent',is_req=false)
+        get_and_set_data(id,'alternativ_edin',is_req=false)
+        get_and_set_data(id,'vid_materiala',is_req=false)
+        get_and_set_data(id,'vid_zagotovki',is_req=false)
+
         
+
+        get_and_set_data(id,'gruppa_zakupok',is_req=false)
+        get_and_set_data(id,'gruppa_materialov',is_req=false)
+        get_and_set_data(id,'comment',is_req=false)
+
+    }else if(vid_zayavki.val()=='Расширение'){
+        get_and_set_data(id,'zavod',is_req=true)
+        get_and_set_data(id,'sapcode',is_req=true)
+        get_and_set_data(id,'nazvaniye_tovarov',is_req=true)
+        get_and_set_data(id,'polnoye_nazvaniye',is_req=false)
+        get_and_set_data(id,'sena_materiala',is_req=true)
+        get_and_set_data(id,'bazoviy_edinitsa',is_req=true)
+        get_and_set_data(id,'koefitsiyent',is_req=false)
+        get_and_set_data(id,'alternativ_edin',is_req=false)
+        get_and_set_data(id,'vid_materiala',is_req=false)
+        get_and_set_data(id,'vid_zagotovki',is_req=false)
+
+        // get_and_set_data(id,'prodayot',is_req=false)
         
+
+        get_and_set_data(id,'gruppa_zakupok',is_req=false)
+        get_and_set_data(id,'gruppa_materialov',is_req=false)
+        get_and_set_data(id,'comment',is_req=false)
+
     }
-    var sena_materiala =$('#sena_materiala'+id)
-    if(sena_materiala.val()!=''){
-        sena_materiala.css('border-color','#dedad9')
-        data_base[id].sena_materiala = sena_materiala.val();
-    }else{
-        sena_materiala.css('border-color','red')
-        data_base[id].sena_materiala =NaN;
-        
-        
-    }
-    var bazoviy_edinitsa =$('#bazoviy_edinitsa'+id)
-    if(bazoviy_edinitsa.val()!=''){
-        bazoviy_edinitsa.css('border-color','#dedad9')
-        data_base[id].bazoviy_edinitsa = bazoviy_edinitsa.val();
-    }else{
-        bazoviy_edinitsa.css('border-color','red')
-        data_base[id].bazoviy_edinitsa =NaN;
-        
-        
-    }
-   
+
+
+    
+
+    
     
 
     var data = data_base[id].get_kratkiy_tekst()

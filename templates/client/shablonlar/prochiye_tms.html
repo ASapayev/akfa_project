@@ -109,9 +109,8 @@
                           <thead>
                             <tr>
                               <th scope="col">#</th>
-                              <th scope="col">Полное название товара</th>
-                              <th scope="col">Цена материала (СУМ)</th>
-                              <th scope="col">Базовая единица измерения</th>
+                              <th scope="col">Вид заявки</th>
+                              <th scope="col">Название товаров (40 симвлов)</th>
                             </tr>
                           </thead>
                           <tbody id="modal_body">
@@ -181,21 +180,7 @@
 
             var all_correct = true;
             var data_empty = false
-            var dattt_len  = Object.keys(data_base).length
-            
-            for(let k =1; k<=dattt_len; k++){
-                if(data_base[k]){
-                    if(data_base[k].sena_materiala || data_base[k].bazoviy_edinitsa || data_base[k].zavod || data_base[k].nazvaniye_tovarov || data_base[k].polnoye_nazvaniye || data_base[k].vid_materiala || data_base[k].vid_zagotovki || data_base[k].prodayot ){
-                        continue;
-                    }else{
-                        delete data_base[k]
-                        $('#table_tr'+k).remove();
-                        
-                    }
-                }
-            }
-
-
+           
 
             if (Object.keys(data_base).length === 0) {
                 data_empty = true
@@ -216,9 +201,8 @@
                     text_tr += `
                         <tr>
                             <th scope="row">${i}</th>
-                            <td>${data_base[key]['polnoye_nazvaniye']}</td>
-                            <td>${data_base[key]['sena_materiala']}</td>
-                            <td>${data_base[key]['bazoviy_edinitsa']}</td>
+                            <td>${data_base[key]['vid_zayavki']}</td>
+                            <td>${data_base[key]['nazvaniye_tovarov']}</td>
                         </tr>
                     `
                     i +=1
