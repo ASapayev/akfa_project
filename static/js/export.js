@@ -1294,8 +1294,21 @@ function tip_pokritiya_selected(id,val){
     var select_anod_vnut = $('#anod_vnutr'+String(id));
     select_anod_vnut.children("span").css('display','none');
     
-    set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='',add=false)
-    set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='',add=false)
+    var select_snar = $('.code_kraski_snar_sel'+String(id))
+    var select_vnut = $('.code_kraski_vnut_sel'+String(id))
+    var hasOption_snar = select_snar.find('option').length > 0;
+    var hasOption_vnut = select_vnut.find('option').length > 0;
+
+    if(hasOption_snar){
+        set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='',add=false)
+    }else{
+        set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='',add=true)
+    }
+    if(hasOption_vnut){
+        set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='',add=false)
+    }else{
+        set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='',add=true)
+    }
 
     var brand_k_snaruji = $('#brand_k_snaruji'+id)
     var brand_k_vnutri = $('#brand_k_vnutri'+id)
@@ -1408,24 +1421,17 @@ function tip_pokritiya_selected(id,val){
         nakleyka.val("NT1");
 
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
-            if(obj_exists){
-                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF',add=false)
-            }else{
-                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF')
-            }
+            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF',add=false)
+            
             $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_sn'+String(id))
             div_kras.css('display','block')
             brand_k_snaruji.val('')
             // code_kraski_snaruji.css('border-color','#dedad9')
         }else{
-            if(obj_exists){
-                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF',add=false)
-                set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='MF',add=false)
-            }else{
-                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF')
-                set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='MF')
-            }
+            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF',add=false)
+            set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='MF',add=false)
+            
             $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_sn'+String(id))
             div_kras.css('display','block')
@@ -1447,11 +1453,8 @@ function tip_pokritiya_selected(id,val){
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
             
             var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
-            if(obj_exists){
-                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016',add=false)
-            }else{
-                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016')
-            }
+            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016',add=false)
+            
         
             $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_sn'+String(id))
@@ -1463,13 +1466,9 @@ function tip_pokritiya_selected(id,val){
             brand_kraski_snaruji.css('border-color','#dedad9')
         }else{
 
-            if(obj_exists){
-                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016',add=false)
-                set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='9016',add=false)
-            }else{
-                set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016')
-                set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='9016')
-            }
+            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016',add=false)
+            set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='9016',add=false)
+            
             $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_sn'+String(id))
             div_kras.css('display','block')
@@ -1515,11 +1514,8 @@ function tip_pokritiya_selected(id,val){
         brand_kraski_vnutri.attr('disabled',false)
         brand_kraski_vnutri.css('display','block')
         
-        if(obj_exists){
-            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='',add=false)
-        }else{
-            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='')
-        }
+        set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='',add=false)
+        
 
         $('.code_kraski_snar_sel'+String(id)).prop('disabled', false).trigger('chosen:updated')
         var div_kras = $('#div_kras_sn'+String(id))
@@ -1539,11 +1535,8 @@ function tip_pokritiya_selected(id,val){
             var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id));
             brand_kraski_vnutri.attr('disabled',false)
             brand_kraski_vnutri.css('display','block')
-            if(obj_exists){
-                set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='',add=false)
-            }else{
-                set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='')
-            }
+            set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='',add=false)
+            
             $('.code_kraski_vnut_sel'+String(id)).prop('disabled', false).trigger('chosen:updated')
             var div_kras = $('#div_kras_vn'+String(id))
             div_kras.css('display','block')
