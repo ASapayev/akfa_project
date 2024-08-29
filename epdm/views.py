@@ -101,7 +101,7 @@ def generate_norma_epdm(request,id):
                 df['ZTEXT'][count_2] = row['TEXT1']
                 df['STKTX'][count_2] = 'Упаковка'
                 df['BMENG'][count_2] = '1000'
-                df['BMEIN'][count_2] = 'КГ'
+                df['BMEIN'][count_2] = 'ШТ'
                 df['STLST'][count_2] = '1'
                 df['POSNR'][count_2] = ''
                 df['POSTP'][count_2] = ''
@@ -158,7 +158,7 @@ def generate_norma_epdm(request,id):
                     df['ZTEXT'][count_2] = row['TEXT1']
                     df['STKTX'][count_2] = 'Упаковка2'
                     df['BMENG'][count_2] = '1000'
-                    df['BMEIN'][count_2] = 'КГ'
+                    df['BMEIN'][count_2] = 'ШТ'
                     df['STLST'][count_2] = '1'
                     df['POSNR'][count_2] = ''
                     df['POSTP'][count_2] = ''

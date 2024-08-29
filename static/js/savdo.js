@@ -819,7 +819,7 @@ function front_piece(start=1,end=7){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1"  >
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;height:27px!important;z-index:0;display:none;"  id='group`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+            <select class="form-select" aria-label="" style="width: 290px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;height:27px!important;z-index:0;display:none;"  id='group`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)'required>
                 <option  selected></option>
                 <option value="ALUMIN - (OQ) NAVOIY">ALUMIN - (OQ) NAVOIY</option>
                 <option value="TERMO 7000 (TSVETNOY)">TERMO 7000 (TSVETNOY)</option>
