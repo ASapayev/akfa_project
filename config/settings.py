@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'radiator',
     'apis',
     'rest_framework',
+    'kraska',
+    'epdm'
     # 'json_field',
     # "debug_toolbar",
 ]

@@ -2055,13 +2055,7 @@ function tip_pokritiya_selected(id,val){
     var status_first = $('#status'+String(id))
     var svet_product_val =''
 
-    var obj_exists = true
-
-    if(data_base[id]){
-        obj_exists =true
-    }else{
-        obj_exists =false
-    }
+   
 
 
     if(String(val) == '1'){
@@ -3103,17 +3097,13 @@ function create_kratkiy_tekst(id){
                 data_base[id].edinitsa_izm = NaN;
                 
             }
-            if(segment.val() == 'Нет сегмента'){
-                segment.css('border-color','red')
-                data_base[id].segment = NaN;
+            if(segment.val() != ''){
+                segment.css('border-color','#dedad9')
+                data_base[id].segment = segment.val();
                 
             }else{
                 segment.css('border-color','#dedad9')
-                if(segment.val()==''){
-                    data_base[id].segment = 'no';
-                }else{
-                    data_base[id].segment = segment.val();
-                }
+                data_base[id].segment = NaN;
             }
             if(sap_code_ruchnoy.val()!=''){
                 data_base[id].sap_code = sap_code_ruchnoy.val();
@@ -3249,17 +3239,13 @@ function create_kratkiy_tekst(id){
                 
             }
 
-            if(segment.val() == 'Нет сегмента'){
-                segment.css('border-color','red')
-                data_base[id].segment = NaN;
+            if(segment.val() != ''){
+                segment.css('border-color','#dedad9')
+                data_base[id].segment = segment.val();
                 
             }else{
-                segment.css('border-color','#dedad9')
-                if(segment.val()==''){
-                    data_base[id].segment = 'no';
-                }else{
-                    data_base[id].segment = segment.val();
-                }
+                segment.css('border-color','red')
+                data_base[id].segment = NaN;
             }
 
             if(sap_code_ruchnoy.val()!=''){

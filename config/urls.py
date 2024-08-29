@@ -21,6 +21,8 @@ urlpatterns = [
     path('accessuar/',include('accessuar.urls')),
     path('accessuar-import/',include('accessuar_import.urls')),
     path('radiator/',include('radiator.urls')),
+    path('kraska/',include('kraska.urls')),
+    path('epdm/',include('epdm.urls')),
     path('api/v1/',include('apis.urls')),
     
 

@@ -1,0 +1,395 @@
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from accounts.decorators import allowed_users
+from .forms import NormaKraskaFileForm
+from .models import Norma7,Norma75,KraskaFile
+from config.settings import MEDIA_ROOT
+import pandas as pd
+from django.http import JsonResponse
+from django.db.models import Q
+# Create your views here.
+
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','kraska'])
+def full_update_norm7(request):
+    if request.method == 'POST':
+        data = request.POST.copy()
+        data['type']='termo'
+        form = NormaKraskaFileForm(data, request.FILES)
+        if form.is_valid():
+            normaa =Norma7.objects.all()
+            normaa.delete()
+            form_file = form.save()
+            file = form_file.file
+            path =f'{MEDIA_ROOT}/{file}'
+            
+            df = pd.read_excel(path,sheet_name='1-etap', header=2)
+            
+
+            df = df.astype(str)
+            df = df.replace('nan','0')
+            df = df.replace('0.0','0')
+            
+            columns = df.columns
+
+            Norma7(data ={'columns':list(columns)}).save()
+
+            for key, row in df.iterrows():
+                norma_dict = {}
+                for col in columns:
+                    norma_dict[col]=row[col]
+                Norma7(data =norma_dict).save()
+
+    return render(request,'norma/benkam/main.html')
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','kraska'])
+def generate_norma_7(request,id):
+
+    # file = KraskaFile.objects.get(id=id).file
+    file = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\MAKT.xlsx'
+    
+    # df_sapcodes = pd.read_excel(f'{MEDIA_ROOT}/{file}')
+    df_sapcodes = pd.read_excel(file)
+    
+    df = pd.DataFrame()
+    df['counter'] = [0 for x in range(len(df_sapcodes)*15)]
+    df['ID'] = ""
+    df['MATNR'] = ""
+    df['WERKS'] = ""
+    df['TEXT1'] = ""
+    df['STLAL'] = ""
+    df['STLAN'] = ""
+    df['ZTEXT'] = ""
+    df['STKTX'] = ""
+    df['BMENG'] = ""
+    df['BMEIN'] = ""
+    df['STLST'] = ""
+    df['POSNR'] = ""
+    df['POSTP'] = ""
+    df['MATNR1'] = ""
+    df['TEXT2'] = ""
+    df['MEINS'] = ""
+    df['MENGE'] = ""
+    df['DATUV'] = ""
+    df['PUSTOY'] = ""
+    df['LGORT'] = ""
+    # print(df)
+    # print(makt.columns)
+    count_2=0
+    
+    itogo = Norma7.objects.filter(
+                        Q(data__MATN__icontains='Итого')
+                    )[:1].get().data
+    
+    for key, row in df_sapcodes.iterrows():
+        df['ID'][count_2] ='1'
+        df['MATNR'][count_2] = row['MATNR']
+        df['WERKS'][count_2] = '4702'
+        df['TEXT1'][count_2] = row['TEXT1']
+        df['STLAL'][count_2] = '1'
+        df['STLAN'][count_2] = '1'
+        df['ZTEXT'][count_2] = row['TEXT1']
+        df['STKTX'][count_2] = 'Упаковка'
+        df['BMENG'][count_2] = '1000'
+        df['BMEIN'][count_2] = 'КГ'
+        df['STLST'][count_2] = '1'
+        df['POSNR'][count_2] = ''
+        df['POSTP'][count_2] = ''
+        df['MATNR1'][count_2] = ''
+        df['TEXT2'][count_2] = ''
+        df['MEINS'][count_2] = ''
+        df['MENGE'][count_2] = ''
+        df['DATUV'][count_2] = '01012023'
+        df['PUSTOY'][count_2] = ''
+        df['LGORT'][count_2] = ''
+        
+        zagolovok = str(row['KOD'])
+        
+        result = Norma7.objects.filter(
+                        Q(data__has_key=zagolovok) & ~Q(data__contains={zagolovok: "0"})
+                    ).order_by('created_at').values('data')
+
+        itogo_val =float(itogo[zagolovok])
+
+        # print(zagolovok,'>>>>>>>',result)
+        count_2 +=1
+        count = 1
+
+        # print(zagolovok,itogo_val,'gggg'*8)
+        
+        for norm in result:
+            data = norm['data']
+            if 'Итого' in data['MATN']:
+                continue
+            df['ID'][count_2] = '2'
+            df['POSNR'][count_2] = count
+            df['POSTP'][count_2] = 'L'
+            df['MATNR1'][count_2] = str(data['SAPCODE']).replace('.0','')
+            df['TEXT2'][count_2] = data['MATN']
+            df['MEINS'][count_2] = round((float(data[zagolovok])/itogo_val)*1000,3)
+            # df['MEINS'][count_2] = round((float(data[zagolovok]))*1000,3)
+            df['MENGE'][count_2] = 'КГ'
+            df['LGORT'][count_2] = 'PS02'
+            count_2 +=1
+            count +=1
+
+
+
+    del df['counter']
+    # print(df)
+    df.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\norma.xlsx',index=False)
+    return JsonResponse({'a':'b'})
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','kraska'])
+def generate_norma_75(request,id):
+
+    # file = KraskaFile.objects.get(id=id).file
+    file = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\MAKT75.xlsx'
+    file2 = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\SAPCODE_BAZA.xlsx'
+    
+    # df_sapcodes = pd.read_excel(f'{MEDIA_ROOT}/{file}')
+    df_sapcodes = pd.read_excel(file)
+    df_baza = pd.read_excel(file2)
+
+    baza ={}
+    for key,row in df_baza.iterrows():
+        baza[row['KOD']]={
+            'MATNR':row['MATNR'],
+            'TEXT1':row['TEXT1'],
+        }
+    
+    df = pd.DataFrame()
+    df['counter'] = [0 for x in range(len(df_sapcodes)*10)]
+    df['ID'] = ""
+    df['MATNR'] = ""
+    df['WERKS'] = ""
+    df['TEXT1'] = ""
+    df['STLAL'] = ""
+    df['STLAN'] = ""
+    df['ZTEXT'] = ""
+    df['STKTX'] = ""
+    df['BMENG'] = ""
+    df['BMEIN'] = ""
+    df['STLST'] = ""
+    df['POSNR'] = ""
+    df['POSTP'] = ""
+    df['MATNR1'] = ""
+    df['TEXT2'] = ""
+    df['MEINS'] = ""
+    df['MENGE'] = ""
+    df['DATUV'] = ""
+    df['PUSTOY'] = ""
+    df['LGORT'] = ""
+    # print(df)
+    # print(makt.columns)
+    count_2=0
+    notexist =[]
+
+    itogo = Norma75.objects.filter(
+                        Q(data__MATN__icontains='Итого')
+                    )[:1].get().data
+    for key, row in df_sapcodes.iterrows():
+        df['ID'][count_2] ='1'
+        df['MATNR'][count_2] = row['MATNR']
+        df['WERKS'][count_2] = '4702'
+        df['TEXT1'][count_2] = row['TEXT1']
+        df['STLAL'][count_2] = '1'
+        df['STLAN'][count_2] = '1'
+        df['ZTEXT'][count_2] = row['TEXT1']
+        df['STKTX'][count_2] = 'Упаковка'
+        df['BMENG'][count_2] = '1000'
+        df['BMEIN'][count_2] = 'КГ'
+        df['STLST'][count_2] = '1'
+        df['POSNR'][count_2] = ''
+        df['POSTP'][count_2] = ''
+        df['MATNR1'][count_2] = ''
+        df['TEXT2'][count_2] = ''
+        df['MEINS'][count_2] = ''
+        df['MENGE'][count_2] = ''
+        df['DATUV'][count_2] = '01012023'
+        df['PUSTOY'][count_2] = ''
+        df['LGORT'][count_2] = ''
+        
+        zagolovok = str(row['KOD'])
+        
+        result = Norma75.objects.filter(
+                        Q(data__has_key=zagolovok) & ~Q(data__contains={zagolovok: "0"})
+                    ).order_by('created_at').values('data')
+  
+        
+
+        
+        # print(itogo,'kkkkkkk')
+        itogo_val =float(itogo[zagolovok])
+
+        count_2 +=1
+        
+        first_val =result[:1].get()['data']
+
+        matn =first_val['MATN']
+        zagol_val =first_val[zagolovok]
+
+        baza_dat = baza[matn]
+
+
+        # print(float(zagol_val),itogo_val,'##########')
+
+        df['ID'][count_2] = '2'
+        df['POSNR'][count_2] = 1
+        df['POSTP'][count_2] = 'L'
+        df['MATNR1'][count_2] = baza_dat['MATNR']
+        df['TEXT2'][count_2] = baza_dat['TEXT1']
+        df['MEINS'][count_2] = round((float(zagol_val)/itogo_val)*1000,3)
+        # df['MEINS'][count_2] = zagol_val
+        df['MENGE'][count_2] = 'КГ'
+        df['LGORT'][count_2] = 'PS02'
+
+
+
+        count = 1
+
+        for norm in result[1:]:
+            data = norm['data']
+            if 'baza' in data['MATN']:
+                continue
+            # print(data)
+            count_2 +=1
+            count +=1
+            df['ID'][count_2] = '2'
+            df['POSNR'][count_2] = count
+            df['POSTP'][count_2] = 'L'
+            df['MATNR1'][count_2] = str(data['SAPCODE']).replace('.0','')
+            df['TEXT2'][count_2] = data['MATN']
+            # print(round(float(data[zagolovok]),3),itogo_val,'##########')
+            # df['MEINS'][count_2] = round((float(data[zagolovok])/float(data[zagolovok]))*1000,3)
+            df['MEINS'][count_2] = round((float(data[zagolovok])/itogo_val)*1000,3)
+            df['MENGE'][count_2] = 'КГ'
+            df['LGORT'][count_2] = 'PS02'
+            
+
+
+
+    del df['counter']
+    # print(df)
+    df.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\norma75.xlsx',index=False)
+    return JsonResponse({'a':'b'})
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','kraska'])
+def full_update_norm75(request):
+    if request.method == 'POST':
+        data = request.POST.copy()
+        data['type']='termo'
+        form = NormaKraskaFileForm(data, request.FILES)
+        if form.is_valid():
+            normaa =Norma75.objects.all()
+            normaa.delete()
+            form_file = form.save()
+            file = form_file.file
+            path =f'{MEDIA_ROOT}/{file}'
+            
+            df = pd.read_excel(path,sheet_name='final', header=2)
+
+            df = df.astype(str)
+            df = df.replace('nan','0')
+            df = df.replace('0.0','0')
+            
+            columns = df.columns
+
+            Norma75(data ={'columns':list(columns)}).save()
+
+            for key, row in df.iterrows():
+                norma_dict = {}
+                for col in columns:
+                    norma_dict[col]=row[col]
+                Norma75(data =norma_dict).save()
+
+    return render(request,'norma/benkam/main.html')
+
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
+def lenght_generate_texcarta(request,id):
+    # file = KraskaFile.objects.get(id=id).file
+    path = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\MAKT75.xlsx'
+    data = pd.read_excel(path)
+    counter = len(data)
+
+    df_new = pd.DataFrame()
+    df_new['counter'] =[ '' for i in range(0,counter*2)]
+    df_new['ID']=''
+    df_new['MATNR']=''
+    df_new['WERKS']=''
+    df_new['PLNNR']=''
+    df_new['STTAG']=''
+    df_new['PLNAL']=''
+    df_new['KTEXT']=''
+    df_new['VERWE']=''
+    df_new['STATU']=''
+    df_new['LOSVN']=''
+    df_new['LOSBS']=''
+    df_new['VORNR']=''
+    df_new['ARBPL']=''
+    df_new['WERKS1']=''
+    df_new['STEUS']=''
+    df_new['LTXA1']=''
+    df_new['BMSCH']=''
+    df_new['MEINH']=''
+    df_new['VGW01']=''
+    df_new['VGE01']=''
+    df_new['ACTTYPE_01']=''
+    df_new['CKSELKZ']=''
+    df_new['UMREZ']=""
+    df_new['UMREN']=''
+    df_new['USR00']=''
+    df_new['USR01']=''
+
+
+    counter_2 = 0
+    for key,row in data.iterrows():
+        for i in range(1,3):
+            if i ==1:
+                df_new['ID'][counter_2] ='1'
+                df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                df_new['WERKS'][counter_2] ='4702'
+                df_new['STTAG'][counter_2] ='01012023'
+                df_new['PLNAL'][counter_2] ='1'
+                df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                df_new['VERWE'][counter_2] ='1'
+                df_new['STATU'][counter_2] ='4'
+                df_new['LOSVN'][counter_2] ='0.001'
+                df_new['LOSBS'][counter_2] ='99999999'
+            elif i == 2:
+                df_new['ID'][counter_2]='2'
+                df_new['VORNR'][counter_2] ='0010'
+                df_new['ARBPL'][counter_2] ='4702KR01'
+                df_new['WERKS1'][counter_2] ='4702'
+                df_new['STEUS'][counter_2] ='ZK01'
+                df_new['LTXA1'][counter_2] ='Производство Краски'
+                df_new['BMSCH'][counter_2] = '1000'
+                df_new['MEINH'][counter_2] ='КГ'
+                df_new['VGW01'][counter_2] =''
+                df_new['VGE01'][counter_2] =''
+                df_new['ACTTYPE_01'][counter_2] ='200160'
+                df_new['CKSELKZ'][counter_2] ='X'
+                df_new['UMREZ'][counter_2] = '1'
+                df_new['UMREN'][counter_2] = '1'
+                df_new['USR00'][counter_2] = '1'
+                df_new['USR01'][counter_2] = '60'
+                
+            counter_2 +=1
+
+    df_new.to_excel('texcarta2.xlsx')
+
+    df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\norma.xlsx',index=False)
+
+    return JsonResponse({'a':'b'})
+
+

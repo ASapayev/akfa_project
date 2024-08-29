@@ -185,7 +185,7 @@
       </div>
     </li>
     {%endif%}
-    {% if user_role == 'moderator'  or user_role == 'user1' or user_role == 'only_razlovka' or user_role == 'razlovka' or user_role == 'radiator' %}
+    {% if user_role == 'moderator'  or user_role == 'user1' or user_role == 'only_razlovka' or user_role == 'razlovka' or user_role == 'radiator' or user_role == 'kraska' or user_role == 'epdm' %}
       <li class="nav-item menu-items">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm" aria-expanded="false" aria-controls="ui-basic-norm">
           <span class="menu-icon">
@@ -196,6 +196,13 @@
         </a>
         <div class="collapse" id="ui-basic-norm">
           <ul class="nav flex-column sub-menu">
+            {%if user_role == 'kraska' %}
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_kraska7'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">норма 7</span> расход</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_kraska75'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">норма 75</span> расход</a></li>
+            {%endif%}
+            {%if user_role == 'epdm' %}
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_epdm'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">норма</span> расход</a></li>
+            {%endif%}
             {%if user_role == 'radiator' %}
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">норма</span> расход</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'file_upload_radiator_tex'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">техкарта</span> файла</a></li>
