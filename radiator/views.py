@@ -761,9 +761,9 @@ def kombinirovaniy_process(request,id):
                 df_new['LGORT'].append('PS08')
 
             upakovka_names =[
-                {'kratkiy':'Пленка полиэтиленовая 90см','sapcode':'1000004426'},
-                {'kratkiy':'Пленка полиэтиленовая 65см','sapcode':'1000004427'},
-                {'kratkiy':'Пленка полиэтиленовая 85см','sapcode':'1000004428'}
+                {'kratkiy':'Пленка полиэтиленовая 90см','sapcode':'1000006758'},
+                {'kratkiy':'Пленка полиэтиленовая 65см','sapcode':'1000006759'},
+                {'kratkiy':'Пленка полиэтиленовая 85см','sapcode':'1000006760'}
                 ]
             t= 1
             for k in range(0,len(upakovka_names)):
@@ -872,7 +872,7 @@ def kombinirovaniy_process(request,id):
                     df_new['PUSTOY'].append('')
                 if k == 2 :
                     # siryo = Siryo.objects.filter(data__Краткийтекст__icontains ='Анафорез.грунтовка ARSONKOTE 1002K CLEAR')
-                    df_new['MATNR1'].append('1000004435')
+                    df_new['MATNR1'].append('1000006767')
                     df_new['TEXT2'].append('Анафорез.грунтовка ARSONKOTE 1002K CLEAR')
                     
                     # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
@@ -882,7 +882,7 @@ def kombinirovaniy_process(request,id):
                     df_new['PUSTOY'].append('')
                 if k == 3 :
                     # siryo = Siryo.objects.filter(data__Краткийтекст__icontains ='Анафорез.грунтовка ARSONKOTE 1002K CLEAR')
-                    df_new['MATNR1'].append('1000004436')
+                    df_new['MATNR1'].append('1000006768')
                     df_new['TEXT2'].append('Анафорез.грунтовка. 1002K PIG.PASTE')
                     
                     # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
@@ -1005,10 +1005,9 @@ def kombinirovaniy_process(request,id):
             df_new['LGORT'].append('PS04')
 
             siryo_names =[
-                {'kratkiy':'Тех. отход ал стружка','sapcode':'1900007454','MEINS':'КГ'},
-                {'kratkiy':'Крышка радиатора','sapcode':'1000004484','MEINS':'КГ'},
-                {'kratkiy':'Паронит межсекционная','sapcode':'1000004373','MEINS':'ШТ'},
-                {'kratkiy':'Соеденительная муфта','sapcode':'1000004371','MEINS':'ШТ'},
+                {'kratkiy':'Крышка радиатора','sapcode':'1000006844','MEINS':'КГ'},
+                {'kratkiy':'Паронит межсекционная','sapcode':'1000006722','MEINS':'ШТ'},
+                {'kratkiy':'Соеденительная муфта','sapcode':'1000006721','MEINS':'ШТ'},
                 ]
             t= 1
             for k in range(0,len(siryo_names)):
@@ -1162,7 +1161,7 @@ def kombinirovaniy_process(request,id):
                 
                 
                 if k == 1 :
-                    df_new['MATNR1'].append('1000004483')
+                    df_new['MATNR1'].append('1000006841')
                     df_new['TEXT2'].append('Сплав AK12')
                     df_new['MEINS'].append(norma.data['расход сплава АК 12 на 1000 секции'].replace('.0','')  if norma.data['расход сплава АК 12 на 1000 секции'][-2:]=='.0' else ("%.3f" % float(norma.data['расход сплава АК 12 на 1000 секции'])).replace('.',',')) 
                     df_new['MENGE'].append('КГ')
@@ -1192,7 +1191,7 @@ def kombinirovaniy_process(request,id):
                 #     df_new['DATUV'].append('')
                 #     df_new['PUSTOY'].append('')
                 if k == 2 :
-                    df_new['MATNR1'].append('1000004350')
+                    df_new['MATNR1'].append('1000006701')
                     df_new['TEXT2'].append('Сож для прес-формы')
                     df_new['MEINS'].append(norma.data['Сож для прес-формы'].replace('.0','') if norma.data['Сож для прес-формы'][-2:]=='.0' else  ("%.3f" % float(norma.data['Сож для прес-формы'])).replace('.',','))
                     df_new['MENGE'].append('Л')
@@ -1222,7 +1221,7 @@ def kombinirovaniy_process(request,id):
                     df_new['STLST'].append('')
                     df_new['POSNR'].append(3)
                     df_new['POSTP'].append('L')
-                    df_new['MATNR1'].append('1000004481')
+                    df_new['MATNR1'].append('1000006842')
                     df_new['TEXT2'].append('Вставка для радиатора 16 мм')
                     df_new['MEINS'].append('1000') 
                     df_new['MENGE'].append('ШТ')
@@ -1243,7 +1242,7 @@ def kombinirovaniy_process(request,id):
                     df_new['STLST'].append('')
                     df_new['POSNR'].append(3)
                     df_new['POSTP'].append('L')
-                    df_new['MATNR1'].append('1000004482')
+                    df_new['MATNR1'].append('1000006843')
                     df_new['TEXT2'].append('Вставка для радиатора 18 мм')
                     df_new['MEINS'].append('1000') 
                     df_new['MENGE'].append('ШТ')
