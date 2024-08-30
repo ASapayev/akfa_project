@@ -149,6 +149,7 @@ function front_piece(start=1,end=6){
                     <option vlaue="ПАРА">ПАРА</div>
                     <option vlaue="СКЦ">СКЦ</div>
                     <option  value="КОР">КОР</div>
+                    <option  value="КУБ">КУБ</div>
                 </select>
             </div>
         </td>
@@ -228,6 +229,7 @@ function front_piece(start=1,end=6){
                     <option value="100 - Импорт/Сырьё/Усл.">100 - Импорт/Сырьё/Усл.</option>
                     <option value="101 - Импорт/Оборудов/ЗЧ">101 - Импорт/Оборудов/ЗЧ</option>
                     <option value="120 - Местный/ТМЦ/Усл.">120 - Местный/ТМЦ/Усл.</option>
+                    <option value="540 - Akfa Project">540 - Akfa Project</option>
                 </select>
             </div>
         </td>
