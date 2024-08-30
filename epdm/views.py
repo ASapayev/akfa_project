@@ -142,7 +142,7 @@ def generate_norma_epdm(request,id):
                     df['TEXT2'][count_2] = data['Краткий_текст']
                     df['MEINS'][count_2] = round((float(data[zagolovok])/itogo_val) * norma_kg * 1000,3)
                     df['MENGE'][count_2] = 'КГ'
-                    df['LGORT'][count_2] = 'PS02'
+                    df['LGORT'][count_2] = 'PS01'
                     count_2 +=1
                     count +=1
 
@@ -199,7 +199,7 @@ def generate_norma_epdm(request,id):
                         df['TEXT2'][count_2] = data['Краткий_текст']
                         df['MEINS'][count_2] = round((float(data[zagolovok])/itogo_val) * norma_kg * 1000,3)
                         df['MENGE'][count_2] = 'КГ'
-                        df['LGORT'][count_2] = 'PS02'
+                        df['LGORT'][count_2] = 'PS01'
                         count_2 +=1
                         count +=1
 

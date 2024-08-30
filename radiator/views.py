@@ -1341,7 +1341,7 @@ def kombinirovaniy_process_aurora(request,id):
     
     for key,row in df_exell.iterrows():
         df.append([
-            row['SAP CODE ER'],row['PR - Extrusion'],
+            row['SAP CODE ER'],row['ER - Extrusion'],
             row['SAP CODE PK'],row['PK - Pokraska'],
             row['SAP CODE 7'],row['7 - Upakovka']
         ])
@@ -1474,20 +1474,20 @@ def kombinirovaniy_process_aurora(request,id):
     for i in range(0,len(df)):
         print(i)
         
-        artikul = df[i][8].split('-')[0]
+        artikul = df[i][4].split('-')[0]
         print(artikul,'norma')
         norma = NormaAurora.objects.filter(data__Артикул__icontains = artikul)[:1].get()
 
         ### 7  ###
         if {df[i][4]:df[i][5]} not in norma_exists:
-            norma_exists.append({df[i][8]:df[i][9]})
+            norma_exists.append({df[i][4]:df[i][5]})
             df_new['ID'].append('1')
-            df_new['MATNR'].append(df[i][8])
+            df_new['MATNR'].append(df[i][4])
             df_new['WERKS'].append('5101')
-            df_new['TEXT1'].append(df[i][9])
+            df_new['TEXT1'].append(df[i][5])
             df_new['STLAL'].append('1')
             df_new['STLAN'].append('1')
-            df_new['ZTEXT'].append(df[i][9])
+            df_new['ZTEXT'].append(df[i][5])
             df_new['STKTX'].append('Упаковка')
             df_new['BMENG'].append( '1000')
             df_new['BMEIN'].append('ШТ')
@@ -1520,8 +1520,8 @@ def kombinirovaniy_process_aurora(request,id):
                 
                 if k == 1 :
                     
-                    df_new['MATNR1'].append(df[i][6])
-                    df_new['TEXT2'].append(df[i][7])
+                    df_new['MATNR1'].append(df[i][2])
+                    df_new['TEXT2'].append(df[i][3])
                     # print(df[i][9],'kkk')
                     seksiya_list =df[i][9].split(' ')
                     text =''
@@ -1572,7 +1572,7 @@ def kombinirovaniy_process_aurora(request,id):
                     df_new['LGORT'].append('PS08')
 
              
-            krat = df[i][9].split('-')
+            krat = df[i][5].split('-')
             seria = krat[0]
             korobka_type = krat[1].split(' ')[-1]
             t+=1
@@ -1602,14 +1602,14 @@ def kombinirovaniy_process_aurora(request,id):
         
         #### PK
         if {df[i][2]:df[i][3]} not in norma_exists:
-            norma_exists.append({df[i][6]:df[i][7]})
+            norma_exists.append({df[i][2]:df[i][3]})
             df_new['ID'].append('1')
-            df_new['MATNR'].append(df[i][6])
+            df_new['MATNR'].append(df[i][2])
             df_new['WERKS'].append('5101')
-            df_new['TEXT1'].append(df[i][7])
+            df_new['TEXT1'].append(df[i][3])
             df_new['STLAL'].append('1')
             df_new['STLAN'].append('1')
-            df_new['ZTEXT'].append(df[i][7])
+            df_new['ZTEXT'].append(df[i][3])
             df_new['STKTX'].append('Покраска')
             df_new['BMENG'].append( '1000')
             df_new['BMEIN'].append('СКЦ')
@@ -1642,8 +1642,8 @@ def kombinirovaniy_process_aurora(request,id):
                 
                 if k == 1 :
                     
-                    df_new['MATNR1'].append(df[i][4])
-                    df_new['TEXT2'].append(df[i][5])
+                    df_new['MATNR1'].append(df[i][0])
+                    df_new['TEXT2'].append(df[i][1])
                     # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
                     df_new['MEINS'].append('1000') 
                     df_new['MENGE'].append('СКЦ')
@@ -1670,7 +1670,7 @@ def kombinirovaniy_process_aurora(request,id):
                     df_new['DATUV'].append('')
                     df_new['PUSTOY'].append('')
                 if k == 4 :
-                    kraska = df[i][7].split(' ')[-1]
+                    kraska = df[i][3].split(' ')[-1]
                     siryo = Kraska.objects.filter(data__CODE__icontains =kraska)[:1].get()
                     df_new['MATNR1'].append(siryo.data['MATNR'])
                     df_new['TEXT2'].append(siryo.data['MAKTX'])
