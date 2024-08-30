@@ -8,13 +8,15 @@ urlpatterns = [
 
     ######## NORMA ############
     path('file-upload-radiator-texcarta',views.file_upload_radiator_tex,name='file_upload_radiator_tex'),
-    path('file-upload-termo-org',views.full_update_norm,name='norma_file_upload_radiator'),
+    path('file-upload-raadiator-org',views.full_update_norm,name='norma_file_upload_radiator'),
+    path('file-upload-radiator-aurora-org',views.full_update_norm_aurora,name='norma_file_upload_radiator_aurora'),
     path('file-upload-siryo',views.full_update_siryo,name='upload_siryo_radiator'),
     path('file-upload-korobka',views.full_update_korobka,name='upload_korobka_radiator'),
     path('file-upload-kraska',views.full_update_kraska,name='upload_kraska_radiator'),
     path('norma-radiator-upload',views.file_upload_org,name='file_upload_radiator'),
     path('norma-radiator-file-list',views.file_list_org,name='file_list_radiator'),
     path('kombinirovaniy-process/<int:id>',views.kombinirovaniy_process,name='kombinirovaniy_process_radiator'),
+    path('kombinirovaniy-process-aurora/<int:id>',views.kombinirovaniy_process_aurora,name='kombinirovaniy_process_radiator_aurora'),
     path('get-razlovka-radiator',views.get_razlovka_radiator,name='get_razlovka_radiator'),
 
     ######## END NORMA ############

@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
 from .forms import NormaFileForm,NormaExcelFiles,ViFileForm
-from .models import Norma,Siryo,Korobka,Kraska,TexcartaBase,ViFiles,RadiatorFile,RadiatorSapCode,OrderRadiator,RazlovkaRadiator
+from .models import Norma,Siryo,Korobka,Kraska,TexcartaBase,ViFiles,RadiatorFile,RadiatorSapCode,OrderRadiator,RazlovkaRadiator,NormaAurora
 from config.settings import MEDIA_ROOT
 import pandas as pd
 from accounts.models import User
@@ -509,6 +509,38 @@ def full_update_norm(request):
                 for col in columns:
                     norma_dict[col]=row[col]
                 Norma(data =norma_dict).save()
+
+    return render(request,'norma/benkam/main.html')
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
+def full_update_norm_aurora(request):
+    if request.method == 'POST':
+        data = request.POST.copy()
+        data['type']='termo'
+        form = NormaFileForm(data, request.FILES)
+        if form.is_valid():
+            normaa = NormaAurora.objects.all()
+            normaa.delete()
+            form_file = form.save()
+            file = form_file.file
+            path =f'{MEDIA_ROOT}/{file}'
+            
+            df = pd.read_excel(path,sheet_name='норма + цикл', header=3)
+
+            df = df.astype(str)
+            df = df.replace('nan','0')
+            df = df.replace('0.0','0')
+            
+            columns = df.columns
+
+            NormaAurora(data ={'columns':list(columns)}).save()
+
+            for key, row in df.iterrows():
+                norma_dict = {}
+                for col in columns:
+                    norma_dict[col] = row[col]
+                NormaAurora(data = norma_dict).save()
 
     return render(request,'norma/benkam/main.html')
 
@@ -1293,6 +1325,543 @@ def kombinirovaniy_process(request,id):
       }
     return render(request,'norma/benkam/generated_files.html',context)
 
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
+def kombinirovaniy_process_aurora(request,id):
+    file = NormaExcelFiles.objects.get(id=id).file
+    file_path =f'{MEDIA_ROOT}\\{file}'
+    df_exell = pd.read_excel(file_path,header=0)
+    df_exell = df_exell.fillna('')
+    df_exell =df_exell.astype(str)
+    
+    file_content ='обычный'
+    product_type ='simple'
+    df = []
+    print(df_exell.columns,file) 
+    
+    for key,row in df_exell.iterrows():
+        df.append([
+            row['SAP CODE ER'],row['PR - Extrusion'],
+            row['SAP CODE PK'],row['PK - Pokraska'],
+            row['SAP CODE 7'],row['7 - Upakovka']
+        ])
+    
+    class Xatolar:
+        def __init__(self,section,xato,sap_code):
+            self.section = section
+            self.xato = xato
+            self.sap_code = sap_code
+
+    does_not_exist_norm =[]
+    # k = -1
+    # if product_type =='termo':
+    #     for i in range(0,len(df)):
+    #         if df[i][0] != '':
+    #             length = df[i][0].split('-')[0]
+    #             if not Norma.objects.filter(data__новый__icontains=length).exists():
+    #                 does_not_exist_norm.append(Xatolar(section='Норма расход',xato='norma rasxod yo\'q',sap_code=df[i][0]))
+    #                 continue
+    #             splav_code = df[i][1].split()[0][:2]
+    #             splav_list = AlyuminniysilindrEkstruziya1.objects.filter(название__icontains ='60'+splav_code).exists()
+    #             if not splav_list:
+    #                 does_not_exist_norm.append(Xatolar(section='Алюмин Сплав',xato='60'+splav_code,sap_code=df[i][0]))
+            
+    #         if df[i][4] != '':
+    #             kraska_code = df[i][5].split()[-1]
+                
+    #             kraskas = Kraska.objects.filter(код_краски_в_профилях = kraska_code).exists()
+                
+    #             if not kraskas:
+    #                 does_not_exist_norm.append(Xatolar(section='Краска',xato=kraska_code,sap_code=df[i][4]))
+
+    #         if df[i][6] != '':
+    #             length = df[i][6].split('-')[0]
+    #             alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
+
+    #             sublimatsiya_code = df[i][7].split('_')[1]
+    #             code_ss = alum_teks.data['Суб. Декор. плёнка ширина пленки/ мм']
+    #             mein = alum_teks.data['Суб. Декор. плёнка расход на 1000 профиль/м²']
+    #             subdecorplonka = SubDekorPlonka.objects.filter(код_декор_пленки = sublimatsiya_code, ширина_декор_пленки_мм = code_ss).exists()
+    #             if not subdecorplonka:
+    #                 does_not_exist_norm.append(Xatolar(section='Сублимация декор',xato=sublimatsiya_code +' ' + code_ss +' bazada yo\'q',sap_code=df[i][6]))
+            
+    #         if df[i][10] != '':
+    #             length = df[i][10].split('-')[0]
+    #             alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
+    #             if (alum_teks.data['верх ширина ленты/мм'] =='0' and alum_teks.data['низ ширина ленты/мм'] == '0'):
+    #                 does_not_exist_norm.append(Xatolar(section='Наклейка',xato='bazada qiymati 0',sap_code=df[i][10]))
+    #         if df[i][12] != '':
+    #             artikul = df[i][12].split('-')[0]
+    #             termomostrlar = Termomost.objects.filter(data__Артикул__icontains=artikul).exists()
+    #             if not termomostrlar:
+    #                 does_not_exist_norm.append(Xatolar(section='Термомост',xato='termomost bazada yo\'q',sap_code=df[i][12]))
+            
+    # else:
+    #     for i in range(0,len(df)):
+    #         if df[i][0] != '':
+    #             length = df[i][0].split('-')[0]
+    #             if not Norma.objects.filter(data__новый__icontains=length).exists():
+    #                 does_not_exist_norm.append(Xatolar(section='Норма расход',xato='bazada yo\'q',sap_code=df[i][0]))
+    #                 continue
+    #             splav_code = df[i][1].split()[0][:2]
+    #             splav_list = AlyuminniysilindrEkstruziya1.objects.filter(название__icontains ='60'+splav_code).exists()
+    #             if not splav_list:
+    #                 does_not_exist_norm.append(Xatolar(section='Алюмин Сплав',xato='60'+splav_code,sap_code=df[i][0]))
+            
+    #         if df[i][4] != '':
+    #             kraska_code = df[i][5].split()[-1]
+    #             kraskas = Kraska.objects.filter(код_краски_в_профилях = kraska_code).exists()
+    #             if not kraskas:
+    #                 does_not_exist_norm.append(Xatolar(section='Краска',xato=kraska_code,sap_code=df[i][4]))
+
+    #         if df[i][6] != '':
+    #             length = df[i][6].split('-')[0]
+    #             alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
+    #             sublimatsiya_code = df[i][7].split('_')[1]
+    #             code_ss = alum_teks.data['Суб. Декор. плёнка ширина пленки/ мм']
+    #             mein = alum_teks.data['Суб. Декор. плёнка расход на 1000 профиль/м²']
+    #             subdecorplonka = SubDekorPlonka.objects.filter(код_декор_пленки = sublimatsiya_code, ширина_декор_пленки_мм = code_ss).exists()
+    #             if not subdecorplonka:
+    #                 does_not_exist_norm.append(Xatolar(section='Сублимация декор',xato=sublimatsiya_code +' ' + code_ss+' bazada yo\'q',sap_code=df[i][6]))
+            
+    #         if df[i][10] != '':
+    #             length = df[i][10].split('-')[0]
+    #             alum_teks = Norma.objects.filter(data__новый__icontains=length)[:1].get()
+    #             if (alum_teks.data['верх ширина ленты/мм'] =='0' and alum_teks.data['низ ширина ленты/мм'] == '0'):
+    #                 does_not_exist_norm.append(Xatolar(section='Наклейка',xato='bazada qiymati 0',sap_code=df[i][10]))
+            
+                    
+
+     
+    
+    # if len(does_not_exist_norm) > 0: 
+    #     context ={
+    #         'does_not_exist_norm':does_not_exist_norm,
+    #         'section':'Ошибки нормы',
+    #         'id':id
+
+    #     }
+    #     return render(request,'norma/benkam/not_exist.html',context)
+    
+    df_new =    {
+        'ID':[],
+        'MATNR': [],
+        'WERKS':[],
+        'TEXT1':[],
+        'STLAL':[],
+        'STLAN':[],
+        'ZTEXT':[],
+        'STKTX':[],
+        'BMENG':[],
+        'BMEIN':[],
+        'STLST':[],
+        'POSNR':[],
+        'POSTP':[],
+        'MATNR1':[],
+        'TEXT2':[],
+        'MEINS':[],
+        'MENGE':[],
+        'DATUV':[],
+        'PUSTOY':[],
+        'LGORT':[]
+    }
+    
+   
+    j = 0
+    
+    norma_exists= []
+
+    for i in range(0,len(df)):
+        print(i)
+        
+        artikul = df[i][8].split('-')[0]
+        print(artikul,'norma')
+        norma = NormaAurora.objects.filter(data__Артикул__icontains = artikul)[:1].get()
+
+        ### 7  ###
+        if {df[i][8]:df[i][9]} not in norma_exists:
+            norma_exists.append({df[i][8]:df[i][9]})
+            df_new['ID'].append('1')
+            df_new['MATNR'].append(df[i][8])
+            df_new['WERKS'].append('5101')
+            df_new['TEXT1'].append(df[i][9])
+            df_new['STLAL'].append('1')
+            df_new['STLAN'].append('1')
+            df_new['ZTEXT'].append(df[i][9])
+            df_new['STKTX'].append('Упаковка')
+            df_new['BMENG'].append( '1000')
+            df_new['BMEIN'].append('ШТ')
+            df_new['STLST'].append('1')
+            df_new['POSNR'].append('')
+            df_new['POSTP'].append('')
+            df_new['MATNR1'].append('')
+            df_new['TEXT2'].append('')
+            df_new['MEINS'].append('')
+            df_new['MENGE'].append('')
+            df_new['DATUV'].append('01012023')
+            df_new['PUSTOY'].append('')
+            df_new['LGORT'].append('')
+            for k in range(1,2):
+                j+=1
+                df_new['ID'].append('2')
+                df_new['MATNR'].append('')
+                df_new['WERKS'].append('')
+                df_new['TEXT1'].append('')
+                df_new['STLAL'].append('')
+                df_new['STLAN'].append('')
+                df_new['ZTEXT'].append('')
+                df_new['STKTX'].append('')
+                df_new['BMENG'].append('')
+                df_new['BMEIN'].append('')
+                df_new['STLST'].append('')
+                df_new['POSNR'].append(k)
+                df_new['POSTP'].append('L')
+                
+                
+                if k == 1 :
+                    
+                    df_new['MATNR1'].append(df[i][6])
+                    df_new['TEXT2'].append(df[i][7])
+                    # print(df[i][9],'kkk')
+                    seksiya_list =df[i][9].split(' ')
+                    text =''
+                    for sek in seksiya_list:
+                        if '-' in sek:
+                            text = sek
+                            break
+                    seksiya = text.split('-')[1]
+                    # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
+                    df_new['MEINS'].append(int(seksiya)*1000) 
+                    df_new['MENGE'].append('СКЦ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                    
+                
+                df_new['LGORT'].append('PS08')
+
+            upakovka_names =[
+                {'kratkiy':'Пленка полиэтиленовая 90см','sapcode':'1000006758'},
+                {'kratkiy':'Пленка полиэтиленовая 65см','sapcode':'1000006759'},
+                {'kratkiy':'Пленка полиэтиленовая 85см','sapcode':'1000006760'}
+                ]
+            t= 1
+            for k in range(0,len(upakovka_names)):
+                if norma.data[upakovka_names[k]['kratkiy']] !='0':
+                    j+=1
+                    t+=1
+                    df_new['ID'].append('2')
+                    df_new['MATNR'].append('')
+                    df_new['WERKS'].append('')
+                    df_new['TEXT1'].append('')
+                    df_new['STLAL'].append('')
+                    df_new['STLAN'].append('')
+                    df_new['ZTEXT'].append('')
+                    df_new['STKTX'].append('')
+                    df_new['BMENG'].append('')
+                    df_new['BMEIN'].append('')
+                    df_new['STLST'].append('')
+                    df_new['POSNR'].append(t)
+                    df_new['POSTP'].append('L')
+                    df_new['MATNR1'].append(upakovka_names[k]['sapcode'])
+                    df_new['TEXT2'].append(upakovka_names[k]['kratkiy'])
+                    sap_val = norma.data[upakovka_names[k]['kratkiy']].replace(' ','').replace('.0','') if norma.data[upakovka_names[k]['kratkiy']][-2:]=='.0' else ("%.3f" % float(norma.data[upakovka_names[k]['kratkiy']].replace(' ',''))).replace('.',',')
+                    df_new['MEINS'].append(sap_val) 
+                    df_new['MENGE'].append('КГ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                    df_new['LGORT'].append('PS08')
+
+             
+            krat = df[i][9].split('-')
+            seria = krat[0]
+            korobka_type = krat[1].split(' ')[-1]
+            t+=1
+            if Korobka.objects.filter(data__KOROBKA__icontains=seria,data__TYPE__icontains =korobka_type).exists():
+                korobka = Korobka.objects.filter(data__KOROBKA__icontains=seria,data__TYPE__icontains =korobka_type)[:1].get()
+                df_new['ID'].append('2')
+                df_new['MATNR'].append('')
+                df_new['WERKS'].append('')
+                df_new['TEXT1'].append('')
+                df_new['STLAL'].append('')
+                df_new['STLAN'].append('')
+                df_new['ZTEXT'].append('')
+                df_new['STKTX'].append('')
+                df_new['BMENG'].append('')
+                df_new['BMEIN'].append('')
+                df_new['STLST'].append('')
+                df_new['POSNR'].append(t)
+                df_new['POSTP'].append('L')
+                df_new['MATNR1'].append(korobka.data['MATNR'])
+                df_new['TEXT2'].append(korobka.data['MAKTX'])
+                sap_val = '1000' if 'BK' not in korobka_type else '2000'
+                df_new['MEINS'].append(sap_val) 
+                df_new['MENGE'].append('ШТ')
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+                df_new['LGORT'].append('PS08')
+        
+        #### PK
+        if {df[i][6]:df[i][7]} not in norma_exists:
+            norma_exists.append({df[i][6]:df[i][7]})
+            df_new['ID'].append('1')
+            df_new['MATNR'].append(df[i][6])
+            df_new['WERKS'].append('5101')
+            df_new['TEXT1'].append(df[i][7])
+            df_new['STLAL'].append('1')
+            df_new['STLAN'].append('1')
+            df_new['ZTEXT'].append(df[i][7])
+            df_new['STKTX'].append('Покраска')
+            df_new['BMENG'].append( '1000')
+            df_new['BMEIN'].append('СКЦ')
+            df_new['STLST'].append('1')
+            df_new['POSNR'].append('')
+            df_new['POSTP'].append('')
+            df_new['MATNR1'].append('')
+            df_new['TEXT2'].append('')
+            df_new['MEINS'].append('')
+            df_new['MENGE'].append('')
+            df_new['DATUV'].append('01012023')
+            df_new['PUSTOY'].append('')
+            df_new['LGORT'].append('')
+            for k in range(1,5):
+                j+=1
+                df_new['ID'].append('2')
+                df_new['MATNR'].append('')
+                df_new['WERKS'].append('')
+                df_new['TEXT1'].append('')
+                df_new['STLAL'].append('')
+                df_new['STLAN'].append('')
+                df_new['ZTEXT'].append('')
+                df_new['STKTX'].append('')
+                df_new['BMENG'].append('')
+                df_new['BMEIN'].append('')
+                df_new['STLST'].append('')
+                df_new['POSNR'].append(k)
+                df_new['POSTP'].append('L')
+                
+                
+                if k == 1 :
+                    
+                    df_new['MATNR1'].append(df[i][4])
+                    df_new['TEXT2'].append(df[i][5])
+                    # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
+                    df_new['MEINS'].append('1000') 
+                    df_new['MENGE'].append('СКЦ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                if k == 2 :
+                    # siryo = Siryo.objects.filter(data__Краткийтекст__icontains ='Анафорез.грунтовка ARSONKOTE 1002K CLEAR')
+                    df_new['MATNR1'].append('1000006767')
+                    df_new['TEXT2'].append('Анафорез.грунтовка ARSONKOTE 1002K CLEAR')
+                    
+                    # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
+                    df_new['MEINS'].append(norma.data['Анафорез.грунтовка ARSONKOTE 1002K CLEAR'].replace('.0','') if norma.data['Анафорез.грунтовка ARSONKOTE 1002K CLEAR'][-2:]=='.0' else ("%.3f" % float(norma.data['Анафорез.грунтовка ARSONKOTE 1002K CLEAR'])).replace('.',',') ) 
+                    df_new['MENGE'].append('КГ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                if k == 3 :
+                    # siryo = Siryo.objects.filter(data__Краткийтекст__icontains ='Анафорез.грунтовка ARSONKOTE 1002K CLEAR')
+                    df_new['MATNR1'].append('1000006768')
+                    df_new['TEXT2'].append('Анафорез.грунтовка. 1002K PIG.PASTE')
+                    
+                    # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
+                    df_new['MEINS'].append(norma.data['Анафорез.грунтовка. 1002K PIG.PASTE'].replace('.0','')  if norma.data['Анафорез.грунтовка. 1002K PIG.PASTE'][-2:]=='.0' else ("%.3f" % float(norma.data['Анафорез.грунтовка. 1002K PIG.PASTE'])).replace('.',',')) 
+                    df_new['MENGE'].append('КГ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                if k == 4 :
+                    kraska = df[i][7].split(' ')[-1]
+                    siryo = Kraska.objects.filter(data__CODE__icontains =kraska)[:1].get()
+                    df_new['MATNR1'].append(siryo.data['MATNR'])
+                    df_new['TEXT2'].append(siryo.data['MAKTX'])
+                    
+                    # df_new['MEINS'].append(("%.3f" % (float(alum_teks.data['расход сплава на 1000 шт профиля/кг'])*mein_percent)).replace('.',',')) 
+                    df_new['MEINS'].append(norma.data['расход /кг на 1000 секции'].replace('.0','')  if norma.data['расход /кг на 1000 секции'][-2:]=='.0' else ("%.3f" % float(norma.data['расход /кг на 1000 секции'])).replace('.',',')) 
+                    df_new['MENGE'].append('КГ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+
+                    
+                df_new['LGORT'].append('PS08')
+        
+       
+        #### PR
+        if {df[i][0]:df[i][1]} not in norma_exists:
+            norma_exists.append({df[i][0]:df[i][1]})
+            df_new['ID'].append('1')
+            df_new['MATNR'].append(df[i][0])
+            df_new['WERKS'].append('5101')
+            df_new['TEXT1'].append(df[i][1])
+            df_new['STLAL'].append('1')
+            df_new['STLAN'].append('1')
+            df_new['ZTEXT'].append(df[i][1])
+            df_new['STKTX'].append('Пресс')
+            df_new['BMENG'].append( '1000')
+            df_new['BMEIN'].append('СКЦ')
+            df_new['STLST'].append('1')
+            df_new['POSNR'].append('')
+            df_new['POSTP'].append('')
+            df_new['MATNR1'].append('')
+            df_new['TEXT2'].append('')
+            df_new['MEINS'].append('')
+            df_new['MENGE'].append('')
+            df_new['DATUV'].append('01012023')
+            df_new['PUSTOY'].append('')
+            df_new['LGORT'].append('')
+            for k in range(1,3):
+                j+=1
+                df_new['ID'].append('2')
+                df_new['MATNR'].append('')
+                df_new['WERKS'].append('')
+                df_new['TEXT1'].append('')
+                df_new['STLAL'].append('')
+                df_new['STLAN'].append('')
+                df_new['ZTEXT'].append('')
+                df_new['STKTX'].append('')
+                df_new['BMENG'].append('')
+                df_new['BMEIN'].append('')
+                df_new['STLST'].append('')
+                df_new['POSNR'].append(k)
+                df_new['POSTP'].append('L')
+                
+                
+                if k == 1 :
+                    df_new['MATNR1'].append('1000006841')
+                    df_new['TEXT2'].append('Сплав AK12')
+                    df_new['MEINS'].append(norma.data['расход сплава АК 12 на 1000 секции'].replace('.0','')  if norma.data['расход сплава АК 12 на 1000 секции'][-2:]=='.0' else ("%.3f" % float(norma.data['расход сплава АК 12 на 1000 секции'])).replace('.',',')) 
+                    df_new['MENGE'].append('КГ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                # if k == 2 :
+                #     df_new['MATNR1'].append('1000004484')
+                #     df_new['TEXT2'].append('Тех. отход литник')
+                #     df_new['MEINS'].append('-'+norma.data['Тех. отход литник'].replace('.0','') if norma.data['Тех. отход литник'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Тех. отход литник'])).replace('.',',')) 
+                #     df_new['MENGE'].append('КГ')
+                #     df_new['DATUV'].append('')
+                #     df_new['PUSTOY'].append('')
+                    
+                # if k == 3 :
+                #     df_new['MATNR1'].append('1900007455')
+                #     df_new['TEXT2'].append('Тех. отход промывка')
+                #     df_new['MEINS'].append('-'+norma.data['Тех. отход промывка'].replace('.0','') if norma.data['Тех. отход промывка'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Тех. отход промывка'])).replace('.',','))
+                #     df_new['MENGE'].append('КГ')
+                #     df_new['DATUV'].append('')
+                #     df_new['PUSTOY'].append('')
+
+                # if k == 4 :
+                #     df_new['MATNR1'].append('1900007457')
+                #     df_new['TEXT2'].append('Тех. отход шлак масло')
+                #     df_new['MEINS'].append('-'+norma.data['Тех. отход шлак масло'].replace('.0','') if norma.data['Тех. отход шлак масло'][-2:]=='.0' else '-' + ("%.3f" % float(norma.data['Тех. отход шлак масло'])).replace('.',','))
+                #     df_new['MENGE'].append('КГ')
+                #     df_new['DATUV'].append('')
+                #     df_new['PUSTOY'].append('')
+                if k == 2 :
+                    df_new['MATNR1'].append('1000006701')
+                    df_new['TEXT2'].append('Сож для прес-формы')
+                    df_new['MEINS'].append(norma.data['Сож для прес-формы'].replace('.0','') if norma.data['Сож для прес-формы'][-2:]=='.0' else  ("%.3f" % float(norma.data['Сож для прес-формы'])).replace('.',','))
+                    df_new['MENGE'].append('Л')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                # if k == 3 :
+                #     df_new['MATNR1'].append('1000004353')
+                #     df_new['TEXT2'].append('Огнеупорная смазка Pyro-Mastic')
+                #     df_new['MEINS'].append(norma.data['Огнеупорная смазка Pyro-Mastic'].replace('.0','') if norma.data['Огнеупорная смазка Pyro-Mastic'][-2:]=='.0' else ("%.3f" % float(norma.data['Огнеупорная смазка Pyro-Mastic'])).replace('.',','))
+                #     df_new['MENGE'].append('КГ')
+                #     df_new['DATUV'].append('')
+                #     df_new['PUSTOY'].append('')
+                df_new['LGORT'].append('PS02')
+            
+            if norma.data['Тип'] =='Bimetall':
+                if '16' in norma.data['Вставка биметалл']: 
+                    df_new['ID'].append('2')
+                    df_new['MATNR'].append('')
+                    df_new['WERKS'].append('')
+                    df_new['TEXT1'].append('')
+                    df_new['STLAL'].append('')
+                    df_new['STLAN'].append('')
+                    df_new['ZTEXT'].append('')
+                    df_new['STKTX'].append('')
+                    df_new['BMENG'].append('')
+                    df_new['BMEIN'].append('')
+                    df_new['STLST'].append('')
+                    df_new['POSNR'].append(3)
+                    df_new['POSTP'].append('L')
+                    df_new['MATNR1'].append('1000006842')
+                    df_new['TEXT2'].append('Вставка для радиатора 16 мм')
+                    df_new['MEINS'].append('1000') 
+                    df_new['MENGE'].append('ШТ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                    df_new['LGORT'].append('PS02')
+                else:
+                    df_new['ID'].append('2')
+                    df_new['MATNR'].append('')
+                    df_new['WERKS'].append('')
+                    df_new['TEXT1'].append('')
+                    df_new['STLAL'].append('')
+                    df_new['STLAN'].append('')
+                    df_new['ZTEXT'].append('')
+                    df_new['STKTX'].append('')
+                    df_new['BMENG'].append('')
+                    df_new['BMEIN'].append('')
+                    df_new['STLST'].append('')
+                    df_new['POSNR'].append(3)
+                    df_new['POSTP'].append('L')
+                    df_new['MATNR1'].append('1000006843')
+                    df_new['TEXT2'].append('Вставка для радиатора 18 мм')
+                    df_new['MEINS'].append('1000') 
+                    df_new['MENGE'].append('ШТ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                    df_new['LGORT'].append('PS02')
+
+       
+        
+    now = datetime.now()
+    year =now.strftime("%Y")
+    month =now.strftime("%B")
+    day =now.strftime("%a%d")
+    hour =now.strftime("%H HOUR")
+    minut =now.strftime("%d.%m.%Y_%H.%M")    
+                 
+            
+    create_folder(f'{MEDIA_ROOT}\\uploads','norma-radiator')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\norma-radiator',f'{year}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\norma-radiator\\{year}',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\norma-radiator\\{year}\\{month}',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\norma-radiator\\{year}\\{month}\\{day}',hour)
+            
+            
+    
+    path =f'{MEDIA_ROOT}\\uploads\\norma-radiator\\{year}\\{month}\\{day}\\{hour}\\NORMA_RADIATOR_AURORA_{minut}.xlsx'
+    
+
+    # for key,row in df_new.items():
+    #     print(key,len(row))
+
+    dff = pd.DataFrame(df_new)
+    
+
+
+    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    dff.to_excel(writer,index=False,sheet_name ='Norma')
+    
+    
+    writer.close()
+
+    
+    # path =os.path.join(os.path.expanduser("~/Desktop"),'new_base_cominirovaniy.xlsx')
+    file =[File(file=path,filetype='obichniy',id=id)]
+    context = {
+            'files':file,
+            'section':f'Формированый {file_content} файл'
+      }
+    return render(request,'norma/benkam/generated_files.html',context)
+
+
+
+
+
 
 def create_folder(parent_dir,directory):
     path =os.path.join(parent_dir,directory)
@@ -1850,6 +2419,18 @@ def product_add_second_org_radiator(request,id):
     
     df_new['SAP CODE 7']=''
     df_new['7 - Upakovka']=''
+
+    df_new_aurora = pd.DataFrame()
+
+    df_new_aurora['counter'] =df['Артикул']
+    df_new_aurora['SAP CODE ER']=''
+    df_new_aurora['PR - Extrusion']=''
+
+    df_new_aurora['SAP CODE PK']=''
+    df_new_aurora['PK - Pokraska']=''
+    
+    df_new_aurora['SAP CODE 7']=''
+    df_new_aurora['7 - Upakovka']=''
     
     
     
@@ -1863,6 +2444,10 @@ def product_add_second_org_radiator(request,id):
         df_new['PM - Puma'][key] = 'PM-'+df['Модель'][key]
         df_new['PK - Pokraska'][key] = 'PK-'+df['Модель'][key]+' ' +df['Цвет'][key]
         df_new['7 - Upakovka'][key] = df['Краткий текст'][key]
+
+        df_new_aurora['PR - Extrusion'][key] = 'ER-'+df['Модель'][key]
+        df_new_aurora['PK - Pokraska'][key] = 'PK-'+df['Модель'][key]+' ' +df['Цвет'][key]
+        df_new_aurora['7 - Upakovka'][key] = df['Краткий текст'][key]
         
         
         if ((row['Название'] == 'nan') or (row['Название'] == '')):
@@ -1879,192 +2464,304 @@ def product_add_second_org_radiator(request,id):
         
 
 
-    
-        for i in range(1,6):
-
-            if i == 1:
-                if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PR',kratkiy_tekst_materiala= df_new['PR - Press'][key]).exists():
-                    df_new['SAP CODE P'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PR',kratkiy_tekst_materiala=df_new['PR - Press'][key])[:1].get().material
-                    duplicat_list.append([df_new['SAP CODE P'][key],df_new['PR - Press'][key],'PR'])
-                else: 
-                    if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='PR').exists():
-                            umumiy_counter[df['Артикул'][key]+'-PR'] += 1
-                            max_valuesPR = umumiy_counter[df['Артикул'][key]+'-PR']
-                            materiale = df['Артикул'][key]+"-PR{:02d}".format(max_valuesPR)
-                            RadiatorSapCode(artikul = df['Артикул'][key],section ='PR',counter=max_valuesPR,kratkiy_tekst_materiala=df_new['PR - Press'][key],material=materiale).save()
-                            df_new['SAP CODE P'][key] = materiale
-                            
-                            cache_for_cratkiy_text.append({
-                                                'kratkiy':df_new['PR - Press'][key],
-                                                'sap_code':  materiale,
-                                                
-                                                # 'system' : row['Название системы'],
-                                                # 'number_of_chambers' : row['Количество камер'],
-                                                # 'article' : row['Артикул'],
-                                                # 'profile_type_id' : row['Код к компоненту системы'],
-                                                
-                                            })
+        if 'aurora' in str(df['Модель'][key]).lower():
+            for i in range(1,6):
+                if i == 1:
+                    if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PR',kratkiy_tekst_materiala= df_new['PR - Press'][key]).exists():
+                        df_new['SAP CODE P'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PR',kratkiy_tekst_materiala=df_new['PR - Press'][key])[:1].get().material
+                        duplicat_list.append([df_new['SAP CODE P'][key],df_new['PR - Press'][key],'PR'])
+                    else: 
+                        if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='PR').exists():
+                                umumiy_counter[df['Артикул'][key]+'-PR'] += 1
+                                max_valuesPR = umumiy_counter[df['Артикул'][key]+'-PR']
+                                materiale = df['Артикул'][key]+"-PR{:02d}".format(max_valuesPR)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='PR',counter=max_valuesPR,kratkiy_tekst_materiala=df_new['PR - Press'][key],material=materiale).save()
+                                df_new['SAP CODE P'][key] = materiale
+                                
+                                cache_for_cratkiy_text.append({
+                                                    'kratkiy':df_new['PR - Press'][key],
+                                                    'sap_code':  materiale,
+                                                    
+                                                    # 'system' : row['Название системы'],
+                                                    # 'number_of_chambers' : row['Количество камер'],
+                                                    # 'article' : row['Артикул'],
+                                                    # 'profile_type_id' : row['Код к компоненту системы'],
+                                                    
+                                                })
+                        
+                        else:
+                                materiale = df['Артикул'][key]+"-PR{:02d}".format(1)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='PR',counter=1,kratkiy_tekst_materiala=df_new['PR - Press'][key],material=materiale).save()
+                                df_new['SAP CODE P'][key] = materiale
+                                umumiy_counter[df['Артикул'][key]+'-PR'] = 1
                     
-                    else:
-                            materiale = df['Артикул'][key]+"-PR{:02d}".format(1)
-                            RadiatorSapCode(artikul = df['Артикул'][key],section ='PR',counter=1,kratkiy_tekst_materiala=df_new['PR - Press'][key],material=materiale).save()
-                            df_new['SAP CODE P'][key] = materiale
-                            umumiy_counter[df['Артикул'][key]+'-PR'] = 1
-                  
-                            cache_for_cratkiy_text.append(
-                                            {
-                                                'kratkiy':df_new['PR - Press'][key],
-                                                'sap_code':  materiale,
-                                            }
-                                        )
+                                cache_for_cratkiy_text.append(
+                                                {
+                                                    'kratkiy':df_new['PR - Press'][key],
+                                                    'sap_code':  materiale,
+                                                }
+                                            )
+                        
+                if i == 4:
+                    if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PK',kratkiy_tekst_materiala= df_new['PK - Pokraska'][key]).exists():
+                        df_new['SAP CODE PK'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PK',kratkiy_tekst_materiala=df_new['PK - Pokraska'][key])[:1].get().material
+                        duplicat_list.append([df_new['SAP CODE PK'][key],df_new['PK - Pokraska'][key],'PK'])
+                    else: 
+                        if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='PK').exists():
+                                umumiy_counter[df['Артикул'][key]+'-PK'] += 1
+                                max_valuesPK = umumiy_counter[df['Артикул'][key]+'-PK']
+                                materiale = df['Артикул'][key]+"-PK{:02d}".format(max_valuesPK)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='PK',counter=max_valuesPK,kratkiy_tekst_materiala=df_new['PK - Pokraska'][key],material=materiale).save()
+                                df_new['SAP CODE PK'][key] = materiale
+                                
+                                cache_for_cratkiy_text.append({
+                                                    'kratkiy':df_new['PK - Pokraska'][key],
+                                                    'sap_code':  materiale,
+                                                    
+                                                    # 'system' : row['Название системы'],
+                                                    # 'number_of_chambers' : row['Количество камер'],
+                                                    # 'article' : row['Артикул'],
+                                                    # 'profile_type_id' : row['Код к компоненту системы'],
+                                                    
+                                                })
+                        
+                        else:
+                                materiale = df['Артикул'][key]+"-PK{:02d}".format(1)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='PK',counter=1,kratkiy_tekst_materiala=df_new['PK - Pokraska'][key],material=materiale).save()
+                                df_new['SAP CODE PK'][key] = materiale
+                                umumiy_counter[df['Артикул'][key]+'-PK'] = 1
                     
-           
-            if i == 2:
-                if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='MO',kratkiy_tekst_materiala= df_new['MO - Mex obrabotka'][key]).exists():
-                    df_new['SAP CODE M'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='MO',kratkiy_tekst_materiala=df_new['MO - Mex obrabotka'][key])[:1].get().material
-                    duplicat_list.append([df_new['SAP CODE M'][key],df_new['MO - Mex obrabotka'][key],'MO'])
-                else: 
-                    if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='MO').exists():
-                            umumiy_counter[df['Артикул'][key]+'-MO'] += 1
-                            max_valuesMO = umumiy_counter[df['Артикул'][key]+'-MO']
-                            materiale = df['Артикул'][key]+"-MO{:02d}".format(max_valuesMO)
-                            RadiatorSapCode(artikul = df['Артикул'][key],section ='MO',counter=max_valuesMO,kratkiy_tekst_materiala=df_new['MO - Mex obrabotka'][key],material=materiale).save()
-                            df_new['SAP CODE M'][key] = materiale
-                            
-                            cache_for_cratkiy_text.append({
-                                                'kratkiy':df_new['MO - Mex obrabotka'][key],
-                                                'sap_code':  materiale,
-                                                
-                                                # 'system' : row['Название системы'],
-                                                # 'number_of_chambers' : row['Количество камер'],
-                                                # 'article' : row['Артикул'],
-                                                # 'profile_type_id' : row['Код к компоненту системы'],
-                                                
-                                            })
+                                cache_for_cratkiy_text.append(
+                                                {
+                                                    'kratkiy':df_new['PK - Pokraska'][key],
+                                                    'sap_code':  materiale,
+                                                }
+                                            )
+                        
+                if i == 5:
+                    if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala= df_new['7 - Upakovka'][key]).exists():
+                        df_new['SAP CODE 7'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['7 - Upakovka'][key])[:1].get().material
+                        duplicat_list.append([df_new['SAP CODE 7'][key],df_new['7 - Upakovka'][key],'7'])
+                    else: 
+                        if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
+                                umumiy_counter[df['Артикул'][key]+'-7'] += 1
+                                max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
+                                materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='7',counter=max_values7,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+                                df_new['SAP CODE 7'][key] = materiale
+                                
+                                cache_for_cratkiy_text.append({
+                                                    'kratkiy':df_new['7 - Upakovka'][key],
+                                                    'sap_code':  materiale,
+                                                    
+                                                    # 'system' : row['Название системы'],
+                                                    # 'number_of_chambers' : row['Количество камер'],
+                                                    # 'article' : row['Артикул'],
+                                                    # '7ofile_type_id' : row['Код к компоненту системы'],
+                                                    
+                                                })
+                        
+                        else:
+                                materiale = df['Артикул'][key]+"-7{:03d}".format(1)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='7',counter=1,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+                                df_new['SAP CODE 7'][key] = materiale
+                                umumiy_counter[df['Артикул'][key]+'-7'] = 1
                     
-                    else:
-                            materiale = df['Артикул'][key]+"-MO{:02d}".format(1)
-                            RadiatorSapCode(artikul = df['Артикул'][key],section ='MO',counter=1,kratkiy_tekst_materiala=df_new['MO - Mex obrabotka'][key],material=materiale).save()
-                            df_new['SAP CODE M'][key] = materiale
-                            umumiy_counter[df['Артикул'][key]+'-MO'] = 1
-                  
-                            cache_for_cratkiy_text.append(
-                                            {
-                                                'kratkiy':df_new['MO - Mex obrabotka'][key],
-                                                'sap_code':  materiale,
-                                            }
-                                        )
-                    
-            if i == 3:
-                if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PM',kratkiy_tekst_materiala= df_new['PM - Puma'][key]).exists():
-                    df_new['SAP CODE PM'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PM',kratkiy_tekst_materiala=df_new['PM - Puma'][key])[:1].get().material
-                    duplicat_list.append([df_new['SAP CODE PM'][key],df_new['PM - Puma'][key],'PM'])
-                else: 
-                    if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='PM').exists():
-                            umumiy_counter[df['Артикул'][key]+'-PM'] += 1
-                            max_valuesPM = umumiy_counter[df['Артикул'][key]+'-PM']
-                            materiale = df['Артикул'][key]+"-PM{:02d}".format(max_valuesPM)
-                            RadiatorSapCode(artikul = df['Артикул'][key],section ='PM',counter=max_valuesPM,kratkiy_tekst_materiala=df_new['PM - Puma'][key],material=materiale).save()
-                            df_new['SAP CODE PM'][key] = materiale
-                            
-                            cache_for_cratkiy_text.append({
-                                                'kratkiy':df_new['PM - Puma'][key],
-                                                'sap_code':  materiale,
-                                                
-                                                # 'system' : row['Название системы'],
-                                                # 'number_of_chambers' : row['Количество камер'],
-                                                # 'article' : row['Артикул'],
-                                                # 'profile_type_id' : row['Код к компоненту системы'],
-                                                
-                                            })
-                    
-                    else:
-                            materiale = df['Артикул'][key]+"-PM{:02d}".format(1)
-                            RadiatorSapCode(artikul = df['Артикул'][key],section ='PM',counter=1,kratkiy_tekst_materiala=df_new['PM - Puma'][key],material=materiale).save()
-                            df_new['SAP CODE PM'][key] = materiale
-                            umumiy_counter[df['Артикул'][key]+'-PM'] = 1
-                  
-                            cache_for_cratkiy_text.append(
-                                            {
-                                                'kratkiy':df_new['PM - Puma'][key],
-                                                'sap_code':  materiale,
-                                            }
-                                        )
-                    
-            if i == 4:
-                if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PK',kratkiy_tekst_materiala= df_new['PK - Pokraska'][key]).exists():
-                    df_new['SAP CODE PK'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PK',kratkiy_tekst_materiala=df_new['PK - Pokraska'][key])[:1].get().material
-                    duplicat_list.append([df_new['SAP CODE PK'][key],df_new['PK - Pokraska'][key],'PK'])
-                else: 
-                    if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='PK').exists():
-                            umumiy_counter[df['Артикул'][key]+'-PK'] += 1
-                            max_valuesPK = umumiy_counter[df['Артикул'][key]+'-PK']
-                            materiale = df['Артикул'][key]+"-PK{:02d}".format(max_valuesPK)
-                            RadiatorSapCode(artikul = df['Артикул'][key],section ='PK',counter=max_valuesPK,kratkiy_tekst_materiala=df_new['PK - Pokraska'][key],material=materiale).save()
-                            df_new['SAP CODE PK'][key] = materiale
-                            
-                            cache_for_cratkiy_text.append({
-                                                'kratkiy':df_new['PK - Pokraska'][key],
-                                                'sap_code':  materiale,
-                                                
-                                                # 'system' : row['Название системы'],
-                                                # 'number_of_chambers' : row['Количество камер'],
-                                                # 'article' : row['Артикул'],
-                                                # 'profile_type_id' : row['Код к компоненту системы'],
-                                                
-                                            })
-                    
-                    else:
-                            materiale = df['Артикул'][key]+"-PK{:02d}".format(1)
-                            RadiatorSapCode(artikul = df['Артикул'][key],section ='PK',counter=1,kratkiy_tekst_materiala=df_new['PK - Pokraska'][key],material=materiale).save()
-                            df_new['SAP CODE PK'][key] = materiale
-                            umumiy_counter[df['Артикул'][key]+'-PK'] = 1
-                  
-                            cache_for_cratkiy_text.append(
-                                            {
-                                                'kratkiy':df_new['PK - Pokraska'][key],
-                                                'sap_code':  materiale,
-                                            }
-                                        )
-                    
-            if i == 5:
-                if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala= df_new['7 - Upakovka'][key]).exists():
-                    df_new['SAP CODE 7'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['7 - Upakovka'][key])[:1].get().material
-                    duplicat_list.append([df_new['SAP CODE 7'][key],df_new['7 - Upakovka'][key],'7'])
-                else: 
-                    if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
-                            umumiy_counter[df['Артикул'][key]+'-7'] += 1
-                            max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
-                            materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
-                            RadiatorSapCode(artikul = df['Артикул'][key],section ='7',counter=max_values7,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
-                            df_new['SAP CODE 7'][key] = materiale
-                            
-                            cache_for_cratkiy_text.append({
-                                                'kratkiy':df_new['7 - Upakovka'][key],
-                                                'sap_code':  materiale,
-                                                
-                                                # 'system' : row['Название системы'],
-                                                # 'number_of_chambers' : row['Количество камер'],
-                                                # 'article' : row['Артикул'],
-                                                # '7ofile_type_id' : row['Код к компоненту системы'],
-                                                
-                                            })
-                    
-                    else:
-                            materiale = df['Артикул'][key]+"-7{:03d}".format(1)
-                            RadiatorSapCode(artikul = df['Артикул'][key],section ='7',counter=1,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
-                            df_new['SAP CODE 7'][key] = materiale
-                            umumiy_counter[df['Артикул'][key]+'-7'] = 1
-                  
-                            cache_for_cratkiy_text.append(
-                                            {
-                                                'kratkiy':df_new['7 - Upakovka'][key],
-                                                'sap_code':  materiale,
-                                            }
-                                        )
-                    
-           
+                                cache_for_cratkiy_text.append(
+                                                {
+                                                    'kratkiy':df_new['7 - Upakovka'][key],
+                                                    'sap_code':  materiale,
+                                                }
+                                            )
+                        
             
+            
+        else:
+            for i in range(1,6):
+
+                if i == 1:
+                    if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PR',kratkiy_tekst_materiala= df_new['PR - Press'][key]).exists():
+                        df_new['SAP CODE P'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PR',kratkiy_tekst_materiala=df_new['PR - Press'][key])[:1].get().material
+                        duplicat_list.append([df_new['SAP CODE P'][key],df_new['PR - Press'][key],'PR'])
+                    else: 
+                        if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='PR').exists():
+                                umumiy_counter[df['Артикул'][key]+'-PR'] += 1
+                                max_valuesPR = umumiy_counter[df['Артикул'][key]+'-PR']
+                                materiale = df['Артикул'][key]+"-PR{:02d}".format(max_valuesPR)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='PR',counter=max_valuesPR,kratkiy_tekst_materiala=df_new['PR - Press'][key],material=materiale).save()
+                                df_new['SAP CODE P'][key] = materiale
+                                
+                                cache_for_cratkiy_text.append({
+                                                    'kratkiy':df_new['PR - Press'][key],
+                                                    'sap_code':  materiale,
+                                                    
+                                                    # 'system' : row['Название системы'],
+                                                    # 'number_of_chambers' : row['Количество камер'],
+                                                    # 'article' : row['Артикул'],
+                                                    # 'profile_type_id' : row['Код к компоненту системы'],
+                                                    
+                                                })
+                        
+                        else:
+                                materiale = df['Артикул'][key]+"-PR{:02d}".format(1)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='PR',counter=1,kratkiy_tekst_materiala=df_new['PR - Press'][key],material=materiale).save()
+                                df_new['SAP CODE P'][key] = materiale
+                                umumiy_counter[df['Артикул'][key]+'-PR'] = 1
+                    
+                                cache_for_cratkiy_text.append(
+                                                {
+                                                    'kratkiy':df_new['PR - Press'][key],
+                                                    'sap_code':  materiale,
+                                                }
+                                            )
+                        
+            
+                if i == 2:
+                    if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='MO',kratkiy_tekst_materiala= df_new['MO - Mex obrabotka'][key]).exists():
+                        df_new['SAP CODE M'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='MO',kratkiy_tekst_materiala=df_new['MO - Mex obrabotka'][key])[:1].get().material
+                        duplicat_list.append([df_new['SAP CODE M'][key],df_new['MO - Mex obrabotka'][key],'MO'])
+                    else: 
+                        if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='MO').exists():
+                                umumiy_counter[df['Артикул'][key]+'-MO'] += 1
+                                max_valuesMO = umumiy_counter[df['Артикул'][key]+'-MO']
+                                materiale = df['Артикул'][key]+"-MO{:02d}".format(max_valuesMO)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='MO',counter=max_valuesMO,kratkiy_tekst_materiala=df_new['MO - Mex obrabotka'][key],material=materiale).save()
+                                df_new['SAP CODE M'][key] = materiale
+                                
+                                cache_for_cratkiy_text.append({
+                                                    'kratkiy':df_new['MO - Mex obrabotka'][key],
+                                                    'sap_code':  materiale,
+                                                    
+                                                    # 'system' : row['Название системы'],
+                                                    # 'number_of_chambers' : row['Количество камер'],
+                                                    # 'article' : row['Артикул'],
+                                                    # 'profile_type_id' : row['Код к компоненту системы'],
+                                                    
+                                                })
+                        
+                        else:
+                                materiale = df['Артикул'][key]+"-MO{:02d}".format(1)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='MO',counter=1,kratkiy_tekst_materiala=df_new['MO - Mex obrabotka'][key],material=materiale).save()
+                                df_new['SAP CODE M'][key] = materiale
+                                umumiy_counter[df['Артикул'][key]+'-MO'] = 1
+                    
+                                cache_for_cratkiy_text.append(
+                                                {
+                                                    'kratkiy':df_new['MO - Mex obrabotka'][key],
+                                                    'sap_code':  materiale,
+                                                }
+                                            )
+                        
+                if i == 3:
+                    if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PM',kratkiy_tekst_materiala= df_new['PM - Puma'][key]).exists():
+                        df_new['SAP CODE PM'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PM',kratkiy_tekst_materiala=df_new['PM - Puma'][key])[:1].get().material
+                        duplicat_list.append([df_new['SAP CODE PM'][key],df_new['PM - Puma'][key],'PM'])
+                    else: 
+                        if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='PM').exists():
+                                umumiy_counter[df['Артикул'][key]+'-PM'] += 1
+                                max_valuesPM = umumiy_counter[df['Артикул'][key]+'-PM']
+                                materiale = df['Артикул'][key]+"-PM{:02d}".format(max_valuesPM)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='PM',counter=max_valuesPM,kratkiy_tekst_materiala=df_new['PM - Puma'][key],material=materiale).save()
+                                df_new['SAP CODE PM'][key] = materiale
+                                
+                                cache_for_cratkiy_text.append({
+                                                    'kratkiy':df_new['PM - Puma'][key],
+                                                    'sap_code':  materiale,
+                                                    
+                                                    # 'system' : row['Название системы'],
+                                                    # 'number_of_chambers' : row['Количество камер'],
+                                                    # 'article' : row['Артикул'],
+                                                    # 'profile_type_id' : row['Код к компоненту системы'],
+                                                    
+                                                })
+                        
+                        else:
+                                materiale = df['Артикул'][key]+"-PM{:02d}".format(1)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='PM',counter=1,kratkiy_tekst_materiala=df_new['PM - Puma'][key],material=materiale).save()
+                                df_new['SAP CODE PM'][key] = materiale
+                                umumiy_counter[df['Артикул'][key]+'-PM'] = 1
+                    
+                                cache_for_cratkiy_text.append(
+                                                {
+                                                    'kratkiy':df_new['PM - Puma'][key],
+                                                    'sap_code':  materiale,
+                                                }
+                                            )
+                        
+                if i == 4:
+                    if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PK',kratkiy_tekst_materiala= df_new['PK - Pokraska'][key]).exists():
+                        df_new['SAP CODE PK'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PK',kratkiy_tekst_materiala=df_new['PK - Pokraska'][key])[:1].get().material
+                        duplicat_list.append([df_new['SAP CODE PK'][key],df_new['PK - Pokraska'][key],'PK'])
+                    else: 
+                        if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='PK').exists():
+                                umumiy_counter[df['Артикул'][key]+'-PK'] += 1
+                                max_valuesPK = umumiy_counter[df['Артикул'][key]+'-PK']
+                                materiale = df['Артикул'][key]+"-PK{:02d}".format(max_valuesPK)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='PK',counter=max_valuesPK,kratkiy_tekst_materiala=df_new['PK - Pokraska'][key],material=materiale).save()
+                                df_new['SAP CODE PK'][key] = materiale
+                                
+                                cache_for_cratkiy_text.append({
+                                                    'kratkiy':df_new['PK - Pokraska'][key],
+                                                    'sap_code':  materiale,
+                                                    
+                                                    # 'system' : row['Название системы'],
+                                                    # 'number_of_chambers' : row['Количество камер'],
+                                                    # 'article' : row['Артикул'],
+                                                    # 'profile_type_id' : row['Код к компоненту системы'],
+                                                    
+                                                })
+                        
+                        else:
+                                materiale = df['Артикул'][key]+"-PK{:02d}".format(1)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='PK',counter=1,kratkiy_tekst_materiala=df_new['PK - Pokraska'][key],material=materiale).save()
+                                df_new['SAP CODE PK'][key] = materiale
+                                umumiy_counter[df['Артикул'][key]+'-PK'] = 1
+                    
+                                cache_for_cratkiy_text.append(
+                                                {
+                                                    'kratkiy':df_new['PK - Pokraska'][key],
+                                                    'sap_code':  materiale,
+                                                }
+                                            )
+                        
+                if i == 5:
+                    if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala= df_new['7 - Upakovka'][key]).exists():
+                        df_new['SAP CODE 7'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['7 - Upakovka'][key])[:1].get().material
+                        duplicat_list.append([df_new['SAP CODE 7'][key],df_new['7 - Upakovka'][key],'7'])
+                    else: 
+                        if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
+                                umumiy_counter[df['Артикул'][key]+'-7'] += 1
+                                max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
+                                materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='7',counter=max_values7,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+                                df_new['SAP CODE 7'][key] = materiale
+                                
+                                cache_for_cratkiy_text.append({
+                                                    'kratkiy':df_new['7 - Upakovka'][key],
+                                                    'sap_code':  materiale,
+                                                    
+                                                    # 'system' : row['Название системы'],
+                                                    # 'number_of_chambers' : row['Количество камер'],
+                                                    # 'article' : row['Артикул'],
+                                                    # '7ofile_type_id' : row['Код к компоненту системы'],
+                                                    
+                                                })
+                        
+                        else:
+                                materiale = df['Артикул'][key]+"-7{:03d}".format(1)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='7',counter=1,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+                                df_new['SAP CODE 7'][key] = materiale
+                                umumiy_counter[df['Артикул'][key]+'-7'] = 1
+                    
+                                cache_for_cratkiy_text.append(
+                                                {
+                                                    'kratkiy':df_new['7 - Upakovka'][key],
+                                                    'sap_code':  materiale,
+                                                }
+                                            )
+                        
+            
+                
            
         
       

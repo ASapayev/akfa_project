@@ -9,6 +9,11 @@ class Norma(models.Model):
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
 
+class NormaAurora(models.Model):
+    data = models.JSONField(null=True,blank=True,default=dict)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)
+
 
 class Siryo(models.Model):
     data = models.JSONField(null=True,blank=True,default=dict)
@@ -65,6 +70,16 @@ class RazlovkaRadiator(models.Model):
   mo_kratkiy =models.CharField(max_length=150)
   pm_sap_code =models.CharField(max_length=100)
   pm_kratkiy =models.CharField(max_length=150)
+  pk_sap_code =models.CharField(max_length=100)
+  pk_kratkiy =models.CharField(max_length=150)
+  sap_code7 =models.CharField(max_length=100)
+  kratkiy7 =models.CharField(max_length=150)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)
+  
+class RazlovkaRadiatorAurora(models.Model):
+  er_sap_code =models.CharField(max_length=100)
+  er_kratkiy =models.CharField(max_length=150)
   pk_sap_code =models.CharField(max_length=100)
   pk_kratkiy =models.CharField(max_length=150)
   sap_code7 =models.CharField(max_length=100)

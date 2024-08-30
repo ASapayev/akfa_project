@@ -904,6 +904,7 @@ function front_piece(start=1,end=7){
                 <option value="ALUMIN - (V ZOL DUB) (ADT)">ALUMIN - (V ZOL DUB) (ADT)</option>
                 <option value="MEBEL SVETNOY">MEBEL SVETNOY</option>
                 <option value="BENKAM (V ZOL DUB) FASAD">BENKAM (V ZOL DUB) FASAD</option>
+                <option value="ALUMIN (TSVETNOY) RAZDVIJ. SERIYA">ALUMIN (TSVETNOY) RAZDVIJ. SERIYA</option>
             </select>
             </div>
         </td>
