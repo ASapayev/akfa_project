@@ -54,7 +54,7 @@ def generate_norma_epdm(request,id):
     file = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\epdm.xlsx'
     
     # df_sapcodes = pd.read_excel(f'{MEDIA_ROOT}/{file}')
-    df_sapcodes = pd.read_excel(file,sheet_name='sapcode',header=0)
+    df_sapcodes = pd.read_excel(file,sheet_name='a',header=0)
 
     df_sapcodes = df_sapcodes.astype(str)
     df_sapcodes = df_sapcodes.replace('nan','0')
@@ -215,13 +215,13 @@ def generate_norma_epdm(request,id):
 @allowed_users(allowed_roles=['admin','moderator','epdm'])
 def lenght_generate_texcarta(request,id):
     # file = KraskaFile.objects.get(id=id).file
-    path = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\epdm.xlsx'
+    path = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\tex_sapcode.xlsx'
     
     # df_sapcodes = pd.read_excel(f'{MEDIA_ROOT}/{file}')
   
 
 
-    data = pd.read_excel(path,sheet_name='sapcode',header=0)
+    data = pd.read_excel(path,header=0)
     counter = len(data)
 
     df_new = pd.DataFrame()
@@ -256,41 +256,75 @@ def lenght_generate_texcarta(request,id):
 
     counter_2 = 0
     for key,row in data.iterrows():
-        for i in range(1,3):
-            if i ==1:
-                df_new['ID'][counter_2] ='1'
-                df_new['MATNR'][counter_2] = row['MATNR']
-                df_new['WERKS'][counter_2] ='4701'
-                df_new['STTAG'][counter_2] ='01012023'
-                df_new['PLNAL'][counter_2] ='1'
-                df_new['KTEXT'][counter_2] =row['TEXT1']
-                df_new['VERWE'][counter_2] ='1'
-                df_new['STATU'][counter_2] ='4'
-                df_new['LOSVN'][counter_2] ='0.001'
-                df_new['LOSBS'][counter_2] ='99999999'
-            elif i == 2:
-                df_new['ID'][counter_2]='2'
-                df_new['VORNR'][counter_2] ='0010'
-                df_new['ARBPL'][counter_2] ='4702KR01'
-                df_new['WERKS1'][counter_2] ='4702'
-                df_new['STEUS'][counter_2] ='ZK01'
-                df_new['LTXA1'][counter_2] ='Производство Краски'
-                df_new['BMSCH'][counter_2] = '1000'
-                df_new['MEINH'][counter_2] ='КГ'
-                df_new['VGW01'][counter_2] =''
-                df_new['VGE01'][counter_2] =''
-                df_new['ACTTYPE_01'][counter_2] ='200160'
-                df_new['CKSELKZ'][counter_2] ='X'
-                df_new['UMREZ'][counter_2] = '1'
-                df_new['UMREN'][counter_2] = '1'
-                df_new['USR00'][counter_2] = '1'
-                df_new['USR01'][counter_2] = '60'
-                
-            counter_2 +=1
+        if 'pdm' in str(row['MATNR']).lower():
+            for i in range(1,3):
+                if i ==1:
+                    df_new['ID'][counter_2] ='1'
+                    df_new['MATNR'][counter_2] = row['MATNR']
+                    df_new['WERKS'][counter_2] ='4701'
+                    df_new['STTAG'][counter_2] ='01012023'
+                    df_new['PLNAL'][counter_2] ='1'
+                    df_new['KTEXT'][counter_2] =row['TEXT1']
+                    df_new['VERWE'][counter_2] ='1'
+                    df_new['STATU'][counter_2] ='4'
+                    df_new['LOSVN'][counter_2] ='0.001'
+                    df_new['LOSBS'][counter_2] ='99999999'
+                elif i == 2:
+                    df_new['ID'][counter_2]='2'
+                    df_new['VORNR'][counter_2] ='0010'
+                    df_new['ARBPL'][counter_2] ='4701EX01'
+                    df_new['WERKS1'][counter_2] ='4701'
+                    df_new['STEUS'][counter_2] ='ZK01'
+                    df_new['LTXA1'][counter_2] ='Упаковкаи'
+                    df_new['BMSCH'][counter_2] = '1000'
+                    df_new['MEINH'][counter_2] ='КГ'
+                    df_new['VGW01'][counter_2] =''
+                    df_new['VGE01'][counter_2] =''
+                    df_new['ACTTYPE_01'][counter_2] ='200162'
+                    df_new['CKSELKZ'][counter_2] ='X'
+                    df_new['UMREZ'][counter_2] = '1'
+                    df_new['UMREN'][counter_2] = '1'
+                    df_new['USR00'][counter_2] = '1'
+                    df_new['USR01'][counter_2] = '60'
+                    
+                counter_2 +=1
+        
+        elif 'pdc' in str(row['MATNR']).lower() or 'idn' in str(row['MATNR']).lower():
+            for i in range(1,3):
+                if i ==1:
+                    df_new['ID'][counter_2] ='1'
+                    df_new['MATNR'][counter_2] = row['MATNR']
+                    df_new['WERKS'][counter_2] ='4701'
+                    df_new['STTAG'][counter_2] ='01012023'
+                    df_new['PLNAL'][counter_2] ='1'
+                    df_new['KTEXT'][counter_2] =row['TEXT1']
+                    df_new['VERWE'][counter_2] ='1'
+                    df_new['STATU'][counter_2] ='4'
+                    df_new['LOSVN'][counter_2] ='0.001'
+                    df_new['LOSBS'][counter_2] ='99999999'
+                elif i == 2:
+                    df_new['ID'][counter_2]='2'
+                    df_new['VORNR'][counter_2] ='0010'
+                    df_new['ARBPL'][counter_2] ='4701PU01'
+                    df_new['WERKS1'][counter_2] ='4701'
+                    df_new['STEUS'][counter_2] ='ZK01'
+                    df_new['LTXA1'][counter_2] ='Упаковка'
+                    df_new['BMSCH'][counter_2] = '1000'
+                    df_new['MEINH'][counter_2] ='КГ'
+                    df_new['VGW01'][counter_2] =''
+                    df_new['VGE01'][counter_2] =''
+                    df_new['ACTTYPE_01'][counter_2] ='200003'
+                    df_new['CKSELKZ'][counter_2] ='X'
+                    df_new['UMREZ'][counter_2] = '1'
+                    df_new['UMREN'][counter_2] = '1'
+                    df_new['USR00'][counter_2] = '1'
+                    df_new['USR01'][counter_2] = '60'
+                    
+                counter_2 +=1
+        
 
-    df_new.to_excel('texcarta2.xlsx')
+    df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\epdm\\texcarta.xlsx',index=False)
 
-    df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\epdm\\norma.xlsx',index=False)
 
     return JsonResponse({'a':'b'})
 

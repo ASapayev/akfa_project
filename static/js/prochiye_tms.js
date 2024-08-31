@@ -144,6 +144,7 @@ function front_piece(start=1,end=6){
                     <option vlaue="КГ">КГ</div>
                     <option vlaue="М2">М2</div>
                     <option vlaue="М">М</div>
+                    <option vlaue="Л">Л</div>
                     <option vlaue="КМП">КМП</div>
                     <option vlaue="ПАЧ">ПАЧ</div>
                     <option vlaue="ПАРА">ПАРА</div>
