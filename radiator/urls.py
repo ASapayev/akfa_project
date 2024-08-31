@@ -38,6 +38,9 @@ urlpatterns = [
 
     path('radiator-generate-sapcode/<int:id>',views.product_add_second_org_radiator,name='radiator_add_org'),
 
+
+    path('sapcode-update',views.update_sapcode,name='update_sapcode'),
+
     
 ]
 

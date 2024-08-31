@@ -7,6 +7,7 @@ from config.settings import MEDIA_ROOT
 import pandas as pd
 from accounts.models import User
 import os 
+from django.http import JsonResponse
 import sys
 from datetime import datetime
 from django.db.models import Max
@@ -2357,6 +2358,46 @@ def lenght_generate_texcarta(request,id):
 
 
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator']) 
+def update_sapcode(request):
+    file =''
+    df = pd.read_excel(file)
+    for key,row in df.iterrows():
+        if RadiatorSapCode.objects.filter(material=row['Материал']).exists():
+            sap_code = RadiatorSapCode.objects.get(material =row['Материал'])
+            sap_code.kratkiy_tekst_materiala = row['kratkiy']
+            sap_code.save()
+
+        if 'aurora' in str(row['kratkiy']).lower():
+            if RazlovkaRadiatorAurora.objects.filter().exists():
+                razlovka = RazlovkaRadiatorAurora.objects.filter()[:1].get()
+                if '-ER' in row['Материал']:
+                    razlovka.er_kratkiy = row['kratkiy']
+                if '-PK' in row['Материал']:
+                    razlovka.pk_kratkiy = row['kratkiy']
+                if '-7' in row['Материал']:
+                    razlovka.kratkiy7 = row['kratkiy']
+                razlovka.save()
+        else:
+            if RazlovkaRadiator.objects.filter().exists():
+                razlovka = RazlovkaRadiator.objects.filter()[:1].get()
+                if '-PR' in row['Материал']:
+                    razlovka.pr_kratkiy = row['kratkiy']
+                if '-MO' in row['Материал']:
+                    razlovka.mo_kratkiy = row['kratkiy']
+                if '-PM' in row['Материал']:
+                    razlovka.pm_kratkiy = row['kratkiy']
+                if '-PK' in row['Материал']:
+                    razlovka.pk_kratkiy = row['kratkiy']
+                if '-7' in row['Материал']:
+                    razlovka.kratkiy7 = row['kratkiy']
+                razlovka.save()
+
+
+
+    return JsonResponse({'a':'b'})
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])    
