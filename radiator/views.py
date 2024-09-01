@@ -2864,7 +2864,7 @@ def product_add_second_org_radiator(request,id):
                         kratkiy7 =razlov['7 - Upakovka']
                     ).save()
     
-    df_new = df_new[df_new['SAP CODE ER'] !='']
+    # df_new = df_new[df_new['SAP CODE ER'] !='']
 
     price_all_correct = False
       

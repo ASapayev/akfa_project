@@ -60,7 +60,7 @@ def generate_norma_epdm(request,id):
     df_sapcodes = df_sapcodes.replace('nan','0')
     
     df = pd.DataFrame()
-    df['counter'] = [0 for x in range(len(df_sapcodes)*15)]
+    df['counter'] = [0 for x in range(len(df_sapcodes)*25)]
     df['ID'] = ""
     df['MATNR'] = ""
     df['WERKS'] = ""
@@ -262,12 +262,12 @@ def lenght_generate_texcarta(request,id):
                     df_new['ID'][counter_2] ='1'
                     df_new['MATNR'][counter_2] = row['MATNR']
                     df_new['WERKS'][counter_2] ='4701'
-                    df_new['STTAG'][counter_2] ='01012023'
+                    df_new['STTAG'][counter_2] ='01012024'
                     df_new['PLNAL'][counter_2] ='1'
                     df_new['KTEXT'][counter_2] =row['TEXT1']
                     df_new['VERWE'][counter_2] ='1'
                     df_new['STATU'][counter_2] ='4'
-                    df_new['LOSVN'][counter_2] ='0.001'
+                    df_new['LOSVN'][counter_2] ='1'
                     df_new['LOSBS'][counter_2] ='99999999'
                 elif i == 2:
                     df_new['ID'][counter_2]='2'
@@ -275,11 +275,11 @@ def lenght_generate_texcarta(request,id):
                     df_new['ARBPL'][counter_2] ='4701EX01'
                     df_new['WERKS1'][counter_2] ='4701'
                     df_new['STEUS'][counter_2] ='ZK01'
-                    df_new['LTXA1'][counter_2] ='Упаковкаи'
+                    df_new['LTXA1'][counter_2] ='Упаковка'
                     df_new['BMSCH'][counter_2] = '1000'
-                    df_new['MEINH'][counter_2] ='КГ'
-                    df_new['VGW01'][counter_2] =''
-                    df_new['VGE01'][counter_2] =''
+                    df_new['MEINH'][counter_2] ='ST'
+                    df_new['VGW01'][counter_2] ='24'
+                    df_new['VGE01'][counter_2] ='STD'
                     df_new['ACTTYPE_01'][counter_2] ='200162'
                     df_new['CKSELKZ'][counter_2] ='X'
                     df_new['UMREZ'][counter_2] = '1'
@@ -295,12 +295,12 @@ def lenght_generate_texcarta(request,id):
                     df_new['ID'][counter_2] ='1'
                     df_new['MATNR'][counter_2] = row['MATNR']
                     df_new['WERKS'][counter_2] ='4701'
-                    df_new['STTAG'][counter_2] ='01012023'
+                    df_new['STTAG'][counter_2] ='01012024'
                     df_new['PLNAL'][counter_2] ='1'
                     df_new['KTEXT'][counter_2] =row['TEXT1']
                     df_new['VERWE'][counter_2] ='1'
                     df_new['STATU'][counter_2] ='4'
-                    df_new['LOSVN'][counter_2] ='0.001'
+                    df_new['LOSVN'][counter_2] ='1'
                     df_new['LOSBS'][counter_2] ='99999999'
                 elif i == 2:
                     df_new['ID'][counter_2]='2'
@@ -310,9 +310,9 @@ def lenght_generate_texcarta(request,id):
                     df_new['STEUS'][counter_2] ='ZK01'
                     df_new['LTXA1'][counter_2] ='Упаковка'
                     df_new['BMSCH'][counter_2] = '1000'
-                    df_new['MEINH'][counter_2] ='КГ'
-                    df_new['VGW01'][counter_2] =''
-                    df_new['VGE01'][counter_2] =''
+                    df_new['MEINH'][counter_2] ='ST'
+                    df_new['VGW01'][counter_2] ='24'
+                    df_new['VGE01'][counter_2] ='STD'
                     df_new['ACTTYPE_01'][counter_2] ='200003'
                     df_new['CKSELKZ'][counter_2] ='X'
                     df_new['UMREZ'][counter_2] = '1'

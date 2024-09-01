@@ -55,7 +55,7 @@ def generate_norma_7(request,id):
     df_sapcodes = pd.read_excel(file)
     
     df = pd.DataFrame()
-    df['counter'] = [0 for x in range(len(df_sapcodes)*15)]
+    df['counter'] = [0 for x in range(len(df_sapcodes)*25)]
     df['ID'] = ""
     df['MATNR'] = ""
     df['WERKS'] = ""
@@ -164,7 +164,7 @@ def generate_norma_75(request,id):
         }
     
     df = pd.DataFrame()
-    df['counter'] = [0 for x in range(len(df_sapcodes)*10)]
+    df['counter'] = [0 for x in range(len(df_sapcodes)*20)]
     df['ID'] = ""
     df['MATNR'] = ""
     df['WERKS'] = ""
