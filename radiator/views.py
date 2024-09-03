@@ -1409,16 +1409,16 @@ def kombinirovaniy_process(request,id):
         
                     if seksiya =='03':
                         matrn_ ='Воз.пузырчатая 3-х сл.пол.пленка 90см'
-                        sapcode_='1000004495'
+                        sapcode_='1900012700'
                     elif seksiya =='04':
                         matrn_ ='Воз.пузырчатая 3-х сл.пол.пленка 90см'
-                        sapcode_='1000004495'
+                        sapcode_='1900012700'
                     if seksiya =='05':
                         matrn_ ='Воз.пузырчатая 2-х сл.пол.пленка 125см'
-                        sapcode_='1000004494'
+                        sapcode_='1900012669'
                     elif seksiya =='06':
                         matrn_ ='Воз.пузырчатая 2-х сл.пол.пленка 125см'
-                        sapcode_='1000004494'
+                        sapcode_='1900012669'
                     
 
 
