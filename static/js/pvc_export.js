@@ -476,13 +476,25 @@ function request_piece(start=1,end=6){
             is_special.text(e.params.data.is_special)
             
 
+            var select_nak = $('.kod_nakleyki'+String(i))
+            var hasOption_snar = select_nak.find('option').length > 0;
+
             if(e.params.data.nakleyka_nt1 =='1'){
+                if(hasOption_snar){
+                    set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='NT1',add=false)
+                }else{
+                    set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='NT1',add=true)
+                }
                 nakleyka_nt1.text('1')
-                set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='NT1')
+
                 nadpis_nakleyki.text('Без наклейки')
             }else{
+                if(hasOption_snar){
+                    set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='',add=false)
+                }else{
+                    set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='',add=true)
+                }
                 nakleyka_nt1.text('')
-                set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='')
                 nadpis_nakleyki.text('')
             }
         

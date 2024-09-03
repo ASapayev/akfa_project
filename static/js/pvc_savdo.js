@@ -883,13 +883,25 @@ function request_piece(start=1,end=6){
             camera.text(e.params.data.camera)
             kod_komponent.text(e.params.data.kod_k_component)
 
+            var select_nak = $('.kod_nakleyki'+String(i))
+            var hasOption_snar = select_nak.find('option').length > 0;
+
             if(e.params.data.nakleyka_nt1 =='1'){
+                if(hasOption_snar){
+                    set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='NT1',add=false)
+                }else{
+                    set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='NT1',add=true)
+                }
                 nakleyka_nt1.text('1')
-                set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='NT1')
+
                 nadpis_nakleyki.text('Без наклейки')
             }else{
+                if(hasOption_snar){
+                    set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='',add=false)
+                }else{
+                    set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='',add=true)
+                }
                 nakleyka_nt1.text('')
-                set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='')
                 nadpis_nakleyki.text('')
             }
             
@@ -1414,8 +1426,9 @@ function artukil_clear(id){
     var kod_svet_zames = $('#kod_svet_zames'+String(id));
     var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
     var svet_rezini = $('#svet_rezin'+String(id));
-    var nakleyka_select = $('.kod_nakleyki'+String(id))
-    nakleyka_select.val(null).trigger('change');
+
+    set_nakleyka(nakleyka_list,'.kod_nakleyki'+id,value='',add=false)
+
     var nakleyka_select_org = document.getElementById('nakleyka_select'+String(id))
     nakleyka_select_org.style.display='none';
 
