@@ -2091,7 +2091,7 @@ def lenght_generate_texcarta(request,id):
 
 
 
-    print(df_new,'newwwwww')
+    # print(df_new,'newwwwww')
     df_new=df_new.replace('nan','')
 
     
@@ -2268,15 +2268,15 @@ def product_add_second_org_radiator(request,id):
     
     
     for key,row in df.iterrows():  
-        df_new['PR - Press'][key] = 'PR-'+df['Модель'][key]
-        df_new['MO - Mex obrabotka'][key] = 'MO-'+df['Модель'][key]
-        df_new['PM - Puma'][key] = 'PM-'+df['Модель'][key]
-        df_new['PK - Pokraska'][key] = 'PK-'+df['Модель'][key]+' ' +df['Цвет'][key]
+        df_new['PR - Press'][key] = 'PR-'+str(df['Модель'][key]).capitalize()
+        df_new['MO - Mex obrabotka'][key] = 'MO-'+str(df['Модель'][key]).capitalize()
+        df_new['PM - Puma'][key] = 'PM-'+str(df['Модель'][key]).capitalize()
+        df_new['PK - Pokraska'][key] = 'PK-'+str(df['Модель'][key]).capitalize()+' ' +df['Цвет'][key]
         df_new['7 - Upakovka'][key] = df['Краткий текст'][key]
 
-        df_new_aurora['ER - Extrusion'][key] = 'ER-'+df['Модель'][key]
-        df_new_aurora['PK - Pokraska'][key] = 'PK-'+df['Модель'][key]+' ' +df['Цвет'][key]
-        df_new_aurora['7 - Upakovka'][key] = df['Краткий текст'][key]
+        df_new_aurora['ER - Extrusion'][key] = 'ER-'+str(df['Модель'][key]).capitalize()
+        df_new_aurora['PK - Pokraska'][key] = 'PK-'+str(df['Модель'][key]).capitalize()+' ' +df['Цвет'][key]
+        df_new_aurora['7 - Upakovka'][key] = str(df['Краткий текст'][key]).upper().replace('AURORA','Aurora')
         
         
         if ((row['Название'] == 'nan') or (row['Название'] == '')):
