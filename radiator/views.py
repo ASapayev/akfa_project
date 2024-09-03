@@ -1282,10 +1282,10 @@ def kombinirovaniy_process(request,id):
 
 
     for i in range(0,len(df_aurora)):
-        # print(i)
+        print(i)
         
         artikul = df_aurora[i][4].split('-')[0]
-        print(artikul,'norma')
+        # print(artikul,'norma')
 
         party = str(df_aurora[i][0]).split('-')[0].split('.')[2]
 
@@ -1366,7 +1366,7 @@ def kombinirovaniy_process(request,id):
                 df_new_aurora['BMENG'].append('')
                 df_new_aurora['BMEIN'].append('')
                 df_new_aurora['STLST'].append('')
-                df_new_aurora['POSNR'].append('1')
+                df_new_aurora['POSNR'].append('2')
                 df_new_aurora['POSTP'].append('L')
                 df_new_aurora['MATNR1'].append(korobka.data['MATNR'])
                 df_new_aurora['TEXT2'].append(korobka.data['MAKTX'])
@@ -1390,7 +1390,7 @@ def kombinirovaniy_process(request,id):
                 df_new_aurora['BMENG'].append('')
                 df_new_aurora['BMEIN'].append('')
                 df_new_aurora['STLST'].append('')
-                df_new_aurora['POSNR'].append('2')
+                df_new_aurora['POSNR'].append('3')
                 df_new_aurora['POSTP'].append('L')
                 
                 
