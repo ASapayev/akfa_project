@@ -624,32 +624,41 @@ def kombinirovaniy_process(request,id):
             self.sap_code = sap_code
 
     does_not_exist_norm =[]
+    checking =[]
     k = -1
     
     for i in range(0,len(df)):
         if df[i][8] != '':
             artikul = df[i][8].split('-')[0]
             if not Norma.objects.filter(data__Артикул__icontains = artikul).exists():
-                does_not_exist_norm.append(Xatolar(section='Норма расход',xato='bazada yo\'q',sap_code=df[i][8]))
-                continue
+                if df[i][8] not in checking:
+                    does_not_exist_norm.append(Xatolar(section='Норма расход',xato='bazada yo\'q',sap_code=df[i][8]))
+                    checking.append(df[i][8])
+                    continue
         if df[i][6] != '':
             kraska = df[i][7].split(' ')[-1]
             if not Kraska.objects.filter(data__CODE__icontains =kraska).exists():
-                does_not_exist_norm.append(Xatolar(section='Краска',xato='bazada yo\'q',sap_code=kraska))
-                continue
+                if kraska not in checking:
+                    checking.append(kraska)
+                    does_not_exist_norm.append(Xatolar(section='Краска',xato='bazada yo\'q',sap_code=kraska))
+                    continue
     for i in range(0,len(df_aurora)):
         if df_aurora[i][3] != '':
             pokraska_code = str(df_aurora[i][3]).split(' ')[-1]
             if not Kraska.objects.filter(data__CODE__icontains=pokraska_code).exists():
-                does_not_exist_norm.append(Xatolar(section='Краска',xato='bazada yo\'q',sap_code=pokraska_code))
-                continue
+                if pokraska_code not in checking:
+                    checking.append(pokraska_code)
+                    does_not_exist_norm.append(Xatolar(section='Краска',xato='bazada yo\'q',sap_code=pokraska_code))
+                    continue
         if df_aurora[i][5] != '':
             krat = df_aurora[i][5].split('-')
             seria = krat[0]
             korobka_type = krat[1].split(' ')[-1]
             if not Korobka.objects.filter(data__KOROBKA__icontains=seria,data__TYPE__icontains =korobka_type).exists():
-                does_not_exist_norm.append(Xatolar(section='Коробка',xato='bazada yo\'q',sap_code=seria +' '+korobka_type))
-                continue
+                if seria +' '+korobka_type not in checking:
+                    checking.append(seria +' '+korobka_type)
+                    does_not_exist_norm.append(Xatolar(section='Коробка',xato='bazada yo\'q',sap_code=seria +' '+korobka_type))
+                    continue
      
     
     if len(does_not_exist_norm) > 0: 
@@ -2723,9 +2732,9 @@ def get_razlovka_radiator(request):
         if ozmk:
             ozmks =ozmk.split()
             path,df = get_ozmka(ozmks)
-            res = download_bs64(df,'RAZLOVKA')
-            if request.user.role =='radiator':
-                return res
+            # res = download_bs64(df,'RAZLOVKA')
+            # if request.user.role =='radiator':
+            #     return res
             files = [FileRazlovki(file=p) for p in path]
             context ={
                 'files':files,
