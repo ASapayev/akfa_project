@@ -1648,7 +1648,9 @@ def lenght_generate_texcarta(request,id):
             elif '-PM' in row['МАТЕРИАЛ']:
                 counter +=2
             elif '-PK' in row['МАТЕРИАЛ']:
-                counter +=2
+                counter +=4
+            elif '-ER' in row['МАТЕРИАЛ']:
+                counter +=4
             elif '-7' in row['МАТЕРИАЛ']:
                 counter +=2
        
