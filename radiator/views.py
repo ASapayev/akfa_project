@@ -1638,7 +1638,7 @@ def lenght_generate_texcarta(request,id):
 
     print(df,'+' * 50)
 
-    counter = 0
+    counter = 500
     for key,row in df.iterrows():
         if not TexcartaBase.objects.filter(material = row['МАТЕРИАЛ']).exists():
             print(row['МАТЕРИАЛ'])
