@@ -1641,6 +1641,7 @@ def lenght_generate_texcarta(request,id):
     counter = 0
     for key,row in df.iterrows():
         if not TexcartaBase.objects.filter(material = row['МАТЕРИАЛ']).exists():
+            print(row['МАТЕРИАЛ'])
             if '-PR' in row['МАТЕРИАЛ']:
                 counter +=2
             elif '-MO' in row['МАТЕРИАЛ']:
@@ -1654,7 +1655,7 @@ def lenght_generate_texcarta(request,id):
             elif '-7' in row['МАТЕРИАЛ']:
                 counter +=2
        
-
+    print(counter)
     df_new = pd.DataFrame()
     df_new['counter'] =[ '' for i in range(0,counter)]
     df_new['ID']=''
