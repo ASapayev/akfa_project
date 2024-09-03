@@ -564,7 +564,7 @@ function front_piece(start=1,end=6){
          <td  style='width:100px'>
             <div class="input-group input-group-sm mb-1" style='width:100%'>
                 
-                    <span class ='text-center ' style="width:100px;font-size:12px;  text-transform: uppercase;padding:5px;z-index:0" id='nadpis_nakleyki`+String(i)+`'></span>
+                    <span class ='text-center ' style="width:100px;font-size:12px;  text-transform: uppercase;padding:5px;z-index:0;whitespace:nowrap;" id='nadpis_nakleyki`+String(i)+`'></span>
                 
             </div>
         </td>
