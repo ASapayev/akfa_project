@@ -30,12 +30,14 @@ class BasePokritiya{
         klyuch_banka=NaN,
         bank_schot=NaN,
         valyuta_zakaz=NaN,
+
         usloviya_plateja=NaN,
         sbitovoy_organ=NaN,
         kanal_sbita=NaN,
         sektor=NaN,
         rayon_sbita=NaN,
         gruppa_sena=NaN,
+
         sxema_kliyenta=NaN,
         gruppa_kliyent=NaN,
         usloviya_otgruz=NaN,
@@ -97,9 +99,28 @@ class BasePokritiya{
             switch(this.id){
                 case 1:
             
-                        if (this.balance_ed && this.rol_bp&& this.group_del_partner&&this.imya_org&&this.gorod&&this.kod_stran&&this.inn&&this.kod_stran_bank&&this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz){
-        
-                            return {'text':'','accept':true}
+                        if (this.balance_ed && this.rol_bp&& this.group_del_partner&&this.imya_org&&this.gorod){
+                            
+                            if(this.rol_bp =='Клиент' || this.rol_bp =='Поставщик и Клиент'){
+                                if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz&&this.usloviya_plateja&&this.sbitovoy_organ&&this.kanal_sbita&&this.sektor&&this.rayon_sbita&&this.gruppa_sena&&this.sxema_kliyenta&&this.gruppa_kliyent&&this.usloviya_otgruz&&this.sbit_debitora&&this.sbit_nalog){
+                                    return {'text':'','accept':true}
+                                }else{
+                                    return {'text':'','accept':false}
+                                }
+
+                            }else if(this.rol_bp == 'Поставщик'){
+                                if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz){
+                                    return {'text':'','accept':true}
+                                }else{
+                                    return {'text':'','accept':false}
+                                }
+
+                            }else{
+                                return {'text':'','accept':false}
+                            }
+
+
+
                         }else{
                             return {'text':'','accept':false}
                         }
@@ -180,7 +201,7 @@ function front_piece(start=1,end=6){
                 <option  selected></option>
                 <option value="Клиент">Клиент</option>
                 <option value="Поставщик">Поставщик</option>
-                <option value="и Поставщик и Клиент">и Поставщик и Клиент</option>
+                <option value="Поставщик и Клиент">Поставщик и Клиент</option>
             </select>
             </div>
         </td>
@@ -567,46 +588,6 @@ function select_condition(id){
     var kontrol_debitora =$('#kontrol_debitora'+id)
    
 
-    balance_ed.val('')
-    rol_bp.val('')
-    group_del_partner.val('')
-    nomer_del_partner.val('')
-    imya_org.val('')
-    imya.val('')
-    familiya.val('')
-    ulitsa.val('')
-    nomer_doma.val('')
-    pochta_index.val('')
-    gorod.val('')
-    kod_stran.val('')
-    region.val('')
-    rayon.val('')
-    nomer_tel.val('')
-    nomer_mob.val('')
-    inn.val('')
-    ndc.val('')
-    nalog.val('')
-    oked.val('')
-    okpo.val('')
-    coogu.val('')
-    coato.val('')
-    kod_stran_bank.val('')
-    klyuch_banka.val('')
-    bank_schot.val('')
-    valyuta_zakaz.val('')
-    usloviya_plateja.val('')
-    sbitovoy_organ.val('')
-    kanal_sbita.val('')
-    sektor.val('')
-    rayon_sbita.val('')
-    gruppa_sena.val('')
-    sxema_kliyenta.val('')
-    gruppa_kliyent.val('')
-    usloviya_otgruz.val('')
-    sbit_debitora.val('')
-    sbit_nalog.val('')
-    kontrol_schot.val('')
-    kontrol_debitora.val('')
 
 
     balance_ed.css('display','block')
@@ -636,17 +617,6 @@ function select_condition(id){
     klyuch_banka.css('display','block')
     bank_schot.css('display','block')
     valyuta_zakaz.css('display','block')
-    usloviya_plateja.css('display','block')
-    sbitovoy_organ.css('display','block')
-    kanal_sbita.css('display','block')
-    sektor.css('display','block')
-    rayon_sbita.css('display','block')
-    gruppa_sena.css('display','block')
-    sxema_kliyenta.css('display','block')
-    gruppa_kliyent.css('display','block')
-    usloviya_otgruz.css('display','block')
-    sbit_debitora.css('display','block')
-    sbit_nalog.css('display','block')
     kontrol_schot.css('display','block')
     kontrol_debitora.css('display','block')
 
@@ -693,26 +663,108 @@ function select_condition(id){
    
 
     if(vid_zayavki =='Создание'){
-        balance_ed.css('border-color','red')
-        rol_bp.css('border-color','red')
-        group_del_partner.css('border-color','red')
-        imya_org.css('border-color','red')
-        gorod.css('border-color','red')
-        kod_stran.css('border-color','red')
-        inn.css('border-color','red')
-        kod_stran_bank.css('border-color','red')
-        klyuch_banka.css('border-color','red')
-        bank_schot.css('border-color','red')
-        valyuta_zakaz.css('border-color','red')
+        if(balance_ed.val()!=''){
+            balance_ed.css('border-color','#dedad9')
+        }else{
+            balance_ed.css('border-color','red')
+        }
+        if(rol_bp.val()!=''){
+            rol_bp.css('border-color','#dedad9')
+        }else{
+            rol_bp.css('border-color','red')
+        }
+        if(group_del_partner.val()!=''){
+            group_del_partner.css('border-color','#dedad9')
+        }else{
+            group_del_partner.css('border-color','red')
+        }
+        if(imya_org.val()!=''){
+            imya_org.css('border-color','#dedad9')
+        }else{
+            imya_org.css('border-color','red')
+        }
+        if(gorod.val()!=''){
+            gorod.css('border-color','#dedad9')
+        }else{
+            gorod.css('border-color','red')
+        }
+        if(kod_stran.val()!=''){
+            kod_stran.css('border-color','#dedad9')
+        }else{
+            kod_stran.css('border-color','red')
+        }
+        if(inn.val()!=''){
+            inn.css('border-color','#dedad9')
+        }else{
+            inn.css('border-color','red')
+        }
+        if(kod_stran_bank.val()!=''){
+            kod_stran_bank.css('border-color','#dedad9')
+        }else{
+            kod_stran_bank.css('border-color','red')
+        }
+        if(klyuch_banka.val()!=''){
+            klyuch_banka.css('border-color','#dedad9')
+        }else{
+            klyuch_banka.css('border-color','red')
+        }
+        if(bank_schot.val()!=''){
+            bank_schot.css('border-color','#dedad9')
+        }else{
+            bank_schot.css('border-color','red')
+        }
+        if(valyuta_zakaz.val()!=''){
+            valyuta_zakaz.css('border-color','#dedad9')
+        }else{
+            valyuta_zakaz.css('border-color','red')
+        }
+
+        if(rol_bp.val() == 'Клиент' || rol_bp.val() == 'Поставщик и Клиент'){
+            usloviya_plateja.css('border-color','red')
+            sbitovoy_organ.css('border-color','red')
+            kanal_sbita.css('border-color','red')
+            sektor.css('border-color','red')
+            rayon_sbita.css('border-color','red')
+            gruppa_sena.css('border-color','red')
+            sxema_kliyenta.css('border-color','red')
+            gruppa_kliyent.css('border-color','red!important')
+            usloviya_otgruz.css('border-color','red')
+            sbit_debitora.css('border-color','red')
+            sbit_nalog.css('border-color','red')
+        }
 
         data_base[id] = new BasePokritiya()
         data_base[id].id =1
         data_base[id].vid_zayavki ='Создание'
     }
     if(vid_zayavki =='Изменения'){
-        balance_ed.css('border-color','red')
-        nomer_del_partner.css('border-color','red')
-        imya_org.css('border-color','red')
+        usloviya_plateja.css('display','block')
+        sbitovoy_organ.css('display','block')
+        kanal_sbita.css('display','block')
+        sektor.css('display','block')
+        rayon_sbita.css('display','block')
+        gruppa_sena.css('display','block')
+        sxema_kliyenta.css('display','block')
+        gruppa_kliyent.css('display','block')
+        usloviya_otgruz.css('display','block')
+        sbit_debitora.css('display','block')
+        sbit_nalog.css('display','block')
+
+        if(balance_ed.val()!=''){
+            balance_ed.css('border-color','#dedad9')
+        }else{
+            balance_ed.css('border-color','red')
+        }
+        if(nomer_del_partner.val()!=''){
+            nomer_del_partner.css('border-color','#dedad9')
+        }else{
+            nomer_del_partner.css('border-color','red')
+        }
+        if(imya_org.val()!=''){
+            imya_org.css('border-color','#dedad9')
+        }else{
+            imya_org.css('border-color','red')
+        }
 
 
         data_base[id] = new BasePokritiya()
@@ -720,11 +772,42 @@ function select_condition(id){
         data_base[id].vid_zayavki ='Изменения'
     }
     if(vid_zayavki =='Расширение'){
-        balance_ed.css('border-color','red')
-        rol_bp.css('border-color','red')
-        group_del_partner.css('border-color','red')
-        nomer_del_partner.css('border-color','red')
-        imya_org.css('border-color','red')
+        usloviya_plateja.css('display','block')
+        sbitovoy_organ.css('display','block')
+        kanal_sbita.css('display','block')
+        sektor.css('display','block')
+        rayon_sbita.css('display','block')
+        gruppa_sena.css('display','block')
+        sxema_kliyenta.css('display','block')
+        gruppa_kliyent.css('display','block')
+        usloviya_otgruz.css('display','block')
+        sbit_debitora.css('display','block')
+        sbit_nalog.css('display','block')
+        if(balance_ed.val()!=''){
+            balance_ed.css('border-color','#dedad9')
+        }else{
+            balance_ed.css('border-color','red')
+        }
+        if(rol_bp.val()!=''){
+            rol_bp.css('border-color','#dedad9')
+        }else{
+            rol_bp.css('border-color','red')
+        }
+        if(group_del_partner.val()!=''){
+            group_del_partner.css('border-color','#dedad9')
+        }else{
+            group_del_partner.css('border-color','red')
+        }
+        if(nomer_del_partner.val()!=''){
+            nomer_del_partner.css('border-color','#dedad9')
+        }else{
+            nomer_del_partner.css('border-color','red')
+        }
+        if(imya_org.val()!=''){
+            imya_org.css('border-color','#dedad9')
+        }else{
+            imya_org.css('border-color','red')
+        }
 
         data_base[id] = new BasePokritiya()
         data_base[id].id =3
@@ -832,17 +915,7 @@ function copy_tr(id){
 
         
       
-        check_input_and_change(usloviya_plateja,'#usloviya_plateja'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(sbitovoy_organ,'#sbitovoy_organ'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(kanal_sbita,'#kanal_sbita'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(sektor,'#sektor'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(rayon_sbita,'#rayon_sbita'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(gruppa_sena,'#gruppa_sena'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(sxema_kliyenta,'#sxema_kliyenta'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(gruppa_kliyent,'#gruppa_kliyent'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(usloviya_otgruz,'#usloviya_otgruz'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(sbit_debitora,'#sbit_debitora'+s,dis=false,is_req=false,is_req_simple=true)
-        check_input_and_change(sbit_nalog,'#sbit_nalog'+s,dis=false,is_req=false,is_req_simple=true)
+        
         check_input_and_change(kontrol_schot,'#kontrol_schot'+s,dis=false,is_req=false,is_req_simple=true)
         check_input_and_change(kontrol_debitora,'#kontrol_debitora'+s,dis=false,is_req=false,is_req_simple=true)
        
@@ -859,7 +932,33 @@ function copy_tr(id){
             check_input_and_change(klyuch_banka,'#klyuch_banka'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(bank_schot,'#bank_schot'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(valyuta_zakaz,'#valyuta_zakaz'+s,dis=false,is_req=true,is_req_simple=false)
-        
+            
+            if(rol_bp == 'Клиент' || rol_bp == 'Поставщик и Клиент'){
+                check_input_and_change(usloviya_plateja,'#usloviya_plateja'+s,dis=false,is_req=true,is_req_simple=false)
+                check_input_and_change(sbitovoy_organ,'#sbitovoy_organ'+s,dis=false,is_req=true,is_req_simple=false)
+                check_input_and_change(kanal_sbita,'#kanal_sbita'+s,dis=false,is_req=true,is_req_simple=false)
+                check_input_and_change(sektor,'#sektor'+s,dis=false,is_req=true,is_req_simple=false)
+                check_input_and_change(rayon_sbita,'#rayon_sbita'+s,dis=false,is_req=true,is_req_simple=false)
+                check_input_and_change(gruppa_sena,'#gruppa_sena'+s,dis=false,is_req=true,is_req_simple=false)
+                check_input_and_change(sxema_kliyenta,'#sxema_kliyenta'+s,dis=false,is_req=true,is_req_simple=false)
+                check_input_and_change(gruppa_kliyent,'#gruppa_kliyent'+s,dis=false,is_req=true,is_req_simple=false)
+                check_input_and_change(usloviya_otgruz,'#usloviya_otgruz'+s,dis=false,is_req=true,is_req_simple=false)
+                check_input_and_change(sbit_debitora,'#sbit_debitora'+s,dis=false,is_req=true,is_req_simple=false)
+                check_input_and_change(sbit_nalog,'#sbit_nalog'+s,dis=false,is_req=true,is_req_simple=false)
+            }else{
+                
+                check_input_and_change(usloviya_plateja,'#usloviya_plateja'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(sbitovoy_organ,'#sbitovoy_organ'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(kanal_sbita,'#kanal_sbita'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(sektor,'#sektor'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(rayon_sbita,'#rayon_sbita'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(gruppa_sena,'#gruppa_sena'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(sxema_kliyenta,'#sxema_kliyenta'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(gruppa_kliyent,'#gruppa_kliyent'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(usloviya_otgruz,'#usloviya_otgruz'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(sbit_debitora,'#sbit_debitora'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(sbit_nalog,'#sbit_nalog'+s,dis=false,is_req=false,is_req_simple=true)
+            }
         
         }
         if(vid_zayavki =='Изменения'){
@@ -873,6 +972,17 @@ function copy_tr(id){
             check_input_and_change(klyuch_banka,'#klyuch_banka'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(bank_schot,'#bank_schot'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(valyuta_zakaz,'#valyuta_zakaz'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(usloviya_plateja,'#usloviya_plateja'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sbitovoy_organ,'#sbitovoy_organ'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(kanal_sbita,'#kanal_sbita'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sektor,'#sektor'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(rayon_sbita,'#rayon_sbita'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(gruppa_sena,'#gruppa_sena'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sxema_kliyenta,'#sxema_kliyenta'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(gruppa_kliyent,'#gruppa_kliyent'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(usloviya_otgruz,'#usloviya_otgruz'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sbit_debitora,'#sbit_debitora'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sbit_nalog,'#sbit_nalog'+s,dis=false,is_req=false,is_req_simple=true)
         
         
         }
@@ -887,8 +997,17 @@ function copy_tr(id){
             check_input_and_change(klyuch_banka,'#klyuch_banka'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(bank_schot,'#bank_schot'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(valyuta_zakaz,'#valyuta_zakaz'+s,dis=false,is_req=false,is_req_simple=true)
-        
-        
+            check_input_and_change(usloviya_plateja,'#usloviya_plateja'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sbitovoy_organ,'#sbitovoy_organ'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(kanal_sbita,'#kanal_sbita'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sektor,'#sektor'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(rayon_sbita,'#rayon_sbita'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(gruppa_sena,'#gruppa_sena'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sxema_kliyenta,'#sxema_kliyenta'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(gruppa_kliyent,'#gruppa_kliyent'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(usloviya_otgruz,'#usloviya_otgruz'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sbit_debitora,'#sbit_debitora'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sbit_nalog,'#sbit_nalog'+s,dis=false,is_req=false,is_req_simple=true)
         }
         
 
@@ -1389,9 +1508,106 @@ function create_kratkiy_tekst(id){
             }else{
                 valyuta_zakaz.css('border-color','red')
             }
+
+            if(rol_bp.val() == 'Клиент' || rol_bp.val() == 'Поставщик и Клиент'){
+                usloviya_plateja.css('display','block')
+                sbitovoy_organ.css('display','block')
+                kanal_sbita.css('display','block')
+                sektor.css('display','block')
+                rayon_sbita.css('display','block')
+                gruppa_sena.css('display','block')
+                sxema_kliyenta.css('display','block')
+                gruppa_kliyent.css('display','block')
+                usloviya_otgruz.css('display','block')
+                sbit_debitora.css('display','block')
+                sbit_nalog.css('display','block')
+                if(sbit_nalog.val()!=''){
+                    sbit_nalog.css('border-color','#dedad9')
+                }else{
+                    sbit_nalog.css('border-color','red')
+                }
+                if(sbit_debitora.val()!=''){
+                    sbit_debitora.css('border-color','#dedad9')
+                }else{
+                    sbit_debitora.css('border-color','red')
+                }
+                if(usloviya_otgruz.val()!=''){
+                    usloviya_otgruz.css('border-color','#dedad9')
+                }else{
+                    usloviya_otgruz.css('border-color','red')
+                }
+                if(gruppa_kliyent.val()!=''){
+                    gruppa_kliyent.css('border-color','#dedad9')
+                }else{
+                    gruppa_kliyent.css('border-color','red!important')
+                }
+                if(sxema_kliyenta.val()!=''){
+                    sxema_kliyenta.css('border-color','#dedad9')
+                }else{
+                    sxema_kliyenta.css('border-color','red')
+                }
+                if(gruppa_sena.val()!=''){
+                    gruppa_sena.css('border-color','#dedad9')
+                }else{
+                    gruppa_sena.css('border-color','red')
+                }
+                if(rayon_sbita.val()!=''){
+                    rayon_sbita.css('border-color','#dedad9')
+                }else{
+                    rayon_sbita.css('border-color','red')
+                }
+                if(sektor.val()!=''){
+                    sektor.css('border-color','#dedad9')
+                }else{
+                    sektor.css('border-color','red')
+                }
+                if(usloviya_plateja.val()!=''){
+                    usloviya_plateja.css('border-color','#dedad9')
+                }else{
+                    usloviya_plateja.css('border-color','red')
+                }
+                if(sbitovoy_organ.val()!=''){
+                    sbitovoy_organ.css('border-color','#dedad9')
+                }else{
+                    sbitovoy_organ.css('border-color','red')
+                }
+                if(kanal_sbita.val()!=''){
+                    kanal_sbita.css('border-color','#dedad9')
+                }else{
+                    kanal_sbita.css('border-color','red')
+                }
+            }else if(rol_bp.val() == 'Поставщик'){
+                usloviya_plateja.css('display','block')
+                sbitovoy_organ.css('display','block')
+                kanal_sbita.css('display','block')
+                sektor.css('display','block')
+                rayon_sbita.css('display','block')
+                gruppa_sena.css('display','block')
+                sxema_kliyenta.css('display','block')
+                gruppa_kliyent.css('display','block')
+                usloviya_otgruz.css('display','block')
+                sbit_debitora.css('display','block')
+                sbit_nalog.css('display','block')
+                
+                sbit_nalog.css('border-color','#dedad9')
+                sbit_debitora.css('border-color','#dedad9')
+                usloviya_otgruz.css('border-color','#dedad9')
+                gruppa_kliyent.css('border-color','#dedad9')
+                sxema_kliyenta.css('border-color','#dedad9')
+                gruppa_sena.css('border-color','#dedad9')
+                rayon_sbita.css('border-color','#dedad9')
+                sektor.css('border-color','#dedad9')
+                usloviya_plateja.css('border-color','#dedad9')
+                sbitovoy_organ.css('border-color','#dedad9')
+                kanal_sbita.css('border-color','#dedad9')
+                
+                
+            }
+
            
         }
         if(vid_zayavki =='Изменения'){
+            
             if(balance_ed.val()!=''){
                 balance_ed.css('border-color','#dedad9')
             }else{
@@ -1409,6 +1625,7 @@ function create_kratkiy_tekst(id){
             }
         }
         if(vid_zayavki =='Расширение'){
+            
             if(balance_ed.val()!=''){
                 balance_ed.css('border-color','#dedad9')
             }else{
