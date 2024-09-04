@@ -41,6 +41,11 @@ urlpatterns = [
 
 
 
+    ########### bussines partner #############
+    path('bussines-partner-detail',views.bussines_partner,name='bussines_partner'),
+
+
+
 
 
     ################## APIS ################

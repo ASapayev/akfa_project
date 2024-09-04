@@ -124,7 +124,7 @@ class OrderSaveView(APIView):
         response = json.loads(data)
         artikules = []
         for key,val in response.items():
-            if 'acs' not in order_type and 'akp' not in order_type and 'prochiye' not in order_type and 'change' not in order_type:
+            if 'acs' not in order_type and 'akp' not in order_type and 'prochiye' not in order_type and 'change' not in order_type and 'bussines' not in order_type:
                 artikules.append(val['base_artikul'])
             if 'segment' in val:
                 if val['segment'] =='no' and 'alu_savdo' == order_type:
@@ -548,6 +548,8 @@ def moderator_convert(request,id):
         order.save()
         return redirect('order_detail_prochiye',id=order.id)
 
+    else:
+        return JsonResponse({'msg':'This action does not exist yet.'})
 
 def json_to_excel_prochiye(datas):
     df_prochiye  = pd.DataFrame()
@@ -1900,6 +1902,12 @@ def shablon_prochiye_detail(request):
 @customer_only
 def shablon_change_data_detail(request):
     return render(request,'client/shablonlar/change_data.html')
+
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def bussines_partner(request):
+    return render(request,'client/shablonlar/bussines_partner.html')
 
 @login_required(login_url='/accounts/login/')
 @customer_only
