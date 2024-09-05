@@ -39,7 +39,7 @@ class BasePokritiya{
         gruppa_sena=NaN,
 
         sxema_kliyenta=NaN,
-        gruppa_kliyent=NaN,
+        status_gruppa_kliyent=NaN,
         usloviya_otgruz=NaN,
         sbit_debitora=NaN,
         sbit_nalog=NaN,
@@ -86,7 +86,7 @@ class BasePokritiya{
         this.rayon_sbita = rayon_sbita
         this.gruppa_sena = gruppa_sena
         this.sxema_kliyenta = sxema_kliyenta
-        this.gruppa_kliyent = gruppa_kliyent
+        this.status_gruppa_kliyent = status_gruppa_kliyent
         this.usloviya_otgruz = usloviya_otgruz
         this.sbit_debitora = sbit_debitora
         this.sbit_nalog = sbit_nalog
@@ -102,7 +102,7 @@ class BasePokritiya{
                         if (this.balance_ed && this.rol_bp&& this.group_del_partner&&this.imya_org&&this.gorod){
                             
                             if(this.rol_bp =='Клиент' || this.rol_bp =='Поставщик и Клиент'){
-                                if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz&&this.usloviya_plateja&&this.sbitovoy_organ&&this.kanal_sbita&&this.sektor&&this.rayon_sbita&&this.gruppa_sena&&this.sxema_kliyenta&&this.gruppa_kliyent&&this.usloviya_otgruz&&this.sbit_debitora&&this.sbit_nalog){
+                                if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz&&this.usloviya_plateja&&this.sbitovoy_organ&&this.kanal_sbita&&this.sektor&&this.rayon_sbita&&this.gruppa_sena&&this.sxema_kliyenta&&this.status_gruppa_kliyent&&this.usloviya_otgruz&&this.sbit_debitora&&this.sbit_nalog){
                                     return {'text':'','accept':true}
                                 }else{
                                     return {'text':'','accept':false}
@@ -463,9 +463,8 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 130px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='gruppa_kliyent`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-                <option  selected disabled></option>
-                <option value=""></option>
+            <select class="form-select" aria-label="" style="width: 130px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='status_gruppa_kliyent`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected value=""></option>
                 <option value="+'  маскирован.">+'  маскирован.</option>
                 <option value="1 - A-материал">1 - A-материал</option>
                 <option value="2 - Группа 2">2 - Группа 2</option>
@@ -580,7 +579,7 @@ function select_condition(id){
     var rayon_sbita =$('#rayon_sbita'+id)
     var gruppa_sena =$('#gruppa_sena'+id)
     var sxema_kliyenta =$('#sxema_kliyenta'+id)
-    var gruppa_kliyent =$('#gruppa_kliyent'+id)
+    var status_gruppa_kliyent =$('#status_gruppa_kliyent'+id)
     var usloviya_otgruz =$('#usloviya_otgruz'+id)
     var sbit_debitora =$('#sbit_debitora'+id)
     var sbit_nalog =$('#sbit_nalog'+id)
@@ -654,7 +653,7 @@ function select_condition(id){
     rayon_sbita.css('border-color','#dedad9')
     gruppa_sena.css('border-color','#dedad9')
     sxema_kliyenta.css('border-color','#dedad9')
-    gruppa_kliyent.css('border-color','#dedad9')
+    status_gruppa_kliyent.css('border-color','#dedad9')
     usloviya_otgruz.css('border-color','#dedad9')
     sbit_debitora.css('border-color','#dedad9')
     sbit_nalog.css('border-color','#dedad9')
@@ -663,6 +662,7 @@ function select_condition(id){
    
 
     if(vid_zayavki =='Создание'){
+        // console.log(vid_zayavki,'ddddd')
         if(balance_ed.val()!=''){
             balance_ed.css('border-color','#dedad9')
         }else{
@@ -718,8 +718,9 @@ function select_condition(id){
         }else{
             valyuta_zakaz.css('border-color','red')
         }
-
+        // console.log(rol_bp.val(),'rolllll')
         if(rol_bp.val() == 'Клиент' || rol_bp.val() == 'Поставщик и Клиент'){
+           
             usloviya_plateja.css('border-color','red')
             sbitovoy_organ.css('border-color','red')
             kanal_sbita.css('border-color','red')
@@ -727,7 +728,7 @@ function select_condition(id){
             rayon_sbita.css('border-color','red')
             gruppa_sena.css('border-color','red')
             sxema_kliyenta.css('border-color','red')
-            gruppa_kliyent.css('border-color','red!important')
+            status_gruppa_kliyent.css('border-color','red!important')
             usloviya_otgruz.css('border-color','red')
             sbit_debitora.css('border-color','red')
             sbit_nalog.css('border-color','red')
@@ -745,7 +746,7 @@ function select_condition(id){
         rayon_sbita.css('display','block')
         gruppa_sena.css('display','block')
         sxema_kliyenta.css('display','block')
-        gruppa_kliyent.css('display','block')
+        status_gruppa_kliyent.css('display','block')
         usloviya_otgruz.css('display','block')
         sbit_debitora.css('display','block')
         sbit_nalog.css('display','block')
@@ -779,7 +780,7 @@ function select_condition(id){
         rayon_sbita.css('display','block')
         gruppa_sena.css('display','block')
         sxema_kliyenta.css('display','block')
-        gruppa_kliyent.css('display','block')
+        status_gruppa_kliyent.css('display','block')
         usloviya_otgruz.css('display','block')
         sbit_debitora.css('display','block')
         sbit_nalog.css('display','block')
@@ -886,7 +887,7 @@ function copy_tr(id){
         var rayon_sbita=data.rayon_sbita;
         var gruppa_sena=data.gruppa_sena;
         var sxema_kliyenta=data.sxema_kliyenta;
-        var gruppa_kliyent=data.gruppa_kliyent;
+        var status_gruppa_kliyent=data.status_gruppa_kliyent;
         var usloviya_otgruz=data.usloviya_otgruz;
         var sbit_debitora=data.sbit_debitora;
         var sbit_nalog=data.sbit_nalog;
@@ -941,7 +942,7 @@ function copy_tr(id){
                 check_input_and_change(rayon_sbita,'#rayon_sbita'+s,dis=false,is_req=true,is_req_simple=false)
                 check_input_and_change(gruppa_sena,'#gruppa_sena'+s,dis=false,is_req=true,is_req_simple=false)
                 check_input_and_change(sxema_kliyenta,'#sxema_kliyenta'+s,dis=false,is_req=true,is_req_simple=false)
-                check_input_and_change(gruppa_kliyent,'#gruppa_kliyent'+s,dis=false,is_req=true,is_req_simple=false)
+                check_input_and_change(status_gruppa_kliyent,'#status_gruppa_kliyent'+s,dis=false,is_req=true,is_req_simple=false)
                 check_input_and_change(usloviya_otgruz,'#usloviya_otgruz'+s,dis=false,is_req=true,is_req_simple=false)
                 check_input_and_change(sbit_debitora,'#sbit_debitora'+s,dis=false,is_req=true,is_req_simple=false)
                 check_input_and_change(sbit_nalog,'#sbit_nalog'+s,dis=false,is_req=true,is_req_simple=false)
@@ -954,7 +955,7 @@ function copy_tr(id){
                 check_input_and_change(rayon_sbita,'#rayon_sbita'+s,dis=false,is_req=false,is_req_simple=true)
                 check_input_and_change(gruppa_sena,'#gruppa_sena'+s,dis=false,is_req=false,is_req_simple=true)
                 check_input_and_change(sxema_kliyenta,'#sxema_kliyenta'+s,dis=false,is_req=false,is_req_simple=true)
-                check_input_and_change(gruppa_kliyent,'#gruppa_kliyent'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(status_gruppa_kliyent,'#status_gruppa_kliyent'+s,dis=false,is_req=false,is_req_simple=true)
                 check_input_and_change(usloviya_otgruz,'#usloviya_otgruz'+s,dis=false,is_req=false,is_req_simple=true)
                 check_input_and_change(sbit_debitora,'#sbit_debitora'+s,dis=false,is_req=false,is_req_simple=true)
                 check_input_and_change(sbit_nalog,'#sbit_nalog'+s,dis=false,is_req=false,is_req_simple=true)
@@ -979,7 +980,7 @@ function copy_tr(id){
             check_input_and_change(rayon_sbita,'#rayon_sbita'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(gruppa_sena,'#gruppa_sena'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(sxema_kliyenta,'#sxema_kliyenta'+s,dis=false,is_req=false,is_req_simple=true)
-            check_input_and_change(gruppa_kliyent,'#gruppa_kliyent'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(status_gruppa_kliyent,'#status_gruppa_kliyent'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(usloviya_otgruz,'#usloviya_otgruz'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(sbit_debitora,'#sbit_debitora'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(sbit_nalog,'#sbit_nalog'+s,dis=false,is_req=false,is_req_simple=true)
@@ -1004,7 +1005,7 @@ function copy_tr(id){
             check_input_and_change(rayon_sbita,'#rayon_sbita'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(gruppa_sena,'#gruppa_sena'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(sxema_kliyenta,'#sxema_kliyenta'+s,dis=false,is_req=false,is_req_simple=true)
-            check_input_and_change(gruppa_kliyent,'#gruppa_kliyent'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(status_gruppa_kliyent,'#status_gruppa_kliyent'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(usloviya_otgruz,'#usloviya_otgruz'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(sbit_debitora,'#sbit_debitora'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(sbit_nalog,'#sbit_nalog'+s,dis=false,is_req=false,is_req_simple=true)
@@ -1104,7 +1105,7 @@ function artukil_clear(id){
     var rayon_sbita =$('#rayon_sbita'+id)
     var gruppa_sena =$('#gruppa_sena'+id)
     var sxema_kliyenta =$('#sxema_kliyenta'+id)
-    var gruppa_kliyent =$('#gruppa_kliyent'+id)
+    var status_gruppa_kliyent =$('#status_gruppa_kliyent'+id)
     var usloviya_otgruz =$('#usloviya_otgruz'+id)
     var sbit_debitora =$('#sbit_debitora'+id)
     var sbit_nalog =$('#sbit_nalog'+id)
@@ -1147,7 +1148,7 @@ function artukil_clear(id){
     rayon_sbita.val('')
     gruppa_sena.val('')
     sxema_kliyenta.val('')
-    gruppa_kliyent.val('')
+    status_gruppa_kliyent.val('')
     usloviya_otgruz.val('')
     sbit_debitora.val('')
     sbit_nalog.val('')
@@ -1188,7 +1189,7 @@ function artukil_clear(id){
     rayon_sbita.css('display','none')
     gruppa_sena.css('display','none')
     sxema_kliyenta.css('display','none')
-    gruppa_kliyent.css('display','none')
+    status_gruppa_kliyent.css('display','none')
     usloviya_otgruz.css('display','none')
     sbit_debitora.css('display','none')
     sbit_nalog.css('display','none')
@@ -1240,7 +1241,7 @@ function create_kratkiy_tekst(id){
         var rayon_sbita =$('#rayon_sbita'+id)
         var gruppa_sena =$('#gruppa_sena'+id)
         var sxema_kliyenta =$('#sxema_kliyenta'+id)
-        var gruppa_kliyent =$('#gruppa_kliyent'+id)
+        var status_gruppa_kliyent =$('#status_gruppa_kliyent'+id)
         var usloviya_otgruz =$('#usloviya_otgruz'+id)
         var sbit_debitora =$('#sbit_debitora'+id)
         var sbit_nalog =$('#sbit_nalog'+id)
@@ -1417,10 +1418,10 @@ function create_kratkiy_tekst(id){
         }else{
             data_base[id].sxema_kliyenta = NaN;
         }
-        if(gruppa_kliyent.val()!=''){
-            data_base[id].gruppa_kliyent = gruppa_kliyent.val();
+        if(status_gruppa_kliyent.val()!=''){
+            data_base[id].status_gruppa_kliyent = status_gruppa_kliyent.val();
         }else{
-            data_base[id].gruppa_kliyent = NaN;
+            data_base[id].status_gruppa_kliyent = NaN;
         }
         if(usloviya_otgruz.val()!=''){
             data_base[id].usloviya_otgruz = usloviya_otgruz.val();
@@ -1451,6 +1452,8 @@ function create_kratkiy_tekst(id){
         
         
 
+        console.log(vid_zayavki)
+        console.log(status_gruppa_kliyent.val(),'kliyent&&&')
 
         if(vid_zayavki =='Создание'){
             if(balance_ed.val()!=''){
@@ -1517,7 +1520,7 @@ function create_kratkiy_tekst(id){
                 rayon_sbita.css('display','block')
                 gruppa_sena.css('display','block')
                 sxema_kliyenta.css('display','block')
-                gruppa_kliyent.css('display','block')
+                status_gruppa_kliyent.css('display','block')
                 usloviya_otgruz.css('display','block')
                 sbit_debitora.css('display','block')
                 sbit_nalog.css('display','block')
@@ -1536,10 +1539,10 @@ function create_kratkiy_tekst(id){
                 }else{
                     usloviya_otgruz.css('border-color','red')
                 }
-                if(gruppa_kliyent.val()!=''){
-                    gruppa_kliyent.css('border-color','#dedad9')
+                if(status_gruppa_kliyent.val()!=''){
+                    status_gruppa_kliyent.css('border-color','#dedad9')
                 }else{
-                    gruppa_kliyent.css('border-color','red!important')
+                    status_gruppa_kliyent.css('border-color','red')
                 }
                 if(sxema_kliyenta.val()!=''){
                     sxema_kliyenta.css('border-color','#dedad9')
@@ -1584,7 +1587,7 @@ function create_kratkiy_tekst(id){
                 rayon_sbita.css('display','block')
                 gruppa_sena.css('display','block')
                 sxema_kliyenta.css('display','block')
-                gruppa_kliyent.css('display','block')
+                status_gruppa_kliyent.css('display','block')
                 usloviya_otgruz.css('display','block')
                 sbit_debitora.css('display','block')
                 sbit_nalog.css('display','block')
@@ -1592,7 +1595,7 @@ function create_kratkiy_tekst(id){
                 sbit_nalog.css('border-color','#dedad9')
                 sbit_debitora.css('border-color','#dedad9')
                 usloviya_otgruz.css('border-color','#dedad9')
-                gruppa_kliyent.css('border-color','#dedad9')
+                status_gruppa_kliyent.css('border-color','#dedad9')
                 sxema_kliyenta.css('border-color','#dedad9')
                 gruppa_sena.css('border-color','#dedad9')
                 rayon_sbita.css('border-color','#dedad9')
