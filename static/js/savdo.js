@@ -606,33 +606,35 @@ function front_piece(start=1,end=7){
             <div class="input-group input-group-sm mb-1">    
             <select class="form-select" aria-label="" style="width: 220px;height:27px!important;z-index:0" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
                 <option  value="" selected></option>
-                <option value="2036" >Золотой дуб</option>
-                <option value="2048">Дуб мокко</option>
-                <option value="2007">Красный орех</option>
-                <option value="2012">Орех</option>
-                <option value="3086">Шеффелдский дуб серый</option>
-                <option value="1012">Алюкс антрацит</option>
-                <option value="3001">Терновый дуб</option>
-                <option value="3002">Шеф Альпийский дуб</option>
-                <option value="3003">Гранитовый шеф дуб</option>
-                <option value="3042">Дерево бальза</option>
-                <option value="3062">Грецкий орех</option>
-                <option value="3043">Вишня амаретто</option>
-                <option value="3059">Орех терра</option>
-                <option value="3058">Грецкий орех амаретто</option>
-                <option value="3077">Винчестер</option>
-                <option value="3081">Шеффелдский дуб светлый</option>
-                <option value="3094">Орех Ребраун</option>
-                <option value="1004">Метбраш платин</option>
-                <option value="1005">Метбраш серый кварц</option>
-                <option value="1006">Метбраш серый антрацит</option>
-                <option value="1001">Метбраш Алюмин</option>
-                <option value="5001">Кремвейс</option>
-                <option value="6062">Матовый чёрный</option>
-                <option value="6030">Матовый белый</option>
-                <option value="1015">Алюкс алюмин</option>
-                <option value="2025">Светлый дуб</option>
-                <option value="XXXX">XXXX</option>
+                                <option value="2036" >Золотой дуб</option>
+                                <option value="2048">Дуб мокко</option>
+                                <option value="2007">Красный орех</option>
+                                <option value="2012">Орех</option>
+                                <option value="3086">Шеффелдский дуб серый</option>
+                                <option value="1012">Алюкс антрацит</option>
+                                <option value="3001">Терновый дуб</option>
+                                <option value="3002">Шеф Альпийский дуб</option>
+                                <option value="3003">Гранитовый шеф дуб</option>
+                                <option value="3042">Дерево бальза</option>
+                                <option value="3062">Грецкий орех</option>
+                                <option value="3043">Вишня амаретто</option>
+                                <option value="3059">Орех терра</option>
+                                <option value="3058">Грецкий орех амаретто</option>
+                                <option value="3077">Винчестер</option>
+                                <option value="3081">Шеффелдский дуб светлый</option>
+                                <option value="3094">Орех Ребраун</option>
+                                <option value="1004">Метбраш платин</option>
+                                <option value="1005">Метбраш серый кварц</option>
+                                <option value="1006">Метбраш серый антрацит</option>
+                                <option value="1001">Метбраш Алюмин</option>
+                                <option value="5001">Кремвейс</option>
+                                <option value="6062">Матовый чёрный</option>
+                                <option value="6030">Матовый белый</option>
+                                <option value="1015">Алюкс алюмин</option>
+                                <option value="2025">Светлый дуб</option>
+                                <option value="1022">Ocean Blue</option>
+                                <option value="XXXX">XXXX</option>
+
             </select>
             </div>
         </td>
@@ -648,33 +650,35 @@ function front_piece(start=1,end=7){
             <div class="input-group input-group-sm mb-1">
                 <select class="form-select" aria-label="" style="width: 220px;height:27px!important;z-index:0" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
                     <option  value="" selected></option>
-                    <option value="2036" >Золотой дуб</option>
-                    <option value="2048">Дуб мокко</option>
-                    <option value="2007">Красный орех</option>
-                    <option value="2012">Орех</option>
-                    <option value="3086">Шеффелдский дуб серый</option>
-                    <option value="1012">Алюкс антрацит</option>
-                    <option value="3001">Терновый дуб</option>
-                    <option value="3002">Шеф Альпийский дуб</option>
-                    <option value="3003">Гранитовый шеф дуб</option>
-                    <option value="3042">Дерево бальза</option>
-                    <option value="3062">Грецкий орех</option>
-                    <option value="3043">Вишня амаретто</option>
-                    <option value="3059">Орех терра</option>
-                    <option value="3058">Грецкий орех амаретто</option>
-                    <option value="3077">Винчестер</option>
-                    <option value="3081">Шеффелдский дуб светлый</option>
-                    <option value="3094">Орех Ребраун</option>
-                    <option value="1004">Метбраш платин</option>
-                    <option value="1005">Метбраш серый кварц</option>
-                    <option value="1006">Метбраш серый антрацит</option>
-                    <option value="1001">Метбраш Алюмин</option>
-                    <option value="5001">Кремвейс</option>
-                    <option value="6062">Матовый чёрный</option>
-                    <option value="6030">Матовый белый</option>
-                    <option value="1015">Алюкс алюмин</option>
-                    <option value="2025">Светлый дуб</option>
-                    <option value="XXXX">XXXX</option>
+                                    <option value="2036" >Золотой дуб</option>
+                                    <option value="2048">Дуб мокко</option>
+                                    <option value="2007">Красный орех</option>
+                                    <option value="2012">Орех</option>
+                                    <option value="3086">Шеффелдский дуб серый</option>
+                                    <option value="1012">Алюкс антрацит</option>
+                                    <option value="3001">Терновый дуб</option>
+                                    <option value="3002">Шеф Альпийский дуб</option>
+                                    <option value="3003">Гранитовый шеф дуб</option>
+                                    <option value="3042">Дерево бальза</option>
+                                    <option value="3062">Грецкий орех</option>
+                                    <option value="3043">Вишня амаретто</option>
+                                    <option value="3059">Орех терра</option>
+                                    <option value="3058">Грецкий орех амаретто</option>
+                                    <option value="3077">Винчестер</option>
+                                    <option value="3081">Шеффелдский дуб светлый</option>
+                                    <option value="3094">Орех Ребраун</option>
+                                    <option value="1004">Метбраш платин</option>
+                                    <option value="1005">Метбраш серый кварц</option>
+                                    <option value="1006">Метбраш серый антрацит</option>
+                                    <option value="1001">Метбраш Алюмин</option>
+                                    <option value="5001">Кремвейс</option>
+                                    <option value="6062">Матовый чёрный</option>
+                                    <option value="6030">Матовый белый</option>
+                                    <option value="1015">Алюкс алюмин</option>
+                                    <option value="2025">Светлый дуб</option>
+                                    <option value="1022">Ocean Blue</option>
+                                    <option value="XXXX">XXXX</option>
+
                 </select>
             </div>
         </td>
