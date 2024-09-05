@@ -1592,7 +1592,7 @@ def detail_order_update(request,id):
                                         "status":str(order.status),
                                         "created_at":order.created_at
                                         })
-            return render(request,f'client/customer/update/{order.order_type}.html',context)
+            return render(request,f'client/update/{order.order_type}.html',context)
         else:
             return JsonResponse({'form':form.errors})
     else:
@@ -1606,7 +1606,7 @@ def detail_order_update(request,id):
             'order_details':order_details,
             'id':order.id   
         }
-    return render(request,f'client/customer/update/{order.order_type}.html',context)
+    return render(request,f'client/update/{order.order_type}.html',context)
 
 
 
