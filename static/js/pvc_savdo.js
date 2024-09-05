@@ -829,186 +829,186 @@ var table = $('#table-artikul')
 table.append(text)
 
 
-// function request_piece(start=1,end=6){
+function request_piece(start=1,end=6){
 
-//     for (let i = start; i <= end; i++) {
-//         $('#artikul'+String(i)).select2({
-//             ajax: {
-//                 url: "/client/pvc-artikul-list",
-//                 dataType: 'json',
-//                 processResults: function(data){
-//                     return {results: $.map(data, function(item){
-//                         return {id:item.id,text:item.artikul,component:item.component2,system:item.nazvaniye_sistem,camera:item.camera,kod_k_component:item.kod_k_component,iskyucheniye:item.iskyucheniye,is_special:item.is_special,nakleyka_nt1:item.nakleyka_nt1}
-//                     })
-//                 };
-//                 }
-//             }
-//             });
+    for (let i = start; i <= end; i++) {
+        $('#artikul'+String(i)).select2({
+            ajax: {
+                url: "/client/pvc-artikul-list",
+                dataType: 'json',
+                processResults: function(data){
+                    return {results: $.map(data, function(item){
+                        return {id:item.id,text:item.artikul,component:item.component2,system:item.nazvaniye_sistem,camera:item.camera,kod_k_component:item.kod_k_component,iskyucheniye:item.iskyucheniye,is_special:item.is_special,nakleyka_nt1:item.nakleyka_nt1}
+                    })
+                };
+                }
+            }
+            });
         
         
         
-//         var artikulSelect = $('#artikul'+String(i));
-//         $.ajax({
-//             type: 'GET',
-//             url: "/client/pvc-artikul-list"
-//         }).then(function (data) {
-//             var option = new Option(data.artikul, data.id, true, true);
-//             artikulSelect.append(option).trigger('change');
+        var artikulSelect = $('#artikul'+String(i));
+        $.ajax({
+            type: 'GET',
+            url: "/client/pvc-artikul-list"
+        }).then(function (data) {
+            var option = new Option(data.artikul, data.id, true, true);
+            artikulSelect.append(option).trigger('change');
         
-//             artikulSelect.trigger({
-//                 type: 'select2:select',
-//                 params: {
-//                     data: data
-//                 }
-//             });
-//         });
+            artikulSelect.trigger({
+                type: 'select2:select',
+                params: {
+                    data: data
+                }
+            });
+        });
         
         
-//         $("#artikul"+String(i)).on("select2:select", function (e) { 
-//             var select_val = $(e.currentTarget).val();
-//             var nazvaniye_system =$('.nazvaniye_system'+String(i));
-//             var camera = $('#camera'+String(i));
-//             var kod_komponent = $('#kod_komponent'+String(i));
-//             var artikul_pvc = $('#artikul_pvc'+String(i));
-//             var iskyucheniye = $('#iskyucheniye'+String(i));
-//             var is_special = $('#is_special'+String(i));
-//             var nakleyka_nt1 = $('#nakleyka_nt1'+String(i));
-//             var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i));
-//             var tip_pokritiya = $('#tip_pokritiya'+String(i));
-//             tip_pokritiya.attr("disabled",false);
-//             is_special.text(e.params.data.is_special);
-//             nazvaniye_system.text(e.params.data.system);
-//             artikul_pvc.text(e.params.data.component);
-//             iskyucheniye.text(e.params.data.iskyucheniye);
-//             camera.text(e.params.data.camera)
-//             kod_komponent.text(e.params.data.kod_k_component)
+        $("#artikul"+String(i)).on("select2:select", function (e) { 
+            var select_val = $(e.currentTarget).val();
+            var nazvaniye_system =$('.nazvaniye_system'+String(i));
+            var camera = $('#camera'+String(i));
+            var kod_komponent = $('#kod_komponent'+String(i));
+            var artikul_pvc = $('#artikul_pvc'+String(i));
+            var iskyucheniye = $('#iskyucheniye'+String(i));
+            var is_special = $('#is_special'+String(i));
+            var nakleyka_nt1 = $('#nakleyka_nt1'+String(i));
+            var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i));
+            var tip_pokritiya = $('#tip_pokritiya'+String(i));
+            tip_pokritiya.attr("disabled",false);
+            is_special.text(e.params.data.is_special);
+            nazvaniye_system.text(e.params.data.system);
+            artikul_pvc.text(e.params.data.component);
+            iskyucheniye.text(e.params.data.iskyucheniye);
+            camera.text(e.params.data.camera)
+            kod_komponent.text(e.params.data.kod_k_component)
 
-//             var select_nak = $('.kod_nakleyki'+String(i))
-//             var hasOption_snar = select_nak.find('option').length > 0;
+            var select_nak = $('.kod_nakleyki'+String(i))
+            var hasOption_snar = select_nak.find('option').length > 0;
 
-//             if(e.params.data.nakleyka_nt1 =='1'){
-//                 if(hasOption_snar){
-//                     set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='NT1',add=false)
-//                 }else{
-//                     set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='NT1',add=true)
-//                 }
-//                 nakleyka_nt1.text('1')
+            if(e.params.data.nakleyka_nt1 =='1'){
+                if(hasOption_snar){
+                    set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='NT1',add=false)
+                }else{
+                    set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='NT1',add=true)
+                }
+                nakleyka_nt1.text('1')
 
-//                 nadpis_nakleyki.text('Без наклейки')
-//             }else{
-//                 if(hasOption_snar){
-//                     set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='',add=false)
-//                 }else{
-//                     set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='',add=true)
-//                 }
-//                 nakleyka_nt1.text('')
-//                 nadpis_nakleyki.text('')
-//             }
+                nadpis_nakleyki.text('Без наклейки')
+            }else{
+                if(hasOption_snar){
+                    set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='',add=false)
+                }else{
+                    set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='',add=true)
+                }
+                nakleyka_nt1.text('')
+                nadpis_nakleyki.text('')
+            }
             
         
-//             var nakleyka_select = $('#nakleyka_select'+String(i));
+            var nakleyka_select = $('#nakleyka_select'+String(i));
 
-//             var length = $('#length'+String(i));
-//             length.attr('required',true)
+            var length = $('#length'+String(i));
+            length.attr('required',true)
 
             
-//             nakleyka_select.css('display','block')
-//             nakleyka_select.attr('required',true)
+            nakleyka_select.css('display','block')
+            nakleyka_select.attr('required',true)
             
             
 
-//             if(data_base[i]){
-//                 clear_artikul(i)
-//             }
+            if(data_base[i]){
+                clear_artikul(i)
+            }
             
-//         });
-
-//     }
-// }
-
-function request_piece(start = 1, end = 6) {
-    // Step 1: Fetch all necessary data in one request
-    $.ajax({
-        type: 'GET',
-        url: "/client/pvc-artikul-list",
-        dataType: 'json'
-    }).then(function (data) {
-        // Step 2: Map data for quick access
-        var dataMap = {};
-        data.forEach(function (item) {
-            dataMap[item.id] = item;
         });
 
-        // Step 3: Initialize Select2 and handle select2:select event for each element
-        for (let i = start; i <= end; i++) {
-            let $artikulSelect = $('#artikul' + i);
-
-            // Initialize Select2 with AJAX
-            $artikulSelect.select2({
-                ajax: {
-                    url: "/client/pvc-artikul-list",
-                    dataType: 'json',
-                    processResults: function(data) {
-                        return {
-                            results: $.map(data, function(item) {
-                                return { 
-                                    id: item.id,
-                                    text: item.artikul,
-                                    component: item.component2,
-                                    system: item.nazvaniye_sistem,
-                                    camera: item.camera,
-                                    kod_k_component: item.kod_k_component,
-                                    iskyucheniye: item.iskyucheniye,
-                                    is_special: item.is_special,
-                                    nakleyka_nt1: item.nakleyka_nt1
-                                };
-                            })
-                        };
-                    }
-                }
-            });
-
-            // Handle select2 select event
-            $artikulSelect.on('select2:select', function(e) {
-                var selectedId = e.params.data.id;
-                var item = dataMap[selectedId];
-
-                if (item) {
-                    $('#nazvaniye_system' + i).text(item.system);
-                    $('#artikul_pvc' + i).text(item.component);
-                    $('#iskyucheniye' + i).text(item.iskyucheniye);
-                    $('#camera' + i).text(item.camera);
-                    $('#kod_komponent' + i).text(item.kod_k_component);
-                    $('#is_special' + i).text(item.is_special);
-                    $('#tip_pokritiya' + i).attr("disabled", false);
-
-                    var $selectNak = $('.kod_nakleyki' + i);
-                    var hasOption_snar = $selectNak.find('option').length > 0;
-
-                    if (item.nakleyka_nt1 === '1') {
-                        set_nakleyka(nakleyka_list, '.kod_nakleyki' + i, 'NT1', !hasOption_snar);
-                        $('#nakleyka_nt1' + i).text('1');
-                        $('#nadpis_nakleyki' + i).text('Без наклейки');
-                    } else {
-                        set_nakleyka(nakleyka_list, '.kod_nakleyki' + i, '', !hasOption_snar);
-                        $('#nakleyka_nt1' + i).text('');
-                        $('#nadpis_nakleyki' + i).text('');
-                    }
-
-                    var $nakleykaSelect = $('#nakleyka_select' + i);
-                    var $length = $('#length' + i);
-                    $length.attr('required', true);
-                    $nakleykaSelect.css('display', 'block');
-                    $nakleykaSelect.attr('required', true);
-
-                    if (data_base[i]) {
-                        clear_artikul(i);
-                    }
-                }
-            });
-        }
-    });
+    }
 }
+
+// function request_piece(start = 1, end = 6) {
+//     // Step 1: Fetch all necessary data in one request
+//     $.ajax({
+//         type: 'GET',
+//         url: "/client/pvc-artikul-list",
+//         dataType: 'json'
+//     }).then(function (data) {
+//         // Step 2: Map data for quick access
+//         var dataMap = {};
+//         data.forEach(function (item) {
+//             dataMap[item.id] = item;
+//         });
+
+//         // Step 3: Initialize Select2 and handle select2:select event for each element
+//         for (let i = start; i <= end; i++) {
+//             let $artikulSelect = $('#artikul' + i);
+
+//             // Initialize Select2 with AJAX
+//             $artikulSelect.select2({
+//                 ajax: {
+//                     url: "/client/pvc-artikul-list",
+//                     dataType: 'json',
+//                     processResults: function(data) {
+//                         return {
+//                             results: $.map(data, function(item) {
+//                                 return { 
+//                                     id: item.id,
+//                                     text: item.artikul,
+//                                     component: item.component2,
+//                                     system: item.nazvaniye_sistem,
+//                                     camera: item.camera,
+//                                     kod_k_component: item.kod_k_component,
+//                                     iskyucheniye: item.iskyucheniye,
+//                                     is_special: item.is_special,
+//                                     nakleyka_nt1: item.nakleyka_nt1
+//                                 };
+//                             })
+//                         };
+//                     }
+//                 }
+//             });
+
+//             // Handle select2 select event
+//             $artikulSelect.on('select2:select', function(e) {
+//                 var selectedId = e.params.data.id;
+//                 var item = dataMap[selectedId];
+
+//                 if (item) {
+//                     $('#nazvaniye_system' + i).text(item.system);
+//                     $('#artikul_pvc' + i).text(item.component);
+//                     $('#iskyucheniye' + i).text(item.iskyucheniye);
+//                     $('#camera' + i).text(item.camera);
+//                     $('#kod_komponent' + i).text(item.kod_k_component);
+//                     $('#is_special' + i).text(item.is_special);
+//                     $('#tip_pokritiya' + i).attr("disabled", false);
+
+//                     var $selectNak = $('.kod_nakleyki' + i);
+//                     var hasOption_snar = $selectNak.find('option').length > 0;
+
+//                     if (item.nakleyka_nt1 === '1') {
+//                         set_nakleyka(nakleyka_list, '.kod_nakleyki' + i, 'NT1', !hasOption_snar);
+//                         $('#nakleyka_nt1' + i).text('1');
+//                         $('#nadpis_nakleyki' + i).text('Без наклейки');
+//                     } else {
+//                         set_nakleyka(nakleyka_list, '.kod_nakleyki' + i, '', !hasOption_snar);
+//                         $('#nakleyka_nt1' + i).text('');
+//                         $('#nadpis_nakleyki' + i).text('');
+//                     }
+
+//                     var $nakleykaSelect = $('#nakleyka_select' + i);
+//                     var $length = $('#length' + i);
+//                     $length.attr('required', true);
+//                     $nakleykaSelect.css('display', 'block');
+//                     $nakleykaSelect.attr('required', true);
+
+//                     if (data_base[i]) {
+//                         clear_artikul(i);
+//                     }
+//                 }
+//             });
+//         }
+//     });
+// }
 
 
 
