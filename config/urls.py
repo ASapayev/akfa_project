@@ -19,9 +19,14 @@ urlpatterns = [
     path('online-savdo/',include('onlinesavdo.urls')),
     path('client/',include('client.urls')),
     path('accessuar/',include('accessuar.urls')),
+    path('accessuar-import/',include('accessuar_import.urls')),
+    path('radiator/',include('radiator.urls')),
+    path('kraska/',include('kraska.urls')),
+    path('epdm/',include('epdm.urls')),
+    path('api/v1/',include('apis.urls')),
     
 
-   path("events/", include(django_eventstream.urls), {"channels": ["test"]}),
+   path("events/", include(django_eventstream.urls), {"channels": ["orders"]}),
     # path('__debug__/', include('debug_toolbar.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 # if settings.DEBUG:

@@ -56,6 +56,7 @@ class User(AbstractBaseUser):
     email = models.EmailField(max_length=50, unique=True,blank=True,null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     role = models.CharField(max_length=15, blank=True, null=True)
+    jira_id = models.CharField(max_length=70, blank=True, null=True)
 
     # required fields
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -80,9 +81,6 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-
-    
-    
 
 
 

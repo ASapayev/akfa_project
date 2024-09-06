@@ -125,3 +125,30 @@ class AluFileBazaprofiles(models.Model):
   file_type =models.CharField(max_length=255,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
+
+
+class BrendKraska(models.Model):
+  brend = models.CharField(max_length=10,blank=True,null=True)  
+  kraska = models.CharField(max_length=5,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)  
+
+
+class Mastergroup(models.Model):
+  sep = models.CharField(max_length=40,blank=True,null=True)  
+  pokritiya = models.CharField(max_length=40,blank=True,null=True)  
+  combination = models.CharField(max_length=40,blank=True,null=True)  
+  new_group = models.CharField(max_length=40,blank=True,null=True)  
+  sena_usd = models.CharField(max_length=40,blank=True,null=True)  
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)  
+
+class BuxgalterNazvaniye(models.Model):
+  colected = models.CharField(max_length=40,blank=True,null=True)  
+  combination = models.CharField(max_length=40,blank=True,null=True)  
+  surface_treatment = models.CharField(max_length=40,blank=True,null=True)  
+  zavod_aluminiy = models.CharField(max_length=80,blank=True,null=True)  
+  zavod_aluminiy_benkam = models.CharField(max_length=80,blank=True,null=True)  
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)  
+

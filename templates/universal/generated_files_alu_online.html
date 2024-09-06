@@ -1,0 +1,302 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Order detail</h4>
+           <p class="text-uppercase">{{order.title}}</p>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Исполнитель</th>
+                    <th>Заявка №</th>
+                    <th>Created</th>
+                    <th>Work Type</th>
+                    <th>File</th>
+                    <th>Status</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if order.owner %}
+                  <tr>
+                    <td class="text-capitalize">
+                      <div class="d-flex justify-content-start align-items-center">
+                      <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                          class="text-muted small">{{order.owner.username}}</span></p>
+                        <span class="ms-3 me-4">|</span></p>
+                      <a href="#!">
+                        <img src="{{order.owner.userprofile.profile_picture.url}}" alt="avatar"
+                          class="img-fluid rounded-circle me-1" width="35">
+                      </a>
+                      
+                      </div>
+                  </td>
+                    <td>{{order.id | order_number_format}}</td>
+                    <td>{{order.created_at |date:"d-m-Y H:i:s"}}</td>
+                    <td><span class="text-info">ON HOLD</span></td> 
+                    <td>{%if type == 'ТЕРМО' %}<a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{termo_file}}">Download</a>{%else%}<a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{obichniy_file}}">Download</a>{%endif%}</td>
+                    <td><i class="mdi mdi-check-all text-success"></i></td>
+                  </tr>
+                  {%endif%}
+                  {%if user_role == 'moderator' %}
+    
+                    {%if order.alumin_wrongs %}
+                    <tr>
+                      <td class="text-capitalize">
+                        <div class="d-flex justify-content-start align-items-center">
+                          <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                              class="text-muted small">{{order.alumin_wrongs.username}}</span></p>
+                            <span class="ms-3 me-4">|</span></p>
+                          <a href="#!">
+                            <img src="{{order.alumin_wrongs.userprofile.profile_picture.url}}" alt="avatar"
+                              class="img-fluid rounded-circle me-1" width="35">
+                          </a>
+                          </div>
+                        
+                        
+                        </td>
+                      <td>{{order.id | order_number_format}}</td>
+                      <td>{{l_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                      <td><span class="text-danger">SAP CODE CREATING LACKS</span></td> 
+                      <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={%if is_obichniy == 'yes' %}{{obichniy_lack_file}}{%else%}{{termo_lack_file}}{%endif%}">Download</a></td>
+                      {%if status_l == 'on process' %}
+                      <td><label class="badge badge-success">ON PROCESS</label></td>
+                      {%else%}
+                      <td><i class="mdi mdi-check-all text-success"></i></td>
+                      {%endif%}
+                    </tr>
+                    {% endif %}
+                    
+                    {%if order.aluminiy_worker and status_raz == 'done' %}
+                    <tr>
+                      <td class="text-capitalize">
+                        
+                        <div class="d-flex justify-content-start align-items-center">
+                          <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                              class="text-muted small">{{order.aluminiy_worker.username}}</span></p>
+                            <span class="ms-3 me-4">|</span></p>
+                          <a href="#!">
+                            <img src="{{order.aluminiy_worker.userprofile.profile_picture.url}}" alt="avatar"
+                              class="img-fluid rounded-circle me-1" width="35">
+                          </a>
+                          </div>
+                        
+                        </td>
+                      <td>{{order.id | order_number_format}}</td>
+                      <td>{{raz_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                      <td><span class="text-info">SAP CODE CREATING</span></td> 
+                      <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path=C:\Openserver\domains\akfa_project\media\{%if is_obichniy == 'yes' %}{{obichniy_razlovka_file.1}}{%else%}{{termo_razlovka_file.1}}{%endif%}">Download</a></td>
+                      <td><i class="mdi mdi-check-all text-success"></i></td>
+                    </tr>
+                    {%endif%}
+                    
+                    {%if status_zip == 'done' and order.aluminiy_worker %}
+                    <tr>
+                      <td class="text-capitalize">
+                        <div class="d-flex justify-content-start align-items-center">
+                          <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                              class="text-muted small">{{order.aluminiy_worker.username}}</span></p>
+                            <span class="ms-3 me-4">|</span></p>
+                          <a href="#!">
+                            <img src="{{order.aluminiy_worker.userprofile.profile_picture.url}}" alt="avatar"
+                              class="img-fluid rounded-circle me-1" width="35">
+                          </a>
+                          </div>
+                        
+                        </td>
+                      <td>{{order.id | order_number_format}}</td>
+                      <td>{{zip_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                      <td><span class="text-info">TEXT CREATING</span></td> 
+                      <td><a class="text-uppercase" href="{% url 'download_zip_file' %}?file_path={%if is_obichniy == 'yes' %}{{obichniy_razlovka_file.0}}{%else%}{{termo_razlovka_file.0}}{%endif%}">Download</a></td>
+                      <td><i class="mdi mdi-check-all text-success"></i></td>
+                    </tr>
+                    {%endif%}
+    
+                    {%if status_text_l != 'done' and status_raz == 'done' %}
+                    <tr>
+                      <td class="text-capitalize">
+    
+                        <div class="d-flex justify-content-start align-items-center">
+                          <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                              class="text-muted small">{{order.aluminiy_worker.username}}</span></p>
+                            <span class="ms-3 me-4">|</span></p>
+                          <a href="#!">
+                            <img src="{{order.aluminiy_worker.userprofile.profile_picture.url}}" alt="avatar"
+                              class="img-fluid rounded-circle me-1" width="35">
+                          </a>
+                          </div>
+    
+                      </td>
+                      <td>{{order.id | order_number_format}}</td>
+                      <td>{{raz_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                      <td><span class="text-danger">PRICE NOT EXIST</span></td>
+                      <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={%if is_obichniy == 'yes' %}{{obichniy_razlovka_file.1}}{%else%}{{termo_razlovka_file.1}}{%endif%}">Download</a></td>
+                      <td><label class="badge badge-success">ON PROCESS</label></td>
+                    </tr>
+                    {%endif%}
+                    {%if status_text_l == 'done' and order.alumin_text_wrongs %}
+                    <tr>
+                      <td class="text-capitalize"><div class="d-flex justify-content-start align-items-center">
+                        <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                            class="text-muted small">{{order.alumin_text_wrongs.username}}</span></p>
+                          <span class="ms-3 me-4">|</span></p>
+                        <a href="#!">
+                          <img src="{{order.alumin_text_wrongs.userprofile.profile_picture.url}}" alt="avatar"
+                            class="img-fluid rounded-circle me-1" width="35">
+                        </a>
+                        </div></td>
+                      <td>{{order.id | order_number_format}}</td>
+                      <td>{{text_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                      <td><span class="text-danger">PRICE NOT EXIST DONE</span></td>
+                      <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={%if is_obichniy == 'yes' %}{{obichniy_razlovka_file.1}}{%else%}{{termo_razlovka_file.1}}{%endif%}">Download</a></td>
+                      <td><i class="mdi mdi-check-all text-success"></i></td>
+                    </tr>
+                    {%endif%}
+                  
+                  {%endif%}
+    
+    
+                  {%if status_norma == 'on process' or status_norma == 'done'  %}
+                  <tr>
+                    <td class="text-capitalize"><div class="d-flex justify-content-start align-items-center">
+                      <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                          class="text-muted small">{{order.current_worker.username}}</span></p>
+                        <span class="ms-3 me-4">|</span></p>
+                      <a href="#!">
+                        <img src="{{order.current_worker.userprofile.profile_picture.url}}" alt="avatar"
+                          class="img-fluid rounded-circle me-1" width="35">
+                      </a>
+                      </div></td>
+                    <td>{{order.id | order_number_format}}</td>
+                    <td>{{raz_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                    <td><span class="text-info">NORMA FORMAT</span></td>
+                    <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{norma_formula_file}}">Download</a></td>
+                    <td><i class="mdi mdi-check-all text-success"></i></td>
+                    
+                   
+                  </tr>
+                  {%endif%}
+                  {%if order.order_name == 'ALUMINIY SAVDO' %}
+                    {%if status_norma == 'on process' or status_norma == 'done' %}
+                      <tr>
+                        <td class="text-capitalize"><div class="d-flex justify-content-start align-items-center">
+                          <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
+                              class="text-muted small">{{order.current_worker.username}}</span></p>
+                            <span class="ms-3 me-4">|</span></p>
+                          <a href="#!">
+                            <img src="{{order.current_worker.userprofile.profile_picture.url}}" alt="avatar"
+                              class="img-fluid rounded-circle me-1" width="35">
+                          </a>
+                          </div></td>
+                        <td>{{order.id | order_number_format}}</td>
+                        {%if status_norma == 'on process' %}
+                        <td>{{raz_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                        {%else%}
+                        <td>{{norma_org_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                        {%endif%}
+                        <td><span class="text-info">SAVDO MATERIAL</span></td>
+                        <td>{%if status_norma == 'done' %}<a class="text-uppercase" href="{% url 'download_vi' %}?file_path={{norma_file_ready}}"> Download</a>{%else%}{%endif%}</td>
+                        {%if status_norma == 'done' %}
+                        <td><i class="mdi mdi-check-all text-success"></i></td>
+                        {%else%}
+                        <td><label class="badge badge-success">ON PROCESS</label></td>
+                        {%endif%}
+                      </tr>
+                    {%endif%}
+                  {%endif%}
+                  
+                  
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Сгенерированный файл</h4>
+
+            <div class="table-responsive">
+              <table class="table table-light">
+                <thead>
+                  <tr>
+                    <th> # </th>
+                    <th> Имя файла </th>
+                    <th> Действие </th>
+                    {% if 'vi-generate' in request.build_absolute_uri %}
+                    <th> Скачать </th>
+                    {% endif %}
+                  </tr>
+                </thead>
+                <tbody>
+                    {%for file in files%}
+                      {% if file.file %}
+                        <tr>
+                            <td> {{ forloop.counter }} </td>
+                            <td> {{file.file | split_text}} </td>
+                            <td> <a class="btn btn-outline-primary btn-fw" data-name="{{file.file}}" onclick="openFile('mesto',this)">Открыть место положение</a> </td>
+                            <td> <a class="btn btn-outline-secondary btn-fw" data-name="{{file.file}}" id="{{ forloop.counter }}" onclick="openFile('file',this)">Открыть файл</a> </td>
+                           <td> <a class="btn btn-outline-success btn-fw" href="{% url 'download_vi' %}?file_path={{file.file}}">Download</a> </td>
+                        </tr>
+                      {%endif%}
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+   
+  </div>
+  <script>
+    function openFile(typ,elem) {
+        var name = $(elem).attr("data-name");
+      if(typ =='mesto'){
+            var url ="{% url 'open-explorer' %}" +'?path=' + name; 
+            $.ajax({
+                url: url,
+                data:{'open_type':true}
+            }).done(function() {
+                $( this ).addClass( "done" );
+            });
+        }else{
+            var url ="{% url 'open-explorer' %}" +'?path=' + name; 
+            $.ajax({
+            url: url,
+            data:{'open_type':false}
+            }).done(function() {
+            $( this ).addClass( "done" );
+            });
+  
+      }
+      
+    }
+
+ 
+  </script>
+{% endblock %}

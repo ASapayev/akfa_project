@@ -26,7 +26,7 @@
 </style>
 <div class="content-wrapper">
  
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-sm-4 grid-margin">
       <div class="card">
         <div class="card-body">
@@ -84,7 +84,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
 
@@ -94,13 +94,13 @@
     <div class="col-12 grid-margin">
 
       <!-- <nav class="navbar navbar-light bg-light"> -->
-        <form class="form-inline">
+        <!-- <form class="form-inline">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" name="status" aria-label="Search">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        </form> -->
       <!-- </nav> -->
 
       <div class="card">
@@ -108,16 +108,14 @@
           <h4 class="card-title">Заявка Статус</h4>
           {%if orders  %}
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="my_table">
               <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Order type</th>
                     <th scope="col">Order ID</th>
                     <th scope="col">Order name</th>
                     <th scope="col">Owner</th>
                     <th scope="col">Checker</th>
-                    <!-- <th scope="col" >Time</th> -->
                     <th scope="col">Status</th>
                     <th scope="col">Created</th>
                     <th scope="col">Past date</th>
@@ -131,21 +129,21 @@
 
                 {%for order in orders%}
                   {% if request.user.role == 'moderator' %}
-                    <tr  >
-                        <th scope="row" class="lengg">{{forloop.counter}}</th>
+                    <tr class="trs" id="tr_loop_{{order.id}}">
+                        <td style="display: none;"   class="lengg" >{{order.id}}</td>
                         <td class="text-primary">{{order.data.name}}</td>
                         <td class="text-primary" style="width: 100px;"><a href="{%url 'customer_order_detail' order.id %}">{{order.id_for_jira}}</a></td>
                         <td><a href="{%url 'order_check' order.id %}">{{order.theme |truncatechars:20}}</a></td>
                         <td><i class="bi bi-person-circle mr-1"></i>{{order.owner}}</td>
-                        <td>{%if order.checker %}<i class="bi bi-person-check mr-1"></i>{{order.checker}}{%endif%}</td>
+                        <td id="checker_{{order.id}}">{%if order.checker %}<i class="bi bi-person-check mr-1"></i>{{order.checker}}{%endif%}</td>
                         
                 
-                        <td>
+                        <td id="status_{{order.id}}">
                             
                           {%if order.status|stringformat:"d" == '1' %}<span class="badge badge-primary" style="opacity: 0.6;" value="1"   >Открыто</span>{%endif%}
                           {%if order.status|stringformat:"d" == '10023' %} <span value="10023" class="badge badge-success" >Выполнено</span>{%endif%}
                           {%if order.status|stringformat:"d" == '10063' %}<span value="10063" class="badge badge-warning"   >Работа ведется</span>{%endif%}
-                          {%if order.status|stringformat:"d" == '10081' %} <span value="10081" class="badge badge-secondary" >На паузе</span>{%endif%}
+                          {%if order.status|stringformat:"d" == '10081' %} <span value="10081" class="badge badge-secondary" style="color:black" >На паузе</span>{%endif%}
                           {%if order.status|stringformat:"d" == '10083' %} <span value="10083" class="badge badge-warning"  >Согласование</span>{%endif%}
                           {%if order.status|stringformat:"d" == '10082' %}<span value="10082" class="badge badge-danger"  >Отменено</span>{%endif%}
                           {%if order.status|stringformat:"d" == '10084' %}<span value="10084" class="badge badge-warning" >Доработка заявителем</span>{%endif%}
@@ -153,30 +151,30 @@
                             
                         </td>
                         <td id="created_at{{forloop.counter}}">{{order.created_at|date:"Y-d-M H:i"}}</td>
-                        <td >
+                        <td style="width: 130px!important;">
                           <div class="d-flex" id='cloker{{forloop.counter}}'>
                             <div class="p-1" id="clock{{forloop.counter}}"></div>
                             <div class="p-1"><i class="bi bi-clock"></i></div>
                           </div>
                         </td>
-                        <td>{%if order.status|stringformat:"d" == '10063' %}<a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Convert</a>{%endif%}</td>
+                        <td id="options_{{order.id}}" data-loop="{{forloop.counter}}">{%if order.status|stringformat:"d" == '10063' %}<a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Convert</a>{%endif%}</td>
                         </td>
-                        <td>
-                            {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                        <td id="zavod_1101_{{order.id}}">
+                            {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10063' %}
                             <div class="form-check">
                               <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1101_{{forloop.counter}}"> <i class="input-helper" ></i></label>
                             </div>
                             {%endif%}
                         </td>
-                        <td>
-                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                        <td id="zavod_1201_{{order.id}}">
+                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10063' %}
                             <div class="form-check">
                               <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1201_{{forloop.counter}}">  <i class="input-helper"></i></label>
                             </div>
                           {%endif%}
                         </td>
-                        <td>
-                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
+                        <td id="zavod_join_{{order.id}}">
+                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10063' %}
                             <div class="form-check">
                               <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="join_{{forloop.counter}}">  <i class="input-helper"></i></label>
                             </div>
@@ -185,22 +183,17 @@
                     </tr>
                   {%endif%}
                   {%if request.user ==  order.partner and order.status|stringformat:"d" == '10083' %}
-                    <tr>
-                      <th scope="row" class="lengg">{{forloop.counter}}</th>
+                    <tr class="trs">
                       <td><a href="{%url 'order_check_zavod' order.id %}">{{order.data.name}}</a></td>
                       <td>{{order.owner}}</td>
                       <td>{%if order.checker %}{{order.checker}}{%endif%}</td>
-                      <!-- <td>
-                        <div class="progress">
-                          <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </td> -->
+                      
                       <td>
                           
                         {%if order.status|stringformat:"d" == '1' %}<span class="badge badge-primary" value="1"  >Открыто</span>{%endif%}
                         {%if order.status|stringformat:"d" == '10023' %} <span value="10023" class="badge badge-success" >Выполнено</span>{%endif%}
                         {%if order.status|stringformat:"d" == '10063' %}<span value="10063" class="badge badge-warning"   >Работа ведется</span>{%endif%}
-                        {%if order.status|stringformat:"d" == '10081' %} <span value="10081" class="badge badge-secondary" >На паузе</span>{%endif%}
+                        {%if order.status|stringformat:"d" == '10081' %} <span value="10081" class="badge badge-secondary" style="color:black" >На паузе</span>{%endif%}
                         {%if order.status|stringformat:"d" == '10083' %} <span value="10083" class="badge badge-warning"  >Согласование</span>{%endif%}
                         {%if order.status|stringformat:"d" == '10082' %}<span value="10082" class="badge badge-danger"  >Отменено</span>{%endif%}
                         {%if order.status|stringformat:"d" == '10084' %}<span value="10084" class="badge badge-warning" >Доработка заявителем</span>{%endif%}
@@ -208,7 +201,7 @@
                           
                       </td>
                       <td id="created_at{{forloop.counter}}">{{order.created_at|date:"Y-d-M H:i"}}</td>
-                      <td >
+                      <td  style="width: 130px!important;">
                         <div class="d-flex" id='cloker{{forloop.counter}}'>
                           <div class="p-1" id="clock{{forloop.counter}}"></div>
                           <div class="p-1"><i class="bi bi-clock"></i></div>
@@ -216,25 +209,13 @@
                       </td>
                       <td></td>
                       <td>
-                          {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
-                          <div class="form-check">
-                            <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1101_{{forloop.counter}}"> <i class="input-helper" ></i></label>
-                          </div>
-                          {%endif%}
+                          
                       </td>
                       <td>
-                        {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
-                          <div class="form-check">
-                            <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="1201_{{forloop.counter}}">  <i class="input-helper"></i></label>
-                          </div>
-                        {%endif%}
+                        
                       </td>
                       <td>
-                        {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10023' %}
-                          <div class="form-check">
-                            <input type="checkbox" class="form-check-input" onchange="status_set(this,'{{forloop.counter}}')" id="join_{{forloop.counter}}">  <i class="input-helper"></i></label>
-                          </div>
-                        {%endif%}
+                        
                       </td>
                   </tr>
                   {%endif%}
@@ -298,76 +279,174 @@
 <script src="{% static 'js/eventsource.js' %}"></script>
 <script src="{% static 'js/reconnecting-eventsource.js' %}"></script>
 <script>
-  var orders = $('.lengg');
-var intervalIds = [];
+    var orders = document.querySelectorAll('.lengg');
+    var intervalIds = [];
 
-for (let i = 1; i <= orders.length; i++) {
-    var created_at = $('#created_at' + i).text();
-
-    const [datePart, timePart] = created_at.split(' ');
-    const [yy, day, monthAbbreviation] = datePart.split('-');
-    const [hour, minute] = timePart.split(':');
 
 
     
-    // Convert month abbreviation to month index (assuming abbreviation is provided in English)
-    const monthIndex = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'].indexOf(monthAbbreviation) + 1;
+    for (let i = 1; i <= orders.length; i++) {
+        var created_at = document.getElementById('created_at' + i).innerText;
+        const [datePart, timePart] = created_at.split(' ');
+        const [yy, day, monthAbbreviation] = datePart.split('-');
+        const [hour, minute] = timePart.split(':');
 
-    // Create a new Date object
-    const year = new Date().getFullYear(); // Assume current year
-    const createdAt = new Date(year, monthIndex - 1, parseInt(day), parseInt(hour), parseInt(minute));
+        // Convert month abbreviation to month index (assuming abbreviation is provided in English)
+        const monthIndex = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'].indexOf(monthAbbreviation) + 1;
 
+        // Create a new Date object for order creation time
+        const year = new Date().getFullYear(); // Assume current year
+        const createdAt = new Date(year, monthIndex - 1, parseInt(day), parseInt(hour), parseInt(minute));
 
-    const intervalId = setInterval(updateTimePassed.bind(null, createdAt, i), 1000);
-    intervalIds.push(intervalId);
+        const intervalId = setInterval(updateTimePassed.bind(null, createdAt, i), 1000);
+        intervalIds.push({ intervalId: intervalId});
 
-    // Initial update
-    updateTimePassed(createdAt, i);
-}
-
-// Function to calculate the time passed
-function calculateTimePassed(createdAt) {
-    const now = new Date();
-    const timeDifference = now.getTime() - createdAt.getTime();
-
-    const hoursPassed = Math.floor(timeDifference / (1000 * 60 * 60));
-    const minutesPassed = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-
-    return { hoursPassed, minutesPassed };
-}
-
-// Function to update the displayed time
-function updateTimePassed(createdAt, i) {
-    const { hoursPassed, minutesPassed } = calculateTimePassed(createdAt);
-    const timePassedElement = document.getElementById('clock' + i);
-    if (parseInt(minutesPassed) < 10) {
-        minnpas = '0' + String(minutesPassed);
-    }else{
-        minnpas =minutesPassed
     }
-    timePassedElement.innerText = `${hoursPassed}:${minnpas}`;
+
+
+    function calculateWorkMinutes(start, end) {
+            const workStartHour = 9;  // 9 AM
+            const workEndHour = 18;   // 6 PM
+
+            let totalMinutes = 0;
+
+            // Ensure start and end are Date objects
+            start = new Date(start);
+            end = new Date(end);
+
+            // Adjust start and end to work hours if needed
+            if (start.getHours() < workStartHour) {
+                start.setHours(workStartHour, 0, 0, 0);
+            }
+            
+            if (end.getHours() >= workEndHour) {
+                end.setHours(workEndHour, 0, 0, 0);
+            }
+
+            // Ensure start time is before end time
+            if (start >= end) {
+                return 0;
+            }
+
+            // Iterate from start to end date
+            for (let currentDate = new Date(start); currentDate <= end; currentDate.setDate(currentDate.getDate() + 1)) {
+                const dayOfWeek = currentDate.getDay();
+
+                // Skip Sundays
+                if (dayOfWeek === 0) continue;
+
+                // Define work hours for the current day
+                const workStart = new Date(currentDate);
+                workStart.setHours(workStartHour, 0, 0, 0);
+
+                const workEnd = new Date(currentDate);
+                workEnd.setHours(workEndHour, 0, 0, 0);
+
+                // Determine the actual start and end time for the work period on the current day
+                const dayStart = Math.max(start.getTime(), workStart.getTime());
+                const dayEnd = Math.min(end.getTime(), workEnd.getTime());
+
+                // If there's a valid work period
+                console.log(dayStart,' <<<< day start  ',dayEnd,' <<<< day end')
+                if (dayStart < dayEnd) {
+                const duration = dayEnd - dayStart;
+                console.log(Math.floor(duration / (1000 * 60))%60,Math.floor(Math.floor(duration / (1000 * 60))/60),currentDate.getDate(),'#########')
+                totalMinutes += Math.floor(duration / (1000 * 60)); // Convert milliseconds to minutes
+                }
+            }
+            var extra_minutes = 0
+            if(end.getDay()!= 0 && start.getDay()!= end.getDay()){
+                const updatedDate = new Date(start);
+                updatedDate.setDate(end.getDate());
+                updatedDate.setMonth(end.getMonth());
+                if(updatedDate > end){
+                    if(9 <= end.getHours() && end.getHours() < 18){
+
+                        extra_minutes = end.getHours()*60 + end.getMinutes() - 540
+                    }else{
+                        if(end.getHours() >= 18){
+                             extra_minutes = 9*60
+                        }else{
+                             extra_minutes = 0
+
+                        }
+
+                    }
+                }
+            }
+            totalMinutes += extra_minutes
+            return totalMinutes;
+            }
+
+
+    function convertMinutesToHours(minutes) {
+                const hours = Math.floor(minutes / 60);
+                const remainingMinutes = minutes % 60;
+                return { hours:hours, minutes: remainingMinutes };
+                }
+
     
-    var cloker = $('#cloker'+i)
-    
-    if(parseInt(hoursPassed)>=5 && parseInt(hoursPassed)<6){
-      cloker.css('border-radius','17px')
-      // cloker.css('color','white')
-      cloker.css('background-color','#ffdc73')
-    }else if(parseInt(hoursPassed)>=6 && parseInt(hoursPassed)<7){
-      cloker.css('border-radius','17px')
-      cloker.css('color','white')
-      // cloker.css('background-color','#EE4B2B')
-      cloker.css('background-color','#ff3333')
-    }else if(parseInt(hoursPassed)>=7) {
-      // console.log(hoursPassed,'dddddd')
-      cloker.css('border-radius','17px')
-      cloker.css('color','white')
-      cloker.css('background-color','#b30000')
+    // Function to update the displayed time
+    function updateTimePassed(created_at, i) {
+
+        const createdAt = created_at // Replace with your created_at timestamp
+        const now = new Date(); // Current time
+        const minutesss = calculateWorkMinutes(createdAt, now);
+        const workingHours = convertMinutesToHours(minutesss)
+        
+        var timePassedElement = document.getElementById('clock' + i);
+        
+
+        var totalMinutesPassed =workingHours.minutes
+        var elapsedBusinessHours =workingHours.hours
+
+        if (parseInt(totalMinutesPassed) < 10) {
+            var minnpas = '0' + String(totalMinutesPassed);
+        } else {
+            var minnpas = totalMinutesPassed;
+        }
+        if (elapsedBusinessHours >= 7){
+            timePassedElement.innerText = `-${elapsedBusinessHours}:${minnpas}`;
+        }else{
+            timePassedElement.innerText = `${elapsedBusinessHours}:${minnpas}`;
+        }
+
+        // Handle styling based on elapsed business hours
+        var cloker = document.getElementById('cloker' + i);
+        if (elapsedBusinessHours >= 5 && elapsedBusinessHours < 6) {
+            cloker.style.borderRadius = '17px';
+            cloker.style.backgroundColor = '#ffdc73';
+        } else if (elapsedBusinessHours >= 6 && elapsedBusinessHours < 7) {
+            cloker.style.borderRadius = '17px';
+            cloker.style.color = 'white';
+            cloker.style.backgroundColor = '#ff3333';
+        } else if (elapsedBusinessHours >= 7) {
+            cloker.style.borderRadius = '17px';
+            cloker.style.color = 'white';
+            cloker.style.backgroundColor = '#b30000';
+        }
+    }
+
+
+   
+
+
+function stopInterval(createdAt, i) {
+    // Find and stop the interval based on createdAt and i
+    for (var j = 0; j < intervalIds.length; j++) {
+        var data = intervalIds[j];
+        if (data.createdAt === createdAt && data.i === i) {
+            clearInterval(data.intervalId); // Stop the interval
+            intervalIds.splice(j, 1); // Remove the stopped interval from array
+            break; // Exit loop after stopping the interval
+        }
     }
 }
 
-  
-  
+
+
+
+
 
   function status_set(elem,i){
     var link = $('#link'+i)
@@ -402,12 +481,203 @@ function updateTimePassed(createdAt, i) {
   
   var es = new ReconnectingEventSource('/events/');
 
-  es.addEventListener('message', function (e) {
-      console.log(e.data);
+  es.addEventListener('message_new', function (e) {
+      var tr_size = $('.trs').length + 1
+      var data = JSON.parse(e.data)
+      var my_table = $('#my_table')
+      var tr_text = ''
+      var user_role = '{{request.user.role}}'
+
+      console.log(data,typeof(data))
+
+    
+
+      
+    var orderCreatedAt = new Date(data['created_at']);
+    const monthNames = {
+      '01': 'Янв',
+      '02': 'Фев',
+      '03': 'Мар',
+      '04': 'Апр',
+      '05': 'Май',
+      '06': 'Июн',
+      '07': 'Июл',
+      '08': 'Авг',
+      '09': 'Сен',
+      '10': 'Окт',
+      '11': 'Ноя',
+      '12': 'Дек'
+        };
+    const yyy = orderCreatedAt.getFullYear().toString();
+    const mmm = ('0' + (orderCreatedAt.getMonth() + 1)).slice(-2); // +1 because getMonth() returns zero-based index
+    const ddd = ('0' + orderCreatedAt.getDate()).slice(-2);
+    const hhh = ('0' + orderCreatedAt.getHours()).slice(-2);
+    const minn = ('0' + orderCreatedAt.getMinutes()).slice(-2);
+
+// Format the date with mapped month name
+  const formattedDate = `${yyy}-${ddd}-${monthNames[mmm]} ${hhh}:${minn}`;
+
+      
+
+
+
+
+      if(user_role == 'moderator'){
+        tr_text =`
+                    <tr  class="trs" id="tr_loop_${data['id']}">
+                        <td style="display: none;" class="lengg" ></td>
+                        <td class="text-primary">${data['order_type']}</td>
+                        <td class="text-primary" style="width: 100px;"><a href="/client/customer-order-detail/${data['id']}">${data['order_id']}</a></td>
+                        <td><a href="/client/order-check/${data['id']}">${data['order_name']}</a></td>
+                        <td><i class="bi bi-person-circle mr-1"></i>${data['owner']} </td>
+                        <td id="checker_${data['id']}"></td>
+                        
+                
+                        <td id="status_${data['id']}">
+                            
+                          <span class="badge badge-primary" style="opacity: 0.6;" value="1"   >Открыто</span>
+                            
+                        </td>
+                        <td id="created_at${tr_size}">${formattedDate}</td>
+                        <td >
+                          <div class="d-flex" id='cloker${tr_size}'>
+                            <div class="p-1" id="clock${tr_size}"></div>
+                            <div class="p-1"><i class="bi bi-clock"></i></div>
+                          </div>
+                        </td>
+                        <td id="options_${data['id']}" data-loop="${tr_size}"></td>
+                        </td>
+                        <td id="zavod_1101_${data['id']}">
+                            
+                        </td>
+                        <td id="zavod_1201_${data['id']}">
+                         
+                        </td>
+                        <td id="zavod_join_${data['id']}">
+                          
+                        </td>
+                    </tr>
+                  `
+       
+        $('#my_table tbody').prepend(tr_text);
+      }
+
+
+      var created_at = document.getElementById('created_at' + tr_size).innerText;
+
+      const [datePart, timePart] = created_at.split(' ');
+      const [yy, day, monthAbbreviation] = datePart.split('-');
+      const [hour, minute] = timePart.split(':');
+
+      // Convert month abbreviation to month index (assuming abbreviation is provided in English)
+      const monthIndex = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'].indexOf(monthAbbreviation) + 1;
+
+      // Create a new Date object for order creation time
+      const year = new Date().getFullYear(); // Assume current year
+      const createdAt = new Date(year, monthIndex - 1, parseInt(day), parseInt(hour), parseInt(minute));
+
+      const intervalId = setInterval(updateTimePassed.bind(null, createdAt, tr_size), 1000);
+      intervalIds.push(intervalId);
+
+      // Initial update
+      updateTimePassed(createdAt, tr_size);
+      
   }, false);
 
-  es.addEventListener('stream-reset', function (e) {
-      // ... client fell behind, reinitialize ...
+  es.addEventListener('message_update', function (e) {
+    
+    var data = JSON.parse(e.data)
+    var order_id = data['id']
+    var checker = data['checker']
+    var status = data['status']
+    var is_alu = data['is_alu']
+
+    var option_button = $('#options_'+order_id)
+    var forloop = option_button.attr('data-loop');
+
+    if(status != 'Выполнено'){
+
+      var checker_site = $('#checker_'+order_id)
+      if(checker_site.text()==''){
+        checker_text =`<i class="bi bi-person-check mr-1"></i>${checker}`
+        checker_site.append(checker_text)
+      }
+      var status_ = $('#status_'+order_id)
+      status_.children('span').remove()
+      var status_text =''
+      switch(status){
+        case 'Открыто':status_text=`<span class="badge badge-primary" style="opacity: 0.6;" value="1"   >Открыто</span>`; break;
+        case 'Выполнено':status_text=`<span value="10023" class="badge badge-success" >Выполнено</span>`; break;
+        case 'Работа ведется':status_text=`<span value="10063" class="badge badge-warning"   >Работа ведется</span>`;  break;
+        case 'На паузе':status_text=`<span value="10081" class="badge badge-secondary" style="color:black" >На паузе</span>`; break;
+        case 'Согласование':status_text=`<span value="10083" class="badge badge-warning"  >Согласование</span>`; break;
+        case 'Отменено':status_text=`<span value="10082" class="badge badge-danger"  >Отменено</span>`; break;
+        case 'Доработка заявителем':status_text=`<span value="10084" class="badge badge-warning" >Доработка заявителем</span>`; break;
+        case 'Исправлено':status_text=`<span value="10084" class="badge badge-warning"  >Исправлено</span>`; break;
+      }
+      status_.append(status_text)
+  
+      
+      
+      var option_text =''
+      if(status =='Работа ведется'){
+        option_text =`<a href="/client/order-convert/${order_id}" class="btn btn-warning btn-sm" id="link${forloop}" ><i class="bi bi-pen"></i> Convert</a>`
+        option_button.children('a').remove()
+        option_button.append(option_text)
+      }else{
+        option_button.children('a').remove()
+      }
+  
+      var zavod_1101_text = ''
+      var zavod_1201_text = ''
+      var zavod_join_text = ''
+      var zavod_1101 = $('#zavod_1101_'+order_id)
+      var zavod_1201 = $('#zavod_1201_'+order_id)
+      var zavod_join = $('#zavod_join_'+order_id)
+  
+      if(is_alu && status =='Работа ведется'){
+        zavod_1101_text =`<div class="form-check">
+                                <input type="checkbox" class="form-check-input" onchange="status_set(this,'${forloop}')" id="1101_${forloop}"> <i class="input-helper" ></i></label>
+                              </div>`
+        zavod_1201_text = `<div class="form-check">
+                                <input type="checkbox" class="form-check-input" onchange="status_set(this,'${forloop}')" id="1201_${forloop}">  <i class="input-helper"></i></label>
+                              </div>`
+        zavod_join_text = `<div class="form-check">
+                                <input type="checkbox" class="form-check-input" onchange="status_set(this,'${forloop}')" id="join_${forloop}">  <i class="input-helper"></i></label>
+                              </div>`
+  
+        zavod_1101.children('div').remove()
+        zavod_1201.children('div').remove()
+        zavod_join.children('div').remove()
+  
+        zavod_1101.append(zavod_1101_text)
+        zavod_1201.append(zavod_1201_text)
+        zavod_join.append(zavod_join_text)
+  
+  
+      }else{
+        zavod_1101.children('div').remove()
+        zavod_1201.children('div').remove()
+        zavod_join.children('div').remove()
+      }
+    }else{
+      console.log(forloop,'forlooppppp')
+      var created_at = document.getElementById('created_at' + forloop).innerText;
+      stopInterval(created_at,forloop)
+      var element = $('#tr_loop_'+order_id)
+      element.remove()
+
+
+    }
+      
+    
+
+
+
+
+
   }, false);
+
+
 </script>
 {% endblock %}

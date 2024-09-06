@@ -10,8 +10,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG")
-# DEBUG = True
+# DEBUG = os.environ.get("DEBUG")
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['127.0.0.1','mdm.akfagroup.com','https://mdm.akfagroup.com/','https://mdm.akfagroup.com','www.mdm.akfagroup.com/','www.mdm.akfagroup.com','http://10.7.4.48','10.7.4.48','https://10.7.4.48']
@@ -42,7 +42,12 @@ INSTALLED_APPS = [
     'client',
     'normabenkam',
     'accessuar',
+    'accessuar_import',
+    'radiator',
+    'apis',
     'rest_framework',
+    'kraska',
+    'epdm'
     # 'json_field',
     # "debug_toolbar",
 ]
@@ -96,7 +101,10 @@ CHANNEL_LAYERS ={
     }
 }
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -153,9 +161,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
-STATICFILES_DIRS = [
-   os.path.join(BASE_DIR, 'staticfiles')
-]
+# STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, 'staticfiles')
+# ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

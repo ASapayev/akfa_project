@@ -1296,6 +1296,7 @@ def product_add_second_org(request,id):
       file = AluFileTermo.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
       df =df.astype(str)
+      df['Код заказчика экспорт если експорт']=''
       
       now = datetime.now()
       year =now.strftime("%Y")
@@ -1406,6 +1407,7 @@ def product_add_second_org(request,id):
             row['Код лам пленки внутри'] = row['Код лам пленки внутри'].replace('.0','')
             row['Код лам пленки внутри'] = row['Код лам пленки внутри'].replace('.0','')
             
+            
             if 'Название export' in list(df.columns):
                   if ((row['Название export'] == 'nan') or (row['Название export'] == '')):
                         export_name = ''
@@ -1413,12 +1415,13 @@ def product_add_second_org(request,id):
                         export_name = row['Название export']
             else:
                   export_name = ''
-
-            if ((row['Название савдо'] == 'nan') or (row['Название савдо'] == '')):
-                  online_savdo_name = ''
+            if 'Название савдо' in list(df.columns):
+                  if ((row['Название савдо'] == 'nan') or (row['Название савдо'] == '')):
+                        online_savdo_name = ''
+                  else:
+                        online_savdo_name = row['Название савдо']
             else:
-                  online_savdo_name = row['Название савдо']
-            
+                  online_savdo_name =''
             artikul = df['Артикул'][key]
             component = df['Компонент'][key]
             
@@ -1848,7 +1851,8 @@ def product_add_second_org(request,id):
                                           export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                                     else:       
                                           export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                                    # print(export_description)
+                                    print(artikle,'<<<artikul')
+                                    print(export_description)
                                     # print(df_new['SAP код 7'][key],key)
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
@@ -2695,11 +2699,11 @@ def product_add_second_org(request,id):
                                     else:       
                                           export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                                     
+                                    print(f"p tip pokr {row['Тип покрытия']}",'>>>>>>>',export_description)
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                                     
                                     
-                                    print(f"p tip pokr {row['Тип покрытия']}")
                                     
                                     
                                     
@@ -3169,11 +3173,11 @@ def product_add_second_org(request,id):
                                     else:       
                                           export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                                     
+                                    print(f"N tip pokr {row['Тип покрытия']}", '>>>> ', export_description)      
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                                     
                                     
-                                    print(f"N tip pokr {row['Тип покрытия']}")      
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
                                                       'kratkiy':df_new['Наклейка'][key],

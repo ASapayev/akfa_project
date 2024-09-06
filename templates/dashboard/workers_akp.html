@@ -1,0 +1,188 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="content-wrapper">
+ 
+  <div class="row">
+    <div class="col-sm-4 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h5>День</h5>
+          <div class="row">
+            <div class="col-8 col-sm-12 col-xl-8 my-auto">
+              <div class="d-flex d-sm-block d-md-flex align-items-center">
+                <h2 class="mb-0">0</h2>
+                <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+              </div>
+              <h6 class="text-muted font-weight-normal">11.38% Since last month</h6>
+            </div>
+            <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+              <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h5>Неделя</h5>
+          <div class="row">
+            <div class="col-8 col-sm-12 col-xl-8 my-auto">
+              <div class="d-flex d-sm-block d-md-flex align-items-center">
+                <h2 class="mb-0">0</h2>
+                <p class="text-success ml-2 mb-0 font-weight-medium">+8.3%</p>
+              </div>
+              <h6 class="text-muted font-weight-normal"> 9.61% Since last month</h6>
+            </div>
+            <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+              <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h5>Месяц</h5>
+          <div class="row">
+            <div class="col-8 col-sm-12 col-xl-8 my-auto">
+              <div class="d-flex d-sm-block d-md-flex align-items-center">
+                <h2 class="mb-0">0</h2>
+                <p class="text-danger ml-2 mb-0 font-weight-medium">-2.1% </p>
+              </div>
+              <h6 class="text-muted font-weight-normal">2.27% Since last month</h6>
+            </div>
+            <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+              <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col-12 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Заявка Статус</h4>
+          {%if orders %}
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>
+                    <div class="form-check form-check-muted m-0">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input">
+                      </label>
+                    </div>
+                  </th>
+                  <th> Имя  </th>
+                  <th> Заявка № </th>
+                  <th> Title </th>
+                  <th>Статус</th>
+                  <th> Start Date </th>
+                  <th> Действие </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order in orders %}
+                <tr>
+                  <td>
+                    <div class="form-check form-check-muted m-0">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input">
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <img src="{{order.owner.userprofile.profile_picture.url}}" alt="image" />
+                    <span class="pl-2">{{order.owner}}</span>
+                  </td>
+                  <td> {{order.id | order_number_format}} </td>
+                  <td> {{order.title |split_text}} </td>
+                  {%if order.work_type == 10 %}
+                  <td><span class="text-success">{{order.get_work_type_display}}</span></td>
+                  {%else%}
+                    {%if 'LACK' in order.get_work_type_display %}
+                    <td><span class="text-danger">{{order.get_work_type_display}}</span></td>
+                    {%else%}
+                    <td><span class="text-info">{{order.get_work_type_display}}</span></td>
+                    {%endif%}
+                  {%endif%}
+                  <td> {{order.created_at |date:"d-m-Y H:i"}} </td>
+                  
+                  <td>
+                    
+                    <div >
+                      
+                      <a class="btn btn-success"  href="{% url 'order_detail_akp' order.id %}"><i class="mdi mdi-eye"></i>Detail</a>
+                      
+                      {%if order.owner == request.user or request.user.is_superadmin %}
+                      <a class="btn btn-warning"  href="{%url 'status_change_to_done_akp' order.id %}"><i class="mdi mdi-check-all text-success"></i>DONE</a>
+                      <a class="btn btn-danger"  href="{%url 'order_delete_akp' order.id %}"><i class="mdi mdi-delete-forever"></i>Delete</a>
+                      {%endif%}
+                    </div>
+                  </td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+          {%else%}
+          <div class="col-md-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Заявки ещё нет.</h4>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="d-flex justify-content-between">
+      <div class="pagination p-2">
+        <span class="step-links">
+          <ul class="pagination"  style="background-color: azure;">
+              {% if orders.has_previous %}
+              <li class="page-item" ><a class="page-link"  style="background-color: azure;" href="?page={{ orders.previous_page_number }}{%if search%}&search={{search}}{%endif%}">Previous</a></li>
+                  {% if orders.number > 3 %}
+                      <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page=1{%if search%}&search={{search}}{%endif%}">1</a></li>
+                      {% if orders.number > 4 %}
+                      <li class="page-item"  style="background-color: azure;"> <span style="color: black;">...</span></li>
+                      {% endif %}
+                  {% endif %}
+              {% endif %}
+
+              {% for num in orders.paginator.page_range %}
+                  {% if orders.number == num %}
+                      <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                  {% elif num > orders.number|add:'-3' and num < orders.number|add:'3' %}
+                      <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                  {% endif %}
+              {% endfor %}
+
+              {% if orders.has_next %}
+                  {% if orders.number < orders.paginator.num_pages|add:'-3' %}
+                  <li class="page-item"  style="background-color: azure;" > <span style="color: black;">...</span></li>
+                  <li class="page-item"><a class="page-link"  style="background-color: azure;"  href="?page={{ orders.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ orders.paginator.num_pages }}</a></li>
+                  {% elif orders.number < orders.paginator.num_pages|add:'-2' %}
+                  <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ orders.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ orders.paginator.num_pages }}</a></li>
+                  {% endif %}
+                  
+                  <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ orders.next_page_number }}{%if search%}&search={{search}}{%endif%}">Next Page »</a></li>
+                 
+              {% endif %}
+            </ul>
+        </span>
+      </div>
+  </div>
+</div>
+{% endblock %}

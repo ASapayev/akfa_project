@@ -1,0 +1,257 @@
+{% extends 'client/base.html'%}
+{%load static%}
+{%block content%}
+
+         
+
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">SAP код</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название товаров (40 симвлов)</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Полное название товара</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена материала (СУМ)</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Базовая единица измерения</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">GOODS_GROUP</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">TEX_NAME</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Коеффициент пересчета</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Альтернативная единица измерения</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">ID KLAES</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группма Материалов</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Комментария</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+                <div>
+                    <a  class=" btn btn-success m-2 btn-sm" onclick="ready_all()">Сохранить</a>
+                   </div>
+                
+            </form>
+            </section>
+            
+           
+
+            <section class="explore-section " id="section_2">
+                <div class="container">
+
+                        <div class="col-12 text-center">
+                            <h3 class="mb-4">Чат </h3>
+                        </div>
+
+                   
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="col-md-12 p-2" style="background-color: #fafbfc;{%if status == 1 %}display:none;{%endif%}">
+                                        {%for order_detail in order_details %}
+                                            {%if request.user == order_detail.owner %}
+                                                {%if status != 1 %}
+                                                {%if order_detail.message != '' %}
+                                                <div class="bg-white">
+                                                    <div class="d-flex justify-content-start col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
+                                                    
+                                                        <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
+                                                            <p>{{order_detail.message}}</p>
+                                                        </div>
+                                                   
+
+                                                    {%if order_detail.file %}
+                                                    <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
+                                                        <p ><a class="link-opacity-100" href="{{order_detail.file.url}}"><i class="bi bi-file-earmark-arrow-down"></i> File link</a></p>
+                                                    </div>
+                                                    {%endif%}
+                                                </div>
+                                                    <hr>
+                                                {%endif%}
+                                                {%endif%}
+                                            {%else%}
+                                                    {%if status != 1 %}
+                                                    {%if order_detail.message != '' %}
+                                                    <div class="bg-white">
+                                                        <div class="d-flex justify-content-end col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
+                                                       
+                                                            <div class="d-flex justify-content-end col-md-12 pl-5" style="color:rgba(0,0,0,.6);">
+                                                                <p style="padding-left: 40%;">{{order_detail.message}}</p>
+                                                            </div>
+                                                        
+
+                                                        {%if order_detail.file %}
+                                                        <div class="d-flex justify-content-end col-md-12" style="color:rgba(0,0,0,.6);">
+                                                            <p ><a class="link-opacity-100" href="{{order_detail.file.url}}"><i class="bi bi-file-earmark-arrow-down"></i> File link</a></p>
+                                                        </div>
+                                                        {%endif%}
+                                                    </div>
+                                                        <hr>
+                                                    {%endif%}
+                                                    {%endif%}
+
+                                            {%endif%}
+
+                                                
+
+                                        {% endfor %}
+                                    </div>
+
+                                    <form class="forms-sample " method="POST" enctype="multipart/form-data">
+                                        {%csrf_token%}
+                                    <div class="form-group col-2" >
+                                        <label for="exampleSelectGender">Статус : {{status_name}}</label>
+                                        {%if status == '10084' or status == '10083'  or status == '10081'%}
+                                            <select class="form-control" id="exampleSelectGender" name="status" onchange="status_change(this.value)">
+                                                <option value="0" ></option>
+                                                <option value="10082" style="color:#d9534f" >Отменено</option>
+                                                {%if status == '10084' or status == '10081'%}
+                                                    <option value="10085" style="color:#d9534f" >Исправлено</option>
+                                                    {%endif%}
+                                                {%if status == '10083'%}
+                                                    <option value="10063" style="color: #f0ad4e;" >Работа ведется</option>
+                                                {%endif%}
+                                            </select>
+                                        {%endif%}
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label>Загрузка файла</label>
+                                        <div class="input-group col-xs-12">
+                                            
+                                            <span class="input-group-append">
+                                                <input type="file" name="file" class="file-upload-browse btn btn-primary" value="Upload" >
+                                                
+                                        </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group col-8">
+                                        <label for="exampleTextarea1" id="examplelabel">Сообщение</label>
+                                        <textarea class="form-control " id="exampleTextarea1" name="message" rows="4"></textarea>
+                                        </div>
+                                        <div id="btn_command">
+                                        
+                                            <button type="submit" class="btn btn-primary mr-2">Отправить</button>
+                                            <button class="btn btn-dark">Отменить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+           
+        </main>
+        <div style="display: none;">
+                {{ data|json_script:"items-data" }}
+                <h1 id="order_type">{{order_type}}</h1>
+        </div>
+{%endblock%}
+
+{%block java_script%}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script> 
+
+<link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
+<script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
+<script  type="text/javascript" src="{% static 'js/saw/update/acs_imzo.js'%}"></script>
+
+<script>
+    function status_change(val){
+    if(val == 10083){
+        var user_list =$('#user_list')
+        user_list.css('display','block')
+        var users =$('#users')
+        users.attr('required',true)
+    }else{
+        var user_list =$('#user_list')
+        user_list.css('display','none')
+        var users =$('#users')
+        users.attr('required',false)
+    } 
+
+    if(val ==10084 || val ==10081){
+        var textarea =$('#exampleTextarea1')
+        textarea.addClass('mustbe_red')
+        textarea.attr('required',true)
+    }else{
+        var textarea =$('#exampleTextarea1')
+        textarea.attr('required',false)
+        textarea.removeClass('mustbe_red')
+    }
+    var btn_command = $('#btn_command')
+    btn_command.css('display','block')
+}
+
+    function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+    function ready_all(){
+    var all_correct = true;
+    var data_empty = false
+    if (Object.keys(data_base).length === 0) {
+        data_empty = true
+    }
+
+    for (var key in data_base) {
+        if (data_base.hasOwnProperty(key)) { 
+            var value = data_base[key];
+            if(!value.full){
+                all_correct=false
+            }
+        }
+    }
+
+    if (!data_empty && all_correct){
+        var json_data = JSON.stringify(data_base)
+        var url = "/client/order-update/"+'{{id}}'
+        var csrfToken = getCSRFToken();
+        var postData = {
+            'data': json_data,
+            'order_type':'pvc_savdo',
+            'name':'ACCESSUAR IMZO'
+        }
+        $.ajax({
+            type: 'POST',
+            url: url,
+            headers: { "X-CSRFToken": csrfToken },
+            data: postData,
+        }).done(function (res) {
+            console.log(res)
+            if (res.status ==201){
+                Swal.fire('Muvaafaqiyatli o\'zgartirildi.', '', 'success')
+
+            }else{
+                console.log('aa')
+            }
+            // WON'T REDIRECT
+        });
+            
+    }else{
+        
+        if(!data_empty && !all_correct){
+            Swal.fire({
+                icon: 'error',
+                title: 'Malumotlar to\'liq emas!!!',
+                text: 'Itimos ma\'lumotlarni to\'ldiring.',
+            });
+        }
+    }
+
+   
+}
+</script>
+{%endblock%}
+
+

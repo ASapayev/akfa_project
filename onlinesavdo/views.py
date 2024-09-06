@@ -12,6 +12,7 @@ from .models import OnlineSavdoOrder,OnlineSavdoFile
 import os
 from .utils import create_folder,zip
 from accounts.decorators import allowed_users
+from order.models import Order
 
 
 
@@ -233,25 +234,25 @@ def upload_for_proverka(request):
                     elif ('CHECK' in file_name and 'ZORN' in file_name):
                         paths['2'] = file_name
 
-                    elif ('VK' in file_name and 'beznal' in file_name):
-                        paths['3'] = file_name
-                    elif ('CHECK' in file_name and 'BEZNAL' in file_name):
-                        paths['4'] = file_name
+                    # elif ('VK' in file_name and 'beznal' in file_name):
+                    #     paths['3'] = file_name
+                    # elif ('CHECK' in file_name and 'BEZNAL' in file_name):
+                    #     paths['4'] = file_name
 
                     elif ('VK' in file_name and 'ZUU' in file_name):
                         paths['5'] = file_name
                     elif ('CHECK' in file_name and 'ZUU' in file_name):
                         paths['6'] = file_name
 
-                    elif ('VK' in file_name and 'ZFKN' in file_name):
-                        paths['7'] = file_name
-                    elif ('CHECK' in file_name and 'ZFKN' in file_name):
-                        paths['8'] = file_name
+                    # elif ('VK' in file_name and 'ZFKN' in file_name):
+                    #     paths['7'] = file_name
+                    # elif ('CHECK' in file_name and 'ZFKN' in file_name):
+                    #     paths['8'] = file_name
 
-                    elif ('VK' in file_name and 'zfdn' in file_name):
-                        paths['9'] = file_name
-                    elif ('CHECK' in file_name and 'ZFDN' in file_name):
-                        paths['10'] = file_name
+                    # elif ('VK' in file_name and 'zfdn' in file_name):
+                    #     paths['9'] = file_name
+                    # elif ('CHECK' in file_name and 'ZFDN' in file_name):
+                    #     paths['10'] = file_name
 
                     elif ('VK' in file_name and 'ZREN' in file_name):
                         paths['11'] = file_name
@@ -263,14 +264,14 @@ def upload_for_proverka(request):
                 online_savdo_order.paths = { 
                     'path_1' : str(paths['1']),
                     'path_2' : str(paths['2']),
-                    'path_3' : str(paths['3']),
-                    'path_4' : str(paths['4']),
+                    'path_3' : '',
+                    'path_4' : '',
                     'path_5' : str(paths['5']),
                     'path_6' : str(paths['6']),
-                    'path_7' : str(paths['7']),
-                    'path_8' : str(paths['8']),
-                    'path_9' : str(paths['9']),
-                    'path_10' : str(paths['10']),
+                    'path_7' : '',
+                    'path_8' : '',
+                    'path_9' : '',
+                    'path_10' : '',
                     'path_11' : str(paths['11']),
                     'path_12' : str(paths['12'])
                       }
@@ -293,7 +294,7 @@ def upload_for_proverka(request):
 
 
 def round50(n):
-    return round(n, -2)
+    return round(n/0.01)*0.01
 
 def round502(n):
     if str(n)=='':
@@ -306,8 +307,13 @@ def round503(n):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
 def create_online(request,id):
+
+    order_id = request.get('order_id',None)
+
+    
+
     file = OnlineSavdoFile.objects.get(id=id).file
-    df = pd.read_excel(f'{MEDIA_ROOT}/{file}',sheet_name='Алюмин Навои Жомий',header=4)
+    df = pd.read_excel(f'{MEDIA_ROOT}/{file}',header=0)
     df = df[~df['Название системы'].isnull()]
     df =df.astype(str)
 
@@ -332,12 +338,23 @@ def create_online(request,id):
     pathtext1 =f'{MEDIA_ROOT}\\uploads\\online_savdo\\{year}\\{month}\\{day}\\{hour}\\ONLINE\\{minut}\\teams.xlsx'
 
 
+    if order_id:
+        order = Order.objects.get(id = order_id)
+        paths = order.paths
+        paths['savdo_material_file'] = pathtext1
+        order.work_type = 7
+
+
     not_exists = [[],[]]
     all_corecct = True
+    df['Длина (мм)'].astype(str)
+    df['Длина (мм)'] = df['Длина (мм)'].replace('.0','')
     for key,row in df.iterrows():
-        if not LengthOfProfile.objects.filter(artikul =row["Артикул"],length=row['Длина (мм)']).exists():
+        
+        df['Длина (мм)'][key] =str(df['Длина (мм)'][key]).replace('.0','')
+        if not LengthOfProfile.objects.filter(artikul =row["Артикул"],length=df['Длина (мм)'][key]).exists():
             not_exists[0].append(row["Артикул"])
-            not_exists[1].append(row['Длина (мм)'])
+            not_exists[1].append(df['Длина (мм)'][key])
             all_corecct = False
 
     if not all_corecct:
@@ -352,10 +369,13 @@ def create_online(request,id):
         context ={
             'files':files
         }
-        return render(request,'universal/generated_files.html',context)
+        return render(request,'universal/generated_files_alu_online.html',context)
 
+    df['Длина (мм)'].astype(str)
+    df['Длина (мм)'] = df['Длина (мм)'].replace('.0','')
     data =[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
     for key,row in df.iterrows():
+        df['Длина (мм)'][key] =str(df['Длина (мм)'][key]).replace('.0','')
         data[0].append(row["Название"])
         data[1].append(row["SAP Код вручную (вставится вручную)"])
         data[2].append(row["Группа"])
@@ -367,7 +387,7 @@ def create_online(request,id):
         data[8].append("Штука")
         data[9].append("Килограмм")
         data[10].append(1)
-        ves_za_shtuk = LengthOfProfile.objects.filter(artikul =row["Артикул"],length=row['Длина (мм)'])[:1].get().ves_za_shtuk
+        ves_za_shtuk = LengthOfProfile.objects.filter(artikul =row["Артикул"],length=df['Длина (мм)'][key])[:1].get().ves_za_shtuk
         data[11].append(ves_za_shtuk)
         data[12].append("Пассивный")
         data[13].append(row["Завод TEX"])
@@ -381,7 +401,7 @@ def create_online(request,id):
     context ={
         'files':files
     }
-    return render(request,'universal/generated_files.html',context)
+    return render(request,'universal/generated_files_alu_online.html',context)
 
 
 @login_required(login_url='/accounts/login/')
@@ -418,11 +438,15 @@ def sozdaniya_online_savdo(request,id):
 
     not_exists = [[],[]]
     all_corecct = True
+    df1['Длина (мм)'].astype(str)
+    df1['Длина (мм)'] = df1['Длина (мм)'].replace('.0','')
     for key,row in df1.iterrows():
-        if not LengthOfProfile.objects.filter(artikul =row["Артикул"],length=row['Длина (мм)']).exists():
+        
+        if not LengthOfProfile.objects.filter(artikul =row["Артикул"],length=df1['Длина (мм)'][key]).exists():
             not_exists[0].append(row["Артикул"])
             not_exists[1].append(row['Длина (мм)'])
             all_corecct = False
+    all_corecct =True
 
     if not all_corecct:
         new_not ={'Артикул':not_exists[0],'Длина (мм)':not_exists[1]} 
@@ -441,9 +465,12 @@ def sozdaniya_online_savdo(request,id):
 
 
     data =[[],[],[],[],[],[],[],[]] 
-    PriceUSD = int(ExchangeValues.objects.get(id = 1).valute)
+    # PriceUSD = int(ExchangeValues.objects.get(id = 1).valute)
+    df1['Длина (мм)'].astype(str)
     for key2,row2 in df1.iterrows():
         result = base[base['name'] ==row2['Название'] ]
+        df1['Длина (мм)'] = df1['Длина (мм)'].replace('.0','')
+        # print(result)
         data[0].append(result.iloc[0]['id'])
         data[1].append(result.iloc[0]['name'])
         data[2].append(row2['Тип клиента'])
@@ -477,11 +504,12 @@ def sozdaniya_online_savdo(request,id):
         if row2['Базовый единица']=='КГ':
             t = 1
         else:
-            t = LengthOfProfile.objects.filter(artikul = row2["Артикул"],length = row2['Длина (мм)'])[:1].get().ves_za_shtuk
-        print()
-        data[5].append(round50(float(t)*(price*PriceUSD)))
-        data[4].append(round50(round50(float(t)*(price*PriceUSD))/1.12))
-        data[6].append("UZS")
+            print(row2["Артикул"],row2['Длина (мм)'])
+            t = LengthOfProfile.objects.filter(artikul = row2["Артикул"],length = str(row2['Длина (мм)']).replace('.0',''))[:1].get().ves_za_shtuk
+        
+        data[5].append(round50(float(t)*(price)))
+        data[4].append(round50(round50(float(t)*(price))/1.12))
+        data[6].append("USD")
         data[7].append(row2['Базовый единица'])
 
 
@@ -1389,86 +1417,87 @@ def proverka(request,id):
 
     if not df_nesovpa.empty:
         df_nesovpa.to_excel(pathtext1)
+    try:
+        df1 = pd.read_excel(f'{MEDIA_ROOT}/{path3}',sheet_name='Sheet1',header=0)
 
-    df1 = pd.read_excel(f'{MEDIA_ROOT}/{path3}',sheet_name='Sheet1',header=0)
+        to_datetime_fmt = partial(pd.to_datetime, format='%d.%m.%Y')
 
-    to_datetime_fmt = partial(pd.to_datetime, format='%d.%m.%Y')
+        df1['DATAB'] = df1['DATAB'].apply(to_datetime_fmt)
+        df1 = df1.astype(str)
+        df1['joined_data']= df1['VKORG'] + df1['KONDA'] + df1['MATNR'] +df1['DATAB']
 
-    df1['DATAB'] = df1['DATAB'].apply(to_datetime_fmt)
-    df1 = df1.astype(str)
-    df1['joined_data']= df1['VKORG'] + df1['KONDA'] + df1['MATNR'] +df1['DATAB']
+        print(df1['joined_data'])
 
-    # print(df1['joined_data'])
+        df2 = pd.read_excel(f'{MEDIA_ROOT}/{path4}',sheet_name='Sheet1',header=0)
 
-    df2 = pd.read_excel(f'{MEDIA_ROOT}/{path4}',sheet_name='Sheet1',header=0)
+        df2 = df2.astype(str)
+        df2['joined_data']= df2['Сбытовая организация'] + df2['Группа цен клиента'] + df2['Материал'] +df2['Действ. с']
 
-    df2 = df2.astype(str)
-    df2['joined_data']= df2['Сбытовая организация'] + df2['Группа цен клиента'] + df2['Материал'] +df2['Действ. с']
+        # print(df2['joined_data'])
+        nesovpaden_datas =[[],[],[],[],
+                        [],[],[],[],[],[],[],[],[],[],[],[],[]]
 
-    # print(df2['joined_data'])
-    nesovpaden_datas =[[],[],[],[],
-                    [],[],[],[],[],[],[],[],[],[],[],[],[]]
+        for key1,row1 in df1.iterrows():
+            result = df2[df2['joined_data'] == row1['joined_data'] ]
+            result['Сумма'] = result['Сумма'].astype(float)
+            row1['KBETR'] = float(row1['KBETR'])
+            
+            result2 =result[result['Сумма'] == row1['KBETR']]
+            if result2.empty:
+                nesovpaden_datas[0].append(row1['KSCHL'])
+                nesovpaden_datas[1].append(row1['VKORG'])
+                nesovpaden_datas[2].append(row1['WERKS'])
+                nesovpaden_datas[3].append(row1['VTWEG'])
+                nesovpaden_datas[4].append(row1['KONDA'])
+                nesovpaden_datas[5].append(row1['MATNR'])
+                nesovpaden_datas[6].append(row1['KBETR'])
+                nesovpaden_datas[7].append(row1['KONWA'])
+                nesovpaden_datas[8].append(row1['KPEIN'])
+                nesovpaden_datas[9].append(row1['KMEIN'])
+                nesovpaden_datas[10].append(row1['DATAB'])
+                nesovpaden_datas[11].append(row1['DATBI'])
+                nesovpaden_datas[12].append(row1['KUNNR'])
+                nesovpaden_datas[13].append(row1['FKART'])
+                nesovpaden_datas[14].append(row1['AUART'])
+                nesovpaden_datas[15].append(row1['AUGRU'])
+                nesovpaden_datas[16].append(result.iloc[0]['Сумма'])
+                # print(result,'nesovpaden')
+            else:
+                pass
+                # print(result2,'sovpaden')
 
-    for key1,row1 in df1.iterrows():
-        result = df2[df2['joined_data'] == row1['joined_data'] ]
-        result['Сумма'] = result['Сумма'].astype(float)
-        row1['KBETR'] = float(row1['KBETR'])
+        df_nesovpa =pd.DataFrame({
+        'KSCHL':nesovpaden_datas[0],
+        'VKORG':nesovpaden_datas[1],
+        'WERKS':nesovpaden_datas[2],
+        'VTWEG':nesovpaden_datas[3],
+        'KONDA':nesovpaden_datas[4],
+        'MATNR':nesovpaden_datas[5],
+        'KBETR':nesovpaden_datas[6],
+        'KONWA':nesovpaden_datas[7],
+        'KPEIN':nesovpaden_datas[8],
+        'KMEIN':nesovpaden_datas[9],
+        'DATAB':nesovpaden_datas[10],
+        'DATBI':nesovpaden_datas[11],
+        'KUNNR':nesovpaden_datas[12],
+        'FKART':nesovpaden_datas[13],
+        'AUART':nesovpaden_datas[14],
+        'AUGRU':nesovpaden_datas[15],
+        'ERROR':nesovpaden_datas[16]
+
+        })
+        df_nesovpa =df_nesovpa.replace('nan','')
         
-        result2 =result[result['Сумма'] == row1['KBETR']]
-        if result2.empty:
-            nesovpaden_datas[0].append(row1['KSCHL'])
-            nesovpaden_datas[1].append(row1['VKORG'])
-            nesovpaden_datas[2].append(row1['WERKS'])
-            nesovpaden_datas[3].append(row1['VTWEG'])
-            nesovpaden_datas[4].append(row1['KONDA'])
-            nesovpaden_datas[5].append(row1['MATNR'])
-            nesovpaden_datas[6].append(row1['KBETR'])
-            nesovpaden_datas[7].append(row1['KONWA'])
-            nesovpaden_datas[8].append(row1['KPEIN'])
-            nesovpaden_datas[9].append(row1['KMEIN'])
-            nesovpaden_datas[10].append(row1['DATAB'])
-            nesovpaden_datas[11].append(row1['DATBI'])
-            nesovpaden_datas[12].append(row1['KUNNR'])
-            nesovpaden_datas[13].append(row1['FKART'])
-            nesovpaden_datas[14].append(row1['AUART'])
-            nesovpaden_datas[15].append(row1['AUGRU'])
-            nesovpaden_datas[16].append(result.iloc[0]['Сумма'])
-            # print(result,'nesovpaden')
-        else:
-            pass
-            # print(result2,'sovpaden')
-
-    df_nesovpa =pd.DataFrame({
-    'KSCHL':nesovpaden_datas[0],
-    'VKORG':nesovpaden_datas[1],
-    'WERKS':nesovpaden_datas[2],
-    'VTWEG':nesovpaden_datas[3],
-    'KONDA':nesovpaden_datas[4],
-    'MATNR':nesovpaden_datas[5],
-    'KBETR':nesovpaden_datas[6],
-    'KONWA':nesovpaden_datas[7],
-    'KPEIN':nesovpaden_datas[8],
-    'KMEIN':nesovpaden_datas[9],
-    'DATAB':nesovpaden_datas[10],
-    'DATBI':nesovpaden_datas[11],
-    'KUNNR':nesovpaden_datas[12],
-    'FKART':nesovpaden_datas[13],
-    'AUART':nesovpaden_datas[14],
-    'AUGRU':nesovpaden_datas[15],
-    'ERROR':nesovpaden_datas[16]
-
-    })
-    df_nesovpa =df_nesovpa.replace('nan','')
-    
-    if not df_nesovpa.empty:
-        df_nesovpa.to_excel(pathtext2)
-    
+        if not df_nesovpa.empty:
+            df_nesovpa.to_excel(pathtext2)
+    except:
+        pass
 
     df1 = pd.read_excel(f'{MEDIA_ROOT}/{path5}',sheet_name='Sheet1',header=0)
 
-    to_datetime_fmt = partial(pd.to_datetime, format='%d.%m.%Y')
+    # to_datetime_fmt = partial(pd.to_datetime, format='%d.%m.%Y')
 
-    df1['DATAB'] = df1['DATAB'].apply(to_datetime_fmt)
+    # df1['DATAB'] = df1['DATAB'].apply(to_datetime_fmt)
     df1 = df1.astype(str)
     df1['joined_data']= df1['VKORG'] + df1['KONDA'] + df1['MATNR'] +df1['DATAB']
 
@@ -1482,9 +1511,13 @@ def proverka(request,id):
     # print(df2['joined_data'])
     nesovpaden_datas =[[],[],[],[],
                     [],[],[],[],[],[],[],[],[],[],[],[],[]]
+    
+    # print(df1['joined_data'],'df1')
+    # print(df2['joined_data'],'df2')
 
     for key1,row1 in df1.iterrows():
         result = df2[df2['joined_data'] == row1['joined_data'] ]
+        # print(result,'result')
         result['Сумма']=result['Сумма'].astype(float)
         row1['KBETR']= float(row1['KBETR'])
         
@@ -1536,160 +1569,164 @@ def proverka(request,id):
     if not df_nesovpa.empty:
         df_nesovpa.to_excel(pathtext3)
     
+    try:
+        df1 = pd.read_excel(f'{MEDIA_ROOT}/{path7}',sheet_name='Sheet1',header=0)
 
-    df1 = pd.read_excel(f'{MEDIA_ROOT}/{path7}',sheet_name='Sheet1',header=0)
+        to_datetime_fmt = partial(pd.to_datetime, format='%d.%m.%Y')
 
-    to_datetime_fmt = partial(pd.to_datetime, format='%d.%m.%Y')
+        df1['DATAB'] = df1['DATAB'].apply(to_datetime_fmt)
+        df1 = df1.astype(str)
+        df1['joined_data']= df1['VKORG'] + df1['KONDA'] + df1['MATNR'] +df1['DATAB']
 
-    df1['DATAB'] = df1['DATAB'].apply(to_datetime_fmt)
-    df1 = df1.astype(str)
-    df1['joined_data']= df1['VKORG'] + df1['KONDA'] + df1['MATNR'] +df1['DATAB']
+        # print(df1['joined_data'])
 
-    # print(df1['joined_data'])
+        df2 = pd.read_excel(f'{MEDIA_ROOT}/{path8}',sheet_name='Sheet1',header=0)
 
-    df2 = pd.read_excel(f'{MEDIA_ROOT}/{path8}',sheet_name='Sheet1',header=0)
+        df2 = df2.astype(str)
+        df2['joined_data']= df2['Сбытовая организация'] + df2['Группа цен клиента'] + df2['Материал'] +df2['Действ. с']
 
-    df2 = df2.astype(str)
-    df2['joined_data']= df2['Сбытовая организация'] + df2['Группа цен клиента'] + df2['Материал'] +df2['Действ. с']
+        # print(df2['joined_data'])
+        nesovpaden_datas =[[],[],[],[],
+                        [],[],[],[],[],[],[],[],[],[],[],[],[]]
 
-    # print(df2['joined_data'])
-    nesovpaden_datas =[[],[],[],[],
-                    [],[],[],[],[],[],[],[],[],[],[],[],[]]
-
-    for key1,row1 in df1.iterrows():
-        result = df2[df2['joined_data'] == row1['joined_data'] ]
-        # print(row1['joined_data'],result)
-        result['Сумма']=result['Сумма'].astype(float)
-        result['Сумма']=result['Сумма'].round(decimals = 1)
-    
-        row1['KBETR']= round(float(row1['KBETR']),1)
+        for key1,row1 in df1.iterrows():
+            result = df2[df2['joined_data'] == row1['joined_data'] ]
+            # print(row1['joined_data'],result)
+            result['Сумма']=result['Сумма'].astype(float)
+            result['Сумма']=result['Сумма'].round(decimals = 1)
         
-        result2 =result[result['Сумма'] == row1['KBETR']]
-        # print(result['Сумма'])
-    
-        if result2.empty:
-            nesovpaden_datas[0].append(row1['KSCHL'])
-            nesovpaden_datas[1].append(row1['VKORG'])
-            nesovpaden_datas[2].append(row1['WERKS'])
-            nesovpaden_datas[3].append(row1['VTWEG'])
-            nesovpaden_datas[4].append(row1['KONDA'])
-            nesovpaden_datas[5].append(row1['MATNR'])
-            nesovpaden_datas[6].append(row1['KBETR'])
-            nesovpaden_datas[7].append(row1['KONWA'])
-            nesovpaden_datas[8].append(row1['KPEIN'])
-            nesovpaden_datas[9].append(row1['KMEIN'])
-            nesovpaden_datas[10].append(row1['DATAB'])
-            nesovpaden_datas[11].append(row1['DATBI'])
-            nesovpaden_datas[12].append(row1['KUNNR'])
-            nesovpaden_datas[13].append(row1['FKART'])
-            nesovpaden_datas[14].append(row1['AUART'])
-            nesovpaden_datas[15].append(row1['AUGRU'])
-            nesovpaden_datas[16].append(result.iloc[0]['Сумма'])
-            print(result,'nesovpaden')
-            break
-        else:
-            pass
-            # print(result2,'sovpaden')
-
-    df_nesovpa =pd.DataFrame({
-    'KSCHL':nesovpaden_datas[0],
-    'VKORG':nesovpaden_datas[1],
-    'WERKS':nesovpaden_datas[2],
-    'VTWEG':nesovpaden_datas[3],
-    'KONDA':nesovpaden_datas[4],
-    'MATNR':nesovpaden_datas[5],
-    'KBETR':nesovpaden_datas[6],
-    'KONWA':nesovpaden_datas[7],
-    'KPEIN':nesovpaden_datas[8],
-    'KMEIN':nesovpaden_datas[9],
-    'DATAB':nesovpaden_datas[10],
-    'DATBI':nesovpaden_datas[11],
-    'KUNNR':nesovpaden_datas[12],
-    'FKART':nesovpaden_datas[13],
-    'AUART':nesovpaden_datas[14],
-    'AUGRU':nesovpaden_datas[15],
-    'ERROR':nesovpaden_datas[16]
-
-    })
-
-    df_nesovpa =df_nesovpa.replace('nan','')
-    if not df_nesovpa.empty:
-        df_nesovpa.to_excel(pathtext4)
-    
-
-
-    df1 = pd.read_excel(f'{MEDIA_ROOT}/{path9}',sheet_name='Sheet1',header=0)
-
-    to_datetime_fmt = partial(pd.to_datetime, format='%d.%m.%Y')
-
-    df1['DATAB'] = df1['DATAB'].apply(to_datetime_fmt)
-    df1 = df1.astype(str)
-    df1['joined_data']= df1['VKORG'] + df1['KONDA'] + df1['MATNR'] +df1['DATAB']
-
-    df2 = pd.read_excel(f'{MEDIA_ROOT}/{path10}',sheet_name='Sheet1',header=0)
-
-    df2 = df2.astype(str)
-    df2['joined_data']= df2['Сбытовая организация'] + df2['Группа цен клиента'] + df2['Материал'] +df2['Действ. с']
-
-    nesovpaden_datas =[[],[],[],[],
-                    [],[],[],[],[],[],[],[],[],[],[],[],[]]
-
-    for key1,row1 in df1.iterrows():
-        result = df2[df2['joined_data'] == row1['joined_data'] ]
-        result['Сумма']=result['Сумма'].astype(float)
-        result['Сумма']=result['Сумма'].round(decimals = 1)
-    
-        row1['KBETR']= round(float(row1['KBETR']),1)
+            row1['KBETR']= round(float(row1['KBETR']),1)
+            
+            result2 =result[result['Сумма'] == row1['KBETR']]
+            # print(result['Сумма'])
         
-        result2 =result[result['Сумма'] == row1['KBETR']]
-       
+            if result2.empty:
+                nesovpaden_datas[0].append(row1['KSCHL'])
+                nesovpaden_datas[1].append(row1['VKORG'])
+                nesovpaden_datas[2].append(row1['WERKS'])
+                nesovpaden_datas[3].append(row1['VTWEG'])
+                nesovpaden_datas[4].append(row1['KONDA'])
+                nesovpaden_datas[5].append(row1['MATNR'])
+                nesovpaden_datas[6].append(row1['KBETR'])
+                nesovpaden_datas[7].append(row1['KONWA'])
+                nesovpaden_datas[8].append(row1['KPEIN'])
+                nesovpaden_datas[9].append(row1['KMEIN'])
+                nesovpaden_datas[10].append(row1['DATAB'])
+                nesovpaden_datas[11].append(row1['DATBI'])
+                nesovpaden_datas[12].append(row1['KUNNR'])
+                nesovpaden_datas[13].append(row1['FKART'])
+                nesovpaden_datas[14].append(row1['AUART'])
+                nesovpaden_datas[15].append(row1['AUGRU'])
+                nesovpaden_datas[16].append(result.iloc[0]['Сумма'])
+                print(result,'nesovpaden')
+                break
+            else:
+                pass
+                # print(result2,'sovpaden')
+
+        df_nesovpa =pd.DataFrame({
+        'KSCHL':nesovpaden_datas[0],
+        'VKORG':nesovpaden_datas[1],
+        'WERKS':nesovpaden_datas[2],
+        'VTWEG':nesovpaden_datas[3],
+        'KONDA':nesovpaden_datas[4],
+        'MATNR':nesovpaden_datas[5],
+        'KBETR':nesovpaden_datas[6],
+        'KONWA':nesovpaden_datas[7],
+        'KPEIN':nesovpaden_datas[8],
+        'KMEIN':nesovpaden_datas[9],
+        'DATAB':nesovpaden_datas[10],
+        'DATBI':nesovpaden_datas[11],
+        'KUNNR':nesovpaden_datas[12],
+        'FKART':nesovpaden_datas[13],
+        'AUART':nesovpaden_datas[14],
+        'AUGRU':nesovpaden_datas[15],
+        'ERROR':nesovpaden_datas[16]
+
+        })
+
+        df_nesovpa =df_nesovpa.replace('nan','')
+        if not df_nesovpa.empty:
+            df_nesovpa.to_excel(pathtext4)
+    except:
+        pass
     
-        if result2.empty:
-            nesovpaden_datas[0].append(row1['KSCHL'])
-            nesovpaden_datas[1].append(row1['VKORG'])
-            nesovpaden_datas[2].append(row1['WERKS'])
-            nesovpaden_datas[3].append(row1['VTWEG'])
-            nesovpaden_datas[4].append(row1['KONDA'])
-            nesovpaden_datas[5].append(row1['MATNR'])
-            nesovpaden_datas[6].append(row1['KBETR'])
-            nesovpaden_datas[7].append(row1['KONWA'])
-            nesovpaden_datas[8].append(row1['KPEIN'])
-            nesovpaden_datas[9].append(row1['KMEIN'])
-            nesovpaden_datas[10].append(row1['DATAB'])
-            nesovpaden_datas[11].append(row1['DATBI'])
-            nesovpaden_datas[12].append(row1['KUNNR'])
-            nesovpaden_datas[13].append(row1['FKART'])
-            nesovpaden_datas[14].append(row1['AUART'])
-            nesovpaden_datas[15].append(row1['AUGRU'])
-            nesovpaden_datas[16].append(result.iloc[0]['Сумма'])
-            break
-        else:
-            pass
 
-    df_nesovpa =pd.DataFrame({
-    'KSCHL':nesovpaden_datas[0],
-    'VKORG':nesovpaden_datas[1],
-    'WERKS':nesovpaden_datas[2],
-    'VTWEG':nesovpaden_datas[3],
-    'KONDA':nesovpaden_datas[4],
-    'MATNR':nesovpaden_datas[5],
-    'KBETR':nesovpaden_datas[6],
-    'KONWA':nesovpaden_datas[7],
-    'KPEIN':nesovpaden_datas[8],
-    'KMEIN':nesovpaden_datas[9],
-    'DATAB':nesovpaden_datas[10],
-    'DATBI':nesovpaden_datas[11],
-    'KUNNR':nesovpaden_datas[12],
-    'FKART':nesovpaden_datas[13],
-    'AUART':nesovpaden_datas[14],
-    'AUGRU':nesovpaden_datas[15],
-    'ERROR':nesovpaden_datas[16]
+    try:
+        df1 = pd.read_excel(f'{MEDIA_ROOT}/{path9}',sheet_name='Sheet1',header=0)
 
-    })
+        to_datetime_fmt = partial(pd.to_datetime, format='%d.%m.%Y')
 
-    df_nesovpa =df_nesovpa.replace('nan','')
-    if not df_nesovpa.empty:
-        df_nesovpa.to_excel(pathtext5)
+        df1['DATAB'] = df1['DATAB'].apply(to_datetime_fmt)
+        df1 = df1.astype(str)
+        df1['joined_data']= df1['VKORG'] + df1['KONDA'] + df1['MATNR'] +df1['DATAB']
+
+        df2 = pd.read_excel(f'{MEDIA_ROOT}/{path10}',sheet_name='Sheet1',header=0)
+
+        df2 = df2.astype(str)
+        df2['joined_data']= df2['Сбытовая организация'] + df2['Группа цен клиента'] + df2['Материал'] +df2['Действ. с']
+
+        nesovpaden_datas =[[],[],[],[],
+                        [],[],[],[],[],[],[],[],[],[],[],[],[]]
+
+        for key1,row1 in df1.iterrows():
+            result = df2[df2['joined_data'] == row1['joined_data'] ]
+            result['Сумма']=result['Сумма'].astype(float)
+            result['Сумма']=result['Сумма'].round(decimals = 1)
+        
+            row1['KBETR']= round(float(row1['KBETR']),1)
+            
+            result2 =result[result['Сумма'] == row1['KBETR']]
+        
+        
+            if result2.empty:
+                nesovpaden_datas[0].append(row1['KSCHL'])
+                nesovpaden_datas[1].append(row1['VKORG'])
+                nesovpaden_datas[2].append(row1['WERKS'])
+                nesovpaden_datas[3].append(row1['VTWEG'])
+                nesovpaden_datas[4].append(row1['KONDA'])
+                nesovpaden_datas[5].append(row1['MATNR'])
+                nesovpaden_datas[6].append(row1['KBETR'])
+                nesovpaden_datas[7].append(row1['KONWA'])
+                nesovpaden_datas[8].append(row1['KPEIN'])
+                nesovpaden_datas[9].append(row1['KMEIN'])
+                nesovpaden_datas[10].append(row1['DATAB'])
+                nesovpaden_datas[11].append(row1['DATBI'])
+                nesovpaden_datas[12].append(row1['KUNNR'])
+                nesovpaden_datas[13].append(row1['FKART'])
+                nesovpaden_datas[14].append(row1['AUART'])
+                nesovpaden_datas[15].append(row1['AUGRU'])
+                nesovpaden_datas[16].append(result.iloc[0]['Сумма'])
+                break
+            else:
+                pass
+
+        df_nesovpa =pd.DataFrame({
+        'KSCHL':nesovpaden_datas[0],
+        'VKORG':nesovpaden_datas[1],
+        'WERKS':nesovpaden_datas[2],
+        'VTWEG':nesovpaden_datas[3],
+        'KONDA':nesovpaden_datas[4],
+        'MATNR':nesovpaden_datas[5],
+        'KBETR':nesovpaden_datas[6],
+        'KONWA':nesovpaden_datas[7],
+        'KPEIN':nesovpaden_datas[8],
+        'KMEIN':nesovpaden_datas[9],
+        'DATAB':nesovpaden_datas[10],
+        'DATBI':nesovpaden_datas[11],
+        'KUNNR':nesovpaden_datas[12],
+        'FKART':nesovpaden_datas[13],
+        'AUART':nesovpaden_datas[14],
+        'AUGRU':nesovpaden_datas[15],
+        'ERROR':nesovpaden_datas[16]
+
+        })
+
+        df_nesovpa =df_nesovpa.replace('nan','')
+        if not df_nesovpa.empty:
+            df_nesovpa.to_excel(pathtext5)
+    except:
+        pass
     
 
 
@@ -1708,9 +1745,13 @@ def proverka(request,id):
 
     nesovpaden_datas =[[],[],[],[],
                     [],[],[],[],[],[],[],[],[],[],[],[],[]]
+    
+    # print(df1['joined_data'],'df1')
+    # print(df2['joined_data'],'df2')
 
     for key1,row1 in df1.iterrows():
         result = df2[df2['joined_data'] == row1['joined_data']]
+        # print(result)
         result['Сумма']=result['Сумма'].astype(float)
         result['Сумма']=result['Сумма'].round(decimals = 1)
     

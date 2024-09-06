@@ -8,8 +8,8 @@
         <h3 class="page-title"> Нормы </h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="">UI Elements</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+            <li class="breadcrumb-item">{%if 'pvc' in request.path %}<a class="btn btn-success btn-sm" href="{%url 'download_all_characteristiki_pvc' %}">Скачать все чар.</a>{%else%}<a href="">UI Elements</a>{%endif%}</li>
+            <li class="breadcrumb-item active" aria-current="page">{%if 'pvc' in request.path %}<a class="btn btn-success btn-sm" href="{%url 'download_all_razlovki_pvc' %}">Скачать все раз.</a>{%else%}Button{%endif%}</li>
           </ol>
         </nav>
       </div>
@@ -25,6 +25,7 @@
                   <label for="exampleTextarea1">Лист сапкода</label>
                   <textarea class="form-control" id="exampleTextarea1" rows="8" name="ozmk"></textarea>
                 </div>
+                {%if 'pvc' not in request.path and 'radiator' not in request.path %}
                 <div class="form-check-flat form-check-primary p-3">
                   <label class="form-check-label">
                     <input type="checkbox" class="form-check-input" name="for1101" > For 1101 </label>
@@ -33,6 +34,7 @@
                   <label class="form-check-label">
                     <input type="checkbox" class="form-check-input" name="for1201" > For 1201 </label>
                 </div>
+                {%endif%}
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
                 <button class="btn btn-dark">Cancel</button>
               </form>

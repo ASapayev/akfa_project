@@ -23,6 +23,7 @@ path('alum-org/add/<int:id>',views.product_add_second_org,name='aluminiy_add_org
 path('save-razlovka-org',views.save_razlovka2,name='aluminiy_add_org2'),
 path('show-simple-sap-list',views.show_list_simple_sapcodes,name='show_simple_sapcodes'),
 path('delete-sapcode/<int:id>',views.delete_sap_code, name='delete_sapkode'),
+path('delete-razlovka',views.delete_razlovka, name='delete_razlovka'),
 path('bulk-delete-sapcode',views.sap_code_bulk_delete, name='bulk_delete_sapkode'),
 path('show-razlovki',views.show_razlovki,name='show_razlovki'),
 path('show-termo-razlovki',views.show_razlovki_termo,name='show_razlovki_termo'),
@@ -44,5 +45,6 @@ path('list-bazaprofile',views.list_bazaprofiley,name='list_bazaprofiley'),
 path('delete-bazaprofile/<int:id>',views.delete_bazaprofiley,name='delete_bazaprofiley'),
 path('edit-bazaprofile/<int:id>',views.edit_bazaprofiley,name='edit_bazaprofiley'),
 path('get-bazaprofile',views.get_bazaprofiley,name='get_bazaprofiley'),
+
 
 ]

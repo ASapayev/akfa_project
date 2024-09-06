@@ -34,7 +34,9 @@ class BasePokritiya{
         sap_code=NaN,
         krat=NaN,
         comment=NaN,
+        dilina_pressa =NaN,
         zavod=NaN,
+
         online_id=NaN,
         nazvaniye_ruchnoy=NaN,
         svet_product=NaN,//done
@@ -42,6 +44,7 @@ class BasePokritiya{
         group=NaN,
         tip=NaN,//done
         segment=NaN,
+        edinitsa_izm=NaN,
         buxgalter_tovar=NaN,
         buxgalter_uchot=NaN,//done
         bazoviy_edin=NaN,//done
@@ -90,6 +93,7 @@ class BasePokritiya{
             this.sap_code=sap_code;//done
             this.krat=krat;//done
             this.comment=comment;
+            this.dilina_pressa =dilina_pressa;
             this.zavod=zavod;//done
             this.online_id=online_id;//done
             this.nazvaniye_ruchnoy=nazvaniye_ruchnoy;//done
@@ -98,6 +102,7 @@ class BasePokritiya{
             this.group=group;//done
             this.tip=tip;//done
             this.segment=segment;//done
+            this.edinitsa_izm=edinitsa_izm;//done
             this.buxgalter_tovar=buxgalter_tovar;//done
             this.buxgalter_uchot=buxgalter_uchot;//done
             this.bazoviy_edin=bazoviy_edin;//done
@@ -113,21 +118,20 @@ class BasePokritiya{
             this.status_name=status_name;//done
     }
     get_kratkiy_tekst(){
-        this.group='NAAAAN'
         switch(this.id){
             case 1:  if(!this.is_termo){
                 if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki){
                     if(this.is_active){
-                        if (this.online_id && this.nazvaniye_ruchnoy){
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':true}
+                        if (this.online_id && this.nazvaniye_ruchnoy && this.segment&&this.edinitsa_izm){
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
                         }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':false}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
                         }
                     }else{
-                        if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':true}
+                        if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod && this.segment){
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
                         }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':false}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
                         }
     
                     }
@@ -137,19 +141,19 @@ class BasePokritiya{
                 }else{
                     if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
                         if(this.is_active){
-                            if (this.online_id && this.nazvaniye_ruchnoy){
+                            if (this.online_id && this.nazvaniye_ruchnoy && this.segment && this.edinitsa_izm){
             
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':true}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
                             }else{
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':false}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
             
                             }
                         }else{
-                            if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
+                            if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod && this.segment){
             
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':true}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
                             }else{
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':false}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +'/'+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
             
                             }
         
@@ -162,21 +166,21 @@ class BasePokritiya{
 
                 if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
                     if(this.is_active){
-                        if (this.online_id && this.nazvaniye_ruchnoy){
+                        if (this.online_id && this.nazvaniye_ruchnoy && this.segment&& this.edinitsa_izm){
     
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':true}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
                         }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':false}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
         
                         }
     
                     }else{
     
-                        if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
+                        if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod && this.segment){
         
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':true}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
                         }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':false}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
         
                         }
                     }
@@ -192,20 +196,20 @@ class BasePokritiya{
         
         
                         if(this.is_active){
-                            if (this.online_id && this.nazvaniye_ruchnoy){
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':true}
+                            if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
                             }else{
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':false}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
             
                             }
         
                         }else{
         
-                            if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
+                            if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod && this.segment){
             
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':true}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
                             }else{
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':false}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
             
                             }
                         }  
@@ -215,49 +219,50 @@ class BasePokritiya{
                     }
                 }break;
             case 3:  if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
-    
-                    if(this.is_active){
-                        if (this.online_id && this.nazvaniye_ruchnoy){
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':true}
-                        }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':false}
-        
-                        }
-    
-                    }else{
-    
-                        if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
-        
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':true}
-                        }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'  ' +this.kod_nakleyki,'accept':false}
-        
-                        }
-                    }
-    
-                }else{
-                    return {'text':'XXXXXXXX','accept':false}
-                }
-                }else{
-                    
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
-        
+                
+                    if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')){
+                        
                         if(this.is_active){
-                            if (this.online_id && this.nazvaniye_ruchnoy){
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':true}
+                            if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
                             }else{
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':false}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
             
                             }
         
                         }else{
         
-                            if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
+                            if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod && this.segment){
             
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':true}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
                             }else{
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+'  ' +this.kod_nakleyki,'accept':false}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
+            
+                            }
+                        }
+        
+                    }else{
+                        return {'text':'XXXXXXXX','accept':false}
+                    }
+                }else{
+                    
+                    if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')&&(this.brend_kraska_vn || this.brend_kraska_vn =='')){
+        
+                        if(this.is_active){
+                            if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
+            
+                            }
+        
+                        }else{
+        
+                            if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod  && this.segment){
+            
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
+                            }else{
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':false}
             
                             }
                         }
@@ -268,23 +273,24 @@ class BasePokritiya{
                     }
                 } break;
             case 4: if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki){
+                console.log(this.splav , this.tip_zak , this.dlina , this.kod_kraska_sn , this.kod_lam_vn , this.kod_lam_sn , this.kod_nakleyki,this.brend_kraska_sn)
+                if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')){
     
                     if(this.is_active){
-                        if (this.online_id && this.nazvaniye_ruchnoy){
+                        if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
     
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
                         }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
                         }
     
                     }else{
-    
-                        if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
+                        console.log(this.edinitsa_izm , this.nazvaniye_ruchnoy , this.svet_product , this.group_zakup , this.group , this.tip , this.bazoviy_edin , this.status_online , this.zavod  , this.segment)
+                        if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod  && this.segment){
         
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
                         }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
                         }
                     } 
     
@@ -292,25 +298,25 @@ class BasePokritiya{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki){
+                    if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')&&(this.brend_kraska_vn || this.brend_kraska_vn =='')){
         
         
                         if(this.is_active){
-                            if (this.online_id && this.nazvaniye_ruchnoy){
+                            if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy  && this.segment){
         
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
                             }else{
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
             
                             }
         
                         }else{
         
-                            if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
+                            if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod  && this.segment){
             
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':true}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
                             }else{
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + '  ' +this.kod_nakleyki,'accept':false}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':false}
             
                             }
                         } 
@@ -321,24 +327,24 @@ class BasePokritiya{
                     }
                 }break;
             case 5:  if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki){
+                if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')){
     
                     if(this.is_active){
-                        if (this.online_id && this.nazvaniye_ruchnoy){
+                        if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
     
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + '  ' +this.kod_nakleyki,'accept':true}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':true}
                         }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + '  ' +this.kod_nakleyki,'accept':false}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':false}
         
                         }
     
                     }else{
     
-                        if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
+                        if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod && this.segment){
         
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + '  ' +this.kod_nakleyki,'accept':true}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':true}
                         }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + '  ' +this.kod_nakleyki,'accept':false}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':false}
         
                         }
                     }
@@ -348,25 +354,25 @@ class BasePokritiya{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn  && this.kod_nakleyki){
+                    if((this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn  && this.kod_nakleyki)&&(this.brend_kraska_sn || this.brend_kraska_sn =='')&&(this.brend_kraska_vn || this.brend_kraska_vn =='')){
         
         
                         if(this.is_active){
-                            if (this.online_id && this.nazvaniye_ruchnoy){
+                            if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
         
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + '  ' +this.kod_nakleyki,'accept':true}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':true}
                             }else{
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + '  ' +this.kod_nakleyki,'accept':false}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':false}
             
                             }
         
                         }else{
         
-                            if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
+                            if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod && this.segment){
             
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + '  ' +this.kod_nakleyki,'accept':true}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':true}
                             }else{
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + '  ' +this.kod_nakleyki,'accept':false}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':false}
             
                             }
                         }
@@ -380,18 +386,18 @@ class BasePokritiya{
                 if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_nakleyki && this.contactnost_anod){
     
                     if(this.is_active){
-                        if (this.online_id && this.nazvaniye_ruchnoy){
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn + '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki,'accept':true}
+                        if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
                         }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn + '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki,'accept':false}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
                         }
     
                     }else{
     
-                        if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn + '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki,'accept':true}
+                        if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod && this.segment){
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
                         }else{
-                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn + '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki,'accept':false}
+                            return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn + ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
                         }
                     }
     
@@ -402,19 +408,19 @@ class BasePokritiya{
                     if(this.splav && this.tip_zak && this.dlina && this.kod_anod_sn && this.kod_anod_vn && this.kod_nakleyki && this.contactnost_anod){
         
                         if(this.is_active){
-                            if (this.online_id && this.nazvaniye_ruchnoy){
+                            if (this.edinitsa_izm && this.online_id && this.nazvaniye_ruchnoy && this.segment){
         
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki,'accept':true}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
                             }else{
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki,'accept':false}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
                             }
         
                         }else{
         
-                            if (this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod){
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki,'accept':true}
+                            if (this.edinitsa_izm && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online && this.zavod && this.segment){
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':true}
                             }else{
-                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +'  ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ '  ' + this.contactnost_anod + '  ' + this.kod_nakleyki,'accept':false}
+                                return {'text':this.splav + this.tip_zak + ' L' + this.dlina +' ' + this.kod_anod_sn +'/'+this.kod_anod_vn+ ' ' + this.contactnost_anod + ' ' + this.kod_nakleyki,'accept':false}
                             }
                         }
         
@@ -430,907 +436,639 @@ class BasePokritiya{
     }
   }
 
+var nakleyka_list = document.getElementById('nakleyka_list').outerHTML
 
-text =""
+function front_piece(start=1,end=7){
+    text =""
+    for (let i = start; i < end; i++) {
+        nakleyki = nakleyka_list.replace('nakleyka_list',"nakleyka"+String(i))
+    
+        nakleyki = nakleyki.replace('onchange=""','onchange="create_kratkiy_tekst('+String(i)+')"')
+    
+        text +=`
+        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>
+                                    
+        <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><i class="bi bi-x-circle"></i></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='create_btn`+String(i)+`' onclick="create(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi' style='font-size:16px; width:34px'>С</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' style='font-size:16px;width:34px'>А</button>
+                    </div>
+                    
+                    
 
-for (let i = 1; i <= 10; i++) {
-    text +=`
-    <tr id='table_tr` +String(i)+`' >
-                                
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            
-            <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="create(`+String(i)+`)" id='create_btn`+String(i)+`' >Создание</button>
-            <button type="button" class="btn btn-info btn-sm" onclick="activate(`+String(i)+`)" id='activate_btn`+String(i)+`'>Активация</button>
-            <button type="button" class="btn btn-warning btn-sm gradient-buttons" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`'>Очистить</button>
+        </td>
+        <td class="sticky-col" style=' left: 139.6px;background-color:white!important;width:100px!important'>
+            <div class="input-group input-group-sm mb-1" style='width:100%'>
+                <span class ='text-center nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important;white-space: nowrap;"></span>
             </div>
-                
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <div><span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;" style="font-size: 12px;"></span></div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " disabled id="artikul`+String(i)+`" onchange='clear_artikul(`+String(i)+`)'></select>
-        </div>
-    </td>
-    
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control " style='width:50px' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 165px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
-                <option  selected></option>
-                <option value="1" >Неокрашенный</option>
-                <option value="2">Белый</option>
-                <option value="3">Окрашенный</option>
-                <option value="4">Ламинированный</option>
-                <option value="5">Сублимированный</option>
-                <option value="6">Анодированный</option>
-              </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" style="width: 60px;">
-       
-        <select class="form-select" aria-label="" style="width: 50px;"  disabled id='splav`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
-            <option  value="" selected ></option>
-            <option value="63" >63</option>
-        </select>
+        </td>
+        <td class="sticky-col"  style=' left: 249.3px; background-color:white!important'>
+            <div class="input-group input-group-sm mb-1">
+                <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; padding-right:150px!important; font-size:10px " disabled id="artikul`+String(i)+`" ></select>
+                <span style='display:none' id ='nakleyka_codd` +String(i)+`'></span>
+            </div>
+        </td>
         
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1"  style="width: 60px;">
-        <select class="form-select" aria-label="" style="width: 50px;!important"  disabled id='tip_zakalyonnosti`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
-            <option  value="" selected></option>
-            <option value="T4" >T4</option>
-            <option value="T6" >T6</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" style="font-size: small; text-transform: uppercase; width:130px">
-            <div>
-                <span class =' text-center pl-1' style="font-size: small; text-transform: uppercase;" id ='combination` +String(i)+`'></span>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+                <input type="text" pattern="\d*" maxlength="4"  class="form-control " style='width:70px;height:27px!important;z-index:0' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
             </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" >
-        <div>
-            <span class =' text-center' style="font-size: small;font-weight: bold; text-transform: uppercase;" id ='brand_kraski_snaruji` +String(i)+`'></span>
-        </div>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1" style="width: 100px;">
-        <div>
-            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase;width: 100px;" id ='code_kraski_snaruji` +String(i)+`'></span>
-        </div>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <div>
-            <span class =' text-center' style="font-size: small;font-weight: bold; text-transform: uppercase;" id ='brand_kraski_vnutri` +String(i)+`'></span>
-        </div>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1" style="width: 100px;">
-        <div>
-            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase; width:100px" id ='code_kraski_vnutri` +String(i)+`'></span>
-        </div>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">    
-        <select class="form-select" aria-label="" style="width: 75px;" onchange="svet_dekplonka_snaruji_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_snaruji`+String(i)+`' disabled>
-            <option  value="" selected></option>
-            <option value="Золотой Дуб 7777" >7777</option>
-            <option value="Махагон 3701">3701</option>
-            <option value="3D 3702">3702</option>
-            <option value="Дуб мокко">8888</option>
-            <option value="Шеф. сер. дуб">9999</option>
-            <option value="XXXX">XXXX</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <div>
-            <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span></em>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+                <select class="form-select" aria-label="" style="width: 165px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
+                    <option  selected></option>
+                    <option value="1" >Неокрашенный</option>
+                    <option value="2">Белый</option>
+                    <option value="3">Окрашенный</option>
+                    <option value="4">Ламинированный</option>
+                    <option value="5">Сублимированный</option>
+                    <option value="6">Анодированный</option>
+                </select>
             </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1"  >    
-        <select class="form-select" aria-label="" style="width: 75px;" onchange="svet_dekplonka_vnutri_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_vnutri`+String(i)+`' disabled>
-            <option  value="" selected></option>
-            <option value="Золотой Дуб 7777" >7777</option>
-            <option value="Махагон 3701">3701</option>
-            <option value="3D 3702">3702</option>
-            <option value="Дуб мокко">8888</option>
-            <option value="Шеф. сер. дуб">9999</option>
-            <option value="XXXX">XXXX</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <div>
-            <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span></em>
-            </div>
-        </div>
-    </td>
-
-    
-
-    <td >
-        <div class="input-group input-group-sm mb-1">    
-        <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
-            <option  value="" selected></option>
-            <option value="2036" >Золотой дуб</option>
-            <option value="2048">Дуб мокко</option>
-            <option value="2007">Красный орех</option>
-            <option value="2012">Орех</option>
-            <option value="3086">Шеффелдский дуб серый</option>
-            <option value="1012">Алюкс антрацит</option>
-            <option value="3001">Терновый дуб</option>
-            <option value="3002">Шеф Альпийский дуб</option>
-            <option value="3003">Гранитовый шеф дуб</option>
-            <option value="3042">Дерево бальза</option>
-            <option value="3062">Грецкий орех</option>
-            <option value="3043">Вишня амаретто</option>
-            <option value="3059">Орех терра</option>
-            <option value="3058">Грецкий орех амаретто</option>
-            <option value="3077">Винчестер</option>
-            <option value="3081">Шеффелдский дуб светлый</option>
-            <option value="3094">Орех Ребраун</option>
-            <option value="1004">Метбраш платин</option>
-            <option value="1005">Метбраш серый кварц</option>
-            <option value="1006">Метбраш серый антрацит</option>
-            <option value="XXXX">XXXX</option>
-        </select>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;" id ='code_lamplonka_snaruji` +String(i)+`'></span>
-            </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
-                <option  value="" selected></option>
-                <option value="2036" >Золотой дуб</option>
-            <option value="2048">Дуб мокко</option>
-            <option value="2007">Красный орех</option>
-            <option value="2012">Орех</option>
-            <option value="3086">Шеффелдский дуб серый</option>
-            <option value="1012">Алюкс антрацит</option>
-            <option value="3001">Терновый дуб</option>
-            <option value="3002">Шеф Альпийский дуб</option>
-            <option value="3003">Гранитовый шеф дуб</option>
-            <option value="3042">Дерево бальза</option>
-            <option value="3062">Грецкий орех</option>
-            <option value="3043">Вишня амаретто</option>
-            <option value="3059">Орех терра</option>
-            <option value="3058">Грецкий орех амаретто</option>
-            <option value="3077">Винчестер</option>
-            <option value="3081">Шеффелдский дуб светлый</option>
-            <option value="3094">Орех Ребраун</option>
-            <option value="1004">Метбраш платин</option>
-            <option value="1005">Метбраш серый кварц</option>
-            <option value="1006">Метбраш серый антрацит</option>
-            <option value="XXXX">XXXX</option>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1" style="width: 60px;">
+        
+            <select class="form-select" aria-label="" style="width: 50px;height:27px!important;z-index:0"  disabled id='splav`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
+                <option  value="" selected ></option>
+                <option value="63" >63</option>
             </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%" id='code_lamplonka_vnutri`+String(i)+`'></span>
+            
             </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" >
-        <div id='anod`+String(i)+`' class='anood'  ></div>            
-        </div>
-    </td> 
-    <td >
-        <div class="input-group input-group-sm mb-1" style="width: 60px;">
-        <div id='anod_vnutr`+String(i)+`' class='anood' ></div>            
-        </div>
-        </div>
-    </td> 
-    <td >
-        <div class="input-group input-group-sm mb-1" style="width: 60px;">
-        <select class="form-select" aria-label=""   disabled id='contactnost_anodirovki`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
-            <option  value=""></option>
-            <option value="YC" >YC</option>
-            <option value="NC">NC</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <div>
-            <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id='tip_anodirovki`+String(i)+`'></span>
-        </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <div>
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='sposob_anodirovki`+String(i)+`'></span>
-        </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
-        <span id='nakleyka_nt`+String(i)+`' style='display:none;padding-left:35%'>NT1</span>
-        <span id='nakleyka_org`+String(i)+`' style='display:none;padding-left:35%'></span>
-        <div id='nakleyka_select`+String(i)+`' style='display:none;padding-left:35%'>
-            <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
-        </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            
-        </div>
-    </td> 
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-       
-        <input type='text' class=" form-control " style=" width: 110px; font-size:10px; display:none; " id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-    
-        </div>
-    </td> 
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; "  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-           
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 90px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;border-color:red;" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='zavod`+String(i)+`' required>
-            <option  selected></option>
-            <option value="ZAVOD ALUMIN NAVOIY" >Benkam</option>
-            <option value="ZAVOD ALUMIN">Jomiy</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; display:none;" id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <textarea   rows='1' class=" form-control " style="border-color:red; width: 220px; font-size:10px; display:none; " id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-        <option  selected></option>
-        <option   value="LAM">LAM</option>
-        <option   value="Anod">Anod</option>
-        <option   value="COLOUR">COLOUR</option>
-        <option   value="VAKUM &amp; 3D">VAKUM &amp; 3D</option>
-        <option   value="WHITE">WHITE</option>
-        <option   value="Без цвета">Без цвета</option>
-      </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-        <option  selected></option>
-        <option value="Kabina">Kabina</option>
-        <option value="Alumin WHITE (B.N)">Alumin WHITE (B.N)</option>
-        <option value="Aksessuar Import (SAP)">Aksessuar Import (SAP)</option>
-        <option value="Alumin VAKUM (B.N)">Alumin VAKUM (B.N)</option>
-        <option value="Metal">Metal</option>
-        <option value="Aksessuar UZ Tapoich">Aksessuar UZ Tapoich</option>
-        <option value="Alumin COLOUR (Navoiy)">Alumin COLOUR (Navoiy)</option>
-        <option value="Alumin VAKUM (Navoiy)">Alumin VAKUM (Navoiy)</option>
-        <option value="Alumin WHITE (Navoiy)">Alumin WHITE (Navoiy)</option>
-        <option value="Alumin Anod (Navoiy)">Alumin Anod (Navoiy)</option>
-        <option value="PVX OQ (Navoiy)">PVX OQ (Navoiy)</option>
-        <option value="Butilchita">Butilchita</option>
-        <option value="Aksessuar Rezina">Aksessuar Rezina</option>
-        <option value="Radiator">Radiator</option>
-        <option value="Aksessuar UZ">Aksessuar UZ</option>
-        <option value="Alucobond">Alucobond</option>
-        <option value="VITYAJNOYE USTROYSTVA">VITYAJNOYE USTROYSTVA</option>
-        <option value="Aksessuar Import">Aksessuar Import</option>
-        <option value="Radiator (IMPORT)">Radiator (IMPORT)</option>
-        <option value="Radiator SAP (IMPORT)">Radiator SAP (IMPORT)</option>
-        <option value="PVX LAM (Navoiy)">PVX LAM (Navoiy)</option>
-        <option value="Rezina Tpv">Rezina Tpv</option>
-        <option value="Granula">Granula</option>
-        <option value="Granit">Granit</option>
-        <option value="Setka">Setka</option>
-        <option value="Kraska">Kraska</option>
-        <option value="Gazoblok">Gazoblok</option>
-        <option value="Paket">Paket</option>
-        <option value="Alumin Lam">Alumin Lam</option>
-        <option value="Alumin COLOUR">Alumin COLOUR</option>
-        <option value="Alumin VAKUM">Alumin VAKUM</option>
-        <option value="Alumin WHITE">Alumin WHITE</option>
-        <option value="Radiator (Panel) AKFA (UZ)">Radiator (Panel) AKFA (UZ)</option>
-        <option value="Radiator (Panel) ROYAL (UZ)">Radiator (Panel) ROYAL (UZ)</option>
-        <option value="Radiator (Panel) Lider Line (UZ)" >Radiator (Panel) Lider Line (UZ)"</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" id='group`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'>
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
-            <option  selected></option>
-            <option value="Сырье">Сырье</option>
-            <option value="Готовый продукт">Готовый продукт</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
-            <option  selected></option>
-            <option value="Сырье">Сырье</option>
-            <option value="Готовый продукт">Готовый продукт</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value="Aldoks">Aldoks</option>
-            <option value="Стандарт">Стандарт</option>
-            <option value="Премиум">Премиум</option>
-            <option value="Аксессуар">Аксессуар</option>
-            <option value="Falcon">Falcon</option>
-            <option value="Mebel">Mebel</option>
-            <option value="RETPEN 8-10%">RETPEN 8-10%</option>
-            <option value="RETPEN 10-12%">RETPEN 10-12%</option>
-            <option value="RETPEN 17%">RETPEN 17%</option>
-            <option value="Аксессуар 2">Аксессуар 2</option>
-            <option value="Podokonnik EKO">Podokonnik EKO</option>
-            <option value="Alumin arzon">Alumin arzon</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
-            <option value='Otvetka 153 (oq)'>Otvetka 153 (oq)</option>
-            <option value='Ламбри из ПВХ'>Ламбри из ПВХ</option>
-            <option value='Soedinitel OP.40.J05 L=10mm'>Soedinitel OP.40.J05 L=10mm</option>
-            <option value='Soedinitel CL.X.W 14 (5mm)'>Soedinitel CL.X.W 14 (5mm)</option>
-            <option value='BKT 78 Soed. (M11427-15.8mm)'>BKT 78 Soed. (M11427-15.8mm)</option>
-            <option value='Soedinitel CL.X.W 14 (38mm)'>Soedinitel CL.X.W 14 (38mm)</option>
-            <option value='BKT 70 Soed. W 02 (1=7.8)'>BKT 70 Soed. W 02 (1=7.8)</option>
-            <option value='Otvetka 155 (rangli)'>Otvetka 155 (rangli)</option>
-            <option value='Ruchka Dvernaya Fornaks (28mm) (rangli)'>Ruchka Dvernaya Fornaks (28mm) (rangli)</option>
-            <option value='Petlya Dvernaya 2SK MASTER (rangli)'>Petlya Dvernaya 2SK MASTER (rangli)</option>
-            <option value='Petlya (rangli)'>Petlya (rangli)</option>
-            <option value='Soedinitel Chovush'>Soedinitel Chovush</option>
-            <option value='Soedinitel (Bolshoy) CHEMPION'>Soedinitel (Bolshoy) CHEMPION</option>
-            <option value='Petlya Dvernaya Chempion (rangli)'>Petlya Dvernaya Chempion (rangli)</option>
-            <option value='Soedinitel (Bolshoy) (ALD-2)'>Soedinitel (Bolshoy) (ALD-2)</option>
-            <option value='Krishka Podokonnik (ALYUMIN) (oq)'>Krishka Podokonnik (ALYUMIN) (oq)</option>
-            <option value='Soedinitel Universal'>Soedinitel Universal</option>
-            <option value='Ogranichitel (rangli)'>Ogranichitel (rangli)</option>
-            <option value='Otvetka Mini 153 (rangli)'>Otvetka Mini 153 (rangli)</option>
-            <option value='Ruchka Elegant (rangli)'>Ruchka Elegant (rangli)</option>
-            <option value='Ruchka LUX Fortuna O (rangli)'>Ruchka LUX Fortuna O (rangli)</option>
-            <option value='Petlya 100 mm (rangli)'>Petlya 100 mm (rangli)</option>
-            <option value='Ruchka dvernaya "BELLA" (700) mm (rangli)'>Ruchka dvernaya "BELLA" (700) mm (rangli)</option>
-            <option value='Soedinitel CL.X.W 34 (43mm)'>Soedinitel CL.X.W 34 (43mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (500) mm (oq)'>Ruchka dvernaya "BELLA" (500) mm (oq)</option>
-            <option value='Ruchka dvernaya "BELLA" (600) mm (rangli)'>Ruchka dvernaya "BELLA" (600) mm (rangli)</option>
-            <option value='Ruchka LUX Fortuna O (oq)'>Ruchka LUX Fortuna O (oq)</option>
-            <option value='Otvetka Mini 155 (oq)'>Otvetka Mini 155 (oq)</option>
-            <option value='Soedinitel CL.X.W 10 (25.8mm)'>Soedinitel CL.X.W 10 (25.8mm)</option>
-            <option value='Termo soedinitel 19 mm'>Termo soedinitel 19 mm</option>
-            <option value='Petlya 100 mm (oq)'>Petlya 100 mm (oq)</option>
-            <option value='Petlya (ALD-2) (oq)'>Petlya (ALD-2) (oq)</option>
-            <option value='Otvetnaya chast zamka A0275-K (155) (rangli)'>Otvetnaya chast zamka A0275-K (155) (rangli)</option>
-            <option value='Petlya (ALD-2) (rangli)'>Petlya (ALD-2) (rangli)</option>
-            <option value='Petlya Dvernaya 3SK MASTER (rangli)'>Petlya Dvernaya 3SK MASTER (rangli)</option>
-            <option value='Petlya Dvernaya Alyumin (rangli)'>Petlya Dvernaya Alyumin (rangli)</option>
-            <option value='Ruchka Kvadrat (rangli)'>Ruchka Kvadrat (rangli)</option>
-            <option value='Chit-Chit PVH.uz (rangli)'>Chit-Chit PVH.uz (rangli)</option>
-            <option value='Otvetka 153 (rangli)'>Otvetka 153 (rangli)</option>
-            <option value='Ruchka LUX Fortuna Mini O (rangli)'>Ruchka LUX Fortuna Mini O (rangli)</option>
-            <option value='Zashyolka Narujnyaya (rangli)'>Zashyolka Narujnyaya (rangli)</option>
-            <option value='Shpingalet (rangli)'>Shpingalet (rangli)</option>
-            <option value='Ruchka DELFIN (rangli)'>Ruchka DELFIN (rangli)</option>
-            <option value='Otvetka Mini 155 (rangli)'>Otvetka Mini 155 (rangli)</option>
-            <option value='Otvetnaya chast zamka A0275-K (153) (rangli)'>Otvetnaya chast zamka A0275-K (153) (rangli)</option>
-            <option value='BKT 70 Soed. Impost (J01-52.5mm)'>BKT 70 Soed. Impost (J01-52.5mm)</option>
-            <option value='BKT 70 Soed. Impost (J01-66.5mm)'>BKT 70 Soed. Impost (J01-66.5mm)</option>
-            <option value='BKT 70 Soed. Impost (J02-13.6mm)'>BKT 70 Soed. Impost (J02-13.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J02-43.6mm)'>BKT 70 Soed. Impost (J02-43.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J03-66.6mm)'>BKT 70 Soed. Impost (J03-66.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J06-43.6mm)'>BKT 70 Soed. Impost (J06-43.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J06-66.5mm)'>BKT 70 Soed. Impost (J06-66.5mm)</option>
-            <option value='BKT 70 Soed. W 01 (1=21.7)'>BKT 70 Soed. W 01 (1=21.7)</option>
-            <option value='BKT 70 Soed. W 01 (1=5.1)'>BKT 70 Soed. W 01 (1=5.1)</option>
-            <option value='BKT 70 Soed. W 01 (1=8.5)'>BKT 70 Soed. W 01 (1=8.5)</option>
-            <option value='Krishka Podokonnik (ALYUMIN) (rangli)'>Krishka Podokonnik (ALYUMIN) (rangli)</option>
-            <option value='Kreplenie moskitnoy setki (rangli)'>Kreplenie moskitnoy setki (rangli)</option>
-            <option value='BKT 70 Soed. W 01 (1=8)'>BKT 70 Soed. W 01 (1=8)</option>
-            <option value='BKT 78 Soed. (M11427-19.5mm)'>BKT 78 Soed. (M11427-19.5mm)</option>
-            <option value='Kreplenie moskitnoy setki (oq)'>Kreplenie moskitnoy setki (oq)</option>
-            <option value='BKT 78 Soed. (M11427-27mm)'>BKT 78 Soed. (M11427-27mm)</option>
-            <option value='Ruchka LUX Pol (oq)'>Ruchka LUX Pol (oq)</option>
-            <option value='Ruchka Sos. VENTURO (oq)'>Ruchka Sos. VENTURO (oq)</option>
-            <option value='Montajnaya Planka 5200 (Metal)'>Montajnaya Planka 5200 (Metal)</option>
-            <option value='Ламинированный термоуплотненный алюминиевый профиль'>Ламинированный термоуплотненный алюминиевый профиль</option>
-            <option value='Термоуплотненный анодированный алюминиевый профиль (N)'>Термоуплотненный анодированный алюминиевый профиль (N)</option>
-            <option value='Профиль из ПВХ с уплотнителем'>Профиль из ПВХ с уплотнителем</option>
-            <option value='Алюминиевый профиль с декоративным покрытием'>Алюминиевый профиль с декоративным покрытием</option>
-            <option value='Подоконник из ПВХ'>Подоконник из ПВХ</option>
-            <option value='Дистанционная рамка'>Дистанционная рамка</option>
-            <option value='Профиль из ПВХ ламинированный (Engelberg)'>Профиль из ПВХ ламинированный (Engelberg)</option>
-            <option value='Профиль из ПВХ ламинированный с уплотнителем'>Профиль из ПВХ ламинированный с уплотнителем</option>
-            <option value='Ламинированный алюминиевый профиль'>Ламинированный алюминиевый профиль</option>
-            <option value='Неокрашенный алюминиевый профиль'>Неокрашенный алюминиевый профиль</option>
-            <option value='Подоконник из ПВХ ламинированный'>Подоконник из ПВХ ламинированный</option>
-            <option value='Уплотнитель для алюминиевых и ПВХ профилей'>Уплотнитель для алюминиевых и ПВХ профилей</option>
-            <option value='Профиль из ПВХ'>Профиль из ПВХ</option>
-            <option value='Алюминиевый профиль'>Алюминиевый профиль</option>
-            <option value='Ламинированный термоуплотненный алюминиевый профиль (N)'>Ламинированный термоуплотненный алюминиевый профиль (N)</option>
-            <option value='Металлический усилитель'>Металлический усилитель</option>
-            <option value='Ламбри из ПВХ ламинированный'>Ламбри из ПВХ ламинированный</option>
-            <option value='Профиль из ПВХ (Engelberg)'>Профиль из ПВХ (Engelberg)</option>
-            <option value='Ламинированный алюминиевый профиль (N)'>Ламинированный алюминиевый профиль (N)</option>
-            <option value='Алюминиевый профиль с декоративным покрытием (N)'>Алюминиевый профиль с декоративным покрытием (N)</option>
-            <option value='Chit-Chit PVH.uz (oq)'>Chit-Chit PVH.uz (oq)</option>
-            <option value='BKT 70 Soed. (M11148-13.6mm)'>BKT 70 Soed. (M11148-13.6mm)</option>
-            <option value='Ruchka D (oq)'>Ruchka D (oq)</option>
-            <option value='Ruchka Kvadrat Mini (oq)'>Ruchka Kvadrat Mini (oq)</option>
-            <option value='Ruchka LUX (oq)'>Ruchka LUX (oq)</option>
-            <option value='Soedinitel 114 D 400 (13mm)'>Soedinitel 114 D 400 (13mm)</option>
-            <option value='Soedinitel 114 D 400 (52mm)'>Soedinitel 114 D 400 (52mm)</option>
-            <option value='Petlya Dvernaya Chempion (oq)'>Petlya Dvernaya Chempion (oq)</option>
-            <option value='Soedinitel BKH-001 (38mm)'>Soedinitel BKH-001 (38mm)</option>
-            <option value='Soedinitel 5507 (6,5mm)'>Soedinitel 5507 (6,5mm)</option>
-            <option value='Soedinitel BKH-001 (16mm)'>Soedinitel BKH-001 (16mm)</option>
-            <option value='Soedinitel BKH-001 (5mm)'>Soedinitel BKH-001 (5mm)</option>
-            <option value='Soedinitel AKF-107 (40mm)'>Soedinitel AKF-107 (40mm)</option>
-            <option value='Soedinitel AKF-106 (37.5mm)'>Soedinitel AKF-106 (37.5mm)</option>
-            <option value='Vstavka Dlya Zamka (rangli)'>Vstavka Dlya Zamka (rangli)</option>
-            <option value='Soedinitel JP2186 (60mm)'>Soedinitel JP2186 (60mm)</option>
-            <option value='T 6 Soed. (ST 10 255) C 9.5 Qanot Mal.'>T 6 Soed. (ST 10 255) C 9.5 Qanot Mal.</option>
-            <option value='T 6 Soed. (ST 10 366) C 29.0 Qanot Bol.'>T 6 Soed. (ST 10 366) C 29.0 Qanot Bol.</option>
-            <option value='T 6 Soed. (ST 10 366) P 27.5 Kosa Bol.'>T 6 Soed. (ST 10 366) P 27.5 Kosa Bol.</option>
-            <option value='T 6 Soed. (ST 10 366) P 9.2 Kosa Mal.'>T 6 Soed. (ST 10 366) P 9.2 Kosa Mal.</option>
-            <option value='T 6 Soed. (ST 10 565) B 26.0 Balkon Qanot Bol.'>T 6 Soed. (ST 10 565) B 26.0 Balkon Qanot Bol.</option>
-            <option value='T 6 Soed. (ST 10 565) B 5.1 Balkon Qanot Mal.'>T 6 Soed. (ST 10 565) B 5.1 Balkon Qanot Mal.</option>
-            <option value='Soedinitel AKF-107 (43.5mm)'>Soedinitel AKF-107 (43.5mm)</option>
-            <option value='Vstavka Dlya Zamka (oq)'>Vstavka Dlya Zamka (oq)</option>
-            <option value='Soedinitel 5505 (45mm)'>Soedinitel 5505 (45mm)</option>
-            <option value='Zashyolka Narujnyaya (oq)'>Zashyolka Narujnyaya (oq)</option>
-            <option value='Zashyolka Narujnyaya Mini (oq)'>Zashyolka Narujnyaya Mini (oq)</option>
-            <option value='Ruchka Dvernaya Fornaks (35mm) (rangli)'>Ruchka Dvernaya Fornaks (35mm) (rangli)</option>
-            <option value='Krishka Podokonnik 300 (rangli)'>Krishka Podokonnik 300 (rangli)</option>
-            <option value='Ogranichitel PVH (rangli)'>Ogranichitel PVH (rangli)</option>
-            <option value='Petlya Dvernaya 3D (rangli)'>Petlya Dvernaya 3D (rangli)</option>
-            <option value='Petlya Dvernaya 3D (oq)'>Petlya Dvernaya 3D (oq)</option>
-            <option value='Porog Soedinitel 7000 (1kom.) (L;P) (rangli)'>Porog Soedinitel 7000 (1kom.) (L;P) (rangli)</option>
-            <option value='Petlya 100 mm (oq)'>Petlya 100 mm (oq)</option>
-            <option value='Krishka Shtulp Dlya Adap 7000 (oq)'>Krishka Shtulp Dlya Adap 7000 (oq)</option>
-            <option value='Krishka Shtulp Dlya Adap dvernaya 6000 (13 AKS) (rangli)'>Krishka Shtulp Dlya Adap dvernaya 6000 (13 AKS) (rangli)</option>
-            <option value='Ruchka Dvernaya Fornaks (28mm) fiksator (rangli)'>Ruchka Dvernaya Fornaks (28mm) fiksator (rangli)</option>
-            <option value='Ruchka Dvernaya Fornaks (35mm) fiksator (rangli)'>Ruchka Dvernaya Fornaks (35mm) fiksator (rangli)</option>
-            <option value='Chit-Chit (aldocks).uz (rangli)'>Chit-Chit (aldocks).uz (rangli)</option>
-            <option value='Ruchka Okonaya Roto (rangli)'>Ruchka Okonaya Roto (rangli)</option>
-            <option value='Petlya 75 mm (rangli)'>Petlya 75 mm (rangli)</option>
-            <option value='Soedinitel AKF-106 (36.5mm)'>Soedinitel AKF-106 (36.5mm)</option>
-            <option value='Soedinitel 114 D 300 (13,2 mm)'>Soedinitel 114 D 300 (13,2 mm)</option>
-            <option value='Soedinitel JP2002 (40mm)'>Soedinitel JP2002 (40mm)</option>
-            <option value='Ruchka Kvadrat Mini (rangli)'>Ruchka Kvadrat Mini (rangli)</option>
-            <option value='Shpingalet (oq)'>Shpingalet (oq)</option>
-            <option value='Krishka Shtulp Dlya Adap dvernaya 6000 (13 AKS) (oq)'>Krishka Shtulp Dlya Adap dvernaya 6000 (13 AKS) (oq)</option>
-            <option value='Krishka Shtulp Dlya Adap 7000 (rangli)'>Krishka Shtulp Dlya Adap 7000 (rangli)</option>
-            <option value='(A0286) Petlya (Chempion) (rangli)'>(A0286) Petlya (Chempion) (rangli)</option>
-            <option value='Otvetka 155 (oq)'>Otvetka 155 (oq)</option>
-            <option value='(A0286) Petlya (Chempion) (oq)'>(A0286) Petlya (Chempion) (oq)</option>
-            <option value='BKT 70 Soed. Impost (J01-66.6mm)'>BKT 70 Soed. Impost (J01-66.6mm)</option>
-            <option value='Petlya Dvernaya MDF (oq)'>Petlya Dvernaya MDF (oq)</option>
-            <option value='Petlya Dvernaya MDF (rangli)'>Petlya Dvernaya MDF (rangli)</option>
-            <option value='Petlya Dvernaya PVH (rangli)'>Petlya Dvernaya PVH (rangli)</option>
-            <option value='Soedinitel A 00018 (21mm)'>Soedinitel A 00018 (21mm)</option>
-            <option value='Soedinitel CL.X.W 14 (18mm)'>Soedinitel CL.X.W 14 (18mm)</option>
-            <option value='Soedinitel CL.X.W 14 (8mm)'>Soedinitel CL.X.W 14 (8mm)</option>
-            <option value='Soedinitel CL.X.W 14 (9mm)'>Soedinitel CL.X.W 14 (9mm)</option>
-            <option value='Soedinitel WDT 67 J 02 (44mm)'>Soedinitel WDT 67 J 02 (44mm)</option>
-            <option value='Soedinitel CL.X.W 34 (25.6mm)'>Soedinitel CL.X.W 34 (25.6mm)</option>
-            <option value='Soedinitel CL.X.W 14 (12.5mm)'>Soedinitel CL.X.W 14 (12.5mm)</option>
-            <option value='Petlya Dvernaya 3SK MASTER (rangli)'>Petlya Dvernaya 3SK MASTER (rangli)</option>
-            <option value='Klipsa 13mm JP'>Klipsa 13mm JP</option>
-            <option value='Zaglushka (PVCC 031) (rangli)'>Zaglushka (PVCC 031) (rangli)</option>
-            <option value='Zaglushka (PVCC 032) (rangli)'>Zaglushka (PVCC 032) (rangli)</option>
-            <option value='Soedinitel CL.X.W 20 (25.8mm)'>Soedinitel CL.X.W 20 (25.8mm)</option>
-            <option value='Krishka Podokonnik 350 (Ovolniy) (rangli)'>Krishka Podokonnik 350 (Ovolniy) (rangli)</option>
-            <option value='Soedinitel CL.X.W 34 (17,7mm)'>Soedinitel CL.X.W 34 (17,7mm)</option>
-            <option value='Soedinitel CL.X.W 34 (10mm)'>Soedinitel CL.X.W 34 (10mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (1000) mm (rangli)'>Ruchka dvernaya "BELLA" (1000) mm (rangli)</option>
-            <option value='Petlya dvernaya Jocker (rangli)'>Petlya dvernaya Jocker (rangli)</option>
-            <option value='Soedinitel CL.X.W 34 (6mm)'>Soedinitel CL.X.W 34 (6mm)</option>
-            <option value='Soedinitel CL.X.W 10 (5mm)'>Soedinitel CL.X.W 10 (5mm)</option>
-            <option value='Soedinitel CL.X.W 34 (18mm)'>Soedinitel CL.X.W 34 (18mm)</option>
-            <option value='Soedinitel CL.X.W 34 (15,8mm)'>Soedinitel CL.X.W 34 (15,8mm)</option>
-            <option value='Soedinitel A 00018 (25 mm)'>Soedinitel A 00018 (25 mm)</option>
-            <option value='Petlya dvernaya Jocker (oq)'>Petlya dvernaya Jocker (oq)</option>
-            <option value='Ruchka Dvernaya mini (rangli)'>Ruchka Dvernaya mini (rangli)</option>
-            <option value='Ruchka Dvernaya Fornaks (30mm) (rangli)'>Ruchka Dvernaya Fornaks (30mm) (rangli)</option>
-            <option value='Soedinitel WDT 67 J 03 (44mm)'>Soedinitel WDT 67 J 03 (44mm)</option>
-            <option value='Soedinitel 114 D 300 (10mm)'>Soedinitel 114 D 300 (10mm)</option>
-            <option value='Soedinitel 114 D 400 (14mm)'>Soedinitel 114 D 400 (14mm)</option>
-            <option value='Soedinitel CL.X.W 10 (14mm)'>Soedinitel CL.X.W 10 (14mm)</option>
-            <option value='Krishka Podokonnik 300 (Trapetsiya) (rangli)'>Krishka Podokonnik 300 (Trapetsiya) (rangli)</option>
-            <option value='Soedinitel 148х125хх (60mm)'>Soedinitel 148х125хх (60mm)</option>
-            <option value='Soedinitel CL.X.W 16 (10.8mm)'>Soedinitel CL.X.W 16 (10.8mm)</option>
-            <option value='Soedinitel FST 50 JR 001 (30mm)'>Soedinitel FST 50 JR 001 (30mm)</option>
-            <option value='Soedinitel FST 50 G 003 (100 mm)'>Soedinitel FST 50 G 003 (100 mm)</option>
-            <option value='Soedinitel CL.X.W 40 (7.4mm)'>Soedinitel CL.X.W 40 (7.4mm)</option>
-            <option value='Soedinitel 8000'>Soedinitel 8000</option>
-            <option value='Soedinitel CL.X.W 20 (20,7mm)'>Soedinitel CL.X.W 20 (20,7mm)</option>
-            <option value='Soedinitel CL.X.W 20 (20,6mm)'>Soedinitel CL.X.W 20 (20,6mm)</option>
-            <option value='Soedinitel OP.40.J04 L=10mm'>Soedinitel OP.40.J04 L=10mm</option>
-            <option value='Soedinitel CL.X.W 34 (7,4mm)'>Soedinitel CL.X.W 34 (7,4mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (800) mm (rangli)'>Ruchka dvernaya "BELLA" (800) mm (rangli)</option>
-            <option value='Soedinitel CL.X.W 40 (5mm)'>Soedinitel CL.X.W 40 (5mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (2000) mm (oq)'>Ruchka dvernaya "BELLA" (2000) mm (oq)</option>
-            <option value='Ruchka Dvernaya (28mm) Slim fiksator (rangli)'>Ruchka Dvernaya (28mm) Slim fiksator (rangli)</option>
-            <option value='Soedinitel CL.X.W 40 (19mm)'>Soedinitel CL.X.W 40 (19mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (1800) mm (rangli)'>Ruchka dvernaya "BELLA" (1800) mm (rangli)</option>
-            <option value='Soedinitel CLSW 16'>Soedinitel CLSW 16</option>
-            <option value='Soedinitel CL.X.W 40 (18.9mm)'>Soedinitel CL.X.W 40 (18.9mm)</option>
-            <option value='Soedinitel 148х125хх (90mm)'>Soedinitel 148х125хх (90mm)</option>
-            <option value='BKT 70 Soed. List (A10-001)'>BKT 70 Soed. List (A10-001)</option>
-            <option value='Soedinitel CL.X.W 40 (19.6mm)'>Soedinitel CL.X.W 40 (19.6mm)</option>
-            <option value='Soedinitel AKF-106 (44mm)'>Soedinitel AKF-106 (44mm)</option>
-            <option value='Soedinitel AKF-107 (37mm)'>Soedinitel AKF-107 (37mm)</option>
-            <option value='Soedinitel 7000 ECO'>Soedinitel 7000 ECO</option>
-            <option value='Ruchka dvernaya "Comfort" (oq)'>Ruchka dvernaya "Comfort" (oq)</option>
-            <option value='Soedinitel 148х125хх (140mm)'>Soedinitel 148х125хх (140mm)</option>
-            <option value='Soedinitel BKH-010 (38mm)'>Soedinitel BKH-010 (38mm)</option>
-            <option value='Ruchka Dvernaya (28mm) Slim (rangli)'>Ruchka Dvernaya (28mm) Slim (rangli)</option>
-            <option value='Ruchka dvernaya "Comfort" (rangli)'>Ruchka dvernaya "Comfort" (rangli)</option>
-            <option value='Soedinitel BKH-010 (56mm)'>Soedinitel BKH-010 (56mm)</option>
-            <option value='Soedinitel CLSW 12'>Soedinitel CLSW 12</option>
-            <option value='Ruchka dvernaya "BELLA" (1500) mm (rangli)'>Ruchka dvernaya "BELLA" (1500) mm (rangli)</option>
-            <option value='Soedinitel FST 50 G 004 (100 mm)'>Soedinitel FST 50 G 004 (100 mm)</option>
-            <option value='Ruchka Okonnaya PVH (rangli)'>Ruchka Okonnaya PVH (rangli)</option>
-            <option value='Soedinitel 110049 (20mm)'>Soedinitel 110049 (20mm)</option>
-            <option value='Soedinitel 110048 (20mm)'>Soedinitel 110048 (20mm)</option>
-            <option value='Soedinitel CL.X.W 38 (28.7mm)'>Soedinitel CL.X.W 38 (28.7mm)</option>
-            <option value='Soedinitel FST 50 JR 001 (33mm)'>Soedinitel FST 50 JR 001 (33mm)</option>
-            <option value='Soedinitel FST 50 JR 001 (97,5mm)'>Soedinitel FST 50 JR 001 (97,5mm)</option>
-            <option value='Ruchka Dvernaya (28mm) Slim (oq)'>Ruchka Dvernaya (28mm) Slim (oq)</option>
-            <option value='Zaglushka (PVCC 033) (rangli)'>Zaglushka (PVCC 033) (rangli)</option>
-            <option value='Zaglushka (PVCC 036) (rangli)'>Zaglushka (PVCC 036) (rangli)</option>
-            <option value='Soedinitel moskitnoy setki (rangli)'>Soedinitel moskitnoy setki (rangli)</option>
-            <option value='Ruchka dvernaya "BELLA" (700) mm (oq)'>Ruchka dvernaya "BELLA" (700) mm (oq)</option>
-            <option value='Soedinitel CL.X.W 14 (43.5mm)'>Soedinitel CL.X.W 14 (43.5mm)</option>
-            <option value='Soedinitel A 00018 (44mm)'>Soedinitel A 00018 (44mm)</option>
-            <option value='Ruchka Elegant (oq)'>Ruchka Elegant (oq)</option>
-            <option value='Krishka Shtulp Dlya Adap 6000 (rangli)'>Krishka Shtulp Dlya Adap 6000 (rangli)</option>
-            <option value='Ruchka Dvernaya Fornaks (30mm) fiksator (rangli)'>Ruchka Dvernaya Fornaks (30mm) fiksator (rangli)</option>
-            <option value='Krishka Shtulp Dlya Adap 8000 (rangli)'>Krishka Shtulp Dlya Adap 8000 (rangli)</option>
-            <option value='Soedinitel CL.X.W 20 (25.6mm)'>Soedinitel CL.X.W 20 (25.6mm)</option>
-            <option value='BKT 70 Soed. W 01 (1=5)'>BKT 70 Soed. W 01 (1=5)</option>
-            <option value='Soedinitel moskitnoy setki (oq)'>Soedinitel moskitnoy setki (oq)</option>
-            <option value='Замок для профиля москитной сетки серии 10х20цветной'>Замок для профиля москитной сетки серии 10х20цветной</option>
-            <option value='Замок для профиля москитной сетки серии 10х20'>Замок для профиля москитной сетки серии 10х20</option>
-            <option value='Soedinitel CLSW 0243'>Soedinitel CLSW 0243</option>
-            <option value='Klipsa 10.5 mm'>Klipsa 10.5 mm</option>
-            <option value='BKT 70 Soed. Impost (J01-26.3mm)'>BKT 70 Soed. Impost (J01-26.3mm)</option>
-            <option value='BKT 70 Soed. Impost (J02-23.6mm)'>BKT 70 Soed. Impost (J02-23.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J06-13.6mm)'>BKT 70 Soed. Impost (J06-13.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J06-23.6mm)'>BKT 70 Soed. Impost (J06-23.6mm)</option>
-            <option value='BKT 70 Soed. W 01 (1=18.4)'>BKT 70 Soed. W 01 (1=18.4)</option>
-            <option value='BKT 70 Soed. W 01 (1=26.3)'>BKT 70 Soed. W 01 (1=26.3)</option>
-            <option value='BKT 70 Soed. W 01 (1=26.8)'>BKT 70 Soed. W 01 (1=26.8)</option>
-            <option value='BKT 70 Soed. W 01 (1=7.8)'>BKT 70 Soed. W 01 (1=7.8)</option>
-            <option value='BKT 78 Soed. (M11227-19.5mm)'>BKT 78 Soed. (M11227-19.5mm)</option>
-            <option value='BKT 70 Soed. W 01 (1=10.8)'>BKT 70 Soed. W 01 (1=10.8)</option>
-            <option value='BKT 70 Soed. W 02 (1=10.8)'>BKT 70 Soed. W 02 (1=10.8)</option>
-            <option value='BKT 70 Soed. W 02 (1=23.6)'>BKT 70 Soed. W 02 (1=23.6)</option>
-            <option value='BKT 70 Soed. W 03 (1=7.8)'>BKT 70 Soed. W 03 (1=7.8)</option>
-            <option value='BKT 70 Soed. W 03 (1=10.8)'>BKT 70 Soed. W 03 (1=10.8)</option>
-            <option value='BKT 70 Soed. (M11535-7.8mm)'>BKT 70 Soed. (M11535-7.8mm)</option>
-            <option value='BKT 70 Soed. Impost (J01-13.6mm)'>BKT 70 Soed. Impost (J01-13.6mm)</option>
-            <option value='BKT 70 Soed. W 02 (1=18.4)'>BKT 70 Soed. W 02 (1=18.4)</option>
-            <option value='BKT 70 Soed. (M11055-13.6mm)'>BKT 70 Soed. (M11055-13.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J01-43.6mm)'>BKT 70 Soed. Impost (J01-43.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J05-43.6mm)'>BKT 70 Soed. Impost (J05-43.6mm)</option>
-            <option value='BKT 78 Soed. (M11227-22.7mm)'>BKT 78 Soed. (M11227-22.7mm)</option>
-            <option value='Chit-Chit (aldocks).uz (oq)'>Chit-Chit (aldocks).uz (oq)</option>
-            <option value='Klipsa 12 mm'>Klipsa 12 mm</option>
-            <option value='BKT 70 Soed. Impost (J05-23.6mm)'>BKT 70 Soed. Impost (J05-23.6mm)</option>
-            <option value='Ogranichitel (oq)'>Ogranichitel (oq)</option>
-            <option value='Otvetniy Plast. (rangli)'>Otvetniy Plast. (rangli)</option>
-            <option value='Otvetniy Plast. (oq)'>Otvetniy Plast. (oq)</option>
-            <option value='Petlya Dvernaya Alyumin (oq)'>Petlya Dvernaya Alyumin (oq)</option>
-            <option value='Ruchka Kvadrat (oq)'>Ruchka Kvadrat (oq)</option>
-            <option value='Soedinitel 114 D 300 (13mm)'>Soedinitel 114 D 300 (13mm)</option>
-            <option value='Soedinitel 114 D 300 (6mm)'>Soedinitel 114 D 300 (6mm)</option>
-            <option value='Soedinitel 114 D 400 (38mm)'>Soedinitel 114 D 400 (38mm)</option>
-            <option value='Soedinitel 114 D 400 (46mm)'>Soedinitel 114 D 400 (46mm)</option>
-            <option value='Soedinitel BKH-001 (6mm)'>Soedinitel BKH-001 (6mm)</option>
-            <option value='Soedinitel BKH-002 (38mm)'>Soedinitel BKH-002 (38mm)</option>
-            <option value='Soedinitel (Inja)'>Soedinitel (Inja)</option>
-            <option value='Zashyolka Narujnyaya (new) (oq)'>Zashyolka Narujnyaya (new) (oq)</option>
-            <option value='Soedinitel (Bolshoy)'>Soedinitel (Bolshoy)</option>
-            <option value='Otvetniy Plast. (ALD-2) (rangli)'>Otvetniy Plast. (ALD-2) (rangli)</option>
-            <option value='Otvetniy Plast. (ALD-2) (oq)'>Otvetniy Plast. (ALD-2) (oq)</option>
-            <option value='BKT 70 Soed. List (A10-002)'>BKT 70 Soed. List (A10-002)</option>
-            <option value='Montajnaya Planka 7000 (Metal)'>Montajnaya Planka 7000 (Metal)</option>
-            <option value='Petlya (oq)'>Petlya (oq)</option>
-            <option value='BKT 78 Soed. (M11227-26.9mm)'>BKT 78 Soed. (M11227-26.9mm)</option>
-            <option value='Ruchka LUX Fortuna Mini O (oq)'>Ruchka LUX Fortuna Mini O (oq)</option>
-            <option value='BKT 70 Soed. List (A10-003)'>BKT 70 Soed. List (A10-003)</option>
-            <option value='Otvetnaya chast zamka A0275-K (155) (oq)'>Otvetnaya chast zamka A0275-K (155) (oq)</option>
-            <option value='Soedinitel 114 D 400 (10mm)'>Soedinitel 114 D 400 (10mm)</option>
-            <option value='Soedinitel 5505 (35mm)'>Soedinitel 5505 (35mm)</option>
-            <option value='Soedinitel BKH-008 (14mm)'>Soedinitel BKH-008 (14mm)</option>
-            <option value='Soedinitel BKH-008 (15mm)'>Soedinitel BKH-008 (15mm)</option>
-            <option value='Soedinitel BKH-010 (6mm)'>Soedinitel BKH-010 (6mm)</option>
-            <option value='Krishka Podokonnik 300 (Trapetsiya) (oq)'>Krishka Podokonnik 300 (Trapetsiya) (oq)</option>
-            <option value='Ogranichitel PVH (oq)'>Ogranichitel PVH (oq)</option>
-            <option value='Petlya 75 mm (oq)'>Petlya 75 mm (oq)</option>
-            <option value='Petlya Dvernaya PVH (oq)'>Petlya Dvernaya PVH (oq)</option>
-            <option value='Porog Soedinitel 6000 (1kom.) (L;P) (rangli)'>Porog Soedinitel 6000 (1kom.) (L;P) (rangli)</option>
-            <option value='Porog Soedinitel 7000 (1kom.) (L;P) (oq)'>Porog Soedinitel 7000 (1kom.) (L;P) (oq)</option>
-            <option value='Krishka Shtulp Dlya Adap 6000 (oq)'>Krishka Shtulp Dlya Adap 6000 (oq)</option>
-            <option value='Krishka Podokonnik 300 (oq)'>Krishka Podokonnik 300 (oq)</option>
-            <option value='Ruchka Dvernaya Fornaks (35mm) fiksator (oq)'>Ruchka Dvernaya Fornaks (35mm) fiksator (oq)</option>
-            <option value='BKT 70 Soed. (M11535-22mm)'>BKT 70 Soed. (M11535-22mm)</option>
-            <option value='Ruchka DELFIN (oq)'>Ruchka DELFIN (oq)</option>
-            <option value='Zatsepka 5200'>Zatsepka 5200</option>
-            <option value='Zatsepka 7000'>Zatsepka 7000</option>
-            <option value='Zatsepka 6000'>Zatsepka 6000</option>
-            <option value='Ruchka Okonaya Roto (oq)'>Ruchka Okonaya Roto (oq)</option>
-            <option value='Ruchka Okonnaya PVH (oq)'>Ruchka Okonnaya PVH (oq)</option>
-            <option value='Soedinitel 5200'>Soedinitel 5200</option>
-            <option value='Soedinitel 6000 (TRIO)'>Soedinitel 6000 (TRIO)</option>
-            <option value='Soedinitel 7000'>Soedinitel 7000</option>
-            <option value='Ruchka Dvernaya Fornaks (35mm) (oq)'>Ruchka Dvernaya Fornaks (35mm) (oq)</option>
-            <option value='Soedinitel 5800'>Soedinitel 5800</option>
-            <option value='Soedinitel CL.X.W 38 (5.5 mm)'>Soedinitel CL.X.W 38 (5.5 mm)</option>
-            <option value='Petlya Dvernaya 2SK MASTER (oq)'>Petlya Dvernaya 2SK MASTER (oq)</option>
-            <option value='Soedinitel A 00018 (37mm)'>Soedinitel A 00018 (37mm)</option>
-            <option value='Soedinitel CL.X.W 14 (40mm)'>Soedinitel CL.X.W 14 (40mm)</option>
-            <option value='Ruchka Okonaya Rotto Swing (oq)'>Ruchka Okonaya Rotto Swing (oq)</option>
-            <option value='BKT 70 Soed. Impost (J03-23.6mm)'>BKT 70 Soed. Impost (J03-23.6mm)</option>
-            <option value='Ruchka Okonaya Rotto Swing (rangli)'>Ruchka Okonaya Rotto Swing (rangli)</option>
-            <option value='Soedinitel CL.X.W 10 (27mm)'>Soedinitel CL.X.W 10 (27mm)</option>
-            <option value='Soedinitel A 00018 (9mm)'>Soedinitel A 00018 (9mm)</option>
-            <option value='Soedinitel A 00018 (25.8mm)'>Soedinitel A 00018 (25.8mm)</option>
-            <option value='Soedinitel A 00018 (18mm)'>Soedinitel A 00018 (18mm)</option>
-            <option value='Soedinitel CL.X.W 38 (5mm)'>Soedinitel CL.X.W 38 (5mm)</option>
-            <option value='Soedinitel CL.X.W 28 (9mm)'>Soedinitel CL.X.W 28 (9mm)</option>
-            <option value='Soedinitel CL.X.W 28 (25.8mm)'>Soedinitel CL.X.W 28 (25.8mm)</option>
-            <option value='Soedinitel CL.X.W 28 (18mm)'>Soedinitel CL.X.W 28 (18mm)</option>
-            <option value='Soedinitel CL.X.W 24 (5mm)'>Soedinitel CL.X.W 24 (5mm)</option>
-            <option value='Soedinitel CL.X.W 38 (5.8mm)'>Soedinitel CL.X.W 38 (5.8mm)</option>
-            <option value='Soedinitel CL.X.W 38 (6.8mm)'>Soedinitel CL.X.W 38 (6.8mm)</option>
-            <option value='Soedinitel CL.X.W 14 (22.5mm)'>Soedinitel CL.X.W 14 (22.5mm)</option>
-            <option value='Soedinitel CL.X.W 34 (34.3mm)'>Soedinitel CL.X.W 34 (34.3mm)</option>
-            <option value='BKT 70 Soed. Impost (J01-16mm)'>BKT 70 Soed. Impost (J01-16mm)</option>
-            <option value='Soedinitel CL.X.W 05 (13mm)'>Soedinitel CL.X.W 05 (13mm)</option>
-            <option value='Soedinitel CL.X.W 20 (27mm)'>Soedinitel CL.X.W 20 (27mm)</option>
-            <option value='Soedinitel CL.X.W 20 (18,8mm)'>Soedinitel CL.X.W 20 (18,8mm)</option>
-            <option value='Soedinitel CL.X.W 20 (6mm)'>Soedinitel CL.X.W 20 (6mm)</option>
-            <option value='Soedinitel CL.X.W 34 (18,8mm)'>Soedinitel CL.X.W 34 (18,8mm)</option>
-            <option value='BKT 70 Soed. Impost (J01-23.6mm)'>BKT 70 Soed. Impost (J01-23.6mm)</option>
-            <option value='Ruchka Dvernaya Fornaks (30mm) (oq)'>Ruchka Dvernaya Fornaks (30mm) (oq)</option>
-            <option value='Ruchka Dvernaya mini (oq)'>Ruchka Dvernaya mini (oq)</option>
-            <option value='Ruchka dvernaya "BELLA" (2250) mm (rangli)'>Ruchka dvernaya "BELLA" (2250) mm (rangli)</option>
-            <option value='Otvetka Mini 153 (oq)'>Otvetka Mini 153 (oq)</option>
-            <option value='Soedinitel CL.X.W 14 (6mm)'>Soedinitel CL.X.W 14 (6mm)</option>
-            <option value='Soedinitel CLSW 22'>Soedinitel CLSW 22</option>
-            <option value='Ruchka "Simple" (oq)'>Ruchka "Simple" (oq)</option>
-            <option value='Soedinitel CL.X.W 10 (18,8mm)'>Soedinitel CL.X.W 10 (18,8mm)</option>
-            <option value='Soedinitel CL.X.W 10 (6mm)'>Soedinitel CL.X.W 10 (6mm)</option>
-            <option value='Ruchka "Simple"(rangli)'>Ruchka "Simple"(rangli)</option>
-            <option value='Vstavka (PVCC 005) (rangli)'>Vstavka (PVCC 005) (rangli)</option>
-            <option value='Zaglushka (PVCC 002) (rangli)'>Zaglushka (PVCC 002) (rangli)</option>
-            <option value='Soedinitel (PVCC 022)'>Soedinitel (PVCC 022)</option>
-            <option value='Krishka (PVCC 001) (rangli)'>Krishka (PVCC 001) (rangli)</option>
-            <option value='Termo vstavka (PVCC 003) (rangli)'>Termo vstavka (PVCC 003) (rangli)</option>
-            <option value='Termo vstavka (PVCC 004) (rangli)'>Termo vstavka (PVCC 004) (rangli)</option>
-            <option value='Ruchka Dvernaya Fornaks (30mm) fiksator (oq)'>Ruchka Dvernaya Fornaks (30mm) fiksator (oq)</option>
-            <option value='Soedinitel CL.X.W 10 (17mm)'>Soedinitel CL.X.W 10 (17mm)</option>
-            <option value='Zaglushka (PVCC 035) (rangli)'>Zaglushka (PVCC 035) (rangli)</option>
-            <option value='Ruchka dvernaya "BELLA" (750) mm (rangli)'>Ruchka dvernaya "BELLA" (750) mm (rangli)</option>
-            <option value='Soedinitel CL.X.W 38 (44.4mm)'>Soedinitel CL.X.W 38 (44.4mm)</option>
-            <option value='Soedinitel CL.X.W 16 (44.4mm)'>Soedinitel CL.X.W 16 (44.4mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (500) mm (rangli)'>Ruchka dvernaya "BELLA" (500) mm (rangli)</option>
-            <option value='Krishka Podokonnik 350 (Ovolniy) (oq)'>Krishka Podokonnik 350 (Ovolniy) (oq)</option>
-            <option value='Soedinitel CL.X.W 14 (21.5mm)'>Soedinitel CL.X.W 14 (21.5mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (2350) mm (rangli)'>Ruchka dvernaya "BELLA" (2350) mm (rangli)</option>
-            <option value='Zaglushka (PVCC 034) (rangli)'>Zaglushka (PVCC 034) (rangli)</option>
-            <option value='Ruchka dvernaya "BELLA" (2000) mm (rangli)'>Ruchka dvernaya "BELLA" (2000) mm (rangli)</option>
-            <option value='Soedinitel CL.X.W 34 (28.7mm)'>Soedinitel CL.X.W 34 (28.7mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (1200) mm (rangli)'>Ruchka dvernaya "BELLA" (1200) mm (rangli)</option>
-            <option value='Ruchka Dvernaya (28mm) Slim fiksator (oq)'>Ruchka Dvernaya (28mm) Slim fiksator (oq)</option>
-            <option value='BKT 70 Soed. W 02 (1=25.8)'>BKT 70 Soed. W 02 (1=25.8)</option>
-            <option value='Derjatel i ruchka-koltso dlya moskitnoy setki (rangli)'>Derjatel i ruchka-koltso dlya moskitnoy setki (rangli)</option>
-            <option value='Ручка к конструкции москитной сетки серии 10х20. "AKBULUT" цветной'>Ручка к конструкции москитной сетки серии 10х20. "AKBULUT" цветной</option>
-            <option value='Ручка к конструкции москитной сетки серии 10х20 "AKBULUT"белый'>Ручка к конструкции москитной сетки серии 10х20 "AKBULUT"белый</option>
-            <option value='Ruchka dvernaya "BELLA" (2300) mm (rangli)'>Ruchka dvernaya "BELLA" (2300) mm (rangli)</option>
-            <option value='Takos PVH'>Takos PVH</option>
-            <option value='BKT 70 Soed. W 02 (1=26.3)'>BKT 70 Soed. W 02 (1=26.3)</option>
-            <option value='BKT 70 Soed. W 02 (1=5.1)'>BKT 70 Soed. W 02 (1=5.1)</option>
-            <option value='BKT 70 Soed. W 03 (1=18.4)'>BKT 70 Soed. W 03 (1=18.4)</option>
-            <option value='BKT 70 Soed. W 03 (1=26.3)'>BKT 70 Soed. W 03 (1=26.3)</option>
-            <option value='BKT 70 Soed. W 03 (1=5.1)'>BKT 70 Soed. W 03 (1=5.1)</option>
-            <option value='Derjatel i ruchka-koltso dlya moskitnoy setki (oq)'>Derjatel i ruchka-koltso dlya moskitnoy setki (oq)</option>
-            <option value='BKT 70 Soed. Impost (J03-13.6mm)'>BKT 70 Soed. Impost (J03-13.6mm)</option>
-            <option value='Porog Soedinitel 6000 (1kom.) (L;P) (oq)'>Porog Soedinitel 6000 (1kom.) (L;P) (oq)</option>
-            <option value='Montajnaya Planka 6000 (Metal)'>Montajnaya Planka 6000 (Metal)</option>
-            <option value='BKT 70 Soed. Impost (J05-13.6mm)'>BKT 70 Soed. Impost (J05-13.6mm)</option>
-            <option value='Soedinitel BKH-010 (42mm)'>Soedinitel BKH-010 (42mm)</option>
-            <option value='Ruchka Dvernaya Fornaks (28mm) (oq)'>Ruchka Dvernaya Fornaks (28mm) (oq)</option>
-            <option value='Otvetnaya chast zamka A0275-K (153) (oq)'>Otvetnaya chast zamka A0275-K (153) (oq)</option>
-            <option value='Soedinitel CL.X.W 14 (25.8mm)'>Soedinitel CL.X.W 14 (25.8mm)</option>
-            <option value='Soedinitel 114 D 300 (35mm)'>Soedinitel 114 D 300 (35mm)</option>
-            <option value='Ruchka Dvernaya Fornaks (28mm) fiksator (oq)'>Ruchka Dvernaya Fornaks (28mm) fiksator (oq)</option>
-            <option value='BKT 70 Soed. (M11535-18.4mm)'>BKT 70 Soed. (M11535-18.4mm)</option>
-            <option value='Soedinitel CL.X.W 10 (10mm)'>Soedinitel CL.X.W 10 (10mm)</option>
-            <option value='Soedinitel CL.X.W 20 (20mm)'>Soedinitel CL.X.W 20 (20mm)</option>
-            <option value='EPDM L-65 угловой соединитель для уплотнителей'>EPDM L-65 угловой соединитель для уплотнителей</option>
-            <option value='EPDM заглушка для штульпа "Чемпион"'>EPDM заглушка для штульпа "Чемпион"</option>
-            <option value='EPDM адаптер крышка для Термо 78'>EPDM адаптер крышка для Термо 78</option>
-            <option value='EPDM А01 105 угловой соединитель для уплотнителей'>EPDM А01 105 угловой соединитель для уплотнителей</option>
-            <option value='EPDM ССЕР 0057 адаптер крышка'>EPDM ССЕР 0057 адаптер крышка</option>
-            <option value='EPDM ССЕР 0058 адаптер крышка'>EPDM ССЕР 0058 адаптер крышка</option>
-            <option value='EPDM D 017500 Decor Zaglushka'>EPDM D 017500 Decor Zaglushka</option>
-            <option value='EPDM адаптер крышка для Термо 70 (BKT-70)'>EPDM адаптер крышка для Термо 70 (BKT-70)</option>
-            <option value='EPDM крышка для штульпа АК-40'>EPDM крышка для штульпа АК-40</option>
-            <option value='EPDM адаптер крышка 012'>EPDM адаптер крышка 012</option>
-            <option value='EPDM epdc 004 дренажный носик'>EPDM epdc 004 дренажный носик</option>
-            <option value='EPDM 5108 угловой соединитель для уплотнителей'>EPDM 5108 угловой соединитель для уплотнителей</option>
-            <option value='Термоуплотненный окрашенный алюминиевый профиль'>Термоуплотненный окрашенный алюминиевый профиль</option>
-            <option value='Неокрашенный алюминиевый профиль (N)'>Неокрашенный алюминиевый профиль (N)</option>
-            <option value='Алюминиевый профиль (N)'>Алюминиевый профиль (N)</option>
-            <option value='EPDM уплотнитель'>EPDM уплотнитель</option>
-            <option value='Анодированный алюминиевый профиль (N)'>Анодированный алюминиевый профиль (N)</option>
-            <option value='Термоуплотненный алюминиевый профиль (N)'>Термоуплотненный алюминиевый профиль (N)</option>
-            <option value='Мебельный профиль из алюминия анодированный матовое серебро (N)'>Мебельный профиль из алюминия анодированный матовое серебро (N)</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option  value="Штука">Штука</div>
-            <option  value="Килограмм">Килограмм</div>
-            <option  value="Квадратный метр">Квадратный метр</div>
-            <option  value="Метр">Метр</div>
-            <option  value="КМП">КМП</div>
-            <option  value="Пачка">Пачка</div>
-            <option  value="Секция">Секция</div>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option vlaue="Штука">Штука</div>
-            <option vlaue="Килограмм">Килограмм</div>
-            <option vlaue="Квадратный метр">Квадратный метр</div>
-            <option vlaue="Метр">Метр</div>
-            <option vlaue="КМП">КМП</div>
-            <option vlaue="Пачка">Пачка</div>
-            <option vlaue="Секция">Секция</div>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option vlaue="Штука">Штука</div>
-            <option vlaue="Килограмм">Килограмм</div>
-            <option vlaue="Квадратный метр">Квадратный метр</div>
-            <option vlaue="Метр">Метр</div>
-            <option vlaue="КМП">КМП</div>
-            <option vlaue="Пачка">Пачка</div>
-            <option vlaue="Секция">Секция</div>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;" id='stoimost_baza`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value="Активный">Активный</option>
-            <option value="Пассивный">Пассивный</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;" id='zavod_name`+String(i)+`'></span>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1"  style="width: 60px;">
+            <select class="form-select" aria-label="" style="width: 50px;!important;height:27px!important;z-index:0"  disabled id='tip_zakalyonnosti`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
+                <option  value="" selected></option>
+                <option value="T4" >T4</option>
+                <option value="T6" >T6</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1" style="font-size: small; text-transform: uppercase; width:130px">
+                <div>
+                    <span class =' text-center pl-1' style="font-size: small; text-transform: uppercase;z-index:0" id ='combination` +String(i)+`'></span>
+                </div>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1" >
+           <select class="form-select form-select-sm text-center"  style="width:65px;border-color:#fc2003;display:none;height:27px!important;z-index:0" id='brand_k_snaruji`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)" required>
+                <option  value="" selected></option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="R">R</option>
+                <option value="T">T</option>
+                <option value="J">J</option>
+                <option value="P">P</option>
+                <option value="M">M</option>
+                <option value="X">X</option>
+            </select>
+            </div>
+        </td>
         
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
+        <td >
+            <div class="input-group input-group-sm mb-1" style="width: 100px;display:none" id='div_kras_sn`+String(i)+`'>
+            <select class="form-select form-select-sm text-center code_kraski_snar_sel`+String(i)+`"  style="width:150px;border-color:#fc2003;z-index:0"  id='code_kraski_snar`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)" required data-placeholder="..."></select>
+            </div>
+        </td>
         
-        </div>
-    </td>
-    </tr>`
-  }
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select form-select-sm text-center"  style="width:65px;border-color:#fc2003;display:none;height:27px!important;z-index:0;" id='brand_k_vnutri`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)" required>
+                <option  value="" selected></option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="R">R</option>
+                <option value="T">T</option>
+                <option value="J">J</option>
+                <option value="P">P</option>
+                <option value="M">M</option>
+                <option value="X">X</option>
+            </select>
+            </div>
+        </td>
+        
+        <td >
+            <div class="input-group input-group-sm mb-1" style="width: 100px;display:none" id='div_kras_vn`+String(i)+`'>
+             <select class="form-select form-select-sm text-center code_kraski_vnut_sel`+String(i)+`"  style="width:100px;border-color:#fc2003;display:non;height:27px!important;z-index:0" id='code_kraski_vnut`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)" data-placeholder="..." required> </select>
+            </div>
+        </td>
+        
+        <td >
+            <div class="input-group input-group-sm mb-1">    
+            <select class="form-select" aria-label="" style="width: 75px;height:27px!important;z-index:0" onchange="svet_dekplonka_snaruji_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_snaruji`+String(i)+`' disabled>
+                <option  value="" selected></option>
+                <option value="Золотой Дуб 7777" >7777</option>
+                <option value="Махагон 3701">3701</option>
+                <option value="3D 3702">3702</option>
+                <option value="Дуб мокко">8888</option>
+                <option value="Шеф. сер. дуб">9999</option>
+                <option value="XXXX">XXXX</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+                <div>
+                <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;height:27px!important;z-index:0" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span></em>
+                </div>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1"  >    
+            <select class="form-select" aria-label="" style="width: 75px;height:27px!important;z-index:0" onchange="svet_dekplonka_vnutri_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_vnutri`+String(i)+`' disabled>
+                <option  value="" selected></option>
+                <option value="Золотой Дуб 7777" >7777</option>
+                <option value="Махагон 3701">3701</option>
+                <option value="3D 3702">3702</option>
+                <option value="Дуб мокко">8888</option>
+                <option value="Шеф. сер. дуб">9999</option>
+                <option value="XXXX">XXXX</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+                <div>
+                <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;height:27px!important;z-index:0" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span></em>
+                </div>
+            </div>
+        </td>
 
+        
+
+        <td >
+            <div class="input-group input-group-sm mb-1">    
+            <select class="form-select" aria-label="" style="width: 220px;height:27px!important;z-index:0" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
+                <option  value="" selected></option>
+                                <option value="2036" >Золотой дуб</option>
+                                <option value="2048">Дуб мокко</option>
+                                <option value="2007">Красный орех</option>
+                                <option value="2012">Орех</option>
+                                <option value="3086">Шеффелдский дуб серый</option>
+                                <option value="1012">Алюкс антрацит</option>
+                                <option value="3001">Терновый дуб</option>
+                                <option value="3002">Шеф Альпийский дуб</option>
+                                <option value="3003">Гранитовый шеф дуб</option>
+                                <option value="3042">Дерево бальза</option>
+                                <option value="3062">Грецкий орех</option>
+                                <option value="3043">Вишня амаретто</option>
+                                <option value="3059">Орех терра</option>
+                                <option value="3058">Грецкий орех амаретто</option>
+                                <option value="3077">Винчестер</option>
+                                <option value="3081">Шеффелдский дуб светлый</option>
+                                <option value="3094">Орех Ребраун</option>
+                                <option value="1004">Метбраш платин</option>
+                                <option value="1005">Метбраш серый кварц</option>
+                                <option value="1006">Метбраш серый антрацит</option>
+                                <option value="1001">Метбраш Алюмин</option>
+                                <option value="5001">Кремвейс</option>
+                                <option value="6062">Матовый чёрный</option>
+                                <option value="6030">Матовый белый</option>
+                                <option value="1015">Алюкс алюмин</option>
+                                <option value="2025">Светлый дуб</option>
+                                <option value="1022">Ocean Blue</option>
+                                <option value="XXXX">XXXX</option>
+
+            </select>
+            </div>
+        </td>
+        
+        <td >
+            <div class="input-group input-group-sm mb-1">
+                <div>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;height:27px!important;z-index:0" id ='code_lamplonka_snaruji` +String(i)+`'></span>
+                </div>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+                <select class="form-select" aria-label="" style="width: 220px;height:27px!important;z-index:0" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
+                    <option  value="" selected></option>
+                                    <option value="2036" >Золотой дуб</option>
+                                    <option value="2048">Дуб мокко</option>
+                                    <option value="2007">Красный орех</option>
+                                    <option value="2012">Орех</option>
+                                    <option value="3086">Шеффелдский дуб серый</option>
+                                    <option value="1012">Алюкс антрацит</option>
+                                    <option value="3001">Терновый дуб</option>
+                                    <option value="3002">Шеф Альпийский дуб</option>
+                                    <option value="3003">Гранитовый шеф дуб</option>
+                                    <option value="3042">Дерево бальза</option>
+                                    <option value="3062">Грецкий орех</option>
+                                    <option value="3043">Вишня амаретто</option>
+                                    <option value="3059">Орех терра</option>
+                                    <option value="3058">Грецкий орех амаретто</option>
+                                    <option value="3077">Винчестер</option>
+                                    <option value="3081">Шеффелдский дуб светлый</option>
+                                    <option value="3094">Орех Ребраун</option>
+                                    <option value="1004">Метбраш платин</option>
+                                    <option value="1005">Метбраш серый кварц</option>
+                                    <option value="1006">Метбраш серый антрацит</option>
+                                    <option value="1001">Метбраш Алюмин</option>
+                                    <option value="5001">Кремвейс</option>
+                                    <option value="6062">Матовый чёрный</option>
+                                    <option value="6030">Матовый белый</option>
+                                    <option value="1015">Алюкс алюмин</option>
+                                    <option value="2025">Светлый дуб</option>
+                                    <option value="1022">Ocean Blue</option>
+                                    <option value="XXXX">XXXX</option>
+
+                </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+                <div>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;z-index:0" id='code_lamplonka_vnutri`+String(i)+`'></span>
+                </div>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1" >
+            <div id='anod`+String(i)+`' class='anood'  style="width: 75px;border-color:red; display:none;" >
+                <select class="form-select kod_anod_snar`+String(i)+`" aria-label="" style=" width: 100px; border-color:#fc2003;!important;height:27px!important;z-index:0" onchange="code_svet_anodirovki_snaruji_selected(`+String(i)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(i)+`' required></select>         
+            </div>          
+            </div>
+        </td> 
+        <td >
+            <div class="input-group input-group-sm mb-1" style="width: 60px;">
+            <div id='anod_vnutr`+String(i)+`'  style="width: 75px;display:none;border-color:red;">
+                <select class="form-select kod_anod_vnutri`+String(i)+`" aria-label="" style="width: 75px;border-color:#fc2003;margin-right:15px;height:27px!important;z-index:0" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='code_svet_anodirovki_vnutr`+String(i)+`' required></select>       
+            </div>
+            </div>
+        </td> 
+        <td >
+            <div class="input-group input-group-sm mb-1" style="width: 60px;height:27px!important">
+            <select class="form-select" aria-label="" style="width: 60px;height:27px!important;z-index:0"  disabled id='contactnost_anodirovki`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
+                <option  value=""></option>
+                <option value="YC" >YC</option>
+                <option value="NC">NC</option>
+            </select>
+            </div>
+        </td>
+        <td style='display:none'>
+            <div class="input-group input-group-sm mb-1">
+            <div>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;z-index:0" id='tip_anodirovki`+String(i)+`'></span>
+            </div>
+            </div>
+        </td>
+        <td style='display:none' >
+            <div class="input-group input-group-sm mb-1">
+            <div>
+                <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='sposob_anodirovki`+String(i)+`'></span>
+            </div>
+            </div>
+        </td>
+        <td >`
+        text +=nakleyki
+
+        text += `
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+                <span  class='text-center' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='nadpis_nakleyki`+String(i)+`'></span>
+            </div>
+        </td>
+        <td >
+        <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0;white-space:nowrap;" id='baza_profiley`+String(i)+`'></span>
+        </td>
+        
+        <td >
+            <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='gruppa_materialov`+String(i)+`'>ALUGP</span>   
+        </td> 
+        <td >
+            <div class="input-group input-group-sm ">
+                <div class="input-group input-group-sm">
+                <span class =' text-center ' style="font-size: small; width:300px; font-weight: bold; text-transform: uppercase;z-index:0;white-space: nowrap;" id='kratkiy_tekst`+String(i)+`'></span>
+                </div>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+        
+            <input type='text' class=" form-control " style=" width: 150px; font-size:10px; height:27px!important;z-index:0" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+        
+            </div>
+        </td> 
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style=" width: 250px; font-size:10px; height:27px!important;z-index:0"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style=" width: 250px; font-size:10px; height:27px!important;z-index:0"  id='comment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type="text" class="form-control "  style='width:90px;height:27px!important;z-index:0'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  >    
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 90px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;border-color:red;height:27px!important;z-index:0" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='zavod`+String(i)+`' required>
+                <option  selected></option>
+                <option value="ZAVOD ALUMIN NAVOIY" >Benkam</option>
+                <option value="ZAVOD ALUMIN">Jomiy</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; display:none;height:27px!important;z-index:0" id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="border-color:red; width: 250px; font-size:10px; height:27px!important;z-index:0;display:none;"  id='nazvaniye_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+            
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <option  selected></option>
+            <option   value="LAM">LAM</option>
+            <option   value="Anod">Anod</option>
+            <option   value="COLOUR">COLOUR</option>
+            <option   value="VAKUM &amp; 3D">VAKUM &amp; 3D</option>
+            <option   value="WHITE">WHITE</option>
+            <option   value="Без цвета">Без цвета</option>
+        </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;height:27px!important;z-index:0" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <option  selected></option>
+            <option value="Alumin WHITE (Navoiy)">Alumin WHITE (Navoiy)</option>
+            <option value="Alumin COLOUR">Alumin COLOUR</option>
+            <option value="Alumin Lam">Alumin Lam</option>
+            <option value="Alumin WHITE">Alumin WHITE</option>
+            <option value="Alumin COLOUR (Navoiy)">Alumin COLOUR (Navoiy)</option>
+            <option value="Alumin Anod (Navoiy)">Alumin Anod (Navoiy)</option>
+            <option value="Alumin VAKUM">Alumin VAKUM</option>
+            <option value="Alumin VAKUM (Navoiy)">Alumin VAKUM (Navoiy)</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1"  >
+            <select class="form-select" aria-label="" style="width: 290px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;height:27px!important;z-index:0;display:none;"  id='group`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+                <option  selected></option>
+                <option value="ALUMIN - (OQ) NAVOIY">ALUMIN - (OQ) NAVOIY</option>
+                <option value="TERMO 7000 (TSVETNOY)">TERMO 7000 (TSVETNOY)</option>
+                <option value="Alu. AKSESSUAR 2">Alu. AKSESSUAR 2</option>
+                <option value="ALUMIN LAM JP / RAZ">ALUMIN LAM JP / RAZ</option>
+                <option value="ALUMIN LAM TERMO 70">ALUMIN LAM TERMO 70</option>
+                <option value="ALUMIN LAM ALDOKS">ALUMIN LAM ALDOKS</option>
+                <option value="Adt ALUMIN (9005)">Adt ALUMIN (9005)</option>
+                <option value="ALUMIN LAM TERMO 70 (N)">ALUMIN LAM TERMO 70 (N)</option>
+                <option value="ALUMIN CHAMPION (TSVETNOY)">ALUMIN CHAMPION (TSVETNOY)</option>
+                <option value="ALUMIN - (ANOD) (NAVOIY)">ALUMIN - (ANOD) (NAVOIY)</option>
+                <option value="BENKAM (COLOUR) FASAD">BENKAM (COLOUR) FASAD</option>
+                <option value="ALUMIN - (ANOD) (ZAKAZ)">ALUMIN - (ANOD) (ZAKAZ)</option>
+                <option value="POROG (ANOD)">POROG (ANOD)</option>
+                <option value="ALUMIN - (ANOD) TERMO-70">ALUMIN - (ANOD) TERMO-70</option>
+                <option value="Uselitel (Alum)">Uselitel (Alum)</option>
+                <option value="Adt ALUMIN (SW306G)">Adt ALUMIN (SW306G)</option>
+                <option value="Adt ALUMIN (5002)">Adt ALUMIN (5002)</option>
+                <option value="Adt ALUMIN (7011)">Adt ALUMIN (7011)</option>
+                <option value="Adt ALUMIN (7042)">Adt ALUMIN (7042)</option>
+                <option value="Adt ALUMIN (8003)">Adt ALUMIN (8003)</option>
+                <option value="Adt ALUMIN (8017)">Adt ALUMIN (8017)</option>
+                <option value="Adt ALUMIN (9006)">Adt ALUMIN (9006)</option>
+                <option value="ALUMIN - (ANOD) ALDOKS">ALUMIN - (ANOD) ALDOKS</option>
+                <option value="ALUMIN (TSVETNOY)">ALUMIN (TSVETNOY)</option>
+                <option value="ALUMIN - (NEKR) (ADT)">ALUMIN - (NEKR) (ADT)</option>
+                <option value="ALUMIN (TSVETNOY) NAVOIY">ALUMIN (TSVETNOY) NAVOIY</option>
+                <option value="ALUMIN (TSVETNOY) ALDOKS-2">ALUMIN (TSVETNOY) ALDOKS-2</option>
+                <option value="ALUMIN (TSVETNOY) JP">ALUMIN (TSVETNOY) JP</option>
+                <option value="ALUMIN (TSVETNOY) ROLSTAVNI">ALUMIN (TSVETNOY) ROLSTAVNI</option>
+                <option value="ALUMIN - (V ZOL DUB) ROLSTAVNI">ALUMIN - (V ZOL DUB) ROLSTAVNI</option>
+                <option value="ALUMIN - (NEKR) AKS UZ (ADT)">ALUMIN - (NEKR) AKS UZ (ADT)</option>
+                <option value="ALUMIN - (3D) (55/56) ALDOKS">ALUMIN - (3D) (55/56) ALDOKS</option>
+                <option value="ALUMIN - (3D) (55/56) ALDOKS-2">ALUMIN - (3D) (55/56) ALDOKS-2</option>
+                <option value="ALUMIN - (V ZOL DUB) ALDOKS (N)">ALUMIN - (V ZOL DUB) ALDOKS (N)</option>
+                <option value="ALUMIN - (V DUB MOKKO) ALDOKS-2">ALUMIN - (V DUB MOKKO) ALDOKS-2</option>
+                <option value="ALUMIN - (V ZOL DUB) ALDOKS">ALUMIN - (V ZOL DUB) ALDOKS</option>
+                <option value="ALUMIN - (V DUB MOKKO) ALDOKS">ALUMIN - (V DUB MOKKO) ALDOKS</option>
+                <option value="ALUMIN - (NEKR) GAZ PLITA">ALUMIN - (NEKR) GAZ PLITA</option>
+                <option value="ALUMIN - (OQ) JP (ADT)">ALUMIN - (OQ) JP (ADT)</option>
+                <option value="ALUMIN - (NEKR) FRAME">ALUMIN - (NEKR) FRAME</option>
+                <option value="ALUMIN - (OQ) (ADT)">ALUMIN - (OQ) (ADT)</option>
+                <option value="ALUMIN - (OQ) ALDOKS-2 (ADT)">ALUMIN - (OQ) ALDOKS-2 (ADT)</option>
+                <option value="ALUMIN - (OQ) ALDOKS (ADT)">ALUMIN - (OQ) ALDOKS (ADT)</option>
+                <option value="ALUMIN - (OQ) ALDOKS (N)">ALUMIN - (OQ) ALDOKS (N)</option>
+                <option value="ALUMIN - (OQ) ROLSTAVNI (ADT)">ALUMIN - (OQ) ROLSTAVNI (ADT)</option>
+                <option value="BENKAM (NEKR) FASAD">BENKAM (NEKR) FASAD</option>
+                <option value="BENKAM (OQ) FASAD">BENKAM (OQ) FASAD</option>
+                <option value="ALUMIN - (NEKR UZ) NARVON">ALUMIN - (NEKR UZ) NARVON</option>
+                <option value="MEBEL ANADIROVKA">MEBEL ANADIROVKA</option>
+                <option value="TERMO 6000 (TSVETNOY)">TERMO 6000 (TSVETNOY)</option>
+                <option value="TERMO 7000 (OQ) (N)">TERMO 7000 (OQ) (N)</option>
+                <option value="TERMO 7000 (TSVETNOY) (N)">TERMO 7000 (TSVETNOY) (N)</option>
+                <option value="TERMO 6000 (V Zol Dub)">TERMO 6000 (V Zol Dub)</option>
+                <option value="TERMO 7000 (V Zol Dub)">TERMO 7000 (V Zol Dub)</option>
+                <option value="TERMO 6000 (OQ)">TERMO 6000 (OQ)</option>
+                <option value="TERMO 6500 (OQ) 1.3mm">TERMO 6500 (OQ) 1.3mm</option>
+                <option value="TERMO 7000 (OQ)">TERMO 7000 (OQ)</option>
+                <option value="ALUMIN LAM AKF Chempion">ALUMIN LAM AKF Chempion</option>
+                <option value="ALUMIN LAM TERMO 65">ALUMIN LAM TERMO 65</option>
+                <option value="TERMO 7800 (TSVETNOY)">TERMO 7800 (TSVETNOY)</option>
+                <option value="ALUMIN LAM TERMO 78">ALUMIN LAM TERMO 78</option>
+                <option value="ALUMIN - (3D) (55/56) ROLSTAVNI">ALUMIN - (3D) (55/56) ROLSTAVNI</option>
+                <option value="ALUMIN - (OQ) CHAMPION">ALUMIN - (OQ) CHAMPION</option>
+                <option value="TERMO 6500 (TSVETNOY) 1.3mm">TERMO 6500 (TSVETNOY) 1.3mm</option>
+                <option value="TERMO 7800 (OQ)">TERMO 7800 (OQ)</option>
+                <option value="TERMO 7000 (NEKR)">TERMO 7000 (NEKR)</option>
+                <option value="TERMO B.ALUMIN - (Benkam) OQ">TERMO B.ALUMIN - (Benkam) OQ</option>
+                <option value="ALUMIN LAM BENKAM">ALUMIN LAM BENKAM</option>
+                <option value="ALUMIN (TSVETNOY) NAVOIY TIARA TWIN MAX">ALUMIN (TSVETNOY) NAVOIY TIARA TWIN MAX</option>
+                <option value="ALUMIN - (V ZOL DUB) ALDOKS-2">ALUMIN - (V ZOL DUB) ALDOKS-2</option>
+                <option value="ALUMIN - (OQ) NAVOIY TIARA TWIN MAX">ALUMIN - (OQ) NAVOIY TIARA TWIN MAX</option>
+                <option value="ALUMIN - (V ZOL DUB) NAVOIY">ALUMIN - (V ZOL DUB) NAVOIY</option>
+                <option value="TERMO B.ALUMIN - (Benkam) Colour">TERMO B.ALUMIN - (Benkam) Colour</option>
+                <option value="ALUMIN - (OQ) RETPEN ALDOKS (ADT)">ALUMIN - (OQ) RETPEN ALDOKS (ADT)</option>
+                <option value="ALUMIN (TSVETNOY) TIARA TWIN MAX">ALUMIN (TSVETNOY) TIARA TWIN MAX</option>
+                <option value="TERMO B.ALUMIN - (Benkam) 3D">TERMO B.ALUMIN - (Benkam) 3D</option>
+                <option value="Adt ALUMIN (SW306G) RETPEN">Adt ALUMIN (SW306G) RETPEN</option>
+                <option value="ALUMIN - (OQ) RETPEN ALDOKS (N)">ALUMIN - (OQ) RETPEN ALDOKS (N)</option>
+                <option value="ALUMIN - (V ZOL DUB) RETPEN ALDOKS (N)">ALUMIN - (V ZOL DUB) RETPEN ALDOKS (N)</option>
+                <option value="POROG (ALUMIN)">POROG (ALUMIN)</option>
+                <option value="ALUMIN - (V ZOL DUB) (ADT)">ALUMIN - (V ZOL DUB) (ADT)</option>
+                <option value="MEBEL SVETNOY">MEBEL SVETNOY</option>
+                <option value="BENKAM (V ZOL DUB) FASAD">BENKAM (V ZOL DUB) FASAD</option>
+                <option value="ALUMIN (TSVETNOY) RAZDVIJ. SERIYA">ALUMIN (TSVETNOY) RAZDVIJ. SERIYA</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0"  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+                <option  selected></option>
+                <option value="Сырье">Сырье</option>
+                <option value="Готовый продукт">Готовый продукт</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style=" width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;height:27px!important;z-index:0" id='segment`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected value="" ></option>
+                <option value="Нет сегмента">Нет сегмента</option>
+                <option value="Премиум">Премиум</option>
+                <option value="Аксессуар">Аксессуар</option>
+                <option value="Aldoks">Aldoks</option>
+                <option value="Стандарт">Стандарт</option>
+                <option value="Mebel">Mebel</option>
+                <option value="Alumin arzon">Alumin arzon</option>
+                <option value="Falcon">Falcon</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 75px;text-transform: uppercase; font-size:12px;height:27px!important;z-index:0; padding-right:0px;display:none" id='edinitsa_izm`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option selected></option>
+                <option vlaue="Штука">Штука</div>
+                <option vlaue="Килограмм">Килограмм</div>
+            </select>
+            </div>
+            
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;height:27px!important;z-index:0" id='buxgalter_tovar`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                    <option  selected></option>
+                    <option value="Алюминиевый профиль">Алюминиевый профиль</option>
+                    <option value="Неокрашенный алюминиевый профиль">Неокрашенный алюминиевый профиль</option>
+                    <option value="Алюминиевый профиль">Алюминиевый профиль</option>
+                    <option value="Ламинированный алюминиевый профиль">Ламинированный алюминиевый профиль</option>
+                    <option value="Алюминиевый профиль с декоративным покрытием">Алюминиевый профиль с декоративным покрытием</option>
+                    <option value="Термоуплотненный окрашенный алюминиевый профиль">Термоуплотненный окрашенный алюминиевый профиль</option>
+                    <option value="Неокрашенный алюминиевый профиль">Неокрашенный алюминиевый профиль</option>
+                    <option value="Термоуплотненный окрашенный алюминиевый профиль">Термоуплотненный окрашенный алюминиевый профиль</option>
+                    <option value="Ламинированный термоуплотненный алюминиевый профиль">Ламинированный термоуплотненный алюминиевый профиль</option>
+                    <option value="Алюминиевый профиль (N)">Алюминиевый профиль (N)</option>
+                    <option value="Неокрашенный алюминиевый профиль (N)">Неокрашенный алюминиевый профиль (N)</option>
+                    <option value="Алюминиевый профиль (N)">Алюминиевый профиль (N)</option>
+                    <option value="Ламинированный алюминиевый профиль (N)">Ламинированный алюминиевый профиль (N)</option>
+                    <option value="Алюминиевый профиль с декоративным покрытием (N)">Алюминиевый профиль с декоративным покрытием (N)</option>
+                    <option value="Термоуплотненный алюминиевый профиль (N)">Термоуплотненный алюминиевый профиль (N)</option>
+                    <option value="Неокрашенный алюминиевый профиль (N)">Неокрашенный алюминиевый профиль (N)</option>
+                    <option value="Термоуплотненный анодированный алюминиевый профиль (N)">Термоуплотненный анодированный алюминиевый профиль (N)</option>
+                    <option value="Термоуплотненный окрашенный алюминиевый профиль (N)">Термоуплотненный окрашенный алюминиевый профиль (N)</option>
+                    <option value="Ламинированный термоуплотнённый алюминиевый профиль (N)">Ламинированный термоуплотнённый алюминиевый профиль (N)</option>
+                    <option value="Анодированный алюминиевый профиль (N)">Анодированный алюминиевый профиль (N)</option>
+                    <option value="Мебельный профиль из алюминия анодированный матовое серебро (N)">Мебельный профиль из алюминия анодированный матовое серебро (N)</option>
+
+
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option  value="Штука">Штука</div>
+                <option  value="Килограмм">Килограмм</div>
+                <option  value="Квадратный метр">Квадратный метр</div>
+                <option  value="Метр">Метр</div>
+                <option  value="КМП">КМП</div>
+                <option  value="Пачка">Пачка</div>
+                <option  value="Секция">Секция</div>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option vlaue="Штука">Штука</div>
+                <option vlaue="Килограмм">Килограмм</div>
+                <option vlaue="Квадратный метр">Квадратный метр</div>
+                <option vlaue="Метр">Метр</div>
+                <option vlaue="КМП">КМП</div>
+                <option vlaue="Пачка">Пачка</div>
+                <option vlaue="Секция">Секция</div>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='alter_edin`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option vlaue="Штука">Штука</div>
+                <option vlaue="Килограмм">Килограмм</div>
+                <option vlaue="Квадратный метр">Квадратный метр</div>
+                <option vlaue="Метр">Метр</div>
+                <option vlaue="КМП">КМП</div>
+                <option vlaue="Пачка">Пачка</div>
+                <option vlaue="Секция">Секция</div>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:27px!important;z-index:0" id='stoimost_baza`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:27px!important;z-index:0" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0" id='status`+String(i)+`' disabled onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option value="Активный">Активный</option>
+                <option value="Пассивный">Пассивный</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;height:27px!important;z-index:0" id='zavod_name`+String(i)+`'></span>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 75px;text-transform: uppercase; font-size:12px;height:27px!important;z-index:0; padding-right:0px;" id='diller`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option value="1">Да</option>
+                <option value="0">Нет</option>
+            </select>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <select class="form-select" aria-label="" style="width: 180px;text-transform: uppercase; font-size:12px;height:27px!important;z-index:0; padding-right:0px;" id='tip_clienta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option value="AKFA">AKFA</option>
+                <option value="IMZO">IMZO</option>
+                <option value="FRANCHISING">FRANCHISING</option>
+                <option value="AKFA-IMZO-FRANCHISING">AKFA-IMZO-FRANCHISING</option>
+                <option value="IMZO-FRANCHISING">IMZO-FRANCHISING</option>
+            </select>
+            </div>
+            
+        </td>
+        
+        </tr>`
+    }
+    return text
+}
+text = front_piece()
 
 
 var table = $('#table-artikul')
@@ -1339,113 +1077,493 @@ table.append(text)
 
 
 
-
-for (let i = 1; i <= 10; i++) {
-    $('#artikul'+String(i)).select2({
-        ajax: {
-            url: "/client/imzo-artikul-list",
-            dataType: 'json',
-            processResults: function(data){
-                return {results: $.map(data, function(item){
-                    return {id:item.id,text:item.artikul,system:item.system,combination:item.combination,code_nakleyka:item.code_nakleyka}
-                })
-            };
+function request_piece(start=1,end=7){
+    for (let i = start; i <= end; i++) {
+        $('#artikul'+String(i)).select2({
+            ajax: {
+                url: "/client/imzo-artikul-list",
+                dataType: 'json',
+                processResults: function(data){
+                    return {results: $.map(data, function(item){
+                        return {id:item.id,text:item.data['Артикул'],system:item.data['Система'],combination:item.data['Комбинация'],code_nakleyka:item.data['Код наклейки'],baza_profiley:item.data['BAZA'],segment:item.data['Сегмент']}
+                    })
+                };
+                }
             }
+            });
+        
+        
+        
+        var artikulSelect = $('#artikul'+String(i));
+        $.ajax({
+            type: 'GET',
+            url: "/client/imzo-artikul-list"
+        }).then(function (data) {
+            data.forEach(function(dataItem) {
+
+                var option = new Option(dataItem['Артикул'], data['id'], true, true);
+                artikulSelect.append(option).trigger('change');
+            
+                artikulSelect.trigger({
+                    type: 'select2:select',
+                    params: {
+                        data: dataItem
+                    }
+                });
+            })
+        });
+        
+        
+        $("#artikul"+String(i)).on("select2:select", function (e) { 
+            var select_val = $(e.currentTarget).val();
+            var nazvaniye_system =$('.nazvaniye_system'+String(i));
+            var combination = $('#combination'+String(i));
+            var tip_pokritiya = $('#tip_pokritiya'+String(i));
+            var baza_profiley = $('#baza_profiley'+String(i));
+            var segment = $('#segment'+String(i));
+            var status = $('#status'+String(i))
+
+
+            
+            // tip_pokritiya.val('').change();
+            tip_pokritiya.attr("disabled",false);
+            nazvaniye_system.text(e.params.data.system);
+            combination.text(e.params.data.combination)
+            baza_profiley.text(e.params.data.baza_profiley)
+            
+            var nakleyka_kode = e.params.data.code_nakleyka
+            var segment_text = e.params.data.segment
+
+    
+            
+            
+            segment.val(segment_text)
+            if(segment_text == 'Нет сегмента'){
+                segment.css('border-color','red');
+                if(data_base[i]){
+                    data_base[i].segment =NaN;
+                    create_kratkiy_tekst(i)
+                }
+            }
+            
+            
+
+            
+        
+        $('.select2-selection__rendered').css('font-size', '15 px');
+        
+        
+        
+        var nakleyka = $('#nakleyka'+String(i))
+        var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i))
+    
+        if (nakleyka_kode =='NT1'){
+            nakleyka.css('display','block')
+            nakleyka.val('NT1')
+            nadpis_nakleyki.text('Без наклейки')
         }
-        });
+        else if( nakleyka_kode !=''){
+            var nakleyka_codd = $('#nakleyka_codd'+String(i))
+            nakleyka_codd.text(nakleyka_kode)
+
+            if(!data_base[i]){
+                var nakleyka_codd = $('#nakleyka_codd'+String(i))
+                nakleyka_codd.text(nakleyka_kode)
+                nakleyka.css('display','block')
+                nakleyka.val(nakleyka_kode)
+                var selectedOption = $('#nakleyka'+String(i)).find('option:selected');
     
-    
-    
-    var artikulSelect = $('#artikul'+String(i));
-    $.ajax({
-        type: 'GET',
-        url: "/client/imzo-artikul-list"
-    }).then(function (data) {
-        var option = new Option(data.artikul, data.id, true, true);
-        artikulSelect.append(option).trigger('change');
-    
-        artikulSelect.trigger({
-            type: 'select2:select',
-            params: {
-                data: data
+                var nadpisValue = selectedOption.data('nadpis');
+                nadpis_nakleyki.text(nadpisValue)
+            }else{
+                var pokritiya = data_base[i].id
+                if(pokritiya == 1 || pokritiya =='1'){
+                    nakleyka.css('display','block')
+                    nakleyka.val('NT1')
+                    nadpis_nakleyki.text('БЕЗ НАКЛЕЙКИ')
+                }else{
+                    
+                    
+                    nakleyka.css('display','block')
+                    nakleyka.val(nakleyka_kode)
+                    var selectedOption = $('#nakleyka'+String(i)).find('option:selected');
+        
+                    var nadpisValue = selectedOption.data('nadpis');
+                    nadpis_nakleyki.text(nadpisValue)
+                }
             }
+        }        
+        else{
+
+            nakleyka.val('')
+        }
+        
+        if(data_base[i]){
+            clear_artikul(i)
+        }
+        
         });
-    });
-    
-    
-    $("#artikul"+String(i)).on("select2:select", function (e) { 
-    var select_val = $(e.currentTarget).val();
-    var nazvaniye_system =$('.nazvaniye_system'+String(i));
-    var combination = $('#combination'+String(i));
-    var tip_pokritiya = $('#tip_pokritiya'+String(i));
-    
-    // tip_pokritiya.val('').change();
-    tip_pokritiya.attr("disabled",false);
-    nazvaniye_system.text(e.params.data.system);
-    combination.text(e.params.data.combination)
 
-    var nakleyka_kode = e.params.data.code_nakleyka
-    
-    $('.select2-selection__rendered').css('font-size', '15 px');
-    
-    
-    
-    var nakleyka_nt1 = $('#nakleyka_nt'+String(i))
-    var nakleyka_org =$('#nakleyka_org'+String(i));
-    var nakleyka_select = $('#nakleyka_select'+String(i));
-
-    var length = $('#length'+String(i));
-    length.attr('required',true)
-    var splav = $('#splav'+String(i));
-    splav.attr('required',true)
-    var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(i));
-    tip_zakalyonnosti.attr('required',true)
-
-    nakleyka_org.text("")
-    if (nakleyka_kode =='NT1'){
-        nakleyka_nt1.css('display','block')
-        nakleyka_org.css('display','none')
-        nakleyka_select.css('display','none')
     }
-    else if( nakleyka_kode !=''){
-        nakleyka_org.text(nakleyka_kode)
-        nakleyka_nt1.css('display','none')
-        nakleyka_org.css('display','block')
-        nakleyka_select.css('display','none')
-    }        
-    else{
-        nakleyka_nt1.css('display','none')
-        nakleyka_org.css('display','none')
-        nakleyka_select.css('display','block')
-        nakleyka_select.attr('required',true)
-        get_nakleyka(String(i))
-    }
-    
-    
-    
-    // console.log(e.params.data.system)
-    });
-
 }
+
+request_piece()
 
 data_base = {}
 
 
-function get_nakleyka(i){
-    $('.kod_nakleyki'+i).select2({
-        ajax: {
-            url: "/client/nakleyka-list",
-            dataType: 'json',
-            processResults: function(data){
-                return {results: $.map(data, function(item){
-                    return {id:item.id,text:item.код_наклейки}
-                })
-            };
+function copy_tr(id){
+    if(!data_base[id]){
+        console.log('salom2222 copy')
+    }else{
+        
+        text =""
+        var size = $('#table-artikul tr').length;
+        text = front_piece(start = size+1, end = size+2)
+        var table = $('#table_tr'+id)
+        var new_tr =$(text)
+
+        table.after(new_tr)
+        request_piece(start = size+1, end = size+2)
+        
+        var data = new BasePokritiya()
+
+        for(key in data_base[id]){
+            data[key] = data_base[id][key]
+        }
+       
+        console.log(data_base,'daattatat')
+
+        data_base[size+1] = data
+        
+        var s = size+1
+
+        var id = data.id;
+        var nazvaniye_system = data.nazvaniye_system;
+        var base_artikul = data.base_artikul;
+        var dlina = data.dlina;
+        var splav = data.splav;
+        var tip_zak = data.tip_zak;
+        var combination = data.combination;
+        var brend_kraska_sn = data.brend_kraska_sn;
+        var kod_kraska_sn = data.kod_kraska_sn;
+        var brend_kraska_vn = data.brend_kraska_vn;
+        var kod_kraska_vn = data.kod_kraska_vn;
+        var kod_dekor_sn = data.kod_dekor_sn;
+        var svet_dekplonka_snaruji = data.svet_dekplonka_snaruji;
+        var kod_dekor_vn = data.kod_dekor_vn;
+        var svet_dekplonka_vnutri = data.svet_dekplonka_vnutri;
+
+        var svet_lamplonka_snaruji = data.svet_lamplonka_snaruji;
+        var kod_lam_sn = data.kod_lam_sn;
+        var svet_lamplonka_vnutri = data.svet_lamplonka_vnutri;
+        var kod_lam_vn = data.kod_lam_vn;
+
+
+        var kod_anod_sn = data.kod_anod_sn;
+        var kod_anod_vn = data.kod_anod_vn;
+
+
+        var contactnost_anod = data.contactnost_anod;
+        var tip_anod = data.tip_anod;
+        var sposob_anod = data.sposob_anod;
+
+        var kod_nakleyki = data.kod_nakleyki;
+        var nadpis_nakleyki = data.nadpis_nakleyki;
+        var baza_profiley = data.baza_profiley;
+        
+        
+
+        var kratkiy_tekst = data.kratkiy_tekst;
+
+        var sap_code_ruchnoy = data.sap_code;
+        var kratkiy_text_ruchnoy = data.krat;
+        
+        var nazvaniye_ruchnoy = data.nazvaniye_ruchnoy
+        var dilina_pressa = data.dilina_pressa
+
+        var comment = data.comment;
+
+        var is_termo = data.is_termo;
+
+
+        var zavod = data.zavod
+        var online_id = data.online_id
+        var svet_product = data.svet_product
+        var group_zakup = data.group_zakup
+        var group = data.group
+        var tip= data.tip
+        var segment = data.segment
+        var edinitsa_izm = data.edinitsa_izm
+        var buxgalter_tovar = data.buxgalter_tovar
+        var buxgalter_uchot = data.buxgalter_uchot
+        var bazoviy_edin = data.bazoviy_edin
+        var alter_edin = data.alter_edin
+        var stoimost_baza = data.stoimost_baza
+        var stoimost_alter = data.stoimost_alter
+        var status_online = data.status_online
+        var zavod_name = data.zavod_name
+        var diller = data.diller
+        var tip_clienta = data.tip_clienta 
+        var is_active = data.is_active
+
+        
+       
+      
+        var activate_btn =$('#activate_btn'+s);
+        var create_btn =$('#create_btn'+s);
+        activate_btn.attr('disabled',true)
+        create_btn.attr('disabled',true)
+
+        check_input_and_change(id,'#tip_pokritiya'+s)
+
+        var div_kras_sn = $('#div_kras_sn'+String(s))
+        var div_kras_vn = $('#div_kras_vn'+String(s))
+
+
+        
+
+        if(id == 1){
+            chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=true)
+            div_kras_sn.css('display','block')
+            check_input_and_change('NT1','#nakleyka'+s,dis=true)
+            check_text_and_change('БЕЗ НАКЛЕЙКИ','#nadpis_nakleyki'+s)
+
+            if(is_termo){
+                chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=true)
+                div_kras_vn.css('display','block')
+            }
+        }else if(id == 2){    
+                check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=true)
+                chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=true)
+                div_kras_sn.css('display','block')
+                check_input_and_change(kod_nakleyki,'#nakleyka'+s)
+                check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
+                if(is_termo){
+                    check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=true)
+                    chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=true)
+                    div_kras_vn.css('display','block')
+                }
+        }else if(id == 3){
+            
+            check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
+            chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
+            div_kras_sn.css('display','block')
+            check_input_and_change(kod_nakleyki,'#nakleyka'+s)
+            check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
+
+            if(is_termo){
+                check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
+                chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
+                div_kras_vn.css('display','block')
+                check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
             }
         }
-        });
+        else if(id == 4){
+            
+            check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
+            chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
+            div_kras_sn.css('display','block')
+
+            check_input_and_change(kod_lam_sn,'#svet_lamplonka_snaruji'+s,dis=false,is_req=true)
+            check_text_and_change(kod_lam_sn,'#code_lamplonka_snaruji'+s,dis=false,is_req=true)
+
+            check_input_and_change(kod_lam_vn,'#svet_lamplonka_vnutri'+s,dis=false,is_req=true)
+            check_text_and_change(kod_lam_vn,'#code_lamplonka_vnutri'+s,dis=false,is_req=true)
+            check_input_and_change(kod_nakleyki,'#nakleyka'+s)
+            check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
+            if(is_termo){
+                check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
+                chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
+                div_kras_vn.css('display','block')
+            }
+
+        }
+        else if(id == 5){
+            
+            check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
+            chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
+            div_kras_sn.css('display','block')
+
+            check_input_and_change(svet_dekplonka_snaruji,'#svet_dekplonka_snaruji'+s,dis=false,is_req=true)
+            check_text_and_change(svet_dekplonka_snaruji,'#code_dekplonka_snaruji'+s,dis=false,is_req=true)
+
+            check_input_and_change(kod_nakleyki,'#nakleyka'+s)
+            check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
+
+            if(is_termo){
+                check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
+                chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
+                div_kras_vn.css('display','block')
+
+                check_input_and_change(svet_dekplonka_vnutri,'#svet_dekplonka_vnutri'+s,dis=false,is_req=true)
+                check_text_and_change(svet_dekplonka_vnutri,'#code_dekplonka_vnutri'+s,dis=false,is_req=true)
+                check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
+            }
+
+        }
+        else if(id == 6){
+            
+            check_for_valid_and_set_val_select(kod_anod_sn,'code_svet_anodirovki_snaruji'+ s)
+
+            check_input_and_change(contactnost_anod,'#contactnost_anodirovki'+s,dis=false,is_req=true)
+
+            check_input_and_change(kod_nakleyki,'#nakleyka'+s)
+            check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
+
+            get_anod(s)
+            if(is_termo){
+                check_for_valid_and_set_val_select(kod_anod_sn,'code_svet_anodirovki_vnutri'+ s)
+                get_anod(s,is_termo=true)
+            }
+
+
+
+        }
+
+       
+        check_input_and_change(dlina,'#length'+s,dis=false,is_req=true)
+        $('#artikul'+ s).attr('disabled',false)
+        check_for_valid_and_set_val_select(base_artikul,'artikul'+ s,is_req=true)
+        check_input_and_change(splav,'#splav'+s,dis=false,is_req=true)
+        check_input_and_change(tip_zak,'#tip_zakalyonnosti'+s,dis=false,is_req=true)
+        check_text_and_change(combination,'#combination'+s)
+        check_text_and_change(nazvaniye_system,'.nazvaniye_system'+s)
+        
+        
+        
+        check_text_and_change(baza_profiley,'#baza_profiley'+s)
+        
+        check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
+
+        // check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
+        // check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s)
+        check_input_and_change(comment,'#comment'+s)
+        check_input_and_change(dilina_pressa,'#dilina_pressa'+s)
+
+
+       
+        check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s)
+
+        if(is_active){
+            activate_btn.css('background-color','orange')
+            activate_btn.css('color','white')
+            check_input_and_change(zavod_name,'#zavod'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=true)
+            check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true)
+            check_input_and_change(svet_product,'#svet_product'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(group_zakup,'#group_zakup'+s,dis=false,is_req=false,is_req_simple=true)
+
+            check_input_and_change(group,'#group'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(tip,'#tip'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(segment,'#segment'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(edinitsa_izm,'#edinitsa_izm'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(bazoviy_edin,'#bazoviy_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(stoimost_baza,'#stoimost_baza'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(stoimost_alter,'#stoimost_alter'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(status_online,'#status'+s,dis=true,is_req=false,is_req_simple=true)
+            check_input_and_change(zavod_name,'#zavod_name'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(diller,'#diller'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(tip_clienta,'#tip_clienta'+s,dis=false,is_req=false,is_req_simple=true)
+
+
+        }else{
+            create_btn.css('background-color','green')
+            create_btn.css('color','white')
+            check_input_and_change(zavod_name,'#zavod'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true)
+            check_input_and_change(svet_product,'#svet_product'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(group_zakup,'#group_zakup'+s,dis=false,is_req=true,is_req_simple=false)
+
+            check_input_and_change(group,'#group'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(tip,'#tip'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(segment,'#segment'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(edinitsa_izm,'#edinitsa_izm'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(bazoviy_edin,'#bazoviy_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(stoimost_baza,'#stoimost_baza'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(stoimost_alter,'#stoimost_alter'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(status_online,'#status'+s,dis=true,is_req=false,is_req_simple=true)
+            check_input_and_change(zavod_name,'#zavod_name'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(diller,'#diller'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(tip_clienta,'#tip_clienta'+s,dis=false,is_req=false,is_req_simple=true)
+
+        }
+        
+        
+    }
+
 }
 
+
+
+function chosen_update(selector,val_,disabled=false){
+
+    set_brend_kraska(brend_kaska,selector,val_=val_)
+    if(disabled){
+        $(selector).prop('disabled', true).trigger('chosen:updated')
+    }else{
+        $(selector).prop('disabled', false).trigger('chosen:updated')
+    }
+}
+
+function check_for_valid_and_set_val_select(val,selector,is_req=false){
+    if(is_req){
+        var span = $('#select2-'+selector+'-container')
+        span.css('display','block')
+        span.css('border-color','red')
+
+    }
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        ////// selec2 value change \\\\\\\
+        var span = $('#select2-'+selector+'-container')
+        span.attr('title',val);
+        span.text(val);
+
+        //////end ////////////
+        
+    }
+}
+
+function check_input_and_change(val,selector,dis=false,is_req=false,is_req_simple=false){
+    if(is_req){
+        
+        $(selector).attr('disabled',false)
+        $(selector).css('display','block')
+        $(selector).css('border-color','red')
+
+    }
+    if(is_req_simple){
+        
+        $(selector).attr('disabled',false)
+        $(selector).css('display','block')
+        $(selector).css('border-color','#dedad9')
+
+    }
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        sel.attr('disabled',dis)
+        sel.css('display','block')
+        sel.css('border-color','#dedad9')
+        sel.val(val)
+        // console.log(val,typeof(val),selector)
+    }
+    
+}
+
+function check_text_and_change(val,selector){
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        sel.css('display','block')
+        sel.text(val)
+    }
+}
 
 function create(i){
     
@@ -1457,17 +1575,18 @@ function create(i){
     status_first.val('Пассивный')
     // status_first.attr('disabled',true)
 
+
     var tip =$('#tip'+i);
     tip.val('Готовый продукт')
     
 
     var activate_btn =$('#activate_btn'+i);
-    activate_btn.attr('disabled',true)
     var create_btn =$('#create_btn'+i);
-    create_btn.attr('disabled',true)
-    
+    create_btn.css('background-color','green')
+    create_btn.css('color','white')
+    activate_btn.attr('disabled',true)
+    create_btn.attr('disabled',true)   
    
-
 }
 
 function activate(i){
@@ -1479,19 +1598,24 @@ function activate(i){
 
 
     var activate_btn =$('#activate_btn'+i);
-    var create_btn =$('#create_btn'+i);
+    var create_btn =$('#create_btn'+i);  
+    activate_btn.css('background-color','orange')
+    activate_btn.css('color','white')
     activate_btn.attr('disabled',true)
     create_btn.attr('disabled',true)
+    
     var status_first =$('#status'+i);
     status_first.val('Активный')
     // status_first.attr('disabled',true)
+
 
 }
 
 
 
-function get_anod(termo=false){
-    $('.kod_anod_snar').select2({
+function get_anod(id,termo=false){
+    $('#anod'+id).css('display','block')
+    $('.kod_anod_snar'+id).select2({
         ajax: {
             url: "/client/client-anod-list",
             dataType: 'json',
@@ -1504,7 +1628,8 @@ function get_anod(termo=false){
         }
         });
     if (termo){
-        $('.kod_anod_vnutri').select2({
+        $('#anod_vnutr'+id).css('display','block')
+        $('.kod_anod_vnutri'+id).select2({
             ajax: {
                 url: "/client/client-anod-list",
                 dataType: 'json',
@@ -1522,35 +1647,150 @@ function get_anod(termo=false){
 
 
 function clear_artikul(id){
+
+    if(data_base[id]){
+        var is_termo = data_base[id].is_termo
+        var base_artikul =$('#select2-artikul'+id+'-container').text()
+        var nazvaniye_system = $('.nazvaniye_system'+id).text()
+        var combination =$('#combination'+id).text()
+        var baza_profiley =$('#baza_profiley'+id).text()
+  
+
+        data_base[id].base_artikul = base_artikul
+        data_base[id].nazvaniye_system = nazvaniye_system
+        data_base[id].combination = combination
+        data_base[id].baza_profiley = baza_profiley
+
+        
+        var sss= combination.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'
+    
+        if (sss){
+            var second_is_termo = false
+        }else{
+            var second_is_termo = true
+        }
+
+        if(is_termo != second_is_termo){
+         
+
+
+            var table_tr =$('#table_tr'+id);
+            // $('.nazvaniye_system'+id).text('');
+            var tip_pokritiya = $('#tip_pokritiya'+String(id));
+            tip_pokritiya.val('0').change();
+
+            delete data_base[id]
+
+            var kratkiy_tekst = document.getElementById('kratkiy_tekst'+String(id));
+            kratkiy_tekst.innerText="";
+
+
+            
+            
+            table_tr.css('background-color','white')
+            
+
+            var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+            var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
+            var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id))
+            var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
+            code_kraski_snaruji.val("");
+            code_kraski_vnutri.val("");
+            brand_kraski_vnutri.val("");
+            brand_kraski_snaruji.val("");
+
+            code_kraski_snaruji.css("border-color",'#dedad9');
+            code_kraski_vnutri.css("border-color",'#dedad9');
+            brand_kraski_vnutri.css("border-color",'#dedad9');
+            brand_kraski_snaruji.css("border-color",'#dedad9');
+
+
+
+            var dlina =$('#length'+String(id));
+            dlina.val('');
+            dlina.attr("disabled",true);
+            dlina.css("border-color",'#dedad9');
+
+            var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
+            svet_lamplonka_snaruji.val('0').change();
+            svet_lamplonka_snaruji.attr("disabled",true);
+            svet_lamplonka_snaruji.css("border-color",'#dedad9');
+            var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
+            code_lamplonka_snaruji.text("")
+            
+
+            var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+String(id));
+            svet_lamplonka_vnutri.val('0').change();
+            svet_lamplonka_vnutri.attr("disabled",true);
+            svet_lamplonka_vnutri.css("border-color",'#dedad9');
+            var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
+            code_lamplonka_vnutri.text("")
+
+            var nakleyka_codd = $('#nakleyka_codd'+String(id)).text()
+            var nadpis_nakleyki = $('#nadpis_nakleyki'+String(id))
+
+            if(nakleyka_codd != ''){
+                var nakleyka = $('#nakleyka'+String(id))
+                nakleyka.css('display','block')
+                nakleyka.attr('disabled',false)
+                nakleyka.val(nakleyka_codd)
+
+                var selectedOption = $('#nakleyka'+String(id)).find('option:selected');
+                var nadpisValue = selectedOption.data('nadpis');
+                nadpis_nakleyki.text(nadpisValue)
+            }else{
+                var nakleyka = $('#nakleyka'+String(id))
+                nakleyka.css('display','block')
+                nakleyka.attr('disabled',false)
+                nakleyka.val('')
+
+                var selectedOption = $('#nakleyka'+String(id)).find('option:selected');
+                var nadpisValue = selectedOption.data('nadpis');
+                nadpis_nakleyki.text(nadpisValue)
+
+            }
+
+
+            var splav = $('#splav'+String(id));
+            splav.val('0').change();
+            splav.attr("disabled",true);
+            splav.css("border-color",'#dedad9');
+            var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
+            tip_zakalyonnosti.val('0').change();
+            tip_zakalyonnosti.attr("disabled",true);
+            tip_zakalyonnosti.css("border-color",'#dedad9');
+
+        }
+    }
+    
+}
+
+function artukil_clear(id){
+    $('#artikul'+id).val(null).trigger('change');
     var table_tr =$('#table_tr'+id);
-    // table_tr.remove()
-    // $('#artikul'+id).val(null).trigger('change');
     $('.nazvaniye_system'+id).text('');
     var tip_pokritiya = $('#tip_pokritiya'+String(id));
     tip_pokritiya.val('0').change();
     tip_pokritiya.attr("disabled",true);
-    // var select_nakleyka = $('#nakleyka'+String(id));
-    // select_nakleyka.children("span").remove();
-    // select_nakleyka.children("select").remove();
     delete data_base[id]
 
     var kratkiy_tekst = document.getElementById('kratkiy_tekst'+String(id));
     kratkiy_tekst.innerText="";
 
 
-    
+   
     
     table_tr.css('background-color','white')
     
 
-    var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-    var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-    var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
-    var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-    code_kraski_snaruji.text("");
-    code_kraski_vnutri.text("");
-    brand_kraski_vnutri.text("");
-    brand_kraski_snaruji.text("");
+    var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+    var code_kraski_vnutri = $('#code_kraski_vnut'+String(id));
+    var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id))
+    var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
+    code_kraski_snaruji.val("");
+    code_kraski_vnutri.val("");
+    brand_kraski_vnutri.val("");
+    brand_kraski_snaruji.val("");
 
     code_kraski_snaruji.css("border-color",'#dedad9');
     code_kraski_vnutri.css("border-color",'#dedad9');
@@ -1582,12 +1822,9 @@ function clear_artikul(id){
     var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
     code_lamplonka_vnutri.text("")
 
-    var nakleyka_nt1 = $('#nakleyka_nt'+String(id))
-    var nakleyka_org =$('#nakleyka_org'+String(id));
-    var nakleyka_select = $('#nakleyka_select'+String(id));
-    nakleyka_nt1.css('display','none');
-    nakleyka_org.css('display','none');
-    nakleyka_select.css('display','none');
+    var nakleyka = $('#nakleyka'+String(id))
+    nakleyka.css('display','none')
+    nakleyka.val('')
 
 
     var splav = $('#splav'+String(id));
@@ -1598,14 +1835,7 @@ function clear_artikul(id){
     tip_zakalyonnosti.val('0').change();
     tip_zakalyonnosti.attr("disabled",true);
     tip_zakalyonnosti.css("border-color",'#dedad9');
-    // console.log(data_base)
-    // console.log(typeof(data_base))
-    
-}
 
-function artukil_clear(id){
-    $('#artikul'+id).val(null).trigger('change');
-    clear_artikul(id)
     $('#artikul'+id).attr('disabled',true)
 
     var status_first = $('#status'+String(id))
@@ -1630,10 +1860,15 @@ function artukil_clear(id){
     var stoimost_baza =$('#stoimost_baza'+id);
     var stoimost_alter =$('#stoimost_alter'+id);
     var segment =$('#segment'+id);
+    var edinitsa_izm =$('#edinitsa_izm'+id);
     var buxgalter_tovar =$('#buxgalter_tovar'+id);
     var zavod_name =$('#zavod_name'+id)
+    var diller =$('#diller'+id)
+    var tip_clienta =$('#tip_clienta'+id)
     zavod_name.text('')
 
+    diller.val('')
+    tip_clienta.val('AKFA')
 
     svet_product.css('display','none')
     group_zakup.css('display','none')
@@ -1647,6 +1882,7 @@ function artukil_clear(id){
     stoimost_baza.css('display','none')
     stoimost_alter.css('display','none')
     segment.css('display','none')
+    edinitsa_izm.css('display','none')
     buxgalter_tovar.css('display','none')
     sap_code_ruchnoy.css('display','none')
     kratkiy_tekst_ruchnoy.css('display','none')
@@ -1681,14 +1917,19 @@ function artukil_clear(id){
     stoimost_baza.val('')
     stoimost_alter.val('')
     segment.val('')
+    edinitsa_izm.val('')
     buxgalter_tovar.val('')
     
     var create_btn =$('#create_btn'+id);
     var activate_btn =$('#activate_btn'+id);
 
-    create_btn.attr('disabled',false)
     activate_btn.attr('disabled',false)
+    create_btn.attr('disabled',false)
 
+    activate_btn.css('background-color','')
+    activate_btn.css('color','')
+    create_btn.css('background-color','')
+    create_btn.css('color','')
 
 
 }
@@ -1701,33 +1942,50 @@ function tip_pokritiya_selected(id,val){
     
     
     var select_anod_snar = $('#anod'+String(id));
-    select_anod_snar.children("span").css('display','none');
-    select_anod_snar.children("select").remove();
+    select_anod_snar.css('display','none');
+    // select_anod_snar.children("span").css('display','none');
 
     var dlina =$('#length'+String(id));
     dlina.attr("disabled",false);
     dlina.css("border-color",'#fc2003');
 
     var select_anod_vnut = $('#anod_vnutr'+String(id));
-    select_anod_vnut.children("span").css('display','none');
-    select_anod_vnut.children("select").remove();
+    select_anod_vnut.css('display','none');
+    // select_anod_vnut.children("span").css('display','none');
     
-    var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-    var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-    var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
-    var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-    var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
-    kratkiy_tekst.text("");
-    code_kraski_snaruji.text("");
-    code_kraski_vnutri.text("");
-    brand_kraski_vnutri.text("");
-    brand_kraski_snaruji.text("");
+    var select_snar = $('.code_kraski_snar_sel'+String(id))
+    var select_vnut = $('.code_kraski_vnut_sel'+String(id))
+    var hasOption_snar = select_snar.find('option').length > 0;
+    var hasOption_vnut = select_vnut.find('option').length > 0;
 
-    code_kraski_snaruji.css("border-color",'#dedad9');
-    code_kraski_vnutri.css("border-color",'#dedad9');
-    brand_kraski_vnutri.css("border-color",'#dedad9');
-    brand_kraski_snaruji.css("border-color",'#dedad9');
+    if(hasOption_snar){
+        set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='',add=false)
+    }else{
+        set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='',add=true)
+    }
+    if(hasOption_vnut){
+        set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='',add=false)
+    }else{
+        set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='',add=true)
+    }
 
+    var brand_k_snaruji = $('#brand_k_snaruji'+id)
+    var brand_k_vnutri = $('#brand_k_vnutri'+id)
+
+    brand_k_snaruji.val('')
+    brand_k_vnutri.val('')
+
+    brand_k_snaruji.css('display','none')
+    brand_k_vnutri.css('display','none')
+
+
+
+    
+    var div_kras_sn = $('#div_kras_sn'+String(id))
+    div_kras_sn.css('display','none')
+
+    var div_kras_vn = $('#div_kras_vn'+String(id))
+    div_kras_vn.css('display','none')
 
     var combination= $('#combination'+String(id));
     combination_text = combination.text();
@@ -1797,70 +2055,148 @@ function tip_pokritiya_selected(id,val){
     
     tip_anodirovki.text("");
     sposob_anodirovki.text("")
-    var nakleyka_nt1 = $('#nakleyka_nt'+String(id))
-    var nakleyka_org =$('#nakleyka_org'+String(id));
-    var nakleyka_select = $('#nakleyka_select'+String(id));
+    var nakleyka = $('#nakleyka'+String(id))
 
     var status_first = $('#status'+String(id))
     var svet_product_val =''
 
+   
+    console.log(status_first.val(),'ddddd');
+
     if(String(val) == '1'){
+        
+        nakleyka.css('display','block');
+        nakleyka.val("NT1");
+        
+        svet_product_val = 'Без цвета'
+
+       
+        if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
+            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF',add=false)
+            
+            
+            $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
+            var div_kras = $('#div_kras_sn'+String(id))
+            div_kras.css('display','block')
+            brand_k_snaruji.val('')
+        }else{
+            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF',add=false)
+            set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='MF',add=false)
+            
+           
+            $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
+            var div_kras = $('#div_kras_sn'+String(id))
+            div_kras.css('display','block')
+
+          
+            $('.code_kraski_vnut_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
+            var div_kras = $('#div_kras_vn'+String(id))
+            div_kras.css('display','block')
+            
+            brand_k_snaruji.val('')
+            brand_k_vnutri.val('')
+        }
+
         data_base[id] = new BasePokritiya()
         data_base[id].id = 1
         data_base[id].tip_pokritiya = 'Неокрашенный'
-        nakleyka_nt1.css('display','block');
-        nakleyka_org.css('display','none');
-        nakleyka_select.css('display','none');
-        
-        svet_product_val = 'Без цвета'
-       
-        if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
-            code_kraski_snaruji.text('MF')
-        }else{
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            code_kraski_snaruji.text('MF');
-            code_kraski_vnutri.text('MF');
-        }
 
     }else if(String(val) == '2'){
-        data_base[id] = new BasePokritiya()
-        data_base[id].id = 2
-        data_base[id].tip_pokritiya = 'Белый'
+        
         svet_product_val = 'WHITE'
 
         if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id))
-            var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-            code_kraski_snaruji.text('9016')
-            brand_kraski_snaruji.text('R')
+            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016',add=false)
+            
+            $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
+            var div_kras = $('#div_kras_sn'+String(id))
+            div_kras.css('display','block')
+
+            brand_k_snaruji.val('R')
+            brand_k_snaruji.css('display','block')
+            brand_k_snaruji.css('border-color','#dedad9')
+            brand_k_snaruji.attr('disabled',true)
+
+            
+
         }else{
-            var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id))
-            var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-            brand_kraski_snaruji.text('R');
-            code_kraski_snaruji.text('9016');
-            brand_kraski_vnutri.text('R');
-            code_kraski_vnutri.text('9016');
+            set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016',add=false)
+            set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='9016',add=false)
+            
+            
+            $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
+            var div_kras = $('#div_kras_sn'+String(id))
+            div_kras.css('display','block')
+
+            $('.code_kraski_vnut_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
+            var div_kras = $('#div_kras_vn'+String(id))
+            div_kras.css('display','block')
+
+            var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id))
+            var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
+
+            brand_kraski_snaruji.val('R');
+            brand_kraski_snaruji.attr('disabled',true)
+            brand_kraski_snaruji.css('display','block')
+            brand_kraski_snaruji.css('border-color','#dedad9')
+
+            
+
+            brand_kraski_vnutri.val('R');
+            brand_kraski_vnutri.attr('disabled',true)
+            brand_kraski_vnutri.css('display','block')
+            brand_kraski_vnutri.css('border-color','#dedad9')
+
+            
+
+        }
+
+        data_base[id] = new BasePokritiya()
+        data_base[id].id = 2
+        data_base[id].tip_pokritiya = 'Белый'
+        
+        var nakleyka_codd = $('#nakleyka_codd'+String(id)).text()
+        if(nakleyka_codd!=''){
+            nakleyka.val(nakleyka_codd)
+        }
+            
+    }else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
+
+        var nakleyka_codd = $('#nakleyka_codd'+String(id)).text()
+        if(nakleyka_codd!=''){
+            nakleyka.val(nakleyka_codd)
         }
 
         
         
-        var nakleyka_kode = nakleyka_org.text()
-        if (nakleyka_kode !=''){
-            nakleyka_nt1.css('display','none');
-            nakleyka_org.css('display','block');
-            nakleyka_select.css('display','none');
-        }else{
-            nakleyka_nt1.css('display','none');
-            nakleyka_org.css('display','none');
-            nakleyka_select.css('display','block');
-            get_nakleyka(id)
-        }
+        
+       
+        var brand_k_snaruji = $('#brand_k_snaruji'+String(id));
+        brand_k_snaruji.attr('disabled',false)
+        brand_k_snaruji.css('display','block')
+        set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='',add=false)
+        
+        $('.code_kraski_snar_sel'+String(id)).prop('disabled', false).trigger('chosen:updated')
+        var div_kras = $('#div_kras_sn'+String(id))
+        div_kras.css('display','block')
+       
+        
+        
+       
+
+        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
             
-    }else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
+            var brand_kraski_vnutri = $('#brand_k_vnutri'+String(id));
+            brand_kraski_vnutri.attr('disabled',false)
+            brand_kraski_vnutri.css('display','block')
+            set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='',add=false)
+            
+            $('.code_kraski_vnut_sel'+String(id)).prop('disabled', false).trigger('chosen:updated')
+            var div_kras = $('#div_kras_vn'+String(id))
+            div_kras.css('display','block')
+            
+
+        }
 
         if(String(val) == '3'){
             data_base[id] = new BasePokritiya()
@@ -1879,66 +2215,6 @@ function tip_pokritiya_selected(id,val){
             svet_product_val ='VAKUM & 3D'
         } 
         
-        var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;border-color:#fc2003" id='brand_k_snaruji`+String(id)+`'  onchange="create_kratkiy_tekst(`+String(id)+`)" required>
-        <option  value="0" selected></option>
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="R">R</option>
-        <option value="T">T</option>
-        <option value="J">J</option>
-        <option value="P">P</option>
-        <option value="M">M</option>
-        </select>` 
-        var brand_kraski_snaruji = $('#brand_kraski_snaruji'+String(id))
-       
-        brand_kraski_snaruji.append(brands)
-        var code_kras_snaruji =`<input type="text"  class="form-control " id ='code_kraski_snar`+String(id)+`' aria-describedby="inputGroup-sizing-sm" style="border-color: red;width:65px; height:30px"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
-        // var code_kraski_snaruji = $('#code_kraski_snaruji'+String(id));
-        code_kraski_snaruji.append(code_kras_snaruji);
-        code_kraski_snaruji.css("border-color",'#fc2003')
-        
-        // var code_kraski_snaruji = document.getElementById('code_kraski_snaruji'+String(id));
-        // console.log(code_kraski_snaruji)
-        // if(code_kraski_snaruji){
-        //     code_kraski_snaruji.style.borderColor='red';
-        // } 
-        // var code_kraski_snar =$('#code_kraski_snaruji'+String(id))
-        // code_kraski_snar.css("border-color",'#fc2003');
-        
-        var nakleyka_kode = nakleyka_org.text()
-        if (nakleyka_kode !=''){
-            nakleyka_nt1.css('display','none');
-            nakleyka_org.css('display','block');
-            nakleyka_select.css('display','none');
-        }else{
-            nakleyka_nt1.css('display','none');
-            nakleyka_org.css('display','none');
-            nakleyka_select.css('display','block');
-            get_nakleyka(id)
-        }
-       
-
-        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
-            var brands =`<select class="form-select form-select-sm text-center"  style="width:55px;border-color:#fc2003" id='brand_k_vnutri`+String(id)+`' onchange="create_kratkiy_tekst(`+String(id)+`)" required>
-                <option  value="0" selected></option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="R">R</option>
-                <option value="T">T</option>
-                <option value="J">J</option>
-                <option value="P">P</option>
-                <option value="M">M</option>
-            </select>`
-            var brand_kraski_vnutri = $('#brand_kraski_vnutri'+String(id));
-            brand_kraski_vnutri.append(brands)
-
-            var code_kras_vnut =`<input type="text" class="form-control " style='border-color:#fc2003;width:65px; height:30px' id ='code_kraski_vnut`+String(id)+`' aria-describedby="inputGroup-sizing-sm"  onkeyup="create_kratkiy_tekst(`+String(id)+`)" required>`
-            var code_kraski_vnutri = $('#code_kraski_vnutri'+String(id));
-            code_kraski_vnutri.append(code_kras_vnut)
-
-
-        }
-
         if (String(val) == '4'){
             var svet_lamplonka_snaruji = $('#svet_lamplonka_snaruji'+String(id));
             svet_lamplonka_snaruji.attr("disabled",false);
@@ -1974,21 +2250,19 @@ function tip_pokritiya_selected(id,val){
         data_base[id].id = 6
         data_base[id].tip_pokritiya = 'Анодированный'
         svet_product_val ='Anod'
-        const newDiv = `<select class="form-select kod_anod_snar" aria-label="" style="width: 100px; border-color:#fc2003;!important" onchange="code_svet_anodirovki_snaruji_selected(`+String(id)+`,this.value)"  id='code_svet_anodirovki_snaruji`+String(id)+`' required></select>`
-        select_anod_snar.append(newDiv) 
+        
 
-        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){
-            const newDiv = `<select class="form-select kod_anod_vnutri" aria-label="" style="width: 100px;border-color:#fc2003" onchange="create_kratkiy_tekst(`+String(id)+`)"  id='code_svet_anodirovki_vnutr`+String(id)+`' required></select>`
-            select_anod_vnut.append(newDiv) 
-            get_anod(termo=true)
+        if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА'){ 
+            get_anod(id,termo=true)
 
             var code_svet_anodirovki_vnutri = $('#code_svet_anodirovki_vnutri'+String(id));
             code_svet_anodirovki_vnutri.attr("disabled",false);
             code_svet_anodirovki_vnutri.attr("required",true);
             code_svet_anodirovki_vnutri.css("border-color",'#fc2003');
-
+            
         }else{
-            get_anod()
+            
+            get_anod(id,termo=false)
             
         }
 
@@ -2001,16 +2275,9 @@ function tip_pokritiya_selected(id,val){
         contactnost_anodirovki.css("border-color",'red');
 
         
-        var nakleyka_kode = nakleyka_org.text()
-        if (nakleyka_kode !=''){
-            nakleyka_nt1.css('display','none');
-            nakleyka_org.css('display','block');
-            nakleyka_select.css('display','none');
-        }else{
-            nakleyka_nt1.css('display','none');
-            nakleyka_org.css('display','none');
-            nakleyka_select.css('display','block');
-            get_nakleyka(id)
+        var nakleyka_codd = $('#nakleyka_codd'+String(id)).text()
+        if(nakleyka_codd!=''){
+            nakleyka.val(nakleyka_codd)
         }
         
         
@@ -2024,12 +2291,24 @@ function tip_pokritiya_selected(id,val){
         data_base[id].nazvaniye_system = nazvaniye_system;
         data_base[id].combination = combination;
         data_base[id].base_artikul = base_artikul.text()
+        var baza_profiley =$('#baza_profiley'+id)
+        var gruppa_materialov =$('#gruppa_materialov'+id)
+        var comment =$('#comment'+id)
+        data_base[id].baza_profiley = baza_profiley.text()
+        data_base[id].gruppa_materialov = gruppa_materialov.text()
+        data_base[id].comment = comment.val()
+        
+        var nadpis_nakleyki =$('#nadpis_nakleyki'+id)
+        
+        if(nadpis_nakleyki!=''){
+            data_base[id].nadpis_nakleyki = nadpis_nakleyki.text()
+        }
 
     }
 
 
     if(status_first.val()=='Активный' && String(val) != ''){
-        console.log(status_first.val())
+        // console.log(status_first.val())
         
         data_base[id].is_active=true
 
@@ -2049,6 +2328,7 @@ function tip_pokritiya_selected(id,val){
         var stoimost_baza =$('#stoimost_baza'+id);
         var stoimost_alter =$('#stoimost_alter'+id);
         var segment =$('#segment'+id);
+        var edinitsa_izm =$('#edinitsa_izm'+id);
         var buxgalter_tovar =$('#buxgalter_tovar'+id);
     
         
@@ -2072,12 +2352,14 @@ function tip_pokritiya_selected(id,val){
         stoimost_alter.css('display','block')
         segment.css('display','block')
         buxgalter_tovar.css('display','block')
+        edinitsa_izm.css('display','block')
 
 
         status.val('Активный')
         data_base[id].status_name='Активный'
         // status.attr('disabled',true)
 
+        edinitsa_izm.css('border-color','red')
         sap_code_ruchnoy.css('border-color','#dedad9')
         kratkiy_tekst_ruchnoy.css('border-color','#dedad9')
         online_savdo_id.css('border-color','#dedad9')
@@ -2093,7 +2375,7 @@ function tip_pokritiya_selected(id,val){
         alter_edin.css('border-color','#dedad9')
         stoimost_baza.css('border-color','#dedad9')
         stoimost_alter.css('border-color','#dedad9')
-        segment.css('border-color','#dedad9')
+        // segment.css('border-color','#dedad9')
         buxgalter_tovar.css('border-color','#dedad9')
     }else if(status_first.val()=='Пассивный' && String(val) != ''){
         console.log(status_first.val())
@@ -2114,6 +2396,7 @@ function tip_pokritiya_selected(id,val){
         var stoimost_baza =$('#stoimost_baza'+id);
         var stoimost_alter =$('#stoimost_alter'+id);
         var segment =$('#segment'+id);
+        var edinitsa_izm =$('#edinitsa_izm'+id);
         var buxgalter_tovar =$('#buxgalter_tovar'+id);
         
         svet_product.val(svet_product_val)
@@ -2145,6 +2428,7 @@ function tip_pokritiya_selected(id,val){
         stoimost_baza.css('display','block')
         stoimost_alter.css('display','block')
         segment.css('display','block')
+        edinitsa_izm.css('display','block')
         buxgalter_tovar.css('display','block')
         
         status.val('Пассивный')
@@ -2169,7 +2453,7 @@ function code_svet_anodirovki_snaruji_selected(id,val){
         sposob_anodirovki.text(e.params.data.sposob_anod);
 
         var selectedOption = $(this).find(':selected');
-            $(this).siblings('.select2-container').find('.select2-selection--single').css('border-color', '#000');
+        $(this).siblings('.select2-container').find('.select2-selection--single').css('border-color', '#000');
     
     
     });
@@ -2216,29 +2500,42 @@ function svet_dekplonka_vnutri_selected(id,val){
     create_kratkiy_tekst(id);
 }
 
-
+var zapros_count =[]
 
 
 
 function create_kratkiy_tekst(id){
-    
     if(!data_base[id]){
         console.log('salom')
     }else{
     
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
     var combination= $('#combination'+String(id));
+    var comment= $('#comment'+String(id));
     combination_text = combination.text();
+    comment = comment.val();
     var val = $('#tip_pokritiya'+String(id)).val();
     var dlina = $('#length'+String(id));
 
     
+    if(comment!=''){
+        data_base[id].comment = comment;
+    }else{
+        data_base[id].comment = NaN;
+    }
     if(dlina.val()!=''){
         dlina.css("border-color",'#dedad9');
         data_base[id].dlina = dlina.val();
     }else{
         dlina.css("border-color",'red');
         data_base[id].dlina = NaN;
+    }
+    var dilina_pressa = $('#dilina_pressa'+String(id));
+    if(dilina_pressa.val()!=''){
+        dilina_pressa.css("border-color",'#dedad9');
+        data_base[id].dilina_pressa = dilina_pressa.val();
+    }else{
+        data_base[id].dilina_pressa = NaN;
     }
     
     var splav = $('#splav'+String(id));
@@ -2262,12 +2559,18 @@ function create_kratkiy_tekst(id){
             data_base[id].tip_zak = NaN;
         }
     }
-    
+    var nakleyka = $('#nakleyka'+String(id))
+    var nadpis_nakleyki = $('#nadpis_nakleyki'+String(id))
 
     if(String(val) == '1'){
             
             data_base[id].kod_kraska_sn = 'MF'
             data_base[id].kod_nakleyki = 'NT1'
+            data_base[id].nadpis_nakleyki = 'Без наклейки'
+            var nakleyka = $('#nakleyka'+String(id))
+            nadpis_nakleyki.text('Без наклейки')
+            nakleyka.attr('disabled',true)
+            nakleyka.val('NT1')
         
          if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА')
             {
@@ -2281,32 +2584,20 @@ function create_kratkiy_tekst(id){
         data_base[id].brend_kraska_sn ='R'
         data_base[id].kod_kraska_sn ='9016'
 
-        var nakleyka_nt1 = document.getElementById('nakleyka_nt'+String(id))
-        var nakleyka_org = document.getElementById('nakleyka_org'+String(id))
-        var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
-        
-        var style_nt1 = window.getComputedStyle(nakleyka_nt1);
-        var style_org = window.getComputedStyle(nakleyka_org);
-        var style_select = window.getComputedStyle(nakleyka_select);
+        var nakleyka = $('#nakleyka'+String(id))
+        nakleyka.attr('disabled',false)
+        if(nakleyka.val()!=''){
+            data_base[id].kod_nakleyki = nakleyka.val();
+            var selectedOption = $('#nakleyka'+String(id)).find('option:selected');
 
-        var displayValue_nt1 = style_nt1.getPropertyValue('display');
-        var displayValue_org = style_org.getPropertyValue('display');
-        var displayValue_select = style_select.getPropertyValue('display');
-        
-        if(displayValue_nt1 != 'none'){
-            data_base[id].kod_nakleyki = nakleyka_nt1.innerText;
-        }else if(displayValue_org != 'none'){
-            data_base[id].kod_nakleyki = nakleyka_org.innerText;
-        }else if(displayValue_select != 'none'){
-           
-            const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
-
-            if(spanTextbox.innerText !=''){
-                data_base[id].kod_nakleyki = spanTextbox.innerText;
-            }
-
+            var nadpisValue = selectedOption.data('nadpis');
+            nadpis_nakleyki.text(nadpisValue)
+            nakleyka.css('border-color','#dedad9')
+        }else{
+            data_base[id].kod_nakleyki = NaN;
+            nadpis_nakleyki.text('')
+            nakleyka.css('border-color','red')
         }
-        
 
         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА')
             {
@@ -2317,23 +2608,61 @@ function create_kratkiy_tekst(id){
             }
     }
     else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
-        
-        var brend_kraska_sn = $('#brand_k_snaruji'+String(id))
-        if(brend_kraska_sn.val() != '0' && brend_kraska_sn.val()  != undefined && brend_kraska_sn.val()  !=null){
-            brend_kraska_sn.css("border-color",'#dedad9');
-            data_base[id].brend_kraska_sn =brend_kraska_sn.val();
+        var brend_kaska_sn = $('#brand_k_snaruji'+id)
+        var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+        var selected_text = $('#code_kraski_snar'+String(id) + ' option:selected').text();
+
+        if(brend_kaska_sn.val() != '0' && brend_kaska_sn.val()  != undefined && brend_kaska_sn.val() != '' && brend_kaska_sn.val()  !=null){
+            
+            if(selected_text =='MF'){
+
+                brend_kaska_sn.val('')
+                brend_kaska_sn.css("border-color",'#dedad9');
+                data_base[id].brend_kraska_sn ='';
+            }else{
+                brend_kaska_sn.css("border-color",'#dedad9');
+                data_base[id].brend_kraska_sn =brend_kaska_sn.val();
+            }
+
         }else{
-            brend_kraska_sn.css("border-color",'red');
-            data_base[id].brend_kraska_sn =NaN;
+
+            if(selected_text == 'MF'){
+                brend_kaska_sn.val('')
+                data_base[id].brend_kraska_sn ='';
+            }else{
+                brend_kaska_sn.css("border-color",'red');
+                data_base[id].brend_kraska_sn =NaN;
+            }
+
         }
         
-        var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+        
         if(code_kraski_snaruji.val() != '0' && code_kraski_snaruji.val()  != undefined && code_kraski_snaruji.val() != '' && code_kraski_snaruji.val()  !=null){
             code_kraski_snaruji.css("border-color",'#dedad9');
-            data_base[id].kod_kraska_sn =code_kraski_snaruji.val();
+            data_base[id].kod_kraska_sn = code_kraski_snaruji.val();
+
+            
+            var brend_kaska_sn = $('#brand_k_snaruji'+id)
+            if(!data_base[id].brend_kraska_sn){
+                var code_kraski_snaruji_kraska = $('#code_kraski_snar'+String(id) +' option:selected').attr('data-brend');;
+                brend_kaska_sn.css("border-color",'#dedad9');
+                brend_kaska_sn.val(code_kraski_snaruji_kraska) 
+    
+                data_base[id].brend_kraska_sn = code_kraski_snaruji_kraska
+            }
+
+
         }else{
-            code_kraski_snaruji.css("border-color",'red');
-            data_base[id].kod_kraska_sn =NaN;
+            var selected_text = $('#code_kraski_snar'+String(id) + ' option:selected');
+            if(selected_text.text() == 'MF'){
+                brend_kaska_sn.val('')
+                data_base[id].brend_kraska_sn ='';
+                data_base[id].kod_kraska_sn =selected_text.val();
+            }else{
+                code_kraski_snaruji.css("border-color",'red');
+                data_base[id].kod_kraska_sn =NaN;
+                data_base[id].brend_kraska_sn = NaN
+            }
         }
        
        
@@ -2342,22 +2671,57 @@ function create_kratkiy_tekst(id){
         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА')
             {
 
-                var brend_kraska_vn = $('#brand_k_vnutri'+String(id))
-                if(brend_kraska_vn.val() != '0' && brend_kraska_vn.val()  != undefined && brend_kraska_vn.val()  != null){
-                    brend_kraska_vn.css("border-color",'#dedad9');
-                    data_base[id].brend_kraska_vn =brend_kraska_vn.val();
+                var brend_kaska_vn = $('#brand_k_vnutri'+id)
+                var selected_text = $('#code_kraski_vnut'+String(id) + ' option:selected').text();
+
+                if(brend_kaska_vn.val() != '0' && brend_kaska_vn.val()  != undefined && brend_kaska_vn.val() != '' && brend_kaska_vn.val()  !=null){
+                    if(selected_text =='MF'){
+                        brend_kaska_vn.val('')
+                        brend_kaska_vn.css("border-color",'#dedad9');
+                        data_base[id].brend_kraska_vn ='';
+                    }else{
+                        brend_kaska_vn.css("border-color",'#dedad9');
+                        data_base[id].brend_kraska_vn =brend_kaska_vn.val();
+                    }
                 }else{
-                    brend_kraska_vn.css("border-color",'red');
-                    data_base[id].brend_kraska_vn =NaN;
+
+                    
+                    if(selected_text == 'MF'){
+                        brend_kaska_vn.val('')
+                        data_base[id].brend_kraska_vn ='';
+                    }else{
+                        brend_kaska_vn.css("border-color",'red');
+                        data_base[id].brend_kraska_vn =NaN;
+                    }
+
                 }
 
                 var code_kraski_vnut = $('#code_kraski_vnut'+String(id))
+                var brend_kaska_vn = $('#brand_k_vnutri'+id)
                 if(code_kraski_vnut.val() != '0' && code_kraski_vnut.val()  != undefined && code_kraski_vnut.val()  != '' && code_kraski_vnut.val()  !=null){
                     code_kraski_vnut.css("border-color",'#dedad9');
                     data_base[id].kod_kraska_vn =code_kraski_vnut.val();
+                    
+                    
+                    if(!data_base[id].brend_kraska_vn ){
+                        var code_kraski_vnutri_kraska = $('#code_kraski_vnut'+String(id) +' option:selected').attr('data-brend');;
+                        brend_kaska_vn.css("border-color",'#dedad9');
+                        brend_kaska_vn.val(code_kraski_vnutri_kraska) 
+                        data_base[id].brend_kraska_vn = code_kraski_vnutri_kraska
+
+                    }
                 }else{
-                    code_kraski_vnut.css("border-color",'red');
-                    data_base[id].kod_kraska_vn =NaN;
+
+                    var selected_text = $('#code_kraski_vnut'+String(id) + ' option:selected');
+                    if(selected_text.text() == 'MF'){
+                        brend_kaska_vn.val('')
+                        data_base[id].brend_kraska_vn ='';
+                        data_base[id].kod_kraska_vn =selected_text.val();
+                    }else{
+                        code_kraski_vnut.css("border-color",'red');
+                        data_base[id].kod_kraska_vn =NaN;
+                        data_base[id].brend_kraska_vn = NaN;
+                    }
                 }
 
                 data_base[id].is_termo =true;
@@ -2366,30 +2730,20 @@ function create_kratkiy_tekst(id){
 
 
 
-        var nakleyka_nt1 = document.getElementById('nakleyka_nt'+String(id))
-        var nakleyka_org = document.getElementById('nakleyka_org'+String(id))
-        var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
-        
-        var style_nt1 = window.getComputedStyle(nakleyka_nt1);
-        var style_org = window.getComputedStyle(nakleyka_org);
-        var style_select = window.getComputedStyle(nakleyka_select);
-
-        var displayValue_nt1 = style_nt1.getPropertyValue('display');
-        var displayValue_org = style_org.getPropertyValue('display');
-        var displayValue_select = style_select.getPropertyValue('display');
-        
-        if(displayValue_nt1 != 'none'){
-            data_base[id].kod_nakleyki = nakleyka_nt1.innerText;
-        }else if(displayValue_org != 'none'){
-            data_base[id].kod_nakleyki = nakleyka_org.innerText;
-        }else if(displayValue_select != 'none'){
-           
-            const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
-
-            if(spanTextbox.innerText != ''){
-                data_base[id].kod_nakleyki = spanTextbox.innerText;
+            var nakleyka = $('#nakleyka'+String(id))
+            nakleyka.attr('disabled',false)
+            if(nakleyka.val()!=''){
+                data_base[id].kod_nakleyki = nakleyka.val();
+                var selectedOption = $('#nakleyka'+String(id)).find('option:selected');
+    
+                var nadpisValue = selectedOption.data('nadpis');
+                nadpis_nakleyki.text(nadpisValue)
+                nakleyka.css('border-color','#dedad9')
+            }else{
+                data_base[id].kod_nakleyki = NaN;
+                nadpis_nakleyki.text('')
+                nakleyka.css('border-color','red')
             }
-        }
 
        
         if(String(val) == '4'){
@@ -2477,35 +2831,25 @@ function create_kratkiy_tekst(id){
         }
 
     }else if(String(val) == '6'){
-        var nakleyka_nt1 = document.getElementById('nakleyka_nt'+String(id))
-        var nakleyka_org = document.getElementById('nakleyka_org'+String(id))
-        var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
-        
-        var style_nt1 = window.getComputedStyle(nakleyka_nt1);
-        var style_org = window.getComputedStyle(nakleyka_org);
-        var style_select = window.getComputedStyle(nakleyka_select);
+        var nakleyka = $('#nakleyka'+String(id))
+        nakleyka.attr('disabled',false)
+        if(nakleyka.val()!=''){
+            data_base[id].kod_nakleyki = nakleyka.val();
+            var selectedOption = $('#nakleyka'+String(id)).find('option:selected');
 
-        var displayValue_nt1 = style_nt1.getPropertyValue('display');
-        var displayValue_org = style_org.getPropertyValue('display');
-        var displayValue_select = style_select.getPropertyValue('display');
-        
-        if(displayValue_nt1 != 'none'){
-            data_base[id].kod_nakleyki = nakleyka_nt1.innerText;
-        }else if(displayValue_org != 'none'){
-            data_base[id].kod_nakleyki = nakleyka_org.innerText;
-        }else if(displayValue_select != 'none'){
-           
-            const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
-            if(spanTextbox.innerText !=''){
-                data_base[id].kod_nakleyki = spanTextbox.innerText;
-            }
-
+            var nadpisValue = selectedOption.data('nadpis');
+            nadpis_nakleyki.text(nadpisValue)
+            nakleyka.css('border-color','#dedad9')
+        }else{
+            data_base[id].kod_nakleyki = NaN;
+            nadpis_nakleyki.text('')
+            nakleyka.css('border-color','red')
         }
 
         var anod_sn = document.getElementById("anod"+String(id))
         const spanTextbox1 = anod_sn.querySelector('span[role="textbox"]');
         
-        const spanss =document.querySelector('.anood .select2-container .select2-selection--single')
+        const spanss =document.querySelector('#anod'+String(id) +' .select2-container .select2-selection--single')
         if(spanTextbox1){
             if(spanTextbox1.innerText !='' ){
                 spanss.style.borderColor='#dedad9';
@@ -2520,18 +2864,20 @@ function create_kratkiy_tekst(id){
             var anod_sn = document.getElementById("anod_vnutr"+String(id))
             anod_sn.style.borderColor='#dedad9';
            
-            
+            const spanss =document.querySelector('#anod_vnutr'+String(id) +' .select2-container .select2-selection--single')
             const spanTextbox2 = anod_sn.querySelector('span[role="textbox"]');
             if(spanTextbox2){
                 if(spanTextbox2.innerText !=''){
                     var tip_anodirovki = $('#tip_anodirovki'+String(id)).text()
                     var sposob_anodirovki = $('#sposob_anodirovki'+String(id)).text()
                     spanTextbox2.style.borderColor='#dedad9';
+                    spanss.style.borderColor='#dedad9';
                     data_base[id].kod_anod_vn = spanTextbox2.innerText;
                     data_base[id].tip_anod = tip_anodirovki;
                     data_base[id].sposob_anod = sposob_anodirovki;
                 }else{
                     spanTextbox2.style.borderColor='red';
+                    spanss.style.borderColor='red';
                     data_base[id].kod_anod_vn = NaN;
                     data_base[id].tip_anod = NaN;
                     data_base[id].sposob_anod = NaN;
@@ -2567,9 +2913,11 @@ function create_kratkiy_tekst(id){
         var bazoviy_edin =$('#bazoviy_edin'+id);
         var status =$('#status'+id);
         var zavod =$('#zavod'+id);
-        // var zavod =$('#zavod_name'+id);
+        var diller =$('#diller'+id);
+        var tip_clienta =$('#tip_clienta'+id);
 
         var segment =$('#segment'+id);
+        var edinitsa_izm =$('#edinitsa_izm'+id);
         var buxgalter_tovar =$('#buxgalter_tovar'+id);
         var buxgalter_uchot =$('#buxgalter_uchot'+id);
         var alter_edin =$('#alter_edin'+id);
@@ -2578,7 +2926,138 @@ function create_kratkiy_tekst(id){
         
         
         var status_first =$('#status'+id)
-        if(status_first.val()=='Активный'){
+
+        console.log(zavod.val())
+
+        var group_ = group.val()
+
+        if(zavod.val() =='ZAVOD ALUMIN'){
+
+            if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
+                if(String(val) == '1'){
+                    buxgalter_tovar.val('Неокрашенный алюминиевый профиль')
+                }
+                else if(String(val) == '2'){
+                    buxgalter_tovar.val('Алюминиевый профиль')
+                    
+                }
+                else if(String(val) == '3'){
+                    
+                    buxgalter_tovar.val('Алюминиевый профиль')
+                }
+                else if(String(val) == '4'){
+                    
+                    buxgalter_tovar.val('Ламинированный алюминиевый профиль')
+                }
+                else if(String(val) == '5'){
+                    
+                    buxgalter_tovar.val('Алюминиевый профиль с декоративным покрытием')
+                }
+                else if(String(val) == '6'){
+                    
+                    buxgalter_tovar.val('')
+                }
+                
+            }else{
+                if(String(val) == '1'){
+                    buxgalter_tovar.val('Неокрашенный алюминиевый профиль')
+                }
+                else if(String(val) == '2'){
+                    buxgalter_tovar.val('Термоуплотненный окрашенный алюминиевый профиль')
+                }
+                else if(String(val) == '3'){
+                    buxgalter_tovar.val('Термоуплотненный окрашенный алюминиевый профиль')
+                    
+                }
+                else if(String(val) == '4'){
+                    
+                    buxgalter_tovar.val('Ламинированный термоуплотненный алюминиевый профиль')
+                }
+                else if(String(val) == '5'){
+                    buxgalter_tovar.val('Алюминиевый профиль с декоративным покрытием')
+                    
+                }
+                else if(String(val) == '6'){
+                    buxgalter_tovar.val('')
+
+                }
+            }
+
+        }else if(zavod.val() =='ZAVOD ALUMIN NAVOIY'){
+
+            if (combination_text.toUpperCase() == 'БЕЗ ТЕРМОМОСТА'){
+                if(String(val) == '1'){
+                    buxgalter_tovar.val('Неокрашенный алюминиевый профиль (N)')
+                }
+                else if(String(val) == '2'){
+                    buxgalter_tovar.val('Алюминиевый профиль (N)')
+                }
+                else if(String(val) == '3'){
+                    buxgalter_tovar.val('Алюминиевый профиль (N)')
+                }
+                else if(String(val) == '4'){
+                    buxgalter_tovar.val('Ламинированный алюминиевый профиль (N)')
+                }
+                else if(String(val) == '5'){
+                    buxgalter_tovar.val('Алюминиевый профиль с декоративным покрытием (N)')
+                }
+                else if(String(val) == '6'){
+                    if(group_.indexOf('MEBEL') !== -1){
+                        buxgalter_tovar.val('Анодированный алюминиевый профиль (N)')
+                    }else{
+                        if(''){
+                            buxgalter_tovar.val('Мебельный профиль из алюминия анодированный матовое серебро (N)')
+                            
+                        }else{
+                            buxgalter_tovar.val('Анодированный алюминиевый профиль (N)')
+                        }
+                    }
+                }
+
+            }else{
+                if(String(val) == '1'){
+                    buxgalter_tovar.val('Неокрашенный алюминиевый профиль (N)')
+                }
+                else if(String(val) == '2'){
+                    buxgalter_tovar.val('Термоуплотненный окрашенный алюминиевый профиль (N)')
+                }
+                else if(String(val) == '3'){
+                    buxgalter_tovar.val('Термоуплотненный алюминиевый профиль (N)')
+                }
+                else if(String(val) == '4'){
+                    buxgalter_tovar.val('Ламинированный термоуплотнённый алюминиевый профиль (N)')
+                }
+                else if(String(val) == '5'){
+                    buxgalter_tovar.val('Алюминиевый профиль с декоративным покрытием (N)')
+                }
+                else if(String(val) == '6'){
+                    
+                        buxgalter_tovar.val('Термоуплотненный анодированный алюминиевый профиль (N)')
+                    
+                }
+                
+            }
+        }
+
+        
+        if(diller.val()!=''){
+            data_base[id].diller = diller.val();
+            
+        }else{
+            data_base[id].diller = NaN;
+            
+        }
+        if(tip_clienta.val()!=''){
+            data_base[id].tip_clienta = tip_clienta.val();
+            
+        }else{
+            data_base[id].tip_clienta = NaN;
+            
+        }
+
+
+
+        if(status_first.val() == 'Активный'){
             if(stoimost_alter.val()!=''){
                 data_base[id].stoimost_alter = stoimost_alter.val();
                 
@@ -2614,12 +3093,22 @@ function create_kratkiy_tekst(id){
                 data_base[id].buxgalter_tovar = NaN;
                 
             }
-            if(segment.val()!=''){
+            if(edinitsa_izm.val()!=''){
+                edinitsa_izm.css('border-color','#dedad9')
+                data_base[id].edinitsa_izm = edinitsa_izm.val();
+                
+            }else{
+                edinitsa_izm.css('border-color','red')
+                data_base[id].edinitsa_izm = NaN;
+                
+            }
+            if(segment.val() != ''){
+                segment.css('border-color','#dedad9')
                 data_base[id].segment = segment.val();
                 
             }else{
+                segment.css('border-color','#dedad9')
                 data_base[id].segment = NaN;
-                
             }
             if(sap_code_ruchnoy.val()!=''){
                 data_base[id].sap_code = sap_code_ruchnoy.val();
@@ -2745,13 +3234,25 @@ function create_kratkiy_tekst(id){
                 data_base[id].buxgalter_tovar = NaN;
                 
             }
-            if(segment.val()!=''){
+            if(edinitsa_izm.val()!=''){
+                edinitsa_izm.css('border-color','#dedad9')
+                data_base[id].edinitsa_izm = edinitsa_izm.val();
+                
+            }else{
+                edinitsa_izm.css('border-color','red')
+                data_base[id].edinitsa_izm = NaN;
+                
+            }
+
+            if(segment.val() != ''){
+                segment.css('border-color','#dedad9')
                 data_base[id].segment = segment.val();
                 
             }else{
+                segment.css('border-color','red')
                 data_base[id].segment = NaN;
-                
             }
+
             if(sap_code_ruchnoy.val()!=''){
                 data_base[id].sap_code = sap_code_ruchnoy.val();
                 sap_code_ruchnoy.css('border-color','#dedad9')
@@ -2854,6 +3355,9 @@ function create_kratkiy_tekst(id){
 
 
     var data =data_base[id].get_kratkiy_tekst()
+
+    console.log(data)
+
     if(data.accept){
         var table_tr =$('#table_tr'+id);
         table_tr.css('background-color','#2de319')
@@ -2866,1019 +3370,88 @@ function create_kratkiy_tekst(id){
         data_base[id].kratkiy_tekst=NaN
 
     }
+    if(data.text !='XXXXXXXX' ){
+        var artikul = data_base[id].base_artikul
+        var art_krat = {artikul:data.text}
+        if(zapros_count.indexOf(art_krat) === -1){
+            sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text,data_base[id].is_termo)
+            zapros_count.push(art_krat)
+        }else{
+
+            var krat = zapros_count[artikul]
+            var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+            var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
+            
+
+            sap_code_ruchnoy.val(artikul)
+            kratkiy_text_ruchnoy.val(krat)
+            sap_code_ruchnoy.css('background-color','orange')
+            kratkiy_text_ruchnoy.css('background-color','orange')
+            sap_code_ruchnoy.attr('disabled',true)
+            kratkiy_text_ruchnoy.attr('disabled',true)
+
+        }
+        data_base[id].kratkiy_tekst= data.text
+        
+    }
     
     kratkiy_tekst.text(data.text)
 
     }
 }
 
+
+function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
+    var url = '/client/get-sapcodes'
+   
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        data: {'artikul':artikul,'kratkiy_tekst':kratkiy_tekst,'is_termo':is_termo},
+    }).done(function (res) {
+        if (res.status ==201){
+            var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+            var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
+            
+            sap_code_ruchnoy.val(res.artikul)
+            kratkiy_text_ruchnoy.val(res.kratkiy_tekst)
+            sap_code_ruchnoy.css('background-color','orange')
+            kratkiy_text_ruchnoy.css('background-color','orange')
+            sap_code_ruchnoy.attr('disabled',true)
+            kratkiy_text_ruchnoy.attr('disabled',true)
+        }else{
+            var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+            var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
+            
+            sap_code_ruchnoy.val('')
+            kratkiy_text_ruchnoy.val('')
+            sap_code_ruchnoy.css('background-color','white')
+            kratkiy_text_ruchnoy.css('background-color','white')
+            sap_code_ruchnoy.attr('disabled',false)
+            kratkiy_text_ruchnoy.attr('disabled',false)
+            console.log('aa')
+        }
+        // WON'T REDIRECT
+    });
+}
+
 function add_column(){
         
     text =""
-    var sizee = Object.keys(data_base).length;
-    console.log(sizee)
     var sizeee = $('#table-artikul tr').length;
     
-    for (let i = sizeee + 1; i < sizeee+2; i++) {
-        text +=`
-        <tr id='table_tr` +String(i)+`' >
-                                
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            
-            <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="create(`+String(i)+`)" id='create_btn`+String(i)+`' >Создание</button>
-            <button type="button" class="btn btn-info btn-sm" onclick="activate(`+String(i)+`)" id='activate_btn`+String(i)+`'>Активация</button>
-            <button type="button" class="btn btn-warning btn-sm gradient-buttons" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`'>Очистить</button>
-            </div>
-                
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <div><span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;" style="font-size: 12px;"></span></div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " disabled id="artikul`+String(i)+`" onchange='clear_artikul(`+String(i)+`)'></select>
-        </div>
-    </td>
-    
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control " style='width:50px' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 165px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
-                <option  selected></option>
-                <option value="1" >Неокрашенный</option>
-                <option value="2">Белый</option>
-                <option value="3">Окрашенный</option>
-                <option value="4">Ламинированный</option>
-                <option value="5">Сублимированный</option>
-                <option value="6">Анодированный</option>
-              </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" style="width: 60px;">
-       
-        <select class="form-select" aria-label="" style="width: 50px;"  disabled id='splav`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
-            <option  value="" selected ></option>
-            <option value="63" >63</option>
-        </select>
-        
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1"  style="width: 60px;">
-        <select class="form-select" aria-label="" style="width: 50px;!important"  disabled id='tip_zakalyonnosti`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
-            <option  value="" selected></option>
-            <option value="T4" >T4</option>
-            <option value="T6" >T6</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" style="font-size: small; text-transform: uppercase; width:130px">
-            <div>
-                <span class =' text-center pl-1' style="font-size: small; text-transform: uppercase;" id ='combination` +String(i)+`'></span>
-            </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" >
-        <div>
-            <span class =' text-center' style="font-size: small;font-weight: bold; text-transform: uppercase;" id ='brand_kraski_snaruji` +String(i)+`'></span>
-        </div>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1" style="width: 100px;">
-        <div>
-            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase;width: 100px;" id ='code_kraski_snaruji` +String(i)+`'></span>
-        </div>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <div>
-            <span class =' text-center' style="font-size: small;font-weight: bold; text-transform: uppercase;" id ='brand_kraski_vnutri` +String(i)+`'></span>
-        </div>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1" style="width: 100px;">
-        <div>
-            <span class =' text-center' style="font-size: small; font-weight: bold; text-transform: uppercase; width:100px" id ='code_kraski_vnutri` +String(i)+`'></span>
-        </div>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">    
-        <select class="form-select" aria-label="" style="width: 75px;" onchange="svet_dekplonka_snaruji_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_snaruji`+String(i)+`' disabled>
-            <option  value="" selected></option>
-            <option value="Золотой Дуб 7777" >7777</option>
-            <option value="Махагон 3701">3701</option>
-            <option value="3D 3702">3702</option>
-            <option value="Дуб мокко">8888</option>
-            <option value="Шеф. сер. дуб">9999</option>
-            <option value="XXXX">XXXX</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <div>
-            <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span></em>
-            </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1"  >    
-        <select class="form-select" aria-label="" style="width: 75px;" onchange="svet_dekplonka_vnutri_selected(`+String(i)+`,this.value)"  id='svet_dekplonka_vnutri`+String(i)+`' disabled>
-            <option  value="" selected></option>
-            <option value="Золотой Дуб 7777" >7777</option>
-            <option value="Махагон 3701">3701</option>
-            <option value="3D 3702">3702</option>
-            <option value="Дуб мокко">8888</option>
-            <option value="Шеф. сер. дуб">9999</option>
-            <option value="XXXX">XXXX</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <div>
-            <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span></em>
-            </div>
-        </div>
-    </td>
-
-    
-
-    <td >
-        <div class="input-group input-group-sm mb-1">    
-        <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
-            <option  value="" selected></option>
-            <option value="2036" >Золотой дуб</option>
-            <option value="2048">Дуб мокко</option>
-            <option value="2007">Красный орех</option>
-            <option value="2012">Орех</option>
-            <option value="3086">Шеффелдский дуб серый</option>
-            <option value="1012">Алюкс антрацит</option>
-            <option value="3001">Терновый дуб</option>
-            <option value="3002">Шеф Альпийский дуб</option>
-            <option value="3003">Гранитовый шеф дуб</option>
-            <option value="3042">Дерево бальза</option>
-            <option value="3062">Грецкий орех</option>
-            <option value="3043">Вишня амаретто</option>
-            <option value="3059">Орех терра</option>
-            <option value="3058">Грецкий орех амаретто</option>
-            <option value="3077">Винчестер</option>
-            <option value="3081">Шеффелдский дуб светлый</option>
-            <option value="3094">Орех Ребраун</option>
-            <option value="1004">Метбраш платин</option>
-            <option value="1005">Метбраш серый кварц</option>
-            <option value="1006">Метбраш серый антрацит</option>
-            <option value="XXXX">XXXX</option>
-        </select>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;" id ='code_lamplonka_snaruji` +String(i)+`'></span>
-            </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
-                <option  value="" selected></option>
-                <option value="2036" >Золотой дуб</option>
-            <option value="2048">Дуб мокко</option>
-            <option value="2007">Красный орех</option>
-            <option value="2012">Орех</option>
-            <option value="3086">Шеффелдский дуб серый</option>
-            <option value="1012">Алюкс антрацит</option>
-            <option value="3001">Терновый дуб</option>
-            <option value="3002">Шеф Альпийский дуб</option>
-            <option value="3003">Гранитовый шеф дуб</option>
-            <option value="3042">Дерево бальза</option>
-            <option value="3062">Грецкий орех</option>
-            <option value="3043">Вишня амаретто</option>
-            <option value="3059">Орех терра</option>
-            <option value="3058">Грецкий орех амаретто</option>
-            <option value="3077">Винчестер</option>
-            <option value="3081">Шеффелдский дуб светлый</option>
-            <option value="3094">Орех Ребраун</option>
-            <option value="1004">Метбраш платин</option>
-            <option value="1005">Метбраш серый кварц</option>
-            <option value="1006">Метбраш серый антрацит</option>
-            <option value="XXXX">XXXX</option>
-            </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%" id='code_lamplonka_vnutri`+String(i)+`'></span>
-            </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" >
-        <div id='anod`+String(i)+`' class='anood'  ></div>            
-        </div>
-    </td> 
-    <td >
-        <div class="input-group input-group-sm mb-1" style="width: 60px;">
-        <div id='anod_vnutr`+String(i)+`' class='anood' ></div>            
-        </div>
-        </div>
-    </td> 
-    <td >
-        <div class="input-group input-group-sm mb-1" style="width: 60px;">
-        <select class="form-select" aria-label=""   disabled id='contactnost_anodirovki`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
-            <option  value=""></option>
-            <option value="YC" >YC</option>
-            <option value="NC">NC</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <div>
-            <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id='tip_anodirovki`+String(i)+`'></span>
-        </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <div>
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='sposob_anodirovki`+String(i)+`'></span>
-        </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
-        <span id='nakleyka_nt`+String(i)+`' style='display:none;padding-left:35%'>NT1</span>
-        <span id='nakleyka_org`+String(i)+`' style='display:none;padding-left:35%'></span>
-        <div id='nakleyka_select`+String(i)+`' style='display:none;padding-left:35%'>
-            <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
-        </div>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-            
-        </div>
-    </td> 
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-       
-        <input type='text' class=" form-control " style=" width: 110px; font-size:10px; display:none; " id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-    
-        </div>
-    </td> 
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style=" width: 220px; font-size:10px; display:none; "  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    
-    <td >
-        <div class="input-group input-group-sm mb-1">
-           
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 90px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;border-color:red;" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='zavod`+String(i)+`' required>
-            <option  selected></option>
-            <option value="ZAVOD ALUMIN NAVOIY" >Benkam</option>
-            <option value="ZAVOD ALUMIN">Jomiy</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; display:none;" id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <textarea   rows='1' class=" form-control " style="border-color:red; width: 220px; font-size:10px; display:none; " id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-        <option  selected></option>
-        <option   value="LAM">LAM</option>
-        <option   value="Anod">Anod</option>
-        <option   value="COLOUR">COLOUR</option>
-        <option   value="VAKUM &amp; 3D">VAKUM &amp; 3D</option>
-        <option   value="WHITE">WHITE</option>
-        <option   value="Без цвета">Без цвета</option>
-      </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-        <option  selected></option>
-        <option value="Kabina">Kabina</option>
-        <option value="Alumin WHITE (B.N)">Alumin WHITE (B.N)</option>
-        <option value="Aksessuar Import (SAP)">Aksessuar Import (SAP)</option>
-        <option value="Alumin VAKUM (B.N)">Alumin VAKUM (B.N)</option>
-        <option value="Metal">Metal</option>
-        <option value="Aksessuar UZ Tapoich">Aksessuar UZ Tapoich</option>
-        <option value="Alumin COLOUR (Navoiy)">Alumin COLOUR (Navoiy)</option>
-        <option value="Alumin VAKUM (Navoiy)">Alumin VAKUM (Navoiy)</option>
-        <option value="Alumin WHITE (Navoiy)">Alumin WHITE (Navoiy)</option>
-        <option value="Alumin Anod (Navoiy)">Alumin Anod (Navoiy)</option>
-        <option value="PVX OQ (Navoiy)">PVX OQ (Navoiy)</option>
-        <option value="Butilchita">Butilchita</option>
-        <option value="Aksessuar Rezina">Aksessuar Rezina</option>
-        <option value="Radiator">Radiator</option>
-        <option value="Aksessuar UZ">Aksessuar UZ</option>
-        <option value="Alucobond">Alucobond</option>
-        <option value="VITYAJNOYE USTROYSTVA">VITYAJNOYE USTROYSTVA</option>
-        <option value="Aksessuar Import">Aksessuar Import</option>
-        <option value="Radiator (IMPORT)">Radiator (IMPORT)</option>
-        <option value="Radiator SAP (IMPORT)">Radiator SAP (IMPORT)</option>
-        <option value="PVX LAM (Navoiy)">PVX LAM (Navoiy)</option>
-        <option value="Rezina Tpv">Rezina Tpv</option>
-        <option value="Granula">Granula</option>
-        <option value="Granit">Granit</option>
-        <option value="Setka">Setka</option>
-        <option value="Kraska">Kraska</option>
-        <option value="Gazoblok">Gazoblok</option>
-        <option value="Paket">Paket</option>
-        <option value="Alumin Lam">Alumin Lam</option>
-        <option value="Alumin COLOUR">Alumin COLOUR</option>
-        <option value="Alumin VAKUM">Alumin VAKUM</option>
-        <option value="Alumin WHITE">Alumin WHITE</option>
-        <option value="Radiator (Panel) AKFA (UZ)">Radiator (Panel) AKFA (UZ)</option>
-        <option value="Radiator (Panel) ROYAL (UZ)">Radiator (Panel) ROYAL (UZ)</option>
-        <option value="Radiator (Panel) Lider Line (UZ)" >Radiator (Panel) Lider Line (UZ)"</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1" id='group`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'>
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
-            <option  selected></option>
-            <option value="Сырье">Сырье</option>
-            <option value="Готовый продукт">Готовый продукт</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
-            <option  selected></option>
-            <option value="Сырье">Сырье</option>
-            <option value="Готовый продукт">Готовый продукт</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' required>
-            <option  selected></option>
-            <option value="Aldoks">Aldoks</option>
-            <option value="Стандарт">Стандарт</option>
-            <option value="Премиум">Премиум</option>
-            <option value="Аксессуар">Аксессуар</option>
-            <option value="Falcon">Falcon</option>
-            <option value="Mebel">Mebel</option>
-            <option value="RETPEN 8-10%">RETPEN 8-10%</option>
-            <option value="RETPEN 10-12%">RETPEN 10-12%</option>
-            <option value="RETPEN 17%">RETPEN 17%</option>
-            <option value="Аксессуар 2">Аксессуар 2</option>
-            <option value="Podokonnik EKO">Podokonnik EKO</option>
-            <option value="Alumin arzon">Alumin arzon</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' required>
-            <option  selected></option>
-            <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
-            <option value='Otvetka 153 (oq)'>Otvetka 153 (oq)</option>
-            <option value='Ламбри из ПВХ'>Ламбри из ПВХ</option>
-            <option value='Soedinitel OP.40.J05 L=10mm'>Soedinitel OP.40.J05 L=10mm</option>
-            <option value='Soedinitel CL.X.W 14 (5mm)'>Soedinitel CL.X.W 14 (5mm)</option>
-            <option value='BKT 78 Soed. (M11427-15.8mm)'>BKT 78 Soed. (M11427-15.8mm)</option>
-            <option value='Soedinitel CL.X.W 14 (38mm)'>Soedinitel CL.X.W 14 (38mm)</option>
-            <option value='BKT 70 Soed. W 02 (1=7.8)'>BKT 70 Soed. W 02 (1=7.8)</option>
-            <option value='Otvetka 155 (rangli)'>Otvetka 155 (rangli)</option>
-            <option value='Ruchka Dvernaya Fornaks (28mm) (rangli)'>Ruchka Dvernaya Fornaks (28mm) (rangli)</option>
-            <option value='Petlya Dvernaya 2SK MASTER (rangli)'>Petlya Dvernaya 2SK MASTER (rangli)</option>
-            <option value='Petlya (rangli)'>Petlya (rangli)</option>
-            <option value='Soedinitel Chovush'>Soedinitel Chovush</option>
-            <option value='Soedinitel (Bolshoy) CHEMPION'>Soedinitel (Bolshoy) CHEMPION</option>
-            <option value='Petlya Dvernaya Chempion (rangli)'>Petlya Dvernaya Chempion (rangli)</option>
-            <option value='Soedinitel (Bolshoy) (ALD-2)'>Soedinitel (Bolshoy) (ALD-2)</option>
-            <option value='Krishka Podokonnik (ALYUMIN) (oq)'>Krishka Podokonnik (ALYUMIN) (oq)</option>
-            <option value='Soedinitel Universal'>Soedinitel Universal</option>
-            <option value='Ogranichitel (rangli)'>Ogranichitel (rangli)</option>
-            <option value='Otvetka Mini 153 (rangli)'>Otvetka Mini 153 (rangli)</option>
-            <option value='Ruchka Elegant (rangli)'>Ruchka Elegant (rangli)</option>
-            <option value='Ruchka LUX Fortuna O (rangli)'>Ruchka LUX Fortuna O (rangli)</option>
-            <option value='Petlya 100 mm (rangli)'>Petlya 100 mm (rangli)</option>
-            <option value='Ruchka dvernaya "BELLA" (700) mm (rangli)'>Ruchka dvernaya "BELLA" (700) mm (rangli)</option>
-            <option value='Soedinitel CL.X.W 34 (43mm)'>Soedinitel CL.X.W 34 (43mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (500) mm (oq)'>Ruchka dvernaya "BELLA" (500) mm (oq)</option>
-            <option value='Ruchka dvernaya "BELLA" (600) mm (rangli)'>Ruchka dvernaya "BELLA" (600) mm (rangli)</option>
-            <option value='Ruchka LUX Fortuna O (oq)'>Ruchka LUX Fortuna O (oq)</option>
-            <option value='Otvetka Mini 155 (oq)'>Otvetka Mini 155 (oq)</option>
-            <option value='Soedinitel CL.X.W 10 (25.8mm)'>Soedinitel CL.X.W 10 (25.8mm)</option>
-            <option value='Termo soedinitel 19 mm'>Termo soedinitel 19 mm</option>
-            <option value='Petlya 100 mm (oq)'>Petlya 100 mm (oq)</option>
-            <option value='Petlya (ALD-2) (oq)'>Petlya (ALD-2) (oq)</option>
-            <option value='Otvetnaya chast zamka A0275-K (155) (rangli)'>Otvetnaya chast zamka A0275-K (155) (rangli)</option>
-            <option value='Petlya (ALD-2) (rangli)'>Petlya (ALD-2) (rangli)</option>
-            <option value='Petlya Dvernaya 3SK MASTER (rangli)'>Petlya Dvernaya 3SK MASTER (rangli)</option>
-            <option value='Petlya Dvernaya Alyumin (rangli)'>Petlya Dvernaya Alyumin (rangli)</option>
-            <option value='Ruchka Kvadrat (rangli)'>Ruchka Kvadrat (rangli)</option>
-            <option value='Chit-Chit PVH.uz (rangli)'>Chit-Chit PVH.uz (rangli)</option>
-            <option value='Otvetka 153 (rangli)'>Otvetka 153 (rangli)</option>
-            <option value='Ruchka LUX Fortuna Mini O (rangli)'>Ruchka LUX Fortuna Mini O (rangli)</option>
-            <option value='Zashyolka Narujnyaya (rangli)'>Zashyolka Narujnyaya (rangli)</option>
-            <option value='Shpingalet (rangli)'>Shpingalet (rangli)</option>
-            <option value='Ruchka DELFIN (rangli)'>Ruchka DELFIN (rangli)</option>
-            <option value='Otvetka Mini 155 (rangli)'>Otvetka Mini 155 (rangli)</option>
-            <option value='Otvetnaya chast zamka A0275-K (153) (rangli)'>Otvetnaya chast zamka A0275-K (153) (rangli)</option>
-            <option value='BKT 70 Soed. Impost (J01-52.5mm)'>BKT 70 Soed. Impost (J01-52.5mm)</option>
-            <option value='BKT 70 Soed. Impost (J01-66.5mm)'>BKT 70 Soed. Impost (J01-66.5mm)</option>
-            <option value='BKT 70 Soed. Impost (J02-13.6mm)'>BKT 70 Soed. Impost (J02-13.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J02-43.6mm)'>BKT 70 Soed. Impost (J02-43.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J03-66.6mm)'>BKT 70 Soed. Impost (J03-66.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J06-43.6mm)'>BKT 70 Soed. Impost (J06-43.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J06-66.5mm)'>BKT 70 Soed. Impost (J06-66.5mm)</option>
-            <option value='BKT 70 Soed. W 01 (1=21.7)'>BKT 70 Soed. W 01 (1=21.7)</option>
-            <option value='BKT 70 Soed. W 01 (1=5.1)'>BKT 70 Soed. W 01 (1=5.1)</option>
-            <option value='BKT 70 Soed. W 01 (1=8.5)'>BKT 70 Soed. W 01 (1=8.5)</option>
-            <option value='Krishka Podokonnik (ALYUMIN) (rangli)'>Krishka Podokonnik (ALYUMIN) (rangli)</option>
-            <option value='Kreplenie moskitnoy setki (rangli)'>Kreplenie moskitnoy setki (rangli)</option>
-            <option value='BKT 70 Soed. W 01 (1=8)'>BKT 70 Soed. W 01 (1=8)</option>
-            <option value='BKT 78 Soed. (M11427-19.5mm)'>BKT 78 Soed. (M11427-19.5mm)</option>
-            <option value='Kreplenie moskitnoy setki (oq)'>Kreplenie moskitnoy setki (oq)</option>
-            <option value='BKT 78 Soed. (M11427-27mm)'>BKT 78 Soed. (M11427-27mm)</option>
-            <option value='Ruchka LUX Pol (oq)'>Ruchka LUX Pol (oq)</option>
-            <option value='Ruchka Sos. VENTURO (oq)'>Ruchka Sos. VENTURO (oq)</option>
-            <option value='Montajnaya Planka 5200 (Metal)'>Montajnaya Planka 5200 (Metal)</option>
-            <option value='Ламинированный термоуплотненный алюминиевый профиль'>Ламинированный термоуплотненный алюминиевый профиль</option>
-            <option value='Термоуплотненный анодированный алюминиевый профиль (N)'>Термоуплотненный анодированный алюминиевый профиль (N)</option>
-            <option value='Профиль из ПВХ с уплотнителем'>Профиль из ПВХ с уплотнителем</option>
-            <option value='Алюминиевый профиль с декоративным покрытием'>Алюминиевый профиль с декоративным покрытием</option>
-            <option value='Подоконник из ПВХ'>Подоконник из ПВХ</option>
-            <option value='Дистанционная рамка'>Дистанционная рамка</option>
-            <option value='Профиль из ПВХ ламинированный (Engelberg)'>Профиль из ПВХ ламинированный (Engelberg)</option>
-            <option value='Профиль из ПВХ ламинированный с уплотнителем'>Профиль из ПВХ ламинированный с уплотнителем</option>
-            <option value='Ламинированный алюминиевый профиль'>Ламинированный алюминиевый профиль</option>
-            <option value='Неокрашенный алюминиевый профиль'>Неокрашенный алюминиевый профиль</option>
-            <option value='Подоконник из ПВХ ламинированный'>Подоконник из ПВХ ламинированный</option>
-            <option value='Уплотнитель для алюминиевых и ПВХ профилей'>Уплотнитель для алюминиевых и ПВХ профилей</option>
-            <option value='Профиль из ПВХ'>Профиль из ПВХ</option>
-            <option value='Алюминиевый профиль'>Алюминиевый профиль</option>
-            <option value='Ламинированный термоуплотненный алюминиевый профиль (N)'>Ламинированный термоуплотненный алюминиевый профиль (N)</option>
-            <option value='Металлический усилитель'>Металлический усилитель</option>
-            <option value='Ламбри из ПВХ ламинированный'>Ламбри из ПВХ ламинированный</option>
-            <option value='Профиль из ПВХ (Engelberg)'>Профиль из ПВХ (Engelberg)</option>
-            <option value='Ламинированный алюминиевый профиль (N)'>Ламинированный алюминиевый профиль (N)</option>
-            <option value='Алюминиевый профиль с декоративным покрытием (N)'>Алюминиевый профиль с декоративным покрытием (N)</option>
-            <option value='Chit-Chit PVH.uz (oq)'>Chit-Chit PVH.uz (oq)</option>
-            <option value='BKT 70 Soed. (M11148-13.6mm)'>BKT 70 Soed. (M11148-13.6mm)</option>
-            <option value='Ruchka D (oq)'>Ruchka D (oq)</option>
-            <option value='Ruchka Kvadrat Mini (oq)'>Ruchka Kvadrat Mini (oq)</option>
-            <option value='Ruchka LUX (oq)'>Ruchka LUX (oq)</option>
-            <option value='Soedinitel 114 D 400 (13mm)'>Soedinitel 114 D 400 (13mm)</option>
-            <option value='Soedinitel 114 D 400 (52mm)'>Soedinitel 114 D 400 (52mm)</option>
-            <option value='Petlya Dvernaya Chempion (oq)'>Petlya Dvernaya Chempion (oq)</option>
-            <option value='Soedinitel BKH-001 (38mm)'>Soedinitel BKH-001 (38mm)</option>
-            <option value='Soedinitel 5507 (6,5mm)'>Soedinitel 5507 (6,5mm)</option>
-            <option value='Soedinitel BKH-001 (16mm)'>Soedinitel BKH-001 (16mm)</option>
-            <option value='Soedinitel BKH-001 (5mm)'>Soedinitel BKH-001 (5mm)</option>
-            <option value='Soedinitel AKF-107 (40mm)'>Soedinitel AKF-107 (40mm)</option>
-            <option value='Soedinitel AKF-106 (37.5mm)'>Soedinitel AKF-106 (37.5mm)</option>
-            <option value='Vstavka Dlya Zamka (rangli)'>Vstavka Dlya Zamka (rangli)</option>
-            <option value='Soedinitel JP2186 (60mm)'>Soedinitel JP2186 (60mm)</option>
-            <option value='T 6 Soed. (ST 10 255) C 9.5 Qanot Mal.'>T 6 Soed. (ST 10 255) C 9.5 Qanot Mal.</option>
-            <option value='T 6 Soed. (ST 10 366) C 29.0 Qanot Bol.'>T 6 Soed. (ST 10 366) C 29.0 Qanot Bol.</option>
-            <option value='T 6 Soed. (ST 10 366) P 27.5 Kosa Bol.'>T 6 Soed. (ST 10 366) P 27.5 Kosa Bol.</option>
-            <option value='T 6 Soed. (ST 10 366) P 9.2 Kosa Mal.'>T 6 Soed. (ST 10 366) P 9.2 Kosa Mal.</option>
-            <option value='T 6 Soed. (ST 10 565) B 26.0 Balkon Qanot Bol.'>T 6 Soed. (ST 10 565) B 26.0 Balkon Qanot Bol.</option>
-            <option value='T 6 Soed. (ST 10 565) B 5.1 Balkon Qanot Mal.'>T 6 Soed. (ST 10 565) B 5.1 Balkon Qanot Mal.</option>
-            <option value='Soedinitel AKF-107 (43.5mm)'>Soedinitel AKF-107 (43.5mm)</option>
-            <option value='Vstavka Dlya Zamka (oq)'>Vstavka Dlya Zamka (oq)</option>
-            <option value='Soedinitel 5505 (45mm)'>Soedinitel 5505 (45mm)</option>
-            <option value='Zashyolka Narujnyaya (oq)'>Zashyolka Narujnyaya (oq)</option>
-            <option value='Zashyolka Narujnyaya Mini (oq)'>Zashyolka Narujnyaya Mini (oq)</option>
-            <option value='Ruchka Dvernaya Fornaks (35mm) (rangli)'>Ruchka Dvernaya Fornaks (35mm) (rangli)</option>
-            <option value='Krishka Podokonnik 300 (rangli)'>Krishka Podokonnik 300 (rangli)</option>
-            <option value='Ogranichitel PVH (rangli)'>Ogranichitel PVH (rangli)</option>
-            <option value='Petlya Dvernaya 3D (rangli)'>Petlya Dvernaya 3D (rangli)</option>
-            <option value='Petlya Dvernaya 3D (oq)'>Petlya Dvernaya 3D (oq)</option>
-            <option value='Porog Soedinitel 7000 (1kom.) (L;P) (rangli)'>Porog Soedinitel 7000 (1kom.) (L;P) (rangli)</option>
-            <option value='Petlya 100 mm (oq)'>Petlya 100 mm (oq)</option>
-            <option value='Krishka Shtulp Dlya Adap 7000 (oq)'>Krishka Shtulp Dlya Adap 7000 (oq)</option>
-            <option value='Krishka Shtulp Dlya Adap dvernaya 6000 (13 AKS) (rangli)'>Krishka Shtulp Dlya Adap dvernaya 6000 (13 AKS) (rangli)</option>
-            <option value='Ruchka Dvernaya Fornaks (28mm) fiksator (rangli)'>Ruchka Dvernaya Fornaks (28mm) fiksator (rangli)</option>
-            <option value='Ruchka Dvernaya Fornaks (35mm) fiksator (rangli)'>Ruchka Dvernaya Fornaks (35mm) fiksator (rangli)</option>
-            <option value='Chit-Chit (aldocks).uz (rangli)'>Chit-Chit (aldocks).uz (rangli)</option>
-            <option value='Ruchka Okonaya Roto (rangli)'>Ruchka Okonaya Roto (rangli)</option>
-            <option value='Petlya 75 mm (rangli)'>Petlya 75 mm (rangli)</option>
-            <option value='Soedinitel AKF-106 (36.5mm)'>Soedinitel AKF-106 (36.5mm)</option>
-            <option value='Soedinitel 114 D 300 (13,2 mm)'>Soedinitel 114 D 300 (13,2 mm)</option>
-            <option value='Soedinitel JP2002 (40mm)'>Soedinitel JP2002 (40mm)</option>
-            <option value='Ruchka Kvadrat Mini (rangli)'>Ruchka Kvadrat Mini (rangli)</option>
-            <option value='Shpingalet (oq)'>Shpingalet (oq)</option>
-            <option value='Krishka Shtulp Dlya Adap dvernaya 6000 (13 AKS) (oq)'>Krishka Shtulp Dlya Adap dvernaya 6000 (13 AKS) (oq)</option>
-            <option value='Krishka Shtulp Dlya Adap 7000 (rangli)'>Krishka Shtulp Dlya Adap 7000 (rangli)</option>
-            <option value='(A0286) Petlya (Chempion) (rangli)'>(A0286) Petlya (Chempion) (rangli)</option>
-            <option value='Otvetka 155 (oq)'>Otvetka 155 (oq)</option>
-            <option value='(A0286) Petlya (Chempion) (oq)'>(A0286) Petlya (Chempion) (oq)</option>
-            <option value='BKT 70 Soed. Impost (J01-66.6mm)'>BKT 70 Soed. Impost (J01-66.6mm)</option>
-            <option value='Petlya Dvernaya MDF (oq)'>Petlya Dvernaya MDF (oq)</option>
-            <option value='Petlya Dvernaya MDF (rangli)'>Petlya Dvernaya MDF (rangli)</option>
-            <option value='Petlya Dvernaya PVH (rangli)'>Petlya Dvernaya PVH (rangli)</option>
-            <option value='Soedinitel A 00018 (21mm)'>Soedinitel A 00018 (21mm)</option>
-            <option value='Soedinitel CL.X.W 14 (18mm)'>Soedinitel CL.X.W 14 (18mm)</option>
-            <option value='Soedinitel CL.X.W 14 (8mm)'>Soedinitel CL.X.W 14 (8mm)</option>
-            <option value='Soedinitel CL.X.W 14 (9mm)'>Soedinitel CL.X.W 14 (9mm)</option>
-            <option value='Soedinitel WDT 67 J 02 (44mm)'>Soedinitel WDT 67 J 02 (44mm)</option>
-            <option value='Soedinitel CL.X.W 34 (25.6mm)'>Soedinitel CL.X.W 34 (25.6mm)</option>
-            <option value='Soedinitel CL.X.W 14 (12.5mm)'>Soedinitel CL.X.W 14 (12.5mm)</option>
-            <option value='Petlya Dvernaya 3SK MASTER (rangli)'>Petlya Dvernaya 3SK MASTER (rangli)</option>
-            <option value='Klipsa 13mm JP'>Klipsa 13mm JP</option>
-            <option value='Zaglushka (PVCC 031) (rangli)'>Zaglushka (PVCC 031) (rangli)</option>
-            <option value='Zaglushka (PVCC 032) (rangli)'>Zaglushka (PVCC 032) (rangli)</option>
-            <option value='Soedinitel CL.X.W 20 (25.8mm)'>Soedinitel CL.X.W 20 (25.8mm)</option>
-            <option value='Krishka Podokonnik 350 (Ovolniy) (rangli)'>Krishka Podokonnik 350 (Ovolniy) (rangli)</option>
-            <option value='Soedinitel CL.X.W 34 (17,7mm)'>Soedinitel CL.X.W 34 (17,7mm)</option>
-            <option value='Soedinitel CL.X.W 34 (10mm)'>Soedinitel CL.X.W 34 (10mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (1000) mm (rangli)'>Ruchka dvernaya "BELLA" (1000) mm (rangli)</option>
-            <option value='Petlya dvernaya Jocker (rangli)'>Petlya dvernaya Jocker (rangli)</option>
-            <option value='Soedinitel CL.X.W 34 (6mm)'>Soedinitel CL.X.W 34 (6mm)</option>
-            <option value='Soedinitel CL.X.W 10 (5mm)'>Soedinitel CL.X.W 10 (5mm)</option>
-            <option value='Soedinitel CL.X.W 34 (18mm)'>Soedinitel CL.X.W 34 (18mm)</option>
-            <option value='Soedinitel CL.X.W 34 (15,8mm)'>Soedinitel CL.X.W 34 (15,8mm)</option>
-            <option value='Soedinitel A 00018 (25 mm)'>Soedinitel A 00018 (25 mm)</option>
-            <option value='Petlya dvernaya Jocker (oq)'>Petlya dvernaya Jocker (oq)</option>
-            <option value='Ruchka Dvernaya mini (rangli)'>Ruchka Dvernaya mini (rangli)</option>
-            <option value='Ruchka Dvernaya Fornaks (30mm) (rangli)'>Ruchka Dvernaya Fornaks (30mm) (rangli)</option>
-            <option value='Soedinitel WDT 67 J 03 (44mm)'>Soedinitel WDT 67 J 03 (44mm)</option>
-            <option value='Soedinitel 114 D 300 (10mm)'>Soedinitel 114 D 300 (10mm)</option>
-            <option value='Soedinitel 114 D 400 (14mm)'>Soedinitel 114 D 400 (14mm)</option>
-            <option value='Soedinitel CL.X.W 10 (14mm)'>Soedinitel CL.X.W 10 (14mm)</option>
-            <option value='Krishka Podokonnik 300 (Trapetsiya) (rangli)'>Krishka Podokonnik 300 (Trapetsiya) (rangli)</option>
-            <option value='Soedinitel 148х125хх (60mm)'>Soedinitel 148х125хх (60mm)</option>
-            <option value='Soedinitel CL.X.W 16 (10.8mm)'>Soedinitel CL.X.W 16 (10.8mm)</option>
-            <option value='Soedinitel FST 50 JR 001 (30mm)'>Soedinitel FST 50 JR 001 (30mm)</option>
-            <option value='Soedinitel FST 50 G 003 (100 mm)'>Soedinitel FST 50 G 003 (100 mm)</option>
-            <option value='Soedinitel CL.X.W 40 (7.4mm)'>Soedinitel CL.X.W 40 (7.4mm)</option>
-            <option value='Soedinitel 8000'>Soedinitel 8000</option>
-            <option value='Soedinitel CL.X.W 20 (20,7mm)'>Soedinitel CL.X.W 20 (20,7mm)</option>
-            <option value='Soedinitel CL.X.W 20 (20,6mm)'>Soedinitel CL.X.W 20 (20,6mm)</option>
-            <option value='Soedinitel OP.40.J04 L=10mm'>Soedinitel OP.40.J04 L=10mm</option>
-            <option value='Soedinitel CL.X.W 34 (7,4mm)'>Soedinitel CL.X.W 34 (7,4mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (800) mm (rangli)'>Ruchka dvernaya "BELLA" (800) mm (rangli)</option>
-            <option value='Soedinitel CL.X.W 40 (5mm)'>Soedinitel CL.X.W 40 (5mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (2000) mm (oq)'>Ruchka dvernaya "BELLA" (2000) mm (oq)</option>
-            <option value='Ruchka Dvernaya (28mm) Slim fiksator (rangli)'>Ruchka Dvernaya (28mm) Slim fiksator (rangli)</option>
-            <option value='Soedinitel CL.X.W 40 (19mm)'>Soedinitel CL.X.W 40 (19mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (1800) mm (rangli)'>Ruchka dvernaya "BELLA" (1800) mm (rangli)</option>
-            <option value='Soedinitel CLSW 16'>Soedinitel CLSW 16</option>
-            <option value='Soedinitel CL.X.W 40 (18.9mm)'>Soedinitel CL.X.W 40 (18.9mm)</option>
-            <option value='Soedinitel 148х125хх (90mm)'>Soedinitel 148х125хх (90mm)</option>
-            <option value='BKT 70 Soed. List (A10-001)'>BKT 70 Soed. List (A10-001)</option>
-            <option value='Soedinitel CL.X.W 40 (19.6mm)'>Soedinitel CL.X.W 40 (19.6mm)</option>
-            <option value='Soedinitel AKF-106 (44mm)'>Soedinitel AKF-106 (44mm)</option>
-            <option value='Soedinitel AKF-107 (37mm)'>Soedinitel AKF-107 (37mm)</option>
-            <option value='Soedinitel 7000 ECO'>Soedinitel 7000 ECO</option>
-            <option value='Ruchka dvernaya "Comfort" (oq)'>Ruchka dvernaya "Comfort" (oq)</option>
-            <option value='Soedinitel 148х125хх (140mm)'>Soedinitel 148х125хх (140mm)</option>
-            <option value='Soedinitel BKH-010 (38mm)'>Soedinitel BKH-010 (38mm)</option>
-            <option value='Ruchka Dvernaya (28mm) Slim (rangli)'>Ruchka Dvernaya (28mm) Slim (rangli)</option>
-            <option value='Ruchka dvernaya "Comfort" (rangli)'>Ruchka dvernaya "Comfort" (rangli)</option>
-            <option value='Soedinitel BKH-010 (56mm)'>Soedinitel BKH-010 (56mm)</option>
-            <option value='Soedinitel CLSW 12'>Soedinitel CLSW 12</option>
-            <option value='Ruchka dvernaya "BELLA" (1500) mm (rangli)'>Ruchka dvernaya "BELLA" (1500) mm (rangli)</option>
-            <option value='Soedinitel FST 50 G 004 (100 mm)'>Soedinitel FST 50 G 004 (100 mm)</option>
-            <option value='Ruchka Okonnaya PVH (rangli)'>Ruchka Okonnaya PVH (rangli)</option>
-            <option value='Soedinitel 110049 (20mm)'>Soedinitel 110049 (20mm)</option>
-            <option value='Soedinitel 110048 (20mm)'>Soedinitel 110048 (20mm)</option>
-            <option value='Soedinitel CL.X.W 38 (28.7mm)'>Soedinitel CL.X.W 38 (28.7mm)</option>
-            <option value='Soedinitel FST 50 JR 001 (33mm)'>Soedinitel FST 50 JR 001 (33mm)</option>
-            <option value='Soedinitel FST 50 JR 001 (97,5mm)'>Soedinitel FST 50 JR 001 (97,5mm)</option>
-            <option value='Ruchka Dvernaya (28mm) Slim (oq)'>Ruchka Dvernaya (28mm) Slim (oq)</option>
-            <option value='Zaglushka (PVCC 033) (rangli)'>Zaglushka (PVCC 033) (rangli)</option>
-            <option value='Zaglushka (PVCC 036) (rangli)'>Zaglushka (PVCC 036) (rangli)</option>
-            <option value='Soedinitel moskitnoy setki (rangli)'>Soedinitel moskitnoy setki (rangli)</option>
-            <option value='Ruchka dvernaya "BELLA" (700) mm (oq)'>Ruchka dvernaya "BELLA" (700) mm (oq)</option>
-            <option value='Soedinitel CL.X.W 14 (43.5mm)'>Soedinitel CL.X.W 14 (43.5mm)</option>
-            <option value='Soedinitel A 00018 (44mm)'>Soedinitel A 00018 (44mm)</option>
-            <option value='Ruchka Elegant (oq)'>Ruchka Elegant (oq)</option>
-            <option value='Krishka Shtulp Dlya Adap 6000 (rangli)'>Krishka Shtulp Dlya Adap 6000 (rangli)</option>
-            <option value='Ruchka Dvernaya Fornaks (30mm) fiksator (rangli)'>Ruchka Dvernaya Fornaks (30mm) fiksator (rangli)</option>
-            <option value='Krishka Shtulp Dlya Adap 8000 (rangli)'>Krishka Shtulp Dlya Adap 8000 (rangli)</option>
-            <option value='Soedinitel CL.X.W 20 (25.6mm)'>Soedinitel CL.X.W 20 (25.6mm)</option>
-            <option value='BKT 70 Soed. W 01 (1=5)'>BKT 70 Soed. W 01 (1=5)</option>
-            <option value='Soedinitel moskitnoy setki (oq)'>Soedinitel moskitnoy setki (oq)</option>
-            <option value='Замок для профиля москитной сетки серии 10х20цветной'>Замок для профиля москитной сетки серии 10х20цветной</option>
-            <option value='Замок для профиля москитной сетки серии 10х20'>Замок для профиля москитной сетки серии 10х20</option>
-            <option value='Soedinitel CLSW 0243'>Soedinitel CLSW 0243</option>
-            <option value='Klipsa 10.5 mm'>Klipsa 10.5 mm</option>
-            <option value='BKT 70 Soed. Impost (J01-26.3mm)'>BKT 70 Soed. Impost (J01-26.3mm)</option>
-            <option value='BKT 70 Soed. Impost (J02-23.6mm)'>BKT 70 Soed. Impost (J02-23.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J06-13.6mm)'>BKT 70 Soed. Impost (J06-13.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J06-23.6mm)'>BKT 70 Soed. Impost (J06-23.6mm)</option>
-            <option value='BKT 70 Soed. W 01 (1=18.4)'>BKT 70 Soed. W 01 (1=18.4)</option>
-            <option value='BKT 70 Soed. W 01 (1=26.3)'>BKT 70 Soed. W 01 (1=26.3)</option>
-            <option value='BKT 70 Soed. W 01 (1=26.8)'>BKT 70 Soed. W 01 (1=26.8)</option>
-            <option value='BKT 70 Soed. W 01 (1=7.8)'>BKT 70 Soed. W 01 (1=7.8)</option>
-            <option value='BKT 78 Soed. (M11227-19.5mm)'>BKT 78 Soed. (M11227-19.5mm)</option>
-            <option value='BKT 70 Soed. W 01 (1=10.8)'>BKT 70 Soed. W 01 (1=10.8)</option>
-            <option value='BKT 70 Soed. W 02 (1=10.8)'>BKT 70 Soed. W 02 (1=10.8)</option>
-            <option value='BKT 70 Soed. W 02 (1=23.6)'>BKT 70 Soed. W 02 (1=23.6)</option>
-            <option value='BKT 70 Soed. W 03 (1=7.8)'>BKT 70 Soed. W 03 (1=7.8)</option>
-            <option value='BKT 70 Soed. W 03 (1=10.8)'>BKT 70 Soed. W 03 (1=10.8)</option>
-            <option value='BKT 70 Soed. (M11535-7.8mm)'>BKT 70 Soed. (M11535-7.8mm)</option>
-            <option value='BKT 70 Soed. Impost (J01-13.6mm)'>BKT 70 Soed. Impost (J01-13.6mm)</option>
-            <option value='BKT 70 Soed. W 02 (1=18.4)'>BKT 70 Soed. W 02 (1=18.4)</option>
-            <option value='BKT 70 Soed. (M11055-13.6mm)'>BKT 70 Soed. (M11055-13.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J01-43.6mm)'>BKT 70 Soed. Impost (J01-43.6mm)</option>
-            <option value='BKT 70 Soed. Impost (J05-43.6mm)'>BKT 70 Soed. Impost (J05-43.6mm)</option>
-            <option value='BKT 78 Soed. (M11227-22.7mm)'>BKT 78 Soed. (M11227-22.7mm)</option>
-            <option value='Chit-Chit (aldocks).uz (oq)'>Chit-Chit (aldocks).uz (oq)</option>
-            <option value='Klipsa 12 mm'>Klipsa 12 mm</option>
-            <option value='BKT 70 Soed. Impost (J05-23.6mm)'>BKT 70 Soed. Impost (J05-23.6mm)</option>
-            <option value='Ogranichitel (oq)'>Ogranichitel (oq)</option>
-            <option value='Otvetniy Plast. (rangli)'>Otvetniy Plast. (rangli)</option>
-            <option value='Otvetniy Plast. (oq)'>Otvetniy Plast. (oq)</option>
-            <option value='Petlya Dvernaya Alyumin (oq)'>Petlya Dvernaya Alyumin (oq)</option>
-            <option value='Ruchka Kvadrat (oq)'>Ruchka Kvadrat (oq)</option>
-            <option value='Soedinitel 114 D 300 (13mm)'>Soedinitel 114 D 300 (13mm)</option>
-            <option value='Soedinitel 114 D 300 (6mm)'>Soedinitel 114 D 300 (6mm)</option>
-            <option value='Soedinitel 114 D 400 (38mm)'>Soedinitel 114 D 400 (38mm)</option>
-            <option value='Soedinitel 114 D 400 (46mm)'>Soedinitel 114 D 400 (46mm)</option>
-            <option value='Soedinitel BKH-001 (6mm)'>Soedinitel BKH-001 (6mm)</option>
-            <option value='Soedinitel BKH-002 (38mm)'>Soedinitel BKH-002 (38mm)</option>
-            <option value='Soedinitel (Inja)'>Soedinitel (Inja)</option>
-            <option value='Zashyolka Narujnyaya (new) (oq)'>Zashyolka Narujnyaya (new) (oq)</option>
-            <option value='Soedinitel (Bolshoy)'>Soedinitel (Bolshoy)</option>
-            <option value='Otvetniy Plast. (ALD-2) (rangli)'>Otvetniy Plast. (ALD-2) (rangli)</option>
-            <option value='Otvetniy Plast. (ALD-2) (oq)'>Otvetniy Plast. (ALD-2) (oq)</option>
-            <option value='BKT 70 Soed. List (A10-002)'>BKT 70 Soed. List (A10-002)</option>
-            <option value='Montajnaya Planka 7000 (Metal)'>Montajnaya Planka 7000 (Metal)</option>
-            <option value='Petlya (oq)'>Petlya (oq)</option>
-            <option value='BKT 78 Soed. (M11227-26.9mm)'>BKT 78 Soed. (M11227-26.9mm)</option>
-            <option value='Ruchka LUX Fortuna Mini O (oq)'>Ruchka LUX Fortuna Mini O (oq)</option>
-            <option value='BKT 70 Soed. List (A10-003)'>BKT 70 Soed. List (A10-003)</option>
-            <option value='Otvetnaya chast zamka A0275-K (155) (oq)'>Otvetnaya chast zamka A0275-K (155) (oq)</option>
-            <option value='Soedinitel 114 D 400 (10mm)'>Soedinitel 114 D 400 (10mm)</option>
-            <option value='Soedinitel 5505 (35mm)'>Soedinitel 5505 (35mm)</option>
-            <option value='Soedinitel BKH-008 (14mm)'>Soedinitel BKH-008 (14mm)</option>
-            <option value='Soedinitel BKH-008 (15mm)'>Soedinitel BKH-008 (15mm)</option>
-            <option value='Soedinitel BKH-010 (6mm)'>Soedinitel BKH-010 (6mm)</option>
-            <option value='Krishka Podokonnik 300 (Trapetsiya) (oq)'>Krishka Podokonnik 300 (Trapetsiya) (oq)</option>
-            <option value='Ogranichitel PVH (oq)'>Ogranichitel PVH (oq)</option>
-            <option value='Petlya 75 mm (oq)'>Petlya 75 mm (oq)</option>
-            <option value='Petlya Dvernaya PVH (oq)'>Petlya Dvernaya PVH (oq)</option>
-            <option value='Porog Soedinitel 6000 (1kom.) (L;P) (rangli)'>Porog Soedinitel 6000 (1kom.) (L;P) (rangli)</option>
-            <option value='Porog Soedinitel 7000 (1kom.) (L;P) (oq)'>Porog Soedinitel 7000 (1kom.) (L;P) (oq)</option>
-            <option value='Krishka Shtulp Dlya Adap 6000 (oq)'>Krishka Shtulp Dlya Adap 6000 (oq)</option>
-            <option value='Krishka Podokonnik 300 (oq)'>Krishka Podokonnik 300 (oq)</option>
-            <option value='Ruchka Dvernaya Fornaks (35mm) fiksator (oq)'>Ruchka Dvernaya Fornaks (35mm) fiksator (oq)</option>
-            <option value='BKT 70 Soed. (M11535-22mm)'>BKT 70 Soed. (M11535-22mm)</option>
-            <option value='Ruchka DELFIN (oq)'>Ruchka DELFIN (oq)</option>
-            <option value='Zatsepka 5200'>Zatsepka 5200</option>
-            <option value='Zatsepka 7000'>Zatsepka 7000</option>
-            <option value='Zatsepka 6000'>Zatsepka 6000</option>
-            <option value='Ruchka Okonaya Roto (oq)'>Ruchka Okonaya Roto (oq)</option>
-            <option value='Ruchka Okonnaya PVH (oq)'>Ruchka Okonnaya PVH (oq)</option>
-            <option value='Soedinitel 5200'>Soedinitel 5200</option>
-            <option value='Soedinitel 6000 (TRIO)'>Soedinitel 6000 (TRIO)</option>
-            <option value='Soedinitel 7000'>Soedinitel 7000</option>
-            <option value='Ruchka Dvernaya Fornaks (35mm) (oq)'>Ruchka Dvernaya Fornaks (35mm) (oq)</option>
-            <option value='Soedinitel 5800'>Soedinitel 5800</option>
-            <option value='Soedinitel CL.X.W 38 (5.5 mm)'>Soedinitel CL.X.W 38 (5.5 mm)</option>
-            <option value='Petlya Dvernaya 2SK MASTER (oq)'>Petlya Dvernaya 2SK MASTER (oq)</option>
-            <option value='Soedinitel A 00018 (37mm)'>Soedinitel A 00018 (37mm)</option>
-            <option value='Soedinitel CL.X.W 14 (40mm)'>Soedinitel CL.X.W 14 (40mm)</option>
-            <option value='Ruchka Okonaya Rotto Swing (oq)'>Ruchka Okonaya Rotto Swing (oq)</option>
-            <option value='BKT 70 Soed. Impost (J03-23.6mm)'>BKT 70 Soed. Impost (J03-23.6mm)</option>
-            <option value='Ruchka Okonaya Rotto Swing (rangli)'>Ruchka Okonaya Rotto Swing (rangli)</option>
-            <option value='Soedinitel CL.X.W 10 (27mm)'>Soedinitel CL.X.W 10 (27mm)</option>
-            <option value='Soedinitel A 00018 (9mm)'>Soedinitel A 00018 (9mm)</option>
-            <option value='Soedinitel A 00018 (25.8mm)'>Soedinitel A 00018 (25.8mm)</option>
-            <option value='Soedinitel A 00018 (18mm)'>Soedinitel A 00018 (18mm)</option>
-            <option value='Soedinitel CL.X.W 38 (5mm)'>Soedinitel CL.X.W 38 (5mm)</option>
-            <option value='Soedinitel CL.X.W 28 (9mm)'>Soedinitel CL.X.W 28 (9mm)</option>
-            <option value='Soedinitel CL.X.W 28 (25.8mm)'>Soedinitel CL.X.W 28 (25.8mm)</option>
-            <option value='Soedinitel CL.X.W 28 (18mm)'>Soedinitel CL.X.W 28 (18mm)</option>
-            <option value='Soedinitel CL.X.W 24 (5mm)'>Soedinitel CL.X.W 24 (5mm)</option>
-            <option value='Soedinitel CL.X.W 38 (5.8mm)'>Soedinitel CL.X.W 38 (5.8mm)</option>
-            <option value='Soedinitel CL.X.W 38 (6.8mm)'>Soedinitel CL.X.W 38 (6.8mm)</option>
-            <option value='Soedinitel CL.X.W 14 (22.5mm)'>Soedinitel CL.X.W 14 (22.5mm)</option>
-            <option value='Soedinitel CL.X.W 34 (34.3mm)'>Soedinitel CL.X.W 34 (34.3mm)</option>
-            <option value='BKT 70 Soed. Impost (J01-16mm)'>BKT 70 Soed. Impost (J01-16mm)</option>
-            <option value='Soedinitel CL.X.W 05 (13mm)'>Soedinitel CL.X.W 05 (13mm)</option>
-            <option value='Soedinitel CL.X.W 20 (27mm)'>Soedinitel CL.X.W 20 (27mm)</option>
-            <option value='Soedinitel CL.X.W 20 (18,8mm)'>Soedinitel CL.X.W 20 (18,8mm)</option>
-            <option value='Soedinitel CL.X.W 20 (6mm)'>Soedinitel CL.X.W 20 (6mm)</option>
-            <option value='Soedinitel CL.X.W 34 (18,8mm)'>Soedinitel CL.X.W 34 (18,8mm)</option>
-            <option value='BKT 70 Soed. Impost (J01-23.6mm)'>BKT 70 Soed. Impost (J01-23.6mm)</option>
-            <option value='Ruchka Dvernaya Fornaks (30mm) (oq)'>Ruchka Dvernaya Fornaks (30mm) (oq)</option>
-            <option value='Ruchka Dvernaya mini (oq)'>Ruchka Dvernaya mini (oq)</option>
-            <option value='Ruchka dvernaya "BELLA" (2250) mm (rangli)'>Ruchka dvernaya "BELLA" (2250) mm (rangli)</option>
-            <option value='Otvetka Mini 153 (oq)'>Otvetka Mini 153 (oq)</option>
-            <option value='Soedinitel CL.X.W 14 (6mm)'>Soedinitel CL.X.W 14 (6mm)</option>
-            <option value='Soedinitel CLSW 22'>Soedinitel CLSW 22</option>
-            <option value='Ruchka "Simple" (oq)'>Ruchka "Simple" (oq)</option>
-            <option value='Soedinitel CL.X.W 10 (18,8mm)'>Soedinitel CL.X.W 10 (18,8mm)</option>
-            <option value='Soedinitel CL.X.W 10 (6mm)'>Soedinitel CL.X.W 10 (6mm)</option>
-            <option value='Ruchka "Simple"(rangli)'>Ruchka "Simple"(rangli)</option>
-            <option value='Vstavka (PVCC 005) (rangli)'>Vstavka (PVCC 005) (rangli)</option>
-            <option value='Zaglushka (PVCC 002) (rangli)'>Zaglushka (PVCC 002) (rangli)</option>
-            <option value='Soedinitel (PVCC 022)'>Soedinitel (PVCC 022)</option>
-            <option value='Krishka (PVCC 001) (rangli)'>Krishka (PVCC 001) (rangli)</option>
-            <option value='Termo vstavka (PVCC 003) (rangli)'>Termo vstavka (PVCC 003) (rangli)</option>
-            <option value='Termo vstavka (PVCC 004) (rangli)'>Termo vstavka (PVCC 004) (rangli)</option>
-            <option value='Ruchka Dvernaya Fornaks (30mm) fiksator (oq)'>Ruchka Dvernaya Fornaks (30mm) fiksator (oq)</option>
-            <option value='Soedinitel CL.X.W 10 (17mm)'>Soedinitel CL.X.W 10 (17mm)</option>
-            <option value='Zaglushka (PVCC 035) (rangli)'>Zaglushka (PVCC 035) (rangli)</option>
-            <option value='Ruchka dvernaya "BELLA" (750) mm (rangli)'>Ruchka dvernaya "BELLA" (750) mm (rangli)</option>
-            <option value='Soedinitel CL.X.W 38 (44.4mm)'>Soedinitel CL.X.W 38 (44.4mm)</option>
-            <option value='Soedinitel CL.X.W 16 (44.4mm)'>Soedinitel CL.X.W 16 (44.4mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (500) mm (rangli)'>Ruchka dvernaya "BELLA" (500) mm (rangli)</option>
-            <option value='Krishka Podokonnik 350 (Ovolniy) (oq)'>Krishka Podokonnik 350 (Ovolniy) (oq)</option>
-            <option value='Soedinitel CL.X.W 14 (21.5mm)'>Soedinitel CL.X.W 14 (21.5mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (2350) mm (rangli)'>Ruchka dvernaya "BELLA" (2350) mm (rangli)</option>
-            <option value='Zaglushka (PVCC 034) (rangli)'>Zaglushka (PVCC 034) (rangli)</option>
-            <option value='Ruchka dvernaya "BELLA" (2000) mm (rangli)'>Ruchka dvernaya "BELLA" (2000) mm (rangli)</option>
-            <option value='Soedinitel CL.X.W 34 (28.7mm)'>Soedinitel CL.X.W 34 (28.7mm)</option>
-            <option value='Ruchka dvernaya "BELLA" (1200) mm (rangli)'>Ruchka dvernaya "BELLA" (1200) mm (rangli)</option>
-            <option value='Ruchka Dvernaya (28mm) Slim fiksator (oq)'>Ruchka Dvernaya (28mm) Slim fiksator (oq)</option>
-            <option value='BKT 70 Soed. W 02 (1=25.8)'>BKT 70 Soed. W 02 (1=25.8)</option>
-            <option value='Derjatel i ruchka-koltso dlya moskitnoy setki (rangli)'>Derjatel i ruchka-koltso dlya moskitnoy setki (rangli)</option>
-            <option value='Ручка к конструкции москитной сетки серии 10х20. "AKBULUT" цветной'>Ручка к конструкции москитной сетки серии 10х20. "AKBULUT" цветной</option>
-            <option value='Ручка к конструкции москитной сетки серии 10х20 "AKBULUT"белый'>Ручка к конструкции москитной сетки серии 10х20 "AKBULUT"белый</option>
-            <option value='Ruchka dvernaya "BELLA" (2300) mm (rangli)'>Ruchka dvernaya "BELLA" (2300) mm (rangli)</option>
-            <option value='Takos PVH'>Takos PVH</option>
-            <option value='BKT 70 Soed. W 02 (1=26.3)'>BKT 70 Soed. W 02 (1=26.3)</option>
-            <option value='BKT 70 Soed. W 02 (1=5.1)'>BKT 70 Soed. W 02 (1=5.1)</option>
-            <option value='BKT 70 Soed. W 03 (1=18.4)'>BKT 70 Soed. W 03 (1=18.4)</option>
-            <option value='BKT 70 Soed. W 03 (1=26.3)'>BKT 70 Soed. W 03 (1=26.3)</option>
-            <option value='BKT 70 Soed. W 03 (1=5.1)'>BKT 70 Soed. W 03 (1=5.1)</option>
-            <option value='Derjatel i ruchka-koltso dlya moskitnoy setki (oq)'>Derjatel i ruchka-koltso dlya moskitnoy setki (oq)</option>
-            <option value='BKT 70 Soed. Impost (J03-13.6mm)'>BKT 70 Soed. Impost (J03-13.6mm)</option>
-            <option value='Porog Soedinitel 6000 (1kom.) (L;P) (oq)'>Porog Soedinitel 6000 (1kom.) (L;P) (oq)</option>
-            <option value='Montajnaya Planka 6000 (Metal)'>Montajnaya Planka 6000 (Metal)</option>
-            <option value='BKT 70 Soed. Impost (J05-13.6mm)'>BKT 70 Soed. Impost (J05-13.6mm)</option>
-            <option value='Soedinitel BKH-010 (42mm)'>Soedinitel BKH-010 (42mm)</option>
-            <option value='Ruchka Dvernaya Fornaks (28mm) (oq)'>Ruchka Dvernaya Fornaks (28mm) (oq)</option>
-            <option value='Otvetnaya chast zamka A0275-K (153) (oq)'>Otvetnaya chast zamka A0275-K (153) (oq)</option>
-            <option value='Soedinitel CL.X.W 14 (25.8mm)'>Soedinitel CL.X.W 14 (25.8mm)</option>
-            <option value='Soedinitel 114 D 300 (35mm)'>Soedinitel 114 D 300 (35mm)</option>
-            <option value='Ruchka Dvernaya Fornaks (28mm) fiksator (oq)'>Ruchka Dvernaya Fornaks (28mm) fiksator (oq)</option>
-            <option value='BKT 70 Soed. (M11535-18.4mm)'>BKT 70 Soed. (M11535-18.4mm)</option>
-            <option value='Soedinitel CL.X.W 10 (10mm)'>Soedinitel CL.X.W 10 (10mm)</option>
-            <option value='Soedinitel CL.X.W 20 (20mm)'>Soedinitel CL.X.W 20 (20mm)</option>
-            <option value='EPDM L-65 угловой соединитель для уплотнителей'>EPDM L-65 угловой соединитель для уплотнителей</option>
-            <option value='EPDM заглушка для штульпа "Чемпион"'>EPDM заглушка для штульпа "Чемпион"</option>
-            <option value='EPDM адаптер крышка для Термо 78'>EPDM адаптер крышка для Термо 78</option>
-            <option value='EPDM А01 105 угловой соединитель для уплотнителей'>EPDM А01 105 угловой соединитель для уплотнителей</option>
-            <option value='EPDM ССЕР 0057 адаптер крышка'>EPDM ССЕР 0057 адаптер крышка</option>
-            <option value='EPDM ССЕР 0058 адаптер крышка'>EPDM ССЕР 0058 адаптер крышка</option>
-            <option value='EPDM D 017500 Decor Zaglushka'>EPDM D 017500 Decor Zaglushka</option>
-            <option value='EPDM адаптер крышка для Термо 70 (BKT-70)'>EPDM адаптер крышка для Термо 70 (BKT-70)</option>
-            <option value='EPDM крышка для штульпа АК-40'>EPDM крышка для штульпа АК-40</option>
-            <option value='EPDM адаптер крышка 012'>EPDM адаптер крышка 012</option>
-            <option value='EPDM epdc 004 дренажный носик'>EPDM epdc 004 дренажный носик</option>
-            <option value='EPDM 5108 угловой соединитель для уплотнителей'>EPDM 5108 угловой соединитель для уплотнителей</option>
-            <option value='Термоуплотненный окрашенный алюминиевый профиль'>Термоуплотненный окрашенный алюминиевый профиль</option>
-            <option value='Неокрашенный алюминиевый профиль (N)'>Неокрашенный алюминиевый профиль (N)</option>
-            <option value='Алюминиевый профиль (N)'>Алюминиевый профиль (N)</option>
-            <option value='EPDM уплотнитель'>EPDM уплотнитель</option>
-            <option value='Анодированный алюминиевый профиль (N)'>Анодированный алюминиевый профиль (N)</option>
-            <option value='Термоуплотненный алюминиевый профиль (N)'>Термоуплотненный алюминиевый профиль (N)</option>
-            <option value='Мебельный профиль из алюминия анодированный матовое серебро (N)'>Мебельный профиль из алюминия анодированный матовое серебро (N)</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' required>
-            <option  selected></option>
-            <option  value="Штука">Штука</div>
-            <option  value="Килограмм">Килограмм</div>
-            <option  value="Квадратный метр">Квадратный метр</div>
-            <option  value="Метр">Метр</div>
-            <option  value="КМП">КМП</div>
-            <option  value="Пачка">Пачка</div>
-            <option  value="Секция">Секция</div>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option vlaue="Штука">Штука</div>
-            <option vlaue="Килограмм">Килограмм</div>
-            <option vlaue="Квадратный метр">Квадратный метр</div>
-            <option vlaue="Метр">Метр</div>
-            <option vlaue="КМП">КМП</div>
-            <option vlaue="Пачка">Пачка</div>
-            <option vlaue="Секция">Секция</div>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`'  required>
-            <option  selected></option>
-            <option vlaue="Штука">Штука</div>
-            <option vlaue="Килограмм">Килограмм</div>
-            <option vlaue="Квадратный метр">Квадратный метр</div>
-            <option vlaue="Метр">Метр</div>
-            <option vlaue="КМП">КМП</div>
-            <option vlaue="Пачка">Пачка</div>
-            <option vlaue="Секция">Секция</div>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;" id='stoimost_baza`+String(i)+`'  ></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none" id='stoimost_alter`+String(i)+`'  ></input>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-            <option  selected></option>
-            <option value="Активный">Активный</option>
-            <option value="Пассивный">Пассивный</option>
-        </select>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;" id='zavod_name`+String(i)+`'></span>
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        
-        </div>
-    </td>
-    <td >
-        <div class="input-group input-group-sm mb-1">
-        
-        </div>
-    </td>
-    </tr>`
-    }
-
-
+    text = front_piece(start = sizeee+1, end = sizeee+2)
 
     
     var table = $('#table-artikul')
     table.append(text)
+    
+    
+
+    request_piece(start = sizeee+1, end = sizeee+2)
 
 
-
-
-    for (let i = sizeee + 1; i < sizeee+2; i++) {
-        $('#artikul'+String(i)).select2({
-            ajax: {
-                url: "/client/imzo-artikul-list",
-                dataType: 'json',
-                processResults: function(data){
-                    return {results: $.map(data, function(item){
-                        return {id:item.id,text:item.artikul,system:item.system,combination:item.combination,code_nakleyka:item.code_nakleyka}
-                    })
-                };
-                }
-            }
-            });
-        
-        
-        
-        var artikulSelect = $('#artikul'+String(i));
-        $.ajax({
-            type: 'GET',
-            url: "/client/imzo-artikul-list"
-        }).then(function (data) {
-            var option = new Option(data.artikul, data.id, true, true);
-            artikulSelect.append(option).trigger('change');
-        
-            artikulSelect.trigger({
-                type: 'select2:select',
-                params: {
-                    data: data
-                }
-            });
-        });
-        
-        
-        $("#artikul"+String(i)).on("select2:select", function (e) { 
-        var select_val = $(e.currentTarget).val();
-        console.log(select_val)
-        var nazvaniye_system =$('.nazvaniye_system'+String(i));
-        var combination = $('#combination'+String(i));
-        var tip_pokritiya = $('#tip_pokritiya'+String(i));
-        // tip_pokritiya.val('').change();
-        console.log(tip_pokritiya)
-        if(select_val!=''){
-
-            tip_pokritiya.attr("disabled",false);
-            
-        }
-        nazvaniye_system.text(e.params.data.system);
-        combination.text(e.params.data.combination)
-
-        var nakleyka_kode = e.params.data.code_nakleyka
-        
-        
-        
-        
-        
-        var nakleyka_nt1 = $('#nakleyka_nt'+String(i))
-        var nakleyka_org =$('#nakleyka_org'+String(i));
-        var nakleyka_select = $('#nakleyka_select'+String(i));
-
-        var length = $('#length'+String(i));
-        length.attr('required',true)
-        var splav = $('#splav'+String(i));
-        splav.attr('required',true)
-        var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(i));
-        tip_zakalyonnosti.attr('required',true)
-
-        nakleyka_org.text("")
-        if (nakleyka_kode =='NT1'){
-            nakleyka_nt1.css('display','block')
-            nakleyka_org.css('display','none')
-            nakleyka_select.css('display','none')
-        }
-        else if( nakleyka_kode !=''){
-            nakleyka_org.text(nakleyka_kode)
-            nakleyka_nt1.css('display','none')
-            nakleyka_org.css('display','block')
-            nakleyka_select.css('display','none')
-        }        
-        else{
-            nakleyka_nt1.css('display','none')
-            nakleyka_org.css('display','none')
-            nakleyka_select.css('display','block')
-            nakleyka_select.attr('required',true)
-            get_nakleyka(String(i))
-        }
-        
-        
-        
-        // console.log(e.params.data.system)
-        });
-
-    }
-    // clear_artikul(sizeee + 1);
 }
 
 

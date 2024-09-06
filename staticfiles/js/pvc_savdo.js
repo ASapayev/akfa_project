@@ -4,6 +4,7 @@ class BasePokritiya{
         full = false,//done
         nazvaniye_system = NaN,//done
         camera = NaN,//done
+        
         base_artikul = NaN,//done
         kod_k_component = NaN,//done
         tip_pokritiya = NaN,//done
@@ -13,12 +14,15 @@ class BasePokritiya{
         kod_lam_sn = NaN,//done
         svet_lamplonka_vnutri = NaN,//done
         kod_lam_vn = NaN,//done
+       
         kod_svet_rezini = NaN,//done
         svet_rezin = NaN,//done
         kod_nakleyki = NaN,//done
+        
         nadpis_nakleyki = NaN,//done
         gruppa_materialov = NaN,//done
         kratkiy_tekst = NaN,//done
+        
         sap_code = NaN,//done
         krat = NaN,//done
         comment = NaN,//done
@@ -45,6 +49,7 @@ class BasePokritiya{
         artikul = NaN,//done
 
         is_iklyuch = false,//done
+        is_special = false,//done
         is_active = false
         ) {
             this.id = id;//done 
@@ -92,13 +97,13 @@ class BasePokritiya{
             this.artikul = artikul;//done
     
             this.is_iklyuch = is_iklyuch;//done
+            this.is_special = is_special;//done
             this.is_active = is_active;
     }
     get_kratkiy_tekst(){
         switch(this.id){
             case 1: if(this.is_iklyuch){
                 if(this.dlina && this.kod_svet_zames && this.kod_nakleyki){
-        
                     if(this.is_active){
                         if (this.online_id && this.nazvaniye_ruchnoy){
         
@@ -110,7 +115,7 @@ class BasePokritiya{
                         }
                         
                     }else{
-                        
+                        console.log(this.tip_clenta , this.sena_bez_nds , this.sena_c_nds , this.pickupdate , this.nazvaniye_ruchnoy , this.svet_product , this.group_zakup , this.group , this.tip , this.bazoviy_edin , this.status_online)
                         if (this.tip_clenta && this.sena_bez_nds && this.sena_c_nds && this.pickupdate && this.nazvaniye_ruchnoy && this.svet_product && this.group_zakup && this.group && this.tip && this.bazoviy_edin && this.status_online){
                             
                             
@@ -126,7 +131,7 @@ class BasePokritiya{
                 }
     
                 }else{
-        
+                    
                     if(this.kod_svet_rezini && this.dlina && this.kod_svet_zames && this.kod_nakleyki){
             
                         if(this.is_active){
@@ -214,23 +219,17 @@ function front_piece(start=1,end=6){
 
     for (let i = start; i < end; i++) {
         text +=`
-        <tr id='table_tr` +String(i)+`' >                   
-        <td >
-            <div class="input-group input-group-sm mb-1">
-                
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-three-dots-vertical"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li style='cursor:pointer;font-size:14px' id='create_btn`+String(i)+`'><a class="dropdown-item" onclick="create(`+String(i)+`)" ><i class="bi bi-plus-circle mr-2"></i>Создание</a></li>
-                        <li style='cursor:pointer;font-size:14px' id='activate_btn`+String(i)+`'><a class="dropdown-item" onclick="activate(`+String(i)+`)" > <i class="bi bi-award-fill mr-2"></i>Активация</a></li>
-                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="copy_tr(`+String(i)+`)"   ><i class="bi bi-clipboard mr-2"></i>Дублировать</a></li>
-                        <li style='cursor:pointer;font-size:14px'><a class="dropdown-item" onclick="artukil_clear(`+String(i)+`)"  id='clear_btn`+String(i)+`' ><i class="bi bi-x-circle mr-2"></i>Очистить</a></li>
-                    </ul>
-                </div>
+        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>                   
+         <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><i class="bi bi-x-circle"></i></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='create_btn`+String(i)+`' onclick="create(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi' style='font-size:16px; width:34px'>С</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' style='font-size:16px;width:34px'>А</button>
+                    </div>
                     
-            </div>
+                    
+
         </td>
         <td style='display:none;'>
             <div class="input-group input-group-sm mb-1" style='width:150px;'>
@@ -242,13 +241,14 @@ function front_piece(start=1,end=6){
                 <b><span id='camera` +String(i)+`'style="text-transform: uppercase; font-size:12px;padding-left:5px"></span></b>
             </div>
         </td>
-        <td >
+        <td class="sticky-col" style=' left: 139.6px;background-color:white!important' >
             <div class="input-group input-group-sm mb-1">
-                <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " disabled id="artikul`+String(i)+`" onchange='clear_artikul(`+String(i)+`)'></select>
+                <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 140px; font-size:10px " disabled id="artikul`+String(i)+`" ></select>
             </div>
             <span style='display:none' id='artikul_pvc` +String(i)+`'></span>
             <span style='display:none' id='iskyucheniye` +String(i)+`'></span>
             <span style='display:none' id='is_special` +String(i)+`'></span>
+            <span style='display:none' id='nakleyka_nt1` +String(i)+`'></span>
         </td>
         
         
@@ -259,7 +259,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
+                <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;height:27px!important;z-index:0" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
                     <option  selected ></option>
                     <option value="1" >Неламинированный</option>
                     <option value="2" >Ламинированный</option>
@@ -269,7 +269,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 70px;">
         
-            <select class="form-select" aria-label="" style="width: 70px;"  disabled id='kod_svet_zames`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <select class="form-select" aria-label="" style="width: 70px;height:27px!important;z-index:0"  disabled id='kod_svet_zames`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
                 <option  value="" selected ></option>
                 <option value="F8" >F8</option>
                 <option value="PE" >PE</option>
@@ -287,13 +287,13 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type="text" class="form-control " style='width:50px' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`" maxlength="4" >
+                <input type="text" class="form-control " style='width:50px;height:27px!important;z-index:0' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`" maxlength="4" >
             </div>
         </td>
 
         <td >
             <div class="input-group input-group-sm mb-1">    
-            <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
+            <select class="form-select" aria-label="" style="width: 220px;height:27px!important;z-index:0" onchange="svet_lamplonka_snaruji_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_snaruji`+String(i)+`'>
                 <option  value="" selected></option>
                 <option value="0027">Золотой дуб IW</option>
                 <option value="0300">Дуб мокко IW</option>
@@ -355,13 +355,13 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;" id ='code_lamplonka_snaruji` +String(i)+`'></span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;z-index:0" id ='code_lamplonka_snaruji` +String(i)+`'></span>
                 </div>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 220px;" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
+                <select class="form-select" aria-label="" style="width: 220px;height:27px!important;z-index:0" onchange="svet_lamplonka_vnutri_selected(`+String(i)+`,this.value)" disabled id='svet_lamplonka_vnutri`+String(i)+`'>
                     <option  value="" selected></option>
                     <option value="0027">Золотой дуб IW</option>
                     <option value="0300">Дуб мокко IW</option>
@@ -422,13 +422,13 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%" id='code_lamplonka_vnutri`+String(i)+`'></span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;z-index:0" id='code_lamplonka_vnutri`+String(i)+`'></span>
                 </div>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 60px;">
-            <select class="form-select" aria-label="" style="width: 50px;border-color:red;display:none"   id='kod_svet_rezini`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
+            <select class="form-select" aria-label="" style="width: 50px;border-color:red;display:none;height:27px!important;z-index:0"   id='kod_svet_rezini`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
                 <option  value="" selected ></option>
                 <option value="Чёрная резина" >BR</option>
                 <option value="Серая резина" >GR</option>
@@ -437,84 +437,84 @@ function front_piece(start=1,end=6){
             </div>
         </td>
         <td >
-            <div class="input-group input-group-sm mb-1">
+            <div class="input-group input-group-sm mb-1" id='svet_text`+String(i)+`'>
                 
-                    <span class =' text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;" id='svet_rezin`+String(i)+`'></span>
+                    <span class =' text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;z-index:0" id='svet_rezin`+String(i)+`'></span>
                 
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
             <div id='nakleyka_select`+String(i)+`' class='nak_select`+String(i)+`' style='display:none;'>
-                <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%' onchange="create_kratkiy_tekst(`+String(i)+`)"></select>
+                <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%;height:27px!important;z-index:0' onchange="create_kratkiy_tekst(`+String(i)+`)" data-placeholder="..."></select>
             </div>
             </div>
         </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
+         <td  style='width:100px'>
+            <div class="input-group input-group-sm mb-1" style='width:100%'>
                 
-                    <span class ='text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;padding:5px" id='nadpis_nakleyki`+String(i)+`'></span>
+                    <span class ='text-center ' style="width:100px;font-size:12px;  text-transform: uppercase;padding:5px;z-index:0" id='nadpis_nakleyki`+String(i)+`'></span>
                 
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" >PVCGP</span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;z-index:0" >PVCGP</span>
                 </div>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
+            <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='kratkiy_tekst`+String(i)+`'></span>
             </div>
         </td>
 
         <td >
             <div class="input-group input-group-sm mb-1">
         
-            <input type='text' class=" form-control " style=" width: 150px; font-size:10px; display:none; height:32px" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 150px; font-size:10px; height:27px!important;z-index:0;" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         
             </div>
         </td> 
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 250px; font-size:10px; display:none; height:32px"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 250px; font-size:10px; height:27px!important;z-index:0;"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1">
-        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;display:none;height:32px" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+        <textarea   rows='1' class=" form-control " style="width: 220px; font-size:10px;height:27px!important;z-index:0;" id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
         </div>
         </td>
         <td >
-            <input  style='display:none;border-color:red; line-height:15px' type="date" class="form-control" id="pickupdate`+String(i)+`" onchange='create_kratkiy_tekst(`+String(i)+`)'>      
+            <input  style='display:none;border-color:red; line-height:15px;height:27px!important;z-index:0' type="date" class="form-control" id="pickupdate`+String(i)+`" onchange='create_kratkiy_tekst(`+String(i)+`)'>      
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; display:none;height:32px" id='sena_c_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; display:none;height:27px!important;z-index:0" id='sena_c_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; display:none; height:32px" id='sena_bez_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; display:none; height:27px!important;z-index:0;" id='sena_bez_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px " id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:27px!important;z-index:0; " id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <textarea   rows='1' class=" form-control " style="border-color:red; width: 220px; font-size:10px; display:none; height:32px" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
+            <textarea   rows='1' class=" form-control " style="border-color:red; width: 220px; font-size:10px; display:none; height:27px!important;z-index:0;" id='nazvaniye_ruchnoy`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></textarea >
             </div>
         </td>
         
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0"  id='svet_product`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  value='' selected></option>
             <option   value="LAM">LAM</option>
             <option   value="WHITE">WHITE</option>
@@ -523,7 +523,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  border-color:red;display:none;height:27px!important;z-index:0" id='group_zakup`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
             <option  selected></option>
             <option value="PVX OQ (Navoiy)">PVX OQ (Navoiy)</option>
             <option value="PVX LAM (Navoiy)">PVX LAM (Navoiy)</option>
@@ -532,7 +532,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1"  >
-            <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+            <select class="form-select" aria-label="" id='group`+String(i)+`' style="width: 240px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0"  id='tipr`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
                 <option  selected></option>
                 <option value="5200 QVT PVC (NAVOIY)">5200 QVT PVC (NAVOIY)</option>
                 <option value="5200 QVT PVC RETPEN (NAVOIY)">5200 QVT PVC RETPEN (NAVOIY)</option>
@@ -574,7 +574,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;"  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0"  id='tip`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)'required>
                 <option  selected></option>
                 <option value="Сырье">Сырье</option>
                 <option value="Готовый продукт">Готовый продукт</option>
@@ -583,7 +583,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='segment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 145px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;height:27px!important;z-index:0" id='segment`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="Aldoks">Aldoks</option>
                 <option value="Стандарт">Стандарт</option>
@@ -602,7 +602,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;" id='buxgalter_tovar`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;height:27px!important;z-index:0" id='buxgalter_tovar`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
                 <option value='Otvetka 153 (oq)'>Otvetka 153 (oq)</option>
@@ -1011,7 +1011,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option  value="Штука">Штука</div>
                 <option  value="Килограмм">Килограмм</div>
@@ -1025,7 +1025,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option vlaue="Штука">Штука</div>
                 <option vlaue="Килограмм">Килограмм</div>
@@ -1039,7 +1039,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none" id='alter_edin`+ String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='alter_edin`+ String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option vlaue="Штука">Штука</div>
                 <option vlaue="Килограмм">Килограмм</div>
@@ -1053,17 +1053,17 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_baza`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:27px!important;z-index:0" id='stoimost_baza`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:32px" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:27px!important;z-index:0;" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="Активный">Активный</option>
                 <option value="Пассивный">Пассивный</option>
@@ -1072,17 +1072,22 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;" id='zavod_name`+String(i)+`'>ZAVOD PVS NAVOIY</span>
+            <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;z-index:0" id='zavod_name`+String(i)+`'>ZAVOD PVS NAVOIY</span>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="width: 75px; font-size:10px;display:none;height:32px " id='diller`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            
+            <select class="form-select" aria-label="" style="width: 75px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='diller`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option value="1">Да</option>
+                <option value="0">Нет</option>
+            </select>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="AKFA">AKFA</option>
                 <option value="IMZO">IMZO</option>
@@ -1120,7 +1125,7 @@ function request_piece(start=1,end=6){
                 dataType: 'json',
                 processResults: function(data){
                     return {results: $.map(data, function(item){
-                        return {id:item.id,text:item.artikul,component:item.component2,system:item.nazvaniye_sistem,camera:item.camera,kod_k_component:item.kod_k_component,iskyucheniye:item.iskyucheniye,is_special:item.is_special}
+                        return {id:item.id,text:item.artikul,component:item.component2,system:item.nazvaniye_sistem,camera:item.camera,kod_k_component:item.kod_k_component,iskyucheniye:item.iskyucheniye,is_special:item.is_special,nakleyka_nt1:item.nakleyka_nt1}
                     })
                 };
                 }
@@ -1155,6 +1160,8 @@ function request_piece(start=1,end=6){
             var iskyucheniye = $('#iskyucheniye'+String(i));
             var tip_pokritiya = $('#tip_pokritiya'+String(i));
             var is_special = $('#is_special'+String(i));
+            var nakleyka_nt1 = $('#nakleyka_nt1'+String(i));
+            var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i));
             tip_pokritiya.attr("disabled",false);
             is_special.text(e.params.data.is_special);
             nazvaniye_system.text(e.params.data.system);
@@ -1162,15 +1169,33 @@ function request_piece(start=1,end=6){
             iskyucheniye.text(e.params.data.iskyucheniye);
             camera.text(e.params.data.camera)
             kod_komponent.text(e.params.data.kod_k_component)
+
+            if(e.params.data.nakleyka_nt1 =='1'){
+                nakleyka_nt1.text('1')
+                set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='NT1')
+                nadpis_nakleyki.text('Без наклейки')
+            }else{
+                nakleyka_nt1.text('')
+                set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='')
+                nadpis_nakleyki.text('')
+            }
             
         
             var nakleyka_select = $('#nakleyka_select'+String(i));
 
             var length = $('#length'+String(i));
             length.attr('required',true)
+
+            
             nakleyka_select.css('display','block')
             nakleyka_select.attr('required',true)
-            get_nakleyka(String(i))
+            
+            
+
+            if(data_base[i]){
+                console.log('command 11')
+                clear_artikul(i)
+            }
             
         });
 
@@ -1180,6 +1205,277 @@ function request_piece(start=1,end=6){
 request_piece()
 
 data_base = {}
+
+
+function copy_tr(id){
+    if(!data_base[id]){
+        console.log('salom2222 copy')
+    }else{
+        
+        text =""
+        var size = $('#table-artikul tr').length;
+        text = front_piece(start = size+1, end = size+2)
+        var table = $('#table_tr'+id)
+        var new_tr =$(text)
+
+        table.after(new_tr)
+        request_piece(start = size+1, end = size+2)
+        
+        var data = new BasePokritiya()
+
+        for(key in data_base[id]){
+            data[key] = data_base[id][key]
+        }
+       
+
+        data_base[size+1] = data
+        
+        var s = size+1
+
+        var id = data.id;
+        var nazvaniye_system = data.nazvaniye_system;
+        var camera = data.camera
+        var base_artikul = data.base_artikul;
+        var kod_k_component = data.kod_k_component
+        var tip_pokritiya = data.tip_pokritiya
+        var kod_svet_zames = data.kod_svet_zames
+        var dlina = data.dlina;
+        var svet_lamplonka_snaruji = data.svet_lamplonka_snaruji;
+        var kod_lam_sn = data.kod_lam_sn;
+        var svet_lamplonka_vnutri = data.svet_lamplonka_vnutri;
+        var kod_lam_vn = data.kod_lam_vn;
+        var kod_svet_rezini = data.kod_svet_rezini
+        var svet_rezin = data.svet_rezin
+        var kod_nakleyki = data.kod_nakleyki;
+        var nadpis_nakleyki = data.nadpis_nakleyki;
+        var kratkiy_tekst = data.kratkiy_tekst;
+        var sap_code_ruchnoy = data.sap_code;
+        var kratkiy_text_ruchnoy = data.krat;
+        var comment = data.comment;
+        var pickupdate = data.pickupdate
+        var sena_c_nds = data.sena_c_nds
+        var sena_bez_nds = data.sena_bez_nds
+        var online_id = data.online_id
+        var nazvaniye_ruchnoy = data.nazvaniye_ruchnoy
+        var svet_product = data.svet_product
+        var group_zakup = data.group_zakup
+        var group = data.group
+        var tip= data.tip
+        var segment = data.segment
+        var buxgalter_tovar = data.buxgalter_tovar
+        var buxgalter_uchot = data.buxgalter_uchot
+        var bazoviy_edin = data.bazoviy_edin
+        var alter_edin = data.alter_edin
+        var stoimost_baza = data.stoimost_baza
+        var stoimost_alter = data.stoimost_alter
+        var status_online = data.status_online
+        var zavod_name = data.zavod_name
+        var diller = data.diller
+        var tip_clenta = data.tip_clenta 
+        var artikul = data.artikul
+        var is_iklyuch = data.is_iklyuch
+        var is_special = data.is_special
+        var is_active = data.is_active
+        
+        var iskyucheniye =$('#iskyucheniye'+id)
+        if(is_iklyuch){
+            iskyucheniye.text('1')
+        }else{
+            iskyucheniye.text('')
+
+        }
+        var is_special_text =$('#is_special'+id)
+        if(is_special){
+            is_special_text.text('1')
+        }else{
+            is_special_text.text('')
+        }
+
+
+        check_text_and_change_simple(artikul,'#artikul_pvc'+s)
+        check_text_and_change_simple(nazvaniye_system,'.nazvaniye_system'+s)
+        check_text_and_change_simple(camera,'#camera'+s)
+        check_text_and_change_simple(kod_k_component,'#kod_komponent'+s)
+         
+        
+      
+        var activate_btn =$('#activate_btn'+s);
+        var create_btn =$('#create_btn'+s);
+        activate_btn.attr('disabled',true)
+        create_btn.attr('disabled',true)
+
+        check_text_and_change(nazvaniye_system,'.nazvaniye_system'+s)
+        check_input_and_change(id,'#tip_pokritiya'+s)
+
+
+        
+        if(id ==2){
+            
+            check_input_and_change(kod_lam_sn,'#svet_lamplonka_snaruji'+s,dis=false,is_req=true)
+            check_text_and_change(kod_lam_sn,'#code_lamplonka_snaruji'+s,dis=false,is_req=true)
+
+            check_input_and_change(kod_lam_vn,'#svet_lamplonka_vnutri'+s,dis=false,is_req=true)
+            check_text_and_change(kod_lam_vn,'#code_lamplonka_vnutri'+s,dis=false,is_req=true)
+
+
+        }
+
+       
+        check_input_and_change(dlina,'#length'+s,dis=false,is_req=true)
+        
+        $('#artikul'+ s).attr('disabled',false)
+        check_for_valid_and_set_val_select(base_artikul,'artikul'+ s,is_req=true)
+        check_input_and_change(kod_svet_zames,'#kod_svet_zames'+s,dis=false,is_req=true)
+
+        if(!is_iklyuch){
+            check_input_and_change(svet_rezin,'#kod_svet_rezini'+s,dis=false,is_req=true)
+            check_text_and_change(svet_rezin,'#svet_rezin'+s)
+        }
+
+        var nakleyka_select = $('#nakleyka_select'+String(s));
+
+       
+        nakleyka_select.css('display','block')
+        nakleyka_select.attr('required',true)
+
+        set_nakleyka(nakleyka_list,'.kod_nakleyki'+s,value=kod_nakleyki)
+        check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
+
+
+       
+        check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
+
+        check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
+        check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s)
+        check_input_and_change(comment,'#comment'+s)
+        
+
+
+       
+        check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s)
+        
+        if(!is_active){
+            create_btn.css('background-color','green')
+            create_btn.css('color','white')
+            check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(sena_c_nds,'#sena_c_nds'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(sena_bez_nds,'#sena_bez_nds'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(svet_product,'#svet_product'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(group_zakup,'#group_zakup'+s,dis=false,is_req=false,is_req_simple=true)
+
+            check_input_and_change(group,'#group'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(tip,'#tip'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(segment,'#segment'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(bazoviy_edin,'#bazoviy_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(stoimost_baza,'#stoimost_baza'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(stoimost_alter,'#stoimost_alter'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(status_online,'#status'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(zavod_name,'#zavod_name'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(diller,'#diller'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(tip_clenta,'#tip_clenta'+s,dis=false,is_req=true,is_req_simple=false)
+            var is_active =$('#is_active'+s)
+            is_active.text('Пассивный')
+
+        }else{
+            
+            activate_btn.css('background-color','orange')
+            activate_btn.css('color','white')
+            check_input_and_change(pickupdate,'#pickupdate'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sena_c_nds,'#sena_c_nds'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(sena_bez_nds,'#sena_bez_nds'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(svet_product,'#svet_product'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(group_zakup,'#group_zakup'+s,dis=false,is_req=false,is_req_simple=true)
+
+            check_input_and_change(group,'#group'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(tip,'#tip'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(segment,'#segment'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(bazoviy_edin,'#bazoviy_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(stoimost_baza,'#stoimost_baza'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(stoimost_alter,'#stoimost_alter'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(status_online,'#status'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(zavod_name,'#zavod_name'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(diller,'#diller'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(tip_clenta,'#tip_clenta'+s,dis=false,is_req=false,is_req_simple=true)
+            
+            var is_active =$('#is_active'+s)
+            is_active.text('Активный')
+        }
+        
+
+        
+        
+    }
+
+
+}
+
+function check_for_valid_and_set_val_select(val,selector,is_req=false){
+    if(is_req){
+        var span = $('#select2-'+selector+'-container')
+        span.css('display','block')
+        span.css('border-color','red')
+
+    }
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        ////// selec2 value change \\\\\\\
+        var span = $('#select2-'+selector+'-container')
+        span.attr('title',val);
+        span.text(val);
+
+        //////end ////////////
+        
+    }
+}
+
+function check_input_and_change(val,selector,dis=false,is_req=false,is_req_simple=false){
+    if(is_req){
+        
+        $(selector).attr('disabled',false)
+        $(selector).css('display','block')
+        $(selector).css('border-color','red')
+
+    }
+    if(is_req_simple){
+        
+        $(selector).attr('disabled',false)
+        $(selector).css('display','block')
+        $(selector).css('border-color','#dedad9')
+
+    }
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        sel.attr('disabled',dis)
+        sel.css('display','block')
+        sel.css('border-color','#dedad9')
+        sel.val(val)
+        // console.log(val,typeof(val),selector)
+    }
+    
+}
+
+function check_text_and_change(val,selector){
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        sel.css('display','block')
+        sel.text(val)
+    }
+}
+function check_text_and_change_simple(val,selector){
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        var sel = $(selector)
+        sel.text(val)
+    }
+}
 
 function add_column(){
         
@@ -1198,25 +1494,7 @@ function add_column(){
 
 
 }
-function get_nakleyka(i){
-    $('.kod_nakleyki'+i).select2({
-        ajax: {
-            url: "/client/nakleyka-list-pvc",
-            dataType: 'json',
-            processResults: function(data){
-                return {results: $.map(data, function(item){
-                    return {id:item.id,text:item.name,nadpis:item.nadpis}
-                })
-            };
-            }
-        }
-        });
-        $(".kod_nakleyki"+String(i)).on("select2:select", function (e) { 
-            var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i));
-            nadpis_nakleyki.text(e.params.data.nadpis);
-            
-            })
-}
+
 
 
 function create(i){
@@ -1238,9 +1516,10 @@ function create(i){
 
     var activate_btn =$('#activate_btn'+i);
     var create_btn =$('#create_btn'+i);
-    activate_btn.css('display','none')
-    create_btn.css('display','none')
-    
+    create_btn.css('background-color','green')
+    create_btn.css('color','white')
+    activate_btn.attr('disabled',true)
+    create_btn.attr('disabled',true)
    
 
 }
@@ -1255,8 +1534,12 @@ function activate(i){
 
     var activate_btn =$('#activate_btn'+i);
     var create_btn =$('#create_btn'+i);
-    activate_btn.css('display','none')
-    create_btn.css('display','none')
+    activate_btn.css('background-color','orange')
+    activate_btn.css('color','white')
+    activate_btn.attr('disabled',true)
+    create_btn.attr('disabled',true)
+
+
     var status_first =$('#status'+i);
     status_first.val('Активный')
 
@@ -1264,15 +1547,66 @@ function activate(i){
     is_active.text('Активный')
     // status_first.attr('disabled',true)
 
+    
 }
 
 
-
-
-
-
-
 function clear_artikul(id){
+    if(data_base[id]){
+
+        var base_artikul =$('#select2-artikul'+id+'-container').text()
+        var nazvaniye_system = $('.nazvaniye_system'+id).text()
+        var camera = $('#camera'+String(id)).text();
+        var kod_komponent = $('#kod_komponent'+String(id)).text();
+        var artikul_pvc = $('#artikul_pvc'+String(id)).text();
+        var iskyucheniye = $('#iskyucheniye'+String(id)).text();
+        var is_special = $('#is_special'+String(id)).text();
+        var kod_svet_rezini = $('#kod_svet_rezini'+id)
+        var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+id)
+        var svet_rezini = $('#svet_text'+String(id));
+        
+        if(iskyucheniye == '1'){
+            svet_rezini.children('span').remove()
+            kod_svet_rezini.val('')
+            data_base[id].svet_rezin = NaN
+            data_base[id].kod_svet_rezini = NaN
+            var iklyuch =true
+            kod_svet_rezini.css('display','none')
+        }else{
+            svet_rezini.append('<span class =" text-center " style="font-size:10px; font-weight: bold; text-transform: uppercase;" id="svet_rezin'+id+'"></span>')
+            kod_svet_rezini.css('display','block')
+            var iklyuch =false
+            
+        }
+
+        if(is_special=='1'){
+            var is_spec =true
+            svet_lamplonka_vnutri.val('XXXX')
+            
+        }else{
+                var is_spec =false
+                svet_lamplonka_vnutri.val('')
+            
+        }
+
+        data_base[id].base_artikul = base_artikul
+        data_base[id].nazvaniye_system = nazvaniye_system
+        data_base[id].camera = camera
+        data_base[id].kod_k_component = kod_komponent
+        data_base[id].artikul = artikul_pvc
+        data_base[id].is_iklyuch = iklyuch
+        data_base[id].is_special = is_spec
+
+
+    }
+   
+//    console.log(data_base[id],'lllllllllllllll')
+   
+    create_kratkiy_tekst(id)
+}
+
+function artukil_clear(id){
+    $('#artikul'+id).val(null).trigger('change');
     var table_tr =$('#table_tr'+id);
     $('.nazvaniye_system'+id).text('');
     var tip_pokritiya = $('#tip_pokritiya'+String(id));
@@ -1297,10 +1631,7 @@ function clear_artikul(id){
     
     kod_svet_rezini.val('')
     kod_svet_rezini.css('display','none')
-       
-    // var select_nakleyka = $('#nakleyka'+String(id));
-    // select_nakleyka.children("span").remove();
-    // select_nakleyka.children("select").remove();
+    
     delete data_base[id]
 
     var kratkiy_tekst = document.getElementById('kratkiy_tekst'+String(id));
@@ -1337,16 +1668,6 @@ function clear_artikul(id){
     svet_lamplonka_vnutri.css("border-color",'#dedad9');
     var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+String(id));
     code_lamplonka_vnutri.text("")
-
-   
-   
-   
-    
-}
-
-function artukil_clear(id){
-    $('#artikul'+id).val(null).trigger('change');
-    clear_artikul(id)
     $('#artikul'+id).attr('disabled',true)
 
     var status_first = $('#status'+String(id))
@@ -1453,10 +1774,13 @@ function artukil_clear(id){
     var create_btn =$('#create_btn'+id);
     var activate_btn =$('#activate_btn'+id);
 
-    activate_btn.css('display','block')
-    create_btn.css('display','block')
+    activate_btn.attr('disabled',false)
+    create_btn.attr('disabled',false)
 
-
+    activate_btn.css('background-color','')
+    activate_btn.css('color','')
+    create_btn.css('background-color','')
+    create_btn.css('color','')
 
 }
 
@@ -1476,6 +1800,7 @@ function tip_pokritiya_selected(id,val){
     
    
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
+    var kod_nakleyki =$('.kod_nakleyki'+id)
     kratkiy_tekst.text("");
 
 
@@ -1504,7 +1829,14 @@ function tip_pokritiya_selected(id,val){
 
     var nakleyka_select = $('#nakleyka_select'+String(id));
     nakleyka_select.css('display','block');
-    get_nakleyka(id)
+    var nakleyka_nt1 = $('#nakleyka_nt1'+String(id));
+    if(nakleyka_nt1.text()==''){
+        set_nakleyka(nakleyka_list,'.kod_nakleyki'+id,value='')
+        nadpis_nakleyki.text('')
+    }else{
+        set_nakleyka(nakleyka_list,'.kod_nakleyki'+id,value='NT1')
+        nadpis_nakleyki.text('Без наклейки')
+    }
 
     
     var is_active = $('#is_active'+String(id))
@@ -1535,8 +1867,7 @@ function tip_pokritiya_selected(id,val){
         diller.css('display','block')
         tip_clenta.css('display','block')
 
-        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-        spanss.style.borderColor='red';
+        kod_nakleyki.css('border-color','red')
         
         if(iskyucheniye =='1'){
             data_base[id].is_iklyuch=true
@@ -1561,8 +1892,7 @@ function tip_pokritiya_selected(id,val){
         var kod_svet_zames = $('#kod_svet_zames'+String(id));
         kod_svet_zames.attr("disabled",false);
         kod_svet_zames.css("border-color",'#fc2003');
-        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-        spanss.style.borderColor='red';
+        kod_nakleyki.css('border-color','red')
 
         var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
         kod_svet_rezini.val('')
@@ -1608,7 +1938,7 @@ function tip_pokritiya_selected(id,val){
         data_base[id].camera = camera;
         data_base[id].kod_k_component = kod_komponent;
     }
-
+    console.log(is_active.text(),'lllllll')
 
     if(is_active.text()=='Активный' && String(val) != ''){
         
@@ -1691,7 +2021,8 @@ function tip_pokritiya_selected(id,val){
         sena_bez_nds.css('border-color','#dedad9')
 
     }else if(is_active.text()=='Пассивный' && String(val) != ''){
-       
+        
+        data_base[id].is_active = false
         var svet_product =$('#svet_product'+id);
         var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
         var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
@@ -1758,11 +2089,8 @@ function tip_pokritiya_selected(id,val){
         tip_clenta.css('border-color','#dedad9')
 
     }
-    
     create_kratkiy_tekst(id);
 }
-
-
 
 function svet_lamplonka_snaruji_selected(id,val){
     var code_lamplonka_snaruji = $('#code_lamplonka_snaruji'+String(id));
@@ -1789,7 +2117,6 @@ var zapros_count =[]
 
 
 function create_kratkiy_tekst(id){
-    
     if(!data_base[id]){
         console.log('salom')
     }else{
@@ -1797,9 +2124,16 @@ function create_kratkiy_tekst(id){
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
     var combination= $('#combination'+String(id));
     combination_text = combination.text();
+    var comment= $('#comment'+String(id));
+    comment = comment.val();
     var val = $('#tip_pokritiya'+String(id)).val();
     var dlina = $('#length'+String(id));
 
+    if(comment!=''){
+        data_base[id].comment = comment;
+    }else{
+        data_base[id].comment = NaN;
+    }
    
     if(dlina.val()!=''){
         dlina.css("border-color",'#dedad9');
@@ -1860,57 +2194,21 @@ function create_kratkiy_tekst(id){
     }
 
 
+    var value_nak = $('.kod_nakleyki'+String(id))
+    var nadpis_nakleyki = $('#nadpis_nakleyki'+String(id));
     
-
-    if(String(val) == '1'){
-       
-       var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
+    if(value_nak.val() !=''){
+        value_nak.css('border-color','#dedad9');
+        data_base[id].kod_nakleyki = value_nak.val();
+        data_base[id].nadpis_nakleyki = nadpis_nakleyki.text();
         
-        const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
-        const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-    
-        if(spanTextbox.innerText !=''){
-            var nadpis_nakleyki = $('#nadpis_nakleyki'+id)
-            spanss.style.borderColor='#dedad9';
-            // nakleyka_select.style.borderBlockColor='#dedad9'
-            data_base[id].kod_nakleyki = spanTextbox.innerText;
-            data_base[id].nadpis_nakleyki = nadpis_nakleyki.text();
-            
-        }else{
-            // spanss.style.borderColor='red';
-            // nakleyka_select.style.borderBlockColor='red'
-            data_base[id].nadpis_nakleyki = NaN;
-            data_base[id].kod_nakleyki = NaN
-
-        }
-
-       
+    }else{
+        value_nak.css('border-color','red');
+        data_base[id].kod_nakleyki = NaN
+        data_base[id].nadpis_nakleyki = NaN;
     }
-    else if(String(val) == '2'){
-       
 
-
-       var nakleyka_select = document.getElementById('nakleyka_select'+String(id))
-       const spanTextbox = nakleyka_select.querySelector('span[role="textbox"]');
-       const spanss =document.querySelector('.nak_select' +id+ ' .select2-container .select2-selection--single')
-    
-       if(spanTextbox.innerText !=''){
-            var nadpis_nakleyki = $('#nadpis_nakleyki'+id)
-            spanss.style.borderColor='#dedad9';
-            // nakleyka_select.style.borderBlockColor='#dedad9'
-            data_base[id].kod_nakleyki = spanTextbox.innerText;
-            data_base[id].nadpis_nakleyki = nadpis_nakleyki.text();
-        
-        }else{
-            spanss.style.borderColor='red';
-            data_base[id].kod_nakleyki = NaN
-            data_base[id].nadpis_nakleyki = NaN;
-            // nakleyka_select.style.borderBlockColor='red'
-
-        }
-
-        
-            
+    if(String(val) == '2'){     
         var code_lamplonka_snaruji = document.getElementById('code_lamplonka_snaruji'+String(id))//.innerText;
         
         if(code_lamplonka_snaruji.innerText !=''){
@@ -2261,6 +2559,7 @@ function create_kratkiy_tekst(id){
 
 
     var data = data_base[id].get_kratkiy_tekst()
+    
 
     if(data.accept){
         var table_tr =$('#table_tr'+id);
@@ -2281,8 +2580,10 @@ function create_kratkiy_tekst(id){
             sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text)
             zapros_count.push(art_krat)
         }
+        data_base[id].kratkiy_tekst= data.text
     } 
 
+  
     kratkiy_tekst.text(data.text)
 
     }

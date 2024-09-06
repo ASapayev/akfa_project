@@ -1,8 +1,8 @@
 
 {%load static %}
-<main>
+<main >
     <!-- <div class="container"> -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -11,10 +11,10 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                  <a class="nav-link" href="{%url 'client_index'%}">Home</a>
+                  <a class="nav-link" href="{%url 'client_index'%}"><i class="bi bi-house-fill"></i> Главное</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="{%url 'client_order_list'%}">Orders</a>
+                  <a class="nav-link active" href="{%url 'client_order_list'%}"><i class="bi bi-cart-check-fill"></i> Заявки</a>
                 </li>
               </ul>
               {%if 'order-list' in request.path %}
@@ -30,7 +30,7 @@
                       <li class="nav-item dropdown " style="list-style: none;">
                           <a href="#top" class="navbar-icon bi-person smoothscroll" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false"></a>
                           <div class="dropdown-menu  navbar-dropdown preview-list" aria-labelledby="profileDropdown">
-                              <h6 class="p-3 mb-0">Profile</h6>
+                              <h6 class="p-3 mb-0"><i class="bi bi-person-bounding-box"></i> Profile</h6>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item preview-item">
                                   <div class="preview-thumbnail">
@@ -39,7 +39,7 @@
                                   </div>
                                   </div>
                                   <div class="preview-item-content">
-                                  <p style="font-size: 12px;" class="preview-subject mb-1">Settings</p>
+                                  <p style="font-size: 12px;" class="preview-subject mb-1"><i class="bi bi-gear-fill"></i> Settings</p>
                                   </div>
                               </a>
                               <div class="dropdown-divider"></div>
@@ -50,7 +50,7 @@
                                   </div>
                                   </div>
                                   <div class="preview-item-content">
-                                  <p  style="font-size: 12px;" class="preview-subject mb-1">Log out</p>
+                                  <p  style="font-size: 12px;" class="preview-subject mb-1"><i class="bi bi-box-arrow-right"></i> Log out</p>
                                   </div>
                               </a>
                               

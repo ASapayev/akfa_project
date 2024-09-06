@@ -1,0 +1,115 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<style>
+    .page-link, .jsgrid .jsgrid-pager .jsgrid-pager-nav-button a, .jsgrid .jsgrid-pager .jsgrid-pager-page a {
+        background-color: white!important;
+    }
+</style>
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> PVC файлы </h3>
+        <nav aria-label="breadcrumb">
+            <form>
+          <ol class="breadcrumb">
+                
+            <li class="breadcrumb-item"> <input type="search" class="form-control" placeholder="Search sapcode" name="search"></li>
+            <li class="p-2" ><button class="btn btn-info " type="submit">Search</button></li>
+        
+            <li class=" active" aria-current="page">
+              
+              <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-success"><a href="{% url 'create_artikul_pvc' %}" >Создать артикул</a></button>
+                <button type="button" class="btn btn-secondary"><a href="{% url 'download_all_artikles_pvc' %}"  >Скачать артикул</a></button>
+              </div>
+            </li>
+        </ol>
+         </form>
+        </nav>
+      </div>
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Загруженные файлы</h4>
+
+            
+
+            <div class="table-responsive">
+              <table class="table table-light">
+                <thead>
+                  <tr>
+                    <th> # </th>
+                    <th > Артикул </th>
+                    <th > Компонент</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {%for product in products%}
+                    <!-- data ={
+                      'excel_file_path':file.file,
+                      'zip_file_path':zip_path,
+                      'created_at':file.created_at
+                  
+                    } -->
+                          <tr>
+                            <td> {{ forloop.counter }} </td>
+                            
+                            <td >{{product.0}}</td>
+                            <td >{{product.1}}</td>
+                            
+                           
+                          </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+              <div class="container">
+                <div class="d-flex justify-content-between">
+                    <div class="pagination p-2">
+                      <span class="step-links">
+                        <ul class="pagination"  >
+                            {% if products.has_previous %}
+                            <li class="page-item" style="background-color: white"><a class="page-link"   href="?page={{ products.previous_page_number }}{%if search%}&search={{search}}{%endif%}">Previous</a></li>
+                                {% if products.number > 3 %}
+                                    <li class="page-item" ><a class="page-link" href="?page=1{%if search%}&search={{search}}{%endif%}">1</a></li>
+                                    {% if products.number > 4 %}
+                                    <li class="page-item" > <span >...</span></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+            
+                            {% for num in products.paginator.page_range %}
+                                {% if products.number == num %}
+                                    <li class="page-item"><a class="page-link"   href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                                {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                                    <li class="page-item"><a class="page-link"   href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+            
+                            {% if products.has_next %}
+                                {% if products.number < products.paginator.num_pages|add:'-3' %}
+                                <li class="page-item"   > <span >...</span></li>
+                                <li class="page-item"><a class="page-link"    href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                                {% elif products.number < products.paginator.num_pages|add:'-2' %}
+                                <li class="page-item"><a class="page-link"   href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                                {% endif %}
+                                
+                                <li class="page-item"><a class="page-link"   href="?page={{ products.next_page_number }}{%if search%}&search={{search}}{%endif%}">Next Page »</a></li>
+                               
+                            {% endif %}
+                          </ul>
+                      </span>
+                    </div>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+   
+  </div>
+ 
+{% endblock %}

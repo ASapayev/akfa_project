@@ -1,14 +1,13 @@
 import os
-from .models import Characteristika
 from order.models import OrderPVX
 import pandas as pd
 from datetime import datetime
 from config.settings import MEDIA_ROOT
-from .models import ArtikulKomponentPVC,AbreviaturaLamination,CameraPvc,LengthOfProfilePVC,DliniyText,PVCProduct
+from .models import ArtikulKomponentPVC,AbreviaturaLamination,CameraPvc,LengthOfProfilePVC,DliniyText,PVCProduct,RazlovkaPVX,Characteristika
 from .BAZA import *
 import numpy as np
 import zipfile
-
+from django.db.models import Q
 
 
 def check_for_correct(items):
@@ -322,7 +321,7 @@ def characteristika_created_txt_create(datas,order_id):
         umumiy_without_duplicate1203[44].append(SFSPF1203[sap_code_simvol])
         umumiy_without_duplicate1203[45].append('X')
         umumiy_without_duplicate1203[46].append(LGPRO1203[sap_code_simvol])
-        umumiy_without_duplicate1203[47].append('')
+        umumiy_without_duplicate1203[47].append('X')
         umumiy_without_duplicate1203[48].append(row['combination'] + row['Тип покрытия'])
             
         if gruppa_material=='PVCGP':
@@ -1131,6 +1130,48 @@ def zip(src, dst):
             arcname = absname[len(abs_src) + 1:]
             zf.write(absname, arcname)
     zf.close()
+
+
+def get_ozmka(ozmk):
+    sap_code_yoqlari =[]
+    sap_exists =[]
+    pvc_razlovka =[]
+
+    for ozm in ozmk:
+        sap_code =ozm
+        sap_code_exists =False
+        if RazlovkaPVX.objects.filter(
+            Q(esapkode =ozm)
+            |Q(lsapkode =ozm)
+            |Q(sapkode7 =ozm)
+            ).exists():
+            razlovkaobichniy =RazlovkaPVX.objects.filter(
+                    Q(esapkode =ozm)
+                |Q(lsapkode =ozm)
+                |Q(sapkode7 =ozm)
+                # )[:1].values_list()
+                )[:1].values_list('esapkode','ekrat','lsapkode','lkrat','sapkode7','krat7')
+            sap_code_exists=True
+            if list(razlovkaobichniy)[0] not in pvc_razlovka:
+                pvc_razlovka+=list(razlovkaobichniy)
+        
+        if not sap_code_exists:
+            sap_code_yoqlari.append(sap_code)
+
+    print(pvc_razlovka,'#'*100)
+    obichniy_razlovka1101 =[ raz for raz in pvc_razlovka]
+   
+
+    df_obichniy_1101 = pd.DataFrame(obichniy_razlovka1101,columns=['SAP код E','Экструзия холодная резка','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_yoqlari_1101 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
+    now =datetime.now()
+    minut =now.strftime('%M-%S')
+    path1101 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1301-{minut}.xlsx'
+    writer = pd.ExcelWriter(path1101, engine='xlsxwriter')
+    df_obichniy_1101.to_excel(writer,index=False,sheet_name='PVC')
+    df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')
+    writer.close()
+    return [path1101,''],[df_obichniy_1101,df_yoqlari_1101]
 
 
 

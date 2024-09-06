@@ -971,7 +971,8 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
 
     for key , row in datas.iterrows():
         sap_code = row['SAP код S4P 100'].split('-')[0]
-        bazaprofiley = AluProfilesData.objects.filter(Q(data__Артикул =sap_code)|Q(data__Компонент=sap_code))[:1].get()  
+        bazaprofiley = AluProfilesData.objects.filter(Q(data__Артикул =sap_code)|Q(data__Компонент=sap_code))[:1].get()
+        print(bazaprofiley)  
         baza_profile_links[0].append(row['SAP код S4P 100'])
         baza_profile_links[1].append(bazaprofiley.data['Ссылка для чертежей'])
 
@@ -2971,7 +2972,7 @@ def create_characteristika_utils(items):
         'ch_surface_treatment_export': df[51],
         'ch_artikul_old': df[52],
         'nazvaniye_export':df[53],
-        'online_savdo_name' :df[49],
+        'online_savdo_name' :df[54],
     }
     df_new = pd.DataFrame(dat)
     
@@ -3152,7 +3153,7 @@ def characteristika_created_txt_create_1301(datas):
     ########################## end 1.txt ##############################
 
     ########################## 2.txt ##############################
-    header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tUEETK\tSBDKZ\tSOBSL'
+    header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tUEETK\tSBDKZ\tSOBSL\tAUTO_P_ORD\tAUSME'
     
    
     d2={}
@@ -3195,11 +3196,14 @@ def characteristika_created_txt_create_1301(datas):
     d2['EKALR']=umumiy_without_duplicate1201[41]
     d2['HKMAT']=umumiy_without_duplicate1201[42]
     d2['LOSGR']=umumiy_without_duplicate1201[38]
-    d2['SFCPF']=umumiy_without_duplicate1201[46]
+    d2['SFCPF']=['1301LM' for x in umumiy_without_duplicate1201[48]]
     
     d2['UEETK']=umumiy_without_duplicate1201[45]
     d2['SBDKZ']=umumiy_without_duplicate1201[47]
     d2['SOBSL']=umumiy_without_duplicate1201[48]
+    d2['AUTO_P_ORD']=['X' for x in umumiy_without_duplicate1201[48]]
+    d2['AUSME']=['M' for x in umumiy_without_duplicate1201[48]]
+    
     # d2['RAUBE']=umumiy_without_duplicate[50]
 
    
@@ -3858,7 +3862,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                     buxgalterskiy_naz[4].append('RU')
                     buxgalterskiy_naz[5].append('0001')
                     buxgalterskiy_naz[6].append('')
-                    buxgalterskiy_naz[7].append(row['export_description'])
+                    buxgalterskiy_naz[7].append(row['ch_export_description'])
                 
                     buxgalterskiy_naz[0].append('2')
                     buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
@@ -3867,7 +3871,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                     buxgalterskiy_naz[4].append('EN')
                     buxgalterskiy_naz[5].append('0001')
                     buxgalterskiy_naz[6].append('')
-                    buxgalterskiy_naz[7].append(row['export_description_eng'])
+                    buxgalterskiy_naz[7].append(row['ch_export_description_eng'])
         
                 
         
@@ -4453,6 +4457,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     
     df_bug_text= pd.DataFrame(buxgalterskiy_t)
     
+    print(df_bug_text,'bug')
     np.savetxt(pathtext8, df_bug_text.values,fmt='%s', delimiter="\t",header=header_buxgalter,comments='',encoding='ansi')
     
     
@@ -4663,7 +4668,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                         ladgr.append(umumiy_without_duplicate[50][j])
                 else:
                     ladgr.append('0001')
-
+            elif '-Z' in sap_code:
+                ladgr.append('11S1')
             else:
                 ladgr.append('0001')
             j += 1
@@ -4715,7 +4721,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 new_ll[0].append(row['SAP код S4P 100'])
                 new_ll[1].append(LGORT_1101['Z'][i]['zavod_code'])
                 new_ll[2].append(LGORT_1101['Z'][i]['zavod_sap'])
-                new_ll[3].append('')
+                new_ll[3].append('S1')
         if sap_code_simvol =='P':
             for i in range(0,len(LGORT_1101['P'])):
                 new_ll[0].append(row['SAP код S4P 100'])
@@ -5112,7 +5118,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Длинный текс.txt'
-        # pathtextsavdo =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Длинный текс савдо.txt'
+        pathtextsavdo =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Длинный текс савдо.txt'
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО'
@@ -5136,7 +5142,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         pathtext5 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Единицы изм.txt'
         pathtext6 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Лист в C 3.xlsx'
         pathtext7 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Длинный текс.txt'
-        # pathtextsavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Длинный текс савдо.txt'
+        pathtextsavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Длинный текс савдо.txt'
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ'
@@ -5296,7 +5302,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                     buxgalterskiy_naz[4].append('RU')
                     buxgalterskiy_naz[5].append('0001')
                     buxgalterskiy_naz[6].append('')
-                    buxgalterskiy_naz[7].append(row['export_description'])
+                    buxgalterskiy_naz[7].append(row['ch_export_description'])
                 
                     buxgalterskiy_naz[0].append('2')
                     buxgalterskiy_naz[1].append(row['SAP код S4P 100'])
@@ -5305,7 +5311,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                     buxgalterskiy_naz[4].append('EN')
                     buxgalterskiy_naz[5].append('0001')
                     buxgalterskiy_naz[6].append('')
-                    buxgalterskiy_naz[7].append(row['export_description_eng'])
+                    buxgalterskiy_naz[7].append(row['ch_export_description_eng'])
                 
         
         
@@ -5376,7 +5382,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
             umumiy_without_duplicate1203[44].append(SFSPF1203[sap_code_simvol])
             umumiy_without_duplicate1203[45].append('X')
             umumiy_without_duplicate1203[46].append(LGPRO1203[sap_code_simvol])
-            umumiy_without_duplicate1203[47].append('')
+            umumiy_without_duplicate1203[47].append('X')
             umumiy_without_duplicate1203[48].append(row['ch_combination'] + row['Тип покрытия'])
             
         if gruppa_material=='ALUGP':
@@ -5776,7 +5782,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         umumiy_without_duplicate1201[44].append(SFSPF1201[sap_code_simvol])
         umumiy_without_duplicate1201[45].append('X')
         umumiy_without_duplicate1201[46].append(LGPRO1201[sap_code_simvol])
-        umumiy_without_duplicate1201[47].append('')
+        umumiy_without_duplicate1201[47].append('X')
         umumiy_without_duplicate1201[48].append(row['ch_combination'] + row['Тип покрытия'])
     
     umumiy_without_duplicate =[[] for i in range(0,49)]
@@ -6716,7 +6722,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         d4['MATNR']=new_ll[0]
         d4['WERKS']=new_ll[1]
         d4['LGORT']=new_ll[2]
-        d4['RAUBE']=['' for x in new_ll[2]]
+        d4['RAUBE']=['' for x in new_ll[0]]
         df4= pd.DataFrame(d4)
         np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################

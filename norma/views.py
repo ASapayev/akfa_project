@@ -84,7 +84,7 @@ def vi_generate(request,id):
     df_merge1['Спецификация'] =df_new['MAST']['Спецификация']
     df_merge1['Материал'] =df_new['MAST']['Материал']
     df = pd.merge(df_merge1,df_new['STKO'],   how='inner',left_on=['Спецификация'],right_on=['Спецификация'])
-    df['MATNR ALT'] =df['Материал'] +df['АльтернСпецификация']
+    df['MATNR ALT'] = df['Материал'] + df['АльтернСпецификация']
     # df_new['STKO'].merge(df_new['MAST'],on='Спецификация', how='inner')
 
     df_text_alt = pd.DataFrame()
@@ -215,7 +215,7 @@ def vi_generate(request,id):
     return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1','user_accessuar','only_razlovka','razlovka'])
+@allowed_users(allowed_roles=['admin','moderator','user1','user_accessuar','only_razlovka','razlovka','radiator'])
 def download(request):
   file_path = request.GET.get('file_path',None)
   if file_path:

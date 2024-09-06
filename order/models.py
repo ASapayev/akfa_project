@@ -40,6 +40,8 @@ class Order(models.Model):
     vi_worker = models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True,related_name='vi_work')
     paths = models.JSONField(null=True,blank=True,default=dict)
     order_type = models.SmallIntegerField(choices=ORDER_TYPE_CHOICES,default=1)
+    order_name = models.CharField(max_length=50,blank=True,null=True)
+    client_order_id =models.CharField(max_length=50,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
 
@@ -73,5 +75,7 @@ class OrderPVX(models.Model):
     pvc_wrongs = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='pvc_work_wrong')
     paths = models.JSONField(null=True,blank=True,default=dict)
     order_type = models.SmallIntegerField(choices=ORDER_TYPE_CHOICES_PVC,default=1)
+    order_name = models.CharField(max_length=50,blank=True,null=True)
+    client_order_id = models.CharField(max_length=50,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)

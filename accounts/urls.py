@@ -19,6 +19,6 @@ urlpatterns = [
     # path('reset_password_validate/<uidb64>/<token>/',views.reset_password_validate,name='reset_password_validate'),
     # path('reset_password/',views.reset_password,name='reset_password'),
 
-   
+#    path('add-user',views.add_user,name='add_user')
     
 ]

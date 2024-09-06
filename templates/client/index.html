@@ -1,283 +1,1636 @@
-{% extends 'client/base.html'%}
-{%load static%}
-{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static 'assets/css/bootstrap.min.css'%}" rel="stylesheet">
 
-
-
-            <section class="explore-section section-padding" id="section_2">
-                <div class="container">
-
-                        <div class="col-12 text-center">
-                            <h3 class="mb-4">Шаблон для заявки </h3>
+    <link href="{% static 'assets/css/bootstrap-icons.css'%}" rel="stylesheet">
+   
+</head>
+<body>
+    <div class="container-fluid" >
+        <div class="div">
+            <div class="div-2">
+            <div class="div-3">
+                <div class="div-4">
+                    <a href="/">
+                        <img
+                            loading="lazy"
+                            src="{% static 'assets/images/logo2.png' %}"
+                            class="img"
+                        />
+                    </a>
+                <div class="div-5"><a href="{%url 'client_index' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);"><i class="bi bi-house-fill"></i> Главное</a></div>
+                <div class="div-5"><a href="{%url 'client_order_list' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);"><i class="bi bi-cart-check-fill"></i> Заявки </a></div>
+                </div>
+                <div class="div-6">
+                  <ul id="profileDropdown" >
+                    <li class="nav-item dropdown " id="profil_li" style="list-style: none;">
+                        <a href="#top" class=" smoothscroll"  href="#" data-toggle="dropdown" aria-expanded="false">
+                          <img
+                              loading="lazy"
+                              src="{% static 'assets/images/figma/human.svg' %}"
+                              class="img-2"
+                          /> 
+                        </a>
+                        
+                        <div class="dropdown-menu  navbar-dropdown preview-list pt-2 " id="profil_div" aria-labelledby="profileDropdown">
+                            <h6 class="p-3 mb-0"><i class="bi bi-person-bounding-box"></i> Profile</h6>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-settings text-success"></i>
+                                </div>
+                                </div>
+                                <div class="preview-item-content">
+                                <p style="font-size: 12px;" class="preview-subject mb-1"><i class="bi bi-gear-fill"></i> Settings</p>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item preview-item" href="/accounts/logout/">
+                                <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-logout text-danger"></i>
+                                </div>
+                                </div>
+                                <div class="preview-item-content">
+                                <p  style="font-size: 12px;" class="preview-subject mb-1"><i class="bi bi-box-arrow-right"></i> Log out</p>
+                                </div>
+                            </a>
+                            
                         </div>
-
+                    </li>
+                  </ul>
+                    <div class="div-7">
+                        <div class="div-8">
+                        <div class="div-9">
+                          {{request.user}}
+                          
+                        </div>
+                        </div>
+                        <div class="div-10">Клиент</div>
                     </div>
+                           
                 </div>
-
-                <div class="container-fluid">
-                    <div class="row">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="design-tab" data-bs-toggle="tab" data-bs-target="#design-tab-pane" type="button" role="tab" aria-controls="design-tab-pane" aria-selected="true">Алюминиевый профиль</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="marketing-tab" data-bs-toggle="tab" data-bs-target="#marketing-tab-pane" type="button" role="tab" aria-controls="marketing-tab-pane" aria-selected="false">ПВХ профиль</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="finance-tab" data-bs-toggle="tab" data-bs-target="#finance-tab-pane" type="button" role="tab" aria-controls="finance-tab-pane" aria-selected="false">Аксессуары , строительные материалы</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="music-tab" data-bs-toggle="tab" data-bs-target="#music-tab-pane" type="button" role="tab" aria-controls="music-tab-pane" aria-selected="false">АКП</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education-tab-pane" type="button" role="tab" aria-controls="education-tab-pane" aria-selected="false">Прочие ТМЦ, запчасти, услуги</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="biznes-tab" data-bs-toggle="tab" data-bs-target="#biznes-tab-pane" type="button" role="tab" aria-controls="biznes-tab-pane" aria-selected="false">Бизнес-партнер (БП)</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="container">
-                    <div class="row">
-
-                        <div class="col-12 mt-2">
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel" aria-labelledby="design-tab" tabindex="0">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="{% url 'shablon_imzo_detail' %}">
-                                                    <div class="d-flex">
-                                                       
-                                                            <h6 class="mb-2">Шаблон для Имзо от 17.11 </h6>
-                                                        
-                                                    </div>
-
-                                                    <img src="{% static 'assets/images/topics/undraw_Remote_design_team_re_urdx.png'%}" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="{%url 'shablon_savdo_detail' %}">
-                                                    <div class="d-flex">
-                                                        <h6 class="mb-2">Шаблон для Савдо 17.11</h6>
-                                                    </div>
-
-                                                    <img src="{% static 'assets/images/topics/undraw_Redesign_feedback_re_jvm0.png'%}" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-12">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="{%url 'shablon_export_detail' %}">
-                                                    <div class="d-flex">
-                                                        <h6 class="mb-2">Шаблон для Экспорт / Akfa Project 17.11 </h6>
-                                                    </div>
-
-                                                    <img src="{% static 'assets/images/topics/colleagues-working-cozy-office-medium-shot.png'%}" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+            </div>
+            </div>
+            <div class="div-11">Шаблоны для заявки</div>
+            <div class="div-12">
+            <div class="div-13">
+                <div class="div-14 active_menu menu" onclick="menu_change(this,'alumin')">Алюминиевый профиль</div>
+                <div class="div-15 menu" style="cursor: pointer!important;;" onclick="menu_change(this,'pvc')">ПВХ профиль</div>
+                <div class="div-16 menu" onclick="menu_change(this,'acs_uz')">Аксессуары UZ</div>
+                <div class="div-17 menu" onclick="menu_change(this,'acs_import')">Аксессуары Import</div>
+                <div class="div-18 menu" onclick="menu_change(this,'akp')">АКП</div>
+                <div class="div-19 menu" onclick="menu_change(this,'radiator')">Секционные радиаторы</div>
+            </div>
+            <div class="div-20">
+                <div class="div-21 menu" onclick="menu_change(this,'prochiye')">Прочие товары вне SAP</div>
+                <div class="div-22 menu" onclick="menu_change(this,'prochiye_tms')">Прочие тмц , запчасти , услуги</div>
+                <div class="div-23 menu" onclick="menu_change(this,'bussines_partner')">Бизнес партнер (БП)</div>
+                <div class="div-23 menu" onclick="menu_change(this,'acs_tex')">Акс UZ технопарк</div>
+                <div class="div-23 menu" onclick="menu_change(this,'change_dat')">Изм. дан</div>
+            </div>
+            </div>
+            <div class="div-24">
+            <div class="div-25" id="alumin">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="column" style="width: 100%;">
+                          <a href="{%url 'shablon_savdo_detail' %}"  style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-26">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/a1.jpg'%}"
+                                class="img-4 custom-img"
+                                />
+                                <div class="div-27 card-title">Савдо</div>
+                                <div class="div-28">
+                                <div class="div-29">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-5"
+                                    />
+                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
                                 </div>
-
-                                <div class="tab-pane fade" id="marketing-tab-pane" role="tabpanel" aria-labelledby="marketing-tab" tabindex="0">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
-                                                <div class="custom-block bg-white shadow-lg">
-                                                    <a href="{% url 'shablon_pvc_export_detail' %}">
-                                                        <div class="d-flex">
-                                                            <div>
-                                                                <h5 class="mb-2">➡️ Шаблон для Имзо от 15.09</h5>
-
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                            </div>
-
-                                                            <span class="badge bg-advertising rounded-pill ms-auto">30</span>
-                                                        </div>
-
-                                                        <img src="{%static 'assets/images/topics/undraw_online_ad_re_ol62.png'%}" class="custom-block-image img-fluid" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
-                                                <div class="custom-block bg-white shadow-lg">
-                                                    <a href="{% url 'shablon_pvc_savdo_detail' %}">
-                                                        <div class="d-flex">
-                                                            <div>
-                                                                <h5 class="mb-2">➡️ Шаблон для Савдо от 15.11</h5>
-
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                            </div>
-
-                                                            <span class="badge bg-advertising rounded-pill ms-auto">65</span>
-                                                        </div>
-
-                                                        <img src="{%static 'assets/images/topics/undraw_Group_video_re_btu7.png'%}" class="custom-block-image img-fluid" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-6 col-12">
-                                                <div class="custom-block bg-white shadow-lg">
-                                                    <a href="{% url 'shablon_pvc_export_savdo_detail' %}">
-                                                        <div class="d-flex">
-                                                            <div>
-                                                                <h5 class="mb-2">➡️ Шаблон для Экспорт от 05.09</h5>
-
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                            </div>
-
-                                                            <span class="badge bg-advertising rounded-pill ms-auto">50</span>
-                                                        </div>
-
-                                                        <img src="{%static 'assets/images/topics/undraw_viral_tweet_gndb.png'%}" class="custom-block-image img-fluid" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                  </div>
-
-                                <div class="tab-pane fade" id="finance-tab-pane" role="tabpanel" aria-labelledby="finance-tab" tabindex="0">   <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-12 mb-4 mb-lg-0">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="{%url 'shablon_acs_imzo_detail'%}">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Imzo</h5>
-
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-finance rounded-pill ms-auto">30</span>
-                                                    </div>
-
-                                                    <img src="{%static 'assets/images/topics/undraw_Finance_re_gnv2.png'%}" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-12 mb-4 mb-lg-0">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="{%url 'shablon_acs_savdo_detail'%}">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Savdo</h5>
-
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-finance rounded-pill ms-auto">30</span>
-                                                    </div>
-
-                                                    <img src="{%static 'assets/images/topics/undraw_Finance_re_gnv2.png'%}" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-12 mb-4 mb-lg-0">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="{%url 'shablon_acs_export_savdo_detail'%}">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Export</h5>
-
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-finance rounded-pill ms-auto">30</span>
-                                                    </div>
-
-                                                    <img src="{%static 'assets/images/topics/undraw_Finance_re_gnv2.png'%}" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                      
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="music-tab-pane" role="tabpanel" aria-labelledby="music-tab" tabindex="0">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-12 mb-4 mb-lg-3">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="{%url 'shablon_akp_savdo_detail' %}">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">АКП</h5>
-
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-music rounded-pill ms-auto">45</span>
-                                                    </div>
-
-                                                    <img src="{%static 'assets/images/topics/undraw_Compose_music_re_wpiw.png'%}" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="education-tab-pane" role="tabpanel" aria-labelledby="education-tab" tabindex="0">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-3">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="topics-detail.html">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Graduation</h5>
-
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-education rounded-pill ms-auto">80</span>
-                                                    </div>
-
-                                                    <img src="{%static 'assets/images/topics/undraw_Graduation_re_gthn.png'%}" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6 col-md-6 col-12">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="topics-detail.html">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Educator</h5>
-
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-education rounded-pill ms-auto">75</span>
-                                                    </div>
-
-                                                    <img src="{%static 'assets/images/topics/undraw_Educator_re_ju47.png'%}" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="div-31">30 ta</div>
                                 </div>
                             </div>
-
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="column-2" style="width: 100%;">
+                          <a href="{% url 'shablon_imzo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/a2.jpg'%}"
+                                class="img-6 custom-img"
+                                />
+                                <div class="div-33 card-title">Imzo</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4"><div class="column-3" style="width: 100%;">
+                      <a href="{% url 'shablon_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                        <div class="div-38">
+                            <img
+                            loading="lazy"
+                            src="{% static 'assets/images/figma/a5.png'%}"
+                            class="img-8 custom-img"
+                            />
+                            <div class="div-39 card-title">Экспорт</div>
+                            <div class="div-40">
+                            <div class="div-41">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/date.svg' %}"
+                                class="img-9"
+                                />
+                                <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                            </div>
+                            <div class="div-43">30 ta</div>
+                            </div>
+                        </div>
+                      </a>
+                        </div>
                     </div>
                 </div>
-            </section>
+                
+                
+                
+            </div>
+            <div class="div-25" id="pvc" style="display: none;">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="column" style="width: 100%;">
+                          <a href="{% url 'shablon_pvc_savdo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-26">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/1.png'%}"
+                                class="img-4 custom-img"
+                                />
+                                <div class="div-27 card-title">Савдо</div>
+                                <div class="div-28">
+                                <div class="div-29">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-5"
+                                    />
+                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-31">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="column-2" style="width: 100%;">
+                          <a href="{% url 'shablon_pvc_imzo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
+                                />
+                                <div class="div-33 card-title">Imzo</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="column-3" style="width: 100%;">
+                        <a href="{% url 'shablon_pvc_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                          <div class="div-38">
+                              <img
+                              loading="lazy"
+                              src="{% static 'assets/images/figma/3.png'%}"
+                              class="img-8 custom-img"
+                              />
+                              <div class="div-39 card-title">Экспорт</div>
+                              <div class="div-40">
+                              <div class="div-41">
+                                  <img
+                                  loading="lazy"
+                                  src="{% static 'assets/images/figma/date.svg' %}"
+                                  class="img-9"
+                                  />
+                                  <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                              </div>
+                              <div class="div-43">30 ta</div>
+                              </div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                </div>
+                
+                
+                
+            </div>
+            <div class="div-25" id="acs_uz" style="display: none;">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="column" style="width: 100%;">
+                          <a href="{% url 'shablon_acs_savdo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-26">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/1.png'%}"
+                                class="img-4 custom-img"
+                                />
+                                <div class="div-27 card-title">Савдо</div>
+                                <div class="div-28">
+                                <div class="div-29">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-5"
+                                    />
+                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-31">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="column-2" style="width: 100%;">
+                          <a href="{% url 'shablon_acs_imzo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
+                                />
+                                <div class="div-33 card-title">Imzo</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="column-3" style="width: 100%;">
+                        <a href="{% url 'shablon_acs_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                          <div class="div-38">
+                              <img
+                              loading="lazy"
+                              src="{% static 'assets/images/figma/3.png'%}"
+                              class="img-8 custom-img"
+                              />
+                              <div class="div-39 card-title">Экспорт</div>
+                              <div class="div-40">
+                              <div class="div-41">
+                                  <img
+                                  loading="lazy"
+                                  src="{% static 'assets/images/figma/date.svg' %}"
+                                  class="img-9"
+                                  />
+                                  <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                              </div>
+                              <div class="div-43">30 ta</div>
+                              </div>
+                          </div>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="column-3" style="width: 100%;">
+                        <a href="{% url 'shablon_acs_zavod_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                          <div class="div-38">
+                              <img
+                              loading="lazy"
+                              src="{% static 'assets/images/figma/a4.jpg'%}"
+                              class="img-8 custom-img"
+                              />
+                              <div class="div-39 card-title">ZAVOD</div>
+                              <div class="div-40">
+                              <div class="div-41">
+                                  <img
+                                  loading="lazy"
+                                  src="{% static 'assets/images/figma/date.svg' %}"
+                                  class="img-9"
+                                  />
+                                  <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                              </div>
+                              <div class="div-43">30 ta</div>
+                              </div>
+                          </div>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+            </div>
+            <div class="div-25" id="acs_import" style="display: none;">
+                <div class="row">
+                    <div class="col-4">
+                        <!-- <div class="column" style="width: 100%;">
+                            <div class="div-26">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/1.png'%}"
+                                class="img-4"
+                                />
+                                <div class="div-27">Савдо</div>
+                                <div class="div-28">
+                                <div class="div-29">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-5"
+                                    />
+                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-31">30 ta</div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-4">
+                        <div class="column-2" style="width: 100%;">
+                          <a href="{% url 'shablon_accessuar_import_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
+                                />
+                                <div class="div-33 card-title">Аксессуар Импорт</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                      <!-- <div class="column-3" style="width: 100%;">
+                        <div class="div-38">
+                            <img
+                            loading="lazy"
+                            src="{% static 'assets/images/figma/3.png'%}"
+                            class="img-8"
+                            />
+                            <div class="div-39">Экспорт</div>
+                            <div class="div-40">
+                            <div class="div-41">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/date.svg' %}"
+                                class="img-9"
+                                />
+                                <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                            </div>
+                            <div class="div-43">30 ta</div>
+                            </div>
+                        </div>
+                      </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="div-25" id="akp" style="display: none;">
+                <div class="row">
+                    <div class="col-4">
+                        <!-- <div class="column" style="width: 100%;">
+                            <div class="div-26">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/1.png'%}"
+                                class="img-4"
+                                />
+                                <div class="div-27">Савдо</div>
+                                <div class="div-28">
+                                <div class="div-29">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-5"
+                                    />
+                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-31">30 ta</div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-4">
+                        <div class="column-2" style="width: 100%;">
+                          <a href="{% url 'shablon_akp_savdo_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
+                                />
+                                <div class="div-33 card-title">АКП</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                      <!-- <div class="column-3" style="width: 100%;">
+                        <div class="div-38">
+                            <img
+                            loading="lazy"
+                            src="{% static 'assets/images/figma/3.png'%}"
+                            class="img-8"
+                            />
+                            <div class="div-39">Экспорт</div>
+                            <div class="div-40">
+                            <div class="div-41">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/date.svg' %}"
+                                class="img-9"
+                                />
+                                <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                            </div>
+                            <div class="div-43">30 ta</div>
+                            </div>
+                        </div>
+                      </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="div-25" id="radiator" style="display: none;">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="column" style="width: 100%;">
+                          <a href="{% url 'shablon_radiator_export_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-26">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/1.png'%}"
+                                class="img-4 custom-img"
+                                />
+                                <div class="div-27 card-title">Радиатор ехпорт</div>
+                                <div class="div-28">
+                                <div class="div-29">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-5"
+                                    />
+                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-31">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="column-2" style="width: 100%;">
+                          <a href="{% url 'shablon_radiator_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
+                                />
+                                <div class="div-33 card-title">Радиатор</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                      <!-- <div class="column-3" style="width: 100%;">
+                        <div class="div-38">
+                            <img
+                            loading="lazy"
+                            src="{% static 'assets/images/figma/3.png'%}"
+                            class="img-8"
+                            />
+                            <div class="div-39">Экспорт</div>
+                            <div class="div-40">
+                            <div class="div-41">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/date.svg' %}"
+                                class="img-9"
+                                />
+                                <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                            </div>
+                            <div class="div-43">30 ta</div>
+                            </div>
+                        </div>
+                      </div> -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="div-25" id="prochiye" style="display: none;">
+                <div class="row">
+                    <div class="col-4">
+                        <!-- <div class="column" style="width: 100%;">
+                            <div class="div-26">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/1.png'%}"
+                                class="img-4"
+                                />
+                                <div class="div-27">Савдо</div>
+                                <div class="div-28">
+                                <div class="div-29">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-5"
+                                    />
+                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-31">30 ta</div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-4">
+                        <div class="column-2" style="width: 100%;">
+                          <a href="{% url 'shablon_prochie_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
+                                />
+                                <div class="div-33 card-title">Прочие</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                      <!-- <div class="column-3" style="width: 100%;">
+                        <div class="div-38">
+                            <img
+                            loading="lazy"
+                            src="{% static 'assets/images/figma/3.png'%}"
+                            class="img-8"
+                            />
+                            <div class="div-39">Экспорт</div>
+                            <div class="div-40">
+                            <div class="div-41">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/date.svg' %}"
+                                class="img-9"
+                                />
+                                <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                            </div>
+                            <div class="div-43">30 ta</div>
+                            </div>
+                        </div>
+                      </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="div-25" id="prochiye_tms" style="display: none;">
+                <div class="row">
+                    <div class="col-4">
+                        <!-- <div class="column" style="width: 100%;">
+                            <div class="div-26">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/1.png'%}"
+                                class="img-4"
+                                />
+                                <div class="div-27">Савдо</div>
+                                <div class="div-28">
+                                <div class="div-29">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-5"
+                                    />
+                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-31">30 ta</div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-4">
+                        <div class="column-2" style="width: 100%;">
+                          <a href="{% url 'shablon_prochie_tms_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
+                                />
+                                <div class="div-33 card-title">Прочие тмц</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                      <!-- <div class="column-3" style="width: 100%;">
+                        <div class="div-38">
+                            <img
+                            loading="lazy"
+                            src="{% static 'assets/images/figma/3.png'%}"
+                            class="img-8"
+                            />
+                            <div class="div-39">Экспорт</div>
+                            <div class="div-40">
+                            <div class="div-41">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/date.svg' %}"
+                                class="img-9"
+                                />
+                                <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                            </div>
+                            <div class="div-43">30 ta</div>
+                            </div>
+                        </div>
+                      </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="div-25" id="bussines_partner" style="display: none;">
+                <div class="row">
+                    <div class="col-4">
+                        <!-- <div class="column" style="width: 100%;">
+                            <div class="div-26">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/1.png'%}"
+                                class="img-4"
+                                />
+                                <div class="div-27">Савдо</div>
+                                <div class="div-28">
+                                <div class="div-29">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-5"
+                                    />
+                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-31">30 ta</div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-4">
+                        <div class="column-2" style="width: 100%;">
+                          <a href="{% url 'bussines_partner' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
+                                />
+                                <div class="div-33 card-title">Бизнес партнер</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                      <!-- <div class="column-3" style="width: 100%;">
+                        <div class="div-38">
+                            <img
+                            loading="lazy"
+                            src="{% static 'assets/images/figma/3.png'%}"
+                            class="img-8"
+                            />
+                            <div class="div-39">Экспорт</div>
+                            <div class="div-40">
+                            <div class="div-41">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/date.svg' %}"
+                                class="img-9"
+                                />
+                                <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                            </div>
+                            <div class="div-43">30 ta</div>
+                            </div>
+                        </div>
+                      </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="div-25" id="acs_tex" style="display: none;">
+                <div class="row">
+                    <div class="col-4">
+                        <!-- <div class="column" style="width: 100%;">
+                            <div class="div-26">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/1.png'%}"
+                                class="img-4"
+                                />
+                                <div class="div-27">Савдо</div>
+                                <div class="div-28">
+                                <div class="div-29">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-5"
+                                    />
+                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-31">30 ta</div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-4">
+                        <div class="column-2" style="width: 100%;">
+                          <a href="{% url 'shablon_acs_texnopark_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
+                                />
+                                <div class="div-33 card-title">Аксессуар Uz</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                      <!-- <div class="column-3" style="width: 100%;">
+                        <div class="div-38">
+                            <img
+                            loading="lazy"
+                            src="{% static 'assets/images/figma/3.png'%}"
+                            class="img-8"
+                            />
+                            <div class="div-39">Экспорт</div>
+                            <div class="div-40">
+                            <div class="div-41">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/date.svg' %}"
+                                class="img-9"
+                                />
+                                <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                            </div>
+                            <div class="div-43">30 ta</div>
+                            </div>
+                        </div>
+                      </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="div-25" id="change_dat" style="display: none;">
+                <div class="row">
+                    <div class="col-4">
+                        <!-- <div class="column" style="width: 100%;">
+                            <div class="div-26">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/1.png'%}"
+                                class="img-4"
+                                />
+                                <div class="div-27">Савдо</div>
+                                <div class="div-28">
+                                <div class="div-29">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-5"
+                                    />
+                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-31">30 ta</div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-4">
+                        <div class="column-2" style="width: 100%;">
+                          <a href="{% url 'shablon_change_data_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                            <div class="div-32">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/2.png'%}"
+                                class="img-6 custom-img"
+                                />
+                                <div class="div-33 card-title">Изменение данных</div>
+                                <div class="div-34">
+                                <div class="div-35">
+                                    <img
+                                    loading="lazy"
+                                    src="{% static 'assets/images/figma/date.svg' %}"
+                                    class="img-7"
+                                    />
+                                    <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                </div>
+                                <div class="div-37">30 ta</div>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                      <!-- <div class="column-3" style="width: 100%;">
+                        <div class="div-38">
+                            <img
+                            loading="lazy"
+                            src="{% static 'assets/images/figma/3.png'%}"
+                            class="img-8"
+                            />
+                            <div class="div-39">Экспорт</div>
+                            <div class="div-40">
+                            <div class="div-41">
+                                <img
+                                loading="lazy"
+                                src="{% static 'assets/images/figma/date.svg' %}"
+                                class="img-9"
+                                />
+                                <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
+                            </div>
+                            <div class="div-43">30 ta</div>
+                            </div>
+                        </div>
+                      </div> -->
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- <div class="div-44 ">
+            <img
+                loading="lazy"
+                src="{% static 'assets/images/figma/4.png'%}"
+                class="img-10"
+            />
+            <div class="div-45">Завод</div>
+            <div class="div-46">
+                <div class="div-47">
+                <img
+                    loading="lazy"
+                    src="{% static 'assets/images/figma/date.svg' %}"
+                    class="img-11"
+                />
+                <div class="div-48">{{ current_date|date:"d.m.Y" }}</div>
+                </div>
+                <div class="div-49">30 ta</div>
+            </div>
+            </div> -->
+        
+        </div>
+    </div>
+      <style>
+        .custom-img {
+              transition: transform 0.3s ease-in-out; /* Smooth zoom effect */
+          }
+
+          .custom-img:hover {
+              transform: scale(1.05); /* Zoom effect on hover */
+          }
+          
+          .card-title:hover {
+               /* Darker text color for the title */
+              font-weight: bold; /* Bold title text */
+              text-decoration: underline!important;
+              color: black;
+          }
+       
+        .menu:hover{
+            cursor: pointer!important;
+            background-color: rgb(83, 203, 254)!important;
+            /* background-color: rgba(83, 109, 254, 1)!important; */
+            color: rgba(255, 255, 255, 1);
+        }
+        .div {
+          background-color: rgba(255, 255, 255, 1);
+          display: flex;
+          padding-bottom: 60px;
+          flex-direction: column;
+          align-items: center;
+        }
+        .div-2 {
+          background-color: rgba(248, 249, 250, 1);
+          border-color: rgba(234, 236, 239, 1);
+          border-bottom-width: 1px;
+          align-self: stretch;
+          display: flex;
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+          padding: 20px 60px;
+        }
+        @media (max-width: 991px) {
+          .div-2 {
+            max-width: 100%;
+            padding: 0 20px;
+          }
+        }
+        .div-3 {
+          display: flex;
+          width: 1180px;
+          max-width: 100%;
+          gap: 20px;
+          justify-content: space-between;
+        }
+        @media (max-width: 991px) {
+          .div-3 {
+            flex-wrap: wrap;
+          }
+        }
+        .div-4 {
+          display: flex;
+          padding-right: 80px;
+          gap: 20px;
+          font-size: 14px;
+          color: rgba(34, 34, 34, 1);
+          font-weight: 500;
+          white-space: nowrap;
+          text-transform: uppercase;
+          margin: auto 0;
+        }
+        @media (max-width: 991px) {
+          .div-4 {
+            white-space: initial;
+          }
+        }
+        .img {
+          aspect-ratio: 3.7;
+          object-fit: auto;
+          object-position: center;
+          width: 124px;
+          max-width: 100%;
+        }
+        .div-5 {
+          font-family: Inter, sans-serif;
+          padding-top: 6px;
+          margin: auto 0;
+        }
+        @media (max-width: 991px) {
+          .div-5 {
+            white-space: initial;
+          }
+        }
+        .div-6 {
+          display: flex;
+          gap: 10px;
+        }
+        .img-2 {
+          aspect-ratio: 1;
+          object-fit: auto;
+          object-position: center;
+          width: 40px;
+        }
+        .div-7 {
+          display: flex;
+          flex-direction: column;
+          margin: auto 0;
+        }
+        .div-8 {
+          display: flex;
+          gap: 4px;
+          font-size: 14px;
+          color: rgba(34, 34, 34, 1);
+          font-weight: 500;
+        }
+        .div-9 {
+          font-family: Inter, sans-serif;
+        }
+        .img-3 {
+          aspect-ratio: 0.57;
+          object-fit: auto;
+          object-position: center;
+          width: 8px;
+          margin: auto 0;
+        }
+        .div-10 {
+          color: rgba(100, 106, 119, 1);
+          margin-top: 4px;
+          font: 400 12px Inter, sans-serif;
+        }
+        .div-11 {
+          color: rgba(34, 34, 34, 1);
+          margin-top: 40px;
+          font: 700 48px Montserrat, sans-serif;
+        }
+        @media (max-width: 991px) {
+          .div-11 {
+            max-width: 100%;
+            font-size: 40px;
+          }
+        }
+        .div-12 {
+          display: flex;
+          margin-top: 30px;
+          width: 1180px;
+          max-width: 100%;
+          flex-direction: column;
+          font-size: 14px;
+          color: rgba(100, 106, 119, 1);
+          font-weight: 400;
+          padding: 0 77px;
+        }
+        @media (max-width: 991px) {
+          .div-12 {
+            padding: 0 20px;
+          }
+        }
+        .div-13 {
+          display: flex;
+          gap: 20px;
+        }
+        @media (max-width: 991px) {
+          .div-13 {
+            flex-wrap: wrap;
+          }
+        }
+        .div-14 {
+          font-family: Inter, sans-serif;
+          border-radius: 8px;
+          background-color: rgba(234, 236, 239, 1);
+          padding: 12px 20px;
+        }
+        .div-15 {
+          font-family: Inter, sans-serif;
+          border-radius: 8px;
+          background-color: rgba(234, 236, 239, 1);
+          padding: 12px 20px;
+        }
+        .div-16 {
+          font-family: Inter, sans-serif;
+          border-radius: 8px;
+          padding: 12px 20px;
+          color: rgba(100, 106, 119, 1);
+          background-color: rgba(234, 236, 239, 1);
+        }
+
+        .active_menu{
+            background-color: rgba(83, 109, 254, 1)!important;
+            color: rgba(255, 255, 255, 1);
+        }
+        .div-17 {
+          font-family: Inter, sans-serif;
+          border-radius: 8px;
+          background-color: rgba(234, 236, 239, 1);
+          padding: 12px 20px;
+        }
+        .div-18 {
+          font-family: Inter, sans-serif;
+          border-radius: 8px;
+          background-color: rgba(234, 236, 239, 1);
+          white-space: nowrap;
+          padding: 12px 20px;
+        }
+        @media (max-width: 991px) {
+          .div-18 {
+            white-space: initial;
+          }
+        }
+        .div-19 {
+          font-family: Inter, sans-serif;
+          border-radius: 8px;
+          background-color: rgba(234, 236, 239, 1);
+          padding: 12px 20px;
+        }
+        .div-20 {
+          align-self: center;
+          display: flex;
+          margin-top: 16px;
+          gap: 20px;
+        }
+        @media (max-width: 991px) {
+          .div-20 {
+            flex-wrap: wrap;
+          }
+        }
+        .div-21 {
+          font-family: Inter, sans-serif;
+          border-radius: 8px;
+          background-color: rgba(234, 236, 239, 1);
+          padding: 12px 20px;
+        }
+        .div-22 {
+          font-family: Inter, sans-serif;
+          border-radius: 8px;
+          background-color: rgba(234, 236, 239, 1);
+          padding: 12px 20px;
+        }
+        .div-23 {
+          font-family: Inter, sans-serif;
+          border-radius: 8px;
+          background-color: rgba(234, 236, 239, 1);
+          padding: 12px 20px;
+        }
+        .div-24 {
+          margin-top: 30px;
+          width: 1180px;
+          max-width: 100%;
+          padding: 0 20px;
+        }
+        .div-25 {
+          gap: 20px;
+          display: flex;
+        }
+        @media (max-width: 991px) {
+          .div-25 {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0px;
+          }
+        }
+        .column {
+          display: flex;
+          flex-direction: column;
+          line-height: normal;
+          width: 33%;
+          margin-left: 0px;
+        }
+        @media (max-width: 991px) {
+          .column {
+            width: 100%;
+          }
+        }
+        .div-26 {
+          border-radius: 24px;
+          background-color: rgba(234, 236, 239, 1);
+          display: flex;
+          width: 100%;
+          flex-grow: 1;
+          flex-direction: column;
+          margin: 0 auto;
+          padding: 22px 24px 20px;
+        }
+        @media (max-width: 991px) {
+          .div-26 {
+            margin-top: 20px;
+            padding: 0 20px;
+          }
+        }
+        .img-4 {
+          aspect-ratio: 1.56;
+          object-fit: auto;
+          object-position: center;
+          width: 100%;
+          border-radius: 18px;
+        }
+        .div-27 {
+          letter-spacing: 0.56px;
+          text-transform: uppercase;
+          color: rgba(34, 34, 34, 1);
+          margin-top: 20px;
+          font: 700 28px Montserrat, sans-serif;
+        }
+        .div-28 {
+          display: flex;
+          margin-top: 4px;
+          gap: 16px;
+          font-size: 16px;
+        }
+        .div-29 {
+          display: flex;
+          gap: 4px;
+          color: rgba(34, 34, 34, 1);
+          font-weight: 500;
+          white-space: nowrap;
+          letter-spacing: 0.32px;
+          flex: 1;
+          margin: auto 0;
+        }
+        @media (max-width: 991px) {
+          .div-29 {
+            white-space: initial;
+          }
+        }
+        .img-5 {
+          aspect-ratio: 1;
+          object-fit: auto;
+          object-position: center;
+          width: 24px;
+        }
+        .div-30 {
+          font-family: Montserrat, sans-serif;
+          flex: 1;
+          margin: auto 0;
+        }
+        .div-31 {
+          font-family: Montserrat, sans-serif;
+          border-radius: 8px;
+          background-color: rgba(208, 218, 232, 1);
+          color: rgba(100, 106, 119, 1);
+          font-weight: 600;
+          padding: 8px 12px;
+        }
+        .column-2 {
+          display: flex;
+          flex-direction: column;
+          line-height: normal;
+          width: 33%;
+          margin-left: 20px;
+        }
+        @media (max-width: 991px) {
+          .column-2 {
+            width: 100%;
+          }
+        }
+        .div-32 {
+          border-radius: 24px;
+          background-color: rgba(234, 236, 239, 1);
+          display: flex;
+          width: 100%;
+          flex-grow: 1;
+          flex-direction: column;
+          margin: 0 auto;
+          padding: 22px 24px 20px;
+        }
+        @media (max-width: 991px) {
+          .div-32 {
+            margin-top: 20px;
+            padding: 0 20px;
+          }
+        }
+        .img-6 {
+          aspect-ratio: 1.56;
+          object-fit: auto;
+          object-position: center;
+          width: 100%;
+          border-radius: 18px;
+        }
+        .div-33 {
+          letter-spacing: 0.56px;
+          text-transform: uppercase;
+          color: rgba(34, 34, 34, 1);
+          margin-top: 20px;
+          font: 700 28px Montserrat, sans-serif;
+        }
+        .div-34 {
+          display: flex;
+          margin-top: 4px;
+          gap: 16px;
+          font-size: 16px;
+        }
+        .div-35 {
+          display: flex;
+          gap: 4px;
+          color: rgba(34, 34, 34, 1);
+          font-weight: 500;
+          white-space: nowrap;
+          letter-spacing: 0.32px;
+          flex: 1;
+          margin: auto 0;
+        }
+        @media (max-width: 991px) {
+          .div-35 {
+            white-space: initial;
+          }
+        }
+        .img-7 {
+          aspect-ratio: 1;
+          object-fit: auto;
+          object-position: center;
+          width: 24px;
+        }
+        .div-36 {
+          font-family: Montserrat, sans-serif;
+          flex: 1;
+          margin: auto 0;
+        }
+        .div-37 {
+          font-family: Montserrat, sans-serif;
+          border-radius: 8px;
+          background-color: rgba(208, 218, 232, 1);
+          color: rgba(100, 106, 119, 1);
+          font-weight: 600;
+          padding: 8px 12px;
+        }
+        .column-3 {
+          display: flex;
+          flex-direction: column;
+          line-height: normal;
+          width: 33%;
+          margin-left: 20px;
+        }
+        @media (max-width: 991px) {
+          .column-3 {
+            width: 100%;
+          }
+        }
+        .div-38 {
+          border-radius: 24px;
+          background-color: rgba(234, 236, 239, 1);
+          display: flex;
+          width: 100%;
+          flex-grow: 1;
+          flex-direction: column;
+          margin: 0 auto;
+          padding: 22px 24px 20px;
+        }
+        @media (max-width: 991px) {
+          .div-38 {
+            margin-top: 20px;
+            padding: 0 20px;
+          }
+        }
+        .img-8 {
+          aspect-ratio: 1.56;
+          object-fit: auto;
+          object-position: center;
+          width: 100%;
+          border-radius: 18px;
+        }
+        .div-39 {
+          letter-spacing: 0.56px;
+          text-transform: uppercase;
+          color: rgba(34, 34, 34, 1);
+          margin-top: 20px;
+          font: 700 28px Montserrat, sans-serif;
+        }
+        .div-40 {
+          display: flex;
+          margin-top: 4px;
+          gap: 16px;
+          font-size: 16px;
+        }
+        .div-41 {
+          display: flex;
+          gap: 4px;
+          color: rgba(34, 34, 34, 1);
+          font-weight: 500;
+          white-space: nowrap;
+          letter-spacing: 0.32px;
+          flex: 1;
+          margin: auto 0;
+        }
+        @media (max-width: 991px) {
+          .div-41 {
+            white-space: initial;
+          }
+        }
+        .img-9 {
+          aspect-ratio: 1;
+          object-fit: auto;
+          object-position: center;
+          width: 24px;
+        }
+        .div-42 {
+          font-family: Montserrat, sans-serif;
+          flex: 1;
+          margin: auto 0;
+        }
+        .div-43 {
+          font-family: Montserrat, sans-serif;
+          border-radius: 8px;
+          background-color: rgba(208, 218, 232, 1);
+          color: rgba(100, 106, 119, 1);
+          font-weight: 600;
+          padding: 8px 12px;
+        }
+        .div-44 {
+          border-radius: 24px;
+          background-color: rgba(234, 236, 239, 1);
+          align-self: start;
+          display: flex;
+          width: 380px;
+          max-width: 100%;
+          flex-direction: column;
+          margin: 20px 0 0 370px;
+          padding: 22px 24px 20px;
+        }
+        @media (max-width: 991px) {
+          .div-44 {
+            margin-left: 10px;
+            padding: 0 20px;
+          }
+        }
+        .img-10 {
+          aspect-ratio: 1.56;
+          object-fit: auto;
+          object-position: center;
+          width: 100%;
+          border-radius: 18px;
+        }
+        .div-45 {
+          letter-spacing: 0.56px;
+          text-transform: uppercase;
+          color: rgba(34, 34, 34, 1);
+          margin-top: 20px;
+          font: 700 28px Montserrat, sans-serif;
+        }
+        .div-46 {
+          display: flex;
+          margin-top: 4px;
+          gap: 16px;
+          font-size: 16px;
+        }
+        .div-47 {
+          display: flex;
+          gap: 4px;
+          color: rgba(34, 34, 34, 1);
+          font-weight: 500;
+          white-space: nowrap;
+          letter-spacing: 0.32px;
+          flex: 1;
+          margin: auto 0;
+        }
+        @media (max-width: 991px) {
+          .div-47 {
+            white-space: initial;
+          }
+        }
+        .img-11 {
+          aspect-ratio: 1;
+          object-fit: auto;
+          object-position: center;
+          width: 24px;
+        }
+        .div-48 {
+          font-family: Montserrat, sans-serif;
+          flex: 1;
+          margin: auto 0;
+        }
+        .div-49 {
+          font-family: Montserrat, sans-serif;
+          border-radius: 8px;
+          background-color: rgba(208, 218, 232, 1);
+          color: rgba(100, 106, 119, 1);
+          font-weight: 600;
+          padding: 8px 12px;
+        }
+      </style>
+      
+      <script src="{% static 'assets/js/jquery.min.js'%}"></script>
+      <script src="{%     static 'assets/js/bootstrap.bundle.min.js'%}"></script>
+      
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+      <script>
+
+        $('#profileDropdown').hover(
+            function() {
+                // Mouse enters the element
+                var profil_li =$('#profil_li')
+                var profil_div =$('#profil_div')
+                
+                profil_li.addClass('show')
+
+                profil_div.addClass('show')
+                profil_div.css('position','absolute')
+                profil_div.css('transform','translate3d(0px,28px,0px)')
+                profil_div.css('top','0px')
+                profil_div.css('left','0px')
+                profil_div.css('will-change','transform')
+                profil_div.attr('x-placement','bottom-start')
 
 
-        </main>
 
-{%endblock%}
+            },
+            function() {
+              var profil_li =$('#profil_li')
+                var profil_div =$('#profil_div')
+                
+                profil_li.removeClass('show')
+
+                profil_div.removeClass('show')
+                
+                profil_div.css({
+                  'position': '',
+                  'transform': '',
+                  'top': '',
+                  'left': '',
+                  'will-change': ''
+              });
+
+                profil_div.attr('x-placement','')
+            }
+        );
 
 
+        var all_menu =['alumin','pvc','acs_uz','acs_import','akp','radiator','prochiye','tms','bussines_partner','acs_tex','prochiye_tms','change_dat']
+         function menu_change(el,menu_type='alumin'){
+            $('.menu').removeClass('active_menu')           
+            $(el).addClass('active_menu');
 
+
+            $('#'+menu_type).css('display','block')
+            for(let i=0; i<all_menu.length; i++){
+                if(menu_type != all_menu[i]){
+                    $('#'+all_menu[i]).css('display','none')
+                    
+                }
+            }
+         }
+      </script>
+</body>
+</html>

@@ -82,7 +82,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
       |Q(fkratkiy =ozm)
       |Q(sap_code75 =ozm)
       |Q(kratkiy75 =ozm)
-      )[:1].values_list()
+      ).order_by('-created_at')[:1].values_list()
       sap_code_exists=True
       if list(razlovkaobichniy)[0] not in obichniy_razlovka:
         obichniy_razlovka+=list(razlovkaobichniy)
@@ -116,7 +116,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
       |Q(fkratkiy =ozm)
       |Q(sap_code75 =ozm)
       |Q(kratkiy75 =ozm)
-      )[:1].get()
+      ).order_by('-created_at')[:1].get()
       id =razlovkatermo.parent_id
       if id == 0:
         if razlovkatermo.id not in sap_exists:
@@ -317,7 +317,7 @@ def get_ready_ozmka(request,id):
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka','radiator'])
 def index(request):
   return render(request,'index.html')
 
@@ -854,18 +854,23 @@ def show_list_history(request):
 @login_required(login_url='/accounts/login/')
 @admin_only
 def home(request):
-  res = rq.get('https://cbu.uz/uz/arkhiv-kursov-valyut/json/')
+  # res = rq.get('https://cbu.uz/uz/arkhiv-kursov-valyut/json/')
   # print(res.json())
-  currency ={}
-  for r in res.json():
-    if r['Ccy'] =='USD':
-      currency['USD'] =r
-    if r['Ccy'] =='RUB':
-      currency['RUB'] =r
-    if r['Ccy'] =='EUR':
-      currency['EUR'] =r
-    if r['Ccy'] =='GBP':
-      currency['GBP'] =r
+  currency ={
+    'USD':{'Rate':0,'Diff':0},
+    'RUB':{'Rate':0,'Diff':0},
+    'EUR':{'Rate':0,'Diff':0},
+    'GBP':{'Rate':0,'Diff':0},
+  }
+  # for r in res.json():
+  #   if r['Ccy'] =='USD':
+  #     currency['USD'] =r
+  #   if r['Ccy'] =='RUB':
+  #     currency['RUB'] =r
+  #   if r['Ccy'] =='EUR':
+  #     currency['EUR'] =r
+  #   if r['Ccy'] =='GBP':
+  #     currency['GBP'] =r
   
   return render(request,'home.html',{'data':currency})
 
