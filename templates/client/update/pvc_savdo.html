@@ -34,70 +34,80 @@
   background-color: #f0f0f0;
 }
          </style>
-            <section class="topics-detail-section section-padding" id="topics-detail">
-                <form method="POST" id="basic_form" onsubmit="return validateForm()">
-                    {%csrf_token%}
-                <div style="overflow: scroll;" id="table-container">
-                    
-                    <table class="table table-sm table-light table-bordered" id="my-table">
-                        <thead>
-                          <tr>
-                            <!-- <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название системы</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Количество камер</th> -->
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
-                            <!-- <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код к компоненту системы</th> -->
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Тип покрытия</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код цвета основы/Замес</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Длина (мм)</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цвет лам пленки снаружи</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код лам пленки снаружи</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цвет лам пленки внутри</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код лам пленки внутри</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код цвет резины</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цвет резины</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код наклейки</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Надпись наклейки</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группа материалов</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px; min-width: 300px;" class="align-middle">Краткий текст товара</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >SAP Код вручную (вставляется вручную)</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара (вставляется вручную)</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Место для комментариев</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Дата добавление цены</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена с НДС</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цена без НДС</th>
-                            
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Online savdo ID</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Цвет продукта</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группа закупок</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группа</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Тип</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Сегмент</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Бухгал товары</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Бухгалтерский учет</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Базовый единица</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Альтер единица</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Стмость баз едн</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Альтер. стоимость единицы</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Статус</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Завод</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Акфа дилерда очиш керак</th>
-                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Тип клиента</th>
-                        </tr>
-                        </thead>
-                        <tbody id="table-artikul">
-                            
-                        </tbody>
-                    </table>
-                  
-                    
+            <div  class="table-responsive custom-max-height  " id="table-container" style="padding-top: 76px; ">
+                {% csrf_token %}
+                <table class="table table-sm" id="my-table">
+                    <thead style="line-height: 1;">
+                      <tr>
+                       
+                        <th scope="col" class="sticky-th text-center" style="font-size: 12px; left:139.6px;">Артикул</th>
+                        
+                        <th scope="col" class="text-center" style="font-size: 12px;">Тип покрытия</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Код цвета основы/Замес</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Длина (мм)</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Цвет лам пленки снаружи</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Код лам пленки снаружи</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Цвет лам пленки внутри</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Код лам пленки внутри</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Код цвет резины</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Цвет резины</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Код наклейки</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Надпись наклейки</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Группа материалов</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Краткий текст товара</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;" >SAP Код вручную (вставляется вручную)</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;" >Краткий текст товара (вставляется вручную)</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Место для комментариев</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Дата добавление цены</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Цена с НДС</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Цена без НДС</th>
+                        
+                        <th scope="col" class="text-center" style="font-size: 12px;">Online savdo ID</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Название</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Цвет продукта</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Группа закупок</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Группа</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Тип</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Сегмент</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Бухгал товары</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Бухгалтерский учет</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Базовый единица</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Альтер единица</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Стмость баз едн</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Альтер. стоимость единицы</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Статус</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Завод</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Акфа дилерда очиш керак</th>
+                        <th scope="col" class="text-center" style="font-size: 12px;">Тип клиента</th>
+                    </tr>
+                    </thead>
+                    <tbody id="table-artikul">
+                        
+                    </tbody>
+                </table>
+              
+                
+            </div>
+           
+            <div class="row pb-1">
+                <div class="col-md-4">
+                    <div class="d-flex justify-content-start p-2">
+                        <input type="button" class="btn btn-warning mr-2 btn-sm" value="Добавить" onclick="add_column()" id="add_column_btn" >
+                    </div>
                 </div>
-               <div>
-                <a  class=" btn btn-success m-2 btn-sm" onclick="ready_all()">Сохранить</a>
-               </div>
-               
-            </form>
-            </section>
+                <div class="col-md-4">
+                    <div class="d-flex justify-content-start p-2">
+                        <span class="m-1" style="font-weight: 700;" >Тема:</span>
+                        <input  type="text"  id="theme" class="form-control " onkeyup="show_zagruska_btn()" style="height: 30px;border-color:red">
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="d-flex justify-content-end p-2">
+                        <span  class="btn btn-primary btn-sm" value="" id="zagruzka_file"  onclick="ready_all()">Загрузить</span>
+                    </div>
+                </div>
+            </div>
             
 
             <section class="explore-section " id="section_2">
@@ -223,92 +233,224 @@
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
 <script  type="text/javascript" src="{% static 'js/update/pvc_savdo.js'%}"></script>
 
+
+
+
 <script>
+
+
+    function updateMaxHeight() {
+      var windowHeight = $(window).height();
+      var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
+
+      // Calculate the dynamic max-height
+      var dynamicMaxHeight = windowHeight - navbarHeight - 50; // Adjust as needed
+
+      // Apply the dynamic max-height
+      $('#dynamic-table').css('max-height', dynamicMaxHeight + 'px');
+    }
+
+    // Call the function on document ready and window resize
+    $(window).on('load resize', function() {
+      updateMaxHeight();
+    });
+
+
+
+
+    var nakleyka_list ='{{nakleyka_list|safe}}'
+    
+    
+    
+    function set_nakleyka(element_list,selector,val='',add=true){
+            
+            var jsonData = JSON.parse(element_list)
+            
+            var select = $(selector);
+            
+            $.each(jsonData, function(index, item) {
+                var option = $('<option>', {
+                    value: item[0],
+                    text: item[0],
+                    'data-nadpis': item[1] 
+                });
+                if(add){
+                    select.append(option);
+                }
+            });
+            
+            $(selector).chosen({max_selected_options: 50,no_results_text: "Наклейка не найден"});
+            $(selector).val(val);
+            $(selector).trigger('chosen:updated');
+        }
+    
+    
+    function show_zagruska_btn(){
+        var zagruzka_file =$('#zagruzka_file')
+        var theme =$('#theme')
+        if(theme.val() !='' && theme.val()!= undefined){
+            theme.css('border-color','#dedad9')
+        }else{
+            theme.css('border-color','red')
+        }
+    }
 
     function getCSRFToken() {
         return $('input[name=csrfmiddlewaretoken]').val();
     }
 
     function ready_all(){
-    var all_correct = true;
-    var data_empty = false
-    if (Object.keys(data_base).length === 0) {
-        data_empty = true
-    }
-
-    for (var key in data_base) {
-        if (data_base.hasOwnProperty(key)) { 
-            var value = data_base[key];
-            if(!value.full){
-                all_correct=false
-            }
-        }
-    }
-
-    if (!data_empty && all_correct){
-        var json_data = JSON.stringify(data_base)
-        var url = "/client/order-update/"+'{{id}}'
-        var csrfToken = getCSRFToken();
-        var postData = {
-            'data': json_data,
-            'order_type':'pvc_savdo',
-            'name':'PVC SAVDO'
-        }
-        $.ajax({
-            type: 'POST',
-            url: url,
-            headers: { "X-CSRFToken": csrfToken },
-            data: postData,
-        }).done(function (res) {
-            console.log(res)
-            if (res.status ==201){
-                Swal.fire('Muvaafaqiyatli o\'zgartirildi.', '', 'success')
-
-            }else{
-                console.log('aa')
-            }
-            // WON'T REDIRECT
-        });
-            
-    }else{
-        
-        if(!data_empty && !all_correct){
+        var theme =$('#theme')
+        if(theme.val() =='' || theme.val() == undefined){
             Swal.fire({
-                icon: 'error',
-                title: 'Malumotlar to\'liq emas!!!',
-                text: 'Itimos ma\'lumotlarni to\'ldiring.',
-            });
+                    icon: 'error',
+                    title: 'Iltimos zayavka mavzusini kiriting!!!',
+                });
+             
+        }else{
+        var all_correct = true;
+        var data_empty = false
+        if (Object.keys(data_base).length === 0) {
+            data_empty = true
         }
-    }
 
-   
+        for (var key in data_base) {
+            if (data_base.hasOwnProperty(key)) { 
+                var value = data_base[key];
+                if(!value.full){
+                    all_correct=false
+                }
+            }
+        }
+
+        if (!data_empty && all_correct){
+            var text_tr =''
+            var i = 1
+            for(key in data_base){
+                var basee_art = ''
+                var kratkiy_tekss = ''
+                var online_idd = ''
+                var naz_ru = ''
+                if(data_base[key]['base_artikul']){
+                    basee_art = data_base[key]['base_artikul']
+                }
+                if(data_base[key]['kratkiy_tekst'] && data_base[key]['kratkiy_tekst']!='XXXXXXXX' ){
+                    kratkiy_tekss = data_base[key]['kratkiy_tekst']
+                }
+                if(data_base[key]['nazvaniye_ruchnoy']){
+                    naz_ru = data_base[key]['nazvaniye_ruchnoy']
+                }
+                if(data_base[key]['online_id']){
+                    online_idd = data_base[key]['online_id']
+                }
+
+                text_tr += `
+                    <tr>
+                        <th scope="row">${i}</th>
+                        <td>${basee_art}</td>
+                        <td>${kratkiy_tekss}</td>
+                        <td>${online_idd}</td>
+                        <td>${naz_ru}</td>
+                    </tr>
+                `
+                i +=1
+                    
+            }
+
+            var modal_body = $('#modal_body')
+            modal_body.children('tr').remove()
+            modal_body.append(text_tr)
+
+            $('#myModal').modal('show')
+        
+            
+                
+        }else{
+            
+            if(!data_empty && !all_correct){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Malumotlar to\'liq emas!!!',
+                    text: 'Itimos ma\'lumotlarni to\'ldiring.',
+                });
+            }
+        }
+
+ }
 }
 
-function status_change(val){
-    if(val == 10083){
-        var user_list =$('#user_list')
-        user_list.css('display','block')
-        var users =$('#users')
-        users.attr('required',true)
-    }else{
-        var user_list =$('#user_list')
-        user_list.css('display','none')
-        var users =$('#users')
-        users.attr('required',false)
-    } 
 
-    if(val ==10084 || val ==10081){
-        var textarea =$('#exampleTextarea1')
-        textarea.addClass('mustbe_red')
-        textarea.attr('required',true)
-    }else{
-        var textarea =$('#exampleTextarea1')
-        textarea.attr('required',false)
-        textarea.removeClass('mustbe_red')
+    function send_data(){
+            var submit_btn = document.getElementById('save_btn')
+            var upload_btn = document.getElementById('upload_btn')
+            upload_btn.style.display ='block';
+            submit_btn.style.display ='none';
+
+            var json_data = JSON.stringify(data_base)
+            var url = "/client/order-update/"+'{{id}}'
+            var theme =$('#theme').val()
+            var csrfToken = getCSRFToken();
+            var postData = {
+                'data': json_data,
+                'order_type':'pvc_savdo',
+                'name':'PVC SAVDO',
+                'order_name':theme
+            }
+            $.ajax({
+                type: 'POST',
+                url: url,
+                headers: { "X-CSRFToken": csrfToken },
+                data: postData,
+            }).done(function (res) {
+                if (res.status ==201){
+                    Swal.fire('Qabul qilindi...', '', 'success')
+                    setTimeout(function() {
+                        var url = '{%url "client_order_list" %}';
+                        window.location.href = url;
+                    }, 750);
+                    close_modal()
+
+                }else{
+                    Swal.fire('Something went wrong.', '', 'info')
+                    close_modal()
+                }
+                // WON'T REDIRECT
+            });
+
+        }
+    
+    function close_modal(){
+        $('#myModal').modal('hide')
     }
-    var btn_command = $('#btn_command')
-    btn_command.css('display','block')
-}
+
+    function status_change(val){
+        if(val == 10083){
+            var user_list =$('#user_list')
+            user_list.css('display','block')
+            var users =$('#users')
+            users.attr('required',true)
+        }else{
+            var user_list =$('#user_list')
+            user_list.css('display','none')
+            var users =$('#users')
+            users.attr('required',false)
+        } 
+
+
+
+        if(val ==10084 || val ==10081){
+            var textarea =$('#exampleTextarea1')
+            textarea.addClass('mustbe_red')
+            textarea.attr('required',true)
+        }else{
+            var textarea =$('#exampleTextarea1')
+            textarea.attr('required',false)
+            textarea.removeClass('mustbe_red')
+        }
+        var btn_command = $('#btn_command')
+        btn_command.css('display','block')
+    }
+
 </script>
 {%endblock%}
 

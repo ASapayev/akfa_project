@@ -1038,6 +1038,7 @@ def kombinirovaniy_process(request,id):
                 {'kratkiy':'Крышка радиатора','sapcode':'1000006844','MEINS':'КГ'},
                 {'kratkiy':'Паронит межсекционная','sapcode':'1000006722','MEINS':'ШТ'},
                 {'kratkiy':'Соеденительная муфта','sapcode':'1000006721','MEINS':'ШТ'},
+                {'kratkiy':'Тех. отход ал стружка','sapcode':'1900012782','MEINS':'КГ'},
                 ]
             t= 1
             for k in range(0,len(siryo_names)):
@@ -1062,7 +1063,10 @@ def kombinirovaniy_process(request,id):
                     df_new['MATNR1'].append(siryo_names[k]['sapcode'])
                     df_new['TEXT2'].append(siryo_names[k]['kratkiy'])
 
-                    sap_val = norma.data[siryo_names[k]['kratkiy']].replace(' ','').replace('.0','') if norma.data[siryo_names[k]['kratkiy']][-2:]=='.0' else ("%.3f" % float(norma.data[siryo_names[k]['kratkiy']].replace(' ',''))).replace('.',',')
+                    if siryo_names[k]['kratkiy'] =='Тех. отход ал стружка':
+                        sap_val ='20'
+                    else:
+                        sap_val = norma.data[siryo_names[k]['kratkiy']].replace(' ','').replace('.0','') if norma.data[siryo_names[k]['kratkiy']][-2:]=='.0' else ("%.3f" % float(norma.data[siryo_names[k]['kratkiy']].replace(' ',''))).replace('.',',')
                     df_new['MEINS'].append(sap_val if not 'отход' in siryo_names[k]['kratkiy'] else '-' + sap_val) 
                     df_new['MENGE'].append(siryo_names[k]['MEINS'])
                     df_new['DATUV'].append('')
@@ -1138,8 +1142,11 @@ def kombinirovaniy_process(request,id):
                     df_new['POSTP'].append('L')
                     df_new['MATNR1'].append(siryo_names[k]['sapcode'])
                     df_new['TEXT2'].append(siryo_names[k]['kratkiy'])
-
-                    sap_val = norma.data[siryo_names[k]['kratkiy']].replace(' ','').replace('.0','') if norma.data[siryo_names[k]['kratkiy']][-2:]=='.0' else ("%.3f" % float(norma.data[siryo_names[k]['kratkiy']].replace(' ',''))).replace('.',',')
+                    if siryo_names[k]['kratkiy'] =='Тех. отход ал стружка':
+                        sap_val ='20'
+                    else:
+                        sap_val = norma.data[siryo_names[k]['kratkiy']].replace(' ','').replace('.0','') if norma.data[siryo_names[k]['kratkiy']][-2:]=='.0' else ("%.3f" % float(norma.data[siryo_names[k]['kratkiy']].replace(' ',''))).replace('.',',')
+                    
                     df_new['MEINS'].append(sap_val if not 'отход' in siryo_names[k]['kratkiy'] else '-' + sap_val) 
                     df_new['MENGE'].append(siryo_names[k]['MEINS'])
                     df_new['DATUV'].append('')

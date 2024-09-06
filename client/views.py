@@ -1524,7 +1524,7 @@ def order_update_all(request,id):
             'id':order.id,
             'nakleyka_list': nakleyka_list    
         }
-    return render(request,f'client/customer/update/{order.order_type}.html',context)
+    return render(request,f'client/update/{order.order_type}.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
