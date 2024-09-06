@@ -89,119 +89,93 @@ def generate_norma_epdm(request,id):
                     )[:1].get().data
     
     for key, row in df_sapcodes.iterrows():
-        print(key)
-        for i in range(1,3):
-            if i == 1:
-                df['ID'][count_2] ='1'
-                df['MATNR'][count_2] = row['MATNR']
-                df['WERKS'][count_2] = '4701'
-                df['TEXT1'][count_2] = row['TEXT1']
-                df['STLAL'][count_2] = '1'
-                df['STLAN'][count_2] = '1'
-                df['ZTEXT'][count_2] = row['TEXT1']
-                df['STKTX'][count_2] = 'Упаковка'
-                df['BMENG'][count_2] = '1000'
-                df['BMEIN'][count_2] = 'ШТ'
-                df['STLST'][count_2] = '1'
-                df['POSNR'][count_2] = ''
-                df['POSTP'][count_2] = ''
-                df['MATNR1'][count_2] = ''
-                df['TEXT2'][count_2] = ''
-                df['MEINS'][count_2] = ''
-                df['MENGE'][count_2] = ''
-                df['DATUV'][count_2] = '01012023'
-                df['PUSTOY'][count_2] = ''
-                df['LGORT'][count_2] = ''
-                
-                zagolovok = str(row['ШОР 1'])
-                
-                result = NormaEpdm.objects.filter(
-                                Q(data__has_key=zagolovok) & ~Q(data__contains={zagolovok: "0"}) & ~Q(data__contains={zagolovok: ""})
-                            ).order_by('created_at').values('data')
+        
+        df['ID'][count_2] ='1'
+        df['MATNR'][count_2] = row['MATNR']
+        df['WERKS'][count_2] = '4701'
+        df['TEXT1'][count_2] = row['TEXT1']
+        df['STLAL'][count_2] = '1'
+        df['STLAN'][count_2] = '1'
+        df['ZTEXT'][count_2] = row['TEXT1']
+        df['STKTX'][count_2] = 'Упаковка'
+        df['BMENG'][count_2] = '1000'
+        df['BMEIN'][count_2] = 'ШТ'
+        df['STLST'][count_2] = '1'
+        df['POSNR'][count_2] = ''
+        df['POSTP'][count_2] = ''
+        df['MATNR1'][count_2] = ''
+        df['TEXT2'][count_2] = ''
+        df['MEINS'][count_2] = ''
+        df['MENGE'][count_2] = ''
+        df['DATUV'][count_2] = '01012023'
+        df['PUSTOY'][count_2] = ''
+        df['LGORT'][count_2] = ''
+        
+        zagolovok = str(row['ШОР 1'])
+        
+        result = NormaEpdm.objects.filter(
+                        Q(data__has_key=zagolovok) & ~Q(data__contains={zagolovok: "0"}) & ~Q(data__contains={zagolovok: ""})
+                    ).order_by('created_at').values('data')
 
+    
+        itogo_val =float(itogo[zagolovok])
+
+        
+        count_2 +=1
+        count = 1
+
+        
+        norma_kg = float(row['Норма кг'])
+
+        for norm in result:
+            data = norm['data']
             
-                itogo_val =float(itogo[zagolovok])
-
-                
-                count_2 +=1
-                count = 1
-
-                
-                norma_kg = float(row['Норма кг'])
-
-                for norm in result:
-                    data = norm['data']
-                    
-                    if 'Итого' in data['Краткий_текст']:
-                        continue
-                    
-                    df['ID'][count_2] = '2'
-                    df['POSNR'][count_2] = count
-                    df['POSTP'][count_2] = 'L'
-                    df['MATNR1'][count_2] = str(data['SAP код']).replace('.0','')
-                    df['TEXT2'][count_2] = data['Краткий_текст']
-                    df['MEINS'][count_2] = round((float(data[zagolovok])/itogo_val) * norma_kg * 1000,3)
-                    df['MENGE'][count_2] = 'КГ'
-                    df['LGORT'][count_2] = 'PS01'
-                    count_2 +=1
-                    count +=1
-
-
-            if i == 2:
-                if row['ШОР 2'] !='0':
-                    df['ID'][count_2] ='1'
-                    df['MATNR'][count_2] = row['MATNR']
-                    df['WERKS'][count_2] = '4701'
-                    df['TEXT1'][count_2] = row['TEXT1']
-                    df['STLAL'][count_2] = '1'
-                    df['STLAN'][count_2] = '2'
-                    df['ZTEXT'][count_2] = row['TEXT1']
-                    df['STKTX'][count_2] = 'Упаковка2'
-                    df['BMENG'][count_2] = '1000'
-                    df['BMEIN'][count_2] = 'ШТ'
-                    df['STLST'][count_2] = '1'
-                    df['POSNR'][count_2] = ''
-                    df['POSTP'][count_2] = ''
-                    df['MATNR1'][count_2] = ''
-                    df['TEXT2'][count_2] = ''
-                    df['MEINS'][count_2] = ''
-                    df['MENGE'][count_2] = ''
-                    df['DATUV'][count_2] = '01012023'
-                    df['PUSTOY'][count_2] = ''
-                    df['LGORT'][count_2] = ''
-                    
-                    zagolovok = str(row['ШОР 2'])
-                    
-                    result = NormaEpdm.objects.filter(
-                                    Q(data__has_key=zagolovok) & ~Q(data__contains={zagolovok: "0"}) & ~Q(data__contains={zagolovok: ""})
-                                ).order_by('created_at').values('data')
-
-                
-                    itogo_val =float(itogo[zagolovok])
-
-                    
-                    count_2 +=1
-                    count = 1
-
-                    
-                    norma_kg = float(row['Норма кг'])
-
-                    for norm in result:
-                        data = norm['data']
-                        
-                        if 'Итого' in data['Краткий_текст']:
-                            continue
-                        
-                        df['ID'][count_2] = '2'
-                        df['POSNR'][count_2] = count
-                        df['POSTP'][count_2] = 'L'
-                        df['MATNR1'][count_2] = str(data['SAP код']).replace('.0','')
-                        df['TEXT2'][count_2] = data['Краткий_текст']
-                        df['MEINS'][count_2] = round((float(data[zagolovok])/itogo_val) * norma_kg * 1000,3)
-                        df['MENGE'][count_2] = 'КГ'
-                        df['LGORT'][count_2] = 'PS01'
-                        count_2 +=1
-                        count +=1
+            if 'Итого' in data['Краткий_текст']:
+                continue
+            
+            df['ID'][count_2] = '2'
+            df['POSNR'][count_2] = count
+            df['POSTP'][count_2] = 'L'
+            df['MATNR1'][count_2] = str(data['SAP код']).replace('.0','')
+            df['TEXT2'][count_2] = data['Краткий_текст']
+            df['MEINS'][count_2] = round((float(data[zagolovok])/itogo_val) * norma_kg * 1000,3)
+            df['MENGE'][count_2] = 'КГ'
+            df['LGORT'][count_2] = 'PS01'
+            count_2 +=1
+            count +=1
+        if 'PDM' in row['MATNR']:      
+            df['ID'][count_2] = '2'
+            df['POSNR'][count_2] = count
+            df['POSTP'][count_2] = 'L'
+            df['MATNR1'][count_2] = '1000004651'
+            df['TEXT2'][count_2] = 'Тех отход EPDM годный брак'
+            df['MEINS'][count_2] =  round(8.6 * norma_kg,3)*(-1)
+            df['MENGE'][count_2] = 'КГ'
+            df['LGORT'][count_2] = 'PS01'
+            count_2 +=1
+            count +=1
+        if 'PDC' in row['MATNR']:      
+            df['ID'][count_2] = '2'
+            df['POSNR'][count_2] = count
+            df['POSTP'][count_2] = 'L'
+            df['MATNR1'][count_2] = '1000004651'
+            df['TEXT2'][count_2] = 'Тех отход EPDM годный брак'
+            df['MEINS'][count_2] = round(100 * norma_kg,3)*(-1)
+            df['MENGE'][count_2] = 'КГ'
+            df['LGORT'][count_2] = 'PS01'
+            count_2 +=1
+            count +=1
+        if 'IDN' in row['MATNR']:      
+            df['ID'][count_2] = '2'
+            df['POSNR'][count_2] = count
+            df['POSTP'][count_2] = 'L'
+            df['MATNR1'][count_2] = '1000004651'
+            df['TEXT2'][count_2] = 'Тех отход EPDM годный брак'
+            df['MEINS'][count_2] = round(56 * norma_kg,3)*(-1)
+            df['MENGE'][count_2] = 'КГ'
+            df['LGORT'][count_2] = 'PS01'
+            count_2 +=1
+            count +=1
 
 
 
