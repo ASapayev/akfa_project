@@ -10,7 +10,7 @@ from django.db.models import Max
 import zipfile
 from config.settings import MEDIA_ROOT
 import numpy as np
-from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_razlovka,download_bs64,characteristika_created_txt_create_1301_v2,json_to_excel_alumin
+from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_razlovka,download_bs64,characteristika_created_txt_create_1301_v2,json_to_excel_alumin_savdo,json_to_excel_alumin_imzo,json_to_excel_alumin_export
 import os
 from order.models import Order
 import random
@@ -3168,8 +3168,17 @@ def product_add_second_org(request,id):
                   rand_string = id_generator()
                   path_onlinesavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\downloads\\SHABLON_ALUMINIY_SAVDO_{rand_string}.xlsx'
                   if BaseOrderAlu.objects.filter(id = order.client_order_id).exists():
-                        datas = BaseOrderAlu.objects.get(id = order.client_order_id).data['data']
-                        df_simple = json_to_excel_alumin(datas,artikul_kratkiy_collection)
+                        order_datas = BaseOrderAlu.objects.get(id = order.client_order_id)
+                        datas = order_datas.data['data']
+                        order_type = order_datas.order_type
+                        if order_type == 'alu_savdo':
+                              df_simple= json_to_excel_alumin_savdo(datas,artikul_kratkiy_collection)
+                        elif order_type =='alu_imzo':
+                              df_simple= json_to_excel_alumin_imzo(datas,artikul_kratkiy_collection)
+                        elif order_type =='alu_export':
+                              df_simple= json_to_excel_alumin_export(datas,artikul_kratkiy_collection)
+                        else:
+                              df_simple= json_to_excel_alumin_savdo(datas,artikul_kratkiy_collection)
                         
                         df_simple.to_excel(path_onlinesavdo, index = False)
                   else:
@@ -3220,8 +3229,18 @@ def product_add_second_org(request,id):
                   rand_string = id_generator()
                   path_onlinesavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\downloads\\SHABLON_ALUMINIY_SAVDO_{rand_string}.xlsx'
                   if BaseOrderAlu.objects.filter(id = order.client_order_id).exists():
-                        datas = BaseOrderAlu.objects.get(id = order.client_order_id).data['data']
-                        df_simple= json_to_excel_alumin(datas,artikul_kratkiy_collection)
+                        order_datas = BaseOrderAlu.objects.get(id = order.client_order_id)
+                        datas = order_datas.data['data']
+                        
+                        order_type = order_datas.order_type
+                        if order_type == 'alu_savdo':
+                              df_simple= json_to_excel_alumin_savdo(datas,artikul_kratkiy_collection)
+                        elif order_type =='alu_imzo':
+                              df_simple= json_to_excel_alumin_imzo(datas,artikul_kratkiy_collection)
+                        elif order_type =='alu_export':
+                              df_simple= json_to_excel_alumin_export(datas,artikul_kratkiy_collection)
+                        else:
+                              df_simple= json_to_excel_alumin_savdo(datas,artikul_kratkiy_collection)
                         
                         df_simple.to_excel(path_onlinesavdo, index = False)
                   else:

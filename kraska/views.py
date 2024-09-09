@@ -114,7 +114,7 @@ def generate_norma_7(request,id):
 
         itogo_val =float(itogo[zagolovok])
 
-        # print(zagolovok,'>>>>>>>',result)
+        print(zagolovok,'>>>>>>>',result)
         count_2 +=1
         count = 1
 
@@ -129,6 +129,7 @@ def generate_norma_7(request,id):
             df['POSTP'][count_2] = 'L'
             df['MATNR1'][count_2] = str(data['SAPCODE']).replace('.0','')
             df['TEXT2'][count_2] = data['MATN']
+            print(data[zagolovok],itogo_val,'8888'*10)
             df['MEINS'][count_2] = round((float(data[zagolovok])/itogo_val)*1000,3)
             # df['MEINS'][count_2] = round((float(data[zagolovok]))*1000,3)
             df['MENGE'][count_2] = 'КГ'
@@ -315,10 +316,10 @@ def full_update_norm75(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','kraska'])
 def lenght_generate_texcarta(request,id):
     # file = KraskaFile.objects.get(id=id).file
-    path = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\MAKT75.xlsx'
+    path = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\simple texcart.xlsx'
     data = pd.read_excel(path)
     counter = len(data)
 
@@ -359,7 +360,7 @@ def lenght_generate_texcarta(request,id):
                 df_new['ID'][counter_2] ='1'
                 df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
                 df_new['WERKS'][counter_2] ='4702'
-                df_new['STTAG'][counter_2] ='01012023'
+                df_new['STTAG'][counter_2] ='01012024'
                 df_new['PLNAL'][counter_2] ='1'
                 df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
                 df_new['VERWE'][counter_2] ='1'
@@ -374,7 +375,7 @@ def lenght_generate_texcarta(request,id):
                 df_new['STEUS'][counter_2] ='ZK01'
                 df_new['LTXA1'][counter_2] ='Производство Краски'
                 df_new['BMSCH'][counter_2] = '1000'
-                df_new['MEINH'][counter_2] ='КГ'
+                df_new['MEINH'][counter_2] ='KG'
                 df_new['VGW01'][counter_2] =''
                 df_new['VGE01'][counter_2] =''
                 df_new['ACTTYPE_01'][counter_2] ='200160'
@@ -385,10 +386,12 @@ def lenght_generate_texcarta(request,id):
                 df_new['USR01'][counter_2] = '60'
                 
             counter_2 +=1
+    
+    del df_new['counter']
 
-    df_new.to_excel('texcarta2.xlsx')
+    df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\texcarta.xlsx',index=False)
 
-    df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\norma.xlsx',index=False)
+    # df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\norma.xlsx',index=False)
 
     return JsonResponse({'a':'b'})
 

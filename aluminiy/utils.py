@@ -552,7 +552,7 @@ def download_bs64(download_df_list,name):
 
 
 
-def json_to_excel_alumin(datas,artikul_kratkiy_collection):
+def json_to_excel_alumin_savdo(datas,artikul_kratkiy_collection):
     df  = pd.DataFrame()
     df['counter'] =['' for x in range(0,len(datas)*4)]
     df['Название системы'] =''
@@ -667,6 +667,198 @@ def json_to_excel_alumin(datas,artikul_kratkiy_collection):
         df['Завод TEX'][k_simple] =data['zavod_name']
         df['Акфа дилерда очиш керак'][k_simple] =data['diller']
         df['Тип клиента'][k_simple] =data['tip_clienta']
+        k_simple+=1
+    
+    del df['counter']
+    return df
+
+
+def json_to_excel_alumin_imzo(datas,artikul_kratkiy_collection):
+    df  = pd.DataFrame()
+    df['counter'] =['' for x in range(0,len(datas)*4)]
+    df['Название системы'] =''
+    df['Артикул'] =''
+    df['Длина (мм)'] =''
+    df['Тип покрытия'] =''
+    df['Сплав'] =''
+    df['тип закаленности'] =''
+    df['Комбинация'] =''
+    df['Бренд краски снаружи'] =''
+    df['Код краски снаружи'] =''
+    df['Бренд краски внутри'] =''
+    df['Код краски внутри'] =''
+    df['Код декор пленки снаружи'] =''
+    df['Цвет декор пленки снаружи'] =''
+    df['Код декор пленки внутри'] =''
+    df['Цвет декор пленки внутри'] =''
+    df['Код лам пленки снаружи'] =''
+    df['Цвет лам пленки снаружи'] =''
+    df['Код лам пленки внутри'] =''
+    df['Цвет лам пленки внутри'] =''
+    df['Код цвета анодировки снаружи'] =''
+    df['Код цвета анодировки внутри'] =''
+    df['Контактность анодировки'] =''
+    df['Тип анодировки'] =''
+    df['Способ анодировки'] =''
+    df['Код наклейки'] =''
+    df['Надпись наклейки'] =''
+    df['База профилей'] =''
+
+    ##############
+    df['GOODS_GROUP'] =''
+    df['Tex_name'] =''
+
+
+    df['Группа материалов'] =''
+    df['Краткий текст товара'] =''
+    df['SAP Код вручную (вставится вручную)'] =''
+    df['Краткий текст товара (вставится вручную)'] =''
+
+
+    df['Деловой отход(НДО)'] =''
+    df['KLAES ID'] =''
+    df['KLAES название'] =''
+    df['Код Цвета'] =''
+    df['Краткий код Klaes'] =''
+    df['Стандартная цена'] =''
+    df['Место для комментариев'] =''
+    
+
+    
+
+    k_simple = 0
+    for key1,data in datas.items():
+        df['Название системы'][k_simple] = data['nazvaniye_system']
+        df['Артикул'][k_simple] = data['base_artikul']
+        df['Длина (мм)'][k_simple] = data['dlina']
+        df['Тип покрытия'][k_simple] = data['tip_pokritiya']
+        df['Сплав'][k_simple] = data['splav']
+        df['тип закаленности'][k_simple] = data['tip_zak']
+        df['Комбинация'][k_simple] = data['combination']
+        df['Бренд краски снаружи'][k_simple] = data['brend_kraska_sn']
+        df['Код краски снаружи'][k_simple] = data['kod_kraska_sn']
+        df['Бренд краски внутри'][k_simple] = data['brend_kraska_vn']
+        df['Код краски внутри'][k_simple] = data['kod_kraska_vn']
+        df['Код декор пленки снаружи'][k_simple] = data['kod_dekor_sn']
+        df['Цвет декор пленки снаружи'][k_simple] = data['svet_dekplonka_snaruji']
+        df['Код декор пленки внутри'][k_simple] = data['kod_dekor_vn']
+        df['Цвет декор пленки внутри'][k_simple] = data['svet_dekplonka_vnutri']
+        df['Код лам пленки снаружи'][k_simple] = data['kod_lam_sn']
+        df['Цвет лам пленки снаружи'][k_simple] = data['svet_lamplonka_snaruji']
+        df['Код лам пленки внутри'][k_simple] = data['kod_lam_vn']
+        df['Цвет лам пленки внутри'][k_simple] = data['svet_lamplonka_vnutri']
+        df['Код цвета анодировки снаружи'][k_simple] = data['kod_anod_sn']
+        df['Код цвета анодировки внутри'][k_simple] = data['kod_anod_vn']
+        df['Контактность анодировки'][k_simple] = data['contactnost_anod']
+        df['Тип анодировки'][k_simple] = data['tip_anod']
+        df['Способ анодировки'][k_simple] = data['sposob_anod']
+        df['Код наклейки'][k_simple] = data['kod_nakleyki']
+        df['Надпись наклейки'][k_simple] = data['nadpis_nakleyki']
+        df['База профилей'][k_simple] = data['baza_profiley']
+        df['GOODS_GROUP'][k_simple] = data['goods_group']
+        df['Tex_name'][k_simple] = data['tex_name']
+
+        df['Группа материалов'][k_simple] = data['gruppa_materialov']
+        df['Краткий текст товара'][k_simple] = data['kratkiy_tekst']
+        artikul_krat_join = data['base_artikul']+ data['kratkiy_tekst']
+        
+        df['SAP Код вручную (вставится вручную)'][k_simple] = artikul_kratkiy_collection[artikul_krat_join] if artikul_krat_join in artikul_kratkiy_collection else data['sap_code']
+        df['Краткий текст товара (вставится вручную)'][k_simple] =data['kratkiy_tekst']
+        df['Деловой отход(НДО)'][k_simple] =data['delovoy_otxod']
+        df['KLAES ID'][k_simple] =data['klaes_id']
+        df['KLAES название'][k_simple] =data['klaes_nazvaniye']
+        df['Код Цвета'][k_simple] =data['kod_sveta']
+        df['Краткий код Klaes'][k_simple] =data['kratkiy_klaes']
+        df['Стандартная цена'][k_simple] =data['sena']
+        df['Место для комментариев'][k_simple] =data['comment']
+       
+       
+        k_simple+=1
+    
+    del df['counter']
+    return df
+
+
+def json_to_excel_alumin_export(datas,artikul_kratkiy_collection):
+    df  = pd.DataFrame()
+    df['counter'] =['' for x in range(0,len(datas)*4)]
+    df['Название системы'] =''
+    df['Артикул'] =''
+    df['Длина (мм)'] =''
+    df['Тип покрытия'] =''
+    df['Сплав'] =''
+    df['тип закаленности'] =''
+    df['Комбинация'] =''
+    df['Бренд краски снаружи'] =''
+    df['Код краски снаружи'] =''
+    df['Бренд краски внутри'] =''
+    df['Код краски внутри'] =''
+    df['Код декор пленки снаружи'] =''
+    df['Цвет декор пленки снаружи'] =''
+    df['Код декор пленки внутри'] =''
+    df['Цвет декор пленки внутри'] =''
+    df['Код лам пленки снаружи'] =''
+    df['Цвет лам пленки снаружи'] =''
+    df['Код лам пленки внутри'] =''
+    df['Цвет лам пленки внутри'] =''
+    df['Код цвета анодировки снаружи'] =''
+    df['Код цвета анодировки внутри'] =''
+    df['Контактность анодировки'] =''
+    df['Тип анодировки'] =''
+    df['Способ анодировки'] =''
+    df['Код наклейки'] =''
+    df['Надпись наклейки'] =''
+    df['База профилей'] =''
+    df['Группа материалов'] =''
+    df['Краткий текст товара'] =''
+    df['SAP Код вручную (вставится вручную)'] =''
+    df['Краткий текст товара (вставится вручную)'] =''
+    df['Наименование export'] =''
+    df['Длина при выходе из пресса'] =''
+    df['Место для комментариев'] =''
+    
+
+    
+
+    k_simple = 0
+    for key1,data in datas.items():
+        df['Название системы'][k_simple] = data['nazvaniye_system']
+        df['Артикул'][k_simple] = data['base_artikul']
+        df['Длина (мм)'][k_simple] = data['dlina']
+        df['Тип покрытия'][k_simple] = data['tip_pokritiya']
+        df['Сплав'][k_simple] = data['splav']
+        df['тип закаленности'][k_simple] = data['tip_zak']
+        df['Комбинация'][k_simple] = data['combination']
+        df['Бренд краски снаружи'][k_simple] = data['brend_kraska_sn']
+        df['Код краски снаружи'][k_simple] = data['kod_kraska_sn']
+        df['Бренд краски внутри'][k_simple] = data['brend_kraska_vn']
+        df['Код краски внутри'][k_simple] = data['kod_kraska_vn']
+        df['Код декор пленки снаружи'][k_simple] = data['kod_dekor_sn']
+        df['Цвет декор пленки снаружи'][k_simple] = data['svet_dekplonka_snaruji']
+        df['Код декор пленки внутри'][k_simple] = data['kod_dekor_vn']
+        df['Цвет декор пленки внутри'][k_simple] = data['svet_dekplonka_vnutri']
+        df['Код лам пленки снаружи'][k_simple] = data['kod_lam_sn']
+        df['Цвет лам пленки снаружи'][k_simple] = data['svet_lamplonka_snaruji']
+        df['Код лам пленки внутри'][k_simple] = data['kod_lam_vn']
+        df['Цвет лам пленки внутри'][k_simple] = data['svet_lamplonka_vnutri']
+        df['Код цвета анодировки снаружи'][k_simple] = data['kod_anod_sn']
+        df['Код цвета анодировки внутри'][k_simple] = data['kod_anod_vn']
+        df['Контактность анодировки'][k_simple] = data['contactnost_anod']
+        df['Тип анодировки'][k_simple] = data['tip_anod']
+        df['Способ анодировки'][k_simple] = data['sposob_anod']
+        df['Код наклейки'][k_simple] = data['kod_nakleyki']
+        df['Надпись наклейки'][k_simple] = data['nadpis_nakleyki']
+        df['База профилей'][k_simple] = data['baza_profiley']
+        df['Группа материалов'][k_simple] = data['gruppa_materialov']
+        df['Краткий текст товара'][k_simple] = data['kratkiy_tekst']
+        artikul_krat_join = data['base_artikul']+ data['kratkiy_tekst']
+        
+        df['SAP Код вручную (вставится вручную)'][k_simple] = artikul_kratkiy_collection[artikul_krat_join] if artikul_krat_join in artikul_kratkiy_collection else data['sap_code']
+        df['Краткий текст товара (вставится вручную)'][k_simple] =data['kratkiy_tekst']
+        df['Наименование export'][k_simple] =data['nazvaniye_ruchnoy']
+        df['Длина при выходе из пресса'][k_simple] =data['dilina_pressa']
+        df['Место для комментариев'][k_simple] =data['comment']
+        
         k_simple+=1
     
     del df['counter']
