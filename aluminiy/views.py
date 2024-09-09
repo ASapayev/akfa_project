@@ -889,7 +889,7 @@ def full_update_bazaprofiley(request):
                   df = df.replace('0.0','0')
                   
                   columns = df.columns
-                  print(columns)
+                  
 
                   AluProfilesData.objects.all().delete()
                   AluProfilesData(data ={'columns':list(columns)}).save()
@@ -1033,7 +1033,7 @@ def product_add_second_org(request,id):
             
             if product_exists:
                   component = AluProfilesData.objects.filter(data__Артикул=row['Артикул'])[:1].get().data['Компонент']
-                  print(component)
+                  
             else:
                   if  AluProfilesData.objects.filter(data__Компонент=row['Артикул']).exists():
                         component = row['Артикул']
@@ -3305,7 +3305,7 @@ def razlovka_save(request):
       for path1 in iyun:
             if 'Копия' in path1:
                   continue
-            print(path1)
+           
             df_new = pd.read_excel(path1,sheet_name=['Schotchik','Characteristika','title'])
             df_new['Schotchik'] =df_new['Schotchik'].astype(str)
             df_new['Characteristika'] =df_new['Characteristika'].astype(str)

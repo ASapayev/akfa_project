@@ -6,7 +6,7 @@ from asgiref.sync import async_to_sync
 
 class MessageConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        print('connected>>>>>')
+        # print('connected>>>>>')
         # print(self.scope["url_route"]["kwargs"]["chat_box_name"])
         # print(self.scope)
         # Called when the WebSocket handshake is successful
@@ -18,7 +18,7 @@ class MessageConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
     async def disconnect(self, close_code):
-        print('disconnected')
+        # print('disconnected')
         # Called when the WebSocket connection is closed
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
         

@@ -325,7 +325,7 @@ def lenght_generate_texcarta(ozmks) -> list:
                     not_exists.append(ozmk)
             else:
                 not_exists.append(ozmk)
-                print(ozmk)
+                
             
     for i in range(0,counter_2):
         df_new['USR01'][i] = df_new['USR01'][i].replace('.',',')

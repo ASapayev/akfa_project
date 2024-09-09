@@ -7,7 +7,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         a=self.norma_for_test()
-        print(a)
+        # print(a)
         
     def norma_for_test(self):
         # normas = Norma.objects.all().values_list("компонент_1","компонент_2","компонент_3",'артикул')
@@ -18,5 +18,5 @@ class Command(BaseCommand):
         #             normass.append(n)
         # norma_unique =set(normass)
         kraskas = Kraska.objects.all().values_list('код_краски_в_профилях',flat=True)
-        print(kraskas)
+        # print(kraskas)
         return 1

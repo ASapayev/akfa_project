@@ -455,7 +455,7 @@ def full_update_norma(request):
     columns =data['data[3][]']
     for i in range(0,len(columns)):
         columns[i] = columns[i] + str(i)
-        print(columns[i]) 
+        # print(columns[i]) 
 
     new_data = []
     for j in range(4,len(data)):
@@ -1227,7 +1227,7 @@ def kombinirovaniy_process(request,id):
     norma_exists= []
 
     for i in range(0,len(df)):
-        print(i)
+        # print(i)
         older_process ={'sapcode':'','kratkiy':''}
         
         if {df[i][0]:df[i][1]} not in norma_exists:

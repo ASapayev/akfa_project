@@ -1158,7 +1158,7 @@ def get_ozmka(ozmk):
         if not sap_code_exists:
             sap_code_yoqlari.append(sap_code)
 
-    print(pvc_razlovka,'#'*100)
+    # print(pvc_razlovka,'#'*100)
     obichniy_razlovka1101 =[ raz for raz in pvc_razlovka]
    
 

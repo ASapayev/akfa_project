@@ -569,7 +569,7 @@ def create_norma_post(request):
 
     data = list(request.POST.keys())[0]
     items = json.loads(data)
-    print(items)
+    
     name_of_type =''
     all_data =[]
     new_data = []
@@ -600,9 +600,7 @@ def create_norma_post(request):
         
         
     data_list = [dat for dat in all_data if not Norma.objects.filter(data__sap_code=dat['sap_code']).exists()] 
-    print(data_list,'*'*70)
-        # df_duplicates =pd.DataFrame(np.array([['','','']]),columns=['SAP CODE','KRATKIY TEXT','SECTION'])
-    print(data_list)
+    
     if len(data_list)>0:
         instances_to_create = [Norma(data=data) for data in data_list]
         Norma.objects.bulk_create(instances_to_create)

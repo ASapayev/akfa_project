@@ -156,7 +156,7 @@ def texcartaupload(request):
     
     texcartas = TexCartaTime.objects.all()
     for texs in texcartas:
-        print(texs.id)
+        # print(texs.id)
         texs.компонент_1 = texs.компонент_1.strip()
         texs.компонент_2 = texs.компонент_2.strip()
         texs.компонент_3 = texs.компонент_3.strip()
@@ -389,7 +389,7 @@ def lenght_generate_texcarta(request,id):
                 if lenghtht in accessuar:
                     isklyuchenie = True
                 if texcarta_bor:
-                    print(row['МАТЕРИАЛ'])
+                    # print(row['МАТЕРИАЛ'])
                     if ((texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй !='nan') or (texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй != "")):
                         if '.' in texcartatime.наклейка_упаковка_1_линия_про_во_в_сутки_буй:
                             if 'NT1' in row['КРАТКИЙ ТЕКСТ']:

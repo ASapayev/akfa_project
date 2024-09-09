@@ -598,7 +598,7 @@ def kombinirovaniy_process(request,id):
     file_content ='обычный'
     df = []
     df_aurora = []
-    print(df_exell.columns,file) 
+    # print(df_exell.columns,file) 
     
     for key,row in df_exell_aurora.iterrows():
         df_aurora.append([
@@ -723,7 +723,7 @@ def kombinirovaniy_process(request,id):
     norma_exists= []
 
     for i in range(0,len(df)):
-        print(i)
+        # print(i)
         
         artikul = df[i][8].split('-')[0]
         # print(artikul,'norma')
@@ -1643,12 +1643,12 @@ def lenght_generate_texcarta(request,id):
     df=df.replace('nan','')
 
 
-    print(df,'+' * 50)
+    # print(df,'+' * 50)
 
     counter = 500
     for key,row in df.iterrows():
         if not TexcartaBase.objects.filter(material = row['МАТЕРИАЛ']).exists():
-            print(row['МАТЕРИАЛ'])
+            # print(row['МАТЕРИАЛ'])
             if '-PR' in row['МАТЕРИАЛ']:
                 counter +=2
             elif '-MO' in row['МАТЕРИАЛ']:
@@ -1662,7 +1662,7 @@ def lenght_generate_texcarta(request,id):
             elif '-7' in row['МАТЕРИАЛ']:
                 counter +=2
        
-    print(counter)
+    # print(counter)
     df_new = pd.DataFrame()
     df_new['counter'] =[ '' for i in range(0,counter)]
     df_new['ID']=''
@@ -1692,13 +1692,13 @@ def lenght_generate_texcarta(request,id):
     df_new['USR00']=''
     df_new['USR01']=''
     
-    print(df_new,'lllll')
+    # print(df_new,'lllll')
 
     counter_2 = 0
     for key,row in df.iterrows():
         if not TexcartaBase.objects.filter(material = row['МАТЕРИАЛ']).exists():
             length = row['МАТЕРИАЛ'].split('-')[0]
-            print(row['МАТЕРИАЛ'],'ddd')
+            # print(row['МАТЕРИАЛ'],'ddd')
             norma = Norma.objects.filter(data__Артикул__icontains=length)[:1].get()
             
             if '-PR' in row['МАТЕРИАЛ']:

@@ -800,7 +800,7 @@ def lenght_generate_org(request,id):
     'created_at':str(file.created_at)
 
   }
-  print(data)
+  # print(data)
   order_delov = OrderDelovoyOtxod(data = data)
   order_delov.save()
   context={

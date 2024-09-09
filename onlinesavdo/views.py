@@ -504,7 +504,7 @@ def sozdaniya_online_savdo(request,id):
         if row2['Базовый единица']=='КГ':
             t = 1
         else:
-            print(row2["Артикул"],row2['Длина (мм)'])
+            # print(row2["Артикул"],row2['Длина (мм)'])
             t = LengthOfProfile.objects.filter(artikul = row2["Артикул"],length = str(row2['Длина (мм)']).replace('.0',''))[:1].get().ves_za_shtuk
         
         data[5].append(round50(float(t)*(price)))
@@ -1426,7 +1426,7 @@ def proverka(request,id):
         df1 = df1.astype(str)
         df1['joined_data']= df1['VKORG'] + df1['KONDA'] + df1['MATNR'] +df1['DATAB']
 
-        print(df1['joined_data'])
+        # print(df1['joined_data'])
 
         df2 = pd.read_excel(f'{MEDIA_ROOT}/{path4}',sheet_name='Sheet1',header=0)
 
@@ -1618,7 +1618,7 @@ def proverka(request,id):
                 nesovpaden_datas[14].append(row1['AUART'])
                 nesovpaden_datas[15].append(row1['AUGRU'])
                 nesovpaden_datas[16].append(result.iloc[0]['Сумма'])
-                print(result,'nesovpaden')
+                # print(result,'nesovpaden')
                 break
             else:
                 pass

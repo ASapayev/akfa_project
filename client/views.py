@@ -88,9 +88,9 @@ def user_message_receive(request):
             'image':str(user.image),
             'username':user.first_name,
         }
-        print(data,'<<<<<<'*10)
+        # print(data,'<<<<<<'*10)
         websocket_url +=str(user.operator.id)+'/'
-        print(websocket_url)
+        # print(websocket_url)
         send_message_to_websocket(websocket_url,data=data)
         
         return JsonResponse({'message':'Successfully saved!'})
@@ -266,7 +266,7 @@ def save_ves_of_profile(request):
     data_json = request.POST.get('data',None)
     
     data = json.loads(data_json)
-    print(data)
+    # print(data)
     if data_json:
         for dat in data:
             ves_za_shtuk = float(str(dat['ves']).replace(',','.'))
@@ -321,7 +321,7 @@ def moderator_convert(request,id):
     create_folder(f'{MEDIA_ROOT}\\uploads','prochiye')
     create_folder(f'{MEDIA_ROOT}\\uploads\\prochiye','downloads')
 
-    print(name,'<<<'*7)
+    # print(name,'<<<'*7)
 
     if name in ['ALUMINIY SAVDO','ALUMINIY EXPORT','ALUMINIY IMZO'] :
         df_simple, df_termo , correct, artikul_list = json_to_excel_alumin(datas,name)
@@ -374,7 +374,7 @@ def moderator_convert(request,id):
             is_1101 = request.GET.get('for1101','off')
             is_1201 = request.GET.get('for1201','off')
             is_1112 = request.GET.get('for1112','off')
-            print(is_1101,is_1201,is_1112,'sstttatus')
+            # print(is_1101,is_1201,is_1112,'sstttatus')
             o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
             paths ={
                     'termo_file':path_alu_termo,
@@ -1482,7 +1482,7 @@ def checker_send_to_jira(id):
         data=payload_jira,
         headers=headers_jira
     )
-    print(response.text)
+    # print(response.text)
     return JsonResponse({'status':'changed'})
 
 

@@ -672,7 +672,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     d1['WERKS']=umumiy_without_duplicate1201[34]
     d1['BESKZ']=umumiy_without_duplicate1201[7]
     d1['SPART']=umumiy_without_duplicate1201[8]
-    print(umumiy_without_duplicate1201[9])
+   
     d1['BRGEW']=[str(round(float(k1.replace(',','.')),3)).replace('.',',') for k1 in umumiy_without_duplicate1201[9]]
     d1['NTGEW']=[str(round(float(k2.replace(',','.')),3)).replace('.',',') for k2 in umumiy_without_duplicate1201[10]]
     d1['GEWEI']=umumiy_without_duplicate1201[11]
@@ -972,7 +972,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     for key , row in datas.iterrows():
         sap_code = row['SAP код S4P 100'].split('-')[0]
         bazaprofiley = AluProfilesData.objects.filter(Q(data__Артикул =sap_code)|Q(data__Компонент=sap_code))[:1].get()
-        print(bazaprofiley)  
+         
         baza_profile_links[0].append(row['SAP код S4P 100'])
         baza_profile_links[1].append(bazaprofiley.data['Ссылка для чертежей'])
 
@@ -4457,7 +4457,6 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     
     df_bug_text= pd.DataFrame(buxgalterskiy_t)
     
-    print(df_bug_text,'bug')
     np.savetxt(pathtext8, df_bug_text.values,fmt='%s', delimiter="\t",header=header_buxgalter,comments='',encoding='ansi')
     
     
@@ -7042,7 +7041,7 @@ def check_for_correct(items,filename='termo'):
     
     for key,row in items.iterrows():
         if row['Артикул'] !='nan':
-            print('usloviya1')
+       
             artikle =row['Артикул']
             if not AluProfilesData.objects.filter(data__Артикул__icontains =artikle).exists():
                 if [artikle,'new'] not in aluprofile:
@@ -7059,7 +7058,7 @@ def check_for_correct(items,filename='termo'):
                     
         if  filename =='termo':   
             if row['Компонент'] !='nan':
-                print('usloviya2')
+               
                 artikle =row['Компонент']
                 if not AluProfilesData.objects.filter(data__Компонент__icontains =artikle).exists():
                     if [artikle,'new'] not in aluprofile:

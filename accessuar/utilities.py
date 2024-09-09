@@ -13,7 +13,7 @@ df = df.replace('0.0','0')
 
 def get_legth(lengg):
     lls =lengg.split()
-    print(lengg)
+   
     for ll in lls:
         if ll.startswith('WL'):
             hh =ll.replace('WL','')

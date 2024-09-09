@@ -61,7 +61,7 @@ def sms_detail(request,uuid):
 @allowed_users(allowed_roles=['admin','moderator'])     
 def sms_save(request):
       data = request.data
-      print(data)
+      
       return JsonResponse({'msg':'Saved successfully','status':201})
 
 @login_required(login_url='/accounts/login/')
@@ -503,7 +503,7 @@ def index(request):
 @allowed_users(allowed_roles=['admin','moderator'])
 def aluminiy_productbases(request):
       df = pd.read_excel('c:\\OpenServer\\domains\\База термо.XLSX','Лист1')
-      print(df.shape)
+   
       #   print(df['Материал'][0])
       #   print(df['Материал'][39705])
 
@@ -618,7 +618,7 @@ def upload_product_org(request):
             else:
                   form =FileFormTermo()
                   workers = User.objects.filter(role = 'moderator')
-                  print(workers)
+              
                   context ={
                   'form':form,
                   'section':'Формирование сапкода термо',
@@ -808,7 +808,7 @@ def aluminiy_group(request):
             # product['section_max']=al['total_max']
             # product['artikul']=al['artikul']
             umumiy[ al['artikul'] + '-' + al['section'] ] = al['total_max']
-      print('aa   ')
+      
       return JsonResponse({'data':umumiy})
 
 import glob
@@ -841,7 +841,7 @@ def razlovkatermo_save(request):
                   continue
             if 'copy' in path1:
                   continue
-            print(path1)
+            
             razlovka_yoq = True
             try:
                   df_new = pd.read_excel(path1,sheet_name=['Schotchik','Characteristika','title'])
@@ -1115,7 +1115,7 @@ def full_artikul_component(request):
                   df = df.replace('0.0','0')
                   
                   columns = df.columns
-                  print(columns)
+                 
             
                   ArtikulComponent(data ={'columns':list(columns)}).save()
                   for key, row in df.iterrows():
@@ -1428,7 +1428,6 @@ def product_add_second_org(request,id):
             duplicat_list =[]
             
             if artikul !='nan':
-                  print('artikulllllllll')
                   if df['Длина при выходе из пресса'][key] != 'nan' and df['Длина при выходе из пресса'][key].replace('.0','')!= row['Длина (мм)']:
                         dlina = df['Длина при выходе из пресса'][key].replace('.0','')
                               
@@ -1851,8 +1850,8 @@ def product_add_second_org(request,id):
                                           export_description ='Термоуплотненный алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                                     else:       
                                           export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
-                                    print(artikle,'<<<artikul')
-                                    print(export_description)
+                                    # print(artikle,'<<<artikul')
+                                    # print(export_description)
                                     # print(df_new['SAP код 7'][key],key)
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
@@ -1961,7 +1960,7 @@ def product_add_second_org(request,id):
                                                 else:
                                                       surface_treatment_export = svet_lam_plenke_POL[row['Цвет лам пленки снаружи']]
                                           
-                                    print(f"Ukrat1 tip pokr {row['Тип покрытия']}")
+                                    # print(f"Ukrat1 tip pokr {row['Тип покрытия']}")
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
@@ -2615,7 +2614,7 @@ def product_add_second_org(request,id):
                                           
                                     
                                     
-                                    print(f"ZZZ tip pokr {row['Тип покрытия']}")  
+                                    # print(f"ZZZ tip pokr {row['Тип покрытия']}")  
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
                                                       'kratkiy':df_new['Печь старения'][key],
@@ -2699,7 +2698,7 @@ def product_add_second_org(request,id):
                                     else:       
                                           export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                                     
-                                    print(f"p tip pokr {row['Тип покрытия']}",'>>>>>>>',export_description)
+                                    # print(f"p tip pokr {row['Тип покрытия']}",'>>>>>>>',export_description)
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                                     
@@ -2774,7 +2773,7 @@ def product_add_second_org(request,id):
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                                     
-                                    print(f"p tip pokr {row['Тип покрытия']}")
+                                    # print(f"p tip pokr {row['Тип покрытия']}")
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
                                                       'kratkiy':df_new['Покраска автомат'][key],
@@ -2859,7 +2858,7 @@ def product_add_second_org(request,id):
                                     
                                     
                                     
-                                    print(f"S tip pokr {row['Тип покрытия']}")
+                                    # print(f"S tip pokr {row['Тип покрытия']}")
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
@@ -2928,7 +2927,7 @@ def product_add_second_org(request,id):
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                                     
-                                    print(f"S tip pokr {row['Тип покрытия']}")
+                                    # print(f"S tip pokr {row['Тип покрытия']}")
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
@@ -3013,7 +3012,7 @@ def product_add_second_org(request,id):
                                     
                                     
                                     
-                                    print(f"A tip pokr {row['Тип покрытия']}")    
+                                    # print(f"A tip pokr {row['Тип покрытия']}")    
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
                                                       'kratkiy':df_new['Анодировка'][key],
@@ -3080,7 +3079,7 @@ def product_add_second_org(request,id):
                                     
                                     
                                     
-                                    print(f"A tip pokr {row['Тип покрытия']}")  
+                                    # print(f"A tip pokr {row['Тип покрытия']}")  
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
                                                       'kratkiy':df_new['Анодировка'][key],
@@ -3173,7 +3172,7 @@ def product_add_second_org(request,id):
                                     else:       
                                           export_description ='Алюминиевый профиль ' + tip_poktitiya +', ' + hollow_and_solid.lower()
                                     
-                                    print(f"N tip pokr {row['Тип покрытия']}", '>>>> ', export_description)      
+                                    # print(f"N tip pokr {row['Тип покрытия']}", '>>>> ', export_description)      
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                                     
@@ -3244,7 +3243,7 @@ def product_add_second_org(request,id):
                                     export_description_eng = CharUtilsThree.objects.filter(bux_name_rus =export_description)[:1].get()   
                                     
                                     
-                                    print(f"N tip pokr {row['Тип покрытия']}")  
+                                    # print(f"N tip pokr {row['Тип покрытия']}")  
                                           
                                     cache_for_cratkiy_text.append(
                                                       {'material':materiale,
@@ -3533,7 +3532,7 @@ def product_add_second_org(request,id):
                   'section':'Формированый термо файл'
             }
             if order_id:
-                  print('*1*'*15)
+                  # print('*1*'*15)
                   norma_file = NormaExcelFiles(file = path_ramka_norma,type='termo')
                   norma_file.save()
                   file_paths =[ file.file for file in files]
@@ -3573,7 +3572,7 @@ def product_add_second_org(request,id):
             }
 
             if order_id:
-                  print('*2*'*15)
+                  # print('*2*'*15)
                   norma_file = NormaExcelFiles(file = path_ramka_norma,type='simple')
                   norma_file.save()
                   order = Order.objects.get( id = order_id)

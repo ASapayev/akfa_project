@@ -609,7 +609,6 @@ def json_to_excel_alumin(datas,artikul_kratkiy_collection):
     df['Тип клиента'] =''
 
     
-    print(artikul_kratkiy_collection,'lllll')
 
     k_simple = 0
     for key1,data in datas.items():

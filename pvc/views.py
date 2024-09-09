@@ -480,7 +480,7 @@ def product_add_second_org(request,id):
                         umumiy_counter[df['Артикул'][key]+'-7'] = 1
                         
                         component2 = materiale.split('-')[0]
-                        print(df['Артикул'][key],'yoqlar')
+                        # print(df['Артикул'][key],'yoqlar')
                         artikulcomponent = ArtikulKomponentPVC.objects.filter(artikul = df['Артикул'][key])[:1].get()
                         
                         q_bic = ''
@@ -2711,7 +2711,7 @@ def proverka(request,id):
             nesovpaden_datas[14].append(row1['AUART'])
             nesovpaden_datas[15].append(row1['AUGRU'])
             nesovpaden_datas[16].append(result.iloc[0]['Сумма'])
-            print(result,'nesovpaden')
+            # print(result,'nesovpaden')
             break
         else:
             pass
@@ -3049,7 +3049,7 @@ def edit_sapcode(request,id):
             (Q(esapkode = sapcode_org.material)&Q(ekrat = sapcode_org.kratkiy_tekst_materiala))
             |(Q(lsapkode = sapcode_org.material)&Q(lkrat = sapcode_org.kratkiy_tekst_materiala))
             |(Q(sapkode7 =sapcode_org.material )&Q(krat7=sapcode_org.kratkiy_tekst_materiala))).exists:
-            print(sapcode_org.material,sapcode_org.kratkiy_tekst_materiala)
+            # print(sapcode_org.material,sapcode_org.kratkiy_tekst_materiala)
             razlovka = RazlovkaPVX.objects.filter(
                 (Q(esapkode = sapcode_org.material)&Q(ekrat = sapcode_org.kratkiy_tekst_materiala))
                 |(Q(lsapkode = sapcode_org.material)&Q(lkrat = sapcode_org.kratkiy_tekst_materiala))
