@@ -151,6 +151,7 @@ function front_piece(start=1,end=6){
                     <option vlaue="СКЦ">СКЦ</div>
                     <option  value="КОР">КОР</div>
                     <option  value="КУБ">КУБ</div>
+                    <option  value="Т">Т</div>
                 </select>
             </div>
         </td>

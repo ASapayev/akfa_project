@@ -187,7 +187,8 @@ function front_piece(start=1,end=6){
                 <option value="Светло Серый">790</option>
                 <option value="Жёлтый матовый">789</option>
                 <option value="Cиний Mатовый">788</option>
-                <option value="Светло Серый">790</option>
+                <option value="Молочный матовый">791</option>
+                <option value="Темно серый пудра">792</option>
             
             </select>
         </td>

@@ -102,14 +102,14 @@ class BasePokritiya{
                         if (this.balance_ed && this.rol_bp&& this.group_del_partner&&this.imya_org&&this.gorod){
                             
                             if(this.rol_bp =='Клиент' || this.rol_bp =='Поставщик и Клиент'){
-                                if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz&&this.usloviya_plateja&&this.sbitovoy_organ&&this.kanal_sbita&&this.sektor&&this.rayon_sbita&&this.gruppa_sena&&this.sxema_kliyenta&&this.status_gruppa_kliyent&&this.usloviya_otgruz&&this.sbit_debitora&&this.sbit_nalog){
+                                if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz&&this.usloviya_plateja&&this.sbitovoy_organ&&this.kanal_sbita&&this.sektor&&this.rayon_sbita&&this.gruppa_sena&&this.sxema_kliyenta&&this.status_gruppa_kliyent&&this.usloviya_otgruz&&this.sbit_debitora&&this.sbit_nalog&&this.kod_stran_bank){
                                     return {'text':'','accept':true}
                                 }else{
                                     return {'text':'','accept':false}
                                 }
 
                             }else if(this.rol_bp == 'Поставщик'){
-                                if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz){
+                                if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz&&this.kod_stran_bank){
                                     return {'text':'','accept':true}
                                 }else{
                                     return {'text':'','accept':false}

@@ -119,7 +119,7 @@ function front_piece(start=1,end=6){
 
         <td >
             <div class="input-group input-group-sm mb-1">    
-            <select class="form-select" aria-label="" style="width: 100px;height:27px!important;z-index:0;border-color:red;display:none;" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='brend`+String(i)+`'>
+            <select class="form-select" aria-label="" style="width: 150px;height:27px!important;z-index:0;border-color:red;display:none;" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='brend`+String(i)+`'>
                 <option  value="" selected></option>
                 <option value="BK">BK</option>
                 <option value="LIDER">LIDER</option>
@@ -129,6 +129,7 @@ function front_piece(start=1,end=6){
                 <option value="Florence">Florence</option>
                 <option value="Piuma">Piuma</option>
                 <option value="LIDER-PERFETTO">LIDER-PERFETTO</option>
+                <option value="SIRA">SIRA</option>
 
                 
             </select>

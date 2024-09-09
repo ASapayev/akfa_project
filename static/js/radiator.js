@@ -181,7 +181,7 @@ function front_piece(start=1,end=6){
 
         <td >
             <div class="input-group input-group-sm mb-1">    
-            <select class="form-select" aria-label="" style="width: 100px;height:27px!important;z-index:0;border-color:red;display:none;" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='brend`+String(i)+`'>
+            <select class="form-select" aria-label="" style="width: 150px;height:27px!important;z-index:0;border-color:red;display:none;" onchange="create_kratkiy_tekst(`+String(i)+`)"  id='brend`+String(i)+`'>
                 <option  value="" selected></option>
                 <option value="BK">BK</option>
                 <option value="LIDER">LIDER</option>
@@ -193,6 +193,7 @@ function front_piece(start=1,end=6){
                 <option value="LIDER-PERFETTO">LIDER-PERFETTO</option>
                 <option value="PIUMA">PIUMA</option>
                 <option value="PORTOFINO">PORTOFINO</option>
+                <option value="SIRA">SIRA</option>
 
                 
             </select>
@@ -554,9 +555,9 @@ function request_piece(start=1,end=6){
                 
                 
                 
-                buxgalter_uchot.val('Килограмм')
+                buxgalter_uchot.val('Штука')
                 bazoviy_edin.val('Штука')
-                alter_edin.val('Килограмм')
+                alter_edin.val('Секция')
                 stoimost_baza.val('1')
                 
                 
@@ -586,7 +587,7 @@ function request_piece(start=1,end=6){
                 // status.attr('disabled',true)
             
                 online_savdo_id.css('border-color','#dedad9')
-                // tip_clenta.css('border-color','#dedad9')
+                bazoviy_edin.css('border-color','#dedad9')
             
 
             }

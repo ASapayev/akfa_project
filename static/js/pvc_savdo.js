@@ -1185,7 +1185,7 @@ function copy_tr(id){
             check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(stoimost_baza,'#stoimost_baza'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(stoimost_alter,'#stoimost_alter'+s,dis=false,is_req=false,is_req_simple=true)
-            check_input_and_change(status_online,'#status'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(status_online,'#status'+s,dis=true,is_req=false,is_req_simple=true)
             check_input_and_change(zavod_name,'#zavod_name'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(diller,'#diller'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(tip_clenta,'#tip_clenta'+s,dis=false,is_req=true,is_req_simple=false)
@@ -1213,7 +1213,7 @@ function copy_tr(id){
             check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(stoimost_baza,'#stoimost_baza'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(stoimost_alter,'#stoimost_alter'+s,dis=false,is_req=false,is_req_simple=true)
-            check_input_and_change(status_online,'#status'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(status_online,'#status'+s,dis=true,is_req=false,is_req_simple=true)
             check_input_and_change(zavod_name,'#zavod_name'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(diller,'#diller'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(tip_clenta,'#tip_clenta'+s,dis=false,is_req=false,is_req_simple=true)
@@ -1314,11 +1314,11 @@ function create(i){
     artikul.attr('disabled',false)
 
     var status_first =$('#status'+i);
-    status_first.val('Активный')
+    status_first.val('Пассивный')
+    status_first.attr('disabled',true)
 
     var is_active =$('#is_active'+i);
     is_active.text('Пассивный')
-    // status_first.attr('disabled',true)
 
     var tip =$('#tip'+i);
     tip.val('Готовый продукт')
@@ -1355,7 +1355,7 @@ function activate(i){
 
     var is_active =$('#is_active'+i);
     is_active.text('Активный')
-    // status_first.attr('disabled',true)
+    status_first.attr('disabled',true)
 
     var svet_product =$('#svet_product'+i);
     
@@ -1419,7 +1419,7 @@ function activate(i){
 
 
     status.val('Активный')
-    // status.attr('disabled',true)
+    status.attr('disabled',true)
 
     sap_code_ruchnoy.css('border-color','red')
     kratkiy_tekst_ruchnoy.css('border-color','red')
@@ -1569,7 +1569,7 @@ function artukil_clear(id){
 
     var status_first = $('#status'+String(id))
    
-    status_first.val('Активный')
+    status_first.val('')
 
     var sap_code_ruchnoy =$('#sap_code_ruchnoy'+id);
     var kratkiy_tekst_ruchnoy =$('#kratkiy_tekst_ruchnoy'+id);
@@ -1655,7 +1655,7 @@ function artukil_clear(id){
     group.val('')
     tip.val('')
     bazoviy_edin.val('')
-    status.val('Активный')
+    status.val('')
     // zavod.val('')
     buxgalter_uchot.val('')
     alter_edin.val('')
@@ -1982,7 +1982,7 @@ function tip_pokritiya_selected(id,val){
         svet_product.val(svet_product_val)
         tip.val('Готовый продукт')
         group_zakup.val(gruppa_zakupok)
-        status.val('Активный')
+        status.val('Пассивный')
         // status.attr('disabled',true)
 
         online_savdo_id.css('border-color','#dedad9')
