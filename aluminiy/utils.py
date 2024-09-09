@@ -647,7 +647,8 @@ def json_to_excel_alumin(datas,artikul_kratkiy_collection):
         df['Краткий текст товара (вставится вручную)'][k_simple] =data['kratkiy_tekst']
         df['Место для комментариев'][k_simple] =data['comment']
         df['Длина при выходе из пресса'][k_simple] = data['dilina_pressa']
-        df['Завод'][k_simple] =data['zavod']
+        if 'zavod' in data:
+            df['Завод'][k_simple] =data['zavod']
         df['ONLINE ID'][k_simple] =data['online_id']
         df['Название'][k_simple] =data['nazvaniye_ruchnoy']
         df['Цвет продукта'][k_simple] =data['svet_product']
