@@ -1133,12 +1133,15 @@ function request_piece(start=1,end=7){
             
             var nakleyka_kode = e.params.data.code_nakleyka
             var segment_text = e.params.data.segment
+            if (segment_text == '0'){
+                segment_text =''
+            }
 
     
             
             
             segment.val(segment_text)
-            if(segment_text == 'Нет сегмента'){
+            if(segment_text == ''){
                 segment.css('border-color','red');
                 if(data_base[i]){
                     data_base[i].segment =NaN;
