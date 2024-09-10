@@ -952,6 +952,48 @@
             </form>
             </section>
             {%endif%}
+            {%if order_type == 'acs_zavod'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <div class="row p-2">
+                    <div class="col">
+                     
+                    </div>
+                    <div class="col-10">
+                    </div>
+                    <div class="col">
+                      <button onclick="downloadTableAsExcel()" class="btn btn-primary btn-sm">Download as Excel</button>
+                    </div>
+                  </div>
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" id="table-container">
+                    
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Краткий текст</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Группма Материалов</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">БЕИ</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">АЕИ</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Коэффициент пересчета</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Склад ГП</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Бух цена</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Комментария</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
 
             {%if order_type == 'change_data'%}
             <section class="topics-detail-section section-padding" id="topics-detail">
@@ -1223,6 +1265,7 @@ var order ={
             'prochiye_tms':['vid_zayavki','zavod','sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','koefitsiyent','alternativ_edin','vid_materiala','vid_zagotovki','prodayot','gruppa_zakupok','gruppa_materialov','comment',],
             'change_data':['vid_zayavki','id_savdo','naz_savdo','sapcode','bei ','aei','koefitsiyent','sena_c_ndc','sena_bez_ndc','ed_izm','group','group_zakupok','zavod','segment','bux_naz','tip_clienta','svet_product','diller','comment'],
             'bussines_partner':['vid_zayavki','balance_ed','rol_bp','group_del_partner','nomer_del_partner','imya_org','imya','familiya','ulitsa','nomer_doma','pochta_index','gorod','kod_stran','region','rayon','nomer_tel','nomer_mob','inn','ndc','nalog','oked','okpo','coato','coogu','kod_stran_bank','klyuch_banka','bank_schot','valyuta_zakaz','usloviya_plateja','sbitovoy_organ','kanal_sbita','sektor','rayon_sbita','gruppa_sena','sxema_kliyenta','status_gruppa_kliyent','usloviya_otgruz','sbit_debitora','sbit_nalog','kontrol_schot','kontrol_debitora',],
+            'acs_zavod':['base_artikul','kratkiy_tekst','gruppa_materialov','bei','aei','koefitsiyent','sklad_gp','bux_sena','comment',],
             
 
                 
