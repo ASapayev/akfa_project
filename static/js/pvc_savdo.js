@@ -1156,8 +1156,9 @@ function copy_tr(id){
        
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
 
-        // check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
-        // check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s)
+        check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
+        check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s)
+
         check_input_and_change(comment,'#comment'+s)
         
 
@@ -2514,11 +2515,11 @@ function create_kratkiy_tekst(id){
     }
     
     if(data.text !='XXXXXXXX' ){
-        var artikul = data_base[id].base_artikul
-        var art_krat = {artikul:data.text}
-        if(zapros_count.indexOf(art_krat) === -1){
+        var artikul_bass = data_base[id].base_artikul
+        var art_krat_dict = artikul_bass + data.text
+
+        if(zapros_count.indexOf(art_krat_dict) === -1){
             sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text)
-            zapros_count.push(art_krat)
         }else{
             var krat = zapros_count[artikul]
             var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
@@ -2550,6 +2551,12 @@ function get_sapcode(id,artikul,kratkiy_tekst){
         data: {'artikul':artikul,'kratkiy_tekst':kratkiy_tekst},
     }).done(function (res) {
         if (res.status ==201){
+            var art_krat =artikul+kratkiy_tekst
+            zapros_count.push(art_krat)
+
+            data_base[id].sap_code=res.artikul
+            data_base[id].krat=res.kratkiy_tekst
+
             var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
             var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
             sap_code_ruchnoy.val(res.artikul)
@@ -2559,6 +2566,10 @@ function get_sapcode(id,artikul,kratkiy_tekst){
             sap_code_ruchnoy.attr('disabled',true)
             kratkiy_text_ruchnoy.attr('disabled',true)
         }else{
+            var art_krat =artikul+kratkiy_tekst
+            zapros_count.push(art_krat)
+            data_base[id].sap_code=NaN
+            data_base[id].krat=NaN
             var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
             var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
             sap_code_ruchnoy.val('')

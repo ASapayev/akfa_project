@@ -1330,8 +1330,8 @@ function copy_tr(id){
         
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
         
-        // check_input_and_change(sap_code,'#sap_code'+s)
-        // check_input_and_change(krat,'#krat'+s)
+        check_input_and_change(sap_code,'#sap_code'+s)
+        check_input_and_change(krat,'#krat'+s)
         
         
         
@@ -2680,10 +2680,11 @@ function create_kratkiy_tekst(id){
         
     }
     if(data.text !='XXXXXXXX' ){
-        var art_krat = data_base[id].base_artikul + data.text
-        if(zapros_count.indexOf(art_krat) === -1){
+        var artikul_bass = data_base[id].base_artikul
+        var art_krat_dict = artikul_bass + data.text
+        if(zapros_count.indexOf(art_krat_dict) === -1){
             sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text,data_base[id].is_termo)
-            zapros_count.push(art_krat)
+           
         }
         data_base[id].kratkiy_tekst= data.text
     }
@@ -2708,6 +2709,12 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
         data: {'artikul':artikul,'kratkiy_tekst':kratkiy_tekst,'is_termo':is_termo},
     }).done(function (res) {
         if (res.status ==201){
+            var art_krat =artikul+kratkiy_tekst
+            zapros_count.push(art_krat)
+
+            data_base[id].sap_code=res.artikul
+            data_base[id].krat=res.kratkiy_tekst
+
             var sap_code = $('#sap_code'+id)
             var krat = $('#krat'+id)
             sap_code.val(res.artikul)
@@ -2715,8 +2722,12 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
             sap_code.css('background-color','orange')
             krat.css('background-color','orange')
         }else{
+            var art_krat =artikul+kratkiy_tekst
+            zapros_count.push(art_krat)
             var sap_code = $('#sap_code'+id)
             var krat = $('#krat'+id)
+            data_base[id].sap_code=NaN
+            data_base[id].krat=NaN
             sap_code.val('')
             krat.val('')
             sap_code.css('background-color','white')

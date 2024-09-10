@@ -389,7 +389,7 @@ def lenght_generate_texcarta(request,id):
     
     del df_new['counter']
 
-    df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\texcarta.xlsx',index=False)
+    df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\texcarta_kraska.xlsx',index=False)
 
     # df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\norma.xlsx',index=False)
 

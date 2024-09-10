@@ -297,7 +297,7 @@ def lenght_generate_texcarta(request,id):
                 counter_2 +=1
         
 
-    df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\epdm\\texcarta.xlsx',index=False)
+    df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\epdm\\texcarta_epdm.xlsx',index=False)
 
 
     return JsonResponse({'a':'b'})

@@ -94,7 +94,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="display:none;width: 70px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red" id='zavod`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="display:none;width: 60px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red" id='zavod`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option value="1101 - Производство алюминиевых профилей - Джами">1101 - Производство алюминиевых профилей - Джами</option>
                     <option value="1201 - Производство алюминиевых профилей - BENKAM">1201 - Производство алюминиевых профилей - BENKAM</option>
@@ -118,12 +118,12 @@ function front_piece(start=1,end=6){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="display:none; width: 100px; font-size:10px;z-index:0 " id='sapcode`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)' maxlength="40"></input>
+            <input type='text' class=" form-control " style="display:none; width: 100px; font-size:10px;z-index:0 " id='sapcode`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="display:none; border-color:red; width: 175px; font-size:10px; z-index:0" id='nazvaniye_tovarov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style="display:none; border-color:red; width: 175px; font-size:10px; z-index:0" id='nazvaniye_tovarov`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)' maxlength="40"></input>
             </div>
         </td>
         <td >
