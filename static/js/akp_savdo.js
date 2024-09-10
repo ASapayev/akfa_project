@@ -87,7 +87,7 @@ class BasePokritiya{
                             
                         }else{
                             
-                            if ( this.pickupdate && this.sena_bez_nds && this.sena_c_nds && this.group && this.buxgalter_tovar && this.diller && this.tip_clenta && this.nazvaniye_ruchnoy){
+                            if ( this.pickupdate && this.sena_bez_nds && this.sena_c_nds && this.group && this.diller && this.tip_clenta && this.nazvaniye_ruchnoy){
                                 
                                 
                                 return {'text':this.brend + ' '+this.mikron+' '+ this.storonnost + ' ' + this.kod_sveta +'  ' +this.tip_paneli+'  ' +this.dlina +'x' +this.shirina,'accept':true}
@@ -195,7 +195,7 @@ function front_piece(start=1,end=6){
         
         <td >
             
-            <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;" id ='naz_sveta` +String(i)+`'></span>
+            <span class =' text-center ' style="font-size: 12px;  whitespace:nowrap!important;" id ='naz_sveta` +String(i)+`'></span>
             
         </td>
         <td >
@@ -777,9 +777,14 @@ function front_piece(start=1,end=6){
             <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;z-index:0" id='zavod_name`+String(i)+`'>ZAVOD ALUCOBOND</span>
             
         </td>
-        <td >
+         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="width: 75px; font-size:10px;display:none;height:32px;z-index:0 " id='diller`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            
+            <select class="form-select" aria-label="" style="width: 75px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='diller`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <option  selected></option>
+                <option value="1">Да</option>
+                <option value="0">Нет</option>
+            </select>
             </div>
         </td>
         <td >
@@ -902,7 +907,7 @@ function copy_tr(id){
             check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true,is_req_simple=false)
             
             check_input_and_change(group,'#group'+s,dis=false,is_req=true,is_req_simple=false)
-            check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=true,is_req_simple=false)
+            check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=false,is_req_simple=true)
             
             check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(bazoviy_edin,'#bazoviy_edin'+s,dis=false,is_req=false,is_req_simple=true)
@@ -1072,7 +1077,7 @@ function create(i){
     group.css('border-color','red')
     var buxgalter_tovar = $('#buxgalter_tovar'+i)
     buxgalter_tovar.css('display','block')
-    buxgalter_tovar.css('border-color','red')
+    // buxgalter_tovar.css('border-color','red')
     var buxgalter_uchot = $('#buxgalter_uchot'+i)
     buxgalter_uchot.css('display','block')
     var bazoviy_edin = $('#bazoviy_edin'+i)
@@ -1620,7 +1625,7 @@ function create_kratkiy_tekst(id){
                 buxgalter_tovar.css('border-color','#dedad9')
                 data_base[id].buxgalter_tovar = buxgalter_tovar.val();
             }else{
-                buxgalter_tovar.css('border-color','red')
+                // buxgalter_tovar.css('border-color','red')
                 data_base[id].buxgalter_tovar = NaN;
             }
             
