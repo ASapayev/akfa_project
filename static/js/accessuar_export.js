@@ -77,7 +77,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='bazoviy_edinitsa`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="border-color:red;width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='bazoviy_edinitsa`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option vlaue="Штука">Штука</div>
                     <option vlaue="Килограмм">Килограмм</div>

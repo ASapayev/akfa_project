@@ -178,9 +178,11 @@
             var dattt_len  = Object.keys(data_base).length
             
             for(let k =1; k<=dattt_len; k++){
-                if(data_base[k].polnoye_nazvaniye && data_base[k].sena_materiala && data_base[k].bazoviy_edinitsa){
+                if(data_base[k].polnoye_nazvaniye || data_base[k].sena_materiala || data_base[k].bazoviy_edinitsa){
                     continue;
                 }else{
+                    var tr_table = document.getElementById('table_tr'+k)
+                    tr_table.remove()
                     delete data_base[k]
                 }
             }
