@@ -962,7 +962,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" pattern="\d{0,4}"  maxlength="4"  class="form-control " style='border-color:red;width:90px;height:27px!important;z-index:0;display:none;' oninput="restrictToFourDigits(event,`+String(i)+`,max_len=7)"   aria-describedby="inputGroup-sizing-sm" name ='code_sveta`+String(i)+`' id="code_sveta`+String(i)+`"  >
+            <input type="text" pattern="\d{0,7}"  maxlength="7"  class="form-control " style='border-color:red;width:90px;height:27px!important;z-index:0;display:none;' oninput="restrictToFourDigits(event,`+String(i)+`,max_len=7)"   aria-describedby="inputGroup-sizing-sm" name ='code_sveta`+String(i)+`' id="code_sveta`+String(i)+`"  >
   
             </div>
         </td>

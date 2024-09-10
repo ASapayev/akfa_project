@@ -376,7 +376,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type="text" class="form-control " style='width:50px;height:27px!important;z-index:0' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`" maxlength="4" >
+                <input type="text" pattern="\d{0,4}"  maxlength="4"  class="form-control " style='width:70px;height:27px!important;z-index:0' oninput="restrictToFourDigits(event,`+String(i)+`)"  disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
             </div>
         </td>
 
@@ -610,12 +610,13 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
+            
             <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px; display:none; height:27px!important;z-index:0;" id='sena_bez_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:27px!important;z-index:0; " id='online_savdo_id`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type="text" pattern="\d{0,7}"  maxlength="7"  class="form-control " style='border-color:red;width:75px;height:27px!important;z-index:0;display:none;' oninput="restrictToFourDigits(event,`+String(i)+`,max_len=7)"  disabled aria-describedby="inputGroup-sizing-sm" name ='online_savdo_id`+String(i)+`' id="online_savdo_id`+String(i)+`"  >
             </div>
         </td>
         <td >
