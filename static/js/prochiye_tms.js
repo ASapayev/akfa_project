@@ -358,6 +358,10 @@ function copy_tr(id){
 
 }
 
+function removeQuotesFromStartAndEnd(str) {
+    // Remove double quotes from the beginning and end of the string
+    return str.replace(/^"+|"+$/g, '');
+}
 
 function select_vid_zayavki(id,val){
 
@@ -587,7 +591,7 @@ function artukil_clear(id){
 function get_and_set_data(id,selector,is_req){
     var data = $('#'+selector+id)
     if(data.val() != '' && data.val() !=NaN && data.val() !=null){
-        data_base[id][selector] = data.val()
+        data_base[id][selector] = removeQuotesFromStartAndEnd(data.val())
         data.css('border-color','#dedad9')
     }else{
         if(is_req){

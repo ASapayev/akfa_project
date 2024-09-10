@@ -404,7 +404,10 @@ var table = $('#table-artikul')
 table.append(text)
 
 
-
+function removeQuotesFromStartAndEnd(str) {
+    // Remove double quotes from the beginning and end of the string
+    return str.replace(/^"+|"+$/g, '');
+}
 
 data_base = {}
 
@@ -1039,7 +1042,7 @@ function create_kratkiy_tekst(id){
 
         if(nazvaniye_materiala.val()!=''){
             nazvaniye_materiala.css('border-color','#dedad9')
-            data_base[id].nazvaniye_materiala = nazvaniye_materiala.val();
+            data_base[id].nazvaniye_materiala = removeQuotesFromStartAndEnd(nazvaniye_materiala.val());
         }else{
             data_base[id].nazvaniye_materiala = NaN;
             nazvaniye_materiala.css('border-color','red')

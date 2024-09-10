@@ -511,6 +511,8 @@ table.append(text)
 //     });
 // }
 
+
+
 function request_piece(start=1,end=6){
 
     for (let i = start; i <= end; i++) {

@@ -449,6 +449,10 @@ var table = $('#table-artikul')
 
 table.append(text)
 
+function removeQuotesFromStartAndEnd(str) {
+    // Remove double quotes from the beginning and end of the string
+    return str.replace(/^"+|"+$/g, '');
+}
 
 function select_condition(id){
     var vid_zayavki = $('#vid_zayavki'+id).val()
@@ -872,7 +876,7 @@ function create_kratkiy_tekst(id){
             data_base[id].id_savdo = NaN;
         }
         if(naz_savdo.val()!=''){
-            data_base[id].naz_savdo = naz_savdo.val();
+            data_base[id].naz_savdo = removeQuotesFromStartAndEnd(naz_savdo.val());
             naz_savdo.css('border-color','#dedad9')
         }else{
             naz_savdo.css('border-color','red')

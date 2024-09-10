@@ -533,6 +533,10 @@ function copy_tr(id){
 
 }
 
+function removeQuotesFromStartAndEnd(str) {
+    // Remove double quotes from the beginning and end of the string
+    return str.replace(/^"+|"+$/g, '');
+}
 
 
 function check_input_and_change(val,selector,dis=false,is_req=false,is_req_simple=false){
@@ -1029,7 +1033,7 @@ function create_kratkiy_tekst(id){
             }
             if(nazvaniye_ruchnoy.val()!=''){
                 nazvaniye_ruchnoy.css('border-color','#dedad9')
-                data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
+                data_base[id].nazvaniye_ruchnoy = removeQuotesFromStartAndEnd(nazvaniye_ruchnoy.val());
             }else{
                 data_base[id].nazvaniye_ruchnoy =NaN;
                 nazvaniye_ruchnoy.css('border-color','red')
@@ -1138,7 +1142,7 @@ function create_kratkiy_tekst(id){
             }
             if(nazvaniye_ruchnoy.val()!=''){
                 nazvaniye_ruchnoy.css('border-color','#dedad9')
-                data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
+                data_base[id].nazvaniye_ruchnoy = removeQuotesFromStartAndEnd(nazvaniye_ruchnoy.val());
             }else{
                 data_base[id].nazvaniye_ruchnoy =NaN;
                 nazvaniye_ruchnoy.css('border-color','red')

@@ -126,6 +126,12 @@ var table = $('#table-artikul')
 
 table.append(text)
 
+
+function removeQuotesFromStartAndEnd(str) {
+    // Remove double quotes from the beginning and end of the string
+    return str.replace(/^"+|"+$/g, '');
+}
+
 function copy_tr(id){
     if(!data_base[id]){
         console.log('salom2222 copy')
@@ -309,7 +315,7 @@ function create_kratkiy_tekst(id){
         data_base[id].koefitsiyent =NaN;
     }
     if(nazvaniye_tovarov.val()!=''){
-        data_base[id].nazvaniye_tovarov = nazvaniye_tovarov.val();
+        data_base[id].nazvaniye_tovarov =removeQuotesFromStartAndEnd(nazvaniye_tovarov.val());
     }else{
         data_base[id].nazvaniye_tovarov =NaN;
     }
@@ -327,7 +333,7 @@ function create_kratkiy_tekst(id){
     var polnoye_nazvaniye =$('#polnoye_nazvaniye'+id)
     if(polnoye_nazvaniye.val()!=''){
         polnoye_nazvaniye.css('border-color','#dedad9')
-        data_base[id].polnoye_nazvaniye = polnoye_nazvaniye.val();
+        data_base[id].polnoye_nazvaniye = removeQuotesFromStartAndEnd(polnoye_nazvaniye.val());
     }else{
         polnoye_nazvaniye.css('border-color','red')
         data_base[id].polnoye_nazvaniye =NaN;

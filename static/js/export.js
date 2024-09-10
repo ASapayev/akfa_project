@@ -936,6 +936,10 @@ function copy_tr(id){
 
 }
 
+function removeQuotesFromStartAndEnd(str) {
+    // Remove double quotes from the beginning and end of the string
+    return str.replace(/^"+|"+$/g, '');
+}
 
 function chosen_update(selector,val_,disabled=false){
 
@@ -1771,7 +1775,7 @@ function create_kratkiy_tekst(id){
     var nazvaniye_ruchnoy = $('#nazvaniye_ruchnoy'+String(id));
     if(nazvaniye_ruchnoy.val()!=''){
         nazvaniye_ruchnoy.css("border-color",'#dedad9');
-        data_base[id].nazvaniye_ruchnoy = nazvaniye_ruchnoy.val();
+        data_base[id].nazvaniye_ruchnoy = removeQuotesFromStartAndEnd(nazvaniye_ruchnoy.val());
     }else{
         data_base[id].nazvaniye_ruchnoy = NaN;
         nazvaniye_ruchnoy.css("border-color",'red');
