@@ -182,10 +182,11 @@
             var dattt_len  =Object.keys(data_base).length
         
             for(let k =1; k<=dattt_len; k++){
-                if(data_base[k].polnoye_nazvaniye && data_base[k].sena_materiala && data_base[k].bazoviy_edinitsa &&  data_base[k].goods_group){
+                if(data_base[k].nazvaniye_tovarov || data_base[k].polnoye_nazvaniye || data_base[k].sena_materiala || data_base[k].bazoviy_edinitsa ||  data_base[k].goods_group){
                     continue;
                 }else{
                     delete data_base[k]
+                    
                 }
             }
         

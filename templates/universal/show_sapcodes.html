@@ -25,7 +25,11 @@
                   <thead>
                     <tr >
                       <th  >
-                        #
+                        <div class="form-check form-check-muted m-0">
+                          <label class="">
+                            <input type="checkbox" class="form-check-input"  id="select-all">
+                          </label>
+                        </div>
                       </th>
                       <th  > SAP CODE </th>
                       <th  > KRATKIY TEXT</th>
@@ -114,10 +118,45 @@
 
   
 <script>
-
+const selectAllCheckbox = document.getElementById('select-all');
 
 var items = document.querySelectorAll('#selected_checbox')
 var btn_del = document.getElementById('btn_del')
+
+    selectAllCheckbox.addEventListener('change', function() {
+      items.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+            btn_del.style.display='block'
+        });
+
+        // Optionally, if you want to add functionality where checking/unchecking individual checkboxes
+        // will update the master checkbox state:
+        items.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                // Check if all checkboxes are checked
+                const allChecked = Array.from(items).every(cb => cb.checked);
+                // Check if none are checked
+                const noneChecked = Array.from(items).every(cb => !cb.checked);
+
+                selectAllCheckbox.checked = allChecked;
+                selectAllCheckbox.indeterminate = !allChecked && !noneChecked;
+
+                if(allChecked){
+                   btn_del.style.display='block'
+                }else{
+                   btn_del.style.display='none'
+                }
+            });
+        });
+
+
+
+
+
+
+
+
 
 for (let i = 0; i < items.length; i++) {
   items[i].addEventListener('click', function(elem) {
