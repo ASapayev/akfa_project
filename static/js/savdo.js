@@ -3009,12 +3009,8 @@ function create_kratkiy_tekst(id){
                     if(group_.indexOf('MEBEL') !== -1){
                         buxgalter_tovar.val('Анодированный алюминиевый профиль (N)')
                     }else{
-                        if(''){
                             buxgalter_tovar.val('Мебельный профиль из алюминия анодированный матовое серебро (N)')
                             
-                        }else{
-                            buxgalter_tovar.val('Анодированный алюминиевый профиль (N)')
-                        }
                     }
                 }
 
