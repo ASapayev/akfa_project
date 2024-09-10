@@ -1125,6 +1125,7 @@ function copy_tr(id){
             
             check_input_and_change(kod_lam_sn,'#svet_lamplonka_snaruji'+s,dis=false,is_req=true)
             check_text_and_change(kod_lam_sn,'#code_lamplonka_snaruji'+s,dis=false,is_req=true)
+            console.log(kod_lam_vn,'koddddd')
 
             check_input_and_change(kod_lam_vn,'#svet_lamplonka_vnutri'+s,dis=false,is_req=true)
             check_text_and_change(kod_lam_vn,'#code_lamplonka_vnutri'+s,dis=false,is_req=true)
@@ -1466,6 +1467,7 @@ function clear_artikul(id){
         var is_special = $('#is_special'+String(id)).text();
         var kod_svet_rezini = $('#kod_svet_rezini'+id)
         var svet_lamplonka_vnutri = $('#svet_lamplonka_vnutri'+id)
+        var code_lamplonka_vnutri = $('#code_lamplonka_vnutri'+id)
         var svet_rezini = $('#svet_text'+String(id));
         
         if(iskyucheniye == '1'){
@@ -1485,10 +1487,13 @@ function clear_artikul(id){
         if(is_special=='1'){
             var is_spec =true
             svet_lamplonka_vnutri.val('XXXX')
+            code_lamplonka_vnutri.text('XXXX')
             
         }else{
                 var is_spec =false
                 svet_lamplonka_vnutri.val('')
+                svet_lamplonka_vnutri.css('border-color','red')
+                code_lamplonka_vnutri.text('')
             
         }
 
