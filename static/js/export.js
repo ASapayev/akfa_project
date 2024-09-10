@@ -279,7 +279,7 @@ function front_piece(start=1,end=6){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type="text"  class="form-control "  style='width:50px;height:27px!important;z-index:0' onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  maxlength="4" >
+                <input type="text" pattern="\d{0,4}"  maxlength="4"  class="form-control " style='width:70px;height:27px!important;z-index:0' oninput="restrictToFourDigits(event,`+String(i)+`)"  disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
             </div>
         </td>
         <td >
@@ -589,7 +589,8 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:90px;border-color:red;height:27px!important;z-index:0;display:none;'   aria-describedby="inputGroup-sizing-sm" onkeyup='create_kratkiy_tekst(`+String(i)+`)' id="dilina_pressa`+String(i)+`"  maxlength='4'>    
+            <input type="text" pattern="\d{0,4}"  maxlength="4"  class="form-control " style='width:90px;height:27px!important;z-index:0;border-color:red;display:none;' oninput="restrictToFourDigits(event,`+String(i)+`)"   aria-describedby="inputGroup-sizing-sm" name ='dilina_pressa`+String(i)+`' id="dilina_pressa`+String(i)+`"  >
+     
             </div>
         </td>
         </tr>`

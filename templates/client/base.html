@@ -168,6 +168,24 @@
     }
     
 </style>
+<script>
+    function restrictToFourDigits(event,id,max_len=4) {
+            const input = event.target;
+            let value = input.value;
+
+            // Remove any non-numeric characters
+            value = value.replace(/\D/g, '');
+
+            // Truncate to 4 digits
+            if (value.length > parseInt(max_len)) {
+                value = value.slice(0, parseInt(max_len));
+            }
+
+            // Set the cleaned value
+            input.value = value;
+            create_kratkiy_tekst(id)
+        }
+</script>
     </head>
     
     <body id="top">
