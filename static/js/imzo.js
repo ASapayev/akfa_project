@@ -1296,18 +1296,18 @@ function copy_tr(id){
         }
         else if(id ==6){
             
+            get_anod(s)
 
             
-            check_for_valid_and_set_val_select(kod_anod_sn,'code_svet_anodirovki_snaruji'+ s)
+            check_for_valid_and_set_val_select(s,kod_anod_sn,'code_svet_anodirovki_snaruji'+ s,is_req=true,is_anod=true)
 
             check_input_and_change(contactnost_anod,'#contactnost_anodirovki'+s,dis=false,is_req=true)
 
             check_input_and_change(kod_nakleyki,'#nakleyka'+s)
 
-            get_anod(s)
             if(is_termo){
-                check_for_valid_and_set_val_select(kod_anod_sn,'code_svet_anodirovki_vnutri'+ s)
                 get_anod(s,is_termo=true)
+                check_for_valid_and_set_val_select(s,kod_anod_vn,'code_svet_anodirovki_vnutri'+ s,is_req=true,is_anod=true)
             }
 
 
@@ -1316,7 +1316,7 @@ function copy_tr(id){
 
        
         check_input_and_change(dlina,'#length'+s,dis=false,is_req=true)
-        check_for_valid_and_set_val_select(base_artikul,'artikul'+ s)
+        check_for_valid_and_set_val_select(s,base_artikul,'artikul'+ s,is_req=true,is_anod=false)
         check_input_and_change(splav,'#splav'+s)
         check_input_and_change(tip_zak,'#tip_zakalyonnosti'+s)
         check_text_and_change(combination,'#combination'+s)
@@ -1378,7 +1378,7 @@ function chosen_update(selector,val_,disabled=false){
     }
 }
 
-function check_for_valid_and_set_val_select(val,selector,is_req=false){
+function check_for_valid_and_set_val_select(i,val,selector,is_req=false,is_anod=false){
     if(is_req){
         var span = $('#select2-'+selector+'-container')
         span.css('display','block')
@@ -1390,6 +1390,11 @@ function check_for_valid_and_set_val_select(val,selector,is_req=false){
         var span = $('#select2-'+selector+'-container')
         span.attr('title',val);
         span.text(val);
+
+        if(is_anod){
+            const spanss =document.querySelector('#anod'+String(i) +' .select2-container .select2-selection--single')
+            spanss.style.borderColor='#dedad9'
+        }
 
         //////end ////////////
         

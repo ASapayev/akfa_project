@@ -9,8 +9,6 @@ from django.http import JsonResponse
 from django.db.models import Q
 # Create your views here.
 
-
-
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','kraska'])
 def full_update_norm(request):
@@ -183,10 +181,6 @@ def generate_norma(request,id):
     # print(df)
     df.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\norma.xlsx',index=False)
     return JsonResponse({'a':'b'})
-
-
-
-
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','kraska'])

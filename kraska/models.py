@@ -8,8 +8,6 @@ class Norma7(models.Model):
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
 
-
-
 class KraskaFile(models.Model):
   file =models.FileField(upload_to='uploads/kraska/downloads/',max_length=500)
   generated =models.BooleanField(default=False)
