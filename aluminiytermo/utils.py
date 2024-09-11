@@ -4701,7 +4701,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             raube_txt = 'S0'
         elif row['Тип покрытия'].capitalize() =='Неокрашенный':
             raube_txt = 'S1'
-        elif row['Тип покрытия'].capitalize() =='Окрашенный':
+        elif row['Тип покрытия'].capitalize() =='Окрашенный' or row['Тип покрытия'].capitalize() =='Анодированный':
             raube_txt = 'S2'
         elif row['Тип покрытия'].capitalize() =='Сублимированный':
             raube_txt = 'S3'
@@ -4785,7 +4785,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             raube_txt = 'S0'
         elif row['Тип покрытия'].capitalize() =='Неокрашенный':
             raube_txt = 'S1'
-        elif row['Тип покрытия'].capitalize() =='Окрашенный':
+        elif row['Тип покрытия'].capitalize() =='Окрашенный' or row['Тип покрытия'].capitalize() =='Анодированный':
             raube_txt = 'S2'
         elif row['Тип покрытия'].capitalize() =='Сублимированный':
             raube_txt = 'S3'
