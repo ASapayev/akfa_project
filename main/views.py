@@ -166,7 +166,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
         obichniy_razlovka1101org.append(obichniy)
       counter += 1
 
-    df_termo_1101 = pd.DataFrame(termo_razlovka1101,columns=['SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_termo_1101 = pd.DataFrame(termo_razlovka1101,zcolumns=['SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
     df_obichniy_1101 = pd.DataFrame(obichniy_razlovka1101org,columns=['SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
     df_yoqlari_1101 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
     now =datetime.now()
