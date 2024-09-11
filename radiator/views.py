@@ -1332,7 +1332,14 @@ def kombinirovaniy_process(request,id):
             df_new_aurora['PUSTOY'].append('')
             df_new_aurora['LGORT'].append('')
             
-            
+            seksiya_list =df[i][5].split(' ')
+            text =''
+            for sek in seksiya_list:
+                if '-' in sek:
+                    text = sek
+                    break
+            seksiya = text.split('-')[1]
+
             df_new_aurora['ID'].append('2')
             df_new_aurora['MATNR'].append('')
             df_new_aurora['WERKS'].append('')
@@ -1348,7 +1355,7 @@ def kombinirovaniy_process(request,id):
             df_new_aurora['POSTP'].append('L')
             df_new_aurora['MATNR1'].append(df_aurora[i][2])
             df_new_aurora['TEXT2'].append(df_aurora[i][3])
-            df_new_aurora['MEINS'].append('1000') 
+            df_new_aurora['MEINS'].append(int(seksiya)*1000) 
             df_new_aurora['MENGE'].append('СКЦ')
             df_new_aurora['DATUV'].append('')
             df_new_aurora['PUSTOY'].append('')
