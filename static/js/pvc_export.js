@@ -921,10 +921,13 @@ function clear_artikul(id){
         if(is_special=='1'){
             var is_spec =true
             svet_lamplonka_vnutri.val('XXXX')
+            code_lamplonka_vnutri.text('XXXX')
             
         }else{
             var is_spec =false
             svet_lamplonka_vnutri.val('')
+            svet_lamplonka_vnutri.css('border-color','red')
+            code_lamplonka_vnutri.text('')
             
         }
 
