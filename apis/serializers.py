@@ -9,12 +9,12 @@ class ProfileSerializer(serializers.ModelSerializer):
 class RazlovkaTermo1101Serializer(serializers.ModelSerializer):
     class Meta:
         model = RazlovkaTermo
-        fields = ['parent_id','zsap_code','zkratkiy','psap_code','pkratkiy','ssap_code','skratkiy','nsap_code','nkratkiy','ksap_code','kratkiy','sap_code7','kratkiy7']
+        fields = ['id','parent_id','zsap_code','zkratkiy','psap_code','pkratkiy','ssap_code','skratkiy','nsap_code','nkratkiy','ksap_code','kratkiy','sap_code7','kratkiy7']
 
 class RazlovkaTermo1201Serializer(serializers.ModelSerializer):
     class Meta:
         model = RazlovkaTermo
-        fields = ['parent_id','esap_code','ekratkiy','zsap_code','zkratkiy','psap_code','pkratkiy','ssap_code','skratkiy','asap_code','akratkiy','nsap_code','nkratkiy','ksap_code','kratkiy','sap_code7','kratkiy7','fsap_code','fkratkiy','sap_code75','kratkiy75']
+        fields = ['id','parent_id','esap_code','ekratkiy','zsap_code','zkratkiy','psap_code','pkratkiy','ssap_code','skratkiy','asap_code','akratkiy','nsap_code','nkratkiy','ksap_code','kratkiy','sap_code7','kratkiy7','fsap_code','fkratkiy','sap_code75','kratkiy75']
 
 class Razlovka1101Serializer(serializers.ModelSerializer):
     class Meta:
