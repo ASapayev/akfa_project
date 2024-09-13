@@ -1464,6 +1464,18 @@ function create_kratkiy_tekst(id){
 
         if(zapros_count.indexOf(art_krat_dict) === -1){
             sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text)
+        }else{
+            var krat = zapros_count[art_krat_dict]
+            var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+            var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
+            
+
+            sap_code_ruchnoy.val(artikul_bass)
+            kratkiy_text_ruchnoy.val(krat)
+            sap_code_ruchnoy.css('background-color','orange')
+            kratkiy_text_ruchnoy.css('background-color','orange')
+            sap_code_ruchnoy.attr('disabled',true)
+            kratkiy_text_ruchnoy.attr('disabled',true)
         }
         data_base[id].kratkiy_tekst= data.text
     }
