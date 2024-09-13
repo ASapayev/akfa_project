@@ -1455,7 +1455,7 @@ function copy_tr(id){
         if(is_active){
             activate_btn.css('background-color','orange')
             activate_btn.css('color','white')
-            check_input_and_change(zavod_name,'#zavod'+s,dis=false,is_req=false,is_req_simple=true)
+            check_text_and_change(zavod_name,'#zavod'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=true)
             check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true)
             check_input_and_change(svet_product,'#svet_product'+s,dis=false,is_req=false,is_req_simple=true)
@@ -1463,7 +1463,7 @@ function copy_tr(id){
 
             check_input_and_change(group,'#group'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(tip,'#tip'+s,dis=false,is_req=false,is_req_simple=true)
-            check_input_and_change(segment,'#segment'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(segment,'#segment'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(edinitsa_izm,'#edinitsa_izm'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
@@ -1472,7 +1472,7 @@ function copy_tr(id){
             check_input_and_change(stoimost_baza,'#stoimost_baza'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(stoimost_alter,'#stoimost_alter'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(status_online,'#status'+s,dis=true,is_req=false,is_req_simple=true)
-            check_input_and_change(zavod_name,'#zavod_name'+s,dis=false,is_req=false,is_req_simple=true)
+            check_text_and_change(zavod_name,'#zavod_name'+s)
             check_input_and_change(diller,'#diller'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(tip_clienta,'#tip_clienta'+s,dis=false,is_req=false,is_req_simple=true)
 
@@ -1488,7 +1488,7 @@ function copy_tr(id){
 
             check_input_and_change(group,'#group'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(tip,'#tip'+s,dis=false,is_req=false,is_req_simple=true)
-            check_input_and_change(segment,'#segment'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(segment,'#segment'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(edinitsa_izm,'#edinitsa_izm'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(buxgalter_tovar,'#buxgalter_tovar'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(buxgalter_uchot,'#buxgalter_uchot'+s,dis=false,is_req=false,is_req_simple=true)
@@ -1497,7 +1497,7 @@ function copy_tr(id){
             check_input_and_change(stoimost_baza,'#stoimost_baza'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(stoimost_alter,'#stoimost_alter'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(status_online,'#status'+s,dis=true,is_req=false,is_req_simple=true)
-            check_input_and_change(zavod_name,'#zavod_name'+s,dis=false,is_req=false,is_req_simple=true)
+            check_text_and_change(zavod_name,'#zavod_name'+s)
             check_input_and_change(diller,'#diller'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(tip_clienta,'#tip_clienta'+s,dis=false,is_req=false,is_req_simple=true)
 
@@ -2452,6 +2452,7 @@ function tip_pokritiya_selected(id,val){
         stoimost_baza.css('display','block')
         stoimost_alter.css('display','block')
         segment.css('display','block')
+        segment.css('border-color','red')
         edinitsa_izm.css('display','block')
         buxgalter_tovar.css('display','block')
         
@@ -3127,7 +3128,7 @@ function create_kratkiy_tekst(id){
                 data_base[id].segment = segment.val();
                 
             }else{
-                segment.css('border-color','#dedad9')
+                segment.css('border-color','red')
                 data_base[id].segment = NaN;
             }
             if(sap_code_ruchnoy.val()!=''){
