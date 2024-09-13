@@ -370,7 +370,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1" style="width: 150px;">
             <select class="form-select" aria-label="" style="width: 150px;border-color:red;display:none;height:27px!important;z-index:0"   id='kod_svet_rezini`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
-                <option  value="" selected ></option>
+                <option  value="" selected disabled></option>
                 <option value="BR" >Чёрная резина</option>
                 <option value="GR" >Серая резина</option>
                 <option value="NR" >Без резины</option>
