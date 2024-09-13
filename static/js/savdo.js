@@ -1408,7 +1408,7 @@ function copy_tr(id){
         }
         
         else if(id == 6){
-            get_anod(s)
+            get_anod(s,is_termo=false,copy=true)
             
             // $('#select2-code_svet_anodirovki_snaruji1-container')
             // console.log(kod_anod_sn,'###$$$$$$$$$')
@@ -1421,7 +1421,7 @@ function copy_tr(id){
 
             console.log(is_termo_bas,kod_anod_vn,'copy_adnofddddddd')
             if(is_termo_bas){
-                get_anod(s,is_termo=true)
+                get_anod(s,is_termo=true,copy=true)
                 check_for_valid_and_set_val_select2(s,kod_anod_vn,'code_svet_anodirovki_vnutri'+ s,is_req=true)
             }
 
