@@ -51,7 +51,7 @@ def full_update_norm(request):
 def generate_norma_epdm(request,id):
 
     # file = KraskaFile.objects.get(id=id).file
-    file = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\epdm.xlsx'
+    file = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\epdm (7).xlsx'
     
     # df_sapcodes = pd.read_excel(f'{MEDIA_ROOT}/{file}')
     df_sapcodes = pd.read_excel(file,sheet_name='a',header=0)
@@ -125,7 +125,7 @@ def generate_norma_epdm(request,id):
         count = 1
 
         
-        norma_kg = float(row['Норма кг'])
+        norma_kg = float(str(row['Норма кг']).replace(',','.'))
 
         for norm in result:
             data = norm['data']
