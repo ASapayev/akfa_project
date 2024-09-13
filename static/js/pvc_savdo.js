@@ -42,6 +42,7 @@ class BasePokritiya{
         alter_edin = NaN,//done
         stoimost_baza = NaN,//done
         stoimost_alter = NaN,//done
+        obshiy_ves_shtuku = NaN,//done
         status_online = NaN,//done
         zavod_name = NaN,//done
         diller = NaN,//done
@@ -90,6 +91,7 @@ class BasePokritiya{
             this.alter_edin = alter_edin;
             this.stoimost_baza = stoimost_baza;
             this.stoimost_alter = stoimost_alter;
+            this.obshiy_ves_shtuku = obshiy_ves_shtuku;
             this.status_online = status_online;//done
             this.zavod_name = zavod_name;//done
             this.diller = diller;//done
@@ -616,7 +618,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" pattern="\d{0,7}"  maxlength="7"  class="form-control " style='border-color:red;width:75px;height:27px!important;z-index:0;display:none;' oninput="restrictToFourDigits(event,`+String(i)+`,max_len=7)"  disabled aria-describedby="inputGroup-sizing-sm" name ='online_savdo_id`+String(i)+`' id="online_savdo_id`+String(i)+`"  >
+            <input type="text" pattern="\d{0,7}"  maxlength="7"  class="form-control " style='border-color:red;width:75px;height:27px!important;z-index:0;display:none;' oninput="restrictToFourDigits(event,`+String(i)+`,max_len=7)"   aria-describedby="inputGroup-sizing-sm" name ='online_savdo_id`+String(i)+`' id="online_savdo_id`+String(i)+`"  >
             </div>
         </td>
         <td >
@@ -773,6 +775,11 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
             <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:27px!important;z-index:0;" id='stoimost_alter`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="width: 75px; font-size:10px; display:none;height:27px!important;z-index:0;" id='obshiy_ves_shtuku`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)' ></input>
             </div>
         </td>
         <td >
@@ -1080,6 +1087,7 @@ function copy_tr(id){
         var alter_edin = data.alter_edin
         var stoimost_baza = data.stoimost_baza
         var stoimost_alter = data.stoimost_alter
+        var obshiy_ves_shtuku = data.obshiy_ves_shtuku
         var status_online = data.status_online
         var zavod_name = data.zavod_name
         var diller = data.diller
@@ -1188,6 +1196,7 @@ function copy_tr(id){
             check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(stoimost_baza,'#stoimost_baza'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(stoimost_alter,'#stoimost_alter'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(obshiy_ves_shtuku,'#obshiy_ves_shtuku'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(status_online,'#status'+s,dis=true,is_req=false,is_req_simple=true)
             check_input_and_change(zavod_name,'#zavod_name'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(diller,'#diller'+s,dis=false,is_req=false,is_req_simple=true)
@@ -1216,6 +1225,7 @@ function copy_tr(id){
             check_input_and_change(alter_edin,'#alter_edin'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(stoimost_baza,'#stoimost_baza'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(stoimost_alter,'#stoimost_alter'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(obshiy_ves_shtuku,'#obshiy_ves_shtuku'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(status_online,'#status'+s,dis=true,is_req=false,is_req_simple=true)
             check_input_and_change(zavod_name,'#zavod_name'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(diller,'#diller'+s,dis=false,is_req=false,is_req_simple=true)
@@ -1421,6 +1431,7 @@ function activate(i){
     alter_edin.css('display','block')
     stoimost_baza.css('display','block')
     stoimost_alter.css('display','block')
+    obshiy_ves_shtuku.css('display','block')
     segment.css('display','block')
     buxgalter_tovar.css('display','block')
 
@@ -1603,6 +1614,7 @@ function artukil_clear(id){
     var alter_edin =$('#alter_edin'+id);
     var stoimost_baza =$('#stoimost_baza'+id);
     var stoimost_alter =$('#stoimost_alter'+id);
+    var obshiy_ves_shtuku =$('#obshiy_ves_shtuku'+id);
     var segment =$('#segment'+id);
     var buxgalter_tovar =$('#buxgalter_tovar'+id);
     var comment =$('#comment'+id);
@@ -1641,6 +1653,7 @@ function artukil_clear(id){
     kratkiy_tekst_ruchnoy.css('display','none')
     online_savdo_id.css('display','none')
     online_savdo_id.css('border-color','red')
+    obshiy_ves_shtuku.css('display','none')
     nazvaniye_ruchnoy.css('display','none')
     nazvaniye_ruchnoy.css('border-color','red')
 
@@ -1676,6 +1689,7 @@ function artukil_clear(id){
     alter_edin.val('')
     stoimost_baza.val('')
     stoimost_alter.val('')
+    obshiy_ves_shtuku.val('')
     segment.val('')
     buxgalter_tovar.val('')
     comment.val('')
@@ -1877,6 +1891,7 @@ function tip_pokritiya_selected(id,val){
         var alter_edin =$('#alter_edin'+id);
         var stoimost_baza =$('#stoimost_baza'+id);
         var stoimost_alter =$('#stoimost_alter'+id);
+        var obshiy_ves_shtuku =$('#obshiy_ves_shtuku'+id);
         var segment =$('#segment'+id);
         var buxgalter_tovar =$('#buxgalter_tovar'+id);
         var comment =$('#comment'+id);
@@ -1928,6 +1943,7 @@ function tip_pokritiya_selected(id,val){
         alter_edin.css('border-color','#dedad9')
         stoimost_baza.css('border-color','#dedad9')
         stoimost_alter.css('border-color','#dedad9')
+        obshiy_ves_shtuku.css('border-color','#dedad9')
         segment.css('border-color','#dedad9')
         buxgalter_tovar.css('border-color','#dedad9')
         comment.css('border-color','#dedad9')
@@ -1954,6 +1970,7 @@ function tip_pokritiya_selected(id,val){
         var alter_edin =$('#alter_edin'+id);
         var stoimost_baza =$('#stoimost_baza'+id);
         var stoimost_alter =$('#stoimost_alter'+id);
+        var obshiy_ves_shtuku =$('#obshiy_ves_shtuku'+id);
         var segment =$('#segment'+id);
         var buxgalter_tovar =$('#buxgalter_tovar'+id);
         var comment =$('#comment'+id);
@@ -1991,6 +2008,7 @@ function tip_pokritiya_selected(id,val){
         alter_edin.css('display','block')
         stoimost_baza.css('display','block')
         stoimost_alter.css('display','block')
+        obshiy_ves_shtuku.css('display','block')
         segment.css('display','block')
         buxgalter_tovar.css('display','block')
         
@@ -2204,7 +2222,13 @@ function create_kratkiy_tekst(id){
         var alter_edin =$('#alter_edin'+id).val();
         var stoimost_baza =$('#stoimost_baza'+id).val();
         var stoimost_alter =$('#stoimost_alter'+id).val();
+        var obshiy_ves_shtuku =$('#obshiy_ves_shtuku'+id).val();
        
+        if(obshiy_ves_shtuku!=''){
+            data_base[id].obshiy_ves_shtuku = obshiy_ves_shtuku;
+        }else{
+            data_base[id].obshiy_ves_shtuku = NaN;
+        }
         if(nazvaniye_system!=''){
             data_base[id].nazvaniye_system = nazvaniye_system;
         }else{
