@@ -1419,7 +1419,6 @@ function copy_tr(id){
             check_input_and_change(kod_nakleyki,'#nakleyka'+s)
             check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
 
-            console.log(is_termo_bas,kod_anod_vn,'copy_adnofddddddd')
             if(is_termo_bas){
                 get_anod(s,is_termo=true,copy=true)
                 check_for_valid_and_set_val_select2(s,kod_anod_vn,'code_svet_anodirovki_vnutri'+ s,is_req=true)

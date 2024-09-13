@@ -797,7 +797,7 @@ function copy_tr(id){
 
         var comment = data.comment;
 
-        var is_termo = data.is_termo;
+        var is_termo_bas = data.is_termo;
 
        
       
@@ -816,7 +816,7 @@ function copy_tr(id){
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=true)
             div_kras_sn.css('display','block')
             check_input_and_change(kod_nakleyki,'#nakleyka'+s,dis=true)
-            if(is_termo){
+            if(is_termo_bas){
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=true)
                 div_kras_vn.css('display','block')
             }
@@ -825,7 +825,7 @@ function copy_tr(id){
                 chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=true)
                 div_kras_sn.css('display','block')
                 check_input_and_change(kod_nakleyki,'#nakleyka'+s)
-                if(is_termo){
+                if(is_termo_bas){
                     check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=true)
                     chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=true)
                     div_kras_vn.css('display','block')
@@ -837,7 +837,7 @@ function copy_tr(id){
             div_kras_sn.css('display','block')
             check_input_and_change(kod_nakleyki,'#nakleyka'+s)
 
-            if(is_termo){
+            if(is_termo_bas){
                 check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
                 div_kras_vn.css('display','block')
@@ -855,7 +855,7 @@ function copy_tr(id){
             check_input_and_change(kod_lam_vn,'#svet_lamplonka_vnutri'+s,dis=false,is_req=true)
             check_text_and_change(kod_lam_vn,'#code_lamplonka_vnutri'+s,dis=false,is_req=true)
             check_input_and_change(kod_nakleyki,'#nakleyka'+s)
-            if(is_termo){
+            if(is_termo_bas){
                 check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
                 div_kras_vn.css('display','block')
@@ -873,7 +873,7 @@ function copy_tr(id){
 
             check_input_and_change(kod_nakleyki,'#nakleyka'+s)
 
-            if(is_termo){
+            if(is_termo_bas){
                 check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
                 div_kras_vn.css('display','block')
@@ -888,17 +888,16 @@ function copy_tr(id){
             get_anod(s)
 
             
-            check_for_valid_and_set_val_select(s,kod_anod_sn,'code_svet_anodirovki_snaruji'+ s,is_req=true,is_anod=true)
+            check_for_valid_and_set_val_select(s,kod_anod_sn,'code_svet_anodirovki_snaruji'+ s,is_req=true,is_anod=true,is_termo=false)
 
             check_input_and_change(contactnost_anod,'#contactnost_anodirovki'+s,dis=false,is_req=true)
 
             check_input_and_change(kod_nakleyki,'#nakleyka'+s)
 
-            if(is_termo){
-                get_anod(s,is_termo=true)
-                check_for_valid_and_set_val_select(s,kod_anod_vn,'code_svet_anodirovki_vnutri'+ s,is_req=true,is_anod=true)
+            if(is_termo_bas){
+                get_anod(s,is_termo=true,copy=true)
+                check_for_valid_and_set_val_select2(s,kod_anod_vn,'code_svet_anodirovki_vnutri'+ s,is_req=true)
             }
-
 
 
         }
@@ -1022,23 +1021,39 @@ function add_column(){
 }
 
 
-function get_anod(id,termo=false){
+function get_anod(id,termo=false,copy=false){
     $('#anod'+id).css('display','block')
-    $('.kod_anod_snar'+id).select2({
-        ajax: {
-            url: "/client/client-anod-list",
-            dataType: 'json',
-            processResults: function(data){
-                return {results: $.map(data, function(item){
-                    return {id:item.id,text:item.code_sveta,tip_anod:item.tip_anod,sposob_anod:item.sposob_anod}
-                })
-            };
-            }
+    if(copy){
+        if(termo){
+            $('#anod_vnutr'+id).css('display','block')
+            $('.kod_anod_vnutri'+id).select2({
+                ajax: {
+                    url: "/client/client-anod-list",
+                    dataType: 'json',
+                    processResults: function(data){
+                        return {results: $.map(data, function(item){
+                            return {id:item.id,text:item.code_sveta,tip_anod:item.tip_anod,sposob_anod:item.sposob_anod}
+                        })
+                    };
+                    }
+                }
+                });
+        }else{
+            $('.kod_anod_snar'+id).select2({
+                ajax: {
+                    url: "/client/client-anod-list",
+                    dataType: 'json',
+                    processResults: function(data){
+                        return {results: $.map(data, function(item){
+                            return {id:item.id,text:item.code_sveta,tip_anod:item.tip_anod,sposob_anod:item.sposob_anod}
+                        })
+                    };
+                    }
+                }
+                });
         }
-        });
-    if (termo){
-        $('#anod_vnutr'+id).css('display','block')
-        $('.kod_anod_vnutri'+id).select2({
+    }else{
+        $('.kod_anod_snar'+id).select2({
             ajax: {
                 url: "/client/client-anod-list",
                 dataType: 'json',
@@ -1050,9 +1065,23 @@ function get_anod(id,termo=false){
                 }
             }
             });
+        if (termo){
+            $('#anod_vnutr'+id).css('display','block')
+            $('.kod_anod_vnutri'+id).select2({
+                ajax: {
+                    url: "/client/client-anod-list",
+                    dataType: 'json',
+                    processResults: function(data){
+                        return {results: $.map(data, function(item){
+                            return {id:item.id,text:item.code_sveta,tip_anod:item.tip_anod,sposob_anod:item.sposob_anod}
+                        })
+                    };
+                    }
+                }
+                });
+        }
     }
 }
-
 
 
 function clear_artikul(id){
