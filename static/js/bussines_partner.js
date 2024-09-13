@@ -102,17 +102,37 @@ class BasePokritiya{
                         if (this.balance_ed && this.rol_bp&& this.group_del_partner&&this.imya_org&&this.gorod){
                             
                             if(this.rol_bp =='Клиент' || this.rol_bp =='Поставщик и Клиент'){
-                                if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz&&this.usloviya_plateja&&this.sbitovoy_organ&&this.kanal_sbita&&this.sektor&&this.rayon_sbita&&this.gruppa_sena&&this.sxema_kliyenta&&this.status_gruppa_kliyent&&this.usloviya_otgruz&&this.sbit_debitora&&this.sbit_nalog){
-                                    return {'text':'','accept':true}
+                                if(this.group_del_partner=='B001 - Локальные Юридические Лица'){
+                                        
+                                    if(this.inn&&this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz&&this.usloviya_plateja&&this.sbitovoy_organ&&this.kanal_sbita&&this.sektor&&this.rayon_sbita&&this.gruppa_sena&&this.sxema_kliyenta&&this.status_gruppa_kliyent&&this.usloviya_otgruz&&this.sbit_debitora&&this.sbit_nalog){
+                                        return {'text':'','accept':true}
+                                    }else{
+                                        return {'text':'','accept':false}
+                                    }
                                 }else{
-                                    return {'text':'','accept':false}
+                                    if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz&&this.usloviya_plateja&&this.sbitovoy_organ&&this.kanal_sbita&&this.sektor&&this.rayon_sbita&&this.gruppa_sena&&this.sxema_kliyenta&&this.status_gruppa_kliyent&&this.usloviya_otgruz&&this.sbit_debitora&&this.sbit_nalog){
+                                        return {'text':'','accept':true}
+                                    }else{
+                                        return {'text':'','accept':false}
+                                    }
+
                                 }
 
                             }else if(this.rol_bp == 'Поставщик'){
-                                if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz){
-                                    return {'text':'','accept':true}
+                                if(this.group_del_partner=='B001 - Локальные Юридические Лица'){
+                                        
+                                    if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz&&this.inn){
+                                        return {'text':'','accept':true}
+                                    }else{
+                                        return {'text':'','accept':false}
+                                    }
                                 }else{
-                                    return {'text':'','accept':false}
+                                    if(this.kod_stran && this.klyuch_banka&&this.bank_schot&&this.valyuta_zakaz){
+                                        return {'text':'','accept':true}
+                                    }else{
+                                        return {'text':'','accept':false}
+                                    }
+
                                 }
 
                             }else{
@@ -696,7 +716,8 @@ function select_condition(id){
         if(inn.val()!=''){
             inn.css('border-color','#dedad9')
         }else{
-            inn.css('border-color','red')
+            inn.css('border-color','#dedad9')
+            // inn.css('border-color','red')
         }
         // if(kod_stran_bank.val()!=''){
         //     kod_stran_bank.css('border-color','#dedad9')
@@ -928,8 +949,12 @@ function copy_tr(id){
             check_input_and_change(nomer_del_partner,'#nomer_del_partner'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(gorod,'#gorod'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(kod_stran,'#kod_stran'+s,dis=false,is_req=true,is_req_simple=false)
-            check_input_and_change(inn,'#inn'+s,dis=false,is_req=true,is_req_simple=false)
-            check_input_and_change(kod_stran_bank,'#kod_stran_bank'+s,dis=false,is_req=flase,is_req_simple=true)
+            if(this.group_del_partner=='B001 - Локальные Юридические Лица'){
+                check_input_and_change(inn,'#inn'+s,dis=false,is_req=true,is_req_simple=false)
+            }else{
+                check_input_and_change(inn,'#inn'+s,dis=false,is_req=false,is_req_simple=true)
+            }
+            check_input_and_change(kod_stran_bank,'#kod_stran_bank'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(klyuch_banka,'#klyuch_banka'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(bank_schot,'#bank_schot'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(valyuta_zakaz,'#valyuta_zakaz'+s,dis=false,is_req=true,is_req_simple=false)
@@ -1467,6 +1492,19 @@ function create_kratkiy_tekst(id){
                 rol_bp.css('border-color','red')
             }
             if(group_del_partner.val()!=''){
+                if(group_del_partner.val()=='B001 - Локальные Юридические Лица'){
+                    if(inn.val()!=''){
+                        inn.css('border-color','#dedad9')
+                    }else{
+                        inn.css('border-color','red')
+                    }
+                }else{
+                    if(inn.val()!=''){
+                        inn.css('border-color','#dedad9')
+                    }else{
+                        inn.css('border-color','#dedad9')
+                    }
+                }
                 group_del_partner.css('border-color','#dedad9')
             }else{
                 group_del_partner.css('border-color','red')
@@ -1486,11 +1524,7 @@ function create_kratkiy_tekst(id){
             }else{
                 kod_stran.css('border-color','red')
             }
-            if(inn.val()!=''){
-                inn.css('border-color','#dedad9')
-            }else{
-                inn.css('border-color','red')
-            }
+            
             if(kod_stran_bank.val()!=''){
                 kod_stran_bank.css('border-color','#dedad9')
             }else{
