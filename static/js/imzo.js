@@ -1401,7 +1401,30 @@ function check_for_valid_and_set_val_select(i,val,selector,is_req=false,is_anod=
         
     }
 }
+function check_for_valid_and_set_val_select2(i,val,selector,is_req=false){
+    if(is_req){
+        var span = $('#select2-'+selector+'-container')
+        span.css('display','block')
+        span.css('border-color','red')
 
+    }
+    if(is_anod){
+        console.log(val,selector)
+    }
+    
+    if(val !=NaN && val !='' && String(val) != 'NaN'){
+        ////// selec2 value change \\\\\\\
+        var span = $('#select2-'+selector+'-container')
+        span.attr('title',val);
+        span.text(val);
+        console.log(val,'anodddddd22222')
+        const spanss =document.querySelector('#anod_vnutr'+String(i) +' .select2-container .select2-selection--single')
+        spanss.style.borderColor='#dedad9'
+        
+        //////end ////////////
+        
+    }
+}
 function check_input_and_change(val,selector,dis=false,is_req=false){
     if(is_req){
         
