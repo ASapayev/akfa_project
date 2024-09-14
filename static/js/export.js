@@ -926,8 +926,8 @@ function copy_tr(id){
         
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
 
-        check_input_and_change(sap_code,'#sap_code'+s)
-        check_input_and_change(krat,'#krat'+s)
+        check_input_and_change(sap_code,'#sap_code'+s,dis=true)
+        check_input_and_change(krat,'#krat'+s,dis=true)
 
 
 
@@ -1803,7 +1803,7 @@ function svet_dekplonka_vnutri_selected(id,val){
 }
 
 
-var zapros_count =[]
+var zapros_count ={}
 
 function create_kratkiy_tekst(id){
     
@@ -2173,7 +2173,31 @@ function create_kratkiy_tekst(id){
     if(data.text !='XXXXXXXX' ){
         var artikul_bass = data_base[id].base_artikul
         var art_krat_dict = artikul_bass + data.text
-        if(zapros_count.indexOf(art_krat_dict) === -1){
+        var sap_code_ruchnoy = $('#sap_code'+id)
+        var kratkiy_text_ruchnoy = $('#krat'+id)
+        
+
+        // console.log(zapros_count,art_krat_dict,'+++++')
+        if(art_krat_dict in zapros_count){
+            if(zapros_count[art_krat_dict]){
+                var sap_code = zapros_count[art_krat_dict]
+                sap_code_ruchnoy.val(sap_code)
+                kratkiy_text_ruchnoy.val(data.text)
+                sap_code_ruchnoy.css('background-color','orange')
+                kratkiy_text_ruchnoy.css('background-color','orange')
+                sap_code_ruchnoy.attr('disabled',true)
+                kratkiy_text_ruchnoy.attr('disabled',true)
+            }else{
+                
+                sap_code_ruchnoy.val('')
+                kratkiy_text_ruchnoy.val('')
+                sap_code_ruchnoy.css('background-color','white')
+                kratkiy_text_ruchnoy.css('background-color','white')
+                sap_code_ruchnoy.attr('disabled',false)
+                kratkiy_text_ruchnoy.attr('disabled',false)
+            }
+            
+        }else{
             sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text,data_base[id].is_termo)
             
         }
@@ -2196,7 +2220,7 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
     }).done(function (res) {
         if (res.status ==201){
             var art_krat =artikul+kratkiy_tekst
-            zapros_count.push(art_krat)
+            zapros_count[art_krat]=res.artikul
 
             var sap_code = $('#sap_code'+id)
             var krat = $('#krat'+id)
@@ -2209,7 +2233,7 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
             krat.css('background-color','orange')
         }else{
             var art_krat =artikul+kratkiy_tekst
-            zapros_count.push(art_krat)
+            zapros_count[art_krat]=NaN
 
             var sap_code = $('#sap_code'+id)
             var krat = $('#krat'+id)

@@ -1449,8 +1449,8 @@ function copy_tr(id){
         
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
 
-        check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
-        check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s)
+        check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s,dis=true)
+        check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s,dis=true)
         check_input_and_change(comment,'#comment'+s)
         check_input_and_change(dilina_pressa,'#dilina_pressa'+s)
 
@@ -1492,7 +1492,7 @@ function copy_tr(id){
             check_input_and_change(svet_product,'#svet_product'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(group_zakup,'#group_zakup'+s,dis=false,is_req=true,is_req_simple=false)
 
-            check_input_and_change(group,'#group'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(group,'#group'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(tip,'#tip'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(segment,'#segment'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(edinitsa_izm,'#edinitsa_izm'+s,dis=false,is_req=true,is_req_simple=false)
@@ -2583,7 +2583,7 @@ function svet_dekplonka_vnutri_selected(id,val){
     create_kratkiy_tekst(id);
 }
 
-var zapros_count =[]
+var zapros_count ={}
 
 
 
@@ -3452,13 +3452,32 @@ function create_kratkiy_tekst(id){
     if(data.text !='XXXXXXXX' ){
         var artikul_bass = data_base[id].base_artikul
         var art_krat_dict = artikul_bass + data.text
-
+        var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+        var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
         
 
-        console.log(zapros_count,art_krat_dict,'+++++')
-        if(zapros_count.indexOf(art_krat_dict) == -1){
-            sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text,data_base[id].is_termo)
+        // console.log(zapros_count,art_krat_dict,'+++++')
+        if(art_krat_dict in zapros_count){
+            if(zapros_count[art_krat_dict]){
+                var sap_code = zapros_count[art_krat_dict]
+                sap_code_ruchnoy.val(sap_code)
+                kratkiy_text_ruchnoy.val(data.text)
+                sap_code_ruchnoy.css('background-color','orange')
+                kratkiy_text_ruchnoy.css('background-color','orange')
+                sap_code_ruchnoy.attr('disabled',true)
+                kratkiy_text_ruchnoy.attr('disabled',true)
+            }else{
+                
+                sap_code_ruchnoy.val('')
+                kratkiy_text_ruchnoy.val('')
+                sap_code_ruchnoy.css('background-color','white')
+                kratkiy_text_ruchnoy.css('background-color','white')
+                sap_code_ruchnoy.attr('disabled',false)
+                kratkiy_text_ruchnoy.attr('disabled',false)
+            }
             
+        }else{
+            sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text,data_base[id].is_termo)
         }
 
 
@@ -3484,7 +3503,7 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
         if (res.status ==201){
             // console.log(res,'$$$$$')
             var art_krat =artikul+kratkiy_tekst
-            zapros_count.push(art_krat)
+            zapros_count[art_krat]=res.artikul
             var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
             var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
             
@@ -3498,7 +3517,7 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
             kratkiy_text_ruchnoy.attr('disabled',true)
         }else{
             var art_krat =artikul+kratkiy_tekst
-            zapros_count.push(art_krat)
+            zapros_count[art_krat]=NaN
             var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
             var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
             data_base[id].sap_code=NaN

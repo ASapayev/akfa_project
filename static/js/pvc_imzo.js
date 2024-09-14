@@ -777,8 +777,8 @@ function copy_tr(id){
        
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
 
-        check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s)
-        check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s)
+        check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s,dis=true)
+        check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s,dis=true)
         check_input_and_change(comment,'#comment'+s)
         check_input_and_change(sena,'#sena'+s,dis=false,is_req=true,is_req_simple=false)
         check_input_and_change(klaes_id,'#klaes_id'+s,dis=false,is_req=true,is_req_simple=false)
@@ -1254,7 +1254,7 @@ function nazvaniye_svet_zames_selected(id,val){
     create_kratkiy_tekst(id);
 }
 
-var zapros_count =[]
+var zapros_count ={}
 
 
 
@@ -1461,8 +1461,31 @@ function create_kratkiy_tekst(id){
     if(data.text !='XXXXXXXX' ){
         var artikul_bass = data_base[id].base_artikul
         var art_krat_dict = artikul_bass + data.text
+        var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+        var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
+        
 
-        if(zapros_count.indexOf(art_krat_dict) === -1){
+        // console.log(zapros_count,art_krat_dict,'+++++')
+        if(art_krat_dict in zapros_count){
+            if(zapros_count[art_krat_dict]){
+                var sap_code = zapros_count[art_krat_dict]
+                sap_code_ruchnoy.val(sap_code)
+                kratkiy_text_ruchnoy.val(data.text)
+                sap_code_ruchnoy.css('background-color','orange')
+                kratkiy_text_ruchnoy.css('background-color','orange')
+                sap_code_ruchnoy.attr('disabled',true)
+                kratkiy_text_ruchnoy.attr('disabled',true)
+            }else{
+                
+                sap_code_ruchnoy.val('')
+                kratkiy_text_ruchnoy.val('')
+                sap_code_ruchnoy.css('background-color','white')
+                kratkiy_text_ruchnoy.css('background-color','white')
+                sap_code_ruchnoy.attr('disabled',false)
+                kratkiy_text_ruchnoy.attr('disabled',false)
+            }
+            
+        }else{
             sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text)
         }
         // else{
@@ -1497,7 +1520,7 @@ function get_sapcode(id,artikul,kratkiy_tekst){
     }).done(function (res) {
         if (res.status ==201){
             var art_krat =artikul+kratkiy_tekst
-            zapros_count.push(art_krat)
+            zapros_count[art_krat]=res.artikul
 
             data_base[id].sap_code=res.artikul
             data_base[id].krat=res.kratkiy_tekst
@@ -1510,7 +1533,7 @@ function get_sapcode(id,artikul,kratkiy_tekst){
             kratkiy_text_ruchnoy.css('background-color','orange')
         }else{
             var art_krat =artikul+kratkiy_tekst
-            zapros_count.push(art_krat)
+            zapros_count[art_krat]=NaN
             data_base[id].sap_code=NaN
             data_base[id].krat=NaN
             var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
