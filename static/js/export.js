@@ -311,7 +311,6 @@ function front_piece(start=1,end=6){
                 <option value="6063" >6063</option>
                 <option value="6082" >6082</option>
                 <option value="6005" >6005</option>
-                <option value="6005A" >6005A</option>
                 <option value="6061" >6061</option>
             </select>
             

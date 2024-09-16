@@ -501,6 +501,9 @@ function front_piece(start=1,end=7){
             <select class="form-select" aria-label="" style="width: 70px;height:27px!important;z-index:0"  disabled id='splav`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
                 <option  value="" selected ></option>
                 <option value="6063" >6063</option>
+                <option value="6082" >6082</option>
+                <option value="6060" >6060</option>
+                <option value="6005" >6005</option>
             </select>
             
             </div>
