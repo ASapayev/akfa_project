@@ -586,13 +586,13 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
         
-            <input type='text' class=" form-control " style=" width: 150px; font-size:10px; height:27px!important;z-index:0;" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 150px; font-size:10px; height:27px!important;z-index:0;" disabled id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         
             </div>
         </td> 
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 250px; font-size:10px; height:27px!important;z-index:0;"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 250px; font-size:10px; height:27px!important;z-index:0;" disabled id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         
@@ -2568,16 +2568,16 @@ function create_kratkiy_tekst(id){
                 kratkiy_text_ruchnoy.val(data.text)
                 sap_code_ruchnoy.css('background-color','orange')
                 kratkiy_text_ruchnoy.css('background-color','orange')
-                sap_code_ruchnoy.attr('disabled',true)
-                kratkiy_text_ruchnoy.attr('disabled',true)
+                // sap_code_ruchnoy.attr('disabled',true)
+                // kratkiy_text_ruchnoy.attr('disabled',true)
             }else{
                 
                 sap_code_ruchnoy.val('')
                 kratkiy_text_ruchnoy.val('')
-                sap_code_ruchnoy.css('background-color','white')
-                kratkiy_text_ruchnoy.css('background-color','white')
-                sap_code_ruchnoy.attr('disabled',false)
-                kratkiy_text_ruchnoy.attr('disabled',false)
+                sap_code_ruchnoy.css('background-color','#eaecef')
+                kratkiy_text_ruchnoy.css('background-color','#eaecef')
+                // sap_code_ruchnoy.attr('disabled',false)
+                // kratkiy_text_ruchnoy.attr('disabled',false)
             }
             
         }else{
@@ -2613,8 +2613,8 @@ function get_sapcode(id,artikul,kratkiy_tekst){
             kratkiy_text_ruchnoy.val(res.kratkiy_tekst)
             sap_code_ruchnoy.css('background-color','orange')
             kratkiy_text_ruchnoy.css('background-color','orange')
-            sap_code_ruchnoy.attr('disabled',true)
-            kratkiy_text_ruchnoy.attr('disabled',true)
+            // sap_code_ruchnoy.attr('disabled',true)
+            // kratkiy_text_ruchnoy.attr('disabled',true)
         }else{
             var art_krat =artikul+kratkiy_tekst
             zapros_count[art_krat]=NaN
@@ -2624,10 +2624,10 @@ function get_sapcode(id,artikul,kratkiy_tekst){
             var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
             sap_code_ruchnoy.val('')
             kratkiy_text_ruchnoy.val('')
-            sap_code_ruchnoy.css('background-color','white')
-            kratkiy_text_ruchnoy.css('background-color','white')
-            sap_code_ruchnoy.attr('disabled',false)
-            kratkiy_text_ruchnoy.attr('disabled',false)
+            sap_code_ruchnoy.css('background-color','#eaecef')
+            kratkiy_text_ruchnoy.css('background-color','#eaecef')
+            // sap_code_ruchnoy.attr('disabled',false)
+            // kratkiy_text_ruchnoy.attr('disabled',false)
         }
         // WON'T REDIRECT
     });
