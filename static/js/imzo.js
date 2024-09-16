@@ -943,12 +943,12 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:150px;height:27px!important;z-index:0'   aria-describedby="inputGroup-sizing-sm"  id="sap_code`+String(i)+`" onkeyup='create_kratkiy_tekst(`+String(i)+`)' >           
+            <input type="text" class="form-control "  style='width:150px;height:27px!important;z-index:0'   aria-describedby="inputGroup-sizing-sm" disabled id="sap_code`+String(i)+`" onkeyup='create_kratkiy_tekst(`+String(i)+`)' >           
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" class="form-control "  style='width:250px;height:27px!important;z-index:0'   aria-describedby="inputGroup-sizing-sm"  id="krat`+String(i)+`"  onkeyup='create_kratkiy_tekst(`+String(i)+`)'>
+            <input type="text" class="form-control "  style='width:250px;height:27px!important;z-index:0'   aria-describedby="inputGroup-sizing-sm"  id="krat`+String(i)+`" disabled onkeyup='create_kratkiy_tekst(`+String(i)+`)'>
             </div>
         </td>
         <td >
@@ -1759,6 +1759,13 @@ function artukil_clear(id){
     var sena =$('#sena'+String(id))
 
 
+
+    sap_code.css('background-color','#eaecef')
+    krat.css('background-color','#eaecef')
+    sap_code.attr('disabled',false)
+    krat.attr('disabled',false)
+
+
     nadpis_nakleyki.text('')
     baza_profiley.text('')
 
@@ -1779,10 +1786,10 @@ function artukil_clear(id){
     klaes_nazvaniye.css('border-color','red')
     code_sveta.css('border-color','red')
     klaes_kratkiy.css('border-color','red')
-    krat.css('display','none')
+    // krat.css('display','none')
     sena.css('display','none')
     delovoy_otxod.css('display','none')
-    sap_code.css('display','none')
+    // sap_code.css('display','none')
     goods_group.css('display','none')
     id_klaes.css('display','none')
     klaes_nazvaniye.css('display','none')
@@ -2759,16 +2766,16 @@ function create_kratkiy_tekst(id){
                 kratkiy_text_ruchnoy.val(data.text)
                 sap_code_ruchnoy.css('background-color','orange')
                 kratkiy_text_ruchnoy.css('background-color','orange')
-                sap_code_ruchnoy.attr('disabled',true)
-                kratkiy_text_ruchnoy.attr('disabled',true)
+                // sap_code_ruchnoy.attr('disabled',true)
+                // kratkiy_text_ruchnoy.attr('disabled',true)
             }else{
                 
                 sap_code_ruchnoy.val('')
                 kratkiy_text_ruchnoy.val('')
-                sap_code_ruchnoy.css('background-color','white')
-                kratkiy_text_ruchnoy.css('background-color','white')
-                sap_code_ruchnoy.attr('disabled',false)
-                kratkiy_text_ruchnoy.attr('disabled',false)
+                sap_code_ruchnoy.css('background-color','#eaecef')
+                kratkiy_text_ruchnoy.css('background-color','#eaecef')
+                // sap_code_ruchnoy.attr('disabled',false)
+                // kratkiy_text_ruchnoy.attr('disabled',false)
             }
             
         }else{
@@ -2819,8 +2826,8 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
             data_base[id].krat=NaN
             sap_code.val('')
             krat.val('')
-            sap_code.css('background-color','white')
-            krat.css('background-color','white')
+            sap_code.css('background-color','#eaecef')
+            krat.css('background-color','#eaecef')
             // console.log('aa')
         }
         // WON'T REDIRECT

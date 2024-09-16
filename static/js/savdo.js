@@ -759,13 +759,13 @@ function front_piece(start=1,end=7){
         <td >
             <div class="input-group input-group-sm mb-1">
         
-            <input type='text' class=" form-control " style=" width: 150px; font-size:10px; height:27px!important;z-index:0" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 150px; font-size:10px; height:27px!important;z-index:0" id='sap_code_ruchnoy`+String(i)+`' disabled onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         
             </div>
         </td> 
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 250px; font-size:10px; height:27px!important;z-index:0"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 250px; font-size:10px; height:27px!important;z-index:0"  id='kratkiy_tekst_ruchnoy`+String(i)+`' disabled onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         
@@ -1451,6 +1451,7 @@ function copy_tr(id){
 
         check_input_and_change(sap_code_ruchnoy,'#sap_code_ruchnoy'+s,dis=true)
         check_input_and_change(kratkiy_text_ruchnoy,'#kratkiy_tekst_ruchnoy'+s,dis=true)
+        
         check_input_and_change(comment,'#comment'+s)
         check_input_and_change(dilina_pressa,'#dilina_pressa'+s)
 
@@ -1966,8 +1967,8 @@ function artukil_clear(id){
     segment.css('display','none')
     edinitsa_izm.css('display','none')
     buxgalter_tovar.css('display','none')
-    sap_code_ruchnoy.css('display','none')
-    kratkiy_tekst_ruchnoy.css('display','none')
+    // sap_code_ruchnoy.css('display','none')
+    // kratkiy_tekst_ruchnoy.css('display','none')
     online_savdo_id.css('display','none')
     online_savdo_id.css('border-color','red')
     nazvaniye_ruchnoy.css('display','none')
@@ -1982,6 +1983,10 @@ function artukil_clear(id){
     status.css('border-color','red')
     zavod.css('border-color','red')
 
+    sap_code_ruchnoy.css('background-color','#eaecef')
+    kratkiy_tekst_ruchnoy.css('background-color','#eaecef')
+    // sap_code_ruchnoy.attr('disabled',false)
+    // kratkiy_tekst_ruchnoy.attr('disabled',false)
     
     sap_code_ruchnoy.val('')
     kratkiy_tekst_ruchnoy.val('')
@@ -3464,16 +3469,17 @@ function create_kratkiy_tekst(id){
                 kratkiy_text_ruchnoy.val(data.text)
                 sap_code_ruchnoy.css('background-color','orange')
                 kratkiy_text_ruchnoy.css('background-color','orange')
-                sap_code_ruchnoy.attr('disabled',true)
-                kratkiy_text_ruchnoy.attr('disabled',true)
+                // sap_code_ruchnoy.attr('disabled',true)
+                // kratkiy_text_ruchnoy.attr('disabled',true)
             }else{
                 
                 sap_code_ruchnoy.val('')
                 kratkiy_text_ruchnoy.val('')
+             
                 sap_code_ruchnoy.css('background-color','white')
                 kratkiy_text_ruchnoy.css('background-color','white')
-                sap_code_ruchnoy.attr('disabled',false)
-                kratkiy_text_ruchnoy.attr('disabled',false)
+                // sap_code_ruchnoy.attr('disabled',false)
+                // kratkiy_text_ruchnoy.attr('disabled',false)
             }
             
         }else{
@@ -3513,8 +3519,8 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
             kratkiy_text_ruchnoy.val(res.kratkiy_tekst)
             sap_code_ruchnoy.css('background-color','orange')
             kratkiy_text_ruchnoy.css('background-color','orange')
-            sap_code_ruchnoy.attr('disabled',true)
-            kratkiy_text_ruchnoy.attr('disabled',true)
+            // sap_code_ruchnoy.attr('disabled',true)
+            // kratkiy_text_ruchnoy.attr('disabled',true)
         }else{
             var art_krat =artikul+kratkiy_tekst
             zapros_count[art_krat]=NaN
@@ -3524,10 +3530,10 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
             data_base[id].krat=NaN
             sap_code_ruchnoy.val('')
             kratkiy_text_ruchnoy.val('')
-            sap_code_ruchnoy.css('background-color','white')
-            kratkiy_text_ruchnoy.css('background-color','white')
-            sap_code_ruchnoy.attr('disabled',false)
-            kratkiy_text_ruchnoy.attr('disabled',false)
+            sap_code_ruchnoy.css('background-color','#eaecef')
+            kratkiy_text_ruchnoy.css('background-color','#eaecef')
+            // sap_code_ruchnoy.attr('disabled',false)
+            // kratkiy_text_ruchnoy.attr('disabled',false)
             console.log('aa')
         }
         // WON'T REDIRECT
