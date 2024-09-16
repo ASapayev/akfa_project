@@ -105,7 +105,7 @@ def edit_sapcodes_simple(request,id):
                   (Q(sap_code7 = sapcode_org.material)&Q(kratkiy7 = sapcode_org.kratkiy_tekst_materiala))|
                   (Q(fsap_code = sapcode_org.material)&Q(fkratkiy = sapcode_org.kratkiy_tekst_materiala))|
                   (Q(sap_code75 = sapcode_org.material)&Q(kratkiy75 = sapcode_org.kratkiy_tekst_materiala))
-                  ).exists:
+                  ).exists():
                  
                   razlovka = RazlovkaObichniy.objects.filter(
                   (Q(esap_code =sapcode_org.material)&Q(ekratkiy = sapcode_org.kratkiy_tekst_materiala))|
