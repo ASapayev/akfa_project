@@ -1202,6 +1202,7 @@ function request_piece(start=1,end=7){
                     var selectedOption = $('#nakleyka'+String(i)).find('option:selected');
         
                     var nadpisValue = selectedOption.data('nadpis');
+                    // console.log(nadpisValue,'llllll@@@@@@')
                     nadpis_nakleyki.text(nadpisValue)
                 }
             }
@@ -1334,7 +1335,7 @@ function copy_tr(id){
         var div_kras_vn = $('#div_kras_vn'+String(s))
 
 
-
+        console.log(id,nadpis_nakleyki,'nadpis_nakleyki$$$$')
 
         if(id == 1){
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=true)
@@ -1392,8 +1393,8 @@ function copy_tr(id){
             }
 
         }
+        
         else if(id == 5){
-            
             check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
             div_kras_sn.css('display','block')
@@ -1909,6 +1910,8 @@ function artukil_clear(id){
     code_lamplonka_vnutri.text("")
 
     var nakleyka = $('#nakleyka'+String(id))
+    var nadpis_nakleyki = $('#nadpis_nakleyki'+String(id))
+    nadpis_nakleyki.text('')
     nakleyka.css('display','none')
     nakleyka.val('')
 

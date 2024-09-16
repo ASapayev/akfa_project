@@ -1305,6 +1305,8 @@ function artukil_clear(id){
     var nakleyka = $('#nakleyka'+String(id))
     nakleyka.css('display','none')
     nakleyka.val('')
+    var nadpis_nakleyki = $('#nadpis_nakleyki'+String(id))
+    nadpis_nakleyki.text('')
     
 
 
