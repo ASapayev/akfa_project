@@ -95,6 +95,19 @@ def download_all_artikles(request):
         res = download_bs64([data,],'АРТИКУЛ')
         return res
 
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
+def download_all_sapcodes(request):
+        simple_list = PVCProduct.objects.all().values_list('material','kratkiy_tekst_materiala','brutto','netto')
+        data = pd.DataFrame(np.array(list(simple_list)),columns=[
+                'SAP CODE','KRATKIY TEXT','BRUTTO','NETTO',
+                                                        ])
+        data = data.replace('nan','')
+        
+        res = download_bs64([data,],'SAPCODE')
+        return res
+
+
 class FileRazlovki:
     def __init__(self,file):
         self.file =file
@@ -2962,7 +2975,7 @@ def show_list_simple_sapcodes_pvc(request):
         'type':'simple'
 
     }
-    return render(request,'universal/show_sapcodes.html',context)
+    return render(request,'pvc/show_sapcodes.html',context)
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
