@@ -1471,8 +1471,8 @@ function create_kratkiy_tekst(id){
                 var sap_code = zapros_count[art_krat_dict]
                 sap_code_ruchnoy.val(sap_code)
                 kratkiy_text_ruchnoy.val(data.text)
-                sap_code_ruchnoy.css('background-color','orange')
-                kratkiy_text_ruchnoy.css('background-color','orange')
+                sap_code_ruchnoy.css('background-color','#eaecef')
+                kratkiy_text_ruchnoy.css('background-color','#eaecef')
                 sap_code_ruchnoy.attr('disabled',true)
                 kratkiy_text_ruchnoy.attr('disabled',true)
             }else{
@@ -1496,8 +1496,8 @@ function create_kratkiy_tekst(id){
 
         //     sap_code_ruchnoy.val(artikul_bass)
         //     kratkiy_text_ruchnoy.val(krat)
-        //     sap_code_ruchnoy.css('background-color','orange')
-        //     kratkiy_text_ruchnoy.css('background-color','orange')
+        //     sap_code_ruchnoy.css('background-color','#eaecef')
+        //     kratkiy_text_ruchnoy.css('background-color','#eaecef')
         //     sap_code_ruchnoy.attr('disabled',true)
         //     kratkiy_text_ruchnoy.attr('disabled',true)
         // }
@@ -1529,8 +1529,8 @@ function get_sapcode(id,artikul,kratkiy_tekst){
             var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
             sap_code_ruchnoy.val(res.artikul)
             kratkiy_text_ruchnoy.val(res.kratkiy_tekst)
-            sap_code_ruchnoy.css('background-color','orange')
-            kratkiy_text_ruchnoy.css('background-color','orange')
+            sap_code_ruchnoy.css('background-color','#eaecef')
+            kratkiy_text_ruchnoy.css('background-color','#eaecef')
         }else{
             var art_krat =artikul+kratkiy_tekst
             zapros_count[art_krat]=NaN
@@ -1540,8 +1540,8 @@ function get_sapcode(id,artikul,kratkiy_tekst){
             var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
             sap_code_ruchnoy.val('')
             kratkiy_text_ruchnoy.val('')
-            sap_code_ruchnoy.css('background-color','white')
-            kratkiy_text_ruchnoy.css('background-color','white')
+            sap_code_ruchnoy.css('background-color','#eaecef')
+            kratkiy_text_ruchnoy.css('background-color','#eaecef')
             console.log('aa')
         }
         // WON'T REDIRECT

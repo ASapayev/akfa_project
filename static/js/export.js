@@ -2189,8 +2189,8 @@ function create_kratkiy_tekst(id){
                 var sap_code = zapros_count[art_krat_dict]
                 sap_code_ruchnoy.val(sap_code)
                 kratkiy_text_ruchnoy.val(data.text)
-                sap_code_ruchnoy.css('background-color','orange')
-                kratkiy_text_ruchnoy.css('background-color','orange')
+                sap_code_ruchnoy.css('background-color','#eaecef')
+                kratkiy_text_ruchnoy.css('background-color','#eaecef')
                 // sap_code_ruchnoy.attr('disabled',true)
                 // kratkiy_text_ruchnoy.attr('disabled',true)
             }else{
@@ -2235,8 +2235,8 @@ function get_sapcode(id,artikul,kratkiy_tekst,is_termo){
 
             sap_code.val(res.artikul)
             krat.val(res.kratkiy_tekst)
-            sap_code.css('background-color','orange')
-            krat.css('background-color','orange')
+            sap_code.css('background-color','#eaecef')
+            krat.css('background-color','#eaecef')
         }else{
             var art_krat =artikul+kratkiy_tekst
             zapros_count[art_krat]=NaN
