@@ -37,7 +37,8 @@ from decouple import config
 
 
 # API_KEY = os.environ.get("JIRA_CREDENTIALS")
-API_KEY = config('JIRA_CREDENTIALS')
+# API_KEY = config('JIRA_CREDENTIALS')
+API_KEY = 'Jahongir.Dusmuratov@akfagroup.com:ATATT3xFfGF0lmFWLRjPat-dQ_vVZGVHAyCXm81jbIx7PDTI8RK1PzpcHF-Wl87no16IlLh9leq0IVHlw88ghwj30AsMl2DIC8dOB21Xp_rQZFOo3CBOkW5UoGl6DjYuHdVHhO_r0hvG1YmYLu9FKiEtihilNEGCfCQ6-1FbfoJbv0Hu_a7NPzY=A93B224B'
 
 credentials = "Basic " + base64.b64encode(f"{API_KEY}".encode("ascii")).decode("ascii")
 
@@ -136,7 +137,9 @@ class OrderSaveView(APIView):
                             baza_profiley.save()
 
         try:
+            # print('salom')
             issueKey = order_create_jira(order_name,order_type)
+            # print('nex',issueKey)
             # issueKey = 'MDMtest'
             order = Order(data = {'name':name,'data':response,'artikul':artikules},owner=request.user,order_type = order_type,theme =order_name,id_for_jira=issueKey)
             order.save()
@@ -211,6 +214,7 @@ def order_create_jira(name,order_type):
     else:
         order_number ='78'
 
+    print(order_type)
     payload_jira = json.dumps({
         "requestFieldValues": {
             "summary":name
@@ -227,8 +231,8 @@ def order_create_jira(name,order_type):
         data=payload_jira,
         headers=headers_jira
     )
+    # print(response.content)
     issueKey = json.loads(response.text)['issueKey']
-    # print(res)
     # print(json.dumps(json.loads(response.text),
     #     sort_keys=True, indent=4, separators=(",", ": ")))
     return issueKey
