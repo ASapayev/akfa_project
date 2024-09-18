@@ -584,7 +584,7 @@ function front_piece(start=1,end=7){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;height:27px!important;z-index:0" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span></em>
+                <span class =' text-center ' style="white-space:nowrap;font-size: 10px;  font-weight: bold; text-transform: uppercase;height:27px!important;z-index:0" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span>
                 </div>
             </div>
         </td>
@@ -604,7 +604,7 @@ function front_piece(start=1,end=7){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;height:27px!important;z-index:0" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span></em>
+                <em><span class =' text-center ' style="white-space:nowrap;font-size: 10px;  font-weight: bold; text-transform: uppercase;height:27px!important;z-index:0" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span></em>
                 </div>
             </div>
         </td>
@@ -2617,7 +2617,7 @@ function create_kratkiy_tekst(id){
     }else{
         data_base[id].comment = NaN;
     }
-    if(dlina.val()!=''){
+    if(dlina.val()!=''&& dlina.val()!=0 && dlina.val()!='0'){
         dlina.css("border-color",'#dedad9');
         data_base[id].dlina = dlina.val();
     }else{
@@ -3214,7 +3214,7 @@ function create_kratkiy_tekst(id){
                 data_base[id].krat = NaN;
                 
             }
-            if(online_savdo_id.val()!=''){
+            if(online_savdo_id.val()!=''&& online_savdo_id.val()!=0 && online_savdo_id.val()!='0'){
                 online_savdo_id.css('border-color','#dedad9')
                 data_base[id].online_id = online_savdo_id.val();
             }else{
@@ -3355,7 +3355,7 @@ function create_kratkiy_tekst(id){
             }else{
                 data_base[id].krat = NaN;
             }
-            if(online_savdo_id.val()!=''){
+            if(online_savdo_id.val()!=''&& online_savdo_id.val()!=0 && online_savdo_id.val()!='0'){
                 
                 data_base[id].online_id = online_savdo_id.val();
             }else{

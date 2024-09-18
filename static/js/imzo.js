@@ -756,7 +756,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 
-                    <em><span class =' text-center ' style="font-size: 10px;  font-weight: bold; text-transform: uppercase;height:27px!important;z-index:0" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span></em>
+                    <em><span class =' text-center ' style="white-space:nowrap;font-size: 10px;  font-weight: bold; text-transform: uppercase;height:27px!important;z-index:0" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span></em>
                 
             </div>
         </td>
@@ -776,7 +776,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 
-                <em><span class =' text-center ' style="font-size: 10px; font-weight: bold; text-transform: uppercase;height:27px!important;z-index:0" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span></em>
+                <em><span class =' text-center ' style="white-space:nowrap;font-size: 10px; font-weight: bold; text-transform: uppercase;height:27px!important;z-index:0" id ='code_dekplonka_vnutri` +String(i)+`' disabled></span></em>
                 
             </div>
         </td>
@@ -2295,7 +2295,7 @@ function create_kratkiy_tekst(id){
 
 
     var dlina = $('#length'+String(id));
-    if(dlina.val()!=''){
+    if(dlina.val()!=''&& dlina.val()!=0 && dlina.val()!='0'){
         dlina.css("border-color",'#dedad9');
         data_base[id].dlina = dlina.val();
     }else{

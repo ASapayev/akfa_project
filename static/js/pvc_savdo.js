@@ -2071,7 +2071,7 @@ function create_kratkiy_tekst(id){
         data_base[id].comment = NaN;
     }
    
-    if(dlina.val()!=''){
+    if(dlina.val()!=''&& dlina.val()!=0 && dlina.val()!='0'){
         dlina.css("border-color",'#dedad9');
         data_base[id].dlina = dlina.val();
     }else{
@@ -2339,7 +2339,7 @@ function create_kratkiy_tekst(id){
                 data_base[id].krat = NaN;
                 
             }
-            if(online_savdo_id.val()!=''){
+            if(online_savdo_id.val()!=''&& online_savdo_id.val()!=0 && online_savdo_id.val()!='0'){
                 online_savdo_id.css('border-color','#dedad9')
                 data_base[id].online_id = online_savdo_id.val();
             }else{
@@ -2465,7 +2465,7 @@ function create_kratkiy_tekst(id){
             }else{
                 data_base[id].krat = NaN;
             }
-            if(online_savdo_id.val()!=''){
+            if(online_savdo_id.val()!=''&& online_savdo_id.val()!=0 && online_savdo_id.val()!='0'){
                 
                 data_base[id].online_id = online_savdo_id.val();
             }else{

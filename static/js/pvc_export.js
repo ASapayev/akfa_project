@@ -1159,7 +1159,7 @@ function create_kratkiy_tekst(id){
     }else{
         data_base[id].sap_code = NaN;
     }
-    if(dlina.val()!=''){
+    if(dlina.val()!=''&& dlina.val()!=0 && dlina.val()!='0'){
         dlina.css("border-color",'#dedad9');
         data_base[id].dlina = dlina.val();
     }else{

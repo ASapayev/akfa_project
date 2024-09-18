@@ -1133,7 +1133,7 @@ function create_kratkiy_tekst(id){
             }
 
            
-            if(online_savdo_id.val()!=''){
+            if(online_savdo_id.val()!=''&& online_savdo_id.val()!=0 && online_savdo_id.val()!='0'){
                 
                 data_base[id].online_id = online_savdo_id.val();
             }else{
