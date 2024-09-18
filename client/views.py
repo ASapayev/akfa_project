@@ -36,8 +36,8 @@ from django.core.files import File
 from decouple import config
 
 
-# API_KEY = os.environ.get("JIRA_CREDENTIALS")
-API_KEY = config('JIRA_CREDENTIALS')
+API_KEY = os.environ.get("JIRA_CREDENTIALS")
+# API_KEY = config('JIRA_CREDENTIALS')
 
 
 credentials = "Basic " + base64.b64encode(f"{API_KEY}".encode("ascii")).decode("ascii")
