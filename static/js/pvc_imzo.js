@@ -1001,7 +1001,7 @@ function artukil_clear(id){
     // kratkiy_tekst_ruchnoy.css('display','none');
     var comment =$('#comment'+String(id));
     comment.val('');
-    comment.css('display','none');
+    // comment.css('display','none');
     var goods_group =$('#goods_group'+String(id));
     goods_group.val('');
     goods_group.css('display','none');
