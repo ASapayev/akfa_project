@@ -37,8 +37,8 @@ from decouple import config
 
 
 # API_KEY = os.environ.get("JIRA_CREDENTIALS")
-# API_KEY = config('JIRA_CREDENTIALS')
-API_KEY = 'Jahongir.Dusmuratov@akfagroup.com:ATATT3xFfGF0lmFWLRjPat-dQ_vVZGVHAyCXm81jbIx7PDTI8RK1PzpcHF-Wl87no16IlLh9leq0IVHlw88ghwj30AsMl2DIC8dOB21Xp_rQZFOo3CBOkW5UoGl6DjYuHdVHhO_r0hvG1YmYLu9FKiEtihilNEGCfCQ6-1FbfoJbv0Hu_a7NPzY=A93B224B'
+API_KEY = config('JIRA_CREDENTIALS')
+
 
 credentials = "Basic " + base64.b64encode(f"{API_KEY}".encode("ascii")).decode("ascii")
 
