@@ -185,6 +185,17 @@
             input.value = value;
             create_kratkiy_tekst(id)
         }
+
+        function limitLength(element, maxLength) {
+                if (element.value.length > maxLength) {
+                    element.value = element.value.slice(0, maxLength);
+                }
+
+                if (element.value === "0") {
+                    element.value = "";  // Clear the field if '0' is entered
+                    // alert("Input cannot be 0");
+                }
+            }
 </script>
     </head>
     

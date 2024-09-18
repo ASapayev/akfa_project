@@ -649,7 +649,7 @@ function front_piece(start=1,end=6){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type="text" pattern="\d{0,4}"  maxlength="4"  class="form-control " style='width:70px;height:27px!important;z-index:0' oninput="restrictToFourDigits(event,`+String(i)+`)"  disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
+                <input type="number"   class="form-control " style='width:70px;height:27px!important;z-index:0' oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 4);"  disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
             </div>
         </td>
         <td >
@@ -670,8 +670,8 @@ function front_piece(start=1,end=6){
            
             <select class="form-select" aria-label="" style="width: 70px;height:27px!important;z-index:0"  disabled id='splav`+String(i)+`' onchange="create_kratkiy_tekst(`+String(i)+`)">
                 
-
-                option value="6063" >6063</option>
+                <option  selected></option>
+                <option value="6063" >6063</option>
                 <option value="6082" >6082</option>
                 <option value="6060" >6060</option>
                 <option value="6005" >6005</option>
@@ -682,6 +682,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1"  style="width: 60px;">
             <select class="form-select" aria-label="" style="width: 50px;!important;height:27px!important;z-index:0"  disabled id='tip_zakalyonnosti`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
+               
                 <option value="T6" selected >T6</option>
             </select>
             </div>
@@ -956,7 +957,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm " style="width: 60px;">
-            <input type="text" pattern="\d{0,4}"  maxlength="4"  class="form-control " style='border-color:red;width:60px;height:27px!important;z-index:0;display:none;' oninput="restrictToFourDigits(event,`+String(i)+`)"   aria-describedby="inputGroup-sizing-sm" name ='delovoy_otxod`+String(i)+`' id="delovoy_otxod`+String(i)+`"  >
+            <input type="number"  class="form-control " style='border-color:red;width:60px;height:27px!important;z-index:0;display:none;' oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 4);"    aria-describedby="inputGroup-sizing-sm" name ='delovoy_otxod`+String(i)+`' id="delovoy_otxod`+String(i)+`"  >
 
             </div>
         </td>
@@ -972,7 +973,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="text" pattern="\d{0,7}"  maxlength="7"  class="form-control " style='border-color:red;width:90px;height:27px!important;z-index:0;display:none;' oninput="restrictToFourDigits(event,`+String(i)+`,max_len=7)"   aria-describedby="inputGroup-sizing-sm" name ='code_sveta`+String(i)+`' id="code_sveta`+String(i)+`"  >
+            <input type="number"   class="form-control " style='border-color:red;width:90px;height:27px!important;z-index:0;display:none;' oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 4);"    aria-describedby="inputGroup-sizing-sm" name ='code_sveta`+String(i)+`' id="code_sveta`+String(i)+`"  >
   
             </div>
         </td>
