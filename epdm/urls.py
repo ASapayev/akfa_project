@@ -16,15 +16,21 @@ urlpatterns = [
     # path('file-upload-korobka',views.full_update_korobka,name='upload_korobka_radiator'),
     # path('file-upload-kraska',views.full_update_kraska,name='upload_kraska_radiator'),
     # path('norma-radiator-upload',views.file_upload_org,name='file_upload_radiator'),
-    # path('norma-radiator-file-list',views.file_list_org,name='file_list_radiator'),
+    path('show-siryo',views.show_siryo,name='show_siryo'),
+    path('add-sapcode-from-file',views.create_siryo_from_file, name='create_siryo_from_file'),
+    path('add-sapcode',views.create_siryo, name='create_siryo_epdm'),
+    path('edit-sapcode/<int:id>',views.edit_siryo, name='edit_siryo_epdm'),
+    path('delete-siryo/<int:id>',views.delete_siryo,name='delete_siryo'),
+    path('siryo-bulk-delete',views.siryo_bulk_delete,name='siryo_bulk_delete_epdm'),
 
-    path('kombinirovaniy-process-epdm/<int:id>',views.generate_norma_epdm,name='kombinirovaniy_process_epdm'),
+    path('kombinirovaniy-process-epdm',views.find_norma,name='kombinirovaniy_process_epdm'),
     # path('kombinirovaniy-process-75/<int:id>',views.generate_norma_75,name='kombinirovaniy_process_kraska75'),
     # path('get-razlovka-radiator',views.get_razlovka_radiator,name='get_razlovka_radiator'),
 
     # ######## END NORMA ############
 
     # ######## texcarta #######
+    path('file-epdm-texcarta',views.file_upload_epdm_tex,name='file_upload_epdm_tex'),
     path('generate-epdm-texcarta/<int:id>',views.lenght_generate_texcarta,name='lenght_generate_texcarta_epdm'),
 
 

@@ -1,0 +1,252 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <form >
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"> <input type="search" class="form-control" placeholder="Search sapcode" name="search"></li>
+              <li class="breadcrumb-item " aria-current="page"><button class="btn btn-secondary " type="submit">Search</button></li>
+              <li class="breadcrumb-item " aria-current="page"><a class="btn btn-success " href="{%url 'create_siryo_kraska' %}" type="submit">Add</a></li>
+            </ul>
+          </form>
+        </nav>
+      </div>
+      <div class="row ">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Лист</h4>
+              <div class="table-responsive">
+                <table class="table" >
+                  <thead>
+                    <tr >
+                      <th  >
+                        <div class="form-check form-check-muted m-0">
+                          <label class="">
+                            <label class="">
+                            <input type="checkbox" class="form-check-input"  id="select-all">
+                          </label>
+                        </div>
+                      </th>
+                      <th  > CODE </th>
+                      <th  > SAP CODE </th>
+                      <th  > KRATKIY TEXT</th>
+                      <th  > CREATED DATE </th>
+                      <th  > Действие </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for profile in products %}
+                    <tr >
+                      <td>
+                        <div class="form-check form-check-muted m-0">
+                          <label class="">
+                            <input type="checkbox" class="form-check-input"  id="selected_checbox"  value="{{profile.id}}">
+                          </label>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.code}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.sapcode}}</span>
+                      </td>
+                      
+                      <td>{{profile.kratkiy}} </td>
+                      <td> {{profile.created_at |date:"d-m-Y H:i"}} </td>
+                      <td>
+                        <a class='btn btn-danger' onclick="delete_sapcode(this,'{{profile.id}}')"><i class="bi bi-trash"></i>Delete</a>
+                        
+                        <a class='btn btn-warning' href="{%url 'edit_siryo_kraska' profile.id %}"><i class="bi bi-pen"></i>Edit</a>
+                        
+                      </td>
+                    </tr>
+                    {%endfor%}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="badge btn-info m-2" style="display: none; cursor: pointer;" onclick="bulk_delete()" id="btn_del">Delete</div>
+        </div>
+      </div>
+      
+    </div>
+   
+  </div>
+  
+  <div class="container">
+    <div class="d-flex justify-content-between">
+        <div class="pagination p-2">
+          <span class="step-links">
+            <ul class="pagination"  style="background-color: azure;">
+                {% if products.has_previous %}
+                <li class="page-item" ><a class="page-link"  style="background-color: azure;" href="?page={{ products.previous_page_number }}{%if search%}&search={{search}}{%endif%}">Previous</a></li>
+                    {% if products.number > 3 %}
+                        <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page=1{%if search%}&search={{search}}{%endif%}">1</a></li>
+                        {% if products.number > 4 %}
+                        <li class="page-item"  style="background-color: azure;"> <span style="color: black;">...</span></li>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+
+                {% for num in products.paginator.page_range %}
+                    {% if products.number == num %}
+                        <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                    {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                        <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if products.has_next %}
+                    {% if products.number < products.paginator.num_pages|add:'-3' %}
+                    <li class="page-item"  style="background-color: azure;" > <span style="color: black;">...</span></li>
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;"  href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                    {% elif products.number < products.paginator.num_pages|add:'-2' %}
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ products.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ products.paginator.num_pages }}</a></li>
+                    {% endif %}
+                    
+                    <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ products.next_page_number }}{%if search%}&search={{search}}{%endif%}">Next Page »</a></li>
+                   
+                {% endif %}
+              </ul>
+          </span>
+        </div>
+    </div>
+  </div>
+
+  
+<script>
+const selectAllCheckbox = document.getElementById('select-all');
+
+var items = document.querySelectorAll('#selected_checbox')
+var btn_del = document.getElementById('btn_del')
+
+    selectAllCheckbox.addEventListener('change', function() {
+      items.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+            btn_del.style.display='block'
+        });
+
+        // Optionally, if you want to add functionality where checking/unchecking individual checkboxes
+        // will update the master checkbox state:
+        items.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                // Check if all checkboxes are checked
+                const allChecked = Array.from(items).every(cb => cb.checked);
+                // Check if none are checked
+                const noneChecked = Array.from(items).every(cb => !cb.checked);
+
+                selectAllCheckbox.checked = allChecked;
+                selectAllCheckbox.indeterminate = !allChecked && !noneChecked;
+
+                if(allChecked){
+                   btn_del.style.display='block'
+                }else{
+                  //  btn_del.style.display='none'
+                }
+            });
+        });
+
+
+
+
+
+
+
+
+
+for (let i = 0; i < items.length; i++) {
+  items[i].addEventListener('click', function(elem) {
+    var delete_btns = document.querySelectorAll('#delete_btn')
+    for (let j = 0; j < delete_btns.length; j++) {
+      delete_btns[j].style.display = "none";
+    }
+    btn_del.style.display ='block';
+  });
+}
+
+
+
+function bulk_delete(ids){
+  var selected_chek = document.querySelectorAll('#selected_checbox:checked');
+  var ids = []
+  for (let i = 0; i < selected_chek.length; i++) {
+    ids.push(selected_chek[i].value)
+    // console.log(selected_chek[i].value);
+  }
+
+  var url ='{% url "siryo_bulk_delete_kraska" %}'
+  
+  console.log(section)
+  
+  Swal.fire({
+        showDenyButton: true,
+        text:'Siryolar o\'chirilsinmi?',
+        confirmButtonText: 'Ha',
+        denyButtonText: `Yo'q`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log(ids);
+          $.ajax({
+                method:'POST',
+                url: url,
+                csrfmiddlewaretoken:'{% csrf_token %}',
+                data:{'type':'{{type}}','ids':String(ids)}
+            }).done(function() {
+              for (let i = 0; i < selected_chek.length; i++) {
+                remove_me_all(selected_chek[i])
+              }
+            });
+
+        } else if (result.isDenied) {
+          Swal.fire('Chuchvara otmen!!!', 'ok', 'info')
+        }
+      })
+}
+
+
+function delete_sapcode(elem,id){
+  
+    var url ='/kraska/delete-siryo/' +id
+  
+    
+    Swal.fire({
+        showDenyButton: true,
+        text:'Rostdan o\'chirmoqchimisiz?',
+        confirmButtonText: 'Ha',
+        denyButtonText: `Yo'q`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+                method:'POST',
+                url: url,
+                csrfmiddlewaretoken:'{% csrf_token %}',
+                data:{'type':'{{type}}'}
+            }).done(function() {
+              remove_me(elem)
+            });
+
+        } else if (result.isDenied) {
+          Swal.fire('Chuchvara otmen!!!', 'ok', 'info')
+        }
+      })
+
+  }
+
+  function remove_me(elem){
+    elem.parentElement.parentElement.remove()
+  }
+ 
+  function remove_me_all(elem){
+    elem.parentElement.parentElement.parentElement.parentElement.remove()
+  }
+ 
+</script>
+{% endblock %}

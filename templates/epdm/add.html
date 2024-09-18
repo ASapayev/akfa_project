@@ -1,0 +1,116 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> {{section}} </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">UI</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Detail</h4>
+                <form class="form-sample">
+                    {%csrf_token%}
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="form-group row">
+                        <label for=""> Норма кг</label>
+                        <div class="col-sm-9">
+                          <input type="number" id ='kg' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">SAP CODE</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='sapcode' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">KRATKIY TEXT</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='kratkiy' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group row">
+                        <label for="">SHOP</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='shop' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-success" onclick="save_krat('{{sapcode.id}}')">SAVE</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+      
+    </div>
+   
+  </div>
+  <script>
+     function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+    function save_krat(id){
+        var kg =$('#kg').val()
+        var sapcode =$('#sapcode').val()
+        var kratkiy =$('#kratkiy').val()
+        var shop =$('#shop').val()
+        var section ='{{section}}'
+        var url = "/epdm/add-sapcode"
+        var url2 = '{%url "show_siryo" %}'
+
+
+        var csrfToken = getCSRFToken();
+        var postData = {
+            'data':JSON.stringify({
+                'kg':kg,
+                'sapcode':sapcode,
+                'kratkiy': kratkiy,
+                'shop': shop,
+            })
+            
+        }
+        $.ajax({
+            type: 'POST',
+            url: url,
+            headers: { "X-CSRFToken": csrfToken },
+            data:postData,
+        }).done(function (res) {
+            console.log(res)
+            if (res.status ==201){
+                Swal.fire('Qabul qilindi...', '', 'success')
+                setTimeout(function() {
+                    window.location.href = url2;
+                }, 750);
+                add_link.innerHTML= text
+
+            }else{
+                Swal.fire('Something went wrong...', '', 'info')
+            }
+            // WON'T REDIRECT
+        });
+            
+    }
+    
+  </script>
+{% endblock %}

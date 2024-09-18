@@ -1,15 +1,220 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
-from .forms import NormaEpdmFileForm
-from .models import NormaEpdm,EpdmFile
+from .forms import NormaEpdmFileForm,TexcartaEpdmFileForm
+from .models import NormaEpdm,EpdmFile,TexcartaFile,SiroEpdm
 from config.settings import MEDIA_ROOT
 import pandas as pd
 from django.http import JsonResponse
 from django.db.models import Q
-
+from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
+import json
+import random
+import string
 # Create your views here.
 
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','epdm']) 
+def create_siryo_from_file(request):
+    file =f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\epdm (7).xlsx'
+
+    df = pd.read_excel(file,sheet_name='a')
+    df = df.astype(str)
+    # print(df)
+
+    for key,row in df.iterrows():   
+            # # data =data[key]
+         
+        artikul_component = SiroEpdm(
+            kg = row['Норма кг'].replace(',','.'),
+            sapcode = row['MATNR'],
+            kratkiy = row['TEXT1'],
+            shop = row['ШОР 1'],
+            )
+        artikul_component.save()
+
+    return JsonResponse({'a':'b'})
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','epdm']) 
+def create_siryo(request):
+    if request.method =='POST':
+        # data_j = dict(request.POST)
+        data_json = request.POST.get('data',None)
+        
+        datas = json.loads(data_json)
+       
+           
+            # # data =data[key]
+        artikul_component = SiroEpdm(
+            kg = datas['kg'].replace(',','.'),
+            sapcode = datas['sapcode'],
+            kratkiy = datas['kratkiy'],
+            shop = datas['shop'],
+            )
+        artikul_component.save()
+
+        return JsonResponse({'status':201})
+    return render(request,'epdm/add.html')
+
+
+
+
+@csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','epdm']) 
+def edit_siryo(request,id):
+      sapcode_org = SiroEpdm.objects.get(id=id)
+      if request.method =='POST':
+            data_json = request.POST.get('data',None)
+        
+            datas = json.loads(data_json)
+
+            sapcode_org.kg = datas['kg'].replace(',','.')
+            sapcode_org.kratkiy = datas['kratkiy']
+            sapcode_org.shop = datas['shop']
+            sapcode_org.save()
+            
+            return JsonResponse({'status':201})
+      else:
+            context ={
+                  'sapcode':sapcode_org,
+                  'section':'Епдм сапкод'
+            }
+            return render(request,'epdm/edit.html',context)
+
+@csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','epdm']) 
+def siryo_bulk_delete(request):
+    if request.method =='POST':
+        ids = request.POST.get('ids',None)
+        if ids:
+            ids = ids.split(',')
+            
+            for id in ids:
+                sapcode = SiroEpdm.objects.get(id=id)
+                sapcode.delete()
+
+        return JsonResponse({'msg':True})
+    else:
+        return JsonResponse({'msg':False})
+
+@csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','epdm']) 
+def delete_siryo(request,id):
+      if request.method =='POST':
+            if SiroEpdm.objects.filter(id=id).exists():
+                SiroEpdm.objects.get(id=id).delete()
+                return JsonResponse({'msg':True})
+            else:
+                return JsonResponse({'msg':False})
+
+      else:
+            return JsonResponse({'msg':False})
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','epdm'])
+def show_siryo(request):
+     
+      search_text = request.GET.get('search',None)
+
+      if search_text:
+            products = SiroEpdm.objects.filter(
+                  Q(sapcode__icontains = search_text)
+            ).order_by('-created_at')
+      else:
+            products = SiroEpdm.objects.all().order_by('-created_at')
+
+      paginator = Paginator(products, 25)
+
+      if request.GET.get('page') != None:
+            page_number = request.GET.get('page')
+      else:
+            page_number=1
+
+      page_obj = paginator.get_page(page_number)
+
+    
+      
+
+      context ={
+            'section':'Епдм',
+            'products':page_obj,
+            'type':False,
+            'search':search_text
+      }
+
+                  
+      return render(request,'epdm/show_siryo.html',context)
+
+
+@login_required(login_url='/accounts/login/') 
+@allowed_users(allowed_roles=['admin','moderator','epdm']) 
+def find_norma(request):
+    all_data = [ [] for i in range(4)]
+    does_not_exists = []
+
+    if request.method =='POST':
+        ozmk =request.POST.get('ozmk',None)
+        if ozmk:
+            ozmks = ozmk.split()
+            for ozm in ozmks:
+                if SiroEpdm.objects.filter(sapcode=ozm).exists():
+                    siryo = SiroEpdm.objects.filter(sapcode=ozm)[:1].get()
+                    all_data[0].append(siryo.kg)
+                    all_data[1].append(siryo.sapcode)
+                    all_data[2].append(siryo.kratkiy)
+                    all_data[3].append(siryo.shop)
+                else:
+                    does_not_exists.append(ozm)
+            data_df =pd.DataFrame({'MATNR':all_data[1],'TEXT1':all_data[2],'Норма кг':all_data[0],'ШОР 1':all_data[3]})
+            df_not = pd.DataFrame({'SAP CODE':does_not_exists})
+            path = generate_norma_epdm(data_df,df_not)
+            
+            files =[File(file=path,filetype='obichniy',id=1)]
+            context ={
+                'files':files,
+                'section':'Норма лист'
+            }
+        return render(request,'universal/generated_files.html',context)
+    else:
+        
+        return render(request,'norma/character_find.html',{'section':'Норма','section2':'Генерация нормы'})
+
+
+
+
+class File:
+    def __init__(self,file,filetype,id):
+        self.file =file
+        self.filetype =filetype
+        self.id = id
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','epdm'])
+def file_upload_epdm_tex(request): 
+  if request.method == 'POST':
+    data = request.POST.copy()
+    data['type']='simple'
+    form = TexcartaEpdmFileForm(data, request.FILES)
+    if form.is_valid():
+        file = form.save()
+        context ={'files':[File(file=str(file.file),id=file.id,filetype='texcarta'),],
+              'link':'/epdm/generate-epdm-texcarta/',
+              'section':'Генерация техкарта файла',
+              'type':'Радиатор',
+              'file_type':'simple'
+              }
+    return render(request,'universal/file_list_norma.html',context)
+  else:
+      form =TexcartaEpdmFileForm()
+      context ={
+        'section':''
+      }
+  return render(request,'universal/main.html',context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','epdm'])
@@ -45,17 +250,13 @@ def full_update_norm(request):
 
     return render(request,'norma/benkam/main.html')
 
+def generate_random_string(length=10):
+    letters = string.ascii_letters + string.digits  # Includes uppercase, lowercase letters, and digits
+    random_string = ''.join(random.choice(letters) for _ in range(length))
+    return random_string
 
-@login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','epdm'])
-def generate_norma_epdm(request,id):
 
-    # file = KraskaFile.objects.get(id=id).file
-    file = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\epdm (7).xlsx'
-    
-    # df_sapcodes = pd.read_excel(f'{MEDIA_ROOT}/{file}')
-    df_sapcodes = pd.read_excel(file,sheet_name='a',header=0)
-
+def generate_norma_epdm(df_sapcodes,df_not_exists):
     df_sapcodes = df_sapcodes.astype(str)
     df_sapcodes = df_sapcodes.replace('nan','0')
     
@@ -180,22 +381,30 @@ def generate_norma_epdm(request,id):
 
 
     del df['counter']
-    # print(df)
-    df.to_excel(f'{MEDIA_ROOT}\\uploads\\epdm\\norma.xlsx',index=False)
-    return JsonResponse({'a':'b'})
+
+    string_rand = generate_random_string()
+  
+    path=f'{MEDIA_ROOT}\\uploads\\epdm\\norma_{string_rand}.xlsx'
+    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+   
+    df.to_excel(writer,index=False,sheet_name ='NORMA EPDM')
+    df_not_exists.to_excel(writer,index=False,sheet_name ='SIRYO DOES NOT EXISTS')
+    writer.close()
+    
+    return path
 
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','epdm'])
 def lenght_generate_texcarta(request,id):
-    # file = KraskaFile.objects.get(id=id).file
-    path = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\tex_sapcode.xlsx'
+    file = TexcartaFile.objects.get(id=id).file
+    # path = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\tex_sapcode.xlsx'
     
-    # df_sapcodes = pd.read_excel(f'{MEDIA_ROOT}/{file}')
+    data = pd.read_excel(f'{MEDIA_ROOT}/{file}')
   
 
 
-    data = pd.read_excel(path,header=0)
+    # data = pd.read_excel(path,header=0)
     counter = len(data)
 
     df_new = pd.DataFrame()
@@ -296,10 +505,17 @@ def lenght_generate_texcarta(request,id):
                     
                 counter_2 +=1
         
+    string_rand = generate_random_string()
 
-    df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\epdm\\texcarta_epdm.xlsx',index=False)
+    path2=f'{MEDIA_ROOT}\\uploads\\epdm\\texcarta_epdm_{string_rand}.xlsx'
+    df_new.to_excel(path2,index=False)
 
+    context ={
+            'file1':path2,
+            'section':'Техкарта',
 
-    return JsonResponse({'a':'b'})
+        }
 
+   
+    return render(request,'norma/radiator/generated_files_texcarta.html',context)
 

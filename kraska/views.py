@@ -1,13 +1,220 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
-from .forms import NormaKraskaFileForm
-from .models import Norma7
+from .forms import NormaKraskaFileForm,TexcartaKraskaFileForm
+from .models import Norma7,SiroKraska,TexcartaFile
 from config.settings import MEDIA_ROOT
 import pandas as pd
 from django.http import JsonResponse
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
+import json
+import random
+import string
 # Create your views here.
+
+@csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','kraska']) 
+def edit_siryo(request,id):
+      sapcode_org = SiroKraska.objects.get(id=id)
+      if request.method =='POST':
+            data_json = request.POST.get('data',None)
+        
+            datas = json.loads(data_json)
+
+            sapcode_org.code = datas['code'].replace(',','.')
+            sapcode_org.kratkiy = datas['kratkiy']
+            sapcode_org.save()
+            
+            return JsonResponse({'status':201})
+      else:
+            context ={
+                  'sapcode':sapcode_org,
+                  'section':'Краска сапкод'
+            }
+            return render(request,'kraska/edit.html',context)
+
+
+
+
+@login_required(login_url='/accounts/login/') 
+@allowed_users(allowed_roles=['admin','moderator','kraska']) 
+def find_norma(request):
+    all_data = [ [] for i in range(3)]
+    does_not_exists = []
+
+    if request.method =='POST':
+        ozmk =request.POST.get('ozmk',None)
+        if ozmk:
+            ozmks = ozmk.split()
+            for ozm in ozmks:
+                if SiroKraska.objects.filter(sapcode=ozm).exists():
+                    siryo = SiroKraska.objects.filter(sapcode=ozm)[:1].get()
+                    all_data[0].append(siryo.code)
+                    all_data[1].append(siryo.sapcode)
+                    all_data[2].append(siryo.kratkiy)
+                else:
+                    does_not_exists.append(ozm)
+            data_df =pd.DataFrame({'MATNR':all_data[1],'TEXT1':all_data[2],'CODE':all_data[0]})
+            df_not = pd.DataFrame({'SAP CODE':does_not_exists})
+            path = generate_norma_kraska(data_df,df_not)
+            
+            files =[File(file=path,filetype='obichniy',id=1)]
+            context ={
+                'files':files,
+                'section':'Норма лист'
+            }
+        return render(request,'universal/generated_files.html',context)
+    else:
+        
+        return render(request,'norma/character_find.html',{'section':'Норма','section2':'Генерация нормы'})
+
+
+@csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','kraska']) 
+def siryo_bulk_delete(request):
+    if request.method =='POST':
+        ids = request.POST.get('ids',None)
+        if ids:
+            ids = ids.split(',')
+            
+            for id in ids:
+                sapcode = SiroKraska.objects.get(id=id)
+                sapcode.delete()
+
+        return JsonResponse({'msg':True})
+    else:
+        return JsonResponse({'msg':False})
+
+@csrf_exempt
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','kraska']) 
+def delete_siryo(request,id):
+      if request.method =='POST':
+            if SiroKraska.objects.filter(id=id).exists():
+                SiroKraska.objects.get(id=id).delete()
+                return JsonResponse({'msg':True})
+            else:
+                return JsonResponse({'msg':False})
+
+      else:
+            return JsonResponse({'msg':False})
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','kraska']) 
+def create_siryo_from_file(request):
+    file =f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\SAPCODE_BAZA.xlsx'
+
+    df = pd.read_excel(file)
+    df = df.astype(str)
+    # print(df)
+
+    for key,row in df.iterrows():   
+            # # data =data[key]
+         
+        artikul_component = SiroKraska(
+            code = row['KOD'],
+            sapcode = row['MATNR'],
+            kratkiy = row['TEXT1'],
+            )
+        artikul_component.save()
+
+    return JsonResponse({'a':'b'})
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','kraska']) 
+def create_siryo(request):
+    if request.method =='POST':
+        # data_j = dict(request.POST)
+        data_json = request.POST.get('data',None)
+        
+        datas = json.loads(data_json)
+       
+           
+            # # data =data[key]
+        artikul_component = SiroKraska(
+            code = datas['code'],
+            sapcode = datas['sapcode'],
+            kratkiy = datas['kratkiy'],
+            )
+        artikul_component.save()
+
+        return JsonResponse({'status':201})
+    return render(request,'kraska/add.html')
+
+class File:
+    def __init__(self,file,filetype,id):
+        self.file =file
+        self.filetype =filetype
+        self.id = id
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','kraska'])
+def file_upload_kraska_tex(request): 
+  if request.method == 'POST':
+    data = request.POST.copy()
+    data['type']='simple'
+    form = TexcartaKraskaFileForm(data, request.FILES)
+    if form.is_valid():
+        file = form.save()
+        context ={'files':[File(file=str(file.file),id=file.id,filetype='texcarta'),],
+              'link':'/kraska/generate-kraska-texcarta/',
+              'section':'Генерация техкарта файла',
+              'type':'Kraska',
+              'file_type':'simple'
+              }
+    return render(request,'universal/file_list_norma.html',context)
+  else:
+      form =TexcartaKraskaFileForm()
+      context ={
+        'section':''
+      }
+  return render(request,'universal/main.html',context)
+
+
+
+
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','kraska'])
+def show_siryo(request):
+     
+      search_text = request.GET.get('search',None)
+
+      if search_text:
+            products = SiroKraska.objects.filter(
+                  Q(sapcode__icontains = search_text)
+            ).order_by('-created_at')
+      else:
+            products = SiroKraska.objects.all().order_by('-created_at')
+
+      paginator = Paginator(products, 25)
+
+      if request.GET.get('page') != None:
+            page_number = request.GET.get('page')
+      else:
+            page_number=1
+
+      page_obj = paginator.get_page(page_number)
+
+    
+      
+
+      context ={
+            'section':'Краска',
+            'products':page_obj,
+            'type':False,
+            'search':search_text
+      }
+
+                  
+      return render(request,'kraska/show_siryo.html',context)
+
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','kraska'])
@@ -42,26 +249,24 @@ def full_update_norm(request):
 
     return render(request,'norma/benkam/main.html')
 
-@login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','kraska'])
-def generate_norma(request,id):
 
-    # file = KraskaFile.objects.get(id=id).file
-    file = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\MAKT.xlsx'
-    file2 = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\SAPCODE_BAZA.xlsx'
-    df_baza = pd.read_excel(file2)
+def generate_random_string(length=10):
+    letters = string.ascii_letters + string.digits  # Includes uppercase, lowercase letters, and digits
+    random_string = ''.join(random.choice(letters) for _ in range(length))
+    return random_string
 
-    df_baza.astype(str)
-    df_baza.replace('nan','0')
-    df_sapcodes = pd.read_excel(file)
+def generate_norma_kraska(df_sapcodes,df_not_exists):
 
+    baza_siryo = SiroKraska.objects.all().values('code','sapcode','kratkiy')
+
+    print(baza_siryo)
 
     baza ={}
-    for key,row in df_baza.iterrows():
-        keyy= str(row['KOD'])
+    for row in baza_siryo:
+        keyy= str(row['code'])
         baza[keyy]={
-            'MATNR':row['MATNR'],
-            'TEXT1':row['TEXT1'],
+            'MATNR':row['sapcode'],
+            'TEXT1':row['kratkiy'],
         }
     
     df = pd.DataFrame()
@@ -116,7 +321,7 @@ def generate_norma(request,id):
         df['PUSTOY'][count_2] = ''
         df['LGORT'][count_2] = ''
         
-        zagolovok = str(row['KOD'])
+        zagolovok = str(row['CODE'])
         
         result = Norma7.objects.filter(
                         Q(data__has_key=zagolovok) & ~Q(data__contains={zagolovok: "0"})
@@ -179,15 +384,21 @@ def generate_norma(request,id):
 
     del df['counter']
     # print(df)
-    df.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\norma.xlsx',index=False)
-    return JsonResponse({'a':'b'})
+    string_rand = generate_random_string()
+    path=f'{MEDIA_ROOT}\\uploads\\kraska\\norma_{string_rand}.xlsx'
+    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+   
+    df.to_excel(writer,index=False,sheet_name ='NORMA KRASKA')
+    df_not_exists.to_excel(writer,index=False,sheet_name ='SIRYO DOES NOT EXISTS')
+    writer.close()
+    
+    return path
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','kraska'])
 def lenght_generate_texcarta(request,id):
-    # file = KraskaFile.objects.get(id=id).file
-    path = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\simple texcart.xlsx'
-    data = pd.read_excel(path)
+    file = TexcartaFile.objects.get(id=id).file
+    data = pd.read_excel(f'{MEDIA_ROOT}/{file}')
     counter = len(data)
 
     df_new = pd.DataFrame()
@@ -256,10 +467,18 @@ def lenght_generate_texcarta(request,id):
     
     del df_new['counter']
 
-    df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\texcarta_kraska.xlsx',index=False)
+    string_rand = generate_random_string()
+    path2 =f'{MEDIA_ROOT}\\uploads\\kraska\\texcarta_kraska_{string_rand}.xlsx'
+    df_new.to_excel(path2,index=False)
 
-    # df_new.to_excel(f'{MEDIA_ROOT}\\uploads\\kraska\\norma.xlsx',index=False)
+    context ={
+            'file1':path2,
+            'section':'Техкарта',
 
-    return JsonResponse({'a':'b'})
+        }
+
+   
+    return render(request,'norma/radiator/generated_files_texcarta.html',context)
+
 
 
