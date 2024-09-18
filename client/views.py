@@ -136,8 +136,8 @@ class OrderSaveView(APIView):
                             baza_profiley.save()
 
         try:
-            # issueKey = order_create_jira(order_name)
-            issueKey = 'MDMtest'
+            issueKey = order_create_jira(order_name,order_type)
+            # issueKey = 'MDMtest'
             order = Order(data = {'name':name,'data':response,'artikul':artikules},owner=request.user,order_type = order_type,theme =order_name,id_for_jira=issueKey)
             order.save()
             order_detail = OrderDetail(order=order,owner=request.user)
@@ -181,15 +181,42 @@ def jira_status_change(id,status):
     )
     return JsonResponse({'status':'changed'})
 
+REQUEST_TYPE ={
+    'alu_imzo':'78',
+    'alu_savdo':'78',
+    'alu_export':'78',
+    'pvc_imzo':'85',
+    'pvc_savdo':'85',
+    'pvc_export':'85',
+    'acs_imzo':'77',
+    'acs_savdo':'77',
+    'change_data':'77',
+    'radiator':'77',
+    'radiator_export':'77',
+    'akp_savdo':'77',
+    'acs_export':'77',
+    'acs_texnopark':'87',
+    'acs_zavod':'87',
+    'prochiye':'86',
+    'prochiye_tms':'86',
+    'acs_import':'84',
+    'bussines_partner':'79',
+    
+}
 
+        
+def order_create_jira(name,order_type):
+    if order_type in REQUEST_TYPE:
+        order_number =REQUEST_TYPE[order_type]
+    else:
+        order_number ='78'
 
-def order_create_jira(name):
     payload_jira = json.dumps({
         "requestFieldValues": {
             "summary":name
         },
         "serviceDeskId": "11",
-        "requestTypeId": "78",
+        "requestTypeId":order_number ,
         "raiseOnBehalfOf": "712020:81c47857-d7c3-4478-86af-60456c2ed63f"
     })
     url_jira = "https://akfa-group.atlassian.net/rest/servicedeskapi/request"
@@ -1567,8 +1594,8 @@ def detail_order_update(request,id):
         owner =request.user
         order = Order.objects.get(id=id)
         order.status = data.get('status',1)
-        # status_id_for_jira =STATUS_JIRA[order.status]['id']
-        # jira_status_change(order.id_for_jira,status=status_id_for_jira)
+        status_id_for_jira =STATUS_JIRA[order.status]['id']
+        jira_status_change(order.id_for_jira,status=status_id_for_jira)
         order.save()
         data['owner'] = owner
         data['order'] = order
@@ -1618,8 +1645,8 @@ def order_detail(request,id):
         owner =request.user
         order = Order.objects.get(id=id)
         order.status = data.get('status',1)
-        # status_id_for_jira =STATUS_JIRA[order.status]['id']
-        # jira_status_change(order.id_for_jira,status=status_id_for_jira)
+        status_id_for_jira =STATUS_JIRA[order.status]['id']
+        jira_status_change(order.id_for_jira,status=status_id_for_jira)
         order.save()
         data['owner'] = owner
         data['order'] = order
