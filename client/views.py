@@ -234,7 +234,7 @@ def order_create_jira(name,order_type):
         data=payload_jira,
         headers=headers_jira
     )
-    # print(response.content)
+    print(response.content)
     issueKey = json.loads(response.text)['issueKey']
     # print(json.dumps(json.loads(response.text),
     #     sort_keys=True, indent=4, separators=(",", ": ")))
