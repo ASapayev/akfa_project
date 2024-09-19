@@ -1173,7 +1173,12 @@ function request_piece(start=1,end=7){
         if (nakleyka_kode =='NT1'){
             nakleyka.css('display','block')
             nakleyka.val('NT1')
-            nadpis_nakleyki.text('Без наклейки')
+            if(data_base[i]){
+                console.log('s')
+            }else{
+                nadpis_nakleyki.text('Без наклейки')
+
+            }
         }
         else if( nakleyka_kode !=''){
             var nakleyka_codd = $('#nakleyka_codd'+String(i))
@@ -1193,17 +1198,26 @@ function request_piece(start=1,end=7){
                 if(pokritiya == 1 || pokritiya =='1'){
                     nakleyka.css('display','block')
                     nakleyka.val('NT1')
-                    nadpis_nakleyki.text('БЕЗ НАКЛЕЙКИ')
+                    if(data_base[i]){
+                        // nadpis_nakleyki.text('БЕЗ НАКЛЕЙКИ')
+                        console.log('old')
+                    }else{
+                        nadpis_nakleyki.text('БЕЗ НАКЛЕЙКИ')
+                    }
                 }else{
                     
                     
                     nakleyka.css('display','block')
                     nakleyka.val(nakleyka_kode)
                     var selectedOption = $('#nakleyka'+String(i)).find('option:selected');
-        
-                    var nadpisValue = selectedOption.data('nadpis');
+                    if(data_base[i]){
+                        // var nadpisValue = selectedOption.data('nadpis');
+                        console.log('old')
+                    }else{
+                        var nadpisValue = selectedOption.data('nadpis');
+                        nadpis_nakleyki.text(nadpisValue)
+                    }
                     // console.log(nadpisValue,'llllll@@@@@@')
-                    nadpis_nakleyki.text(nadpisValue)
                 }
             }
         }        
@@ -1238,18 +1252,18 @@ function copy_tr(id){
         var new_tr =$(text)
 
         table.after(new_tr)
-        request_piece(start = size+1, end = size+2)
         
         var data = new BasePokritiya()
-
+        
         for(key in data_base[id]){
             data[key] = data_base[id][key]
         }
-       
+        
         console.log(data_base,'daattatat')
-
+        
         data_base[size+1] = data
         
+        request_piece(start = size+1, end = size+2)
         var s = size+1
 
         var id = data.id;
