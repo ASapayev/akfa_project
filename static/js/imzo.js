@@ -1669,6 +1669,7 @@ function clear_artikul(id){
             // console.log(data_base)
             // console.log(typeof(data_base))
             }
+            create_kratkiy_tekst(id)
         }
     
 }

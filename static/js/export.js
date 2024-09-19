@@ -1241,6 +1241,7 @@ function clear_artikul(id){
             // console.log(typeof(data_base))
             
         }
+        create_kratkiy_tekst(id)
     }
 }
 

@@ -1848,6 +1848,8 @@ function clear_artikul(id){
             tip_zakalyonnosti.css("border-color",'#dedad9');
 
         }
+
+        create_kratkiy_tekst(id)
     }
     
 }
