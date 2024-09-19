@@ -1308,7 +1308,8 @@ function artukil_clear(id){
     var nadpis_nakleyki = $('#nadpis_nakleyki'+String(id))
     nadpis_nakleyki.text('')
     
-
+    var baza_profiley =$('#baza_profiley'+id)
+    baza_profiley.text('')
 
     var splav = $('#splav'+String(id));
     // splav.val('0').change();

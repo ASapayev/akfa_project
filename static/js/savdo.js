@@ -1955,6 +1955,8 @@ function artukil_clear(id){
     var diller =$('#diller'+id)
     var tip_clienta =$('#tip_clienta'+id)
     zavod_name.text('')
+    var baza_profiley =$('#baza_profiley'+id)
+    baza_profiley.text('')
 
     diller.val('')
     tip_clienta.val('AKFA')
