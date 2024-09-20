@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from aluminiy.models import AluProfilesData,AluFile,AluminiyProduct,LengthOfProfile,BrendKraska
 from pvc.models import ArtikulKomponentPVC ,NakleykaPvc,PVCFile,PVCProduct
 from radiator.models import RadiatorFile,OrderRadiator as BaseOrderRadiator,ProchiyeFile,AkpFile
-from .models import Anod,Order,OrderDetail
+from .models import Anod,Order,OrderDetail,OrderHistory
 from accessuar_import.models import Category,GroupProduct
 from accessuar.models import OrderACS,OrderAKP,OrderProchiye,AccessuarDownloadFile,ArtikulAccessuar
 from radiator.models import ArtikulRadiator
@@ -1549,6 +1549,8 @@ def order_update_all(request,id):
         nakleyka_list = NakleykaCode.objects.all()
         order = Order.objects.get(id = id)
         order_details = OrderDetail.objects.filter(order = order)
+        order_history = OrderHistory.objects.filter(order=order).values('data')
+        print(order_history,'lllll')
         context ={
             'status_name':STATUSES[str(order.status)],
             'status':str(order.status),
@@ -1556,9 +1558,10 @@ def order_update_all(request,id):
             'data':json.dumps(order.data),
             'order_details':order_details,
             'id':order.id,
-            'nakleyka_list': nakleyka_list    
+            'nakleyka_list': nakleyka_list,
+            'order_history':json.dumps(list(order_history))    
         }
-    return render(request,f'client/update/{order.order_type}.html',context)
+    return render(request,f'client/update.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
@@ -1566,6 +1569,8 @@ def order_update(request,id):
     
     if request.method =='POST':
         order = Order.objects.get(id=id)
+        order_history = OrderHistory(order =order,data=order.data)
+        order_history.save()
         data = request.POST.get('data',None)
         name = request.POST.get('name',None)
         res = json.loads(data)
@@ -1582,6 +1587,7 @@ def order_update(request,id):
         nakleyka_list = NakleykaCode.objects.all()
         order = Order.objects.get(id = id)
         order_details = OrderDetail.objects.filter(order = order)
+        order_history = OrderHistory.objects.filter(order=order).values()
         context ={
             'status_name':STATUSES[str(order.status)],
             'status':str(order.status),
@@ -1589,9 +1595,10 @@ def order_update(request,id):
             'data':json.dumps(order.data),
             'order_details':order_details,
             'id':order.id,
-            'nakleyka_list': nakleyka_list   
+            'nakleyka_list': nakleyka_list,
+            'order_history':json.dumps(order_history)       
         }
-    return render(request,f'client/customer/update/{order.order_type}.html',context)
+    return render(request,f'client/update.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
@@ -1600,6 +1607,7 @@ def detail_order_update(request,id):
         data =request.POST.copy()
         owner =request.user
         order = Order.objects.get(id=id)
+        order_history = OrderHistory.objects.filter(order=order).values()
         order.status = data.get('status',1)
         status_id_for_jira =STATUS_JIRA[order.status]['id']
         jira_status_change(order.id_for_jira,status=status_id_for_jira)
@@ -1616,7 +1624,9 @@ def detail_order_update(request,id):
                 'order_type':order.order_type,
                 'data':json.dumps(order.data),
                 'order_details':order_details,
-                'id':order.id            
+                'id':order.id,
+                'order_history':json.dumps(order_history)  
+                         
                 }
             send_event("test", "message", {
                                         "id":order.id,
@@ -1624,23 +1634,26 @@ def detail_order_update(request,id):
                                         "owner" : None,
                                         "checker":None,
                                         "status":str(order.status),
-                                        "created_at":order.created_at
+                                        "created_at":order.created_at,
                                         })
-            return render(request,f'client/update/{order.order_type}.html',context)
+            return render(request,f'client/update.html',context)
         else:
             return JsonResponse({'form':form.errors})
     else:
         order = Order.objects.get(id = id)
         order_details = OrderDetail.objects.filter(order = order)
+        order_history = OrderHistory.objects.filter(order=order).values()
         context ={
             'status_name':STATUSES[str(order.status)],
             'status':str(order.status),
             'order_type':order.order_type,
             'data':json.dumps(order.data),
             'order_details':order_details,
-            'id':order.id   
+            'id':order.id,
+            'order_history':json.dumps(order_history)  
+               
         }
-    return render(request,f'client/update/{order.order_type}.html',context)
+    return render(request,f'client/update.html',context)
 
 
 
