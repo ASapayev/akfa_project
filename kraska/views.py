@@ -107,7 +107,8 @@ def delete_siryo(request,id):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','kraska']) 
 def create_siryo_from_file(request):
-    file =f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\SAPCODE_BAZA.xlsx'
+    # file =f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\SAPCODE_BAZA.xlsx'
+    file =f'c:\\OpenServer\\domains\\SAPCODE_BAZA.xlsx'
 
     df = pd.read_excel(file)
     df = df.astype(str)

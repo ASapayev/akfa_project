@@ -17,7 +17,8 @@ import string
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','epdm']) 
 def create_siryo_from_file(request):
-    file =f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\epdm (7).xlsx'
+    # file =f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\epdm (7).xlsx'
+    file =f'c:\\OpenServer\\domains\\epdm (7).xlsx'
 
     df = pd.read_excel(file,sheet_name='a')
     df = df.astype(str)
