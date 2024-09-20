@@ -23,6 +23,12 @@ class Order(models.Model):
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
 
+class OrderHistory(models.Model):
+    order = models.ForeignKey(Order,related_name='history_order',on_delete=models.CASCADE)
+    data = models.JSONField(default=dict)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)
+
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order,on_delete=models.CASCADE)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
