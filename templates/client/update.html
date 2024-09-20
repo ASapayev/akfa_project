@@ -1,0 +1,441 @@
+{% extends 'client/base.html'%}
+{%load static%}
+{%block content%}
+
+
+
+<section class="topics-detail-section section-padding" id="topics-detail">
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div class="" style="overflow: scroll;">
+                        <table class="table table-sm table-light table-bordered" >
+                            <thead>
+                            {%if order_type == 'alu_savdo' %}
+                                <tr>
+                                    <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Название системы</th>
+                                    <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Артикул</th>
+                                    {% include 'client/headers/alu_savdo.html' %}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'alu_export' %}
+                                <tr>
+                                    <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Название системы</th>
+                                    <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Артикул</th>
+                                    {% include 'client/headers/alu_export.html' %}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'alu_imzo' %}
+                                <tr>
+                                    <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Название системы</th>
+                                    <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Артикул</th>
+                                    {% include 'client/headers/alu_imzo.html' %}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'pvc_savdo' %}
+                                <tr>
+                                    <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Артикул</th>
+                                    {% include 'client/headers/pvc_savdo.html' %}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'pvc_imzo' %}
+                                <tr>
+                                    <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Артикул</th>
+                                    {% include 'client/headers/pvc_imzo.html' %}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'pvc_export' %}
+                                <tr>
+                                    <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Артикул</th>
+                                    {% include 'client/headers/pvc_export.html' %}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'bussines_partner' %}
+                                <tr>
+                                    {% include 'client/headers/bussness_partner.html'%}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'radiator' %}
+                                <tr>
+                                    <th scope="col" class="sticky-th text-center" style="font-size: 12px;">Модель</th>
+                                    {% include 'client/headers/radiator.html'%}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'radiator_export' %}
+                                <tr>
+                                    {% include 'client/headers/radiator_export.html'%}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'prochiye' %}
+                                <tr>
+                                    {% include 'client/headers/prochiye.html'%}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'prochiye_tms' %}
+                                <tr>
+                                    {% include 'client/headers/prochiye_tms.html'%}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'change_data' %}
+                                <tr>
+                                    {% include 'client/headers/change_data.html'%}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'akp_savdo' %}
+                                <tr>
+                                    {% include 'client/headers/akp_savdo.html'%}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'acs_zavod' %}
+                                <tr>
+                                    {% include 'client/headers/acs_zavod.html'%}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'acs_texnopark' %}
+                                <tr>
+                                    {% include 'client/headers/acs_texnopark.html' %}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'acs_savdo' %}
+                                <tr>
+                                    {% include 'client/headers/acs_savdo.html' %}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'acs_imzo' %}
+                                <tr>
+                                    {% include 'client/headers/acs_imzo.html' %}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'acs_import' %}
+                                <tr>
+                                    <th scope="col" class="sticky-th  text-center" style="font-size: 12px;">Артикул</th>
+                                    {% include 'client/headers/acs_import.html' %}
+                                </tr>
+                            {%endif%}
+                            {%if order_type == 'acs_export' %}
+                                <tr>
+                                    <th scope="col" class="sticky-th  text-center" style="font-size: 12px;">Артикул</th>
+                                    {% include 'client/headers/acs_export.html' %}
+                                </tr>
+                            {%endif%}
+                            </thead>
+                            <tbody id="table-artikul">
+                            
+                            </tbody>
+                            
+                        </table>
+                        
+                </div>
+                <div>
+                    <a  class=" btn btn-success m-2 btn-sm" onclick="ready_all()">Сохранить</a>
+                   </div>
+                </form>
+            </section>
+           
+            <div  style="display: none;">
+                <select class="form-select" style="color: black; width: 80px; display: none;" id ='nakleyka_list' onchange="">
+                    <option value=""></option>
+                    {% for nak in nakleyka_list %}
+                    <option value="{{nak.name}}" data-nadpis="{{nak.nadpis}}">{{nak.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+
+
+            <section class="explore-section " id="section_2">
+                <div class="container">
+
+                        <div class="col-12 text-center">
+                            <h3 class="mb-4">Чат </h3>
+                        </div>
+
+                   
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="col-md-12 p-2" style="background-color: #fafbfc;{%if status == 1 %}display:none;{%endif%}">
+                                        {%for order_detail in order_details %}
+                                            {%if request.user == order_detail.owner %}
+                                                {%if status != 1 %}
+                                                {%if order_detail.message != '' %}
+                                                <div class="bg-white">
+                                                    <div class="d-flex justify-content-start col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
+                                                    
+                                                        <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
+                                                            <p>{{order_detail.message}}</p>
+                                                        </div>
+                                                   
+
+                                                    {%if order_detail.file %}
+                                                    <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
+                                                        <p ><a class="link-opacity-100" href="{{order_detail.file.url}}"><i class="bi bi-file-earmark-arrow-down"></i> File link</a></p>
+                                                    </div>
+                                                    {%endif%}
+                                                </div>
+                                                    <hr>
+                                                {%endif%}
+                                                {%endif%}
+                                            {%else%}
+                                                    {%if status != 1 %}
+                                                    {%if order_detail.message != '' %}
+                                                    <div class="bg-white">
+                                                        <div class="d-flex justify-content-end col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
+                                                       
+                                                            <div class="d-flex justify-content-end col-md-12 pl-5" style="color:rgba(0,0,0,.6);">
+                                                                <p style="padding-left: 40%;">{{order_detail.message}}</p>
+                                                            </div>
+                                                        
+
+                                                        {%if order_detail.file %}
+                                                        <div class="d-flex justify-content-end col-md-12" style="color:rgba(0,0,0,.6);">
+                                                            <p ><a class="link-opacity-100" href="{{order_detail.file.url}}"><i class="bi bi-file-earmark-arrow-down"></i> File link</a></p>
+                                                        </div>
+                                                        {%endif%}
+                                                    </div>
+                                                        <hr>
+                                                    {%endif%}
+                                                    {%endif%}
+
+                                            {%endif%}
+
+                                                
+
+                                        {% endfor %}
+                                    </div>
+
+                                    <form class="forms-sample " method="POST" enctype="multipart/form-data">
+                                        {%csrf_token%}
+                                    <div class="form-group col-2" >
+                                        <label for="exampleSelectGender">Статус : {{status_name}}</label>
+                                        {%if status == '10084' or status == '10083'  or status == '10081'%}
+                                            <select class="form-control" id="exampleSelectGender" name="status" onchange="status_change(this.value)">
+                                                <option value="0" ></option>
+                                                <option value="10082" style="color:#d9534f" >Отменено</option>
+                                                {%if status == '10084' or status == '10081'%}
+                                                    <option value="10085" style="color:#d9534f" >Исправлено</option>
+                                                    {%endif%}
+                                                {%if status == '10083'%}
+                                                    <option value="10063" style="color: #f0ad4e;" >Работа ведется</option>
+                                                {%endif%}
+                                            </select>
+                                        {%endif%}
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label>Загрузка файла</label>
+                                        <div class="input-group col-xs-12">
+                                            
+                                            <span class="input-group-append">
+                                                <input type="file" name="file" class="file-upload-browse btn btn-primary" value="Upload" >
+                                                
+                                        </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group col-8">
+                                        <label for="exampleTextarea1" id="examplelabel">Сообщение</label>
+                                        <textarea class="form-control " id="exampleTextarea1" name="message" rows="4"></textarea>
+                                        </div>
+                                        <div id="btn_command">
+                                        
+                                            <button type="submit" class="btn btn-primary mr-2">Отправить</button>
+                                            <button class="btn btn-dark">Отменить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+           
+        </main>
+        <div style="display: none;">
+                {{ data|json_script:"items-data" }}
+                <h1 id="order_type">{{order_type}}</h1>
+        </div>
+{%endblock%}
+
+{%block java_script%}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script> 
+
+<link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
+<script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
+<script  type="text/javascript" src="{% static 'js/update/alu_export.js'%}"></script>
+
+<script>
+
+            order_items ='{{ order_history|escapejs  }}'
+            
+            text =""
+          
+            var jsonData = JSON.parse(order_items);
+            console.log(jsonData,'fasdfsaf')
+            var order_type ='{{order_type}}'
+
+          var order ={
+            'alu_imzo':[ 'nazvaniye_system','base_artikul','dlina','tip_pokritiya','splav','tip_zak','combination','brend_kraska_sn','kod_kraska_sn','brend_kraska_vn','kod_kraska_vn','kod_dekor_sn','svet_dekplonka_snaruji','kod_dekor_vn','svet_dekplonka_vnutri','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','kod_anod_sn','kod_anod_vn','contactnost_anod','kod_nakleyki','nadpis_nakleyki','baza_profiley','goods_group','tex_name','gruppa_materialov','kratkiy_tekst','sap_code','krat','delovoy_otxod','klaes_id','klaes_nazvaniye','kod_sveta','kratkiy_klaes','sena','comment'],
+            'alu_savdo':['nazvaniye_system','base_artikul','dlina','tip_pokritiya','splav','tip_zak','combination','brend_kraska_sn','kod_kraska_sn','brend_kraska_vn','kod_kraska_vn','kod_dekor_sn','svet_dekplonka_snaruji','kod_dekor_vn','svet_dekplonka_vnutri','kod_lam_sn','svet_lamplonka_snaruji','kod_lam_vn','svet_lamplonka_vnutri','kod_anod_sn','kod_anod_vn','contactnost_anod','kod_nakleyki','nadpis_nakleyki','baza_profiley','gruppa_materialov','kratkiy_tekst','sap_code','krat','comment','dilina_pressa','zavod','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod_name','diller','tip_clienta'],
+            'alu_export':['nazvaniye_system','base_artikul','dlina','tip_pokritiya','splav','tip_zak','combination','brend_kraska_sn','kod_kraska_sn','brend_kraska_vn','kod_kraska_vn','kod_dekor_sn','svet_dekplonka_snaruji','kod_dekor_vn','svet_dekplonka_vnutri','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','kod_anod_sn','kod_anod_vn','contactnost_anod','kod_nakleyki','nadpis_nakleyki','baza_profiley','gruppa_materialov','kratkiy_tekst','sap_code','krat','nazvaniye_ruchnoy','comment','dilina_pressa'],
+            'pvc_imzo':['base_artikul','tip_pokritiya','nazvaniye_svet_zames','kod_svet_zames','dlina','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','svet_rezin','kod_svet_rezini','nadpis_nakleyki','kod_nakleyki','goods_group','tex_name','kratkiy_tekst','sap_code','krat','comment','sena','klaes_id'],
+            'pvc_savdo':['base_artikul','tip_pokritiya','kod_svet_zames','dlina','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','kod_svet_rezini','svet_rezin','kod_nakleyki','nadpis_nakleyki','gruppa_materialov','kratkiy_tekst','sap_code','krat','comment','pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','obshiy_ves_shtuku','status_online','zavod_name','diller','tip_clenta'],
+            'pvc_export':['base_artikul','tip_pokritiya','kod_svet_zames','dlina','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','kod_svet_rezini','svet_rezin','kod_nakleyki','nadpis_nakleyki','gruppa_materialov','kratkiy_tekst','sap_code','krat','sena_export','comment'],
+            'acs_imzo':['sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','goods_group','tex_name','koefitsiyent','alternativ_edin','id_klaes','gruppa_materialov','comment'],
+            'acs_savdo':['pickupdate','sena_za_bei','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','sistema'],
+            'acs_export':[ 'sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','koefitsiyent','alternativ_edin','gruppa_materialov','comment'],
+            'akp_savdo':[ 'brend','mikron','storonnost','kod_sveta','naz_sveta','tip_paneli','dlina','shirina','gruppa_materialov','kratkiy_tekst','sap_code','krat','comment','pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','status_online','zavod_name','diller','tip_clenta'],
+            'radiator':['model','base_artikul','kol_section','svet','brend','kratkiy_tekst','comment','pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod_name','tip_clenta'],
+            'radiator_export':['model','base_artikul','kol_section','svet','brend','kratkiy_tekst','comment'],
+            'prochiye':['pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_sena','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment'],
+            'acs_texnopark':['pickupdate','sena_c_nds','sena_bez_nds','sena_c_nds_zakup','sena_bez_nds_zakup','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_sena','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment'],
+            'acs_import':['artikul','group_tovarov','categoriya','nazvaniye_materiala','svet','bei','aei','koefitsiyent','sap_code','pickupdate','sena_c_nds','sena_bez_nds','edizm ','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment',],
+            'prochiye_tms':['vid_zayavki','zavod','sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','koefitsiyent','alternativ_edin','vid_materiala','vid_zagotovki','prodayot','gruppa_zakupok','gruppa_materialov','comment',],
+            'change_data':['vid_zayavki','id_savdo','naz_savdo','sapcode','bei ','aei','koefitsiyent','sena_c_ndc','sena_bez_ndc','ed_izm','group','group_zakupok','zavod','segment','bux_naz','tip_clienta','svet_product','diller','comment'],
+            'bussines_partner':['vid_zayavki','balance_ed','rol_bp','group_del_partner','nomer_del_partner','imya_org','imya','familiya','ulitsa','nomer_doma','pochta_index','gorod','kod_stran','region','rayon','nomer_tel','nomer_mob','inn','ndc','nalog','oked','okpo','coato','coogu','kod_stran_bank','klyuch_banka','bank_schot','valyuta_zakaz','usloviya_plateja','sbitovoy_organ','kanal_sbita','sektor','rayon_sbita','gruppa_sena','sxema_kliyenta','status_gruppa_kliyent','usloviya_otgruz','sbit_debitora','sbit_nalog','kontrol_schot','kontrol_debitora',],
+            'acs_zavod':['base_artikul','kratkiy_tekst','gruppa_materialov','bei','aei','koefitsiyent','sklad_gp','bux_sena','comment',],
+            }
+
+        for (var key in jsonData) 
+        
+        
+        {
+            i += 1
+                text2=''
+                for (var j = 0; j < order[order_type].length; j++) {
+                    var key2 = order[order_type][j];
+                    text2+=`<td class="text-center" style='background-color:white;'>
+                                    <div id=`+key2 +String(i)+String(j)+` class= 'text-center d-inline-block' style="text-transform: uppercase;font-size: 12px;white-space: nowrap;"></div>
+                                    
+                                
+                            </td>
+                            `
+                }
+                text +=`
+                        <tr id='table_tr` +String(i)+`'  >
+                                                    
+                            `+text2+`
+                        </tr>`
+            
+                        
+            }
+
+            var table = $('#table-artikul-history')
+
+            table.append(text)
+            i = 0
+            for (var key in jsonData) {
+                i += 1
+                for(var key3 in jsonData[key]['data']['data']){
+                    // console.log(jsonData[key]['data']['data'],'datatataa')
+                    set_values(jsonData[key]['data']['data'][key3],String(i),order[order_type])
+                }
+                
+            }
+
+
+            function set_values(base,i,order){
+                for (var j = 0; j < order.length; j++) {
+                    var key = order[j];
+                    if(base[key]){
+                        var va2 =$('#'+key+i+j)
+                        va2.text(base[key])
+                    }
+                }
+            }
+
+
+            // ##########################
+
+
+
+    function status_change(val){
+    if(val == 10083){
+        var user_list =$('#user_list')
+        user_list.css('display','block')
+        var users =$('#users')
+        users.attr('required',true)
+    }else{
+        var user_list =$('#user_list')
+        user_list.css('display','none')
+        var users =$('#users')
+        users.attr('required',false)
+    } 
+
+    if(val ==10084 || val ==10081){
+        var textarea =$('#exampleTextarea1')
+        textarea.addClass('mustbe_red')
+        textarea.attr('required',true)
+    }else{
+        var textarea =$('#exampleTextarea1')
+        textarea.attr('required',false)
+        textarea.removeClass('mustbe_red')
+    }
+    var btn_command = $('#btn_command')
+    btn_command.css('display','block')
+}
+
+    function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+    function ready_all(){
+    var all_correct = true;
+    var data_empty = false
+    if (Object.keys(data_base).length === 0) {
+        data_empty = true
+    }
+
+    for (var key in data_base) {
+        if (data_base.hasOwnProperty(key)) { 
+            var value = data_base[key];
+            if(!value.full){
+                all_correct=false
+            }
+        }
+    }
+
+    if (!data_empty && all_correct){
+        var json_data = JSON.stringify(data_base)
+        var url = "/client/order-update/"+'{{id}}'
+        var csrfToken = getCSRFToken();
+        var postData = {
+            'data': json_data,
+            'order_type':'pvc_savdo',
+            'name':'ALUMINIY EXPORT'
+        }
+        $.ajax({
+            type: 'POST',
+            url: url,
+            headers: { "X-CSRFToken": csrfToken },
+            data: postData,
+        }).done(function (res) {
+            console.log(res)
+            if (res.status ==201){
+                Swal.fire('Muvaafaqiyatli o\'zgartirildi.', '', 'success')
+
+            }else{
+                console.log('aa')
+            }
+            // WON'T REDIRECT
+        });
+            
+    }else{
+        
+        if(!data_empty && !all_correct){
+            Swal.fire({
+                icon: 'error',
+                title: 'Malumotlar to\'liq emas!!!',
+                text: 'Itimos ma\'lumotlarni to\'ldiring.',
+            });
+        }
+    }
+
+   
+}
+</script>
+{%endblock%}
+
+

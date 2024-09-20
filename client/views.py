@@ -1549,8 +1549,8 @@ def order_update_all(request,id):
         nakleyka_list = NakleykaCode.objects.all()
         order = Order.objects.get(id = id)
         order_details = OrderDetail.objects.filter(order = order)
-        order_history = OrderHistory.objects.filter(order=order).values('data')
-        print(order_history,'lllll')
+        # order_history = OrderHistory.objects.filter(order=order).values('data')
+        # print(order_history,'lllll')
         context ={
             'status_name':STATUSES[str(order.status)],
             'status':str(order.status),
@@ -1559,7 +1559,7 @@ def order_update_all(request,id):
             'order_details':order_details,
             'id':order.id,
             'nakleyka_list': nakleyka_list,
-            'order_history':json.dumps(list(order_history))    
+            # 'order_history':json.dumps(list(order_history))    
         }
     return render(request,f'client/update.html',context)
 
