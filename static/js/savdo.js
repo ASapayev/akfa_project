@@ -514,6 +514,9 @@ function front_piece(start=1,end=7){
                 <option  value="" selected></option>
                 <option value="T4" >T4</option>
                 <option value="T6" >T6</option>
+                <option value="T66" >T66</option>
+                <option value="T5" >T5</option>
+                <option value="T52" >T52</option>
             </select>
             </div>
         </td>

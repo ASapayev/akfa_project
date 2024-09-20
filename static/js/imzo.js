@@ -684,6 +684,9 @@ function front_piece(start=1,end=6){
             <select class="form-select" aria-label="" style="width: 50px;!important;height:27px!important;z-index:0"  disabled id='tip_zakalyonnosti`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
                
                 <option value="T6" selected >T6</option>
+                <option value="T66" >T66</option>
+                <option value="T5" >T5</option>
+                <option value="T52" >T52</option>
             </select>
             </div>
         </td>
