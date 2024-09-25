@@ -458,7 +458,7 @@ def lenght_generate_texcarta(request,id):
                 df_new['LTXA1'][counter_2] ='Производство Краски'
                 df_new['BMSCH'][counter_2] = '1000'
                 df_new['MEINH'][counter_2] ='KG'
-                df_new['VGW01'][counter_2] =''
+                df_new['VGW01'][counter_2] ='24'
                 df_new['VGE01'][counter_2] =''
                 df_new['ACTTYPE_01'][counter_2] ='200160'
                 df_new['CKSELKZ'][counter_2] ='X'
