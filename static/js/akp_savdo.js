@@ -133,14 +133,14 @@ function front_piece(start=1,end=6){
          `+buttons+
          `
         <td >
-        <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='brend`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 177px; font-size:12px; padding-right:0px;z-index:0" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='brend`+String(i)+`' required>
             <option  selected ></option>
             <option value="AKFA" >AKFA</option>
             <option value="ROYAL" >ROYAL</option>
         </select>
         </td>
         <td >
-        <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='mikron`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 177px; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='mikron`+String(i)+`' required>
             <option  selected ></option>
             <option value="180" >180</option>
             <option value="210">210</option>
@@ -150,7 +150,7 @@ function front_piece(start=1,end=6){
         </select>
         </td>
         <td >
-        <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='storonnost`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 177px; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='storonnost`+String(i)+`' required>
             <option  selected ></option>
             <option value="X1">X1</option>
             <option value="X2">X2</option>
@@ -159,7 +159,7 @@ function front_piece(start=1,end=6){
         
         
         <td >
-            <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='kod_sveta`+String(i)+`' required>
+            <select class="form-select" aria-label="" style="width: 177px; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='kod_sveta`+String(i)+`' required>
                 <option  selected ></option>
                 <option value="Глянцево-Белый">771</option>
                 <option value="Металлик">772</option>
@@ -202,7 +202,7 @@ function front_piece(start=1,end=6){
             
         </td>
         <td >
-        <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='tip_paneli`+String(i)+`' required>
+        <select class="form-select" aria-label="" style="width: 177px; font-size:12px; padding-right:0px;" onchange="create_kratkiy_tekst(`+String(i)+`)" disabled id='tip_paneli`+String(i)+`' required>
             <option  selected ></option>
             <option value="A1">A1</option>
             <option value="A2">A2</option>
@@ -226,12 +226,12 @@ function front_piece(start=1,end=6){
             </div>
         </td>
         <td >
-            <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%" id='gruppa_materialov`+String(i)+`'>AKPGP</span>
+            <span class =' text-center ' style="font-size: small; font-weight: bold; padding-left:35%" id='gruppa_materialov`+String(i)+`'>AKPGP</span>
         
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;" id='kratkiy_tekst`+String(i)+`'></span>
+            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; " id='kratkiy_tekst`+String(i)+`'></span>
             </div>
         </td>
 
@@ -280,16 +280,16 @@ function front_piece(start=1,end=6){
         </td>
         
         <td >
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='svet_product`+String(i)+`'>Colour</span>
+            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; z-index:0" id='svet_product`+String(i)+`'>Colour</span>
             
         </td>
         <td >
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='group_zakup`+String(i)+`'>Alucobond</span>
+            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; z-index:0" id='group_zakup`+String(i)+`'>Alucobond</span>
         
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 230px;text-transform: uppercase; font-size:12px; padding-right:0px;  display:none;z-index:0" id='group`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 230px; font-size:12px; padding-right:0px;  display:none;z-index:0" id='group`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="Bez Nakleyka"> Nakleyka</option>
                 <option value="Bez Nakleyka TR"> Nakleyka TR</option>
@@ -308,16 +308,16 @@ function front_piece(start=1,end=6){
             </div>
         </td>
         <td >
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='tip`+String(i)+`'>ГП</span>
+            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; z-index:0" id='tip`+String(i)+`'>ГП</span>
             
         </td>
         <td >
-                <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='segment`+String(i)+`'>Пустой</span>
+                <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; z-index:0" id='segment`+String(i)+`'>Пустой</span>
             
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 520px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;z-index:0" id='buxgalter_tovar`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 520px; font-size:12px; padding-right:0px; display:none;z-index:0" id='buxgalter_tovar`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value='Профиль из ПВХ ламинированный'>Профиль из ПВХ ламинированный</option>
                 <option value='Otvetka 153 (oq)'>Otvetka 153 (oq)</option>
@@ -726,7 +726,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;z-index:0" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px;display:none;z-index:0" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option  value="Штука">Штука</div>
                 <option  value="Килограмм">Килограмм</div>
@@ -740,7 +740,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;z-index:0" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px; display:none;z-index:0" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option vlaue="Штука">Штука</div>
                 <option vlaue="Килограмм">Килограмм</div>
@@ -754,7 +754,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;z-index:0" id='alter_edin`+ String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px;display:none;z-index:0" id='alter_edin`+ String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option vlaue="Штука">Штука</div>
                 <option vlaue="Килограмм">Килограмм</div>
@@ -768,7 +768,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;z-index:0" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px; display:none;z-index:0" id='status`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="Активный">Активный</option>
                 <option value="Пассивный">Пассивный</option>
@@ -777,13 +777,13 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             
-            <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; text-transform: uppercase;z-index:0" id='zavod_name`+String(i)+`'>ZAVOD ALUCOBOND</span>
+            <span class =' text-center ' style="font-size: small; width:190px; font-weight: bold; z-index:0" id='zavod_name`+String(i)+`'>ZAVOD ALUCOBOND</span>
             
         </td>
          <td >
             <div class="input-group input-group-sm mb-1">
             
-            <select class="form-select" aria-label="" style="width: 75px;text-transform: uppercase; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='diller`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 75px; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='diller`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="1">Да</option>
                 <option value="0">Нет</option>
@@ -792,7 +792,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px; display:none;z-index:0" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px; display:none;z-index:0" id='tip_clenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="AKFA">AKFA</option>
                 <option value="IMZO">IMZO</option>

@@ -266,7 +266,7 @@ function front_piece(start=1,end=6){
                     </td>
                     <td class="sticky-col" style=' left: 73.5px;background-color:white!important;width:100px!important'>
                         <div class="input-group input-group-sm mb-1" style='width:100%'>
-                            <span class ='text-center nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important;white-space: nowrap;"></span>
+                            <span class ='text-center nazvaniye_system` +String(i)+`'style="font-size: 14px;width:100px!important;white-space: nowrap;"></span>
                         </div>
                     </td>
                     <td class="sticky-col"  style=' left: 183.2px; background-color:white!important' >
@@ -281,7 +281,7 @@ function front_piece(start=1,end=6){
              buttons =`
             <td class="sticky-col" style='left:0;background-color:white!important;width:100px!important'>
                 <div class="input-group input-group-sm mb-1" style='width:100%'>
-                    <span class ='text-center nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important;white-space: nowrap;"></span>
+                    <span class ='text-center nazvaniye_system` +String(i)+`'style="font-size: 14px;width:100px!important;white-space: nowrap;"></span>
                 </div>
             </td>
             <td class="sticky-col"  style='left:109.7;background-color:white!important' >
@@ -309,7 +309,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 165px;text-transform: uppercase; font-size:12px; padding-right:0px;height:27px!important;z-index:0" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
+                <select class="form-select" aria-label="" style="width: 165px; font-size:12px; padding-right:0px;height:27px!important;z-index:0" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
                     <option  selected></option>
                     <option value="1" >Неокрашенный</option>
                     <option value="2">Белый</option>
@@ -351,9 +351,9 @@ function front_piece(start=1,end=6){
             </div>
         </td>
         <td >
-            <div class="input-group input-group-sm mb-1" style="font-size: small; text-transform: uppercase; width:130px">
+            <div class="input-group input-group-sm mb-1" style="font-size: small;  width:130px">
                 <div>
-                    <span class =' text-center pl-1' style="font-size: small; text-transform: uppercase;z-index:0" id ='combination` +String(i)+`'></span>
+                    <span class =' text-center pl-1' style="font-size: small; z-index:0" id ='combination` +String(i)+`'></span>
                 </div>
             </div>
         </td>
@@ -419,7 +419,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <em><span class =' text-center ' style="white-space:nowrap;font-size: 10px;  font-weight: bold; text-transform: uppercase;z-index:0" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span></em>
+                    <em><span class =' text-center ' style="white-space:nowrap;font-size: 10px;  font-weight: bold; z-index:0" id ='code_dekplonka_snaruji` +String(i)+`' disabled ></span></em>
                 </div>
             </div>
         </td>
@@ -443,7 +443,7 @@ function front_piece(start=1,end=6){
          <td >
            <div class="input-group input-group-sm mb-1">
                 <div>
-                <em><span class =' text-center ' style="white-space:nowrap;font-size: 10px;  font-weight: bold; text-transform: uppercase;z-index:0" id ='code_dekplonka_vnutri` +String(i)+`' disabled ></span></em>
+                <em><span class =' text-center ' style="white-space:nowrap;font-size: 10px;  font-weight: bold; z-index:0" id ='code_dekplonka_vnutri` +String(i)+`' disabled ></span></em>
                 </div>
             </div>
         </td>
@@ -488,7 +488,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;z-index:0" id ='code_lamplonka_snaruji` +String(i)+`'></span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; padding-left:35%;z-index:0" id ='code_lamplonka_snaruji` +String(i)+`'></span>
                 </div>
             </div>
         </td>
@@ -531,7 +531,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;z-index:0" id='code_lamplonka_vnutri`+String(i)+`'></span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; padding-left:35%;z-index:0" id='code_lamplonka_vnutri`+String(i)+`'></span>
                 </div>
             </div>
         </td>
@@ -561,14 +561,14 @@ function front_piece(start=1,end=6){
         <td style='display:none' >
             <div class="input-group input-group-sm mb-1">
             <div>
-                <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;z-index:0" id='tip_anodirovki`+String(i)+`'></span>
+                <span class =' text-center ' style="font-size: small; font-weight: bold; z-index:0" id='tip_anodirovki`+String(i)+`'></span>
             </div>
             </div>
         </td>
         <td style='display:none' >
             <div class="input-group input-group-sm mb-1">
             <div>
-                <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='sposob_anodirovki`+String(i)+`'></span>
+                <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; z-index:0" id='sposob_anodirovki`+String(i)+`'></span>
             </div>
             </div>
         </td>
@@ -579,18 +579,18 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span  class='text-center' style="font-size: small; width:150px; font-weight: bold; text-transform: uppercase;z-index:0" id='nadpis_nakleyki`+String(i)+`'></span>
+            <span  class='text-center' style="font-size: small; width:150px; font-weight: bold; z-index:0" id='nadpis_nakleyki`+String(i)+`'></span>
             </div>
         </td>
         <td >
-        <span  style="font-size: small; width:150px; font-weight: bold; text-transform: uppercase;z-index:0;white-space:nowrap;" id='baza_profiley`+String(i)+`'></span>
+        <span  style="font-size: small; width:150px; font-weight: bold; z-index:0;white-space:nowrap;" id='baza_profiley`+String(i)+`'></span>
         </td>
         <td >
-            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0" id='gruppa_materialov`+String(i)+`'>ALUGP</span>   
+            <span class =' text-center ' style="font-size: small; width:250px; font-weight: bold; z-index:0" id='gruppa_materialov`+String(i)+`'>ALUGP</span>   
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span  style="font-size: small; width:300px; font-weight: bold; text-transform: uppercase;z-index:0;white-space: nowrap;" id='kratkiy_tekst`+String(i)+`'></span>
+            <span  style="font-size: small; width:300px; font-weight: bold; z-index:0;white-space: nowrap;" id='kratkiy_tekst`+String(i)+`'></span>
             </div>
         </td>
         <td >

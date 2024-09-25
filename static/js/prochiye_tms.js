@@ -87,7 +87,7 @@ function front_piece(start=1,end=6){
          `
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 115px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='vid_zayavki`+ String(i)+`' onchange='select_vid_zayavki(`+String(i)+`,this.value)' required>
+                <select class="form-select" aria-label="" style="width: 115px; font-size:12px; padding-right:0px;z-index:0" id='vid_zayavki`+ String(i)+`' onchange='select_vid_zayavki(`+String(i)+`,this.value)' required>
                     <option  selected></option>
                     <option vlaue="Создание">Создание</div>
                     <option vlaue="Изменение">Изменение</div>
@@ -97,7 +97,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="display:none;width: 60px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red" id='zavod`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="display:none;width: 60px; font-size:12px; padding-right:0px;z-index:0;border-color:red" id='zavod`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option value="1101 - Производство алюминиевых профилей - Джами">1101 - Производство алюминиевых профилей - Джами</option>
                     <option value="1201 - Производство алюминиевых профилей - BENKAM">1201 - Производство алюминиевых профилей - BENKAM</option>
@@ -141,7 +141,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="display:none;border-color:red;height:27px;width: 55px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='bazoviy_edinitsa`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="display:none;border-color:red;height:27px;width: 55px; font-size:12px; padding-right:0px;z-index:0" id='bazoviy_edinitsa`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option vlaue="ШТ">ШТ</div>
                     <option vlaue="КГ">КГ</div>
@@ -171,7 +171,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="display:none;border-color:red;width: 500px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='vid_materiala`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="display:none;border-color:red;width: 500px; font-size:12px; padding-right:0px;z-index:0" id='vid_materiala`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option value="Сырье и материалы - Сырье и материалы">Сырье и материалы - Сырье и материалы</option>
                     <option value="Вспомогательные материалы - Вспомогательное сырье и материалы">Вспомогательные материалы - Вспомогательное сырье и материалы</option>
@@ -211,7 +211,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="display:none;width: 120px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red;" id='vid_zagotovki`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="display:none;width: 120px; font-size:12px; padding-right:0px;z-index:0;border-color:red;" id='vid_zagotovki`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option value="Закупается">Закупается</option>
                     <option value="Производится">Производится</option>
@@ -220,7 +220,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="display:none;width: 30px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0;border-color:red;" id='prodayot`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)'  required>
+                <select class="form-select" aria-label="" style="display:none;width: 30px; font-size:12px; padding-right:0px;z-index:0;border-color:red;" id='prodayot`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)'  required>
                     <option  selected value='0' disabled>...</option>
                     <option value="X">X</option>
                     <option value=""></option>
@@ -229,7 +229,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="display:none;width: 200px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='gruppa_zakupok`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="display:none;width: 200px; font-size:12px; padding-right:0px;z-index:0" id='gruppa_zakupok`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option value="100 - Импорт/Сырьё/Усл.">100 - Импорт/Сырьё/Усл.</option>
                     <option value="101 - Импорт/Оборудов/ЗЧ">101 - Импорт/Оборудов/ЗЧ</option>

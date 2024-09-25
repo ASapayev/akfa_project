@@ -196,7 +196,7 @@ function front_piece(start=1,end=6){
          `
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 120px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='vid_zayavki`+String(i)+`' onchange='select_condition(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 120px; font-size:12px; padding-right:0px;z-index:0" id='vid_zayavki`+String(i)+`' onchange='select_condition(`+String(i)+`)' required>
                 <option  selected></option>
                 <option  value="Создание">Создание</div>
                 <option  value="Изменения">Изменения</div>
@@ -206,7 +206,7 @@ function front_piece(start=1,end=6){
         </td>
        <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 280px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='balance_ed`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 280px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='balance_ed`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="1000 - AKFA Engineering&Management">1000 - AKFA Engineering&Management</option>
                 <option value="1100 - AKFA Building Materials">1100 - AKFA Building Materials</option>
@@ -224,7 +224,7 @@ function front_piece(start=1,end=6){
         </td>
        <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 200px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='rol_bp`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 200px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='rol_bp`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="Клиент">Клиент</option>
                 <option value="Поставщик">Поставщик</option>
@@ -234,7 +234,7 @@ function front_piece(start=1,end=6){
         </td>
        <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 290px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='group_del_partner`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 290px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='group_del_partner`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="B001 - Локальные Юридические Лица">B001 - Локальные Юридические Лица</option>
                 <option value="B002 - Иностранные Юридические Лица">B002 - Иностранные Юридические Лица</option>
@@ -367,7 +367,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 195px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='valyuta_zakaz`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 195px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='valyuta_zakaz`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="UZS - Узбекский сум">UZS - Узбекский сум</option>
                 <option value="USD - Доллар США">USD - Доллар США</option>
@@ -379,7 +379,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 360px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='usloviya_plateja`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 360px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='usloviya_plateja`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="A100  100% предоплата">A100  100% предоплата</option>
                 <option value="A103  100% до отгрузки">A103  100% до отгрузки</option>
@@ -403,7 +403,7 @@ function front_piece(start=1,end=6){
         </td>
          <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 270px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='sbitovoy_organ`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 270px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='sbitovoy_organ`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="1000 - AKFA Engineering&Management">1000 - AKFA Engineering&Management</option>
                 <option value="1100 - AKFA Building Materials">1100 - AKFA Building Materials</option>
@@ -420,7 +420,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 195px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='kanal_sbita`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 195px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='kanal_sbita`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="10 - Локальные продажи">10 - Локальные продажи</option>
                 <option value="20 - Экспорт">20 - Экспорт</option>
@@ -430,7 +430,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 250px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='sektor`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 250px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='sektor`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="01 - Алюминиевый профиль">01 - Алюминиевый профиль</option>
                 <option value="20 - Услуги">20 - Услуги</option>
@@ -445,7 +445,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 190px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='rayon_sbita`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 190px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='rayon_sbita`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="000001 - Представители">000001 - Представители</option>
                 <option value="000002 - Дилеры">000002 - Дилеры</option>
@@ -456,7 +456,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 210px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='gruppa_sena`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 210px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='gruppa_sena`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="01 - Дилер">01 - Дилер</option>
                 <option value="02 - Оптовик">02 - Оптовик</option>
@@ -471,7 +471,7 @@ function front_piece(start=1,end=6){
         </td>
          <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 190px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='sxema_kliyenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 190px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='sxema_kliyenta`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="01 - Схема 01">01 - Схема 01</option>
                 <option value="02 - Схема 02">02 - Схема 02</option>
@@ -490,7 +490,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 130px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='status_gruppa_kliyent`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 130px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='status_gruppa_kliyent`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected value=""></option>
                 <option value="+  маскирован.">+  маскирован.</option>
                 <option value="1 - A-материал">1 - A-материал</option>
@@ -500,7 +500,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 135px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='usloviya_otgruz`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 135px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='usloviya_otgruz`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="01 - Стандарт">01 - Стандарт</option>
                 <option value="02 - Самовывоз">02 - Самовывоз</option>
@@ -509,7 +509,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 175px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='sbit_debitora`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 175px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='sbit_debitora`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="01 - Третьи стороны">01 - Третьи стороны</option>
                 <option value="02 - Интеркомпани">02 - Интеркомпани</option>
@@ -520,7 +520,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 210px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='sbit_nalog`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 210px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='sbit_nalog`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="0 - Необлагаемый налогом">0 - Необлагаемый налогом</option>
                 <option value="1 - Облагаемый налогом">1 - Облагаемый налогом</option>
@@ -530,7 +530,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='kontrol_schot`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 110px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='kontrol_schot`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="3300101200">3300101200</option>
                 <option value="4600110200">4600110200</option>
@@ -544,7 +544,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 110px;text-transform: uppercase; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='kontrol_debitora`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+            <select class="form-select" aria-label="" style="width: 110px; font-size:12px; padding-right:0px; z-index:0;display:none;"  id='kontrol_debitora`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 <option value="2200100200">2200100200</option>
                 <option value="1600110200">1600110200</option>

@@ -125,12 +125,12 @@ function front_piece(start=1,end=6){
                             </td>
                     <td style='display:none;'>
                         <div class="input-group input-group-sm mb-1" style='width:150px;'>
-                            <span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
+                            <span class ='nazvaniye_system` +String(i)+`'style="font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
                         </div>
                     </td>
                     <td style='display:none;' >
                         <div class="input-group input-group-sm mb-1">
-                            <b><span id='camera` +String(i)+`'style="text-transform: uppercase; font-size:12px;padding-left:5px"></span></b>
+                            <b><span id='camera` +String(i)+`'style=" font-size:12px;padding-left:5px"></span></b>
                         </div>
                     </td>
                     <td class="sticky-col" style=' left: 73.5px;background-color:white!important'  >
@@ -146,12 +146,12 @@ function front_piece(start=1,end=6){
         }else{
             buttons=`<td style='display:none;'>
                                 <div class="input-group input-group-sm mb-1" style='width:150px;'>
-                                    <span class ='nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
+                                    <span class ='nazvaniye_system` +String(i)+`'style="font-size: 10px; font-weight:700;padding:5px;width:150px" ></span>
                                 </div>
                             </td>
                             <td style='display:none;' >
                                 <div class="input-group input-group-sm mb-1">
-                                    <b><span id='camera` +String(i)+`'style="text-transform: uppercase; font-size:12px;padding-left:5px"></span></b>
+                                    <b><span id='camera` +String(i)+`'style=" font-size:12px;padding-left:5px"></span></b>
                                 </div>
                             </td>
                             <td class="sticky-col" style=' left:0;background-color:white!important'  >
@@ -173,12 +173,12 @@ function front_piece(start=1,end=6){
         
         <td style='display:none;'>
             <div class="input-group input-group-sm mb-1">
-                <b><span  id ='kod_komponent` +String(i)+`'style="text-transform: uppercase;font-size: 12px;padding-left:5px;"></span></b>
+                <b><span  id ='kod_komponent` +String(i)+`'style="font-size: 12px;padding-left:5px;"></span></b>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 177px;text-transform: uppercase; font-size:12px; padding-right:0px;height:27px!important;z-index:0" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
+                <select class="form-select" aria-label="" style="width: 177px; font-size:12px; padding-right:0px;height:27px!important;z-index:0" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
                     <option  selected ></option>
                     <option value="1" >Неламинированный</option>
                     <option value="2" >Ламинированный</option>
@@ -285,7 +285,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;z-index:0" id ='code_lamplonka_snaruji` +String(i)+`'></span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; padding-left:35%;z-index:0" id ='code_lamplonka_snaruji` +String(i)+`'></span>
                 </div>
             </div>
         </td>
@@ -363,7 +363,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;padding-left:35%;z-index:0" id='code_lamplonka_vnutri`+String(i)+`'></span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; padding-left:35%;z-index:0" id='code_lamplonka_vnutri`+String(i)+`'></span>
                 </div>
             </div>
         </td>
@@ -380,34 +380,34 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1" id='svet_text`+String(i)+`'>
                 
-                    <span class =' text-center ' style="font-size:10px; font-weight: bold; text-transform: uppercase;z-index:0;white-space: nowrap;" id='svet_rezin`+String(i)+`'></span>
+                    <span class =' text-center ' style="font-size:10px; font-weight: bold; z-index:0;white-space: nowrap;" id='svet_rezin`+String(i)+`'></span>
                 
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1" id="nakleyka`+String(i)+`">
             <div id='nakleyka_select`+String(i)+`' class='nak_select`+String(i)+`' style='display:none;'>
-                <select class ='kod_nakleyki`+String(i)+`'  style='text-transform: uppercase; width: 70px;padding-left:35%;height:27px!important;z-index:0' onchange="create_kratkiy_tekst(`+String(i)+`)" data-placeholder="..."></select>
+                <select class ='kod_nakleyki`+String(i)+`'  style=' width: 70px;padding-left:35%;height:27px!important;z-index:0' onchange="create_kratkiy_tekst(`+String(i)+`)" data-placeholder="..."></select>
             </div>
             </div>
         </td>
          <td  style='width:100px'>
             <div class="input-group input-group-sm mb-1" style='width:100%'>
                 
-                    <span class ='text-center ' style="width:100px;font-size:12px;  text-transform: uppercase;padding:5px;z-index:0" id='nadpis_nakleyki`+String(i)+`'></span>
+                    <span class ='text-center ' style="width:100px;font-size:12px;  padding:5px;z-index:0" id='nadpis_nakleyki`+String(i)+`'></span>
                 
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
                 <div>
-                    <span class =' text-center ' style="font-size: small; font-weight: bold; text-transform: uppercase;z-index:0" >PVCGP</span>
+                    <span class =' text-center ' style="font-size: small; font-weight: bold; z-index:0" >PVCGP</span>
                 </div>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span  style="font-size: small; width:250px; font-weight: bold; text-transform: uppercase;z-index:0;white-space: nowrap;" id='kratkiy_tekst`+String(i)+`'></span>
+            <span  style="font-size: small; width:250px; font-weight: bold; z-index:0;white-space: nowrap;" id='kratkiy_tekst`+String(i)+`'></span>
             </div>
         </td>
 
@@ -891,7 +891,7 @@ function clear_artikul(id){
             var iklyuch =true
             kod_svet_rezini.css('display','none')
         }else{
-            svet_rezini.append('<span class =" text-center " style="font-size:10px; font-weight: bold; text-transform: uppercase;" id="svet_rezin'+id+'"></span>')
+            svet_rezini.append('<span class =" text-center " style="font-size:10px; font-weight: bold; " id="svet_rezin'+id+'"></span>')
             kod_svet_rezini.css('display','block')
             var iklyuch =false
             

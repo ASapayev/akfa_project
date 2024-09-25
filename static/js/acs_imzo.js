@@ -89,7 +89,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="border-color:red;width: 155px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='bazoviy_edinitsa`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
+                <select class="form-select" aria-label="" style="border-color:red;width: 155px; font-size:12px; padding-right:0px;z-index:0" id='bazoviy_edinitsa`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
                     <option vlaue="Штука">Штука</div>
                     <option vlaue="Килограмм">Килограмм</div>
@@ -105,7 +105,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="border-color:red; width: 225px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" onchange="create_kratkiy_tekst(`+String(i)+`)" id='goods_group`+String(i)+`' required>
+            <select class="form-select" aria-label="" style="border-color:red; width: 225px; font-size:12px; padding-right:0px;z-index:0" onchange="create_kratkiy_tekst(`+String(i)+`)" id='goods_group`+String(i)+`' required>
                     <option  selected></option>
                     <option value="ACS_RAW_ALU">Сырье аксессуары алюминий</option>
                     <option value="ACS_RAW_PVC">Сырье аксессуары ПВХ</option>
@@ -139,7 +139,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <div><span class ='tex_name` +String(i)+`' id ='tex_name` +String(i)+`'style="text-transform: uppercase;font-size: 12px;z-index:0"></span></div>
+            <div><span class ='tex_name` +String(i)+`' id ='tex_name` +String(i)+`'style="font-size: 12px;z-index:0"></span></div>
             </div>
         </td>
         <td >
