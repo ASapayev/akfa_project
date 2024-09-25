@@ -508,6 +508,7 @@ def lenght_generate_texcarta(request,id):
         
     string_rand = generate_random_string()
 
+    del df_new['counter']
     path2=f'{MEDIA_ROOT}\\uploads\\epdm\\texcarta_epdm_{string_rand}.xlsx'
     df_new.to_excel(path2,index=False)
 

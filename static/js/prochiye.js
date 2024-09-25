@@ -99,12 +99,12 @@ class BasePokritiya{
 
 
 function front_piece(start=1,end=6){
-    text =""
+    var text =""
 
     for (let i = start; i < end; i++) {
-        text +=`
-        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>                   
-        <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
+        var buttons =''
+        if(status_proccess == 'new'){
+            buttons =`<td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
                     <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Tozalab tashlash'><i class="bi bi-x-circle"></i></button>
                             <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Dubl qilish'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
@@ -112,9 +112,14 @@ function front_piece(start=1,end=6){
                             <button type="button" class="btn btn-outline-secondary btn-sm" id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' style='font-size:16px;width:34px'>А</button>
                     </div>
                     
-                    
-
-        </td>
+                    </td>`
+        }else{
+            buttons =``
+        }
+        text +=`
+        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>                   
+        `+buttons+
+         `
         <td >
         <input  style='display:none;border-color:red; line-height:15px;z-index:0' type="date" class="form-control" id="pickupdate`+String(i)+`" onchange='create_kratkiy_tekst(`+String(i)+`)'> 
         </td>
@@ -401,44 +406,87 @@ text = front_piece()
 
 var table = $('#table-artikul')
 
-table.append(text)
-
-
-
-
-
-
+// table.append(text)
 
 
 data_base = {}
 
+if(status_proccess == 'new'){
+    table.append(text)
 
-function copy_tr(id){
+}else{
+    var jsonData = JSON.parse(jsonData);
+    // var jsonData ='{{order}}'
+
+    var ii= 1
+
+    for(var key1 in jsonData){
+        data_base[ii] = new BasePokritiya()
+        for(var key2 in jsonData[key1]){
+            data_base[ii][key2] = jsonData[key1][key2]
+        }
+        ii += 1
+    }
+
+
+
+    const lengthOfObject = Object.keys(jsonData).length;
+
+    var text = front_piece(1,lengthOfObject+1)
+
+
+
+    var table = $('#table-artikul')
+
+    table.append(text)
+
+    var i = 1
+    for(key2 in data_base){
+        copy_tr(key2,i)
+        i += 1
+    }
+}
+
+
+
+
+
+
+
+
+
+
+function copy_tr(id,ii=1){
     if(!data_base[id]){
         console.log('salom2222 copy')
     }else{
         
-        text =""
-        var size = $('#table-artikul tr').length;
-        text = front_piece(start = size+1, end = size+2)
-        var table = $('#table_tr'+id)
-        var new_tr =$(text)
+        if(status_proccess == 'new'){
+            text =""
+            var size = $('#table-artikul tr').length;
+            text = front_piece(start = size+1, end = size+2)
+            var table = $('#table_tr'+id)
+            var new_tr =$(text)
 
-        table.after(new_tr)
-        
-        
-        var data = new BasePokritiya()
-        for(key in data_base[id]){
-            data[key] = data_base[id][key]
-        }
+            table.after(new_tr)
             
-        
+            
+            var data = new BasePokritiya()
+            for(key in data_base[id]){
+                data[key] = data_base[id][key]
+            }
+                
+            
 
-        
+            
 
-        data_base[size+1] = data
-        
-        var s = size+1
+            data_base[size+1] = data
+            
+            var s = size+1
+        }else{
+            var data = data_base[id]
+            var s = ii
+        }
 
         var pickupdate = data.pickupdate;
         var sena_c_nds = data.sena_c_nds;
@@ -467,6 +515,7 @@ function copy_tr(id){
         var create_btn =$('#create_btn'+s);
         activate_btn.attr('disabled',true)
         create_btn.attr('disabled',true)
+        console.log(tip_clenta,'tip clienta')
 
         if(!is_active){
             create_btn.css('background-color','green')
@@ -492,7 +541,7 @@ function copy_tr(id){
             check_input_and_change(status_online,'#status'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(zavod,'#zavod_name'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(tip_clenta,'#tip_clenta'+s,dis=false,is_req=true,is_req_simple=false)
-            check_input_and_change(comment,'#tip_clenta'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
             }
         else{
             activate_btn.css('background-color','orange')
@@ -518,7 +567,7 @@ function copy_tr(id){
             check_input_and_change(status_online,'#status'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(zavod,'#zavod_name'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(tip_clenta,'#tip_clenta'+s,dis=false,is_req=false,is_req_simple=true)
-            check_input_and_change(comment,'#tip_clenta'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
 
         }
 

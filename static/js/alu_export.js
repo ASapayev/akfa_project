@@ -251,36 +251,55 @@ class BasePokritiya{
 var nakleyka_list = document.getElementById('nakleyka_list').outerHTML
 
 function front_piece(start=1,end=6){
-    text =""
+    var text =""
     for (let i = start; i < end; i++) {
 
-        nakleyki = nakleyka_list.replace('nakleyka_list',"nakleyka"+String(i))
-        nakleyki = nakleyki.replace('onchange=""','onchange="create_kratkiy_tekst('+String(i)+')"')
+        var nakleyki = nakleyka_list.replace('nakleyka_list',"nakleyka"+String(i))
+        var nakleyki = nakleyki.replace('onchange=""','onchange="create_kratkiy_tekst('+String(i)+')"')
+        var buttons =''
+        if(status_proccess == 'new'){
+             buttons =`<td  class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;'>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Tozalab tashlash'><i class="bi bi-x-circle"></i></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Dubl qilish'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
+                    </div>
+                    </td>
+                    <td class="sticky-col" style=' left: 73.5px;background-color:white!important;width:100px!important'>
+                        <div class="input-group input-group-sm mb-1" style='width:100%'>
+                            <span class ='text-center nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important;white-space: nowrap;"></span>
+                        </div>
+                    </td>
+                    <td class="sticky-col"  style=' left: 183.2px; background-color:white!important' >
+                        <div class="input-group input-group-sm mb-1">
+                            <select class=" form-control" style="background-color:#ddebf7; width: 140px; font-size:10px;padding-right:150px!important;" id="artikul`+String(i)+`" ></select>
+                            <span style='display:none' id ='nakleyka_codd` +String(i)+`'></span>
+                        </div>
+                    </td>
+        
+        `
+        }else{
+             buttons =`
+            <td class="sticky-col" style='left:0;background-color:white!important;width:100px!important'>
+                <div class="input-group input-group-sm mb-1" style='width:100%'>
+                    <span class ='text-center nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important;white-space: nowrap;"></span>
+                </div>
+            </td>
+            <td class="sticky-col"  style='left:109.7;background-color:white!important' >
+                <div class="input-group input-group-sm mb-1">
+                    <select class=" form-control" style="background-color:#ddebf7; width: 140px; font-size:10px;padding-right:150px!important;" id="artikul`+String(i)+`" ></select>
+                    <span style='display:none' id ='nakleyka_codd` +String(i)+`'></span>
+                </div>
+            </td>
+        `
+        }
     
 
         text +=`
         <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>
                                     
-         <td  class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;'>
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Tozalab tashlash'><i class="bi bi-x-circle"></i></button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Dubl qilish'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
-                    </div>
-                    
-                    
-
-        </td>
-        <td class="sticky-col" style=' left: 73.5px;background-color:white!important;width:100px!important'>
-            <div class="input-group input-group-sm mb-1" style='width:100%'>
-                <span class ='text-center nazvaniye_system` +String(i)+`'style="text-transform: uppercase;font-size: 14px;width:100px!important;white-space: nowrap;"></span>
-            </div>
-        </td>
-        <td class="sticky-col"  style=' left: 183.2px; background-color:white!important' >
-            <div class="input-group input-group-sm mb-1">
-                <select class=" form-control" style="background-color:#ddebf7; width: 140px; font-size:10px;padding-right:150px!important;" id="artikul`+String(i)+`" ></select>
-                <span style='display:none' id ='nakleyka_codd` +String(i)+`'></span>
-            </div>
-        </td>
+         `+buttons+
+         `
+        
         
         
         <td >
@@ -603,11 +622,11 @@ function front_piece(start=1,end=6){
     return text
 }
 
-text = front_piece()
+var text = front_piece()
 
 var table = $('#table-artikul')
 
-table.append(text)
+// table.append(text)
 
 
 
@@ -627,134 +646,183 @@ function request_piece(start=1,end=6){
             });
         
         
-        
-        var artikulSelect = $('#artikul'+String(i));
-        $.ajax({
-            type: 'GET',
-            url: "/client/imzo-artikul-list"
-        }).then(function (data) {
-            data.forEach(function(dataItem) {
+        if(status_proccess == 'new'){
+            var artikulSelect = $('#artikul'+String(i));
+            $.ajax({
+                type: 'GET',
+                url: "/client/imzo-artikul-list"
+            }).then(function (data) {
+                data.forEach(function(dataItem) {
 
-                var option = new Option(dataItem['Артикул'], data['id'], true, true);
-                artikulSelect.append(option).trigger('change');
+                    var option = new Option(dataItem['Артикул'], data['id'], true, true);
+                    artikulSelect.append(option).trigger('change');
+                
+                    artikulSelect.trigger({
+                        type: 'select2:select',
+                        params: {
+                            data: dataItem
+                        }
+                    });
+                })
+            });
             
-                artikulSelect.trigger({
-                    type: 'select2:select',
-                    params: {
-                        data: dataItem
-                    }
-                });
-            })
-        });
-        
-        
-        $("#artikul"+String(i)).on("select2:select", function (e) { 
-        var select_val = $(e.currentTarget).val();
-        var nazvaniye_system =$('.nazvaniye_system'+String(i));
-        var combination = $('#combination'+String(i));
-        var tip_pokritiya = $('#tip_pokritiya'+String(i));
-        var baza_profiley = $('#baza_profiley'+String(i));
-        // tip_pokritiya.val('').change();
-        tip_pokritiya.attr("disabled",false);
-        nazvaniye_system.text(e.params.data.system);
-        combination.text(e.params.data.combination)
-        baza_profiley.text(e.params.data.baza_profiley)
+            
+            $("#artikul"+String(i)).on("select2:select", function (e) { 
+            var select_val = $(e.currentTarget).val();
+            var nazvaniye_system =$('.nazvaniye_system'+String(i));
+            var combination = $('#combination'+String(i));
+            var tip_pokritiya = $('#tip_pokritiya'+String(i));
+            var baza_profiley = $('#baza_profiley'+String(i));
+            // tip_pokritiya.val('').change();
+            tip_pokritiya.attr("disabled",false);
+            nazvaniye_system.text(e.params.data.system);
+            combination.text(e.params.data.combination)
+            baza_profiley.text(e.params.data.baza_profiley)
 
-        var nakleyka_kode = e.params.data.code_nakleyka
-        
-        $('.select2-selection__rendered').css('font-size', '15px');
-        
-        
-        var length = $('#length'+String(i));
-        length.attr('required',true)
-        var splav = $('#splav'+String(i));
-        splav.attr('required',true)
-        var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(i));
-        tip_zakalyonnosti.attr('required',true)
+            var nakleyka_kode = e.params.data.code_nakleyka
+            
+            $('.select2-selection__rendered').css('font-size', '15px');
+            
+            
+            var length = $('#length'+String(i));
+            length.attr('required',true)
+            var splav = $('#splav'+String(i));
+            splav.attr('required',true)
+            var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(i));
+            tip_zakalyonnosti.attr('required',true)
 
-        var nakleyka = $('#nakleyka'+String(i))
-        var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i))
-    
-        if (nakleyka_kode =='NT1'){
-            nakleyka.css('display','block')
-            nakleyka.val('NT1')
-            nadpis_nakleyki.text('Без наклейки')
-        }
-        else if( nakleyka_kode !=''){
-            var nakleyka_codd = $('#nakleyka_codd'+String(i))
-            nakleyka_codd.text(nakleyka_kode)
-            if(!data_base[i]){
-               
+            var nakleyka = $('#nakleyka'+String(i))
+            var nadpis_nakleyki = $('#nadpis_nakleyki'+String(i))
+        
+            if (nakleyka_kode =='NT1'){
                 nakleyka.css('display','block')
-                nakleyka.val(nakleyka_kode)
-                var selectedOption = $('#nakleyka'+String(i)).find('option:selected');
-
-                var nadpisValue = selectedOption.data('nadpis');
-                nadpis_nakleyki.text(nadpisValue)
-            }else{
-                console.log('222 com')
-                var pokritiya = data_base[i].id
-                if(pokritiya == 1 || pokritiya =='1'){
-                    console.log('222 com 222','pokrrr1')
-                    nakleyka.css('display','block')
-                    nakleyka.val('NT1')
-                    nadpis_nakleyki.text('БЕЗ НАКЛЕЙКИ')
-                }else{
+                nakleyka.val('NT1')
+                nadpis_nakleyki.text('Без наклейки')
+            }
+            else if( nakleyka_kode !=''){
+                var nakleyka_codd = $('#nakleyka_codd'+String(i))
+                nakleyka_codd.text(nakleyka_kode)
+                if(!data_base[i]){
+                
                     nakleyka.css('display','block')
                     nakleyka.val(nakleyka_kode)
                     var selectedOption = $('#nakleyka'+String(i)).find('option:selected');
-        
+
                     var nadpisValue = selectedOption.data('nadpis');
                     nadpis_nakleyki.text(nadpisValue)
+                }else{
+                    console.log('222 com')
+                    var pokritiya = data_base[i].id
+                    if(pokritiya == 1 || pokritiya =='1'){
+                        console.log('222 com 222','pokrrr1')
+                        nakleyka.css('display','block')
+                        nakleyka.val('NT1')
+                        nadpis_nakleyki.text('БЕЗ НАКЛЕЙКИ')
+                    }else{
+                        nakleyka.css('display','block')
+                        nakleyka.val(nakleyka_kode)
+                        var selectedOption = $('#nakleyka'+String(i)).find('option:selected');
+            
+                        var nadpisValue = selectedOption.data('nadpis');
+                        nadpis_nakleyki.text(nadpisValue)
+                    }
                 }
+
+
+            }        
+            else{
+
+                nakleyka.val('')
             }
-
-
-        }        
-        else{
-
-            nakleyka.val('')
+            
+            if(data_base[i]){
+                clear_artikul(i)
+            }
+            
+            // console.log(e.params.data.system)
+            });
         }
-        
-        if(data_base[i]){
-            clear_artikul(i)
-        }
-        
-        // console.log(e.params.data.system)
-        });
 
     }
 }
+var data_base = {}
 
-request_piece()
+if(status_proccess == 'new'){
+    table.append(text)
+    request_piece()
+
+}else{
+    var jsonData = JSON.parse(jsonData);
+    // var jsonData ='{{order}}'
+
+    var ii= 1
+
+    for(var key1 in jsonData){
+        data_base[ii] = new BasePokritiya()
+        for(var key2 in jsonData[key1]){
+            data_base[ii][key2] = jsonData[key1][key2]
+        }
+        ii += 1
+    }
 
 
-data_base = {}
+
+    const lengthOfObject = Object.keys(jsonData).length;
+
+    var text = front_piece(1,lengthOfObject+1)
 
 
-function copy_tr(id){
+
+    var table = $('#table-artikul')
+
+    table.append(text)
+
+    var i = 1
+    for(key2 in data_base){
+        copy_tr(key2,i)
+        i += 1
+    }
+}
+// request_piece()
+
+
+
+
+
+function copy_tr(id,ii=1){
     if(!data_base[id]){
         console.log('salom2222 copy')
     }else{
         
-        text =""
-        var size = $('#table-artikul tr').length;
-        text = front_piece(start = size+1, end = size+2)
-        var table = $('#table_tr'+id)
-        var new_tr =$(text)
+        if(status_proccess == 'new'){
+            text =""
+            var size = $('#table-artikul tr').length;
+            text = front_piece(start = size+1, end = size+2)
+            var table = $('#table_tr'+id)
+            var new_tr =$(text)
 
-        table.after(new_tr)
-        request_piece(start = size+1, end = size+2)
+            table.after(new_tr)
+            request_piece(start = size+1, end = size+2)
+            
+            var data = new BasePokritiya()
+            for(key in data_base[id]){
+                data[key] = data_base[id][key]
+            }
         
-        var data = new BasePokritiya()
-        for(key in data_base[id]){
-            data[key] = data_base[id][key]
+
+            data_base[size+1] = data
+            
+            var s = size+1
+
+        }else{
+
+            var data = data_base[id]
+            var s = ii
+            request_piece(start = s, end = s+1)
         }
-       
-
-        data_base[size+1] = data
         
-        var s = size+1
+
+
 
         var id = data.id;
         var nazvaniye_system = data.nazvaniye_system;
@@ -818,16 +886,16 @@ function copy_tr(id){
         
 
         if(id ==1){
-            chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=true)
+            chosen_update('.code_kraski_snar_sel'+String(s),kod_kraska_sn,true)
             div_kras_sn.css('display','block')
-            check_input_and_change(kod_nakleyki,'#nakleyka'+s,dis=true)
+            check_input_and_change(kod_nakleyki,'#nakleyka'+s,true)
             if(is_termo_bas){
-                chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=true)
+                chosen_update('.code_kraski_vnut_sel'+String(s),kod_kraska_vn,true)
                 div_kras_vn.css('display','block')
             }
         }else if(id == 2){    
-                check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=true)
-                chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=true)
+                check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,true)
+                chosen_update('.code_kraski_snar_sel'+String(s),kod_kraska_sn,true)
                 div_kras_sn.css('display','block')
                 check_input_and_change(kod_nakleyki,'#nakleyka'+s)
                 if(is_termo_bas){
@@ -908,10 +976,10 @@ function copy_tr(id){
         }
 
        
-        check_input_and_change(dlina,'#length'+s,dis=false,is_req=true)
-        check_for_valid_and_set_val_select(s,base_artikul,'artikul'+ s,is_req=true,is_anod=false)
-        check_input_and_change(splav,'#splav'+s,dis=false,is_req=true)
-        check_input_and_change(tip_zak,'#tip_zakalyonnosti'+s,dis=false,is_req=true)
+        check_input_and_change(dlina,'#length'+s,false,true)
+        check_for_valid_and_set_val_select(s,base_artikul,'artikul'+ s,true,false)
+        check_input_and_change(splav,'#splav'+s,false,true)
+        check_input_and_change(tip_zak,'#tip_zakalyonnosti'+s,false,true)
         check_text_and_change(combination,'#combination'+s)
         check_text_and_change(nazvaniye_system,'.nazvaniye_system'+s)
         
@@ -925,15 +993,15 @@ function copy_tr(id){
         
         check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
 
-        check_input_and_change(sap_code,'#sap_code'+s,dis=true)
-        check_input_and_change(krat,'#krat'+s,dis=true)
+        check_input_and_change(sap_code,'#sap_code'+s,true)
+        check_input_and_change(krat,'#krat'+s,true)
 
 
 
        
         check_input_and_change(comment,'#comment'+s)
-        check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true)
-        check_input_and_change(dilina_pressa,'#dilina_pressa'+s,dis=false,is_req=true)
+        check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,false,true)
+        check_input_and_change(dilina_pressa,'#dilina_pressa'+s,false,true)
         
         
     }

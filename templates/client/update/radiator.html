@@ -5,9 +5,6 @@
 
                
     <style>
-        .chosen-container{
-            width: 80px!important;;
-        }
         .sticky-top {
             position: sticky;
             top: 0;
@@ -47,9 +44,10 @@
                     <table class="table table-sm" id="my-table">
                         <thead style="line-height: 1;">
                           <tr>
-                            <th scope="col" class="sticky-th text-center" style="font-size: 12px; left:0;">Артикул</th>
                            
-                            {% include 'client/headers/pvc_savdo.html' %}
+                            <th scope="col" class="sticky-th text-center" style="font-size: 12px; left:0;">Модель</th>
+                            
+                            {% include 'client/headers/radiator.html' %}
                         </tr>
                         </thead>
                         <tbody id="table-artikul">
@@ -60,7 +58,7 @@
                     
                 </div>
                
-               
+                  
        
             <!-- </section> -->
 
@@ -68,41 +66,40 @@
             {% include 'client/includes/chat.html'%}
         </main>
 
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Информация</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="close_modal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Артикул</th>
-                            <th scope="col">Краткий текст</th>
-                            <th scope="col">Online Id</th>
-                            <th scope="col">Название</th>
-                        </tr>
-                        </thead>
-                        <tbody id="modal_body">
-                        
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close_modal()">Close</button>
-                <button type="button" class="btn btn-primary" id="save_btn" onclick="send_data()">Save changes</button>
-                <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
-                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                    Loading...
-                </button>
-                </div>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Информация</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="close_modal()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Артикул</th>
+                        <th scope="col">Краткий текст</th>
+                        <th scope="col">Название</th>
+                    </tr>
+                    </thead>
+                    <tbody id="modal_body">
+                    
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close_modal()">Close</button>
+            <button type="button" class="btn btn-primary" id="save_btn" onclick="send_data()">Save changes</button>
+            <button class="btn btn-primary" type="button" disabled aria-hidden="true" style="display: none;" id="upload_btn">
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                Loading...
+            </button>
             </div>
         </div>
+    </div>
     </div>
 {%endblock%}
 
@@ -114,11 +111,12 @@
 
 
 <script>
-    var jsonData='{{order|safe}}'
 
-     var status_proccess = '{{status}}'
+ var status_proccess = '{{status}}'
+ var jsonData='{{order|safe}}'
 
-    function updateMaxHeight() {
+ 
+function updateMaxHeight() {
       var windowHeight = $(window).height();
       var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
 
@@ -137,32 +135,6 @@
 
 
 
-    var nakleyka_list ='{{nakleyka_list|safe}}'
-    
-    
-    
-    function set_nakleyka(element_list,selector,val='',add=true){
-            
-            var jsonData = JSON.parse(element_list)
-            
-            var select = $(selector);
-            
-            $.each(jsonData, function(index, item) {
-                var option = $('<option>', {
-                    value: item[0],
-                    text: item[0],
-                    'data-nadpis': item[1] 
-                });
-                if(add){
-                    select.append(option);
-                }
-            });
-            
-            $(selector).chosen({max_selected_options: 50,no_results_text: "Наклейка не найден"});
-            $(selector).val(val);
-            $(selector).trigger('chosen:updated');
-        }
-    
     
     function show_zagruska_btn(){
         var zagruzka_file =$('#zagruzka_file')
@@ -206,30 +178,12 @@
             var text_tr =''
             var i = 1
             for(key in data_base){
-                var basee_art = ''
-                var kratkiy_tekss = ''
-                var online_idd = ''
-                var naz_ru = ''
-                if(data_base[key]['base_artikul']){
-                    basee_art = data_base[key]['base_artikul']
-                }
-                if(data_base[key]['kratkiy_tekst'] && data_base[key]['kratkiy_tekst']!='XXXXXXXX' ){
-                    kratkiy_tekss = data_base[key]['kratkiy_tekst']
-                }
-                if(data_base[key]['nazvaniye_ruchnoy']){
-                    naz_ru = data_base[key]['nazvaniye_ruchnoy']
-                }
-                if(data_base[key]['online_id']){
-                    online_idd = data_base[key]['online_id']
-                }
-
                 text_tr += `
                     <tr>
                         <th scope="row">${i}</th>
-                        <td>${basee_art}</td>
-                        <td>${kratkiy_tekss}</td>
-                        <td>${online_idd}</td>
-                        <td>${naz_ru}</td>
+                        <td>${data_base[key]['base_artikul']}</td>
+                        <td>${data_base[key]['kratkiy_tekst']}</td>
+                        <td>${data_base[key]['nazvaniye_ruchnoy']}</td>
                     </tr>
                 `
                 i +=1
@@ -259,7 +213,7 @@
 }
 
 
-    function send_data(){
+function send_data(){
             var submit_btn = document.getElementById('save_btn')
             var upload_btn = document.getElementById('upload_btn')
             upload_btn.style.display ='block';
@@ -271,8 +225,8 @@
             var csrfToken = getCSRFToken();
             var postData = {
                 'data': json_data,
-                'order_type':'pvc_savdo',
-                'name':'PVC SAVDO',
+                'order_type':'radiator',
+                'name':'RADIATOR',
                 'order_name':theme
             }
             $.ajax({
@@ -297,10 +251,9 @@
             });
 
         }
-    
     function close_modal(){
         $('#myModal').modal('hide')
     }
 </script>
-<script src="{% static 'js/pvc_savdo.js'%}"></script>
+<script src="{% static 'js/radiator.js'%}"></script>
 {%endblock%}

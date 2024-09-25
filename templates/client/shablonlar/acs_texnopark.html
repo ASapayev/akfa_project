@@ -125,8 +125,9 @@
 
 <link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
-<script src="{% static 'js/accessuar_texnopark.js'%}"></script>
+
 <script>
+    var status_proccess = '{{status}}'
     
 function updateMaxHeight() {
       var windowHeight = $(window).height();
@@ -265,5 +266,6 @@ function updateMaxHeight() {
         $('#myModal').modal('hide')
     }
 </script>
+<script src="{% static 'js/acs_texnopark.js'%}"></script>
 
 {%endblock%}

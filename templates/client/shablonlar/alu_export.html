@@ -1,71 +1,69 @@
 {% extends 'client/base.html'%}
-
 {%load static%}
-
 {%block content%}
-         
-<style>
-    .sticky-top {
-        position: sticky;
-        top: 0;
-        background-color: #f8f9fa; /* Adjust background color as needed */
-        z-index: 2; /* Ensure header is above other content */
-        }
 
-    .sticky-col {
-        position: sticky;
-      
-        background-color: #f8f9fa; /* Adjust background color as needed */
-        z-index: 500; /* Ensure column is above non-sticky columns */
-        }
-
-    .table thead th {
-        position: sticky;
-        top: 0;
-        background-color: #ffffff;
-        z-index: 2; /* Ensure headers stay above sticky columns */
-        }
-    
-    .sticky-th {
-        position: sticky;
-        top: 0;
-        z-index: 600!important; /* Ensure th stay above sticky columns */
-        background-color: #ffffff; /* Background color of sticky th */
-        }
-
-</style>
-         
-            <!-- <section class="topics-detail-section section-padding" id="topics-detail"> -->
                 
+    <style>
+        .sticky-top {
+            position: sticky;
+            top: 0;
+            background-color: #f8f9fa; /* Adjust background color as needed */
+            z-index: 2; /* Ensure header is above other content */
+            }
+
+        .sticky-col {
+            position: sticky;
+
+            background-color: #f8f9fa; /* Adjust background color as needed */
+            z-index: 500; /* Ensure column is above non-sticky columns */
+            }
+
+            .table thead th {
+                position: sticky;
+                top: 0;
+                background-color: #ffffff;
+                z-index: 2; /* Ensure headers stay above sticky columns */
+                }
+            
+            .sticky-th {
+                position: sticky;
+                top: 0;
+                z-index: 600!important; /* Ensure th stay above sticky columns */
+                background-color: #ffffff; /* Background color of sticky th */
+                }
+
+    </style>
+
+
+            <!-- <section class="topics-detail-section section-padding" id="topics-detail"> -->
+               
                 <div  class="table-responsive custom-max-height  " id="table-container" style="padding-top: 76px; ">
                         {% csrf_token %}
                         <table class="table table-sm" id="my-table">
                             <thead style="line-height: 1;">
                             <tr>
-                                <th scope="col" class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
-                                <th scope="col"  class="sticky-th text-center" style="font-size: 12px; left:73.5px;" >Название системы</th>
-                                <th scope="col"  class="sticky-th text-center" style="font-size: 12px;left: 183.2px;" >Артикул</th>
-                                {%include 'client/headers/alu_imzo.html' %}
+                                <th scope="col"  class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
+                                <th scope="col" class="sticky-th text-center" style="font-size: 12px; left:73.5px;" >Название системы</th>
+                                <th scope="col" class="sticky-th text-center" style="font-size: 12px;left: 183.2px;" >Артикул</th>
+                                {% include 'client/headers/alu_export.html' %}
                             </tr>
                             </thead>
-                           
                             <tbody id="table-artikul">
+                            
                             </tbody>
-                           
                         </table>
                         
                 </div>
-                    <div class="row pb-1">
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="d-flex justify-content-start p-2">
                                 <input type="button" class="btn btn-warning mr-2 btn-sm" value="Добавить" onclick="add_column()" id="add_column_btn" >
-                               
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="d-flex justify-content-start p-2">
-                                <span class="m-1" style="font-weight: 700;">Тема:</span>
-                                <input  type="text"  id="theme" class="form-control " style="border-color:red" onkeyup="show_zagruska_btn()" style="height: 30px;">
+                                <span class="m-1" style="font-weight: 700;" >Тема:</span>
+                                <input  type="text"  id="theme" class="form-control " onkeyup="show_zagruska_btn()" style="height: 30px;border-color:red">
                             </div>
                         </div>
                         
@@ -75,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-               
+            
             <!-- </section> -->
 
             <div  style="display: none;">
@@ -86,6 +84,7 @@
                     {% endfor %}
                 </select>
             </div>
+           
         </main>
 
         <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -134,8 +133,11 @@
 
 <link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
-<script>
 
+<script>
+    var jsonData='{{order|safe}}'
+
+     var status_proccess = '{{status}}'
     function updateMaxHeight() {
       var windowHeight = $(window).height();
       var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
@@ -154,40 +156,43 @@
 
 
 
-
     var brend_kaska ='{{brend_kaska|safe}}'
-
+    
     function set_brend_kraska(element_list,selector,val_='',add=true){
-            
-            var jsonData = JSON.parse(element_list)
-            
-            var select = $(selector);
-            $.each(jsonData, function(index, item) {
-                // console.log(item)
-                var option = $('<option>', {
-                    value: item['kraska'],
-                    text: item['kraska'],
-                    'data-brend': item['brend'] 
-                });
-                if(add){
-                    select.append(option);
-                }
+        
+        var jsonData = JSON.parse(element_list)
+        
+        var select = $(selector);
+        $.each(jsonData, function(index, item) {
+            // console.log(item)
+            var option = $('<option>', {
+                value: item['kraska'],
+                text: item['kraska'],
+                'data-brend': item['brend'] 
             });
-            
-            $(selector).chosen({max_selected_options: 50,no_results_text: "Краска не найден"});
-            $(selector).val(val_);
-            $(selector).trigger('chosen:updated');
+            if(add){
+                select.append(option);
+            }
+        });
+        
+        $(selector).chosen({max_selected_options: 50,no_results_text: "Краска не найден"});
+        $(selector).val(val_);
+        $(selector).trigger('chosen:updated');
     }
-
-
+    
     function show_zagruska_btn(){
         var zagruzka_file =$('#zagruzka_file')
         var theme =$('#theme')
-        if(theme.val() !='' && theme.val() != undefined){
+        if(theme.val() !='' && theme.val()!= undefined){
             theme.css('border-color','#dedad9')
         }else{
             theme.css('border-color','red')
         }
+    }
+    
+    function validateFourNumbers(input) {
+    const regex = /^\d{4}$/; // Matches exactly four digits
+    return regex.test(input);
     }
 
     function getCSRFToken() {
@@ -201,117 +206,106 @@
                     icon: 'error',
                     title: 'Iltimos zayavka mavzusini kiriting!!!',
                 });
-            return 
-        }
-        
-
-        var all_correct = true;
-        var data_empty = false
-        if (Object.keys(data_base).length === 0) {
-            data_empty = true
-        }
-
-        for (var key in data_base) {
-            if (data_base.hasOwnProperty(key)) { 
-                var value = data_base[key];
-                if(!value.full){
-                    all_correct=false
-                }
-            }
-        }
-
-        if (!data_empty && all_correct){
-
-            var text_tr =''
-            var i = 1
-            for(key in data_base){
-                text_tr += `
-                    <tr>
-                        <th scope="row">${i}</th>
-                        <td>${data_base[key]['base_artikul']}</td>
-                        <td>${data_base[key]['kratkiy_tekst']}</td>
-                    </tr>
-                `
-                i +=1
-                    
-            }
-
-            var modal_body = $('#modal_body')
-            modal_body.children('tr').remove()
-            modal_body.append(text_tr)
-
-            $('#myModal').modal('show')
-
-
-
-
-           
-                
+             
         }else{
-            
-            if(!data_empty && !all_correct){
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Malumotlar to\'liq emas!!!',
-                    text: 'Itimos ma\'lumotlarni to\'ldiring.',
-                });
+
+    var all_correct = true;
+    var data_empty = false
+    if (Object.keys(data_base).length === 0) {
+        data_empty = true
+    }
+
+    for (var key in data_base) {
+        if (data_base.hasOwnProperty(key)) { 
+            var value = data_base[key];
+            if(!value.full){
+                all_correct=false
             }
         }
+    }
 
-   
+    if (!data_empty && all_correct){
+        
+        var text_tr =''
+        var i = 1
+        for(key in data_base){
+            text_tr += `
+                <tr>
+                    <th scope="row">${i}</th>
+                    <td>${data_base[key]['base_artikul']}</td>
+                    <td>${data_base[key]['kratkiy_tekst']}</td>
+                </tr>
+            `
+            i +=1
+                
+        }
+
+        var modal_body = $('#modal_body')
+        modal_body.children('tr').remove()
+        modal_body.append(text_tr)
+
+        $('#myModal').modal('show')
+    }else{
+        
+        if(!data_empty && !all_correct){
+            Swal.fire({
+                icon: 'error',
+                title: 'Malumotlar to\'liq emas!!!',
+                text: 'Itimos ma\'lumotlarni to\'ldiring.',
+            });
+        }
+    }
+
+}
 }
 
 
-function send_data(){
+    function send_data(){
 
-    var submit_btn = document.getElementById('save_btn')
-    var upload_btn = document.getElementById('upload_btn')
-    upload_btn.style.display ='block';
-    submit_btn.style.display ='none';
+        var submit_btn = document.getElementById('save_btn')
+        var upload_btn = document.getElementById('upload_btn')
+        upload_btn.style.display ='block';
+        submit_btn.style.display ='none';
 
-    var json_data = JSON.stringify(data_base)
-    var url = "order-save"
-    var csrfToken = getCSRFToken();
-    var theme =$('#theme').val()
-    var postData = {
-        'data': json_data,
-        'order_type':'alu_imzo',
-        'name':'ALUMINIY IMZO',
-        'order_name':theme
-    }
-    $.ajax({
-        type: 'POST',
-        url: url,
-        headers: { "X-CSRFToken": csrfToken },
-        data: postData,
-    }).done(function (res) {
-        console.log(res)
-        if (res.status ==201){
-            Swal.fire('Qabul qilindi...', '', 'success')
-            setTimeout(function() {
-                var url = '{%url "client_order_list" %}';
-                window.location.href = url;
-            }, 750);
-            close_modal()
-
-        }else{
-            Swal.fire('Something went wrong.', '', 'info')
-            console.log('aa')
-            close_modal()
+        var json_data = JSON.stringify(data_base)
+        var url = "order-save"
+        var csrfToken = getCSRFToken();
+        var theme =$('#theme').val()
+        var postData = {
+            'data': json_data,
+            'order_type':'alu_export',
+            'name':'ALUMINIY EXPORT',
+            'order_name':theme
         }
-        // WON'T REDIRECT
-    });
+        $.ajax({
+            type: 'POST',
+            url: url,
+            headers: { "X-CSRFToken": csrfToken },
+            data: postData,
+        }).done(function (res) {
+            console.log(res)
+            if (res.status ==201){
+                Swal.fire('Qabul qilindi...', '', 'success')
+                setTimeout(function() {
+                    var url = '{%url "client_order_list" %}';
+                    window.location.href = url;
+                }, 750);
+                close_modal()
 
- 
+            }else{
+                Swal.fire('Something went wrong.', '', 'info')
+                console.log('aa')
+                close_modal()
+            }
+            // WON'T REDIRECT
+        });
+     
 }
 
 
 function close_modal(){
 $('#myModal').modal('hide')
 }
-
-
 </script>
-
-<script  type="text/javascript" src="{% static 'js/imzo.js'%}"></script>
+<script src="{% static 'js/alu_export.js'%}"></script>
 {%endblock%}

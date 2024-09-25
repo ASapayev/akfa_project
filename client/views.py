@@ -1524,44 +1524,74 @@ def checker_send_to_jira(id):
 @customer_only
 def order_update_all(request,id):
    
-    if request.method =='POST':
-        data =request.POST.copy()
-        owner =request.user
-        order = Order.objects.get(id=id)
-        order.status = data.get('status',1)
-        order.save()
-        data['owner'] = owner
-        data['order'] = order
-        form = OrderFileForm(data,request.FILES)
-        if form.is_valid():
-            form.save()
-            order_details = OrderDetail.objects.filter(order = order)
-            send_event("test", "message", {
-                                        "id":order.id,
-                                        "order_name" : order.data['name'],
-                                        "owner" : None,
-                                        "checker":None,
-                                        "status":str(order.status),
-                                        "created_at":order.created_at
-                                        })
-            return redirect('client_order_list')
-    else:
+    # if request.method =='POST':
+    #     data =request.POST.copy()
+    #     owner =request.user
+    #     order = Order.objects.get(id=id)
+    #     order.status = data.get('status',1)
+    #     order.save()
+    #     data['owner'] = owner
+    #     data['order'] = order
+    #     form = OrderFileForm(data,request.FILES)
+    #     if form.is_valid():
+    #         form.save()
+    #         order_details = OrderDetail.objects.filter(order = order)
+    #         send_event("test", "message", {
+    #                                     "id":order.id,
+    #                                     "order_name" : order.data['name'],
+    #                                     "owner" : None,
+    #                                     "checker":None,
+    #                                     "status":str(order.status),
+    #                                     "created_at":order.created_at
+    #                                     })
+    #         return redirect('client_order_list')
+    # else:
+    nakleyka_list = NakleykaCode.objects.all()
+    order = Order.objects.get(id = id)
+    order_details = OrderDetail.objects.filter(order = order)
+    
+    extra_dict ={}
+    if str(order.order_type) =='alu_savdo' or str(order.order_type) =='alu_imzo' or str(order.order_type) =='alu_export' :
         nakleyka_list = NakleykaCode.objects.all()
-        order = Order.objects.get(id = id)
-        order_details = OrderDetail.objects.filter(order = order)
-        # order_history = OrderHistory.objects.filter(order=order).values('data')
-        # print(order_history,'lllll')
-        context ={
-            'status_name':STATUSES[str(order.status)],
-            'status':str(order.status),
-            'order_type':order.order_type,
-            'data':json.dumps(order.data),
-            'order_details':order_details,
-            'id':order.id,
+        brend_kraska = BrendKraska.objects.all().values('brend','kraska')
+        extra_dict ={
             'nakleyka_list': nakleyka_list,
-            # 'order_history':json.dumps(list(order_history))    
+            'brend_kaska':json.dumps(list(brend_kraska)),  
         }
-    return render(request,f'client/update.html',context)
+    elif str(order.order_type) =='pvc_savdo' or str(order.order_type) =='pvc_imzo' or str(order.order_type) =='pvc_export':
+        nakleyka_list = NakleykaPvc.objects.all().values_list('name','nadpis')
+        extra_dict ={
+            'nakleyka_list':json.dumps(list(nakleyka_list))
+            }
+    elif str(order.order_type) =='acs_savdo' or str(order.order_type) =='acs_zavod':
+        artikul_list = ArtikulAccessuar.objects.all().values_list('artikul')
+        extra_dict ={
+            'artikul_list':json.dumps(list(artikul_list))
+            }
+    elif str(order.order_type) =='acs_import':
+        category = Category.objects.all().values_list('name','code')
+        group_product = GroupProduct.objects.all().values_list('name','code')
+
+        extra_dict ={
+            'category':json.dumps(list(category)),
+            'group_product':json.dumps(list(group_product))
+            }
+       
+
+    context1 ={
+        'status_name':STATUSES[str(order.status)],
+        'status':str(order.status),
+        'order_type':str(order.order_type),
+        'data':json.dumps(order.data),
+        'order_details':order_details,
+        'id':order.id,
+        'nakleyka_list': nakleyka_list,
+        'status_process':'update',
+        'order':json.dumps(order.data['data'])
+
+    }
+    context ={**context1,**extra_dict}
+    return render(request,f'client/update/{str(order.order_type)}.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
@@ -1569,16 +1599,17 @@ def order_update(request,id):
     
     if request.method =='POST':
         order = Order.objects.get(id=id)
-        order_history = OrderHistory(order =order,data=order.data)
-        order_history.save()
+        order_name = order.data['name']
         data = request.POST.get('data',None)
-        name = request.POST.get('name',None)
         res = json.loads(data)
-        
         try:
-            # order.data = Order(data = {'name':name,'data':res})
-            order.data ={'name':name,'data':res}
-            order.save()
+            old_data = order.data['data']
+            similar = old_data == res
+            if not similar:
+                order_history = OrderHistory(order =order,data=order.data)
+                order_history.save()
+                order.data ={'name':order_name,'data':res}
+                order.save()
             return JsonResponse({'status':201})
         except:
             return JsonResponse({'status':405})
@@ -1600,60 +1631,60 @@ def order_update(request,id):
         }
     return render(request,f'client/update.html',context)
 
-@login_required(login_url='/accounts/login/')
-@customer_only
-def detail_order_update(request,id):
-    if request.method =='POST':
-        data =request.POST.copy()
-        owner =request.user
-        order = Order.objects.get(id=id)
-        order_history = OrderHistory.objects.filter(order=order).values()
-        order.status = data.get('status',1)
-        status_id_for_jira =STATUS_JIRA[order.status]['id']
-        jira_status_change(order.id_for_jira,status=status_id_for_jira)
-        order.save()
-        data['owner'] = owner
-        data['order'] = order
-        form = OrderFileForm(data,request.FILES)
-        if form.is_valid():
-            form.save()
-            order_details = OrderDetail.objects.filter(order = order)
-            context ={
-                'status_name':STATUSES[str(order.status)],
-                'status':str(order.status),
-                'order_type':order.order_type,
-                'data':json.dumps(order.data),
-                'order_details':order_details,
-                'id':order.id,
-                'order_history':json.dumps(order_history)  
+# @login_required(login_url='/accounts/login/')
+# @customer_only
+# def detail_order_update(request,id):
+#     if request.method =='POST':
+#         data =request.POST.copy()
+#         owner =request.user
+#         order = Order.objects.get(id=id)
+#         order_history = OrderHistory.objects.filter(order=order).values()
+#         order.status = data.get('status',1)
+#         status_id_for_jira =STATUS_JIRA[order.status]['id']
+#         jira_status_change(order.id_for_jira,status=status_id_for_jira)
+#         order.save()
+#         data['owner'] = owner
+#         data['order'] = order
+#         form = OrderFileForm(data,request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             order_details = OrderDetail.objects.filter(order = order)
+#             context ={
+#                 'status_name':STATUSES[str(order.status)],
+#                 'status':str(order.status),
+#                 'order_type':order.order_type,
+#                 'data':json.dumps(order.data),
+#                 'order_details':order_details,
+#                 'id':order.id,
+#                 'order_history':json.dumps(order_history)  
                          
-                }
-            send_event("test", "message", {
-                                        "id":order.id,
-                                        "order_name" : order.data['name'],
-                                        "owner" : None,
-                                        "checker":None,
-                                        "status":str(order.status),
-                                        "created_at":order.created_at,
-                                        })
-            return render(request,f'client/update.html',context)
-        else:
-            return JsonResponse({'form':form.errors})
-    else:
-        order = Order.objects.get(id = id)
-        order_details = OrderDetail.objects.filter(order = order)
-        order_history = OrderHistory.objects.filter(order=order).values()
-        context ={
-            'status_name':STATUSES[str(order.status)],
-            'status':str(order.status),
-            'order_type':order.order_type,
-            'data':json.dumps(order.data),
-            'order_details':order_details,
-            'id':order.id,
-            'order_history':json.dumps(order_history)  
+#                 }
+#             send_event("test", "message", {
+#                                         "id":order.id,
+#                                         "order_name" : order.data['name'],
+#                                         "owner" : None,
+#                                         "checker":None,
+#                                         "status":str(order.status),
+#                                         "created_at":order.created_at,
+#                                         })
+#             return render(request,f'client/update.html',context)
+#         else:
+#             return JsonResponse({'form':form.errors})
+#     else:
+#         order = Order.objects.get(id = id)
+#         order_details = OrderDetail.objects.filter(order = order)
+#         order_history = OrderHistory.objects.filter(order=order).values()
+#         context ={
+#             'status_name':STATUSES[str(order.status)],
+#             'status':str(order.status),
+#             'order_type':order.order_type,
+#             'data':json.dumps(order.data),
+#             'order_details':order_details,
+#             'id':order.id,
+#             'order_history':json.dumps(order_history)  
                
-        }
-    return render(request,f'client/update.html',context)
+#         }
+#     return render(request,f'client/update.html',context)
 
 
 
@@ -1832,18 +1863,15 @@ def index(request):
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_imzo_detail(request):
-    if request.method =='POST':
-        
-        return render(request,'client/created_link.html')
-    else:
-        nakleyka_list = NakleykaCode.objects.all()
-        brend_kraska = BrendKraska.objects.all().values('brend','kraska')
-        context ={
-            'nakleyka_list': nakleyka_list,
-            'brend_kaska':json.dumps(list(brend_kraska))
-        }
-        # return render(request,'client/shablonlar/example.html',context)
-        return render(request,'client/shablonlar/aluminiy_imzo.html',context)
+    nakleyka_list = NakleykaCode.objects.all()
+    brend_kraska = BrendKraska.objects.all().values('brend','kraska')
+    context ={
+        'nakleyka_list': nakleyka_list,
+        'brend_kaska':json.dumps(list(brend_kraska)),
+        'status':'new'
+    }
+    # return render(request,'client/shablonlar/example.html',context)
+    return render(request,'client/shablonlar/alu_imzo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
@@ -1852,9 +1880,10 @@ def shablon_savdo_detail(request):
     brend_kraska = BrendKraska.objects.all().values('brend','kraska')
     context ={
         'nakleyka_list': nakleyka_list,
-        'brend_kaska':json.dumps(list(brend_kraska))
+        'brend_kaska':json.dumps(list(brend_kraska)),
+        'status':'new'
     }
-    return render(request,'client/shablonlar/aluminiy_savdo.html',context)
+    return render(request,'client/shablonlar/alu_savdo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
@@ -1863,98 +1892,133 @@ def shablon_export_detail(request):
     brend_kraska = BrendKraska.objects.all().values('brend','kraska')
     context ={
         'nakleyka_list': nakleyka_list,
-        'brend_kaska':json.dumps(list(brend_kraska))
+        'brend_kaska':json.dumps(list(brend_kraska)),
+        'status':'new'
     }
-    return render(request,'client/shablonlar/aluminiy_export.html',context)
+    return render(request,'client/shablonlar/alu_export.html',context)
 
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_acs_export_detail(request):
-    return render(request,'client/shablonlar/accessuar_imzo.html')
+    context ={
+        'status':'new'
+    }
+    return render(request,'client/shablonlar/acs_imzo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_acs_savdo_detail(request):
     artikul_list = ArtikulAccessuar.objects.all().values_list('artikul')
     context ={
-        'artikul_list':json.dumps(list(artikul_list))
+        'artikul_list':json.dumps(list(artikul_list)),
+        'status':'new'
     }
-    return render(request,'client/shablonlar/accessuar_savdo.html',context)
+    return render(request,'client/shablonlar/acs_savdo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_acs_export_savdo_detail(request):
-    return render(request,'client/shablonlar/accessuar_export.html')
+    context ={
+        'status':'new'
+    }
+    return render(request,'client/shablonlar/acs_export.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_prochiye_tms_detail(request):
-    return render(request,'client/shablonlar/prochiye_tms.html')
+    context={
+        'status':'new'
+    }
+    return render(request,'client/shablonlar/prochiye_tms.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_acs_zavod_savdo_detail(request):
     artikul_list = ArtikulAccessuar.objects.all().values_list('artikul')
     context ={
-        'artikul_list':json.dumps(list(artikul_list))
+        'artikul_list':json.dumps(list(artikul_list)),
+        'status':'new'
     }
-    return render(request,'client/shablonlar/accessuar_zavod.html',context)
+    return render(request,'client/shablonlar/acs_zavod.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_pvc_export_detail(request):
     nakleyka_list = NakleykaPvc.objects.all().values_list('name','nadpis')
     context ={
-        'nakleyka_list':json.dumps(list(nakleyka_list))
+        'nakleyka_list':json.dumps(list(nakleyka_list)),
+        'status':'new'
     }
     return render(request,'client/shablonlar/pvc_imzo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_akp_savdo_detail(request):
-    return render(request,'client/shablonlar/akp_savdo.html')
+    context ={
+        'status':'new'
+    }
+    return render(request,'client/shablonlar/akp_savdo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_pvc_savdo_detail(request):
     nakleyka_list = NakleykaPvc.objects.all().values_list('name','nadpis')
     context ={
-        'nakleyka_list':json.dumps(list(nakleyka_list))
+        'nakleyka_list':json.dumps(list(nakleyka_list)),
+        'status':'new'
     }
     return render(request,'client/shablonlar/pvc_savdo.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_radiator_detail(request):
-    return render(request,'client/shablonlar/radiator.html')
+    context ={
+        'status':'new'
+    }
+    return render(request,'client/shablonlar/radiator.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_radiator_export_detail(request):
-    return render(request,'client/shablonlar/radiator_export.html')
+    context ={
+        'status':'new'
+    }
+    return render(request,'client/shablonlar/radiator_export.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_accessuar_texnopark_detail(request):
-    return render(request,'client/shablonlar/accessuar_texnopark.html')
+    context ={
+        'status':'new'
+    }
+    return render(request,'client/shablonlar/acs_texnopark.html',context)
 
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_prochiye_detail(request):
-    return render(request,'client/shablonlar/prochiye.html')
+    context={
+        'status':'new'
+    }
+    return render(request,'client/shablonlar/prochiye.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_change_data_detail(request):
-    return render(request,'client/shablonlar/change_data.html')
+    context ={
+        'status':'new'
+    }
+    return render(request,'client/shablonlar/change_data.html',context)
 
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def bussines_partner(request):
-    return render(request,'client/shablonlar/bussines_partner.html')
+    context ={
+        'status':'new'
+        }
+    return render(request,'client/shablonlar/bussines_partner.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
@@ -1964,16 +2028,18 @@ def shablon_accessuar_import_detail(request):
 
     context ={
         'category':json.dumps(list(category)),
-        'group_product':json.dumps(list(group_product))
+        'group_product':json.dumps(list(group_product)),
+        'status':'new'
     }
-    return render(request,'client/shablonlar/accessuar_import.html',context)
+    return render(request,'client/shablonlar/acs_import.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only
 def shablon_pvc_export_savdo_detail(request):
     nakleyka_list = NakleykaPvc.objects.all().values_list('name','nadpis')
     context ={
-        'nakleyka_list':json.dumps(list(nakleyka_list))
+        'nakleyka_list':json.dumps(list(nakleyka_list)),
+        'status':'new'
     }
     return render(request,'client/shablonlar/pvc_export.html',context)
 

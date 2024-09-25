@@ -39,12 +39,11 @@
 
             <!-- <section class="topics-detail-section section-padding" id="topics-detail"> -->
                
-                <div  class="table-responsive custom-max-height  " id="table-container" style="padding-top: 76px; ">
+                <div  class="table-responsive custom-max-height  "  style="padding-top: 76px; ">
                     {% csrf_token %}
                     <table class="table table-sm" id="my-table">
                         <thead style="line-height: 1;">
                           <tr>
-                            <th scope="col"  class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
                             {% include 'client/headers/akp_savdo.html' %}
                         </tr>
                         </thead>
@@ -56,26 +55,7 @@
                     
                 </div>
                
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="d-flex justify-content-start p-2">
-                                <input type="button" class="btn btn-warning mr-2 btn-sm" value="Добавить" onclick="add_column()" id="add_column_btn" >
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="d-flex justify-content-start p-2">
-                                <span class="m-1" style="font-weight: 700;" >Тема:</span>
-                                <input  type="text"  id="theme" class="form-control " onkeyup="show_zagruska_btn()" style="height: 30px;border-color:red">
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="d-flex justify-content-end p-2">
-                                <span  class="btn btn-primary btn-sm" value="" id="zagruzka_file"  onclick="ready_all()">Загрузить</span>
-                                
-                            </div>
-                        </div>
-                    </div>
+                 
           
             <!-- </section> -->
 
@@ -115,7 +95,7 @@
                 </div>
                 </div>
 
-          
+            {% include 'client/includes/chat.html'%}
         </main>
 {%endblock%}
 
@@ -127,6 +107,7 @@
 
 
 <script>
+    var jsonData='{{order|safe}}'
      var status_proccess = '{{status}}'
     function updateMaxHeight() {
       var windowHeight = $(window).height();

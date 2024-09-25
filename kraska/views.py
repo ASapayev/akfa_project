@@ -107,8 +107,8 @@ def delete_siryo(request,id):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','kraska']) 
 def create_siryo_from_file(request):
-    # file =f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\SAPCODE_BAZA.xlsx'
-    file =f'c:\\OpenServer\\domains\\SAPCODE_BAZA.xlsx'
+    file =f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\SAPCODE_BAZA.xlsx'
+    # file =f'c:\\OpenServer\\domains\\SAPCODE_BAZA.xlsx'
 
     df = pd.read_excel(file)
     df = df.astype(str)
@@ -260,7 +260,7 @@ def generate_norma_kraska(df_sapcodes,df_not_exists):
 
     baza_siryo = SiroKraska.objects.all().values('code','sapcode','kratkiy')
 
-    print(baza_siryo)
+    # print(baza_siryo)
 
     baza ={}
     for row in baza_siryo:
@@ -296,11 +296,12 @@ def generate_norma_kraska(df_sapcodes,df_not_exists):
     # print(makt.columns)
     count_2=0
     
-    itogo = Norma7.objects.filter(
-                        Q(data__MATN__icontains='Итого')
-                    )[:1].get().data
+    itogo = Norma7.objects.filter(Q(data__MATN__icontains='Итого'))[:1].get().data
     # print(baza)
     for key, row in df_sapcodes.iterrows():
+        zagolovok = str(row['CODE'])
+        itogo_val =float(itogo[zagolovok])
+
         df['ID'][count_2] ='1'
         df['MATNR'][count_2] = row['MATNR']
         df['WERKS'][count_2] = '4702'
@@ -309,7 +310,7 @@ def generate_norma_kraska(df_sapcodes,df_not_exists):
         df['STLAN'][count_2] = '1'
         df['ZTEXT'][count_2] = row['TEXT1']
         df['STKTX'][count_2] = 'Упаковка'
-        df['BMENG'][count_2] = '1000'
+        df['BMENG'][count_2] = round(itogo_val,3)
         df['BMEIN'][count_2] = 'КГ'
         df['STLST'][count_2] = '1'
         df['POSNR'][count_2] = ''
@@ -322,14 +323,14 @@ def generate_norma_kraska(df_sapcodes,df_not_exists):
         df['PUSTOY'][count_2] = ''
         df['LGORT'][count_2] = ''
         
-        zagolovok = str(row['CODE'])
+        
         
         result = Norma7.objects.filter(
                         Q(data__has_key=zagolovok) & ~Q(data__contains={zagolovok: "0"})
                     ).order_by('created_at').values('data')
 
         # print(itogo,'itogoogg')
-        itogo_val =float(itogo[zagolovok])
+        
 
         # print(zagolovok,'>>>>>>>',result)
         count_2 +=1
@@ -349,7 +350,8 @@ def generate_norma_kraska(df_sapcodes,df_not_exists):
                 df['POSTP'][count_2] = 'L'
                 df['MATNR1'][count_2] = baza_dat['MATNR']
                 df['TEXT2'][count_2] = baza_dat['TEXT1']
-                df['MEINS'][count_2] = round((float(first_val[zagolovok])/itogo_val)*1000,3)
+                # df['MEINS'][count_2] = round((float(first_val[zagolovok])/itogo_val)*1000,3)
+                df['MEINS'][count_2] = round((float(first_val[zagolovok])),3)
                 df['MENGE'][count_2] = 'КГ'
                 df['LGORT'][count_2] = 'PS02'
                 count_2 +=1
@@ -375,7 +377,8 @@ def generate_norma_kraska(df_sapcodes,df_not_exists):
             df['POSTP'][count_2] = 'L'
             df['MATNR1'][count_2] = str(data['SAPCODE']).replace('.0','')
             df['TEXT2'][count_2] = data['MATN']
-            df['MEINS'][count_2] = round((float(data[zagolovok])/itogo_val)*1000,3)
+            # df['MEINS'][count_2] = round((float(data[zagolovok])/itogo_val)*1000,3)
+            df['MEINS'][count_2] = round((float(data[zagolovok])),3)
             df['MENGE'][count_2] = 'КГ'
             df['LGORT'][count_2] = 'PS02'
             count_2 +=1

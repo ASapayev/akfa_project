@@ -5,9 +5,6 @@
 
                
     <style>
-        .chosen-container{
-            width: 150px!important;;
-        }
         .sticky-top {
             position: sticky;
             top: 0;
@@ -17,12 +14,10 @@
 
         .sticky-col {
             position: sticky;
-         
+           
             background-color: #f8f9fa; /* Adjust background color as needed */
             z-index: 500; /* Ensure column is above non-sticky columns */
             }
-
-        
 
         .table thead th {
             position: sticky;
@@ -37,6 +32,9 @@
             z-index: 600!important; /* Ensure th stay above sticky columns */
             background-color: #ffffff; /* Background color of sticky th */
             }
+        .chosen-container{
+            width: 180px!important;;
+        }
 
     </style>
 
@@ -49,8 +47,8 @@
                         <thead style="line-height: 1;">
                           <tr>
                             <th scope="col" class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
-                            {% include 'client/headers/acs_savdo.html'%}
-                            
+                            <th scope="col" class="sticky-th  text-center" style="font-size: 12px; left: 139.6px !important;;">Артикул</th>
+                            {% include 'client/headers/acs_import.html'%}
                         </tr>
                         </thead>
                         <tbody id="table-artikul">
@@ -102,8 +100,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Дата добавления цены</th>
-                                <th scope="col">Цена за БЕИ</th>
+                                <th scope="col">Артикул</th>
                                 <th scope="col">Online savdo ID</th>
                                 <th scope="col">Название</th>
                             </tr>
@@ -127,14 +124,19 @@
 {%endblock%}
 
 {%block java_script%}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script> 
 <script src="{%     static 'chosen/docsupport/jquery-3.2.1.min.js'%}" type="text/javascript"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+
 <link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
 
 <script>
+     var status_proccess = '{{status}}'
+    var category_list = '{{category|safe}}'
+    var group_product_list = '{{group_product|safe}}'
     
-function updateMaxHeight() {
+    function updateMaxHeight() {
       var windowHeight = $(window).height();
       var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
 
@@ -150,31 +152,56 @@ function updateMaxHeight() {
       updateMaxHeight();
     });
 
-    var artikul_list ='{{artikul_list|safe}}'
-    
-    
-    function set_base_artikul(element_list,selector,val='',add=true){
-        
-        var jsonData = JSON.parse(element_list)
-        
-        var select = $(selector);
-        
-        $.each(jsonData, function(index, item) {
-            var option = $('<option>', {
-                value: item[0],
-                text: item[0]
+
+    function set_val_category(element_list=category_list,selector,val='',add=true){
+            
+            var jsonData = JSON.parse(element_list)
+            
+            var select = $(selector);
+            
+            $.each(jsonData, function(index, item) {
+                var option = $('<option>', {
+                    value: item[0],
+                    text: item[0],
+                    'data-category': item[1] 
+                });
+                if(add){
+                    select.append(option);
+                }
             });
-            if(add){
-                select.append(option);
-            }
-        });
-        
-        $(selector).chosen({max_selected_options: 50,no_results_text: "Артикул не найден"});
-        $(selector).val(val);
-        $(selector).chosen({with:'100%'});
-        $(selector).trigger('chosen:updated');
-    }
-  
+            
+            $(selector).chosen({max_selected_options: 50,no_results_text: "Ничего не найден",width: '300px',});
+            $(selector).val(val);
+            $(selector).trigger('chosen:updated');
+        }
+
+    function set_val_group(element_list=group_product_list,selector,val='',add=true){
+            
+            var jsonData = JSON.parse(element_list)
+            
+            var select = $(selector);
+            
+            $.each(jsonData, function(index, item) {
+                var option = $('<option>', {
+                    value: item[0],
+                    text: item[0],
+                    'data-group-tovarov': item[1] 
+                });
+                if(add){
+                    select.append(option);
+                }
+            });
+            
+            $(selector).chosen({max_selected_options: 50,no_results_text: "Ничего не найден"});
+            $(selector).val(val);
+            $(selector).trigger('chosen:updated');
+        }
+    
+    
+
+
+
+
     function show_zagruska_btn(){
         var zagruzka_file =$('#zagruzka_file')
         var theme =$('#theme')
@@ -221,8 +248,7 @@ function updateMaxHeight() {
                         text_tr += `
                             <tr>
                                 <th scope="row">${i}</th>
-                                <td>${data_base[key]['pickupdate']}</td>
-                                <td>${data_base[key]['sena_za_bei']}</td>
+                                <td>${data_base[key]['artikul']}</td>
                                 <td>${data_base[key]['online_id']}</td>
                                 <td>${data_base[key]['nazvaniye_ruchnoy']}</td>
                             </tr>
@@ -266,8 +292,8 @@ function updateMaxHeight() {
         var csrfToken = getCSRFToken();
         var postData = {
             'data': json_data,
-            'order_type':'acs_savdo',
-            'name':'ACCESSUAR SAVDO',
+            'order_type':'acs_import',
+            'name':'ACCESSUAR IMPORT',
             'order_name':theme
         }
         $.ajax({
@@ -297,6 +323,7 @@ function updateMaxHeight() {
         $('#myModal').modal('hide')
     }
 </script>
-<script src="{% static 'js/accessuar_savdo.js'%}"></script>
+<script src="{% static 'js/acs_import.js'%}"></script>
+
 
 {%endblock%}

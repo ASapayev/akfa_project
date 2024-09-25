@@ -43,12 +43,11 @@
 
             <!-- <section class="topics-detail-section section-padding" id="topics-detail"> -->
              
-                <div  class="table-responsive custom-max-height  " id="table-container" style="padding-top: 76px; ">
+                <div  class="table-responsive custom-max-height  "  style="padding-top: 76px; ">
                     {% csrf_token %}
                     <table class="table table-sm" id="my-table">
                         <thead style="line-height: 1;">
                           <tr>
-                            <th scope="col" class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
 
                             {% include 'client/headers/acs_zavod.html'%}
                         </tr>
@@ -61,31 +60,11 @@
                     
                 </div>
                
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="d-flex justify-content-start p-2">
-                                <input type="button" class="btn btn-warning mr-2 btn-sm" value="Добавить" onclick="add_column()" id="add_column_btn" >
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="d-flex justify-content-start p-2">
-                                <span class="m-1" style="font-weight: 700;" >Тема:</span>
-                                <input  type="text"  id="theme" class="form-control " onkeyup="show_zagruska_btn()" style="height: 30px;border-color:red">
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="d-flex justify-content-end p-2">
-                                <span  class="btn btn-primary btn-sm" value="" id="zagruzka_file"  onclick="ready_all()">Загрузить</span>
-                                
-                            </div>
-                        </div>
-                    </div>
-       
+                   
             <!-- </section> -->
 
 
-           
+            {% include 'client/includes/chat.html'%}
         </main>
 
         <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -131,7 +110,9 @@
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
 
 <script>
-    
+    var jsonData='{{order|safe}}'
+
+     var status_proccess = '{{status}}'
 function updateMaxHeight() {
       var windowHeight = $(window).height();
       var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
@@ -303,6 +284,6 @@ function updateMaxHeight() {
         $('#myModal').modal('hide')
     }
 </script>
-<script src="{% static 'js/accessuar_zavod.js'%}"></script>
+<script src="{% static 'js/acs_zavod.js'%}"></script>
 
 {%endblock%}

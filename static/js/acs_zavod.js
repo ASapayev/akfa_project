@@ -50,20 +50,24 @@ class BasePokritiya{
 var data_base = {}
 
 function front_piece(start=1,end=6){
-    text =""
+    var text =""
 
     for (let i = start; i < end; i++) {
-        text +=`
-        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>                   
-        <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
+        var buttons =''
+        if(status_proccess == 'new'){
+            buttons=`<td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
                     <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Tozalab tashlash'><i class="bi bi-x-circle"></i></button>
                             <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Dubl qilish'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
                     </div>
-                    
-                    
-
-        </td>
+                     </td>`
+        }else{
+            buttons=``
+        }
+        text +=`
+        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>                   
+        `+buttons+
+         `
         <td >
             <div id='div_artikul`+String(i)+`'>
                 <select class ='form-select base_artikul_org`+String(i)+`' id='base_artikul`+String(i)+`'  style='text-transform: uppercase; padding-left:35%;height:27px!important;z-index:0;border-color:red' onchange="create_kratkiy_tekst(`+String(i)+`)" data-placeholder="..."></select>
@@ -146,9 +150,46 @@ text = front_piece()
 
 var table = $('#table-artikul')
 
-table.append(text)
+// table.append(text)
 
-artikul_list_add()
+if(status_proccess == 'new'){
+    table.append(text)
+    artikul_list_add()
+
+}else{
+    var jsonData = JSON.parse(jsonData);
+    // var jsonData ='{{order}}'
+
+    var ii= 1
+
+    for(var key1 in jsonData){
+        data_base[ii] = new BasePokritiya()
+        for(var key2 in jsonData[key1]){
+            data_base[ii][key2] = jsonData[key1][key2]
+        }
+        ii += 1
+    }
+
+
+
+    const lengthOfObject = Object.keys(jsonData).length;
+
+    var text = front_piece(1,lengthOfObject+1)
+
+
+
+    var table = $('#table-artikul')
+
+    table.append(text)
+
+    var i = 1
+    for(key2 in data_base){
+        copy_tr(key2,i)
+        i += 1
+    }
+}
+
+
 
 function artikul_list_add(start=1,end=6){
 
@@ -160,42 +201,37 @@ function artikul_list_add(start=1,end=6){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-function copy_tr(id){
+function copy_tr(id,ii=1){
     if(!data_base[id]){
         console.log('salom2222 copy')
     }else{
-        
-        text =""
-        var size = $('#table-artikul tr').length;
-        text = front_piece(start = size+1, end = size+2)
-        var table = $('#table_tr'+id)
-        var new_tr =$(text)
-
-        table.after(new_tr)
-        
-        
-        var data = new BasePokritiya()
-        for(key in data_base[id]){
-            data[key] = data_base[id][key]
-        }
+        if(status_proccess == 'new'){
+            text =""
+            var size = $('#table-artikul tr').length;
+            text = front_piece(start = size+1, end = size+2)
+            var table = $('#table_tr'+id)
+            var new_tr =$(text)
+    
+            table.after(new_tr)
             
-        
-
-        
-
-        data_base[size+1] = data
-        
-        var s = size+1
+            
+            var data = new BasePokritiya()
+            for(key in data_base[id]){
+                data[key] = data_base[id][key]
+            }
+                
+            
+    
+            
+    
+            data_base[size+1] = data
+            
+            var s = size+1
+        }else{
+            var data = data_base[id]
+            var s = ii
+            artikul_list_add(start = s, end = s+1)
+        }
 
         var base_artikul = data.base_artikul;
         var kratkiy_tekst = data.kratkiy_tekst;
@@ -209,7 +245,7 @@ function copy_tr(id){
         
         
         set_base_artikul(artikul_list,'.base_artikul_org'+s,base_artikul)
-        console.log(artikul_list,base_artikul)
+       
 
         check_input_and_change(kratkiy_tekst,'#kratkiy_tekst'+s,dis=false,is_req=true,is_req_simple=false)
         check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)

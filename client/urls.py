@@ -76,9 +76,18 @@ urlpatterns = [
 
     ####### Customer ######
     path('order-save',views.OrderSaveView.as_view(),name='order_save'),
-    path('detail-order-update/<int:id>',views.detail_order_update,name='detail_order_update'),
-    path('order-update-all/<int:id>',views.order_update_all,name='order_update_all'),
+
+
+
+    # path('detail-order-update/<int:id>',views.detail_order_update,name='detail_order_update'),
+    path('detail-order-update/<int:id>',views.order_update_all,name='order_update_all'),
     path('order-update/<int:id>',views.order_update,name='order_update'),
+
+
+
+
+
+
     path('customer-order-detail/<int:id>',views.order_detail,name='customer_order_detail'),
     path('order-list',views.order_list,name='client_order_list'),
     path('order-list-test',views.order_list_test,name='client_order_list_test'),

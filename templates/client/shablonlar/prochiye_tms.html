@@ -122,8 +122,10 @@
 
 <link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
-<script src="{% static 'js/prochiye_tms.js'%}"></script>
+
 <script>
+
+     var status_proccess = '{{status}}'
     function updateMaxHeight() {
       var windowHeight = $(window).height();
       var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
@@ -265,5 +267,5 @@
     }
 
 </script>
-
+<script src="{% static 'js/prochiye_tms.js'%}"></script>
 {%endblock%}

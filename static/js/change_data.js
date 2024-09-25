@@ -143,22 +143,30 @@ class BasePokritiya{
 var data_base = {}
 
 function front_piece(start=1,end=6){
-    text =""
+    var text =""
 
     for (let i = start; i < end; i++) {
-        data_base[i] = new BasePokritiya()
-        data_base[i].id = 1
-        text +=`
-        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>                   
-        <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
+       
+
+        var buttons =''
+        if(status_proccess == 'new'){
+            data_base[i] = new BasePokritiya()
+            data_base[i].id = 1
+            buttons=`<td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
                     <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Tozalab tashlash'><i class="bi bi-x-circle"></i></button>
                             <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Dubl qilish'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
                     </div>
-                    
-                    
+                    </td>`
+        }else{
+            buttons=``
 
-        </td>
+        }
+
+        text +=`
+        <tr id='table_tr` +String(i)+`' style='padding-bottom:0!important;margin-bottom:0!important;'>                   
+        `+buttons+
+         `
         <td >
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 270px;text-transform: uppercase; font-size:12px; padding-right:0px;z-index:0" id='vid_zayavki`+String(i)+`' onchange='select_condition(`+String(i)+`)' required>
@@ -447,7 +455,45 @@ text = front_piece()
 
 var table = $('#table-artikul')
 
-table.append(text)
+// table.append(text)
+
+
+
+if(status_proccess == 'new'){
+    table.append(text)
+
+}else{
+    var jsonData = JSON.parse(jsonData);
+    // var jsonData ='{{order}}'
+
+    var ii= 1
+
+    for(var key1 in jsonData){
+        data_base[ii] = new BasePokritiya()
+        for(var key2 in jsonData[key1]){
+            data_base[ii][key2] = jsonData[key1][key2]
+        }
+        ii += 1
+    }
+
+
+
+    const lengthOfObject = Object.keys(jsonData).length;
+
+    var text = front_piece(1,lengthOfObject+1)
+
+
+
+    var table = $('#table-artikul')
+
+    table.append(text)
+
+    var i = 1
+    for(key2 in data_base){
+        copy_tr(key2,i)
+        i += 1
+    }
+}
 
 function removeQuotesFromStartAndEnd(str) {
     // Remove double quotes from the beginning and end of the string
@@ -612,32 +658,37 @@ function select_condition(id){
 
 
 
-function copy_tr(id){
+function copy_tr(id,ii=1){
     if(!data_base[id]){
         console.log('salom2222 copy')
     }else{
         
-        text =""
-        var size = $('#table-artikul tr').length;
-        text = front_piece(start = size+1, end = size+2)
-        var table = $('#table_tr'+id)
-        var new_tr =$(text)
+        if(status_proccess == 'new'){
+            text =""
+            var size = $('#table-artikul tr').length;
+            text = front_piece(start = size+1, end = size+2)
+            var table = $('#table_tr'+id)
+            var new_tr =$(text)
 
-        table.after(new_tr)
-        
-        
-        var data = new BasePokritiya()
-        for(key in data_base[id]){
-            data[key] = data_base[id][key]
-        }
+            table.after(new_tr)
             
-        
+            
+            var data = new BasePokritiya()
+            for(key in data_base[id]){
+                data[key] = data_base[id][key]
+            }
+                
+            
 
-        
+            
 
-        data_base[size+1] = data
-        
-        var s = size+1
+            data_base[size+1] = data
+            
+            var s = size+1
+        }else{
+            var data = data_base[id]
+            var s = ii
+        }
 
         var vid_zayavki = data.vid_zayavki;
         var id_savdo = data.id_savdo;

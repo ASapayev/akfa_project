@@ -51,19 +51,19 @@
                                           <div class="p-1"><i class="bi bi-clock"></i></div>
                                         </div>
                                       </td>
-                                    <td id="options_{{order.id}}" data-loop="{{forloop.counter}}" >
+                                    <td  data-loop="{{forloop.counter}}" >
 
-                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                        <div class="btn-group" role="group" aria-label="Basic example" id="options_{{order.id}}">
                                             <!-- <button type="button" class="btn btn-outline-secondary">1</button> -->
                                             <a href="{%url 'order_update_all' order.id %}" class="btn btn-primary btn-sm" ><i class="bi bi-eye"></i> История</a>
                                             {%if order.status|stringformat:"d" == '10081' or order.status|stringformat:"d" == '10084'%}
                                             <a href="{%url 'order_update_all' order.id %}" class="btn btn-warning btn-sm" ><i class="bi bi-pen-fill"></i> Изменить</a>
                                             {%endif%}
+                                            {%if order.status|stringformat:"d" == '10083' and order.partner %}
+                                                {%if order.status|stringformat:"d" == '10083' and order.partner == request.user %}<a href="{%url 'order_update_all' order.id %}" class="btn btn-warning btn-sm" ><i class="bi bi-pen-fill"></i> Edit</a>{%endif%}
+                                            {%endif%}
                                         </div>
 
-                                        {%if order.status|stringformat:"d" == '10083' and order.partner %}
-                                            {%if order.status|stringformat:"d" == '10083' and order.partner == request.user %}<a href="{%url 'order_update_all' order.id %}" class="btn btn-warning btn-sm" ><i class="bi bi-pen-fill"></i> Edit</a>{%endif%}
-                                        {%endif%}
                                         </td>
                                 </tr>
                             {%endfor%}
@@ -314,8 +314,8 @@
           var option_text =''
           if(status =='На паузе'){
             // option_text =`<a href="/client/order-convert/${order_id}" class="btn btn-warning btn-sm" id="link${forloop}" ><i class="bi bi-pen"></i> Convert</a>`
-            option_text =`<a href="/client/order-update-all/${order_id}" class="btn btn-warning btn-sm" ><i class="bi bi-pen-fill"></i> Edit</a>`
-            option_button.children('a').remove()
+            option_text =`<a href="/client/detail-order-update/${order_id}" class="btn btn-warning btn-sm" ><i class="bi bi-pen-fill"></i> Изменить</a>`
+            // option_button.children('a').remove()
             option_button.append(option_text)
           }else{
             option_button.children('a').remove()
