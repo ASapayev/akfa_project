@@ -1456,24 +1456,32 @@ function status_change(val){
 
 
 function downloadTableAsExcel() {
-            const table = document.getElementById("my-table");
-            const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+          const table = document.getElementById("my-table");
 
-            // Create a Blob object representing the data as an Excel file
-            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-            const blob = new Blob([wbout], { type: 'application/octet-stream' });
-            const url = URL.createObjectURL(blob);
+          // Loop through table cells and correct the decimal separator
+          Array.from(table.getElementsByTagName('td')).forEach(td => {
+              if (td.innerText.includes(',')) {
+                  td.innerText = td.innerText.replace(',', '.'); // Replace comma with dot
+              }
+          });
 
-            // Create a link element, set its attributes, and trigger a click event to initiate download
-            const a = document.createElement("a");
-            a.style.display = "none";
-            a.href = url;
-            a.download = order_type + "_.xlsx";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
+          const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+          
+          // Write the workbook and create a Blob object representing the data as an Excel file
+          const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+          const blob = new Blob([wbout], { type: 'application/octet-stream' });
+          const url = URL.createObjectURL(blob);
+
+          // Create a download link
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = url;
+          a.download = order_type + "_.xlsx";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+      }
 
 
 

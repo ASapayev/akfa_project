@@ -248,7 +248,7 @@ function front_piece(start=1,end=6){
                 <option value="1005">Мет серый кварц</option>
                 <option value="1006">Мет серый антрацит</option>
                 <option value="1012">Алюкс антрацит</option>
-                <option value="1015">Алюкс алюмин</option>
+                <option value="1015">Алюкс белый алюмин</option>
                 <option value="1016">Алюкс серый алюмин</option>
                 <option value="2007">Красный орех</option>
                 <option value="2012">Орех</option>
@@ -327,7 +327,7 @@ function front_piece(start=1,end=6){
                 <option value="1005">Мет серый кварц</option>
                 <option value="1006">Мет серый антрацит</option>
                 <option value="1012">Алюкс антрацит</option>
-                <option value="1015">Алюкс алюмин</option>
+                <option value="1015">Алюкс белый алюмин</option>
                 <option value="1016">Алюкс серый алюмин</option>
                 <option value="2007">Красный орех</option>
                 <option value="2012">Орех</option>

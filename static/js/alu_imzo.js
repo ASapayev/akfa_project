@@ -696,6 +696,7 @@ function front_piece(start=1,end=6){
                 <option value="6082" >6082</option>
                 <option value="6060" >6060</option>
                 <option value="6005" >6005</option>
+                <option value="6005A" >6005A</option>
             </select>
             
             </div>
@@ -703,8 +704,8 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1"  style="width: 60px;">
             <select class="form-select" aria-label="" style="width: 50px;!important;height:27px!important;z-index:0"  disabled id='tip_zakalyonnosti`+String(i)+`'  onchange="create_kratkiy_tekst(`+String(i)+`)">
-               
-                <option value="T6" selected >T6</option>
+                <option  selected></option>
+                <option value="T6" >T6</option>
                 <option value="T66" >T66</option>
                 <option value="T5" >T5</option>
                 <option value="T52" >T52</option>
@@ -838,6 +839,7 @@ function front_piece(start=1,end=6){
                 <option value="1015">Алюкс алюмин</option>
                 <option value="2025">Светлый дуб</option>
                 <option value="1022">Ocean Blue</option>
+                <option value="3007">Тропик Дуб</option>
                 <option value="XXXX">XXXX</option>
             </select>
             </div>
@@ -881,6 +883,7 @@ function front_piece(start=1,end=6){
                     <option value="1015">Алюкс алюмин</option>
                     <option value="2025">Светлый дуб</option>
                     <option value="1022">Ocean Blue</option>
+                    <option value="3007">Тропик Дуб</option>
                     <option value="XXXX">XXXX</option>
                 </select>
             </div>
@@ -1130,10 +1133,10 @@ function request_piece(start=1,end=6){
                     var nadpisValue = selectedOption.data('nadpis');
                     nadpis_nakleyki.text(nadpisValue)
                 }else{
-                    console.log('222 com')
+                    
                     var pokritiya = data_base[i].id
                     if(pokritiya == 1 || pokritiya =='1'){
-                        console.log('222 com 222','pokrrr1')
+                        
                         nakleyka.css('display','block')
                         nakleyka.val('NT1')
                         nadpis_nakleyki.text('БЕЗ НАКЛЕЙКИ')
@@ -1729,7 +1732,7 @@ function clear_artikul(id){
 
 
             var splav = $('#splav'+String(id));
-            // splav.val('0').change();
+            splav.val('').change();
             splav.attr("disabled",true);
             splav.css("border-color",'#dedad9');
             var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
@@ -1812,7 +1815,7 @@ function artukil_clear(id){
 
 
     var splav = $('#splav'+String(id));
-    // splav.val('0').change();
+    splav.val('').change();
     splav.attr("disabled",true);
     splav.css("border-color",'#dedad9');
     var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));

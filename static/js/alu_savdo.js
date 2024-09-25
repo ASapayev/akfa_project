@@ -521,6 +521,7 @@ function front_piece(start=1,end=7){
                 <option value="6082" >6082</option>
                 <option value="6060" >6060</option>
                 <option value="6005" >6005</option>
+                <option value="6005A" >6005A</option>
             </select>
             
             </div>
@@ -662,6 +663,7 @@ function front_piece(start=1,end=7){
                                 <option value="1015">Алюкс алюмин</option>
                                 <option value="2025">Светлый дуб</option>
                                 <option value="1022">Ocean Blue</option>
+                                <option value="3007">Тропик Дуб</option>
                                 <option value="XXXX">XXXX</option>
 
             </select>
@@ -706,6 +708,7 @@ function front_piece(start=1,end=7){
                                     <option value="1015">Алюкс алюмин</option>
                                     <option value="2025">Светлый дуб</option>
                                     <option value="1022">Ocean Blue</option>
+                                    <option value="3007">Тропик Дуб</option>
                                     <option value="XXXX">XXXX</option>
 
                 </select>
@@ -2041,11 +2044,15 @@ function artukil_clear(id){
     var buxgalter_tovar =$('#buxgalter_tovar'+id);
     var zavod_name =$('#zavod_name'+id)
     var diller =$('#diller'+id)
+    var comment =$('#comment'+id)
+    var dilina_pressa =$('#dilina_pressa'+id)
     var tip_clienta =$('#tip_clienta'+id)
     zavod_name.text('')
     var baza_profiley =$('#baza_profiley'+id)
     baza_profiley.text('')
 
+    comment.val('')
+    dilina_pressa.val('')
     diller.val('')
     tip_clienta.val('AKFA')
 
@@ -2084,6 +2091,7 @@ function artukil_clear(id){
     // sap_code_ruchnoy.attr('disabled',false)
     // kratkiy_tekst_ruchnoy.attr('disabled',false)
     
+
     sap_code_ruchnoy.val('')
     kratkiy_tekst_ruchnoy.val('')
     online_savdo_id.val('')

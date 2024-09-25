@@ -353,7 +353,7 @@ def generate_norma_kraska(df_sapcodes,df_not_exists):
                 # df['MEINS'][count_2] = round((float(first_val[zagolovok])/itogo_val)*1000,3)
                 df['MEINS'][count_2] = round((float(first_val[zagolovok])),3)
                 df['MENGE'][count_2] = 'КГ'
-                df['LGORT'][count_2] = 'PS02'
+                df['LGORT'][count_2] = 'PS01'
                 count_2 +=1
                 count +=1
 
@@ -380,7 +380,7 @@ def generate_norma_kraska(df_sapcodes,df_not_exists):
             # df['MEINS'][count_2] = round((float(data[zagolovok])/itogo_val)*1000,3)
             df['MEINS'][count_2] = round((float(data[zagolovok])),3)
             df['MENGE'][count_2] = 'КГ'
-            df['LGORT'][count_2] = 'PS02'
+            df['LGORT'][count_2] = 'PS01'
             count_2 +=1
             count +=1
 
