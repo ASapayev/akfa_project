@@ -53,6 +53,102 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">SAP CODE</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='sapcode1' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">Коробка внешняя</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='korobka1' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">ШТ</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='sht1' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">SAP CODE</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='sapcode2' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">Коробка круглая</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='korobka2' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">ШТ</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='sht2' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">SAP CODE</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='sapcode3' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">Наклейка</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='korobka3' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">ШТ</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='sht3' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">SAP CODE</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='sapcode4' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">Пакет</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='korobka4' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="">КГ</label>
+                        <div class="col-sm-9">
+                          <input type="text" id ='kg2' class="form-control" value="">
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <button type="button" class="btn btn-success" onclick="save_krat('{{sapcode.id}}')">SAVE</button>
                 </form>
@@ -75,6 +171,31 @@
         var sapcode =$('#sapcode').val()
         var kratkiy =$('#kratkiy').val()
         var shop =$('#shop').val()
+
+        var sapcode1 =$('#sapcode1').val()
+        var korobka1 =$('#korobka1').val()
+        var sht1 =$('#sht1').val()
+
+        var sapcode2 =$('#sapcode2').val()
+        var korobka2 =$('#korobka2').val()
+        var sht2 =$('#sht2').val()
+
+        var sapcode3 =$('#sapcode3').val()
+        var korobka3 =$('#korobka3').val()
+        var sht3 =$('#sht3').val()
+
+        var sapcode4 =$('#sapcode4').val()
+        var korobka4 =$('#korobka4').val()
+        var kg2 =$('#kg2').val()
+        
+
+
+
+
+
+
+
+
         var section ='{{section}}'
         var url = "/epdm/add-sapcode"
         var url2 = '{%url "show_siryo" %}'
@@ -83,10 +204,24 @@
         var csrfToken = getCSRFToken();
         var postData = {
             'data':JSON.stringify({
-                'kg':kg,
-                'sapcode':sapcode,
-                'kratkiy': kratkiy,
-                'shop': shop,
+                'Норма кг':kg,
+                'MATNR':sapcode,
+                'TEXT1': kratkiy,
+                'ШОР 1': shop,
+                
+                'SAP CODE1':sapcode1,
+                'Коробка внешняя':korobka1,
+                'шт1':sht1,
+                'SAP CODE2':sapcode2,
+                'Коробка круглая':korobka2,
+                'шт2':sht2,
+                'SAP CODE3':sapcode3,
+                'Наклейка':korobka3,
+                'шт3':sht3,
+                'SAP CODE4':sapcode4,
+                'Пакет':korobka4,
+                'кг':kg2,
+
             })
             
         }

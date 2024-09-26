@@ -567,7 +567,7 @@ function copy_tr(id,ii=1){
             check_input_and_change(status_online,'#status'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(zavod,'#zavod_name'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(tip_clenta,'#tip_clenta'+s,dis=false,is_req=true,is_req_simple=false)
-            check_input_and_change(comment,'#tip_clenta'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
             }
         else{
             activate_btn.css('background-color','orange')
@@ -591,7 +591,7 @@ function copy_tr(id,ii=1){
             check_input_and_change(status_online,'#status'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(zavod,'#zavod_name'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(tip_clenta,'#tip_clenta'+s,dis=false,is_req=false,is_req_simple=true)
-            check_input_and_change(comment,'#tip_clenta'+s,dis=false,is_req=false,is_req_simple=true)
+            check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
 
         }
 

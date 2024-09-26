@@ -347,10 +347,10 @@
                 const dayEnd = Math.min(end.getTime(), workEnd.getTime());
 
                 // If there's a valid work period
-                console.log(dayStart,' <<<< day start  ',dayEnd,' <<<< day end')
+              
                 if (dayStart < dayEnd) {
                 const duration = dayEnd - dayStart;
-                console.log(Math.floor(duration / (1000 * 60))%60,Math.floor(Math.floor(duration / (1000 * 60))/60),currentDate.getDate(),'#########')
+                
                 totalMinutes += Math.floor(duration / (1000 * 60)); // Convert milliseconds to minutes
                 }
             }
@@ -589,11 +589,12 @@ function stopInterval(createdAt, i) {
     var data = JSON.parse(e.data)
     var order_id = data['id']
     var checker = data['checker']
-    var status = data['status']
+    var status = data['status_name']
     var is_alu = data['is_alu']
 
     var option_button = $('#options_'+order_id)
     var forloop = option_button.attr('data-loop');
+    console.log(data,typeof(data))
 
     if(status != 'Выполнено'){
 
@@ -602,6 +603,7 @@ function stopInterval(createdAt, i) {
         checker_text =`<i class="bi bi-person-check mr-1"></i>${checker}`
         checker_site.append(checker_text)
       }
+      // console.log(status,'sstssss')
       var status_ = $('#status_'+order_id)
       status_.children('span').remove()
       var status_text =''
@@ -613,7 +615,7 @@ function stopInterval(createdAt, i) {
         case 'Согласование':status_text=`<span value="10083" class="badge badge-warning"  >Согласование</span>`; break;
         case 'Отменено':status_text=`<span value="10082" class="badge badge-danger"  >Отменено</span>`; break;
         case 'Доработка заявителем':status_text=`<span value="10084" class="badge badge-warning" >Доработка заявителем</span>`; break;
-        case 'Исправлено':status_text=`<span value="10084" class="badge badge-warning"  >Исправлено</span>`; break;
+        case 'Исправлено':status_text=`<span value="10085" class="badge badge-warning"  >Исправлено</span>`; break;
       }
       status_.append(status_text)
   
@@ -661,7 +663,7 @@ function stopInterval(createdAt, i) {
         zavod_join.children('div').remove()
       }
     }else{
-      console.log(forloop,'forlooppppp')
+    
       var created_at = document.getElementById('created_at' + forloop).innerText;
       stopInterval(created_at,forloop)
       var element = $('#tr_loop_'+order_id)

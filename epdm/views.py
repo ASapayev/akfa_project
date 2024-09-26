@@ -17,25 +17,36 @@ import string
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','epdm']) 
 def create_siryo_from_file(request):
-    # file =f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\epdm (7).xlsx'
-    file =f'c:\\OpenServer\\domains\\epdm (7).xlsx'
+    if request.method == 'POST':
+        data = request.POST.copy()
+        data['type']='termo'
+        form = NormaEpdmFileForm(data, request.FILES)
+        if form.is_valid():
+            normaa =SiroEpdm.objects.all()
+            normaa.delete()
+            form_file = form.save()
+            file = form_file.file
+            path =f'{MEDIA_ROOT}/{file}'
+            
+            df = pd.read_excel(path,sheet_name='sapcode')
+            
 
-    df = pd.read_excel(file,sheet_name='a')
-    df = df.astype(str)
-    # print(df)
+            df = df.astype(str)
+            df = df.replace('nan','')
+            df = df.replace('0.0','')
+            df = df.replace(' ','')
+            
+            columns = df.columns
 
-    for key,row in df.iterrows():   
-            # # data =data[key]
-         
-        artikul_component = SiroEpdm(
-            kg = row['Норма кг'].replace(',','.'),
-            sapcode = row['MATNR'],
-            kratkiy = row['TEXT1'],
-            shop = row['ШОР 1'],
-            )
-        artikul_component.save()
+            SiroEpdm(data ={'columns':list(columns)}).save()
 
-    return JsonResponse({'a':'b'})
+            for key, row in df.iterrows():
+                norma_dict = {}
+                for col in columns:
+                    norma_dict[col]=row[col]
+                SiroEpdm(data =norma_dict).save()
+
+    return render(request,'norma/benkam/main.html')
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','epdm']) 
@@ -45,15 +56,11 @@ def create_siryo(request):
         data_json = request.POST.get('data',None)
         
         datas = json.loads(data_json)
-       
-           
-            # # data =data[key]
+
         artikul_component = SiroEpdm(
-            kg = datas['kg'].replace(',','.'),
-            sapcode = datas['sapcode'],
-            kratkiy = datas['kratkiy'],
-            shop = datas['shop'],
-            )
+            data=datas
+            )   
+            
         artikul_component.save()
 
         return JsonResponse({'status':201})
@@ -71,11 +78,8 @@ def edit_siryo(request,id):
             data_json = request.POST.get('data',None)
         
             datas = json.loads(data_json)
-
-            sapcode_org.kg = datas['kg'].replace(',','.')
-            sapcode_org.kratkiy = datas['kratkiy']
-            sapcode_org.shop = datas['shop']
-            sapcode_org.save()
+            sapcode_org.data = datas
+            sapcode_org.save() 
             
             return JsonResponse({'status':201})
       else:
@@ -124,7 +128,8 @@ def show_siryo(request):
 
       if search_text:
             products = SiroEpdm.objects.filter(
-                  Q(sapcode__icontains = search_text)
+                  Q(data__MATNR__icontains = search_text)
+                  
             ).order_by('-created_at')
       else:
             products = SiroEpdm.objects.all().order_by('-created_at')
@@ -155,7 +160,7 @@ def show_siryo(request):
 @login_required(login_url='/accounts/login/') 
 @allowed_users(allowed_roles=['admin','moderator','epdm']) 
 def find_norma(request):
-    all_data = [ [] for i in range(4)]
+    all_data = [ [] for i in range(17)]
     does_not_exists = []
 
     if request.method =='POST':
@@ -163,15 +168,44 @@ def find_norma(request):
         if ozmk:
             ozmks = ozmk.split()
             for ozm in ozmks:
-                if SiroEpdm.objects.filter(sapcode=ozm).exists():
-                    siryo = SiroEpdm.objects.filter(sapcode=ozm)[:1].get()
-                    all_data[0].append(siryo.kg)
-                    all_data[1].append(siryo.sapcode)
-                    all_data[2].append(siryo.kratkiy)
-                    all_data[3].append(siryo.shop)
+                if SiroEpdm.objects.filter(data__MATNR__icontains=ozm).exists():
+                    siryo = SiroEpdm.objects.filter(data__MATNR__icontains=ozm)[:1].get().data
+                    all_data[0].append(siryo['Норма кг'])
+                    all_data[1].append(siryo['MATNR'])
+                    all_data[2].append(siryo['TEXT1'])
+                    all_data[3].append(siryo['ШОР 1'])
+                    all_data[4].append(siryo['SAP CODE1'])
+                    all_data[5].append(siryo['Коробка внешняя'])
+                    all_data[6].append(siryo['шт1'])
+                    all_data[7].append(siryo['SAP CODE2'])
+                    all_data[8].append(siryo['Коробка круглая'])
+                    all_data[9].append(siryo['шт2'])
+                    all_data[10].append(siryo['SAP CODE3'])
+                    all_data[11].append(siryo['Наклейка'])
+                    all_data[12].append(siryo['шт3'])
+                    all_data[13].append(siryo['SAP CODE4'])
+                    all_data[14].append(siryo['Пакет'])
+                    all_data[15].append(siryo['кг'])
                 else:
                     does_not_exists.append(ozm)
-            data_df =pd.DataFrame({'MATNR':all_data[1],'TEXT1':all_data[2],'Норма кг':all_data[0],'ШОР 1':all_data[3]})
+            data_df =pd.DataFrame({
+                        'NORMA KG':all_data[0],
+                        'MATNR':all_data[1],
+                        'TEXT1':all_data[2],
+                        'SHOP1':all_data[3],
+                        'SAPCODE1':all_data[4],
+                        'KOROBKA VNESH':all_data[5],
+                        'SHT1':all_data[6],
+                        'SAPCODE2':all_data[7],
+                        'KOROBKA KRUG':all_data[8],
+                        'SHT2':all_data[9],
+                        'SAPCODE3':all_data[10],
+                        'NAKLEYKA':all_data[11],
+                        'SHT3':all_data[12],
+                        'SAPCODE4':all_data[13],
+                        'PAKET':all_data[14],
+                        'KG':all_data[15],
+                        })
             df_not = pd.DataFrame({'SAP CODE':does_not_exists})
             path = generate_norma_epdm(data_df,df_not)
             
@@ -291,6 +325,7 @@ def generate_norma_epdm(df_sapcodes,df_not_exists):
                     )[:1].get().data
     
     for key, row in df_sapcodes.iterrows():
+        print(key)
         
         df['ID'][count_2] ='1'
         df['MATNR'][count_2] = row['MATNR']
@@ -312,8 +347,59 @@ def generate_norma_epdm(df_sapcodes,df_not_exists):
         df['DATUV'][count_2] = '01012023'
         df['PUSTOY'][count_2] = ''
         df['LGORT'][count_2] = ''
-        
-        zagolovok = str(row['ШОР 1'])
+
+
+        count_2 +=1
+        count = 1
+
+        for ii in range(1,5):
+            if ii == 1 and row['SAPCODE1'] != '':
+                df['ID'][count_2] = '2'
+                df['POSNR'][count_2] = count
+                df['POSTP'][count_2] = 'L'
+                df['MATNR1'][count_2] = str(int(float(row['SAPCODE1'])))
+                df['TEXT2'][count_2] = row['KOROBKA VNESH']
+                df['MEINS'][count_2] =  int(float(row['SHT1'])*1000)
+                df['MENGE'][count_2] = 'ШТ'
+                df['LGORT'][count_2] = 'PS01'
+                count_2 +=1
+                count +=1
+            if ii == 2 and row['SAPCODE2'] != '':
+                df['ID'][count_2] = '2'
+                df['POSNR'][count_2] = count
+                df['POSTP'][count_2] = 'L'
+                df['MATNR1'][count_2] = str(int(float(row['SAPCODE2'])))
+                df['TEXT2'][count_2] = row['KOROBKA KRUG']
+                df['MEINS'][count_2] =  int(float(row['SHT2'])*1000)
+                df['MENGE'][count_2] = 'ШТ'
+                df['LGORT'][count_2] = 'PS01'
+                count_2 +=1
+                count +=1
+            if ii == 3 and row['SAPCODE3'] != '':
+                df['ID'][count_2] = '2'
+                df['POSNR'][count_2] = count
+                df['POSTP'][count_2] = 'L'
+                df['MATNR1'][count_2] = str(int(float(row['SAPCODE3'])))
+                df['TEXT2'][count_2] = row['NAKLEYKA']
+                df['MEINS'][count_2] =  int(float(row['SHT3'])*1000)
+                df['MENGE'][count_2] = 'ШТ'
+                df['LGORT'][count_2] = 'PS01'
+                count_2 +=1
+                count +=1
+            if ii == 4 and row['SAPCODE4'] != '':
+                df['ID'][count_2] = '2'
+                df['POSNR'][count_2] = count
+                df['POSTP'][count_2] = 'L'
+                df['MATNR1'][count_2] = str(int(float(row['SAPCODE4'])))
+                df['TEXT2'][count_2] = row['PAKET']
+                df['MEINS'][count_2] =  round(float(row['KG'])* 1000,3)
+                df['MENGE'][count_2] = 'КГ'
+                df['LGORT'][count_2] = 'PS01'
+                count_2 +=1
+                count +=1
+
+
+        zagolovok = str(row['SHOP1'])
         
         result = NormaEpdm.objects.filter(
                         Q(data__has_key=zagolovok) & ~Q(data__contains={zagolovok: "0"}) & ~Q(data__contains={zagolovok: ""})
@@ -323,11 +409,10 @@ def generate_norma_epdm(df_sapcodes,df_not_exists):
         itogo_val =float(itogo[zagolovok])
 
         
-        count_2 +=1
-        count = 1
+        
 
         
-        norma_kg = float(str(row['Норма кг']).replace(',','.'))
+        norma_kg = float(str(row['NORMA KG']).replace(',','.'))
 
         for norm in result:
             data = norm['data']
@@ -345,11 +430,12 @@ def generate_norma_epdm(df_sapcodes,df_not_exists):
             df['LGORT'][count_2] = 'PS01'
             count_2 +=1
             count +=1
+            
         if 'PDM' in row['MATNR']:      
             df['ID'][count_2] = '2'
             df['POSNR'][count_2] = count
             df['POSTP'][count_2] = 'L'
-            df['MATNR1'][count_2] = '1000004651'
+            df['MATNR1'][count_2] = '1900012885'
             df['TEXT2'][count_2] = 'Тех отход EPDM годный брак'
             df['MEINS'][count_2] =  round(8.6 * norma_kg,3)*(-1)
             df['MENGE'][count_2] = 'КГ'
@@ -360,7 +446,7 @@ def generate_norma_epdm(df_sapcodes,df_not_exists):
             df['ID'][count_2] = '2'
             df['POSNR'][count_2] = count
             df['POSTP'][count_2] = 'L'
-            df['MATNR1'][count_2] = '1000004651'
+            df['MATNR1'][count_2] = '1900012885'
             df['TEXT2'][count_2] = 'Тех отход EPDM годный брак'
             df['MEINS'][count_2] = round(100 * norma_kg,3)*(-1)
             df['MENGE'][count_2] = 'КГ'
@@ -371,7 +457,7 @@ def generate_norma_epdm(df_sapcodes,df_not_exists):
             df['ID'][count_2] = '2'
             df['POSNR'][count_2] = count
             df['POSTP'][count_2] = 'L'
-            df['MATNR1'][count_2] = '1000004651'
+            df['MATNR1'][count_2] = '1900012885'
             df['TEXT2'][count_2] = 'Тех отход EPDM годный брак'
             df['MEINS'][count_2] = round(56 * norma_kg,3)*(-1)
             df['MENGE'][count_2] = 'КГ'

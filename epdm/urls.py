@@ -18,6 +18,7 @@ urlpatterns = [
     # path('norma-radiator-upload',views.file_upload_org,name='file_upload_radiator'),
     path('show-siryo',views.show_siryo,name='show_siryo'),
     path('add-sapcode-from-file',views.create_siryo_from_file, name='create_siryo_from_file'),
+    
     path('add-sapcode',views.create_siryo, name='create_siryo_epdm'),
     path('edit-sapcode/<int:id>',views.edit_siryo, name='edit_siryo_epdm'),
     path('delete-siryo/<int:id>',views.delete_siryo,name='delete_siryo'),

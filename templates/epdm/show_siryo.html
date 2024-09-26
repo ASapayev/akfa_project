@@ -37,6 +37,19 @@
                       <th  > SAP CODE </th>
                       <th  > KRATKIY TEXT</th>
                       <th  > SHOP </th>
+                      <th  > SAP CODE </th>
+                      <th  > Коробка внешняя  </th>
+                      <th  > ШТ </th>
+                      <th  > SAP CODE </th>
+                      <th  > Коробка круглая  </th>
+                      <th  > ШТ </th>
+                      <th  > SAP CODE </th>
+                      <th  > Наклейка </th>
+                      <th  > ШТ </th>
+                      <th  > SAP CODE </th>
+                      <th  > Пакет </th>
+                      <th  > КГ </th>
+
                       <th  > CREATED DATE </th>
                       <th  > Действие </th>
                     </tr>
@@ -52,15 +65,55 @@
                         </div>
                       </td>
                       <td>
-                        <span class="pl-2">{{profile.kg}}</span>
+                        <span class="pl-2">{{profile.data.кг}}</span>
                       </td>
                       <td>
-                        <span class="pl-2">{{profile.sapcode}}</span>
+                        <span class="pl-2">{{profile.data.MATNR}}</span>
+                      </td>
+                      
+                      <td>
+                        <span class="pl-2">{{profile.data.TEXT1}}</span>
                       </td>
                       <td>
-                        <span class="pl-2">{{profile.shop}}</span>
+                        <span class="pl-2">{{profile.data|get_item:"ШОР 1"}}</span>
                       </td>
-                      <td>{{profile.kratkiy}} </td>
+                      <td>
+                        <span class="pl-2">{{profile.data|get_item:"SAP CODE1"}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data|get_item:"Коробка внешняя"}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data|get_item:"шт1"}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data|get_item:"SAP CODE2"}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data|get_item:"Коробка круглая"}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data|get_item:"шт2"}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data|get_item:"SAP CODE3"}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data|get_item:"Наклейка"}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data|get_item:"шт3"}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data|get_item:"SAP CODE4"}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data|get_item:"Пакет"}}</span>
+                      </td>
+                      <td>
+                        <span class="pl-2">{{profile.data|get_item:"кг"}}</span>
+                      </td>
+                      
                       <td> {{profile.created_at |date:"d-m-Y H:i"}} </td>
                       <td>
                         <a class='btn btn-danger' onclick="delete_sapcode(this,'{{profile.id}}')"><i class="bi bi-trash"></i>Delete</a>

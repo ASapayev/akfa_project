@@ -8,7 +8,7 @@ from accessuar_import.models import Category,GroupProduct
 from accessuar.models import OrderACS,OrderAKP,OrderProchiye,AccessuarDownloadFile,ArtikulAccessuar
 from radiator.models import ArtikulRadiator
 from django.contrib.auth.decorators import login_required
-import time
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
@@ -34,7 +34,8 @@ import string
 import random
 from django.core.files import File
 from decouple import config,UndefinedValueError
-
+from django.shortcuts import get_object_or_404
+import traceback
 
 
 try:
@@ -158,6 +159,7 @@ class OrderSaveView(APIView):
                                         "owner" : str(request.user),
                                         "checker":None,
                                         "status":"1",
+                                        "status_name":STATUSES['1'],
                                         "created_at":order.created_at
                                         })
             return Response({'msg':'Ordered successfully!','status':201,'order_id':order.id})    
@@ -1431,6 +1433,7 @@ def moderator_check_zavod(request,id):
                                     "owner":str(order.owner),
                                     "checker":str(order.checker),
                                     "status":str(order.status),
+                                    "status_name":STATUSES[str(order.status)],
                                     "created_at":order.created_at
                                     })
         return redirect('order_list_for_moderator')
@@ -1471,6 +1474,7 @@ def moderator_check(request,id):
 
         order.checker = request.user
         order.save()
+        # data =request.POST.copy()
         data['owner'] = owner
         data['order'] = order
         form = OrderFileForm(data,request.FILES)
@@ -1481,7 +1485,8 @@ def moderator_check(request,id):
                                         "id":order.id,
                                         "owner":str(order.owner),
                                         "checker":order.checker.username +' ' +order.checker.last_name,
-                                        "status":STATUSES[order_status],
+                                        "status":order_status,
+                                        "status_name":STATUSES[order_status],
                                         "is_alu":True if 'alu' in order.order_type else False,
                                         })
             return redirect('order_list_for_moderator')
@@ -1524,28 +1529,7 @@ def checker_send_to_jira(id):
 @customer_only
 def order_update_all(request,id):
    
-    # if request.method =='POST':
-    #     data =request.POST.copy()
-    #     owner =request.user
-    #     order = Order.objects.get(id=id)
-    #     order.status = data.get('status',1)
-    #     order.save()
-    #     data['owner'] = owner
-    #     data['order'] = order
-    #     form = OrderFileForm(data,request.FILES)
-    #     if form.is_valid():
-    #         form.save()
-    #         order_details = OrderDetail.objects.filter(order = order)
-    #         send_event("test", "message", {
-    #                                     "id":order.id,
-    #                                     "order_name" : order.data['name'],
-    #                                     "owner" : None,
-    #                                     "checker":None,
-    #                                     "status":str(order.status),
-    #                                     "created_at":order.created_at
-    #                                     })
-    #         return redirect('client_order_list')
-    # else:
+   
     nakleyka_list = NakleykaCode.objects.all()
     order = Order.objects.get(id = id)
     order_details = OrderDetail.objects.filter(order = order)
@@ -1593,43 +1577,143 @@ def order_update_all(request,id):
     context ={**context1,**extra_dict}
     return render(request,f'client/update/{str(order.order_type)}.html',context)
 
+
 @login_required(login_url='/accounts/login/')
 @customer_only
-def order_update(request,id):
-    
-    if request.method =='POST':
-        order = Order.objects.get(id=id)
-        order_name = order.data['name']
-        data = request.POST.get('data',None)
-        res = json.loads(data)
-        try:
+def order_update(request, id):
+    try:
+        if request.method == 'POST':
+            # Get the order
+            order = get_object_or_404(Order, id=id)
+            order_name = order.data['name']
+            
+            # Get POST data
+            data = request.POST.get('data', None)
+            status_order = request.POST.get('status', None)
+            res = json.loads(data)
+
             old_data = order.data['data']
             similar = old_data == res
-            if not similar:
-                order_history = OrderHistory(order =order,data=order.data)
-                order_history.save()
-                order.data ={'name':order_name,'data':res}
-                order.save()
-            return JsonResponse({'status':201})
-        except:
-            return JsonResponse({'status':405})
+
+            data =request.POST.copy()
+            data['owner'] = request.user
+            data['order'] = order
+
+            form = OrderFileForm(data, request.FILES)
+
+            if form.is_valid():
+                if status_order:
+                    order.status = status_order
+                    order.save()
+
+                form.save()
+
+                # Handle order history if data has changed
+                if not similar:
+                    # Save the old order data in OrderHistory
+                    order_history = OrderHistory(order=order, data=order.data)
+                    order_history.save()
+
+                    # Update the order's data with the new values
+                    order.data = {'name': order_name, 'data': res}
+                    order.save()
+                
+                send_event("orders", "message_update", {
+                            "id":order.id,
+                            "order_name" : order.data['name'],
+                            "owner" : str(order.owner),
+                            "checker":str(order.checker),
+                            "status":str(order.status),
+                            'status_name':STATUSES[str(order.status)],
+                            "created_at":order.created_at,
+                            })
+               
+                return JsonResponse({'status': 201, 'msg': 'Saved successfully'})
+
+            else:
+                return JsonResponse({'status': 405, 'msg': form.errors})
+
+        else:
+            # Handle GET request: fetching and displaying order details
+            nakleyka_list = NakleykaCode.objects.all()
+            order = get_object_or_404(Order, id=id)
+            order_details = OrderDetail.objects.filter(order=order)
+            order_history = OrderHistory.objects.filter(order=order).values()
+
+            context = {
+                'status_name': STATUSES[str(order.status)],
+                'status': str(order.status),
+                'order_type': order.order_type,
+                'data': json.dumps(order.data),
+                'order_details': order_details,
+                'id': order.id,
+                'nakleyka_list': nakleyka_list,
+                'order_history': json.dumps(list(order_history))  # Convert QuerySet to list before JSON dump
+            }
+            return render(request, 'client/update.html', context)
+
+    except Exception as e:
+        # Handle and log any unexpected errors
+        print("Error:", e)
+        print(traceback.format_exc())  # Useful for debugging
+        return JsonResponse({'status': 500, 'msg': 'Something went wrong!', 'error': str(e)})
+
+# @login_required(login_url='/accounts/login/')
+# @customer_only
+# def order_update(request,id):
+    
+#     if request.method =='POST':
+#         order = Order.objects.get(id=id)
+#         order_name = order.data['name']
+#         data = request.POST.get('data',None)
+#         status_order = request.POST.get('status',None)
+#         res = json.loads(data)
+#         try:
+#             old_data = order.data['data']
+#             similar = old_data == res
+#             form = OrderFileForm(request.POST, request.FILES)
+#             form.instance.order = order  # Set the order before validation
+#             form.instance.owner = request.user
+#             if form.is_valid():
+#                 print('is valid')
+#                 if status_order:
+#                     order.status =status_order
+#                     order.save()
+#                 # order_detail = form.save(commit=False)
+#                 form.save()
+#                 # Add the order and owner before saving
+#                 # order_detail.order = order  # Assuming `order` is a ForeignKey in OrderDetail
+#                 # order_detail.owner = request.user  # Assuming `owner` is the current logged-in user
+
+#                 # Now save the instance to the database
+#                 # order_detail.save()
+#                 if not similar:
+#                     order_history = OrderHistory(order =order,data=order.data)
+#                     order_history.save()
+#                     order.data ={'name':order_name,'data':res}
+#                     order.save()
+#                 return JsonResponse({'status':201,'msg':'saved successfully'})
+#             else:
+#                 return JsonResponse({'status':405,'msg':form.errors})
+#         except:
+#             return JsonResponse({'status':405,'msg':'something went wrong!'})
        
-    else:
-        nakleyka_list = NakleykaCode.objects.all()
-        order = Order.objects.get(id = id)
-        order_details = OrderDetail.objects.filter(order = order)
-        order_history = OrderHistory.objects.filter(order=order).values()
-        context ={
-            'status_name':STATUSES[str(order.status)],
-            'status':str(order.status),
-            'order_type':order.order_type,
-            'data':json.dumps(order.data),
-            'order_details':order_details,
-            'id':order.id,
-            'nakleyka_list': nakleyka_list,
-            'order_history':json.dumps(order_history)       
-        }
-    return render(request,f'client/update.html',context)
+#     else:
+#         nakleyka_list = NakleykaCode.objects.all()
+#         order = Order.objects.get(id = id)
+#         order_details = OrderDetail.objects.filter(order = order)
+#         order_history = OrderHistory.objects.filter(order=order).values()
+#         context ={
+#             'status_name':STATUSES[str(order.status)],
+#             'status':str(order.status),
+#             'order_type':order.order_type,
+#             'data':json.dumps(order.data),
+#             'order_details':order_details,
+#             'id':order.id,
+#             'nakleyka_list': nakleyka_list,
+#             'order_history':json.dumps(order_history)       
+#         }
+#     return render(request,f'client/update.html',context)
 
 # @login_required(login_url='/accounts/login/')
 # @customer_only

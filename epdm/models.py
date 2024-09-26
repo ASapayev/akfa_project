@@ -9,10 +9,7 @@ class NormaEpdm(models.Model):
 
 
 class SiroEpdm(models.Model):
-    kg = models.CharField(max_length=50,blank=True,null=True)
-    sapcode = models.CharField(max_length=50,blank=True,null=True)
-    kratkiy = models.CharField(max_length=50,blank=True,null=True)
-    shop = models.CharField(max_length=50,blank=True,null=True)
+    data = models.JSONField(null=True,blank=True,default=dict)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
    

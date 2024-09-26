@@ -149,14 +149,7 @@ function updateMaxHeight() {
     }
 
     function ready_all(){
-        var theme =$('#theme')
-        if(theme.val() =='' || theme.val() == undefined){
-            Swal.fire({
-                    icon: 'error',
-                    title: 'Iltimos zayavka mavzusini kiriting!!!',
-                });
-             
-        }else{
+        
             var all_correct = true;
             var data_empty = false
             var dattt_len  =Object.keys(data_base).length
@@ -176,9 +169,7 @@ function updateMaxHeight() {
                     }
                 }
                 
-                console.log(data_base)
-                console.log(data_empty,all_correct,'lllll')
-
+                
                 if (!data_empty && all_correct){
 
                     var text_tr =''
@@ -213,32 +204,35 @@ function updateMaxHeight() {
                         });
                     }
                 }
-        }
+        
 
    
 }
 
 
     function send_data(){
+        var formData = new FormData(document.getElementById("uploadForm"));
+
         var submit_btn = document.getElementById('save_btn')
         var upload_btn = document.getElementById('upload_btn')
         upload_btn.style.display ='block';
         submit_btn.style.display ='none';
         var json_data = JSON.stringify(data_base)
-        var url = "order-save"
-        var theme =$('#theme').val()
+        var url = "/client/order-update/"+'{{id}}';
+        
         var csrfToken = getCSRFToken();
-        var postData = {
-            'data': json_data,
-            'order_type':'bussines_partner',
-            'name':'Бизнес партнер',
-            'order_name':theme
-        }
+        formData.append('data', json_data); 
+        formData.append('order_type', 'bussines_partner');
+        formData.append('name', 'Бизнес партнер');
+
+        
         $.ajax({
             type: 'POST',
             url: url,
             headers: { "X-CSRFToken": csrfToken },
-            data: postData,
+            data: formData,
+            processData: false, 
+            contentType: false,
         }).done(function (res) {
             console.log(res)
             if (res.status ==201){

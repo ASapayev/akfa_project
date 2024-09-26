@@ -1331,8 +1331,8 @@ def kombinirovaniy_process(request,id):
             df_new_aurora['DATUV'].append('01012023')
             df_new_aurora['PUSTOY'].append('')
             df_new_aurora['LGORT'].append('')
-            
-            seksiya_list =df[i][5].split(' ')
+            # print(df[i][4],df[i][5])
+            seksiya_list =df_aurora[i][5].split(' ')
             text =''
             for sek in seksiya_list:
                 if '-' in sek:

@@ -874,6 +874,10 @@ def home(request):
   
   return render(request,'home.html',{'data':currency})
 
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+
 
 @register.filter(name='split_text')
 def split_text(value):

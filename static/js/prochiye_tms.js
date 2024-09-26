@@ -136,7 +136,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='number' class=" form-control " style="display:none; border-color:red; width: 75px; font-size:10px; z-index:0" id='sena_materiala`+String(i)+`'  oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 10);"></input>
+            <input type='number' class=" form-control " style="display:none; border-color:red; width: 75px; font-size:10px; z-index:0" id='sena_materiala`+String(i)+`'  oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 15);"></input>
             </div>
         </td>
         <td >
