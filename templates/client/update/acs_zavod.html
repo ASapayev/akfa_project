@@ -174,11 +174,11 @@ function updateMaxHeight() {
         var data_empty = false
         var dattt_len  =Object.keys(data_base).length
     
-        for(let k =1; k<=dattt_len; k++){
-            if(data_base[k].base_artikul && data_base[k].kratkiy_tekst && data_base[k].bei){
+        for(var key in data_base){
+            if(data_base[key].base_artikul && data_base[key].kratkiy_tekst && data_base[key].bei){
                 continue;
             }else{
-                delete data_base[k]
+                delete data_base[key]
             }
         }
     

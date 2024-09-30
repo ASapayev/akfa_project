@@ -185,6 +185,7 @@ if(status_proccess1 == 'new'){
     table.append(text2)
 
     // var i = 1
+    console.log(data_base,'kkkkk')
     for(key2 in data_base){
         copy_tr(key2,key2)
         // i += 1
@@ -197,8 +198,10 @@ function artikul_list_add(start=1,end=6){
 
     for (let i = start; i < end; i++) {
         set_base_artikul(artikul_list,'.base_artikul_org'+i,value='')
-        data_base[i] = new BasePokritiya()
-        data_base[i].id = 1
+        if(status_proccess1 == 'new'){
+            data_base[i] = new BasePokritiya()
+            data_base[i].id = 1
+        }
     }
 }
 
