@@ -839,6 +839,7 @@ function front_piece(start=1,end=6){
                 <option  selected></option>
                 <option value="AKFA">AKFA</option>
                 <option value="IMZO">IMZO</option>
+                <option value="Q-Q">Q-Q</option>
                 <option value="FRANCHISING">FRANCHISING</option>
                 <option value="AKFA-IMZO-FRANCHISING">AKFA-IMZO-FRANCHISING</option>
                 <option value="IMZO-FRANCHISING">IMZO-FRANCHISING</option>

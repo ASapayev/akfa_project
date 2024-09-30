@@ -414,6 +414,7 @@ function front_piece(start=1,end=6){
                 <option value="1500 - AKFA Food Service">1500 - AKFA Food Service</option>
                 <option value="4500 - AKFA ACCESSORIES">4500 - AKFA ACCESSORIES</option>
                 <option value="4600 - AKFA AKP">4600 - AKFA AKP</option>
+                <option value="4700 - AKFA EPDM & PAINT">4700 - AKFA EPDM & PAINT</option>
                 <option value="5100 - AKFA Radiators">5100 - AKFA Radiators</option>
             </select>
             </div>
@@ -440,6 +441,8 @@ function front_piece(start=1,end=6){
                 <option value="15 - АКП">15 - АКП</option>
                 <option value="10 - ACS UZ">10 - ACS UZ</option>
                 <option value="09 - Радиатор">09 - Радиатор</option>
+                <option value="08 - Резина EPDM">08 - Резина EPDM</option>
+                <option value="37 - Порошковая краска">37 - Порошковая краска</option>
             </select>
             </div>
         </td>
