@@ -1597,7 +1597,6 @@ def order_update_all(request,id):
         'nakleyka_list': nakleyka_list,
         'status_process':'update',
         'order':json.dumps(order.data['data'])
-
     }
     context ={**context1,**extra_dict}
     return render(request,f'client/update/{str(order.order_type)}.html',context)
@@ -2010,7 +2009,7 @@ def shablon_imzo_detail(request):
     context ={
         'nakleyka_list': nakleyka_list,
         'brend_kaska':json.dumps(list(brend_kraska)),
-        'status':'new'
+        'status_proccess':'new'
     }
     # return render(request,'client/shablonlar/example.html',context)
     return render(request,'client/shablonlar/alu_imzo.html',context)
@@ -2023,7 +2022,7 @@ def shablon_savdo_detail(request):
     context ={
         'nakleyka_list': nakleyka_list,
         'brend_kaska':json.dumps(list(brend_kraska)),
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/alu_savdo.html',context)
 
@@ -2035,7 +2034,7 @@ def shablon_export_detail(request):
     context ={
         'nakleyka_list': nakleyka_list,
         'brend_kaska':json.dumps(list(brend_kraska)),
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/alu_export.html',context)
 
@@ -2044,7 +2043,7 @@ def shablon_export_detail(request):
 @customer_only
 def shablon_acs_export_detail(request):
     context ={
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/acs_imzo.html',context)
 
@@ -2054,7 +2053,7 @@ def shablon_acs_savdo_detail(request):
     artikul_list = ArtikulAccessuar.objects.all().values_list('artikul')
     context ={
         'artikul_list':json.dumps(list(artikul_list)),
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/acs_savdo.html',context)
 
@@ -2062,7 +2061,7 @@ def shablon_acs_savdo_detail(request):
 @customer_only
 def shablon_acs_export_savdo_detail(request):
     context ={
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/acs_export.html',context)
 
@@ -2070,7 +2069,7 @@ def shablon_acs_export_savdo_detail(request):
 @customer_only
 def shablon_prochiye_tms_detail(request):
     context={
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/prochiye_tms.html',context)
 
@@ -2080,7 +2079,7 @@ def shablon_acs_zavod_savdo_detail(request):
     artikul_list = ArtikulAccessuar.objects.all().values_list('artikul')
     context ={
         'artikul_list':json.dumps(list(artikul_list)),
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/acs_zavod.html',context)
 
@@ -2090,7 +2089,7 @@ def shablon_pvc_export_detail(request):
     nakleyka_list = NakleykaPvc.objects.all().values_list('name','nadpis')
     context ={
         'nakleyka_list':json.dumps(list(nakleyka_list)),
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/pvc_imzo.html',context)
 
@@ -2098,7 +2097,7 @@ def shablon_pvc_export_detail(request):
 @customer_only
 def shablon_akp_savdo_detail(request):
     context ={
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/akp_savdo.html',context)
 
@@ -2108,7 +2107,7 @@ def shablon_pvc_savdo_detail(request):
     nakleyka_list = NakleykaPvc.objects.all().values_list('name','nadpis')
     context ={
         'nakleyka_list':json.dumps(list(nakleyka_list)),
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/pvc_savdo.html',context)
 
@@ -2116,7 +2115,7 @@ def shablon_pvc_savdo_detail(request):
 @customer_only
 def shablon_radiator_detail(request):
     context ={
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/radiator.html',context)
 
@@ -2124,7 +2123,7 @@ def shablon_radiator_detail(request):
 @customer_only
 def shablon_radiator_export_detail(request):
     context ={
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/radiator_export.html',context)
 
@@ -2132,7 +2131,7 @@ def shablon_radiator_export_detail(request):
 @customer_only
 def shablon_accessuar_texnopark_detail(request):
     context ={
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/acs_texnopark.html',context)
 
@@ -2141,7 +2140,7 @@ def shablon_accessuar_texnopark_detail(request):
 @customer_only
 def shablon_prochiye_detail(request):
     context={
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/prochiye.html',context)
 
@@ -2149,7 +2148,7 @@ def shablon_prochiye_detail(request):
 @customer_only
 def shablon_change_data_detail(request):
     context ={
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/change_data.html',context)
 
@@ -2158,7 +2157,7 @@ def shablon_change_data_detail(request):
 @customer_only
 def bussines_partner(request):
     context ={
-        'status':'new'
+        'status_proccess':'new'
         }
     return render(request,'client/shablonlar/bussines_partner.html',context)
 
@@ -2171,7 +2170,7 @@ def shablon_accessuar_import_detail(request):
     context ={
         'category':json.dumps(list(category)),
         'group_product':json.dumps(list(group_product)),
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/acs_import.html',context)
 
@@ -2181,7 +2180,7 @@ def shablon_pvc_export_savdo_detail(request):
     nakleyka_list = NakleykaPvc.objects.all().values_list('name','nadpis')
     context ={
         'nakleyka_list':json.dumps(list(nakleyka_list)),
-        'status':'new'
+        'status_proccess':'new'
     }
     return render(request,'client/shablonlar/pvc_export.html',context)
 

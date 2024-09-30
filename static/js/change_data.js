@@ -149,7 +149,7 @@ function front_piece(start=1,end=6){
        
 
         var buttons =''
-        if(status_proccess == 'new'){
+        if(status_proccess1 == 'new'){
             data_base[i] = new BasePokritiya()
             data_base[i].id = 1
             buttons=`<td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
@@ -459,39 +459,39 @@ var table = $('#table-artikul')
 
 
 
-if(status_proccess == 'new'){
+if(status_proccess1 == 'new'){
     table.append(text)
 
 }else{
     var jsonData = JSON.parse(jsonData);
     // var jsonData ='{{order}}'
 
-    var ii= 1
+    // var ii= 1
 
     for(var key1 in jsonData){
-        data_base[ii] = new BasePokritiya()
+        data_base[key1] = new BasePokritiya()
         for(var key2 in jsonData[key1]){
-            data_base[ii][key2] = jsonData[key1][key2]
+            data_base[key1][key2] = jsonData[key1][key2]
         }
-        ii += 1
+        // ii += 1
     }
 
 
 
-    const lengthOfObject = Object.keys(jsonData).length;
-
-    var text = front_piece(1,lengthOfObject+1)
-
-
+    var text2 =''
+    for(var key1 in jsonData){
+        // console.log(key1,'lllsdsafasfads')
+        text2 += front_piece( parseInt(key1),parseInt(key1)+1)
+    }
 
     var table = $('#table-artikul')
 
-    table.append(text)
+    table.append(text2)
 
-    var i = 1
+    // var i = 1
     for(key2 in data_base){
-        copy_tr(key2,i)
-        i += 1
+        copy_tr(key2,key2)
+        // i += 1
     }
 }
 
@@ -663,7 +663,7 @@ function copy_tr(id,ii=1){
         console.log('salom2222 copy')
     }else{
         
-        if(status_proccess == 'new'){
+        if(status_proccess1 == 'new'){
             text =""
             var size = $('#table-artikul tr').length;
             text = front_piece(start = size+1, end = size+2)
