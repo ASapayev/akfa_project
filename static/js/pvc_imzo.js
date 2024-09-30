@@ -447,13 +447,13 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
         
-            <input type='text' class=" form-control " style=" width: 150px; font-size:10px;  height:27px!important;z-index:0" id='sap_code_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 150px; font-size:10px;  height:27px!important;z-index:0" id='sap_code_ruchnoy`+String(i)+`' disabled onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
         
             </div>
         </td> 
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style=" width: 250px; font-size:10px;  height:27px!important;z-index:0"  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            <input type='text' class=" form-control " style=" width: 250px; font-size:10px;  height:27px!important;z-index:0" disabled  id='kratkiy_tekst_ruchnoy`+String(i)+`' onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         
@@ -1467,10 +1467,10 @@ function create_kratkiy_tekst(id){
                 
                 sap_code_ruchnoy.val('')
                 kratkiy_text_ruchnoy.val('')
-                sap_code_ruchnoy.css('background-color','white')
-                kratkiy_text_ruchnoy.css('background-color','white')
-                sap_code_ruchnoy.attr('disabled',false)
-                kratkiy_text_ruchnoy.attr('disabled',false)
+                sap_code_ruchnoy.css('background-color','#eaecef')
+                kratkiy_text_ruchnoy.css('background-color','#eaecef')
+                // sap_code_ruchnoy.attr('disabled',false)
+                // kratkiy_text_ruchnoy.attr('disabled',false)
             }
             
         }else{
