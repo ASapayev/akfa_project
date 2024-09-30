@@ -1490,6 +1490,13 @@ function create_kratkiy_tekst(id){
         //     kratkiy_text_ruchnoy.attr('disabled',true)
         // }
         data_base[id].kratkiy_tekst= data.text
+    }else{
+        var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+        var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
+        sap_code_ruchnoy.val('')
+        kratkiy_text_ruchnoy.val('')
+        sap_code_ruchnoy.css('background-color','#eaecef')
+        kratkiy_text_ruchnoy.css('background-color','#eaecef')
     }
 
     kratkiy_tekst.text(data.text)

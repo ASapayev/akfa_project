@@ -1522,7 +1522,7 @@ function clear_artikul(id){
 
     }
    
-   
+   console.log(id,'idddddddd')
     create_kratkiy_tekst(id)
 }
 
@@ -2550,7 +2550,7 @@ function create_kratkiy_tekst(id){
         data_base[id].full=false
 
     }
-    
+    console.log(data.text,'textxttxtxtxt')
     if(data.text !='XXXXXXXX' ){
         var artikul_bass = data_base[id].base_artikul
         var art_krat_dict = artikul_bass + data.text
@@ -2558,7 +2558,7 @@ function create_kratkiy_tekst(id){
         var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
         
 
-        // console.log(zapros_count,art_krat_dict,'+++++')
+        console.log(zapros_count,art_krat_dict,'+++++')
         if(art_krat_dict in zapros_count){
             if(zapros_count[art_krat_dict]){
                 var sap_code = zapros_count[art_krat_dict]
@@ -2582,7 +2582,14 @@ function create_kratkiy_tekst(id){
             sap_codes = get_sapcode(id,data_base[id].base_artikul,data.text)
         }
         data_base[id].kratkiy_tekst= data.text
-    } 
+    }else{
+        var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
+        var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
+        sap_code_ruchnoy.val('')
+        kratkiy_text_ruchnoy.val('')
+        sap_code_ruchnoy.css('background-color','#eaecef')
+        kratkiy_text_ruchnoy.css('background-color','#eaecef')
+    }
 
   
     kratkiy_tekst.text(data.text)

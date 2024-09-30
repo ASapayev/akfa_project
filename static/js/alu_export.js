@@ -2299,6 +2299,13 @@ function create_kratkiy_tekst(id){
             
         }
         data_base[id].kratkiy_tekst= data.text
+    }else{
+        var sap_code_ruchnoy = $('#sap_code'+id)
+        var kratkiy_text_ruchnoy = $('#krat'+id)
+        sap_code_ruchnoy.val('')
+        kratkiy_text_ruchnoy.val('')
+        sap_code_ruchnoy.css('background-color','#eaecef')
+        kratkiy_text_ruchnoy.css('background-color','#eaecef')
     }
     kratkiy_tekst.text(data.text)
 
