@@ -899,12 +899,12 @@ function copy_tr(id,ii=1){
                 div_kras_vn.css('display','block')
             }
         }else if(id == 2){    
-                check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,true)
+                check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,false,true)
                 chosen_update('.code_kraski_snar_sel'+String(s),kod_kraska_sn,true)
                 div_kras_sn.css('display','block')
                 check_input_and_change(kod_nakleyki,'#nakleyka'+s)
                 if(is_termo_bas){
-                    check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=true)
+                    check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,false,true)
                     chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=true)
                     div_kras_vn.css('display','block')
                 }
@@ -1196,7 +1196,7 @@ function clear_artikul(id){
         var baza_profiley =$('#baza_profiley'+id).text()
        
         
-        console.log(combination,'ggggg')
+        // console.log(combination,'ggggg')
 
         data_base[id].base_artikul = base_artikul
         data_base[id].nazvaniye_system = nazvaniye_system
@@ -1614,7 +1614,7 @@ function tip_pokritiya_selected(id,val){
             div_kras.css('display','block')
 
             brand_kraski_snaruji.val('R');
-            brand_kraski_snaruji.attr('disabled',true)
+            // brand_kraski_snaruji.attr('disabled',true)
             brand_kraski_snaruji.css('display','block')
             brand_kraski_snaruji.css('border-color','#dedad9')
         }else{
@@ -1635,14 +1635,14 @@ function tip_pokritiya_selected(id,val){
             var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
 
             brand_kraski_snaruji.val('R');
-            brand_kraski_snaruji.attr('disabled',true)
+            // brand_kraski_snaruji.attr('disabled',true)
             brand_kraski_snaruji.css('display','block')
             brand_kraski_snaruji.css('border-color','#dedad9')
 
             
 
             brand_kraski_vnutri.val('R');
-            brand_kraski_vnutri.attr('disabled',true)
+            // brand_kraski_vnutri.attr('disabled',true)
             brand_kraski_vnutri.css('display','block')
             brand_kraski_vnutri.css('border-color','#dedad9')
 
@@ -1993,7 +1993,16 @@ function create_kratkiy_tekst(id){
             }
 
     }else if(String(val) == '2'){
-        data_base[id].brend_kraska_sn ='R'
+        var brand_k_snaruji =$('#brand_k_snaruji'+String(id))
+        if(brand_k_snaruji.val()!=''){
+            data_base[id].brend_kraska_sn =brand_k_snaruji.val()
+            brand_k_snaruji.css('border-color','#dedad9')
+        }else{
+            data_base[id].brend_kraska_sn =NaN;
+            brand_k_snaruji.css('border-color','red')
+        }
+
+
         data_base[id].kod_kraska_sn ='9016'
 
         var nakleyka = $('#nakleyka'+String(id))
@@ -2014,8 +2023,15 @@ function create_kratkiy_tekst(id){
 
         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА')
             {
+                var brand_k_vnutri =$('#brand_k_vnutri'+String(id))
+                if(brand_k_vnutri.val()!=''){
+                    data_base[id].brend_kraska_vn =brand_k_vnutri.val()
+                    brand_k_vnutri.css('border-color','#dedad9')
+                }else{
+                    data_base[id].brend_kraska_vn =NaN;
+                    brand_k_vnutri.css('border-color','red')
+                }
 
-                data_base[id].brend_kraska_vn = 'R';
                 data_base[id].kod_kraska_vn = '9016';
                 data_base[id].is_termo = true
             }
