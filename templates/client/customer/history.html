@@ -1,0 +1,1177 @@
+{% extends 'client/base.html'%}
+{%load static%}
+{%block content%}
+
+         
+   
+            {%if order_type == 'alu_imzo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <!-- <div class="container"> -->
+                    
+                  <!-- </div> -->
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div class="" style="overflow: scroll;">
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                        <table class="table table-sm table-light table-bordered" id="my-table"  >
+                            <thead>
+                                {% csrf_token %}
+                            <tr>
+                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Название системы</th>
+                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Артикул</th>
+                                
+                                <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара</th>
+                               {% include 'client/headers/alu_imzo.html' %}
+                            </tr>
+                            </thead>
+                            <tbody id="table-artikul">
+                                
+                            </tbody>
+                        </table>
+                        {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Название системы</th>
+                              <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Артикул</th>
+                              
+                              <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара</th>
+                             {% include 'client/headers/alu_imzo.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                        
+                </div>
+                </form>
+            </section>
+            {%endif%}
+
+            {%if order_type == 'alu_savdo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table"  style="display: inline; table-layout: fixed;">
+                        <thead >
+                          <tr>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название системы</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            
+                            <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара</th>
+                            {% include 'client/headers/alu_savdo.html' %}
+                          </tr>
+                        </thead>
+                        <tbody id="table-artikul" >
+                            
+                        </tbody>
+                    </table>
+
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название системы</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            
+                            <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара</th>
+                            {% include 'client/headers/alu_savdo.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                  
+                    
+                </div>
+                
+            </form>
+            </section>
+            {%endif%}
+
+            {%if order_type == 'alu_export'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div class="" style="overflow: scroll;">
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                        <table class="table table-sm table-light table-bordered" id="my-table" >
+                            <thead>
+                            <tr>
+                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Название системы</th>
+                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Артикул</th>
+                                
+                                <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара</th>
+                                {% include 'client/headers/alu_export.html' %}
+                            </tr>
+                            </thead>
+                            <tbody id="table-artikul">
+                            
+                            </tbody>
+                        </table>
+
+                        {%if ids%}
+                      <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                      
+                      {%for dat in ids%}
+                      
+                          <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                          <table class="table table-sm  table-stripped" id="my-table">
+                            
+                            <thead>
+                              <tr>
+                                
+                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Название системы</th>
+                                <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle" >Артикул</th>
+                                
+                                <th scope="col" style="font-size: 14px; line-height: 25px;min-width: 300px;" class="align-middle" >Краткий текст товара</th>
+                                {% include 'client/headers/alu_export.html' %}
+
+                              </tr>
+                            </thead>
+                            
+                            <tbody id="table_artikul_{{dat.id}}">
+                              
+                            </tbody>
+                          
+                          </table>
+                        
+                        {%endfor%}
+                    {%endif%}
+                        
+                </div>
+                
+                </form>
+            </section>
+            {%endif%}
+
+            {%if order_type == 'pvc_imzo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            <!-- <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название системы</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Количество камер</th> -->
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            {% include 'client/headers/pvc_imzo.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            {% include 'client/headers/pvc_imzo.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+
+            {%if order_type == 'pvc_savdo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            <!-- <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название системы</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Количество камер</th> -->
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            <!-- <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код к компоненту системы</th> -->
+                            {% include 'client/headers/pvc_savdo.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              <!-- <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название системы</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Количество камер</th> -->
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            <!-- <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код к компоненту системы</th> -->
+                            {% include 'client/headers/pvc_savdo.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'pvc_export'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            <!-- <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название системы</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Количество камер</th> -->
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            <!-- <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код к компоненту системы</th> -->
+                            {% include 'client/headers/pvc_export.html' %}
+                           
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                               <!-- <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Название системы</th>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Количество камер</th> -->
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            <!-- <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Код к компоненту системы</th> -->
+                            {% include 'client/headers/pvc_export.html' %}
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                </div>
+               
+                
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'acs_imzo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            
+                            {% include 'client/headers/acs_imzo.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              {% include 'client/headers/acs_imzo.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+                
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'acs_savdo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            {% include 'client/headers/acs_savdo.html'%}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              {% include 'client/headers/acs_savdo.html'%}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'acs_export'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            {% include 'client/headers/acs_export.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              {% include 'client/headers/acs_export.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+                
+                </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'akp_savdo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            {% include 'client/headers/akp_savdo.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              {% include 'client/headers/akp_savdo.html' %}
+                        </tr>
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'radiator'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Модель</th>
+                            {% include 'client/headers/radiator.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Модель</th>
+                            {% include 'client/headers/radiator.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'radiator_export'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            {% include 'client/headers/radiator_export.html' %}
+                          </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              {% include 'client/headers/radiator_export.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'prochiye'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+
+                            {% include 'client/headers/prochiye.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              {% include 'client/headers/prochiye.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'acs_texnopark'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+
+                            {% include 'client/headers/acs_texnopark.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              {% include 'client/headers/acs_texnopark.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'acs_import'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+
+                  
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                            {% include 'client/headers/acs_import.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              <th scope="col" style="font-size: 14px; line-height: 25px;" class="align-middle">Артикул</th>
+                              {% include 'client/headers/acs_import.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                  
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'acs_zavod'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            {% include 'client/headers/acs_zavod.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              {% include 'client/headers/acs_zavod.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'prochiye_tms'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            {% include 'client/headers/prochiye_tms.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              {% include 'client/headers/prochiye_tms.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'change_data'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            {% include 'client/headers/change_data.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              {% include 'client/headers/change_data.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+            {%if order_type == 'bussines_partner'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                  
+                
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            {% include 'client/headers/bussness_partner.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              
+                              {% include 'client/headers/bussness_partner.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+            
+            </section>
+            {%endif%}
+            
+        </main>
+        <div style="display: none;">
+                {{ data|json_script:"items-data" }}
+                <h1 id="order_type">{{order_type}}</h1>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+        <link href="{% static 'select2/dist/css/select2.min.css'%}" rel="stylesheet" />
+        <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
+
+        <script  type="text/javascript">
+            
+            order_items ='{{ data|escapejs  }}'
+            
+            text =""
+          
+            var jsonData = JSON.parse(order_items).data;
+            console.log(jsonData)
+            i = 0
+            var order_type ='{{order_type}}'
+
+            var order ={
+              'alu_imzo':[ 'nazvaniye_system','base_artikul','kratkiy_tekst','dlina','tip_pokritiya','splav','tip_zak','combination','brend_kraska_sn','kod_kraska_sn','brend_kraska_vn','kod_kraska_vn','kod_dekor_sn','svet_dekplonka_snaruji','kod_dekor_vn','svet_dekplonka_vnutri','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','kod_anod_sn','kod_anod_vn','contactnost_anod','kod_nakleyki','nadpis_nakleyki','baza_profiley','goods_group','tex_name','gruppa_materialov','sap_code','krat','delovoy_otxod','klaes_id','klaes_nazvaniye','kod_sveta','kratkiy_klaes','sena','comment'],
+              'alu_savdo':['nazvaniye_system','base_artikul','kratkiy_tekst','dlina','tip_pokritiya','splav','tip_zak','combination','brend_kraska_sn','kod_kraska_sn','brend_kraska_vn','kod_kraska_vn','kod_dekor_sn','svet_dekplonka_snaruji','kod_dekor_vn','svet_dekplonka_vnutri','kod_lam_sn','svet_lamplonka_snaruji','kod_lam_vn','svet_lamplonka_vnutri','kod_anod_sn','kod_anod_vn','contactnost_anod','kod_nakleyki','nadpis_nakleyki','baza_profiley','gruppa_materialov','sap_code','krat','comment','dilina_pressa','zavod','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod_name','diller','tip_clienta'],
+              'alu_export':['nazvaniye_system','base_artikul','kratkiy_tekst','dlina','tip_pokritiya','splav','tip_zak','combination','brend_kraska_sn','kod_kraska_sn','brend_kraska_vn','kod_kraska_vn','kod_dekor_sn','svet_dekplonka_snaruji','kod_dekor_vn','svet_dekplonka_vnutri','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','kod_anod_sn','kod_anod_vn','contactnost_anod','kod_nakleyki','nadpis_nakleyki','baza_profiley','gruppa_materialov','sap_code','krat','nazvaniye_ruchnoy','comment','dilina_pressa'],
+              'pvc_imzo':['base_artikul','tip_pokritiya','nazvaniye_svet_zames','kod_svet_zames','dlina','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','svet_rezin','kod_svet_rezini','nadpis_nakleyki','kod_nakleyki','goods_group','tex_name','kratkiy_tekst','sap_code','krat','comment','sena','klaes_id'],
+              'pvc_savdo':['base_artikul','tip_pokritiya','kod_svet_zames','dlina','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','kod_svet_rezini','svet_rezin','kod_nakleyki','nadpis_nakleyki','gruppa_materialov','kratkiy_tekst','sap_code','krat','comment','pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','obshiy_ves_shtuku','status_online','zavod_name','diller','tip_clenta'],
+              'pvc_export':['base_artikul','tip_pokritiya','kod_svet_zames','dlina','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','kod_svet_rezini','svet_rezin','kod_nakleyki','nadpis_nakleyki','gruppa_materialov','kratkiy_tekst','sap_code','krat','sena_export','comment'],
+              'acs_imzo':['sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','goods_group','tex_name','koefitsiyent','alternativ_edin','id_klaes','gruppa_materialov','comment'],
+              'acs_savdo':['base_artikul','kratkiy_tekst','gruppa_materialov','bei ','aei','koefitsiyent','comment','pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','sistema'],
+              'acs_export':[ 'sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','koefitsiyent','alternativ_edin','gruppa_materialov','comment'],
+              'akp_savdo':[ 'brend','mikron','storonnost','kod_sveta','naz_sveta','tip_paneli','dlina','shirina','gruppa_materialov','kratkiy_tekst','sap_code','krat','comment','pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','status_online','zavod_name','diller','tip_clenta'],
+              'radiator':['model','base_artikul','kol_section','svet','brend','kratkiy_tekst','comment','pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod_name','tip_clenta'],
+              'radiator_export':['model','base_artikul','kol_section','svet','brend','kratkiy_tekst','comment'],
+              'prochiye':['pickupdate','sena_c_nds','sena_bez_nds','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_sena','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment'],
+              'acs_texnopark':['pickupdate','sena_c_nds','sena_bez_nds','sena_c_nds_zakup','sena_bez_nds_zakup','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_sena','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment'],
+              'acs_import':['artikul','group_tovarov','categoriya','nazvaniye_materiala','bei','aei','koefitsiyent','sap_code','pickupdate','sena_c_nds','sena_bez_nds','edizm ','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta','comment',],
+              'prochiye_tms':['vid_zayavki','zavod','sapcode','nazvaniye_tovarov','polnoye_nazvaniye','sena_materiala','bazoviy_edinitsa','koefitsiyent','alternativ_edin','vid_materiala','vid_zagotovki','prodayot','gruppa_zakupok','gruppa_materialov','comment',],
+              'change_data':['vid_zayavki','id_savdo','naz_savdo','sapcode','bei ','aei','koefitsiyent','sena_c_ndc','sena_bez_ndc','ed_izm','group','group_zakupok','zavod','segment','bux_naz','tip_clienta','svet_product','diller','comment'],
+              'bussines_partner':['vid_zayavki','balance_ed','rol_bp','group_del_partner','nomer_del_partner','imya_org','imya','familiya','ulitsa','nomer_doma','pochta_index','gorod','kod_stran','region','rayon','nomer_tel','nomer_mob','inn','ndc','nalog','oked','okpo','coato','coogu','kod_stran_bank','klyuch_banka','bank_schot','valyuta_zakaz','usloviya_plateja','sbitovoy_organ','kanal_sbita','sektor','rayon_sbita','gruppa_sena','sxema_kliyenta','status_gruppa_kliyent','usloviya_otgruz','sbit_debitora','sbit_nalog','kontrol_schot','kontrol_debitora',],
+              'acs_zavod':['base_artikul','kratkiy_tekst','gruppa_materialov','bei','aei','koefitsiyent','sklad_gp','bux_sena','comment',],
+            }
+
+            for (var key in jsonData) {
+                i += 1
+                    text2=''
+                    for (var j = 0; j < order[order_type].length; j++) {
+                        var key2 = order[order_type][j];
+                        text2+=`<td class="text-center" style='background-color:white;'>
+                                        <div id=`+key2 +String(i)+String(j)+` class= 'text-center d-inline-block' style="text-transform: uppercase;font-size: 12px;white-space: nowrap;"></div>
+                                        
+                                    
+                                </td>
+                                `
+                    }
+                    text +=`
+                            <tr id='table_tr` +String(i)+`'  >
+                                                        
+                                `+text2+`
+                            </tr>`
+                
+                            
+                }
+
+
+
+            var table = $('#table-artikul')
+
+            table.append(text)
+            i = 0
+            for (var key in jsonData) {
+                i += 1
+                set_values(jsonData[key],String(i),order[order_type])
+                
+            }
+
+
+            var items = '{{order_details|safe}}'
+            var jsonData_items = JSON.parse(items);
+
+
+            for(let k =0; k<jsonData_items.length;k++){
+              // console.log(jsonData_items[k],jsonData_items[k]['order__data']['data'],jsonData_items[k]['id'])
+              set_datas_for_history(jsonData_items[k]['data']['data'],jsonData_items[k]['id'],order_type)
+            }
+
+            function set_datas_for_history(jsonData_it,order_id,order_type){
+              i=0
+              // console.log(jsonData,'json')
+              text =""
+              for (var key in jsonData_it)
+                {
+                    i += 1
+                        text2=''
+                        for (var j = 0; j < order[order_type].length; j++) {
+                            var key2 = order[order_type][j];
+                            text2+=`<td class="text-center" style='background-color:white;'>
+                                            <div id='`+key2 +String(i)+`_`+String(j)+`_`+String(order_id)+`' class= 'text-center d-inline-block' style="text-transform: uppercase;font-size: 12px;white-space: nowrap;"></div>
+                                            
+                                        
+                                    </td>
+                                    `
+                        }
+                        text +=`
+                                <tr id='table_tr` +String(i)+`'  >
+                                                            
+                                    `+text2+`
+                                </tr>
+                                `
+                    
+                            
+                }
+
+                
+                
+                var table = $('#table_artikul_'+order_id)
+                
+                table.append(text)
+                
+                i = 0
+                for (var key in jsonData_it) {
+                    i += 1
+                    // console.log(key,'kkkeeee')
+                    set_values_for_history(jsonData_it[key],String(i),order[order_type],order_id,key,jsonData[key])
+                    
+                }
+
+            }
+
+
+            // console.log(jsonData,'llll')
+            function set_values_for_history(base,i,order,order_id,key=1,jsonData){
+                for (var j = 0; j < order.length; j++) {
+                    var key = order[j];
+                    if(base[key]){
+                        var va2 =$('#'+key+i+'_'+j+'_'+order_id)
+                        // console.log(jsonData[key],base[key],'#############')
+                        if(jsonData[key] != base[key]){
+                          va2.css('background-color','#6c757d')
+                          va2.css('color','white')
+                          va2.text(base[key])
+                        }else{
+                          va2.text(base[key])
+                        }
+                    }
+                }
+            }
+            
+            function set_values(base,i,order){
+                for (var j = 0; j < order.length; j++) {
+                    var key = order[j];
+                    if(base[key]){
+                        var va2 =$('#'+key+i+j)
+                        va2.text(base[key])
+                    }
+                }
+            }
+
+            
+            
+            function downloadTableAsExcel() {
+              const table = document.getElementById("my-table");
+
+              // Loop through table cells and correct the decimal separator
+              Array.from(table.getElementsByTagName('td')).forEach(td => {
+                  if (td.innerText.includes(',')) {
+                      td.innerText = td.innerText.replace(',', '.'); // Replace comma with dot
+                  }
+              });
+
+              const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+              
+              // Write the workbook and create a Blob object representing the data as an Excel file
+              const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+              const blob = new Blob([wbout], { type: 'application/octet-stream' });
+              const url = URL.createObjectURL(blob);
+
+              // Create a download link
+              const a = document.createElement("a");
+              a.style.display = "none";
+              a.href = url;
+              a.download = order_type + "_.xlsx";
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+          }
+
+
+       
+        </script>
+{%endblock%}
+
+
+

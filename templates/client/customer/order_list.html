@@ -55,7 +55,7 @@
 
                                         <div class="btn-group" role="group" aria-label="Basic example" id="options_{{order.id}}">
                                             <!-- <button type="button" class="btn btn-outline-secondary">1</button> -->
-                                            <a href="{%url 'order_update_all' order.id %}" class="btn btn-primary btn-sm" ><i class="bi bi-eye"></i> История</a>
+                                            <a href="{%url 'order_history' order.id %}" class="btn btn-primary btn-sm" ><i class="bi bi-eye"></i> История</a>
                                             {%if order.status|stringformat:"d" == '10081' or order.status|stringformat:"d" == '10084'%}
                                             <a href="{%url 'order_update_all' order.id %}" class="btn btn-warning btn-sm" id="edit_btn_{{order.id}}"><i class="bi bi-pen-fill"></i> Изменить</a>
                                             {%endif%}

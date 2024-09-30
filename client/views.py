@@ -360,7 +360,13 @@ def moderator_convert(request,id):
     # print(name,'<<<'*7)
 
     if name in ['ALUMINIY SAVDO','ALUMINIY EXPORT','ALUMINIY IMZO'] :
-        df_simple, df_termo , correct, artikul_list = json_to_excel_alumin(datas,name)
+        is_savdo =False
+        if name =='ALUMINIY SAVDO':
+            is_savdo =True
+        is_export =False
+        if name =='ALUMINIY EXPORT':
+            is_export =True
+        df_simple, df_termo , correct, artikul_list = json_to_excel_alumin(datas,name,is_savdo,is_export)
 
         if not correct:
             context ={
@@ -1079,7 +1085,7 @@ def json_to_excel_pvc(datas):
     return df_pvc
 
 
-def json_to_excel_alumin(datas,name):
+def json_to_excel_alumin(datas,name,is_savdo,is_export):
     df_termo  = pd.DataFrame()
     df_termo['counter'] =['' for x in range(0,len(datas)*4)]
     df_termo['Название системы'] =''
@@ -1116,6 +1122,10 @@ def json_to_excel_alumin(datas,name):
     df_termo['Краткий текст товара (вставится вручную)'] =''
     df_termo['Место для комментариев'] =''
     df_termo['Длина при выходе из пресса'] =''
+    if is_savdo:
+        df_termo['Название савдо'] =''
+    if is_export:
+        df_termo['Название export'] =''
 
     
 
@@ -1155,6 +1165,11 @@ def json_to_excel_alumin(datas,name):
     if name =='ALUMINIY EXPORT':
         df_simple['Длина при выходе из пресса'] =''
     df_simple['Код заказчика экспорт если експорт'] =''
+    if is_savdo:
+        df_simple['Название савдо'] =''
+    if is_export:
+        df_simple['Название export'] =''
+
     correct = True
     artikul_list = []
     for key1,data in datas.items():
@@ -1204,6 +1219,11 @@ def json_to_excel_alumin(datas,name):
                 df_termo['Краткий текст товара'][k_termo] = data['kratkiy_tekst']
                 df_termo['SAP Код вручную (вставится вручную)'][k_termo] = ''
                 df_termo['Краткий текст товара (вставится вручную)'][k_termo] = ''
+                if is_savdo:
+                    df_simple['Название савдо'][k_simple] =data['nazvaniye_ruchnoy']
+                if is_export:
+                    df_simple['Название export'][k_simple] =data['nazvaniye_ruchnoy']
+                    
                 if name =='ALUMINIY EXPORT':
                     df_termo['Длина при выходе из пресса'][k_termo] = data['dilina_pressa']
                 k_termo += 1
@@ -1361,6 +1381,11 @@ def json_to_excel_alumin(datas,name):
                 df_simple['Краткий текст товара (вставится вручную)'][k_simple] =''
                 if name =='ALUMINIY EXPORT':
                     df_simple['Длина при выходе из пресса'][k_simple] = data['dilina_pressa']
+                if is_savdo:
+                    df_simple['Название савдо'][k_simple] =data['nazvaniye_ruchnoy']
+                if is_export:
+                    df_simple['Название export'][k_simple] =data['nazvaniye_ruchnoy']
+
                 k_simple+=1
     del df_simple['counter']
     del df_termo['counter']
@@ -1611,9 +1636,14 @@ def order_update(request, id):
                 # Handle order history if data has changed
                 if not similar:
                     # Save the old order data in OrderHistory
+
+
+
                     order_history = OrderHistory(order=order, data=order.data)
                     order_history.save()
-
+                    print(order.data)
+                    print('#################'*7)
+                    print(res)
                     # Update the order's data with the new values
                     order.data = {'name': order_name, 'data': res}
                     order.save()
@@ -1771,6 +1801,34 @@ def order_update(request, id):
 #     return render(request,f'client/update.html',context)
 
 
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def order_history(request,id):
+    
+    order = Order.objects.get(id = id)
+    if OrderHistory.objects.filter(order = order).exists():
+        order_details = list(OrderHistory.objects.filter(order = order).values('id','data').order_by('-created_at'))
+        order_details_ids = list(OrderHistory.objects.filter(order = order).values('id','created_at').order_by('-created_at'))
+        context = {
+            'order_type':order.order_type,
+            'data':json.dumps(order.data),
+            'order_details':json.dumps(order_details),
+            'ids':order_details_ids,
+            # 'first_id_for_table_head':order_details_ids[:1][0]['id']
+            }
+    else:
+        context = {
+            'order_type':order.order_type,
+            'data':json.dumps(order.data),
+            'order_details':json.dumps({}),
+            'ids':None,
+            # 'first_id_for_table_head':None
+            }
+
+    return render(request,'client/customer/history.html',context)
+
+   
 
 @login_required(login_url='/accounts/login/')
 @customer_only

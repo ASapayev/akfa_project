@@ -1178,14 +1178,14 @@ if(status_proccess == 'new'){
     var jsonData = JSON.parse(jsonData);
     // var jsonData ='{{order}}'
 
-    var ii= 1
+    // var ii= 1
 
     for(var key1 in jsonData){
-        data_base[ii] = new BasePokritiya()
+        data_base[key1] = new BasePokritiya()
         for(var key2 in jsonData[key1]){
-            data_base[ii][key2] = jsonData[key1][key2]
+            data_base[key1][key2] = jsonData[key1][key2]
         }
-        ii += 1
+        // ii += 1
     }
 
 
@@ -2360,7 +2360,7 @@ var zapros_count ={}
 function create_kratkiy_tekst(id){
     
     if(!data_base[id]){
-        console.log('salom')
+        console.log('salom create kratkiy')
     }else{
     var kratkiy_tekst = $('#kratkiy_tekst'+String(id));
     var combination= $('#combination'+String(id));

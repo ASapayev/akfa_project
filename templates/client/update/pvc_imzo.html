@@ -112,7 +112,7 @@
 <script src="{% static 'select2/dist/js/select2.min.js'%}"></script>
 <script>
     var jsonData='{{order|safe}}'
-     var status_proccess = '{{status}}'
+     var status_proccess = '{{status_process}}'
     function updateMaxHeight() {
       var windowHeight = $(window).height();
       var navbarHeight = $('.navbar').outerHeight(); // Adjust if you have a fixed navbar
@@ -233,7 +233,7 @@ function send_data(){
     submit_btn.style.display ='none';
     
     var json_data = JSON.stringify(data_base)
-    varurl = "/client/order-update/"+'{{id}}';
+    var url = "/client/order-update/"+'{{id}}';
     
     var csrfToken = getCSRFToken();
     formData.append('data', json_data); 
