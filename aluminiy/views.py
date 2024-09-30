@@ -851,11 +851,44 @@ def delete_bazaprofiley(request,id):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
 def list_bazaprofiley(request):
+     
       if  AluProfilesData.objects.filter(data__has_key ='columns').exists():
             columns =  AluProfilesData.objects.filter(data__has_key ='columns')[:1].get().data['columns']
-            search = request.GET.get('search',None)
-            if search:
-                  profiles = AluProfilesData.objects.filter(Q(data__Компонент__icontains =search)|Q(data__Артикул__icontains =search)).order_by('-created_at')
+           
+            artikul = request.GET.get('artikul',None)
+            component = request.GET.get('component',None)
+            segment = request.GET.get('segment',None)
+            sistem = request.GET.get('sistem',None)
+            # search ='artikul=&component=sdf&segment=&sistem='
+            search =''
+
+            if ((artikul and artikul!='') or  (component and component!='') or  (segment and segment!='') or  (sistem and sistem!='')):
+                  if artikul:
+                        profiles = AluProfilesData.objects.filter(data__Артикул__icontains =artikul)
+                        search +='artikul='+artikul 
+                  else:
+                        search +='artikul=' 
+                        profiles = AluProfilesData.objects.all()
+                        # profiles = AluProfilesData.objects.filter(Q(data__Компонент__icontains =artikul)|Q(data__Артикул__icontains =artikul)).order_by('-created_at')
+                  if component:
+                        profiles = profiles.filter(data__Компонент__icontains =component)
+                        search +='&component='+component 
+                  else:
+                        search +='&component=' 
+                  
+                  if segment:
+                        search +='&segment='+segment 
+                        profiles = profiles.filter(data__Сегмент__icontains =segment)
+                  else:
+                        search +='&segment=' 
+                  
+                  if sistem:
+                        search +='&sistem='+sistem
+                        profiles = profiles.filter(data__Система__icontains =sistem)
+                  else:
+                        search +='&sistem='
+                        
+
             else:
                   profiles = AluProfilesData.objects.all().order_by('-created_at')
 
@@ -869,7 +902,8 @@ def list_bazaprofiley(request):
             page_obj = paginator.get_page(page_number)
             context ={
                   'products':page_obj,
-                  'columns':columns
+                  'columns':columns,
+                  'search':search
             }
             return render(request,'aluminiy/list_sapcodes.html',context)
       else:
