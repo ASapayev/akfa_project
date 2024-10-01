@@ -610,6 +610,9 @@ if(status_proccess1 == 'new'){
 }
 
 function select_condition(id){
+    var table_tr =$('#table_tr'+id);
+    table_tr.css('background-color','white')
+    // data_base[id].full =false
     var vid_zayavki = $('#vid_zayavki'+id).val()
     var balance_ed =$('#balance_ed'+id)
     var rol_bp =$('#rol_bp'+id)

@@ -186,42 +186,42 @@
             create_kratkiy_tekst(id)
         }
 
-        function limitLength(element, maxLength) {
-                if (element.value.length > maxLength) {
-                    element.value = element.value.slice(0, maxLength);
-                }
-
-                if (element.value === "0") {
-                    element.value = "";  // Clear the field if '0' is entered
-                    // alert("Input cannot be 0");
-                }
+    function limitLength(element, maxLength) {
+            if (element.value.length > maxLength) {
+                element.value = element.value.slice(0, maxLength);
             }
 
-            function status_change(val){
-                if(val == 10083){
-                    var user_list =$('#user_list')
-                    user_list.css('display','block')
-                    var users =$('#users')
-                    users.attr('required',true)
-                }else{
-                    var user_list =$('#user_list')
-                    user_list.css('display','none')
-                    var users =$('#users')
-                    users.attr('required',false)
-                } 
-
-                if(val ==10084 || val ==10081){
-                    var textarea =$('#exampleTextarea1')
-                    textarea.addClass('mustbe_red')
-                    textarea.attr('required',true)
-                }else{
-                    var textarea =$('#exampleTextarea1')
-                    textarea.attr('required',false)
-                    textarea.removeClass('mustbe_red')
-                }
-                var btn_command = $('#btn_command')
-                btn_command.css('display','block')
+            if (element.value === "0") {
+                element.value = "";  // Clear the field if '0' is entered
+                // alert("Input cannot be 0");
             }
+        }
+
+    function status_change(val){
+        if(val == 10083){
+            var user_list =$('#user_list')
+            user_list.css('display','block')
+            var users =$('#users')
+            users.attr('required',true)
+        }else{
+            var user_list =$('#user_list')
+            user_list.css('display','none')
+            var users =$('#users')
+            users.attr('required',false)
+        } 
+
+        if(val ==10084 || val ==10081){
+            var textarea =$('#exampleTextarea1')
+            textarea.addClass('mustbe_red')
+            textarea.attr('required',true)
+        }else{
+            var textarea =$('#exampleTextarea1')
+            textarea.attr('required',false)
+            textarea.removeClass('mustbe_red')
+        }
+        var btn_command = $('#btn_command')
+        btn_command.css('display','block')
+    }
 
 
 </script>
