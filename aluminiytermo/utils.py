@@ -4386,7 +4386,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             elif row['Тип покрытия'] =='Неокрашенный':
                 umumiy_without_duplicate1201[50].append('S1')
             elif row['Тип покрытия'] =='Анодированный':
-                umumiy_without_duplicate12D1[50].append('S2')
+                umumiy_without_duplicate1201[50].append('S2')
             elif row['Тип покрытия'] =='Окрашенный':
                 umumiy_without_duplicate1201[50].append('S2')
             elif row['Тип покрытия'] =='Сублимированный':
@@ -4660,13 +4660,16 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
         j = 0
         for sap_code in umumiy_without_duplicate[0]:
             if (('-7' in sap_code ) or ('-P' in sap_code ) or ('-K' in sap_code )):
+                
                 if umumiy_without_duplicate[34][j]=='1101':
                     if umumiy_without_duplicate[50][j]!='0001':
+                        print('11' + umumiy_without_duplicate[50][j],'<<<<>>>>>>',sap_code)
                         ladgr.append('11' + umumiy_without_duplicate[50][j])
                     else:
                         ladgr.append(umumiy_without_duplicate[50][j])
                 else:
                     ladgr.append('0001')
+
             elif '-Z' in sap_code:
                 ladgr.append('11S1')
             else:
