@@ -4935,6 +4935,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             dd2[5].append(row['ch_inner_side_wg_s_id'])
             dd2[5].append(row['ch_outer_side_wg_id'])
             dd2[5].append(row['ch_inner_side_wg_id'])
+            print('7 1101 >>>>>>>  ',row['ch_anodization_contact'])
             if row['ch_anodization_contact'].lower() =='yc':
                 dd2[5].append('С КОНТАКТОМ')
             elif row['ch_anodization_contact'].lower()=='nc' :
@@ -5022,7 +5023,13 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             dd2[5].append(row['ch_inner_side_wg_s_id'])
             dd2[5].append(row['ch_outer_side_wg_id'])
             dd2[5].append(row['ch_inner_side_wg_id'])
-            dd2[5].append(row['ch_anodization_contact'])
+            if row['ch_anodization_contact'].lower() =='yc':
+                dd2[5].append('С КОНТАКТОМ')
+            elif row['ch_anodization_contact'].lower()=='nc' :
+                dd2[5].append('БЕЗ КОНТАКТА')
+            else:
+                dd2[5].append(row['ch_anodization_contact'])
+            # dd2[5].append(row['ch_anodization_contact'])
             dd2[5].append(row['ch_anodization_type'])
             dd2[5].append(row['ch_anodization_method'])
             dd2[5].append(row['ch_print_view'])
@@ -6863,12 +6870,15 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 dd2[5].append(row['ch_inner_side_wg_s_id'])
                 dd2[5].append(row['ch_outer_side_wg_id'])
                 dd2[5].append(row['ch_inner_side_wg_id'])
-            
-                if row['ch_anodization_contact'].lower() =='yc':
+
+                
+
+                if row['ch_anodization_contact'].lower() =='yc' :
                     dd2[5].append('С КОНТАКТОМ')
                 elif row['ch_anodization_contact'].lower()=='nc' :
                     dd2[5].append('БЕЗ КОНТАКТА')
                 else:
+                    print('>>>>>>>',row['ch_anodization_contact'])
                     dd2[5].append(row['ch_anodization_contact'])
 
                 dd2[5].append(row['ch_anodization_type'])
@@ -6953,6 +6963,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 elif row['ch_anodization_contact'].lower()=='nc' :
                     dd2[5].append('БЕЗ КОНТАКТА')
                 else:
+                    print('FFFF>>>>',row['ch_anodization_contact'])
                     dd2[5].append(row['ch_anodization_contact'])
                 
                 dd2[5].append(row['ch_anodization_type'])
