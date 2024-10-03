@@ -374,6 +374,7 @@ function front_piece(start=1,end=6){
                 <option value="RUB - Российский рубль">RUB - Российский рубль</option>
                 <option value="TRL - Турецкая лира (стар.)">TRL - Турецкая лира (стар.)</option>
                 <option value="TRY - Турецкая лира">TRY - Турецкая лира</option>
+                <option value="EU - EURO">EU - EURO</option>
             </select>
             </div>
         </td>
