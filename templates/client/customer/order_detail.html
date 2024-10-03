@@ -1124,6 +1124,8 @@
             i = 0
         var order_type ='{{order_type}}'
 
+        var specific_fields = ['sena','stoimost_alter','stoimost_baza','delovoy_otxod','sena_c_nds','sena_bez_nds','sena_export','koefitsiyent','sena_materiala','buxgalter_sena','sena_c_nds_zakup','sena_bez_nds_zakup']
+
         var order ={
             'alu_imzo':[ 'nazvaniye_system','base_artikul','kratkiy_tekst','dlina','tip_pokritiya','splav','tip_zak','combination','brend_kraska_sn','kod_kraska_sn','brend_kraska_vn','kod_kraska_vn','kod_dekor_sn','svet_dekplonka_snaruji','kod_dekor_vn','svet_dekplonka_vnutri','svet_lamplonka_snaruji','kod_lam_sn','svet_lamplonka_vnutri','kod_lam_vn','kod_anod_sn','kod_anod_vn','contactnost_anod','kod_nakleyki','nadpis_nakleyki','baza_profiley','goods_group','tex_name','gruppa_materialov','sap_code','krat','delovoy_otxod','klaes_id','klaes_nazvaniye','kod_sveta','kratkiy_klaes','sena','comment'],
             'alu_savdo':['nazvaniye_system','base_artikul','kratkiy_tekst','dlina','tip_pokritiya','splav','tip_zak','combination','brend_kraska_sn','kod_kraska_sn','brend_kraska_vn','kod_kraska_vn','kod_dekor_sn','svet_dekplonka_snaruji','kod_dekor_vn','svet_dekplonka_vnutri','kod_lam_sn','svet_lamplonka_snaruji','kod_lam_vn','svet_lamplonka_vnutri','kod_anod_sn','kod_anod_vn','contactnost_anod','kod_nakleyki','nadpis_nakleyki','baza_profiley','gruppa_materialov','sap_code','krat','comment','dilina_pressa','zavod','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','buxgalter_uchot','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod_name','diller','tip_clienta'],
@@ -1154,12 +1156,25 @@
                 text2=''
                 for (var j = 0; j < order[order_type].length; j++) {
                     var key2 = order[order_type][j];
-                    text2+=`<td class="text-center" style='background-color:white;'>
-                                    <div id=`+key2 +String(i)+String(j)+` class= 'text-center d-inline-block' style="text-transform: uppercase;font-size: 12px;white-space: nowrap;"></div>
-                                    
-                                
-                            </td>
-                            `
+
+
+                    if (specific_fields.includes(key)){
+                      text2+=`<td class="text-center" style='background-color:white;'>
+                                      <div id=`+key2 +String(i)+String(j)+` class= 'text-center d-inline-block decimal-cell' style="text-transform: uppercase;font-size: 12px;white-space: nowrap;"></div>
+                                      
+                                  
+                              </td>
+                              `
+                    }else{
+
+                      text2+=`<td class="text-center" style='background-color:white;'>
+                                      <div id=`+key2 +String(i)+String(j)+` class= 'text-center d-inline-block' style="text-transform: uppercase;font-size: 12px;white-space: nowrap;"></div>
+                                      
+                                  
+                              </td>
+                              `
+                    } 
+
                 }
                 text +=`
                         <tr id='table_tr` +String(i)+`'  >
@@ -1217,7 +1232,7 @@
 
           // Loop through table cells and correct the decimal separator
           Array.from(table.getElementsByTagName('td')).forEach(td => {
-              if (td.innerText.includes(',')) {
+              if (td.innerText.includes(',')&& td.classList.contains('decimal-cell')) {
                   td.innerText = td.innerText.replace(',', '.'); // Replace comma with dot
               }
           });
