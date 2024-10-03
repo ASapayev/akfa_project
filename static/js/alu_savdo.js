@@ -1822,7 +1822,7 @@ function get_anod(id,termo=false,copy=false){
 
 
 function clear_artikul(id){
-    console.log('clear process >>' + id)
+    
     if(data_base[id]){
         var is_termo = data_base[id].is_termo
         var base_artikul =$('#select2-artikul'+id+'-container').text()
