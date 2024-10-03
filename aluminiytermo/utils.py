@@ -5066,6 +5066,21 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 =ddf2.replace('XXXX','')
     ddf2.to_excel(pathtext6,index=False)
+
+    grouped_by_name = ddf2.groupby('Имя признака')
+
+    # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
+    for group_name, group_df in grouped_by_name:
+        # Remove duplicates
+        group_df = group_df.drop_duplicates()
+        
+        # Prepare the output file path using the group_name
+        output_file = f'{group_name}.xlsx'  # This saves the file using the group name
+        
+        # Save the group to Excel
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}',"ХАРАКТЕРИСТИКИ")
+        group_df.to_excel(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\JOMIY\\{minut}\\ХАРАКТЕРИСТИКИ\\{output_file}.xlsx', index=False)
+
     if is_1101 =='on':
         return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8,pathtext9,pathtext10],pathzip,pathtexcarta
     elif is_1112 =='on':
@@ -6442,6 +6457,23 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
         ddf2 =ddf2.replace('XXXX','')
         ddf2.to_excel(pathtext6,index=False)
+        grouped_by_name = ddf2.groupby('Имя признака')
+
+        # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
+        for group_name, group_df in grouped_by_name:
+            # Remove duplicates
+            group_df = group_df.drop_duplicates()
+            
+            # Prepare the output file path using the group_name
+            if file_name =='aluminiytermo':
+                create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}',"ХАРАКТЕРИСТИКИ")
+                output_file = f'{MEDIA_ROOT}\\upoads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\ХАРАКТЕРИСТИКИ\\{group_name}.xlsx'
+            else:
+                create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}',"ХАРАКТЕРИСТИКИ")
+                output_file = f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\ХАРАКТЕРИСТИКИ\\{group_name}.xlsx'
+            
+            # Save the group to Excel
+            group_df.to_excel(output_file, index=False)
     
     else:
     ########################## Бухгалтерская название.txt ##############################
@@ -7022,6 +7054,27 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
         ddf2 =ddf2.replace('XXXX','')
         ddf2.to_excel(pathtext6,index=False)
+
+        grouped_by_name = ddf2.groupby('Имя признака')
+
+        # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
+        for group_name, group_df in grouped_by_name:
+            # Remove duplicates
+            group_df = group_df.drop_duplicates()
+            
+            # Prepare the output file path using the group_name
+            if file_name =='aluminiytermo':
+                create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}',"ХАРАКТЕРИСТИКИ")
+                output_file = f'{MEDIA_ROOT}\\upoads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\ХАРАКТЕРИСТИКИ\\{group_name}.xlsx'
+            else:
+                create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}',"ХАРАКТЕРИСТИКИ")
+                output_file = f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\ХАРАКТЕРИСТИКИ\\{group_name}.xlsx'
+            
+            # Save the group to Excel
+            group_df.to_excel(output_file, index=False)
+
+
+
         
     
 
