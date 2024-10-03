@@ -87,7 +87,7 @@ class BasePokritiya{
         }
         switch(this.id){
             case 1:if(!this.is_termo){
-           
+                    
                     if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki ){
                         if(this.nazvaniye_ruchnoy && this.dilina_pressa){
 
@@ -96,6 +96,7 @@ class BasePokritiya{
                             return {'text':this.result + this.tip_zak + ' L' + this.dlina +' ' + this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':false}
                         }
                     }else{
+
                         return {'text':'XXXXXXXX','accept':false}
                     }
                 }else{
@@ -139,7 +140,8 @@ class BasePokritiya{
                     }
                 }break;
             case 3: if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_nakleyki){
+                // console.log(this.splav , this.tip_zak , this.dlina , this.brend_kraska_sn , this.kod_kraska_sn , this.kod_nakleyki)
+                if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_nakleyki && (this.brend_kraska_sn|| this.brend_kraska_sn=='')){
                     if(this.nazvaniye_ruchnoy && this.dilina_pressa){
 
                         return  {'text':this.result + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +' ' +this.kod_nakleyki,'accept':true}
@@ -151,8 +153,8 @@ class BasePokritiya{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
-                
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki){
+                    
+                    if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_nakleyki&& (this.brend_kraska_sn|| this.brend_kraska_sn=='')&& (this.brend_kraska_vn|| this.brend_kraska_vn=='')){
                         if(this.nazvaniye_ruchnoy && this.dilina_pressa){
 
                             return {'text':this.result + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn+'/'+this.brend_kraska_vn+this.kod_kraska_vn+' ' +this.kod_nakleyki,'accept':true}
@@ -165,7 +167,7 @@ class BasePokritiya{
                     }
                 }break;
             case 4: if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki ){
+                if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki&& (this.brend_kraska_sn|| this.brend_kraska_sn=='') ){
                     if(this.nazvaniye_ruchnoy && this.dilina_pressa){
 
                         return {'text':this.result + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
@@ -177,7 +179,7 @@ class BasePokritiya{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki ){
+                    if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_lam_vn && this.kod_lam_sn && this.kod_nakleyki && (this.brend_kraska_sn|| this.brend_kraska_sn=='')&& (this.brend_kraska_vn|| this.brend_kraska_vn=='')){
                         if(this.nazvaniye_ruchnoy && this.dilina_pressa){
 
                             return {'text':this.result + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn + this.kod_kraska_vn +'_'+this.kod_lam_sn+'/'+this.kod_lam_vn + ' ' +this.kod_nakleyki,'accept':true}
@@ -190,7 +192,7 @@ class BasePokritiya{
                     }
                 }break;
             case 5:if(!this.is_termo){
-                if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki){
+                if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_dekor_sn && this.kod_nakleyki&& (this.brend_kraska_sn|| this.brend_kraska_sn=='')){
                     if(this.nazvaniye_ruchnoy && this.dilina_pressa){
                         return {'text':this.result + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'_'+this.kod_dekor_sn + ' ' +this.kod_nakleyki,'accept':true}
                         
@@ -202,7 +204,7 @@ class BasePokritiya{
                     return {'text':'XXXXXXXX','accept':false}
                 }
                 }else{
-                    if(this.splav && this.tip_zak && this.dlina && this.brend_kraska_sn && this.brend_kraska_vn && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn){
+                    if(this.splav && this.tip_zak && this.dlina && this.kod_kraska_sn && this.kod_kraska_vn && this.kod_dekor_sn && this.kod_dekor_vn&& (this.brend_kraska_sn|| this.brend_kraska_sn=='')&& (this.brend_kraska_vn|| this.brend_kraska_vn=='')){
                         if(this.nazvaniye_ruchnoy && this.dilina_pressa){
 
                             return {'text':this.result + this.tip_zak + ' L' + this.dlina +' ' + this.brend_kraska_sn+ this.kod_kraska_sn +'/'+this.brend_kraska_vn+this.kod_kraska_vn+'_'+this.kod_dekor_sn+'/'+this.kod_dekor_vn + ' ' +this.kod_nakleyki,'accept':true}
@@ -899,32 +901,49 @@ function copy_tr(id,ii=1){
                 div_kras_vn.css('display','block')
             }
         }else if(id == 2){    
-                check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,false,true)
+                check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true,is_req_simple=false)
                 chosen_update('.code_kraski_snar_sel'+String(s),kod_kraska_sn,true)
                 div_kras_sn.css('display','block')
                 check_input_and_change(kod_nakleyki,'#nakleyka'+s)
                 if(is_termo_bas){
-                    check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,false,true)
+                    check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true,is_req_simple=false)
                     chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=true)
                     div_kras_vn.css('display','block')
                 }
         }else if(id ==3){
             
-            check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
+            check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true,is_req_simple=false)
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
+            
+            if(kod_kraska_sn){
+                $('#div_kras_sn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+            }else{
+                $('#div_kras_sn'+s).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
+            }
             div_kras_sn.css('display','block')
             check_input_and_change(kod_nakleyki,'#nakleyka'+s)
 
             if(is_termo_bas){
-                check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
+                check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true,is_req_simple=false)
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
+                if(kod_kraska_vn){
+                    $('#div_kras_vn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+                }else{
+                    $('#div_kras_vn'+s).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
+                }
                 div_kras_vn.css('display','block')
             }
         }
         else if(id ==4){
             
-            check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
+            check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true,is_req_simple=false)
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
+            if(kod_kraska_sn){
+                $('#div_kras_sn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+            }else{
+                $('#div_kras_sn'+s).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
+            }
+            
             div_kras_sn.css('display','block')
 
             check_input_and_change(kod_lam_sn,'#svet_lamplonka_snaruji'+s,dis=false,is_req=true)
@@ -934,16 +953,26 @@ function copy_tr(id,ii=1){
             check_text_and_change(kod_lam_vn,'#code_lamplonka_vnutri'+s,dis=false,is_req=true)
             check_input_and_change(kod_nakleyki,'#nakleyka'+s)
             if(is_termo_bas){
-                check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
+                check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true,is_req_simple=false)
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
+                if(kod_kraska_vn){
+                    $('#div_kras_vn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+                }else{
+                    $('#div_kras_vn'+s).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
+                }
                 div_kras_vn.css('display','block')
             }
 
         }
         else if(id ==5){
             
-            check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
+            check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true,is_req_simple=false)
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
+            if(kod_kraska_sn){
+                $('#div_kras_sn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+            }else{
+                $('#div_kras_sn'+s).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
+            }
             div_kras_sn.css('display','block')
 
             check_input_and_change(svet_dekplonka_snaruji,'#svet_dekplonka_snaruji'+s,dis=false,is_req=true)
@@ -952,8 +981,13 @@ function copy_tr(id,ii=1){
             check_input_and_change(kod_nakleyki,'#nakleyka'+s)
 
             if(is_termo_bas){
-                check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
+                check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true,is_req_simple=false)
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
+                if(kod_kraska_vn){
+                    $('#div_kras_vn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+                }else{
+                    $('#div_kras_vn'+s).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
+                }
                 div_kras_vn.css('display','block')
 
                 check_input_and_change(svet_dekplonka_vnutri,'#svet_dekplonka_vnutri'+s,dis=false,is_req=true)
@@ -981,10 +1015,10 @@ function copy_tr(id,ii=1){
         }
 
        
-        check_input_and_change(dlina,'#length'+s,false,true)
+        check_input_and_change(dlina,'#length'+s,dis=false,is_req=true,is_req_simple=false)
         check_for_valid_and_set_val_select(s,base_artikul,'artikul'+ s,true,false)
-        check_input_and_change(splav,'#splav'+s,false,true)
-        check_input_and_change(tip_zak,'#tip_zakalyonnosti'+s,false,true)
+        check_input_and_change(splav,'#splav'+s,dis=false,is_req=true,is_req_simple=false)
+        check_input_and_change(tip_zak,'#tip_zakalyonnosti'+s,dis=false,is_req=true,is_req_simple=false)
         check_text_and_change(combination,'#combination'+s)
         check_text_and_change(nazvaniye_system,'.nazvaniye_system'+s)
         
@@ -1668,7 +1702,7 @@ function tip_pokritiya_selected(id,val){
         brand_kraski_vnutri.css('display','block')
         
         set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='',add=false)
-        
+        $('#div_kras_sn'+id).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
 
         $('.code_kraski_snar_sel'+String(id)).prop('disabled', false).trigger('chosen:updated')
         var div_kras = $('#div_kras_sn'+String(id))
@@ -1689,7 +1723,8 @@ function tip_pokritiya_selected(id,val){
             brand_kraski_vnutri.attr('disabled',false)
             brand_kraski_vnutri.css('display','block')
             set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='',add=false)
-            
+            $('#div_kras_vn'+id).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
+
             $('.code_kraski_vnut_sel'+String(id)).prop('disabled', false).trigger('chosen:updated')
             var div_kras = $('#div_kras_vn'+String(id))
             div_kras.css('display','block')
@@ -1879,7 +1914,7 @@ function svet_dekplonka_vnutri_selected(id,val){
     code_dekplonka_vnutri.text(String(val));
     var selectElement = document.getElementById('svet_dekplonka_vnutri'+String(id));
     selectElement.style.borderColor='red';
-    console.log(selectElement)
+    
     create_kratkiy_tekst(id);
 }
 
@@ -2038,22 +2073,113 @@ function create_kratkiy_tekst(id){
     }
     else if(String(val) == '3' || String(val) == '4'|| String(val) == '5'){
         
-        var brend_kraska_sn = $('#brand_k_snaruji'+String(id))
-        if(brend_kraska_sn.val() != '0' && brend_kraska_sn.val()  != undefined && brend_kraska_sn.val() != '' && brend_kraska_sn.val()  !=null){
-            brend_kraska_sn.css("border-color",'#dedad9');
-            data_base[id].brend_kraska_sn =brend_kraska_sn.val();
+        // var brend_kraska_sn = $('#brand_k_snaruji'+String(id))
+        // if(brend_kraska_sn.val() != '0' && brend_kraska_sn.val()  != undefined && brend_kraska_sn.val() != '' && brend_kraska_sn.val()  !=null){
+        //     brend_kraska_sn.css("border-color",'#dedad9');
+        //     data_base[id].brend_kraska_sn =brend_kraska_sn.val();
+        // }else{
+        //     brend_kraska_sn.css("border-color",'red');
+        //     data_base[id].brend_kraska_sn =NaN;
+        // }
+        
+        // var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+        // if(code_kraski_snaruji.val() != '0' && code_kraski_snaruji.val()  != undefined && code_kraski_snaruji.val() != '' && code_kraski_snaruji.val()  !=null){
+        //     code_kraski_snaruji.css("border-color",'#dedad9');
+        //     $('#div_kras_sn'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+
+        //     data_base[id].kod_kraska_sn =code_kraski_snaruji.val();
+
+
+        // }else{
+        //     code_kraski_snaruji.css("border-color",'red');
+        //     data_base[id].kod_kraska_sn =NaN;
+        // }
+       
+        // if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА')
+        //     {
+
+        //         var brend_kraska_vn = $('#brand_k_vnutri'+String(id))
+        //         if(brend_kraska_vn.val() != '0' && brend_kraska_vn.val()  != undefined  && brend_kraska_vn.val()  != ''  && brend_kraska_vn.val()  != null){
+        //             brend_kraska_vn.css("border-color",'#dedad9');
+        //             data_base[id].brend_kraska_vn =brend_kraska_vn.val();
+        //         }else{
+        //             brend_kraska_vn.css("border-color",'red');
+        //             data_base[id].brend_kraska_vn =NaN;
+        //         }
+
+        //         var code_kraski_vnut = $('#code_kraski_vnut'+String(id))
+               
+        //         if((code_kraski_vnut.val() != '0') && (code_kraski_vnut.val()  != undefined)&&code_kraski_vnut.val()!=''){
+                    
+        //             code_kraski_vnut.css("border-color",'#dedad9');
+        //             data_base[id].kod_kraska_vn =code_kraski_vnut.val();
+        //         }else{
+        //             code_kraski_vnut.css("border-color",'red');
+        //             data_base[id].kod_kraska_vn =NaN;
+        //         }
+                
+        //         data_base[id].is_termo =true;
+                
+        //     }
+        var brend_kaska_sn = $('#brand_k_snaruji'+id)
+        var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+        var selected_text = $('#code_kraski_snar'+String(id) + ' option:selected').text();
+
+        if(brend_kaska_sn.val() != '0' && brend_kaska_sn.val()  != undefined && brend_kaska_sn.val() != '' && brend_kaska_sn.val()  !=null){
+            
+            if(selected_text =='MF'){
+
+                brend_kaska_sn.val('')
+                brend_kaska_sn.css("border-color",'#dedad9');
+                data_base[id].brend_kraska_sn ='';
+            }else{
+                brend_kaska_sn.css("border-color",'#dedad9');
+                data_base[id].brend_kraska_sn =brend_kaska_sn.val();
+            }
+
         }else{
-            brend_kraska_sn.css("border-color",'red');
-            data_base[id].brend_kraska_sn =NaN;
+
+            if(selected_text == 'MF'){
+                brend_kaska_sn.val('')
+                data_base[id].brend_kraska_sn ='';
+            }else{
+                brend_kaska_sn.css("border-color",'red');
+                data_base[id].brend_kraska_sn =NaN;
+            }
+
         }
         
-        var code_kraski_snaruji = $('#code_kraski_snar'+String(id));
+        
         if(code_kraski_snaruji.val() != '0' && code_kraski_snaruji.val()  != undefined && code_kraski_snaruji.val() != '' && code_kraski_snaruji.val()  !=null){
             code_kraski_snaruji.css("border-color",'#dedad9');
-            data_base[id].kod_kraska_sn =code_kraski_snaruji.val();
+            data_base[id].kod_kraska_sn = code_kraski_snaruji.val();
+
+            $('#div_kras_sn'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+        // $('#div_kras_vn'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+
+            var brend_kaska_sn = $('#brand_k_snaruji'+id)
+            if(!data_base[id].brend_kraska_sn){
+                var code_kraski_snaruji_kraska = $('#code_kraski_snar'+String(id) +' option:selected').attr('data-brend');;
+                brend_kaska_sn.css("border-color",'#dedad9');
+                brend_kaska_sn.val(code_kraski_snaruji_kraska) 
+    
+                data_base[id].brend_kraska_sn = code_kraski_snaruji_kraska
+            }
+
+
         }else{
-            code_kraski_snaruji.css("border-color",'red');
-            data_base[id].kod_kraska_sn =NaN;
+            var selected_text = $('#code_kraski_snar'+String(id) + ' option:selected');
+            if(selected_text.text() == 'MF'){
+                $('#div_kras_sn'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+                brend_kaska_sn.val('')
+                data_base[id].brend_kraska_sn ='';
+                data_base[id].kod_kraska_sn =selected_text.val();
+            }else{
+                $('#div_kras_sn'+id).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
+                code_kraski_snaruji.css("border-color",'red');
+                data_base[id].kod_kraska_sn =NaN;
+                data_base[id].brend_kraska_sn = NaN
+            }
         }
        
        
@@ -2062,33 +2188,72 @@ function create_kratkiy_tekst(id){
         if (combination_text.toUpperCase() != 'БЕЗ ТЕРМОМОСТА')
             {
 
-                var brend_kraska_vn = $('#brand_k_vnutri'+String(id))
-                if(brend_kraska_vn.val() != '0' && brend_kraska_vn.val()  != undefined  && brend_kraska_vn.val()  != ''  && brend_kraska_vn.val()  != null){
-                    brend_kraska_vn.css("border-color",'#dedad9');
-                    data_base[id].brend_kraska_vn =brend_kraska_vn.val();
+                var brend_kaska_vn = $('#brand_k_vnutri'+id)
+                var selected_text = $('#code_kraski_vnut'+String(id) + ' option:selected').text();
+
+                if(brend_kaska_vn.val() != '0' && brend_kaska_vn.val()  != undefined && brend_kaska_vn.val() != '' && brend_kaska_vn.val()  !=null){
+                    if(selected_text =='MF'){
+                        brend_kaska_vn.val('')
+                        brend_kaska_vn.css("border-color",'#dedad9');
+                        data_base[id].brend_kraska_vn ='';
+                    }else{
+                        brend_kaska_vn.css("border-color",'#dedad9');
+                        data_base[id].brend_kraska_vn =brend_kaska_vn.val();
+                    }
                 }else{
-                    brend_kraska_vn.css("border-color",'red');
-                    data_base[id].brend_kraska_vn =NaN;
+
+                    
+                    if(selected_text == 'MF'){
+                        brend_kaska_vn.val('')
+                        data_base[id].brend_kraska_vn ='';
+                    }else{
+                        brend_kaska_vn.css("border-color",'red');
+                        data_base[id].brend_kraska_vn =NaN;
+                    }
+
                 }
 
                 var code_kraski_vnut = $('#code_kraski_vnut'+String(id))
-               
-                if((code_kraski_vnut.val() != '0') && (code_kraski_vnut.val()  != undefined)&&code_kraski_vnut.val()!=''){
-                    
+                var brend_kaska_vn = $('#brand_k_vnutri'+id)
+                if(code_kraski_vnut.val() != '0' && code_kraski_vnut.val()  != undefined && code_kraski_vnut.val()  != '' && code_kraski_vnut.val()  !=null){
                     code_kraski_vnut.css("border-color",'#dedad9');
                     data_base[id].kod_kraska_vn =code_kraski_vnut.val();
+                    
+                    $('#div_kras_vn'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+
+                    if(!data_base[id].brend_kraska_vn ){
+                        var code_kraski_vnutri_kraska = $('#code_kraski_vnut'+String(id) +' option:selected').attr('data-brend');;
+                        brend_kaska_vn.css("border-color",'#dedad9');
+                        brend_kaska_vn.val(code_kraski_vnutri_kraska) 
+                        data_base[id].brend_kraska_vn = code_kraski_vnutri_kraska
+
+                    }
                 }else{
-                    code_kraski_vnut.css("border-color",'red');
-                    data_base[id].kod_kraska_vn =NaN;
+
+                    var selected_text = $('#code_kraski_vnut'+String(id) + ' option:selected');
+                    if(selected_text.text() == 'MF'){
+                        $('#div_kras_vn'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+                        brend_kaska_vn.val('')
+                        data_base[id].brend_kraska_vn ='';
+                        data_base[id].kod_kraska_vn =selected_text.val();
+                    }else{
+                        $('#div_kras_vn'+id).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
+                        code_kraski_vnut.css("border-color",'red');
+                        data_base[id].kod_kraska_vn =NaN;
+                        data_base[id].brend_kraska_vn = NaN;
+                    }
                 }
-                
+
                 data_base[id].is_termo =true;
                 
             }
 
-
-
-            var nakleyka = $('#nakleyka'+String(id))
+        
+        
+        
+        
+        
+        var nakleyka = $('#nakleyka'+String(id))
         nakleyka.attr('disabled',false)
         if(nakleyka.val()!=''){
             data_base[id].kod_nakleyki = nakleyka.val();
