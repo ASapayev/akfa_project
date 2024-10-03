@@ -266,7 +266,7 @@ function front_piece(start=1,end=6){
                     </td>
                     <td class="sticky-col" style=' left: 73.5px;background-color:white!important;width:100px!important'>
                         <div class="input-group input-group-sm mb-1" style='width:100%'>
-                            <span class ='text-center nazvaniye_system` +String(i)+`'style="font-size: 14px;width:100px!important;white-space: nowrap;"></span>
+                            <span class ='text-center nazvaniye_system` +String(i)+`'style="font-size: 8px;width:100px!important;font-weight:900"></span>
                         </div>
                     </td>
                     <td class="sticky-col"  style=' left: 183.2px; background-color:white!important' >
@@ -281,7 +281,7 @@ function front_piece(start=1,end=6){
              buttons =`
             <td class="sticky-col" style='left:0;background-color:white!important;width:100px!important'>
                 <div class="input-group input-group-sm mb-1" style='width:100%'>
-                    <span class ='text-center nazvaniye_system` +String(i)+`'style="font-size: 14px;width:100px!important;white-space: nowrap;"></span>
+                    <span class ='text-center nazvaniye_system` +String(i)+`'style="font-size: 8px;width:100px!important;font-weight:900"></span>
                 </div>
             </td>
             <td class="sticky-col"  style='left:109.7;background-color:white!important' >

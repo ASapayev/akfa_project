@@ -465,7 +465,7 @@ function front_piece(start=1,end=7){
                     </td>
                     <td class="sticky-col" style=' left: 139.6px;background-color:white!important;width:100px!important'>
                         <div class="input-group input-group-sm mb-1" style='width:100%'>
-                            <span class ='text-center nazvaniye_system` +String(i)+`'style="font-size: 14px;width:100px!important;white-space: nowrap;"></span>
+                            <span class ='text-center nazvaniye_system` +String(i)+`'style="font-size: 9px;width:100px!important;font-weight:900"></span>
                         </div>
                     </td>
                     <td class="sticky-col"  style=' left: 249.3px; background-color:white!important'>
@@ -478,7 +478,7 @@ function front_piece(start=1,end=7){
             buttons =`
                     <td class="sticky-col" style=' left:0px;background-color:white!important;width:100px!important'>
                         <div class="input-group input-group-sm mb-1" style='width:100%'>
-                            <span class ='text-center nazvaniye_system` +String(i)+`'style="font-size: 14px;width:100px!important;white-space: nowrap;"></span>
+                            <span class ='text-center nazvaniye_system` +String(i)+`'style="font-size: 9px;width:100px!important;font-weight:900"></span>
                         </div>
                     </td>
                     <td class="sticky-col"  style=' left: 109.7px; background-color:white!important'>
@@ -1553,7 +1553,8 @@ function copy_tr(id,ii=1){
         if(is_active){
             activate_btn.css('background-color','orange')
             activate_btn.css('color','white')
-            check_text_and_change(zavod_name,'#zavod'+s,dis=false,is_req=false,is_req_simple=true)
+            console.log(zavod_name,'zavod nameeee')
+            check_input_and_change(zavod_name,'#zavod'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(online_id,'#online_savdo_id'+s,dis=false,is_req=true)
             check_input_and_change(nazvaniye_ruchnoy,'#nazvaniye_ruchnoy'+s,dis=false,is_req=true)
             check_input_and_change(svet_product,'#svet_product'+s,dis=false,is_req=false,is_req_simple=true)
