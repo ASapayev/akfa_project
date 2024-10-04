@@ -5149,7 +5149,8 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО'
-       
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}',"ХАРАКТЕРИСТИКИ")
+        char_path = f"{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\ХАРАКТЕРИСТИКИ"
     elif file_name =='aluminiy':
         parent_dir ='{MEDIA_ROOT}\\uploads\\aluminiy'
         
@@ -5175,6 +5176,8 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         pathtext8 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\Бух название SDLONGTEXT.txt'
         pathtext9 =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
         pathzip =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ'
+        create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}',"ХАРАКТЕРИСТИКИ")
+        char_path = f"{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\ХАРАКТЕРИСТИКИ"
        
     
     umumiy_without_duplicate1201 =[[] for i in range(0,49)]
@@ -6470,12 +6473,8 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
             group_df = group_df.drop_duplicates()
             
             # Prepare the output file path using the group_name
-            if file_name =='aluminiytermo':
-                create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}',"ХАРАКТЕРИСТИКИ")
-                output_file = f'{MEDIA_ROOT}\\upoads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\ХАРАКТЕРИСТИКИ\\{group_name}.xlsx'
-            else:
-                create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}',"ХАРАКТЕРИСТИКИ")
-                output_file = f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\ХАРАКТЕРИСТИКИ\\{group_name}.xlsx'
+            output_file = f'{char_path}\\{group_name}.xlsx'
+            
             
             # Save the group to Excel
             group_df.to_excel(output_file, index=False)
@@ -7068,13 +7067,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
             group_df = group_df.drop_duplicates()
             
             # Prepare the output file path using the group_name
-            if file_name =='aluminiytermo':
-                
-                output_file = f'{MEDIA_ROOT}\\upoads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour} ТЕРМО\\BENKAM\\{minut}\\ХАРАКТЕРИСТИКИ\\{group_name}.xlsx'
-            else:
-                
-                output_file = f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour} ОБЫЧНЫЙ\\BENKAM\\{minut}\\ХАРАКТЕРИСТИКИ\\{group_name}.xlsx'
-            
+            output_file = f'{char_path}\\{group_name}.xlsx'
             # Save the group to Excel
             group_df.to_excel(output_file, index=False)
 

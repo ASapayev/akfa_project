@@ -2309,7 +2309,7 @@ function tip_pokritiya_selected(id,val){
     var svet_product_val =''
 
    
-    console.log(status_first.val(),'ddddd');
+    // console.log(status_first.val(),'ddddd');
 
     if(String(val) == '1'){
         
