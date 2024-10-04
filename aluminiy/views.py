@@ -481,6 +481,8 @@ def alu_product_base(request):
     artiku_comp.save()
   return JsonResponse({'converted':'a'})
 
+
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user1'])
 def upload_product(request):

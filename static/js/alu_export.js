@@ -1638,11 +1638,14 @@ function tip_pokritiya_selected(id,val){
             $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_sn'+String(id))
             div_kras.css('display','block')
+            $('#div_kras_sn'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
             brand_k_snaruji.val('')
             // code_kraski_snaruji.css('border-color','#dedad9')
         }else{
             set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='MF',add=false)
             set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='MF',add=false)
+            $('#div_kras_sn'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+            $('#div_kras_vn'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
             
             $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_sn'+String(id))
@@ -1666,7 +1669,7 @@ function tip_pokritiya_selected(id,val){
             
             var brand_kraski_snaruji = $('#brand_k_snaruji'+String(id))
             set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016',add=false)
-            
+            $('#div_kras_sn'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
         
             $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_sn'+String(id))
@@ -1680,6 +1683,8 @@ function tip_pokritiya_selected(id,val){
 
             set_brend_kraska(brend_kaska,'.code_kraski_snar_sel'+String(id),val_='9016',add=false)
             set_brend_kraska(brend_kaska,'.code_kraski_vnut_sel'+String(id),val_='9016',add=false)
+            $('#div_kras_sn'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+            $('#div_kras_vn'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
             
             $('.code_kraski_snar_sel'+String(id)).prop('disabled', true).trigger('chosen:updated')
             var div_kras = $('#div_kras_sn'+String(id))
