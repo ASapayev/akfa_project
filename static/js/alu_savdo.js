@@ -1450,6 +1450,10 @@ function copy_tr(id,ii=1){
             check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
             // console.log(kod_kraska_sn,'ssssssssssssss')
+            if(brend_kraska_sn==''){
+                $('#brand_k_snaruji'+s).css('border-color','#dedad9')
+            }
+
             if(kod_kraska_sn){
                 $('#div_kras_sn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
             }else{
@@ -1464,6 +1468,10 @@ function copy_tr(id,ii=1){
 
             if(is_termo_bas){
                 check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
+                if(brend_kraska_vn==''){
+                    $('#brand_k_vnutri'+s).css('border-color','#dedad9')
+                }
+
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
                 if(kod_kraska_vn){
                     $('#div_kras_vn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
@@ -1478,6 +1486,9 @@ function copy_tr(id,ii=1){
             
             check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
+            if(brend_kraska_sn==''){
+                $('#brand_k_snaruji'+s).css('border-color','#dedad9')
+            }
 
             if(kod_kraska_sn){
                 $('#div_kras_sn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
@@ -1496,6 +1507,9 @@ function copy_tr(id,ii=1){
             if(is_termo_bas){
                 check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
+                if(brend_kraska_vn==''){
+                    $('#brand_k_vnutri'+s).css('border-color','#dedad9')
+                }
                 if(kod_kraska_vn){
                     $('#div_kras_vn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
                 }else{
@@ -1508,7 +1522,12 @@ function copy_tr(id,ii=1){
         
         else if(id == 5){
             check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true)
+            if(brend_kraska_sn==''){
+                $('#brand_k_snaruji'+s).css('border-color','#dedad9')
+            }
+            
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
+            
             if(kod_kraska_sn){
                 $('#div_kras_sn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
             }else{
@@ -1524,6 +1543,10 @@ function copy_tr(id,ii=1){
 
             if(is_termo_bas){
                 check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true)
+                if(brend_kraska_vn==''){
+                    $('#brand_k_vnutri'+s).css('border-color','#dedad9')
+                }
+                
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
                 if(kod_kraska_vn){
                     $('#div_kras_vn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
@@ -1542,8 +1565,6 @@ function copy_tr(id,ii=1){
         else if(id == 6){
             get_anod(s,is_termo=false,copy=true)
             
-            // $('#select2-code_svet_anodirovki_snaruji1-container')
-            // console.log(kod_anod_sn,'###$$$$$$$$$')
             check_for_valid_and_set_val_select(s,kod_anod_sn,'code_svet_anodirovki_snaruji'+ s,is_req=true,is_anod=true,is_termo=false)
 
             check_input_and_change(contactnost_anod,'#contactnost_anodirovki'+s,dis=false,is_req=true)

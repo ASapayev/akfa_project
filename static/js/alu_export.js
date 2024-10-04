@@ -913,6 +913,9 @@ function copy_tr(id,ii=1){
         }else if(id ==3){
             
             check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true,is_req_simple=false)
+            if(brend_kraska_sn==''){
+                $('#brand_k_snaruji'+s).css('border-color','#dedad9')
+            }
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
             
             if(kod_kraska_sn){
@@ -925,6 +928,9 @@ function copy_tr(id,ii=1){
 
             if(is_termo_bas){
                 check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true,is_req_simple=false)
+                if(brend_kraska_vn==''){
+                    $('#brand_k_vnutri'+s).css('border-color','#dedad9')
+                }
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
                 if(kod_kraska_vn){
                     $('#div_kras_vn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
@@ -937,6 +943,9 @@ function copy_tr(id,ii=1){
         else if(id ==4){
             
             check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true,is_req_simple=false)
+            if(brend_kraska_sn==''){
+                $('#brand_k_snaruji'+s).css('border-color','#dedad9')
+            }
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
             if(kod_kraska_sn){
                 $('#div_kras_sn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
@@ -954,6 +963,9 @@ function copy_tr(id,ii=1){
             check_input_and_change(kod_nakleyki,'#nakleyka'+s)
             if(is_termo_bas){
                 check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true,is_req_simple=false)
+                if(brend_kraska_vn==''){
+                    $('#brand_k_vnutri'+s).css('border-color','#dedad9')
+                }
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
                 if(kod_kraska_vn){
                     $('#div_kras_vn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
@@ -967,6 +979,9 @@ function copy_tr(id,ii=1){
         else if(id ==5){
             
             check_input_and_change(brend_kraska_sn,'#brand_k_snaruji'+s,dis=false,is_req=true,is_req_simple=false)
+            if(brend_kraska_sn==''){
+                $('#brand_k_snaruji'+s).css('border-color','#dedad9')
+            }
             chosen_update('.code_kraski_snar_sel'+String(s),val_=kod_kraska_sn,disabled=false)
             if(kod_kraska_sn){
                 $('#div_kras_sn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
@@ -982,6 +997,9 @@ function copy_tr(id,ii=1){
 
             if(is_termo_bas){
                 check_input_and_change(brend_kraska_vn,'#brand_k_vnutri'+s,dis=false,is_req=true,is_req_simple=false)
+                if(brend_kraska_vn==''){
+                    $('#brand_k_vnutri'+s).css('border-color','#dedad9')
+                }
                 chosen_update('.code_kraski_vnut_sel'+String(s),val_=kod_kraska_vn,disabled=false)
                 if(kod_kraska_vn){
                     $('#div_kras_vn'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
@@ -1112,12 +1130,19 @@ function check_for_valid_and_set_val_select2(i,val,selector,is_req=false){
     }
 }
 
-function check_input_and_change(val,selector,dis=false,is_req=false){
+function check_input_and_change(val,selector,dis=false,is_req=false,is_req_simple=false){
     if(is_req){
         
-        $(selector).attr('disabled',false)
+        $(selector).attr('disabled',dis)
         $(selector).css('display','block')
         $(selector).css('border-color','red')
+
+    }
+    if(is_req_simple){
+        
+        $(selector).attr('disabled',dis)
+        $(selector).css('display','block')
+        $(selector).css('border-color','#dedad9')
 
     }
     if(val !=NaN && val !='' && String(val) != 'NaN'){
