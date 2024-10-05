@@ -519,8 +519,10 @@ function request_piece(start=1,end=6){
                     }else{
                         if(hasOption_snar){
                             set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='',add=false)
+                            $('#nakleyka'+i).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
                         }else{
                             set_nakleyka(nakleyka_list,'.kod_nakleyki'+i,value='',add=true)
+                            $('#nakleyka'+i).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
                         }
                         nakleyka_nt1.text('')
                         nadpis_nakleyki.text('')
@@ -707,6 +709,14 @@ function copy_tr(id,ii=1){
         nakleyka_select.css('display','block')
         nakleyka_select.attr('required',true)
         set_nakleyka(nakleyka_list,'.kod_nakleyki'+s,value=kod_nakleyki)
+
+        if(kod_nakleyki){
+            $('#nakleyka'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
+        }else{
+            $('#nakleyka'+s).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
+        }
+        
+
         check_text_and_change(nadpis_nakleyki,'#nadpis_nakleyki'+s)
        
 
@@ -986,9 +996,11 @@ function tip_pokritiya_selected(id,val){
     if(nakleyka_nt1.text()==''){
         set_nakleyka(nakleyka_list,'.kod_nakleyki'+id,value='',add=false)
         nadpis_nakleyki.text('')
+        $('#nakleyka'+id).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
     }else{
         set_nakleyka(nakleyka_list,'.kod_nakleyki'+id,value='NT1',add=false)
         nadpis_nakleyki.text('Без наклейки')
+        $('#nakleyka'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
     }
 
     
@@ -1012,7 +1024,7 @@ function tip_pokritiya_selected(id,val){
         var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
         kod_svet_rezini.val('')
         kod_svet_rezini.css('display','block');
-        kod_nakleyki.css('border-color','red')
+        // kod_nakleyki.css('border-color','red')
         
         if(iskyucheniye =='1'){
             data_base[id].is_iklyuch=true
@@ -1036,7 +1048,7 @@ function tip_pokritiya_selected(id,val){
         var kod_svet_zames = $('#kod_svet_zames'+String(id));
         kod_svet_zames.attr("disabled",false);
         kod_svet_zames.css("border-color",'#fc2003');
-        kod_nakleyki.css('border-color','red')
+        // kod_nakleyki.css('border-color','red')
 
         var kod_svet_rezini = $('#kod_svet_rezini'+String(id));
         kod_svet_rezini.val('')
@@ -1210,15 +1222,17 @@ function create_kratkiy_tekst(id){
     var value_nak_1 = $('.kod_nakleyki'+String(id) +' option:selected')
     var nadpiss_ = value_nak_1.attr('data-nadpis')
   
-    if(value_nak.val() !=''){
-        value_nak.css('border-color','#dedad9');
+    if(value_nak.val() !='' && value_nak.val()!=null && value_nak.val()!=undefined){
+        // value_nak.css('border-color','#dedad9');
+        $('#nakleyka'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
         data_base[id].kod_nakleyki = value_nak.val();
         data_base[id].nadpis_nakleyki = nadpiss_
         nadpis_nakleyki.text(nadpiss_)
         
     }else{
         nadpis_nakleyki.text('')
-        value_nak.css('border-color','red');
+        // value_nak.css('border-color','red');
+        $('#nakleyka'+id).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
         data_base[id].kod_nakleyki = NaN
         data_base[id].nadpis_nakleyki = NaN;
     }

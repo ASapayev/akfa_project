@@ -916,7 +916,7 @@ def order_number_format(value):
   
 @register.filter(name='convert_str_date')
 def convert_str_date(value):
-    print(value)
+    # print(value)
     return datetime.strptime(value, '%Y-%m-%d %H:%M:%S')
 
 

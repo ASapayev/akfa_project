@@ -47,7 +47,7 @@ df_new ={
     }
 
 for key , row in df.iterrows():
-    print(key)
+    # print(key)
     a =get_legth(row['Кр.ткст материала'])
     b =get_legth(row['Кр.ткст материала2'])
     gcdd = math.gcd(a,b)

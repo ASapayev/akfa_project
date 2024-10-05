@@ -504,9 +504,9 @@ def save_razlovka(df_new,file_type):
                 else:
                     razlovka_yoq=False
             else:
-                  print(key)
+                #   print(key)
                   if razlovka_yoq:
-                        print(key)
+                        # print(key)
                         RazlovkaTermo(
                             parent_id=razlovka_komb.id,
                             esap_code =razlov['SAP код E'],

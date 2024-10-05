@@ -4665,7 +4665,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                 
                 if umumiy_without_duplicate[34][j]=='1101':
                     if umumiy_without_duplicate[50][j]!='0001':
-                        print('11' + umumiy_without_duplicate[50][j],'<<<<>>>>>>',sap_code)
+                        # print('11' + umumiy_without_duplicate[50][j],'<<<<>>>>>>',sap_code)
                         ladgr.append('11' + umumiy_without_duplicate[50][j])
                     else:
                         ladgr.append(umumiy_without_duplicate[50][j])
@@ -4940,7 +4940,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             dd2[5].append(row['ch_inner_side_wg_s_id'])
             dd2[5].append(row['ch_outer_side_wg_id'])
             dd2[5].append(row['ch_inner_side_wg_id'])
-            print('7 1101 >>>>>>>  ',row['ch_anodization_contact'])
+            # print('7 1101 >>>>>>>  ',row['ch_anodization_contact'])
             if row['ch_anodization_contact'].lower() =='yc':
                 dd2[5].append('С КОНТАКТОМ')
             elif row['ch_anodization_contact'].lower()=='nc' :
@@ -6917,7 +6917,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 elif row['ch_anodization_contact'].lower()=='nc' :
                     dd2[5].append('БЕЗ КОНТАКТА')
                 else:
-                    print('>>>>>>>',row['ch_anodization_contact'])
+                    # print('>>>>>>>',row['ch_anodization_contact'])
                     dd2[5].append(row['ch_anodization_contact'])
 
                 dd2[5].append(row['ch_anodization_type'])
@@ -7002,7 +7002,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
                 elif row['ch_anodization_contact'].lower()=='nc' :
                     dd2[5].append('БЕЗ КОНТАКТА')
                 else:
-                    print('FFFF>>>>',row['ch_anodization_contact'])
+                    # print('FFFF>>>>',row['ch_anodization_contact'])
                     dd2[5].append(row['ch_anodization_contact'])
                 
                 dd2[5].append(row['ch_anodization_type'])

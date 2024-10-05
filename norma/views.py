@@ -1160,11 +1160,11 @@ def receipt_all(request):
             тип_клея = тип_клея
             ).save()
     ######end Nakleyka
-    print('nakleyka tugadi')
+    # print('nakleyka tugadi')
     
     
     
-    print('prochiye siryo tugadi')
+    # print('prochiye siryo tugadi')
     
     return JsonResponse({'Hammasi bo\'ldi':'ok'})
 
@@ -1173,7 +1173,7 @@ def receipt_all(request):
 def norma_add(request):
     df = pd.read_excel('c:\\Users\\Acer\\Desktop\\Копия Thermo profilesййй2.xlsx','Лист1')
     df =df.astype(str)
-    print(df)
+    # print(df)
     for key, row in df.iterrows():
         artikul = row['Articale']
         component1 = row['Component № 1']
@@ -1436,7 +1436,7 @@ def kombinirovaniy_process(request,id):
                     its_kombinirovanniy ='-K' in df[k][10]
                     
                     if its_kombinirovanniy:
-                        print('k ga kiryapti')
+                        # print('k ga kiryapti')
                         norma_1 = Norma.objects.filter(артикул=length[0])[:1].get()
                         if ((norma_1.уп_пол_лн_рас_уп_лн_на_1000_штук_кг =='0' ) and (length[0] not in accessuar)):
                             isklyucheniye_ids.append(k)
@@ -1463,7 +1463,7 @@ def kombinirovaniy_process(request,id):
                                  
                     else:
                         if artikul_org != '':
-                            print(artikul_org)    
+                            # print(artikul_org)    
                             norma_1 = Norma.objects.filter(Q(компонент_1=length[0])|Q(компонент_2=length[0])|Q(компонент_3=length[0])|Q(артикул=artikul_org))[:1].get()
                             if ((not '_' in kratkiy_org) or ('7777' in ddd.split('_')[1]) or ('8888' in ddd.split('_')[1]) or ('3701' in ddd.split('_')[1]) or ('3702' in ddd.split('_')[1])):
                                 nakley_code = kratkiy_org.split()[-1]

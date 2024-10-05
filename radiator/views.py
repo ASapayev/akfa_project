@@ -1289,7 +1289,7 @@ def kombinirovaniy_process(request,id):
 
 
     for i in range(0,len(df_aurora)):
-        print(i)
+        # print(i)
         
         artikul = df_aurora[i][4].split('-')[0]
         # print(artikul,'norma')

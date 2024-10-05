@@ -117,7 +117,7 @@ class OrderSaveView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        print('come to get')
+        # print('come to get')
         return Response(['hello',])    
     
     def post(self, request):
@@ -149,7 +149,7 @@ class OrderSaveView(APIView):
             order.save()
             order_detail = OrderDetail(order=order,owner=request.user)
             order_detail.save()
-            print(order.created_at,'$'*250)
+            # print(order.created_at,'$'*250)
             ##### create jira ######
             send_event("orders", "message_new", {
                                         "id":order.id,
@@ -219,7 +219,7 @@ def order_create_jira(name,order_type):
     else:
         order_number ='78'
 
-    print(order_type)
+    # print(order_type)
     payload_jira = json.dumps({
         "requestFieldValues": {
             "summary":name
@@ -236,7 +236,7 @@ def order_create_jira(name,order_type):
         data=payload_jira,
         headers=headers_jira
     )
-    print(response.content)
+    # print(response.content)
     issueKey = json.loads(response.text)['issueKey']
     # print(json.dumps(json.loads(response.text),
     #     sort_keys=True, indent=4, separators=(",", ": ")))
@@ -1539,7 +1539,7 @@ def checker_send_to_jira(id):
         })
 
     url_jira = f"https://akfa-group.atlassian.net/rest/api/3/issue/{id}/assignee"
-    print(url_jira)
+    # print(url_jira)
     response = rq.request(
         "PUT",
         url_jira,
@@ -1640,9 +1640,9 @@ def order_update(request, id):
 
                     order_history = OrderHistory(order=order, data=order.data)
                     order_history.save()
-                    print(order.data)
-                    print('#################'*7)
-                    print(res)
+                    # print(order.data)
+                    # print('#################'*7)
+                    # print(res)
                     # Update the order's data with the new values
                     order.data = {'name': order_name, 'data': res}
                     order.save()

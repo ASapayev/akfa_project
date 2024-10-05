@@ -325,7 +325,7 @@ def generate_norma_epdm(df_sapcodes,df_not_exists):
                     )[:1].get().data
     
     for key, row in df_sapcodes.iterrows():
-        print(key)
+        # print(key)
         
         df['ID'][count_2] ='1'
         df['MATNR'][count_2] = row['MATNR']

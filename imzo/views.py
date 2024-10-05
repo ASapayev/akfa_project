@@ -366,7 +366,7 @@ def lenght_generate_texcarta(request,id):
 
 
     for key,row in df.iterrows():
-        print(key)
+        # print(key)
         if row['МАТЕРИАЛ'] in in_correct[0]:
             continue
         if row['Дупликат'] == 'No':

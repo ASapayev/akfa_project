@@ -1137,7 +1137,7 @@ function copy_tr(id,ii=1){
             
                 check_input_and_change(kod_lam_sn,'#svet_lamplonka_snaruji'+s,dis=false,is_req=true)
                 check_text_and_change(kod_lam_sn,'#code_lamplonka_snaruji'+s,dis=false,is_req=true)
-                console.log(kod_lam_vn,'koddddd')
+                
     
                 check_input_and_change(kod_lam_vn,'#svet_lamplonka_vnutri'+s,dis=false,is_req=true)
                 check_text_and_change(kod_lam_vn,'#code_lamplonka_vnutri'+s,dis=false,is_req=true)
@@ -1164,7 +1164,7 @@ function copy_tr(id,ii=1){
             nakleyka_select.attr('required',true)
     
             set_nakleyka(nakleyka_list,'.kod_nakleyki'+s,value=kod_nakleyki)
-            console.log(kod_nakleyki,'nakakaka')
+           
             if(kod_nakleyki){
                 $('#nakleyka'+s).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
             }else{
@@ -1789,7 +1789,7 @@ function tip_pokritiya_selected(id,val){
     diller.css('display','block')
     tip_clenta.css('display','block')
     
-    console.log(tip_clenta,'tipp')
+  
     var iskyucheniye =$('#iskyucheniye'+id).text()
     
     if(String(val) == '1'){
@@ -1812,7 +1812,7 @@ function tip_pokritiya_selected(id,val){
 
        
 
-        $('#nakleyka'+id).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
+        // $('#nakleyka'+id).find('.chosen-container').find('.chosen-single').css('border-color', 'red');
         
         if(iskyucheniye =='1'){
             data_base[id].is_iklyuch=true
@@ -2157,8 +2157,8 @@ function create_kratkiy_tekst(id){
     
     var value_nak_1 = $('.kod_nakleyki'+String(id) +' option:selected')
     var nadpiss_ = value_nak_1.attr('data-nadpis')
-  
-    if(value_nak.val() !=''){
+    console.log('nakkkkkk >>>>> ',value_nak.val())
+    if(value_nak.val() !='' && value_nak.val()!=null && value_nak.val()!=undefined ){
         // value_nak.css('border-color','#dedad9');
         $('#nakleyka'+id).find('.chosen-container').find('.chosen-single').css('border-color', '#dedad9');
         data_base[id].kod_nakleyki = value_nak.val();
@@ -2553,7 +2553,7 @@ function create_kratkiy_tekst(id){
 
     var data = data_base[id].get_kratkiy_tekst()
     
-    console.log(data_base,'dasaadasdadad',data)
+   
 
     if(data.accept){
         var table_tr =$('#table_tr'+id);
@@ -2567,7 +2567,7 @@ function create_kratkiy_tekst(id){
         data_base[id].full=false
 
     }
-    console.log(data.text,'textxttxtxtxt')
+   
     if(data.text !='XXXXXXXX' ){
         var artikul_bass = data_base[id].base_artikul
         var art_krat_dict = artikul_bass + data.text
@@ -2575,7 +2575,6 @@ function create_kratkiy_tekst(id){
         var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
         
 
-        console.log(zapros_count,art_krat_dict,'+++++')
         if(art_krat_dict in zapros_count){
             if(zapros_count[art_krat_dict]){
                 var sap_code = zapros_count[art_krat_dict]
