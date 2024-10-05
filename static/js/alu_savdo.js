@@ -1110,7 +1110,7 @@ var text = front_piece()
 
 function request_piece(start=1,end=7){
     for (let i = start; i <= end; i++) {
-        console.log('request processs'+i)
+        
         $('#artikul'+String(i)).select2({
             ajax: {
                 url: "/client/imzo-artikul-list",
@@ -1148,7 +1148,7 @@ function request_piece(start=1,end=7){
           
             
             $("#artikul"+String(i)).on("select2:select", function (e) { 
-                console.log('request processs select >>' + i)
+               
                 var select_val = $(e.currentTarget).val();
                 var nazvaniye_system =$('.nazvaniye_system'+String(i));
                 var combination = $('#combination'+String(i));
@@ -1695,7 +1695,7 @@ function check_for_valid_and_set_val_select(i,val,selector,is_req=false,is_anod=
         var span = $('#select2-'+selector+'-container')
         span.attr('title',val);
         span.text(val);
-        console.log(val,'anodddddd')
+        
         if(is_anod){
             
                 const spanss =document.querySelector('#anod'+String(i) +' .select2-container .select2-selection--single')
@@ -2847,11 +2847,14 @@ function create_kratkiy_tekst(id){
 
         var nakleyka = $('#nakleyka'+String(id))
         nakleyka.attr('disabled',false)
+        nadpis_nakleyki =$('#nadpis_nakleyki'+id)
         if(nakleyka.val()!=''){
             data_base[id].kod_nakleyki = nakleyka.val();
             var selectedOption = $('#nakleyka'+String(id)).find('option:selected');
 
             var nadpisValue = selectedOption.data('nadpis');
+            console.log(nadpisValue,'VALLLLLLLLLLL')
+            
             nadpis_nakleyki.text(nadpisValue)
             nakleyka.css('border-color','#dedad9')
         }else{
@@ -3195,7 +3198,7 @@ function create_kratkiy_tekst(id){
         
         var status_first =$('#status'+id)
 
-        console.log(zavod.val())
+        
 
         var group_ = group.val()
 
