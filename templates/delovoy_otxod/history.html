@@ -2,15 +2,36 @@
 
 
 {% block content %}
+
 <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
         <h3 class="page-title"> Деловой отход файлы </h3>
         <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Buttons</li>
-          </ol>
+          <form method="GET" id="searchForm">
+            <div class="form-group">
+                <div class="d-flex flex-row">
+                    <div class="p-2">
+                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                          <input type="text" class="form-control" id="search_date" name="search_date" placeholder="DD-MM-YYYY" required>
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="button" id="calendarBtn">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                    <div class="p-2">
+                      <!-- Reset Button -->
+                      <button type="submit" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+                  </div>
+                </div>
+            </div>
+        </form>
+        
         </nav>
       </div>
       <div class="col-lg-12 grid-margin stretch-card">
@@ -57,7 +78,15 @@
     </div>
    
   </div>
+  
   <script>
+
+        function resetForm() {
+            window.location='/list-history'
+        }
+
+    
+
     function myFunction(typ,file_id) {
       if(typ =='alu'){
         text ='Aluminiyni generatsiya qilyapsizmi?'

@@ -1269,6 +1269,23 @@ def update_char_title_function(df_title,order_id):
 @allowed_users(allowed_roles=['admin','moderator','user1'])
 def show_list_history(request):
   files = OrderPVX.objects.all().order_by('-created_at')
+
+  search_date = request.GET.get('search_date', None)
+
+  # print(search_date,'++++/')
+  if search_date:
+    try:
+        # Adjust this based on the actual format of the input
+        # Example: '08-08-2024' (if the format is day-month-year)
+        search_date_obj = datetime.strptime(search_date, '%d-%m-%Y').date()
+        # print(search_date_obj,'lllll')
+        files = files.filter(created_at__date=search_date_obj)
+
+    except ValueError as e:
+        # Handle invalid date format if necessary
+        print(f"Error parsing date: {e}")
+        pass
+ 
   context ={
     'files':files
   }
