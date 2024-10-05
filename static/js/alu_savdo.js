@@ -1323,12 +1323,13 @@ function copy_tr(id,ii=1){
             table.after(new_tr)
             request_piece(start = size+1, end = size+2)
             
+            console.log(data_base,'dddd')
             var data = new BasePokritiya()
             for(key in data_base[id]){
                 data[key] = data_base[id][key]
             }
         
-
+            console.log(data_base[id].nadpis_nakleyki,'nadpiss_ nakleykii')
             data_base[size+1] = data
             
             var s = size+1
@@ -2853,12 +2854,14 @@ function create_kratkiy_tekst(id){
             var selectedOption = $('#nakleyka'+String(id)).find('option:selected');
 
             var nadpisValue = selectedOption.data('nadpis');
-            console.log(nadpisValue,'VALLLLLLLLLLL')
+            // console.log(nadpisValue,'VALLLLLLLLLLL')
+            data_base[id].nadpis_nakleyki = nadpisValue
             
             nadpis_nakleyki.text(nadpisValue)
             nakleyka.css('border-color','#dedad9')
         }else{
             data_base[id].kod_nakleyki = NaN;
+            data_base[id].nadpis_nakleyki = NaN
             nadpis_nakleyki.text('')
             nakleyka.css('border-color','red')
         }
@@ -3001,20 +3004,22 @@ function create_kratkiy_tekst(id){
 
 
 
-            var nakleyka = $('#nakleyka'+String(id))
-            nakleyka.attr('disabled',false)
-            if(nakleyka.val()!=''){
-                data_base[id].kod_nakleyki = nakleyka.val();
-                var selectedOption = $('#nakleyka'+String(id)).find('option:selected');
-    
-                var nadpisValue = selectedOption.data('nadpis');
-                nadpis_nakleyki.text(nadpisValue)
-                nakleyka.css('border-color','#dedad9')
-            }else{
-                data_base[id].kod_nakleyki = NaN;
-                nadpis_nakleyki.text('')
-                nakleyka.css('border-color','red')
-            }
+        var nakleyka = $('#nakleyka'+String(id))
+        nakleyka.attr('disabled',false)
+        if(nakleyka.val()!=''){
+            data_base[id].kod_nakleyki = nakleyka.val();
+            var selectedOption = $('#nakleyka'+String(id)).find('option:selected');
+
+            var nadpisValue = selectedOption.data('nadpis');
+            nadpis_nakleyki.text(nadpisValue)
+            data_base[id].nadpis_nakleyki = nadpisValue
+            nakleyka.css('border-color','#dedad9')
+        }else{
+            data_base[id].kod_nakleyki = NaN;
+            data_base[id].nadpis_nakleyki = NaN;
+            nadpis_nakleyki.text('')
+            nakleyka.css('border-color','red')
+        }
 
        
         if(String(val) == '4'){
@@ -3110,10 +3115,12 @@ function create_kratkiy_tekst(id){
 
             var nadpisValue = selectedOption.data('nadpis');
             nadpis_nakleyki.text(nadpisValue)
+            data_base[id].nadpis_nakleyki = nadpisValue
             nakleyka.css('border-color','#dedad9')
         }else{
             data_base[id].kod_nakleyki = NaN;
             nadpis_nakleyki.text('')
+            data_base[id].nadpis_nakleyki = NaN
             nakleyka.css('border-color','red')
         }
 

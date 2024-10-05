@@ -2640,9 +2640,11 @@ function create_kratkiy_tekst(id){
 
             var nadpisValue = selectedOption.data('nadpis');
             nadpis_nakleyki.text(nadpisValue)
+            data_base[id].nadpis_nakleyki = nadpisValue
             nakleyka.css('border-color','#dedad9')
         }else{
             data_base[id].kod_nakleyki = NaN;
+            data_base[id].nadpis_nakleyki = NaN;
             nadpis_nakleyki.text('')
             nakleyka.css('border-color','red')
         } 
@@ -2737,9 +2739,11 @@ function create_kratkiy_tekst(id){
     
                 var nadpisValue = selectedOption.data('nadpis');
                 nadpis_nakleyki.text(nadpisValue)
+                data_base[id].nadpis_nakleyki = nadpisValue
                 nakleyka.css('border-color','#dedad9')
             }else{
                 data_base[id].kod_nakleyki = NaN;
+                data_base[id].nadpis_nakleyki = NaN;
                 nadpis_nakleyki.text('')
                 nakleyka.css('border-color','red')
             }
@@ -2837,9 +2841,11 @@ function create_kratkiy_tekst(id){
 
             var nadpisValue = selectedOption.data('nadpis');
             nadpis_nakleyki.text(nadpisValue)
+            data_base[id].nadpis_nakleyki = nadpisValue
             nakleyka.css('border-color','#dedad9')
         }else{
             data_base[id].kod_nakleyki = NaN;
+            data_base[id].nadpis_nakleyki = NaN
             nadpis_nakleyki.text('')
             nakleyka.css('border-color','red')
         }
