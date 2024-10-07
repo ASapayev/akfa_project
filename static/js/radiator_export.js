@@ -130,12 +130,13 @@ function front_piece(start=1,end=6){
                 <option value="LIDER">LIDER</option>
                 <option value="AKFA">AKFA</option>
                 <option value="MILANO">MILANO</option>
-                <option value="Perfetto">Perfetto</option>
-                <option value="Florence">Florence</option>
-                <option value="Piuma">Piuma</option>
+                <option value="AVANGARD-FAF">AVANGARD-FAF</option>
+                <option value="AKFA-FLORENCE">AKFA-FLORENCE</option>
+                <option value="AKFA-PERFETTO">AKFA-PERFETTO</option>
                 <option value="LIDER-PERFETTO">LIDER-PERFETTO</option>
+                <option value="PIUMA">PIUMA</option>
+                <option value="PORTOFINO">PORTOFINO</option>
                 <option value="SIRA">SIRA</option>
-
                 
             </select>
             </div>
