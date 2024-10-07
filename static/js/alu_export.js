@@ -312,7 +312,7 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
                 <select class="form-select" aria-label="" style="width: 165px; font-size:12px; padding-right:0px;height:27px!important;z-index:0" onchange="tip_pokritiya_selected(`+String(i)+`,this.value)" disabled id='tip_pokritiya`+String(i)+`' required>
-                    <option  selected></option>
+                    <option  selected disabled></option>
                     <option value="1" >Неокрашенный</option>
                     <option value="2">Белый</option>
                     <option value="3">Окрашенный</option>
