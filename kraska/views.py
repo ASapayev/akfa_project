@@ -116,9 +116,10 @@ def create_siryo_from_file(request):
 
     for key,row in df.iterrows():   
             # # data =data[key]
-         
+        artikul =row['MATNR'].split('-')[0]
         artikul_component = SiroKraska(
             code = row['KOD'],
+            artikul =artikul,
             sapcode = row['MATNR'],
             kratkiy = row['TEXT1'],
             )
@@ -137,8 +138,10 @@ def create_siryo(request):
        
            
             # # data =data[key]
+        artikul = datas['sapcode'].split('-')[0]
         artikul_component = SiroKraska(
             code = datas['code'],
+            artikul =artikul,
             sapcode = datas['sapcode'],
             kratkiy = datas['kratkiy'],
             )

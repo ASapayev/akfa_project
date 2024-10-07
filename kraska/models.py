@@ -17,6 +17,7 @@ class KraskaFile(models.Model):
 
 class SiroKraska(models.Model):
     code = models.CharField(max_length=50,blank=True,null=True)
+    artikul = models.CharField(max_length=30,blank=True,null=True)
     sapcode = models.CharField(max_length=50,blank=True,null=True)
     kratkiy = models.CharField(max_length=50,blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
