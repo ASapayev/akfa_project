@@ -29,6 +29,9 @@ urlpatterns = [
 
     # ############# end vi #############
 
+    ############ API ###########
+    path('get-or-add-option-kraska/', views.get_or_add_option, name='get_or_add_option_kraska'),
+
     
 
     

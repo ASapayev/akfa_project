@@ -4386,7 +4386,10 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             if row['Тип покрытия'] =='Белый':
                 umumiy_without_duplicate1201[50].append('S0')
             elif row['Тип покрытия'] =='Неокрашенный':
-                umumiy_without_duplicate1201[50].append('S1')
+                if '9016/' in row['Короткое название SAP']:
+                    umumiy_without_duplicate1201[50].append('S0')
+                else:
+                    umumiy_without_duplicate1201[50].append('S1')
             elif row['Тип покрытия'] =='Анодированный':
                 umumiy_without_duplicate1201[50].append('S2')
             elif row['Тип покрытия'] =='Окрашенный':
@@ -4705,7 +4708,10 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
         if row['Тип покрытия'].capitalize() =='Белый':
             raube_txt = 'S0'
         elif row['Тип покрытия'].capitalize() =='Неокрашенный':
-            raube_txt = 'S1'
+            if '9016/' in row['Короткое название SAP']:
+                raube_txt = 'S0'
+            else:
+                raube_txt = 'S1'
         elif row['Тип покрытия'].capitalize() =='Окрашенный' or row['Тип покрытия'].capitalize() =='Анодированный':
             raube_txt = 'S2'
         elif row['Тип покрытия'].capitalize() =='Сублимированный':

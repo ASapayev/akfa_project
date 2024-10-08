@@ -40,6 +40,10 @@ urlpatterns = [
     path('change-data-detail',views.shablon_change_data_detail,name='shablon_change_data_detail'),
 
 
+    ########### Kraska ##################
+    path('shablon-kraska-detail',views.shablon_kraska_detail,name='shablon_kraska_detail'),
+
+
 
     ########### bussines partner #############
     path('bussines-partner-detail',views.bussines_partner,name='bussines_partner'),

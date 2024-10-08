@@ -2152,6 +2152,14 @@ def shablon_change_data_detail(request):
     }
     return render(request,'client/shablonlar/change_data.html',context)
 
+@login_required(login_url='/accounts/login/')
+@customer_only
+def shablon_kraska_detail(request):
+    context ={
+        'status_proccess':'new'
+    }
+    return render(request,'client/shablonlar/kraska.html',context)
+
 
 @login_required(login_url='/accounts/login/')
 @customer_only

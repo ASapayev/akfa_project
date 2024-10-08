@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
 from .forms import NormaKraskaFileForm,TexcartaKraskaFileForm
-from .models import Norma7,SiroKraska,TexcartaFile
+from .models import Norma7,SiroKraska,TexcartaFile,KarkaCode
 from config.settings import MEDIA_ROOT
 import pandas as pd
 from django.http import JsonResponse
@@ -13,6 +13,41 @@ import json
 import random
 import string
 # Create your views here.
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','customer']) 
+def get_or_add_option(request):
+    # print(request.method)
+    if request.method == 'GET':
+        # Fetch data for the Select2 dropdown
+        search_term = request.GET.get('term', '')  # Search term from the Select2 input
+        
+        
+        if search_term:
+            # Query your model for matching options
+            queryset = KarkaCode.objects.filter(name__icontains=search_term).values('id','name')
+        else:
+            queryset = KarkaCode.objects.all().values('id','name')
+           
+       
+        # Return the data in the format Select2 expects
+        return JsonResponse({"results": list(queryset)})
+    
+    elif request.method == 'POST':
+        # This part handles adding a new option if it doesn't exist
+        new_option = request.POST.get('new_option', '')
+        print(request.POST,'request option')
+        print(new_option,'new option')
+        
+        if new_option:
+            # Save the new option in your model
+            obj, created = KarkaCode.objects.get_or_create(name=new_option)
+            return JsonResponse({"id": obj.id, "text": obj.name})
+
+        return JsonResponse({"error": "Invalid input"}, status=400)
+
+
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')

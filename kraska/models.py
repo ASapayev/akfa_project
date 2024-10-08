@@ -29,3 +29,8 @@ class TexcartaFile(models.Model):
   file_type =models.CharField(max_length=255,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
+
+class KarkaCode(models.Model):
+  name = models.CharField(max_length=10,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)

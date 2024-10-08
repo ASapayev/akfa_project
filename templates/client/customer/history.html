@@ -226,7 +226,7 @@
                 </div>
                
                
-            </form>
+                </form>
             </section>
             {%endif%}
 
@@ -283,7 +283,7 @@
                 </div>
                
                
-            </form>
+                </form>
             </section>
             {%endif%}
             {%if order_type == 'pvc_export'%}
@@ -339,7 +339,7 @@
                 </div>
                
                 
-            </form>
+                </form>
             </section>
             {%endif%}
             {%if order_type == 'acs_imzo'%}
@@ -388,7 +388,7 @@
                 </div>
                
                 
-            </form>
+                </form>
             </section>
             {%endif%}
             {%if order_type == 'acs_savdo'%}
@@ -436,7 +436,7 @@
                 </div>
                
                
-            </form>
+                </form>
             </section>
             {%endif%}
             {%if order_type == 'acs_export'%}
@@ -631,7 +631,7 @@
                 </div>
                
                
-            </form>
+                </form>
             </section>
             {%endif%}
             {%if order_type == 'prochiye'%}
@@ -680,7 +680,7 @@
                 </div>
                
                
-            </form>
+                </form>
             </section>
             {%endif%}
             {%if order_type == 'acs_texnopark'%}
@@ -729,7 +729,7 @@
                 </div>
                
                
-            </form>
+                </form>
             </section>
             {%endif%}
             {%if order_type == 'acs_import'%}
@@ -784,7 +784,7 @@
                 </div>
                
                
-            </form>
+                </form>
             </section>
             {%endif%}
             {%if order_type == 'acs_zavod'%}
@@ -832,7 +832,7 @@
                 </div>
                
                
-            </form>
+                </form>
             </section>
             {%endif%}
             {%if order_type == 'prochiye_tms'%}
@@ -880,7 +880,7 @@
                 </div>
                
                
-            </form>
+                </form>
             </section>
             {%endif%}
             {%if order_type == 'change_data'%}
@@ -928,7 +928,7 @@
                 </div>
                
                
-            </form>
+                </form>
             </section>
             {%endif%}
             {%if order_type == 'bussines_partner'%}
@@ -997,7 +997,7 @@
             text =""
           
             var jsonData = JSON.parse(order_items).data;
-            console.log(jsonData)
+            // console.log(jsonData)
             i = 0
             var order_type ='{{order_type}}'
 
@@ -1068,7 +1068,6 @@
 
             function set_datas_for_history(jsonData_it,order_id,order_type){
               i=0
-              // console.log(jsonData,'json')
               text =""
               for (var key in jsonData_it)
                 {
@@ -1109,14 +1108,11 @@
 
             }
 
-
-            // console.log(jsonData,'llll')
             function set_values_for_history(base,i,order,order_id,key=1,jsonData){
                 for (var j = 0; j < order.length; j++) {
                     var key = order[j];
                     if(base[key]){
                         var va2 =$('#'+key+i+'_'+j+'_'+order_id)
-                        // console.log(jsonData[key],base[key],'#############')
                         if(jsonData[key] != base[key]){
                           va2.css('background-color','#6c757d')
                           va2.css('color','white')
@@ -1138,8 +1134,6 @@
                 }
             }
 
-            
-            
             function downloadTableAsExcel() {
               const table = document.getElementById("my-table");
 
