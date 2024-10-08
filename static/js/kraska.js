@@ -157,25 +157,39 @@ function front_piece(start=1,end=6){
                 </select>
             </div>
         </td>
-        <td >
+        <td class="sticky-col"  style=' left: 249.3px; background-color:white!important;display:none;'>
             <div class="input-group input-group-sm mb-1">
-                <select class="form-select" aria-label="" style="width: 110px; font-size:12px; padding-right:0px; display:none;z-index:0"  id='kraska`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-                    <option  selected ></option>
-                    <option   value="GLS">GLS</option>
-                    <option   value="EPS">EPS</option>
-                    <option   value="TEX">TEX</option>
-                    <option   value="MAT">MAT</option>
-                    <option   value="SW">SW</option>
-                </select>
-            </div>
-        </td>
-        <td class="sticky-col"  style=' left: 249.3px; background-color:white!important'>
-            <div class="input-group input-group-sm mb-1">
-                <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 75px; padding-right:150px!important; font-size:10px "  id="artikul`+String(i)+`" ></select>
+                <select class=" form-control basic_artikul" style="background-color:#ddebf7; width: 75px; padding-right:150px!important; font-size:10px; "  id="kraska`+String(i)+`" ></select>
      
             </div>
         </td>
+        <td >
+            <div class="input-group input-group-sm mb-1" style="font-size: small; width:130px">
+                <div>
+                    <span class =' text-center pl-1' style="font-size: small; z-index:0" id ='brend_kraska` +String(i)+`'></span>
+                </div>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1" style="font-size: small; width:130px">
+                <div>
+                    <span class =' text-center pl-1' style="font-size: small; z-index:0" id ='artikul` +String(i)+`'></span>
+                </div>
+            </div>
+        </td>
         
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style=" width: 170px; font-size:10px;display:none;height:27px;z-index:0 " id='dop_info`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1" style="font-size: small; width:130px">
+                <div>
+                    <span class =' text-center pl-1' style="font-size: small; z-index:0" id ='kratkiy_tekst` +String(i)+`'></span>
+                </div>
+            </div>
+        </td>
         <td >
             <div class="input-group input-group-sm mb-1">
             <input type='text' class=" form-control " style=" width: 170px; font-size:10px;display:none;height:27px;z-index:0 " id='comment`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
@@ -194,6 +208,11 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
             <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px;z-index:0 " id='sena_bez_nds`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
+            </div>
+        </td>
+        <td >
+            <div class="input-group input-group-sm mb-1">
+            <input type='text' class=" form-control " style="border-color:red; width: 75px; font-size:10px;display:none;height:32px;z-index:0 " id='edi_izm`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)'></input>
             </div>
         </td>
         <td >
@@ -365,22 +384,6 @@ function front_piece(start=1,end=6){
             </select>
             </div>
         </td>
-        <td >
-            <div class="input-group input-group-sm mb-1">
-            <select class="form-select" aria-label="" style="width: 280px;font-size:12px; padding-right:0px; display:none;z-index:0" id='sistema`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-                <option  selected ></option>
-                <option  value="Online savdo">Online savdo</option>
-                <option  value="Akfa diller">Akfa diller</option>
-                <option  value="Akfa diller comfort">Akfa diller comfort</option>
-                <option  value="Online savdo - Akfa diller">Online savdo - Akfa diller</option>
-                <option  value="Online savdo - Akfa diller comfort">Online savdo - Akfa diller comfort</option>
-                <option  value="Akfa diller - Akfa diller comfort">Akfa diller - Akfa diller comfort</option>
-                <option  value="Online savdo - Akfa diller - Akfa diller comfort">Online savdo - Akfa diller - Akfa diller comfort</option>
-
-
-            </select>
-            </div>
-        </td>
         <td style="display: none;" >
             <div class="input-group input-group-sm mb-1">
             <span id="is_active`+String(i)+`" style="display: none;"></span>
@@ -404,7 +407,7 @@ var csrfToken = getCSRFToken();
 
 function request_piece(start = 1, end = 7) {
     for (let i = start; i <= end; i++) {
-        var $selectElement = $('#artikul' + i);  // Cache the selector
+        var $selectElement = $('#kraska' + i);  // Cache the selector
         // console.log(i)
         $selectElement.select2({
             tags: true,
@@ -497,7 +500,6 @@ if(status_proccess1 == 'new'){
         // ii += 1
     }
 
-    console.log(data_base,'daatatatata')
 
     var text2 =''
     for(var key1 in jsonData){
@@ -518,12 +520,7 @@ if(status_proccess1 == 'new'){
     }
 }
 
-function artikul_list_add(start=1,end=6){
 
-    for (let i = start; i < end; i++) {
-        set_base_artikul(artikul_list,'.base_artikul_org'+i,value='')
-    }
-}
 
 
 
@@ -766,6 +763,9 @@ function create(id){
     var sena_c_nds =$('#sena_c_nds'+id);
     var sena_bez_nds =$('#sena_bez_nds'+id);
     var sistema =$('#sistema'+id);
+    
+    
+    
     comment.css('display','block')
     obshiy_ves_shtuku.css('display','block')
     pickupdate.css('display','block')
