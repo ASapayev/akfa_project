@@ -2815,8 +2815,9 @@ def delete_texcarta(request):
         if ozmk:
             ozmks =ozmk.split()
             for ozm in ozmks:
-                texcarta = TexcartaBase.objects.filter(material=ozm)[:1].get()
-                texcarta.delete()    
+                if  TexcartaBase.objects.filter(material=ozm).exists():
+                    texcarta = TexcartaBase.objects.filter(material=ozm)[:1].get()
+                    texcarta.delete()    
         return render(request,'norma/razlovka_find_org.html')
     else:
         return render(request,'norma/razlovka_find_org.html')
