@@ -2805,3 +2805,18 @@ def get_razlovka_radiator(request):
             if sys.platform == "win32":
                 os.startfile(path1)
         return render(request,'norma/razlovka_find_org.html')
+    
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','radiator'])
+def delete_texcarta(request):
+    if request.method =='POST':
+        ozmk = request.POST.get('ozmk',None)
+        if ozmk:
+            ozmks =ozmk.split()
+            for ozm in ozmks:
+                texcarta = TexcartaBase.objects.filter(material=ozm)[:1].get()
+                texcarta.delete()    
+        return render(request,'norma/razlovka_find_org.html')
+    else:
+        return render(request,'norma/razlovka_find_org.html')

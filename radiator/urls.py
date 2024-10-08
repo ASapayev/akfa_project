@@ -16,6 +16,7 @@ urlpatterns = [
     path('norma-radiator-file-list',views.file_list_org,name='file_list_radiator'),
     path('kombinirovaniy-process/<int:id>',views.kombinirovaniy_process,name='kombinirovaniy_process_radiator'),
     path('get-razlovka-radiator',views.get_razlovka_radiator,name='get_razlovka_radiator'),
+    path('delete-texcarta-radiator',views.delete_texcarta,name='delete_texcarta_radiator'),
 
     ######## END NORMA ############
 
