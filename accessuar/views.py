@@ -420,19 +420,22 @@ def new_texcarta(request):
     if request.method == 'POST':
         data = list(request.POST.keys())[0]
         items = json.loads(data)
-        if not Norma.objects.filter(Q(data__sap_code__icontains =items['artikul'])&Q(data__has_key ='ARBPL')&Q(data__has_key ='LGORD')).exists():
-            if Norma.objects.filter(data__sap_code__icontains =items['artikul']).exists():
-                norma = Norma.objects.get(data__sap_code__icontains =items['artikul'])
-                json_data = norma.data
-                json_data['ARBPL'] = [items['arbpl1'],items['arbpl2'],items['arbpl3']]
-                json_data['LGORD'] = items['lgord']
-                norma.data =json_data
-                norma.save()
-                return JsonResponse({'saved':True,'status':201})
-            else:
-                return JsonResponse({'saved':False,'status':404})
-        else:
+        print(items)
+        try:
+            for item in items:
+                print(item['artikul'],item['arbpl1'],item['arbpl2'],item['arbpl3'],item['lgord'])
+                if not Norma.objects.filter(Q(data__sap_code__icontains =item['artikul'])&Q(data__has_key ='ARBPL')&Q(data__has_key ='LGORD')).exists():
+                    if Norma.objects.filter(data__sap_code__icontains =item['artikul']).exists():
+                        norma = Norma.objects.get(data__sap_code__icontains =item['artikul'])
+                        json_data = norma.data
+                        json_data['ARBPL'] = [item['arbpl1'],item['arbpl2'],item['arbpl3']]
+                        json_data['LGORD'] = item['lgord']
+                        norma.data =json_data
+                        norma.save()
+            return JsonResponse({'saved':True,'status':201})        
+        except:
             return JsonResponse({'saved':False,'status':301})
+
     return render(request,'norma/accessuar/new_texcarta.html')
         
 @login_required(login_url='/accounts/login/')

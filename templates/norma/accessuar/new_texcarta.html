@@ -35,57 +35,22 @@
                     
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id ='tbody_basic'>
                     
                     
-                    <tr >
-                      <td>
-                        1
-                      </td>
-                      <td>
-                        <div class="input-group input-group-sm mb-3">
-                            
-                            <input type="text" class="form-control" aria-label="Small" id ='artikul' aria-describedby="inputGroup-sizing-sm" >
-                          </div>
-                      </td>
-                      <td>
-                        <div class="input-group input-group-sm mb-3">
-                            
-                            <input type="text" class="form-control" aria-label="Small" id='arbpl1' aria-describedby="inputGroup-sizing-sm" >
-                          </div>
-                      </td>
-                      <td>
-                        <div class="input-group input-group-sm mb-3">
-                            
-                            <input type="text" class="form-control" aria-label="Small" id='arbpl2' aria-describedby="inputGroup-sizing-sm" >
-                          </div>
-                      </td>
-                     
-                      <td>
-                        <div class="input-group input-group-sm mb-3">
-                            
-                            <input type="text" class="form-control" aria-label="Small" id='arbpl3' aria-describedby="inputGroup-sizing-sm" >
-                          </div>
-                      </td>
-                     
-                      <td>
-                        <div class="input-group input-group-sm mb-3">
-                            
-                            <input type="text" class="form-control" aria-label="Small" id='lgord' aria-describedby="inputGroup-sizing-sm" >
-                          </div>
-                      </td>
-                     
-                    </tr>
                     
                   </tbody>
                 </table>
                 
                 <div class="row p-2">
-                    <div class="col-5"></div>
+                    <div class="col-4"></div>
                     <div class="col-2">
-                        <a  class=" btn btn-success" onclick="add()">SAVE</a>
+                        <a  class=" btn btn-secondary" onclick="add()">ADD</a>
                     </div>
-                    <div class="col-5"></div>
+                    <div class="col-2">
+                        <a  class=" btn btn-success" onclick="insert()">SAVE</a>
+                    </div>
+                    <div class="col-4"></div>
                 </div>
                 </form>
               </div>
@@ -102,21 +67,87 @@
     function getCSRFToken() {
         return $('input[name=csrfmiddlewaretoken]').val();
     }
+
+
     function add(){
-        var artikul =$('#artikul');
-        var arbpl1 =$('#arbpl1');
-        var arbpl2 =$('#arbpl2');
-        var arbpl3 =$('#arbpl3');
-        var lgord =$('#lgord');
+      var rowCount = parseInt($('#tbody_basic tr').length);
+      rowCount+=1
+      var text =`<tr >
+                      <td>
+                        ${rowCount}
+                      </td>
+                      <td>
+                        <div class="input-group input-group-sm mb-3">
+                            
+                            <input type="text" class="form-control" aria-label="Small" id ='artikul_${rowCount}' aria-describedby="inputGroup-sizing-sm" >
+                          </div>
+                      </td>
+                      <td>
+                        <div class="input-group input-group-sm mb-3">
+                            
+                            <input type="text" class="form-control" aria-label="Small" id='arbpl1_${rowCount}' aria-describedby="inputGroup-sizing-sm" >
+                          </div>
+                      </td>
+                      <td>
+                        <div class="input-group input-group-sm mb-3">
+                            
+                            <input type="text" class="form-control" aria-label="Small" id='arbpl2_${rowCount}' aria-describedby="inputGroup-sizing-sm" >
+                          </div>
+                      </td>
+                     
+                      <td>
+                        <div class="input-group input-group-sm mb-3">
+                            
+                            <input type="text" class="form-control" aria-label="Small" id='arbpl3_${rowCount}' aria-describedby="inputGroup-sizing-sm" >
+                          </div>
+                      </td>
+                     
+                      <td>
+                        <div class="input-group input-group-sm mb-3">
+                            
+                            <input type="text" class="form-control" aria-label="Small" id='lgord_${rowCount}' aria-describedby="inputGroup-sizing-sm" >
+                          </div>
+                      </td>
+                     
+                    </tr>`
+          var tbody_basic = $('#tbody_basic')
+          tbody_basic.append(text)
+
+    }
+    
+    add()
+
+    function insert(){
+        var rowCount = parseInt($('#tbody_basic tr').length);
+        var data =[]
+
+        for(var i=1;i<=rowCount; i++){
+          var artikul =$('#artikul_'+i);
+          var arbpl1 =$('#arbpl1_'+i);
+          var arbpl2 =$('#arbpl2_'+i);
+          var arbpl3 =$('#arbpl3_'+i);
+          var lgord =$('#lgord_'+i);
+
+          if(artikul.val()!=''&& artikul.val()!=null && artikul.val()!=undefined){
+              var item ={
+                  'artikul':artikul.val(),
+                  'arbpl1':arbpl1.val(),
+                  'arbpl2':arbpl2.val(),
+                  'arbpl3':arbpl3.val(),
+                  'lgord':lgord.val(),
+              }
+              data.push(item)
+          }
+
+        }
+
+        
+
+
+
        
         var csrfToken = getCSRFToken();
-        data ={
-            'artikul':artikul.val(),
-            'arbpl1':arbpl1.val(),
-            'arbpl2':arbpl2.val(),
-            'arbpl3':arbpl3.val(),
-            'lgord':lgord.val(),
-        }
+        
         $.ajax({
             method: "POST",
             url: "/accessuar/new-texcarta",
@@ -133,7 +164,9 @@
                     timer: 1500
                     })
                     
-                    window.location.href='/accessuar/texcarta-list'
+                    setTimeout(function() {
+                          window.location.href = '/accessuar/texcarta-list';
+                      }, 1500); 
                 }
             if (msg.saved ==false & msg.status == 404){
               Swal.fire({
@@ -142,13 +175,17 @@
                     text: 'Iltimos oldin normasini yarating!'
                     })
                     
-                }else{
-                    Swal.fire({
-                    icon: 'error',
-                    title: 'Bu texcarta mavjud!',
-                    text: 'Iltimos boshqatdan tekshirib chiqing!'
+              }else{
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Successfuly saved!',
+                    showConfirmButton: false,
+                    timer: 1500
                     })
-                    
+                    setTimeout(function() {
+                          window.location.href = '/accessuar/texcarta-list';
+                      }, 1500); 
                 }
             });
     }
