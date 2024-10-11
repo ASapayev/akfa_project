@@ -322,6 +322,10 @@ LGORT_1101 ={
                 },
                 {
                 'zavod_code':'1101',
+                'zavod_sap':'PS09'   
+                },
+                {
+                'zavod_code':'1101',
                 'zavod_sap':'PS10'   
                 },
                 {
