@@ -4,7 +4,10 @@ from aluminiy import views as aluview
 from aluminiytermo import views as alutermoview
 
 urlpatterns = [
+    ########## SAPCODE GENERATING #########
 
+    path('generate-sapcode/<int:id>',views.product_add_second_org_kraska,name='generate_sapcode_kraska'),
+    ##########END ##########
 
     ######## NORMA ############
     path('file-upload-kraska',views.full_update_norm,name='norma_file_upload_kraska7'),

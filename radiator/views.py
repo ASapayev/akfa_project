@@ -18,7 +18,7 @@ from .utils import create_characteristika,create_characteristika_utils,get_ozmka
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','user1','radiator','universal_user'])
 def vi_file(request):
     files = ViFiles.objects.all().order_by('-created_at')
     context ={
@@ -31,7 +31,7 @@ def vi_file(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','user1','radiator','universal_user'])
 def vi_mo_file(request):
     files = ViFiles.objects.all().order_by('-created_at')
     context ={
@@ -43,7 +43,7 @@ def vi_mo_file(request):
     return render(request,'universal/file_list.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def file_vi_upload_org(request):
       
     if request.method == 'POST':
@@ -58,7 +58,7 @@ def file_vi_upload_org(request):
     return render(request,'universal/main.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def file_vi_mo_upload_org(request):
       
     if request.method == 'POST':
@@ -74,7 +74,7 @@ def file_vi_mo_upload_org(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def vi_generate(request,id):
     file = ViFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -236,7 +236,7 @@ def vi_generate(request,id):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def vi_generate_mo(request,id):
     file = ViFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -359,7 +359,7 @@ def vi_generate_mo(request,id):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def full_update_korobka(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -392,7 +392,7 @@ def full_update_korobka(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def file_upload_radiator_tex(request): 
   if request.method == 'POST':
     data = request.POST.copy()
@@ -416,7 +416,7 @@ def file_upload_radiator_tex(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def full_update_siryo(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -449,7 +449,7 @@ def full_update_siryo(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def full_update_kraska(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -482,7 +482,7 @@ def full_update_kraska(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def full_update_norm(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -515,7 +515,7 @@ def full_update_norm(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def file_upload_org(request): 
     if request.method == 'POST':
         data = request.POST.copy()
@@ -533,7 +533,7 @@ def file_upload_org(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def file_list_org(request):
     files = NormaExcelFiles.objects.filter(generated =False,type='radiator').order_by('-created_at')
     context ={'files':files,
@@ -584,7 +584,7 @@ PROFIL_TYPE ={
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def kombinirovaniy_process(request,id):
     file = NormaExcelFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -1640,7 +1640,7 @@ class File:
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def lenght_generate_texcarta(request,id):
     file = NormaExcelFiles.objects.get(id=id).file
     file_path =f'{MEDIA_ROOT}\\{file}'
@@ -2165,7 +2165,7 @@ def lenght_generate_texcarta(request,id):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator']) 
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user']) 
 def update_sapcode(request):
     file =''
     df = pd.read_excel(file)
@@ -2781,7 +2781,7 @@ class FileRazlovki:
         self.file =file
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def get_razlovka_radiator(request):
     if request.method =='POST':
         ozmk = request.POST.get('ozmk',None)
@@ -2808,7 +2808,7 @@ def get_razlovka_radiator(request):
     
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','radiator'])
+@allowed_users(allowed_roles=['admin','moderator','radiator','universal_user'])
 def delete_texcarta(request):
     if request.method =='POST':
         ozmk = request.POST.get('ozmk',None)

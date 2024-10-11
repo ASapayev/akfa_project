@@ -8,6 +8,7 @@ from accounts.models import User
 from django.core.paginator import Paginator
 from accounts.decorators import allowed_users
 from accessuar.models import OrderACS,OrderAKP,OrderProchiye
+from kraska.models import OrderKraska
 
 
 @login_required(login_url='/accounts/login/')
@@ -228,6 +229,25 @@ def order_detail_prochiye(request,id):
     for key,val in paths.items():
         context[key] = val
     return render(request,'order/order_detail_prochiye.html',context)
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
+def order_detail_kraska(request,id):
+    order = OrderKraska.objects.get(id = id)
+    
+    context ={
+        'order':order
+    }
+    paths =  order.paths
+    
+    if order.work_type == 5:
+        workers = User.objects.filter(role =  'moderator')
+        context['workers'] =workers
+
+    for key,val in paths.items():
+        context[key] = val
+    return render(request,'order/order_detail_kraska.html',context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])

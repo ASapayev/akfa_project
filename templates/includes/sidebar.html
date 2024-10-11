@@ -185,33 +185,62 @@
       </div>
     </li>
     {%endif%}
-    {% if user_role == 'moderator'  or user_role == 'user1' or user_role == 'only_razlovka' or user_role == 'razlovka' or user_role == 'radiator' or user_role == 'kraska' or user_role == 'epdm' %}
+    {% if user_role == 'moderator'  or user_role == 'user1' or user_role == 'only_razlovka' or user_role == 'razlovka' or user_role == 'radiator' or user_role == 'kraska' or user_role == 'epdm' or user_role == 'universal_user'  %}
       <li class="nav-item menu-items">
-        <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm" aria-expanded="false" aria-controls="ui-basic-norm">
+        {%if user_role == 'kraska' or user_role == 'universal_user' %}
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm-kraska" aria-expanded="false" aria-controls="ui-basic-norm-kraska">
           <span class="menu-icon">
             <i class="mdi mdi-bowling"></i>
           </span>
-          <span class="menu-title">Форм. нормы</span>
+          <span class="menu-title">Форм. краска нормы</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="ui-basic-norm">
+
+        <div class="collapse" id="ui-basic-norm-kraska">
           <ul class="nav flex-column sub-menu">
-            {%if user_role == 'kraska' %}
+            
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_kraska7'%}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">норма 7</span> расход</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'file_upload_kraska_tex'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">техкарта</span></a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'show_siryo_kraska'%}">Лист <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">сире</span></a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'kombinirovaniy_process_kraska7'%}">Норма <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">генерация</span></a></li>
+          </ul>
+        </div>
+        {%endif%}
 
-            {%endif%}
-            {%if user_role == 'epdm' %}
+        {%if user_role == 'epdm' or user_role == 'universal_user' %}
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm-epdm" aria-expanded="false" aria-controls="ui-basic-norm-epdm">
+          <span class="menu-icon">
+            <i class="mdi mdi-bowling"></i>
+          </span>
+          <span class="menu-title">Форм. епдм нормы</span>
+          <i class="menu-arrow"></i>
+        </a>
+
+        <div class="collapse" id="ui-basic-norm-epdm">
+          <ul class="nav flex-column sub-menu">
+         
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_epdm'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">норма</span> расход</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'file_upload_epdm_tex'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">техкарта</span></a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'create_siryo_from_file'%}">Загрузка<span style="color:chocolate;font-weight: 500; padding: 5px;" class="">сире</span></a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'show_siryo'%}">Лист <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">сире</span></a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'kombinirovaniy_process_epdm'%}">Норма <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">генерация</span></a></li>
 
-            {%endif%}
-            {%if user_role == 'radiator' %}
+           
+          </ul>
+        </div>
+        {%endif%}
+        {%if user_role == 'radiator' or user_role == 'universal_user' %}
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm-radiator" aria-expanded="false" aria-controls="ui-basic-norm-radiator">
+          <span class="menu-icon">
+            <i class="mdi mdi-bowling"></i>
+          </span>
+          <span class="menu-title">Форм. радиатор нормы</span>
+          <i class="menu-arrow"></i>
+        </a>
+
+        <div class="collapse" id="ui-basic-norm-radiator">
+          <ul class="nav flex-column sub-menu">
+            
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">норма</span> расход</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'file_upload_radiator_tex'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">техкарта</span> файла</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'vi_file_upload_radiator'%}">Загрузка <span style="color:#640CAB;font-weight: 500; padding: 5px;" class="">ви</span> файла</a></li>
@@ -222,20 +251,70 @@
             <li class="nav-item"> <a class="nav-link" href="{% url 'upload_korobka_radiator'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">коробка</span> файла</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'delete_texcarta_radiator'%}">Удалить <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">техкарты</span></a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'get_razlovka_radiator'%}">Найти <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">разловки</span></a></li>
-            {%endif%}
-            {%if user_role == 'moderator' or user_role == 'user1' %}
+ 
+          </ul>
+        </div>
+        {%endif%}
+
+        {%if user_role == 'moderator' or user_role == 'user1' %}
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm-alu-termo" aria-expanded="false" aria-controls="ui-basic-norm-alu-termo">
+          <span class="menu-icon">
+            <i class="mdi mdi-bowling"></i>
+          </span>
+          <span class="menu-title">Форм. нормы</span>
+          <i class="menu-arrow"></i>
+        </a>
+
+        <div class="collapse" id="ui-basic-norm-alu-termo">
+          <ul class="nav flex-column sub-menu">
+            
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо</span> файла</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">обыч</span> файла</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_list_termo_org'%}">История термо файлов</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_list_org'%}">История обычный файлов</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'alu_simple_raz' %}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class=""> обыч разл </span> файла</a></li>
             <li class="nav-item"> <a class="nav-link" href="{%url 'alu_termo_raz' %}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо разл</span> файла</a></li>
-            {%endif%}
-            {%if user_role == 'razlovka' %}
+            
+            
+          </ul>
+        </div>
+        {%endif%}
+        {%if user_role == 'razlovka' %}
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm-user1" aria-expanded="false" aria-controls="ui-basic-norm-user1">
+          <span class="menu-icon">
+            <i class="mdi mdi-bowling"></i>
+          </span>
+          <span class="menu-title">Форм. нормы</span>
+          <i class="menu-arrow"></i>
+        </a>
+
+        <div class="collapse" id="ui-basic-norm-user1">
+          <ul class="nav flex-column sub-menu">
+           
+           
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо</span> файла</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_org'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">обыч</span> файла</a></li>
-            {%endif%}
-            {%if user_role == 'only_razlovka'%}
+            
+            
+            
+          </ul>
+        </div>
+        {%endif%}
+
+        {%if user_role == 'only_razlovka' %}
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm-benkam" aria-expanded="false" aria-controls="ui-basic-norm-benkam">
+          <span class="menu-icon">
+            <i class="mdi mdi-bowling"></i>
+          </span>
+          <span class="menu-title">Форм. нормы</span>
+          <i class="menu-arrow"></i>
+        </a>
+
+        <div class="collapse" id="ui-basic-norm-benkam">
+          <ul class="nav flex-column sub-menu">
+            
+            
+            
             <li class="nav-item"> <a class="nav-link" href="{% url 'full_update_norm_benkam'%}"><span style="color:chocolate;font-weight: 500; padding: 5px;" class="">Норма</span>расход</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'full_update_termomost_benkam'%}"><span style="color:chocolate;font-weight: 500; padding: 5px;" class="">Норма</span>термомост</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_org_benkam'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">обыч</span> файла</a></li>
@@ -253,10 +332,13 @@
             <li class="nav-item"> <a class="nav-link" href="{%url 'delete_texcarta' %}">Удалить техкарты </a></li>
             <!-- <li class="nav-item"> <a class="nav-link" href="{%url 'norma_delete_all_benkam'%}"><span style="color: #ff0e0e;font-weight: 500; padding: 5px;" class="">Удалить База</span></a></li>
             <li class="nav-item"> <a class="nav-link" href="{%url 'termomost_delete_all_benkam'%}"><span style="color: #ff0e0e;font-weight: 500; padding: 5px;" class="">Удалить термомост</span></a></li> -->
-            {%endif%}
+           
             
           </ul>
         </div>
+        {%endif%}
+
+
       </li>
     {%endif%}
     {% if user_role == 'moderator' or user_role == 'user1' %}

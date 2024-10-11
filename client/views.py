@@ -8,7 +8,7 @@ from accessuar_import.models import Category,GroupProduct
 from accessuar.models import OrderACS,OrderAKP,OrderProchiye,AccessuarDownloadFile,ArtikulAccessuar
 from radiator.models import ArtikulRadiator
 from django.contrib.auth.decorators import login_required
-
+from kraska.models import KraskaFileClient
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
@@ -36,6 +36,7 @@ from django.core.files import File
 from decouple import config,UndefinedValueError
 from django.shortcuts import get_object_or_404
 import traceback
+from kraska.models import OrderKraska
 
 
 try:
@@ -129,7 +130,8 @@ class OrderSaveView(APIView):
         response = json.loads(data)
         artikules = []
         for key,val in response.items():
-            if 'acs' not in order_type and 'akp' not in order_type and 'prochiye' not in order_type and 'change' not in order_type and 'bussines' not in order_type:
+
+            if 'acs' not in order_type and 'kraska' not in order_type and 'akp' not in order_type and 'prochiye' not in order_type and 'change' not in order_type and 'bussines' not in order_type:
                 artikules.append(val['base_artikul'])
             if 'segment' in val:
                 if val['segment'] =='no' and 'alu_savdo' == order_type:
@@ -356,6 +358,7 @@ def moderator_convert(request,id):
     create_folder(f'{MEDIA_ROOT}\\uploads\\akp','downloads')
     create_folder(f'{MEDIA_ROOT}\\uploads','prochiye')
     create_folder(f'{MEDIA_ROOT}\\uploads\\prochiye','downloads')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\kraska','downloads')
 
     # print(name,'<<<'*7)
 
@@ -589,9 +592,98 @@ def moderator_convert(request,id):
         order = OrderProchiye(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1,order_name=name,client_order_id=id)
         order.save()
         return redirect('order_detail_prochiye',id=order.id)
+    elif name in ['KRASKA']:
+        df_kraska = json_to_excel_kraska(datas)
+        path_kraska = f'{MEDIA_ROOT}\\uploads\\prochiye\\downloads\\SHABLON_KRASKA_{rand_string}.xlsx'
+        df_kraska.to_excel(path_kraska, index = False)
+      
+        oid = save_file_to_model(path_kraska,KraskaFileClient(file_type='kraska'))
+        o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
+        paths ={
+                    'kraska_file':path_kraska,
+                    'oid':oid,
+                    'obichniy_date':o_created_at,
+                    'is_obichniy':'yes',
+                    'type':'KRASKA',
+                    'status_l':'on hold',
+                    'status_raz':'on hold',
+                    'status_zip':'on hold',
+                    'status_norma':'on hold',
+                    'status_text_l':'on hold',
+                    'status_norma_lack':'on hold',
+                    'status_texcarta':'on hold',
+                }
+            
+        order = OrderKraska(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1,order_name=name,client_order_id=id)
+        order.save()
+        return redirect('order_detail_kraska',id=order.id)
 
     else:
         return JsonResponse({'msg':'This action does not exist yet.'})
+
+def json_to_excel_kraska(datas):
+    df_kraska  = pd.DataFrame()
+
+    df_kraska['counter'] =['' for x in range(0,len(datas))]
+
+    df_kraska['Комбинация'] = ''
+    df_kraska['Тип краски'] = ''
+    df_kraska['Краска'] = ''
+    df_kraska['Бренд краски'] = ''
+    df_kraska['Артикул'] = ''
+    df_kraska['Доп.Информация'] = ''
+    df_kraska['Краткий текст'] = ''
+    df_kraska['Комментарий'] = ''
+    df_kraska['Дата добавления цены'] = ''
+    df_kraska['Цена с НДС'] = ''
+    df_kraska['Цена без НДС'] = ''
+    df_kraska['Online savdo ID'] = ''
+    df_kraska['Ед.изм'] = ''
+    df_kraska['Название'] = ''
+    df_kraska['Цвет продукта'] = ''
+    df_kraska['Группа закупок'] = ''
+    df_kraska['Группа'] = ''
+    df_kraska['Тип'] = ''
+    df_kraska['Базовый единица'] = ''
+    df_kraska['Альтер единица'] = ''
+    df_kraska['Стмость баз едн'] = ''
+    df_kraska['Альтер. стоимость единицы'] = ''
+    df_kraska['Статус'] = ''
+    df_kraska['Завод'] = ''
+    df_kraska['Тип клиента'] = ''
+    
+    k = 0
+    for key1,data in datas.items():
+        df_kraska['Комбинация'][k] = data['combination']
+        df_kraska['Тип краски'][k] = data['tip_kraski']
+        df_kraska['Краска'][k] = data['kraska']
+        df_kraska['Бренд краски'][k] = data['brend_kraska']
+        df_kraska['Артикул'][k] = data['artikul']
+        df_kraska['Доп.Информация'][k] = data['dop_info']
+        df_kraska['Краткий текст'][k] = data['kratkiy_tekst']
+        df_kraska['Комментарий'][k] = data['comment']
+        df_kraska['Дата добавления цены'][k] = data['pickupdate']
+        df_kraska['Цена с НДС'][k] = data['sena_c_nds']
+        df_kraska['Цена без НДС'][k] = data['sena_bez_nds']
+        df_kraska['Ед.изм'][k] = data['edi_izm']
+        df_kraska['Online savdo ID'][k] = data['online_id']
+        df_kraska['Название'][k] = data['nazvaniye_ruchnoy']
+        df_kraska['Цвет продукта'][k] = data['svet_product']
+        df_kraska['Группа закупок'][k] = data['group_zakup']
+        df_kraska['Группа'][k] = data['group']
+        df_kraska['Тип'][k] = data['tip']
+        df_kraska['Базовый единица'][k] = data['bazoviy_edin']
+        df_kraska['Альтер единица'][k] = data['alter_edin']
+        df_kraska['Стмость баз едн'][k] = data['stoimost_baza']
+        df_kraska['Альтер. стоимость единицы'][k] = data['stoimost_alter']
+        df_kraska['Статус'][k] = data['status_online']
+        df_kraska['Завод'][k] = data['zavod']
+        df_kraska['Тип клиента'][k] = data['tip_clenta']
+        
+        k+=1
+
+    del df_kraska['counter']
+    return df_kraska
 
 def json_to_excel_prochiye(datas):
     df_prochiye  = pd.DataFrame()

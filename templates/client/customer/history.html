@@ -978,6 +978,63 @@
             
             </section>
             {%endif%}
+            {%if order_type == 'kraska'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                
+                  
+                
+                <div style="overflow: scroll;" >
+                  <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>Заявка</h2></em></span></div>
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="font-size: 12px;">Комбинация</th>
+                            <th scope="col" style="font-size: 12px;">Тип краски</th>
+                            <th scope="col" style="font-size: 12px;">Краска</th>
+                            <th scope="col" style="font-size: 12px;">Бренд краски</th>
+                            <th scope="col" style="font-size: 12px;">Артикул</th>
+                            {% include 'client/headers/kraska.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                    {%if ids%}
+                    <div class="d-flex justify-content-center"><span style="font-weight: 700;" class="text-center"><em><h2>История заявки</h2></em></span></div>
+                    
+                    {%for dat in ids%}
+                    
+                        <div class="d-flex justify-content-center"><span style="font-weight: 600;" class="text-center"><em><h4>Дате: {{dat.created_at}}</h4></em></span></div>
+                        <table class="table table-sm  table-stripped" id="my-table">
+                          
+                          <thead>
+                            <tr>
+                              <th scope="col" style="font-size: 12px;">Комбинация</th>
+                              <th scope="col" style="font-size: 12px;">Тип краски</th>
+                              <th scope="col" style="font-size: 12px;">Краска</th>
+                              <th scope="col" style="font-size: 12px;">Бренд краски</th>
+                              <th scope="col"  style="font-size: 12px;">Артикул</th>
+                              
+                              {% include 'client/headers/kraska.html' %}
+
+                            </tr>
+                          </thead>
+                          
+                          <tbody id="table_artikul_{{dat.id}}">
+                             
+                          </tbody>
+                         
+                        </table>
+                       
+                      {%endfor%}
+                    {%endif%}
+                    
+                </div>
+               
+            
+            </section>
+            {%endif%}
             
         </main>
         <div style="display: none;">
@@ -1021,6 +1078,7 @@
               'change_data':['vid_zayavki','id_savdo','naz_savdo','sapcode','bei ','aei','koefitsiyent','sena_c_ndc','sena_bez_ndc','ed_izm','group','group_zakupok','zavod','segment','bux_naz','tip_clienta','svet_product','diller','comment'],
               'bussines_partner':['vid_zayavki','balance_ed','rol_bp','group_del_partner','nomer_del_partner','imya_org','imya','familiya','ulitsa','nomer_doma','pochta_index','gorod','kod_stran','region','rayon','nomer_tel','nomer_mob','inn','ndc','nalog','oked','okpo','coato','coogu','kod_stran_bank','klyuch_banka','bank_schot','valyuta_zakaz','usloviya_plateja','sbitovoy_organ','kanal_sbita','sektor','rayon_sbita','gruppa_sena','sxema_kliyenta','status_gruppa_kliyent','usloviya_otgruz','sbit_debitora','sbit_nalog','kontrol_schot','kontrol_debitora',],
               'acs_zavod':['base_artikul','kratkiy_tekst','gruppa_materialov','bei','aei','koefitsiyent','sklad_gp','bux_sena','comment',],
+              'kraska':['combination','tip_kraski','kraska','brend_kraska','artikul','dop_info','kratkiy_tekst','comment','pickupdate','sena_c_nds','sena_bez_nds','edi_izm','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta'],
             }
 
             for (var key in jsonData) {

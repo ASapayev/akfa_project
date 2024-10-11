@@ -42,4 +42,7 @@ urlpatterns = [
     path('order-status-prochiye/<int:id>',views.status_change_to_done_prochiye,name ='status_change_to_done_prochiye'),
 
 
+    #kraska
+    path('order-detail-kraska/<int:id>',views.order_detail_kraska,name='order_detail_kraska'),
+
     ]

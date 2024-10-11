@@ -518,6 +518,7 @@ function copy_tr(id,ii=1){
         create_btn.attr('disabled',true)
         console.log(tip_clenta,'tip clienta')
 
+        console.log(zavod,'zavodddddd')
         if(!is_active){
             create_btn.css('background-color','green')
             create_btn.css('color','white')
@@ -979,7 +980,7 @@ function create_kratkiy_tekst(id){
         var tip =$('#tip'+id);
         var bazoviy_edin =$('#bazoviy_edin'+id);
         var status =$('#status'+id);
-        var zavod =$('#zavod'+id);
+        
 
         var comment =$('#comment'+id);
         var pickupdate =$('#pickupdate'+id);
@@ -1133,17 +1134,14 @@ function create_kratkiy_tekst(id){
                 data_base[id].status_online =NaN;
                 
             }
-            if(zavod.val()!=''){
-                
-                var zavod_name =$('#zavod_name'+id)
-                zavod_name.text(zavod.val())
-                data_base[id].zavod = zavod.val();
+            var zavod_name =$('#zavod_name'+id)
+            if(zavod_name.val()!=''){
+                zavod_name.css('border-color','#dedad9')
+               
+                data_base[id].zavod = zavod_name.val();
             }else{
-                var zavod_name =$('#zavod_name'+id)
-                zavod_name.text('')
                 data_base[id].zavod =NaN;
-                
-                
+                zavod_name.css('border-color','#dedad9')
             }
         }else{
             if(tip_clenta.val()!=''){

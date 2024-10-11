@@ -2,21 +2,27 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
 from .forms import NormaKraskaFileForm,TexcartaKraskaFileForm
-from .models import Norma7,SiroKraska,TexcartaFile,KarkaCode
+from .models import Norma7,SiroKraska,TexcartaFile,KarkaCode,KraskaFileClient,KraskaSapCode,OrderKraska
 from config.settings import MEDIA_ROOT
 import pandas as pd
 from django.http import JsonResponse
-from django.db.models import Q
+from django.db.models import Q,Max
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 import json
 import random
 import string
+import os 
+from datetime import datetime
+from random import randint
+from aluminiy.views import create_folder
+from accounts.models import User
+from .utils import characteristika_created_txt_create
 # Create your views here.
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','customer']) 
+@allowed_users(allowed_roles=['admin','moderator','customer','universal_user']) 
 def get_or_add_option(request):
     # print(request.method)
     if request.method == 'GET':
@@ -51,7 +57,7 @@ def get_or_add_option(request):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','kraska']) 
+@allowed_users(allowed_roles=['admin','moderator','kraska','universal_user']) 
 def edit_siryo(request,id):
       sapcode_org = SiroKraska.objects.get(id=id)
       if request.method =='POST':
@@ -75,7 +81,7 @@ def edit_siryo(request,id):
 
 
 @login_required(login_url='/accounts/login/') 
-@allowed_users(allowed_roles=['admin','moderator','kraska']) 
+@allowed_users(allowed_roles=['admin','moderator','kraska','universal_user']) 
 def find_norma(request):
     all_data = [ [] for i in range(3)]
     does_not_exists = []
@@ -109,7 +115,7 @@ def find_norma(request):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','kraska']) 
+@allowed_users(allowed_roles=['admin','moderator','kraska','universal_user']) 
 def siryo_bulk_delete(request):
     if request.method =='POST':
         ids = request.POST.get('ids',None)
@@ -126,7 +132,7 @@ def siryo_bulk_delete(request):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','kraska']) 
+@allowed_users(allowed_roles=['admin','moderator','kraska','universal_user']) 
 def delete_siryo(request,id):
       if request.method =='POST':
             if SiroKraska.objects.filter(id=id).exists():
@@ -140,7 +146,7 @@ def delete_siryo(request,id):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','kraska']) 
+@allowed_users(allowed_roles=['admin','moderator','kraska','universal_user']) 
 def create_siryo_from_file(request):
     file =f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORMA\\SAPCODE_BAZA.xlsx'
     # file =f'c:\\OpenServer\\domains\\SAPCODE_BAZA.xlsx'
@@ -163,7 +169,7 @@ def create_siryo_from_file(request):
     return JsonResponse({'a':'b'})
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','kraska']) 
+@allowed_users(allowed_roles=['admin','moderator','kraska','universal_user']) 
 def create_siryo(request):
     if request.method =='POST':
         # data_j = dict(request.POST)
@@ -190,9 +196,10 @@ class File:
         self.file =file
         self.filetype =filetype
         self.id = id
+        
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','kraska'])
+@allowed_users(allowed_roles=['admin','moderator','kraska','universal_user'])
 def file_upload_kraska_tex(request): 
   if request.method == 'POST':
     data = request.POST.copy()
@@ -220,7 +227,7 @@ def file_upload_kraska_tex(request):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','kraska'])
+@allowed_users(allowed_roles=['admin','moderator','kraska','universal_user'])
 def show_siryo(request):
      
       search_text = request.GET.get('search',None)
@@ -255,8 +262,231 @@ def show_siryo(request):
       return render(request,'kraska/show_siryo.html',context)
 
 
+
+
+
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','kraska'])
+@allowed_users(allowed_roles=['admin','moderator','kraska','universal_user'])    
+def product_add_second_org_kraska(request,id):
+    file = KraskaFileClient.objects.get(id=id).file
+    if 'SHABLON' in str(file):
+        df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
+        # df = pd.read_excel(f'c:\\OpenServer\\domains\\SHABLON_RADIATOR_XXXXX.xlsx')
+    else:
+        df = pd.read_excel(f'{MEDIA_ROOT}/{file}',header=4)
+    
+    df = df.astype(str)
+    
+    now = datetime.now()
+    year =now.strftime("%Y")
+    month =now.strftime("%B")
+    day =now.strftime("%a%d")
+    hour =now.strftime("%H HOUR")
+    minut =now.strftime("%M")
+      
+    order_id = request.GET.get('order_id',None)
+      
+
+
+      
+    aluminiy_group = KraskaSapCode.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
+    umumiy_counter={}
+    for al in aluminiy_group:
+        umumiy_counter[ al['artikul'] + '-' + al['section'] ] = al['total_max']
+    
+    aluminiy_group_termo = KraskaSapCode.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
+    umumiy_counter_termo = {}
+    for al in aluminiy_group_termo:
+        umumiy_counter_termo[ al['artikul'] + '-' + al['section'] ] = al['total_max']
+      
+      
+   
+    
+    
+    df_new = pd.DataFrame()
+
+    df_new['counter'] =df['Артикул']
+    
+    df_new['SAP CODE 7']=''
+    df_new['7 - Upakovka']=''
+
+    
+    
+    
+    cache_for_cratkiy_text =[[],[],[]]
+    duplicat_list =[]
+    
+    
+    for key,row in df.iterrows():  
+        df_new['7 - Upakovka'][key] = df['Краткий текст'][key]
+
+        
+        if ((row['Название'] == 'nan') or (row['Название'] == '')):
+            online_savdo_name = ''
+        else:
+            online_savdo_name = row['Название']
+            
+            
+        if ((row['Online savdo ID'] == 'nan') or (row['Online savdo ID'] == '')):
+            id_savdo = 'XXXXX'
+        else:
+            id_savdo = str(row['Online savdo ID']).replace('.0','')
+
+        
+
+
+        if KraskaSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala= df_new['7 - Upakovka'][key]).exists():
+            df_new['SAP CODE 7'][key] = KraskaSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['7 - Upakovka'][key])[:1].get().material
+            duplicat_list.append([df_new['SAP CODE 7'][key],df_new['7 - Upakovka'][key],'7'])
+        else: 
+            if KraskaSapCode.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
+                    umumiy_counter[df['Артикул'][key]+'-7'] += 1
+                    max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
+                    materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
+                    KraskaSapCode(artikul = df['Артикул'][key],section ='7',counter=max_values7,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+                    df_new['SAP CODE 7'][key] = materiale
+                    
+            
+                    cache_for_cratkiy_text[0].append(materiale)
+                    cache_for_cratkiy_text[1].append(df_new['7 - Upakovka'][key])
+                    cache_for_cratkiy_text[2].append(row['Цена с НДС'])
+            else:
+                    materiale = df['Артикул'][key]+"-7{:03d}".format(1)
+                    KraskaSapCode(artikul = df['Артикул'][key],section ='7',counter=1,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+                    df_new['SAP CODE 7'][key] = materiale
+                    umumiy_counter[df['Артикул'][key]+'-7'] = 1
+        
+                    cache_for_cratkiy_text[0].append(materiale)
+                    cache_for_cratkiy_text[1].append(df_new['7 - Upakovka'][key])
+                    cache_for_cratkiy_text[2].append(row['Цена с НДС'])
+            
+
+    
+
+        
+      
+    parent_dir ='{MEDIA_ROOT}\\uploads\\kraska\\'
+    
+    if not os.path.isdir(parent_dir):
+        create_folder(f'{MEDIA_ROOT}\\uploads\\','kraska')
+        
+    create_folder(f'{MEDIA_ROOT}\\uploads\\kraska\\',f'{year}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\kraska\\{year}\\',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\kraska\\{year}\\{month}\\',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\kraska\\{year}\\{month}\\{day}\\',hour)
+      
+                       
+    if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\kraska\\{year}\\{month}\\{day}\\{hour}\\kraska-{minut}.xlsx'):
+        path_kraska =  f'{MEDIA_ROOT}\\uploads\\kraska\\{year}\\{month}\\{day}\\{hour}\\kraska-{minut}.xlsx'
+    else:
+        st = randint(0,1000)
+        path_kraska =  f'{MEDIA_ROOT}\\uploads\\kraska\\{year}\\{month}\\{day}\\{hour}\\kraska-{minut}-{st}.xlsx'
+      
+
+    # price_all_correct = False
+      
+    
+
+    del df_new['counter']
+
+    writer = pd.ExcelWriter(path_kraska, engine='xlsxwriter')
+    df_new.to_excel(writer,index=False,sheet_name='Schotchik')
+    writer.close()
+
+
+    order_id = request.GET.get('order_id',None)
+
+    work_type = 1
+    price_all_correct=True
+    if order_id:
+        work_type = OrderKraska.objects.get(id = order_id).work_type
+        if price_all_correct:
+            df ={
+                'sapcode':cache_for_cratkiy_text[0],
+                'kratkiy':cache_for_cratkiy_text[1],
+                'narx':cache_for_cratkiy_text[2]
+            }
+            path = characteristika_created_txt_create(df)
+            files = [File(file=p,filetype='obichniy',id=1) for p in path]
+            files.append(File(file=path_kraska,filetype='kraska',id=1))
+            context ={
+                  'files':files,
+                  'section':'Формированый краска файл'
+            }
+
+            if order_id:
+                file_paths =[ file.file for file in files]
+                order = OrderKraska.objects.get(id = order_id)
+                paths = order.paths
+                raz_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+                zip_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+                paths['kraska_razlovka_file']= file_paths
+                paths['raz_created_at']= raz_created_at
+                paths['zip_created_at']= zip_created_at
+                paths['status_l']= 'done'
+                paths['status_raz']= 'done'
+                paths['status_zip']= 'done'
+                paths['status_text_l']= 'done'
+                
+                order.paths = paths
+                order.worker = request.user
+                order.current_worker = request.user
+                order.work_type = 6
+                order.save()
+                context['order'] = order
+                paths =  order.paths
+                for key,val in paths.items():
+                    context[key] = val
+                return render(request,'order/order_detail_kraska.html',context)  
+        else:
+            
+            file =[File(file = path_kraska,filetype='kraska',id=1)]
+            context = {
+                  'files':file,
+                  'section':'Формированый краска файл'
+            }
+            
+            if order_id:
+                order = OrderKraska.objects.get( id = order_id)
+                paths = order.paths 
+                context2 ={
+                        'kraska_razlovka_file':[path_kraska,path_kraska]
+                }
+                paths['kraska_razlovka_file'] = [path_kraska,path_kraska]
+                
+
+                
+                raz_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                paths['raz_created_at']= raz_created_at
+                
+                paths['status_l']= 'done'
+                paths['status_raz']= 'done'
+                paths['status_zip']= 'on process++'
+                paths['status_text_l']= 'on process'
+                
+
+                order.paths = paths
+                order.current_worker = request.user
+                order.work_type = 6
+                order.save()
+                context2['order'] = order
+                paths =  order.paths
+                for key,val in paths.items():
+                    context2[key] = val
+
+                workers = User.objects.filter(role =  'moderator',is_active =True)
+                context2['workers'] = workers
+
+                return render(request,'order/order_detail_kraska.html',context2)
+
+    
+    return render(request,'universal/generated_files.html',{'a':'b'})
+
+
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','kraska','universal_user'])
 def full_update_norm(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -437,7 +667,7 @@ def generate_norma_kraska(df_sapcodes,df_not_exists):
     return path
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','kraska'])
+@allowed_users(allowed_roles=['admin','moderator','kraska','universal_user'])
 def lenght_generate_texcarta(request,id):
     file = TexcartaFile.objects.get(id=id).file
     data = pd.read_excel(f'{MEDIA_ROOT}/{file}')

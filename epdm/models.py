@@ -27,3 +27,13 @@ class TexcartaFile(models.Model):
   file_type =models.CharField(max_length=255,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
+
+
+class EpdmSapCode(models.Model):
+  material =models.CharField(max_length=250,blank=True,null=True)
+  artikul =models.CharField(max_length=250,blank=True,null=True)
+  section =models.CharField(max_length=10,blank=True,null=True)
+  counter =models.IntegerField(default=0)
+  kratkiy_tekst_materiala =models.CharField(max_length=250,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)

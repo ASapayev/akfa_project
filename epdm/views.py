@@ -15,7 +15,7 @@ import string
 # Create your views here.
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','epdm']) 
+@allowed_users(allowed_roles=['admin','moderator','epdm','universal_user']) 
 def create_siryo_from_file(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -49,7 +49,7 @@ def create_siryo_from_file(request):
     return render(request,'norma/benkam/main.html')
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','epdm']) 
+@allowed_users(allowed_roles=['admin','moderator','epdm','universal_user']) 
 def create_siryo(request):
     if request.method =='POST':
         # data_j = dict(request.POST)
@@ -71,7 +71,7 @@ def create_siryo(request):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','epdm']) 
+@allowed_users(allowed_roles=['admin','moderator','epdm','universal_user']) 
 def edit_siryo(request,id):
       sapcode_org = SiroEpdm.objects.get(id=id)
       if request.method =='POST':
@@ -91,7 +91,7 @@ def edit_siryo(request,id):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','epdm']) 
+@allowed_users(allowed_roles=['admin','moderator','epdm','universal_user']) 
 def siryo_bulk_delete(request):
     if request.method =='POST':
         ids = request.POST.get('ids',None)
@@ -108,7 +108,7 @@ def siryo_bulk_delete(request):
 
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','epdm']) 
+@allowed_users(allowed_roles=['admin','moderator','epdm','universal_user']) 
 def delete_siryo(request,id):
       if request.method =='POST':
             if SiroEpdm.objects.filter(id=id).exists():
@@ -121,7 +121,7 @@ def delete_siryo(request,id):
             return JsonResponse({'msg':False})
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','epdm'])
+@allowed_users(allowed_roles=['admin','moderator','epdm','universal_user'])
 def show_siryo(request):
      
       search_text = request.GET.get('search',None)
@@ -158,7 +158,7 @@ def show_siryo(request):
 
 
 @login_required(login_url='/accounts/login/') 
-@allowed_users(allowed_roles=['admin','moderator','epdm']) 
+@allowed_users(allowed_roles=['admin','moderator','epdm','universal_user']) 
 def find_norma(request):
     all_data = [ [] for i in range(17)]
     does_not_exists = []
@@ -229,7 +229,7 @@ class File:
         self.id = id
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','epdm'])
+@allowed_users(allowed_roles=['admin','moderator','epdm','universal_user'])
 def file_upload_epdm_tex(request): 
   if request.method == 'POST':
     data = request.POST.copy()
@@ -252,7 +252,7 @@ def file_upload_epdm_tex(request):
   return render(request,'universal/main.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','epdm'])
+@allowed_users(allowed_roles=['admin','moderator','epdm','universal_user'])
 def full_update_norm(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -482,7 +482,7 @@ def generate_norma_epdm(df_sapcodes,df_not_exists):
 
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','epdm'])
+@allowed_users(allowed_roles=['admin','moderator','epdm','universal_user'])
 def lenght_generate_texcarta(request,id):
     file = TexcartaFile.objects.get(id=id).file
     # path = f'D:\\Users\\Muzaffar.Tursunov\\Desktop\\NORMA\\NORM_EPDM\\tex_sapcode.xlsx'

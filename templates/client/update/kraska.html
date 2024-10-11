@@ -43,17 +43,16 @@
 
             <!-- <section class="topics-detail-section section-padding" id="topics-detail"> -->
              
-                <div  class="table-responsive custom-max-height  " id="table-container" style="padding-top: 76px; ">
+                <div  class="table-responsive custom-max-height  " style="padding-top: 76px; ">
                     {% csrf_token %}
-                    <table class="table table-sm" id="my-table">
+                    <table class="table table-sm" >
                         <thead style="line-height: 1;">
                           <tr>
-                            <th scope="col" class="sticky-th text-center" style="font-size: 12px;left:0;padding-right: 5px;">Действие</th>
                             <th scope="col" style="font-size: 12px;">Комбинация</th>
                             <th scope="col" style="font-size: 12px;">Тип краски</th>
                             <th scope="col" style="font-size: 12px;">Краска</th>
                             <th scope="col" style="font-size: 12px;">Бренд краски</th>
-                            <th scope="col"  class="sticky-th text-center" style="left: 139.6px;font-size: 12px;">Артикул</th>
+                            <th scope="col" class="sticky-th text-center" style="left:0;font-size: 12px;">Артикул</th>
                             {% include 'client/headers/kraska.html'%}
                             
                         </tr>
@@ -66,31 +65,12 @@
                     
                 </div>
                
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="d-flex justify-content-start p-2">
-                            <input type="button" class="btn btn-warning mr-2 btn-sm" value="Добавить" onclick="add_column()" id="add_column_btn" >
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="d-flex justify-content-start p-2">
-                            <span class="m-1" style="font-weight: 700;" >Тема:</span>
-                            <input  type="text"  id="theme" class="form-control " onkeyup="show_zagruska_btn()" style="height: 30px;border-color:red">
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <div class="d-flex justify-content-end p-2">
-                            <span  class="btn btn-primary btn-sm" value="" id="zagruzka_file"  onclick="ready_all()">Загрузить</span>
-                            
-                        </div>
-                    </div>
-                </div>
+                
     
             <!-- </section> -->
 
 
-           
+            {% include 'client/includes/chat.html'%}
         </main>
 
         <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -139,7 +119,7 @@
 
 <script>
     var status_proccess1 = '{{status_proccess}}'
-    
+    var jsonData='{{order|safe}}'
     var url_kraska ="{% url 'get_or_add_option_kraska' %}"
 
     function updateMaxHeight() {
@@ -176,65 +156,56 @@
     }
 
     function ready_all(){
-        var theme =$('#theme')
-        if(theme.val() =='' || theme.val() == undefined){
-            Swal.fire({
+        var all_correct = true;
+        var data_empty = false
+        if (Object.keys(data_base).length === 0) {
+            data_empty = true
+        }
+
+        for (var key in data_base) {
+            if (data_base.hasOwnProperty(key)) { 
+                var value = data_base[key];
+                if(!value.full){
+                    all_correct=false
+                }
+            }
+        }
+
+        if (!data_empty && all_correct){
+
+            var text_tr =''
+            var i = 1
+            for(key in data_base){
+                text_tr += `
+                    <tr>
+                        <th scope="row">${i}</th>
+                        <td>${data_base[key]['artikul']}</td>
+                        <td>${data_base[key]['pickupdate']}</td>
+                        <td>${data_base[key]['online_id']}</td>
+                        <td>${data_base[key]['nazvaniye_ruchnoy']}</td>
+                    </tr>
+                `
+                i +=1
+                    
+            }
+
+            var modal_body = $('#modal_body')
+            modal_body.children('tr').remove()
+            modal_body.append(text_tr)
+
+            $('#myModal').modal('show')
+
+            
+                
+    }else{
+            
+            if(!data_empty && !all_correct){
+                Swal.fire({
                     icon: 'error',
-                    title: 'Iltimos zayavka mavzusini kiriting!!!',
+                    title: 'Malumotlar to\'liq emas!!!',
+                    text: 'Itimos ma\'lumotlarni to\'ldiring.',
                 });
-             
-        }else{
-                var all_correct = true;
-                var data_empty = false
-                if (Object.keys(data_base).length === 0) {
-                    data_empty = true
-                }
-
-                for (var key in data_base) {
-                    if (data_base.hasOwnProperty(key)) { 
-                        var value = data_base[key];
-                        if(!value.full){
-                            all_correct=false
-                        }
-                    }
-                }
-
-                if (!data_empty && all_correct){
-
-                    var text_tr =''
-                    var i = 1
-                    for(key in data_base){
-                        text_tr += `
-                            <tr>
-                                <th scope="row">${i}</th>
-                                <td>${data_base[key]['artikul']}</td>
-                                <td>${data_base[key]['pickupdate']}</td>
-                                <td>${data_base[key]['online_id']}</td>
-                                <td>${data_base[key]['nazvaniye_ruchnoy']}</td>
-                            </tr>
-                        `
-                        i +=1
-                            
-                    }
-
-                    var modal_body = $('#modal_body')
-                    modal_body.children('tr').remove()
-                    modal_body.append(text_tr)
-
-                    $('#myModal').modal('show')
-        
-                    
-                        
-            }else{
-                    
-                    if(!data_empty && !all_correct){
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Malumotlar to\'liq emas!!!',
-                            text: 'Itimos ma\'lumotlarni to\'ldiring.',
-                        });
-                    }
-                }
+            }
         }
 
    
@@ -242,25 +213,28 @@
 
 
     function send_data(){
+        var formData = new FormData(document.getElementById("uploadForm"));
+
         var submit_btn = document.getElementById('save_btn')
         var upload_btn = document.getElementById('upload_btn')
         upload_btn.style.display ='block';
         submit_btn.style.display ='none';
         var json_data = JSON.stringify(data_base)
-        var url = "order-save"
-        var theme =$('#theme').val()
+        var url = "/client/order-update/"+'{{id}}';
         var csrfToken = getCSRFToken();
-        var postData = {
-            'data': json_data,
-            'order_type':'kraska',
-            'name':'KRASKA',
-            'order_name':theme
-        }
+        formData.append('data', json_data); 
+        formData.append('order_type', 'kraska');
+        formData.append('name', 'KRASKA');
+
+
+
         $.ajax({
             type: 'POST',
             url: url,
             headers: { "X-CSRFToken": csrfToken },
-            data: postData,
+            data: formData,
+            processData: false, 
+            contentType: false,
         }).done(function (res) {
             console.log(res)
             if (res.status ==201){
