@@ -84,7 +84,7 @@ def get_ozmka(ozmk):
                     Q(pk_sap_code =ozm)
                     |Q(sap_code7 =ozm)
                     # )[:1].values_list()
-                    )[:1].values_list('er_sap_code','er_kratkiy','pk_sap_code','pk_kratkiy','sap_code7','kratkiy7',)
+                    )[:1].values_list('es_sap_code','es_kratkiy','er_sap_code','er_kratkiy','pk_sap_code','pk_kratkiy','sap_code7','kratkiy7',)
                 sap_code_exists=True
                 if list(razlovkaobichniy_aurora)[0] not in aurora_razlovka:
                     aurora_razlovka+=list(razlovkaobichniy_aurora)
@@ -114,7 +114,7 @@ def get_ozmka(ozmk):
    
 
     df_obichniy_1101 = pd.DataFrame(obichniy_razlovka1101,columns=['SAP CODE P','PR - Press','SAP CODE M','MO - Mex obrabotka','SAP CODE PM','PM - Puma','SAP CODE PK','PK - Pokraska','SAP CODE 7','7 - Upakovka'])#,'CREATED DATE','UPDATED DATE'
-    df_obichniy_1101_aurora = pd.DataFrame(obichniy_razlovka_aurora,columns=['SAP CODE ER','ER - Extrusion','SAP CODE PK','PK - Pokraska','SAP CODE 7','7 - Upakovka'])#,'CREATED DATE','UPDATED DATE'
+    df_obichniy_1101_aurora = pd.DataFrame(obichniy_razlovka_aurora,columns=['SAP CODE ES','ES - Extrusion','SAP CODE ER','ER - Extrusion','SAP CODE PK','PK - Pokraska','SAP CODE 7','7 - Upakovka'])#,'CREATED DATE','UPDATED DATE'
     df_yoqlari_1101 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
     now =datetime.now()
     minut =now.strftime('%M-%S')

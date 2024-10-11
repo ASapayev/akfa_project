@@ -598,10 +598,11 @@ def kombinirovaniy_process(request,id):
     file_content ='обычный'
     df = []
     df_aurora = []
-    # print(df_exell.columns,file) 
+    print(df_exell_aurora) 
     
     for key,row in df_exell_aurora.iterrows():
         df_aurora.append([
+                row['SAP CODE ES'],row['ES - Extrusion'],
                 row['SAP CODE ER'],row['ER - Extrusion'],
                 row['SAP CODE PK'],row['PK - Pokraska'],
                 row['SAP CODE 7'],row['7 - Upakovka']
@@ -642,16 +643,17 @@ def kombinirovaniy_process(request,id):
                     checking.append(kraska)
                     does_not_exist_norm.append(Xatolar(section='Краска',xato='bazada yo\'q',sap_code=kraska))
                     continue
+    
     for i in range(0,len(df_aurora)):
-        if df_aurora[i][3] != '':
-            pokraska_code = str(df_aurora[i][3]).split(' ')[-1]
+        if df_aurora[i][5] != '':
+            pokraska_code = str(df_aurora[i][5]).split(' ')[-1]
             if not Kraska.objects.filter(data__CODE__icontains=pokraska_code).exists():
                 if pokraska_code not in checking:
                     checking.append(pokraska_code)
                     does_not_exist_norm.append(Xatolar(section='Краска',xato='bazada yo\'q',sap_code=pokraska_code))
                     continue
-        if df_aurora[i][5] != '':
-            krat = df_aurora[i][5].split('-')
+        if df_aurora[i][7] != '':
+            krat = df_aurora[i][7].split('-')
             seria = krat[0]
             korobka_type = krat[1].split(' ')[-1]
             if not Korobka.objects.filter(data__KOROBKA__icontains=seria,data__TYPE__icontains =korobka_type).exists():
@@ -1291,16 +1293,16 @@ def kombinirovaniy_process(request,id):
     for i in range(0,len(df_aurora)):
         # print(i)
         
-        artikul = df_aurora[i][4].split('-')[0]
+        artikul = df_aurora[i][6].split('-')[0]
         # print(artikul,'norma')
 
-        party = str(df_aurora[i][0]).split('-')[0].split('.')[2]
+        party = str(df_aurora[i][2]).split('-')[0].split('.')[2]
 
         profile_val =PROFIL_TYPE['prof_type'][party]
         kraska_val =PROFIL_TYPE['kraska'][party]
         plenka_val =PROFIL_TYPE['plenka'][party]
 
-        pokraska_code = str(df_aurora[i][3]).split(' ')[-1]
+        pokraska_code = str(df_aurora[i][5]).split(' ')[-1]
         # kraska_data = Kraska.objects.filter(data__CODE__icontains=pokraska_code)
         # print(kraska_data)
         # continue
@@ -1309,15 +1311,15 @@ def kombinirovaniy_process(request,id):
         
 
         ### 7  ###
-        if {df_aurora[i][4]:df_aurora[i][5]} not in norma_exists:
-            norma_exists.append({df_aurora[i][4]:df_aurora[i][5]})
+        if {df_aurora[i][6]:df_aurora[i][7]} not in norma_exists:
+            norma_exists.append({df_aurora[i][6]:df_aurora[i][7]})
             df_new_aurora['ID'].append('1')
-            df_new_aurora['MATNR'].append(df_aurora[i][4])
+            df_new_aurora['MATNR'].append(df_aurora[i][6])
             df_new_aurora['WERKS'].append('5101')
-            df_new_aurora['TEXT1'].append(df_aurora[i][5])
+            df_new_aurora['TEXT1'].append(df_aurora[i][7])
             df_new_aurora['STLAL'].append('1')
             df_new_aurora['STLAN'].append('1')
-            df_new_aurora['ZTEXT'].append(df_aurora[i][5])
+            df_new_aurora['ZTEXT'].append(df_aurora[i][7])
             df_new_aurora['STKTX'].append('Упаковка')
             df_new_aurora['BMENG'].append( '1000')
             df_new_aurora['BMEIN'].append('ШТ')
@@ -1332,7 +1334,7 @@ def kombinirovaniy_process(request,id):
             df_new_aurora['PUSTOY'].append('')
             df_new_aurora['LGORT'].append('')
             # print(df[i][4],df[i][5])
-            seksiya_list =df_aurora[i][5].split(' ')
+            seksiya_list =df_aurora[i][7].split(' ')
             text =''
             for sek in seksiya_list:
                 if '-' in sek:
@@ -1353,8 +1355,8 @@ def kombinirovaniy_process(request,id):
             df_new_aurora['STLST'].append('')
             df_new_aurora['POSNR'].append('1')
             df_new_aurora['POSTP'].append('L')
-            df_new_aurora['MATNR1'].append(df_aurora[i][2])
-            df_new_aurora['TEXT2'].append(df_aurora[i][3])
+            df_new_aurora['MATNR1'].append(df_aurora[i][4])
+            df_new_aurora['TEXT2'].append(df_aurora[i][5])
             df_new_aurora['MEINS'].append(int(seksiya)*1000) 
             df_new_aurora['MENGE'].append('СКЦ')
             df_new_aurora['DATUV'].append('')
@@ -1362,7 +1364,7 @@ def kombinirovaniy_process(request,id):
             df_new_aurora['LGORT'].append('PS08')
             
             
-            krat = df_aurora[i][5].split('-')
+            krat = df_aurora[i][7].split('-')
             seria = krat[0]
             korobka_type = krat[1].split(' ')[-1]
 
@@ -1409,7 +1411,7 @@ def kombinirovaniy_process(request,id):
                 
                 
                 if k == 1 :
-                    seksiya_list =df_aurora[i][5].split(' ')
+                    seksiya_list =df_aurora[i][7].split(' ')
                     text =''
                     for sek in seksiya_list:
                         if '-' in sek:
@@ -1449,15 +1451,15 @@ def kombinirovaniy_process(request,id):
 
         
         #### PK
-        if {df_aurora[i][2]:df_aurora[i][3]} not in norma_exists:
-            norma_exists.append({df_aurora[i][2]:df_aurora[i][3]})
+        if {df_aurora[i][4]:df_aurora[i][5]} not in norma_exists:
+            norma_exists.append({df_aurora[i][4]:df_aurora[i][5]})
             df_new_aurora['ID'].append('1')
-            df_new_aurora['MATNR'].append(df_aurora[i][2])
+            df_new_aurora['MATNR'].append(df_aurora[i][4])
             df_new_aurora['WERKS'].append('5101')
-            df_new_aurora['TEXT1'].append(df_aurora[i][3])
+            df_new_aurora['TEXT1'].append(df_aurora[i][5])
             df_new_aurora['STLAL'].append('1')
             df_new_aurora['STLAN'].append('1')
-            df_new_aurora['ZTEXT'].append(df_aurora[i][3])
+            df_new_aurora['ZTEXT'].append(df_aurora[i][5])
             df_new_aurora['STKTX'].append('Покраска')
             df_new_aurora['BMENG'].append( '1000')
             df_new_aurora['BMEIN'].append('СКЦ')
@@ -1491,8 +1493,8 @@ def kombinirovaniy_process(request,id):
                 
                 if k == 1 :
                     
-                    df_new_aurora['MATNR1'].append(df_aurora[i][0])
-                    df_new_aurora['TEXT2'].append(df_aurora[i][1])
+                    df_new_aurora['MATNR1'].append(df_aurora[i][2])
+                    df_new_aurora['TEXT2'].append(df_aurora[i][3])
                     df_new_aurora['MEINS'].append('1000') 
                     df_new_aurora['MENGE'].append('СКЦ')
                     df_new_aurora['DATUV'].append('')
@@ -1513,6 +1515,76 @@ def kombinirovaniy_process(request,id):
         
        
         #### ER
+        if {df_aurora[i][2]:df_aurora[i][3]} not in norma_exists:
+            norma_exists.append({df_aurora[i][2]:df_aurora[i][3]})
+            df_new_aurora['ID'].append('1')
+            df_new_aurora['MATNR'].append(df_aurora[i][2])
+            df_new_aurora['WERKS'].append('5101')
+            df_new_aurora['TEXT1'].append(df_aurora[i][3])
+            df_new_aurora['STLAL'].append('1')
+            df_new_aurora['STLAN'].append('1')
+            df_new_aurora['ZTEXT'].append(df_aurora[i][3])
+            df_new_aurora['STKTX'].append('Extrusion')
+            df_new_aurora['BMENG'].append( '1000')
+            df_new_aurora['BMEIN'].append('СКЦ')
+            df_new_aurora['STLST'].append('1')
+            df_new_aurora['POSNR'].append('')
+            df_new_aurora['POSTP'].append('')
+            df_new_aurora['MATNR1'].append('')
+            df_new_aurora['TEXT2'].append('')
+            df_new_aurora['MEINS'].append('')
+            df_new_aurora['MENGE'].append('')
+            df_new_aurora['DATUV'].append('01012023')
+            df_new_aurora['PUSTOY'].append('')
+            df_new_aurora['LGORT'].append('')
+
+            
+
+            for k in range(1,4):
+                j+=1
+                df_new_aurora['ID'].append('2')
+                df_new_aurora['MATNR'].append('')
+                df_new_aurora['WERKS'].append('')
+                df_new_aurora['TEXT1'].append('')
+                df_new_aurora['STLAL'].append('')
+                df_new_aurora['STLAN'].append('')
+                df_new_aurora['ZTEXT'].append('')
+                df_new_aurora['STKTX'].append('')
+                df_new_aurora['BMENG'].append('')
+                df_new_aurora['BMEIN'].append('')
+                df_new_aurora['STLST'].append('')
+                df_new_aurora['POSNR'].append(k)
+                df_new_aurora['POSTP'].append('L')
+                
+                
+                if k == 1 :
+                    df_new_aurora['MATNR1'].append(df_aurora[i][0])
+                    df_new_aurora['TEXT2'].append(df_aurora[i][1])
+                    df_new_aurora['MEINS'].append('1000') 
+                    df_new_aurora['MENGE'].append('СКЦ')
+                    df_new_aurora['DATUV'].append('')
+                    df_new_aurora['PUSTOY'].append('')
+
+                
+                
+                if k == 2 :
+                    df_new_aurora['MATNR1'].append('1000006722')
+                    df_new_aurora['TEXT2'].append('Паронит межсекционная')
+                    df_new_aurora['MEINS'].append('1926')
+                    df_new_aurora['MENGE'].append('ШТ')
+                    df_new_aurora['DATUV'].append('')
+                    df_new_aurora['PUSTOY'].append('')
+                if k == 3 :
+                    df_new_aurora['MATNR1'].append('1000006721')
+                    df_new_aurora['TEXT2'].append('Соеденительная муфта')
+                    df_new_aurora['MEINS'].append('1836')
+                    df_new_aurora['MENGE'].append('ШТ')
+                    df_new_aurora['DATUV'].append('')
+                    df_new_aurora['PUSTOY'].append('')
+                df_new_aurora['LGORT'].append('PS10')
+            
+       
+        #### ES
         if {df_aurora[i][0]:df_aurora[i][1]} not in norma_exists:
             norma_exists.append({df_aurora[i][0]:df_aurora[i][1]})
             df_new_aurora['ID'].append('1')
@@ -2178,6 +2250,8 @@ def update_sapcode(request):
         if 'aurora' in str(row['kratkiy']).lower():
             if RazlovkaRadiatorAurora.objects.filter().exists():
                 razlovka = RazlovkaRadiatorAurora.objects.filter()[:1].get()
+                if '-ES' in row['Материал']:
+                    razlovka.es_kratkiy = row['kratkiy']
                 if '-ER' in row['Материал']:
                     razlovka.er_kratkiy = row['kratkiy']
                 if '-PK' in row['Материал']:
@@ -2251,6 +2325,7 @@ def product_add_second_org_radiator(request,id):
     df_new = pd.DataFrame()
 
     df_new['counter'] =df['Артикул']
+
     df_new['SAP CODE P']=''
     df_new['PR - Press']=''
 
@@ -2269,6 +2344,10 @@ def product_add_second_org_radiator(request,id):
     df_new_aurora = pd.DataFrame()
 
     df_new_aurora['counter'] =df['Артикул']
+    
+    df_new_aurora['SAP CODE ES']=''
+    df_new_aurora['ES - Extrusion']=''
+
     df_new_aurora['SAP CODE ER']=''
     df_new_aurora['ER - Extrusion']=''
 
@@ -2291,6 +2370,7 @@ def product_add_second_org_radiator(request,id):
         df_new['PK - Pokraska'][key] = 'PK-'+str(df['Модель'][key]).capitalize()+' ' +df['Цвет'][key]
         df_new['7 - Upakovka'][key] = df['Краткий текст'][key]
 
+        df_new_aurora['ES - Extrusion'][key] = 'ES-'+str(df['Модель'][key]).capitalize()
         df_new_aurora['ER - Extrusion'][key] = 'ER-'+str(df['Модель'][key]).capitalize()
         df_new_aurora['PK - Pokraska'][key] = 'PK-'+str(df['Модель'][key]).capitalize()+' ' +df['Цвет'][key]
         df_new_aurora['7 - Upakovka'][key] = str(df['Краткий текст'][key]).upper().replace('AURORA','Aurora')
@@ -2311,8 +2391,44 @@ def product_add_second_org_radiator(request,id):
 
 
         if 'aurora' in str(df['Модель'][key]).lower():
-            for i in range(1,4):
+            for i in range(1,5):
                 if i == 1:
+                    if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='ES',kratkiy_tekst_materiala= df_new_aurora['ES - Extrusion'][key]).exists():
+                        df_new_aurora['SAP CODE ES'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='ES',kratkiy_tekst_materiala=df_new_aurora['ES - Extrusion'][key])[:1].get().material
+                        duplicat_list.append([df_new_aurora['SAP CODE ES'][key],df_new_aurora['ES - Extrusion'][key],'ES'])
+                    else: 
+                        if RadiatorSapCode.objects.filter(artikul=df['Артикул'][key],section ='ES').exists():
+                                umumiy_counter[df['Артикул'][key]+'-ES'] += 1
+                                max_valuesES = umumiy_counter[df['Артикул'][key]+'-ES']
+                                materiale = df['Артикул'][key]+"-ES{:02d}".format(max_valuesES)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='ES',counter=max_valuesES,kratkiy_tekst_materiala=df_new_aurora['ES - Extrusion'][key],material=materiale).save()
+                                df_new_aurora['SAP CODE ES'][key] = materiale
+                                
+                                cache_for_cratkiy_text.append({
+                                                    'kratkiy':df_new_aurora['ES - Extrusion'][key],
+                                                    'sap_code':  materiale,
+                                                    
+                                                    # 'system' : row['Название системы'],
+                                                    # 'number_of_chambers' : row['Количество камер'],
+                                                    # 'article' : row['Артикул'],
+                                                    # 'profile_type_id' : row['Код к компоненту системы'],
+                                                    
+                                                })
+                        
+                        else:
+                                materiale = df['Артикул'][key]+"-ES{:02d}".format(1)
+                                RadiatorSapCode(artikul = df['Артикул'][key],section ='ES',counter=1,kratkiy_tekst_materiala=df_new_aurora['ES - Extrusion'][key],material=materiale).save()
+                                df_new_aurora['SAP CODE ES'][key] = materiale
+                                umumiy_counter[df['Артикул'][key]+'-ES'] = 1
+                    
+                                cache_for_cratkiy_text.append(
+                                                {
+                                                    'kratkiy':df_new_aurora['ES - Extrusion'][key],
+                                                    'sap_code':  materiale,
+                                                }
+                                            )
+                        
+                if i == 2:
                     if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='ER',kratkiy_tekst_materiala= df_new_aurora['ER - Extrusion'][key]).exists():
                         df_new_aurora['SAP CODE ER'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='ER',kratkiy_tekst_materiala=df_new_aurora['ER - Extrusion'][key])[:1].get().material
                         duplicat_list.append([df_new_aurora['SAP CODE ER'][key],df_new_aurora['ER - Extrusion'][key],'ER'])
@@ -2348,7 +2464,7 @@ def product_add_second_org_radiator(request,id):
                                                 }
                                             )
                         
-                if i == 2:
+                if i == 3:
                     if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PK',kratkiy_tekst_materiala= df_new_aurora['PK - Pokraska'][key]).exists():
                         df_new_aurora['SAP CODE PK'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='PK',kratkiy_tekst_materiala=df_new_aurora['PK - Pokraska'][key])[:1].get().material
                         duplicat_list.append([df_new_aurora['SAP CODE PK'][key],df_new_aurora['PK - Pokraska'][key],'PK'])
@@ -2384,7 +2500,7 @@ def product_add_second_org_radiator(request,id):
                                                 }
                                             )
                         
-                if i == 3:
+                if i == 4:
                     if RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala= df_new_aurora['7 - Upakovka'][key]).exists():
                         df_new_aurora['SAP CODE 7'][key] = RadiatorSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new_aurora['7 - Upakovka'][key])[:1].get().material
                         duplicat_list.append([df_new_aurora['SAP CODE 7'][key],df_new_aurora['7 - Upakovka'][key],'7'])
@@ -2641,6 +2757,8 @@ def product_add_second_org_radiator(request,id):
         if razlov['SAP CODE 7']!="":
             if not RazlovkaRadiatorAurora.objects.filter(sap_code7=razlov['SAP CODE 7'],kratkiy7=razlov['7 - Upakovka']).exists():
                 RazlovkaRadiatorAurora(
+                        es_sap_code =razlov['SAP CODE ES'],
+                        es_kratkiy =razlov['ES - Extrusion'], 
                         er_sap_code =razlov['SAP CODE ER'],
                         er_kratkiy =razlov['ER - Extrusion'], 
                         pk_sap_code =razlov['SAP CODE PK'],

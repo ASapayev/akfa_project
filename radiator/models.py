@@ -78,6 +78,8 @@ class RazlovkaRadiator(models.Model):
   updated_at =models.DateTimeField(auto_now=True)
   
 class RazlovkaRadiatorAurora(models.Model):
+  es_sap_code =models.CharField(max_length=100,blank=True,null=True)
+  es_kratkiy =models.CharField(max_length=150,blank=True,null=True)
   er_sap_code =models.CharField(max_length=100)
   er_kratkiy =models.CharField(max_length=150)
   pk_sap_code =models.CharField(max_length=100)

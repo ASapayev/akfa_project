@@ -1171,7 +1171,6 @@ function request_piece(start=1,end=6){
 
 var data_base = {}
 
-console.log(status_proccess1,'process')
 
 if(status_proccess1 == 'new'){
     table.append(text)
