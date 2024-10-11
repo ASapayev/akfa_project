@@ -1184,7 +1184,7 @@ if(status_proccess1 == 'new'){
     // var ii= 1
 
     for(var key1 in jsonData){
-        console.log(key1,'key1111111')
+        // console.log(key1,'key1111111')
         data_base[key1] = new BasePokritiya()
         for(var key2 in jsonData[key1]){
             data_base[key1][key2] = jsonData[key1][key2]
@@ -2444,7 +2444,7 @@ function create_kratkiy_tekst(id){
     var dlina = $('#length'+String(id));
     if(dlina.val()!=''&& dlina.val()!=0 && dlina.val()!='0'){
         dlina.css("border-color",'#dedad9');
-        data_base[id].dlina = dlina.val();
+        data_base[id].dlina = dlina.val().slice(0, 4);
     }else{
         dlina.css("border-color",'red');
         data_base[id].dlina = NaN;
@@ -2513,7 +2513,7 @@ function create_kratkiy_tekst(id){
     }
     if(delovoy_otxod.val()!=''){
         delovoy_otxod.css("border-color",'#dedad9');
-        data_base[id].delovoy_otxod = delovoy_otxod.val();
+        data_base[id].delovoy_otxod = delovoy_otxod.val().slice(0,4);
     }else{
         delovoy_otxod.css("border-color",'red');
         data_base[id].delovoy_otxod = NaN;
@@ -2535,7 +2535,7 @@ function create_kratkiy_tekst(id){
     }
     if(code_sveta.val()!=''){
         code_sveta.css("border-color",'#dedad9');
-        data_base[id].kod_sveta = code_sveta.val();
+        data_base[id].kod_sveta = code_sveta.val().slice(0,4);
     }else{
         code_sveta.css("border-color",'red');
         data_base[id].kod_sveta = NaN;

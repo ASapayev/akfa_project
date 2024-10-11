@@ -496,7 +496,7 @@ function front_piece(start=1,end=7){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type="number"    class="form-control " style='width:70px;height:27px!important;z-index:0' oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 4);"  disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`" >
+                <input type="number"  max="9999" min="1"  class="form-control " style='width:70px;height:27px!important;z-index:0' oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 4);"  disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`" >
             </div>
         </td>
         <td >
@@ -2787,7 +2787,8 @@ function create_kratkiy_tekst(id){
     }
     if(dlina.val()!=''&& dlina.val()!=0 && dlina.val()!='0'){
         dlina.css("border-color",'#dedad9');
-        data_base[id].dlina = dlina.val();
+        data_base[id].dlina = dlina.val().slice(0, 4);
+       
     }else{
         dlina.css("border-color",'red');
         data_base[id].dlina = NaN;
@@ -2795,7 +2796,7 @@ function create_kratkiy_tekst(id){
     var dilina_pressa = $('#dilina_pressa'+String(id));
     if(dilina_pressa.val()!=''){
         dilina_pressa.css("border-color",'#dedad9');
-        data_base[id].dilina_pressa = dilina_pressa.val();
+        data_base[id].dilina_pressa = dilina_pressa.val().slice(0, 4);
     }else{
         data_base[id].dilina_pressa = NaN;
     }

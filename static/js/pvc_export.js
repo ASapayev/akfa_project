@@ -1151,7 +1151,7 @@ function create_kratkiy_tekst(id){
     }
     if(dlina.val()!=''&& dlina.val()!=0 && dlina.val()!='0'){
         dlina.css("border-color",'#dedad9');
-        data_base[id].dlina = dlina.val();
+        data_base[id].dlina = dlina.val().slice(0,4);
     }else{
         dlina.css("border-color",'red');
         data_base[id].dlina = NaN;
