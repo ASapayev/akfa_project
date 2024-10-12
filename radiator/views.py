@@ -366,8 +366,8 @@ def full_update_korobka(request):
         data['type']='termo'
         form = NormaFileForm(data, request.FILES)
         if form.is_valid():
-            siryo = Korobka.objects.all()
-            siryo.delete()
+            # siryo = Korobka.objects.all()
+            # siryo.delete()
             form_file = form.save()
             file = form_file.file
             path =f'{MEDIA_ROOT}/{file}'
@@ -380,13 +380,21 @@ def full_update_korobka(request):
             
             columns = df.columns
 
-            Korobka(data ={'columns':list(columns)}).save()
+            # Korobka(data ={'columns':list(columns)}).save()
 
             for key, row in df.iterrows():
                 norma_dict = {}
                 for col in columns:
                     norma_dict[col]=row[col]
-                Korobka(data =norma_dict).save()
+
+                if Korobka.objects.filter(data__exact=norma_dict).exists():
+                    siryoo = Korobka.objects.filter(data__exact=norma_dict)[:1].get()
+                    siryoo.data = norma_dict
+                    
+                else:
+                    Korobka(data =norma_dict).save()
+                
+                # Korobka(data =norma_dict).save()
 
     return render(request,'norma/benkam/main.html')
 
@@ -423,8 +431,8 @@ def full_update_siryo(request):
         data['type']='termo'
         form = NormaFileForm(data, request.FILES)
         if form.is_valid():
-            siryo = Siryo.objects.all()
-            siryo.delete()
+            # siryo = Siryo.objects.all()
+            # siryo.delete()
             form_file = form.save()
             file = form_file.file
             path =f'{MEDIA_ROOT}/{file}'
@@ -437,13 +445,19 @@ def full_update_siryo(request):
             
             columns = df.columns
 
-            Siryo(data ={'columns':list(columns)}).save()
+            # Siryo(data ={'columns':list(columns)}).save()
 
             for key, row in df.iterrows():
                 norma_dict = {}
                 for col in columns:
                     norma_dict[col]=row[col]
-                Siryo(data =norma_dict).save()
+                if Siryo.objects.filter(data__exact=norma_dict).exists():
+                    siryoo = Siryo.objects.filter(data__exact=norma_dict)[:1].get()
+                    siryoo.data = norma_dict
+                    
+                else:
+                    Siryo(data =norma_dict).save()
+                # Siryo(data =norma_dict).save()
 
     return render(request,'norma/benkam/main.html')
 
@@ -456,8 +470,8 @@ def full_update_kraska(request):
         data['type']='termo'
         form = NormaFileForm(data, request.FILES)
         if form.is_valid():
-            siryo = Kraska.objects.all()
-            siryo.delete()
+            # siryo = Kraska.objects.all()
+            # siryo.delete()
             form_file = form.save()
             file = form_file.file
             path =f'{MEDIA_ROOT}/{file}'
@@ -470,13 +484,20 @@ def full_update_kraska(request):
             
             columns = df.columns
 
-            Kraska(data ={'columns':list(columns)}).save()
+            # Kraska(data ={'columns':list(columns)}).save()
 
             for key, row in df.iterrows():
                 norma_dict = {}
                 for col in columns:
                     norma_dict[col]=row[col]
-                Kraska(data =norma_dict).save()
+                if Kraska.objects.filter(data__exact=norma_dict).exists():
+                    siryoo = Kraska.objects.filter(data__exact=norma_dict)[:1].get()
+                    siryoo.data = norma_dict
+                    
+                else:
+                    Kraska(data =norma_dict).save()
+
+                # Kraska(data =norma_dict).save()
 
     return render(request,'norma/benkam/main.html')
 
