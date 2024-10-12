@@ -22,8 +22,8 @@ def create_siryo_from_file(request):
         data['type']='termo'
         form = NormaEpdmFileForm(data, request.FILES)
         if form.is_valid():
-            normaa =SiroEpdm.objects.all()
-            normaa.delete()
+            # normaa =SiroEpdm.objects.all()
+            # normaa.delete()
             form_file = form.save()
             file = form_file.file
             path =f'{MEDIA_ROOT}/{file}'

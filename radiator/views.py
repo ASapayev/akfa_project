@@ -1738,6 +1738,8 @@ def lenght_generate_texcarta(request,id):
                 counter +=4
             elif '-ER' in row['МАТЕРИАЛ']:
                 counter +=4
+            elif '-ES' in row['МАТЕРИАЛ']:
+                counter +=4
             elif '-7' in row['МАТЕРИАЛ']:
                 counter +=2
        
@@ -1815,6 +1817,45 @@ def lenght_generate_texcarta(request,id):
                     counter_2 +=1
                 TexcartaBase(material = row['МАТЕРИАЛ']).save()
             
+            if '-ES' in row['МАТЕРИАЛ']:
+                for i in range(1,3):
+                    if i ==1:
+                        df_new['ID'][counter_2] ='1'
+                        df_new['MATNR'][counter_2] = row['МАТЕРИАЛ']
+                        df_new['WERKS'][counter_2] ='5101'
+                        df_new['STTAG'][counter_2] ='01012023'
+                        df_new['PLNAL'][counter_2] ='1'
+                        df_new['KTEXT'][counter_2] =row['КРАТКИЙ ТЕКСТ']
+                        df_new['VERWE'][counter_2] ='1'
+                        df_new['STATU'][counter_2] ='4'
+                        df_new['LOSVN'][counter_2] ='1'
+                        df_new['LOSBS'][counter_2] ='99999999'
+                    elif i == 2:
+                        df_new['ID'][counter_2]='2'
+                        df_new['VORNR'][counter_2] ='0010'
+                        df_new['ARBPL'][counter_2] ='5101B502'
+                        df_new['WERKS1'][counter_2] ='5101'
+                        df_new['STEUS'][counter_2] ='ZK01'
+                        df_new['LTXA1'][counter_2] ='Участок радиторов из профилей'
+                        df_new['BMSCH'][counter_2] = '1000'
+                        df_new['MEINH'][counter_2] ='SKC'
+                        df_new['VGW01'][counter_2] ='24'
+                        df_new['VGE01'][counter_2] ='STD'
+                        df_new['ACTTYPE_01'][counter_2] ='200320'
+                        df_new['CKSELKZ'][counter_2] ='X'
+                        df_new['UMREZ'][counter_2] = '1'
+                        df_new['UMREN'][counter_2] = '1'
+                        df_new['USR00'][counter_2] = '1'
+                        df_new['USR01'][counter_2] = '60'
+                        # df_new['UMREZ'][counter_2] = '1000'
+                        # df_new['UMREN'][counter_2] = int(float(norma.data['Площадь поверхности 1000шт профилей/м²'].replace(',','.'))*float(L)/(6))
+                        # df_new['USR00'][counter_2] = '1'
+                        # df_new['USR01'][counter_2] = ("%.3f" % ((L*1000*3600*float(norma.data['Площадь поверхности 1000шт профилей/м²'].replace(',','.')))/(6000000*bmsch)))
+                       
+                   
+                    counter_2 +=1
+                TexcartaBase(material = row['МАТЕРИАЛ']).save()
+            
             if '-ER' in row['МАТЕРИАЛ']:
                 for i in range(1,3):
                     if i ==1:
@@ -1853,6 +1894,7 @@ def lenght_generate_texcarta(request,id):
                    
                     counter_2 +=1
                 TexcartaBase(material = row['МАТЕРИАЛ']).save()
+            
             if '-PM' in row['МАТЕРИАЛ']:
                 for i in range(1,3):
                     if i ==1:
