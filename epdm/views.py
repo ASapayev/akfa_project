@@ -38,13 +38,19 @@ def create_siryo_from_file(request):
             
             columns = df.columns
 
-            SiroEpdm(data ={'columns':list(columns)}).save()
+            # SiroEpdm(data ={'columns':list(columns)}).save()
 
             for key, row in df.iterrows():
                 norma_dict = {}
+                
                 for col in columns:
                     norma_dict[col]=row[col]
-                SiroEpdm(data =norma_dict).save()
+                if SiroEpdm.objects.filter(data__exact=norma_dict).exists():
+                    siryoo = SiroEpdm.objects.filter(data__exact=norma_dict)[:1].get()
+                    siryoo.data = norma_dict
+                    
+                else:
+                    SiroEpdm(data =norma_dict).save()
 
     return render(request,'norma/benkam/main.html')
 
