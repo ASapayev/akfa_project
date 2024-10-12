@@ -306,7 +306,7 @@ function front_piece(start=1,end=6){
         
         <td >
             <div class="input-group input-group-sm mb-1">
-                <input type="number"   class="form-control " style='width:70px;height:27px!important;z-index:0' oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 4);"  disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
+                <input type="number"   class="form-control " style='width:70px;height:27px!important;z-index:0' oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 5);"  disabled aria-describedby="inputGroup-sizing-sm" name ='length`+String(i)+`' id="length`+String(i)+`"  >
             </div>
         </td>
         <td >

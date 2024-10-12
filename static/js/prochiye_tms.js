@@ -114,6 +114,7 @@ function front_piece(start=1,end=6){
                     <option value="5101 - AKFA Radiators">5101 - AKFA Radiators</option>
                     <option value="4501 - Сектор оконно-дверных аксессуаров">4501 - Сектор оконно-дверных аксессуаров</option>
                     <option value="4601 - Завод производства Композитных панелей из Алюминия">4601 - Завод производства Композитных панелей из Алюминия</option>
+                    <option value="4701 - Завод EPDM резины">4701 - Завод EPDM резины</option>
                     
                 </select>
             </div>

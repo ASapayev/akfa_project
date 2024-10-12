@@ -1887,7 +1887,7 @@ function artukil_clear(id){
     splav.attr("disabled",true);
     splav.css("border-color",'#dedad9');
     var tip_zakalyonnosti = $('#tip_zakalyonnosti'+String(id));
-    // tip_zakalyonnosti.val('0').change();
+    tip_zakalyonnosti.val('')
     tip_zakalyonnosti.attr("disabled",true);
     tip_zakalyonnosti.css("border-color",'#dedad9');
     // console.log(data_base)

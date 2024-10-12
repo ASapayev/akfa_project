@@ -252,6 +252,7 @@ function front_piece(start=1,end=6){
                 <option value="PIGMENT POROSHKOVIY">PIGMENT POROSHKOVIY</option>
                 <option value="GAZOBLOK">GAZOBLOK</option>
                 <option value="PAKET">PAKET</option>
+                <option value="Pvc. AKSESSUAR (UZ)">Pvc. AKSESSUAR (UZ)</option>
             </select>
             </div>
         </td>
@@ -372,6 +373,17 @@ function front_piece(start=1,end=6){
                 <option value="ZAVOD REZINA TPV">ZAVOD REZINA TPV</option>
                 <option value="ZAVOD KRASKA">ZAVOD KRASKA</option>
                 <option value="ZAVOD TAPOICH AKS UZ">ZAVOD TAPOICH AKS UZ</option>
+                <option value="ZAVOD AKS UZ">ZAVOD AKS UZ</option>
+                <option value="ZAVOD ALUCOBOND">ZAVOD ALUCOBOND</option>
+                <option value="ZAVOD RADIATOR">ZAVOD RADIATOR</option>
+                <option value="Akfa Savdo">Akfa Savdo</option>
+                <option value="ZAVOD GRANULA">ZAVOD GRANULA</option>
+                <option value="ZAVOD GRANIT">ZAVOD GRANIT</option>
+                <option value="РЦ Зенит">РЦ Зенит</option>
+                <option value="РЦ Наманган">РЦ Наманган</option>
+                <option value="РЦ Бухара">РЦ Бухара</option>
+                <option value="РЦ Самарканд">РЦ Самарканд</option>
+                <option value="РЦ Хорезм">РЦ Хорезм</option>
             </select>
             </div>
         </td>

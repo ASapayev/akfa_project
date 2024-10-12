@@ -605,7 +605,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <span  style="font-size: small; width:250px; font-weight: bold; z-index:0;white-space: nowrap;" id='kratkiy_tekst`+String(i)+`'></span>
+            <span  style="font-size: small; width:275px; font-weight: bold; z-index:0;white-space: nowrap;" id='kratkiy_tekst`+String(i)+`'></span>
             </div>
         </td>
 
