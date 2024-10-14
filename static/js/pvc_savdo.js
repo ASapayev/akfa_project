@@ -783,7 +783,7 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
-                <option vlaue="Штука">Штука</div>
+                <option value="Штука">Штука</div>
                 
             </select>
             </div>
@@ -793,7 +793,7 @@ function front_piece(start=1,end=6){
             <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='alter_edin`+ String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
                 
-                <option vlaue="Килограмм">Килограмм</div>
+                <option value="Килограмм">Килограмм</div>
                 
             </select>
             </div>

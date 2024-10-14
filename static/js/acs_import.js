@@ -202,13 +202,13 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0" id='edizm`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
-                <option vlaue="Штука">Штука</div>
-                <option vlaue="Килограмм">Килограмм</div>
-                <option vlaue="Квадратный метр">Квадратный метр</div>
-                <option vlaue="Метр">Метр</div>
-                <option vlaue="КМП">КМП</div>
-                <option vlaue="Пачка">Пачка</div>
-                <option vlaue="Секция">Секция</div>
+                <option value="Штука">Штука</div>
+                <option value="Килограмм">Килограмм</div>
+                <option value="Квадратный метр">Квадратный метр</div>
+                <option value="Метр">Метр</div>
+                <option value="КМП">КМП</div>
+                <option value="Пачка">Пачка</div>
+                <option value="Секция">Секция</div>
                 <option  value="Коробка">Коробка</div>
                 <option  value="Грам">Грам</div>
             </select>
@@ -324,13 +324,13 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px; border-color:red;display:none;z-index:0" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
-                <option vlaue="Штука">Штука</div>
-                <option vlaue="Килограмм">Килограмм</div>
-                <option vlaue="Квадратный метр">Квадратный метр</div>
-                <option vlaue="Метр">Метр</div>
-                <option vlaue="КМП">КМП</div>
-                <option vlaue="Пачка">Пачка</div>
-                <option vlaue="Секция">Секция</div>
+                <option value="Штука">Штука</div>
+                <option value="Килограмм">Килограмм</div>
+                <option value="Квадратный метр">Квадратный метр</div>
+                <option value="Метр">Метр</div>
+                <option value="КМП">КМП</div>
+                <option value="Пачка">Пачка</div>
+                <option value="Секция">Секция</div>
                 <option  value="Коробка">Коробка</div>
                 <option  value="Грам">Грам</div>
             </select>
@@ -340,13 +340,13 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px;display:none;z-index:0" id='alter_edin`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
-                <option vlaue="Штука">Штука</div>
-                <option vlaue="Килограмм">Килограмм</div>
-                <option vlaue="Квадратный метр">Квадратный метр</div>
-                <option vlaue="Метр">Метр</div>
-                <option vlaue="КМП">КМП</div>
-                <option vlaue="Пачка">Пачка</div>
-                <option vlaue="Секция">Секция</div>
+                <option value="Штука">Штука</div>
+                <option value="Килограмм">Килограмм</div>
+                <option value="Квадратный метр">Квадратный метр</div>
+                <option value="Метр">Метр</div>
+                <option value="КМП">КМП</div>
+                <option value="Пачка">Пачка</div>
+                <option value="Секция">Секция</div>
                 <option  value="Коробка">Коробка</div>
                 <option  value="Грам">Грам</div>
             </select>

@@ -89,9 +89,9 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
                 <select class="form-select" aria-label="" style="width: 115px; font-size:12px; padding-right:0px;z-index:0" id='vid_zayavki`+ String(i)+`' onchange='select_vid_zayavki(`+String(i)+`,this.value)' required>
                     <option  selected></option>
-                    <option vlaue="Создание">Создание</div>
-                    <option vlaue="Изменение">Изменение</div>
-                    <option vlaue="Расширение">Расширение</div>
+                    <option value="Создание">Создание</div>
+                    <option value="Изменение">Изменение</div>
+                    <option value="Расширение">Расширение</div>
                 </select>
             </div>
         </td>
@@ -144,15 +144,15 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
                 <select class="form-select" aria-label="" style="display:none;border-color:red;height:27px;width: 55px; font-size:12px; padding-right:0px;z-index:0" id='bazoviy_edinitsa`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                     <option  selected></option>
-                    <option vlaue="ШТ">ШТ</div>
-                    <option vlaue="КГ">КГ</div>
-                    <option vlaue="М2">М2</div>
-                    <option vlaue="М">М</div>
-                    <option vlaue="Л">Л</div>
-                    <option vlaue="КМП">КМП</div>
-                    <option vlaue="ПАЧ">ПАЧ</div>
-                    <option vlaue="ПАРА">ПАРА</div>
-                    <option vlaue="СКЦ">СКЦ</div>
+                    <option value="ШТ">ШТ</div>
+                    <option value="КГ">КГ</div>
+                    <option value="М2">М2</div>
+                    <option value="М">М</div>
+                    <option value="Л">Л</div>
+                    <option value="КМП">КМП</div>
+                    <option value="ПАЧ">ПАЧ</div>
+                    <option value="ПАРА">ПАРА</div>
+                    <option value="СКЦ">СКЦ</div>
                     <option  value="КОР">КОР</div>
                     <option  value="КУБ">КУБ</div>
                     <option  value="Т">Т</div>
