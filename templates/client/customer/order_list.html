@@ -56,7 +56,7 @@
                                         <div class="btn-group" role="group" aria-label="Basic example" id="options_{{order.id}}">
                                             <!-- <button type="button" class="btn btn-outline-secondary">1</button> -->
                                             <a href="{%url 'order_history' order.id %}" class="btn btn-primary btn-sm" ><i class="bi bi-eye"></i> История</a>
-                                            {%if order.status|stringformat:"d" == '10081' or order.status|stringformat:"d" == '10084'%}
+                                            {%if  order.status|stringformat:"d" == '10084'%}
                                             <a href="{%url 'order_update_all' order.id %}" class="btn btn-warning btn-sm" id="edit_btn_{{order.id}}"><i class="bi bi-pen-fill"></i> Изменить</a>
                                             {%endif%}
                                             {%if order.status|stringformat:"d" == '10083' and order.partner %}
@@ -313,7 +313,7 @@
           
           
           var option_text =''
-          if(status =='На паузе'){
+          if(status =='Доработка заявителем'){
             // option_text =`<a href="/client/order-convert/${order_id}" class="btn btn-warning btn-sm" id="link${forloop}" ><i class="bi bi-pen"></i> Convert</a>`
             var alink =$('#edit_btn_'+order_id)
             if(alink.length){

@@ -632,7 +632,7 @@ function artukil_clear(id){
 
 }
 
-function get_and_set_data(id,selector,is_req){
+function  get_and_set_data(id,selector,is_req){
     var data = $('#'+selector+id)
     if(data.val() != '' && data.val() !=NaN && data.val() !=null){
         data_base[id][selector] = removeQuotesFromStartAndEnd(data.val())
@@ -675,7 +675,16 @@ function create_kratkiy_tekst(id){
         get_and_set_data(id,'sapcode',is_req=false)
         get_and_set_data(id,'nazvaniye_tovarov',is_req=true)
         get_and_set_data(id,'polnoye_nazvaniye',is_req=true)
-        get_and_set_data(id,'sena_materiala',is_req=true)
+        // get_and_set_data(id,'sena_materiala',is_req=true)
+        var sena_materiala =$('#sena_materiala'+String(id))
+        if(sena_materiala.val()!='' && sena_materiala.val()!=0 && sena_materiala.val()!='0'){
+            sena_materiala.css("border-color",'#dedad9');
+            data_base[id].sena_materiala = sena_materiala.val().slice(0,4);
+        }else{
+            sena_materiala.css("border-color",'red');
+            data_base[id].sena_materiala = NaN;
+        }
+
         get_and_set_data(id,'bazoviy_edinitsa',is_req=true)
         get_and_set_data(id,'koefitsiyent',is_req=false)
         get_and_set_data(id,'alternativ_edin',is_req=false)
@@ -693,7 +702,15 @@ function create_kratkiy_tekst(id){
         get_and_set_data(id,'sapcode',is_req=true)
         get_and_set_data(id,'nazvaniye_tovarov',is_req=true)
         get_and_set_data(id,'polnoye_nazvaniye',is_req=false)
-        get_and_set_data(id,'sena_materiala',is_req=false)
+        // get_and_set_data(id,'sena_materiala',is_req=false)
+        var sena_materiala =$('#sena_materiala'+String(id))
+        if(sena_materiala.val()!='' && sena_materiala.val()!=0 && sena_materiala.val()!='0'){
+            sena_materiala.css("border-color",'#dedad9');
+            data_base[id].sena_materiala = sena_materiala.val().slice(0,4);
+        }else{
+            sena_materiala.css("border-color",'#dedad9');
+            data_base[id].sena_materiala = NaN;
+        }
         get_and_set_data(id,'bazoviy_edinitsa',is_req=false)
         get_and_set_data(id,'koefitsiyent',is_req=false)
         get_and_set_data(id,'alternativ_edin',is_req=false)
@@ -711,7 +728,15 @@ function create_kratkiy_tekst(id){
         get_and_set_data(id,'sapcode',is_req=true)
         get_and_set_data(id,'nazvaniye_tovarov',is_req=true)
         get_and_set_data(id,'polnoye_nazvaniye',is_req=false)
-        get_and_set_data(id,'sena_materiala',is_req=true)
+        // get_and_set_data(id,'sena_materiala',is_req=true)
+        var sena_materiala =$('#sena_materiala'+String(id))
+        if(sena_materiala.val()!='' && sena_materiala.val()!=0 && sena_materiala.val()!='0'){
+            sena_materiala.css("border-color",'#dedad9');
+            data_base[id].sena_materiala = sena_materiala.val().slice(0,4);
+        }else{
+            sena_materiala.css("border-color",'red');
+            data_base[id].sena_materiala = NaN;
+        }
         get_and_set_data(id,'bazoviy_edinitsa',is_req=true)
         get_and_set_data(id,'koefitsiyent',is_req=false)
         get_and_set_data(id,'alternativ_edin',is_req=false)

@@ -1167,7 +1167,8 @@
             </form>
             </section>
             {%endif%}
-            
+          
+            {% include 'client/includes/chat_no_status.html'%}
         </main>
         <div style="display: none;">
                 {{ data|json_script:"items-data" }}
@@ -1320,6 +1321,50 @@
           document.body.removeChild(a);
           URL.revokeObjectURL(url);
       }
+
+
+        // function send_data(){
+
+        //       var formData = new FormData(document.getElementById("uploadForm"));
+
+        //       // var submit_btn = document.getElementById('save_btn')
+        //       // var upload_btn = document.getElementById('upload_btn')
+        //       // upload_btn.style.display ='block';
+        //       // submit_btn.style.display ='none';
+        //       // var json_data = JSON.stringify(data_base)
+        //       var url = "/client/order-update/"+'{{id}}'
+        //       var csrfToken = getCSRFToken();
+
+
+
+        //       formData.append('data', json_data); 
+        //       formData.append('order_type', 'alu_savdo');
+        //       formData.append('name', 'ALUMINIY SAVDO');
+
+
+        //       $.ajax({
+        //           type: 'POST',
+        //           url: url,
+        //           headers: { "X-CSRFToken": csrfToken },
+        //           data: formData,
+        //           processData: false, 
+        //           contentType: false,
+        //       }).done(function (res) {
+        //           if (res.status ==201){
+        //               Swal.fire('Qabul qilindi...', '', 'success')
+        //               setTimeout(function() {
+        //                   var url = '{%url "client_order_list" %}';
+        //                   window.location.href = url;
+        //               }, 750);
+        //               close_modal()
+                      
+        //           }else{
+        //               Swal.fire('Something went wrong.', '', 'info')
+        //               close_modal()
+        //           }
+        //           // WON'T REDIRECT
+        //       });
+        //       }
 
 
        

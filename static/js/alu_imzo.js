@@ -985,8 +985,8 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm " style="width: 60px;">
-            <input type="number"  class="form-control " style='border-color:red;width:60px;height:27px!important;z-index:0;display:none;' oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 4);"    aria-describedby="inputGroup-sizing-sm" name ='delovoy_otxod`+String(i)+`' id="delovoy_otxod`+String(i)+`"  >
-
+            
+            <input type="number"   class="form-control " style='border-color:red;width:60px;height:27px!important;z-index:0;display:none;' oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 4);"   aria-describedby="inputGroup-sizing-sm" name ='delovoy_otxod`+String(i)+`' id="delovoy_otxod`+String(i)+`"  >
             </div>
         </td>
         <td >
@@ -2481,7 +2481,7 @@ function create_kratkiy_tekst(id){
             klaes_nazvaniye.css('display','none')
             delovoy_otxod.css('display','block')
 
-            if(delovoy_otxod.val()!='' && dlina.val()!=''){
+            if(delovoy_otxod.val()!='' && delovoy_otxod.val()!=0 && delovoy_otxod.val()!='0' && dlina.val()!=''){
                 if(delovoy_otxod.val() == dlina.val() ){
                    id_klaes.css('display','block') 
                    klaes_nazvaniye.css('display','block') 
@@ -2510,7 +2510,7 @@ function create_kratkiy_tekst(id){
         sena.css("border-color",'red');
         data_base[id].sena = NaN;
     }
-    if(delovoy_otxod.val()!=''){
+    if(delovoy_otxod.val()!='' && delovoy_otxod.val()!=0 && delovoy_otxod.val()!='0'){
         delovoy_otxod.css("border-color",'#dedad9');
         data_base[id].delovoy_otxod = delovoy_otxod.val().slice(0,4);
     }else{

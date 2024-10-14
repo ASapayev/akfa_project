@@ -1928,10 +1928,11 @@ def order_detail(request,id):
         data =request.POST.copy()
         owner =request.user
         order = Order.objects.get(id=id)
-        order.status = data.get('status',1)
-        status_id_for_jira =STATUS_JIRA[order.status]['id']
-        jira_status_change(order.id_for_jira,status=status_id_for_jira)
-        order.save()
+        # order.status = data.get('status',1)
+        # status_id_for_jira =STATUS_JIRA[order.status]['id']
+        # jira_status_change(order.id_for_jira,status=status_id_for_jira)
+        # order.save()
+        data['status'] = order.status
         data['owner'] = owner
         data['order'] = order
         form = OrderFileForm(data,request.FILES)
