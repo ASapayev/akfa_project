@@ -1927,7 +1927,7 @@ def order_detail(request,id):
     if request.method =='POST':
         data =request.POST.copy()
         data11 =request.FILES.copy()
-        print(data,data11)
+        # print(data,data11)
         owner =request.user
         order = Order.objects.get(id=id)
         # order.status = data.get('status',1)
