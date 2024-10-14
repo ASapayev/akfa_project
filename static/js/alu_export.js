@@ -618,7 +618,7 @@ function front_piece(start=1,end=6){
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type="number"   class="form-control " style='width:90px;height:27px!important;z-index:0;border-color:red;display:none;' oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 4);"   aria-describedby="inputGroup-sizing-sm" name ='dilina_pressa`+String(i)+`' id="dilina_pressa`+String(i)+`"  >
+            <input type="number"   class="form-control " style='width:90px;height:27px!important;z-index:0;border-color:red;display:none;' oninput="create_kratkiy_tekst(`+String(i)+`); limitLength(this, 5);"   aria-describedby="inputGroup-sizing-sm" name ='dilina_pressa`+String(i)+`' id="dilina_pressa`+String(i)+`"  >
      
             </div>
         </td>

@@ -218,6 +218,7 @@ function front_piece(start=1,end=6){
                 <option value="4500 - AKFA ACCESSORIES">4500 - AKFA ACCESSORIES</option>
                 <option value="4600 - AKFA AKP">4600 - AKFA AKP</option>
                 <option value="5100 - AKFA Radiators">5100 - AKFA Radiators</option>
+                <option value="4700 - AKFA EPDM & PAINT">4700 - AKFA EPDM & PAINT</option>
                
             </select>
             </div>
