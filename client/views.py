@@ -1938,20 +1938,25 @@ def order_detail(request,id):
         data['status'] = order.status
         data['owner'] = owner
         data['order'] = order
-        form = OrderFileForm(data,request.FILES)
-        if form.is_valid():
-            form.save()
-            order_details = OrderDetail.objects.filter(order = order)
-            context = {
-                'status_name':STATUSES[str(order.status)],
-                'status':str(order.status),
-                'order_type':order.order_type,
-                'data':json.dumps(order.data),
-                'order_details':order_details
-            }
-            return render(request,'client/customer/order_detail.html',context)
+        file_exists = data11.get('file') is not None
+
+        if data['message']!='' or file_exists:
+            form = OrderFileForm(data,request.FILES)
+            if form.is_valid():
+                form.save()
+                order_details = OrderDetail.objects.filter(order = order)
+                context = {
+                    'status_name':STATUSES[str(order.status)],
+                    'status':str(order.status),
+                    'order_type':order.order_type,
+                    'data':json.dumps(order.data),
+                    'order_details':order_details
+                }
+                return render(request,'client/customer/order_detail.html',context)
+            else:
+                return JsonResponse({'form':form.errors})
         else:
-            return JsonResponse({'form':form.errors})
+            return redirect('customer_order_detail',id=id)
     else:
         order = Order.objects.get(id = id)
         order_details = OrderDetail.objects.filter(order = order)
