@@ -1164,8 +1164,105 @@
             </form>
             </section>
             {%endif%}
-           <h1>{{order_details}}</h1>
-            {% include 'client/includes/chat_no_status.html'%}
+            <section class="explore-section " id="section_2">
+              <div class="container">
+          
+                      <div class="col-12 text-center">
+                          <h3 class="mb-4">Чат </h3>
+                      </div>
+          
+                 
+              </div>
+              <div class="container-fluid">
+                  <div class="row">
+                      <div class="col-md-12 grid-margin stretch-card">
+                          <div class="card">
+                              <div class="card-body">
+          
+                                  <div class="col-md-12 p-2" style="background-color: #fafbfc;{%if status == 1 %}display:none;{%endif%}">
+                                      {%for order_detail in order_details %}
+                                          {%if request.user == order_detail.owner %}
+                                              {%if status != 1 %}
+                                              {%if order_detail.message != '' %}
+                                              <div class="bg-white">
+                                                  <div class="d-flex justify-content-start col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
+                                                  
+                                                      <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
+                                                          <p>{{order_detail.message}}</p>
+                                                      </div>
+                                                 
+          
+                                                  {%if order_detail.file %}
+                                                  <div class="d-flex justify-content-start col-md-12" style="color:rgba(0,0,0,.6);">
+                                                      <p ><a class="link-opacity-100" href="{{order_detail.file.url}}"><span style="font-size: 12px;"><em>  {{ order_detail.file.url|filename_from_url }}</em></span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"></path>
+            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"></path>
+          </svg></a></p>
+                                                  </div>
+                                                  {%endif%}
+                                              </div>
+                                                  <hr>
+                                              {%endif%}
+                                              {%endif%}
+                                          {%else%}
+                                                  {%if status != 1 %}
+                                                  {%if order_detail.message != '' %}
+                                                  <div class="bg-white">
+                                                      <div class="d-flex justify-content-end col-md-12"><i class="bi bi-person-bounding-box"></i> <h5 class="ml-2">{{order_detail.owner}}</h5></div>
+                                                     
+                                                          <div class="d-flex justify-content-end col-md-12 pl-5" style="color:rgba(0,0,0,.6);">
+                                                              <p style="padding-left: 40%;">{{order_detail.message}}</p>
+                                                          </div>
+                                                      
+          
+                                                      {%if order_detail.file %}
+                                                      <div class="d-flex justify-content-end col-md-12" style="color:rgba(0,0,0,.6);">
+                                                          <p ><a class="link-opacity-100" href="{{order_detail.file.url}}"><span style="font-size: 12px;"><em>  {{ order_detail.file.url|filename_from_url }}</em></span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"></path>
+            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"></path>
+          </svg></a></p>
+                                                      </div>
+                                                      {%endif%}
+                                                  </div>
+                                                      <hr>
+                                                  {%endif%}
+                                                  {%endif%}
+          
+                                          {%endif%}
+          
+                                              
+          
+                                      {% endfor %}
+                                  </div>
+          
+                                  <form class="forms-sample" enctype="multipart/form-data" id="uploadForm" method="POST">
+                                      {% csrf_token %}
+                                      
+                                      <div class="form-group col-3">
+                                          <label>Загрузка файла</label>
+                                          <div class="input-group col-xs-12">
+                                              <span class="input-group-append">
+                                                  <input type="file" name="file" class="file-upload-browse btn btn-primary" id="fileInput">
+                                              </span>
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="form-group col-8">
+                                          <label for="exampleTextarea1" id="examplelabel">Сообщение</label>
+                                          <textarea class="form-control" id="exampleTextarea1" name="message" rows="4"></textarea>
+                                      </div>
+                                      <div id="btn_command">
+                                          <button type="submit" class="btn btn-primary mr-2" >Отправить</button>
+                                          <button class="btn btn-dark">Отменить</button>
+                                      </div>
+                                  </form>
+                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
         </main>
         <div style="display: none;">
                 {{ data|json_script:"items-data" }}
