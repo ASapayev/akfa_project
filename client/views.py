@@ -1926,12 +1926,15 @@ def order_history(request,id):
 def order_detail(request,id):
     if request.method =='POST':
         data =request.POST.copy()
+        data11 =request.FILES.copy()
+        print(data,data11)
         owner =request.user
         order = Order.objects.get(id=id)
         # order.status = data.get('status',1)
         # status_id_for_jira =STATUS_JIRA[order.status]['id']
         # jira_status_change(order.id_for_jira,status=status_id_for_jira)
         # order.save()
+        # print(data['message'],type(data['message']))
         data['status'] = order.status
         data['owner'] = owner
         data['order'] = order
