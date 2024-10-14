@@ -895,6 +895,10 @@ def get_item(dictionary, key):
     return dictionary.get(key)
 
 
+@register.filter
+def filename_from_url(url):
+    return os.path.basename(url)
+
 @register.filter(name='split_text')
 def split_text(value):
     txt =str(value)
