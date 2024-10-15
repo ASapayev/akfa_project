@@ -4458,6 +4458,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     # np.savetxt(pathtext9, df9.values,fmt='%s', delimiter="\t",header=header_raube,comments='',encoding='ansi')
 
     ########################## Бухгалтерская название.txt ##############################
+    nowr1 = datetime.now()
+    print('buxgal bosh >> ',nowr1)
     buxgalterskiy_t ={}
     header_buxgalter ='ID\tMATNR\tVKORG\tVTWEG\tLANG\tTDID\tPOS\tLTEXT'
     buxgalterskiy_t['ID']=buxgalterskiy_naz[0]
@@ -4472,11 +4474,14 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     df_bug_text= pd.DataFrame(buxgalterskiy_t)
     
     np.savetxt(pathtext8, df_bug_text.values,fmt='%s', delimiter="\t",header=header_buxgalter,comments='',encoding='ansi')
-    
+    nowr2 = datetime.now()
+    print('buxgal tugashi >> ',nowr2)
     
     ########################## end Бухгалтерская название.txt ##############################
     ########################## Длинный текс.txt ##############################
     #dlinniy_text_zero
+    nowr3 = datetime.now()
+    print('dlina text bosh >> ',nowr3)
     dlinniy_t ={}
     header_dlinniy ='\tBISMT\t\t\t\tTEXT'
     dlinniy_t['ID']=dlinniy_text_zero[0] + dlinniy_text_savdo[0]
@@ -4489,7 +4494,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     df_dlinniy_text= pd.DataFrame(dlinniy_t)
     
     np.savetxt(pathtext7, df_dlinniy_text.values,fmt='%s', delimiter="\t",header=header_dlinniy,comments='',encoding='ansi')
-    
+    nowr4 = datetime.now()
+    print('dlina text tugashi >> ',nowr4)
     
     ########################## end Длинный текс.txt ##############################
 
@@ -4514,6 +4520,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
 
 
     ########################## 1.txt ##############################
+    nowr5 = datetime.now()
+    print(' 1 text bosh >> ',nowr5)
     d1={}
     header1 ='MATNR\tBISMT\tMAKTX\tMEINS\tMTART\tMATKL\tWERKS\tBESKZ\tSPART\tBRGEW\tNTGEW\tGEWEI\tMTPOS_MARA'
     
@@ -4545,12 +4553,14 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     df_texcarta.to_excel(f'{MEDIA_ROOT}\\{pathtexcarta}',index=False,engine='openpyxl')
     
     np.savetxt(pathtext1, df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
-    
+    nowr6 = datetime.now()
+    print(' 1 text tugashi >> ',nowr6)
     ########################## end 1.txt ##############################
 
     ########################## 2.txt ##############################
     header2='MAKTX\tMEINS\tMTART\tMATNR\tWERKS\tEKGRP\tXCHPF\tDISGR\tDISMM\tDISPO\tDISLS\tWEBAZ\tBESKZ\tLGFSB\tPLIFZ\tPERKZ\tMTVFP\tSCM_STRA1\tVRMOD\tPPSKZ\tSCM_WHATBOM\tSCM_HEUR_ID\tSCM_RRP_TYPE\tSCM_PROFID\tSTRGR\tBWKEY\tMLAST\tBKLAS\tVPRSV\tPEINH\tSTPRS\tPRCTR\tEKALR\tHKMAT\tLOSGR\tSFCPF\tFEVOR\tUEETK\tLGPRO\tAUTO_P_ORD'
-    
+    nowr7 = datetime.now()
+    print(' 2 text bosh >> ',nowr7)
     zavod_code_1101 ={
         '1103':'PVC',
         '1101':'PR1',
@@ -4607,8 +4617,11 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     df2= pd.DataFrame(d2)
     np.savetxt(pathtext2, df2.values,fmt='%s', delimiter="\t",header=header2,comments='',encoding='ansi')
     ########################## end 2.txt ##############################
-
+    nowr8 = datetime.now()
+    print(' 2 text tugash >> ',nowr8)
     ########################## 3.txt ##############################
+    nowr9 = datetime.now()
+    print(' 3 text bosh >> ',nowr9)
     header3 ='MAKTX\tMEINS\tMTART\tSPART\tMATNR\tWERKS\tVKORG\tMTPOS\tVTWEG\tPRCTR\tMTVFP\tALAND\tTATYP\tTAXKM\tVERSG\tKTGRM\tKONDM\tTRAGR\tLADGR'
     d3={
         'MAKTX':[],
@@ -4694,8 +4707,11 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     df3= pd.DataFrame(d3)
     np.savetxt(pathtext3, df3.values, fmt='%s', delimiter="\t",header=header3,comments='',encoding='ansi')
     ########################## end 3.txt ##############################
-    
-    ########################## 4.txt ##############################    
+    nowr10 = datetime.now()
+    print(' 3 text tugash >> ',nowr10)
+    ########################## 4.txt ############################## 
+    nowr11 = datetime.now()
+    print(' 4 text bosh >> ',nowr11)   
     new_ll =[[],[],[],[]]
     sap_code_title =[]
     dlina_title =[]
@@ -4794,8 +4810,11 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     df4= pd.DataFrame(d4)
     np.savetxt(pathtext4, df4.values, fmt='%s', delimiter="\t",header=header4,comments='',encoding='ansi')
     ########################## end 4.txt ##############################
-
-    ########################## 55.txt ##############################    
+    nowr13 = datetime.now()
+    print(' 4 text tugash >> ',nowr13)
+    ########################## 55.txt ##############################  
+    nowr16 = datetime.now()
+    print(' 55 text bosh >> ',nowr16)  
     new_ll_55 =[[],[],[],[]]
     
     for key , row in datas.iterrows():
@@ -4834,7 +4853,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     df55=df55.drop_duplicates()
     np.savetxt(pathtext55, df55.values, fmt='%s', delimiter="\t",header=header55,comments='',encoding='ansi')
     ########################## end 55.txt ##############################
-    
+    nowr17 = datetime.now()
+    print(' 55 text tugashi >> ',nowr17)  
     ########################## 5.txt ##############################
     d5 ={
         'sap_code':[],
@@ -4853,6 +4873,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     # obshiy_ves_za_shtuku =[]
     # wms_width =[]
     # wms_height =[]
+    nowr18 = datetime.now()
+    print(' 5 text bosh >> ',nowr18) 
     ed_iz3 =[]
     for i in range(0,3):
         if i == 0 :
@@ -4877,9 +4899,14 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     df5= pd.DataFrame(d5)
     np.savetxt(pathtext5, df5.values, fmt='%s', delimiter="\t",encoding='ansi')
     ########################## end 5.txt ##############################
+    nowr19 = datetime.now()
+    print(' 5 text tugashi >> ',nowr19) 
     ########################## List v 3 ##############################
     dd2 = [[],[],[],[],[],[]]
     baza_profile_links =[[],[]]
+
+    nowr20 = datetime.now()
+    print(' list text bosh >> ',nowr20) 
 
     for key , row in datas.iterrows():
 
@@ -5087,7 +5114,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
 
     grouped_by_name = ddf2.groupby('Имя признака')
-
+    nowr21 = datetime.now()
+    print(' list text tugashi >> ',nowr21) 
     # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
     noww117 = datetime.now()
     print('txtlar tugashi >> ',noww117)
