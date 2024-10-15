@@ -958,11 +958,13 @@ def product_add_second_org(request,id):
       day =now.strftime("%a%d")
       hour =now.strftime("%H HOUR")
       minut =now.strftime("%M")
+      print('file boshlanishi>> ',datetime.now().minute,datetime.now().second)
       
       order_id = request.GET.get('order_id',None)
       
 
       doesnotexist,correct = check_for_correct(df,filename='aluminiy')
+      print('togriligini vaqti boshlanishi>> ',datetime.now().minute,datetime.now().second)
       if not correct:
             context ={
                   'AluProflesData':doesnotexist,
@@ -993,7 +995,7 @@ def product_add_second_org(request,id):
                   return render(request,'order/order_detail.html',context)
             # writer.save()
             return render(request,'utils/components.html',context)
-      
+      print(' togriligini vaqti tugashi>> ',datetime.now().minute,datetime.now().second)
       aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
       umumiy_counter={}
       for al in aluminiy_group:
@@ -1046,7 +1048,7 @@ def product_add_second_org(request,id):
       exturision_list = []
 
       artikul_kratkiy_collection ={}
-      
+      print(' sapcode berish vaqti boshlanishi>> ',datetime.now().minute,datetime.now().second)
       for key,row in df.iterrows():
             row['Сплав'] = row['Сплав'].replace('.0','')
             row['Сплав'] = row['Сплав'].replace('.0','')
@@ -2993,7 +2995,7 @@ def product_add_second_org(request,id):
                                                 }
                                           )
             
-            
+      print(' sapcode berish vaqti tugashi>> ',datetime.now().minute,datetime.now().second)   
       
       
       
@@ -3007,9 +3009,12 @@ def product_add_second_org(request,id):
       create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\',day)
       create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\',hour)
       
-      
+      print(' char vaqti boshlanishi>> ',datetime.now().minute,datetime.now().second)
       df_char = create_characteristika(cache_for_cratkiy_text) 
+      print(' char vaqti tugashi>> ',datetime.now().minute,datetime.now().second)
+      print(' char_title vaqti boshlanishi>> ',datetime.now().minute,datetime.now().second)
       df_char_title = create_characteristika_utils(cache_for_cratkiy_text)
+      print(' char_title vaqti tugashi>> ',datetime.now().minute,datetime.now().second)
                  
       
             
@@ -3028,7 +3033,7 @@ def product_add_second_org(request,id):
 
       df_extrusion = pd.DataFrame({'SAP CODE E' : exturision_list})
 
-
+      print(' razlovka saqlash vaqti boshlanishi>> ',datetime.now().minute,datetime.now().second)
       for key,razlov in df_new.iterrows():
             if razlov['SAP код 7']!="":
                   if not RazlovkaObichniy.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
@@ -3080,9 +3085,9 @@ def product_add_second_org(request,id):
                               sap_code75 =razlov['SAP код 75'],
                               kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
                         ).save()
+      print(' razlovka saqlash vaqti tugashi>> ',datetime.now().minute,datetime.now().second)
       
-      
-      
+      print('charakter saqlash vaqti boshlanishi>> ',datetime.now().minute,datetime.now().second)
       for key,razlov in df_char.iterrows():
             if not Characteristika.objects.filter(sap_code=razlov['SAP CODE'],kratkiy_text=razlov['KRATKIY TEXT']).exists():
                   Characteristika(
@@ -3151,8 +3156,9 @@ def product_add_second_org(request,id):
                   ).save()
       exchange_value = ExchangeValues.objects.get(id=1)
       price_all_correct = True
-     
+      print(' charakter saqlash vaqti tugashi>> ',datetime.now().minute,datetime.now().second)
 
+      print(' length saqlash vaqti boshlanishi>> ',datetime.now().minute,datetime.now().second)
       for key, row in df_char_title.iterrows():
             if LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
                   length_of_profile = LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина'])[:1].get()
@@ -3164,6 +3170,7 @@ def product_add_second_org(request,id):
             else:
                   price_all_correct = False
 
+      print('length saqlash vaqti tugashi>> ',datetime.now().minute,datetime.now().second)
 
 
       writer = pd.ExcelWriter(path_alu, engine='xlsxwriter')
@@ -3193,7 +3200,9 @@ def product_add_second_org(request,id):
             work_type = Order.objects.get(id = order_id).work_type
       
       if price_all_correct and  work_type != 5 :
+            print(' update_char_title_function funksiya boshlanishi>> ',datetime.now().minute,datetime.now().second)
             path = update_char_title_function(df_char_title,df_extrusion,order_id,'aluminiy')
+            print(' update_char_title_function funksiya tugashi>> ',datetime.now().minute,datetime.now().second)
             files =[File(file=p,filetype='obichniy') for p in path]
             files.append(File(file=path_alu,filetype='obichniy'))
             context ={
