@@ -3642,6 +3642,9 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     day =now.strftime("%a%d")
     hour =now.strftime("%H HOUR %M %S")
     minut =now.strftime("%M-%S MINUT")
+
+    noww113 = datetime.now()
+    print('1101 boshlanish funksiya boshlash >> ',noww113)
     
     if file_name =="aluminiytermo":
         # parent_dir =
@@ -3714,7 +3717,10 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     zakalka_iskyucheniye1 = Norma.objects.filter(закалка_исключение ='1').values_list('артикул',flat=True)
     zakalka_iskyucheniye2 = Norma.objects.filter(закалка_исключение ='1').values_list('компонент_1',flat=True)
     zakalka_iskyucheniye =list(zakalka_iskyucheniye1) + list(zakalka_iskyucheniye2)
-   
+    
+    noww115 = datetime.now()
+    print('dataframe boshlanishi >> ',noww115)
+
     for key , row in datas.iterrows():
         sap_codee = row['SAP код S4P 100'].split('-')[0]
 
@@ -4422,6 +4428,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     for i in range(0,len(umumiy_without_duplicate12D5)):
         umumiy_without_duplicate[i]+=umumiy_without_duplicate12D5[i]     
 
+    noww116 = datetime.now()
+    print('dataframe tugashi >> ',noww116)
     ########################## RAUBE.txt ##############################
     # header_raube='MAKTX\tMATNR\tRAUBE'
     
@@ -5081,7 +5089,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     grouped_by_name = ddf2.groupby('Имя признака')
 
     # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
-
+    noww117 = datetime.now()
+    print('txtlar tugashi >> ',noww117)
     noww = datetime.now()
     print('file grouping time start >> ',noww)
 
@@ -5869,7 +5878,12 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
 
     if order_id:
         if is_1112 =='on':
+            noww111 = datetime.now()
+            print('1101 boshlanish vaqti >> ',noww111)
             datas_1112,path_texcarta = characteristika_created_txt_create_1101(datas,elist,is_1101='off',is_1112='on',file_name=file_name)
+            
+            noww112 = datetime.now()
+            print('1101 boshlanish tugash >> ',noww112)
             order = Order.objects.get(id = order_id)
             paths = order.paths
             paths['texcarta_file'] =f'{MEDIA_ROOT}\\{path_texcarta}'
@@ -5905,6 +5919,8 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         path_1101,path_zip2,path_texcarta = characteristika_created_txt_create_1101(datas,elist,is_1101='on',is_1112='off',file_name=file_name)
 
     if is_1112 =='on':
+        noww116 = datetime.now()
+        print('1112 txt boshlanishi >> ',noww116)
         ######################### Бухгалтерская название.txt ##############################
         
         buxgalterskiy_t ={}
@@ -6493,7 +6509,8 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         ddf2 =ddf2.replace('XXXX','')
         ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
         grouped_by_name = ddf2.groupby('Имя признака')
-
+        noww118 = datetime.now()
+        print('1112 txt tugashi >> ',noww118)
         # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
         noww = datetime.now()
         print('1112 file grouping time start >> ',noww)
