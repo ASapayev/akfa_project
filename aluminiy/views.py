@@ -3217,7 +3217,7 @@ def product_add_second_org(request,id):
             if row['SAP код Z'] !='':
                   df_new['SAP код E'][key] = ''
       
-      norma_file = df_new.to_excel(f'{MEDIA_ROOT}\\{path_ramka_norma}',index=False)
+      norma_file = df_new.to_excel(f'{MEDIA_ROOT}\\{path_ramka_norma}',index=False,engine='openpyxl',)
 
       order_id = request.GET.get('order_id',None)
       work_type = 1
