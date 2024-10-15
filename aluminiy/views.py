@@ -3282,7 +3282,7 @@ def product_add_second_org(request,id):
                         context[key] = val
                   return render(request,'order/order_detail.html',context)  
       else:
-            
+            print('price not all correct')
             file =[File(file = path_alu,filetype='obichniy')]
             context = {
                   'files':file,
@@ -3296,7 +3296,8 @@ def product_add_second_org(request,id):
                   if BaseOrderAlu.objects.filter(id = order.client_order_id).exists():
                         order_datas = BaseOrderAlu.objects.get(id = order.client_order_id)
                         datas = order_datas.data['data']
-                        
+                        now20 = datetime.now()
+                        print('sapcode qidirish va orderga saqlash vaqti ',now20)
                         order_type = order_datas.order_type
                         if order_type == 'alu_savdo':
                               df_simple= json_to_excel_alumin_savdo(datas,artikul_kratkiy_collection)
@@ -3308,6 +3309,8 @@ def product_add_second_org(request,id):
                               df_simple= json_to_excel_alumin_savdo(datas,artikul_kratkiy_collection)
                         
                         df_simple.to_excel(path_onlinesavdo, index = False)
+                        now21 = datetime.now()
+                        print('sapcode qidirish va orderga saqlash vaqti tugashi ',now21)
                   else:
                         datf = pd.DataFrame({'Malumot':['',]})
                         datf.to_excel(path_onlinesavdo)
