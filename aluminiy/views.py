@@ -3323,8 +3323,9 @@ def product_add_second_org(request,id):
                         now21 = datetime.now()
                         print('sapcode qidirish va orderga saqlash vaqti tugashi ',now21)
                   else:
+                        print('file save')
                         datf = pd.DataFrame({'Malumot':['',]})
-                        datf.to_excel(path_onlinesavdo)
+                        datf.to_excel(path_onlinesavdo,engine='openpyxl',index=False)
                   now35 = datetime.now()
                   print('file savee ',now35)
                   file_id = save_file_to_model(path_onlinesavdo,OnlineSavdoFile())
