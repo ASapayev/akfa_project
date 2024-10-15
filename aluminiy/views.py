@@ -3286,7 +3286,8 @@ def product_add_second_org(request,id):
                         context[key] = val
                   return render(request,'order/order_detail.html',context)  
       else:
-            print('price not all correct')
+            now29 = datetime.now()
+            print('price not all correct',now29)
             file =[File(file = path_alu,filetype='obichniy')]
             context = {
                   'files':file,
@@ -3318,9 +3319,11 @@ def product_add_second_org(request,id):
                   else:
                         datf = pd.DataFrame({'Malumot':['',]})
                         datf.to_excel(path_onlinesavdo)
-                  
+                  now35 = datetime.now()
+                  print('file savee ',now35)
                   file_id = save_file_to_model(path_onlinesavdo,OnlineSavdoFile())
-
+                  now36 = datetime.now()
+                  print('model savee ',now36)
                   paths = order.paths 
                   if work_type != 5:
                         context2 ={
