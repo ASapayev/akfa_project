@@ -4,7 +4,7 @@ from .models import RazlovkaObichniy,RazlovkaTermo,AluProfilesData
 import os
 from aluminiytermo.models import CharacteristicTitle
 from django.db.models import Q
-import modin.pandas as pd
+import pandas as pd
 from io import BytesIO as IO
 from django.http import HttpResponse,FileResponse
 from datetime import datetime

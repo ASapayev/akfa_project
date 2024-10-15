@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import Http404,HttpResponse
-import modin.pandas as pd
+import pandas as pd
 import numpy as np
 from django.http import JsonResponse
 from .models import AlyuminniysilindrEkstruziya1,SubDekorPlonka,Skotch,Ximikat,Kraska,Norma,Anod,Nakleyka,Termomost,TexcartaBase

@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from .forms import FileFormImzo
 from .models import ExcelFilesImzo,ImzoBase,TexCartaTime
 from config.settings import MEDIA_ROOT
-import modin.pandas as pd
+import pandas as pd
 from .BAZA import BAZA
 from aluminiytermo.models import Characteristika
 from aluminiytermo.views import File

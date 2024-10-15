@@ -5,7 +5,7 @@ from django.db.models import Count,Q
 from datetime import datetime
 from order.models import Order
 from config.settings import MEDIA_ROOT
-import modin.pandas as pd
+import pandas as pd
 import numpy as np
 from .BAZA import LGORT,HEADER,SFSPF1201,LGPRO1201,SFSPF1203,LGPRO1203,SFSPF1101,LGORT_1101,HEADER2,LGORT_1301,HEADER_1301
 from django.shortcuts import render

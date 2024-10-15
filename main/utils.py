@@ -2,7 +2,7 @@ from .models import Product,ExcelFiles
 from django.db.models import Count
 from datetime import datetime
 from config.settings import MEDIA_ROOT
-import modin.pandas as pd
+import pandas as pd
 import numpy as np
 import os
 

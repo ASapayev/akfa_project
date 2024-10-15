@@ -4,7 +4,7 @@ from .models import User,UserProfile
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm,AccountForm
 from .decorators import unauthenticated_user,allowed_users
-# import modin.pandas as pd
+# import pandas as pd
 # from django.http import JsonResponse
 # from django.db.models import Q
 

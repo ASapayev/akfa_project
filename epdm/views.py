@@ -4,7 +4,7 @@ from accounts.decorators import allowed_users
 from .forms import NormaEpdmFileForm,TexcartaEpdmFileForm
 from .models import NormaEpdm,EpdmFile,TexcartaFile,SiroEpdm
 from config.settings import MEDIA_ROOT
-import modin.pandas as pd
+import pandas as pd
 from django.http import JsonResponse
 from django.db.models import Q
 from django.core.paginator import Paginator

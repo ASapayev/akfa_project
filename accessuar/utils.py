@@ -1,6 +1,6 @@
 from config.settings import MEDIA_ROOT
 from datetime import datetime
-import modin.pandas as pd
+import pandas as pd
 from .models import Norma,TexcartaBase
 from aluminiy.models import ExchangeValues
 import zipfile

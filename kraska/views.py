@@ -4,7 +4,7 @@ from accounts.decorators import allowed_users
 from .forms import NormaKraskaFileForm,TexcartaKraskaFileForm
 from .models import Norma7,SiroKraska,TexcartaFile,KarkaCode,KraskaFileClient,KraskaSapCode,OrderKraska
 from config.settings import MEDIA_ROOT
-import modin.pandas as pd
+import pandas as pd
 from django.http import JsonResponse
 from django.db.models import Q,Max
 from django.views.decorators.csrf import csrf_exempt

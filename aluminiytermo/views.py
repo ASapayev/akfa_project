@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
-import modin.pandas as pd
+import pandas as pd
 from .models import AluFileTermo,AluminiyProductTermo,CharUtilsThree,CharUtilsFour,CharacteristicTitle,Characteristika,CharacteristikaFile,MessageFeedBack,ArtikulComponent
 from norma.models import Norma,NormaExcelFiles
 from aluminiy.models import AluminiyProduct,RazlovkaTermo,LengthOfProfile,ExchangeValues,Price,AluProfilesData

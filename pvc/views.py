@@ -8,7 +8,7 @@ from .models import PVCProduct,PVCFile,ArtikulKomponentPVC,CameraPvc,Abreviatura
 from order.models import OrderPVX
 from accounts.models import User
 from aluminiy.models import LengthOfProfile,ExchangeValues
-import modin.pandas as pd
+import pandas as pd
 from django.db.models import Count,Max,Q
 from onlinesavdo.models import OnlineSavdoFile,OnlineSavdoOrder
 from onlinesavdo.forms import FileForm,FileForm2

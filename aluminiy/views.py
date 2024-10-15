@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-# import modin.pandas as pd
-import modin.pandas as pd
+# import pandas as pd
+import pandas as pd
 from django.core.paginator import Paginator
 from .models import AluminiyProduct,AluFile,RazlovkaObichniy,RazlovkaTermo,Price,LengthOfProfile,ExchangeValues,AluProfilesData
 from aluminiytermo.models import AluminiyProductTermo,CharacteristikaFile

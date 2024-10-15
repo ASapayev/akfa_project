@@ -1,4 +1,4 @@
-import modin.pandas as pd
+import pandas as pd
 from datetime import datetime
 from kraska.models import OrderKraska 
 from aluminiy.utils import zip,create_folder
