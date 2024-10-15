@@ -3190,12 +3190,18 @@ def product_add_second_org(request,id):
       print('length saqlash vaqti tugashi>> ',now15)
 
 
-      writer = pd.ExcelWriter(path_alu, engine='xlsxwriter')
-      df_new.to_excel(writer,index=False,sheet_name='Schotchik')
-      df_char.to_excel(writer,index=False,sheet_name='Characteristika')
-      df_char_title.to_excel(writer,index=False,sheet_name='title')
-      df_extrusion.to_excel(writer,index=False,sheet_name='T4')
-      writer.close()
+      # writer = pd.ExcelWriter(path_alu, engine='xlsxwriter')
+      # df_new.to_excel(writer,index=False,sheet_name='Schotchik')
+      # df_char.to_excel(writer,index=False,sheet_name='Characteristika')
+      # df_char_title.to_excel(writer,index=False,sheet_name='title')
+      # df_extrusion.to_excel(writer,index=False,sheet_name='T4')
+      # writer.close()
+      with pd.ExcelWriter(path_alu, engine='xlsxwriter') as writer:
+            # Ensure DataFrames are optimized before writing
+            df_new.to_excel(writer, index=False, sheet_name='Schotchik')
+            df_char.to_excel(writer, index=False, sheet_name='Characteristika')
+            df_char_title.to_excel(writer, index=False, sheet_name='title')
+            df_extrusion.to_excel(writer, index=False, sheet_name='T4')
       now24 = datetime.now()
       print('file saqlash uchun ketgan vaqt >>',now24)
 
