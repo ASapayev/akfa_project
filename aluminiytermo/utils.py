@@ -5111,7 +5111,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 =ddf2.replace('XXXX','')
-    ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
+    ddf2.to_excel(pathtext6,index=False)
 
     grouped_by_name = ddf2.groupby('Имя признака')
     nowr21 = datetime.now()
@@ -5156,7 +5156,7 @@ def save_group_to_excel(group_name, group_df, char_path):
     output_file = f'{char_path}\\{group_name}.xlsx'  # Updated to remove extra .xlsx
 
     # Save the group to Excel
-    group_df.to_excel(output_file, index=False,engine='openpyxl')
+    group_df.to_excel(output_file, index=False)
 
 def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiytermo'):
     now = datetime.now()
@@ -6535,7 +6535,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         ddf2 = pd.DataFrame(new_date)
         ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
         ddf2 =ddf2.replace('XXXX','')
-        ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
+        ddf2.to_excel(pathtext6,index=False)
         grouped_by_name = ddf2.groupby('Имя признака')
         noww118 = datetime.now()
         print('1112 txt tugashi >> ',noww118)
@@ -7127,7 +7127,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         ddf2 = pd.DataFrame(new_date)
         ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
         ddf2 =ddf2.replace('XXXX','')
-        ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
+        ddf2.to_excel(pathtext6,index=False)
 
         grouped_by_name = ddf2.groupby('Имя признака')
 

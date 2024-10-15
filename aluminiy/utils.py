@@ -539,7 +539,7 @@ def download_bs64(download_df_list,name):
     xlwriter = pd.ExcelWriter(excel_file, engine='openpyxl')
     i = 1
     for download_df in download_df_list:
-        download_df.to_excel(xlwriter,index=False,sheet_name=f'{i}',engine='openpyxl')
+        download_df.to_excel(xlwriter,index=False,sheet_name=f'{i}')
         i+=1
     xlwriter.close()
 
