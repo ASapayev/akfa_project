@@ -478,7 +478,7 @@ def generate_norma_epdm(df_sapcodes,df_not_exists):
     string_rand = generate_random_string()
   
     path=f'{MEDIA_ROOT}\\uploads\\epdm\\norma_{string_rand}.xlsx'
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path,engine='openpyxl')
    
     df.to_excel(writer,index=False,sheet_name ='NORMA EPDM')
     df_not_exists.to_excel(writer,index=False,sheet_name ='SIRYO DOES NOT EXISTS')

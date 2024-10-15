@@ -389,7 +389,7 @@ def product_add_second_org_kraska(request,id):
 
     del df_new['counter']
 
-    writer = pd.ExcelWriter(path_kraska, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path_kraska, engine='openpyxl')
     df_new.to_excel(writer,index=False,sheet_name='Schotchik')
     writer.close()
 
@@ -658,7 +658,7 @@ def generate_norma_kraska(df_sapcodes,df_not_exists):
     # print(df)
     string_rand = generate_random_string()
     path=f'{MEDIA_ROOT}\\uploads\\kraska\\norma_{string_rand}.xlsx'
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path, engine='openpyxl')
    
     df.to_excel(writer,index=False,sheet_name ='NORMA KRASKA')
     df_not_exists.to_excel(writer,index=False,sheet_name ='SIRYO DOES NOT EXISTS')

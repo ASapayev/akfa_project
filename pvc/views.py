@@ -1160,7 +1160,7 @@ def product_add_second_org(request,id):
 
     del df_new['counter']
 
-    writer = pd.ExcelWriter(path_alu, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path_alu, engine='openpyxl')
     df_new.to_excel(writer,index=False,sheet_name='Schotchik')
     df_char.to_excel(writer,index=False,sheet_name='Characteristika')
     df_char_title.to_excel(writer,index=False,sheet_name='title')

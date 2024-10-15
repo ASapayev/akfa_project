@@ -1175,12 +1175,12 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     
     
     df_baza_profiley_link = pd.DataFrame({'SAP CODE':baza_profile_links[0],'link':baza_profile_links[1]})
-    df_baza_profiley_link.to_excel(pathtext9,index=False)
+    df_baza_profiley_link.to_excel(pathtext9,index=False,engine='openpyxl')
     
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 = ddf2.replace('XXXX','')
-    ddf2.to_excel(pathtext6,index=False)
+    ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
 
 
     if  len(does_not_exists)>0:     
@@ -1188,7 +1188,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     else:
         not_exists =pd.DataFrame(np.array([['','']]),columns=['SAP CODE','Error'])
 
-    not_exists.to_excel(pathdoesnot_exists,index=False)
+    not_exists.to_excel(pathdoesnot_exists,index=False,engine='openpyxl')
 
     path_1101,path_zip2 = get_cretead_txt_for_1101(datas,elist)
 
@@ -2470,12 +2470,12 @@ def get_cretead_txt_for_1101(datas,elist):
     new_date['Статус загрузки'] = ''
     
     df_baza_profiley_link =pd.DataFrame({'SAP CODE':baza_profile_links[0],'link':baza_profile_links[1]})
-    df_baza_profiley_link.to_excel(pathtext10,index=False)
+    df_baza_profiley_link.to_excel(pathtext10,index=False,engine='openpyxl')
 
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 =ddf2.replace('XXXX','')
-    ddf2.to_excel(pathtext6,index=False)
+    ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
     
     return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8,pathtext9,pathtext10],pathzip
     #########################################################################################################################
@@ -3374,7 +3374,7 @@ def characteristika_created_txt_create_1301(datas):
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 =ddf2.replace('XXXXXXXXXX','')
-    ddf2.to_excel(pathtext6,index=False)
+    ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
 
  
     file_path =f'{pathzip}.zip'
@@ -4534,7 +4534,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
             'USR00':['1' for x in d1['MATNR']],
             'USR01':['1' for x in d1['MATNR']]
             })
-    df_texcarta.to_excel(f'{MEDIA_ROOT}\\{pathtexcarta}',index=False)
+    df_texcarta.to_excel(f'{MEDIA_ROOT}\\{pathtexcarta}',index=False,engine='openpyxl')
     
     np.savetxt(pathtext1, df1.values,fmt='%s', delimiter="\t",header=header1,comments='',encoding='ansi')
     
@@ -5071,12 +5071,12 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     new_date['Статус загрузки'] = ['' for x in dd2[5]]
     
     df_baza_profiley_link =pd.DataFrame({'SAP CODE':baza_profile_links[0],'link':baza_profile_links[1]})
-    df_baza_profiley_link.to_excel(pathtext10,index=False)
+    df_baza_profiley_link.to_excel(pathtext10,index=False,engine='openpyxl')
 
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 =ddf2.replace('XXXX','')
-    ddf2.to_excel(pathtext6,index=False)
+    ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
 
     grouped_by_name = ddf2.groupby('Имя признака')
 
@@ -5119,7 +5119,7 @@ def save_group_to_excel(group_name, group_df, char_path):
     output_file = f'{char_path}\\{group_name}.xlsx'  # Updated to remove extra .xlsx
 
     # Save the group to Excel
-    group_df.to_excel(output_file, index=False)
+    group_df.to_excel(output_file, index=False,engine='openpyxl')
 
 def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiytermo'):
     now = datetime.now()
@@ -6486,12 +6486,12 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         
         
         df_baza_profiley_link = pd.DataFrame({'SAP CODE':baza_profile_links[0],'link':baza_profile_links[1]})
-        df_baza_profiley_link.to_excel(pathtext9,index=False)
+        df_baza_profiley_link.to_excel(pathtext9,index=False,engine='openpyxl')
         
         ddf2 = pd.DataFrame(new_date)
         ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
         ddf2 =ddf2.replace('XXXX','')
-        ddf2.to_excel(pathtext6,index=False)
+        ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
         grouped_by_name = ddf2.groupby('Имя признака')
 
         # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
@@ -7077,12 +7077,12 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         
         
         df_baza_profiley_link =pd.DataFrame({'SAP CODE':baza_profile_links[0],'link':baza_profile_links[1]})
-        df_baza_profiley_link.to_excel(pathtext9,index=False)
+        df_baza_profiley_link.to_excel(pathtext9,index=False,engine='openpyxl')
         
         ddf2 = pd.DataFrame(new_date)
         ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
         ddf2 =ddf2.replace('XXXX','')
-        ddf2.to_excel(pathtext6,index=False)
+        ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
 
         grouped_by_name = ddf2.groupby('Имя признака')
 

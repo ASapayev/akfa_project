@@ -124,8 +124,8 @@ def get_norma_df(ozmk) ->list:
     df = pd.DataFrame(df_new)
     minut =now.strftime('%M-%S')
     path =f'{MEDIA_ROOT}\\uploads\\ozmka\\accessuar-norma-{minut}.xlsx'
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
-    df.to_excel(writer,index=False,sheet_name='NORMA')  
+    writer = pd.ExcelWriter(path, engine='openpyxl')
+    df.to_excel(writer,index=False,sheet_name='NORMA',engine='openpyxl')  
     writer.close()
     return [path,'']
 
@@ -216,8 +216,8 @@ def get_norma_price(ozmk) ->list:
     df = pd.DataFrame(df_new)
     minut =now.strftime('%M-%S')
     path =f'{MEDIA_ROOT}\\uploads\\ozmka\\accessuar-norma-narx-{minut}.xlsx'
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
-    df.to_excel(writer,index=False,sheet_name='NORMA')  
+    writer = pd.ExcelWriter(path, engine='openpyxl')
+    df.to_excel(writer,index=False,sheet_name='NORMA',engine='openpyxl')  
     writer.close()
     return [path,'']
 
@@ -356,9 +356,9 @@ def lenght_generate_texcarta(ozmks) -> list:
    
 
     path2 =f'{MEDIA_ROOT}\\uploads\\texcarta_accessuar\\{year}\\{month}\\{day}\\{hour}\\Texcarta_{s2}.xlsx'
-    writer = pd.ExcelWriter(path2, engine='xlsxwriter')
-    df_new.to_excel(writer,index=False,sheet_name ='TEXCARTA')
-    not_exist_df.to_excel(writer,index=False,sheet_name ='NOT EXISTS')
+    writer = pd.ExcelWriter(path2, engine='openpyxl')
+    df_new.to_excel(writer,index=False,sheet_name ='TEXCARTA',engine='openpyxl')
+    not_exist_df.to_excel(writer,index=False,sheet_name ='NOT EXISTS',engine='openpyxl')
     writer.close()
 
    
@@ -1383,7 +1383,7 @@ def characteristika_created_txt_create(datas):
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 = ddf2.replace('XXXXX','')
-    ddf2.to_excel(pathtext6,index=False)
+    ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
 
     file_path =f'{pathzip}.zip'
     

@@ -221,7 +221,7 @@ def product_add_second_org_accessuar_uz(request,id):
 
     del df_new['counter']
 
-    writer = pd.ExcelWriter(path_accessuar_import, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path_accessuar_import, engine='openpyxl')
     df_new.to_excel(writer,index=False,sheet_name='Schotchik')
     df_char.to_excel(writer,index=False,sheet_name='Characteristika')
     df_char_title.to_excel(writer,index=False,sheet_name='title')

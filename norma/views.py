@@ -200,7 +200,7 @@ def vi_generate(request,id):
 
     path =f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}\\{minut}\\ВИ.xlsx'
     
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path, engine='openpyxl')
     df_new_vi2.to_excel(writer,index=False,sheet_name ='ВИ')
     df_pere_prisvoeniye_4.to_excel(writer,index=False,sheet_name ='4')
     df_pere_prisvoeniye_5.to_excel(writer,index=False,sheet_name ='5')
@@ -341,7 +341,7 @@ def nakleyka_download(request):
     file_path =f'{MEDIA_ROOT}\\uploads\\norma\\downloads\\NAKLEYKA_{rand_string}.xlsx'
     naklaykas = Nakleyka.objects.all().values_list('sap_code_s4q100','название','еи','склад_закупа','код_наклейки','название_наклейки','ширина','еи_ширины','тип_клея')
     df = pd.DataFrame(np.array(naklaykas),columns=['Сап код','Название','Един.изм','Склад закупа','Код наклейки','Название наклейки','Ширина','Ед.Изм ширина','Тип клея'])
-    df.to_excel(file_path,index=False)
+    df.to_excel(file_path,index=False,engine='openpyxl')
     return redirect(reverse('download_vi')+ f'?file_path={file_path}')
 
 @login_required(login_url='/accounts/login/')
@@ -351,7 +351,7 @@ def lamination_download(request):
     file_path =f'{MEDIA_ROOT}\\uploads\\norma\\downloads\\LAMINATION_{rand_string}.xlsx'
     lams = Lamplonka.objects.all().values_list('sap_code_s4q100','название','еи','склад_закупа','код_лам_пленки')
     df = pd.DataFrame(np.array(lams),columns=['Сап код','Название','Един.изм','Склад закупа','Код лампленки'])
-    df.to_excel(file_path,index=False)
+    df.to_excel(file_path,index=False,engine='openpyxl')
     return redirect(reverse('download_vi')+ f'?file_path={file_path}')
 
 @login_required(login_url='/accounts/login/')
@@ -361,7 +361,7 @@ def kraska_download(request):
     file_path =f'{MEDIA_ROOT}\\uploads\\norma\\downloads\\KRASKA_{rand_string}.xlsx'
     kraka = Kraska.objects.all().values_list('sap_code_s4q100','название','еи','склад_закупа','бренд_краски','код_краски','тип_краски','код_краски_в_профилях')
     df = pd.DataFrame(np.array(kraka),columns=['Сап код','Название','Един.изм','Склад закупа','Бренд краски','Код краски','Тип краски','Код краски в профилях'])
-    df.to_excel(file_path,index=False)
+    df.to_excel(file_path,index=False,engine='openpyxl')
     return redirect(reverse('download_vi')+ f'?file_path={file_path}')
 
 @login_required(login_url='/accounts/login/')
@@ -7605,11 +7605,11 @@ def kombinirovaniy_process(request,id):
     
 
 
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path, engine='openpyxl')
     dff.to_excel(writer,index=False,sheet_name ='Norma')
     try:
         dff_duplicate =pd.DataFrame(df_new_duplicate)
-        dff_duplicate.to_excel(writer,index=False,sheet_name ='EXISTS')
+        dff_duplicate.to_excel(writer,index=False,sheet_name ='EXISTS',engine='openpyxl')
     except:
         pass
     
@@ -7653,7 +7653,7 @@ def generatenewexceldata(request):
     
     df =excelgenerate(df0)
     path2 =os.path.join(os.path.expanduser("~/Desktop/generate"),'generated_data.xlsx')
-    df.to_excel(path2)
+    df.to_excel(path2,engine='openpyxl')
     
     return JsonResponse({'File':'Genarated!!'})
 
@@ -7844,7 +7844,7 @@ def find_characteristics(request):
             df_charakter = pd.DataFrame(df_new)
             df_charakter_sap = pd.DataFrame({'SAP CODE':does_not_exists})
             df_charakter =df_charakter.replace('nan','')
-            writer = pd.ExcelWriter(path, engine='xlsxwriter')
+            writer = pd.ExcelWriter(path, engine='openpyxl')
             df_charakter.to_excel(writer,index=False,sheet_name ='Characteristika')
             df_charakter_sap.to_excel(writer,index=False,sheet_name ='DOES NOT EXISTS')
             writer.close()
@@ -7958,7 +7958,7 @@ def find_characteristics_org(request):
             df_charakter = pd.DataFrame(df_new)
             df_charakter_sap = pd.DataFrame({'SAP CODE':does_not_exists})
             df_charakter =df_charakter.replace('nan','')
-            writer = pd.ExcelWriter(path, engine='xlsxwriter')
+            writer = pd.ExcelWriter(path, engine='openpyxl')
             df_charakter.to_excel(writer,index=False,sheet_name ='Characteristika')
             df_charakter_sap.to_excel(writer,index=False,sheet_name ='DOES NOT EXISTS')
             writer.close()

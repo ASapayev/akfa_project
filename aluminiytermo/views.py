@@ -191,7 +191,7 @@ def get_raube(request):
             df2 = pd.DataFrame({'MATNR':raube_list[2]})
 
 
-            writer = pd.ExcelWriter(path2, engine='xlsxwriter')
+            writer = pd.ExcelWriter(path2, engine='openpyxl')
             df.to_excel(writer,index=False,sheet_name ='RAUBE')
             df2.to_excel(writer,index=False,sheet_name ='NOT EXISTS')
             writer.close()
@@ -3509,7 +3509,7 @@ def product_add_second_org(request,id):
             else:
                   price_all_correct = False
 
-      writer = pd.ExcelWriter(path_alu, engine='xlsxwriter')
+      writer = pd.ExcelWriter(path_alu, engine='openpyxl')
       df_new.to_excel(writer,index=False,sheet_name ='Schotchik')
       df_char.to_excel(writer,index=False,sheet_name ='Characteristika')
       df_char_title.to_excel(writer,index=False,sheet_name ='title')
@@ -3527,7 +3527,7 @@ def product_add_second_org(request,id):
                   df_new['SAP код E'][key] = ''
                   df_new['Экструзия холодная резка'][key] = ''
 
-      norma_file = df_new.to_excel(f'{MEDIA_ROOT}\\{path_ramka_norma}',index=False)
+      norma_file = df_new.to_excel(f'{MEDIA_ROOT}\\{path_ramka_norma}',index=False,engine='openpyxl')
       
       order_id = request.GET.get('order_id',None)
       work_type = 1

@@ -385,7 +385,7 @@ def moderator_convert(request,id):
 
        
         if not is_column_empty_simple:
-            df_simple.to_excel(path_alu_simple, index = False)
+            df_simple.to_excel(path_alu_simple, index = False,engine='openpyxl')
             oid = save_file_to_model(path_alu_simple,AluFile())
             is_1101 = request.GET.get('for1101','off')
             is_1201 = request.GET.get('for1201','off')
@@ -414,7 +414,7 @@ def moderator_convert(request,id):
             order.save()
 
         if not is_column_empty_termo:
-            df_termo.to_excel(path_alu_termo, index = False)
+            df_termo.to_excel(path_alu_termo, index = False,engine='openpyxl')
             oid = save_file_to_model(path_alu_termo,AluFileTermo())
             is_1101 = request.GET.get('for1101','off')
             is_1201 = request.GET.get('for1201','off')
@@ -445,7 +445,7 @@ def moderator_convert(request,id):
     elif name in ['PVC SAVDO','PVC EXPORT','PVC IMZO']:
         df_pvc = json_to_excel_pvc(datas)
         path_pvc = f'{MEDIA_ROOT}\\uploads\\pvc\\downloads\\SHABLON_PVC_{rand_string}.xlsx'
-        df_pvc.to_excel(path_pvc, index = False)
+        df_pvc.to_excel(path_pvc, index = False,engine='openpyxl')
        
         oid = save_file_to_model(path_pvc,PVCFile())
         o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
@@ -470,7 +470,7 @@ def moderator_convert(request,id):
     elif name in ['RADIATOR']:
         df_radiator = json_to_excel_radiator(datas)
         path_radiator = f'{MEDIA_ROOT}\\uploads\\radiator\\downloads\\SHABLON_RADIATOR_{rand_string}.xlsx'
-        df_radiator.to_excel(path_radiator, index = False)
+        df_radiator.to_excel(path_radiator, index = False,engine='openpyxl')
         
         oid = save_file_to_model(path_radiator,RadiatorFile(file_type='radiator'))
         o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
@@ -495,7 +495,7 @@ def moderator_convert(request,id):
     elif name in ['RADIATOR EXPORT']:
         df_radiator = json_to_excel_radiator_export(datas)
         path_radiator = f'{MEDIA_ROOT}\\uploads\\radiator\\downloads\\SHABLON_RADIATOR_EXPORT_{rand_string}.xlsx'
-        df_radiator.to_excel(path_radiator, index = False)
+        df_radiator.to_excel(path_radiator, index = False,engine='openpyxl')
       
         oid = save_file_to_model(path_radiator,RadiatorFile(file_type='radiator_export'))
         o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
@@ -520,7 +520,7 @@ def moderator_convert(request,id):
     elif name in ['ACCESSUAR SAVDO','ACCESSUAR IMZO','ACCESSUAR EXPORT','ACCESSUAR IMPORT']:
         df_accessuar = json_to_excel_accessuar(datas,order_name=name)
         path_accessuar = f'{MEDIA_ROOT}\\uploads\\accessuar\\downloads\\SHABLON_ACCESSUAR_{rand_string}.xlsx'
-        df_accessuar.to_excel(path_accessuar, index = False)
+        df_accessuar.to_excel(path_accessuar, index = False,engine='openpyxl')
       
         oid = save_file_to_model(path_accessuar,AccessuarDownloadFile())
         o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
@@ -545,7 +545,7 @@ def moderator_convert(request,id):
     elif name in ['AKP SAVDO']:
         df_akp = json_to_excel_akp(datas)
         path_akp = f'{MEDIA_ROOT}\\uploads\\akp\\downloads\\SHABLON_AKP_{rand_string}.xlsx'
-        df_akp.to_excel(path_akp, index = False)
+        df_akp.to_excel(path_akp, index = False,engine='openpyxl')
       
         oid = save_file_to_model(path_akp,AkpFile(file_type='akp'))
         o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
@@ -570,7 +570,7 @@ def moderator_convert(request,id):
     elif name in ['PROCHIYE']:
         df_prochiye = json_to_excel_prochiye(datas)
         path_prochiye = f'{MEDIA_ROOT}\\uploads\\prochiye\\downloads\\SHABLON_PROCHIYE_{rand_string}.xlsx'
-        df_prochiye.to_excel(path_prochiye, index = False)
+        df_prochiye.to_excel(path_prochiye, index = False,engine='openpyxl')
       
         oid = save_file_to_model(path_prochiye,ProchiyeFile(file_type='prochiye'))
         o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
@@ -595,7 +595,7 @@ def moderator_convert(request,id):
     elif name in ['KRASKA']:
         df_kraska = json_to_excel_kraska(datas)
         path_kraska = f'{MEDIA_ROOT}\\uploads\\prochiye\\downloads\\SHABLON_KRASKA_{rand_string}.xlsx'
-        df_kraska.to_excel(path_kraska, index = False)
+        df_kraska.to_excel(path_kraska, index = False,engine='openpyxl')
       
         oid = save_file_to_model(path_kraska,KraskaFileClient(file_type='kraska'))
         o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        

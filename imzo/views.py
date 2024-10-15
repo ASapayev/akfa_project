@@ -1314,7 +1314,7 @@ def lenght_generate_texcarta(request,id):
     create_folder(f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\{day}',hour)
     
     path =f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\{day}\\{hour}\\duplicate.xlsx'
-    df.to_excel(path)
+    df.to_excel(path,engine='openpyxl',index=False)
     path3 =f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\{day}\\{hour}\\no_time.xlsx'
     path4 =f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\{day}\\{hour}\\no_sap_code.xlsx'
     
@@ -1326,7 +1326,7 @@ def lenght_generate_texcarta(request,id):
 
 
     path2 =f'{MEDIA_ROOT}\\uploads\\texcarta\\{year}\\{month}\\{day}\\{hour}\\цикл_тайм_для_тех_карты_{day}_{month}_{year}_{hour}_{minut}.xlsx'
-    writer = pd.ExcelWriter(path2, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path2, engine='openpyxl')
     df_new.to_excel(writer,index=False,sheet_name ='цикл тайм')
     df_no_sap_code.to_excel(writer,index=False,sheet_name ='ERROR')
     writer.close()

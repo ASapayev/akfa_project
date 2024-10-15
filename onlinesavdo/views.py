@@ -182,7 +182,7 @@ def merging_files(request,id):
     now =datetime.now()
     minut =now.strftime('%M-%S')
     pathtext1=f'{MEDIA_ROOT}/uploads/online_savdo/downloads/savdo_{minut}.xlsx'
-    df.to_excel(pathtext1,index=False)
+    df.to_excel(pathtext1,index=False,engine='openpyxl')
     files = [FileG(file=pathtext1,filetype='obichniy')]
     context = {
         'files':files
@@ -363,7 +363,7 @@ def create_online(request,id):
 
         path =f'{MEDIA_ROOT}/uploads/online_savdo/not_exists.xlsx'
 
-        new_df.to_excel(path,index=False)
+        new_df.to_excel(path,index=False,engine='openpyxl')
 
         files = [FileG(file=path,filetype='obichniy')]
         context ={
@@ -396,7 +396,7 @@ def create_online(request,id):
     new_row = {'ID' :data[14], 'NAME':data[0], 'SAPCODE':data[1],'GROUPNAME':data[2],'COLOR':data[3],'PURCHASING GROUP':data[4],'SEGMENT':data[5],'BUGALTER NAME':data[6],'BUGALTER UNIT':data[7],'BASE UNIT':data[8],'ALTER UNIT':data[9],'BASE UNITVAL':data[10],'ALTER UNITVAL':data[11],'STATUS':data[12],'FACTORY':data[13]}
     CS = pd.DataFrame(new_row)
     CS = CS.replace('nan','')
-    CS.to_excel(pathtext1,index=False)
+    CS.to_excel(pathtext1,index=False,engine='openpyxl')
     files = [FileG(file=pathtext1,filetype='obichniy')]
     context ={
         'files':files

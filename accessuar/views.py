@@ -1165,7 +1165,7 @@ def generate_sap_code_price(sapcodes):
 
 #     del df_new['counter']
 
-#     writer = pd.ExcelWriter(path_radiator, engine='xlsxwriter')
+#     writer = pd.ExcelWriter(path_radiator, engine='openpyxl')
 #     df_new.to_excel(writer,index=False,sheet_name='Schotchik')
 #     df_char.to_excel(writer,index=False,sheet_name='Characteristika')
 #     df_char_title.to_excel(writer,index=False,sheet_name='title')

@@ -123,7 +123,7 @@ def create_csv_file(norma,alumniy_silindr,subdekor,kraska,nakleyka,kombinirovann
 
     
     
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path, engine='openpyxl')
     df_norma = df_norma.drop_duplicates()
     df_norma.to_excel(writer,index=False,sheet_name ='norma')
     df_aluminiy_silindr.to_excel(writer,index=False,sheet_name ='aluminiy silindr 1')

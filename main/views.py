@@ -148,7 +148,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     now =datetime.now()
     minut =now.strftime('%M-%S')
     path1201 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1201-{minut}.xlsx'
-    writer = pd.ExcelWriter(path1201, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path1201, engine='openpyxl')
     df_termo_1201.to_excel(writer,index=False,sheet_name='TERMO')
     df_obichniy_1201.to_excel(writer,index=False,sheet_name='OBICHNIY')
     df_yoqlari_1201.to_excel(writer,index=False,sheet_name='NOT EXISTS')
@@ -172,7 +172,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     now =datetime.now()
     minut =now.strftime('%M-%S')
     path1101 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1101-{minut}.xlsx'
-    writer = pd.ExcelWriter(path1101, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path1101, engine='openpyxl')
     df_termo_1101.to_excel(writer,index=False,sheet_name='TERMO')
     df_obichniy_1101.to_excel(writer,index=False,sheet_name='OBICHNIY')
     df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')
@@ -188,7 +188,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     now =datetime.now()
     minut =now.strftime('%M-%S')
     path1201 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1201-{minut}.xlsx'
-    writer = pd.ExcelWriter(path1201, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path1201, engine='openpyxl')
     df_termo_1201.to_excel(writer,index=False,sheet_name='TERMO')
     df_obichniy_1201.to_excel(writer,index=False,sheet_name='OBICHNIY')
     df_yoqlari_1201.to_excel(writer,index=False,sheet_name='NOT EXISTS')
@@ -214,7 +214,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     now =datetime.now()
     minut =now.strftime('%M-%S')
     path1101 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1101-{minut}.xlsx'
-    writer = pd.ExcelWriter(path1101, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path1101, engine='openpyxl')
     df_termo_1101.to_excel(writer,index=False,sheet_name='TERMO')
     df_obichniy_1101.to_excel(writer,index=False,sheet_name='OBICHNIY')
     df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')
@@ -308,7 +308,7 @@ def get_ready_ozmka(request,id):
   now =datetime.now()
   minut =now.strftime('%M-%S')
   path =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka-{minut}.xlsx'
-  writer = pd.ExcelWriter(path, engine='xlsxwriter')
+  writer = pd.ExcelWriter(path, engine='openpyxl')
   df_termo.to_excel(writer,index=False,sheet_name='TERMO')
   df_obichniy.to_excel(writer,index=False,sheet_name='OBICHNIY')
   df_yoqlari.to_excel(writer,index=False,sheet_name='NOT EXISTS')

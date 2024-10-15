@@ -119,7 +119,7 @@ def get_ozmka(ozmk):
     now =datetime.now()
     minut =now.strftime('%M-%S')
     path1101 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka_radiator-{minut}.xlsx'
-    writer = pd.ExcelWriter(path1101, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path1101, engine='openpyxl')
     df_obichniy_1101_aurora.to_excel(writer,index=False,sheet_name='Schotchik_Aurora')
     df_obichniy_1101.to_excel(writer,index=False,sheet_name='Schotchik')
     df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')

@@ -220,7 +220,7 @@ def vi_generate(request,id):
 
     path =f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}\\{minut}\\ВИ_5101.xlsx'
     
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path, engine='openpyxl')
     df_new_vi2.to_excel(writer,index=False,sheet_name ='ВИ')
     # df_pere_prisvoeniye_4.to_excel(writer,index=False,sheet_name ='4')
     # df_pere_prisvoeniye_5.to_excel(writer,index=False,sheet_name ='5')
@@ -343,7 +343,7 @@ def vi_generate_mo(request,id):
 
     path =f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}\\{minut}\\ВИ_5101.xlsx'
     
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path, engine='openpyxl')
     df_new_vi2.to_excel(writer,index=False,sheet_name ='ВИ')
     writer.close()
 
@@ -1703,7 +1703,7 @@ def kombinirovaniy_process(request,id):
     
 
 
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path, engine='openpyxl')
     dff.to_excel(writer,index=False,sheet_name ='Norma')
     dff2.to_excel(writer,index=False,sheet_name ='Norma Aurora')
     
@@ -2282,7 +2282,7 @@ def lenght_generate_texcarta(request,id):
 
 
     path2 =f'{MEDIA_ROOT}\\uploads\\texcarta_radiator\\{year}\\{month}\\{day}\\{hour}\\TK_{s2}.xlsx'
-    writer = pd.ExcelWriter(path2, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path2, engine='openpyxl')
     df_new.to_excel(writer,index=False,sheet_name ='TEXCARTA')
     writer.close()
 
@@ -2860,7 +2860,7 @@ def product_add_second_org_radiator(request,id):
     del df_new_aurora['counter']
     del df_new['counter']
 
-    writer = pd.ExcelWriter(path_radiator, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path_radiator, engine='openpyxl')
     df_new_aurora.to_excel(writer,index=False,sheet_name='Schotchik_Aurora')
     df_new.to_excel(writer,index=False,sheet_name='Schotchik')
     df_char.to_excel(writer,index=False,sheet_name='Characteristika')

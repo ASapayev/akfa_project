@@ -208,7 +208,7 @@ def vi_generate(request,id):
 
     path =f'{MEDIA_ROOT}\\uploads\\vi\\{year}\\{month}\\{day}\\{hour}\\{minut}\\ВИ.xlsx'
     
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path, engine='openpyxl')
     df_new_vi2.to_excel(writer,index=False,sheet_name ='ВИ')
     df_pere_prisvoeniye_4.to_excel(writer,index=False,sheet_name ='4')
     df_pere_prisvoeniye_5.to_excel(writer,index=False,sheet_name ='5')
@@ -2780,7 +2780,7 @@ def kombinirovaniy_process(request,id):
     
 
 
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path, engine='openpyxl')
     dff.to_excel(writer,index=False,sheet_name ='Norma')
     
     
@@ -2953,7 +2953,7 @@ def find_characteristics_org(request):
             df_charakter = pd.DataFrame(df_new)
             df_charakter_sap = pd.DataFrame({'SAP CODE':does_not_exists})
             df_charakter =df_charakter.replace('nan','')
-            writer = pd.ExcelWriter(path, engine='xlsxwriter')
+            writer = pd.ExcelWriter(path, engine='openpyxl')
             df_charakter.to_excel(writer,index=False,sheet_name ='Characteristika')
             df_charakter_sap.to_excel(writer,index=False,sheet_name ='DOES NOT EXISTS')
             writer.close()
@@ -3443,12 +3443,12 @@ def lenght_generate_texcarta(request,id):
     
     df_tk_prisvoeniye= pd.DataFrame(tk_prisvoeniye)
     
-    df_tk_prisvoeniye.to_excel(path7,index=False)
+    df_tk_prisvoeniye.to_excel(path7,index=False,engine='openpyxl')
     # np.savetxt(path7, df_tk_prisvoeniye.values,fmt='%s', delimiter="\t",header=header,comments='',encoding='ansi')
 
 
     path2 =f'{MEDIA_ROOT}\\uploads\\texcarta_benkam\\{year}\\{month}\\{day}\\{hour}\\TK_{s2}.xlsx'
-    writer = pd.ExcelWriter(path2, engine='xlsxwriter')
+    writer = pd.ExcelWriter(path2, engine='openpyxl')
     df_new.to_excel(writer,index=False,sheet_name ='TEXCARTA')
     writer.close()
 

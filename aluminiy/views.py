@@ -3190,7 +3190,7 @@ def product_add_second_org(request,id):
       print('length saqlash vaqti tugashi>> ',now15)
 
 
-      # writer = pd.ExcelWriter(path_alu, engine='xlsxwriter')
+      # writer = pd.ExcelWriter(path_alu, engine='openpyxl')
       # df_new.to_excel(writer,index=False,sheet_name='Schotchik')
       # df_char.to_excel(writer,index=False,sheet_name='Characteristika')
       # df_char_title.to_excel(writer,index=False,sheet_name='title')
@@ -3255,10 +3255,10 @@ def product_add_second_org(request,id):
                         else:
                               df_simple= json_to_excel_alumin_savdo(datas,artikul_kratkiy_collection)
                         
-                        df_simple.to_excel(path_onlinesavdo, index = False)
+                        df_simple.to_excel(path_onlinesavdo, index = False,engine='openpyxl')
                   else:
                         datf = pd.DataFrame({'Malumot':['',]})
-                        datf.to_excel(path_onlinesavdo)
+                        datf.to_excel(path_onlinesavdo,engine='openpyxl')
                         
                   file_id = save_file_to_model(path_onlinesavdo,OnlineSavdoFile())
 
@@ -3319,7 +3319,7 @@ def product_add_second_org(request,id):
                         else:
                               df_simple= json_to_excel_alumin_savdo(datas,artikul_kratkiy_collection)
                         
-                        df_simple.to_excel(path_onlinesavdo, index = False)
+                        df_simple.to_excel(path_onlinesavdo, index = False,engine='openpyxl')
                         now21 = datetime.now()
                         print('sapcode qidirish va orderga saqlash vaqti tugashi ',now21)
                   else:
