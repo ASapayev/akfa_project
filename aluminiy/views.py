@@ -950,7 +950,7 @@ def product_add_second_org(request,id):
       now0 = datetime.now()
       print('file oqish boshlanishi>> ',now0)
       file = AluFile.objects.get(id=id).file
-      df = pd.read_excel(f'{MEDIA_ROOT}/{file}',engine='openpyxl')
+      df = pd.read_excel(f'{MEDIA_ROOT}/{file}',engine='openpyxl',usecols="A:BA")
       df =df.astype(str)
       df['Код заказчика экспорт если експорт'] =''
       
