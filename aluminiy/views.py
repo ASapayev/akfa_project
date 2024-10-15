@@ -947,6 +947,8 @@ def full_update_bazaprofiley(request):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])    
 def product_add_second_org(request,id):
+      now0 = datetime.now()
+      print('file oqish boshlanishi>> ',now0)
       file = AluFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
       df =df.astype(str)
