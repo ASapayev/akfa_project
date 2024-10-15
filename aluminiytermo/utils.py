@@ -6495,16 +6495,14 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         grouped_by_name = ddf2.groupby('Имя признака')
 
         # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
-        for group_name, group_df in grouped_by_name:
-            # Remove duplicates
-            group_df = group_df.drop_duplicates()
-            
-            # Prepare the output file path using the group_name
-            output_file = f'{char_path}\\{group_name}.xlsx'
-            
-            
-            # Save the group to Excel
-            group_df.to_excel(output_file, index=False)
+        noww = datetime.now()
+        print('1112 file grouping time start >> ',noww)
+
+        with ThreadPoolExecutor() as executor:
+            for group_name, group_df in grouped_by_name:
+                executor.submit(save_group_to_excel, group_name, group_df, char_path)
+        noww2 = datetime.now()
+        print('1112 file grouping time end >> ',noww2)
     
     else:
     ########################## Бухгалтерская название.txt ##############################
@@ -7089,14 +7087,13 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         grouped_by_name = ddf2.groupby('Имя признака')
 
         # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
-        for group_name, group_df in grouped_by_name:
-            # Remove duplicates
-            group_df = group_df.drop_duplicates()
-            
-            # Prepare the output file path using the group_name
-            output_file = f'{char_path}\\{group_name}.xlsx'
-            # Save the group to Excel
-            group_df.to_excel(output_file, index=False)
+        print('1112 end file grouping time start >> ',noww)
+
+        with ThreadPoolExecutor() as executor:
+            for group_name, group_df in grouped_by_name:
+                executor.submit(save_group_to_excel, group_name, group_df, char_path)
+        noww2 = datetime.now()
+        print('1112 end file grouping time end >> ',noww2)
 
 
 
