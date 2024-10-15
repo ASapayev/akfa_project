@@ -4,7 +4,7 @@ from accounts.decorators import allowed_users
 from .forms import NormaFileForm,NormaExcelFiles,ViFileForm
 from .models import Norma,Siryo,Korobka,Kraska,TexcartaBase,ViFiles,RadiatorFile,RadiatorSapCode,OrderRadiator,RazlovkaRadiator,RazlovkaRadiatorAurora
 from config.settings import MEDIA_ROOT
-import pandas as pd
+import modin.pandas as pd
 from accounts.models import User
 import os 
 from django.http import JsonResponse

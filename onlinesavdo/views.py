@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
-import pandas as pd
+import modin.pandas as pd
 from config.settings import MEDIA_ROOT
 from aluminiy.models import LengthOfProfile,ExchangeValues
 from functools import partial

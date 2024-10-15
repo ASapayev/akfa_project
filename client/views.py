@@ -23,7 +23,7 @@ from accounts.models import User
 from django.views.decorators.csrf import csrf_exempt
 import websocket
 from django_eventstream import send_event
-import pandas as pd
+import modin.pandas as pd
 from aluminiytermo.models import ArtikulComponent,AluFileTermo,NakleykaCode,AluminiyProductTermo
 import os
 from config.settings import MEDIA_ROOT

@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from config.settings import MEDIA_ROOT
 from .forms import AccessuarFileForm
 from .models import Norma,Siryo,TexcartaBase,DataForText,OrderACS,AccessuarFiles
-import pandas as pd
+import modin.pandas as pd
 from .utils import get_norma_df,get_norma_price,create_folder,lenght_generate_texcarta,get_sapcodes
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users

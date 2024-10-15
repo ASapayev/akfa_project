@@ -1,6 +1,6 @@
 import os
 from order.models import OrderPVX
-import pandas as pd
+import modin.pandas as pd
 from datetime import datetime
 from config.settings import MEDIA_ROOT
 from .models import ArtikulKomponentPVC,AbreviaturaLamination,CameraPvc,LengthOfProfilePVC,DliniyText,PVCProduct,RazlovkaPVX,Characteristika

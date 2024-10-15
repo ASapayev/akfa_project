@@ -1,4 +1,4 @@
-import pandas as pd
+import modin.pandas as pd
 from datetime import datetime
 import numpy as np
 import os

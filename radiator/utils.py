@@ -1,4 +1,4 @@
-import pandas as pd
+import modin.pandas as pd
 from radiator.models import Characteristika,RazlovkaRadiator,RazlovkaRadiatorAurora
 from django.db.models import Q
 from datetime import datetime
