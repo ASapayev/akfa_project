@@ -3196,6 +3196,8 @@ def product_add_second_org(request,id):
       df_char_title.to_excel(writer,index=False,sheet_name='title')
       df_extrusion.to_excel(writer,index=False,sheet_name='T4')
       writer.close()
+      now24 = datetime.now()
+      print('file saqlash uchun ketgan vaqt >>',now24)
 
       del df_new['Название системы']
       del df_new['SAP код A']
