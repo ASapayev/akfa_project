@@ -3196,7 +3196,7 @@ def product_add_second_org(request,id):
       # df_char_title.to_excel(writer,index=False,sheet_name='title')
       # df_extrusion.to_excel(writer,index=False,sheet_name='T4')
       # writer.close()
-      with pd.ExcelWriter(path_alu, engine='xlsxwriter') as writer:
+      with pd.ExcelWriter(path_alu,engine='openpyxl') as writer:
             # Ensure DataFrames are optimized before writing
             df_new.to_excel(writer, index=False, sheet_name='Schotchik')
             df_char.to_excel(writer, index=False, sheet_name='Characteristika')
@@ -3217,7 +3217,7 @@ def product_add_second_org(request,id):
             if row['SAP код Z'] !='':
                   df_new['SAP код E'][key] = ''
       
-      norma_file = df_new.to_excel(f'{MEDIA_ROOT}\\{path_ramka_norma}',index=False,engine='openpyxl',)
+      norma_file = df_new.to_excel(f'{MEDIA_ROOT}\\{path_ramka_norma}',index=False,engine='openpyxl')
 
       order_id = request.GET.get('order_id',None)
       work_type = 1
