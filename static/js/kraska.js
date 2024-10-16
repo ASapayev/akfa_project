@@ -573,7 +573,30 @@ function copy_tr(id,ii=1){
         create_btn.attr('disabled',true)
         var kraska_div =$('#kraska_div'+s);
         kraska_div.css('display','block')
-        console.log(artikul,'llllssd')
+        // console.log(artikul,'llllssd')
+
+        var  kraska_div = $('#kraska_div'+s +' .select2 .selection .select2-selection--single')
+        var  kraska_val = $('#select2-kraska'+s+'-container')
+        var kraska_val_org=$('#kraska'+s)
+
+        const newOption = document.createElement('option');
+        // console.log(kraska,'copy')
+        if(kraska){
+            kraska_val.text(kraska)
+            kraska_val_org.val(kraska)
+            kraska_div.css('border-color','')
+            newOption.value = kraska; // Set the desired value
+            newOption.text = kraska;
+            newOption.selected = true;
+            kraska_val_org.append(newOption) 
+        }else{
+            // newOption.value = kraska; // Set the desired value
+            // newOption.text = kraska; 
+            kraska_val.text('')
+            kraska_val_org.val('')
+            kraska_div.css('border-color','red')
+            // kraska_val_org.append(newOption) 
+        }
         
         if(!is_active){
             create_btn.css('background-color','green')
@@ -713,6 +736,9 @@ function create(id){
     activate_btn.attr('disabled',true)
     create_btn.attr('disabled',true)
 
+    var  kraska = $('#kraska_div'+id +' .select2 .selection .select2-selection--single')
+    kraska.css('border-color','red')
+    // console.log(kraska)
 
     var combination=$('#combination'+id)
     var tip_kraski=$('#tip_kraski'+id)
@@ -859,6 +885,8 @@ function activate(id){
     var group_zakup=$('#group_zakup'+id)
     var group=$('#group'+id)
     var tip=$('#tip'+id)
+    var  kraska = $('#kraska_div'+id +' .select2 .selection .select2-selection--single')
+    kraska.css('border-color','red')
     // var segment=$('#segment'+id)
     // var buxgalter_tovar=$('#buxgalter_tovar'+id)
     // var buxgalter_sena=$('#buxgalter_sena'+id)
@@ -1055,7 +1083,7 @@ function create_kratkiy_tekst(id){
     
         var combination=$('#combination'+id)
         var tip_kraski=$('#tip_kraski'+id)
-        var kraska_div=$('#kraska_div'+id)
+        var  kraska_div = $('#kraska_div'+id +' .select2 .selection .select2-selection--single')
         var kraska=$('#kraska'+id)
         var brend_kraska=$('#brend_kraska'+id)
         var artikul=$('#artikul'+id)
@@ -1102,13 +1130,15 @@ function create_kratkiy_tekst(id){
             data_base[id].tip_kraski = NaN;
         }
 
-        if(kraska.val()!=''){
+        console.log(kraska.val(),'kraska val')
+        if(kraska.val()!='' && kraska.val()!=null){
             data_base[id].kraska = kraska.val();
             kraska_div.css('border-color','#dedad9')
         }else{
             kraska_div.css('border-color','red')
             data_base[id].kraska = NaN;
         }
+
         data_base[id].brend_kraska = 'RAINBOW RAL';
         
         // console.log(kraska.val(),'lllllll')
