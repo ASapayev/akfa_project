@@ -344,8 +344,10 @@ function copy_tr(id,ii=1){
         var gruppa_materialov = data.gruppa_materialov;
         var comment = data.comment;
         
+
+        // console.log(sena_materiala,'senaaa materiala')
         check_input_and_change(vid_zayavki,'#vid_zayavki'+s,dis=false,is_req=false,is_req_simple=true)
-        
+        // console.log('sss',prodayot,'mmm')
         if(data_id == 1){
             check_input_and_change(zavod,'#zavod'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(sapcode,'#sapcode'+s,dis=false,is_req=false,is_req_simple=true)
@@ -358,6 +360,9 @@ function copy_tr(id,ii=1){
             check_input_and_change(vid_materiala,'#vid_materiala'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(vid_zagotovki,'#vid_zagotovki'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(prodayot,'#prodayot'+s,dis=false,is_req=false,is_req_simple=true)
+            if(prodayot ==' '){
+                $('#prodayot'+s).val('')
+            }
             check_input_and_change(gruppa_zakupok,'#gruppa_zakupok'+s,dis=false,is_req=true,is_req_simple=false)
             check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
@@ -373,6 +378,9 @@ function copy_tr(id,ii=1){
             check_input_and_change(vid_materiala,'#vid_materiala'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(vid_zagotovki,'#vid_zagotovki'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(prodayot,'#prodayot'+s,dis=false,is_req=false,is_req_simple=true)
+            if(prodayot ==' '){
+                $('#prodayot'+s).val('')
+            }
             check_input_and_change(gruppa_zakupok,'#gruppa_zakupok'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
@@ -388,6 +396,9 @@ function copy_tr(id,ii=1){
             check_input_and_change(vid_materiala,'#vid_materiala'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(vid_zagotovki,'#vid_zagotovki'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(prodayot,'#prodayot'+s,dis=false,is_req=false,is_req_simple=true)
+            if(prodayot ==' '){
+                $('#prodayot'+s).val('')
+            }
             check_input_and_change(gruppa_zakupok,'#gruppa_zakupok'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(gruppa_materialov,'#gruppa_materialov'+s,dis=false,is_req=false,is_req_simple=true)
             check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
@@ -657,8 +668,8 @@ function create_kratkiy_tekst(id){
     
     var vid_zayavki =$('#vid_zayavki'+id);
     var prodayot =$('#prodayot'+id);
-
     if(prodayot.val()=='' || prodayot.val()=='X'){
+        // console.log('dddd11',prodayot.val(),'lllll')
         prodayot.css('border-color','#dedad9')
         if(prodayot.val()==''){
             data_base[id].prodayot = ' ';
@@ -666,6 +677,7 @@ function create_kratkiy_tekst(id){
             data_base[id].prodayot = prodayot.val();
         }
     }else{
+        // console.log('dddd2222',prodayot.val(),'lllll')
         prodayot.css('border-color','#dedad9')
         data_base[id].prodayot =NaN;
     }
@@ -679,7 +691,7 @@ function create_kratkiy_tekst(id){
         var sena_materiala =$('#sena_materiala'+String(id))
         if(sena_materiala.val()!='' && sena_materiala.val()!=0 && sena_materiala.val()!='0'){
             sena_materiala.css("border-color",'#dedad9');
-            data_base[id].sena_materiala = sena_materiala.val().slice(0,4);
+            data_base[id].sena_materiala = sena_materiala.val()
         }else{
             sena_materiala.css("border-color",'red');
             data_base[id].sena_materiala = NaN;
@@ -706,7 +718,7 @@ function create_kratkiy_tekst(id){
         var sena_materiala =$('#sena_materiala'+String(id))
         if(sena_materiala.val()!='' && sena_materiala.val()!=0 && sena_materiala.val()!='0'){
             sena_materiala.css("border-color",'#dedad9');
-            data_base[id].sena_materiala = sena_materiala.val().slice(0,4);
+            data_base[id].sena_materiala = sena_materiala.val()
         }else{
             sena_materiala.css("border-color",'#dedad9');
             data_base[id].sena_materiala = NaN;
@@ -732,7 +744,7 @@ function create_kratkiy_tekst(id){
         var sena_materiala =$('#sena_materiala'+String(id))
         if(sena_materiala.val()!='' && sena_materiala.val()!=0 && sena_materiala.val()!='0'){
             sena_materiala.css("border-color",'#dedad9');
-            data_base[id].sena_materiala = sena_materiala.val().slice(0,4);
+            data_base[id].sena_materiala = sena_materiala.val()
         }else{
             sena_materiala.css("border-color",'red');
             data_base[id].sena_materiala = NaN;
