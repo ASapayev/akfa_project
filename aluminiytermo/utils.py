@@ -1180,7 +1180,8 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 = ddf2.replace('XXXX','')
-    ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
+    ddf2.to_excel(pathtext6,index=False,engine='xlsxwriter')
+    
 
 
     if  len(does_not_exists)>0:     
@@ -2470,12 +2471,12 @@ def get_cretead_txt_for_1101(datas,elist):
     new_date['Статус загрузки'] = ''
     
     df_baza_profiley_link =pd.DataFrame({'SAP CODE':baza_profile_links[0],'link':baza_profile_links[1]})
-    df_baza_profiley_link.to_excel(pathtext10,index=False,engine='openpyxl')
+    df_baza_profiley_link.to_excel(pathtext10,index=False,engine='xlsxwriter')
 
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 =ddf2.replace('XXXX','')
-    ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
+    ddf2.to_excel(pathtext6,index=False,engine='xlsxwriter')
     
     return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8,pathtext9,pathtext10],pathzip
     #########################################################################################################################
