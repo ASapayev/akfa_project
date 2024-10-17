@@ -46,7 +46,7 @@ def work_wast(request):
 
 
 
-def get_ozmka(ozmk,zavod1101,zavod1201):
+def get_ozmka(ozmk,zavod1101,zavod1201,z1101anod):
   sap_code_yoqlari =[]
   # print(df)
   sap_exists =[]
@@ -139,6 +139,42 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     if not sap_code_exists:
       sap_code_yoqlari.append(sap_code)
 
+  
+  if z1101anod:
+
+    # df_termo_1201 = pd.DataFrame(termo_razlovka,columns=['ID','PARENT ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код L','Ламинация','SAP код 7','U-Упаковка + Готовая Продукция','SAP код Ф','Фабрикация','SAP код 75','U-Упаковка + Готовая Продукция 75'])#,'CREATED DATE','UPDATED DATE'
+    # df_obichniy_1201 = pd.DataFrame(obichniy_razlovka,columns=['ID','SAP код E','Экструзия холодная резка','SAP код Z','Печь старения','SAP код P','Покраска автомат','SAP код S','Сублимация','SAP код A','Анодировка','SAP код L','Ламинация','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция','SAP код Ф','Фабрикация','SAP код 75','U-Упаковка + Готовая Продукция 75'])#,'CREATED DATE','UPDATED DATE'
+    
+
+    termo_razlovka1101anod =[ raz[10:16] + raz[18:20] for raz in termo_razlovka]
+    obichniy_razlovka1101anod =[ raz[9:11] + raz[13:17] for raz in obichniy_razlovka]
+    # print(termo_razlovka)
+    # print(termo_razlovka1101anod)
+    # counter = 0
+    # obichniy_razlovka1101org = []
+    # for obichniy in obichniy_razlovka1101anod:
+    #   if obichniy[2] !='':
+    #     ob =['','']+ list(obichniy[2:])
+    #     obichniy_razlovka1101org.append(ob)
+    #   else:
+    #     obichniy_razlovka1101org.append(obichniy)
+    #   counter += 1
+
+    df_termo_1101 = pd.DataFrame(termo_razlovka1101anod,columns=['SAP код A','Анодировка','SAP код N','Наклейка','SAP код K','K-Комбинирования','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_obichniy_1101 = pd.DataFrame(obichniy_razlovka1101anod,columns=['SAP код A','Анодировка','SAP код N','Наклейка','SAP код 7','U-Упаковка + Готовая Продукция'])#,'CREATED DATE','UPDATED DATE'
+    df_yoqlari_1101 = pd.DataFrame({'SAP CODE':sap_code_yoqlari})
+    now =datetime.now()
+    minut =now.strftime('%M-%S')
+    path1101 =f'{MEDIA_ROOT}\\uploads\\ozmka\\ozmka1101-{minut}.xlsx'
+    writer = pd.ExcelWriter(path1101, engine='openpyxl')
+    df_termo_1101.to_excel(writer,index=False,sheet_name='TERMO')
+    df_obichniy_1101.to_excel(writer,index=False,sheet_name='OBICHNIY')
+    df_yoqlari_1101.to_excel(writer,index=False,sheet_name='NOT EXISTS')
+    writer.close()
+    return [path1101,''],[df_termo_1101,df_obichniy_1101,df_yoqlari_1101]
+
+  
+  
   if (zavod1101 and zavod1201):
     termo_razlovka =[ raz[:-2] for raz in termo_razlovka]
     obichniy_razlovka =[ raz[:-2] for raz in obichniy_razlovka]
@@ -221,6 +257,7 @@ def get_ozmka(ozmk,zavod1101,zavod1201):
     writer.close()
     return [path1101,''],[df_termo_1101,df_obichniy_1101,df_yoqlari_1101]
 
+  
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
@@ -426,6 +463,9 @@ def file_upload_for_get_ozmka_org(request):
     ozmk = request.POST.get('ozmk',None)
     zavod1101 =request.POST.get('for1101',None)  
     zavod1201 =request.POST.get('for1201',None)
+    zavod1101anod =request.POST.get('for1101anod',None)
+
+    print(zavod1101anod,'anod')
 
     if zavod1101 =='on':
       z1101 =True
@@ -435,10 +475,15 @@ def file_upload_for_get_ozmka_org(request):
     if zavod1201 =='on':
       z1201 =True
     else:
-      z1201 =False    
+      z1201 =False 
+
+    if zavod1101anod =='on':
+      z1101anod =True
+    else:
+      z1101anod =False    
     if ozmk:
       ozmks =ozmk.split()
-      path,df = get_ozmka(ozmks,z1101,z1201)
+      path,df = get_ozmka(ozmks,z1101,z1201,z1101anod)
       res = download_bs64(df,'RAZLOVKA')
       if request.user.role =='user1':
         return res

@@ -24,6 +24,13 @@ urlpatterns = [
     path('file-list-org',views.file_list_org,name='norma_file_list_org'),
     path('file-list-termo-org',views.file_list_termo_org,name='norma_file_list_termo_org'),
     path('process-combinirovanniy/<int:id>',views.kombinirovaniy_process,name='kombinirovaniy_process'),
+
+
+
+    path('file-upload-termo-anod-org',views.file_upload_termo_org_anod,name='norma_file_upload_termo_org_anod'),
+    path('file-list-termo-anod-org',views.file_list_termo_org_anod,name='norma_file_list_termo_org_anod'),
+    path('process-combinirovanniy-anod/<int:id>',views.kombinirovaniy_process_anod,name='kombinirovaniy_process_anod'),
+
     path('find-chaarcteristics_org',views.find_characteristics_org,name='find_characteristics_org'),
     path('show-norma-base',views.show_norm_base,name='show_norm_base'),
     path('show-sikl-base',views.show_sikl_base,name='show_sikl_base'),

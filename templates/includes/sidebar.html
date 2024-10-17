@@ -257,6 +257,23 @@
         {%endif%}
 
         {%if user_role == 'moderator' or user_role == 'user1' %}
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm-alu-termo-anod" aria-expanded="false" aria-controls="ui-basic-norm-alu-termo-anod">
+          <span class="menu-icon">
+            <i class="mdi mdi-bowling"></i>
+          </span>
+          <span class="menu-title">Форм. нормы анод</span>
+          <i class="menu-arrow"></i>
+        </a>
+
+        <div class="collapse" id="ui-basic-norm-alu-termo-anod">
+          <ul class="nav flex-column sub-menu">
+            
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_termo_org_anod'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">термо</span> файла</a></li>
+            
+          </ul>
+        </div>
+        {%endif%}
+        {%if user_role == 'moderator' or user_role == 'user1' %}
         <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm-alu-termo" aria-expanded="false" aria-controls="ui-basic-norm-alu-termo">
           <span class="menu-icon">
             <i class="mdi mdi-bowling"></i>

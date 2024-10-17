@@ -27,6 +27,7 @@ from django.utils.text import slugify
 from pathlib import Path 
 from django.db.models.functions import Trim
 from accounts.decorators import allowed_users
+from aluminiy.utils import download_bs64
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user1'])
@@ -1209,6 +1210,24 @@ def file_upload(request):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
+def file_upload_termo_org_anod(request): 
+  if request.method == 'POST':
+    data = request.POST.copy()
+    data['type']='termo'
+    form = NormaFileForm(data, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('norma_file_list_termo_org_anod')
+  else:
+      form =NormaFileForm()
+      context ={
+        'section':''
+      }
+  return render(request,'universal/main.html',context)
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
 def file_upload_termo_org(request): 
   if request.method == 'POST':
     data = request.POST.copy()
@@ -1262,6 +1281,18 @@ def file_list_org(request):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
+def file_list_termo_org_anod(request):
+    files = NormaExcelFiles.objects.filter(generated =False,type='termo').order_by('-created_at')[:50]
+    context ={'files':files,
+              'link':'/norma/process-combinirovanniy-anod/',
+              'section':'Генерация норма термо файла',
+              'type':'термо',
+              'file_type':'termo'
+              }
+    return render(request,'universal/file_list_norma.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
 def file_list_termo_org(request):
     files = NormaExcelFiles.objects.filter(generated =False,type='termo').order_by('-created_at')[:50]
     context ={'files':files,
@@ -1280,6 +1311,375 @@ def get_legth(lengg):
             break
     return (float(hh)/1000) 
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
+def kombinirovaniy_process_anod(request,id):
+    file = NormaExcelFiles.objects.get(id=id).file
+    file_path =f'{MEDIA_ROOT}\\{file}'
+    df_exell = pd.read_excel(file_path)
+    df_exell = df_exell.fillna('')
+    df_exell =df_exell.astype(str)
+
+    df_new ={
+        'ID':[],
+        'MATNR': [],
+        'WERKS':[],
+        'TEXT1':[],
+        'STLAL':[],
+        'STLAN':[],
+        'ZTEXT':[],
+        'STKTX':[],
+        'BMENG':[],
+        'BMEIN':[],
+        'STLST':[],
+        'POSNR':[],
+        'POSTP':[],
+        'MATNR1':[],
+        'TEXT2':[],
+        'MEINS':[],
+        'MENGE':[],
+        'DATUV':[],
+        'PUSTOY':[],
+        'LGORT':[]
+    }
+
+    
+
+    df =[]
+
+    for key,row in df_exell.iterrows():
+        df.append([
+            row['SAP код A'],row['Анодировка'],
+            row['SAP код N'],row['Наклейка'],
+            row['SAP код K'],row['K-Комбинирования'],
+            row['SAP код 7'],row['U-Упаковка + Готовая Продукция']
+        ])
+
+
+    older_process ={}
+
+    norma_doesnot_exists =[[],[]]
+    z = 1
+    for i in range(0,len(df)):
+        if df[i][6]!='':
+            artikul = df[i][6].split('-')[0]
+            if not Norma.objects.filter(артикул=artikul).exists():
+                norma_doesnot_exists[0].append(artikul)
+                norma_doesnot_exists[1].append('artikul yo\'q')
+                continue
+            else:
+                norma_anod = Norma.objects.get(артикул=artikul)
+                if norma_anod.бумага_расход_упоковочной_ленты_на_1000_штук_кг=='0' or norma_anod.уп_пол_лн_рас_уп_лн_на_1000_штук_кг=='0':
+                    if norma_anod.бумага_расход_упоковочной_ленты_на_1000_штук_кг=='0':
+                        norma_doesnot_exists[0].append(artikul)
+                        norma_doesnot_exists[1].append('kraft bumaga 0 ga teng')
+                       
+                    if norma_anod.уп_пол_лн_рас_уп_лн_на_1000_штук_кг=='0':
+                        norma_doesnot_exists[0].append(artikul)
+                        norma_doesnot_exists[1].append('plyonka 0 ga teng')
+                       
+                    continue
+            
+            df_new['ID'].append('1')
+            df_new['MATNR'].append(df[i][6])
+            df_new['WERKS'].append('1101')
+            df_new['TEXT1'].append(df[i][7])
+            df_new['STLAL'].append('1')
+            df_new['STLAN'].append('1')
+            ztekst = 'ANOD'
+            df_new['ZTEXT'].append(ztekst)
+            df_new['STKTX'].append(ztekst)
+            df_new['BMENG'].append( '1000')
+            df_new['BMEIN'].append('ШТ')
+            df_new['STLST'].append('1')
+            df_new['POSNR'].append('')
+            df_new['POSTP'].append('')
+            df_new['MATNR1'].append('')
+            df_new['TEXT2'].append('')
+            df_new['MEINS'].append('')
+            df_new['MENGE'].append('')
+            df_new['DATUV'].append('01012021')
+            df_new['PUSTOY'].append('')
+            df_new['LGORT'].append('')
+            
+            
+            norma_anod = Norma.objects.get(артикул=artikul)
+            mein_percent =((get_legth(df[i][7]))/float(norma_anod.длина_профиля_м))
+
+            dddd =[
+                        {
+                            'sap_code':norma_anod.термомост_1,
+                            'bridge':norma_anod.краткий_текст_1
+                        },
+                        {
+                            'sap_code':norma_anod.термомост_1,
+                            'bridge':norma_anod.краткий_текст_2
+                        },
+                        {
+                            'sap_code':norma_anod.термомост_3,
+                            'bridge':norma_anod.краткий_текст_3
+                        },
+                        {
+                            'sap_code':norma_anod.термомост_4,
+                            'bridge':norma_anod.краткий_текст_4
+                        }
+                        ]
+            # print(dddd,'termomost')
+
+            for k in range(1,4):
+                # j+=1
+                df_new['ID'].append('2')
+                df_new['MATNR'].append('')
+                df_new['WERKS'].append('')
+                df_new['TEXT1'].append('')
+                df_new['STLAL'].append('')
+                df_new['STLAN'].append('')
+                df_new['ZTEXT'].append('')
+                df_new['STKTX'].append('')
+                df_new['BMENG'].append('')
+                df_new['BMEIN'].append('')
+                df_new['STLST'].append('')
+                df_new['POSNR'].append(k)
+                df_new['POSTP'].append('L')
+                # craft_counter+=1
+                
+                if k == 1 :
+                    df_new['MATNR1'].append(df[i][4])
+                    df_new['TEXT2'].append(df[i][5])
+                    df_new['MEINS'].append('1000')
+                    df_new['MENGE'].append('ШТ')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                
+                if k==2:
+                    df_new['MATNR1'].append('1000000770')
+                    df_new['TEXT2'].append('Пленка П2 NS35см 130мк Blue1')
+                    df_new['MENGE'].append('КГ')
+                    df_new['MEINS'].append( ("%.3f" % (float(norma_anod.уп_пол_лн_рас_уп_лн_на_1000_штук_кг)*mein_percent)).replace('.',','))
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                
+                if k==3:
+                    df_new['MATNR1'].append('1000004311')
+                    df_new['TEXT2'].append('Крафт термо бумага')
+                    df_new['MENGE'].append("КГ")
+                    df_new['MEINS'].append(("%.3f" % (float(norma_anod.бумага_расход_упоковочной_ленты_на_1000_штук_кг))).replace('.',',')) ##XATO
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                
+                df_new['LGORT'].append('PS09')
+        
+        
+            if i != 0:
+                z = 1
+                df_new['ID'].append('1')
+                df_new['MATNR'].append(df[i][4])
+                df_new['WERKS'].append('1101')
+                df_new['TEXT1'].append(df[i][5])
+                df_new['STLAL'].append('1')
+                df_new['STLAN'].append('1')
+                ztekst = 'ANOD'
+                df_new['ZTEXT'].append(ztekst)
+                df_new['STKTX'].append(ztekst)
+                df_new['BMENG'].append( '1000')
+                df_new['BMEIN'].append('ШТ')
+                df_new['STLST'].append('1')
+                df_new['POSNR'].append('')
+                df_new['POSTP'].append('')
+                df_new['MATNR1'].append('')
+                df_new['TEXT2'].append('')
+                df_new['MEINS'].append('')
+                df_new['MENGE'].append('')
+                df_new['DATUV'].append('01012021')
+                df_new['PUSTOY'].append('')
+                df_new['LGORT'].append('')
+                dd=1
+                length_of_profile = get_legth(df[i][5]) * 1000
+                for key, val in older_process.items():
+                    df_new['ID'].append('2')
+                    df_new['MATNR'].append('')
+                    df_new['WERKS'].append('')
+                    df_new['TEXT1'].append('')
+                    df_new['STLAL'].append('')
+                    df_new['STLAN'].append('')
+                    df_new['ZTEXT'].append('')
+                    df_new['STKTX'].append('')
+                    df_new['BMENG'].append('')
+                    df_new['BMEIN'].append('')
+                    df_new['STLST'].append('')
+                    df_new['POSNR'].append(dd)
+                    df_new['POSTP'].append('L')
+                    df_new['MATNR1'].append(val['sapkode'])
+                    df_new['TEXT2'].append(val['kratkiy'])
+                    df_new['MEINS'].append(("%.3f" % ( length_of_profile)).replace('.',','))
+                    df_new['MENGE'].append('М')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                    df_new['LGORT'].append('PS09')
+                    dd+=1
+        
+                older_process ={}
+
+        else:
+            
+            if df[i][2]!='':
+                older_process[z]={
+                    'sapkode':df[i][2],
+                    'kratkiy':df[i][3]
+                }
+            else:
+                older_process[z]={
+                    'sapkode':df[i][0],
+                    'kratkiy':df[i][1]
+                }
+            z+=1
+        
+        if i == 2:
+            artikul = df[0][6].split('-')[0]
+
+            if not Norma.objects.filter(артикул=artikul).exists():
+                norma_doesnot_exists[0].append(artikul)
+                norma_doesnot_exists[1].append('artikul yo\'q')
+                continue
+            z = 1
+
+            norma_anod = Norma.objects.get(артикул=artikul)
+
+            dddd =[
+                        {
+                            'sap_code':norma_anod.термомост_1,
+                            'bridge':norma_anod.краткий_текст_1
+                        },
+                        {
+                            'sap_code':norma_anod.термомост_1,
+                            'bridge':norma_anod.краткий_текст_2
+                        },
+                        {
+                            'sap_code':norma_anod.термомост_3,
+                            'bridge':norma_anod.краткий_текст_3
+                        },
+                        {
+                            'sap_code':norma_anod.термомост_4,
+                            'bridge':norma_anod.краткий_текст_4
+                        }
+                        ]
+            
+            length_of_profile = get_legth(df[0][5]) * 1000
+            df_new['ID'].append('1')
+            df_new['MATNR'].append(df[0][4])
+            df_new['WERKS'].append('1101')
+            df_new['TEXT1'].append(df[0][5])
+            df_new['STLAL'].append('1')
+            df_new['STLAN'].append('1')
+            ztekst = 'ANOD'
+            df_new['ZTEXT'].append(ztekst)
+            df_new['STKTX'].append(ztekst)
+            df_new['BMENG'].append( '1000')
+            df_new['BMEIN'].append('ШТ')
+            df_new['STLST'].append('1')
+            df_new['POSNR'].append('')
+            df_new['POSTP'].append('')
+            df_new['MATNR1'].append('')
+            df_new['TEXT2'].append('')
+            df_new['MEINS'].append('')
+            df_new['MENGE'].append('')
+            df_new['DATUV'].append('01012021')
+            df_new['PUSTOY'].append('')
+            df_new['LGORT'].append('')
+            dd=1
+            for key, val in older_process.items():
+                df_new['ID'].append('2')
+                df_new['MATNR'].append('')
+                df_new['WERKS'].append('')
+                df_new['TEXT1'].append('')
+                df_new['STLAL'].append('')
+                df_new['STLAN'].append('')
+                df_new['ZTEXT'].append('')
+                df_new['STKTX'].append('')
+                df_new['BMENG'].append('')
+                df_new['BMEIN'].append('')
+                df_new['STLST'].append('')
+                df_new['POSNR'].append(dd)
+                df_new['POSTP'].append('L')
+                df_new['MATNR1'].append(val['sapkode'])
+                df_new['TEXT2'].append(val['kratkiy'])
+                df_new['MEINS'].append('1000')
+                df_new['MENGE'].append('ШТ')
+                df_new['DATUV'].append('')
+                df_new['PUSTOY'].append('')
+                df_new['LGORT'].append('PS09')
+                dd+=1
+            
+    
+            for val in dddd:
+                if val['sap_code']!='0':
+                    df_new['ID'].append('2')
+                    df_new['MATNR'].append('')
+                    df_new['WERKS'].append('')
+                    df_new['TEXT1'].append('')
+                    df_new['STLAL'].append('')
+                    df_new['STLAN'].append('')
+                    df_new['ZTEXT'].append('')
+                    df_new['STKTX'].append('')
+                    df_new['BMENG'].append('')
+                    df_new['BMEIN'].append('')
+                    df_new['STLST'].append('')
+                    df_new['POSNR'].append(dd)
+                    df_new['POSTP'].append('L')
+                    df_new['MATNR1'].append(val['sap_code'])
+                    df_new['TEXT2'].append(val['bridge'])
+                    df_new['MEINS'].append(("%.3f" % ( length_of_profile)).replace('.',','))
+                    df_new['MENGE'].append('М')
+                    df_new['DATUV'].append('')
+                    df_new['PUSTOY'].append('')
+                    df_new['LGORT'].append('PS09')
+                    dd+=1
+                
+    
+            older_process ={}
+            
+
+        print(i)
+
+   
+        
+
+
+    now = datetime.now()
+    year =now.strftime("%Y")
+    month =now.strftime("%B")
+    day =now.strftime("%a%d")
+    hour =now.strftime("%H HOUR")
+    minut =now.strftime("%d-%B-%Y %H-%M")   
+
+    create_folder(f'{MEDIA_ROOT}\\uploads','norma')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\norma',f'{year}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\norma\\{year}',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\{month}',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\{month}\\{day}',hour)
+            
+        
+    if len(norma_doesnot_exists[0])>0:
+        doesnot_exists = pd.DataFrame({'ARTIKUL':norma_doesnot_exists[0],'Error type':norma_doesnot_exists[1]})
+        res = download_bs64([doesnot_exists,],'DOESNOT EXIST')
+        return res
+    
+    path =f'{MEDIA_ROOT}\\uploads\\norma\\{year}\\{month}\\{day}\\{hour}\\Norma-{minut}_jomiy.xlsx'
+
+
+    dff =pd.DataFrame(df_new)
+    print(dff)
+
+    # writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    dff.to_excel(path,index=False,sheet_name ='Norma')
+
+    file =[File(file=path,filetype='obichniy')]
+    context = {
+            'files':file,
+            'section':f'Формированый анод файл'
+      }
+    return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user1','razlovka'])
