@@ -332,7 +332,10 @@ def product_add_second_org_kraska(request,id):
         else:
             id_savdo = str(row['Online savdo ID']).replace('.0','')
 
-        
+        new_kraska = df['Артикул'][key].split('.')[1]
+
+        if not KarkaCode.objects.filter(name__icontains=new_kraska).exists():
+            KarkaCode(name=new_kraska).save()
 
 
         if KraskaSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala= df_new['7 - Upakovka'][key]).exists():

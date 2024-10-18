@@ -45,4 +45,7 @@ urlpatterns = [
     #kraska
     path('order-detail-kraska/<int:id>',views.order_detail_kraska,name='order_detail_kraska'),
 
+    ##### epdm 
+    path('order-detail-epdm/<int:id>',views.order_detail_kraska,name='order_detail_kraska'),
+
     ]
