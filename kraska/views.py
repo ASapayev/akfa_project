@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
-from .forms import NormaKraskaFileForm,TexcartaKraskaFileForm
+from .forms import NormaKraskaFileForm,TexcartaKraskaFileForm,NormaKraskaFileClientForm
 from .models import Norma7,SiroKraska,TexcartaFile,KarkaCode,KraskaFileClient,KraskaSapCode,OrderKraska
 from config.settings import MEDIA_ROOT
 import pandas as pd
@@ -396,7 +396,7 @@ def product_add_second_org_kraska(request,id):
     df_new.to_excel(writer,index=False,sheet_name='Schotchik')
     writer.close()
 
-
+    # print(df_new)
     order_id = request.GET.get('order_id',None)
 
     work_type = 1
@@ -482,10 +482,48 @@ def product_add_second_org_kraska(request,id):
 
                 return render(request,'order/order_detail_kraska.html',context2)
 
+    else:
+        df ={
+                'sapcode':cache_for_cratkiy_text[0],
+                'kratkiy':cache_for_cratkiy_text[1],
+                'narx':cache_for_cratkiy_text[2]
+            }
+        # print(df,'dfff')
+        path = characteristika_created_txt_create(df)
+        files = [File(file=p,filetype='obichniy',id=1) for p in path]
+        files.append(File(file=path_kraska,filetype='kraska',id=1))
+        context ={
+                'files':files,
+                'section':'Формированый краска файл'
+        }
     
-    return render(request,'universal/generated_files.html',{'a':'b'})
+    return render(request,'universal/generated_files.html',context)
 
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
+def file_upload_for_kraska(request):
+    if request.method == 'POST':
+        form = NormaKraskaFileClientForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('kraska_file_list')
+    else:
+        form =NormaKraskaFileClientForm()
+        context ={
+            'form':form,
+            'section':'Краска'
+        }
+    return render(request,'universal/main.html',context)
 
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
+def file_list_org_kraska(request):
+  files = KraskaFileClient.objects.filter(generated =False).order_by('-created_at')
+  context ={'files':files,
+            'type':'краска',
+            'link':'/kraska/generate-sapcode/'
+            }
+  return render(request,'kraska/file_list.html',context)
 
 
 @login_required(login_url='/accounts/login/')

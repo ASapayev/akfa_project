@@ -129,6 +129,7 @@
     </li>
     {%endif%}
     
+    
     {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#ui-basics" aria-expanded="false" aria-controls="ui-basics">
@@ -402,7 +403,22 @@
       </div>
     </li>
     {%endif%}
-
+    {% if user_role == 'moderator'%}
+    <li class="nav-item menu-items">
+      <a class="nav-link" data-toggle="collapse" href="#ui-basics-news" aria-expanded="false" aria-controls="ui-basics-news">
+        <span class="menu-icon">
+          <i class="mdi mdi-biohazard"></i>
+        </span>
+        <span class="menu-title">Создать сапкоды</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="ui-basics-news">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{% url 'file_upload_kraska' %}">Заг. <span style="color:chocolate;font-weight: 500; padding: 5px;" class=""> краска </span> файла</a></li>
+          </ul>
+      </div>
+    </li>
+    {%endif%}
     {% if user_role == 'moderator'%}
     <li class="nav-item menu-items">
       <a class="nav-link" data-toggle="collapse" href="#online_savdo" aria-expanded="false" aria-controls="online_savdo">

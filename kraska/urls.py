@@ -5,7 +5,8 @@ from aluminiytermo import views as alutermoview
 
 urlpatterns = [
     ########## SAPCODE GENERATING #########
-
+    path('file-upload-kraska',views.file_upload_for_kraska,name='file_upload_kraska'),
+    path('kraska-file-list',views.file_list_org_kraska,name='kraska_file_list'),
     path('generate-sapcode/<int:id>',views.product_add_second_org_kraska,name='generate_sapcode_kraska'),
     ##########END ##########
 
