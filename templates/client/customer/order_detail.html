@@ -1220,10 +1220,10 @@
                 for (var j = 0; j < order[order_type].length; j++) {
                     var key2 = order[order_type][j];
 
-
-                    if (specific_fields.includes(key)){
-                      text2+=`<td class="text-center" style='background-color:white;'>
-                                      <div id=`+key2 +String(i)+String(j)+` class= 'text-center d-inline-block decimal-cell' style="text-transform: uppercase;font-size: 12px;white-space: nowrap;"></div>
+                    // console.log(key2,'keyeeeeee',specific_fields)
+                    if (specific_fields.includes(key2)){
+                      text2+=`<td class="text-center decimal-cell" style='background-color:white;'>
+                                      <div id=`+key2 +String(i)+String(j)+` class= 'text-center d-inline-block ' style="text-transform: uppercase;font-size: 12px;white-space: nowrap;"></div>
                                       
                                   
                               </td>
@@ -1292,11 +1292,18 @@
         // }
         function downloadTableAsExcel() {
           const table = document.getElementById("my-table");
+          // console.log(table)
 
           // Loop through table cells and correct the decimal separator
           Array.from(table.getElementsByTagName('td')).forEach(td => {
-              if (td.innerText.includes(',')&& td.classList.contains('decimal-cell')) {
-                  td.innerText = td.innerText.replace(',', '.'); // Replace comma with dot
+            console.log(td,'lll')
+              if (td.classList.contains('decimal-cell')) {
+                console.log(td)
+                const originalText = td.innerText.trim();
+                if (originalText.includes(',')) {
+                    console.log(td); // Log the cell
+                    td.innerText = originalText.replace(',', '.'); // Replace comma with dot
+                }
               }
           });
 

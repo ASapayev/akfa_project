@@ -1669,7 +1669,7 @@ def kombinirovaniy_process_anod(request,id):
 
 
     dff =pd.DataFrame(df_new)
-    print(dff)
+    # print(dff)
 
     # writer = pd.ExcelWriter(path, engine='xlsxwriter')
     dff.to_excel(path,index=False,sheet_name ='Norma')
