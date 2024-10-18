@@ -49,6 +49,8 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     pathtext9 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
     pathdoesnot_exists =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\NOT.xlsx'
     pathzip =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}'
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}',"ХАРАКТЕРИСТИКИ")
+    char_path =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\BENKAM\\{minut}\\ХАРАКТЕРИСТИКИ'
    
     umumiy_without_duplicate1201 =[[] for i in range(0,49)]
     umumiy_without_duplicate1203 =[[] for i in range(0,49)]
@@ -1182,7 +1184,13 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     ddf2 = ddf2.replace('XXXX','')
     ddf2.to_excel(pathtext6,index=False,engine='xlsxwriter')
     
+    grouped_by_name = ddf2.groupby('Имя признака')
 
+    # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
+
+    with ThreadPoolExecutor() as executor:
+        for group_name, group_df in grouped_by_name:
+            executor.submit(save_group_to_excel, group_name, group_df, char_path)
 
     if  len(does_not_exists)>0:     
         not_exists =pd.DataFrame(np.array(does_not_exists),columns=['SAP CODE','Error'])
@@ -1231,7 +1239,9 @@ def get_cretead_txt_for_1101(datas,elist):
     pathtext9 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\RAUBE.txt'
     pathtext10 =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\ZMD_11_0008 - Прикрепление чертежей ОЗМ.xlsx'
     pathzip =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}'
-        
+    create_folder(f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}',"ХАРАКТЕРИСТИКИ")
+    char_path =f'{MEDIA_ROOT}\\uploads\\TXT\\{year}\\{month}\\{day}\\{hour}\\JOMIY\\{minut}\\ХАРАКТЕРИСТИКИ'
+   
     
     umumiy_without_duplicate1201 =[[] for i in range(0,51)]
     umumiy_without_duplicate1203 =[[] for i in range(0,51)]
@@ -2478,6 +2488,15 @@ def get_cretead_txt_for_1101(datas,elist):
     ddf2 =ddf2.replace('XXXX','')
     ddf2.to_excel(pathtext6,index=False,engine='xlsxwriter')
     
+    grouped_by_name = ddf2.groupby('Имя признака')
+
+    # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
+
+    with ThreadPoolExecutor() as executor:
+        for group_name, group_df in grouped_by_name:
+            executor.submit(save_group_to_excel, group_name, group_df, char_path)
+
+
     return [pathtext1,pathtext2,pathtext3,pathtext4,pathtext5,pathtext6,pathtext7,pathtext8,pathtext9,pathtext10],pathzip
     #########################################################################################################################
     ###############################################################################################################
