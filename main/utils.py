@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 import os
 
+from aluminiy.models import AluProfilesData
 
 group_one =['WDC47','WDT65','WDT78','WDT57','WDT98','SLT65']
 
@@ -54,14 +55,18 @@ def counter_generated_data(datas,data_type):
     lenn =float(dat['length'])
     sena =float(dat['sena'])
     if ch_profile_type =='ALU':
-      
-      if sap_code_materials[:5] in group_one:
-        kls_wast_length = 500
-      else:
-        kls_wast_length=2000
-      
-      if dat['dlina_del_otxod'] == 600:
-        kls_wast_length = 500
+      check_existsnce = AluProfilesData.objects.filter(data__icontains=dat['sap_code_krat']).exists()
+      if check_existsnce:
+        vall = AluProfilesData.objects.filter(data__icontains=dat['sap_code_krat'])[:1].get().data['Длина дел отход']
+        kls_wast_length = int(float(vall))
+      else: 
+        if sap_code_materials[:5] in group_one:
+          kls_wast_length = 500
+        else:
+          kls_wast_length=2000
+        
+        if dat['dlina_del_otxod'] == 600:
+          kls_wast_length = 500
 
       num_kls_wat =1900005948
     elif ch_profile_type =='PVC':

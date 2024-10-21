@@ -310,6 +310,7 @@
                         <th>Код наклейки</th>
                         <th>Удел.вес за м</th>
                         <th>BAZA</th>
+                        <th>Длина дел отход</th>
                         <th>Ссылка для чертежей</th>
 
                         <!-- <th>Объем</th> -->
@@ -368,6 +369,7 @@
                         <td class ='new_char_five' ><input type='text'  id ='kod_nakleyki{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='udal_ves{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='baza{{forloop.counter}}' ></td>
+                        <td class ='new_char_five' ><input type='text'  id ='dlina_del_otxod{{forloop.counter}}' ></td>
                         <td class ='new_char_five' ><input type='text'  id ='link{{forloop.counter}}' ></td>
 
                         <!-- <td class ='new_char_five' ><input type='text'  id ='obyom{{forloop.counter}}' ></td> -->
@@ -656,7 +658,7 @@
       var new_char = document.querySelectorAll('.new_char_five');
       var system,artikul,komponent,description,kombinatsiya;
       var tip_combination,tip_profilya,visota,shirina,pol_fason,bez_nakleyki;
-      var kod_nakleyki,udal_ves,baza,link;
+      var kod_nakleyki,udal_ves,baza,link,dlina_del_otxod;
 
       var default_exists = false;
       var elements =[];
@@ -676,6 +678,7 @@
           kod_nakleyki = $('#kod_nakleyki'+ String(i)).val();
           udal_ves = $('#udal_ves'+ String(i)).val();
           baza = $('#baza'+ String(i)).val();
+          dlina_del_otxod = $('#dlina_del_otxod'+ String(i)).val();
           link = $('#link'+ String(i)).val();
          
 
@@ -752,6 +755,7 @@
             'Удел.вес за м' : udal_ves, 
             'BAZA' : baza, 
             'Ссылка для чертежей' : link, 
+            'Длина дел отход' : dlina_del_otxod, 
             'Объем':visota +'x'+shirina,
             }
           if (element['Высота']&&element['Ширина']){
