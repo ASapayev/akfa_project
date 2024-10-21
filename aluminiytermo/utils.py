@@ -7152,7 +7152,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         grouped_by_name = ddf2.groupby('Имя признака')
 
         # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
-        print('1112 end file grouping time start >> ',noww)
+        # print('1112 end file grouping time start >> ',noww)
 
         with ThreadPoolExecutor() as executor:
             for group_name, group_df in grouped_by_name:
