@@ -157,7 +157,14 @@
                             <div class="p-1"><i class="bi bi-clock"></i></div>
                           </div>
                         </td>
-                        <td id="options_{{order.id}}" data-loop="{{forloop.counter}}">{%if order.status|stringformat:"d" == '10063' %}<a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Convert</a>{%endif%}</td>
+                        <td id="options_{{order.id}}" data-loop="{{forloop.counter}}">
+                          <div class="btn-group" role="group" aria-label="Basic example" id="options_{{order.id}}">
+                            <a href="{%url 'order_history' order.id %}" class="btn btn-primary btn-sm" ><i class="bi bi-eye"></i> История</a>
+                            {%if order.status|stringformat:"d" == '10063' %}
+                              <a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Convert</a>
+                            {%endif%}
+                          </div>
+                        </td>
                         </td>
                         <td id="zavod_1101_{{order.id}}">
                             {%if 'ALUMINIY' in order.data.name and order.status|stringformat:"d" == '10063' %}

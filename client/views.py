@@ -1895,7 +1895,7 @@ def order_update(request, id):
 
 
 @login_required(login_url='/accounts/login/')
-@customer_only
+@allowed_users(allowed_roles=['customer','moderator'])
 def order_history(request,id):
     
     order = Order.objects.get(id = id)
@@ -1918,7 +1918,10 @@ def order_history(request,id):
             # 'first_id_for_table_head':None
             }
 
-    return render(request,'client/customer/history.html',context)
+    if request.user.role =='customer':
+        return render(request,'client/customer/history.html',context)
+    elif request.user.role =='moderator':
+        return render(request,'client/moderator/history.html',context)
 
    
 
