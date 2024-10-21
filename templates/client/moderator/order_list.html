@@ -132,7 +132,13 @@
                     <tr class="trs" id="tr_loop_{{order.id}}">
                         <td style="display: none;"   class="lengg" >{{order.id}}</td>
                         <td class="text-primary">{{order.data.name}}</td>
-                        <td class="text-primary" style="width: 100px;"><a href="{%url 'customer_order_detail' order.id %}">{{order.id_for_jira}}</a></td>
+                        <td class="text-primary" >
+                          <div class="d-flex flex-row">
+                            <div class=" text-primary " style="white-space: nowrap;padding-right: 5px;">{{order.id_for_jira}}</div>
+                            <div ><i class="bi bi-envelope-fill"></i></div>
+                            <div ><span class="badge badge-success" style="font-size: 0.40rem;padding: 0.25em 0.4em;">15</span></div>
+                          </div>
+                        </td>
                         <td><a href="{%url 'order_check' order.id %}">{{order.theme |truncatechars:20}}</a></td>
                         <td><i class="bi bi-person-circle mr-1"></i>{{order.owner}}</td>
                         <td id="checker_{{order.id}}">{%if order.checker %}<i class="bi bi-person-check mr-1"></i>{{order.checker}}{%endif%}</td>
