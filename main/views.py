@@ -860,10 +860,8 @@ def lenght_generate_org(request,id):
                 s=' '.join(new)
                 new_generated_data.append({'sap_del_cod':s,'lenn':int(j*500)})
                 counter+=1
-
-    
-    pr={'sena':row['Цена'],'length':lenn,'ves_gp':row['Вес за ШТ'],'kls_color':row['KLS_COLOR'],'kls_inner_color':row['KLS_INNER_COL'],'kls_inner_id':row['KLS_INNER_ID'],'ch_profile_type':row['Гр.мат'][len(row['Гр.мат'])-3:],'id_claes':row['KLAES ID'],'sap_code':row['SAP код'],'sap_code_krat':row['SAP код'].split('-')[0],'text':row['Краткий текст материала'],'dlina_del_otxod':row['Длина Дел.отхода'],'data':new_generated_data}
-    new_liss.append(pr)
+          pr={'sena':row['Цена'],'length':lenn,'ves_gp':row['Вес за ШТ'],'kls_color':row['KLS_COLOR'],'kls_inner_color':row['KLS_INNER_COL'],'kls_inner_id':row['KLS_INNER_ID'],'ch_profile_type':row['Гр.мат'][len(row['Гр.мат'])-3:],'id_claes':row['KLAES ID'],'sap_code':row['SAP код'],'sap_code_krat':row['SAP код'].split('-')[0],'text':row['Краткий текст материала'],'dlina_del_otxod':row['Длина Дел.отхода'],'data':new_generated_data}
+          new_liss.append(pr)
   # print(new_liss)
   file_ids,zip_path  = counter_generated_data(new_liss,data_type)
   # files = ExcelFiles.objects.filter(id__in=file_ids)
