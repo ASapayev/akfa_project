@@ -577,7 +577,15 @@ function stopInterval(createdAt, i) {
                     <tr  class="trs" id="tr_loop_${data['id']}">
                         <td style="display: none;" class="lengg" ></td>
                         <td class="text-primary">${data['order_type']}</td>
-                        <td class="text-primary" style="width: 100px;"><a href="/client/customer-order-detail/${data['id']}">${data['order_id']}</a></td>
+
+                        <td class="text-primary" >
+                          <div class="d-flex flex-row" id="msg_div_${data['id']}">
+                            <div class=" text-primary " style="white-space: nowrap;padding-right: 5px;">${data['order_id']}</div>
+                            <div class="msg_new" ><i class="bi bi-envelope-fill msg_icon_${data['id']}" style='display:none;'></i></div>
+                            <div class="msg_new" ><span class="badge badge-success msg_count_${data['id']}" style="font-size: 0.40rem;padding: 0.25em 0.4em;display:none;">0</span></div>
+                          </div>
+                        </td>
+
                         <td><a href="/client/order-check/${data['id']}">${data['order_name']}</a></td>
                         <td><i class="bi bi-person-circle mr-1"></i>${data['owner']} </td>
                         <td id="checker_${data['id']}"></td>
