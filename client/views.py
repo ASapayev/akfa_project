@@ -1593,7 +1593,7 @@ def moderator_check(request,id):
         order.checker = request.user
         order.save()
 
-        print(request.POST)
+        # print(request.POST)
         uploaded_file = request.FILES
         message = request.POST.get('message', '').strip()
         
@@ -1980,7 +1980,10 @@ def order_detail(request,id):
         data['status'] = order.status
         data['owner'] = owner
         data['order'] = order
+        
         file_exists = data11.get('file') is not None
+
+        print(data['message'],file_exists)
 
         if data['message']!='' or file_exists:
             send_event("orders", "customer_create_msg", {"id":id})

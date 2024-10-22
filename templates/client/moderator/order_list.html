@@ -603,7 +603,9 @@ function stopInterval(createdAt, i) {
                             <div class="p-1"><i class="bi bi-clock"></i></div>
                           </div>
                         </td>
-                        <td id="options_${data['id']}" data-loop="${tr_size}"></td>
+                        <td id="options_${data['id']}" data-loop="${tr_size}">
+                          <a href="/client/order-history/${data['id']}" class="btn btn-primary btn-sm" ><i class="bi bi-eye"></i> История</a>  
+                        </td>
                         </td>
                         <td id="zavod_1101_${data['id']}">
                             
