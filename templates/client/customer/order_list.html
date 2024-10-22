@@ -31,10 +31,12 @@
                                     <td class="text-primary" >
                                         
                                         
-                                        <div class="d-flex flex-row">
+                                        <div class="d-flex flex-row" id="msg_div_{{order.id}}">
                                             <div class=" text-primary " style="white-space: nowrap;padding-right: 5px;">{{order.id_for_jira}}</div>
-                                            <div ><i class="bi bi-envelope-fill"></i></div>
-                                            <div ><span class="badge badge-success" style="font-size: 0.40rem;padding: 0.25em 0.4em;">15</span></div>
+                                            {%if order.unopened_count != 0 %}
+                                            <div class="msg_new"><i class="bi bi-envelope-fill msg_icon_{{order.id}}"></i></div>
+                                            <div class="msg_new"><span class="badge badge-success msg_count_{{order.id}}" style="font-size: 0.40rem;padding: 0.25em 0.4em; display:block">{{ order.unopened_count }}</span></div>
+                                            {%endif%}
                                         </div>
                                     </td>
                                     <td><a href="{%url 'customer_order_detail' order.id %}">{{order.theme |truncatechars:30}}</a></td>
@@ -280,6 +282,32 @@
 
   
 
+  es.addEventListener('moderator_create_msg', function (e) {
+    var id = JSON.parse(e.data)['id']
+    // console.log(id)
+
+    if($(`#msg_div_${id} .msg_new`).length > 0){
+        var msg_icon =$('.msg_icon_'+id)
+        var msg_count =$('.msg_count_'+id)
+        
+        msg_icon.css('display','block')
+        msg_count.css('display','block')
+    
+        var msg_text_count = parseInt(msg_count.text()) +1;
+    
+        msg_count.text(String(msg_text_count))
+        
+    }else{
+        
+        var text =`<div class="msg_new" ><i class="bi bi-envelope-fill msg_icon_${id}}"></i></div>
+                    <div class="msg_new" ><span class="badge badge-success msg_count_${id}" style="font-size: 0.40rem;padding: 0.25em 0.4em; display:block">1</span></div>
+                    `
+        $(`#msg_div_${id}`).append(text)
+
+    }
+
+  })
+
   es.addEventListener('message_update', function (e) {
     var data = JSON.parse(e.data)
     var owner = data['owner']
@@ -295,7 +323,7 @@
         var option_button = $('#options_'+order_id)
         var forloop = option_button.attr('data-loop');
         
-        console.log(status,'stats')
+        // console.log(status,'stats')
         if(status != 'Выполнено'){
     
           var checker_site = $('#checker_'+order_id)

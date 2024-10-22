@@ -18,7 +18,7 @@ import json
 import requests as rq
 import base64
 from .forms import OrderFileForm
-from django.db.models import Q
+from django.db.models import Q, Count
 from accounts.models import User
 from django.views.decorators.csrf import csrf_exempt
 import websocket
@@ -149,7 +149,7 @@ class OrderSaveView(APIView):
             # issueKey = 'MDMtest'
             order = Order(data = {'name':name,'data':response,'artikul':artikules},owner=request.user,order_type = order_type,theme =order_name,id_for_jira=issueKey)
             order.save()
-            order_detail = OrderDetail(order=order,owner=request.user)
+            order_detail = OrderDetail(order=order,owner=request.user,is_opened=True)
             order_detail.save()
             # print(order.created_at,'$'*250)
             ##### create jira ######
@@ -266,7 +266,9 @@ def order_list_for_zavod(request):
 
 @allowed_users(allowed_roles=['moderator','user1'])
 def order_list_for_moderator(request):
-    orders = Order.objects.filter(~Q(status=10023)).order_by('-created_at')
+    orders = Order.objects.filter(~Q(status=10023)).annotate(
+                unopened_count=Count('orderdetail', filter=Q(orderdetail__is_opened=False, orderdetail__owner__role='customer'))
+                ).order_by('-created_at')
 
     paginator = Paginator(orders, 15)
 
@@ -1588,17 +1590,30 @@ def moderator_check(request,id):
             status_id_for_jira =STATUS_JIRA[order.status]['id']
             # jira_status_change(order.id_for_jira,status=status_id_for_jira)
             # checker_send_to_jira(order.id_for_jira)
-
-
         order.checker = request.user
         order.save()
+
+        print(request.POST)
+        uploaded_file = request.FILES
+        message = request.POST.get('message', '').strip()
+        
+        if message:
+            send_event("orders", "moderator_create_msg", {"id":id})
+        else:
+             if 'file' in request.FILES:
+                uploaded_file = request.FILES['file']
+                if uploaded_file:
+                    send_event("orders", "moderator_create_msg", {"id":id})
+
+
         # data =request.POST.copy()
+        # print(data,request.FILES)
         data['owner'] = owner
         data['order'] = order
         form = OrderFileForm(data,request.FILES)
         if form.is_valid():
             form.save()
-            order_details = OrderDetail.objects.filter(order = order)
+            # order_details = OrderDetail.objects.filter(order = order).order_by('created_at')
             send_event("orders", "message_update", {
                                         "id":order.id,
                                         "owner":str(order.owner),
@@ -1612,7 +1627,12 @@ def moderator_check(request,id):
             return JsonResponse({'form':form.errors})
     else:
         order = Order.objects.get(id = id)
-        order_details = OrderDetail.objects.filter(order = order)
+        msg =OrderDetail.objects.filter(order = order,owner__role='customer')
+        msg.update(is_opened=True)
+        send_event("orders", "moderator_read_msg", {"id":id})
+
+
+        order_details = OrderDetail.objects.filter(order = order).order_by('created_at')
         context ={
             'status_name':STATUSES[str(order.status)],
             'status':str(order.status),
@@ -1622,6 +1642,7 @@ def moderator_check(request,id):
             'users':users,
             'partner':order.partner
         }
+        
         return render(request,'client/moderator/order_detail.html',context)
     
 def checker_send_to_jira(id):
@@ -1650,8 +1671,10 @@ def order_update_all(request,id):
    
     nakleyka_list = NakleykaCode.objects.all()
     order = Order.objects.get(id = id)
-    order_details = OrderDetail.objects.filter(order = order)
-    
+    order_details = OrderDetail.objects.filter(order = order).order_by('created_at')
+    msg =OrderDetail.objects.filter(order = order,owner__role='moderator')
+    msg.update(is_opened=True)
+        
     extra_dict ={}
     if str(order.order_type) =='alu_savdo' or str(order.order_type) =='alu_imzo' or str(order.order_type) =='alu_export' :
         nakleyka_list = NakleykaCode.objects.all()
@@ -1718,6 +1741,21 @@ def order_update(request, id):
 
             form = OrderFileForm(data, request.FILES)
 
+            uploaded_file = request.FILES
+            message = request.POST.get('message', '').strip()
+            
+            if message:
+                send_event("orders", "customer_create_msg", {"id":id})
+            else:
+                if 'file' in request.FILES:
+                    uploaded_file = request.FILES['file']
+                    if uploaded_file:
+                        send_event("orders", "customer_create_msg", {"id":id})
+
+
+
+            
+
             if form.is_valid():
                 if status_order:
                     order.status = status_order
@@ -1759,7 +1797,7 @@ def order_update(request, id):
             # Handle GET request: fetching and displaying order details
             nakleyka_list = NakleykaCode.objects.all()
             order = get_object_or_404(Order, id=id)
-            order_details = OrderDetail.objects.filter(order=order)
+            order_details = OrderDetail.objects.filter(order=order).order_by('created_at')
             order_history = OrderHistory.objects.filter(order=order).values()
 
             context = {
@@ -1945,6 +1983,8 @@ def order_detail(request,id):
         file_exists = data11.get('file') is not None
 
         if data['message']!='' or file_exists:
+            send_event("orders", "customer_create_msg", {"id":id})
+
             form = OrderFileForm(data,request.FILES)
             if form.is_valid():
                 form.save()
@@ -1963,8 +2003,11 @@ def order_detail(request,id):
             return redirect('customer_order_detail',id=id)
     else:
         order = Order.objects.get(id = id)
-        order_details = OrderDetail.objects.filter(order = order)
-        
+        order_details = OrderDetail.objects.filter(order = order).order_by('created_at')
+        order_details_msg =OrderDetail.objects.filter(order = order,owner__role='moderator')
+        # print(order_details_msg,'msgg')
+        order_details_msg.update(is_opened=True)
+
         if order.status == 10023 and order.order_type in ['pvc_export','pvc_savdo','pvc_imzo','alu_export','alu_savdo','alu_imzo']:
             datas = order.data['data']
             for key,val in datas.items():
@@ -2078,9 +2121,13 @@ def order_list(request):
     search = request.GET.get('search',None)
 
     if search:
-        orders = Order.objects.filter(Q(owner = request.user)&(Q(id_for_jira__icontains=search)|Q(theme__icontains=search)|Q(data__artikul__icontains=search))).order_by('-created_at')
+        orders = Order.objects.filter(Q(owner = request.user)&(Q(id_for_jira__icontains=search)|Q(theme__icontains=search)|Q(data__artikul__icontains=search))).annotate(
+                unopened_count=Count('orderdetail', filter=Q(orderdetail__is_opened=False, orderdetail__owner__role='moderator'))
+                ).order_by('-created_at')
     else:
-        orders = Order.objects.filter(Q(owner = request.user)|(Q(partner = request.user)&Q(status=10083))).order_by('-created_at')
+        orders = Order.objects.filter(Q(owner = request.user)|(Q(partner = request.user)&Q(status=10083))).annotate(
+                unopened_count=Count('orderdetail', filter=Q(orderdetail__is_opened=False, orderdetail__owner__role='moderator'))
+                ).order_by('-created_at')
 
     paginator = Paginator(orders, 15)
 

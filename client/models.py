@@ -34,6 +34,7 @@ class OrderDetail(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField(default='',blank=True)
     status = models.SmallIntegerField(default=1)
+    is_opened = models.BooleanField(blank=True,null=True,default=False)
     file = models.FileField(upload_to='client/order/',blank=True,null=True)
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True)
