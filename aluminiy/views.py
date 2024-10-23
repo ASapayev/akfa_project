@@ -15,7 +15,7 @@ from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_r
 import os
 from order.models import Order
 import random
-from aluminiytermo.utils import create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct,anodirovaka_check
+from aluminiytermo.utils import create_characteristika,create_characteristika_utils,characteristika_created_txt_create,check_for_correct
 from aluminiytermo.models import CharUtilsThree,Characteristika
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
@@ -2859,7 +2859,7 @@ def product_add_second_org(request,id):
                               name_tip_pokr = 'Белый'
                         elif 'MF' in df_new['Наклейка'][key]:
                               name_tip_pokr = 'Неокрашенный'
-                        elif anodirovaka_check(ANODIROVKA_CODE,df_new['Наклейка'][key]):
+                        elif str(df_new['Наклейка'][key].split(' ')[2]).startswith("150"):
                               name_tip_pokr = 'Анодированный'
                         else:
                               name_tip_pokr = 'Окрашенный'

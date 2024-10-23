@@ -2023,7 +2023,9 @@ def product_add_second_org(request,id):
                               name_tip_pokr = 'Белый'
                         elif 'MF' in df_new['K-Комбинирования'][key]:
                               name_tip_pokr = 'Неокрашенный'
-                        elif anodirovaka_check(ANODIROVKA_CODE,df_new['K-Комбинирования'][key]):
+                        # elif anodirovaka_check(ANODIROVKA_CODE,df_new['K-Комбинирования'][key]):
+                        #       name_tip_pokr = 'Анодированный'
+                        elif str(df_new['K-Комбинирования'][key].split(' ')[2]).startswith("150"):
                               name_tip_pokr = 'Анодированный'
                         else:
                               name_tip_pokr = 'Окрашенный'
@@ -3151,7 +3153,9 @@ def product_add_second_org(request,id):
                                     name_tip_pokr = 'Белый'
                               elif 'MF' in df_new['Наклейка'][key]:
                                     name_tip_pokr = 'Неокрашенный'
-                              elif anodirovaka_check(ANODIROVKA_CODE,df_new['Наклейка'][key]):
+                              # elif anodirovaka_check(ANODIROVKA_CODE,df_new['Наклейка'][key]):
+                              #       name_tip_pokr = 'Анодированный'
+                              elif str(df_new['Наклейка'][key].split(' ')[2]).startswith("150"):
                                     name_tip_pokr = 'Анодированный'
                               else:
                                     name_tip_pokr = 'Окрашенный'
