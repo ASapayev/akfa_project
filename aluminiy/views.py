@@ -69,6 +69,68 @@ def add_length_profile(request):
       }
       return render(request,'price/add.html',context)
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1','razlovka','only_razlovka'])
+def download_all_bazaprofiles(request):
+
+      records = AluProfilesData.objects.all()
+
+      data_list = [
+            [],[],[],[],
+            [],[],[],[],
+            [],[],[],[],
+            [],[],[],[],
+            [],[]
+      ]
+      for record in records:
+            if record.data:
+                  data_list[0].append(record.data.get('BAZA', ''))
+                  data_list[1].append(record.data.get('Объем', ''))
+                  data_list[2].append(record.data.get('Высота', ''))
+                  data_list[3].append(record.data.get('Ширина', ''))
+                  data_list[4].append(record.data.get('Артикул', ''))
+                  data_list[5].append(record.data.get('Сегмент', ''))
+                  data_list[6].append(record.data.get('Система', ''))
+                  data_list[7].append(record.data.get('Компонент', ''))
+                  data_list[8].append(record.data.get('Комбинация', ''))
+                  data_list[9].append( record.data.get('Тип профиля', ''))
+                  data_list[10].append(record.data.get('Без наклейки', ''))
+                  data_list[11].append(record.data.get('Код наклейки', ''))
+                  data_list[12].append(record.data.get('Удел.вес за м', ''))
+                  data_list[13].append(record.data.get('Product description - RUS', ''))
+                  data_list[14].append(record.data.get('Тип Комбинация', ''))
+                  data_list[15].append(record.data.get('Длина дел отход', ''))
+                  data_list[16].append(record.data.get('Полый и Фасонный', ''))
+                  data_list[17].append( record.data.get('Ссылка для чертежей', ''))
+      
+      data_entry = {
+            'BAZA': data_list[0],
+            'Объем': data_list[1],
+            'Высота': data_list[2],
+            'Ширина': data_list[3],
+            'Артикул': data_list[4],
+            'Сегмент': data_list[5],
+            'Система': data_list[6],
+            'Компонент': data_list[7],
+            'Комбинация': data_list[8],
+            'Тип профиля':data_list[9],
+            'Без наклейки': data_list[10],
+            'Код наклейки': data_list[11],
+            'Удел.вес за м': data_list[12],
+            'Product description - RUS': data_list[13],
+            'Тип Комбинация': data_list[14],
+            'Длина дел отход': data_list[15],
+            'Полый и Фасонный': data_list[16],
+            'Ссылка для чертежей':data_list[17]
+            }
+      data = pd.DataFrame(data_entry)
+      data = data.replace('nan','')
+      data = data.replace('0','')
+      
+      res = download_bs64([data,],'SAPCODE')
+      return res
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator',])
 def edit_currency(request):

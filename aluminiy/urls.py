@@ -45,6 +45,7 @@ path('list-bazaprofile',views.list_bazaprofiley,name='list_bazaprofiley'),
 path('delete-bazaprofile/<int:id>',views.delete_bazaprofiley,name='delete_bazaprofiley'),
 path('edit-bazaprofile/<int:id>',views.edit_bazaprofiley,name='edit_bazaprofiley'),
 path('get-bazaprofile',views.get_bazaprofiley,name='get_bazaprofiley'),
+path('download-bazaprofiles',views.download_all_bazaprofiles,name='download_bazaprofiley_all'),
 
 
 ]
