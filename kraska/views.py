@@ -43,8 +43,8 @@ def get_or_add_option(request):
     elif request.method == 'POST':
         # This part handles adding a new option if it doesn't exist
         new_option = request.POST.get('new_option', '')
-        print(request.POST,'request option')
-        print(new_option,'new option')
+        # print(request.POST,'request option')
+        # print(new_option,'new option')
         
         if new_option:
             # Save the new option in your model
@@ -500,7 +500,7 @@ def product_add_second_org_kraska(request,id):
     return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','kraska'])
 def file_upload_for_kraska(request):
     if request.method == 'POST':
         form = NormaKraskaFileClientForm(request.POST, request.FILES)
