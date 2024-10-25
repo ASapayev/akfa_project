@@ -3394,7 +3394,7 @@ def characteristika_created_txt_create_1301(datas):
     ddf2 = pd.DataFrame(new_date)
     ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
     ddf2 =ddf2.replace('XXXXXXXXXX','')
-    ddf2.to_excel(pathtext6,index=False,engine='openpyxl')
+    ddf2.to_excel(pathtext6,index=False)
 
  
     file_path =f'{pathzip}.zip'
