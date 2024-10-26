@@ -83,8 +83,8 @@
             <div class="div-13">
                 <div class="div-14 active_menu menu" onclick="menu_change(this,'alumin')">Алюминиевый профиль</div>
                 <div class="div-15 menu" style="cursor: pointer!important;;" onclick="menu_change(this,'pvc')">ПВХ профиль</div>
-                <div class="div-16 menu" onclick="menu_change(this,'acs_uz')">Аксессуары UZ</div>
-                <div class="div-17 menu" onclick="menu_change(this,'acs_import')">Аксессуары Import</div>
+                <div class="div-16 menu" onclick="menu_change(this,'acs_uz')">Аксессуары УЗ</div>
+                <div class="div-17 menu" onclick="menu_change(this,'acs_import')">Аксессуары импорт</div>
                 <div class="div-18 menu" onclick="menu_change(this,'akp')">АКП</div>
                 <div class="div-19 menu" onclick="menu_change(this,'radiator')">Секционные радиаторы</div>
             </div>
@@ -92,13 +92,13 @@
                 <div class="div-21 menu" onclick="menu_change(this,'prochiye')">Прочие товары вне SAP</div>
                 <div class="div-22 menu" onclick="menu_change(this,'prochiye_tms')">Прочие тмц, запчасти, услуги</div>
                 <div class="div-23 menu" onclick="menu_change(this,'bussines_partner')">Бизнес партнер, краска, епдм</div>
-                <div class="div-23 menu" onclick="menu_change(this,'acs_tex')">Акс UZ технопарк</div>
+                <div class="div-23 menu" onclick="menu_change(this,'acs_tex')">Акс УЗ технопарк</div>
                 <div class="div-23 menu" onclick="menu_change(this,'change_dat')">Изм. дан</div>
             </div>
-            <!-- <div class="div-20">
+            <div class="div-20">
                 <div class="div-21 menu" onclick="menu_change(this,'prochiye')">Краска,Епдм</div>
                 <div class="div-22 menu" onclick="menu_change(this,'prochiye_tms')"></div>
-            </div> -->
+            </div>
             </div>
             <div class="div-24">
             <div class="div-25" id="alumin">
@@ -137,7 +137,7 @@
                                 src="{% static 'assets/images/figma/a2.jpg'%}"
                                 class="img-6 custom-img"
                                 />
-                                <div class="div-33 card-title">Imzo</div>
+                                <div class="div-33 card-title">Имзо</div>
                                 <div class="div-34">
                                 <div class="div-35">
                                     <img
@@ -218,7 +218,7 @@
                                 src="{% static 'assets/images/figma/2.png'%}"
                                 class="img-6 custom-img"
                                 />
-                                <div class="div-33 card-title">Imzo</div>
+                                <div class="div-33 card-title">Имзо</div>
                                 <div class="div-34">
                                 <div class="div-35">
                                     <img
@@ -300,7 +300,7 @@
                                 src="{% static 'assets/images/figma/2.png'%}"
                                 class="img-6 custom-img"
                                 />
-                                <div class="div-33 card-title">Imzo</div>
+                                <div class="div-33 card-title">Имзо</div>
                                 <div class="div-34">
                                 <div class="div-35">
                                     <img
@@ -350,7 +350,7 @@
                               src="{% static 'assets/images/figma/a4.jpg'%}"
                               class="img-8 custom-img"
                               />
-                              <div class="div-39 card-title">ZAVOD</div>
+                              <div class="div-39 card-title">Завод</div>
                               <div class="div-40">
                               <div class="div-41">
                                   <img
@@ -373,39 +373,44 @@
             </div>
             <div class="div-25" id="acs_import" style="display: none;">
                 <div class="row">
-                    <div class="col-4">
-                        <!-- <div class="column" style="width: 100%;">
-                            <div class="div-26">
-                                <img
-                                loading="lazy"
-                                src="{% static 'assets/images/figma/1.png'%}"
-                                class="img-4"
-                                />
-                                <div class="div-27">Савдо</div>
-                                <div class="div-28">
-                                <div class="div-29">
-                                    <img
-                                    loading="lazy"
-                                    src="{% static 'assets/images/figma/date.svg' %}"
-                                    class="img-5"
-                                    />
-                                    <div class="div-30">{{ current_date|date:"d.m.Y" }}</div>
-                                </div>
-                                <div class="div-31">30 ta</div>
-                                </div>
-                            </div>
-                        </div> -->
-                    </div>
-                    <div class="col-4">
+                  <div class="col-2"></div>
+                  <div class="col-8">
+                    <div class="row">
+                      <div class="col-6">
+                          <div class="column-2" style="width: 100%;">
+                            <a href="{% url 'shablon_accessuar_import_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                              <div class="div-32">
+                                  <img
+                                  loading="lazy"
+                                  src="{% static 'assets/images/figma/2.png'%}"
+                                  class="img-6 custom-img"
+                                  />
+                                  <div class="div-33 card-title">Импорт</div>
+                                  <div class="div-34">
+                                  <div class="div-35">
+                                      <img
+                                      loading="lazy"
+                                      src="{% static 'assets/images/figma/date.svg' %}"
+                                      class="img-7"
+                                      />
+                                      <div class="div-36">{{ current_date|date:"d.m.Y" }}</div>
+                                  </div>
+                                  <div class="div-37">30 ta</div>
+                                  </div>
+                              </div>
+                            </a>
+                          </div>
+                      </div>
+                      <div class="col-6">
                         <div class="column-2" style="width: 100%;">
-                          <a href="{% url 'shablon_accessuar_import_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
+                          <a href="{% url 'shablon_acs_texnopark_detail' %}" style="text-decoration: none;color: rgba(34, 34, 34, 1);" >
                             <div class="div-32">
                                 <img
                                 loading="lazy"
                                 src="{% static 'assets/images/figma/2.png'%}"
                                 class="img-6 custom-img"
                                 />
-                                <div class="div-33 card-title">Аксессуар Импорт</div>
+                                <div class="div-33 card-title">Технопарк</div>
                                 <div class="div-34">
                                 <div class="div-35">
                                     <img
@@ -421,30 +426,11 @@
                           </a>
                         </div>
                     </div>
-                    <div class="col-4">
-                      <!-- <div class="column-3" style="width: 100%;">
-                        <div class="div-38">
-                            <img
-                            loading="lazy"
-                            src="{% static 'assets/images/figma/3.png'%}"
-                            class="img-8"
-                            />
-                            <div class="div-39">Экспорт</div>
-                            <div class="div-40">
-                            <div class="div-41">
-                                <img
-                                loading="lazy"
-                                src="{% static 'assets/images/figma/date.svg' %}"
-                                class="img-9"
-                                />
-                                <div class="div-42">{{ current_date|date:"d.m.Y" }}</div>
-                            </div>
-                            <div class="div-43">30 ta</div>
-                            </div>
-                        </div>
-                      </div> -->
-                    </div>
+                  </div>
+                  </div>
+                  <div class="col-2"></div>
                 </div>
+                
             </div>
             <div class="div-25" id="akp" style="display: none;">
                 <div class="row">
@@ -535,7 +521,7 @@
                                   src="{% static 'assets/images/figma/1.png'%}"
                                   class="img-4 custom-img"
                                   />
-                                  <div class="div-27 card-title">Радиатор экспорт</div>
+                                  <div class="div-27 card-title">Экспорт</div>
                                   <div class="div-28">
                                   <div class="div-29">
                                       <img
@@ -560,7 +546,7 @@
                                   src="{% static 'assets/images/figma/2.png'%}"
                                   class="img-6 custom-img"
                                   />
-                                  <div class="div-33 card-title">Радиатор</div>
+                                  <div class="div-33 card-title">Савдо</div>
                                   <div class="div-34">
                                   <div class="div-35">
                                       <img
