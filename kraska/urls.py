@@ -11,7 +11,7 @@ urlpatterns = [
     ##########END ##########
 
     ######## NORMA ############
-    path('file-upload-kraska',views.full_update_norm,name='norma_file_upload_kraska7'),
+    path('file-upload-kraska-norma',views.full_update_norm,name='norma_file_upload_kraska7'),
     path('kombinirovaniy-process',views.find_norma,name='kombinirovaniy_process_kraska7'),
 
     path('show-siryo',views.show_siryo,name='show_siryo_kraska'),
