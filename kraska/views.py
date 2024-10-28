@@ -500,7 +500,7 @@ def product_add_second_org_kraska(request,id):
     return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','kraska'])
+@allowed_users(allowed_roles=['admin','moderator'])
 def file_upload_for_kraska(request):
     if request.method == 'POST':
         form = NormaKraskaFileClientForm(request.POST, request.FILES)
@@ -516,7 +516,7 @@ def file_upload_for_kraska(request):
     return render(request,'universal/main.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka','kraska'])
+@allowed_users(allowed_roles=['admin','moderator','only_razlovka','user1','razlovka'])
 def file_list_org_kraska(request):
   files = KraskaFileClient.objects.filter(generated =False).order_by('-created_at')
   context ={'files':files,
