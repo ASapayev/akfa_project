@@ -2438,17 +2438,20 @@ def product_add_second_org_radiator(request,id):
         df_new_aurora['PK - Pokraska'][key] = 'PK-'+str(df['Модель'][key]).capitalize()+' ' +df['Цвет'][key]
         df_new_aurora['7 - Upakovka'][key] = str(df['Краткий текст'][key]).upper().replace('AURORA','Aurora')
         
-        
-        if ((row['Название'] == 'nan') or (row['Название'] == '')):
-            online_savdo_name = ''
-        else:
-            online_savdo_name = row['Название']
+        online_savdo_name = ''
+        if 'Название' in row:
+            if ((row['Название'] == 'nan') or (row['Название'] == '')):
+                online_savdo_name = ''
+            else:
+                online_savdo_name = row['Название']
             
-            
-        if ((row['Online savdo ID'] == 'nan') or (row['Online savdo ID'] == '')):
-            id_savdo = 'XXXXX'
-        else:
-            id_savdo = str(row['Online savdo ID']).replace('.0','')
+        id_savdo = 'XXXXX'
+
+        if 'Online savdo ID' in row:   
+            if ((row['Online savdo ID'] == 'nan') or (row['Online savdo ID'] == '')):
+                id_savdo = 'XXXXX'
+            else:
+                id_savdo = str(row['Online savdo ID']).replace('.0','')
 
         
 
