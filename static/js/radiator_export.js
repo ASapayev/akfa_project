@@ -137,6 +137,7 @@ function front_piece(start=1,end=6){
                 <option value="PIUMA">PIUMA</option>
                 <option value="PORTOFINO">PORTOFINO</option>
                 <option value="SIRA">SIRA</option>
+                <option value="MONZA">MONZA</option>
                 
             </select>
             </div>
