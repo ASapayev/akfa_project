@@ -821,6 +821,7 @@ def lenght_generate_org(request,id):
           chast_val = AluProfilesData.objects.filter(data__icontains=row['SAP код'].split('-')[0])[:1].get().data['Длина дел отход']
           # print(chast_val,'valll')
           if chast_val !='0':
+            df_org['Длина Дел.отхода'][key] =chast_val
             chast = int(int(float(chast_val))/500)
           else:
             continue
@@ -972,6 +973,17 @@ def get_item(dictionary, key):
 @register.filter
 def filename_from_url(url):
     return os.path.basename(url)
+
+
+@register.filter
+def to_int(value):
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return 0
+    
+
+  
 
 @register.filter(name='split_text')
 def split_text(value):
