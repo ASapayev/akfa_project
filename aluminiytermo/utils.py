@@ -16,6 +16,8 @@ import math
 import zipfile
 from imzo.models import ExcelFilesImzo
 from norma.models import Norma
+from decimal import Decimal, ROUND_HALF_UP
+
 
 def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     now = datetime.now()
@@ -66,13 +68,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
 
     for key , row in datas.iterrows():
 
-        # if not LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
-            # LengthOfProfile(
-            #     artikul = row['ch_article'],
-            #     length = row['Длина'],
-            #     ves_za_shtuk = row['Общий вес за штуку'],
-            #     ves_za_metr = row['Удельный вес за метр']
-            # ).save()
+       
         dlinniy_text_zero[0].append('1')
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
         dlinniy_text_zero[2].append(row['Польное наименование SAP'])
@@ -2574,7 +2570,10 @@ def create_characteristika(items):
             wms_height = item['wms_height'],
             group_prise = item['group_prise'],
             )
-        character.save()
+        try:
+            character.save()
+        except:
+            continue
         
         if character.sap_code =='nan':
             character.sap_code=''
@@ -2933,8 +2932,14 @@ def create_characteristika_utils(items):
         df[51].append(ch_surface_treatment_export)
         sap_kode =item['material'].split('-')[0]
         df[52].append('')
-        df[53].append(item['nazvaniye_export'])
-        df[54].append(item['online_savdo_name'])
+        try:
+            df[53].append(item['nazvaniye_export'])
+        except:
+            df[53].append('')
+        try:
+            df[54].append(item['online_savdo_name'])
+        except:
+            df[54].append('')
 
         
     dat = {
@@ -4554,8 +4559,8 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     d1['WERKS']=umumiy_without_duplicate1201[34]
     d1['BESKZ']=umumiy_without_duplicate1201[7]
     d1['SPART']=umumiy_without_duplicate1201[8]
-    d1['BRGEW']=[str(round(float(k1.replace(',','.')),3)).replace('.',',') for k1 in umumiy_without_duplicate1201[9]]
-    d1['NTGEW']=[str(round(float(k2.replace(',','.')),3)).replace('.',',') for k2 in umumiy_without_duplicate1201[10]]
+    d1['BRGEW']=[round_for_ves(float(k1.replace(',','.'))).replace('.',',') for k1 in umumiy_without_duplicate1201[9]]
+    d1['NTGEW']=[round_for_ves(float(k2.replace(',','.'))).replace('.',',') for k2 in umumiy_without_duplicate1201[10]]
     d1['GEWEI']=umumiy_without_duplicate1201[11]
     d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
     
@@ -4864,10 +4869,9 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
                     else:
                         new_ll_55[3].append('')
 
-    header55='MATNR\tWERKS\tLGORT\tRAUBE'
+    header55='MATNR\tRAUBE'
     d55={}
-    d55['MATNR']=new_ll_55[0] 
-    d55['WERKS']=new_ll_55[1]  
+    d55['MATNR']=new_ll_55[0]  
     d55['RAUBE']=new_ll_55[3]
     df55= pd.DataFrame(d55)
     df55=df55.drop_duplicates()
@@ -5279,13 +5283,45 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
 
     for key , row in datas.iterrows():
 
-        if not LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
+        if not LengthOfProfile.objects.filter((Q(artikul=row['ch_article'])|Q(component=row['ch_article']))).exists():
+            
+            
+            ves_za_metr={
+                        "Неокрашенный": "",
+                        "Окрашенный": "",
+                        "Сублимированный": "",
+                        "Анодированный": "",
+                        "Ламинированный": "",
+                        "Белый": ""
+                    }
+
+
+            ves_za_metr[row['Тип покрытия']] =row['Удельный вес за метр']
+            
+            bazaprofiley = AluProfilesData.objects.filter(Q(data__Артикул =row['ch_article'])|Q(data__Компонент=row['ch_article']))[:1].get()
+            artikul = bazaprofiley.data['Артикул']
+            component = bazaprofiley.data['Компонент']
+
+
             LengthOfProfile(
-                artikul = row['ch_article'],
-                length = row['Длина'],
-                ves_za_shtuk = row['Общий вес за штуку'],
-                ves_za_metr = row['Удельный вес за метр']
+                artikul = artikul,
+                component=component,
+                ves_za_metr = ves_za_metr
             ).save()
+        else:
+            length_of_profile = LengthOfProfile.objects.filter((Q(artikul=row['ch_article'])|Q(component=row['ch_article'])))[:1].get()
+            
+            ves_za_metr =length_of_profile.ves_za_metr
+
+            
+            if row['Тип покрытия'] in ves_za_metr and ves_za_metr[row['Тип покрытия']]!='' and ves_za_metr[row['Тип покрытия']]!='0':
+                pass
+            else:
+                ves_za_metr[row['Тип покрытия']] =row['Удельный вес за метр']
+                
+            length_of_profile.ves_za_metr = ves_za_metr
+            length_of_profile.save()
+
         dlinniy_text_zero[0].append('1')
         dlinniy_text_zero[1].append(row['SAP код S4P 100'])
         dlinniy_text_zero[2].append(row['Польное наименование SAP'])
@@ -6040,8 +6076,8 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         d1['WERKS']=umumiy_without_duplicate1201[34] + datas_1112[2]['WERKS']
         d1['BESKZ']=umumiy_without_duplicate1201[7] + datas_1112[2]['BESKZ']
         d1['SPART']=umumiy_without_duplicate1201[8]+ datas_1112[2]['SPART']
-        d1['BRGEW']=[str(round(float(k1.replace(',','.')),3)).replace('.',',') if isinstance(k1,str) else str(round(k1,3)).replace('.',',') for k1 in (umumiy_without_duplicate1201[9])]+ datas_1112[2]['BRGEW']
-        d1['NTGEW']=[str(round(float(k2.replace(',','.')),3)).replace('.',',') for k2 in (umumiy_without_duplicate1201[10])]+ datas_1112[2]['NTGEW']
+        d1['BRGEW']=[round_for_ves(float(k1.replace(',','.'))).replace('.',',') if isinstance(k1,str) else round_for_ves(k1).replace('.',',') for k1 in (umumiy_without_duplicate1201[9])]+ datas_1112[2]['BRGEW']
+        d1['NTGEW']=[round_for_ves(float(k2.replace(',','.'))).replace('.',',') for k2 in (umumiy_without_duplicate1201[10])]+ datas_1112[2]['NTGEW']
         d1['GEWEI']=umumiy_without_duplicate1201[11]+ datas_1112[2]['GEWEI']
         d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]+ datas_1112[2]['MTPOS_MARA']
         
@@ -6639,8 +6675,8 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         d1['WERKS']=umumiy_without_duplicate1201[34]
         d1['BESKZ']=umumiy_without_duplicate1201[7]
         d1['SPART']=umumiy_without_duplicate1201[8]
-        d1['BRGEW']=[str(round(float(k1.replace(',','.')),3)).replace('.',',') if isinstance(k1,str) else str(round(k1,3)).replace('.',',') for k1 in umumiy_without_duplicate1201[9]]
-        d1['NTGEW']=[str(round(float(k2.replace(',','.')),3)).replace('.',',') for k2 in umumiy_without_duplicate1201[10]]
+        d1['BRGEW']=[round_for_ves(float(k1.replace(',','.'))).replace('.',',') if isinstance(k1,str) else round_for_ves(k1).replace('.',',') for k1 in umumiy_without_duplicate1201[9]]
+        d1['NTGEW']=[round_for_ves(float(k2.replace(',','.'))).replace('.',',') for k2 in umumiy_without_duplicate1201[10]]
         d1['GEWEI']=umumiy_without_duplicate1201[11]
         d1['MTPOS_MARA']=umumiy_without_duplicate1201[12]
         
@@ -7174,6 +7210,9 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
 
 
 
+def round_for_ves(a):
+    return str(Decimal(str(a)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP))
+
 
 def create_folder(parent_dir,directory):
     path =os.path.join(parent_dir,directory)
@@ -7193,6 +7232,8 @@ def anodirovaka_check(items,data):
 def check_for_correct(items,filename='termo'):
     aluprofile = []
     
+    # length_of_profile =[]
+
     for key,row in items.iterrows():
         if row['Артикул'] !='nan':
        
