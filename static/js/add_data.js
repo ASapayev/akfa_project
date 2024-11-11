@@ -189,18 +189,17 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 130px; font-size:12px; padding-right:0px;z-index:0" id='tip_profiley`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required disabled>
-                <option  selected></option>
             </select>
             </div>
         </td>
        <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 100px; font-size:10px;height:27px;z-index:0; " id='id_savdo`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled></input>
+            <input type='text' class=" form-control " style=" width: 100px; font-size:10px;height:27px;z-index:0; " id='zagolovok`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled></input>
             </div>
         </td>
         <td >
             <div class="input-group input-group-sm mb-1">
-            <input type='text' class=" form-control " style="border-color:red; width: 200px; font-size:10px;height:27px;z-index:0; " id='naz_savdo`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled></input>
+            <input type='text' class=" form-control " style=" width: 200px; font-size:10px;height:27px;z-index:0; " id='znacheniye`+String(i)+`'  onkeyup='create_kratkiy_tekst(`+String(i)+`)' disabled></input>
             </div>
         </td>
 
@@ -269,19 +268,28 @@ function removeQuotesFromStartAndEnd(str) {
 function select_condition(id){
     var tip_zayavki = $('#tip_zayavki'+id).val()
     var tip_profiley =$('#tip_profiley'+id)
+    var zagolovok =$('#zagolovok'+id)
+    var znacheniye =$('#znacheniye'+id)
+    var comment =$('#comment'+id)
 
     // var naz_savdo =$('#naz_savdo'+id)
     // var sapcode =$('#sapcode'+id)
+    zagolovok.val('')
+    znacheniye.val('')
+    comment.val('')
    
+    zagolovok.css('border-color','red')
+    znacheniye.css('border-color','red')
 
     tip_profiley.empty();
 
     data_base[id] = new BasePokritiya()
     data_base[id].id =1
-    data_base[id].tip_zayavki ='Алюминиевый профиль'
+    data_base[id].tip_zayavki = tip_zayavki
 
     if(tip_zayavki =='Алюминиевый профиль'){
         
+        tip_profiley.append('<option value="" selected></option>');
         tip_profiley.append('<option value="Савдо">Савдо</option>');
         tip_profiley.append('<option value="Имзо">Имзо</option>');
         tip_profiley.append('<option value="Экспорт">Экспорт</option>');
@@ -290,8 +298,12 @@ function select_condition(id){
         
     }
     if(tip_zayavki =='ПВХ профиль'){
-        bei.css('display','block')
-        
+        tip_profiley.append('<option value="" selected></option>');
+        tip_profiley.append('<option value="Савдо">Савдо</option>');
+        tip_profiley.append('<option value="Имзо">Имзо</option>');
+        tip_profiley.append('<option value="Экспорт">Экспорт</option>');
+        tip_profiley.attr('disabled',false);
+
        
     }
     if(tip_zayavki =='Аксессуары УЗ'){

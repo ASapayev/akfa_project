@@ -27,7 +27,7 @@
             <h4 class="card-title">Вес</h4>
             <div class="table-responsive">
               {%csrf_token%}
-              <table class="table">
+              <table class="table" id="my-table">
                       <thead>
                         <tr id="headers">
                           <th>
@@ -434,6 +434,8 @@ function submit_ves() {
   function remove_me(elem){
       elem.parentElement.parentElement.remove()
   }
+
+  
   
   function put_bazas(){
     var lenth_of_profiles = document.querySelectorAll('.tr_all')
