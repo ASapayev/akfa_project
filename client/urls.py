@@ -46,7 +46,8 @@ urlpatterns = [
 
 
     ########### Epdm ##################
-    path('shablon-epd-detail',views.shablon_epdm_detail,name='shablon_epdm_detail'),
+    path('shablon-epdm-detail',views.shablon_epdm_detail,name='shablon_epdm_detail'),
+    path('shablon-epdm-zavod-detail',views.shablon_epdm_zavod_detail,name='shablon_epdm_zavod_detail'),
 
 
 

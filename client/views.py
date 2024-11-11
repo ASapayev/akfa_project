@@ -2358,6 +2358,14 @@ def shablon_epdm_detail(request):
 
 @login_required(login_url='/accounts/login/')
 @customer_only
+def shablon_epdm_zavod_detail(request):
+    context ={
+        'status_proccess':'new'
+    }
+    return render(request,'client/shablonlar/epdm_zavod.html',context)
+
+@login_required(login_url='/accounts/login/')
+@customer_only
 def shablon_kraska_detail(request):
     context ={
         'status_proccess':'new'
