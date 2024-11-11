@@ -1,0 +1,129 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="content-wrapper">
+ 
+  
+  <div class="row ">
+    <div class="col-12 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Заявка Статус</h4>
+          {%if orders %}
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>
+                    <div class="form-check form-check-muted m-0">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input">
+                      </label>
+                    </div>
+                  </th>
+                  <th> Имя  </th>
+                  <th> Заявка № </th>
+                  <th> Title </th>
+                  <th>Статус</th>
+                  <th>Тип</th>
+                  <th> Start Date </th>
+                  <th> Действие </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order in orders %}
+                <tr>
+                  <td>
+                    <div class="form-check form-check-muted m-0">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input">
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <img src="{{order.owner.userprofile.profile_picture.url}}" alt="image" />
+                    <span class="pl-2">{{order.owner}}</span>
+                  </td>
+                  <td> {{order.id | order_number_format}} </td>
+                  <td> {{order.title |split_text}} </td>
+                  {%if order.work_type == 10 %}
+                  <td><span class="text-success">{{order.get_work_type_display}}</span></td>
+                  {%else%}
+                    {%if 'LACK' in order.get_work_type_display %}
+                    <td><span class="text-danger">{{order.get_work_type_display}}</span></td>
+                    {%else%}
+                    <td><span class="text-info">{{order.get_work_type_display}}</span></td>
+                    {%endif%}
+                  {%endif%}
+                  <td> {{order.get_order_type_display}} </td>
+                  <td> {{order.created_at |date:"d-m-Y H:i"}} </td>
+                  
+                  <td>
+                    
+                    <div >
+                      
+                      <a class="btn btn-success"  href="{% url 'order_detail_zavod' order.id %}"><i class="mdi mdi-eye"></i>Detail</a>
+                      
+                      
+                    </div>
+                  </td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+          {%else%}
+          <div class="col-md-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Заявки ещё нет.</h4>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="d-flex justify-content-between">
+      <div class="pagination p-2">
+        <span class="step-links">
+          <ul class="pagination"  style="background-color: azure;">
+              {% if orders.has_previous %}
+              <li class="page-item" ><a class="page-link"  style="background-color: azure;" href="?page={{ orders.previous_page_number }}{%if search%}&search={{search}}{%endif%}">Previous</a></li>
+                  {% if orders.number > 3 %}
+                      <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page=1{%if search%}&search={{search}}{%endif%}">1</a></li>
+                      {% if orders.number > 4 %}
+                      <li class="page-item"  style="background-color: azure;"> <span style="color: black;">...</span></li>
+                      {% endif %}
+                  {% endif %}
+              {% endif %}
+
+              {% for num in orders.paginator.page_range %}
+                  {% if orders.number == num %}
+                      <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                  {% elif num > orders.number|add:'-3' and num < orders.number|add:'3' %}
+                      <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ num }}{%if search%}&search={{search}}{%endif%}">{{ num }}</a></li>
+                  {% endif %}
+              {% endfor %}
+
+              {% if orders.has_next %}
+                  {% if orders.number < orders.paginator.num_pages|add:'-3' %}
+                  <li class="page-item"  style="background-color: azure;" > <span style="color: black;">...</span></li>
+                  <li class="page-item"><a class="page-link"  style="background-color: azure;"  href="?page={{ orders.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ orders.paginator.num_pages }}</a></li>
+                  {% elif orders.number < orders.paginator.num_pages|add:'-2' %}
+                  <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ orders.paginator.num_pages }}{%if search%}&search={{search}}{%endif%}">{{ orders.paginator.num_pages }}</a></li>
+                  {% endif %}
+                  
+                  <li class="page-item"><a class="page-link"  style="background-color: azure;" href="?page={{ orders.next_page_number }}{%if search%}&search={{search}}{%endif%}">Next Page »</a></li>
+                 
+              {% endif %}
+            </ul>
+        </span>
+      </div>
+  </div>
+</div>
+{% endblock %}

@@ -13,10 +13,36 @@ from kraska.models import OrderKraska
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user1'])
+def index_zavod(request):
+    user = request.user
+    if user.role in ['user1','user_accessuar']:
+        current_orders = Order.objects.filter(alumin_wrongs = request.user,work_type =3).order_by('-created_at')
+
+    else:
+        current_orders = Order.objects.all().order_by('-created_at')
+
+
+    paginator = Paginator(current_orders, 15)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+
+
+    context ={
+        'orders':page_obj
+    }
+    return render(request,'dashboard/workers_zavod.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def index(request):
     user = request.user
-    if user.role == 'user1':
-        current_orders = Order.objects.filter(work_type__gte = 6).order_by('-created_at')
+    if user.role in ['user1','user_accessuar']:
+        current_orders = Order.objects.filter(alumin_wrongs = request.user,work_type =3).order_by('-created_at')
 
     else:
         current_orders = Order.objects.all().order_by('-created_at')
@@ -138,6 +164,24 @@ def index_pvc(request):
     }
     return render(request,'dashboard/workers_pvc.html',context)
 
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','user1'])
+def order_detail_zavod(request,id):
+    order = Order.objects.get(id = id)
+    
+    context ={
+        'order':order
+    }
+    paths =  order.paths
+    
+    if order.work_type == 5:
+        workers = User.objects.filter(role = 'moderator')
+        context['workers'] = workers
+
+    for key,val in paths.items():
+        context[key] = val
+    return render(request,'order/order_detail_zavod.html',context)
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','user1'])

@@ -7,6 +7,7 @@
       <div class="page-header">
         <h3 class="page-title"> {{section}} </h3>
         <nav aria-label="breadcrumb">
+          <a href="{%url 'upload_ves_aluminiy' %}" class="btn btn-primary"><i class="bi bi-cloud-arrow-up-fill"></i> UPLOAD FROM FILE</a>
         </nav>
       </div>
       <div class="row ">
@@ -19,28 +20,27 @@
                     {%csrf_token%}
                 <table class="table">
                   <thead>
-                    <tr >
+                    <tr id="headers">
                       <th >
                         #
                       </th>
-                      <th > SAP CODE </th>
-                      <th > LENGTH</th>
-                      <th > VES ZA SHTUK </th>
-                      <th > VES ZA METR </th>
+                      <th > Artikul </th>
+                      <th > Component </th>
+                      <!-- <th > LENGTH</th> -->
                     </tr>
                   </thead>
                   <tbody>
                     
-                    <tr >
+                    <tr id="metr-fields">
                       <td>
                         1
                       </td>
                       <td>
                         <span class="pl-2">{{form.artikul}}</span>
                       </td>
-                      <td>{{form.length}} </td>
-                      <td>{{form.ves_za_shtuk}} </td>
-                      <td>{{form.ves_za_metr}} </td>
+                      <td>{{form.component}} </td>
+                      
+                      
                     </tr>
                     
                   </tbody>
@@ -64,6 +64,42 @@
    
   </div>
 
+<script>
+  
+    const defaultValuesMetr = {
+        "Неокрашенный": "",
+        "Окрашенный": "",
+        "Сублимированный": "",
+        "Анодированный": "",
+        "Ламинированный": "",
+        "Белый": ""
+    };
 
+    // Function to populate fields with default values
+    function populateFields() {
+
+        const headers = document.getElementById('headers');
+        const metrContainer = document.getElementById('metr-fields');
+
+        for (const key in defaultValuesMetr) {
+            const div = document.createElement('th');
+            div.innerHTML = `${key} (вес за метр)`;
+            headers.appendChild(div);
+        }
+
+        for (const key in defaultValuesMetr) {
+            const div = document.createElement('td');
+            div.innerHTML = `
+              <div>
+                <input type="text" style='width:70px' name="ves_za_metr[${key}]" value="" required>
+              </div>
+            `;
+            metrContainer.appendChild(div);
+        }
+    }
+
+    // Run the function when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', populateFields);
+</script>
 
 {% endblock %}

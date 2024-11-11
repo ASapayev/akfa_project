@@ -78,8 +78,7 @@
       </a>
       <div class="collapse" id="zayavki">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{% url 'order_list_for_moderator' %}" >New</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'order' %}" >Aluminiy</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'order_zavod_alum' %}" >Aluminiy</a></li>
           <!-- <li class="nav-item"> <a class="nav-link" href="{%url 'order_pvc'%}">Pvx</a></li>
           <li class="nav-item"> <a class="nav-link" href="{%url 'client_index'%}">Client</a></li> -->
         </ul>
@@ -186,7 +185,7 @@
       </div>
     </li>
     {%endif%}
-    {% if user_role == 'moderator'  or user_role == 'user1' or user_role == 'only_razlovka' or user_role == 'razlovka' or user_role == 'radiator' or user_role == 'kraska' or user_role == 'epdm' or user_role == 'universal_user'  %}
+    {% if user_role == 'moderator'  or user_role == 'user1' or user_role == 'only_razlovka' or user_role == 'razlovka' or user_role == 'radiator' or user_role == 'kraska' or user_role == 'epdm' or user_role == 'universal_user' or user_role == 'matrix'  %}
       <li class="nav-item menu-items">
         {%if user_role == 'kraska' or user_role == 'universal_user' %}
         <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm-kraska" aria-expanded="false" aria-controls="ui-basic-norm-kraska">
@@ -253,6 +252,24 @@
             <li class="nav-item"> <a class="nav-link" href="{% url 'delete_texcarta_radiator'%}">Удалить <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">техкарты</span></a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'get_razlovka_radiator'%}">Найти <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">разловки</span></a></li>
  
+          </ul>
+        </div>
+        {%endif%}
+        {%if user_role == 'matrix' or user_role == 'universal_user' %}
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic-norm-matrix" aria-expanded="false" aria-controls="ui-basic-norm-matrix">
+          <span class="menu-icon">
+            <i class="mdi mdi-bowling"></i>
+          </span>
+          <span class="menu-title">Форм. матрих нормы</span>
+          <i class="menu-arrow"></i>
+        </a>
+
+        <div class="collapse" id="ui-basic-norm-matrix">
+          <ul class="nav flex-column sub-menu">
+            
+            <li class="nav-item"> <a class="nav-link" href="{% url 'norma_file_upload_matrix'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">норма</span> разловка</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'file_upload_matrix_tex'%}">Загрузка <span style="color:chocolate;font-weight: 500; padding: 5px;" class="">техкарта</span> файла</a></li>
+           
           </ul>
         </div>
         {%endif%}
@@ -430,10 +447,7 @@
       </a>
       <div class="collapse" id="online_savdo">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{% url 'upload_online_savdo' %}" >Созд. Мат (Online)</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'upload_sozdaniye' %}">Созд. Цена (Online)</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{%url 'upload_sozdaniye_sena' %}">Созд. Цена (SAP)</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{%url 'upload_sozdaniye_format' %}">Созд. Цена Форм(SAP)</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'upload_online_savdo' %}" >Созд (Online savdo)</a></li>
           <li class="nav-item"> <a class="nav-link" href="{%url 'upload_for_proverka' %}">Проверка</a></li>
           <li class="nav-item"> <a class="nav-link" href="{%url 'upload_file_for_preparing' %}">MERGING</a></li>
         </ul>

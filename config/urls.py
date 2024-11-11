@@ -23,6 +23,7 @@ urlpatterns = [
     path('radiator/',include('radiator.urls')),
     path('kraska/',include('kraska.urls')),
     path('epdm/',include('epdm.urls')),
+    path('matrix/',include('matrix.urls')),
     path('api/v1/',include('apis.urls')),
     
 

@@ -1,0 +1,493 @@
+{% extends 'base.html'%}
+
+
+{%block content %}
+<div class="content-wrapper">
+ 
+    {%if ves_status == 'process' %}
+    <div class="col-lg-12 grid-margin stretch-card" id="ves_za_metr_div">
+      <div class="card">
+        <div class="card-body">
+          <div class="row p-2">
+            <div class="col">
+              <h4 class="card-title">Вес</h4>
+            </div>
+            <div class="col-6">
+            </div>
+            <div class="col-2">
+              <a href="{%url 'upload_ves_aluminiy' %}" class="btn btn-info btn-sm"><i class="bi bi-cloud-arrow-up-fill"></i> UPLOAD FROM FILE</a>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col-2">
+              <button onclick="downloadTableAsExcel()" class="btn btn-primary btn-sm"><i class="bi bi-cloud-arrow-down-fill"></i> Download as Excel</button>
+            </div>
+          </div>
+          <form  id="myForm" >
+            <h4 class="card-title">Вес</h4>
+            <div class="table-responsive">
+              {%csrf_token%}
+              <table class="table">
+                      <thead>
+                        <tr id="headers">
+                          <th>
+                            #
+                          </th>
+                          <th>Artikul</th>
+                          <th>Component</th>
+                        <th>Неокрашенный</th><th>Окрашенный</th><th>Сублимированный</th><th>Анодированный</th><th>Ламинированный</th><th>Белый</th></tr>
+                      </thead>
+                      <tbody>
+                        {% for ves in profile_doesnot_exists %}
+                          <tr class="ves_class">
+                            <td>
+                              {{forloop.counter}}
+                            </td>
+                            <td>
+                              <span class="pl-2"><input type="text" name="artikul" maxlength="100" id="artikul{{forloop.counter}}" value="{{ves.artikul}}"></span>
+                            </td>
+                            <td><input type="text" name="component" maxlength="100" id="component{{forloop.counter}}" value="{{ves.component}}"> </td>
+                                
+                                
+                            <td>
+                              <div>
+                                {%if 'Неокрашенный' in ves.tip_pokritiya %}
+                                  <label for="" style="color: red;">*</label>
+                                {%endif%}
+                                <input type="text" style="width:70px" id="nekrash{{forloop.counter}}" value="{{ves.ves_za_metr.Неокрашенный}}"  {%if 'Неокрашенный' in ves.tip_pokritiya %} required {%endif%}>
+                              </div>
+                            </td>
+                            <td>
+                                <div>
+                                  {%if 'Окрашенный' in ves.tip_pokritiya %}
+                                    <label for="" style="color: red;">*</label>
+                                  {%endif%}
+                                  <input type="text" style="width:70px" id="okrash{{forloop.counter}}" value="{{ves.ves_za_metr.Окрашенный}}" {%if 'Окрашенный' in ves.tip_pokritiya %} required {%endif%}>
+                                </div>
+                            </td>
+                            <td>
+                              <div>
+                                {%if 'Сублимированный' in ves.tip_pokritiya %}
+                                  <label for="" style="color: red;">*</label>
+                                {%endif%}
+                                <input type="text" style="width:70px" id="sub{{forloop.counter}}"  value="{{ves.ves_za_metr.Сублимированный}}" {%if 'Сублимированный' in ves.tip_pokritiya %} required {%endif%}>
+                              </div>
+                            </td>
+                            <td>
+                              <div>
+                                {%if 'Анодированный' in ves.tip_pokritiya %}
+                                  <label for="" style="color: red;">*</label>
+                                {%endif%}
+                                <input type="text" style="width:70px" id="anod{{forloop.counter}}" value="{{ves.ves_za_metr.Анодированный}}" {%if 'Анодированный' in ves.tip_pokritiya %} required {%endif%}>
+                              </div>
+                            </td>
+                            <td>
+                              <div>
+                                {%if 'Ламинированный' in ves.tip_pokritiya %}
+                                  <label for="" style="color: red;">*</label>
+                                {%endif%}
+                                <input type="text" style="width:70px" id="lam{{forloop.counter}}" value="{{ves.ves_za_metr.Ламинированный}}" {%if 'Ламинированный' in ves.tip_pokritiya %} required {%endif%}>
+                              </div>
+                            </td>
+                            <td>
+                              <div>
+                                {%if 'Белый' in ves.tip_pokritiya %}
+                                  <label for="" style="color: red;">*</label>
+                                {%endif%}
+                                <input type="text" style="width:70px" id="beliy{{forloop.counter}}" value="{{ves.ves_za_metr.Белый}}" {%if 'Белый' in ves.tip_pokritiya %} required {%endif%}>
+                              </div>
+                            </td>
+                          </tr>
+                        {%endfor%}         
+                      </tbody>
+              </table>
+            </div>
+
+           
+              <label class="form-check-label p-1">Status change * </label>
+            
+            <br>
+            <select name="status" class="pb-1"  id="status_sel" required >
+              <option value="" selected></option>
+              <option value="10082">Отмена</option>
+              <option value="10084">Исправлен</option>
+            </select>
+            <br>
+            <input type="button" class="btn btn-success p-2" style="margin-top: 10px;" onclick="submit_ves()" value="SAVE">
+          </form>
+        </div>
+      </div>
+    </div>
+
+    {%endif%}
+
+</div>
+
+
+<script>
+
+function downloadTableAsExcel() {
+    const table = document.getElementById("my-table");
+    const wb = XLSX.utils.book_new();
+    const data = [];
+
+    // Extract header values
+    const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText.trim());
+    data.push(headers); // Push headers to data array
+
+    // Loop through each row
+    Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
+        const rowData = [];
+
+        // Push the row index
+        rowData.push(row.cells[0].innerText.trim());
+
+        // Collect input field values
+        const inputs = row.querySelectorAll('input[type="text"]');
+        inputs.forEach(input => {
+            rowData.push(input.value.trim()); // Push input values
+        });
+
+        // Push row data to data array
+        data.push(rowData);
+    });
+
+    // Create a worksheet from the data array
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    // Write the workbook and create a Blob object representing the data as an Excel file
+    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([wbout], { type: 'application/octet-stream' });
+    const url = URL.createObjectURL(blob);
+
+    // Create a download link
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = 'ves' + "_.xlsx";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+
+
+
+function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+function submit_ves() {
+  const form = document.getElementById('myForm');
+  var csrfToken = getCSRFToken();
+
+  var status_sel =$('#status_sel').val()
+
+  
+  if (!form.checkValidity()) {
+      // Show validation messages if needed
+      form.reportValidity();
+      return; // Prevent form submission
+  }
+
+ 
+  var ves_class =$('.ves_class');
+
+  var ves_list =[]
+  for(let i=1; i<ves_class.length+1; i++){
+    var artikul =$('#artikul'+i).val();
+    var component =$('#component'+i).val();
+    var nekrash =$('#nekrash'+i).val();
+    var okrash =$('#okrash'+i).val();
+    var sub =$('#sub'+i).val();
+    var anod =$('#anod'+i).val();
+    var lam =$('#lam'+i).val();
+    var beliy =$('#beliy'+i).val();
+
+    // console.log(artikul,component,nekrash,okrash,sub,anod,lam,beliy)
+    var ves_dict ={
+      'artikul':artikul,
+      'component':component,
+      'ves_za_metr':{
+        'Неокрашенный':nekrash,
+        'Окрашенный':okrash,
+        'Сублимированный':sub,
+        'Анодированный':anod,
+        'Ламинированный':lam,
+        'Белый':beliy
+      }
+    }
+    ves_list.push(ves_dict)
+  }
+  // console.log(ves_list,'veslist')
+  var myJsonelements = JSON.stringify(ves_list);
+  
+  $.ajax({
+          method: "POST",
+          url: "{% url 'save_ves_of_profile_single' order.id %}",
+          headers: { "X-CSRFToken": csrfToken },
+          data: {"data":myJsonelements,'status_sel':status_sel}
+        }).done(function( msg ) {
+          if (msg.saved ==true){
+              Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Successfuly saved!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              setInterval(function(){
+                window.location.href ='/order/aluminiy-zayavki-zavod'
+              }, 1.2);
+              
+              // var btn = document.getElementById('ves_za_metr_div');
+              // btn.style.display='none';
+              }else{
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'Something went wrong!'
+                    })
+
+              }
+          });
+}
+
+
+  function excel_file_load(){
+  
+      document.body.style.cursor='wait';
+  
+      $.ajax({
+          method: "POST",
+          url: "{% url 'excel_does_not_exists_add_simple' %}"
+          }).done(function( msg ) {
+          document.body.style.cursor='default';
+          if (msg.saved ==true){
+              Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Successfuly saved!',
+                  showConfirmButton: false,
+                  timer: 1500
+                  })
+          
+          }else{
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!'
+                  })
+  
+          }
+      });
+  }
+  
+  function artikul_component(){
+  
+      var new_char = document.querySelectorAll('.new_char_five');
+      var system,artikul,komponent,description,kombinatsiya;
+      var tip_combination,tip_profilya,visota,shirina,pol_fason,bez_nakleyki;
+      var kod_nakleyki,udal_ves,baza,link,dlina_del_otxod;
+
+      var default_exists = false;
+      var elements =[];
+  
+      for(let i=1; i < new_char.length+1; i++){
+          system = $('#system'+ String(i)).val();
+          artikul = $('#artikul'+ String(i)).val();
+          komponent = $('#komponent'+ String(i)).val();
+          description = $('#description'+ String(i)).val();
+          kombinatsiya = $('#kombinatsiya'+ String(i)).val();
+          tip_combination = $('#tip_combination'+ String(i)).val();
+          tip_profilya = $('#tip_profilya'+ String(i)).val();
+          visota = $('#visota'+ String(i)).val();
+          shirina = $('#shirina'+ String(i)).val();
+          pol_fason = $('#pol_fason'+ String(i)).val();
+          bez_nakleyki = $('#bez_nakleyki'+ String(i)).val();
+          kod_nakleyki = $('#kod_nakleyki'+ String(i)).val();
+          udal_ves = $('#udal_ves'+ String(i)).val();
+          baza = $('#baza'+ String(i)).val();
+          dlina_del_otxod = $('#dlina_del_otxod'+ String(i)).val();
+          link = $('#link'+ String(i)).val();
+         
+
+
+          if (system ==''){
+            default_exists = true;
+            break
+            }
+          if (description ==''){
+            default_exists = true;
+            break
+            }
+          
+          
+            if (kombinatsiya ==''){
+            default_exists = true;
+            break
+            }
+          if (tip_combination ==''){
+            default_exists = true;
+            break
+            }
+          if (tip_profilya ==''){
+            default_exists = true;
+            break
+            }
+          if (visota ==''){
+            default_exists = true;
+            break
+            }
+          if (shirina ==''){
+            default_exists = true;
+            break
+            }
+          if (pol_fason ==''){
+            default_exists = true;
+            break
+            }
+          if (bez_nakleyki ==''){
+            default_exists = true;
+            break
+            }
+          // if (kod_nakleyki ==''){
+          //   default_exists = true;
+          //   break
+          //   }
+          if (udal_ves ==''){
+            default_exists = true;
+            break
+            }
+          if (baza ==''){
+            default_exists = true;
+            break
+            }
+          if (link ==''){
+            default_exists = true;
+            break
+            }
+          
+          
+          var element ={
+            'Система' : system, 
+            'Артикул' : artikul, 
+            'Компонент' : komponent, 
+            'Product description - RUS' : description, 
+            'Комбинация' : kombinatsiya, 
+            'Тип Комбинация' : tip_combination, 
+            'Тип профиля' : tip_profilya, 
+            'Высота' : visota, 
+            'Ширина' : shirina, 
+            'Полый и Фасонный' : pol_fason, 
+            'Без наклейки' : bez_nakleyki, 
+            'Код наклейки' : kod_nakleyki, 
+            'Удел.вес за м' : udal_ves, 
+            'BAZA' : baza, 
+            'Ссылка для чертежей' : link, 
+            'Длина дел отход' : dlina_del_otxod, 
+            'Объем':visota +'x'+shirina,
+            }
+          if (element['Высота']&&element['Ширина']){
+            elements.push(element);
+          } 
+            
+          }
+  
+          if (default_exists){
+            Swal.fire({
+                title: 'Malumotlar to\'liq emas,qaytadan urining !!! ',
+                showDenyButton: true,
+              })
+            }else{
+              var myJsonelements = JSON.stringify(elements);
+  
+              $.ajax({
+                  method: "POST",
+                  url: "{% url 'artikul_component_aluminiy' %}",
+                  data: {"data":myJsonelements}
+                }).done(function( msg ) {
+                  if (msg.saved ==true){
+                      Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'Successfuly saved!',
+                          showConfirmButton: false,
+                          timer: 1500
+                        })
+                      var btn = document.getElementById('char_four');
+                      btn.setAttribute('disabled','True');
+                      }else{
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Something went wrong!'
+                            })
+  
+                      }
+                  });
+          }        
+  }
+ 
+  function remove_me(elem){
+      elem.parentElement.parentElement.remove()
+  }
+  
+  function put_bazas(){
+    var lenth_of_profiles = document.querySelectorAll('.tr_all')
+    
+    for(let i=1; i<=lenth_of_profiles.length; i++){
+      var element = $('#artikul'+i)
+      var status = element.attr('data-status')
+     
+      if(status =='old'){
+              $.ajax({
+                  method: "GET",
+                  url: "{% url 'get_bazaprofiley' %}",
+                  data: {"data":JSON.stringify({"artikul":element.val()})}
+                }).done(function( msg ) {
+                  if (msg.saved ==true){
+                    console.log(msg)
+                    system = $('#system'+ String(i)).val(msg.artikul['system']);
+                    artikul = $('#artikul'+ String(i)).val(msg.artikul['artikul']);
+                    komponent = $('#komponent'+ String(i)).val(msg.artikul['komponent']);
+                    description = $('#description'+ String(i)).val(msg.artikul['description']);
+                    kombinatsiya = $('#kombinatsiya'+ String(i)).val(msg.artikul['kombinatsiya']);
+                    tip_combination = $('#tip_combination'+ String(i)).val(msg.artikul['tip_combination']);
+                    tip_profilya = $('#tip_profilya'+ String(i)).val(msg.artikul['tip_profilya']);
+                    visota = $('#visota'+ String(i)).val(msg.artikul['visota']);
+                    shirina = $('#shirina'+ String(i)).val(msg.artikul['shirina']);
+                    pol_fason = $('#pol_fason'+ String(i)).val(msg.artikul['pol_fason']);
+                    bez_nakleyki = $('#bez_nakleyki'+ String(i)).val(msg.artikul['bez_nakleyki']);
+                    kod_nakleyki = $('#kod_nakleyki'+ String(i)).val(msg.artikul['kod_nakleyki']);
+                    udal_ves = $('#udal_ves'+ String(i)).val(msg.artikul['udal_ves']);
+                    baza = $('#baza'+ String(i)).val(msg.artikul['baza']);
+                    link = $('#link'+ String(i)).val(msg.artikul['link']);
+                      }else{
+                          
+  
+                      }
+                  });
+      }
+    }
+
+    // new_char.forEach(function(element) {
+    // console.log(element)
+    // var dataStatus = element.getAttribute('data-status');
+    
+    // console.log(dataStatus); 
+   
+    // });
+
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    // Call the function to retrieve 'data-status' attributes after the page has loaded
+    put_bazas()
+});
+</script>
+
+
+{% endblock %}

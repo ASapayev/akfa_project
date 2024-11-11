@@ -63,7 +63,7 @@
                       
                       </td>
                     <td>{{order.id | order_number_format}}</td>
-                    <td>{{l_created_at |convert_str_date|date:"d-m-Y H:i:s"}}</td>
+                    <td>{%if l_created_at %}{{l_created_at |convert_str_date|date:"d-m-Y H:i:s"}}{%endif%}</td>
                     <td><span class="text-danger">SAP CODE CREATING LACKS</span></td> 
                     <td><a class="text-uppercase" href="{% url 'download_vi' %}?file_path={%if is_obichniy == 'yes' %}{{obichniy_lack_file}}{%else%}{{termo_lack_file}}{%endif%}">Download</a></td>
                     {%if status_l == 'on process' %}
@@ -384,7 +384,7 @@
           </div>
         </div>
         </div>
-        {% endif %}
+        
         
         
         <div class="row">
@@ -396,6 +396,7 @@
                 </div>
             </div>
         </div>
+      {% endif %}
       {%endif%}
 
         {%if order.work_type == 5 and order.current_worker == request.user %}
@@ -615,6 +616,130 @@
       </div>
     {%endif%}
 
+
+    {%if ves_status == 'process' %}
+    <div class="col-lg-12 grid-margin stretch-card" id="ves_za_metr_div">
+      <div class="card">
+        
+        <div class="card-body">
+          <div class="row p-2">
+            <div class="col">
+              <h4 class="card-title">Вес</h4>
+            </div>
+            <div class="col-6">
+            </div>
+            <div class="col-2">
+              <a href="{%url 'upload_ves_aluminiy' %}" class="btn btn-info btn-sm"><i class="bi bi-cloud-arrow-up-fill"></i> UPLOAD FROM FILE</a>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col-2">
+              <button onclick="downloadTableAsExcel()" class="btn btn-primary btn-sm"><i class="bi bi-cloud-arrow-down-fill"></i> Download as Excel</button>
+            </div>
+          </div>
+          <form  id="myForm" >
+            
+            <div class="table-responsive">
+              {%csrf_token%}
+              <table class="table" id="my-table">
+                      <thead>
+                        <tr id="headers">
+                          <th>
+                            #
+                          </th>
+                          <th>Artikul</th>
+                          <th>Component</th>
+                        <th>Неокрашенный</th><th>Окрашенный</th><th>Сублимированный</th><th>Анодированный</th><th>Ламинированный</th><th>Белый</th></tr>
+                      </thead>
+                      <tbody>
+                        {% for ves in profile_doesnot_exists %}
+                          <tr class="ves_class">
+                            <td>
+                              {{forloop.counter}}
+                            </td>
+                            <td>
+                              <span class="pl-2"><input type="text" name="artikul" maxlength="100" id="artikul{{forloop.counter}}" value="{{ves.artikul}}"></span>
+                            </td>
+                            <td><input type="text" name="component" maxlength="100" id="component{{forloop.counter}}" value="{{ves.component}}"> </td>
+                                
+                                
+                            <td>
+                              <div>
+                                {%if 'Неокрашенный' in ves.tip_pokritiya %}
+                                <label for="" style="color: red;">*</label>
+                                {%endif%}
+                                <input type="text" style="width:70px" id="nekrash{{forloop.counter}}" value="{{ ves.ves_za_metr.Неокрашенный }}"  {%if 'Неокрашенный' in ves.tip_pokritiya %} required {%endif%}>
+                              </div>
+                            </td>
+                            <td>
+                                <div>
+                                  {%if 'Окрашенный' in ves.tip_pokritiya %}
+                                    <label for="" style="color: red;">*</label>
+                                  {%endif%}
+                                  <input type="text" style="width:70px" id="okrash{{forloop.counter}}" value="{{ves.ves_za_metr.Окрашенный}}" {%if 'Окрашенный' in ves.tip_pokritiya %} required {%endif%}>
+                                </div>
+                            </td>
+                            <td>
+                              <div>
+                                {%if 'Сублимированный' in ves.tip_pokritiya %}
+                                  <label for="" style="color: red;">*</label>
+                                {%endif%}
+                                <input type="text" style="width:70px" id="sub{{forloop.counter}}"  value="{{ves.ves_za_metr.Сублимированный}}" {%if 'Сублимированный' in ves.tip_pokritiya %} required {%endif%}>
+                              </div>
+                            </td>
+                            <td>
+                              <div>
+                                {%if 'Анодированный' in ves.tip_pokritiya %}
+                                  <label for="" style="color: red;">*</label>
+                                {%endif%}
+                                <input type="text" style="width:70px" id="anod{{forloop.counter}}" value="{{ves.ves_za_metr.Анодированный}}" {%if 'Анодированный' in ves.tip_pokritiya %} required {%endif%}>
+                              </div>
+                            </td>
+                            <td>
+                              <div>
+                                {%if 'Ламинированный' in ves.tip_pokritiya %}
+                                  <label for="" style="color: red;">*</label>
+                                {%endif%}
+                                <input type="text" style="width:70px" id="lam{{forloop.counter}}" value="{{ves.ves_za_metr.Ламинированный}}" {%if 'Ламинированный' in ves.tip_pokritiya %} required {%endif%}>
+                              </div>
+                            </td>
+                            <td>
+                              <div>
+                                {%if 'Белый' in ves.tip_pokritiya %}
+                                  <label for="" style="color: red;">*</label>
+                                {%endif%}
+                                <input type="text" style="width:70px" id="beliy{{forloop.counter}}" value="{{ves.ves_za_metr.Белый}}" {%if 'Белый' in ves.tip_pokritiya %} required {%endif%}>
+                              </div>
+                            </td>
+                          </tr>
+                        {%endfor%}         
+                      </tbody>
+              </table>
+            </div>
+
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" onclick="send_partner(this)" id="partner_cheker"> Send to partner <i class="input-helper"></i></label>
+            </div>
+            <br>
+            <select name="partner" class="pb-1" style="display: none;" id="partner_sel">
+              <option value="" selected></option>
+              <option value="7">Turgunboyev Bekzod</option>
+              <option value="7">Turgunboyev Bekzod</option>
+              <option value="7">Turgunboyev Bekzod</option>
+              <option value="7">Turgunboyev Bekzod</option>
+              <option value="7">Turgunboyev Bekzod</option>
+            </select>
+            <br>
+            <input type="button" class="btn btn-success p-2" style="margin-top: 10px;" onclick="submit_ves()" value="SAVE">
+          
+          </form>
+        </div>
+      </div>
+    </div>
+
+    {%endif%}
+
 </div>
 
 
@@ -622,6 +747,183 @@
 
 
 
+function downloadTableAsExcel() {
+    const table = document.getElementById("my-table");
+    const wb = XLSX.utils.book_new();
+    const data = [];
+
+    // Extract header values
+    const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText.trim());
+    data.push(headers); // Push headers to data array
+
+    // Loop through each row
+    Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
+        const rowData = [];
+
+        // Push the row index
+        rowData.push(row.cells[0].innerText.trim());
+
+        // Collect input field values
+        const inputs = row.querySelectorAll('input[type="text"]');
+        inputs.forEach(input => {
+            rowData.push(input.value.trim()); // Push input values
+        });
+
+        // Push row data to data array
+        data.push(rowData);
+    });
+
+    // Create a worksheet from the data array
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    // Write the workbook and create a Blob object representing the data as an Excel file
+    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([wbout], { type: 'application/octet-stream' });
+    const url = URL.createObjectURL(blob);
+
+    // Create a download link
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = 'ves' + "_.xlsx";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+
+function send_partner(el){
+  // console.log(el.checked)
+  if(el.checked){
+    $('#partner_sel').css('display','block')
+    $('#partner_sel').attr('required',true)
+  }else{
+    $('#partner_sel').css('display','none')
+    $('#partner_sel').attr('required',false)
+
+  }
+
+}
+
+function getCSRFToken() {
+        return $('input[name=csrfmiddlewaretoken]').val();
+    }
+
+function submit_ves() {
+  const form = document.getElementById('myForm');
+  var csrfToken = getCSRFToken();
+
+  var partner_cheker =$('#partner_cheker').val()
+
+  var partner_id = false
+  if(partner_cheker=='on'){
+    
+    partner_id = $('#partner_sel').val()
+    if(partner_id!=''){
+
+      $.ajax({
+          method: "POST",
+          url: "{% url 'save_ves_of_profile_single' order.id %}",
+          headers: { "X-CSRFToken": csrfToken },
+          data: {"data":JSON.stringify({'partner_id':partner_id})}
+        }).done(function( msg ) {
+          if (msg.saved ==true){
+              Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Successfuly saved!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              var btn = document.getElementById('ves_za_metr_div');
+              btn.style.display='none';
+              }else{
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'Something went wrong!'
+                    })
+
+              }
+          });
+
+    }else{
+      Swal.fire({
+                  icon: 'error',
+                  title: 'Kerakli joylarni toldiring.',
+                  text: 'Iltimos hamma majburiy polyalar to\'lganligiga ishonch hosil qiling!!'
+                })
+    }
+  }
+  
+  
+  
+  if (!form.checkValidity()) {
+      // Show validation messages if needed
+      form.reportValidity();
+      return; // Prevent form submission
+  }
+
+ 
+  var ves_class =$('.ves_class');
+
+  var ves_list =[]
+  for(let i=1; i<ves_class.length+1; i++){
+    var artikul =$('#artikul'+i).val();
+    var component =$('#component'+i).val();
+    var nekrash =$('#nekrash'+i).val();
+    var okrash =$('#okrash'+i).val();
+    var sub =$('#sub'+i).val();
+    var anod =$('#anod'+i).val();
+    var lam =$('#lam'+i).val();
+    var beliy =$('#beliy'+i).val();
+
+    // console.log(artikul,component,nekrash,okrash,sub,anod,lam,beliy)
+    var ves_dict ={
+      'artikul':artikul,
+      'component':component,
+      'ves_za_metr':{
+        'Неокрашенный':nekrash,
+        'Окрашенный':okrash,
+        'Сублимированный':sub,
+        'Анодированный':anod,
+        'Ламинированный':lam,
+        'Белый':beliy
+      }
+    }
+    ves_list.push(ves_dict)
+  }
+  // console.log(ves_list,'veslist')
+  var myJsonelements = JSON.stringify(ves_list);
+  
+  $.ajax({
+          method: "POST",
+          url: "{% url 'save_ves_of_profile_single' order.id %}",
+          headers: { "X-CSRFToken": csrfToken },
+          data: {"data":myJsonelements}
+        }).done(function( msg ) {
+          if (msg.saved ==true){
+              Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Successfuly saved!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              var btn = document.getElementById('ves_za_metr_div');
+              btn.style.display='none';
+              }else{
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'Something went wrong!'
+                    })
+
+              }
+          });
+}
 
 
   function excel_file_load(){

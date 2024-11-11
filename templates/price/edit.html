@@ -23,9 +23,9 @@
                       <th  >
                         #
                       </th>
-                      <th  > SAP CODE </th>
-                      <th  > LENGTH</th>
-                      <th  > VES ZA SHTUK </th>
+                      <th  > ARTIKUL </th>
+                      <th  > COMPONENT </th>
+                      <!-- <th  > LENGTH</th> -->
                       <th  > VES ZA METR </th>
                     </tr>
                   </thead>
@@ -38,9 +38,19 @@
                       <td>
                         <span class="pl-2">{{form.artikul}}</span>
                       </td>
-                      <td>{{form.length}} </td>
-                      <td>{{form.ves_za_shtuk}} </td>
-                      <td>{{form.ves_za_metr}} </td>
+                      <td>
+                        <span class="pl-2">{{form.component}}</span>
+                      </td>
+                      <td>
+                        {% for key, value in form.ves_za_metr.value.items %}
+                            <div>
+                                <label>{{ key }}:</label>
+                                <input type="text" name="ves_za_metr[{{ key }}]" value="{{ value }}" required>
+                            </div>
+                        {% endfor %}
+
+                      </td>
+                      
                     </tr>
                     
                   </tbody>

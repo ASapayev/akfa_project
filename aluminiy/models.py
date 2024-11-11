@@ -98,13 +98,34 @@ class Price(models.Model):
   updated_at =models.DateTimeField(auto_now=True)
 
 
+def default_ves_za_shtuk():
+      return {
+          "Неокрашенный": "",
+          "Окрашенный": "",
+          "Сублимированный": "",
+          "Анодированный": "",
+          "Ламинированный": "",
+          "Белый": ""
+      }
+
+
+def default_ves_za_metr():
+      return {
+          "Неокрашенный": "",
+          "Окрашенный": "",
+          "Сублимированный": "",
+          "Анодированный": "",
+          "Ламинированный": "",
+          "Белый": ""
+      }
+
 class LengthOfProfile(models.Model):
-  artikul = models.CharField(max_length=100)
-  length = models.CharField(max_length=150)
-  ves_za_shtuk = models.CharField(max_length=150)
-  ves_za_metr = models.CharField(max_length=150)
-  created_at =models.DateTimeField(auto_now_add=True)
-  updated_at =models.DateTimeField(auto_now=True)
+  
+  artikul = models.CharField(max_length=100,blank=True,null=True)
+  component = models.CharField(max_length=100,blank=True,null=True)
+  ves_za_metr = models.JSONField(default=default_ves_za_metr, blank=True, null=True)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
 
 
 

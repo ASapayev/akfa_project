@@ -29,7 +29,7 @@ class Razlovka1201Serializer(serializers.ModelSerializer):
 class LengthProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = LengthOfProfile
-        fields = ['id', 'artikul','length','ves_za_shtuk','ves_za_metr']
+        fields = ['id', 'artikul','component','ves_za_metr']
 
 class MasterGroupSerializer(serializers.ModelSerializer):
     class Meta:

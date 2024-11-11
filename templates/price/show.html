@@ -23,14 +23,14 @@
               <div class="table-responsive">
                 <table class="table" >
                   <thead>
-                    <tr >
-                      <th >
-                        #
-                      </th>
-                      <th > SAP CODE </th>
-                      <th > LENGTH</th>
-                      <th > VES ZA SHTUK </th>
-                      <th > VES ZA METR </th>
+                    
+                    <tr id="headers">
+                        <th>
+                          #
+                        </th>
+                        <th> ARTIKUL</th>
+                        <th> COMPONENT </th>
+                        <th>VES ZA METR</th>
                       <th >Действие</th>
                     </tr>
                   </thead>
@@ -43,9 +43,15 @@
                       <td>
                         <span class="pl-2">{{profile.artikul}}</span>
                       </td>
-                      <td>{{profile.length}} </td>
-                      <td>{{profile.ves_za_shtuk}} </td>
-                      <td>{{profile.ves_za_metr}} </td>
+                      <td>
+                        <span class="pl-2">{{profile.component}}</span>
+                      </td>
+                      
+                      <td>
+                        {% for key, value in profile.ves_za_metr.items %}
+                            <div>{{ key }}: {{ value }}</div>
+                        {% endfor %}
+                      </td>
                       <td>
                         <div class="badge" style="cursor: pointer;" onclick="" id ="edit"><a class="btn btn-warning" href="{%url 'edit_profile_length' profile.id %}">Edit</a></div>
                         <div class="badge badge-outline-danger" style="cursor: pointer;" onclick="delete_sapcode(this,'{{profile.id}}')" id ="delete_btn">Delete</div>

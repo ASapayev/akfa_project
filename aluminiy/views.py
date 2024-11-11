@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from .models import AluminiyProduct,AluFile,RazlovkaObichniy,RazlovkaTermo,Price,LengthOfProfile,ExchangeValues,AluProfilesData
 from aluminiytermo.models import AluminiyProductTermo,CharacteristikaFile
 from aluminiytermo.views import *
-from .forms import FileForm,LengthOfProfilwForm,ExchangeValueForm,FileFormBazaprofiley
+from .forms import FileForm,LengthOfProfileForm,ExchangeValueForm,FileFormBazaprofiley
 from django.db.models import Max
 import zipfile
 from config.settings import MEDIA_ROOT
@@ -52,22 +52,107 @@ def upload_for_1301_v22(request):
                   return render(request,'universal/generated_file_1301.html',context)
       return render(request,'universal/main.html')
 
+
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator',])
+@allowed_users(allowed_roles=['admin', 'moderator'])
 def add_length_profile(request):
-
       if request.method == 'POST':
-            form = LengthOfProfilwForm(data=request.POST)
-            if form.is_valid():
-                  form.save()
-                  return redirect('show_profile')
-      else:
-            form = LengthOfProfilwForm()
+                  # Extract data from the request
+            artikul = request.POST.get('artikul')
+            component = request.POST.get('component')
+            # length = request.POST.get('length')
 
-      context ={
-            'form':form
+            # Extract the JSON-like data for ves_za_shtuk and ves_za_metr
+            # nekr =request.POST.get('ves_za_metr[Неокрашенный]', '')
+            # okr =request.POST.get('ves_za_metr[Окрашенный]', '')
+            # subl =request.POST.get('ves_za_metr[Сублимированный]', '')
+            # anod =request.POST.get('ves_za_metr[Анодированный]', '')
+            # lam =request.POST.get('ves_za_metr[Ламинированный]', '')
+            # beliy =request.POST.get('ves_za_metr[Белый]', '')
+
+            # if nekr !='':
+            #       nekr_val =round((float(nekr)*float(length))/1000,2)
+            # else:
+            #       nekr_val =''
+
+            # if okr !='':
+            #       okr_val =round((float(okr)*float(length))/1000,2)
+            # else:
+            #       okr_val =''
+
+            # if subl !='':
+            #       subl_val =round((float(subl)*float(length))/1000,2)
+            # else:
+            #       subl_val =''
+
+            # if anod !='':
+            #       anod_val =round((float(anod)*float(length))/1000,2)
+            # else:
+            #       anod_val =''
+
+            # if lam !='':
+            #       lam_val =round((float(lam)*float(length))/1000,2)
+            # else:
+            #       lam_val =''
+            # if beliy !='':
+            #       beliy_val =round((float(beliy)*float(length))/1000,2)
+            # else:
+            #       beliy_val =''
+
+
+            # ves_za_shtuk = {
+            #       "Неокрашенный": nekr_val,
+            #       "Окрашенный": okr_val,
+            #       "Сублимированный":subl_val ,
+            #       "Анодированный": anod_val,
+            #       "Ламинированный":lam_val ,
+            #       "Белый": beliy_val
+            # }
+            # print(ves_za_shtuk)
+
+            ves_za_metr = {
+                  "Неокрашенный": request.POST.get('ves_za_metr[Неокрашенный]', ''),
+                  "Окрашенный": request.POST.get('ves_za_metr[Окрашенный]', ''),
+                  "Сублимированный": request.POST.get('ves_za_metr[Сублимированный]', ''),
+                  "Анодированный": request.POST.get('ves_za_metr[Анодированный]', ''),
+                  "Ламинированный": request.POST.get('ves_za_metr[Ламинированный]', ''),
+                  "Белый": request.POST.get('ves_za_metr[Белый]', '')
+            }
+
+            # Create the new LengthOfProfile instance
+            if LengthOfProfile.objects.filter(Q(artikul=artikul)|Q(component=component)).exists():
+                  length_profile = LengthOfProfile.objects.filter(Q(artikul=artikul)|Q(component=component))[:1].get()
+                  length_profile.ves_za_metr=ves_za_metr
+                  length_profile.save()
+            else:
+                  length_profile = LengthOfProfile(
+                        artikul=artikul,
+                        component=component
+                  )
+                  length_profile.save()
+                  # length_profile.ves_za_shtuk=ves_za_shtuk
+                  length_profile.ves_za_metr=ves_za_metr
+                  length_profile.save()
+
+            return redirect('show_profile')
+      else:
+            form = LengthOfProfileForm()
+            
+            if not form.instance.ves_za_metr:
+                  form.instance.ves_za_metr = {
+                  "Неокрашенный": "",
+                  "Окрашенный": "",
+                  "Сублимированный": "",
+                  "Анодированный": "",
+                  "Ламинированный": "",
+                  "Белый": ""
+                  }
+
+      context = {
+            'form': form,
+            'section': 'Add Length Profile',  # Add section title if needed
       }
-      return render(request,'price/add.html',context)
+      return render(request, 'price/add.html', context)
 
 
 @login_required(login_url='/accounts/login/')
@@ -150,6 +235,11 @@ def edit_currency(request):
       }
       return render(request,'price/currency_update.html',context)
 
+
+
+
+
+
 @csrf_exempt
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator']) 
@@ -220,12 +310,35 @@ def profile_edit(request,id):
       length_of_profile = LengthOfProfile.objects.get(id = id)
 
       if request.method == 'POST':
-            form = LengthOfProfilwForm(data=request.POST,instance=length_of_profile)
-            if form.is_valid():
-                  form.save()
-                  return redirect('show_profile')
+
+
+            artikul = request.POST.get('artikul')
+            component = request.POST.get('component')
+            # length = request.POST.get('length')
+
+            # ves_za_shtuk = {}
+            ves_za_metr = {}
+
+
+            for key, value in request.POST.items():
+                  # print(key,value)
+            
+                  if key.startswith('ves_za_metr'):
+                        category = key.split('[')[1].strip(']')
+                        ves_za_metr[category] = value  # Get the first value
+                        
+            length_profile = LengthOfProfile.objects.get(id=id)
+            length_profile.artikul =artikul
+            length_profile.component =component
+            length_profile.ves_za_metr=ves_za_metr
+            length_profile.save()
+
+            
+
+            return redirect('show_profile')
+           
       else:
-            form = LengthOfProfilwForm(instance=length_of_profile)
+            form = LengthOfProfileForm(instance=length_of_profile)
 
       context ={
             'form':form
@@ -258,7 +371,7 @@ def show_price_profile(request):
       search = request.GET.get('search',None)
 
       if search:
-            profiles = LengthOfProfile.objects.filter(artikul__icontains = search).order_by('-created_at')
+            profiles = LengthOfProfile.objects.filter(Q(artikul__icontains = search)|Q(component__icontains = search)).order_by('-created_at')
       else:
             profiles = LengthOfProfile.objects.all().order_by('-created_at')
 
@@ -976,6 +1089,48 @@ def list_bazaprofiley(request):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
+def upload_ves_aluminiy(request):
+      if request.method == 'POST':
+            data = request.POST.copy()
+            form = FileFormBazaprofiley(data, request.FILES)
+            if form.is_valid():
+                  form_file = form.save()
+                  file = form_file.file
+                  path =f'{MEDIA_ROOT}/{file}'
+                  
+                  df = pd.read_excel(path)
+                  df = df.astype(str)
+                  df = df.replace('nan','0')
+                  df = df.replace('0.0','0')
+                  
+                  columns = df.columns
+                  
+                  for key, row in df.iterrows():
+                        ves_za_metr = {}
+                        artikul =''
+                        component =''
+                        for col in columns:
+                              if col =='Artikul':
+                                    artikul = row[col]
+                                    continue
+                              
+                              if col =='Component':
+                                    component = row[col]
+                                    continue
+                              if float(row[col])==0:
+                                    ves_za_metr[col]=''
+                              else:
+                                    ves_za_metr[col]=str(round(float(row[col]),3))
+                        
+                        LengthOfProfile(artikul=artikul,component=component,ves_za_metr=ves_za_metr).save()
+
+            return redirect('show_profile')
+      else:
+            return render(request,'norma/benkam/main.html')
+      
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def full_update_bazaprofiley(request):
       if request.method == 'POST':
             data = request.POST.copy()
@@ -1010,8 +1165,7 @@ def full_update_bazaprofiley(request):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])    
 def product_add_second_org(request,id):
-      now0 = datetime.now()
-      print('file oqish boshlanishi>> ',now0)
+      
       file = AluFile.objects.get(id=id).file
       df = pd.read_excel(f'{MEDIA_ROOT}/{file}',engine='openpyxl')
       df =df.astype(str)
@@ -1023,15 +1177,16 @@ def product_add_second_org(request,id):
       day =now.strftime("%a%d")
       hour =now.strftime("%H HOUR")
       minut =now.strftime("%M")
-      now1 = datetime.now()
-      print('file boshlanishi>> ',now1)
+      # now1 = datetime.now()
+      # print('file boshlanishi>> ',now1)
       
       order_id = request.GET.get('order_id',None)
       
 
       doesnotexist,correct = check_for_correct(df,filename='aluminiy')
-      now2 = datetime.now()
-      print('togriligini vaqti boshlanishi>> ',now2)
+      # now2 = datetime.now()
+      # print('togriligini vaqti boshlanishi>> ',now2)
+
       if not correct:
             context ={
                   'AluProflesData':doesnotexist,
@@ -1062,8 +1217,8 @@ def product_add_second_org(request,id):
                   return render(request,'order/order_detail.html',context)
             # writer.save()
             return render(request,'utils/components.html',context)
-      now3 = datetime.now()
-      print(' togriligini vaqti tugashi>> ',now3)
+      # now3 = datetime.now()
+      # print(' togriligini vaqti tugashi>> ',now3)
       aluminiy_group = AluminiyProduct.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
       umumiy_counter={}
       for al in aluminiy_group:
@@ -1116,8 +1271,8 @@ def product_add_second_org(request,id):
       exturision_list = []
 
       artikul_kratkiy_collection ={}
-      now4 = datetime.now()
-      print(' sapcode berish vaqti boshlanishi>> ',now4)
+      # now4 = datetime.now()
+      # print(' sapcode berish vaqti boshlanishi>> ',now4)
       for key,row in df.iterrows():
             row['Сплав'] = row['Сплав'].replace('.0','')
             row['Сплав'] = row['Сплав'].replace('.0','')
@@ -3064,8 +3219,8 @@ def product_add_second_org(request,id):
                                                 }
                                           )
 
-      now5 = datetime.now()    
-      print(' sapcode berish vaqti tugashi>> ',now5)   
+      # now5 = datetime.now()    
+      # print(' sapcode berish vaqti tugashi>> ',now5)   
       
       
       
@@ -3079,16 +3234,16 @@ def product_add_second_org(request,id):
       create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\',day)
       create_folder(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\',hour)
       
-      now6 = datetime.now()
-      print(' char vaqti boshlanishi>> ',now6)
+      # now6 = datetime.now()
+      # print(' char vaqti boshlanishi>> ',now6)
       df_char = create_characteristika(cache_for_cratkiy_text) 
-      now7 = datetime.now()
-      print(' char vaqti tugashi>> ',now7)
-      now8 = datetime.now()
-      print(' char_title vaqti boshlanishi>> ',now8)
+      # now7 = datetime.now()
+      # print(' char vaqti tugashi>> ',now7)
+      # now8 = datetime.now()
+      # print(' char_title vaqti boshlanishi>> ',now8)
       df_char_title = create_characteristika_utils(cache_for_cratkiy_text)
-      now9 = datetime.now()
-      print(' char_title vaqti tugashi>> ',now9)
+      # now9 = datetime.now()
+      # print(' char_title vaqti tugashi>> ',now9)
                  
       
             
@@ -3107,8 +3262,8 @@ def product_add_second_org(request,id):
 
       df_extrusion = pd.DataFrame({'SAP CODE E' : exturision_list})
 
-      now10 = datetime.now()
-      print(' razlovka saqlash vaqti boshlanishi>> ',now10)
+      # now10 = datetime.now()
+      # print(' razlovka saqlash vaqti boshlanishi>> ',now10)
       for key,razlov in df_new.iterrows():
             if razlov['SAP код 7']!="":
                   if not RazlovkaObichniy.objects.filter(sap_code7=razlov['SAP код 7'],kratkiy7=razlov['U-Упаковка + Готовая Продукция']).exists():
@@ -3160,11 +3315,11 @@ def product_add_second_org(request,id):
                               sap_code75 =razlov['SAP код 75'],
                               kratkiy75 =razlov['U-Упаковка + Готовая Продукция 75']
                         ).save()
-      now11 = datetime.now()
-      print(' razlovka saqlash vaqti tugashi>> ',now11)
+      # now11 = datetime.now()
+      # print(' razlovka saqlash vaqti tugashi>> ',now11)
       
-      now12 = datetime.now()
-      print('charakter saqlash vaqti boshlanishi>> ',now12)
+      # now12 = datetime.now()
+      # print('charakter saqlash vaqti boshlanishi>> ',now12)
       for key,razlov in df_char.iterrows():
             if not Characteristika.objects.filter(sap_code=razlov['SAP CODE'],kratkiy_text=razlov['KRATKIY TEXT']).exists():
                   Characteristika(
@@ -3233,40 +3388,140 @@ def product_add_second_org(request,id):
                   ).save()
       exchange_value = ExchangeValues.objects.get(id=1)
       price_all_correct = True
-      now13 = datetime.now()
-      print(' charakter saqlash vaqti tugashi>> ',now13)
+      # now13 = datetime.now()
+      # print(' charakter saqlash vaqti tugashi>> ',now13)
 
-      now14 = datetime.now()
-      print(' length saqlash vaqti boshlanishi>> ',now14)
+      # now14 = datetime.now()
+      # print(' length saqlash vaqti boshlanishi>> ',now14)
+
+
+      if order_id:
+            order = Order.objects.get(id = order_id)
+            paths =order.paths
+            if 'df_char_title' in paths and request.user.role == 'moderator':
+                  df_new = pd.read_json(paths['df_new'])
+                  df_char = pd.read_json(paths['df_char'])
+                  df_char_title = pd.read_json(paths['df_char_title'])
+                  del paths['df_new']
+                  del paths['df_char']
+                  del paths['df_char_title']
+
+                  order.paths =paths
+                  order.save()
+
+
+      profile_doesnot_exists =[[],[],[],[],[]] #id , artikul, pokritiya
+
       for key, row in df_char_title.iterrows():
-            if LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина']).exists():
-                  length_of_profile = LengthOfProfile.objects.filter(artikul=row['ch_article'],length=row['Длина'])[:1].get()
-                  df_char_title['Общий вес за штуку'][key] =length_of_profile.ves_za_shtuk
-                  df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr
-
-                  price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],tip=row['ch_combination'])[:1].get()
-                  df_char_title['Price'][key] = float(price.price.replace(',','.')) * float(length_of_profile.ves_za_shtuk.replace(',','.'))  * float(exchange_value.valute.replace(',','.'))
+            if LengthOfProfile.objects.filter((Q(artikul=row['ch_article'])|Q(component=row['ch_article']))).exists():
+                  length_of_profile = LengthOfProfile.objects.filter((Q(artikul=row['ch_article'])|Q(component=row['ch_article'])))[:1].get()
+                  
+                  if length_of_profile.ves_za_metr[row['Тип покрытия']]!='':
+                        ves_za_shtuk = float(row['Длина'])*float(length_of_profile.ves_za_metr[row['Тип покрытия']])/1000
+                        df_char_title['Общий вес за штуку'][key] = round(ves_za_shtuk,3)
+                        df_char_title['Удельный вес за метр'][key] = length_of_profile.ves_za_metr[row['Тип покрытия']]
+                        price = Price.objects.filter(tip_pokritiya = row['Тип покрытия'],tip=row['ch_combination'])[:1].get()
+                        df_char_title['Price'][key] = float(price.price.replace(',','.')) * float(ves_za_shtuk)  * float(exchange_value.valute.replace(',','.'))
+                  else:
+                        profile_doesnot_exists[0].append(length_of_profile.id)
+                        profile_doesnot_exists[1].append(length_of_profile.artikul)
+                        profile_doesnot_exists[2].append(length_of_profile.component)
+                        profile_doesnot_exists[3].append(length_of_profile.ves_za_metr)
+                        profile_doesnot_exists[4].append(row['Тип покрытия'])
+                        price_all_correct = False
             else:
+                  baza_profile = AluProfilesData.objects.filter(Q(data__Артикул__icontains =row['ch_article'])|Q(data__Компонент=row['ch_article']))[:1].get()
+                  profile_doesnot_exists[0].append('no_ves')
+                  profile_doesnot_exists[1].append(row['ch_article'])
+                  profile_doesnot_exists[2].append(baza_profile.data['Компонент'])
+                  profile_doesnot_exists[3].append({
+                                                      "Неокрашенный": "",
+                                                      "Окрашенный": "",
+                                                      "Сублимированный": "",
+                                                      "Анодированный": "",
+                                                      "Ламинированный": "",
+                                                      "Белый": ""
+                                                      })
+                  profile_doesnot_exists[4].append(row['Тип покрытия'])
+            
                   price_all_correct = False
+      
+      # print(profile_doesnot_exists,'kkkkk'*8)
+      if order_id:
+            # order = Order.objects.get(id = order_id)
+            paths =  order.paths
+            if len(profile_doesnot_exists[0])>0:
+                  checker_list = []
+                  new_list =[]
+                  pokritiya_dict ={}
 
-      now15 = datetime.now()
-      print('length saqlash vaqti tugashi>> ',now15)
+                  for ves_i in range(0,len(profile_doesnot_exists[0])):
+                        merged_text = profile_doesnot_exists[0][ves_i]+profile_doesnot_exists[1][ves_i]+profile_doesnot_exists[2][ves_i]
+                        
+                        if merged_text not in checker_list:
+                              ves_dict ={}
+                              ves_dict['id'] = profile_doesnot_exists[0][ves_i]
+                              ves_dict['artikul'] = profile_doesnot_exists[1][ves_i]
+                              ves_dict['component'] = profile_doesnot_exists[2][ves_i]
+                              ves_dict['ves_za_metr'] = profile_doesnot_exists[3][ves_i]
+                              pokritiya_dict[profile_doesnot_exists[1][ves_i]] = [profile_doesnot_exists[4][ves_i],]
+                              checker_list.append(merged_text)
+                              new_list.append(ves_dict)
+                        else:
+                              pok_list = []
+                              if profile_doesnot_exists[1][ves_i] in pokritiya_dict:
+                                    pok_list = pokritiya_dict[profile_doesnot_exists[1][ves_i]]
+                                    if profile_doesnot_exists[4][ves_i] not in pok_list:
+                                          pok_list.append(profile_doesnot_exists[4][ves_i])
+                              else:
+                                    pok_list.append(profile_doesnot_exists[4][ves_i])
+                              pokritiya_dict[profile_doesnot_exists[1][ves_i]] = pok_list
+                  
+                  
+
+                  for k in range(0,len(new_list)):
+                        art = new_list[k]['artikul']
+                        if art in pokritiya_dict:
+                              new_list[k]['tip_pokritiya'] =pokritiya_dict[art]
+                        else:
+                              new_list[k]['tip_pokritiya'] =[]
 
 
-      # writer = pd.ExcelWriter(path_alu, engine='openpyxl')
-      # df_new.to_excel(writer,index=False,sheet_name='Schotchik')
-      # df_char.to_excel(writer,index=False,sheet_name='Characteristika')
-      # df_char_title.to_excel(writer,index=False,sheet_name='title')
-      # df_extrusion.to_excel(writer,index=False,sheet_name='T4')
-      # writer.close()
+                  # print(new_list)
+                  paths['df_new'] = df_new.to_json()
+                  paths['df_char'] = df_char.to_json()
+                  paths['df_char_title'] = df_char_title.to_json()
+
+
+                  paths['profile_doesnot_exists'] = new_list
+                  paths['ves_status'] = 'process'
+                  order.paths = paths
+                  order.save()
+
+
+            context2={}
+            context2['order'] = order
+            for key,val in paths.items():
+                  context2[key] = val
+            
+            if  'ves_status' in paths:
+                  if paths['ves_status'] =='process':
+                        return render(request,'order/order_detail.html',context2)
+
+
+
+      
+            
+
+     
       with pd.ExcelWriter(path_alu,engine='openpyxl') as writer:
             # Ensure DataFrames are optimized before writing
             df_new.to_excel(writer, index=False, sheet_name='Schotchik')
             df_char.to_excel(writer, index=False, sheet_name='Characteristika')
             df_char_title.to_excel(writer, index=False, sheet_name='title')
             df_extrusion.to_excel(writer, index=False, sheet_name='T4')
-      now24 = datetime.now()
-      print('file saqlash uchun ketgan vaqt >>',now24)
+      
+
 
       del df_new['Название системы']
       del df_new['SAP код A']
@@ -3288,11 +3543,11 @@ def product_add_second_org(request,id):
             work_type = Order.objects.get(id = order_id).work_type
       
       if price_all_correct and  work_type != 5 :
-            now16 = datetime.now()
-            print(' update_char_title_function funksiya boshlanishi>> ',now16)
+            # now16 = datetime.now()
+            # print(' update_char_title_function funksiya boshlanishi>> ',now16)
             path = update_char_title_function(df_char_title,df_extrusion,order_id,'aluminiy')
-            now17 = datetime.now()
-            print(' update_char_title_function funksiya tugashi>> ',now17)
+            # now17 = datetime.now()
+            # print(' update_char_title_function funksiya tugashi>> ',now17)
             files =[File(file=p,filetype='obichniy') for p in path]
             files.append(File(file=path_alu,filetype='obichniy'))
             context ={
@@ -3302,7 +3557,7 @@ def product_add_second_org(request,id):
 
 
             if order_id:
-                  order = Order.objects.get(id = order_id)
+                  # order = Order.objects.get(id = order_id)
                   rand_string = id_generator()
                   path_onlinesavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\downloads\\SHABLON_ALUMINIY_SAVDO_{rand_string}.xlsx'
                   if BaseOrderAlu.objects.filter(id = order.client_order_id).exists():
@@ -3364,7 +3619,7 @@ def product_add_second_org(request,id):
             }
             
             if order_id:
-                  order = Order.objects.get(id = order_id)
+                  # order = Order.objects.get(id = order_id)
                   rand_string = id_generator()
                   path_onlinesavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\downloads\\SHABLON_ALUMINIY_SAVDO_{rand_string}.xlsx'
                   if BaseOrderAlu.objects.filter(id = order.client_order_id).exists():

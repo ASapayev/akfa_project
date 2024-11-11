@@ -26,7 +26,7 @@ def admin_only(view_func):
         role = request.user.role
         if role =='customer':
             return redirect('client_index')
-        elif role in ['admin','user1','moderator','only_razlovka','razlovka','user_accessuar','radiator','kraska','epdm','universal_user']:
+        elif role in ['admin','user1','moderator','only_razlovka','razlovka','user_accessuar','radiator','kraska','epdm','universal_user','matrix']:
             return view_func(request, *args, **kwargs)
         else:
             return HttpResponse('You are not authorized to view this page.')

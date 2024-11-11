@@ -216,7 +216,7 @@ def vi_generate(request,id):
     return render(request,'universal/generated_files.html',context)
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator','user1','user_accessuar','only_razlovka','razlovka','radiator','epdm','kraska','universal_user'])
+@allowed_users(allowed_roles=['admin','moderator','user1','user_accessuar','only_razlovka','razlovka','radiator','epdm','kraska','universal_user','matrix'])
 def download(request):
   file_path = request.GET.get('file_path',None)
   if file_path:

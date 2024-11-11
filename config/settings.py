@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'apis',
     'rest_framework',
     'kraska',
-    'epdm'
+    'epdm',
+    'matrix',
+    # 'myasyncapp'
     # 'json_field',
     # "debug_toolbar",
 ]

@@ -38,10 +38,15 @@ urlpatterns = [
 
     ####### Change Data #########
     path('change-data-detail',views.shablon_change_data_detail,name='shablon_change_data_detail'),
+    path('add-data-detail',views.shablon_add_value,name='shablon_add_value'),
 
 
     ########### Kraska ##################
     path('shablon-kraska-detail',views.shablon_kraska_detail,name='shablon_kraska_detail'),
+
+
+    ########### Epdm ##################
+    path('shablon-epd-detail',views.shablon_epdm_detail,name='shablon_epdm_detail'),
 
 
 
@@ -74,7 +79,7 @@ urlpatterns = [
     path('order-check-zavod/<int:id>',views.moderator_check_zavod,name='order_check_zavod'),
     path('order-convert/<int:id>',views.moderator_convert,name='order_convert'),
     path('save-ves-of-profile',views.save_ves_of_profile,name='save_ves_of_profile'),
-    path('save-ves-of-profile-single',views.save_ves_of_profile_single,name='save_ves_of_profile_single'),
+    path('save-ves-of-profile-single/<int:id>',views.save_ves_of_profile_single,name='save_ves_of_profile_single'),
     
 
 

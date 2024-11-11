@@ -312,12 +312,22 @@ def save_ves_of_profile(request):
             ves_za_shtuk = float(str(dat['ves']).replace(',','.'))
             dlina = float(dat['dlina'])/1000 # metr
             ves_za_metr ='%.3f' % (float(ves_za_shtuk)/dlina)
-            if not LengthOfProfile.objects.filter(artikul = dat['base_artikul'],length=dat['dlina']).exists():
-                profile = LengthOfProfile(artikul = dat['base_artikul'],length=dat['dlina'],ves_za_shtuk=ves_za_shtuk,ves_za_metr=ves_za_metr)
+            tip_pokritiya =dat['tip_pokritiya']
+            if not LengthOfProfile.objects.filter(Q(artikul = dat['base_artikul'])|Q(component = dat['base_artikul'])).exists():
+                ves_za_metr_dict ={
+                            "Неокрашенный": "",
+                            "Окрашенный": "",
+                            "Сублимированный": "",
+                            "Анодированный": "",
+                            "Ламинированный": "",
+                            "Белый": ""
+                        }
+                
+                ves_za_metr_dict[tip_pokritiya]=ves_za_metr
+
+                profile = LengthOfProfile(artikul = dat['base_artikul'],ves_za_metr=ves_za_metr_dict)
                 profile.save()
-            # else:
-            #     profile =  LengthOfProfile.objects.filter(artikul = dat['base_artikul'],length=dat['dlina'])[:1].get() 
-          
+            
         return JsonResponse({'status':201,'msg':'saved'})
     else:
         return JsonResponse({'status':400,'msg':'something went wrong'})
@@ -325,19 +335,42 @@ def save_ves_of_profile(request):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['moderator','user1'])
-def save_ves_of_profile_single(request):
+def save_ves_of_profile_single(request,id):
     data_json = request.POST.get('data',None)
-    
+    status_sel = request.POST.get('status_sel',None)
     data = json.loads(data_json)
+    order = BaseOrder.objects.get(id=id)
+
+    if 'partner_id' in data:
+        partner_id = data['partner_id']
+        partner = User.objects.get(id=partner_id)
+        order.alumin_wrongs = partner
+        order.work_type = 3
+        order.save()
+        return JsonResponse({'saved':True,'msg':'nothing'}) 
+    
+    if status_sel:
+        order.work_type =1
+        order.save()
+
     if data_json:
-        if LengthOfProfile.objects.filter(artikul = data['artikul'],length=data['dlina']).exists():
-            profile = LengthOfProfile.objects.filter(artikul = data['artikul'],length=data['dlina'])[:1].get()
-            return JsonResponse({'status':201,'msg':profile.ves_za_shtuk})
-        else:
-            return JsonResponse({'status':400,'msg':'not exist'})
-          
+        for dat in data:
+            if LengthOfProfile.objects.filter(artikul = dat['artikul'],component=dat['component']).exists():
+                profile = LengthOfProfile.objects.filter(artikul = dat['artikul'],component=dat['component'])[:1].get()
+                profile.ves_za_metr =dat['ves_za_metr']
+                profile.save()
+            else:
+                profile = LengthOfProfile(**dat)
+                profile.save()
+        
+        order.paths['ves_status']='done'
+        order.save()
+        # print(order)
+
+        return JsonResponse({'saved':True,'msg':'nothing'})  
     else:
-        return JsonResponse({'status':400,'msg':'something went wrong'})
+        return JsonResponse({'saved':False,'msg':'something went wrong'})
+    
 
 def create_folder(parent_dir,directory):
     path =os.path.join(parent_dir,directory)
@@ -2306,6 +2339,22 @@ def shablon_change_data_detail(request):
         'status_proccess':'new'
     }
     return render(request,'client/shablonlar/change_data.html',context)
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def shablon_add_value(request):
+    context ={
+        'status_proccess':'new'
+    }
+    return render(request,'client/shablonlar/add_data.html',context)
+
+@login_required(login_url='/accounts/login/')
+@customer_only
+def shablon_epdm_detail(request):
+    context ={
+        'status_proccess':'new'
+    }
+    return render(request,'client/shablonlar/epdm.html',context)
 
 @login_required(login_url='/accounts/login/')
 @customer_only

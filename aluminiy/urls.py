@@ -39,6 +39,8 @@ path('edit-currency',views.edit_currency,name='edit_currency'),
 path('create-construction',views.upload_for_1301_v22,name='create_construction'),
 path('edit-sapcode/<int:id>',views.edit_sapcodes_simple,name='edit_sapcodes_simple'),
 
+path('upload-ves-to-profiledata',views.upload_ves_aluminiy,name='upload_ves_aluminiy'),
+
 
 path('upload-bazaprofiles',views.full_update_bazaprofiley,name='full_update_bazaprofiley'),
 path('list-bazaprofile',views.list_bazaprofiley,name='list_bazaprofiley'),
