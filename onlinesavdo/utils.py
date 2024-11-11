@@ -12,7 +12,7 @@ from django.db.models import Q
 import asyncio
 
 from .utils_async import main,main_check_sena
-
+from decouple import config
 
 base_url = 'http://test.app.akfa.onlinesavdo.com'
 
@@ -20,8 +20,8 @@ base_url = 'http://test.app.akfa.onlinesavdo.com'
 def create_session(url):
     session = requests.Session()
     login_data = {
-        'login': 'Mexrillayev',  
-        'password': 'qwerty3'   
+        'login': config('LOGIN_SAVDO'), 
+        'password': config('PASSWORD_SAVDO') 
     }
     response = session.post(url, data=login_data)
     return session,response.status_code

@@ -2,13 +2,14 @@
 import pandas as pd
 import asyncio
 import aiohttp
+from decouple import config
 
 # Create session asynchronously
 async def create_session_async(url):
     session = aiohttp.ClientSession()  # Create session without using async with
     login_data = {
-        'login': 'Mexrillayev',  
-        'password': 'qwerty3'   
+        'login': config('LOGIN_SAVDO'), 
+        'password': config('PASSWORD_SAVDO') 
     }
     response = await session.post(url, data=login_data)
     # Do not close the session here
