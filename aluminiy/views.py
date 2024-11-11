@@ -1088,7 +1088,7 @@ def list_bazaprofiley(request):
             return JsonResponse({'message':'Baza Profiley bosh'})
 
 @login_required(login_url='/accounts/login/')
-@allowed_users(allowed_roles=['admin','moderator'])
+@allowed_users(allowed_roles=['admin','moderator','user1'])
 def upload_ves_aluminiy(request):
       if request.method == 'POST':
             data = request.POST.copy()
