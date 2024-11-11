@@ -277,6 +277,9 @@ function select_condition(id){
     zagolovok.val('')
     znacheniye.val('')
     comment.val('')
+    zagolovok.attr('disabled',false)
+    znacheniye.attr('disabled',false)
+    comment.attr('disabled',false)
    
     zagolovok.css('border-color','red')
     znacheniye.css('border-color','red')
@@ -307,36 +310,67 @@ function select_condition(id){
        
     }
     if(tip_zayavki =='Аксессуары УЗ'){
-        group.css('display','block')
-        group.css('border-color','red')
+        tip_profiley.append('<option value="" selected></option>');
+        tip_profiley.append('<option value="Савдо">Савдо</option>');
+        tip_profiley.append('<option value="Имзо">Имзо</option>');
+        tip_profiley.append('<option value="Экспорт">Экспорт</option>');
+        tip_profiley.append('<option value="Завод">Завод</option>');
+        tip_profiley.attr('disabled',false);
 
        
     }
     if(tip_zayavki =='Аксессуары импорт'){
+        tip_profiley.append('<option value="" selected></option>');
+        tip_profiley.append('<option value="Импорт">Импорт</option>');
+        tip_profiley.attr('disabled',false);
         
     }
     if(tip_zayavki =='АКП'){
+        tip_profiley.append('<option value="" selected></option>');
+        tip_profiley.append('<option value="АКП">АКП</option>');
+        tip_profiley.attr('disabled',false);
         
     }
     if(tip_zayavki =='Секционные радиаторы'){
-        
+        tip_profiley.append('<option value="" selected></option>');
+        tip_profiley.append('<option value="Савдо">Савдо</option>');
+        tip_profiley.append('<option value="Экспорт">Экспорт</option>');
+        tip_profiley.attr('disabled',false);
     }
     if(tip_zayavki =='Прочие товары вне SAP'){
+        tip_profiley.append('<option value="" selected></option>');
+        tip_profiley.append('<option value="Прочие">Прочие</option>');
+        tip_profiley.attr('disabled',false);
         
     }
     if(tip_zayavki =='Прочие тмц, запчасти, услуги'){
+        tip_profiley.append('<option value="" selected></option>');
+        tip_profiley.append('<option value="Прочие тмц">Прочие тмц</option>');
+        tip_profiley.attr('disabled',false);
         
     }
     if(tip_zayavki =='Бизнес партнер'){
+        tip_profiley.append('<option value="" selected></option>');
+        tip_profiley.append('<option value="Бизнес партнер">Бизнес партнер</option>');
+        tip_profiley.attr('disabled',false);
         
     }
     if(tip_zayavki =='Акс УЗ технопарк'){
+        tip_profiley.append('<option value="" selected></option>');
+        tip_profiley.append('<option value="Аксессуар Uz">Аксессуар Uz</option>');
+        tip_profiley.attr('disabled',false);
         
     }
     if(tip_zayavki =='Порошковая краска'){
+        tip_profiley.append('<option value="" selected></option>');
+        tip_profiley.append('<option value="Савдо">Савдо</option>');
+        tip_profiley.attr('disabled',false);
         
     }
     if(tip_zayavki =='EPDM уплотнитель'){
+        tip_profiley.append('<option value="" selected></option>');
+        tip_profiley.append('<option value="Савдо">Савдо</option>');
+        tip_profiley.attr('disabled',false);
         
     }
 
