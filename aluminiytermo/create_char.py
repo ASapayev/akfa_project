@@ -1222,6 +1222,7 @@ def product_add_second_simple(id):
       
       cache_for_cratkiy_text =[]
       duplicat_list =[]
+      # print(df)
       
       for key,row in df.iterrows():
             print(key)
@@ -1243,17 +1244,18 @@ def product_add_second_simple(id):
             
             
             
-            product_exists = ArtikulComponent.objects.filter(data__Артикул = row['Артикул']).exists()
+            product_exists = AluProfilesData.objects.filter(Q(data__Артикул = row['Артикул'])|Q(data__Компонент=row['Артикул'])).exists()
             if row['Код декор пленки снаружи'] !='nan' and '.0' in row['Код декор пленки снаружи']:
                   df['Код декор пленки снаружи'][key] =df['Код декор пленки снаружи'][key].replace('.0','')
             
             if product_exists:
-                  component = ArtikulComponent.objects.filter(data__Артикул=row['Артикул'])[:1].get().data['Компонент']
+                  component = AluProfilesData.objects.filter(Q(data__Артикул = row['Артикул'])|Q(data__Компонент=row['Артикул']))[:1].get().data['Компонент']
             else:
-                  if ArtikulComponent.objects.filter(data__Компонент=row['Артикул']).exists():
+                  if AluProfilesData.objects.filter(Q(data__Артикул = row['Артикул'])|Q(data__Компонент=row['Артикул'])).exists():
                         component = row['Артикул']
                         termo = True
                   else:
+                        print('komponentttnnt')
                         continue
                   
             if df['Длина при выходе из пресса'][key] != 'nan':
@@ -2061,7 +2063,7 @@ def product_add_second_simple(id):
       df_char = create_characteristika(cache_for_cratkiy_text) 
       df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
                   
-      print(cache_for_cratkiy_text)
+      # print(cache_for_cratkiy_text)
             
       if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}.xlsx'):
             path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}.xlsx'
