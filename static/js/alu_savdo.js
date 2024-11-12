@@ -973,8 +973,8 @@ function front_piece(start=1,end=7){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 75px;font-size:12px;height:27px!important;z-index:0; padding-right:0px;display:none" id='edinitsa_izm`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option selected></option>
-                <option value="Штука">Штука</div>
-                <option value="Килограмм">Килограмм</div>
+                <option value="ШТ">ШТ</div>
+                <option value="КГ">КГ</div>
             </select>
             </div>
             

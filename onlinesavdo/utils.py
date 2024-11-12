@@ -260,9 +260,9 @@ def get_id(path,status_code=200):
         else:
             ves_za_metr = LengthOfProfile.objects.filter((Q(artikul =row["Артикул"])|Q(component=row["Артикул"])))[:1].get().ves_za_metr
             # ves_za_m[row2['Тип покрытия']]
-            if ves_za_metr[row2['Тип покрытия']]=='':
+            if ves_za_metr[row['Тип покрытия']]=='':
                 not_exists[0].append(row["Артикул"])
-                not_exists[1].append(row2['Тип покрытия'])
+                not_exists[1].append(row['Тип покрытия'])
                 not_exists[2].append('VES ZA METR')
                 all_corecct = False
 
@@ -351,7 +351,7 @@ def get_id(path,status_code=200):
                     data[5].append(round50(price_prosent))
                     data[4].append(round50(price_prosent/1.12))
                     data[6].append("USD")
-                    data[7].append(row2['Базовый единица'])
+                    data[7].append(row2['Единица изм. цена'])
 
                 if 'IMZO' in row2['Тип клиента']:
                     data[0].append(id)
@@ -397,7 +397,7 @@ def get_id(path,status_code=200):
                     data[5].append(round50(price_prosent))
                     data[4].append(round50(price_prosent/1.12))
                     data[6].append("USD")
-                    data[7].append(row2['Базовый единица'])
+                    data[7].append(row2['Единица изм. цена'])
 
                 if 'FRANCHISING' in row2['Тип клиента']:
                     data[0].append(id)
@@ -443,7 +443,7 @@ def get_id(path,status_code=200):
                     data[5].append(round50(price_prosent))
                     data[4].append(round50(price_prosent/1.12))
                     data[6].append("USD")
-                    data[7].append(row2['Базовый единица'])
+                    data[7].append(row2['Единица изм. цена'])
                 
 
             else:
