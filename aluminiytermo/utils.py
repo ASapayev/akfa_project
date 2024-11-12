@@ -2528,7 +2528,11 @@ def create_characteristika(items):
     j=1 
     for item in items:
         j+=1
-        
+
+        for key,val in item.items():
+            dd=len(item.get(key,''))
+            print(key,len(val),dd)
+
         character = Characteristika(
             sap_code =item['material'],
             kratkiy_text =item['kratkiy'],
@@ -2570,10 +2574,13 @@ def create_characteristika(items):
             wms_height = item['wms_height'],
             group_prise = item['group_prise'],
             )
-        try:
-            character.save()
-        except:
-            continue
+        # print(item.get('export_description',''))
+        # print(item.get('export_description_eng',''))
+        character.save()
+        # try:
+        #     character.save()
+        # except:
+        #     continue
         
         if character.sap_code =='nan':
             character.sap_code=''
@@ -2874,6 +2881,7 @@ def create_characteristika_utils(items):
                     общий_вес_за_штуку =общий_вес_за_штуку
                     )
         characteristik.save()
+        # print(characteristik)
         
         df[0].append(characteristik.дата_изменение_добавление)
         df[1].append(characteristik.статус_изменение_добавление)
