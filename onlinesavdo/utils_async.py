@@ -21,16 +21,16 @@ base_url = 'http://test.app.akfa.onlinesavdo.com'
 # The main function that will manage the session and call other functions
 async def main(df,search_multiple=False):
     # Create session
-    import time
-    start = time.time()
+    # import time
+    # start = time.time()
     session = await create_session_async(f'{base_url}/auth/login')
     
     # Call the function to check items from Savdo with the session
-    result = await check_item_from_savdo_async(session,df,search_multiple)
-    end = time.time()
-    over = end - start
-    # print(result,over)
-    return result
+    try:
+        result = await check_item_from_savdo_async(session,df,search_multiple)
+        return result
+    finally:
+        await session.close()
 
 async def main_check_sena(df):
     import time
