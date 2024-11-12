@@ -1,15 +1,13 @@
 from django.shortcuts import render,redirect
-from django.http import JsonResponse
 import pandas as pd
-from .models import AluFileTermo,AluminiyProductTermo,CharUtilsThree,CharUtilsFour,CharacteristicTitle,Characteristika,ArtikulComponent
+from .models import AluFileTermo,AluminiyProductTermo,CharUtilsThree
 from norma.models import Norma
-from aluminiy.models import AluminiyProduct,RazlovkaTermo,AluProfilesData
-from .forms import FileFormTermo
-from django.db.models import Count,Max
+from aluminiy.models import AluminiyProduct,AluProfilesData
+from django.db.models import Max
 from config.settings import MEDIA_ROOT
 import numpy as np
 from aluminiy.models import AluFile,AluminiyProduct
-from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils,characteristika_created_txt_create,anodirovaka_check,check_for_correct
+from .utils import fabrikatsiya_sap_kod,create_folder,create_characteristika,create_characteristika_utils,anodirovaka_check
 import os
 from datetime import datetime
 import json
@@ -17,7 +15,7 @@ import random
 from django.db.models import Q
 from .BAZA import ANODIROVKA_CODE
 from django.views.decorators.csrf import csrf_exempt
-import ast
+
 
 brand_kraski_snaruji_ABC ={
       'A': 'AKZONOBEL',
