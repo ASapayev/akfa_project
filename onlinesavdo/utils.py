@@ -61,7 +61,10 @@ def generate_random_string(length=10):
 
 
 def  format_to_online(url,session,file):
-    df = pd.read_excel(f'{MEDIA_ROOT}/{file}',header=0,sheet_name='Алюмин Навои Жомий')
+    try:
+        df = pd.read_excel(f'{file}',header=0,sheet_name='Алюмин Навои Жомий')
+    except:
+        df = pd.read_excel(f'{MEDIA_ROOT}/{file}',header=0,sheet_name='Алюмин Навои Жомий')
 
     # print(df.columns,'ss')
     df = df[~df['Название системы'].isnull()]
@@ -213,8 +216,13 @@ def check_item_from_savdo(url,session,name):
 
 
 
-def get_id(path,status_code):
-    df1 = pd.read_excel(f'{MEDIA_ROOT}/{path}',sheet_name='Алюмин Навои Жомий',header= 0)
+def get_id(path,status_code=200):
+    try:
+        df1 = pd.read_excel(f'{path}',header=0,sheet_name='Алюмин Навои Жомий')
+    except:
+        df1 = pd.read_excel(f'{MEDIA_ROOT}/{path}',header=0,sheet_name='Алюмин Навои Жомий')
+
+    # df1 = pd.read_excel(f'{MEDIA_ROOT}/{path}',sheet_name='Алюмин Навои Жомий',header= 0)
     df1 = df1[~df1['Название системы'].isnull()]
 
     now = datetime.now()
@@ -324,7 +332,7 @@ def get_id(path,status_code):
                         t = 1
                     else:
                         ves_za_m =LengthOfProfile.objects.filter((Q(artikul =row["Артикул"])|Q(component=row["Артикул"])))[:1].get().ves_za_metr
-                        # print(ves_za_m)
+                        print(ves_za_m,row2['Тип покрытия'],row["Артикул"])
                         t = float(ves_za_m[row2['Тип покрытия']])*float(str(row2['Длина (мм)']).replace('.0',''))/1000
 
                     protsent = PokritiyaProtsent.objects.filter(name__icontains = str(row2['Название системы']).upper(), pokritiya__icontains=str(row2['Тип покрытия']).upper())[:1].get().protsent
@@ -528,7 +536,12 @@ def check_sena(path):
 
 
 def sozdaniye_sena_sap(path,session):
-    df1 = pd.read_excel(f'{MEDIA_ROOT}/{path}',sheet_name='Алюмин Навои Жомий',header= 0)
+    try:
+        df1 = pd.read_excel(f'{path}',header=0,sheet_name='Алюмин Навои Жомий')
+    except:
+        df1 = pd.read_excel(f'{MEDIA_ROOT}/{path}',header=0,sheet_name='Алюмин Навои Жомий')
+
+    # df1 = pd.read_excel(f'{MEDIA_ROOT}/{path}',sheet_name='Алюмин Навои Жомий',header= 0)
     df1 = df1[~df1['Название системы'].isnull()]
     now = datetime.now()
     year =now.strftime("%Y")

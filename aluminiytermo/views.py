@@ -270,6 +270,7 @@ def create_txt_for_1101(request):
                         else:
                             all_correct = False
                             does_not_exists.append([sap_code,'НЕТ ХАРАКТЕРИСТИКИ'])
+                            continue
 
                         
                         artikul = sap_code.split('-')[0]

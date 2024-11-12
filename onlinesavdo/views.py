@@ -35,6 +35,22 @@ class FileG:
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
+def online_savdo_list(request):
+    orders = OnlineSavdoOrder.objects.all().order_by('-created_at')
+    context ={
+        'orders':orders
+    }
+    
+    return render(request,'online_savdo/file_list.html',context)
+
+
+
+
+
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def upload_product_org(request):
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
@@ -44,16 +60,18 @@ def upload_product_org(request):
                 order.paths['first_file_id'] =new_order.id
                 order.paths['first_file_path'] =str(new_order.file)
                 order.paths['created_at'] =order.created_at
+                order.save()
                 order.paths['link'] ='generate-online-file/'+str(order.id)
                 order.save()
-                context ={
-                    'first_file_id':new_order.id,
-                    'first_file_path':new_order.file,
-                    'created_at':order.created_at,
-                    'link':'generate-online-file/'+str(order.id),
-                    'status':'1'
-                }
-                return render(request,'online_savdo/file_list.html',context)
+                return redirect('online_savdo_zayavki')
+                # context ={
+                #     'first_file_id':new_order.id,
+                #     'first_file_path':new_order.file,
+                #     'created_at':order.created_at,
+                #     'link':'generate-online-file/'+str(order.id),
+                #     'status':'1'
+                # }
+                # return render(request,'online_savdo/order_detail.html',context)
     else:
         form =FileForm()
         context ={
@@ -270,7 +288,7 @@ def create_online(request,id):
         # session,status_code =create_session(f'{base_url}/auth/login')
         first_file_path = paths['first_file_path']
         # path = OnlineSavdoFile.objects.get(id=int(first_file_id)).file
-        status_code2,path_id = get_id(first_file_path,status_code)
+        status_code2,path_id = get_id(first_file_path)
         if status_code2 == 200:
             order.status ='4'
             order.paths['created_sena_file'] = path_id
@@ -334,7 +352,7 @@ def create_online(request,id):
     for key,val in paths.items():
         context[key]=val
 
-    return render(request,'online_savdo/file_list.html',context)
+    return render(request,'online_savdo/order_detail.html',context)
 
 
    

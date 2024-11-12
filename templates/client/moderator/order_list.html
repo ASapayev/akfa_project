@@ -169,8 +169,9 @@
                           <div class="btn-group" role="group" aria-label="Basic example" id="options_{{order.id}}">
                             <a href="{%url 'order_history' order.id %}" class="btn btn-primary btn-sm" ><i class="bi bi-eye"></i> История</a>
                             {%if order.status|stringformat:"d" == '10063' %}
-                              <a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Convert</a>
+                              <a href="{%url 'order_convert' order.id %}" class="btn btn-warning btn-sm" id="link{{forloop.counter}}" ><i class="bi bi-pen"></i> Конветр</a>
                             {%endif%}
+                              
                           </div>
                         </td>
                         </td>

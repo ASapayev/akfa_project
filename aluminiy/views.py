@@ -8,7 +8,6 @@ from aluminiytermo.models import AluminiyProductTermo,CharacteristikaFile
 from aluminiytermo.views import *
 from .forms import FileForm,LengthOfProfileForm,ExchangeValueForm,FileFormBazaprofiley
 from django.db.models import Max
-import zipfile
 from config.settings import MEDIA_ROOT
 import numpy as np
 from .utils import fabrikatsiya_sap_kod,create_folder,CharacteristicTitle,save_razlovka,download_bs64,characteristika_created_txt_create_1301_v2,json_to_excel_alumin_savdo,json_to_excel_alumin_imzo,json_to_excel_alumin_export
@@ -19,19 +18,17 @@ from aluminiytermo.utils import create_characteristika,create_characteristika_ut
 from aluminiytermo.models import CharUtilsThree,Characteristika
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
-import ast
-from django.http import JsonResponse,HttpResponse,FileResponse
+from django.http import JsonResponse
 from datetime import datetime
 from aluminiytermo.BAZA import ANODIROVKA_CODE
 from io import BytesIO as IO
 from accounts.models import User
-from django.urls import reverse
-from norma.models import NormaExcelFiles
 from accounts.decorators import allowed_users
 from client.views import save_file_to_model,id_generator
-from onlinesavdo.models import OnlineSavdoFile
+from onlinesavdo.models import OnlineSavdoFile,OnlineSavdoOrder
 from accessuar.models import OrderACS,OrderAKP,OrderProchiye
 from client.models import Order as BaseOrderAlu
+
 
 
 
@@ -3456,7 +3453,7 @@ def product_add_second_org(request,id):
                   pokritiya_dict ={}
 
                   for ves_i in range(0,len(profile_doesnot_exists[0])):
-                        merged_text = profile_doesnot_exists[0][ves_i]+profile_doesnot_exists[1][ves_i]+profile_doesnot_exists[2][ves_i]
+                        merged_text = str(profile_doesnot_exists[0][ves_i])+str(profile_doesnot_exists[1][ves_i])+str(profile_doesnot_exists[2][ves_i])
                         
                         if merged_text not in checker_list:
                               ves_dict ={}
@@ -3573,10 +3570,10 @@ def product_add_second_org(request,id):
                         else:
                               df_simple= json_to_excel_alumin_savdo(datas,artikul_kratkiy_collection)
                         
-                        df_simple.to_excel(path_onlinesavdo, index = False,engine='openpyxl')
+                        df_simple.to_excel(path_onlinesavdo, index = False,sheet_name='Алюмин Навои Жомий')
                   else:
                         datf = pd.DataFrame({'Malumot':['',]})
-                        datf.to_excel(path_onlinesavdo,engine='openpyxl')
+                        datf.to_excel(path_onlinesavdo,engine='openpyxl',sheet_name='Алюмин Навои Жомий')
                         
                   file_id = save_file_to_model(path_onlinesavdo,OnlineSavdoFile())
 
@@ -3589,8 +3586,22 @@ def product_add_second_org(request,id):
 
                   paths['norma_formula_file'] = f'{MEDIA_ROOT}\\{path_ramka_norma}'
                   paths['savdo_file'] = path_onlinesavdo
-                  paths['norma_link'] ='/online-savdo/generate-online-file/' + str(file_id) +f'?order_id={order_id}'
                  
+
+                  ################## Online savdo ###########
+                  order_savdo = OnlineSavdoOrder()
+                  order_savdo.paths['first_file_id'] = file_id
+                  order_savdo.paths['first_file_path'] = path_onlinesavdo
+                  order_savdo.paths['created_at'] =str(order.created_at)
+                  order_savdo.save()
+                  order_savdo.paths['link'] ='generate-online-file/'+str(order_savdo.id)
+                  order_savdo.save()
+
+                  paths['norma_link'] ='/online-savdo/generate-online-file/' + str(order_savdo.id) +f'?order_id={order_id}'
+
+                  ##################
+
+
 
                   paths['raz_created_at']= raz_created_at
                   paths['zip_created_at']= zip_created_at

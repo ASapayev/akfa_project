@@ -1500,42 +1500,7 @@ function set_values(base,i,order){
             va2.text(base[key])
         }
     }
-    // if(order_type =='alu_imzo' || order_type =='alu_savdo' || order_type =='alu_export'){
-
-    //     var url ='{%url "save_ves_of_profile_single" %}'
-
-    //     var ves = $('#ves'+i+'4')
-    //     // var pokritiya = $('#tip_pokritiya'+i+'5')
-
-    //     data ={
-    //         'artikul':base['base_artikul'],
-    //         'dlina':base['dlina'],
-    //         'tip_pokritiya':base['tip_pokritiya']
-    //     }
-
-    //     var csrfToken = getCSRFToken();
-    //     var postData = {
-    //         'data': JSON.stringify(data),
-    //         'order_type':order_type,
-    //     }
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: url,
-    //         headers: { "X-CSRFToken": csrfToken },
-    //         data: postData,
-    //     }).done(function (res) {
-    //         console.log(res,'response')
-    //         if(res.status == 201 ){
-    //             ves.val(res.msg);
-    //             ves.attr('disabled',true)
-    //             ves.addClass('old')
-    //         }else{
-    //             ves.addClass('new')
-    //             console.log('a')
-    //         }
-            
-    //     });
-    // }
+    
 
 }
 

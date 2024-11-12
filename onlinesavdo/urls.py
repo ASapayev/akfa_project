@@ -3,6 +3,11 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+
+    
+    ####
+    path('online-savdo-zayavki',views.online_savdo_list,name='online_savdo_zayavki'),
+
     ###1
     path('upload-online-savdo',views.upload_product_org,name='upload_online_savdo'),
     path('generate-online-file/<int:id>',views.create_online,name='generate_online_savdo'),

@@ -1271,25 +1271,7 @@
             }
         }
 
-        // function downloadTableAsExcel() {
-        //     const table = document.getElementById("my-table");
-        //     const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
-
-        //     // Create a Blob object representing the data as an Excel file
-        //     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        //     const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        //     const url = URL.createObjectURL(blob);
-
-        //     // Create a link element, set its attributes, and trigger a click event to initiate download
-        //     const a = document.createElement("a");
-        //     a.style.display = "none";
-        //     a.href = url;
-        //     a.download = order_type +"_.xlsx";
-        //     document.body.appendChild(a);
-        //     a.click();
-        //     document.body.removeChild(a);
-        //     URL.revokeObjectURL(url);
-        // }
+        
         function downloadTableAsExcel() {
           const table = document.getElementById("my-table");
           // console.log(table)
