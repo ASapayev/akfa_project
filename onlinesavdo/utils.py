@@ -254,9 +254,20 @@ def get_id(path,status_code=200):
         
         if not LengthOfProfile.objects.filter((Q(artikul =row["Артикул"])|Q(component=row["Артикул"]))).exists():
             not_exists[0].append(row["Артикул"])
-            not_exists[1].append(row['Длина (мм)'])
+            not_exists[1].append(row['Тип покрытия'])
             not_exists[2].append('VES ZA METR')
             all_corecct = False
+        else:
+            ves_za_metr = LengthOfProfile.objects.filter((Q(artikul =row["Артикул"])|Q(component=row["Артикул"])))[:1].get().ves_za_metr
+            # ves_za_m[row2['Тип покрытия']]
+            if ves_za_metr[row2['Тип покрытия']]=='':
+                not_exists[0].append(row["Артикул"])
+                not_exists[1].append(row2['Тип покрытия'])
+                not_exists[2].append('VES ZA METR')
+                all_corecct = False
+
+
+
         if not PokritiyaProtsent.objects.filter(name__icontains = str(row['Название системы']).upper(), pokritiya__icontains=str(row['Тип покрытия']).upper()).exists():
             # print(row['Название системы'],row['Тип покрытия'])
             not_exists[0].append(row["Артикул"])
@@ -332,7 +343,7 @@ def get_id(path,status_code=200):
                         t = 1
                     else:
                         ves_za_m =LengthOfProfile.objects.filter((Q(artikul =row["Артикул"])|Q(component=row["Артикул"])))[:1].get().ves_za_metr
-                        print(ves_za_m,row2['Тип покрытия'],row["Артикул"])
+                        # print(ves_za_m,row2['Тип покрытия'],row["Артикул"])
                         t = float(ves_za_m[row2['Тип покрытия']])*float(str(row2['Длина (мм)']).replace('.0',''))/1000
 
                     protsent = PokritiyaProtsent.objects.filter(name__icontains = str(row2['Название системы']).upper(), pokritiya__icontains=str(row2['Тип покрытия']).upper())[:1].get().protsent
