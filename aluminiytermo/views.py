@@ -27,6 +27,7 @@ from order.models import Order
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
 from aluminiy.forms import FileFormBazaprofiley
+from .create_char import product_add_second_simple,product_add_second_termo
 
 now = datetime.now()
 
