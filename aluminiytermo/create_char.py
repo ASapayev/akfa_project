@@ -2061,7 +2061,7 @@ def product_add_second_simple(id):
       df_char = create_characteristika(cache_for_cratkiy_text) 
       df_char_title =create_characteristika_utils(cache_for_cratkiy_text)
                   
-      
+      print(cache_for_cratkiy_text)
             
       if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}.xlsx'):
             path =f'{MEDIA_ROOT}\\uploads\\aluminiy\\{year}\\{month}\\{day}\\{hour}\\alumin_new-{minut}.xlsx'
