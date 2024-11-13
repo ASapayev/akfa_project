@@ -45,7 +45,7 @@
                         {% for key, value in form.ves_za_metr.value.items %}
                             <div>
                                 <label>{{ key }}:</label>
-                                <input type="text" name="ves_za_metr[{{ key }}]" value="{{ value }}" required>
+                                <input type="text" name="ves_za_metr[{{ key }}]" value="{{ value }}" >
                             </div>
                         {% endfor %}
 
