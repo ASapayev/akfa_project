@@ -839,6 +839,8 @@ function submit_ves() {
                 })
               var btn = document.getElementById('ves_za_metr_div');
               btn.style.display='none';
+              var currentUrl = window.location.href;
+              window.location.href = currentUrl;
               }else{
                   Swal.fire({
                       icon: 'error',
