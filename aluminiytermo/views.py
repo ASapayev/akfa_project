@@ -3358,7 +3358,8 @@ def product_add_second_org(request,id):
             path_alu =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\alumin_new_termo-{minut}-{st}.xlsx'
             path_ramka_norma =f'uploads\\aluminiytermo\\{year}\\{month}\\{day}\\{hour}\\norma-{minut}-{st}.xlsx'
             
-     
+      # print(cache_for_cratkiy_text,'neww')
+
       df_extrusion = pd.DataFrame({'SAP CODE E' : exturision_list})
     
       df_new = df_new.replace('nan','')
@@ -3744,7 +3745,7 @@ def product_add_second_org(request,id):
                   paths = order.paths
                   raz_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
                   zip_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
-                  paths['obichniy_razlovka_file']= file_paths
+                  paths['termo_razlovka_file']= file_paths
 
                   paths['norma_formula_file'] = f'{MEDIA_ROOT}\\{path_ramka_norma}'
                   paths['savdo_file'] = path_onlinesavdo
