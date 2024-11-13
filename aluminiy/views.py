@@ -3554,7 +3554,6 @@ def product_add_second_org(request,id):
 
 
             if order_id:
-                  # order = Order.objects.get(id = order_id)
                   rand_string = id_generator()
                   path_onlinesavdo =f'{MEDIA_ROOT}\\uploads\\aluminiy\\downloads\\SHABLON_ALUMINIY_SAVDO_{rand_string}.xlsx'
                   if BaseOrderAlu.objects.filter(id = order.client_order_id).exists():

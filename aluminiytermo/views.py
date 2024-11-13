@@ -24,10 +24,14 @@ from django.views.decorators.csrf import csrf_exempt
 import ast
 from django.contrib.auth.decorators import user_passes_test,login_required
 from order.models import Order
+from onlinesavdo.models import OnlineSavdoFile,OnlineSavdoOrder
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
 from aluminiy.forms import FileFormBazaprofiley
 from .create_char import product_add_second_simple,product_add_second_termo
+from client.views import id_generator,save_file_to_model
+from client.models import Order as BaseOrderAlu
+from aluminiy.utils import json_to_excel_alumin_savdo,json_to_excel_alumin_imzo,json_to_excel_alumin_export
 
 now = datetime.now()
 
@@ -1403,6 +1407,9 @@ def product_add_second_org(request,id):
       
       
       cache_for_cratkiy_text =[]
+
+      artikul_kratkiy_collection ={}
+
       print(' sapcode berish vaqti boshlanishi>> ',datetime.now().minute,datetime.now().second)
       for key,row in df.iterrows():
             print(key)
@@ -1657,6 +1664,8 @@ def product_add_second_org(request,id):
                         if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key]).exists():
                               df_new['SAP код 75'][key] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='75',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция 75'][key])[:1].get().material
                               duplicat_list.append([df_new['SAP код 75'][key],df_new['U-Упаковка + Готовая Продукция 75'][key],'75'])
+                              key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция 75'][key]
+                              artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 75'][key]
                         else: 
                               if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='75').exists():
                                     umumiy_counter_termo[df['Артикул'][key]+'-75'] += 1
@@ -1677,7 +1686,9 @@ def product_add_second_org(request,id):
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
                                     hollow_and_solid = aluprofiles.data['Полый и Фасонный']
                                     
-                                    
+                                    key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция 75'][key]
+                                    artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 75'][key]
+
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
                                     else:
@@ -1843,7 +1854,9 @@ def product_add_second_org(request,id):
                   else:     
                         if AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key]).exists():
                               df_new['SAP код 7'][key] = AluminiyProductTermo.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['U-Упаковка + Готовая Продукция'][key])[:1].get().material
-                              duplicat_list.append([df_new['SAP код 7'][key],df_new['U-Упаковка + Готовая Продукция'][key],'75'])
+                              duplicat_list.append([df_new['SAP код 7'][key],df_new['U-Упаковка + Готовая Продукция'][key],'7'])
+                              key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция'][key]
+                              artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 7'][key]
                         else: 
                               if AluminiyProductTermo.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
                                     umumiy_counter_termo[df['Артикул'][key]+'-7'] += 1
@@ -1855,6 +1868,10 @@ def product_add_second_org(request,id):
                                    
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
                                     hollow_and_solid = aluprofiles.data['Полый и Фасонный']
+
+
+                                    key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция'][key]
+                                    artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 7'][key]
 
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
@@ -1944,6 +1961,10 @@ def product_add_second_org(request,id):
                                     aluprofiles = AluProfilesData.objects.get(Q(data__Артикул=artikle)|Q(data__Компонент=artikle))
                                     hollow_and_solid = aluprofiles.data['Полый и Фасонный']
 
+                                    key_of_artikul =df['Артикул'][key]+df_new['U-Упаковка + Готовая Продукция'][key]
+                                    artikul_kratkiy_collection[key_of_artikul] = df_new['SAP код 7'][key]
+
+                                    
                                     if row['Тип покрытия'].lower() == 'сублимированный':
                                           tip_poktitiya ='с декоративным покрытием'
                                     else:
@@ -3695,17 +3716,54 @@ def product_add_second_org(request,id):
             }
             if order_id:
                   # print('*1*'*15)
-                  norma_file = NormaExcelFiles(file = path_ramka_norma,type='termo')
-                  norma_file.save()
+                  rand_string = id_generator()
+                  path_onlinesavdo =f'{MEDIA_ROOT}\\uploads\\aluminiytermo\\downloads\\SHABLON_ALUMINIY_TERMO_SAVDO_{rand_string}.xlsx'
+
+                  if BaseOrderAlu.objects.filter(id = order.client_order_id).exists():
+                        order_datas = BaseOrderAlu.objects.get(id = order.client_order_id)
+                        datas = order_datas.data['data']
+                        order_type = order_datas.order_type
+                        if order_type == 'alu_savdo':
+                              df_simple= json_to_excel_alumin_savdo(datas,artikul_kratkiy_collection)
+                        elif order_type =='alu_imzo':
+                              df_simple= json_to_excel_alumin_imzo(datas,artikul_kratkiy_collection)
+                        elif order_type =='alu_export':
+                              df_simple= json_to_excel_alumin_export(datas,artikul_kratkiy_collection)
+                        else:
+                              df_simple= json_to_excel_alumin_savdo(datas,artikul_kratkiy_collection)
+                        
+                        df_simple.to_excel(path_onlinesavdo, index = False,sheet_name='Алюмин Навои Жомий')
+                  else:
+                        datf = pd.DataFrame({'Malumot':['',]})
+                        datf.to_excel(path_onlinesavdo,engine='openpyxl',sheet_name='Алюмин Навои Жомий')
+                        
+                  file_id = save_file_to_model(path_onlinesavdo,OnlineSavdoFile())
+
                   file_paths =[ file.file for file in files]
-                  order = Order.objects.get(id = order_id)
+                  
                   paths = order.paths
                   raz_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
                   zip_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
-                  paths['termo_razlovka_file']= file_paths
-                  
+                  paths['obichniy_razlovka_file']= file_paths
+
                   paths['norma_formula_file'] = f'{MEDIA_ROOT}\\{path_ramka_norma}'
-                  paths['norma_link'] ='/norma/process-combinirovanniy/' + str(norma_file.id) +f'?type=termo&order_id={order_id}'
+                  paths['savdo_file'] = path_onlinesavdo
+                 
+
+                  ################## Online savdo ###########
+                  order_savdo = OnlineSavdoOrder()
+                  order_savdo.paths['first_file_id'] = file_id
+                  order_savdo.paths['first_file_path'] = path_onlinesavdo
+                  order_savdo.paths['created_at'] =str(order.created_at)
+                  order_savdo.save()
+                  order_savdo.paths['link'] ='generate-online-file/'+str(order_savdo.id)
+                  order_savdo.save()
+
+                  paths['norma_link'] ='/online-savdo/generate-online-file/' + str(order_savdo.id) +f'?order_id={order_id}'
+
+                  ##################
+
+
 
                   paths['raz_created_at']= raz_created_at
                   paths['zip_created_at']= zip_created_at

@@ -632,6 +632,8 @@ def sozdaniye_sena_sap(path,session):
         sapcode = row2['SAP Код вручную (вставится вручную)']
         result = send_request_to_savdo(form_url,session,name,sapcode)
 
+        # print(result[0],'**'*8)
+
         if len(result)>0:
             result = result[0]
             data[0].append(result['id'])
@@ -739,10 +741,10 @@ def sozdaniye_sena_sap(path,session):
             a = 0
 
             url_sena ='http://test.app.akfa.onlinesavdo.com/ajax-goodsRate-datagrid'
-            sena = get_sena(url_sena,session,result['id'])['cost']
+            sena = get_sena(url_sena,session,result['id'])
             # print(sena,'sennaaaaa')
             if sena:
-                a = sena
+                a = sena['cost']
 
             data[17].append(float(a))
             data[18].append(row2['Базовый единица'])
