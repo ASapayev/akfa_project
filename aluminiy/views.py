@@ -4009,10 +4009,11 @@ def delete_sap_code(request,id):
 
                   if '-7' in sapcode.material:
                         if RazlovkaTermo.objects.filter(sap_code7 = sapcode.material).exists():
-                              termo =RazlovkaTermo.objects.get(sap_code7 = sapcode.material)
-                              components =RazlovkaTermo.objects.filter(parent_id =termo.id)
-                              components.delete()
-                              termo.delete()
+                              termo_prof_all = RazlovkaTermo.objects.filter(sap_code7 = sapcode.material)
+                              for termo_prof  in termo_prof_all:
+                                    components = RazlovkaTermo.objects.filter(parent_id =termo_prof.id)
+                                    components.delete()
+                              termo_prof_all.delete()
                   sapcode.delete()
 
             return JsonResponse({'msg':True})
