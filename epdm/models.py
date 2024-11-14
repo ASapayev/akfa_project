@@ -37,3 +37,8 @@ class EpdmSapCode(models.Model):
   kratkiy_tekst_materiala =models.CharField(max_length=250,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
+
+class EpdmArtikul(models.Model):
+  name = models.CharField(max_length=10,blank=True,null=True)
+  created_at =models.DateTimeField(auto_now_add=True)
+  updated_at =models.DateTimeField(auto_now=True)

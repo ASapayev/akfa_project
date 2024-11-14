@@ -44,7 +44,7 @@ urlpatterns = [
     # path('vi-generate-mo/<int:id>',views.vi_generate_mo,name='vi_generate_mo_radiator'),
     # ############# end vi #############
 
-    
+    path('get-or-add-option-epdm-artikul/', views.get_or_add_option, name='get_or_add_option_epd_artikul'),
 
     # path('radiator-generate-sapcode/<int:id>',views.product_add_second_org_radiator,name='radiator_add_org'),
 

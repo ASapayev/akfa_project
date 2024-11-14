@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
 from .forms import NormaEpdmFileForm,TexcartaEpdmFileForm
-from .models import NormaEpdm,EpdmFile,TexcartaFile,SiroEpdm
+from .models import NormaEpdm,EpdmFile,TexcartaFile,SiroEpdm,EpdmArtikul
 from config.settings import MEDIA_ROOT
 import pandas as pd
 from django.http import JsonResponse
@@ -13,6 +13,32 @@ import json
 import random
 import string
 # Create your views here.
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','customer','universal_user']) 
+def get_or_add_option(request):
+    if request.method == 'GET':
+        search_term = request.GET.get('term', '')  # Search term from the Select2 input
+        
+        if search_term:
+            queryset = EpdmArtikul.objects.filter(name__icontains=search_term).values('id','name')
+        else:
+            queryset = EpdmArtikul.objects.all().values('id','name')
+           
+       
+        return JsonResponse({"results": list(queryset)})
+    
+    elif request.method == 'POST':
+        new_option = request.POST.get('new_option', '')
+        
+        if new_option:
+            obj, created = EpdmArtikul.objects.get_or_create(name=new_option)
+            return JsonResponse({"id": obj.id, "text": obj.name})
+
+        return JsonResponse({"error": "Invalid input"}, status=400)
+
+
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator','epdm','universal_user']) 

@@ -1169,6 +1169,41 @@
             </section>
             {%endif%}
 
+            {%if order_type == 'epdm_savdo'%}
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <div class="row p-2">
+                    <div class="col">
+                     
+                    </div>
+                    <div class="col-10">
+                    </div>
+                    <div class="col">
+                      <button onclick="downloadTableAsExcel()" class="btn btn-primary btn-sm">Download as Excel</button>
+                    </div>
+                  </div>
+                <form method="POST" id="basic_form" onsubmit="return validateForm()">
+                    {%csrf_token%}
+                <div style="overflow: scroll;" >
+                    
+                    <table class="table table-sm table-light table-bordered" id="my-table">
+                        <thead>
+                          <tr>
+                           {% include 'client/headers/epdm.html' %}
+                        </tr>
+                        </thead>
+                        <tbody id="table-artikul">
+                            
+                        </tbody>
+                    </table>
+                  
+                    
+                </div>
+               
+               
+            </form>
+            </section>
+            {%endif%}
+
             <hr>
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
@@ -1335,6 +1370,7 @@ var order ={
             'bussines_partner':['vid_zayavki','balance_ed','rol_bp','group_del_partner','nomer_del_partner','imya_org','imya','familiya','ulitsa','nomer_doma','pochta_index','gorod','kod_stran','region','rayon','nomer_tel','nomer_mob','inn','ndc','nalog','oked','okpo','coato','coogu','kod_stran_bank','klyuch_banka','bank_schot','valyuta_zakaz','usloviya_plateja','sbitovoy_organ','kanal_sbita','sektor','rayon_sbita','gruppa_sena','sxema_kliyenta','status_gruppa_kliyent','usloviya_otgruz','sbit_debitora','sbit_nalog','kontrol_schot','kontrol_debitora',],
             'acs_zavod':['base_artikul','kratkiy_tekst','gruppa_materialov','bei','aei','koefitsiyent','sklad_gp','bux_sena','comment',],
             'kraska':['combination','tip_kraski','kraska','brend_kraska','artikul','dop_info','kratkiy_tekst','comment','pickupdate','sena_c_nds','sena_bez_nds','edi_izm','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_online','zavod','tip_clenta'],
+            'epdm_savdo':['tip_zayavka','dop_info','artikul','svet','ves','kratkiy_tekst','bei','aei','koefitsiyent','comment','online_id','nazvaniye_ruchnoy','svet_product','group_zakup','group','tip','segment','buxgalter_tovar','bazoviy_edin','alter_edin','stoimost_baza','stoimost_alter','status_name','zavod_name','tip_clienta'],
 
                 
         }
