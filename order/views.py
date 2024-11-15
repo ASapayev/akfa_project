@@ -9,6 +9,7 @@ from django.core.paginator import Paginator
 from accounts.decorators import allowed_users
 from accessuar.models import OrderACS,OrderAKP,OrderProchiye
 from kraska.models import OrderKraska
+from epdm.models import OrderEpdm,EpdmFile
 
 
 @login_required(login_url='/accounts/login/')
@@ -102,6 +103,47 @@ def index_prochiye(request):
         'orders':page_obj
     }
     return render(request,'dashboard/workers_prochiye.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
+def index_epdm(request):
+    current_orders = OrderEpdm.objects.all().order_by('-created_at')
+
+    paginator = Paginator(current_orders, 15)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+
+
+    context ={
+        'orders':page_obj
+    }
+    return render(request,'dashboard/workers_epdm.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
+def index_kraska(request):
+    current_orders = OrderKraska.objects.all().order_by('-created_at')
+
+    paginator = Paginator(current_orders, 15)
+
+    if request.GET.get('page') != None:
+        page_number = request.GET.get('page')
+    else:
+        page_number=1
+
+    page_obj = paginator.get_page(page_number)
+
+
+    context ={
+        'orders':page_obj
+    }
+    return render(request,'dashboard/workers_kraska.html',context)
+
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
@@ -277,6 +319,24 @@ def order_detail_prochiye(request,id):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
+def order_detail_epdm(request,id):
+    order = OrderEpdm.objects.get(id = id)
+    
+    context ={
+        'order':order
+    }
+    paths =  order.paths
+    
+    if order.work_type == 5:
+        workers = User.objects.filter(role =  'moderator')
+        context['workers'] =workers
+
+    for key,val in paths.items():
+        context[key] = val
+    return render(request,'order/order_detail_epdm.html',context)
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def order_detail_kraska(request,id):
     order = OrderKraska.objects.get(id = id)
     
@@ -329,10 +389,24 @@ def order_delete_pvc(request,id):
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])
+def order_delete_epdm(request,id):
+    order = OrderEpdm.objects.get(id = id)
+    order.delete()
+    return redirect('order_client_epdm')
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
 def order_delete_radiator(request,id):
     order = OrderRadiator.objects.get(id = id)
     order.delete()
     return redirect('order_radiator')
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator'])
+def order_delete_kraska(request,id):
+    order = OrderKraska.objects.get(id = id)
+    order.delete()
+    return redirect('order_client_kraska')
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])

@@ -1,17 +1,23 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
+from accounts.models import User
 from .forms import NormaEpdmFileForm,TexcartaEpdmFileForm
-from .models import NormaEpdm,EpdmFile,TexcartaFile,SiroEpdm,EpdmArtikul
+from .models import NormaEpdm,EpdmFile,TexcartaFile,SiroEpdm,EpdmArtikul,EpdmSapCode,OrderEpdm
 from config.settings import MEDIA_ROOT
 import pandas as pd
 from django.http import JsonResponse
-from django.db.models import Q
+from django.db.models import Q,Max
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 import json
 import random
 import string
+from datetime import datetime
+import os
+from random import randint
+from kraska.utils import create_folder
+from kraska.utils import characteristika_created_txt_create
 # Create your views here.
 
 
@@ -511,6 +517,242 @@ def generate_norma_epdm(df_sapcodes,df_not_exists):
     writer.close()
     
     return path
+
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['admin','moderator','epdm','universal_user'])    
+def product_add_second_org_epdm(request,id):
+    file = EpdmFile.objects.get(id=id).file
+    if 'SHABLON' in str(file):
+        df = pd.read_excel(f'{MEDIA_ROOT}/{file}')
+        # df = pd.read_excel(f'c:\\OpenServer\\domains\\SHABLON_RADIATOR_XXXXX.xlsx')
+    else:
+        df = pd.read_excel(f'{MEDIA_ROOT}/{file}',header=4)
+    
+    df = df.astype(str)
+    
+    now = datetime.now()
+    year =now.strftime("%Y")
+    month =now.strftime("%B")
+    day =now.strftime("%a%d")
+    hour =now.strftime("%H HOUR")
+    minut =now.strftime("%M")
+      
+    order_id = request.GET.get('order_id',None)
+      
+
+
+      
+    aluminiy_group = EpdmSapCode.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
+    umumiy_counter={}
+    for al in aluminiy_group:
+        umumiy_counter[ al['artikul'] + '-' + al['section'] ] = al['total_max']
+    
+    aluminiy_group_termo = EpdmSapCode.objects.values('section','artikul').order_by('section').annotate(total_max=Max('counter'))
+    umumiy_counter_termo = {}
+    for al in aluminiy_group_termo:
+        umumiy_counter_termo[ al['artikul'] + '-' + al['section'] ] = al['total_max']
+      
+      
+   
+    
+    
+    df_new = pd.DataFrame()
+
+    df_new['counter'] =df['Артикул']
+    
+    df_new['SAP CODE 7']=''
+    df_new['7 - Upakovka']=''
+
+    
+    
+    
+    cache_for_cratkiy_text =[[],[],[]]
+    duplicat_list =[]
+    
+    
+    for key,row in df.iterrows():  
+        df_new['7 - Upakovka'][key] = df['Краткий текст'][key]
+
+        
+        # if ((row['Название'] == 'nan') or (row['Название'] == '')):
+        #     online_savdo_name = ''
+        # else:
+        #     online_savdo_name = row['Название']
+            
+            
+        # if ((row['Online savdo ID'] == 'nan') or (row['Online savdo ID'] == '')):
+        #     id_savdo = 'XXXXX'
+        # else:
+        #     id_savdo = str(row['Online savdo ID']).replace('.0','')
+
+        new_epdm = df['Артикул'][key]
+
+        if not EpdmArtikul.objects.filter(name__icontains=new_epdm).exists():
+            EpdmArtikul(name=new_epdm).save()
+
+
+        if EpdmSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala= df_new['7 - Upakovka'][key]).exists():
+            df_new['SAP CODE 7'][key] = EpdmSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['7 - Upakovka'][key])[:1].get().material
+            duplicat_list.append([df_new['SAP CODE 7'][key],df_new['7 - Upakovka'][key],'7'])
+        else: 
+            if EpdmSapCode.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
+                    umumiy_counter[df['Артикул'][key]+'-7'] += 1
+                    max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
+                    materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
+                    EpdmSapCode(artikul = df['Артикул'][key],section ='7',counter=max_values7,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+                    df_new['SAP CODE 7'][key] = materiale
+                    
+            
+                    cache_for_cratkiy_text[0].append(materiale)
+                    cache_for_cratkiy_text[1].append(df_new['7 - Upakovka'][key])
+                    cache_for_cratkiy_text[2].append(row['Цена с НДС'])
+            else:
+                    materiale = df['Артикул'][key]+"-7{:03d}".format(1)
+                    EpdmSapCode(artikul = df['Артикул'][key],section ='7',counter=1,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+                    df_new['SAP CODE 7'][key] = materiale
+                    umumiy_counter[df['Артикул'][key]+'-7'] = 1
+        
+                    cache_for_cratkiy_text[0].append(materiale)
+                    cache_for_cratkiy_text[1].append(df_new['7 - Upakovka'][key])
+                    # cache_for_cratkiy_text[2].append(row['Цена с НДС'])
+            
+
+    
+
+        
+      
+    parent_dir ='{MEDIA_ROOT}\\uploads\\epdm\\'
+    
+    if not os.path.isdir(parent_dir):
+        create_folder(f'{MEDIA_ROOT}\\uploads\\','epdm')
+        
+    create_folder(f'{MEDIA_ROOT}\\uploads\\epdm\\',f'{year}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\epdm\\{year}\\',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\epdm\\{year}\\{month}\\',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\epdm\\{year}\\{month}\\{day}\\',hour)
+      
+                       
+    if not os.path.isfile(f'{MEDIA_ROOT}\\uploads\\epdm\\{year}\\{month}\\{day}\\{hour}\\epdm-{minut}.xlsx'):
+        path_epdm =  f'{MEDIA_ROOT}\\uploads\\epdm\\{year}\\{month}\\{day}\\{hour}\\epdm-{minut}.xlsx'
+    else:
+        st = randint(0,1000)
+        path_epdm =  f'{MEDIA_ROOT}\\uploads\\epdm\\{year}\\{month}\\{day}\\{hour}\\epdm-{minut}-{st}.xlsx'
+      
+
+    # price_all_correct = False
+      
+    
+
+    del df_new['counter']
+
+    writer = pd.ExcelWriter(path_epdm, engine='openpyxl')
+    df_new.to_excel(writer,index=False,sheet_name='Schotchik')
+    writer.close()
+
+    # print(df_new)
+    order_id = request.GET.get('order_id',None)
+
+    work_type = 1
+    price_all_correct=True
+    if order_id:
+        work_type = OrderEpdm.objects.get(id = order_id).work_type
+        if price_all_correct:
+            df ={
+                'sapcode':cache_for_cratkiy_text[0],
+                'kratkiy':cache_for_cratkiy_text[1],
+                # 'narx':cache_for_cratkiy_text[2]
+                'narx':['' for x in cache_for_cratkiy_text[0]]
+            }
+            path = characteristika_created_txt_create(df,'epdm')
+            files = [File(file=p,filetype='obichniy',id=1) for p in path]
+            files.append(File(file=path_epdm,filetype='epdm',id=1))
+            context ={
+                  'files':files,
+                  'section':'Формированый краска файл'
+            }
+
+            if order_id:
+                file_paths =[ file.file for file in files]
+                order = OrderEpdm.objects.get(id = order_id)
+                paths = order.paths
+                raz_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+                zip_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+                paths['epdm_razlovka_file']= file_paths
+                paths['raz_created_at']= raz_created_at
+                paths['zip_created_at']= zip_created_at
+                paths['status_l']= 'done'
+                paths['status_raz']= 'done'
+                paths['status_zip']= 'done'
+                paths['status_text_l']= 'done'
+                
+                order.paths = paths
+                order.worker = request.user
+                order.current_worker = request.user
+                order.work_type = 6
+                order.save()
+                context['order'] = order
+                paths =  order.paths
+                for key,val in paths.items():
+                    context[key] = val
+                return render(request,'order/order_detail_epdm.html',context)  
+        else:
+            
+            file =[File(file = path_epdm,filetype='epdm',id=1)]
+            context = {
+                  'files':file,
+                  'section':'Формированый краска файл'
+            }
+            
+            if order_id:
+                order = OrderEpdm.objects.get( id = order_id)
+                paths = order.paths 
+                context2 ={
+                        'epdm_razlovka_file':[path_epdm,path_epdm]
+                }
+                paths['epdm_razlovka_file'] = [path_epdm,path_epdm]
+                
+
+                
+                raz_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                paths['raz_created_at']= raz_created_at
+                
+                paths['status_l']= 'done'
+                paths['status_raz']= 'done'
+                paths['status_zip']= 'on process++'
+                paths['status_text_l']= 'on process'
+                
+
+                order.paths = paths
+                order.current_worker = request.user
+                order.work_type = 6
+                order.save()
+                context2['order'] = order
+                paths =  order.paths
+                for key,val in paths.items():
+                    context2[key] = val
+
+                workers = User.objects.filter(role =  'moderator',is_active =True)
+                context2['workers'] = workers
+
+                return render(request,'order/order_detail_epdm.html',context2)
+
+    else:
+        df ={
+                'sapcode':cache_for_cratkiy_text[0],
+                'kratkiy':cache_for_cratkiy_text[1],
+                'narx':['' for x in cache_for_cratkiy_text[0]]
+            }
+        # print(df,'dfff')
+        path = characteristika_created_txt_create(df,'epdm')
+        files = [File(file=p,filetype='obichniy',id=1) for p in path]
+        files.append(File(file=path_epdm,filetype='epdm',id=1))
+        context ={
+                'files':files,
+                'section':'Формированый епдм файл'
+        }
+    
+    return render(request,'universal/generated_files.html',context)
 
 
 @login_required(login_url='/accounts/login/')

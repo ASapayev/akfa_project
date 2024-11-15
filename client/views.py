@@ -37,6 +37,7 @@ from decouple import config,UndefinedValueError
 from django.shortcuts import get_object_or_404
 import traceback
 from kraska.models import OrderKraska
+from epdm.models import OrderEpdm,EpdmFile
 
 
 try:
@@ -652,6 +653,31 @@ def moderator_convert(request,id):
         order = OrderKraska(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1,order_name=name,client_order_id=id)
         order.save()
         return redirect('order_detail_kraska',id=order.id)
+    elif name in ['EPDM SAVDO','EPDM ZAVOD']:
+        df_epdm = json_to_excel_epdm(datas)
+        path_epdm = f'{MEDIA_ROOT}\\uploads\\epdm\\downloads\\SHABLON_EPDM_{rand_string}.xlsx'
+        df_epdm.to_excel(path_epdm, index = False,engine='openpyxl')
+      
+        oid = save_file_to_model(path_epdm,EpdmFile(file_type='epdm'))
+        o_created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")                        
+        paths ={
+                    'epdm_file':path_epdm,
+                    'oid':oid,
+                    'obichniy_date':o_created_at,
+                    'is_obichniy':'yes',
+                    'type':'EPDM',
+                    'status_l':'on hold',
+                    'status_raz':'on hold',
+                    'status_zip':'on hold',
+                    'status_norma':'on hold',
+                    'status_text_l':'on hold',
+                    'status_norma_lack':'on hold',
+                    'status_texcarta':'on hold',
+                }
+            
+        order = OrderEpdm(title = name,owner=request.user,current_worker_id= request.user.id,worker_id =request.user.id,paths=paths,order_type =1,order_name=name,client_order_id=id)
+        order.save()
+        return redirect('order_detail_epdm',id=order.id)
 
     else:
         return JsonResponse({'msg':'This action does not exist yet.'})
@@ -719,6 +745,33 @@ def json_to_excel_kraska(datas):
 
     del df_kraska['counter']
     return df_kraska
+
+def json_to_excel_epdm(datas):
+    df_epdm  = pd.DataFrame()
+
+    df_epdm['counter'] =['' for x in range(0,len(datas))]
+
+    df_epdm['Тип'] = ''
+    df_epdm['Доп.Информация'] = ''
+    df_epdm['Артикул'] = ''
+    df_epdm['Цвет'] = ''
+    df_epdm['Вес'] = ''
+    df_epdm['Краткий текст'] = ''
+    
+    k = 0
+    for key1,data in datas.items():
+        df_epdm['Тип'][k] = data['tip_zayavka']
+        df_epdm['Доп.Информация'][k] = data['dop_info']
+        df_epdm['Артикул'][k] = data['artikul']
+        df_epdm['Цвет'][k] = data['svet']
+        df_epdm['Вес'][k] = data['ves']
+        df_epdm['Краткий текст'][k] = data['kratkiy_tekst']
+        
+        
+        k+=1
+
+    del df_epdm['counter']
+    return df_epdm
 
 def json_to_excel_prochiye(datas):
     df_prochiye  = pd.DataFrame()

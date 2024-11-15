@@ -7,7 +7,7 @@ import os
 import numpy as np
 
 
-def characteristika_created_txt_create(datas):
+def characteristika_created_txt_create(datas,type_of_order):
     now = datetime.now()
     year =now.strftime("%Y")
     month =now.strftime("%B")
@@ -15,20 +15,24 @@ def characteristika_created_txt_create(datas):
     hour =now.strftime("%H HOUR %M %S")
     minut =now.strftime("%M-%S MINUT")
     
-    parent_dir =f'{MEDIA_ROOT}\\uploads\\kraska'
+    parent_dir =f'{MEDIA_ROOT}\\uploads\\{type_of_order}'
     if not os.path.isdir(parent_dir):
-        create_folder(f'{MEDIA_ROOT}\\uploads','kraska')
+        create_folder(f'{MEDIA_ROOT}\\uploads',type_of_order)
         
-    create_folder(f'{MEDIA_ROOT}\\uploads\\kraska',f'{year}')
-    create_folder(f'{MEDIA_ROOT}\\uploads\\kraska\\{year}',f'{month}')
-    create_folder(f'{MEDIA_ROOT}\\uploads\\kraska\\{year}\\{month}',day)
-    create_folder(f'{MEDIA_ROOT}\\uploads\\kraska\\{year}\\{month}\\{day}',f'{hour}')
-    pathzip =f'{MEDIA_ROOT}\\uploads\\kraska\\{year}\\{month}\\{day}\\{hour}'
+    create_folder(f'{MEDIA_ROOT}\\uploads\\{type_of_order}',f'{year}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\{type_of_order}\\{year}',f'{month}')
+    create_folder(f'{MEDIA_ROOT}\\uploads\\{type_of_order}\\{year}\\{month}',day)
+    create_folder(f'{MEDIA_ROOT}\\uploads\\{type_of_order}\\{year}\\{month}\\{day}',f'{hour}')
+    pathzip =f'{MEDIA_ROOT}\\uploads\\{type_of_order}\\{year}\\{month}\\{day}\\{hour}'
 
      
     obyekt = ExcelToTxt(sapcode=datas['sapcode'], kratkiy=datas['kratkiy'], narx=datas['narx'])
-    kraska = obyekt.kraska  
-    obyekt.generate_txt_files(frame=kraska, path=pathzip) 
+    if type_of_order =='kraska':
+        dataframe = obyekt.kraska
+    elif type_of_order =='epdm':  
+        dataframe = obyekt.epdm
+
+    obyekt.generate_txt_files(frame=dataframe, path=pathzip) 
 
     file_path =f'{pathzip}.zip'
     

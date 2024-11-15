@@ -409,7 +409,7 @@ def product_add_second_org_kraska(request,id):
                 'kratkiy':cache_for_cratkiy_text[1],
                 'narx':cache_for_cratkiy_text[2]
             }
-            path = characteristika_created_txt_create(df)
+            path = characteristika_created_txt_create(df,'kraska')
             files = [File(file=p,filetype='obichniy',id=1) for p in path]
             files.append(File(file=path_kraska,filetype='kraska',id=1))
             context ={
@@ -489,7 +489,7 @@ def product_add_second_org_kraska(request,id):
                 'narx':cache_for_cratkiy_text[2]
             }
         # print(df,'dfff')
-        path = characteristika_created_txt_create(df)
+        path = characteristika_created_txt_create(df,'kraska')
         files = [File(file=p,filetype='obichniy',id=1) for p in path]
         files.append(File(file=path_kraska,filetype='kraska',id=1))
         context ={
@@ -498,6 +498,8 @@ def product_add_second_org_kraska(request,id):
         }
     
     return render(request,'universal/generated_files.html',context)
+
+
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['admin','moderator'])

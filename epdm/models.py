@@ -1,4 +1,6 @@
 from django.db import models
+from accounts.models import User
+from kraska.models import STATUS_CHOICES,WORK_TYPE_CHOICES
 
 # Create your models here.
 
@@ -42,3 +44,19 @@ class EpdmArtikul(models.Model):
   name = models.CharField(max_length=10,blank=True,null=True)
   created_at =models.DateTimeField(auto_now_add=True)
   updated_at =models.DateTimeField(auto_now=True)
+
+
+class OrderEpdm(models.Model):
+    title = models.CharField(max_length=150)
+    status = models.SmallIntegerField(choices=STATUS_CHOICES,default=1)
+    work_type =models.SmallIntegerField(choices=WORK_TYPE_CHOICES,default=1)
+    owner = models.ForeignKey(User,on_delete=models.CASCADE)
+    current_worker = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='on_time_worker_epdm')
+    worker = models.ForeignKey(User,models.CASCADE,blank=True,null=True,related_name='epdm_work')
+    wrongs = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,related_name='epdm_work_wrong')
+    paths = models.JSONField(null=True,blank=True,default=dict)
+    order_type = models.SmallIntegerField(default=1)
+    order_name = models.CharField(max_length=50,blank=True,null=True)
+    client_order_id = models.CharField(max_length=50,blank=True,null=True)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)
