@@ -103,7 +103,6 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Артикул</th>
-                                <th scope="col">Дата добавления цены</th>
                                 <th scope="col">Online savdo ID</th>
                                 <th scope="col">Название</th>
                             </tr>
@@ -203,7 +202,6 @@
                             <tr>
                                 <th scope="row">${i}</th>
                                 <td>${data_base[key]['artikul']}</td>
-                                <td>${data_base[key]['pickupdate']}</td>
                                 <td>${data_base[key]['online_id']}</td>
                                 <td>${data_base[key]['nazvaniye_ruchnoy']}</td>
                             </tr>
@@ -247,8 +245,8 @@
         var csrfToken = getCSRFToken();
         var postData = {
             'data': json_data,
-            'order_type':'kraska',
-            'name':'KRASKA',
+            'order_type':'epdm_zavod',
+            'name':'EPDM ZAVOD',
             'order_name':theme
         }
         $.ajax({

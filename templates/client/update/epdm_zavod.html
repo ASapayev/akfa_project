@@ -218,8 +218,8 @@
         var url = "/client/order-update/"+'{{id}}';
         var csrfToken = getCSRFToken();
         formData.append('data', json_data); 
-        formData.append('order_type', 'epdm_savdo');
-        formData.append('name', 'EPDM SAVDO');
+        formData.append('order_type', 'epdm_zavod');
+        formData.append('name', 'EPDM ZAVOD');
 
 
 
@@ -257,6 +257,6 @@
     
 
 </script>
-<script src="{% static 'js/epdm.js'%}"></script>
+<script src="{% static 'js/epdm_zavod.js'%}"></script>
 
 {%endblock%}

@@ -433,7 +433,7 @@ function request_piece(start = 1, end = 7) {
         // console.log(i)
         $selectElement.select2({
             tags: true,
-            placeholder: "Код epdm",
+            placeholder: "",
             ajax: {
                 url: '/epdm/get-or-add-option-epdm-artikul',
                 dataType: 'json',
