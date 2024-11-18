@@ -68,7 +68,7 @@ class BasePokritiya{
     get_kratkiy_tekst(){
             switch(this.id){
                 case 1: 
-                    console.log(this.tip_zayavka,'zayavkaa')
+                    // console.log(this.tip_zayavka,'zayavkaa')
                         if(this.tip_zayavka =='EPDM'){
                             if(this.is_active){
                                 if(this.tip_zayavka && this.artikul && this.ves){
@@ -661,7 +661,6 @@ function copy_tr(id,ii=1){
             var epdm_val_org=$('#artikul'+s)
     
             const newOption = document.createElement('option');
-            // console.log(kraska,'copy')
     
             if(artikul){
                 epdm_val.text(artikul)
@@ -717,7 +716,7 @@ function copy_tr(id,ii=1){
                 
                 }
             else{
-                // console.log(status_online,'kkkk')
+
                 activate_btn.css('background-color','orange')
                 activate_btn.css('color','white')
                 $('#is_active'+s).text('Активный')
@@ -739,14 +738,12 @@ function copy_tr(id,ii=1){
                 }
             }else{
                 var epdm_div =$('#epdm_div'+s);
-                // kraska_div.css('display','block')
         
                 var  epdm_div = $('#epdm_div'+s +' .select2 .selection .select2-selection--single')
                 var  epdm_val = $('#select2-artikul'+s+'-container')
                 var epdm_val_org=$('#artikul'+s)
         
                 const newOption = document.createElement('option');
-                // console.log(kraska,'copy')
         
                 if(artikul){
                     epdm_val.text(artikul)
@@ -1079,10 +1076,11 @@ function select_tip(id){
     var status_org =$('#status'+id)
     var tip_zayavki =$('#tip_zayavka'+id).val()
 
-    data_base[id].svet = 'чёрный';
+    
 
     // console.log(status_org,'lll')
     if(tip_zayavki =='EPDM'){
+        data_base[id].svet = 'чёрный';
         if(status_org.val()=='Активный'){
     
             var dop_info=$('#dop_info'+id)
@@ -1097,6 +1095,8 @@ function select_tip(id){
     
             var  epdm = $('#epdm_div'+id +' .select2 .selection .select2-selection--single')
             epdm.css('border-color','red')
+            var  epdm_val = $('#select2-artikul'+id+'-container')
+            epdm_val.text('')
     
             artikul.css('border-color','red')
     
@@ -1211,6 +1211,8 @@ function select_tip(id){
     
             var  epdm = $('#epdm_div'+id +' .select2 .selection .select2-selection--single')
             epdm.css('border-color','red')
+            var  epdm_val = $('#select2-artikul'+id+'-container')
+            epdm_val.text('')
     
             var ves=$('#ves'+id)
             ves.attr('disabled',false);
@@ -1304,8 +1306,7 @@ function select_tip(id){
             tip_clienta.css('border-color','red!important')
         }
     }else{
-        console.log(tip_zayavki,'sdsdasdas')
-        // console.log(tip_zayavki,'88888')
+        data_base[id].svet = NaN;
         if(status_org.val()=='Активный'){
     
             var dop_info=$('#dop_info'+id)
@@ -1321,6 +1322,11 @@ function select_tip(id){
             // epdm.css('border-color','red')
     
             // artikul.css('border-color','red')
+            var  epdm_val = $('#select2-artikul'+id+'-container')
+            epdm_val.text('')
+    
+            var svet=$('#svet'+id)
+            svet.text('')
     
             var ves=$('#ves'+id)
             ves.attr('disabled',false);
@@ -1430,9 +1436,14 @@ function select_tip(id){
             var artikul=$('#artikul'+id)
             artikul.attr('disabled',false);
             artikul.val('')
-    
+            
+            var svet=$('#svet'+id)
+            svet.text('')
             // var  epdm = $('#epdm_div'+id +' .select2 .selection .select2-selection--single')
-    
+            
+            var  epdm_val = $('#select2-artikul'+id+'-container')
+            epdm_val.text('')
+
             var ves=$('#ves'+id)
             ves.attr('disabled',false);
             // ves.css('border-color','red')
@@ -1865,6 +1876,14 @@ function create_kratkiy_tekst(id){
                 // epdm.css('border-color','red')
             }
             
+            var svet = $('#svet'+id)
+            if(svet.text()!=''){
+                data_base[id].svet = svet.text()
+                svet.css('border-color','#dedad9')
+            }else{
+                data_base[id].svet = NaN;
+                svet.css('border-color','#dedad9')
+            }
             var ves = $('#ves'+id)
             if(ves.val()!=''){
                 data_base[id].ves = ves.val()
