@@ -68,12 +68,10 @@ class BasePokritiya{
     get_kratkiy_tekst(){
             switch(this.id){
                 case 1: 
-                    // console.log(this.tip_zayavka,'zayavkaa')
                         if(this.tip_zayavka =='EPDM'){
                             if(this.is_active){
                                 if(this.tip_zayavka && this.artikul && this.ves){
                                     if (this.koefitsiyent && this.online_id && this.nazvaniye_ruchnoy&& this.tip_clienta){
-                                        // console.log(this.koefitsiyent &&this.comment&& this.online_id && this.nazvaniye_ruchnoy)
                                         return {'text':'Рез.упл. '+this.artikul+' чёрный '+this.ves +' кг','accept':true}     
                                     }
                                     else{
@@ -86,7 +84,6 @@ class BasePokritiya{
                         
                             }else{
                                 if(this.tip_zayavka && this.artikul && this.ves){
-                                    // console.log(this.tip_zayavka , this.dop_info , this.artikul , this.ves)
                                     if (this.koefitsiyent && this.nazvaniye_ruchnoy&&this.svet_product&& this.group_zakup && this.group && this.tip && this.segment && this.buxgalter_tovar && this.bazoviy_edin && this.alter_edin && this.stoimost_baza&& this.stoimost_alter&& this.tip_clienta){
                                          return {'text':'Рез.упл. '+this.artikul+' чёрный '+this.ves +' кг','accept':true}
                                              
@@ -101,11 +98,10 @@ class BasePokritiya{
                             }
                             
                         }else{
-                            console.log(this.is_active,this.dop_info,'sssd')
+                            // console.log(this.is_active,this.dop_info,'sssd')
                             if(this.is_active){
                                 if(this.dop_info){
-                                    if (this.online_id && this.nazvaniye_ruchnoy&& this.tip_clienta){
-                                        // console.log(this.koefitsiyent &&this.comment&& this.online_id && this.nazvaniye_ruchnoy)
+                                    if (this.online_id && this.nazvaniye_ruchnoy&& this.tip_clienta && this.ves && this.koefitsiyent){
                                         return {'text':'ИДН '+this.dop_info,'accept':true}     
                                     }
                                     else{
@@ -118,8 +114,7 @@ class BasePokritiya{
                         
                             }else{
                                 if(this.dop_info){
-                                    // console.log(this.tip_zayavka , this.dop_info , this.dop_info 
-                                    if (this.nazvaniye_ruchnoy&&this.svet_product&& this.group_zakup && this.group && this.tip && this.segment && this.buxgalter_tovar && this.bazoviy_edin && this.alter_edin && this.stoimost_baza&& this.stoimost_alter&& this.tip_clienta){
+                                    if (this.ves && this.koefitsiyent && this.nazvaniye_ruchnoy&&this.svet_product&& this.group_zakup && this.group && this.tip && this.segment && this.buxgalter_tovar && this.bazoviy_edin && this.alter_edin && this.stoimost_baza&& this.stoimost_alter&& this.tip_clienta){
                                          return {'text':'ИДН '+this.dop_info,'accept':true}
                                              
                                     }
@@ -736,7 +731,7 @@ function copy_tr(id,ii=1){
                 check_input_and_change(tip_clienta,'#tip_clienta'+s,dis=false,is_req=true,is_req_simple=false)
                 
                 }
-            }else{
+        }else{
                 var epdm_div =$('#epdm_div'+s);
         
                 var  epdm_div = $('#epdm_div'+s +' .select2 .selection .select2-selection--single')
@@ -766,12 +761,12 @@ function copy_tr(id,ii=1){
                 check_input_and_change(dop_info,'#dop_info'+s,dis=false,is_req=true,is_req_simple=false)
                 $('#dop_info'+s).attr('disabled',false)
                 check_text_and_change(svet,'#svet'+s)
-                check_input_and_change(ves,'#ves'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(ves,'#ves'+s,dis=false,is_req=true,is_req_simple=false)
                 $('#ves'+s).attr('disabled',false)
                 check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
                 check_input_and_change(bei,'#bei'+s,dis=true,is_req=false,is_req_simple=true)
                 check_input_and_change(aei,'#aei'+s,dis=true,is_req=false,is_req_simple=true)
-                check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=false,is_req_simple=true)
+                check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=true,is_req_simple=false)
                 $('#koefitsiyent'+s).attr('disabled',false)
                 check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
                 $('#comment'+s).attr('disabled',false)
@@ -1077,8 +1072,6 @@ function select_tip(id){
     var tip_zayavki =$('#tip_zayavka'+id).val()
 
     
-
-    // console.log(status_org,'lll')
     if(tip_zayavki =='EPDM'){
         data_base[id].svet = 'чёрный';
         if(status_org.val()=='Активный'){
@@ -1331,14 +1324,14 @@ function select_tip(id){
             var ves=$('#ves'+id)
             ves.attr('disabled',false);
             ves.val('')
-            ves.css('border-color','#dedad9')
-            // ves.css('border-color','red')
+            // ves.css('border-color','#dedad9')
+            ves.css('border-color','red')
     
             var koefitsiyent=$('#koefitsiyent'+id)
             koefitsiyent.attr('disabled',false);
             koefitsiyent.val('')
-            koefitsiyent.css('border-color','#dedad9')
-            // koefitsiyent.css('border-color','red')
+            // koefitsiyent.css('border-color','#dedad9')
+            koefitsiyent.css('border-color','red')
     
             var comment=$('#comment'+id)
             comment.attr('disabled',false);
@@ -1890,7 +1883,7 @@ function create_kratkiy_tekst(id){
                 ves.css('border-color','#dedad9')
             }else{
                 data_base[id].ves = NaN;
-                ves.css('border-color','#dedad9')
+                ves.css('border-color','red')
             }
             var bei = $('#bei'+id)
             if(bei.val()!=''){
@@ -1914,7 +1907,7 @@ function create_kratkiy_tekst(id){
                 koefitsiyent.css('border-color','#dedad9')
             }else{
                 data_base[id].koefitsiyent = NaN;
-                koefitsiyent.css('border-color','#dedad9')
+                koefitsiyent.css('border-color','red')
             }
             var comment = $('#comment'+id)
             if(comment.val()!=''){

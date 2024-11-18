@@ -37,18 +37,33 @@ class BasePokritiya{
     }
     get_kratkiy_tekst(){
             switch(this.id){
-                case 1: 
-                        if(this.tip_zayavka && this.dop_info && this.artikul && this.ves){
-                            if (this.koefitsiyent &&this.comment){
-                                return {'text':'Рез.упл. '+this.artikul+' чёрный '+this.ves +' кг','accept':true}     
-                            }
-                            else{
-                                return {'text':'Рез.упл. '+this.artikul+' чёрный '+this.ves +' кг','accept':false}
-                                
-                            }
-                        }else{
-                            return {'text':'XXXXXXXX','accept':false}
+                case 1: if(this.tip_zayavka =='EPDM'){
+                    if(this.tip_zayavka && this.artikul && this.ves){
+                        if (this.koefitsiyent){
+                            return {'text':'Рез.упл. '+this.artikul+' чёрный '+this.ves +' кг','accept':true}     
                         }
+                        else{
+                            return {'text':'Рез.упл. '+this.artikul+' чёрный '+this.ves +' кг','accept':false}
+                            
+                        }
+                    }else{
+                        return {'text':'XXXXXXXX','accept':false}
+                    }
+                }else{
+
+                    if(this.dop_info){
+                        if (this.ves&& this.koefitsiyent){
+                            return {'text':'ИДН '+this.dop_info,'accept':true}     
+                        }
+                        else{
+                            return {'text':'ИДН '+this.dop_info,'accept':false}
+                            
+                        }
+                    }else{
+                        return {'text':'XXXXXXXX','accept':false}
+                    }
+
+                }
                     
                         break;
                 }
@@ -410,47 +425,94 @@ function copy_tr(id,ii=1){
 
 
 
-        var epdm_div =$('#epdm_div'+s);
-        // kraska_div.css('display','block')
+        if(tip_zayavka =='EPDM'){
 
-        var  epdm_div = $('#epdm_div'+s +' .select2 .selection .select2-selection--single')
-        var  epdm_val = $('#select2-artikul'+s+'-container')
-        var epdm_val_org=$('#artikul'+s)
-
-        const newOption = document.createElement('option');
-        // console.log(kraska,'copy')
-
-        console.log(artikul,'kkkk')
-        if(artikul){
-            epdm_val.text(artikul)
-            epdm_val_org.val(artikul)
-            epdm_val_org.attr('disabled',false)
-            epdm_div.css('border-color','')
-            newOption.value = artikul;
-            newOption.text = artikul;
-            newOption.selected = true;
-            epdm_val_org.append(newOption) 
-        }else{
-            epdm_val.text('')
-            epdm_val_org.val('')
-            epdm_val_org.attr('disabled',false)
-            epdm_div.css('border-color','red')
+            var epdm_div =$('#epdm_div'+s);
+            // kraska_div.css('display','block')
+    
+            var  epdm_div = $('#epdm_div'+s +' .select2 .selection .select2-selection--single')
+            var  epdm_val = $('#select2-artikul'+s+'-container')
+            var epdm_val_org=$('#artikul'+s)
+    
+            const newOption = document.createElement('option');
+    
+            if(artikul){
+                epdm_val.text(artikul)
+                epdm_val_org.val(artikul)
+                epdm_val_org.attr('disabled',false)
+                epdm_div.css('border-color','')
+                newOption.value = artikul;
+                newOption.text = artikul;
+                newOption.selected = true;
+                epdm_val_org.append(newOption) 
+            }else{
+                epdm_val.text('')
+                epdm_val_org.val('')
+                epdm_val_org.attr('disabled',false)
+                epdm_div.css('border-color','red')
+            }
+    
+            check_input_and_change(tip_zayavka,'#tip_zayavka'+s,dis=false,is_req=true,is_req_simple=false)
+            $('#tip_zayavka'+s).attr('disabled',false)
+            check_input_and_change(dop_info,'#dop_info'+s,dis=false,is_req=false,is_req_simple=true)
+            $('#dop_info'+s).attr('disabled',false)
+            check_text_and_change(svet,'#svet'+s)
+            check_input_and_change(ves,'#ves'+s,dis=false,is_req=true,is_req_simple=false)
+            $('#ves'+s).attr('disabled',false)
+            check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
+            check_input_and_change(bei,'#bei'+s,dis=true,is_req=false,is_req_simple=true)
+            check_input_and_change(aei,'#aei'+s,dis=true,is_req=false,is_req_simple=true)
+            check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=true,is_req_simple=false)
+            $('#koefitsiyent'+s).attr('disabled',false)
+            check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
+            $('#comment'+s).attr('disabled',false)
+    
+            
         }
+        else
+        {
+                var epdm_div =$('#epdm_div'+s);
+        
+                var  epdm_div = $('#epdm_div'+s +' .select2 .selection .select2-selection--single')
+                var  epdm_val = $('#select2-artikul'+s+'-container')
+                var epdm_val_org=$('#artikul'+s)
+        
+                const newOption = document.createElement('option');
+        
+                if(artikul){
+                    epdm_val.text(artikul)
+                    epdm_val_org.val(artikul)
+                    epdm_val_org.attr('disabled',false)
+                    epdm_div.css('border-color','')
+                    newOption.value = artikul;
+                    newOption.text = artikul;
+                    newOption.selected = true;
+                    epdm_val_org.append(newOption) 
+                }else{
+                    epdm_val.text('')
+                    epdm_val_org.val('')
+                    epdm_val_org.attr('disabled',false)
+                    // epdm_div.css('border-color','red')
+                }
+        
+                check_input_and_change(tip_zayavka,'#tip_zayavka'+s,dis=false,is_req=true,is_req_simple=false)
+                $('#tip_zayavka'+s).attr('disabled',false)
+                check_input_and_change(dop_info,'#dop_info'+s,dis=false,is_req=true,is_req_simple=false)
+                $('#dop_info'+s).attr('disabled',false)
+                check_text_and_change(svet,'#svet'+s)
+                check_input_and_change(ves,'#ves'+s,dis=false,is_req=true,is_req_simple=false)
+                $('#ves'+s).attr('disabled',false)
+                check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
+                check_input_and_change(bei,'#bei'+s,dis=true,is_req=false,is_req_simple=true)
+                check_input_and_change(aei,'#aei'+s,dis=true,is_req=false,is_req_simple=true)
+                check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=true,is_req_simple=false)
+                $('#koefitsiyent'+s).attr('disabled',false)
+                check_input_and_change(comment,'#comment'+s,dis=false,is_req=false,is_req_simple=true)
+                $('#comment'+s).attr('disabled',false)
+        
+              
 
-        check_input_and_change(tip_zayavka,'#tip_zayavka'+s,dis=false,is_req=true,is_req_simple=false)
-        $('#tip_zayavka'+s).attr('disabled',false)
-        check_input_and_change(dop_info,'#dop_info'+s,dis=false,is_req=true,is_req_simple=false)
-        $('#dop_info'+s).attr('disabled',false)
-        check_text_and_change(svet,'#svet'+s)
-        check_input_and_change(ves,'#ves'+s,dis=false,is_req=true,is_req_simple=false)
-        $('#ves'+s).attr('disabled',false)
-        check_text_and_change(kratkiy_tekst,'#kratkiy_tekst'+s)
-        check_input_and_change(bei,'#bei'+s,dis=true,is_req=false,is_req_simple=true)
-        check_input_and_change(aei,'#aei'+s,dis=true,is_req=false,is_req_simple=true)
-        check_input_and_change(koefitsiyent,'#koefitsiyent'+s,dis=false,is_req=true,is_req_simple=false)
-        $('#koefitsiyent'+s).attr('disabled',false)
-        check_input_and_change(comment,'#comment'+s,dis=false,is_req=true,is_req_simple=false)
-        $('#comment'+s).attr('disabled',false)
+        }
 
 
 
@@ -507,37 +569,73 @@ function create(id){
     data_base[id].zavod_name = 'ZAVOD REZINA';
     data_base[id].status_name = 'Пассивный';
     data_base[id].is_active = false;
-    data_base[id].svet = 'чёрный';
+
+    var tip_zayavka=$('#tip_zayavka'+id)
+
+    if(tip_zayavka =='EPDM'){
+
+        var dop_info=$('#dop_info'+id)
+        dop_info.attr('disabled',false);
+        dop_info.val('')
+        // dop_info.css('border-color','red')
+    
+        var artikul=$('#artikul'+id)
+        artikul.attr('disabled',false);
+        artikul.val('')
+    
+        var  epdm = $('#epdm_div'+id +' .select2 .selection .select2-selection--single')
+        epdm.css('border-color','red')
+    
+    
+        var ves=$('#ves'+id)
+        ves.attr('disabled',false);
+        ves.val('')
+        ves.css('border-color','red')
+    
+        var koefitsiyent=$('#koefitsiyent'+id)
+        koefitsiyent.attr('disabled',false);
+        koefitsiyent.val('')
+        koefitsiyent.css('border-color','red')
+    
+        var comment=$('#comment'+id)
+        comment.attr('disabled',false);
+        comment.val('')
+        comment.css('border-color','red')
+    }
+    else{
+        var dop_info=$('#dop_info'+id)
+        dop_info.attr('disabled',false);
+        dop_info.val('')
+        dop_info.css('border-color','red')
+    
+        var artikul=$('#artikul'+id)
+        artikul.attr('disabled',false);
+        artikul.val('')
+    
+        var  epdm = $('#epdm_div'+id +' .select2 .selection .select2-selection--single')
+        epdm.css('border-color','#dedad9')
+    
+        // artikul.css('border-color','red')
+    
+        var ves=$('#ves'+id)
+        ves.attr('disabled',false);
+        ves.val('')
+        ves.css('border-color','red')
+    
+        var koefitsiyent=$('#koefitsiyent'+id)
+        koefitsiyent.attr('disabled',false);
+        koefitsiyent.val('')
+        koefitsiyent.css('border-color','red')
+    
+        var comment=$('#comment'+id)
+        comment.attr('disabled',false);
+        comment.val('')
+        comment.css('border-color','#dedad9')
+
+    }
+    // data_base[id].svet = 'чёрный';
   
     
-    var dop_info=$('#dop_info'+id)
-    dop_info.attr('disabled',false);
-    dop_info.val('')
-    dop_info.css('border-color','red')
-
-    var artikul=$('#artikul'+id)
-    artikul.attr('disabled',false);
-    artikul.val('')
-
-    var  epdm = $('#epdm_div'+id +' .select2 .selection .select2-selection--single')
-    epdm.css('border-color','red')
-
-    // artikul.css('border-color','red')
-
-    var ves=$('#ves'+id)
-    ves.attr('disabled',false);
-    ves.val('')
-    ves.css('border-color','red')
-
-    var koefitsiyent=$('#koefitsiyent'+id)
-    koefitsiyent.attr('disabled',false);
-    koefitsiyent.val('')
-    koefitsiyent.css('border-color','red')
-
-    var comment=$('#comment'+id)
-    comment.attr('disabled',false);
-    comment.val('')
-    comment.css('border-color','red')
 
     create_kratkiy_tekst(id)
 
@@ -616,77 +714,143 @@ function create_kratkiy_tekst(id){
 
         var tip_zayavka=$('#tip_zayavka'+id)
         
+        if(tip_zayavka.val()=='EPDM'){
 
+            if(tip_zayavka.val()!=''){
+                data_base[id].tip_zayavka = tip_zayavka.val()
+                tip_zayavka.css('border-color','#dedad9')
+            }else{
+                data_base[id].tip_zayavka = NaN;
+                tip_zayavka.css('border-color','red')
+            }
+    
+            var dop_info=$('#dop_info'+id)
+            if(dop_info.val()!=''){
+                data_base[id].dop_info = dop_info.val()
+                dop_info.css('border-color','#dedad9')
+            }else{
+                data_base[id].dop_info = NaN;
+                dop_info.css('border-color','#dedad9')
+            }
+    
+            var artikul=$('#artikul'+id)
+            // console.log(artikul.val(),'4444')
+            if(artikul.val()!='' && artikul.val()!=null){
+                data_base[id].artikul = artikul.val()
+                var  epdm = $('#epdm_div'+id +' .select2 .selection .select2-selection--single')
+                epdm.css('border-color','#dedad9')
+            }else{
+                data_base[id].artikul = NaN;
+                var  epdm = $('#epdm_div'+id +' .select2 .selection .select2-selection--single')
+                epdm.css('border-color','red')
+            }
+            
+            var ves = $('#ves'+id)
+            if(ves.val()!=''){
+                data_base[id].ves = ves.val()
+                ves.css('border-color','#dedad9')
+            }else{
+                data_base[id].ves = NaN;
+                ves.css('border-color','red')
+            }
+            var bei = $('#bei'+id)
+            if(bei.val()!=''){
+                data_base[id].bei = bei.val()
+            }else{
+                data_base[id].bei = NaN;
+            }
+            var aei = $('#aei'+id)
+            if(aei.val()!=''){
+                data_base[id].aei = aei.val()
+            }else{
+                data_base[id].aei = NaN;
+            }
+            var koefitsiyent = $('#koefitsiyent'+id)
+            if(koefitsiyent.val()!=''){
+                data_base[id].koefitsiyent = koefitsiyent.val()
+                koefitsiyent.css('border-color','#dedad9')
+            }else{
+                data_base[id].koefitsiyent = NaN;
+                koefitsiyent.css('border-color','red')
+            }
+            var comment = $('#comment'+id)
+            if(comment.val()!=''){
+                data_base[id].comment = comment.val()
+                comment.css('border-color','#dedad9')
+            }else{
+                data_base[id].comment = NaN;
+                // comment.css('border-color','red')
+            }
+        }
+        else{
+            if(tip_zayavka.val()!=''){
+                data_base[id].tip_zayavka = tip_zayavka.val()
+                tip_zayavka.css('border-color','#dedad9')
+            }else{
+                data_base[id].tip_zayavka = NaN;
+                tip_zayavka.css('border-color','red')
+            }
+    
+            var dop_info=$('#dop_info'+id)
+            if(dop_info.val()!=''){
+                data_base[id].dop_info = dop_info.val()
+                dop_info.css('border-color','#dedad9')
+            }else{
+                data_base[id].dop_info = NaN;
+                dop_info.css('border-color','red')
+            }
+    
+            var artikul=$('#artikul'+id)
+            console.log(artikul.val(),'4444')
+            if(artikul.val()!='' && artikul.val()!=null){
+                data_base[id].artikul = artikul.val()
+                var  epdm = $('#epdm_div'+id +' .select2 .selection .select2-selection--single')
+                epdm.css('border-color','#dedad9')
+            }else{
+                data_base[id].artikul = NaN;
+                var  epdm = $('#epdm_div'+id +' .select2 .selection .select2-selection--single')
+                epdm.css('border-color','#dedad9')
+            }
+            
+            var ves = $('#ves'+id)
+            if(ves.val()!=''){
+                data_base[id].ves = ves.val()
+                ves.css('border-color','#dedad9')
+            }else{
+                data_base[id].ves = NaN;
+                ves.css('border-color','red')
+            }
+            var bei = $('#bei'+id)
+            if(bei.val()!=''){
+                data_base[id].bei = bei.val()
+            }else{
+                data_base[id].bei = NaN;
+            }
+            var aei = $('#aei'+id)
+            if(aei.val()!=''){
+                data_base[id].aei = aei.val()
+            }else{
+                data_base[id].aei = NaN;
+            }
+            var koefitsiyent = $('#koefitsiyent'+id)
+            if(koefitsiyent.val()!=''){
+                data_base[id].koefitsiyent = koefitsiyent.val()
+                koefitsiyent.css('border-color','#dedad9')
+            }else{
+                data_base[id].koefitsiyent = NaN;
+                koefitsiyent.css('border-color','red')
+            }
+            var comment = $('#comment'+id)
+            if(comment.val()!=''){
+                data_base[id].comment = comment.val()
+                comment.css('border-color','#dedad9')
+            }else{
+                data_base[id].comment = NaN;
+                comment.css('border-color','#dedad9')
+            }
 
-
-
-        console.log(tip_zayavka.val(),'kkkkkk')
-
-        if(tip_zayavka.val()!=''){
-            data_base[id].tip_zayavka = tip_zayavka.val()
-            tip_zayavka.css('border-color','#dedad9')
-        }else{
-            data_base[id].tip_zayavka = NaN;
-            tip_zayavka.css('border-color','red')
         }
 
-        var dop_info=$('#dop_info'+id)
-        if(dop_info.val()!=''){
-            data_base[id].dop_info = dop_info.val()
-            dop_info.css('border-color','#dedad9')
-        }else{
-            data_base[id].dop_info = NaN;
-            dop_info.css('border-color','red')
-        }
-
-        var artikul=$('#artikul'+id)
-        console.log(artikul.val(),'4444')
-        if(artikul.val()!='' && artikul.val()!=null){
-            data_base[id].artikul = artikul.val()
-            var  epdm = $('#epdm_div'+id +' .select2 .selection .select2-selection--single')
-            epdm.css('border-color','#dedad9')
-        }else{
-            data_base[id].artikul = NaN;
-            var  epdm = $('#epdm_div'+id +' .select2 .selection .select2-selection--single')
-            epdm.css('border-color','red')
-        }
-        
-        var ves = $('#ves'+id)
-        if(ves.val()!=''){
-            data_base[id].ves = ves.val()
-            ves.css('border-color','#dedad9')
-        }else{
-            data_base[id].ves = NaN;
-            ves.css('border-color','red')
-        }
-        var bei = $('#bei'+id)
-        if(bei.val()!=''){
-            data_base[id].bei = bei.val()
-        }else{
-            data_base[id].bei = NaN;
-        }
-        var aei = $('#aei'+id)
-        if(aei.val()!=''){
-            data_base[id].aei = aei.val()
-        }else{
-            data_base[id].aei = NaN;
-        }
-        var koefitsiyent = $('#koefitsiyent'+id)
-        if(koefitsiyent.val()!=''){
-            data_base[id].koefitsiyent = koefitsiyent.val()
-            koefitsiyent.css('border-color','#dedad9')
-        }else{
-            data_base[id].koefitsiyent = NaN;
-            koefitsiyent.css('border-color','red')
-        }
-        var comment = $('#comment'+id)
-        if(comment.val()!=''){
-            data_base[id].comment = comment.val()
-            comment.css('border-color','#dedad9')
-        }else{
-            data_base[id].comment = NaN;
-            comment.css('border-color','red')
-        }
         
         
 
@@ -710,7 +874,9 @@ function create_kratkiy_tekst(id){
         var sap_code_ruchnoy = $('#sap_code_ruchnoy'+id)
         var kratkiy_text_ruchnoy = $('#kratkiy_tekst_ruchnoy'+id)
         var svet = $('#svet'+id)
-        svet.text('чёрный')
+        if(tip_zayavka.val()=='EPDM'){
+            svet.text('чёрный')
+        }
 
         if(art_krat_dict in zapros_count){
             if(zapros_count[art_krat_dict]){
