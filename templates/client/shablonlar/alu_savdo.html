@@ -224,8 +224,20 @@
                     }
                 }
             }
+        
+        var online_naz_uniq = true
+        if (!data_empty && all_correct){
+            for(key in data_base){
+                data_base[key]['nazvaniye_ruchnoy']
+            }
+        }
+        
             
         if (!data_empty && all_correct){
+
+
+
+
                 var text_tr =''
                 var i = 1
                 for(key in data_base){
@@ -280,6 +292,9 @@
             'name':'ALUMINIY SAVDO',
             'order_name':theme
         }
+
+        
+
         $.ajax({
             type: 'POST',
             url: url,
