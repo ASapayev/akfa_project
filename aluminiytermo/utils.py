@@ -1180,7 +1180,7 @@ def get_cretead_txt_for_1201(datas,elist,does_not_exists):
     ddf2 = ddf2.replace('XXXX','')
     ddf2.to_excel(pathtext6,index=False,engine='xlsxwriter')
     
-    grouped_by_name = ddf2.groupby('Имя признака')
+    grouped_by_name = ddf2.groupby('Вид класса')
 
     # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
 
@@ -2484,7 +2484,7 @@ def get_cretead_txt_for_1101(datas,elist):
     ddf2 =ddf2.replace('XXXX','')
     ddf2.to_excel(pathtext6,index=False,engine='xlsxwriter')
     
-    grouped_by_name = ddf2.groupby('Имя признака')
+    grouped_by_name = ddf2.groupby('Вид класса')
 
     # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
 
@@ -5145,7 +5145,7 @@ def characteristika_created_txt_create_1101(datas,elist,is_1101,is_1112,file_nam
     ddf2 =ddf2.replace('XXXX','')
     ddf2.to_excel(pathtext6,index=False)
 
-    grouped_by_name = ddf2.groupby('Имя признака')
+    grouped_by_name = ddf2.groupby('Вид класса')
     nowr21 = datetime.now()
     print(' list text tugashi >> ',nowr21) 
     # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
@@ -6600,7 +6600,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         ddf2 = ddf2[((ddf2["Значение признака"] != "nan") & (ddf2["Значение признака"] != ""))]
         ddf2 =ddf2.replace('XXXX','')
         ddf2.to_excel(pathtext6,index=False)
-        grouped_by_name = ddf2.groupby('Имя признака')
+        grouped_by_name = ddf2.groupby('Вид класса')
         noww118 = datetime.now()
         print('1112 txt tugashi >> ',noww118)
         # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
@@ -7192,7 +7192,7 @@ def characteristika_created_txt_create(datas,elist,order_id,file_name='aluminiyt
         ddf2 =ddf2.replace('XXXX','')
         ddf2.to_excel(pathtext6,index=False,engine='xlsxwriter')
 
-        grouped_by_name = ddf2.groupby('Имя признака')
+        grouped_by_name = ddf2.groupby('Вид класса')
 
         # Save each group to a separate Excel file named after the unique value in the "Имя признака" column
         # print('1112 end file grouping time start >> ',noww)
