@@ -586,21 +586,25 @@ def product_add_second_org_epdm(request,id):
         # else:
         #     id_savdo = str(row['Online savdo ID']).replace('.0','')
 
-        new_epdm = df['Артикул'][key]
+        new_epdm = df['Тип'][key]
+        if new_epdm == 'EPDM':
+            artikul_org = 'ACS.502.PDM'
+        else:
+            artikul_org = 'ACS.502.IDN'
 
-        if not EpdmArtikul.objects.filter(name__icontains=new_epdm).exists():
-            EpdmArtikul(name=new_epdm).save()
+        # if not EpdmArtikul.objects.filter(name__icontains=new_epdm).exists():
+        #     EpdmArtikul(name=new_epdm).save()
 
 
-        if EpdmSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala= df_new['7 - Upakovka'][key]).exists():
-            df_new['SAP CODE 7'][key] = EpdmSapCode.objects.filter(artikul =df['Артикул'][key],section ='7',kratkiy_tekst_materiala=df_new['7 - Upakovka'][key])[:1].get().material
+        if EpdmSapCode.objects.filter(artikul =artikul_org,section ='7',kratkiy_tekst_materiala= df_new['7 - Upakovka'][key]).exists():
+            df_new['SAP CODE 7'][key] = EpdmSapCode.objects.filter(artikul =artikul_org,section ='7',kratkiy_tekst_materiala=df_new['7 - Upakovka'][key])[:1].get().material
             duplicat_list.append([df_new['SAP CODE 7'][key],df_new['7 - Upakovka'][key],'7'])
         else: 
-            if EpdmSapCode.objects.filter(artikul=df['Артикул'][key],section ='7').exists():
-                    umumiy_counter[df['Артикул'][key]+'-7'] += 1
-                    max_values7 = umumiy_counter[df['Артикул'][key]+'-7']
-                    materiale = df['Артикул'][key]+"-7{:03d}".format(max_values7)
-                    EpdmSapCode(artikul = df['Артикул'][key],section ='7',counter=max_values7,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+            if EpdmSapCode.objects.filter(artikul=artikul_org,section ='7').exists():
+                    umumiy_counter[artikul_org+'-7'] += 1
+                    max_values7 = umumiy_counter[artikul_org+'-7']
+                    materiale = artikul_org+"-7{:03d}".format(max_values7)
+                    EpdmSapCode(artikul = artikul_org,section ='7',counter=max_values7,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
                     df_new['SAP CODE 7'][key] = materiale
                     
             
@@ -608,10 +612,10 @@ def product_add_second_org_epdm(request,id):
                     cache_for_cratkiy_text[1].append(df_new['7 - Upakovka'][key])
                     cache_for_cratkiy_text[2].append(row['Цена с НДС'])
             else:
-                    materiale = df['Артикул'][key]+"-7{:03d}".format(1)
-                    EpdmSapCode(artikul = df['Артикул'][key],section ='7',counter=1,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
+                    materiale = artikul_org+"-7{:03d}".format(1)
+                    EpdmSapCode(artikul = artikul_org,section ='7',counter=1,kratkiy_tekst_materiala=df_new['7 - Upakovka'][key],material=materiale).save()
                     df_new['SAP CODE 7'][key] = materiale
-                    umumiy_counter[df['Артикул'][key]+'-7'] = 1
+                    umumiy_counter[artikul_org+'-7'] = 1
         
                     cache_for_cratkiy_text[0].append(materiale)
                     cache_for_cratkiy_text[1].append(df_new['7 - Upakovka'][key])
