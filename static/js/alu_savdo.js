@@ -973,8 +973,8 @@ function front_piece(start=1,end=7){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 75px;font-size:12px;height:27px!important;z-index:0; padding-right:0px;display:none" id='edinitsa_izm`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option selected></option>
-                <option value="ШТ">ШТ</div>
-                <option value="КГ">КГ</div>
+                <option value="ШТ">ШТ</option>
+                <option value="КГ">КГ</option>
             </select>
             </div>
             
@@ -1013,13 +1013,13 @@ function front_piece(start=1,end=7){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px;font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
-                <option  value="Штука">Штука</div>
-                <option  value="Килограмм">Килограмм</div>
-                <option  value="Квадратный метр">Квадратный метр</div>
-                <option  value="Метр">Метр</div>
-                <option  value="КМП">КМП</div>
-                <option  value="Пачка">Пачка</div>
-                <option  value="Секция">Секция</div>
+                <option  value="Штука">Штука</option>
+                <option  value="Килограмм">Килограмм</option>
+                <option  value="Квадратный метр">Квадратный метр</option>
+                <option  value="Метр">Метр</option>
+                <option  value="КМП">КМП</option>
+                <option  value="Пачка">Пачка</option>
+                <option  value="Секция">Секция</option>
             </select>
             </div>
         </td>
@@ -1027,13 +1027,13 @@ function front_piece(start=1,end=7){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px;font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
-                <option value="Штука">Штука</div>
-                <option value="Килограмм">Килограмм</div>
-                <option value="Квадратный метр">Квадратный метр</div>
-                <option value="Метр">Метр</div>
-                <option value="КМП">КМП</div>
-                <option value="Пачка">Пачка</div>
-                <option value="Секция">Секция</div>
+                <option value="Штука">Штука</option>
+                <option value="Килограмм">Килограмм</option>
+                <option value="Квадратный метр">Квадратный метр</option>
+                <option value="Метр">Метр</option>
+                <option value="КМП">КМП</option>
+                <option value="Пачка">Пачка</option>
+                <option value="Секция">Секция</option>
             </select>
             </div>
         </td>
@@ -1041,13 +1041,13 @@ function front_piece(start=1,end=7){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px;font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='alter_edin`+ String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
-                <option value="Штука">Штука</div>
-                <option value="Килограмм">Килограмм</div>
-                <option value="Квадратный метр">Квадратный метр</div>
-                <option value="Метр">Метр</div>
-                <option value="КМП">КМП</div>
-                <option value="Пачка">Пачка</div>
-                <option value="Секция">Секция</div>
+                <option value="Штука">Штука</option>
+                <option value="Килограмм">Килограмм</option>
+                <option value="Квадратный метр">Квадратный метр</option>
+                <option value="Метр">Метр</option>
+                <option value="КМП">КМП</option>
+                <option value="Пачка">Пачка</option>
+                <option value="Секция">Секция</option>
             </select>
             </div>
         </td>
