@@ -105,15 +105,14 @@ function front_piece(start=1,end=6){
     for (let i = start; i < end; i++) {
         var buttons =''
         if(status_proccess1 == 'new'){
-            buttons=`<td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Tozalab tashlash'><i class="bi bi-x-circle"></i></button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Dubl qilish'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" id='create_btn`+String(i)+`' onclick="create(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi' style='font-size:16px; width:34px'>С</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' style='font-size:16px;width:34px'>А</button>
-                    </div>
-                    
-                    
+            buttons=`
+                    <td class="sticky-col"   style='left:0; padding-right:5px; background-color:white!important;' >
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" id='clear_btn`+String(i)+`' onclick="artukil_clear(`+String(i)+`)" data-bs-toggle='popover' title='Tozalab tashlash'><i class="bi bi-x-circle"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm"  onclick="copy_tr(`+String(i)+`)" data-bs-toggle='popover' title='Dubl qilish'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" id='create_btn`+String(i)+`' onclick="create(`+String(i)+`)" data-bs-toggle='popover' title='Yangi sozdaniya qilish uchun ishlatiladi' style='font-size:16px; width:34px'>С</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" id='activate_btn`+String(i)+`' onclick="activate(`+String(i)+`)" data-bs-toggle='popover' title='Activatsiya qilish uchun ishlatiladi' style='font-size:16px;width:34px'>А</button>
+                        </div>
 
                     </td>
                     
@@ -249,7 +248,7 @@ function front_piece(start=1,end=6){
             <option  value='' selected></option>
             <option   value="COLOUR">COLOUR</option>
             <option   value="WHITE">WHITE</option>
-        </select>
+            </select>
             </div>
         </td>
         <td >
@@ -300,14 +299,14 @@ function front_piece(start=1,end=6){
         <td >
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='buxgalter_uchot`+String(i)+`' onchange='create_kratkiy_tekst(`+String(i)+`)' required>
-                <option  selected></option>
-                <option  value="Штука">Штука</div>
-                <option  value="Килограмм">Килограмм</div>
-                <option  value="Квадратный метр">Квадратный метр</div>
-                <option  value="Метр">Метр</div>
-                <option  value="КМП">КМП</div>
-                <option  value="Пачка">Пачка</div>
-                <option  value="Секция">Секция</div>
+                <option  selected value='' ></option>
+                <option  value="Штука">Штука</option>
+                <option  value="Килограмм">Килограмм</option>
+                <option  value="Квадратный метр">Квадратный метр</option>
+                <option  value="Метр">Метр</option>
+                <option  value="КМП">КМП</option>
+                <option  value="Пачка">Пачка</option>
+                <option  value="Секция">Секция</option>
             </select>
             </div>
         </td>
@@ -315,13 +314,13 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px; border-color:red;display:none;height:27px!important;z-index:0" id='bazoviy_edin`+String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
-                <option value="Штука">Штука</div>
-                <option value="Килограмм">Килограмм</div>
-                <option value="Квадратный метр">Квадратный метр</div>
-                <option value="Метр">Метр</div>
-                <option value="КМП">КМП</div>
-                <option value="Пачка">Пачка</div>
-                <option value="Секция">Секция</div>
+                <option value="Штука">Штука</option>
+                <option value="Килограмм">Килограмм</option>
+                <option value="Квадратный метр">Квадратный метр</option>
+                <option value="Метр">Метр</option>
+                <option value="КМП">КМП</option>
+                <option value="Пачка">Пачка</option>
+                <option value="Секция">Секция</option>
             </select>
             </div>
         </td>
@@ -329,13 +328,13 @@ function front_piece(start=1,end=6){
             <div class="input-group input-group-sm mb-1">
             <select class="form-select" aria-label="" style="width: 155px; font-size:12px; padding-right:0px;display:none;height:27px!important;z-index:0" id='alter_edin`+ String(i)+`'  onchange='create_kratkiy_tekst(`+String(i)+`)' required>
                 <option  selected></option>
-                <option value="Штука">Штука</div>
-                <option value="Килограмм">Килограмм</div>
-                <option value="Квадратный метр">Квадратный метр</div>
-                <option value="Метр">Метр</div>
-                <option value="КМП">КМП</div>
-                <option value="Пачка">Пачка</div>
-                <option value="Секция">Секция</div>
+                <option value="Штука">Штука</option>
+                <option value="Килограмм">Килограмм</option>
+                <option value="Квадратный метр">Квадратный метр</option>
+                <option value="Метр">Метр</option>
+                <option value="КМП">КМП</option>
+                <option value="Пачка">Пачка</option>
+                <option value="Секция">Секция</option>
             </select>
             </div>
         </td>
